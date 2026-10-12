@@ -1498,6 +1498,73 @@ footer .f-fine { margin-top: 22px; }
 /* fyi: the phone fan rests open */
 .fyi-fan { --s: 1 !important; --k: 0 !important; }
 
+/* more: "Read more" disclosures. Short by default; a mono pill with a coral plus/minus opens the longer text with a height reveal */
+.mr { margin-top: 18px; }
+.mr-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 16px 0 7px; border: 0; border-radius: 99px; background: transparent; box-shadow: inset 0 0 0 1px rgba(242,239,231,.18); color: rgba(242,239,231,.78); font: 500 12px/1 var(--mono); letter-spacing: .04em; cursor: pointer; transition: box-shadow .25s, color .25s; }
+.mr-btn:hover { box-shadow: inset 0 0 0 1px rgba(242,239,231,.6); color: var(--paper); }
+.mr-dot { position: relative; flex: none; width: 26px; height: 26px; border-radius: 50%; background: #26262a; }
+.mr-dot::before, .mr-dot::after { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 2px; margin: -1px 0 0 -5px; border-radius: 2px; background: var(--coral); transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+.mr-dot::after { transform: rotate(90deg); }
+.mr.open .mr-dot::after { transform: rotate(90deg) scaleX(0); }
+.mr-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mr-body { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows .45s cubic-bezier(.2,.7,.2,1), visibility 0s linear .45s; }
+.mr-body.open { grid-template-rows: 1fr; visibility: visible; transition: grid-template-rows .45s cubic-bezier(.2,.7,.2,1), visibility 0s; }
+.mr-in { min-height: 0; overflow: hidden; }
+.mr-in > div { padding-top: 16px; }
+.mr-in p { margin: 0; font-size: 15.5px; line-height: 1.6; }
+.mr-in > div > * + * { margin-top: 12px; }
+.mr-in p b, .mr-in p strong { color: var(--paper); font-weight: 600; }
+.mr-why { padding-left: 12px; border-left: 2px solid var(--coral); }
+.mr-list { list-style: none; display: grid; gap: 7px; font-size: 15px; line-height: 1.5; color: #cfcbc3; }
+.mr-list li { position: relative; padding-left: 16px; }
+.mr-list li::before { content: ""; position: absolute; left: 0; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--coral); }
+.mr-list b { color: var(--paper); font-weight: 600; }
+.mr-pts { display: grid; gap: 12px; }
+.mr-pts dt { font: 500 11.5px/1.4 var(--mono); letter-spacing: .04em; color: var(--coral); }
+.mr-pts dd { margin-top: 3px; font-size: 15.5px; line-height: 1.55; color: #cfcbc3; max-width: 62ch; }
+/* centred heads keep the pill and text centred */
+:is(#process, #system) .sec-head .mr-pts dd { margin-inline: auto; }
+/* cream sheets */
+:is(#about, #system, #process, #fyi) .mr-btn { color: rgba(27,27,27,.78); box-shadow: inset 0 0 0 1px rgba(27,27,27,.22); }
+:is(#about, #system, #process, #fyi) .mr-btn:hover { color: var(--ink-t); box-shadow: inset 0 0 0 1px rgba(27,27,27,.6); }
+:is(#about, #system, #process, #fyi) .mr-dot { background: var(--ink-t); }
+:is(#about, #system, #process, #fyi) .mr-in p, :is(#about, #system, #process, #fyi) .mr-pts dd, :is(#about, #system, #process, #fyi) .mr-list { color: rgba(27,27,27,.72); }
+:is(#about, #system, #process, #fyi) .mr-in p b, :is(#about, #system, #process, #fyi) .mr-list b { color: var(--ink-t); }
+:is(#about, #system, #process, #fyi) .mr-pts dt { color: #b0381f; }
+/* section heads: the text opens under the head, in the lede's column, so the heading and lede stay put; closed it adds no height */
+.sec-head .mr { margin-top: 16px; }
+.mr-head { margin-top: calc(-1 * clamp(36px, 5vw, 64px)); margin-bottom: clamp(36px, 5vw, 64px); }
+.mr-head .mr-in p { max-width: 62ch; }
+@media (min-width: 861px) { .mr-head.mr-col { width: calc((100% - clamp(24px, 5vw, 80px)) * 5 / 12); margin-left: auto; } }
+.mr-head.mr-center { text-align: center; }
+.mr-head.mr-center p, .mr-head.mr-center dd { margin-inline: auto; }
+@media (max-width: 760px) { #system .mr-head.mr-center { text-align: left; } #system .mr-head.mr-center p { margin-inline: 0; } }
+#fyi .mr .mr-in p { margin-top: 0; max-width: 46ch; }
+#fyi .mr .mr-in > div > * + * { margin-top: 12px; }
+#path .job .mr { margin-top: 14px; }
+#path .job .mr-in .chips { margin-top: 12px; }
+@media (prefers-reduced-motion: reduce) { .mr-body, .mr-body.open, .mr-dot::before, .mr-dot::after, .mr-btn { transition: none; } }
+
+/* more: "How I work" — an ink sheet between the cream About sheet and the Design Lab: Figma, code, ship */
+#code { position: relative; z-index: 1; margin-top: calc(-1 * var(--sheet-r)); border-radius: var(--sheet-r) var(--sheet-r) 0 0; background: var(--ink); box-shadow: 0 -1px 0 rgba(255,255,255,.06); }
+#code > .wrap::before { content: none; }
+#code { padding-bottom: clamp(40px, 6vw, 80px); }
+#code .sec-head h2 { max-width: 14ch; }
+.code-steps { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.code-steps li { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 16px; row-gap: 4px; align-content: start; padding: 28px 28px 6px 0; }
+.code-steps li + li { padding-left: 28px; border-left: 1px solid var(--line); }
+.code-steps li + li::before { content: "→"; position: absolute; left: -13px; top: 36px; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); box-shadow: inset 0 0 0 1px var(--line); color: var(--coral); font-size: 12px; line-height: 1; }
+.code-steps .ico { grid-row: 1 / span 3; }
+.code-steps .cs-n { font: 500 11px/1 var(--mono); letter-spacing: .02em; color: var(--coral); white-space: pre; padding-top: 2px; }
+.code-steps .cs-n::after { content: "  /  03"; color: rgba(242,239,231,.45); }
+.code-steps h3 { font-size: clamp(20px, 1.9vw, 24px); }
+.code-steps p { font-size: 15.5px; line-height: 1.55; }
+@media (max-width: 860px) {
+  .code-steps { grid-template-columns: minmax(0, 1fr); }
+  .code-steps li, .code-steps li + li { padding: 18px 2px 18px; border-left: 0; border-bottom: 1px solid var(--line); }
+  .code-steps li + li::before { content: none; }
+}
+
 </style>
 </head>
 <body>
@@ -1605,6 +1672,26 @@ footer .f-fine { margin-top: 22px; }
   </div>
 </section>
 
+<!-- ============================================================ HOW I WORK · AI-FIRST -->
+<section id="code" aria-labelledby="code-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="label">How I work · <b>AI-first</b></div>
+        <h2 id="code-h">I design in Figma and build in code</h2>
+      </div>
+      <div><p>With AI, I take a design from a Figma frame all the way to a pull request.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-code"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about how I work</span></button></div></div>
+    </div>
+    <div class="mr-body mr-head mr-col" id="mr-code"><div class="mr-in"><div><p>The Design Lab started this way: a working copy of Hear that I coded with Claude Code from a colleague's starting app, on React, Vite and Storybook.</p><p>Its design system is documented in Storybook, every component with all its states, and it's where designs get tested before anything reaches development.</p></div></div></div>
+    <ol class="code-steps">
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><path d="M10 9l6.5 3.2-2.8.9-1.2 2.9z"/></svg></span><span class="cs-n">01</span><h3>Figma</h3><p>I design and prototype: flows, screens and interactions.</p></li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4.5l-3 15"/></svg></span><span class="cs-n">02</span><h3>Code</h3><p>I write the front-end in React with AI, using Claude Code, and keep the design system in Storybook.</p></li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="6" cy="18.5" r="2.2"/><circle cx="18" cy="18.5" r="2.2"/><path d="M6 7.7v8.6M18 16.3V10a3 3 0 00-3-3h-4"/><path d="M13 4.5L10.5 7 13 9.5"/></svg></span><span class="cs-n">03</span><h3>Ship</h3><p>I work side by side with the developers and open pull requests.</p></li>
+    </ol>
+  </div>
+</section>
+
 <!-- ============================================================ DESIGN LAB -->
 <section id="design-lab">
   <div class="wrap">
@@ -1614,8 +1701,10 @@ footer .f-fine { margin-top: 22px; }
         <div class="label">Case study 01</div>
         <h2>Design Lab</h2>
       </div>
-      <p>A working replica of Hear that I started on my own initiative, coded with Claude Code. I test designs there before development, and it produces demos tailored to each prospect.</p>
+      <div><p>A working replica of Hear that I started on my own initiative, coded with Claude Code. I test designs there before development, and it produces demos tailored to each prospect.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-lab"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the Design Lab</span></button></div></div>
     </div>
+    <div class="mr-body mr-head mr-col" id="mr-lab"><div class="mr-in"><div><p>When AI tools arrived, I started it from a colleague's starting app. It runs on realistic demo data.</p><dl class="mr-pts"><div><dt>The problem</dt><dd>Static mockups couldn't answer the real question: how does this design behave for <em>this</em> customer, with their data, at their scale?</dd></div><div><dt>What it is</dt><dd>A working copy of the product, built in React. Each customer gets a demo environment, started from a form with their website, a description and files. Key screens carry alternative versions I can switch between, to compare them for different kinds of customers.</dd></div><div><dt>Why it matters</dt><dd>Design decisions get made in a working product, not a slide deck: real interactions, realistic data, and one build that serves both design reviews and sales demos.</dd></div></dl></div></div></div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Initiator · design &amp; code</dd></div><div><dt>Stack</dt><dd>React · Vite · Storybook</dd></div></dl>
     <a class="btn ghost cs-more rv" href="work/design-lab.html">Read the full case study <span aria-hidden="true">→</span></a>
 
@@ -1663,8 +1752,10 @@ footer .f-fine { margin-top: 22px; }
         <div class="label">Case study 02</div>
         <h2>Product design</h2>
       </div>
-      <p>Hear reads every call, chat and ticket in a contact center. I make that data calm and explainable: what matters comes first, and every score leads back to the calls behind it.</p>
+      <div><p>Hear reads every call, chat and ticket in a contact center. I make that data calm and explainable: what matters comes first, and every score leads back to the calls behind it.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-product"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about product design</span></button></div></div>
     </div>
+    <div class="mr-body mr-head mr-col" id="mr-product"><div class="mr-in"><div><p>My job is to make that much data feel calm: show what matters first, explain every number, and let people act from the same screen. People have to trust and audit what the AI concludes, so every score leads back to the calls behind it.</p><dl class="mr-pts"><div><dt>Role</dt><dd>Only designer and product person</dd></div><div><dt>Surfaces</dt><dd>Topics · Compliance · Agent evaluation · Actions</dd></div></dl></div></div></div>
     
 
     <article class="spot">
@@ -1672,6 +1763,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="topics"></span></div>
         <h3>Topics</h3>
         <p>What customers call about: size shows volume, color shows score.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-topics"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Topics</span></button><div class="mr-body" id="mr-topics"><div class="mr-in"><div><ul class="mr-list"><li>Boxes, circles and flow views</li><li>Hover breaks a score into its parameters</li><li>Sort daily scores by calls, lowest score or biggest drop</li><li>Click a parameter and the AI explains what drives it</li></ul><p class="mr-why"><b>Design choice:</b> size shows call volume and color shows score, so problem areas stand out before anyone reads a number.</p></div></div></div></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-topics-c.mp4" data-poster="img/clip-topics-poster-c.webp" muted loop playsinline preload="none" aria-label="Topics in the Ultra design: hovering tiles, sorting daily scores, circles and flow, then clicking a parameter to ask the AI what drives it"></video></div></figure></div>
     </article>
@@ -1681,6 +1773,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="shield"></span></div>
         <h3>Compliance</h3>
         <p>Every agent against every criterion, and only problems get color.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-compliance"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Compliance</span></button><div class="mr-body" id="mr-compliance"><div class="mr-in"><div><p>Any cell opens a popover that places that agent against the whole team and says what the next button will do before you press it. One click on <b>Explore in Chat</b> hands that cell to the AI chat to dig deeper.</p><p class="mr-why"><b>Design choice:</b> only problems get color. A full grid of agents and criteria stays quiet until something needs attention.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-compliance-b.mp4" data-poster="img/clip-compliance-poster-b.webp" muted loop playsinline preload="none" aria-label="Compliance overview, the agents heatmap and a cell popover, then Explore in Chat, where the AI explains that score"></video></div></figure></div>
@@ -1691,6 +1784,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="eval"></span></div>
         <h3>Agent evaluation</h3>
         <p>Ask the AI why a score moved, and see the exact calls behind it.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-eval"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Agent evaluation</span></button><div class="mr-body" id="mr-eval"><div class="mr-in"><div><p>See the trend, the distribution and every team on one screen, then ask the AI why a score moved.</p><p class="mr-why"><b>Design choice:</b> answers point to the exact calls behind a score, so people can check the AI instead of just trusting it.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-agent-eval-c.mp4" data-poster="img/clip-agent-eval-poster-c.webp" muted loop playsinline preload="none" aria-label="Agent evaluation: zooming into a dip in the average score, then asking the AI why it dropped"></video></div></figure></div>
@@ -1701,6 +1795,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="kanban"></span></div>
         <h3>Actions</h3>
         <p>Alerts and signals become tasks with an owner, a priority and an activity log.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-actions"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Actions</span></button><div class="mr-body" id="mr-actions"><div class="mr-in"><div><p>Alerts, signals and evaluations become tasks. Inside a task the team ticks off action items, moves the status and <b>@mentions</b> a teammate, and every step lands in the activity log.</p><p class="mr-why"><b>Design choice:</b> every task keeps its source, and closed work keeps its reason, such as duplicate or escalated, so the team learns from it.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/actions.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-actions-c-b.mp4" data-poster="img/clip-actions-poster-c-b.webp" muted loop playsinline preload="none" aria-label="Actions board: filtering, opening a task, ticking an action item, moving it to In progress and @mentioning a teammate in a comment"></video></div></figure></div>
@@ -1711,6 +1806,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="news"></span></div>
         <h3>Newsroom, data &amp; signals</h3>
         <p>One set of data: a monthly story, a dense table and signals that fire on their own.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-news"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Newsroom, data and signals</span></button><div class="mr-body" id="mr-news"><div class="mr-in"><div><ul class="mr-list"><li><b>Newsroom</b> tells the month as a 75-second story and flags spikes against a baseline</li><li><b>Data</b>: describe the calls you want and the AI builds the filter, then open any call and ask about it</li><li><b>Signals</b>: switch one on, or build a new one, with what to detect and the fields to pull from every call</li></ul><p class="mr-why"><b>Design choice:</b> one set of data, three surfaces, each for a different person at a different moment.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/newsroom.html">Newsroom case study <span aria-hidden="true">→</span></a><a class="cs-link" href="work/data.html">Data &amp; signals case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
@@ -1727,6 +1823,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="play"></span></div>
         <h3>Demos engine</h3>
         <p>Scripted, narrated demos for each prospect, in English or Hebrew.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-demos"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the demos engine</span></button><div class="mr-body" id="mr-demos"><div class="mr-in"><div><p>To show a new prospect what Hear could do for <em>their</em> business, I designed a demos engine inside the Lab. It runs the product from a script: it types the prospect's questions, answers them on demo data and moves a camera across the screens.</p><p>Each card in the library is a ready demo: play it in the Lab, or record a clean run.</p><p class="mr-why"><b>The aim:</b> no generic deck. Every demo is ready to play live in a meeting or send as a video.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/demos-engine.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
@@ -1746,8 +1843,10 @@ footer .f-fine { margin-top: 22px; }
         <div class="label">Case study 03</div>
         <h2>Design system</h2>
       </div>
-      <p>Documented in Storybook, from foundations to full pages, with every component state. One set of tokens covers dark and light, English and Hebrew, LTR and RTL.</p>
+      <div><p>Documented in Storybook, from foundations to full pages, with every component state. One set of tokens covers dark and light, English and Hebrew, LTR and RTL.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-system"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the design system</span></button></div></div>
     </div>
+    <div class="mr-body mr-head mr-center" id="mr-system"><div class="mr-in"><div><p>Every component comes with all its states, and tokens carry names and reasons, not just hex codes. The same screen goes from light to dark, then to Hebrew, right to left, on the same tokens and components.</p><p>The tiers run from foundations through atoms, molecules, organisms and templates to full pages, in Storybook on CSS tokens. Below, the real palette is rendered live: hover or tap a token.</p></div></div></div>
     
     <a class="btn ghost cs-more rv" href="work/design-system.html">Read the full case study <span aria-hidden="true">→</span></a>
     <figure class="rv sys-fig" style="margin-bottom:clamp(24px,3vw,40px)"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-system-b.mp4" data-poster="img/clip-system-poster-b.webp" muted loop playsinline preload="none" aria-label="The same Agent evaluation screen switching from light to dark, then from English to Hebrew, right to left, and back to light"></video></div>
@@ -1811,8 +1910,10 @@ footer .f-fine { margin-top: 22px; }
         <h2>Branding &amp; website</h2>
       </div>
       <div><p>I designed Hear's brand from zero, and its new scroll-driven marketing site, now in preview in two directions.</p>
-        <div class="ext-row"><a class="ext" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Direction A (preview) ↗︎</a><a class="ext" href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Direction B (preview) ↗︎</a></div></div>
+        <div class="ext-row"><a class="ext" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Direction A (preview) ↗︎</a><a class="ext" href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Direction B (preview) ↗︎</a></div>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-web"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about branding and the website</span></button></div></div>
     </div>
+    <div class="mr-body mr-head mr-col" id="mr-web"><div class="mr-in"><div><p>The new site puts the brand in motion: a thesis that reveals itself as you scroll, a globe where nothing goes unheard, and a clear line from problem to platform.</p><dl class="mr-pts"><div><dt>Direction A · dark, cinematic</dt><dd>Hero, a scroll-revealed thesis, the globe, product sections and the integrations wall.</dd></div><div><dt>Direction B · cream and ink</dt><dd>A card for every role, AI agents held to one standard, customer stories, a dial from learning to acting, and security built in.</dd></div></dl><p>Off the screen, I carried the brand into print, signage, merch and trade-show booths abroad. Whatever the business needed next, I designed it.</p></div></div></div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; build</dd></div><div><dt>Scope</dt><dd>Brand · marketing site</dd></div></dl>
     <a class="btn ghost cs-more rv" href="work/brand-web.html">Read the full case study <span aria-hidden="true">→</span></a>
     <div class="web-ab">
@@ -1842,6 +1943,7 @@ footer .f-fine { margin-top: 22px; }
       <h2 id="fyi-h">FYI · iOS app</h2>
       <p>FYI (Focus Your Ideas) puts creative projects inside the chat: messages become tasks and an assistant joins the thread. I designed every screen in Figma, at Intune before Hear.</p>
       <ul class="fyi-chips" aria-label="What I designed"><li>A full design system</li><li>Dozens of screens</li></ul>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-fyi"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about FYI</span></button><div class="mr-body" id="mr-fyi"><div class="mr-in"><div><p>Calls in FYI share the screen, too. It's native iOS product design from before AI tools: every screen drawn by hand in Figma, on a full design system.</p></div></div></div></div>
       <a class="btn ghost cs-more" href="work/fyi.html">See the FYI case study <span aria-hidden="true">→</span></a>
     </div>
     <div class="fyi-fan rv"><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-chats-t.webp" width="590" height="1279" alt="FYI chat list in dark mode: a project chat, two people and a group chat, with names and faces blurred" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-ai-assistant-t.webp" width="590" height="1279" alt="FYI AI assistant chat, with suggestions such as Design a database schema" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-chat-t.webp" width="590" height="1279" alt="FYI chat with Chat, Tasks and Project tabs, an image message, a link and replies" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-create-task-t.webp" width="590" height="1279" alt="Create task sheet with name, due date, description, assignees and status" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-call-share-t.webp" width="590" height="1279" alt="FYI video call with screen sharing and sync; the caller's photo is blurred" loading="lazy" decoding="async"></div></div></div>
@@ -1857,8 +1959,10 @@ footer .f-fine { margin-top: 22px; }
         <div class="label">Case study 05</div>
         <h2>Information architecture</h2>
       </div>
-      <p>Maps of Hear's product (admin layer included), website and sign-in flows. Pick a map and open any area.</p>
+      <div><p>Maps of Hear's product (admin layer included), website and sign-in flows. Pick a map and open any area.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-ia"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about information architecture</span></button></div></div>
     </div>
+    <div class="mr-body mr-head mr-col" id="mr-ia"><div class="mr-in"><div><p>I mapped Hear's surfaces: the product, the website and the sign-in and sign-up flows. The product map includes the admin layer: data retention, the anonymizer, 2FA, team permissions and impersonation.</p></div></div></div>
     <div class="ia" id="ia-app">
       <div class="ia-bar">
         <div class="ia-tabs" role="tablist" aria-label="Maps">
@@ -1889,8 +1993,10 @@ footer .f-fine { margin-top: 22px; }
         <div class="label">How I work</div>
         <h2>Process</h2>
       </div>
-      <p>Hear's redesign and rebrand, planned as one program in eight phases.</p>
+      <div><p>Hear's redesign and rebrand, planned as one program in eight phases.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-process"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the process</span></button></div></div>
     </div>
+    <div class="mr-body mr-head mr-center" id="mr-process"><div class="mr-in"><div><p>Each phase has clear tasks and deliverables, from understanding the market to the workflows between design, development and marketing.</p></div></div></div>
     <ol class="phases">
       <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="research"></span><span class="n">01</span></div><h3>Research</h3><p>Market and competitors, Hear's unique value, audiences, users and personas.</p></li>
       <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="brand"></span><span class="n">02</span></div><h3>Branding</h3><p>Essence and personality, identity, messaging, voice and tone, UX writing.</p></li>
@@ -1915,8 +2021,10 @@ footer .f-fine { margin-top: 22px; }
     </div>
     <ol class="timeline" id="timeline">
       <li class="rail" aria-hidden="true" role="presentation"></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2023 · <b>Now</b> · Tel Aviv</div><div class="co"><h3>Hear</h3></div><p class="role">UX/UI designer at Intune (Hear) · only designer and product person</p></div><div><p class="d">Helped take Hear from zero to a growing AI platform: brand, product, design system, website, UX research, and the Design Lab.</p><div class="chips"><span>AI · SaaS</span><span>Zero to platform</span></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2022 · 2023 · Be'er Sheva</div><div class="co"><h3>Tap Mobile</h3></div><p class="role">User experience designer</p></div><div><p class="d">Consumer mobile apps, one with 100 million downloads. A/B tests and funnel analytics guided the UX, and I took on product definition too.</p><div class="chips"><span>Mobile apps</span><span>A/B testing</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2023 · <b>Now</b> · Tel Aviv</div><div class="co"><h3>Hear</h3></div><p class="role">UX/UI designer at Intune (Hear) · only designer and product person</p></div><div><p class="d">Helped take Hear from zero to a growing AI platform: brand, product, design system, website, UX research, and the Design Lab.</p><div class="chips"><span>AI · SaaS</span><span>Zero to platform</span></div>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-hear"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Hear</span></button><div class="mr-body" id="mr-job-hear"><div class="mr-in"><div><p>I designed the brand, the product, the design system and the website, ran UX research and user testing on complex workflows, and started the Design Lab.</p><div class="chips"><span>Design system</span><span>Brand from scratch</span><span>UX research</span></div></div></div></div></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2022 · 2023 · Be'er Sheva</div><div class="co"><h3>Tap Mobile</h3></div><p class="role">User experience designer</p></div><div><p class="d">Consumer mobile apps, one with 100 million downloads. A/B tests and funnel analytics guided the UX, and I took on product definition too.</p><div class="chips"><span>Mobile apps</span><span>A/B testing</span></div>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-tap"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Tap Mobile</span></button><div class="mr-body" id="mr-job-tap"><div class="mr-in"><div><p>I used A/B tests and funnel analytics with product managers and developers to guide UX choices, and led the design of several engagement-focused apps.</p><div class="chips"><span>100 million downloads</span><span>Funnel analytics</span></div></div></div></div></div></div></li>
       <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">May · Dec 2020 · Be'er Sheva</div><div class="co"><h3>Qualish</h3></div><p class="role">UX/UI designer</p></div><div><p class="d">Wireframes, workflows and interactive prototypes, with senior management.</p><div class="chips"><span>Prototyping</span><span>Mobile design</span></div></div></li>
       <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">Mar · Jun 2020 · Tel Aviv</div><div class="co"><h3>VPlanSolutions</h3></div><p class="role">User experience designer</p></div><div><p class="d">Designed the logo and the website.</p><div class="chips"><span>Logo design</span><span>Web design</span></div></div></li>
     </ol>
@@ -2788,6 +2896,19 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   document.addEventListener('visibilitychange', () => { if (document.hidden) all().forEach(v => v.pause()); else req(); });
   setInterval(() => { if (!document.hidden) pick(); }, 1200);
   req();
+})();
+
+// more: "Read more" disclosures (button + aria-expanded; the CSS animates the height, instant under reduced motion)
+(() => {
+  document.querySelectorAll('.mr-btn').forEach(b => {
+    const box = b.closest('.mr'), body = document.getElementById(b.getAttribute('aria-controls')), t = b.querySelector('.mr-t');
+    b.addEventListener('click', () => {
+      const open = b.getAttribute('aria-expanded') !== 'true';
+      b.setAttribute('aria-expanded', String(open));
+      box.classList.toggle('open', open); body.classList.toggle('open', open);
+      t.textContent = open ? 'Show less' : 'Read more';
+    });
+  });
 })();
 
 </script>
