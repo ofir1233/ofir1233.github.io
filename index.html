@@ -805,6 +805,13 @@ section > .wrap::before { content: none; }
 footer { padding-block: 28px 36px; font: 400 12px/1.6 var(--mono); letter-spacing: .02em; color: rgba(242,239,231,.5); }
 
 
+ r10 phone QA: invisible hit areas so the logo and the Direction A/B toggles reach 44px tap targets (no visual change) */
+.nav .brand { position: relative; }
+.nav .brand::after { content: ""; position: absolute; inset: -7px -6px; }
+.site-dirs button { position: relative; }
+.site-dirs button::after { content: ""; position: absolute; inset: -4px -2px; }
+
+
 </style>
 </head>
 <body>
