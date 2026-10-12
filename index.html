@@ -691,7 +691,7 @@ footer { background: var(--ink); }
 .versions > .label, .off-head .label { display: block; width: fit-content; padding: 5px 10px 4px; border-radius: 6px; background: rgba(242,239,231,.07); color: rgba(242,239,231,.62); font-size: 11.5px; line-height: 1.4; letter-spacing: .04em; text-transform: none; }
 
 
-* r7-rhythm: the design system becomes a cream sheet, so the case studies alternate ink and cream like the closing sections */
+/* r7-rhythm: the design system becomes a cream sheet, so the case studies alternate ink and cream like the closing sections */
 #system, #web { position: relative; z-index: 1; margin-top: calc(-1 * var(--sheet-r)); border-radius: var(--sheet-r) var(--sheet-r) 0 0; }
 #product, #system { padding-bottom: calc(var(--sec-pad) + var(--sheet-r)); }
 #system > .wrap::before, #web > .wrap::before { content: none; }
@@ -779,6 +779,31 @@ footer { background: var(--ink); }
     }
   }
 }
+
+/* r9-director: final consistency pass */
+/* 1. the r7 sheet rule for #system and #web never applied (its comment lost the opening slash), so the cream sheet started with a square edge under a dead black band; restate it */
+#system, #web { position: relative; z-index: 1; margin-top: calc(-1 * var(--sheet-r)); border-radius: var(--sheet-r) var(--sheet-r) 0 0; }
+/* 2. retire the old ghost numerals (they sat behind the ledes on 01, 02 and 05 only) and the coral seam ticks; the boxed tags carry the numbering, the sheets carry the rhythm */
+.bignum { display: none; }
+section > .wrap::before { content: none; }
+/* 3. one micro-label voice: mono, sentence case, light tracking (was a mix of spaced caps, boxed tags and coral caps) */
+.stats dt, .meta dt, .tile .tier, .stage-note, .shot .live, .br-item span, .ia-stat { text-transform: none; letter-spacing: .02em; }
+.stats dt, .meta dt { font-size: 12px; }
+.spot .txt .head .label { display: block; width: fit-content; padding: 5px 10px 4px; border-radius: 6px; background: rgba(242,239,231,.07); color: rgba(242,239,231,.62); font-size: 11.5px; line-height: 1.4; letter-spacing: .04em; text-transform: none; }
+/* 4. the problem / what / why heads become quiet headings instead of a third label style */
+.story h3 { font: 600 18px/1.3 var(--body); letter-spacing: -.01em; text-transform: none; color: var(--paper); }
+/* 5. one link language: the site previews become ghost pills like the hero's second button */
+.ext-row { gap: 10px; margin-top: 22px; }
+.ext { margin-top: 0; min-height: 44px; padding: 0 18px; border: 0; border-radius: 99px; box-shadow: inset 0 0 0 1px rgba(242,239,231,.18); color: var(--paper); font-size: 15px; font-weight: 500; transition: box-shadow .25s, color .25s; }
+.ext:hover { color: var(--paper); box-shadow: inset 0 0 0 1px rgba(242,239,231,.6); }
+.ext::after { inset: 0; }
+.contact .copy { font: 500 14px/1 var(--body); letter-spacing: 0; text-transform: none; }
+/* 6. about: the statement reads as two lines, not three with an orphaned "ground," */
+#about .quote { font-size: clamp(34px, 4.4vw, 64px); max-width: none; }
+#about .quote span { display: block; }
+/* 7. the end: the footer sits on the same mono voice as the labels */
+footer { padding-block: 28px 36px; font: 400 12px/1.6 var(--mono); letter-spacing: .02em; color: rgba(242,239,231,.5); }
+
 
 </style>
 </head>
