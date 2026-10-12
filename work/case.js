@@ -52,21 +52,24 @@
   });
 
   // lightbox for stills marked data-zoom (data-full = larger file, optional)
-  let lb = null;
-  const close = () => { if (lb) { lb.remove(); lb = null; document.body.style.overflow = ''; } };
+  // the scroll lock sits on <html>: its overflow-x: clip stops body overflow from reaching the viewport
+  let lb = null, from = null;
+  const close = () => { if (lb) { lb.remove(); lb = null; root.style.overflow = ''; if (from) from.focus(); from = null; } };
   document.querySelectorAll('img[data-zoom]').forEach(img => {
     img.tabIndex = 0; img.setAttribute('role', 'button'); img.setAttribute('aria-label', (img.alt || 'Image') + '. Open larger');
     const open = () => {
+      from = img;
       lb = document.createElement('div'); lb.className = 'lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', img.alt || 'Image');
       const big = new Image(); big.src = img.dataset.full || img.currentSrc || img.src; big.alt = img.alt;
       const b = document.createElement('button'); b.className = 'pill'; b.type = 'button'; b.textContent = 'Close';
-      lb.append(big, b); document.body.append(lb); document.body.style.overflow = 'hidden'; b.focus();
-      lb.addEventListener('click', () => { close(); img.focus(); });
+      lb.append(big, b); document.body.append(lb); root.style.overflow = 'hidden'; b.focus();
+      lb.addEventListener('click', close);
     };
     img.addEventListener('click', open);
     img.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
   });
-  addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  // Escape closes; Tab stays on the dialog's one control
+  addEventListener('keydown', e => { if (!lb) return; if (e.key === 'Escape') close(); else if (e.key === 'Tab') { e.preventDefault(); lb.querySelector('button').focus(); } });
 
   // reading progress on the top bar
   const bar = document.querySelector('.progress');

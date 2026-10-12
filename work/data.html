@@ -27,6 +27,7 @@
 .data-key li { counter-increment: k; display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.5; color: var(--text); }
 .data-key li::before { content: counter(k); width: 22px; height: 22px; border-radius: 50%; background: var(--coral); color: #160805; font: 600 12px/22px var(--mono); text-align: center; margin-top: 1px; }
 .data-key b { color: var(--paper); font-weight: 600; }
+@media (max-width: 1100px) { .data-key li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
 .data-gap { margin-top: clamp(40px, 6vw, 72px); }
 .data-plan { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; }
 .data-plan caption { text-align: left; padding-bottom: 12px; font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
@@ -63,7 +64,7 @@
   <header class="cs-hero wrap">
     <div class="label">Case study · <b>Data &amp; signals</b></div>
     <h1>A dense call table that stays easy to slice</h1>
-    <p class="lede">Data is where a Hear team finds and opens single calls: one wide table with tabs, a date range, filters and column control. V1 came with a colleague's starting app. I built V2 and V3 with Claude Code, partly following a written plan for saved views, and kept them side by side. Next to Data sit Signals, classifiers that run on calls by themselves.</p>
+    <p class="lede">Data is where a Hear team finds and opens single calls: one wide table with tabs, a date range, filters and column control. V1 came with a colleague's starting app; I built V2 and V3 with Claude Code, partly following a written plan for saved views, and kept them side by side. Next to Data sit Signals, classifiers that run on calls by themselves.</p>
     <dl class="meta">
       <div><dt>Role</dt><dd>Designer, prototyping in code with Claude&nbsp;Code</dd></div>
       <div><dt>When</dt><dd>March to October 2026</dd></div>
@@ -100,7 +101,7 @@
             <span class="data-pin" style="left:93.7%;top:47%">7</span>
           </div></div>
         </div>
-        <figcaption><b>The Data toolbar.</b> Three slim rows of controls above the table.</figcaption>
+        <figcaption><b>The Data toolbar.</b> Numbers match the list below.</figcaption>
       </figure>
       <ol class="data-key rv">
         <li><span><b>Where you are.</b> The breadcrumb, how many calls are in view and how many are still processing.</span></li>
@@ -140,7 +141,7 @@
     <div class="wrap">
       <div class="ch-head center">
         <div><div class="label">02 · <b>Three versions</b></div><h2>Three versions of one page, kept side by side</h2></div>
-        <div class="prose"><p>I didn't redesign Data in place. I duplicated the page, changed the duplicate and kept both. V1 came with a colleague's starting app, the one I coded the Lab from with Claude Code. V2 and V3 are mine, and the Lab still keeps more than one of them, one click apart.</p></div>
+        <div class="prose"><p>I didn't redesign Data in place. I duplicated the page, changed the duplicate and kept both. V1 came with the starting app; V2 and V3 are mine, and the Lab still keeps more than one version, one click apart.</p></div>
       </div>
       <ol class="steps data-steps rv">
         <li><strong>V1 · March</strong><span>From the starting app: a preset dropdown, filter chips, a filter popover with an explicit Apply, and "Add columns" in the header.</span></li>
@@ -162,7 +163,7 @@
         </div>
         <div class="prose">
           <h3 style="margin-top:0">Why keep them all</h3>
-          <p>The Lab's version switch lets one screen hold several designs on the same demo data. I can switch between them and compare them for different kinds of customers. Today Data carries a V2 / V3 Facelift switch, and Signals a V1 / V2 one.</p>
+          <p>The Lab's version switch lets one screen hold several designs on the same demo data. Today Data carries a V2 / V3 Facelift switch, and Signals a V1 / V2 one.</p>
           <p class="why"><b>Design choice:</b> a new idea goes in as a copy, not an overwrite, so the earlier version stays one click away.</p>
         </div>
       </div>
@@ -198,7 +199,7 @@
           <li class="opt chosen"><strong>A columns modal</strong><span>The pattern the platform already used, opened from "Add columns". Edits stay a draft and only land on Apply.</span></li>
           <li class="opt"><strong>Column-first</strong><span>A third model, from June: picking a column is the first step of filtering it. Built as its own page.</span></li>
         </ul>
-        <p class="because"><b>Why:</b> the change back names its reason: "in favor of the existing platform pattern". Reuse won over the plan. The column-first idea came later, as a separate page.</p>
+        <p class="because"><b>Why:</b> reuse won over the plan. Columns went back to a modal "in favor of the existing platform pattern". The column-first idea came later, as a separate page.</p>
       </article>
     </div>
   </section>
@@ -216,13 +217,13 @@
           <li class="opt"><strong>Apply on every change</strong><span>Tried on V1 in June: filters applied by themselves and the Apply button went away.</span></li>
           <li class="opt chosen"><strong>An explicit Apply</strong><span>The plan's choice, and what the shared filter from Alerts brought back. Set up the conditions, then run them once.</span></li>
         </ul>
-        <p class="because"><b>Why:</b> the plan's reason: toggling an option shouldn't re-run the query on every click.</p>
+        <p class="because"><b>Why:</b> as the plan put it, toggling an option shouldn't re-run the query on every click.</p>
       </article>
       <article class="decision rv">
         <div class="label">Decision 3 · <b>Table or list</b></div>
         <h3>Reports and Signals: a grid like the other data pages, or an accordion list?</h3>
         <ul class="opts">
-          <li class="opt chosen"><strong>A grid</strong><span>Rows read the same way as on the other data pages. In March, Reports moved to a grid to match Signals and Agent Evaluation.</span></li>
+          <li class="opt chosen"><strong>A grid</strong><span>Rows read the same way as on the other data pages. In March, Reports moved to a grid to match Signals and Agent evaluation.</span></li>
           <li class="opt"><strong>An accordion list</strong><span>Tried on both in May. A collapsed row shows a status dot, name, badges, schedule and a toggle, with a status badge only for failed, error or not-executed. Expand it for context, trend, details and actions.</span></li>
         </ul>
         <p class="because"><b>Result:</b> Reports went back to a grid in July. In the current Lab, Signals opens as a table too, with a V1 / V2 switch in its header.</p>

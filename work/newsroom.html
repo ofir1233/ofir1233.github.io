@@ -19,6 +19,7 @@
 .newsroom-legend li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.55; color: var(--text); }
 .newsroom-legend li::before { content: attr(data-n); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: #160805; font: 600 12px/1 var(--mono); }
 .newsroom-legend b { color: var(--paper); font-weight: 600; }
+@media (max-width: 1100px) { .newsroom-legend li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
 /* six steps in three columns on wide screens */
 @media (min-width: 761px) {
   .newsroom-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -86,7 +87,7 @@
   <header class="cs-hero wrap">
     <div class="label">Case study · <b>Newsroom</b></div>
     <h1>An AI news feed that says why each story is there</h1>
-    <p class="lede">Hear turns a contact center's calls, chats and tickets into signals, alerts, reports and evaluations. Newsroom, which I designed and built with Claude Code in the Design Lab, retells what changed as AI-written stories, and each one shows its evidence: its source, how strong the signal is, and the calls behind it. One rule per story type sets the precision: trends get no invented numeric thresholds, and real thresholds appear only where one is configured.</p>
+    <p class="lede">Hear turns a contact center's calls, chats and tickets into signals, alerts, reports and evaluations. Newsroom retells what changed as AI-written stories, and each one shows its evidence: its source, how strong the signal is, and the calls behind it. I designed it and built it with Claude Code in the Design Lab, with one precision rule per story type: no invented thresholds for trends, and real ones only where they are configured.</p>
     <dl class="meta">
       <div><dt>Role</dt><dd>Design and build, coded with Claude Code</dd></div>
       <div><dt>When</dt><dd>July 2026, updated since</dd></div>
@@ -105,7 +106,7 @@
         <div><div class="label">01 · <b>The problem</b></div><h2>A summary that sounds surer than its data misleads</h2></div>
         <div class="prose">
           <p>An AI summary of a contact center is only worth reading if people can check it. A headline that says a topic surged, with no baseline, no time frame and no calls behind it, asks the team to trust the wording.</p>
-          <p>So each story in Newsroom carries its evidence on the page. It names the source it came from and the time window it covers, a spike is drawn against its baseline, and the story ends with the evidence behind it, such as "See N calls".</p>
+          <p>So each story in Newsroom carries its evidence on the page: the source it came from, the time window it covers, a spike drawn against its baseline, and a closing line such as "See N calls".</p>
         </div>
       </div>
       <figure class="rv">
@@ -121,7 +122,7 @@
             <span class="newsroom-pin" style="--x:49%;--y:90.6%" aria-hidden="true">7</span>
           </div>
         </div>
-        <figcaption><b>Anatomy of the feed.</b> The current Newsroom in the Lab. Every number on it is demo data.</figcaption>
+        <figcaption><b>Anatomy of the feed.</b> The current Newsroom in the Lab.</figcaption>
       </figure>
       <ol class="newsroom-legend rv">
         <li data-n="1"><span><b>Labeled data.</b> The header says "feed · illustrative data" on the page itself, not in a footnote.</span></li>
@@ -142,14 +143,14 @@
       <div class="ch-head">
         <div><div class="label">02 · <b>How it evolved</b></div><h2>From editorial events to stories tied to the platform</h2></div>
         <div class="prose">
-          <p>News took its shape in July 2026. I built V2 as a copy of V1 and left the original untouched beside it. Four days later V1 was gone, and V2 became the News tab.</p>
+          <p>Newsroom lives in the Lab's News tab, which took its shape in July 2026. I built V2 as a copy of V1 and left the original untouched beside it. Four days later V1 was gone, and V2 became the News tab.</p>
         </div>
       </div>
       <ol class="steps newsroom-steps rv">
         <li><strong>2 Jul · News V1</strong><span>An editorial event feed: highlights, a KPI strip, trending topics, a compliance watch, a timeline and a library of chart widgets. The lead story ended in "Create Signal".</span></li>
         <li><strong>2 Jul · News V2</strong><span>A copy of V1 where every event comes from a real part of the platform: Signals, Monitoring, AI Tasks, Compliance, Agent evaluation, Reports, Workflows, Customers and the Daily briefing.</span></li>
         <li><strong>6 Jul · Front page</strong><span>A masthead, a breaking strip, a lead story, sections by platform area, and an article page for each story. V1 deleted.</span></li>
-        <li><strong>6 Jul · Trust layer</strong><span>"Why you're seeing this" on every story, a "See N calls" evidence line, and a chat inside the article, on the starting app's chat backend, that answers about that article.</span></li>
+        <li><strong>6 Jul · Trust layer</strong><span>"Why you're seeing this" on every story, a "See N calls" evidence line, and a chat inside the article that answers about it, on the chat backend from a colleague's starting app.</span></li>
         <li><strong>13 Jul · Four directions</strong><span>Low-fidelity wireframes of four other ways to frame the same news. Chapter 04.</span></li>
         <li><strong>13 Jul · Hebrew</strong><span>The News tab in Hebrew, right to left, with its own scope rules. Chapter 04.</span></li>
       </ol>
@@ -161,7 +162,7 @@
           <li class="opt"><strong>Editorial events (V1)</strong><span>General editorial events about the contact center, shown with charts from a widget library.</span></li>
           <li class="opt chosen"><strong>Real platform objects (V2)</strong><span>Every story comes from a real part of Hear, such as a signal, a monitor, an AI task, a compliance score, an evaluation or a report. Names of fields and metrics are real; the values are illustrative.</span></li>
         </ul>
-        <p class="because"><b>Why:</b> so every story points at something real in Hear. In V2 each event is "tied to a real platform surface": field and metric names are real, values are illustrative. V1 was deleted four days later.</p>
+        <p class="because"><b>Why:</b> so every story points at something real in Hear, an event "tied to a real platform surface". V1 was deleted four days later.</p>
       </article>
 
       <article class="decision rv">
@@ -182,7 +183,7 @@
       <div class="ch-head">
         <div><div class="label">03 · <b>Showing evidence</b></div><h2>Precision only where the platform has it</h2></div>
         <div class="prose">
-          <p>V1's lead story put a precise percentage in its headline. In the trust layer I wrote the rules into the feed's data, one set per story type, so each story's "Why you're seeing this" line shows its trigger, its basis and how strong the signal is.</p>
+          <p>V1's lead story put a precise percentage in its headline. In the trust layer I wrote the rules into the feed's data, one set per story type. Each story's "Why you're seeing this" line shows its trigger, its basis and how strong the signal is.</p>
         </div>
       </div>
 
@@ -273,12 +274,12 @@
       <div class="ch-head">
         <div><div class="label">05 · <b>Where AI belongs</b></div><h2>In the chat input, I added a moving logo, then took it out</h2></div>
         <div class="prose">
-          <p>News puts the AI's stories at the front of the page. The chat home is a different case: it came with a colleague's starting app, and in April and May I reworked parts of it. Some of what I added around the input, I later took out again.</p>
+          <p>News puts the AI's stories at the front of the page. The chat home is a different case: it came with that starting app, and in April and May I reworked parts of it. Some of what I added around the input, I later took out again.</p>
         </div>
       </div>
       <figure class="rv newsroom-dark">
         <div class="shot win dark"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><img src="../img/cs-design-lab-chat-home.webp" data-zoom alt="Chat home in dark theme: the Hear mark above the greeting Good evening, ofir, a chat input with @, slash and microphone buttons, a pill that reads 3 alerts worth a look under the input, a Briefing V1 to V5 switcher in the header, and the sidebar with News and a News · Directions item tagged DEV" width="1600" height="1045" loading="lazy"></div>
-        <figcaption><b>Chat home today, dark theme.</b> The page came with the starting app. The Hear mark now sits above the greeting, not in the field, and the header switches between five briefing designs, V1 to V5.</figcaption>
+        <figcaption><b>Chat home today, dark theme.</b> The page came with the starting app. The Hear mark now sits above the greeting, not in the field.</figcaption>
       </figure>
       <ol class="steps newsroom-fig-top rv">
         <li><strong>Suggestions</strong><span>AI suggestions capped at five, with the original suggestions design restored.</span></li>
@@ -306,7 +307,7 @@
 
   <div class="wrap">
     <a class="next" href="demos-engine.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Demos engine</h2></div><span class="arrow" aria-hidden="true">→</span></a>
-    <div class="sources"><p>Screens from Hear Design Lab with demo data; people's names blurred. I started the Lab and coded it with Claude Code from a colleague's starting app. Quoted rules come from the Lab's code and commit notes.</p></div>
+    <div class="sources"><p>Screens from Hear Design Lab with demo data; people's names blurred. Quoted rules come from the Lab's code and commit notes.</p></div>
   </div>
 </main>
 <footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>

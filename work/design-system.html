@@ -84,7 +84,7 @@
   <header class="cs-hero wrap">
     <div class="label">Case study · <b>Design system</b></div>
     <h1>One token set for a dense product, in light, dark and right to left</h1>
-    <p class="lede">Hear is Intune's AI platform for contact centers, and its screens are dense: call tables, score charts, filters and an AI chat. The Design Lab, the working replica of Hear I started and coded with Claude Code from a colleague's starting app, came with a token-based React system and a Storybook. I extended both: new tokens, reworked shared components, and 55 of the 122 stories, including every full-page story.</p>
+    <p class="lede">Hear is Intune's AI platform for contact centers, and its screens are dense: call tables, score charts, filters and an AI chat. The Design Lab, my working replica of Hear, is built on a colleague's starting app that came with a token-based React system and a Storybook. I extended both: new tokens, reworked shared components, and new stories, including every full-page story.</p>
     <dl class="meta">
       <div><dt>Role</dt><dd>Extended the system and its docs</dd></div>
       <div><dt>When</dt><dd>2026, since March</dd></div>
@@ -102,7 +102,7 @@
         <div><div class="label">01 · <b>The problem</b></div><h2>A dense product needs one vocabulary</h2></div>
         <div class="prose">
           <p>Hear's screens carry a lot at once. One Agent evaluation page holds a score chart, category bars, filters, version switches and a team table. Across the Lab there are data grids, charts, chat, alerts, a kanban board and settings. The system's job is to give all of them one set of names for color, surface and state.</p>
-          <p>The starting app gave me a base: a palette and semantic tokens in one CSS file, a Storybook with foundations, and a first set of components. I extended it as the Lab grew: new tokens, shared components, and stories for components and full pages.</p>
+          <p>The starting app gave me a base: a palette and semantic tokens in one CSS file, a Storybook with foundations, and a first set of components. I extended it as the Lab grew.</p>
         </div>
       </div>
       <figure class="ds-inv rv">
@@ -243,7 +243,7 @@
           </tbody>
         </table>
       </div>
-      <div class="prose ds-ctwrap" style="margin-top:clamp(40px,6vw,64px)"><h3 style="margin-top:0">Charts read the same tokens</h3><p>The News charts I added take every color from CSS variables, so they flip with the theme. Health uses tokens too: good is <code class="ds-code">--g100</code>, medium <code class="ds-code">--c80</code>, and poor the error red I added, <code class="ds-code">--red100</code>. Each article pairs its chart with a stats grid and a data table, so the figures also exist as text. The Alerts chart maps its series to the system's accent hues.</p></div>
+      <div class="prose ds-ctwrap" style="margin-top:clamp(40px,6vw,64px)"><h3 style="margin-top:0">Charts read the same tokens</h3><p>The News charts I added take every color from CSS variables, so they flip with the theme. Health uses tokens too: good is <code class="ds-code">--g100</code>, medium <code class="ds-code">--c80</code>, and poor the error red I added, <code class="ds-code">--red100</code>. The Alerts chart maps its series to the system's accent hues.</p></div>
     </div>
   </section>
 
@@ -267,7 +267,7 @@
       <div class="two" style="margin-top:clamp(40px,6vw,72px)">
         <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><img src="../img/cs-design-system-rtl.webp" data-zoom alt="The same Agent evaluation screen in Hebrew, right to left: the sidebar sits on the right, headings, filters and navigation read right to left, and the score chart keeps its axis and Latin digits" width="1440" height="900" loading="lazy"></div><figcaption><b>Hebrew, right to left.</b> The sidebar moves to the right and headings, filters and navigation mirror. The chart keeps its time axis running left to right, with Latin digits.</figcaption></figure>
         <div class="prose">
-          <p>I first built right to left for the News tab: a language hook that follows the page's <code class="ds-code">lang</code>, UI strings in a dictionary, and logical CSS properties such as <code class="ds-code">borderInlineStart</code>, so borders, quotes, padding and arrows flip with the text. Numbers stay in Latin digits.</p>
+          <p>I first built right to left for the News tab: a language hook that follows the page's <code class="ds-code">lang</code>, UI strings in a dictionary, and logical CSS properties such as <code class="ds-code">borderInlineStart</code>, so the layout flips with the text.</p>
           <p>In the Lab today, the language menu switches the shell and this screen to Hebrew, and the whole layout mirrors.</p>
         </div>
       </div>
