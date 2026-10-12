@@ -1375,6 +1375,27 @@ footer .f-fine { margin-top: 22px; }
   #design-lab .lab-story > div::before { transition: none; }
 }
 
+/* qa-phone: touch targets, no iOS focus zoom, readable chapter labels */
+@media (max-width: 860px) {
+  #ia .ia-find input { font-size: 16px; }
+  #design-lab .lt-chaps button { min-height: 40px; }
+  #product .chap-s { min-width: min-content; }
+  #product .chap-s span { overflow: visible; text-overflow: clip; }
+}
+
+/* q-perf: AA contrast for idle version tabs and token codes; visible focus on the versions-viewer image */
+#design-lab .vl-n { color: rgba(242,239,231,.52); }
+#design-lab .vl-name { color: rgba(242,239,231,.62); }
+#design-lab .vl-d { color: rgba(242,239,231,.56); }
+#system .sw code, #system .ds-insp-grp { color: rgba(27,27,27,.68); }
+@supports selector(:has(*)) { #design-lab .vl-stage .shot:has(.vl-imgs > img:focus-visible) { outline: 2px solid var(--coral); outline-offset: 3px; } }
+#design-lab .vl-imgs > img:focus-visible { outline: none; }
+/* q-perf: looping decoration stops while off screen (hero via .off, sections via .q-off) */
+.hero.off::before, .hero.off .card, .hero.off .marquee .track, .q-off .shot .live::before, .q-off .br-track, .q-off.contact::after, .q-off .end-orbit .ripple, .q-off .end-orbit .core, .q-off .job .dot::after { animation-play-state: paused !important; }
+@media (max-width: 960px) { #design-lab .vl-stage .shot:has(.vl-imgs > img:focus-visible) { outline-offset: -2px; } }
+
+@media (min-width: 1001px) and (max-width: 1100px) { #system .sw { padding-left: 3px; padding-right: 3px; } #system .sw .nm { font-size: 12px; letter-spacing: -.01em; } }
+
 </style>
 </head>
 <body>
@@ -1415,8 +1436,8 @@ footer .f-fine { margin-top: 22px; }
       <li><a href="#design-lab">Work</a></li>
       <li><a href="#product">Product</a></li>
       <li><a href="#system">Design system</a></li>
-      <li><a href="#ia">IA</a></li>
       <li><a href="#web">Brand &amp; web</a></li>
+      <li><a href="#ia">IA</a></li>
       <li><a href="#path">Experience</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -2256,9 +2277,12 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   const jobs = [...tl.querySelectorAll('.job')], dots = jobs.map(j => j.querySelector('.dot'));
   tl.classList.add('sl');
   let raf = 0;
+  let side = '';
   const upd = () => {
     raf = 0;
     const r = tl.getBoundingClientRect(), line = innerHeight * .62;
+    const s = r.bottom < -innerHeight * .5 ? 'past' : r.top > innerHeight * 1.5 ? 'before' : '';
+    if (s && s === side) return; side = s;
     const p = Math.min(1, Math.max(0, (line - r.top - 8) / Math.max(1, r.height - 16)));
     tl.style.setProperty('--p', p.toFixed(4));
     tl.classList.toggle('done', p >= 1);
@@ -2535,6 +2559,26 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
       if (inView && !was) { if (!vl.classList.contains('auto')) restart(); else arm(); } else if (!inView) pause();
     }), { threshold: .55 }).observe(vl.querySelector('.vl-stage'));
   } else stop();
+})();
+
+// qa-phone: on small screens the IA search's Enter/Search key closes the keyboard and brings the first match into view
+(() => {
+  const q = document.getElementById('ia-q'); if (!q) return;
+  q.enterKeyHint = 'search';
+  const narrow = matchMedia('(max-width: 860px)'), reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  q.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' || !narrow.matches || !q.value.trim()) return;
+    e.preventDefault(); q.blur();
+    const hit = document.querySelector('#ia .ia-cl li.hit, #ia .ia-global span.hit');
+    if (hit) setTimeout(() => hit.scrollIntoView({ block: 'center', behavior: reduce.matches ? 'auto' : 'smooth' }), 120);
+  });
+})();
+
+// q-perf: looping decorative animations (live dots, brand marquee, timeline pulse, contact orbit ripple/core and glow) pause while their section is off screen; the hero uses its existing .off flag
+(() => {
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('q-off', !e.isIntersecting)), { rootMargin: '120px 0px' });
+  document.querySelectorAll('main section[id], body > section[id]').forEach(s => io.observe(s));
 })();
 
 </script>
