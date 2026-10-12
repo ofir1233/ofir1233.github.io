@@ -691,6 +691,62 @@ footer { background: var(--ink); }
 .versions > .label, .off-head .label { display: block; width: fit-content; padding: 5px 10px 4px; border-radius: 6px; background: rgba(242,239,231,.07); color: rgba(242,239,231,.62); font-size: 11.5px; line-height: 1.4; letter-spacing: .04em; text-transform: none; }
 
 
+* r7-rhythm: the design system becomes a cream sheet, so the case studies alternate ink and cream like the closing sections */
+#system, #web { position: relative; z-index: 1; margin-top: calc(-1 * var(--sheet-r)); border-radius: var(--sheet-r) var(--sheet-r) 0 0; }
+#product, #system { padding-bottom: calc(var(--sec-pad) + var(--sheet-r)); }
+#system > .wrap::before, #web > .wrap::before { content: none; }
+#web { background: var(--ink); box-shadow: 0 -1px 0 rgba(255,255,255,.06); }
+#system { color: var(--ink-t); background: radial-gradient(circle, rgba(27,27,27,.13) 1px, transparent 1.5px) 0 0 / 22px 22px, var(--cream); }
+#system .sec-head p { color: rgba(27,27,27,.7); }
+#system .label { background: rgba(27,27,27,.06); color: rgba(27,27,27,.72); }
+#system .label b { color: #b0381f; }
+#system :focus-visible { outline-color: var(--ink-t); }
+#system .bignum { background-image: linear-gradient(180deg, rgba(212,71,45,.2), rgba(27,27,27,.05) 50%, transparent 78%); }
+#system .meta { border-color: rgba(27,27,27,.16); }
+#system .meta div + div { border-color: rgba(27,27,27,.16); }
+#system .meta dt { color: rgba(27,27,27,.72); }
+#system .meta dd { color: var(--ink-t); }
+#system figcaption { color: rgba(27,27,27,.7); }
+#system figcaption b { color: var(--ink-t); }
+#system .shot { border-color: rgba(27,27,27,.14); box-shadow: 0 30px 60px -36px rgba(27,27,27,.45); }
+#system .tile { background: #fff; border-color: rgba(27,27,27,.09); box-shadow: 0 1px 0 rgba(27,27,27,.04), 0 18px 40px -30px rgba(27,27,27,.4); }
+#system .tile .tier { color: #5f5c56; }
+#system .tiers { color: rgba(27,27,27,.72); }
+#system .tiers i { background: #b0381f; }
+
+/* r7-rhythm: v2's centred head (tag, tight display headline, short lede) where the lede is short enough to centre */
+:is(#system, #path) .sec-head { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 22px; }
+:is(#system, #path) .sec-head h2 { font-size: clamp(36px, 5.2vw, 68px); letter-spacing: -.045em; max-width: 15ch; margin-inline: auto; }
+:is(#system, #path) .sec-head p { margin-inline: auto; max-width: 62ch; text-wrap: pretty; }
+:is(#system, #path) .sec-head .label { margin-inline: auto; }
+/* on phones the design-system lede is too long to centre, so its head goes back to the left-aligned stack */
+@media (max-width: 760px) {
+  #system .sec-head { justify-items: start; text-align: left; }
+  #system .sec-head h2, #system .sec-head p, #system .sec-head .label { margin-inline: 0; }
+}
+
+/* r7-rhythm: contact links as v2 dot pills (light pill, dark cap, coral dot); the arrow shows on the cap on hover */
+.contact .row { align-items: center; gap: 14px 12px; }
+.contact .row > span:last-child { margin-left: 8px; }
+.contact .dp { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; padding: 4px 4px 4px 18px; border: 0; border-radius: 99px; background: var(--cream); color: var(--ink-t); font-size: 15px; font-weight: 500; text-decoration: none; transition: background .25s; }
+.contact .dp::before { content: ""; position: static; order: 2; flex: none; width: 36px; height: 36px; border-radius: 50%; background: radial-gradient(circle, var(--coral) 0 3px, var(--ink-t) 3.6px); transition: background .3s; }
+.contact .dp:hover { background: #fff; }
+.contact .dp:hover::before, .contact .dp:focus-visible::before { background: radial-gradient(circle, var(--coral) 0 6px, var(--ink-t) 6.6px); }
+.contact .dp > span[aria-hidden] { order: 3; width: 36px; margin-left: -48px; margin-right: 0; text-align: center; color: var(--cream); font-size: 14px; line-height: 36px; opacity: 0; transform: translateY(-4px); transition: opacity .25s, transform .3s cubic-bezier(.2,.7,.2,1); }
+.contact .dp:hover > span[aria-hidden], .contact .dp:focus-visible > span[aria-hidden] { opacity: 1; transform: none; }
+.contact .dp:has(> span[aria-hidden]):hover::before, .contact .dp:has(> span[aria-hidden]):focus-visible::before { background: var(--ink-t); }
+.contact .dp:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+.contact .mail { gap: 8px; }
+.contact .copy { min-height: 44px; padding: 0 16px; border-color: rgba(242,239,231,.22); color: rgba(242,239,231,.8); }
+@media (max-width: 760px) {
+  .contact .row > a.dp { padding: 4px 4px 4px 18px; border: 0; color: var(--ink-t); }
+  .contact .dp > span[aria-hidden] { opacity: 1; transform: none; }
+  .contact .dp:has(> span[aria-hidden])::before { background: var(--ink-t); }
+  .contact .row > span:last-child { margin-left: 0; flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .contact .dp, .contact .dp::before, .contact .dp > span[aria-hidden] { transition: none; } }
+
+
 </style>
 </head>
 <body>
@@ -1033,7 +1089,7 @@ footer { background: var(--ink); }
     <div class="label" style="margin-bottom:20px">Contact</div>
     <a class="big" href="mailto:ofirnona123@gmail.com">Let's talk →</a>
     <p class="pitch">Hiring a product designer for an AI or data-heavy product? I'd like to hear about it.</p>
-    <div class="row"><span class="mail"><a href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a><button type="button" class="copy" data-copy="ofirnona123@gmail.com" aria-live="polite">Copy</button></span><a href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) ↗</a><span>Tel Aviv</span></div>
+    <div class="row"><span class="mail"><a class="dp" href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a><button type="button" class="copy" data-copy="ofirnona123@gmail.com" aria-live="polite">Copy</button></span><a class="dp" href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a><a class="dp" href="ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗</span></a><span>Tel Aviv</span></div>
   </div>
 </section>
 
