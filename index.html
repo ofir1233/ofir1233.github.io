@@ -1775,6 +1775,13 @@ html.sheet-arcs #top .stats { margin-bottom: clamp(90px, 9vw, 150px); }
 /* the work hero's grain fades out before its foot, so the only edge into the next section is the arch */
 html.sheet-arcs .hero::after { -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 320px), transparent calc(100% - 120px)); mask-image: linear-gradient(180deg, #000 calc(100% - 320px), transparent calc(100% - 120px)); }
 html.sheet-arcs #contact::after { top: 0; }
+/* hero illustration: its lower part fades out well before the stats row */
+.arcs { -webkit-mask: radial-gradient(closest-side, #000 58%, transparent 98%), linear-gradient(180deg, #000 58%, transparent 80%); -webkit-mask-composite: source-in; mask: radial-gradient(closest-side, #000 58%, transparent 98%), linear-gradient(180deg, #000 58%, transparent 80%); mask-composite: intersect; }
+
+/* product cards: the problem first, then what I designed for it */
+#product .pf-prob { margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--coral); font-size: 15px; line-height: 1.55; color: rgba(242,239,231,.62); }
+#product .pf-prob b { display: block; margin-bottom: 4px; font: 500 11px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--coral); }
+#product .pf-sol { margin-top: 14px; font-size: 17px; line-height: 1.55; color: rgba(242,239,231,.9); }
 </style>
 </head>
 <body>
@@ -1971,8 +1978,8 @@ html.sheet-arcs #contact::after { top: 0; }
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="topics"></span></div>
         <h3>Topics</h3>
-        <p>What customers call about: size shows volume, color shows score.</p>
-        <ul class="pf-facts"><li>Boxes, circles and flow views</li><li>Sort by lowest score or biggest drop</li><li>AI explains what drives a score</li></ul>
+        <p class="pf-prob"><b>The challenge</b>Every conversation in the contact center, and no way to see the whole picture or where problems hide.</p>
+        <p class="pf-sol">I proposed a pattern that shows all the conversations at once and pinpoints where problems may be, by parameters you can change, in a visual way: size is volume, color is score.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-topics"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Topics</span></button><div class="mr-body" id="mr-topics"><div class="mr-in"><div><ul class="mr-list"><li>Boxes, circles and flow views</li><li>Hover breaks a score into its parameters</li><li>Sort daily scores by calls, lowest score or biggest drop</li><li>Click a parameter and the AI explains what drives it</li></ul><p class="mr-why"><b>Design choice:</b> size shows call volume and color shows score, so problem areas stand out before anyone reads a number.</p></div></div></div></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-topics-c.mp4" data-poster="img/clip-topics-poster-c.webp" muted loop playsinline preload="none" aria-label="Topics in the Ultra design: hovering tiles, sorting daily scores, circles and flow, then clicking a parameter to ask the AI what drives it"></video></div></figure></div>
@@ -1982,8 +1989,8 @@ html.sheet-arcs #contact::after { top: 0; }
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="shield"></span></div>
         <h3>Compliance</h3>
-        <p>Every agent against every criterion, and only problems get color.</p>
-        <ul class="pf-facts"><li>A popover per cell, against the whole team</li><li>One click to Explore in Chat</li></ul>
+        <p class="pf-prob"><b>The challenge</b>Checking every agent against every compliance rule, without drowning in numbers.</p>
+        <p class="pf-sol">A heatmap of agents against criteria where only problems get color. Any cell puts that agent against the whole team, and one click hands it to the AI chat.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-compliance"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Compliance</span></button><div class="mr-body" id="mr-compliance"><div class="mr-in"><div><p>Any cell opens a popover that places that agent against the whole team and says what the next button will do before you press it. One click on <b>Explore in Chat</b> hands that cell to the AI chat to dig deeper.</p><p class="mr-why"><b>Design choice:</b> only problems get color. A full grid of agents and criteria stays quiet until something needs attention.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
@@ -1994,8 +2001,8 @@ html.sheet-arcs #contact::after { top: 0; }
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="eval"></span></div>
         <h3>Agent evaluation</h3>
-        <p>Ask the AI why a score moved, and see the exact calls behind it.</p>
-        <ul class="pf-facts"><li>Trend, distribution and every team</li><li>Check the AI instead of just trusting it</li></ul>
+        <p class="pf-prob"><b>The challenge</b>An AI score is only useful if people can trust it.</p>
+        <p class="pf-sol">Trend, distribution and every team on one screen. Ask the AI why a score moved, and it points to the exact calls behind it, so people can check it.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-eval"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Agent evaluation</span></button><div class="mr-body" id="mr-eval"><div class="mr-in"><div><p>See the trend, the distribution and every team on one screen, then ask the AI why a score moved.</p><p class="mr-why"><b>Design choice:</b> answers point to the exact calls behind a score, so people can check the AI instead of just trusting it.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
@@ -2006,8 +2013,8 @@ html.sheet-arcs #contact::after { top: 0; }
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="kanban"></span></div>
         <h3>Actions</h3>
-        <p>Alerts and signals become tasks with an owner, a priority and an activity log.</p>
-        <ul class="pf-facts"><li>Action items and status</li><li>@mention a teammate</li><li>Closed work keeps its reason</li></ul>
+        <p class="pf-prob"><b>The challenge</b>Insights are only worth something if someone acts on them.</p>
+        <p class="pf-sol">Alerts, signals and evaluations become tasks with an owner, a priority and an activity log, and closed work keeps its reason.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-actions"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Actions</span></button><div class="mr-body" id="mr-actions"><div class="mr-in"><div><p>Alerts, signals and evaluations become tasks. Inside a task the team ticks off action items, moves the status and <b>@mentions</b> a teammate, and every step lands in the activity log.</p><p class="mr-why"><b>Design choice:</b> every task keeps its source, and closed work keeps its reason, such as duplicate or escalated, so the team learns from it.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/actions.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
@@ -2018,8 +2025,8 @@ html.sheet-arcs #contact::after { top: 0; }
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="news"></span></div>
         <h3>Newsroom, data &amp; signals</h3>
-        <p>One set of data: a monthly story, a dense table and signals that fire on their own.</p>
-        <ul class="pf-facts"><li>The month as a 75-second story</li><li>The AI builds the filter</li><li>Fields pulled from every call</li></ul>
+        <p class="pf-prob"><b>The challenge</b>Different people need the same data at different moments: a summary, a deep dive, an alert.</p>
+        <p class="pf-sol">One set of data, three surfaces: the month as a 75-second story, a table where the AI builds the filter, and signals that fire on their own.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-news"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Newsroom, data and signals</span></button><div class="mr-body" id="mr-news"><div class="mr-in"><div><ul class="mr-list"><li><b>Newsroom</b> tells the month as a 75-second story and flags spikes against a baseline</li><li><b>Data</b>: describe the calls you want and the AI builds the filter, then open any call and ask about it</li><li><b>Signals</b>: switch one on, or build a new one, with what to detect and the fields to pull from every call</li></ul><p class="mr-why"><b>Design choice:</b> one set of data, three surfaces, each for a different person at a different moment.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/newsroom.html">Newsroom case study <span aria-hidden="true">→</span></a><a class="cs-link" href="work/data.html">Data &amp; signals case study <span aria-hidden="true">→</span></a></div>
       </div>
@@ -2036,8 +2043,8 @@ html.sheet-arcs #contact::after { top: 0; }
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="play"></span></div>
         <h3>Demos engine</h3>
-        <p>Scripted, narrated demos for each prospect, in English or Hebrew.</p>
-        <ul class="pf-facts"><li>Types the prospect's questions</li><li>A camera moves across the screens</li><li>Play live or send as a video</li></ul>
+        <p class="pf-prob"><b>The challenge</b>Showing each prospect what Hear could do for their business.</p>
+        <p class="pf-sol">A demos engine that runs the product from a script: it types the prospect's questions, answers on demo data and moves a camera across the screens. In English or Hebrew, live or as a video.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-demos"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the demos engine</span></button><div class="mr-body" id="mr-demos"><div class="mr-in"><div><p>To show a new prospect what Hear could do for <em>their</em> business, I designed a demos engine inside the Lab. It runs the product from a script: it types the prospect's questions, answers them on demo data and moves a camera across the screens.</p><p>Each card in the library is a ready demo: play it in the Lab, or record a clean run.</p><p class="mr-why"><b>The aim:</b> no generic deck. Every demo is ready to play in a meeting or send as a video.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/demos-engine.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
