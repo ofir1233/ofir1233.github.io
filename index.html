@@ -1858,6 +1858,14 @@ html.sheet-arcs #contact::after { top: 0; }
 .contact a.big .arr-go { display: inline-block; }
 @media (prefers-reduced-motion: no-preference) { .contact a.big.sent span[aria-hidden] { display: inline-block; animation: talk-go .7s cubic-bezier(.3,.7,.2,1); } }
 @keyframes talk-go { 40% { transform: translateX(18px); } 100% { transform: none; } }
+
+/* about portrait v2: bigger, bleeding to the right edge, ink lifted so the drawing dissolves into the paper */
+@media (min-width: 861px) {
+  #about .me-top { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); }
+  #about .me-photo.me-ill { width: min(56vw, 880px); max-width: none; justify-self: end; margin: -48px calc(-1 * max(0px, (100vw - 1160px) / 2)) -24px 0; }
+}
+#about .me-photo.me-ill img { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 30%, #000 90%, transparent 100%), linear-gradient(180deg, transparent 0, #000 12%, #000 70%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 30%, #000 90%, transparent 100%), linear-gradient(180deg, transparent 0, #000 12%, #000 70%, transparent 100%); }
+@media (max-width: 860px) { #about .me-photo.me-ill { max-width: none; width: calc(100% + 32px); margin: 0 -16px; } #about .me-photo.me-ill img { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0, #000 10%, #000 72%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0, #000 10%, #000 72%, transparent 100%); } }
 </style>
 </head>
 <body>
@@ -1916,7 +1924,7 @@ html.sheet-arcs #contact::after { top: 0; }
         <p class="quote">Boots on the ground, <span>not theory.</span></p>
         <p class="me-lead">I'm a product designer in Tel Aviv, focused on AI products. I work end to end: research, flows, interface, design system, brand and website.</p>
       </div>
-      <figure class="me-photo me-ill"><img src="img/me-ill.webp" width="1400" height="1372" alt="Illustrated portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
+      <figure class="me-photo me-ill"><img src="img/me-ill-2.webp" width="1600" height="1568" alt="Illustrated portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
     </div>
     <ol class="me-pillars">
       <li><span class="me-n">01</span><h3>End to end, alone</h3><p>Brand, product, design system, website.</p></li>
