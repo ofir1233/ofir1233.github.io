@@ -1033,6 +1033,348 @@ footer .f-fine { margin-top: 22px; }
 @media (max-width: 860px) { #product .chap { gap: 3px; } #product .chap-s { font-size: 10.5px; gap: 8px; padding: 12px 0 10px; } }
 @media (prefers-reduced-motion: reduce) { #product .chap-s, #product .chap-s i { transition: none; } }
 
+/* ia: information architecture explorer drawn as a real tree. Small screens: a vertical tree with an accordion. Wide: root, fan of areas, detail pane, SVG connectors */
+#ia .ia { --ia-line: #cdc8bd; --ia-ink: #1d1d1f; --ia-mute: #6d6a63; --ia-card: #fff; --ia-edge: #e4e0d8; padding: clamp(14px, 3vw, 28px); }
+#ia .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+#ia .ia-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 22px; }
+#ia .ia-tabs { margin: 0; flex-wrap: wrap; gap: 6px; }
+#ia .ia-tabs button { display: inline-flex; align-items: center; gap: 7px; }
+#ia .ia-tabs button:not([aria-selected="true"]):hover { border-color: var(--ia-ink); }
+#ia .ia-n { font: 500 10.5px/1 var(--mono); padding: 3px 6px; border-radius: 99px; background: var(--coral); color: #160805; }
+#ia .ia-n[hidden] { display: none; }
+#ia .ia-stat { order: 0; flex-basis: auto; margin: 0 0 0 auto; }
+#ia .ia-find { position: relative; display: flex; align-items: center; width: min(270px, 100%); color: var(--ia-mute); }
+#ia .ia-find svg { position: absolute; left: 15px; width: 16px; height: 16px; pointer-events: none; }
+#ia .ia-find input { width: 100%; min-height: 44px; padding: 0 14px 0 40px; border: 1px solid #d9d6cf; border-radius: 99px; background: #fff; color: var(--ia-ink); font: 400 14px var(--body); transition: border-color .2s, box-shadow .2s; }
+#ia .ia-find input::placeholder { color: #8b877e; }
+#ia .ia-find input:focus { outline: none; border-color: var(--ia-ink); box-shadow: 0 0 0 4px rgba(255,112,86,.22); }
+#ia .ia-find input::-webkit-search-cancel-button { cursor: pointer; }
+
+/* board: small screens, a vertical tree hanging from the root */
+#ia .ia-board { position: relative; }
+#ia .ia-wires { display: none; }
+#ia .ia-root { justify-content: flex-start; }
+#ia .ia-root span { display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px 11px 14px; border-radius: 12px; font-size: 15.5px; }
+#ia .ia-root span::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #160805; box-shadow: 0 0 0 3px rgba(22,8,5,.15); }
+#ia .ia-global { position: relative; display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: center; gap: 6px; margin: 6px 0 0 36px; padding: 6px 0 2px; }
+#ia .ia-global[hidden] { display: none; }
+#ia .ia-global::before { content: ""; position: absolute; left: -16px; top: -6px; width: 11px; height: 26px; border: solid var(--ia-line); border-width: 0 0 1.5px 1.5px; border-bottom-left-radius: 9px; }
+#ia .ia-global::after { content: ""; position: absolute; left: -16px; top: 18px; bottom: 0; border-left: 1.5px solid var(--ia-line); }
+#ia .ia-global .ia-gl { flex-basis: 100%; padding: 0; background: none; color: var(--ia-mute); font: 500 11px/1.6 var(--mono); letter-spacing: .02em; }
+#ia .ia-global span { font-size: 12.5px; padding: 5px 10px; border-radius: 8px; background: #fbe3dc; color: #9c3a26; transition: background .2s, box-shadow .2s, opacity .2s; }
+#ia .ia-global.q span:not(.hit):not(.ia-gl) { opacity: .45; }
+#ia .ia-global span.hit { background: var(--coral); color: #160805; }
+#ia .ia-grid { display: flex; flex-direction: column; gap: 0; margin: 6px 0 0 36px; }
+#ia .ia-area { position: relative; display: flex; align-items: center; gap: 8px; width: 100%; min-height: 48px; margin-top: 6px; padding: 0 12px 0 14px; border: 1px solid var(--ia-edge); border-radius: 12px; background: var(--ia-card); color: var(--ia-ink); font: 600 15px/1.25 var(--body); text-align: left; cursor: pointer; transition: background .25s, color .25s, border-color .25s, opacity .25s, box-shadow .25s; }
+#ia .ia-area:first-child { margin-top: 0; }
+#ia .ia-area::before { content: ""; position: absolute; left: -17px; top: -7px; width: 11px; height: calc(50% + 7px); border: solid var(--ia-line); border-width: 0 0 1.5px 1.5px; border-bottom-left-radius: 9px; }
+#ia .ia-area::after { content: ""; position: absolute; left: -17px; top: 50%; bottom: -1px; border-left: 1.5px solid var(--ia-line); }
+#ia .ia-area:nth-last-child(2)::after { content: none; }
+#ia .ia-area:hover { border-color: #ffb8a8; box-shadow: 0 6px 18px -12px rgba(29,29,31,.35); }
+#ia .ia-area .nm { flex: 1; min-width: 0; }
+#ia .ia-area .ct { font: 500 11px/1 var(--mono); padding: 4px 7px; border-radius: 99px; background: #f1efe9; color: var(--ia-mute); transition: background .25s, color .25s; }
+#ia .ia-area .hits { font: 500 10.5px/1 var(--mono); padding: 4px 6px; border-radius: 99px; background: var(--coral); color: #160805; }
+#ia .ia-area .cv { width: 8px; height: 8px; margin: -3px 2px 0 4px; border: solid currentColor; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); opacity: .5; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+#ia .ia-area.open { background: var(--ia-ink); border-color: var(--ia-ink); color: #fff; }
+#ia .ia-area.open .ct { background: rgba(255,255,255,.12); color: #fff; }
+#ia .ia-area.open .cv { transform: translateY(3px) rotate(-135deg); opacity: .8; }
+#ia .ia-area.match:not(.open) { border-color: var(--coral); }
+#ia .ia-area.dim { opacity: .42; }
+#ia .ia-area.open::before { border-color: var(--coral); }
+#ia mark { background: #ffcdbf; color: inherit; border-radius: 3px; padding: 0 1px; }
+#ia .ia-area.open mark { background: var(--coral); color: #160805; }
+#ia .ia-sub { position: relative; display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s cubic-bezier(.2,.7,.2,1); }
+#ia .ia-sub.open { grid-template-rows: 1fr; }
+#ia .ia-sub::before { content: ""; position: absolute; left: -16px; top: 0; bottom: 0; border-left: 1.5px solid var(--ia-line); }
+#ia .ia-sub:last-child::before { content: none; }
+#ia .ia-sub-in { min-height: 0; overflow: hidden; visibility: hidden; transition: visibility 0s .45s; }
+#ia .ia-sub.open .ia-sub-in { visibility: visible; transition-delay: 0s; }
+#ia .ia-sub-h { display: none; }
+#ia .ia-cls { position: relative; padding: 2px 0 8px 32px; }
+#ia .ia-cl { position: relative; display: grid; gap: 7px; margin: 8px 0 0; padding: 11px 12px 12px; list-style: none; border: 1px solid var(--ia-edge); border-radius: 12px; background: rgba(255,255,255,.72); }
+#ia .ia-cl::before { content: ""; position: absolute; left: -16px; top: -11px; width: 11px; height: 32px; border: solid var(--ia-line); border-width: 0 0 1.5px 1.5px; border-bottom-left-radius: 9px; }
+#ia .ia-cl::after { content: ""; position: absolute; left: -16px; top: 20px; bottom: -10px; border-left: 1.5px solid var(--ia-line); }
+#ia .ia-cl:last-child::after { content: none; }
+#ia .ia-cl li { position: relative; display: grid; padding-left: 15px; font-size: 13.5px; line-height: 1.38; color: #3c3b38; opacity: 0; transform: translateX(-6px); transition: opacity .3s, transform .35s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i, 0) * 28ms); }
+#ia .ia-sub.open .ia-cl li { opacity: 1; transform: none; }
+#ia .ia-cl li::before { content: ""; position: absolute; left: 1px; top: .52em; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid #c9c3b8; background: #fff; }
+#ia .ia-cl li.hit::before { border-color: var(--coral); background: var(--coral); }
+#ia .ia-cl .k { color: var(--ia-ink); font-weight: 500; }
+#ia .ia-cl .d { color: var(--ia-mute); font-size: 12.5px; }
+#ia .ia-jump { display: grid; padding: 0; border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+#ia .ia-jump .k { text-decoration: underline; text-decoration-color: var(--coral); text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+#ia .ia-jump:hover .k { color: var(--coral-ink, #d4472d); }
+
+/* wide: root on the left, a fan of areas, the open area as a detail pane, connectors drawn in SVG */
+@media (min-width: 1060px) {
+  #ia .ia-board { display: grid; grid-template-columns: minmax(150px, 176px) minmax(56px, 88px) minmax(0, 1fr); align-items: start; padding: 10px; margin: -10px; border-radius: 16px; background: radial-gradient(circle, rgba(29,29,31,.1) 1px, transparent 1.5px) 0 0 / 20px 20px; }
+  #ia .ia-wires { display: block; position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  #ia .ia-wires path { fill: none; stroke: var(--ia-line); stroke-width: 1.5; transition: opacity .25s; }
+  #ia .ia-wires path.hot { stroke: #ffab98; }
+  #ia .ia-wires path.dim { opacity: .35; }
+  #ia .ia-wires path.on { stroke: var(--coral); stroke-width: 2; }
+  #ia .ia-wires circle { fill: var(--ia-line); }
+  #ia .ia-wires circle.on { fill: var(--coral); }
+  #ia .ia-wires circle.hub { fill: #f4f3f0; stroke: var(--coral); stroke-width: 2; }
+  #ia .ia-rootcol { grid-column: 1; align-self: center; display: grid; gap: 16px; position: relative; z-index: 1; }
+  #ia .ia-root span { padding: 13px 20px 13px 16px; font-size: 17px; }
+  #ia .ia-global { margin: 0; padding: 0; }
+  #ia .ia-global::before, #ia .ia-global::after { content: none; }
+  #ia .ia-grid { grid-column: 3; display: grid; grid-template-columns: minmax(170px, 210px) minmax(56px, 88px) minmax(0, 1fr); grid-template-rows: repeat(var(--rows, 11), auto) 1fr; row-gap: 7px; align-items: start; margin: 0; }
+  #ia .ia-area { grid-column: 1; margin: 0; min-height: 42px; z-index: 1; }
+  #ia .ia-area::before, #ia .ia-area::after { content: none; }
+  #ia .ia-area .cv { margin: 0 0 0 2px; transform: rotate(-45deg); }
+  #ia .ia-area.open .cv { transform: rotate(-45deg); opacity: .9; }
+  #ia .ia-area:hover:not(.open) { transform: translateX(2px); }
+  #ia .ia-sub { grid-column: 3; grid-row: 1 / -1; display: none; transition: none; z-index: 1; }
+  #ia .ia-sub.open { display: block; }
+  #ia .ia-sub::before { content: none; }
+  #ia .ia-sub-in { overflow: visible; }
+  #ia .ia-sub.open .ia-sub-in { animation: iaPane .45s cubic-bezier(.2,.7,.2,1) both; }
+  #ia .ia-sub-h { display: inline-flex; align-items: baseline; gap: 12px; padding: 10px 16px; border-radius: 12px; background: var(--ia-ink); color: #fff; }
+  #ia .ia-sub-h b { font: 700 19px/1.2 var(--display); letter-spacing: -.01em; }
+  #ia .ia-sub-h span { font: 500 11px var(--mono); color: #ffab98; }
+  #ia .ia-cls { padding: 4px 0 0 34px; }
+  #ia .ia-cl { margin-top: 10px; background: #fff; }
+  #ia .ia-cl::before { left: -17px; top: -15px; height: 36px; }
+  #ia .ia-cl:first-child::before { top: -9px; height: 30px; }
+  #ia .ia-cl::after { left: -17px; top: 20px; bottom: -12px; }
+  #ia .ia-cl.many { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); column-gap: 18px; }
+  #ia .ia-wires.draw path { stroke-dasharray: 1; animation: iaDraw .9s cubic-bezier(.3,.7,.2,1) both; }
+  #ia .ia-wires.draw path.on { animation-delay: .25s; }
+}
+@keyframes iaPane { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
+@keyframes iaDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (max-width: 640px) {
+  #ia .ia-stat { order: -1; flex-basis: 100%; margin: 0; }
+  #ia .ia-find { width: 100%; }
+  #ia .ia-tabs button { padding: 8px 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #ia .ia-sub, #ia .ia-sub-in, #ia .ia-cl li, #ia .ia-area, #ia .ia-area .cv { transition: none; }
+  #ia .ia-sub.open .ia-sub-in, #ia .ia-wires.draw path { animation: none; }
+}
+
+/* system: living design system. Live color tokens, a tidy bento, a tier ladder */
+#system .ds-tag { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 0; font: 500 11px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: rgba(27,27,27,.62); }
+#system .ds-tag span { padding: 4px 7px; border-radius: 6px; background: rgba(27,27,27,.07); color: #1b1b1b; }
+#system .ds-tag span + span { margin-left: 6px; }
+/* live token specimen */
+#system .ds-spec { margin: 0 0 14px; padding: clamp(16px, 2vw, 24px); border-radius: 22px; background: #fff; border: 1px solid rgba(27,27,27,.09); box-shadow: 0 1px 0 rgba(27,27,27,.04), 0 24px 50px -36px rgba(27,27,27,.45); }
+#system .ds-spec-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-bottom: clamp(14px, 1.6vw, 20px); }
+#system .ds-spec-hint { margin: 0; font-size: 14px; color: rgba(27,27,27,.62); }
+#system .ds-spec-body { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(14px, 1.8vw, 24px); align-items: stretch; }
+#system .ds-sw { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+#system .sw { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-rows: 1fr auto auto; gap: 2px; min-width: 0; padding: 6px 6px 9px; border-radius: 14px; transition: background .2s, box-shadow .2s; }
+#system .sw .chip { display: block; min-height: 74px; margin-bottom: 7px; border-radius: 10px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(27,27,27,.06); transition: transform .35s cubic-bezier(.2,.7,.2,1), border-radius .35s; }
+#system .sw.lt .chip { box-shadow: inset 0 0 0 1px rgba(27,27,27,.14); }
+#system .sw .nm { font-size: 13px; font-weight: 500; color: #1b1b1b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#system .sw code { font: 500 11px/1.2 var(--mono); color: rgba(27,27,27,.55); }
+#system .sw:hover .chip { transform: translateY(-3px); }
+#system .sw[aria-pressed="true"] { background: #f4f3f1; box-shadow: inset 0 0 0 1px rgba(27,27,27,.1); }
+#system .sw[aria-pressed="true"] .chip { border-radius: 14px; }
+#system .sw:focus-visible { outline: 2px solid #1b1b1b; outline-offset: 2px; }
+#system .ds-insp { display: grid; grid-template-rows: auto 1fr; border-radius: 16px; overflow: hidden; background: #f4f3f1; border: 1px solid rgba(27,27,27,.08); }
+#system .ds-insp-fill { position: relative; min-height: 112px; background: var(--c); color: var(--on, #fff); padding: 14px 16px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; transition: background-color .45s ease; }
+#system .ds-insp-k { position: absolute; top: 6px; left: 14px; font: 700 54px/1 var(--display); letter-spacing: -.04em; opacity: .9; }
+#system .ds-insp-hex { margin-left: auto; font: 500 13px/1 var(--mono); letter-spacing: .02em; padding: 7px 10px; border-radius: 99px; background: rgba(255,255,255,.9); color: #1b1b1b; white-space: nowrap; }
+#system .ds-insp-hex b { font-weight: 600; margin-right: 4px; }
+#system .ds-insp-txt { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; }
+#system .ds-insp-grp { font: 500 11px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: rgba(27,27,27,.55); }
+#system .ds-insp-nm { margin: 0; font-size: clamp(22px, 2.2vw, 28px); color: #1b1b1b; letter-spacing: -.03em; }
+#system .ds-insp-d, #system .ds-insp-u { margin: 0; font-size: 14px; line-height: 1.45; color: rgba(27,27,27,.75); }
+#system .ds-insp-u b { display: inline-block; margin-right: 6px; font: 500 10.5px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: #1b1b1b; }
+#system .ds-ramp { display: flex; gap: 3px; margin-top: auto; padding-top: 10px; }
+#system .ds-ramp i { flex: 1; height: 30px; border-radius: 6px; background: var(--s); box-shadow: inset 0 0 0 1px rgba(27,27,27,.06); cursor: crosshair; transition: transform .2s, flex-grow .3s; }
+#system .ds-ramp i:hover, #system .ds-ramp i.on { flex-grow: 1.8; transform: translateY(-2px); }
+/* bento: tiles share the shots' own canvas so every crop reads as one surface */
+#system .ds-bento { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-template-rows: 560px 400px 350px; gap: 14px; }
+#system .ds-tile { position: relative; margin: 0; display: flex; flex-direction: column; min-width: 0; overflow: hidden; border-radius: 20px; background: #efefed; border: 1px solid rgba(27,27,27,.08); box-shadow: 0 1px 0 rgba(27,27,27,.04), 0 18px 40px -30px rgba(27,27,27,.4); transition: opacity .35s, transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s; }
+#system .ds-tile .ds-tag { padding: 14px 16px 10px; }
+#system .ds-tile .ds-tag span { background: rgba(255,255,255,.8); }
+#system .ds-img { flex: 1; min-height: 0; overflow: hidden; }
+#system .ds-img img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; border-radius: 0; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+#system .ds-tile:hover { transform: translateY(-3px); box-shadow: 0 1px 0 rgba(27,27,27,.04), 0 26px 50px -30px rgba(27,27,27,.5); }
+#system .ds-tile:hover .ds-img img { transform: scale(1.025); }
+#system .k-colors { grid-column: span 3; }
+#system .k-side { grid-column: span 1; }
+#system .k-notif { grid-column: span 2; }
+#system .k-insight { grid-column: span 4; }
+#system .k-btn { grid-column: span 2; }
+#system .k-icons { grid-column: span 2; }
+#system .k-input { grid-column: span 4; }
+#system .k-insight .ds-img { padding: 0 12px 12px; }
+#system .k-insight .ds-img img { object-fit: contain; object-position: 50% 0; }
+#system .k-btn .ds-img { padding: 6px 18px 18px; }
+#system .k-btn .ds-img img, #system .k-input .ds-img img { object-fit: contain; object-position: 50% 50%; }
+#system .k-side .ds-img img { object-position: 30% 0; }
+#system .k-input .ds-img { display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 0 10px 14px; }
+#system .k-input .ds-img img { height: auto; }
+#system .k-icons .ds-img img { width: 180%; max-width: none; height: auto; object-fit: initial; transform-origin: 0 0; }
+#system .k-icons:hover .ds-img img { transform: none; }
+/* ladder: hover a tier to light up its pieces */
+#system .ds-bento.hl .ds-tile:not(.hit), #system .sys-fig.dim { opacity: .28; }
+#system .ds-bento.hl .ds-tile.hit { box-shadow: 0 0 0 2px #d4472d, 0 26px 50px -30px rgba(27,27,27,.5); }
+#system .sys-fig { transition: opacity .35s; }
+#system .ds-ladder { list-style: none; margin: clamp(22px, 3vw, 36px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; align-items: end; counter-reset: none; }
+#system .ds-ladder li { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 14px 14px 16px; border-radius: 16px; background: #fff; border: 1px solid rgba(27,27,27,.09); cursor: default; transition: background .25s, color .25s, transform .3s cubic-bezier(.2,.7,.2,1), border-color .25s; }
+#system .ds-ladder li:nth-child(1) { min-height: 108px; }
+#system .ds-ladder li:nth-child(2) { min-height: 132px; }
+#system .ds-ladder li:nth-child(3) { min-height: 156px; }
+#system .ds-ladder li:nth-child(4) { min-height: 180px; }
+#system .ds-ladder li:nth-child(5) { min-height: 204px; }
+#system .ds-ladder li:nth-child(6) { min-height: 228px; background: #1b1b1b; border-color: #1b1b1b; color: #f2efe7; }
+#system .ds-ladder li + li::before { content: ""; position: absolute; left: -11px; bottom: 26px; width: 12px; height: 2px; background: #d4472d; }
+#system .ds-ladder .n { font: 500 11px/1 var(--mono); letter-spacing: .06em; color: #b0381f; }
+#system .ds-ladder li:nth-child(6) .n { color: #ff7056; }
+#system .ds-ladder b { margin-top: auto; font: 700 clamp(17px, 1.5vw, 21px)/1.05 var(--display); letter-spacing: -.025em; }
+#system .ds-ladder .ex { min-height: 2.8em; font-size: 12.5px; line-height: 1.4; color: rgba(27,27,27,.6); }
+#system .ds-ladder li:nth-child(6) .ex { color: rgba(242,239,231,.66); }
+#system .ds-ladder li:hover, #system .ds-ladder li.on { transform: translateY(-4px); border-color: #d4472d; }
+@media (max-width: 1000px) {
+  #system .ds-spec-body { grid-template-columns: 1fr; }
+  #system .ds-bento { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: 420px auto 300px auto; }
+  #system .k-colors { grid-column: span 2; }
+  #system .k-side, #system .k-notif { grid-column: span 1; }
+  #system .k-notif .ds-img img { object-position: 8% 0; }
+  #system .k-insight, #system .k-input { grid-column: span 4; }
+  #system .k-insight .ds-img img, #system .k-input .ds-img img { height: auto; }
+#system .k-icons .ds-img img { width: 180%; max-width: none; height: auto; object-fit: initial; transform-origin: 0 0; }
+#system .k-icons:hover .ds-img img { transform: none; }
+  #system .ds-ladder { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+  #system .ds-ladder li { min-height: 0 !important; }
+  #system .ds-ladder li + li::before { content: none; }
+}
+@media (max-width: 600px) {
+  #system .ds-spec { padding: 14px; border-radius: 18px; }
+  #system .ds-spec-hint { font-size: 13px; }
+  #system .ds-sw { gap: 6px; }
+  #system .sw { padding: 4px 3px 6px; border-radius: 10px; }
+  #system .sw .chip { min-height: 46px; margin-bottom: 5px; }
+  #system .sw .nm { display: none; }
+  #system .sw code { text-align: center; font-size: 10px; }
+  #system .ds-insp-fill { min-height: 86px; }
+  #system .ds-insp-k { font-size: 42px; }
+  #system .ds-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 380px 360px auto 230px auto; gap: 10px; }
+  #system .k-colors, #system .k-insight, #system .k-input { grid-column: span 2; }
+  #system .k-side, #system .k-notif, #system .k-btn, #system .k-icons { grid-column: span 1; }
+  #system .ds-tile { border-radius: 16px; }
+  #system .ds-tile .ds-tag { padding: 11px 11px 8px; font-size: 10px; }
+  #system .k-btn .ds-img { padding: 4px 8px 10px; }
+  #system .k-insight .ds-img { padding: 0 8px 8px; }
+  #system .ds-ladder { grid-template-columns: 1fr; gap: 0; border-left: 2px solid rgba(212,71,45,.35); margin-left: 6px; }
+  #system .ds-ladder li { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; padding: 11px 14px; margin: 0 0 8px 14px; }
+  #system .ds-ladder li::after { content: ""; position: absolute; left: -21px; top: 17px; width: 10px; height: 10px; border-radius: 50%; background: #d4472d; box-shadow: 0 0 0 4px #f2efe7; }
+  #system .ds-ladder b { margin-top: 0; font-size: 17px; }
+  #system .ds-ladder .ex { flex-basis: 100%; min-height: 0; }
+}
+@media (hover: none) { #system .ds-tile:hover, #system .ds-ladder li:hover { transform: none; } #system .ds-tile:hover .ds-img img { transform: none; } }
+@media (prefers-reduced-motion: reduce) { #system .ds-tile, #system .ds-tile .ds-img img, #system .sw .chip, #system .ds-insp-fill, #system .ds-ramp i, #system .ds-ladder li { transition: none !important; } #system .ds-tile:hover, #system .ds-ladder li:hover, #system .ds-ladder li.on { transform: none; } #system .ds-tile:hover .ds-img img { transform: none; } }
+
+/* s-lab: case study 01. The tour gets a glow frame, a progress rail and chapter chips; the three columns lead with one bold line each;
+   the three Topics designs become one large stage with a wipe between versions, coral callouts on what changed, and the notes as tabs */
+#design-lab .lab-tour { position: relative; }
+#design-lab .lab-tour::before { content: ""; position: absolute; z-index: -1; inset: 8% 6% 14%; border-radius: 40px; background: radial-gradient(60% 60% at 30% 40%, rgba(255,112,86,.22), transparent 70%), radial-gradient(50% 60% at 80% 70%, rgba(242,239,231,.08), transparent 70%); filter: blur(48px); pointer-events: none; }
+#design-lab .lab-tour .shot { border-radius: 18px; border-color: rgba(242,239,231,.14); box-shadow: 0 0 0 1px rgba(0,0,0,.5), 0 50px 120px -50px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.4); }
+#design-lab .lt-rail { position: relative; height: 2px; margin: 18px 0 0; border-radius: 2px; background: rgba(242,239,231,.12); display: none; }
+#design-lab .lt-fill { position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(90deg, rgba(255,112,86,.35), var(--coral)); transform-origin: left; transform: scaleX(var(--p, 0)); }
+#design-lab .lt-rail b { position: absolute; top: -3px; width: 2px; height: 8px; margin-left: -1px; border-radius: 1px; background: rgba(242,239,231,.35); }
+#design-lab .lab-tour figcaption { max-width: none; margin-top: 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+#design-lab .lt-cap { max-width: 64ch; }
+#design-lab .lt-chaps { display: none; }
+#design-lab .lab-tour.lt-on .lt-rail { display: block; }
+#design-lab .lab-tour.lt-on .lt-chaps { display: flex; flex-wrap: wrap; gap: 6px; }
+#design-lab .lt-chaps button { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 13px 0 11px; border: 0; border-radius: 99px; font: 500 13px/1 var(--body); color: rgba(242,239,231,.62); background: rgba(242,239,231,.05); box-shadow: inset 0 0 0 1px rgba(242,239,231,.1); cursor: pointer; transition: color .25s, background-color .25s, box-shadow .25s; }
+#design-lab .lt-chaps button i { font: 500 10.5px/1 var(--mono); font-style: normal; letter-spacing: .02em; color: rgba(242,239,231,.4); transition: color .25s; }
+#design-lab .lt-chaps button:hover { color: var(--paper); box-shadow: inset 0 0 0 1px rgba(242,239,231,.35); }
+#design-lab .lt-chaps button.on { color: #160805; background: var(--paper); box-shadow: none; }
+#design-lab .lt-chaps button.on i { color: #b0381f; }
+#design-lab .lt-chaps button:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+@media (min-width: 961px) {
+  #design-lab .lab-tour figcaption { grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 24px; }
+  #design-lab .lab-tour.lt-on .lt-chaps { justify-content: flex-end; max-width: 520px; }
+}
+
+/* the story: each column opens on one bold line, the rest reads as support */
+#design-lab .lab-story p { color: rgba(242,239,231,.66); }
+#design-lab .lab-story p strong { display: block; margin-bottom: 10px; font: 600 clamp(19px, 1.65vw, 22px)/1.28 var(--display); letter-spacing: -.02em; color: var(--paper); text-wrap: balance; }
+#design-lab .lab-story h3 { color: var(--coral); font: 500 12px/1.4 var(--mono); letter-spacing: .02em; }
+@media (min-width: 861px) {
+  #design-lab .lab-story > div { padding-top: 26px; }
+  #design-lab .lab-story > div::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--coral); transform: scaleX(0); transform-origin: left; transition: transform 1.1s cubic-bezier(.2,.7,.2,1) .2s; }
+  #design-lab .lab-story > div + div::before { left: 28px; }
+  #design-lab .lab-story > div:not(:last-child)::before { right: 28px; }
+  #design-lab .lab-story > div.in::before { transform: scaleX(.18); }
+  #design-lab .lab-story > div:nth-child(2)::before { transition-delay: .35s; }
+  #design-lab .lab-story > div:nth-child(3)::before { transition-delay: .5s; }
+}
+
+/* the versions: one stage, three tabs */
+#design-lab .vl { margin-top: clamp(56px, 7vw, 96px); }
+#design-lab .vl-grid { display: grid; grid-template-columns: minmax(0, 8.2fr) minmax(0, 3.8fr); gap: clamp(20px, 3vw, 44px); align-items: start; }
+#design-lab .vl-stage .shot { border-radius: 16px; }
+#design-lab .vl-imgs { position: relative; display: grid; }
+#design-lab .vl-imgs > img { grid-area: 1 / 1; opacity: 0; pointer-events: none; }
+#design-lab .vl-imgs > img.on { opacity: 1; z-index: 2; pointer-events: auto; }
+#design-lab .vl-imgs > img.was { opacity: 1; z-index: 1; }
+#design-lab .vl-imgs > img.wf { animation: vlWipeF .9s cubic-bezier(.7,0,.25,1) both; }
+#design-lab .vl-imgs > img.wb { animation: vlWipeB .9s cubic-bezier(.7,0,.25,1) both; }
+#design-lab .vl-wipe { position: absolute; z-index: 3; top: 0; bottom: 0; left: 0; width: 2px; margin-left: -1px; background: var(--coral); box-shadow: 0 0 18px 2px rgba(255,112,86,.55); opacity: 0; pointer-events: none; }
+#design-lab .vl-wipe.wf { animation: vlLineF .9s cubic-bezier(.7,0,.25,1) both; }
+#design-lab .vl-wipe.wb { animation: vlLineB .9s cubic-bezier(.7,0,.25,1) both; }
+@keyframes vlWipeF { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes vlWipeB { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes vlLineF { 0% { left: 0; opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes vlLineB { 0% { left: 100%; opacity: 1; } 90% { opacity: 1; } 100% { left: 0; opacity: 0; } }
+#design-lab .vl-mk { position: absolute; z-index: 4; left: var(--x); top: var(--y); width: var(--w); height: var(--h); border: 1.5px solid var(--coral); border-radius: 8px; box-shadow: 0 0 0 4px rgba(255,112,86,.16); opacity: 0; transform: scale(1.06); pointer-events: none; transition: opacity .2s, transform .2s; }
+#design-lab .vl-mk em { position: absolute; left: -1.5px; bottom: calc(100% + 6px); padding: 4px 8px 3px; border-radius: 6px; background: var(--coral); color: #160805; font: 500 11px/1.2 var(--mono); font-style: normal; letter-spacing: .01em; white-space: nowrap; box-shadow: 0 8px 18px -8px rgba(0,0,0,.5); }
+#design-lab .vl-mk.b em { bottom: auto; top: calc(100% + 6px); }
+#design-lab .vl-mk.r em { left: auto; right: -1.5px; }
+#design-lab .vl[data-v="0"] .vl-mk[data-v="0"], #design-lab .vl[data-v="1"] .vl-mk[data-v="1"], #design-lab .vl[data-v="2"] .vl-mk[data-v="2"] { opacity: 1; transform: none; transition: opacity .45s .75s, transform .55s .75s cubic-bezier(.2,.7,.2,1); }
+#design-lab .vl-side { position: sticky; top: 100px; }
+#design-lab .vl-cap { margin-bottom: 10px; font: 500 12px/1 var(--mono); letter-spacing: .02em; color: var(--mute); }
+#design-lab .vl-tabs { display: grid; border-top: 1px solid var(--line); }
+#design-lab .vl-tabs [role=tab] { position: relative; display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 10px; row-gap: 6px; align-items: baseline; width: 100%; padding: 18px 4px 20px 0; border: 0; border-bottom: 1px solid var(--line); background: none; color: var(--mute); font: inherit; text-align: left; cursor: pointer; transition: color .3s; }
+#design-lab .vl-tabs [role=tab]:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; border-radius: 4px; }
+#design-lab .vl-n { font: 500 11px/1 var(--mono); letter-spacing: .02em; color: rgba(242,239,231,.36); transition: color .3s; }
+#design-lab .vl-name { display: flex; align-items: center; gap: 10px; font: 600 clamp(20px, 1.7vw, 24px)/1.15 var(--display); letter-spacing: -.02em; color: rgba(242,239,231,.5); transition: color .3s; }
+#design-lab .vl-tag { padding: 4px 8px 3px; border-radius: 6px; background: var(--coral-soft); color: var(--coral); font: 500 10.5px/1.2 var(--mono); letter-spacing: .02em; }
+#design-lab .vl-d { grid-column: 2; font-size: 14.5px; line-height: 1.55; color: rgba(242,239,231,.42); transition: color .3s; }
+#design-lab .vl-p { position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--coral); transform: scaleX(0); transform-origin: left; }
+#design-lab .vl-tabs [role=tab]:hover .vl-name { color: rgba(242,239,231,.8); }
+#design-lab .vl-tabs [aria-selected=true] .vl-n { color: var(--coral); }
+#design-lab .vl-tabs [aria-selected=true] .vl-name { color: var(--paper); }
+#design-lab .vl-tabs [aria-selected=true] .vl-d { color: rgba(242,239,231,.78); }
+#design-lab .vl-tabs [aria-selected=true] .vl-p { transform: scaleX(1); }
+#design-lab .vl.auto .vl-tabs [aria-selected=true] .vl-p { transform: scaleX(0); animation: vlProg var(--dwell, 5s) linear forwards; }
+#design-lab .vl.auto.hold .vl-tabs [aria-selected=true] .vl-p { animation-play-state: paused; }
+@keyframes vlProg { to { transform: scaleX(1); } }
+@media (max-width: 960px) {
+  #design-lab .vl-grid { grid-template-columns: minmax(0, 1fr); }
+  #design-lab .vl-side { position: static; }
+  #design-lab .vl-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+  #design-lab .vl-tabs [role=tab] { grid-template-columns: minmax(0, 1fr); align-content: start; padding: 16px 14px 18px 0; border-bottom: 0; }
+  #design-lab .vl-tabs [role=tab] + [role=tab] { padding-left: 14px; border-left: 1px solid var(--line); }
+  #design-lab .vl-d { grid-column: 1; }
+}
+@media (max-width: 760px) {
+  #design-lab .vl-stage .shot, #design-lab .lab-tour .shot { margin-inline: -16px; border-radius: 0; border-inline: 0; }
+  #design-lab .vl-mk { border-width: 1px; border-radius: 4px; box-shadow: 0 0 0 2px rgba(255,112,86,.18); }
+  #design-lab .vl-mk em { bottom: calc(100% + 3px); padding: 2px 5px 1px; border-radius: 4px; font-size: 9px; }
+  #design-lab .vl-mk.b em { top: calc(100% + 3px); }
+  #design-lab .vl-imgs::after { content: ""; position: absolute; z-index: 5; right: 10px; bottom: 10px; width: 30px; height: 30px; border-radius: 99px; pointer-events: none; background: rgba(13,13,14,.66) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M15 4h5v5M9 20H4v-5M20 4l-6 6M4 20l6-6'/%3E%3C/svg%3E") center / 15px no-repeat; }
+  #design-lab .vl-tabs { grid-template-columns: minmax(0, 1fr); border-bottom: 0; }
+  #design-lab .vl-tabs [role=tab], #design-lab .vl-tabs [role=tab] + [role=tab] { grid-template-columns: 26px minmax(0, 1fr); padding: 14px 0 15px; border-left: 0; border-bottom: 1px solid var(--line); }
+  #design-lab .vl-d { grid-column: 2; font-size: 14px; }
+  #design-lab .vl-name { font-size: 19px; }
+  #design-lab .lt-chaps button { min-height: 34px; padding: 0 11px 0 9px; font-size: 12.5px; gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #design-lab .vl-imgs > img.wf, #design-lab .vl-imgs > img.wb, #design-lab .vl-wipe.wf, #design-lab .vl-wipe.wb { animation: none; }
+  #design-lab .vl-mk, #design-lab .vl[data-v] .vl-mk { transition: none; }
+  #design-lab .lab-story > div::before { transition: none; }
+}
+
 </style>
 </head>
 <body>
@@ -1127,21 +1469,42 @@ footer .f-fine { margin-top: 22px; }
     </div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Initiator · design, coded with Claude&nbsp;Code</dd></div><div><dt>Scope</dt><dd>Working product replica</dd></div><div><dt>Built for</dt><dd>Testing designs · prospect demos</dd></div><div><dt>Stack</dt><dd>React · Vite · Storybook</dd></div></dl>
 
-    <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/demo-tour-b-r.mp4" data-poster="img/demo-tour-poster-c.webp" muted loop playsinline preload="none" aria-label="A question typed into the Lab, the answer, then Topics, Compliance and Actions"></video></div>
-      <figcaption><b>The Lab in 30 seconds.</b> A question typed into the Lab's chat box, the AI's answer with a camera push-in, then the Topics, Compliance and Actions screens.</figcaption></figure>
+    <figure class="rv lab-tour"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/demo-tour-b-r.mp4" data-poster="img/demo-tour-poster-c.webp" muted loop playsinline preload="none" aria-label="A question typed into the Lab, the answer, then Topics, Compliance and Actions"></video></div>
+      <div class="lt-rail" aria-hidden="true"><i class="lt-fill"></i></div>
+      <figcaption><span class="lt-cap"><b>The Lab in 30 seconds.</b> A question typed into the Lab's chat box, the AI's answer with a camera push-in, then the Topics, Compliance and Actions screens.</span><span class="lt-chaps" role="group" aria-label="Jump to a part of the tour"><button type="button" data-t="7"><i>01</i>Ask</button><button type="button" data-t="12"><i>02</i>Answer</button><button type="button" data-t="21"><i>03</i>Topics</button><button type="button" data-t="24"><i>04</i>Compliance</button><button type="button" data-t="27"><i>05</i>Actions</button></span></figcaption></figure>
 
-    <div class="story">
-      <div class="rv"><span class="ico anim" aria-hidden="true" data-icon="research"></span><h3>The problem</h3><p>Static mockups couldn't answer the real question: how does this design behave for <em>this</em> customer, with their data, at their scale?</p></div>
-      <div class="rv"><span class="ico anim" aria-hidden="true" data-icon="lab"></span><h3>What it is</h3><p>A working copy of the product in React. It holds a demo environment for each customer, and a new one starts from a form with their website, a description and files. Key screens carry alternative versions I can switch between, to compare them for different kinds of customers.</p></div>
-      <div class="rv"><span class="ico anim" aria-hidden="true" data-icon="growth"></span><h3>Why it matters</h3><p>Design decisions get made in a working product, with real interactions and realistic data, not in a slide deck. The same build serves design reviews and sales demos.</p></div>
+    <div class="story lab-story">
+      <div class="rv"><span class="ico anim" aria-hidden="true" data-icon="research"></span><h3>The problem</h3><p><strong>Static mockups couldn't answer the real question.</strong> How does this design behave for <em>this</em> customer, with their data, at their scale?</p></div>
+      <div class="rv"><span class="ico anim" aria-hidden="true" data-icon="lab"></span><h3>What it is</h3><p><strong>A working copy of the product, built in React.</strong> Each customer gets a demo environment, started from a form with their website, a description and files. Key screens carry alternative versions I can switch between, to compare them for different kinds of customers.</p></div>
+      <div class="rv"><span class="ico anim" aria-hidden="true" data-icon="growth"></span><h3>Why it matters</h3><p><strong>Design decisions get made in a working product, not a slide deck.</strong> Real interactions, realistic data, and one build that serves both design reviews and sales demos.</p></div>
     </div>
 
-    <div class="versions">
+    <div class="versions vl" data-v="0">
       <div class="label" style="margin-bottom:14px">Same screen, same data · <b>three designs</b> · switchable in the Lab · demo data</div>
-      <div class="vgrid">
-        <figure class="rv"><div class="shot"><img src="img/vb-facelift.webp" alt="Topics boxes view, Score-first version" width="1300" height="996" loading="lazy"></div><figcaption><b>Score-first</b> · strong colors and the score as the headline number in every box</figcaption></figure>
-        <figure class="rv"><div class="shot"><img src="img/vb-refined.webp" alt="Topics boxes view, Refined version" width="1300" height="996" loading="lazy"></div><figcaption><b>Refined</b> · a summary row, a line that defines the score, calmer colors</figcaption></figure>
-        <figure class="rv"><div class="shot"><img src="img/vb-ultra.webp" alt="Topics boxes view, Ultra version" width="1300" height="996" loading="lazy"></div><figcaption><b>Ultra</b> · latest · a "Most to gain" card, and daily scores you can sort by calls, lowest score or biggest drop</figcaption></figure>
+      <div class="vl-grid">
+        <div class="vl-stage rv"><div class="shot win" id="vl-panel" role="tabpanel" aria-labelledby="vl-t0"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span>
+          <div class="vl-imgs">
+            <img class="on" data-v="0" src="img/vb-facelift.webp" alt="Topics boxes view, Score-first version" width="1300" height="996" loading="lazy">
+            <img data-v="1" src="img/vb-refined.webp" alt="Topics boxes view, Refined version" width="1300" height="996" loading="lazy">
+            <img data-v="2" src="img/vb-ultra.webp" alt="Topics boxes view, Ultra version" width="1300" height="996" loading="lazy">
+            <span class="vl-wipe" aria-hidden="true"></span>
+            <span class="vl-mk" aria-hidden="true" data-v="0" style="--x:2.4%;--y:53.6%;--w:9.4%;--h:7.6%"><em>Score as the headline</em></span>
+            <span class="vl-mk" aria-hidden="true" data-v="0" style="--x:25.4%;--y:42%;--w:7.4%;--h:7.6%"></span>
+            <span class="vl-mk" aria-hidden="true" data-v="0" style="--x:43.2%;--y:42%;--w:7.4%;--h:7.6%"></span>
+            <span class="vl-mk" aria-hidden="true" data-v="1" style="--x:16.6%;--y:9.6%;--w:46.6%;--h:4.6%"><em>The score, defined</em></span>
+            <span class="vl-mk b" aria-hidden="true" data-v="1" style="--x:.6%;--y:15.6%;--w:98.4%;--h:12.6%"><em>Summary row</em></span>
+            <span class="vl-mk" aria-hidden="true" data-v="2" style="--x:50.2%;--y:15.6%;--w:23.8%;--h:12.6%"><em>Most to gain</em></span>
+            <span class="vl-mk b r" aria-hidden="true" data-v="2" style="--x:66%;--y:37.4%;--w:23.6%;--h:3.9%"><em>Sort by calls, score or drop</em></span>
+          </div>
+          <span class="live">Design Lab · demo data</span></div></div>
+        <div class="vl-side">
+          <div class="vl-cap">What changed</div>
+          <div class="vl-tabs" role="tablist" aria-label="Topics design versions">
+            <button type="button" role="tab" id="vl-t0" data-v="0" aria-controls="vl-panel" aria-selected="true"><span class="vl-n">01</span><span class="vl-name">Score-first</span><span class="vl-d">Strong colors, and the score as the headline number in every box.</span><i class="vl-p" aria-hidden="true"></i></button>
+            <button type="button" role="tab" id="vl-t1" data-v="1" aria-controls="vl-panel" aria-selected="false" tabindex="-1"><span class="vl-n">02</span><span class="vl-name">Refined</span><span class="vl-d">A summary row, a line that defines the score, and calmer colors.</span><i class="vl-p" aria-hidden="true"></i></button>
+            <button type="button" role="tab" id="vl-t2" data-v="2" aria-controls="vl-panel" aria-selected="false" tabindex="-1"><span class="vl-n">03</span><span class="vl-name">Ultra <span class="vl-tag">Latest</span></span><span class="vl-d">A "Most to gain" card, and daily scores you can sort by calls, lowest score or biggest drop.</span><i class="vl-p" aria-hidden="true"></i></button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1245,15 +1608,53 @@ footer .f-fine { margin-top: 22px; }
     <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; documentation</dd></div><div><dt>Coverage</dt><dd>Dark &amp; light · LTR &amp; RTL</dd></div><div><dt>Tiers</dt><dd>Foundations → Pages</dd></div><div><dt>Tooling</dt><dd>Storybook · CSS tokens</dd></div></dl>
     <figure class="rv sys-fig" style="margin-bottom:clamp(24px,3vw,40px)"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-system-b.mp4" data-poster="img/clip-system-poster-b.webp" muted loop playsinline preload="none" aria-label="The same Agent evaluation screen switching from light to dark, then from English to Hebrew, right to left, and back to light"></video></div>
       <figcaption><b>One set of tokens, every mode.</b> The same screen goes from light to dark, then to Hebrew, right to left, without a single one-off style.</figcaption></figure>
-    <div class="bento">
-      <figure class="tile t-colors rv"><span class="tier">Foundations · Color</span><img src="img/ds-colors.webp" width="1375" height="1400" alt="Color palette: Pulse Coral, Charcoal and Blue Cobalt, each with a name, a hex code, a reason for use and a full tint ramp" loading="lazy"></figure>
-      <figure class="tile t-side rv"><span class="tier">Organism · Sidebar</span><img src="img/ds-sidebar.webp" width="539" height="1400" alt="Sidebar navigation component" loading="lazy"></figure>
-      <figure class="tile t-notif rv"><span class="tier">Organism · Notifications</span><img src="img/ds-notifications.webp" width="795" height="1255" alt="Notifications popover component" loading="lazy"></figure>
-      <figure class="tile t-insight rv"><span class="tier">Organism · Insights panel</span><img src="img/ds-insights-b.webp" width="1400" height="638" alt="Insights panel component with demo metrics" loading="lazy"></figure>
-      <figure class="tile t-btn rv"><span class="tier">Atom · Button</span><img src="img/ds-buttons.webp" width="820" height="520" alt="Button variants and sizes" loading="lazy"></figure>
-      <figure class="tile t-input rv"><span class="tier">Organism · Chat input</span><img src="img/ds-chatinput.webp" width="1400" height="270" alt="Chat input with an @ mention being typed" loading="lazy"><img src="img/ds-chatbubble.webp" width="1400" height="263" alt="AI response bubble" loading="lazy" style="margin-top:14px"></figure>
+    <div class="ds-spec rv" role="group" aria-labelledby="ds-spec-t">
+      <div class="ds-spec-top">
+        <div class="ds-tag" id="ds-spec-t"><span>Foundations</span> Color tokens</div>
+        <p class="ds-spec-hint">The real palette, rendered live. Hover or tap a token.</p>
+      </div>
+      <div class="ds-spec-body">
+        <div class="ds-sw" aria-label="Color tokens">
+          <button type="button" class="sw" data-k="C" aria-pressed="true" style="--c:#FF7056"><span class="chip"></span><span class="nm">Pulse Coral</span><code>C100</code></button>
+          <button type="button" class="sw" data-k="D" aria-pressed="false" style="--c:#181818"><span class="chip"></span><span class="nm">Charcoal</span><code>D100</code></button>
+          <button type="button" class="sw" data-k="B" aria-pressed="false" style="--c:#1779F7"><span class="chip"></span><span class="nm">Blue Cobalt</span><code>B100</code></button>
+          <button type="button" class="sw" data-k="G" aria-pressed="false" style="--c:#4BA373"><span class="chip"></span><span class="nm">Growth Green</span><code>G100</code></button>
+          <button type="button" class="sw" data-k="L" aria-pressed="false" style="--c:#D799E2"><span class="chip"></span><span class="nm">Lilac Purple</span><code>L100</code></button>
+          <button type="button" class="sw" data-k="T" aria-pressed="false" style="--c:#455F61"><span class="chip"></span><span class="nm">Deep Teal</span><code>T100</code></button>
+          <button type="button" class="sw" data-k="S" aria-pressed="false" style="--c:#B09495"><span class="chip"></span><span class="nm">Sage Green</span><code>S100</code></button>
+          <button type="button" class="sw" data-k="H" aria-pressed="false" style="--c:#6E95A0"><span class="chip"></span><span class="nm">Horizon Blue</span><code>H100</code></button>
+          <button type="button" class="sw" data-k="N" aria-pressed="false" style="--c:#606060"><span class="chip"></span><span class="nm">Light Text</span><code>N100</code></button>
+          <button type="button" class="sw lt" data-k="P" aria-pressed="false" style="--c:#F4F3F1"><span class="chip"></span><span class="nm">Near White</span><code>P100</code></button>
+        </div>
+        <div class="ds-insp" aria-live="polite" style="--c:#FF7056">
+          <div class="ds-insp-fill"><span class="ds-insp-k">C</span><span class="ds-insp-hex"><b>C100</b> <span>#FF7056</span></span></div>
+          <div class="ds-insp-txt">
+            <div class="ds-insp-grp">Primary</div>
+            <h3 class="ds-insp-nm">Pulse Coral</h3>
+            <p class="ds-insp-d">The signature Hear colour: warm, human connection and innovation.</p>
+            <p class="ds-insp-u"><b>Use for</b> <span>Primary CTAs, key highlights, focus and active states, links, accent elements.</span></p>
+            <div class="ds-ramp" aria-label="Tint ramp"><i style="--s:#FF7056" data-l="C100"></i><i style="--s:#FF8D78" data-l="C80"></i><i style="--s:#FFA99A" data-l="C60"></i><i style="--s:#FFB8AB" data-l="C50"></i><i style="--s:#FFC6BB" data-l="C40"></i><i style="--s:#FFD4CC" data-l="C30"></i><i style="--s:#FFE2DD" data-l="C20"></i><i style="--s:#FFF1EE" data-l="C10"></i></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="tiers" aria-label="System structure"><span>Foundations</span><i></i><span>Atoms</span><i></i><span>Molecules</span><i></i><span>Organisms</span><i></i><span>Templates</span><i></i><span>Pages</span></div>
+    <div class="ds-bento">
+      <figure class="ds-tile k-colors rv" data-tier="foundations"><figcaption class="ds-tag"><span>Foundations</span> Color</figcaption><div class="ds-img"><img src="img/ds-colors.webp" width="1375" height="1400" alt="Color palette: Pulse Coral, Charcoal and Blue Cobalt, each with a name, a hex code, a reason for use and a full tint ramp" loading="lazy"></div></figure>
+      <figure class="ds-tile k-side rv" data-tier="organisms"><figcaption class="ds-tag"><span>Organism</span> Sidebar</figcaption><div class="ds-img"><img src="img/ds-sidebar.webp" width="539" height="1400" alt="Sidebar navigation component" loading="lazy"></div></figure>
+      <figure class="ds-tile k-notif rv" data-tier="organisms"><figcaption class="ds-tag"><span>Organism</span> Notifications</figcaption><div class="ds-img"><img src="img/ds-notifications.webp" width="795" height="1255" alt="Notifications popover component" loading="lazy"></div></figure>
+      <figure class="ds-tile k-insight rv" data-tier="organisms"><figcaption class="ds-tag"><span>Organism</span> Insights panel</figcaption><div class="ds-img"><img src="img/ds-insights-b.webp" width="1400" height="638" alt="Insights panel component with demo metrics" loading="lazy"></div></figure>
+      <figure class="ds-tile k-btn rv" data-tier="atoms"><figcaption class="ds-tag"><span>Atom</span> Button</figcaption><div class="ds-img"><img src="img/ds-buttons.webp" width="820" height="520" alt="Button variants and sizes" loading="lazy"></div></figure>
+      <figure class="ds-tile k-icons rv" data-tier="foundations"><figcaption class="ds-tag"><span>Foundations</span> Iconography</figcaption><div class="ds-img"><img src="img/ds-icons.webp" width="1400" height="1360" alt="Icon set: the Hear logo in coral and white, and sidebar navigation icons, each with its color token and component name" loading="lazy"></div></figure>
+      <figure class="ds-tile k-input rv" data-tier="organisms molecules"><figcaption class="ds-tag"><span>Organism</span> Chat input <span>Molecule</span> Chat bubble</figcaption><div class="ds-img"><img src="img/ds-chatinput.webp" width="1400" height="270" alt="Chat input with an @ mention being typed" loading="lazy"><img src="img/ds-chatbubble.webp" width="1400" height="263" alt="AI response bubble" loading="lazy"></div></figure>
+    </div>
+    <ol class="ds-ladder rv" aria-label="System structure, from tokens to full pages">
+      <li data-tier="foundations"><span class="n">01</span><b>Foundations</b><span class="ex">Color · Typography · Iconography</span></li>
+      <li data-tier="atoms"><span class="n">02</span><b>Atoms</b><span class="ex">Button · Badge · Nav item</span></li>
+      <li data-tier="molecules"><span class="n">03</span><b>Molecules</b><span class="ex">Chat bubble · Event card · Modal</span></li>
+      <li data-tier="organisms"><span class="n">04</span><b>Organisms</b><span class="ex">Sidebar · Notifications · Chat input</span></li>
+      <li data-tier="templates"><span class="n">05</span><b>Templates</b><span class="ex">App shell</span></li>
+      <li data-tier="pages"><span class="n">06</span><b>Pages</b><span class="ex">Agent evaluation · Signals · Reports</span></li>
+    </ol>
   </div>
 </section>
 
@@ -1302,15 +1703,21 @@ footer .f-fine { margin-top: 22px; }
       <p>I mapped Hear's surfaces: the product, the website and the sign-in and sign-up flows. The product map includes the admin layer: data retention, the anonymizer, 2FA, team permissions and impersonation. Pick a map, then open any area to see what lives inside it.</p>
     </div>
     <div class="ia" id="ia-app">
-      <div class="ia-tabs" role="tablist">
-        <button role="tab" data-map="product" aria-selected="true">Product</button>
-        <button role="tab" data-map="website" aria-selected="false">Website</button>
-        <button role="tab" data-map="signin" aria-selected="false">Sign in &amp; sign up</button>
-        <span class="ia-stat" id="ia-stat"></span>
+      <div class="ia-bar">
+        <div class="ia-tabs" role="tablist" aria-label="Maps">
+          <button role="tab" data-map="product" aria-selected="true">Product</button>
+          <button role="tab" data-map="website" aria-selected="false">Website</button>
+          <button role="tab" data-map="signin" aria-selected="false">Sign in &amp; sign up</button>
+        </div>
+        <span class="ia-stat" id="ia-stat" aria-live="polite"></span>
+        <label class="ia-find"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="sr">Find in the map</span><input id="ia-q" type="search" placeholder="Find a screen or feature" autocomplete="off" spellcheck="false"></label>
       </div>
       <div class="ia-board" role="tabpanel" id="ia-panel">
-        <div class="ia-root"><span id="ia-root"></span></div>
-        <div class="ia-global" id="ia-global"></div>
+        <svg class="ia-wires" aria-hidden="true"></svg>
+        <div class="ia-rootcol">
+          <div class="ia-root"><span id="ia-root"></span></div>
+          <div class="ia-global" id="ia-global"></div>
+        </div>
         <div class="ia-grid" id="ia-grid"></div>
       </div>
     </div>
@@ -1455,30 +1862,137 @@ footer .f-fine { margin-top: 22px; }
 // information architecture explorer
 (() => {
   const IA = {"product": {"label": "Product", "count": 60, "root": "Homepage", "groups": [["Dashboard", [["Chat input", "Voice input", "Get metrics", "Find solutions", "Daily report", "Chat history"]]], ["Data", [["Name", "ID", "Fields", "Search", "Add column", "Filters \u00b7 manual / AI", "Upload", "Share", "Export"], ["Call table: tags (AHT, sentiment, compliance, agent score)", "Call summary \u00b7 like / copy / edit", "Transcription \u00b7 timestamps, customer & agent turns"]]], ["Reports", [["Report list \u00b7 title, prompt, trend, last run, status", "Quick actions \u00b7 edit, retry, delete"], ["New report \u00b7 prompt, template or agentic", "Generation & revisions", "Notify by email \u00b7 permissions"]]], ["Signals", [["Signals list \u00b7 run revision, export, clone, talk, history"], ["Create signal \u00b7 name, description, items"]]], ["Alerts", [["Alert visualization \u00b7 date range, metrics", "Alert table \u00b7 totals, parameters, average, last alert, active"], ["Create alert \u00b7 name, prompt, team, apply to all calls"]]], ["Compliance", [["Playbooks \u00b7 status, severity, weekly trend, last updated", "Actions \u00b7 focus, edit"], ["Search \u00b7 results", "New report \u00b7 name, prompt, upload, permissions"]]], ["Agent Evaluation", [["Select agent \u00b7 date \u00b7 call duration", "Performance chart \u00b7 compliance score"], ["Last call metrics \u00b7 handle time, sentiment, compliance, agent score", "Brief review \u00b7 trend, efficiency, communication, professionalism"]]], ["Knowledge", [["Documents", "Upload document (PDF)"]]], ["Magic API", [["API list \u00b7 executions, actions (run, export, clone, view, talk, delete)"], ["Create \u00b7 name, context, webhooks, prompt, LLM model"]]], ["Customers", [["Customer list \u00b7 metrics, churn risk, interactions", "Customer card \u00b7 linking, pain points, last interactions"], ["Call detail \u00b7 agent, sentiment, resolution, date, link"]]], ["Settings", [["Organization \u00b7 retention, logo, members, 2FA", "Project \u00b7 language, access, metadata, teams, storage, anonymizer"], ["Teams \u00b7 members, permissions", "Profile \u00b7 agent code, API keys", "Billing \u00b7 cards", "Usage \u00b7 filters, chart"]]]], "global": ["Workspace", "Project switcher", "Theme \u00b7 dark / light", "Account", "Notifications", "Impersonate", "Log out"]}, "website": {"label": "Website", "root": "hear.ai", "groups": [["Homepage", [["Hero", "Thesis", "Product", "Customers", "Integrations", "Trust"]]], ["About us", [["Partners", "Careers"]]], ["Resources", [["Blog", "Privacy policy", "Terms & conditions", "Trust center"]]], ["Sign in", [["\u2192 Product sign-in flow"]]], ["Get a demo", [["Email", "Phone", "First & last name", "Company", "Job title", "Country", "Message", "Submit"]]]], "global": [], "count": 26}, "signin": {"label": "Sign in & sign up", "root": "Entry", "groups": [["Sign in", [["Language", "Email address", "Password", "Google OTP", "Sign in"]]], ["Forgot password", [["Email address", "Reset", "Code verification"]]], ["Sign up", [["Language", "Full name", "Email address", "Password", "Confirm password", "Create account"], ["Google SSO"]]]], "global": [], "count": 18}};
-  const grid = document.getElementById('ia-grid'), root = document.getElementById('ia-root'), glob = document.getElementById('ia-global'), stat = document.getElementById('ia-stat');
-  if (!grid) return;
-  const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-  function render(key) {
-    const m = IA[key];
+  const app = document.getElementById('ia-app'), grid = document.getElementById('ia-grid');
+  if (!app || !grid) return;
+  const board = document.getElementById('ia-panel'), root = document.getElementById('ia-root'), glob = document.getElementById('ia-global'), stat = document.getElementById('ia-stat'), q = document.getElementById('ia-q'), wires = app.querySelector('.ia-wires');
+  const tabs = [...app.querySelectorAll('.ia-tabs [role=tab]')];
+  const wide = matchMedia('(min-width: 1060px)');
+  const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const low = t => t.toLowerCase();
+  const has = (t, s) => !!s && low(t).includes(s);
+  const mark = (t, s) => { const i = s ? low(t).indexOf(s) : -1; return i < 0 ? esc(t) : esc(t.slice(0, i)) + '<mark>' + esc(t.slice(i, i + s.length)) + '</mark>' + mark(t.slice(i + s.length), s); };
+  const hitsOf = ([name, cols], s) => s ? (has(name, s) ? 1 : 0) + cols.flat().filter(x => has(x, s)).length : 0;
+  const hitsIn = (k, s) => s ? IA[k].global.filter(g => has(g, s)).length + IA[k].groups.reduce((a, g) => a + hitsOf(g, s), 0) : 0;
+  const def = k => k === 'product' ? 'Settings' : IA[k].groups[0][0];
+  let key = 'product', open = new Set([def(key)]), saved = null, query = '', drawIn = true;
+
+  const leaf = (x, s, j) => {
+    const i = x.indexOf(' · '), k = i < 0 ? x : x.slice(0, i), d = i < 0 ? '' : x.slice(i + 3);
+    const body = `<span class="k">${mark(k, s)}</span>${d ? `<span class="d">${mark(d, s)}</span>` : ''}`;
+    const go = x.charAt(0) === '→' ? `<button type="button" class="ia-jump" data-go="signin">${body}</button>` : body;
+    return `<li class="${has(x, s) ? 'hit' : ''}" style="--i:${Math.min(j, 14)}">${go}</li>`;
+  };
+
+  function render() {
+    const m = IA[key], s = query;
     root.textContent = m.root;
-    glob.innerHTML = m.global.map(g => `<span>${esc(g)}</span>`).join('');
-    glob.hidden = !m.global.length;
-    stat.textContent = `${m.groups.length} areas · ${m.count} nodes`;
-    grid.innerHTML = m.groups.map(([name, cols], i) => {
-      const n = cols.reduce((a, c) => a + c.length, 0);
-      const delay = (j) => `style="transition-delay:${Math.min(j, 14) * 35}ms"`;
+    glob.hidden = !m.global.length; glob.classList.toggle('q', !!s);
+    glob.innerHTML = m.global.length ? '<span class="ia-gl">Global</span>' + m.global.map(g => `<span class="${has(g, s) ? 'hit' : ''}">${mark(g, s)}</span>`).join('') : '';
+    let total = m.global.filter(g => has(g, s)).length, areas = 0;
+    grid.style.setProperty('--rows', m.groups.length);
+    grid.innerHTML = m.groups.map((g, i) => {
+      const [name, cols] = g, n = cols.reduce((a, c) => a + c.length, 0), h = hitsOf(g, s), on = open.has(name);
+      total += h; if (h) areas++;
       let j = 0;
-      const kids = cols.map(c => `<div class="ia-col">${c.map(x => `<span ${delay(j++)}>${esc(x)}</span>`).join('')}</div>`).join('');
-      const on = key === 'product' ? name === 'Settings' : i === 0;
-      return `<button class="ia-node${on ? ' open' : ''}" aria-expanded="${on}"><span class="h">${esc(name)}<b>${n}</b></span><div class="kids">${kids}</div></button>`;
+      const cl = cols.map(c => `<ul class="ia-cl${c.length > 5 ? ' many' : ''}">${c.map(x => leaf(x, s, j++)).join('')}</ul>`).join('');
+      return `<button type="button" class="ia-area${on ? ' open' : ''}${s && !h ? ' dim' : ''}${h ? ' match' : ''}" aria-expanded="${on}" aria-controls="ia-sub-${i}" data-name="${esc(name)}"><span class="nm">${mark(name, s)}</span>${h ? `<em class="hits" aria-label="${h} matches">${h}</em>` : ''}<span class="ct" aria-label="${n} items">${n}</span><span class="cv" aria-hidden="true"></span></button>`
+        + `<div class="ia-sub${on ? ' open' : ''}" id="ia-sub-${i}" role="region" aria-label="${esc(name)}"><div class="ia-sub-in"><div class="ia-sub-h"><b>${esc(name)}</b><span>${n} ${n === 1 ? 'item' : 'items'}</span></div><div class="ia-cls">${cl}</div></div></div>`;
     }).join('');
+    if (!s) stat.textContent = `${m.groups.length} areas · ${m.count} nodes`;
+    else if (total) stat.textContent = `${total} ${total === 1 ? 'match' : 'matches'} · ${areas ? `${areas} ${areas === 1 ? 'area' : 'areas'}` : 'Global'}`;
+    else { const other = tabs.map(t => t.dataset.map).filter(k => k !== key && hitsIn(k, s)); stat.textContent = other.length ? `No matches here · try ${IA[other[0]].label}` : 'No matches'; }
+    tabs.forEach(t => {
+      let b = t.querySelector('.ia-n');
+      if (!b) { b = document.createElement('span'); b.className = 'ia-n'; b.setAttribute('aria-hidden', 'true'); t.append(b); }
+      const n = hitsIn(t.dataset.map, s); b.textContent = n; b.hidden = !n;
+    });
+    layout();
   }
-  grid.addEventListener('click', e => { const b = e.target.closest('.ia-node'); if (!b) return; const o = !b.classList.contains('open'); b.classList.toggle('open', o); b.setAttribute('aria-expanded', o); });
-  document.querySelectorAll('.ia-tabs button').forEach(t => t.addEventListener('click', () => {
-    document.querySelectorAll('.ia-tabs button').forEach(x => x.setAttribute('aria-selected', x === t));
-    render(t.dataset.map);
+
+  // open state: one area at a time on wide screens (a detail pane), any number on small screens (an accordion)
+  function normalise() { if (wide.matches && open.size !== 1) open = new Set([[...open].pop() || def(key)]); }
+  function applyQuery() {
+    const hit = IA[key].groups.filter(g => hitsOf(g, query)).map(g => g[0]);
+    if (!hit.length) return;
+    if (wide.matches) { if (![...open].some(n => hit.includes(n))) open = new Set([hit[0]]); }
+    else open = new Set(hit);
+  }
+  function sync() {
+    normalise();
+    grid.querySelectorAll('.ia-area').forEach(b => { const on = open.has(b.dataset.name); b.classList.toggle('open', on); b.setAttribute('aria-expanded', on); b.nextElementSibling.classList.toggle('open', on); });
+    layout();
+  }
+
+  const curve = (x1, y1, x2, y2) => { const dx = Math.max(18, (x2 - x1) * .55); return `M${x1.toFixed(1)} ${y1.toFixed(1)}C${(x1 + dx).toFixed(1)} ${y1.toFixed(1)} ${(x2 - dx).toFixed(1)} ${y2.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`; };
+  function layout() {
+    const subs = grid.querySelectorAll('.ia-sub');
+    if (!wide.matches) { subs.forEach(x => x.style.transform = ''); wires.innerHTML = ''; return; }
+    const areas = [...grid.querySelectorAll('.ia-area')]; if (!areas.length) return;
+    const sub = grid.querySelector('.ia-sub.open'), btn = sub && sub.previousElementSibling;
+    if (sub) {
+      sub.style.transform = '';
+      const hd = sub.querySelector('.ia-sub-h'), last = areas[areas.length - 1];
+      const mid = btn.offsetTop + btn.offsetHeight / 2, hc = hd.offsetTop + hd.offsetHeight / 2;
+      const room = last.offsetTop + last.offsetHeight - sub.offsetTop - sub.offsetHeight;
+      const off = Math.max(0, Math.min(mid - sub.offsetTop - hc, room));
+      sub.style.transform = `translateY(${Math.round(off)}px)`;
+    }
+    const B = board.getBoundingClientRect(), r = root.getBoundingClientRect();
+    const x1 = r.right - B.left, y1 = r.top + r.height / 2 - B.top;
+    let p = '', on = '';
+    areas.forEach(a => {
+      const R = a.getBoundingClientRect(), y2 = R.top + R.height / 2 - B.top, x2 = R.left - B.left;
+      const path = `<path pathLength="1" class="${a.classList.contains('dim') ? 'dim' : a.classList.contains('match') ? 'hot' : ''}" d="${curve(x1, y1, x2, y2)}"/><circle cx="${x2}" cy="${y2}" r="2.5"/>`;
+      if (a.classList.contains('open')) on = path.replace('class="', 'class="on '); else p += path;
+    });
+    if (sub) {
+      const R = btn.getBoundingClientRect(), H = sub.querySelector('.ia-sub-h').getBoundingClientRect();
+      const ax = R.right - B.left, ay = R.top + R.height / 2 - B.top, bx = H.left - B.left, by = H.top + H.height / 2 - B.top;
+      on += `<path pathLength="1" class="on" d="${curve(ax, ay, bx, by)}"/><circle class="on" cx="${ax}" cy="${ay}" r="3.5"/><circle class="on" cx="${bx}" cy="${by}" r="3.5"/>`;
+    }
+    wires.setAttribute('viewBox', `0 0 ${B.width.toFixed(1)} ${B.height.toFixed(1)}`);
+    wires.innerHTML = p + on + `<circle class="on hub" cx="${x1}" cy="${y1}" r="4.5"/>`;
+    if (drawIn) { wires.classList.remove('draw'); void wires.getBoundingClientRect(); wires.classList.add('draw'); drawIn = false; }
+  }
+
+  grid.addEventListener('click', e => {
+    const j = e.target.closest('.ia-jump');
+    if (j) { const t = tabs.find(t => t.dataset.map === j.dataset.go); if (t) { t.click(); t.focus(); } return; }
+    const b = e.target.closest('.ia-area'); if (!b) return;
+    const n = b.dataset.name;
+    if (wide.matches) open = new Set([n]); else if (open.has(n)) open.delete(n); else open.add(n);
+    if (saved) saved = new Set(open);
+    sync();
+  });
+  grid.addEventListener('keydown', e => {
+    const b = e.target.closest('.ia-area'); if (!b) return;
+    const all = [...grid.querySelectorAll('.ia-area')], i = all.indexOf(b);
+    const k = { ArrowDown: i + 1, ArrowUp: i - 1, Home: 0, End: all.length - 1 }[e.key];
+    if (k === undefined) return;
+    e.preventDefault();
+    const n = all[(k + all.length) % all.length]; n.focus();
+    if (wide.matches) n.click();
+  });
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.setAttribute('aria-selected', x === t));
+    if (key === t.dataset.map) return;
+    key = t.dataset.map; open = new Set([def(key)]); saved = null;
+    if (query) { saved = new Set(open); applyQuery(); }
+    drawIn = true; render();
   }));
-  render('product');
+  q.addEventListener('input', () => {
+    const s = low(q.value.trim());
+    if (s && !query) saved = new Set(open);
+    query = s;
+    if (s) applyQuery(); else if (saved) { open = saved; saved = null; }
+    normalise(); render();
+  });
+  q.addEventListener('keydown', e => { if (e.key === 'Escape' && q.value) { e.preventDefault(); q.value = ''; q.dispatchEvent(new Event('input')); } });
+  wide.addEventListener('change', sync);
+  if ('ResizeObserver' in window) { let raf; new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(layout); }).observe(board); } else addEventListener('resize', layout);
+  if (document.fonts) document.fonts.ready.then(layout);
+  if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); drawIn = true; layout(); } }, { threshold: .25 }); io.observe(board); }
+  normalise(); render();
 })();
 // lightbox for stills
 document.addEventListener('click', e => {
@@ -1873,6 +2387,154 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     };
   });
   dispatchEvent(new Event('resize')); // let the r8-stack card heights re-fit with the bars in place
+})();
+
+/* system: live color tokens (values from the Hear Storybook, Foundations/Colors) and the tier ladder */
+(() => {
+  const sec = document.getElementById('system'); if (!sec) return;
+  const insp = sec.querySelector('.ds-insp'), sws = [...sec.querySelectorAll('.ds-sw .sw')];
+  if (insp && sws.length) {
+    const T = {
+      C: ['Primary', 'Pulse Coral', 'The signature Hear colour: warm, human connection and innovation.', 'Primary CTAs, key highlights, focus and active states, links, accent elements.', 'FF7056 FF8D78 FFA99A FFB8AB FFC6BB FFD4CC FFE2DD FFF1EE', '100 80 60 50 40 30 20 10'],
+      D: ['Primary', 'Charcoal', 'The deep neutral that grounds the system. Modern, confident and legible on light or colour backgrounds.', 'Primary text, icons, navigation and structural backgrounds.', '181818 464646 747474 8C8C8C A3A3A3 BABABA D1D1D1 E8E8E8', '100 80 60 50 40 30 20 10'],
+      B: ['Complementary', 'Blue Cobalt', 'A strong, trustworthy blue for interactive elements and data.', 'Links, data visualisation, focus states, component backgrounds.', '1779F7 4594F9 74AFFA 8BBCFB A2C9FC B9D7FD D1E4FD', '100 80 60 50 40 30 20'],
+      G: ['Complementary', 'Growth Green', 'A calm, natural green for positive feedback.', 'Success messages, positive metrics, growth and improvement states.', '4BA373 6FB58F 93C8AB A5D1B9 B7DAC7 C9E3D5 DBEDE3', '100 80 60 50 40 30 20'],
+      L: ['Complementary', 'Lilac Purple', 'A soft, approachable purple for highlights and decoration.', 'Highlights, onboarding moments, decorative accents, illustrations.', 'D799E2 DFADE8 E7C2EE EBCCF1 EFD6F3 F3E0F6 F7EBF9', '100 80 60 50 40 30 20'],
+      T: ['Accent', 'Deep Teal', 'A grounded, sophisticated teal for depth.', 'Backgrounds, navigation hovers, dark-mode accents and illustrations.', '455F61 6A7F81 8F9FA0 A2AFB0 B5BFC0 C7CFD0 DADFDF', '100 80 60 50 40 30 20'],
+      S: ['Accent', 'Sage Green', 'A muted, earthy tone for backgrounds and illustrations.', 'Background fills, cards, icon backgrounds and illustrations.', 'B09495 C0A9AA D0BFBF D8CACA DFD4D5 E7DFDF EFEAEA', '100 80 60 50 40 30 20'],
+      H: ['Accent', 'Horizon Blue', 'An airy, open blue-grey for secondary UI surfaces.', 'Background fills, secondary UI elements, icons and illustrations.', '6E95A0 8BAAB3 A8BFC6 B7CAD0 C5D5D9 D4DFE3 E2EAEC', '100 80 60 50 40 30 20'],
+      N: ['Neutrals', 'Light Text', 'The achromatic scale for text and UI chrome.', 'Secondary text, icons, dividers and disabled states.', '606060 7D7D7D 9B9B9B B9B9B9 D6D6D6', '100 80 60 40 20'],
+      P: ['Neutrals', 'Near White', 'Warm off-whites for backgrounds and canvas.', 'App canvas, card surfaces and page backgrounds.', 'F4F3F1 F9F9F7 FFFFFF', '100 50 20']
+    };
+    const light = h => { const n = parseInt(h, 16); return (((n >> 16) & 255) * 299 + ((n >> 8) & 255) * 587 + (n & 255) * 114) / 1000 > 160; };
+    const fill = insp.querySelector('.ds-insp-fill'), kEl = insp.querySelector('.ds-insp-k'), hexB = insp.querySelector('.ds-insp-hex b'), hexS = insp.querySelector('.ds-insp-hex span'),
+      grp = insp.querySelector('.ds-insp-grp'), nm = insp.querySelector('.ds-insp-nm'), d = insp.querySelector('.ds-insp-d'), u = insp.querySelector('.ds-insp-u span'), ramp = insp.querySelector('.ds-ramp');
+    let cur = 'C';
+    const paint = (k, i) => {
+      const t = T[k], hx = t[4].split(' '), lb = t[5].split(' '), h = hx[i];
+      insp.style.setProperty('--c', '#' + h); fill.style.setProperty('--on', light(h) ? '#1b1b1b' : '#fff');
+      hexB.textContent = k + lb[i]; hexS.textContent = '#' + h;
+      ramp.querySelectorAll('i').forEach((el, j) => el.classList.toggle('on', j === i));
+    };
+    const show = k => {
+      const t = T[k]; if (!t) return; shown = k;
+      const hx = t[4].split(' '), lb = t[5].split(' ');
+      kEl.textContent = k; grp.textContent = t[0]; nm.textContent = t[1]; d.textContent = t[2]; u.textContent = t[3];
+      ramp.innerHTML = hx.map((h, j) => `<i style="--s:#${h}" data-l="${k}${lb[j]}" title="${k}${lb[j]} #${h}"></i>`).join('');
+      ramp.querySelectorAll('i').forEach((el, j) => { el.addEventListener('mouseenter', () => paint(k, j)); el.addEventListener('click', () => paint(k, j)); });
+      paint(k, 0);
+    };
+    const pick = b => { const k = b.dataset.k; if (k === cur) return; cur = k; sws.forEach(s => s.setAttribute('aria-pressed', s === b)); show(k); };
+    sws.forEach(b => {
+      b.addEventListener('mouseenter', () => pick(b));
+      b.addEventListener('focus', () => pick(b));
+      b.addEventListener('click', () => pick(b));
+    });
+    let shown = 'C';
+    ramp.addEventListener('mouseleave', () => paint(shown, 0));
+    show('C');
+  }
+  const bento = sec.querySelector('.ds-bento'), fig = sec.querySelector('.sys-fig'), steps = [...sec.querySelectorAll('.ds-ladder li')];
+  if (bento && steps.length) {
+    const tiles = [...bento.querySelectorAll('.ds-tile')];
+    const on = t => {
+      steps.forEach(s => s.classList.toggle('on', s.dataset.tier === t));
+      if (!t) { bento.classList.remove('hl'); tiles.forEach(x => x.classList.remove('hit')); if (fig) fig.classList.remove('dim'); return; }
+      const hits = tiles.filter(x => x.dataset.tier.split(' ').includes(t));
+      bento.classList.toggle('hl', hits.length > 0 || t === 'templates' || t === 'pages');
+      tiles.forEach(x => x.classList.toggle('hit', hits.includes(x)));
+      if (fig) fig.classList.toggle('dim', !(t === 'templates' || t === 'pages'));
+    };
+    steps.forEach(s => { s.addEventListener('mouseenter', () => on(s.dataset.tier)); s.addEventListener('mouseleave', () => on(null)); });
+  }
+})();
+
+// s-lab: the Design Lab tour (progress rail + chapter chips) and the three-version stage (tabs, wipe, one guided pass)
+(() => {
+  const sec = document.getElementById('design-lab'); if (!sec) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // tour: a rail that follows the video and chips that jump to each part
+  const fig = sec.querySelector('.lab-tour'), v = fig && fig.querySelector('video');
+  if (v) {
+    const rail = fig.querySelector('.lt-rail'), chips = [...fig.querySelectorAll('.lt-chaps [data-t]')], DUR = 33.5;
+    const dur = () => (isFinite(v.duration) && v.duration > 0 ? v.duration : DUR);
+    const ticks = () => { rail.querySelectorAll('b').forEach(b => b.remove()); chips.forEach(c => { const b = document.createElement('b'); b.style.left = (c.dataset.t / dur() * 100) + '%'; rail.appendChild(b); }); };
+    let raf = 0, cur = -1;
+    const paint = () => {
+      const t = v.currentTime || 0; rail.style.setProperty('--p', Math.min(1, t / dur()));
+      let k = -1; chips.forEach((c, i) => { if (t >= +c.dataset.t) k = i; });
+      if (k !== cur) { cur = k; chips.forEach((c, i) => { c.classList.toggle('on', i === k); if (i === k) c.setAttribute('aria-current', 'step'); else c.removeAttribute('aria-current'); }); }
+    };
+    const loop = () => { paint(); raf = v.paused ? 0 : requestAnimationFrame(loop); };
+    v.addEventListener('play', () => { if (!raf) raf = requestAnimationFrame(loop); });
+    v.addEventListener('pause', () => { cancelAnimationFrame(raf); raf = 0; paint(); });
+    v.addEventListener('seeked', paint);
+    v.addEventListener('loadedmetadata', ticks);
+    chips.forEach(c => c.addEventListener('click', () => {
+      const go = () => { v.currentTime = +c.dataset.t; paint(); v.play().catch(() => {}); };
+      if (!v.src) { v.src = v.dataset.src; v.addEventListener('loadedmetadata', go, { once: true }); } else if (v.readyState >= 1) go(); else v.addEventListener('loadedmetadata', go, { once: true });
+    }));
+    ticks(); fig.classList.add('lt-on');
+  }
+
+  // versions: tabs switch one stage; a coral line wipes the new design in over the old
+  const vl = sec.querySelector('.vl'); if (!vl) return;
+  const tabs = [...vl.querySelectorAll('[role=tab]')], imgs = [...vl.querySelectorAll('.vl-imgs > img')], wipe = vl.querySelector('.vl-wipe'), panel = vl.querySelector('[role=tabpanel]');
+  let idx = 0, timer = 0, auto = !reduce, inView = false, hover = false, left = 0;
+  const DWELL = 5200;
+  const sync = () => imgs.forEach((im, i) => { const on = i === idx; im.tabIndex = on ? 0 : -1; if (on) im.removeAttribute('aria-hidden'); else im.setAttribute('aria-hidden', 'true'); });
+  const show = (n, focus) => {
+    if (n === idx) { if (focus) tabs[n].focus(); return; }
+    const prev = idx, dir = n > prev ? 'wf' : 'wb'; idx = n;
+    vl.dataset.v = n;
+    tabs.forEach((t, i) => { t.setAttribute('aria-selected', i === n); t.tabIndex = i === n ? 0 : -1; });
+    panel.setAttribute('aria-labelledby', tabs[n].id);
+    if (focus) tabs[n].focus();
+    imgs.forEach(im => im.classList.remove('on', 'was', 'wf', 'wb'));
+    imgs[n].classList.add('on');
+    if (!reduce) {
+      imgs[prev].classList.add('was'); void imgs[n].offsetWidth; imgs[n].classList.add(dir);
+      wipe.classList.remove('wf', 'wb'); void wipe.offsetWidth; wipe.classList.add(dir);
+      imgs[n].addEventListener('animationend', () => { imgs[prev].classList.remove('was'); imgs[n].classList.remove('wf', 'wb'); }, { once: true });
+    }
+    sync();
+  };
+  const stop = () => { auto = false; clearTimeout(timer); vl.classList.remove('auto', 'hold'); };
+  // one guided pass, Score-first to Ultra, while the stage is in view; it pauses on hover and ends for good on the first click
+  const arm = () => {
+    clearTimeout(timer); if (!auto) return;
+    const run = inView && !hover && !document.hidden; vl.classList.toggle('hold', !run);
+    if (!run) return;
+    const t0 = performance.now();
+    timer = setTimeout(() => { left = 0; if (idx >= tabs.length - 1) return stop(); show(idx + 1); restart(); }, left || DWELL);
+    vl._t0 = t0;
+  };
+  const pause = () => { if (!auto || !vl._t0) return; const spent = performance.now() - vl._t0; left = Math.max(300, (left || DWELL) - spent); vl._t0 = 0; clearTimeout(timer); vl.classList.add('hold'); };
+  const restart = () => { left = 0; vl.classList.remove('auto'); void vl.offsetWidth; vl.style.setProperty('--dwell', DWELL + 'ms'); vl.classList.add('auto'); arm(); };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => { stop(); show(i); });
+    t.addEventListener('keydown', e => {
+      const k = e.key, last = tabs.length - 1; let n = -1;
+      if (k === 'ArrowRight' || k === 'ArrowDown') n = i === last ? 0 : i + 1;
+      else if (k === 'ArrowLeft' || k === 'ArrowUp') n = i === 0 ? last : i - 1;
+      else if (k === 'Home') n = 0; else if (k === 'End') n = last;
+      if (n < 0) return; e.preventDefault(); stop(); show(n, true);
+    });
+  });
+  imgs.forEach(im => im.addEventListener('click', stop));
+  sync();
+  if (auto && 'IntersectionObserver' in window) {
+    const area = vl.querySelector('.vl-grid');
+    area.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { hover = true; pause(); } });
+    area.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { hover = false; if (auto) arm(); } });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); else if (auto) arm(); });
+    new IntersectionObserver(es => es.forEach(e => {
+      const was = inView; inView = e.isIntersecting;
+      if (!auto) return;
+      if (inView && !was) { if (!vl.classList.contains('auto')) restart(); else arm(); } else if (!inView) pause();
+    }), { threshold: .55 }).observe(vl.querySelector('.vl-stage'));
+  } else stop();
 })();
 
 </script>
