@@ -1764,6 +1764,10 @@ html.sheet-arcs #top { z-index: 1; overflow-x: clip; overflow-y: visible; }
 @media (prefers-reduced-motion: reduce) { #about .me-photo img { transition: none; filter: none; transform: none; } }
 
 #about .me-top:not(:has(.me-photo)) { grid-template-columns: 1fr; }
+
+/* about: once the portrait has developed into colour, a short real clip takes over: a smile and a wave, played once (again on hover) */
+#about .me-vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease; pointer-events: none; }
+#about .me-photo.vid-on .me-vid { opacity: 1; }
 </style>
 </head>
 <body>
@@ -1822,7 +1826,7 @@ html.sheet-arcs #top { z-index: 1; overflow-x: clip; overflow-y: visible; }
         <p class="quote">Boots on the ground, <span>not theory.</span></p>
         <p class="me-lead">I'm a product designer in Tel Aviv, focused on AI products. I work end to end: research, flows, interface, design system, brand and website.</p>
       </div>
-      <figure class="me-photo"><img src="img/me.webp" width="1200" height="1500" alt="Portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
+      <figure class="me-photo"><img src="img/me.webp" width="1200" height="1500" alt="Portrait of Ofir Nona" fetchpriority="high" decoding="async"><video class="me-vid" width="720" height="900" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video></figure>
     </div>
     <ol class="me-pillars">
       <li><span class="me-n">01</span><h3>End to end, alone</h3><p>Brand, product, design system, website.</p></li>
@@ -3056,7 +3060,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     v.replaceWith(img);
   });
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const all = () => [...document.querySelectorAll('video')];
+  const all = () => [...document.querySelectorAll('video:not(.me-vid)')];
   let chosen = null, pinned = null, held = null, gesture = { t: -1e9, el: null };
   const mark = e => { gesture = { t: performance.now(), el: e.target }; };
   addEventListener('pointerdown', mark, true); addEventListener('keydown', mark, true);
@@ -3098,7 +3102,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   };
   // anything else that starts a clip (the lazy loader, a card coming uncovered, the A/B window) is stopped unless it is the chosen one or the visitor asked for it
   document.addEventListener('play', e => {
-    const v = e.target; if (!(v instanceof HTMLVideoElement) || v === chosen) return;
+    const v = e.target; if (!(v instanceof HTMLVideoElement) || v === chosen || v.classList.contains('me-vid')) return;
     if (byUser(v)) { pinned = chosen = v; held = null; all().forEach(o => { if (o !== v && !o.paused) o.pause(); }); return; }
     v.pause();
   }, true);
@@ -3470,6 +3474,23 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   if (reduce.addEventListener) reduce.addEventListener('change', onReduce);
 })();
 
+
+// about: the smile-and-wave clip plays once after the portrait develops, and again when the portrait is hovered; never under reduced motion or data saver
+(() => {
+  const fig = document.querySelector('#about .me-photo'), v = fig && fig.querySelector('.me-vid'); if (!v) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.connection && navigator.connection.saveData)) { v.remove(); return; }
+  let ready = false;
+  const play = () => {
+    if (!ready) { v.preload = 'auto'; v.src = 'img/me-wave.mp4'; v.load(); ready = true; }
+    v.currentTime = 0;
+    const go = () => { fig.classList.add('vid-on'); const p = v.play(); if (p && p.catch) p.catch(() => fig.classList.remove('vid-on')); };
+    if (v.readyState >= 3) go(); else v.addEventListener('canplaythrough', go, { once: true });
+  };
+  v.addEventListener('ended', () => setTimeout(() => fig.classList.remove('vid-on'), 900));
+  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); setTimeout(play, 2000); } }, { threshold: .5 });
+  io.observe(fig);
+  fig.addEventListener('mouseenter', () => { if (v.paused && ready) play(); });
+})();
 </script>
 
 
