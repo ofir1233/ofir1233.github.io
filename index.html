@@ -500,6 +500,74 @@ footer { border-top: 0; background: linear-gradient(90deg, transparent, var(--li
 /* r4-qa: two-line tile label on phones clears its image */
 @media (max-width: 760px) { .t-notif { padding-top: 46px; } }
 
+
+/* nda: first-visit confidentiality gate. The page stays visible, blurred, behind a sheet of paper */
+html.nda-on, html.nda-on body { overflow: hidden; }
+.nda { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; background: rgba(13,13,14,.55); -webkit-backdrop-filter: blur(16px) saturate(.8); backdrop-filter: blur(16px) saturate(.8); overflow-y: auto; }
+.nda[hidden] { display: none; }
+.nda-sheet { --pink: #ff7056; position: relative; width: min(560px, 100%); margin: auto; color: #1d1d1f; background: #f5f2ec; border-radius: 18px; padding: clamp(24px, 5vw, 44px); box-shadow: 0 60px 120px -40px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.06); overflow: hidden; transform-origin: 50% 0; }
+.nda-sheet::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.nda-sheet > * { position: relative; }
+.nda-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #8a857c; }
+.nda-top b { color: var(--pink); font-weight: 500; }
+.nda h2 { margin-top: 22px; font-size: clamp(30px, 5vw, 42px); color: #141414; letter-spacing: -.03em; }
+.nda .sub { margin-top: 10px; font-size: 15.5px; color: #55524c; max-width: 44ch; }
+.nda ol { list-style: none; counter-reset: c; margin: 22px 0 0; padding: 18px 0 0; border-top: 1px solid #e2ddd3; display: grid; gap: 10px; }
+.nda li { counter-increment: c; display: grid; grid-template-columns: 26px minmax(0, 1fr); font-size: 14.5px; line-height: 1.5; color: #3a3833; }
+.nda li::before { content: counter(c, decimal-leading-zero); font: 500 11px/1.9 var(--mono); color: var(--pink); }
+.nda-field { margin-top: 22px; display: grid; gap: 6px; }
+.nda-field label, .nda-sig-head { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #8a857c; }
+.nda-field input { font: 500 18px var(--body); color: #141414; background: transparent; border: 0; border-bottom: 1.5px solid #cfc9bd; padding: 8px 0; border-radius: 0; outline: none; transition: border-color .2s; }
+.nda-field input:focus { border-color: #141414; }
+.nda-sig { margin-top: 20px; }
+.nda-sig-head { display: flex; justify-content: space-between; align-items: center; }
+.nda-sig-head button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: #55524c; background: none; border: 0; padding: 6px 0 6px 10px; cursor: pointer; }
+.nda-sig-head button:hover { color: #141414; }
+.nda-pad { position: relative; margin-top: 8px; height: 130px; border-radius: 12px; background: #fbf9f5; box-shadow: inset 0 0 0 1px #e2ddd3; touch-action: none; cursor: crosshair; }
+.nda-pad canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.nda-pad::after { content: ""; position: absolute; left: 18px; right: 18px; bottom: 30px; border-bottom: 1px dashed #cfc9bd; pointer-events: none; }
+.nda-pad .hint { position: absolute; left: 18px; bottom: 36px; font-size: 13px; color: #a7a196; pointer-events: none; transition: opacity .3s; }
+.nda-pad.inked .hint { opacity: 0; }
+.nda-pad:focus-visible { outline: 2px solid #141414; outline-offset: 3px; }
+.nda-agree { margin-top: 18px; display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #3a3833; cursor: pointer; }
+.nda-agree input { appearance: none; flex: none; width: 20px; height: 20px; margin-top: 1px; border-radius: 6px; border: 1.5px solid #b9b2a5; background: #fff; display: grid; place-items: center; cursor: pointer; transition: background .2s, border-color .2s; }
+.nda-agree input::after { content: ""; width: 10px; height: 6px; border: 2px solid #fff; border-top: 0; border-right: 0; transform: rotate(-45deg) translate(1px, -1px) scale(0); transition: transform .2s cubic-bezier(.3,1.6,.5,1); }
+.nda-agree input:checked { background: #141414; border-color: #141414; }
+.nda-agree input:checked::after { transform: rotate(-45deg) translate(1px, -1px) scale(1); }
+.nda-foot { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
+.nda-foot .date { font: 500 12px var(--mono); color: #8a857c; }
+.nda-go { display: inline-flex; align-items: center; gap: 10px; padding: 15px 24px; border: 0; border-radius: 99px; font: 600 15px var(--body); color: #fff; background: #141414; cursor: pointer; transition: background .25s, transform .25s, opacity .25s; }
+.nda-go:not(:disabled):hover { background: var(--pink); color: #160805; transform: translateY(-2px); }
+.nda-go:disabled { opacity: .35; cursor: not-allowed; }
+.nda-go:focus-visible { outline: 2px solid #141414; outline-offset: 3px; }
+.nda-help { margin-top: 18px; font-size: 12.5px; color: #8a857c; }
+.nda-help a { color: #55524c; }
+.nda-stamp { position: absolute; right: 16px; top: 22px; background: rgba(251,249,245,.6); padding: 10px 16px; border: 3px solid var(--pink); border-radius: 10px; color: var(--pink); font: 700 22px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; transform: rotate(-12deg) scale(1.8); opacity: 0; pointer-events: none; mix-blend-mode: multiply; }
+.nda-stamp small { display: block; margin-top: 4px; font: 500 10px var(--mono); letter-spacing: .08em; }
+@media (prefers-reduced-motion: no-preference) {
+  .nda.in .nda-sheet { animation: ndaIn .9s cubic-bezier(.2,.8,.2,1) both; }
+  .nda.in .nda-sheet > * { animation: ndaRise .7s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(.15s + var(--d, 0) * 60ms); }
+  @keyframes ndaIn { from { transform: translateY(60px) rotateX(8deg); opacity: 0; } }
+  @keyframes ndaRise { from { transform: translateY(14px); opacity: 0; } }
+  .nda.signed .nda-stamp { animation: stamp .45s cubic-bezier(.3,1.5,.5,1) forwards; }
+  @keyframes stamp { to { transform: rotate(-12deg) scale(1); opacity: .92; } }
+  .nda.leave { animation: ndaFade .7s ease .15s forwards; }
+  .nda.leave .nda-sheet { animation: ndaOut .8s cubic-bezier(.6,0,.3,1) forwards; }
+  @keyframes ndaOut { to { transform: translateY(-110%) rotateX(24deg) scale(.9); opacity: 0; } }
+  @keyframes ndaFade { to { opacity: 0; -webkit-backdrop-filter: blur(0); backdrop-filter: blur(0); } }
+}
+@media (prefers-reduced-motion: reduce) { .nda.signed .nda-stamp { opacity: .92; transform: rotate(-12deg); } }
+@media (max-width: 520px) { .nda { padding: 10px; align-items: end; } .nda-sheet { border-radius: 18px; } .nda-pad { height: 120px; } .nda-go { flex: 1 1 100%; justify-content: center; } }
+
+/* brand & web: two site directions */
+.ext-row { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+.site-dirs { display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 14px; border: 1px solid var(--line); border-radius: 99px; background: var(--ink-2); }
+.site-dirs button { font: 500 14px var(--body); color: var(--mute); background: none; border: 0; border-radius: 99px; padding: 9px 16px; cursor: pointer; transition: background .25s, color .25s; }
+.site-dirs button span { margin-left: 6px; font: 500 11px var(--mono); letter-spacing: .04em; opacity: .7; }
+.site-dirs button[aria-selected="true"] { background: var(--paper); color: #141414; }
+.site-dirs button:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+.site-fig .shot { transition: background .4s; }
+@media (max-width: 520px) { .site-dirs button span { display: none; } }
 </style>
 </head>
 <body>
@@ -529,6 +597,8 @@ footer { border-top: 0; background: linear-gradient(90deg, transparent, var(--li
   <svg data-i="play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path class="fill pulse" d="M10.5 9.5v5l4-2.5z"/></svg>
   <svg data-i="system" viewBox="0 0 24 24"><circle class="fill blink1" cx="6" cy="6" r="2.5"/><rect class="blink2" x="13.5" y="3.5" width="7" height="5" rx="1.5"/><rect class="blink3" x="3.5" y="13.5" width="7" height="7" rx="2"/><path class="spin" d="M17 13.5v7M13.5 17h7"/></svg>
 </template>
+
+
 
 <a class="skip" href="#main">Skip to content</a>
 <nav class="nav" aria-label="Main">
@@ -672,9 +742,9 @@ footer { border-top: 0; background: linear-gradient(90deg, transparent, var(--li
         <div class="why"><b>Design choice:</b> one set of data, three surfaces, each for a different person at a different moment.</div>
       </div>
       <div class="media">
-        <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-news-c.mp4" data-poster="img/clip-news-poster-c.webp" muted loop playsinline preload="none" aria-label="Newsroom: the live ticker and the spike story, the monthly recap played as a story, then the feed filtered to one source"></video></div><figcaption><b>Newsroom</b> · the month plays back as a 75-second story, and each source filters the feed down to what it found</figcaption></figure>
+        <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-news-c-b.mp4" data-poster="img/clip-news-poster-c.webp" muted loop playsinline preload="none" aria-label="Newsroom: the live ticker and the spike story, the monthly recap played as a story, then the feed filtered to one source"></video></div><figcaption><b>Newsroom</b> · the month plays back as a 75-second story, and each source filters the feed down to what it found</figcaption></figure>
         <div class="pair">
-          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-data-c.mp4" data-poster="img/clip-data-poster-c.webp" muted loop playsinline preload="none" aria-label="Data table: an AI filter from a plain-language request, a call opened in the side panel, then Ask AI about that call"></video></div><figcaption><b>Data</b> · describe the calls you want and the AI builds the filter, then open any call and ask about it</figcaption></figure>
+          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-data-c-b.mp4" data-poster="img/clip-data-poster-c-b.webp" muted loop playsinline preload="none" aria-label="Data table: an AI filter from a plain-language request, a call opened in the side panel, then Ask AI about that call"></video></div><figcaption><b>Data</b> · describe the calls you want and the AI builds the filter, then open any call and ask about it</figcaption></figure>
           <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-signals-c.mp4" data-poster="img/clip-signals-poster-c.webp" muted loop playsinline preload="none" aria-label="Turning a signal on, then creating a new one: name, folder, description and a field to extract"></video></div><figcaption><b>Signals</b> · switch one on, or build a new one: what to detect, and the fields to pull from every call</figcaption></figure>
         </div>
       </div>
@@ -729,11 +799,16 @@ footer { border-top: 0; background: linear-gradient(90deg, transparent, var(--li
         <h2>hear.ai, the story outside the product</h2>
       </div>
       <div><p>I designed Hear's brand from zero. The new marketing site puts it in motion: a thesis that reveals itself as you scroll, a globe where nothing goes unheard, and a clear line from problem to platform.</p>
-        <a class="ext" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Open the new site (preview) ↗</a></div>
+        <div class="ext-row"><a class="ext" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Direction A (preview) ↗</a><a class="ext" href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Direction B (preview) ↗</a></div></div>
     </div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; build</dd></div><div><dt>Scope</dt><dd>Marketing site</dd></div><div><dt>Motion</dt><dd>Scroll-driven</dd></div><div><dt>Status</dt><dd>New site, in preview</dd></div></dl>
-    <figure class="rv"><div class="shot win" style="background:#000"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">New site preview · full scroll</span><video width="1280" height="800" data-src="img/site-scroll-b.mp4" data-poster="img/site-scroll-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the new Hear homepage (preview) from top to bottom"></video></div>
-      <figcaption><b>The whole homepage, top to bottom.</b> Hero, scroll-revealed thesis, the globe, product sections and the integrations wall.</figcaption></figure>
+    <div class="site-dirs rv" role="tablist" aria-label="Site direction">
+      <button role="tab" aria-selected="true" data-dir="a">Direction A <span>Dark, cinematic</span></button>
+      <button role="tab" aria-selected="false" data-dir="b">Direction B <span>Cream and ink</span></button>
+    </div>
+    <figure class="rv site-fig"><div class="shot win" style="background:#000"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Site preview · full scroll</span><video width="1280" height="800" data-src="img/site-scroll-b.mp4" data-poster="img/site-scroll-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Hear homepage, direction A, from top to bottom"></video></div>
+      <figcaption data-dir="a"><b>Direction A, top to bottom.</b> Hero, scroll-revealed thesis, the globe, product sections and the integrations wall.</figcaption>
+      <figcaption data-dir="b" hidden><b>Direction B, top to bottom.</b> The same story on cream and ink: a card for every role, AI agents held to one standard, customer stories, a dial that walks from learning to acting, and security built in.</figcaption></figure>
     <div class="offscreen rv">
       <div class="off-head">
         <div class="label">Off the screen · <b>one brand, everywhere it shows up</b></div>
@@ -1034,6 +1109,60 @@ document.addEventListener('click', e => {
 document.querySelectorAll('.br-item[aria-hidden] img').forEach(i => { i.tabIndex = -1; i.removeAttribute('role'); });
 
 document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.target.matches('img:focus-visible')) e.target.scrollIntoView({ block: 'nearest', inline: 'center' }); });
+
+// nda: first-visit confidentiality gate. Kept on this device only, so returning visitors go straight in
+(() => {
+  const gate = document.getElementById('nda'); if (!gate) return;
+  const KEY = 'ofir-nda-v1';
+  let saved = null; try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+  if (saved && saved.name) return;
+  const $ = id => document.getElementById(id);
+  const form = $('nda-form'), name = $('nda-name'), pad = $('nda-pad'), cv = $('nda-canvas'), ok = $('nda-ok'), go = $('nda-go');
+  const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  $('nda-date').textContent = today; $('nda-stamp-date').textContent = today;
+  document.documentElement.classList.add('nda-on'); gate.hidden = false; requestAnimationFrame(() => gate.classList.add('in'));
+  const ctx = cv.getContext('2d'); let inked = false, drawing = false, last = null, typed = false;
+  const fit = () => { const r = pad.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); const img = inked ? cv.toDataURL() : null; cv.width = r.width * d; cv.height = r.height * d; ctx.setTransform(d, 0, 0, d, 0, 0); ctx.lineCap = ctx.lineJoin = 'round'; ctx.strokeStyle = '#1d1d1f'; if (img) { const i = new Image(); i.onload = () => ctx.drawImage(i, 0, 0, r.width, r.height); i.src = img; } };
+  fit(); addEventListener('resize', fit);
+  const check = () => { go.disabled = !(name.value.trim().length > 1 && inked && ok.checked); };
+  const pt = e => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top, t: performance.now() }; };
+  pad.addEventListener('pointerdown', e => { if (typed) clear(); drawing = true; last = pt(e); pad.setPointerCapture(e.pointerId); e.preventDefault(); });
+  pad.addEventListener('pointermove', e => { if (!drawing) return; const p = pt(e), v = Math.hypot(p.x - last.x, p.y - last.y) / Math.max(1, p.t - last.t);
+    ctx.lineWidth = Math.max(1.2, 3.2 - v * 1.4); ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke(); last = p;
+    if (!inked) { inked = true; pad.classList.add('inked'); check(); } });
+  const up = () => { drawing = false; }; pad.addEventListener('pointerup', up); pad.addEventListener('pointercancel', up);
+  const clear = () => { const r = pad.getBoundingClientRect(); ctx.clearRect(0, 0, r.width, r.height); inked = typed = false; pad.classList.remove('inked'); check(); };
+  const typeSig = () => { const n = name.value.trim(); if (!n) { name.focus(); return; } clear(); const r = pad.getBoundingClientRect();
+    ctx.fillStyle = '#1d1d1f'; ctx.font = `italic 38px "Segoe Script", "Snell Roundhand", "Brush Script MT", cursive`; ctx.textBaseline = 'alphabetic';
+    ctx.fillText(n, 20, r.height - 38, r.width - 40); inked = typed = true; pad.classList.add('inked'); check(); };
+  $('nda-clear').addEventListener('click', clear); $('nda-type').addEventListener('click', typeSig);
+  pad.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); typeSig(); } });
+  name.addEventListener('input', () => { if (typed) typeSig(); check(); }); ok.addEventListener('change', check);
+  // keep focus inside the sheet while it is open
+  gate.addEventListener('keydown', e => { if (e.key !== 'Tab') return; const f = [...form.querySelectorAll('input, button:not(:disabled), [tabindex="0"], a[href]')]; const a = f[0], z = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); } else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); } });
+  setTimeout(() => name.focus({ preventScroll: true }), 500);
+  form.addEventListener('submit', e => { e.preventDefault(); if (go.disabled) return;
+    try { localStorage.setItem(KEY, JSON.stringify({ name: name.value.trim(), date: new Date().toISOString(), sig: cv.toDataURL('image/png') })); } catch (err) {}
+    go.disabled = true; gate.classList.add('signed');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setTimeout(() => { gate.classList.add('leave'); }, reduce ? 300 : 900);
+    setTimeout(() => { gate.remove(); document.documentElement.classList.remove('nda-on'); }, reduce ? 400 : 1750); });
+})();
+
+// brand & web: switch the full-scroll video between the two site directions
+(() => {
+  const tabs = document.querySelectorAll('.site-dirs [data-dir]'), fig = document.querySelector('.site-fig'); if (!fig) return;
+  const v = fig.querySelector('video'), shot = fig.querySelector('.shot');
+  const SRC = { a: ['img/site-scroll-b.mp4', 'img/site-scroll-poster.webp', '#000', 'direction A'], b: ['img/site-scroll-v2.mp4', 'img/site-scroll-v2-poster.webp', '#f1eee7', 'direction B'] };
+  tabs.forEach(t => t.addEventListener('click', () => {
+    const d = t.dataset.dir, [src, poster, bg, name] = SRC[d];
+    tabs.forEach(x => x.setAttribute('aria-selected', x === t));
+    fig.querySelectorAll('figcaption').forEach(c => { c.hidden = c.dataset.dir !== d; });
+    shot.style.background = bg; v.dataset.src = src; v.poster = poster; v.setAttribute('aria-label', `Scrolling the Hear homepage, ${name}, from top to bottom`);
+    v.src = src; v.play().catch(() => {});
+  }));
+})();
 </script>
 
 
