@@ -1747,6 +1747,21 @@ html.sheet-arcs #contact { overflow-y: visible; }
 @media (max-width: 860px) { #system .dw-pause { grid-row: auto; grid-column: 1; } }
 
 .cs-more.cs-head { margin: 0; }
+
+/* about opens the page: name, line and portrait first, the Hear work hero arches up under it */
+#about { margin-top: 0; z-index: 0; border-radius: 0; padding-top: calc(64px + clamp(36px, 7vh, 88px)); }
+html.sheet-arcs #top { z-index: 1; overflow-x: clip; overflow-y: visible; }
+#about .me-top { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; }
+#about .me-name { margin-top: 18px; font-size: clamp(56px, 8.4vw, 136px); line-height: .9; letter-spacing: -.055em; color: var(--ink-t); white-space: nowrap; }
+#about .me-name span { color: var(--coral-ink, #b0381f); }
+#about .me-intro .quote { margin-top: clamp(16px, 2.4vh, 26px); font-size: clamp(26px, 2.9vw, 44px); }
+#about .me-lead { margin-top: 20px; max-width: 46ch; font-size: 17px; line-height: 1.6; }
+#about .me-photo { position: relative; margin: 0; justify-self: end; width: 100%; max-width: 430px; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: #111; box-shadow: 0 0 0 1px rgba(27,27,27,.08), 0 50px 90px -50px rgba(27,27,27,.7); }
+#about .me-photo img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.06); transform: scale(1.04); transition: filter 1.6s ease .3s, transform 2.4s cubic-bezier(.2,.7,.2,1) .2s; }
+#about.seen .me-photo img, #about .me-photo:hover img { filter: none; transform: none; }
+#about .me-photo::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); pointer-events: none; }
+@media (max-width: 860px) { #about .me-top { grid-template-columns: 1fr; } #about .me-photo { justify-self: start; max-width: 360px; margin-top: 8px; } #about .me-name { font-size: clamp(54px, 16vw, 84px); } }
+@media (prefers-reduced-motion: reduce) { #about .me-photo img { transition: none; filter: none; transform: none; } }
 </style>
 </head>
 <body>
@@ -1782,7 +1797,7 @@ html.sheet-arcs #contact { overflow-y: visible; }
 <a class="skip" href="#main">Skip to content</a>
 <nav class="nav" aria-label="Main">
   <div class="wrap">
-    <a class="brand" href="#top">Ofir Nona<span>.</span></a>
+    <a class="brand" href="#about">Ofir Nona<span>.</span></a>
     <ul>
       <li><a href="#design-lab">Work</a></li>
       <li><a href="#product">Product</a></li>
@@ -1796,6 +1811,32 @@ html.sheet-arcs #contact { overflow-y: visible; }
 </nav>
 
 <main id="main">
+<section id="about" aria-labelledby="about-h">
+  <div class="wrap">
+    <div class="me-top">
+      <div class="me-intro">
+        <div class="label">About · <b>Who I am</b></div>
+        <h2 class="me-name" id="about-h">Ofir Nona<span aria-hidden="true">.</span></h2>
+        <p class="quote">Boots on the ground, <span>not theory.</span></p>
+        <p class="me-lead">I'm a product designer in Tel Aviv, focused on AI products. I work end to end: research, flows, interface, design system, brand and website.</p>
+      </div>
+      <figure class="me-photo"><img src="img/me.webp" width="1200" height="1500" alt="Portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
+    </div>
+    <ol class="me-pillars">
+      <li><span class="me-n">01</span><h3>End to end, alone</h3><p>Brand, product, design system, website.</p></li>
+      <li><span class="me-n">02</span><h3>Product, not just pixels</h3><p>Research, testing and flows, with PMs and developers.</p></li>
+      <li><span class="me-n">03</span><h3>Data and AI that people trust</h3><p>Every AI score leads back to its calls.</p></li>
+    </ol>
+    <a class="me-path" href="#path" aria-label="Experience, see the full timeline">
+      <span class="me-path-l">Experience</span>
+      <span class="me-job"><b>Hear</b><i>2023 · now</i></span>
+      <span class="me-job"><b>Tap Mobile</b><i>2022 · 2023</i></span>
+      <span class="me-job"><b>Qualish</b><i>2020</i></span>
+      <span class="me-job"><b>VPlanSolutions</b><i>2020</i></span>
+      <span class="me-go" aria-hidden="true">↓</span>
+    </a>
+  </div>
+</section>
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div class="hero-copy">
@@ -1828,31 +1869,6 @@ html.sheet-arcs #contact { overflow-y: visible; }
   </div></div>
 </header>
 
-<section id="about">
-  <div class="wrap">
-    <div class="me-top">
-      <p class="quote">Boots on the ground, <span>not theory.</span></p>
-      <div class="me-intro">
-        <div class="label" style="margin-bottom:16px">About · <b>Who I am</b></div>
-        <p>I'm Ofir, a product designer in Tel Aviv, focused on AI products. I work end to end: research, flows, interface, design system, brand and website.</p>
-        
-      </div>
-    </div>
-    <ol class="me-pillars">
-      <li><span class="me-n">01</span><h3>End to end, alone</h3><p>Brand, product, design system, website.</p></li>
-      <li><span class="me-n">02</span><h3>Product, not just pixels</h3><p>Research, testing and flows, with PMs and developers.</p></li>
-      <li><span class="me-n">03</span><h3>Data and AI that people trust</h3><p>Every AI score leads back to its calls.</p></li>
-    </ol>
-    <a class="me-path" href="#path" aria-label="Experience, see the full timeline">
-      <span class="me-path-l">Experience</span>
-      <span class="me-job"><b>Hear</b><i>2023 · now</i></span>
-      <span class="me-job"><b>Tap Mobile</b><i>2022 · 2023</i></span>
-      <span class="me-job"><b>Qualish</b><i>2020</i></span>
-      <span class="me-job"><b>VPlanSolutions</b><i>2020</i></span>
-      <span class="me-go" aria-hidden="true">↓</span>
-    </a>
-  </div>
-</section>
 
 <!-- ============================================================ HOW I WORK · AI-FIRST -->
 <section id="code" aria-labelledby="code-h">
@@ -2246,12 +2262,12 @@ html.sheet-arcs #contact { overflow-y: visible; }
 
 <footer><div class="wrap">
   <div class="f-top">
-    <div class="f-id"><a class="brand" href="#top">Ofir Nona<span>.</span></a><p class="f-line">Product designer in Tel Aviv, focused on AI products.</p></div>
+    <div class="f-id"><a class="brand" href="#about">Ofir Nona<span>.</span></a><p class="f-line">Product designer in Tel Aviv, focused on AI products.</p></div>
     <ul class="f-links">
       <li><a href="mailto:ofirnona123@gmail.com">Email</a></li>
       <li><a href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a></li>
       <li><a href="ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></li>
-      <li><a class="f-top-link" href="#top">Back to top <span aria-hidden="true">↑</span></a></li>
+      <li><a class="f-top-link" href="#about">Back to top <span aria-hidden="true">↑</span></a></li>
     </ul>
   </div>
   <p class="f-fine">© 2026 Ofir Nona. Product screens are shown in Hear Design Lab, a working replica of the product, with demo data for confidentiality.</p>
@@ -3363,8 +3379,8 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
 
 /* bend: elastic arched sheet tops. One rAF spring driven by smoothed scroll velocity: scrolling deepens the dome, stopping lets it spring back to a gentle curve. Only sheets near the viewport are redrawn; the loop sleeps when settled. */
 (function () {
-  var ids = ['about', 'code', 'design-lab', 'system', 'web', 'fyi', 'ia', 'process', 'path', 'contact'];
-  var fills = { about: 'c', code: '#0d0d0e', 'design-lab': '#19191c', system: 'c', web: '#0d0d0e', fyi: 'c', ia: '#0d0d0e', process: 'c', path: '#0d0d0e', contact: '#0d0d0e' };
+  var ids = ['top', 'code', 'design-lab', 'system', 'web', 'fyi', 'ia', 'process', 'path', 'contact'];
+  var fills = { top: '#0d0d0e', code: '#0d0d0e', 'design-lab': '#19191c', system: 'c', web: '#0d0d0e', fyi: 'c', ia: '#0d0d0e', process: 'c', path: '#0d0d0e', contact: '#0d0d0e' };
   var NS = 'http://www.w3.org/2000/svg', H = 176; /* H is a multiple of the 22px dot grid so the cream dots continue into the dome */
   var sheets = [];
   ids.forEach(function (id) {
