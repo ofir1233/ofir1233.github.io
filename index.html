@@ -672,6 +672,25 @@ footer { background: var(--ink); }
 }
 @media (max-width: 520px) { .phase, .phase:hover { padding: 18px 14px 20px; } }
 
+/* r6-qa: nav never wraps; a tighter pill between the phone breakpoint and ~840px, where the full list used to break onto two lines */
+.nav .wrap, .nav ul a { white-space: nowrap; }
+@media (min-width: 761px) and (max-width: 840px) {
+  .nav .wrap { padding-left: 16px; gap: 4px; }
+  .brand { margin-right: 2px; }
+  .nav ul a { padding: 0 9px; }
+  .nav ul a::before { left: 9px; right: 9px; }
+  .nav ul li:last-child { margin-left: 2px; }
+}
+/* r6-qa: contact glow sized to fade out inside the sheet, so it no longer ends in a hard edge above the footer */
+.contact::after { right: -6%; bottom: 0; width: min(64vw, 760px); }
+/* r6-qa: small coral and grey mono text on cream reaches 4.5:1 */
+#process .label b, #about .label b, .phase .n, .phase:hover .n, .phase:focus-within .n { color: #b0381f; }
+.phase .n::after { color: rgba(27,27,27,.6); }
+.site-dirs button span { opacity: 1; }
+/* r6-qa: the two in-section kickers use the same boxed tag as the section heads */
+.versions > .label, .off-head .label { display: block; width: fit-content; padding: 5px 10px 4px; border-radius: 6px; background: rgba(242,239,231,.07); color: rgba(242,239,231,.62); font-size: 11.5px; line-height: 1.4; letter-spacing: .04em; text-transform: none; }
+
+
 </style>
 </head>
 <body>
