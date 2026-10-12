@@ -1471,6 +1471,33 @@ footer .f-fine { margin-top: 22px; }
 #about .me-job i { font: normal 500 12px/1 var(--mono); opacity: .65; }
 #about .me-go { margin-left: auto; color: var(--coral); font-size: 18px; }
 @media (max-width: 860px) { #about .me-top, #about .me-pillars { grid-template-columns: 1fr; } #about .me-pillars li + li { padding-left: 0; border-left: 0; border-top: 1px solid rgba(127,127,127,.28); } #about .me-go { display: none; } }
+/* calm: one quiet page. No decorative loops, no scroll-scrubbed scale, one video at a time (see the calm script). Hover states, the one-time fade-in, the stacked product cards and the user-driven dials and tabs stay */
+/* hero: glow, floating cards and the meridian globe hold still (the globe freezes mid-turn so it still reads as a globe) */
+.hero::before, .contact::after, .card.c1, .card.c2, .card.c3 { animation: none !important; }
+.arcs ellipse { animation-play-state: paused !important; }
+/* the word strip under the hero is a still line */
+.marquee .track { animation: none !important; }
+/* brand filmstrip: a still row you swipe or scroll, no auto-scroll and no duplicated loop copies */
+.br-track { animation: none !important; padding-inline: clamp(16px, 4vw, 40px); }
+.br-strip { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-inline: clamp(16px, 4vw, 40px); }
+.br-strip::-webkit-scrollbar { display: none; }
+.br-item { scroll-snap-align: start; }
+.br-item[aria-hidden] { display: none; }
+/* status dots and the contact orbit stop pulsing */
+.shot .live::before, .job .dot::after, #path .timeline.sl .job:has(.when b).lit .dot::after, #contact .end-orbit .ripple, #contact .end-orbit .core, #contact .end-orbit { animation: none !important; }
+/* icons are still drawings; the strokes draw once when their card is hovered */
+.ico.anim * { animation: none !important; }
+.ico.anim .draw { stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  :hover > .ico.anim .draw, .ico.anim:hover .draw { animation: draw 1s cubic-bezier(.3,.7,.2,1) 1 both !important; }
+}
+/* headlines are just there: no word-by-word mask */
+.hw .w > span { transform: none !important; transition: none !important; }
+/* no scroll-driven zoom on windows and footage, no drifting numerals, no scale or dim pulse on the product stack */
+.shot.win, .shot.win > video, .bignum, #product.r8-stack .spot, #product.r8-stack .spot::after { animation: none !important; }
+/* fyi: the phone fan rests open */
+.fyi-fan { --s: 1 !important; --k: 0 !important; }
+
 </style>
 </head>
 <body>
@@ -1511,7 +1538,7 @@ footer .f-fine { margin-top: 22px; }
       <li><a href="#design-lab">Work</a></li>
       <li><a href="#product">Product</a></li>
       <li><a href="#system">Design system</a></li>
-      <li><a href="#web">Brand &amp; web</a></li>
+      <li><a href="#web">Branding</a></li>
       <li><a href="#ia">IA</a></li>
       <li><a href="#path">Experience</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -1525,7 +1552,7 @@ footer .f-fine { margin-top: 22px; }
     <div class="hero-copy">
       <div class="label">Senior product designer · <b>Enterprise AI</b></div>
       <h1 style="margin-top:22px">One designer.<br>A whole AI <em>product.</em></h1>
-      <p class="lede"><b>I design data-heavy enterprise tools: dashboards, monitoring and analytics.</b> Since 2023 I've been the only designer and product person at Hear, Intune's AI platform for contact centers. I designed it from zero: the brand, the product, the design system and the website. Before that, at Tap Mobile, I designed consumer mobile apps, one with 100 million downloads, where A/B tests and user behavior drove the decisions.</p>
+      <p class="lede">Since 2023 I've been the only designer and product person at Hear, an AI platform for contact centers, where I designed the brand, the product, the design system and the website. Before that I designed consumer mobile apps at Tap Mobile, one with 100 million downloads.</p>
       <div class="cta"><a class="btn" href="#design-lab">See the work <span aria-hidden="true">↓</span></a><a class="btn ghost" href="#contact">Get in touch</a></div>
     </div>
     <div class="stage" aria-hidden="true">
@@ -1542,7 +1569,7 @@ footer .f-fine { margin-top: 22px; }
     <dl class="stats">
       <div><dt class="label">Years as Hear's only designer</dt><dd><span class="count" data-to="3">3</span>+</dd></div>
       <div><dt class="label">Downloads, Tap Mobile app</dt><dd><span class="count" data-to="100">100</span><span style="font-size:.5em;letter-spacing:-.01em"> million</span></dd></div>
-      <div><dt class="label">Key screens designed in switchable versions</dt><dd><span class="count" data-to="5">5</span></dd></div>
+      <div><dt class="label">Key screens in switchable versions</dt><dd><span class="count" data-to="5">5</span></dd></div>
       <div><dt class="label">Owned end to end</dt><dd>Brand → UI</dd></div>
     </dl>
   </div>
@@ -1558,14 +1585,14 @@ footer .f-fine { margin-top: 22px; }
       <p class="quote">Boots on the ground, <span>not theory.</span></p>
       <div class="me-intro">
         <div class="label" style="margin-bottom:16px">About · <b>Who I am</b></div>
-        <p>I'm Ofir, a product designer in Tel Aviv, focused on AI products. Since 2023 I've been the only designer and product person at Hear, so I work end to end: research and flows, interface and interaction, the design system, the brand and the website.</p>
-        <p style="margin-top:16px">When the AI shift came, I didn't wait for a brief. I started the Design Lab, a working copy of Hear that I coded with Claude Code from a colleague's starting app. It's now where designs get tested and demos get made.</p>
+        <p>I'm Ofir, a product designer in Tel Aviv, focused on AI products. I work end to end: research, flows, interface, design system, brand and website.</p>
+        
       </div>
     </div>
     <ol class="me-pillars">
-      <li><span class="me-n">01</span><h3>End to end, alone</h3><p>The brand from zero, the product, the design system and the marketing site, as Hear's only designer.</p></li>
-      <li><span class="me-n">02</span><h3>Product, not just pixels</h3><p>Product definition, UX research, user testing and flows, worked out with product managers and developers.</p></li>
-      <li><span class="me-n">03</span><h3>Data and AI that people trust</h3><p>Dashboards, monitoring and analytics where every AI score leads back to the calls behind it.</p></li>
+      <li><span class="me-n">01</span><h3>End to end, alone</h3><p>Brand, product, design system, website.</p></li>
+      <li><span class="me-n">02</span><h3>Product, not just pixels</h3><p>Research, testing and flows, with PMs and developers.</p></li>
+      <li><span class="me-n">03</span><h3>Data and AI that people trust</h3><p>Every AI score leads back to its calls.</p></li>
     </ol>
     <a class="me-path" href="#path" aria-label="Experience, see the full timeline">
       <span class="me-path-l">Experience</span>
@@ -1584,26 +1611,20 @@ footer .f-fine { margin-top: 22px; }
     <span class="bignum" aria-hidden="true">01</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study 01 · <b>My initiative</b></div>
-        <h2>Hear Design Lab</h2>
+        <div class="label">Case study 01</div>
+        <h2>Design Lab</h2>
       </div>
-      <p>When AI tools arrived, I started a working replica of Hear on my own initiative, coded with Claude Code from a colleague's starting app. It runs on realistic demo data, and it's where I test designs before anything reaches development. It can also produce a demo tailored to a prospect.</p>
+      <p>A working replica of Hear that I started on my own initiative, coded with Claude Code. I test designs there before development, and it produces demos tailored to each prospect.</p>
     </div>
-    <dl class="meta rv"><div><dt>Role</dt><dd>Initiator · design, coded with Claude&nbsp;Code</dd></div><div><dt>Scope</dt><dd>Working product replica</dd></div><div><dt>Built for</dt><dd>Testing designs · prospect demos</dd></div><div><dt>Stack</dt><dd>React · Vite · Storybook</dd></div></dl>
+    <dl class="meta rv"><div><dt>Role</dt><dd>Initiator · design &amp; code</dd></div><div><dt>Stack</dt><dd>React · Vite · Storybook</dd></div></dl>
     <a class="btn ghost cs-more rv" href="work/design-lab.html">Read the full case study <span aria-hidden="true">→</span></a>
 
-    <figure class="rv lab-tour"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/demo-tour-b-r.mp4" data-poster="img/demo-tour-poster-c.webp" muted loop playsinline preload="none" aria-label="A question typed into the Lab, the answer, then Topics, Compliance and Actions"></video></div>
+    <figure class="rv lab-tour"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1920" height="1080" data-src="img/demo-tour-1080.mp4" data-poster="img/demo-tour-1080-poster.webp" muted loop playsinline preload="none" aria-label="A question typed into the Lab, the answer, then Topics, Compliance and Actions"></video></div>
       <div class="lt-rail" aria-hidden="true"><i class="lt-fill"></i></div>
-      <figcaption><span class="lt-cap"><b>The Lab in 30 seconds.</b> A question typed into the Lab's chat box, the AI's answer with a camera push-in, then the Topics, Compliance and Actions screens.</span><span class="lt-chaps" role="group" aria-label="Jump to a part of the tour"><button type="button" data-t="7"><i>01</i>Ask</button><button type="button" data-t="12"><i>02</i>Answer</button><button type="button" data-t="21"><i>03</i>Topics</button><button type="button" data-t="24"><i>04</i>Compliance</button><button type="button" data-t="27"><i>05</i>Actions</button></span></figcaption></figure>
-
-    <div class="story lab-story">
-      <div class="rv"><span class="ico anim" aria-hidden="true" data-icon="research"></span><h3>The problem</h3><p><strong>Static mockups couldn't answer the real question.</strong> How does this design behave for <em>this</em> customer, with their data, at their scale?</p></div>
-      <div class="rv"><span class="ico anim" aria-hidden="true" data-icon="lab"></span><h3>What it is</h3><p><strong>A working copy of the product, built in React.</strong> Each customer gets a demo environment, started from a form with their website, a description and files. Key screens carry alternative versions I can switch between, to compare them for different kinds of customers.</p></div>
-      <div class="rv"><span class="ico anim" aria-hidden="true" data-icon="growth"></span><h3>Why it matters</h3><p><strong>Design decisions get made in a working product, not a slide deck.</strong> Real interactions, realistic data, and one build that serves both design reviews and sales demos.</p></div>
-    </div>
+      <figcaption><span class="lt-cap"><b>The Lab in 30 seconds.</b></span><span class="lt-chaps" role="group" aria-label="Jump to a part of the tour"><button type="button" data-t="6.5"><i>01</i>Ask</button><button type="button" data-t="12"><i>02</i>Answer</button><button type="button" data-t="20"><i>03</i>Topics</button><button type="button" data-t="23.3"><i>04</i>Compliance</button><button type="button" data-t="27.5"><i>05</i>Actions</button></span></figcaption></figure>
 
     <div class="versions vl" data-v="0">
-      <div class="label" style="margin-bottom:14px">Same screen, same data · <b>three designs</b> · switchable in the Lab · demo data</div>
+      <div class="label" style="margin-bottom:14px">Same screen · <b>three designs</b> · demo data</div>
       <div class="vl-grid">
         <div class="vl-stage rv"><div class="shot win" id="vl-panel" role="tabpanel" aria-labelledby="vl-t0"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span>
           <div class="vl-imgs">
@@ -1623,9 +1644,9 @@ footer .f-fine { margin-top: 22px; }
         <div class="vl-side">
           <div class="vl-cap">What changed</div>
           <div class="vl-tabs" role="tablist" aria-label="Topics design versions">
-            <button type="button" role="tab" id="vl-t0" data-v="0" aria-controls="vl-panel" aria-selected="true"><span class="vl-n">01</span><span class="vl-name">Score-first</span><span class="vl-d">Strong colors, and the score as the headline number in every box.</span><i class="vl-p" aria-hidden="true"></i></button>
-            <button type="button" role="tab" id="vl-t1" data-v="1" aria-controls="vl-panel" aria-selected="false" tabindex="-1"><span class="vl-n">02</span><span class="vl-name">Refined</span><span class="vl-d">A summary row, a line that defines the score, and calmer colors.</span><i class="vl-p" aria-hidden="true"></i></button>
-            <button type="button" role="tab" id="vl-t2" data-v="2" aria-controls="vl-panel" aria-selected="false" tabindex="-1"><span class="vl-n">03</span><span class="vl-name">Ultra <span class="vl-tag">Latest</span></span><span class="vl-d">A "Most to gain" card, and daily scores you can sort by calls, lowest score or biggest drop.</span><i class="vl-p" aria-hidden="true"></i></button>
+            <button type="button" role="tab" id="vl-t0" data-v="0" aria-controls="vl-panel" aria-selected="true"><span class="vl-n">01</span><span class="vl-name">Score-first</span><span class="vl-d">Strong colors, score as the headline.</span><i class="vl-p" aria-hidden="true"></i></button>
+            <button type="button" role="tab" id="vl-t1" data-v="1" aria-controls="vl-panel" aria-selected="false" tabindex="-1"><span class="vl-n">02</span><span class="vl-name">Refined</span><span class="vl-d">Summary row, defined score, calmer colors.</span><i class="vl-p" aria-hidden="true"></i></button>
+            <button type="button" role="tab" id="vl-t2" data-v="2" aria-controls="vl-panel" aria-selected="false" tabindex="-1"><span class="vl-n">03</span><span class="vl-name">Ultra <span class="vl-tag">Latest</span></span><span class="vl-d">"Most to gain" card, sortable daily scores.</span><i class="vl-p" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -1639,29 +1660,27 @@ footer .f-fine { margin-top: 22px; }
     <span class="bignum" aria-hidden="true">02</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study 02 · <b>The product</b></div>
-        <h2>Thousands of calls, one clear answer</h2>
+        <div class="label">Case study 02</div>
+        <h2>Product design</h2>
       </div>
-      <p>Hear reads every call, chat and ticket between a contact center's agents and its customers. My job is to make that much data feel calm: show what matters first, explain every number, and let people act from the same screen. People have to trust and audit what the AI concludes, so every score leads back to the calls behind it.</p>
+      <p>Hear reads every call, chat and ticket in a contact center. I make that data calm and explainable: what matters comes first, and every score leads back to the calls behind it.</p>
     </div>
-    <dl class="meta rv"><div><dt>Role</dt><dd>Only designer and product person</dd></div><div><dt>Surfaces</dt><dd>Topics · Compliance · Agent&nbsp;evaluation · Actions</dd></div><div><dt>Domain</dt><dd>Contact-center AI</dd></div><div><dt>Focus</dt><dd>Explainable AI scores</dd></div></dl>
+    
 
     <article class="spot">
       <div class="txt">
-        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="topics"></span><div class="label">Topics</div></div>
-        <h3>What are customers calling about, and how is it going?</h3>
-        <ul><li>Boxes, circles and flow views</li><li>Hover breaks a score into its parameters</li><li>Sort daily scores by calls, lowest score or biggest drop</li><li>Click a parameter and the AI explains what drives it</li></ul>
-        <div class="why"><b>Design choice:</b> size shows call volume and color shows score, so problem areas stand out before anyone reads a number.</div>
+        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="topics"></span></div>
+        <h3>Topics</h3>
+        <p>What customers call about: size shows volume, color shows score.</p>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-topics-c.mp4" data-poster="img/clip-topics-poster-c.webp" muted loop playsinline preload="none" aria-label="Topics in the Ultra design: hovering tiles, sorting daily scores, circles and flow, then clicking a parameter to ask the AI what drives it"></video></div></figure></div>
     </article>
 
     <article class="spot">
       <div class="txt">
-        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="shield"></span><div class="label">Compliance</div></div>
-        <h3>Every agent, every criterion, readable at a glance</h3>
-        <p>Any cell opens a popover that places that agent against the whole team and says what the next button will do before you press it. One click on <b>Explore in Chat</b> hands that cell to the AI chat to dig deeper.</p>
-        <div class="why"><b>Design choice:</b> only problems get color. A full grid of agents and criteria stays quiet until something needs attention.</div>
+        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="shield"></span></div>
+        <h3>Compliance</h3>
+        <p>Every agent against every criterion, and only problems get color.</p>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-compliance-b.mp4" data-poster="img/clip-compliance-poster-b.webp" muted loop playsinline preload="none" aria-label="Compliance overview, the agents heatmap and a cell popover, then Explore in Chat, where the AI explains that score"></video></div></figure></div>
@@ -1669,10 +1688,9 @@ footer .f-fine { margin-top: 22px; }
 
     <article class="spot">
       <div class="txt">
-        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="eval"></span><div class="label">Agent evaluation</div></div>
-        <h3>A score is useless unless it explains itself</h3>
-        <p>See the trend, the distribution and every team on one screen, then ask the AI why a score moved.</p>
-        <div class="why"><b>Design choice:</b> answers point to the exact calls behind a score, so people can check the AI instead of just trusting it.</div>
+        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="eval"></span></div>
+        <h3>Agent evaluation</h3>
+        <p>Ask the AI why a score moved, and see the exact calls behind it.</p>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-agent-eval-c.mp4" data-poster="img/clip-agent-eval-poster-c.webp" muted loop playsinline preload="none" aria-label="Agent evaluation: zooming into a dip in the average score, then asking the AI why it dropped"></video></div></figure></div>
@@ -1680,10 +1698,9 @@ footer .f-fine { margin-top: 22px; }
 
     <article class="spot">
       <div class="txt">
-        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="kanban"></span><div class="label">Actions</div></div>
-        <h3>From insight to done</h3>
-        <p>Alerts, signals and evaluations become tasks with an owner and a priority. Inside a task the team ticks off action items, moves the status and <b>@mentions</b> a teammate, and every step lands in the activity log.</p>
-        <div class="why"><b>Design choice:</b> every task keeps its source, and closed work keeps its reason, such as duplicate or escalated, so the team learns from it.</div>
+        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="kanban"></span></div>
+        <h3>Actions</h3>
+        <p>Alerts and signals become tasks with an owner, a priority and an activity log.</p>
         <div class="cs-links"><a class="cs-link" href="work/actions.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-actions-c-b.mp4" data-poster="img/clip-actions-poster-c-b.webp" muted loop playsinline preload="none" aria-label="Actions board: filtering, opening a task, ticking an action item, moving it to In progress and @mentioning a teammate in a comment"></video></div></figure></div>
@@ -1691,32 +1708,30 @@ footer .f-fine { margin-top: 22px; }
 
     <article class="spot">
       <div class="txt">
-        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="news"></span><div class="label">Newsroom · Data · Signals</div></div>
-        <h3>The same data, told three ways</h3>
-        <p>A newsroom that tells the month as a story and flags spikes against a baseline, a dense table to dig into, and signals that fire on their own.</p>
-        <div class="why"><b>Design choice:</b> one set of data, three surfaces, each for a different person at a different moment.</div>
+        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="news"></span></div>
+        <h3>Newsroom, data &amp; signals</h3>
+        <p>One set of data: a monthly story, a dense table and signals that fire on their own.</p>
         <div class="cs-links"><a class="cs-link" href="work/newsroom.html">Newsroom case study <span aria-hidden="true">→</span></a><a class="cs-link" href="work/data.html">Data &amp; signals case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
-        <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-news-c-b.mp4" data-poster="img/clip-news-poster-c.webp" muted loop playsinline preload="none" aria-label="Newsroom: the live ticker and the spike story, the monthly recap played as a story, then the feed filtered to one source"></video></div><figcaption><b>Newsroom</b> · the month plays back as a 75-second story, and each source filters the feed down to what it found</figcaption></figure>
+        <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-news-c-b.mp4" data-poster="img/clip-news-poster-c.webp" muted loop playsinline preload="none" aria-label="Newsroom: the live ticker and the spike story, the monthly recap played as a story, then the feed filtered to one source"></video></div><figcaption><b>Newsroom</b></figcaption></figure>
         <div class="pair">
-          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-data-c-b.mp4" data-poster="img/clip-data-poster-c-b.webp" muted loop playsinline preload="none" aria-label="Data table: an AI filter from a plain-language request, a call opened in the side panel, then Ask AI about that call"></video></div><figcaption><b>Data</b> · describe the calls you want and the AI builds the filter, then open any call and ask about it</figcaption></figure>
-          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-signals-c.mp4" data-poster="img/clip-signals-poster-c.webp" muted loop playsinline preload="none" aria-label="Turning a signal on, then creating a new one: name, folder, description and a field to extract"></video></div><figcaption><b>Signals</b> · switch one on, or build a new one: what to detect, and the fields to pull from every call</figcaption></figure>
+          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-data-c-b.mp4" data-poster="img/clip-data-poster-c-b.webp" muted loop playsinline preload="none" aria-label="Data table: an AI filter from a plain-language request, a call opened in the side panel, then Ask AI about that call"></video></div><figcaption><b>Data</b></figcaption></figure>
+          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-signals-c.mp4" data-poster="img/clip-signals-poster-c.webp" muted loop playsinline preload="none" aria-label="Turning a signal on, then creating a new one: name, folder, description and a field to extract"></video></div><figcaption><b>Signals</b></figcaption></figure>
         </div>
       </div>
     </article>
 
     <article class="spot">
       <div class="txt">
-        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="play"></span><div class="label">Demos engine</div></div>
-        <h3>A demo built for every prospect</h3>
-        <p>To show a new prospect what Hear could do for <em>their</em> business, I designed a demos engine inside the Lab. It runs the product from a script: it types the prospect's questions, answers them on demo data and moves a camera across the screens, in English or Hebrew, with narration.</p>
-        <div class="why"><b>The aim:</b> no generic deck. Every demo is ready to play live in a meeting or send as a video.</div>
+        <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="play"></span></div>
+        <h3>Demos engine</h3>
+        <p>Scripted, narrated demos for each prospect, in English or Hebrew.</p>
         <div class="cs-links"><a class="cs-link" href="work/demos-engine.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
-        <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Demos engine · demo data</span><video width="1440" height="900" data-src="img/demo-showcase.mp4" data-poster="img/demo-showcase-poster.webp" muted loop playsinline preload="none" aria-label="A 30-second showcase demo played by the engine: it asks what drove escalations this week, answers by topic, then asks who handled them"></video></div><figcaption><b>A 30-second showcase</b>, played by the engine in the Lab.</figcaption></figure>
-        <figure class="rv"><div class="shot"><img src="img/demos-light-b.webp" alt="The demos library with showcase sequences" width="1600" height="1226" loading="lazy"></div><figcaption><b>The library.</b> Each card is a ready demo: play it in the Lab, or record a clean run. Design Lab, demo data.</figcaption></figure>
+        <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Demos engine · demo data</span><video width="1440" height="900" data-src="img/demo-showcase.mp4" data-poster="img/demo-showcase-poster.webp" muted loop playsinline preload="none" aria-label="A 30-second showcase demo played by the engine: it asks what drove escalations this week, answers by topic, then asks who handled them"></video></div><figcaption><b>A 30-second showcase</b></figcaption></figure>
+        <figure class="rv"><div class="shot"><img src="img/demos-light-b.webp" alt="The demos library with showcase sequences" width="1600" height="1226" loading="lazy"></div><figcaption><b>The demo library</b></figcaption></figure>
       </div>
     </article>
   </div>
@@ -1728,19 +1743,18 @@ footer .f-fine { margin-top: 22px; }
     <span class="bignum" aria-hidden="true">03</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study 03 · <b>Design system</b></div>
-        <h2>One system, every component and state</h2>
+        <div class="label">Case study 03</div>
+        <h2>Design system</h2>
       </div>
-      <p>The Design Lab's system is documented in Storybook: foundations, atoms, molecules, organisms, templates and full pages. Every component comes with all its states, and tokens carry names and reasons, not just hex codes. The same tokens and components cover dark and light, English and Hebrew, left to right and right to left.</p>
+      <p>Documented in Storybook, from foundations to full pages, with every component state. One set of tokens covers dark and light, English and Hebrew, LTR and RTL.</p>
     </div>
-    <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; documentation</dd></div><div><dt>Coverage</dt><dd>Dark &amp; light · LTR &amp; RTL</dd></div><div><dt>Tiers</dt><dd>Foundations → Pages</dd></div><div><dt>Tooling</dt><dd>Storybook · CSS tokens</dd></div></dl>
+    
     <a class="btn ghost cs-more rv" href="work/design-system.html">Read the full case study <span aria-hidden="true">→</span></a>
     <figure class="rv sys-fig" style="margin-bottom:clamp(24px,3vw,40px)"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-system-b.mp4" data-poster="img/clip-system-poster-b.webp" muted loop playsinline preload="none" aria-label="The same Agent evaluation screen switching from light to dark, then from English to Hebrew, right to left, and back to light"></video></div>
-      <figcaption><b>One set of tokens, every mode.</b> The same screen goes from light to dark, then to Hebrew, right to left, on the same tokens and components.</figcaption></figure>
+      <figcaption><b>One set of tokens, every mode.</b></figcaption></figure>
     <div class="ds-spec rv" role="group" aria-labelledby="ds-spec-t">
       <div class="ds-spec-top">
         <div class="ds-tag" id="ds-spec-t"><span>Foundations</span> Color tokens</div>
-        <p class="ds-spec-hint">The real palette, rendered live. Hover or tap a token.</p>
       </div>
       <div class="ds-spec-body">
         <div class="ds-sw" aria-label="Color tokens">
@@ -1793,24 +1807,24 @@ footer .f-fine { margin-top: 22px; }
     <span class="bignum" aria-hidden="true">04</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study 04 · <b>Brand &amp; web</b></div>
-        <h2>hear.ai, the story outside the product</h2>
+        <div class="label">Case study 04</div>
+        <h2>Branding &amp; website</h2>
       </div>
-      <div><p>I designed Hear's brand from zero. The new marketing site puts it in motion: a thesis that reveals itself as you scroll, a globe where nothing goes unheard, and a clear line from problem to platform.</p>
+      <div><p>I designed Hear's brand from zero, and its new scroll-driven marketing site, now in preview in two directions.</p>
         <div class="ext-row"><a class="ext" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Direction A (preview) ↗︎</a><a class="ext" href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Direction B (preview) ↗︎</a></div></div>
     </div>
-    <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; build</dd></div><div><dt>Scope</dt><dd>Marketing site</dd></div><div><dt>Motion</dt><dd>Scroll-driven</dd></div><div><dt>Status</dt><dd>New site, in preview</dd></div></dl>
+    <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; build</dd></div><div><dt>Scope</dt><dd>Brand · marketing site</dd></div></dl>
     <a class="btn ghost cs-more rv" href="work/brand-web.html">Read the full case study <span aria-hidden="true">→</span></a>
     <div class="web-ab">
       <figure class="rv web-dir"><div class="shot win" style="background:#000"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="web-url2">hear-public-staging.vercel.app</span></span><video width="1120" height="700" data-src="img/site-scroll-b-fast.mp4" data-poster="img/site-scroll-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Hear homepage, direction A, from top to bottom"></video></div>
-        <figcaption><span class="web-tag">A</span><b>Dark, cinematic.</b> Hero, a scroll-revealed thesis, the globe, product sections and the integrations wall. <a href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Open ↗︎</a></figcaption></figure>
+        <figcaption><span class="web-tag">A</span><b>Dark, cinematic.</b> <a href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Open ↗︎</a></figcaption></figure>
       <figure class="rv web-dir"><div class="shot win" style="background:#f1eee7"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="web-url2">hear-public-staging-v2.vercel.app</span></span><video width="1120" height="700" data-src="img/site-scroll-v2-b-fast.mp4" data-poster="img/site-scroll-v2-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Hear homepage, direction B, from top to bottom"></video></div>
-        <figcaption><span class="web-tag">B</span><b>Cream and ink.</b> A card for every role, AI agents held to one standard, customer stories, a dial from learning to acting, and security built in. <a href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Open ↗︎</a></figcaption></figure>
+        <figcaption><span class="web-tag">B</span><b>Cream and ink.</b> <a href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Open ↗︎</a></figcaption></figure>
     </div>
     <div class="offscreen rv">
       <div class="off-head">
-        <div class="label">Off the screen · <b>one brand, everywhere it shows up</b></div>
-        <p>The brand didn't stop at the product. I carried it into print, signage, merch and trade-show booths abroad, from the production spec to the stand on the floor. Whatever the business needed next, I designed it.</p>
+        <div class="label">Off the screen · <b>print, signage, merch, booths</b></div>
+        <p>From the production spec to the stand on the floor, at trade shows abroad.</p>
       </div>
       <div class="br-strip" tabindex="0" role="region" aria-label="Hear brand applications, scrolling gallery">
         <div class="br-track"><figure class="br-item"><div class="shot"><img src="img/br-booth-live-b.webp" data-full="img/br-booth-live-b-l.webp" alt="The booth as built at the show, from my design" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="Trade show booth render" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="Booth production spec with panel callouts" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="Hear sign on a building facade" width="818" height="460" loading="lazy" decoding="async"></div><span>Signage</span></figure><figure class="br-item"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="Hear printed books with dot-pattern covers" width="818" height="460" loading="lazy" decoding="async"></div><span>Print</span></figure><figure class="br-item"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="Hear tote bags" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch</span></figure><figure class="br-item"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="Hear billboard, Just growth delivered" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="Hear poster series" width="818" height="460" loading="lazy" decoding="async"></div><span>Posters</span></figure><figure class="br-item"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="Hear logo on an office lobby wall" width="818" height="460" loading="lazy" decoding="async"></div><span>Office</span></figure><figure class="br-item"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="Hear color palette" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="Hear typography" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="Hear brand graphics with product data cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="Hear brand imagery cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="Hear street-side digital sign" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-live-b.webp" data-full="img/br-booth-live-b-l.webp" alt="" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Signage</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Print</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Posters</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Office</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure></div>
@@ -1824,10 +1838,10 @@ footer .f-fine { margin-top: 22px; }
 <section id="fyi" aria-labelledby="fyi-h">
   <div class="wrap fyi-wrap">
     <div class="fyi-copy">
-      <div class="label">Bonus · <b>Before AI</b></div>
-      <h2 id="fyi-h">Before Hear, a whole iOS app, drawn by hand</h2>
-      <p>FYI, short for Focus Your Ideas, puts creative projects inside the chat: messages become tasks, an assistant joins the thread, calls share the screen. I designed it at Intune before Hear, every screen in Figma.</p>
-      <ul class="fyi-chips" aria-label="What I designed"><li>Native iOS product design</li><li>A full design system</li><li>Dozens of screens</li></ul>
+      <div class="label">Mobile app · <b>Product &amp; UI design</b></div>
+      <h2 id="fyi-h">FYI · iOS app</h2>
+      <p>FYI (Focus Your Ideas) puts creative projects inside the chat: messages become tasks and an assistant joins the thread. I designed every screen in Figma, at Intune before Hear.</p>
+      <ul class="fyi-chips" aria-label="What I designed"><li>A full design system</li><li>Dozens of screens</li></ul>
       <a class="btn ghost cs-more" href="work/fyi.html">See the FYI case study <span aria-hidden="true">→</span></a>
     </div>
     <div class="fyi-fan rv"><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-chats-t.webp" width="590" height="1279" alt="FYI chat list in dark mode: a project chat, two people and a group chat, with names and faces blurred" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-ai-assistant-t.webp" width="590" height="1279" alt="FYI AI assistant chat, with suggestions such as Design a database schema" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-chat-t.webp" width="590" height="1279" alt="FYI chat with Chat, Tasks and Project tabs, an image message, a link and replies" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-create-task-t.webp" width="590" height="1279" alt="Create task sheet with name, due date, description, assignees and status" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-call-share-t.webp" width="590" height="1279" alt="FYI video call with screen sharing and sync; the caller's photo is blurred" loading="lazy" decoding="async"></div></div></div>
@@ -1840,10 +1854,10 @@ footer .f-fine { margin-top: 22px; }
     <span class="bignum" aria-hidden="true">05</span>
     <div class="sec-head">
       <div>
-        <div class="label">Map · <b>Information architecture</b></div>
-        <h2>How Hear is organized</h2>
+        <div class="label">Case study 05</div>
+        <h2>Information architecture</h2>
       </div>
-      <p>I mapped Hear's surfaces: the product, the website and the sign-in and sign-up flows. The product map includes the admin layer: data retention, the anonymizer, 2FA, team permissions and impersonation. Pick a map, then open any area to see what lives inside it.</p>
+      <p>Maps of Hear's product (admin layer included), website and sign-in flows. Pick a map and open any area.</p>
     </div>
     <div class="ia" id="ia-app">
       <div class="ia-bar">
@@ -1872,10 +1886,10 @@ footer .f-fine { margin-top: 22px; }
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <div class="label">How I work · <b>Process</b></div>
-        <h2>One redesign, planned in eight phases</h2>
+        <div class="label">How I work</div>
+        <h2>Process</h2>
       </div>
-      <p>I planned Hear's redesign and rebrand as one program in eight phases, each with clear tasks and deliverables, from understanding the market to the workflows between design, development and marketing.</p>
+      <p>Hear's redesign and rebrand, planned as one program in eight phases.</p>
     </div>
     <ol class="phases">
       <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="research"></span><span class="n">01</span></div><h3>Research</h3><p>Market and competitors, Hear's unique value, audiences, users and personas.</p></li>
@@ -1895,17 +1909,16 @@ footer .f-fine { margin-top: 22px; }
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <div class="label">Experience · <b>2020 to now</b></div>
-        <h2>Where I've worked</h2>
+        <div class="label">2020 to now</div>
+        <h2>Experience</h2>
       </div>
-      <p>Four teams since 2020: enterprise AI at Hear, consumer scale at Tap Mobile, and client work at Qualish and VPlanSolutions, where I started.</p>
     </div>
     <ol class="timeline" id="timeline">
       <li class="rail" aria-hidden="true" role="presentation"></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2023 · <b>Now</b> · Tel Aviv</div><div class="co"><h3>Hear</h3></div><p class="role">UX/UI designer at Intune, the company behind Hear · the only designer and product person</p></div><div><p class="d">Helped take Hear from zero to a growing AI platform. Designed the brand, the product, the design system and the website, ran UX research and user testing on complex workflows, and started the Design Lab.</p><div class="chips"><span>AI · SaaS</span><span>Zero to platform</span><span>Design system</span><span>Brand from scratch</span><span>UX research</span></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2022 · 2023 · Be'er Sheva</div><div class="co"><h3>Tap Mobile</h3></div><p class="role">User experience designer</p></div><div><p class="d">Designed consumer mobile apps, one of them with 100 million downloads. Used A/B tests and funnel analytics with product managers and developers to guide UX choices, led the design of several engagement-focused apps, and took on product definition as well as design.</p><div class="chips"><span>Mobile apps</span><span>100 million downloads</span><span>A/B testing</span><span>Funnel analytics</span></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">May · Dec 2020 · Be'er Sheva</div><div class="co"><h3>Qualish</h3></div><p class="role">UX/UI designer</p></div><div><p class="d">Turned customer needs into wireframes, workflows and interactive prototypes, working with senior management.</p><div class="chips"><span>Wireframes</span><span>Prototyping</span><span>Mobile design</span><span>Logo design</span></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">Mar · Jun 2020 · Tel Aviv</div><div class="co"><h3>VPlanSolutions</h3></div><p class="role">User experience designer</p></div><div><p class="d">A short, hands-on role: I designed the logo and the website, and pitched in wherever the team needed design.</p><div class="chips"><span>Logo design</span><span>Web design</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2023 · <b>Now</b> · Tel Aviv</div><div class="co"><h3>Hear</h3></div><p class="role">UX/UI designer at Intune (Hear) · only designer and product person</p></div><div><p class="d">Helped take Hear from zero to a growing AI platform: brand, product, design system, website, UX research, and the Design Lab.</p><div class="chips"><span>AI · SaaS</span><span>Zero to platform</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2022 · 2023 · Be'er Sheva</div><div class="co"><h3>Tap Mobile</h3></div><p class="role">User experience designer</p></div><div><p class="d">Consumer mobile apps, one with 100 million downloads. A/B tests and funnel analytics guided the UX, and I took on product definition too.</p><div class="chips"><span>Mobile apps</span><span>A/B testing</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">May · Dec 2020 · Be'er Sheva</div><div class="co"><h3>Qualish</h3></div><p class="role">UX/UI designer</p></div><div><p class="d">Wireframes, workflows and interactive prototypes, with senior management.</p><div class="chips"><span>Prototyping</span><span>Mobile design</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">Mar · Jun 2020 · Tel Aviv</div><div class="co"><h3>VPlanSolutions</h3></div><p class="role">User experience designer</p></div><div><p class="d">Designed the logo and the website.</p><div class="chips"><span>Logo design</span><span>Web design</span></div></div></li>
     </ol>
   </div>
 </section>
@@ -2705,6 +2718,76 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   addEventListener('scroll', req, { passive: true });
   addEventListener('resize', req);
   upd();
+})();
+
+// calm: one video at a time. Runs after every other video path (lazy loader, stacking cards, chapter bars, Brand & web A/B):
+// the clip with the largest unobstructed share of the screen (at least ~60% of it showing) plays, every other one stays paused on its poster.
+// A play or pause the visitor asks for (click, chapter, tab) wins until that clip leaves the screen
+(() => {
+  // the hero keeps one moving card: the cards behind the front one show their posters at every size
+  document.querySelectorAll('.stack .card:not(.c1) video').forEach(v => {
+    const img = new Image(); img.src = v.getAttribute('poster'); img.alt = ''; img.width = 1440; img.height = 900; img.decoding = 'async'; img.style.width = '100%';
+    v.replaceWith(img);
+  });
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const all = () => [...document.querySelectorAll('video')];
+  let chosen = null, pinned = null, held = null, gesture = { t: -1e9, el: null };
+  const mark = e => { gesture = { t: performance.now(), el: e.target }; };
+  addEventListener('pointerdown', mark, true); addEventListener('keydown', mark, true);
+  const zone = el => el && el.closest && el.closest('figure, .spot, .shot, section');
+  const byUser = v => { const g = gesture; if (performance.now() - g.t > 1500 || !g.el || g.el === document.body) return false; const z = zone(v), s = v.closest('section'); return !!(z && (z.contains(g.el) || g.el.contains(v))) || !!(s && s.contains(g.el) && g.el.closest('button, [role=tab], video')); };
+  // share of the clip that is on screen and not covered by another layer (stacked cards, the gate), sampled on a 3x3 grid
+  const seen = v => {
+    if (!v.isConnected || v.hasAttribute('inert') || v.closest('[inert]')) return { a: 0, r: 0 };
+    const b = v.getBoundingClientRect(), W = innerWidth, H = innerHeight;
+    const x0 = Math.max(0, b.left), x1 = Math.min(W, b.right), y0 = Math.max(0, b.top), y1 = Math.min(H, b.bottom);
+    if (x1 - x0 < 8 || y1 - y0 < 8) return { a: 0, r: 0 };
+    const host = v.closest('.shot, .card, figure') || v.parentElement;
+    let hit = 0;
+    for (let i = 1; i <= 3; i++) for (let j = 1; j <= 3; j++) {
+      const el = document.elementFromPoint(x0 + (x1 - x0) * i / 4, y0 + (y1 - y0) * j / 4);
+      if (el && (el === v || host.contains(el))) hit++;
+    }
+    const a = (x1 - x0) * (y1 - y0) * hit / 9;
+    return { a, r: a / Math.min(b.width * b.height, W * H) };
+  };
+  const start = v => {
+    if (v.dataset.poster && !v.getAttribute('poster')) v.poster = v.dataset.poster;
+    if (!v.getAttribute('src') && v.dataset.src) v.src = v.dataset.src;
+    const p = v.play(); if (p && p.catch) p.catch(() => {});
+  };
+  const pick = () => {
+    const vids = all();
+    let best = null, ba = 0;
+    const m = new Map(vids.map(v => [v, seen(v)]));
+    if (pinned && m.get(pinned) && m.get(pinned).r < .25) pinned = null;
+    if (held && m.get(held) && m.get(held).r < .2) held = null;
+    if (pinned) best = pinned;
+    else vids.forEach(v => { const s = m.get(v); if (s.r >= .6 && s.a > ba) { ba = s.a; best = v; } });
+    if (best === held) best = null;
+    if (reduce && best !== pinned) best = null;
+    chosen = best;
+    vids.forEach(v => { if (v !== chosen && !v.paused) v.pause(); });
+    if (chosen && chosen.paused) start(chosen);
+  };
+  // anything else that starts a clip (the lazy loader, a card coming uncovered, the A/B window) is stopped unless it is the chosen one or the visitor asked for it
+  document.addEventListener('play', e => {
+    const v = e.target; if (!(v instanceof HTMLVideoElement) || v === chosen) return;
+    if (byUser(v)) { pinned = chosen = v; held = null; all().forEach(o => { if (o !== v && !o.paused) o.pause(); }); return; }
+    v.pause();
+  }, true);
+  document.addEventListener('pause', e => {
+    const v = e.target; if (!(v instanceof HTMLVideoElement)) return;
+    if (v === chosen && byUser(v)) { held = v; if (pinned === v) pinned = null; chosen = null; }
+  }, true);
+  let raf = 0, tm = 0;
+  const req = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; pick(); }); clearTimeout(tm); tm = setTimeout(pick, 220); };
+  addEventListener('scroll', req, { passive: true });
+  addEventListener('resize', req);
+  addEventListener('load', req);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) all().forEach(v => v.pause()); else req(); });
+  setInterval(() => { if (!document.hidden) pick(); }, 1200);
+  req();
 })();
 
 </script>
