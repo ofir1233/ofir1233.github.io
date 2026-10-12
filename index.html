@@ -747,6 +747,39 @@ footer { background: var(--ink); }
 @media (prefers-reduced-motion: reduce) { .contact .dp, .contact .dp::before, .contact .dp > span[aria-hidden] { transition: none; } }
 
 
+/* r8-stack: on desktop the product spotlights become rounded ink cards that pin under the nav, and each next card slides over the last (JS adds .r8-stack, the 01 / 06 counters and each card's --pin / --fill) */
+.spot-n { display: none; }
+@media (min-width: 861px) {
+  #product.r8-stack .spot, #product.r8-stack .spot:first-of-type { position: sticky; top: var(--pin, 84px); min-height: var(--fill, 0px); margin-top: 28px; padding: clamp(48px, 4.4vw, 60px) clamp(26px, 3.2vw, 48px) clamp(26px, 3.2vw, 48px); align-items: center; align-content: center; border: 1px solid var(--line); border-radius: 28px; background: linear-gradient(180deg, #19191c, #121214 60%); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 -28px 60px -24px rgba(0,0,0,.75); transform-origin: 50% 0; }
+  #product.r8-stack .spot:first-of-type { margin-top: clamp(28px, 4vw, 48px); }
+  #product.r8-stack .spot.tall { align-items: start; }
+  #product.r8-stack .spot.tall .txt { top: 112px; }
+  #product.r8-stack .spot::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; background: #08080a; opacity: 0; pointer-events: none; }
+  #product.r8-stack .spot-n { display: block; position: absolute; top: 20px; right: 26px; font: 500 11px/1 var(--mono); letter-spacing: .02em; color: rgba(242,239,231,.38); white-space: pre; }
+  #product.r8-stack .spot-n b { font-weight: 500; color: var(--coral); }
+  #product.r8-stack .spot:nth-of-type(even) .spot-n { right: auto; left: 26px; }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) and (timeline-scope: --a) {
+      #product.r8-stack > .wrap { timeline-scope: --r8s2, --r8s3, --r8s4, --r8s5, --r8s6; }
+      #product.r8-stack .spot:nth-of-type(2) { view-timeline-name: --r8s2; }
+      #product.r8-stack .spot:nth-of-type(3) { view-timeline-name: --r8s3; }
+      #product.r8-stack .spot:nth-of-type(4) { view-timeline-name: --r8s4; }
+      #product.r8-stack .spot:nth-of-type(5) { view-timeline-name: --r8s5; }
+      #product.r8-stack .spot:nth-of-type(6) { view-timeline-name: --r8s6; }
+      #product.r8-stack .spot, #product.r8-stack .spot::after { animation: r8Under linear both; animation-range: entry 0% entry 100%; }
+      #product.r8-stack .spot::after { animation-name: r8Dim; }
+      #product.r8-stack .spot:nth-of-type(1), #product.r8-stack .spot:nth-of-type(1)::after { animation-timeline: --r8s2; }
+      #product.r8-stack .spot:nth-of-type(2), #product.r8-stack .spot:nth-of-type(2)::after { animation-timeline: --r8s3; }
+      #product.r8-stack .spot:nth-of-type(3), #product.r8-stack .spot:nth-of-type(3)::after { animation-timeline: --r8s4; }
+      #product.r8-stack .spot:nth-of-type(4), #product.r8-stack .spot:nth-of-type(4)::after { animation-timeline: --r8s5; }
+      #product.r8-stack .spot:nth-of-type(5), #product.r8-stack .spot:nth-of-type(5)::after { animation-timeline: --r8s6; }
+      #product.r8-stack .spot:nth-of-type(6), #product.r8-stack .spot:nth-of-type(6)::after { animation: none; }
+      @keyframes r8Under { to { scale: .95; } }
+      @keyframes r8Dim { to { opacity: .55; } }
+    }
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1344,6 +1377,42 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     v.src = src; v.play().catch(() => {});
   }));
 })();
+// r8-stack: product spotlights stack as pinned cards on desktop. Adds the 01 / 06 counters, pins each card under the nav
+// (fitting cards share one height so each covers the last; a card taller than the screen pins only once its bottom is in view, so nothing is trapped) and pauses footage a card covers
+(() => {
+  const sec = document.getElementById('product'); if (!sec) return;
+  const cards = [...sec.querySelectorAll('article.spot')], n = cards.length, pad = k => String(k).padStart(2, '0');
+  cards.forEach((c, i) => { const s = document.createElement('span'); s.className = 'spot-n'; s.setAttribute('aria-hidden', 'true'); s.innerHTML = `<b>${pad(i + 1)}</b>  /  ${pad(n)}`; c.prepend(s); });
+  const mq = matchMedia('(min-width: 861px)'), covered = new Set(), vids = c => c.querySelectorAll('video');
+  const fit = () => {
+    cards.forEach(c => { c.classList.remove('tall'); c.style.removeProperty('--pin'); c.style.removeProperty('--fill'); });
+    if (!mq.matches) { sec.classList.remove('r8-stack'); return; }
+    sec.classList.add('r8-stack');
+    const vh = innerHeight;
+    const m = cards.map((c, i) => { const top = 84 + i * 12, room = vh - top - 24, h = c.offsetHeight; return { c, top, room, h, tall: h > room }; });
+    const H = Math.max(0, ...m.filter(x => !x.tall).map(x => x.h));
+    m.forEach(({ c, top, room, h, tall }) => {
+      c.classList.toggle('tall', tall);
+      c.style.setProperty('--pin', (tall ? Math.round(vh - 24 - h) : top) + 'px');
+      if (!tall) c.style.setProperty('--fill', Math.min(H, room) + 'px');
+    });
+    check();
+  };
+  const show = c => vids(c).forEach(v => { if (!v.dataset.r8wait) return; delete v.dataset.r8wait; const r = v.getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight) v.play().catch(() => {}); });
+  const check = () => {
+    const on = sec.classList.contains('r8-stack'), vh = innerHeight;
+    cards.forEach((c, i) => {
+      const nx = cards[i + 1], hide = on && !!nx && nx.getBoundingClientRect().top < vh * .35;
+      if (hide && !covered.has(c)) { covered.add(c); vids(c).forEach(v => { if (!v.paused) { v.pause(); v.dataset.r8wait = '1'; } }); }
+      else if (!hide && covered.has(c)) { covered.delete(c); show(c); }
+    });
+  };
+  cards.forEach(c => vids(c).forEach(v => { const play = v.play; v.play = () => { if (covered.has(c)) { v.dataset.r8wait = '1'; return Promise.resolve(); } return play.call(v); }; }));
+  let raf = 0; addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; check(); }); }, { passive: true });
+  let rt = 0; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit, 150); });
+  fit(); addEventListener('load', fit, { once: true }); if (document.fonts) document.fonts.ready.then(fit);
+})();
+
 </script>
 
 
