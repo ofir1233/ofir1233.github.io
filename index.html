@@ -1847,6 +1847,17 @@ html.sheet-arcs #contact::after { top: 0; }
 /* pb: web. The caption under the A/B player spans the window, so "Open A/B" sits at its right edge instead of mid-line */
 #web .wx-fig figcaption { max-width: none; }
 
+
+/* contact: "Let's talk" copies the address, opens the mail app, and offers Gmail, so the click always does something visible */
+.contact .talk-note { display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 12px; margin: 18px auto 0; padding: 10px 16px; border-radius: 999px; background: rgba(242,239,231,.08); box-shadow: inset 0 0 0 1px rgba(242,239,231,.14); font-size: 15px; color: rgba(242,239,231,.9); opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease; }
+.contact .talk-note.on { opacity: 1; transform: none; }
+.contact .talk-note[hidden] { display: none; }
+.contact .tn-ok { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--coral); color: #141414; font-size: 12px; font-weight: 700; }
+.contact .tn-g { color: var(--coral); text-decoration: none; border-bottom: 1px solid rgba(255,112,86,.4); }
+.contact .tn-g:hover { border-bottom-color: var(--coral); }
+.contact a.big .arr-go { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) { .contact a.big.sent span[aria-hidden] { display: inline-block; animation: talk-go .7s cubic-bezier(.3,.7,.2,1); } }
+@keyframes talk-go { 40% { transform: translateX(18px); } 100% { transform: none; } }
 </style>
 </head>
 <body>
@@ -2336,6 +2347,7 @@ html.sheet-arcs #contact::after { top: 0; }
   <div class="wrap">
     <h2 class="label" id="contact-h" style="margin-bottom:20px">Contact</h2>
     <a class="big" href="mailto:ofirnona123@gmail.com">Let's talk <span aria-hidden="true">→</span></a>
+    <p class="talk-note" role="status" aria-live="polite" hidden><span class="tn-ok" aria-hidden="true">✓</span> <span class="tn-t">Email copied: ofirnona123@gmail.com</span> <a class="tn-g" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=ofirnona123@gmail.com&amp;su=Hi%20Ofir" target="_blank" rel="noopener">Write in Gmail ↗</a></p>
     <p class="pitch">Hiring a product designer for an AI or <span class="nw">data-heavy</span> product? I'd like to hear about it.</p>
     <div class="row"><span class="mail"><a class="dp" href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a><button type="button" class="copy" data-copy="ofirnona123@gmail.com" aria-live="polite">Copy</button></span><a class="dp" href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a><a class="dp" href="ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></div>
     
@@ -3542,6 +3554,24 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
 })();
 
 
+
+// contact: "Let's talk" copies the address and shows a note with a Gmail fallback, then hands off to the mail app
+(() => {
+  const big = document.querySelector('.contact a.big'), note = document.querySelector('.contact .talk-note'); if (!big || !note) return;
+  const addr = 'ofirnona123@gmail.com'; let t = 0;
+  big.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    const show = ok => {
+      note.querySelector('.tn-t').textContent = ok ? `Email copied: ${addr}` : addr;
+      note.hidden = false; requestAnimationFrame(() => note.classList.add('on'));
+      big.classList.remove('sent'); void big.offsetWidth; big.classList.add('sent');
+      clearTimeout(t); t = setTimeout(() => { note.classList.remove('on'); setTimeout(() => { note.hidden = true; }, 400); }, 9000);
+    };
+    (navigator.clipboard ? navigator.clipboard.writeText(addr).then(() => true, () => false) : Promise.resolve(false)).then(show);
+    setTimeout(() => { location.href = 'mailto:' + addr + '?subject=' + encodeURIComponent('Hi Ofir'); }, 250);
+  });
+})();
 </script>
 
 
