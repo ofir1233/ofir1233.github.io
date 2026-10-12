@@ -1762,6 +1762,8 @@ html.sheet-arcs #top { z-index: 1; overflow-x: clip; overflow-y: visible; }
 #about .me-photo::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); pointer-events: none; }
 @media (max-width: 860px) { #about .me-top { grid-template-columns: 1fr; } #about .me-photo { justify-self: start; max-width: 360px; margin-top: 8px; } #about .me-name { font-size: clamp(54px, 16vw, 84px); } }
 @media (prefers-reduced-motion: reduce) { #about .me-photo img { transition: none; filter: none; transform: none; } }
+
+#about .me-top:not(:has(.me-photo)) { grid-template-columns: 1fr; }
 </style>
 </head>
 <body>
@@ -1820,7 +1822,6 @@ html.sheet-arcs #top { z-index: 1; overflow-x: clip; overflow-y: visible; }
         <p class="quote">Boots on the ground, <span>not theory.</span></p>
         <p class="me-lead">I'm a product designer in Tel Aviv, focused on AI products. I work end to end: research, flows, interface, design system, brand and website.</p>
       </div>
-      <figure class="me-photo"><img src="img/me.webp" width="1200" height="1500" alt="Portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
     </div>
     <ol class="me-pillars">
       <li><span class="me-n">01</span><h3>End to end, alone</h3><p>Brand, product, design system, website.</p></li>
