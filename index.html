@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 
+
 <title>Ofir Nona · Product Designer</title>
 <meta name="description" content="Ofir Nona, product designer for AI products. Since 2023 the only designer and product person at Hear. Real work, not concepts.">
 <!-- link previews and icons for the hosted copy at ofir1233.github.io (the artifact viewer ignores them) -->
@@ -298,6 +299,7 @@ footer { padding-block: 32px; border-top: 1px solid var(--line); font-size: 13px
 }
 .lb { position: fixed; inset: 0; z-index: 50; background: rgba(8,8,9,.94); display: grid; place-items: center; padding: 24px; cursor: zoom-out; }
 .lb img { max-height: 92vh; width: auto; border-radius: 10px; }
+.lb-x { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 14px); right: 14px; z-index: 51; padding: 8px 14px; border: 1px solid rgba(255,255,255,.2); border-radius: 99px; background: rgba(13,13,14,.8); color: #f2efe7; font: 500 14px/1 var(--body); cursor: pointer; }
 
 /* round-2: reduced motion, print, skip link, font fallback metrics */
 @font-face { font-family: "Bricolage Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"), local("HelveticaNeue-Bold"); font-weight: 700; size-adjust: 92%; ascent-override: 94%; descent-override: 24%; }
@@ -465,7 +467,8 @@ footer { border-top: 0; background: linear-gradient(90deg, transparent, var(--li
   .shot.win .bar i { width: 7px; height: 7px; }
   /* 6. stills: visible enlarge affordance, and a lightbox you can pan at readable size */
   .shot:has(> img) { position: relative; }
-  .vgrid .shot::after, .spot .media .shot:has(> img)::after, .tile::before { content: ""; position: absolute; z-index: 3; right: 10px; bottom: 10px; width: 30px; height: 30px; border-radius: 99px; pointer-events: none; background: rgba(13,13,14,.66) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M15 4h5v5M9 20H4v-5M20 4l-6 6M4 20l6-6'/%3E%3C/svg%3E") center / 15px no-repeat; }
+  #system .ds-img { position: relative; }
+  .vgrid .shot::after, .spot .media .shot:has(> img)::after, .tile::before, #system .ds-img::after { content: ""; position: absolute; z-index: 3; right: 10px; bottom: 10px; width: 30px; height: 30px; border-radius: 99px; pointer-events: none; background: rgba(13,13,14,.66) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M15 4h5v5M9 20H4v-5M20 4l-6 6M4 20l6-6'/%3E%3C/svg%3E") center / 15px no-repeat; }
   .lb { display: flex; align-items: center; justify-content: flex-start; overflow: auto; padding: 0; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
   .lb img { flex: none; max-width: none; max-height: none; height: min(72vh, 620px); width: auto; margin: auto; border-radius: 0; }
   /* 7. readable lists: hanging bullets */
@@ -480,6 +483,7 @@ footer { border-top: 0; background: linear-gradient(90deg, transparent, var(--li
   .br-item .shot { height: 210px; }
   .br-strip { scroll-snap-type: x mandatory; scroll-padding-inline: 16px; }
   .br-item { scroll-snap-align: start; }
+  .br-track { padding-inline: 16px; } .br-strip { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 24px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 24px), transparent); }
   .br-item span { white-space: nowrap; font-size: 11px; }
   /* 10. IA explorer: tabs on one row, count on its own line */
   .ia { padding: 12px; }
@@ -861,7 +865,7 @@ footer { padding-block: 28px 36px; font: 400 12px/1.6 var(--mono); letter-spacin
 #web .br-item:not([aria-hidden]) + .br-item[aria-hidden] { counter-reset: br 1; }
 #web .br-item .shot { height: clamp(124px, 12.5vw, 172px); border-radius: 12px; border-color: rgba(242,239,231,.07); background: #18181a; }
 #web .br-item .shot::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), inset 0 -40px 40px -40px rgba(0,0,0,.5); }
-#web .br-item span { position: static; display: flex; gap: 8px; align-items: baseline; margin-top: 10px; padding: 0 2px; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; border-radius: 0; opacity: 1; transform: none; color: rgba(242,239,231,.46); font: 500 11px/1.2 var(--mono); letter-spacing: .02em; white-space: nowrap; transition: color .3s; }
+#web .br-item span { position: static; display: flex; gap: 8px; align-items: baseline; margin-top: 10px; padding: 0 2px; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; border-radius: 0; opacity: 1; transform: none; color: rgba(242,239,231,.62); font: 500 11px/1.2 var(--mono); letter-spacing: .02em; white-space: nowrap; transition: color .3s; }
 #web .br-item span::before { content: counter(br, decimal-leading-zero); color: rgba(255,112,86,.6); transition: color .3s; }
 #web .br-item:hover span, #web .br-item:focus-within span { color: var(--paper); }
 #web .br-item:hover span::before, #web .br-item:focus-within span::before { color: var(--coral); }
@@ -1020,7 +1024,7 @@ footer .f-fine { margin-top: 22px; }
 
 /* product: chapter bars under each spotlight video (JS builds .chap from a per-clip list; each segment fills as the clip plays and jumps there on click) */
 #product .chap { display: flex; gap: 4px; margin-top: 14px; }
-#product .chap-s { flex: var(--d, 1) 1 0; min-width: 0; display: grid; gap: 9px; padding: 6px 0 4px; border: 0; background: none; color: rgba(242,239,231,.42); font: 500 11px/1.2 var(--mono); letter-spacing: .02em; text-align: left; cursor: pointer; transition: color .25s; }
+#product .chap-s { flex: var(--d, 1) 1 0; min-width: 0; display: grid; gap: 9px; padding: 6px 0 4px; border: 0; background: none; color: rgba(242,239,231,.62); font: 500 11px/1.2 var(--mono); letter-spacing: .02em; text-align: left; cursor: pointer; transition: color .25s; }
 #product div.chap-s { cursor: default; }
 #product .chap-s i { position: relative; display: block; height: 3px; border-radius: 99px; background: rgba(242,239,231,.13); overflow: hidden; transition: background .25s; }
 #product .chap-s b { position: absolute; inset: 0; border-radius: inherit; background: var(--coral); transform: scaleX(var(--p, 0)); transform-origin: 0 50%; }
@@ -1286,7 +1290,7 @@ footer .f-fine { margin-top: 22px; }
 #design-lab .lab-tour.lt-on .lt-rail { display: block; }
 #design-lab .lab-tour.lt-on .lt-chaps { display: flex; flex-wrap: wrap; gap: 6px; }
 #design-lab .lt-chaps button { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 13px 0 11px; border: 0; border-radius: 99px; font: 500 13px/1 var(--body); color: rgba(242,239,231,.62); background: rgba(242,239,231,.05); box-shadow: inset 0 0 0 1px rgba(242,239,231,.1); cursor: pointer; transition: color .25s, background-color .25s, box-shadow .25s; }
-#design-lab .lt-chaps button i { font: 500 10.5px/1 var(--mono); font-style: normal; letter-spacing: .02em; color: rgba(242,239,231,.4); transition: color .25s; }
+#design-lab .lt-chaps button i { font: 500 10.5px/1 var(--mono); font-style: normal; letter-spacing: .02em; color: rgba(242,239,231,.62); transition: color .25s; }
 #design-lab .lt-chaps button:hover { color: var(--paper); box-shadow: inset 0 0 0 1px rgba(242,239,231,.35); }
 #design-lab .lt-chaps button.on { color: #160805; background: var(--paper); box-shadow: none; }
 #design-lab .lt-chaps button.on i { color: #b0381f; }
@@ -1361,7 +1365,7 @@ footer .f-fine { margin-top: 22px; }
 @media (max-width: 760px) {
   #design-lab .vl-stage .shot, #design-lab .lab-tour .shot { margin-inline: -16px; border-radius: 0; border-inline: 0; }
   #design-lab .vl-mk { border-width: 1px; border-radius: 4px; box-shadow: 0 0 0 2px rgba(255,112,86,.18); }
-  #design-lab .vl-mk em { bottom: calc(100% + 3px); padding: 2px 5px 1px; border-radius: 4px; font-size: 9px; }
+  #design-lab .vl-mk em { display: none; }
   #design-lab .vl-mk.b em { top: calc(100% + 3px); }
   #design-lab .vl-imgs::after { content: ""; position: absolute; z-index: 5; right: 10px; bottom: 10px; width: 30px; height: 30px; border-radius: 99px; pointer-events: none; background: rgba(13,13,14,.66) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M15 4h5v5M9 20H4v-5M20 4l-6 6M4 20l6-6'/%3E%3C/svg%3E") center / 15px no-repeat; }
   #design-lab .vl-tabs { grid-template-columns: minmax(0, 1fr); border-bottom: 0; }
@@ -1465,9 +1469,8 @@ footer .f-fine { margin-top: 22px; }
 #about .me-go { margin-left: auto; color: var(--coral); font-size: 18px; }
 @media (max-width: 860px) { #about .me-top, #about .me-pillars { grid-template-columns: 1fr; } #about .me-pillars li + li { padding-left: 0; border-left: 0; border-top: 1px solid rgba(127,127,127,.28); } #about .me-go { display: none; } }
 /* calm: one quiet page. No decorative loops, no scroll-scrubbed scale, one video at a time (see the calm script). Hover states, the one-time fade-in, the stacked product cards and the user-driven dials and tabs stay */
-/* hero: glow, floating cards and the meridian globe hold still (the globe freezes mid-turn so it still reads as a globe) */
-.hero::before, .contact::after, .card.c1, .card.c2, .card.c3 { animation: none !important; }
-.arcs ellipse { animation-play-state: paused !important; }
+/* hero keeps its floating cards, glow and globe as they were; only the contact glow holds still */
+.contact::after { animation: none !important; }
 /* the word strip under the hero is a still line */
 .marquee .track { animation: none !important; }
 /* brand filmstrip: a still row you swipe or scroll, no auto-scroll and no duplicated loop copies */
@@ -1776,7 +1779,7 @@ footer .f-fine { margin-top: 22px; }
       <div><p>With AI, I take a design from a Figma frame all the way to a pull request.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-code"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about how I work</span></button></div></div>
     </div>
-    <div class="mr-body mr-head mr-col" id="mr-code"><div class="mr-in"><div><p>The Design Lab started this way: a working copy of Hear that I coded with Claude Code from a colleague's starting app, on React, Vite and Storybook.</p><p>Its design system is documented in Storybook, every component with all its states, and it's where designs get tested before anything reaches development.</p></div></div></div>
+    <div class="mr-body mr-head mr-col" id="mr-code"><div class="mr-in"><div><p>The Design Lab started this way: a working copy of Hear that I coded with Claude Code from a colleague's starting app, on React, Vite and Storybook.</p><p>Its design system is documented in Storybook, every component with all its states, and it's where designs get tested in a working interface instead of static mockups.</p></div></div></div>
     <ol class="code-steps">
       <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><path d="M10 9l6.5 3.2-2.8.9-1.2 2.9z"/></svg></span><span class="cs-n">01</span><h3>Figma</h3><p>I design and prototype: flows, screens and interactions.</p></li>
       <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4.5l-3 15"/></svg></span><span class="cs-n">02</span><h3>Code</h3><p>I write the front-end in React with AI, using Claude Code, and keep the design system in Storybook.</p></li>
@@ -1794,14 +1797,14 @@ footer .f-fine { margin-top: 22px; }
         <div class="label">Case study 01</div>
         <h2>Design Lab</h2>
       </div>
-      <div><p>A working replica of Hear that I started on my own initiative, coded with Claude Code. I test designs there before development, and it produces demos tailored to each prospect.</p>
+      <div><p>A working replica of Hear that I started on my own initiative, coded with Claude Code. I test designs there in a working interface instead of static mockups, and it produces demos tailored to each prospect.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-lab"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the Design Lab</span></button></div></div>
     </div>
-    <div class="mr-body mr-head mr-col" id="mr-lab"><div class="mr-in"><div><p>When AI tools arrived, I started it from a colleague's starting app. It runs on realistic demo data.</p><dl class="mr-pts"><div><dt>The problem</dt><dd>Static mockups couldn't answer the real question: how does this design behave for <em>this</em> customer, with their data, at their scale?</dd></div><div><dt>What it is</dt><dd>A working copy of the product, built in React. Each customer gets a demo environment, started from a form with their website, a description and files. Key screens carry alternative versions I can switch between, to compare them for different kinds of customers.</dd></div><div><dt>Why it matters</dt><dd>Design decisions get made in a working product, not a slide deck: real interactions, realistic data, and one build that serves both design reviews and sales demos.</dd></div></dl></div></div></div>
+    <div class="mr-body mr-head mr-col" id="mr-lab"><div class="mr-in"><div><p>When AI tools arrived, I started it from a colleague's starting app. It runs on realistic demo data.</p><dl class="mr-pts"><div><dt>The problem</dt><dd>Static mockups couldn't answer the real question: how does this design behave for <em>this</em> customer, with their data, at their scale?</dd></div><div><dt>What it is</dt><dd>A working copy of the product, built in React. Each customer gets a demo environment, started from a form with their website, a description and files. Key screens carry alternative versions I can switch between, to compare them for different kinds of customers.</dd></div><div><dt>Why it matters</dt><dd>Designs get tried in a working product, not a slide deck: real interactions on realistic demo data, and the same build can also play a demo for a prospect.</dd></div></dl></div></div></div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Initiator · design &amp; code</dd></div><div><dt>Stack</dt><dd>React · Vite · Storybook</dd></div></dl>
     <a class="btn ghost cs-more rv" href="work/design-lab.html">Read the full case study <span aria-hidden="true">→</span></a>
 
-    <figure class="rv lab-tour"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1920" height="1080" data-src="img/demo-tour-1080.mp4" data-poster="img/demo-tour-1080-poster.webp" muted loop playsinline preload="none" aria-label="A question typed into the Lab, the answer, then Topics, Compliance and Actions"></video></div>
+    <figure class="rv lab-tour"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/demo-tour-b-r.mp4" data-poster="img/demo-tour-poster-c.webp" muted loop playsinline preload="none" aria-label="A question typed into the Lab, the answer, then Topics, Compliance and Actions"></video></div>
       <div class="lt-rail" aria-hidden="true"><i class="lt-fill"></i></div>
       <figcaption><span class="lt-cap"><b>The Lab in 30 seconds.</b></span><span class="lt-chaps" role="group" aria-label="Jump to a part of the tour"><button type="button" data-t="6.5"><i>01</i>Ask</button><button type="button" data-t="12"><i>02</i>Answer</button><button type="button" data-t="20"><i>03</i>Topics</button><button type="button" data-t="23.3"><i>04</i>Compliance</button><button type="button" data-t="27.5"><i>05</i>Actions</button></span></figcaption></figure>
 
@@ -1922,7 +1925,7 @@ footer .f-fine { margin-top: 22px; }
         <h3>Demos engine</h3>
         <p>Scripted, narrated demos for each prospect, in English or Hebrew.</p>
         <ul class="pf-facts"><li>Types the prospect's questions</li><li>A camera moves across the screens</li><li>Play live or send as a video</li></ul>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-demos"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the demos engine</span></button><div class="mr-body" id="mr-demos"><div class="mr-in"><div><p>To show a new prospect what Hear could do for <em>their</em> business, I designed a demos engine inside the Lab. It runs the product from a script: it types the prospect's questions, answers them on demo data and moves a camera across the screens.</p><p>Each card in the library is a ready demo: play it in the Lab, or record a clean run.</p><p class="mr-why"><b>The aim:</b> no generic deck. Every demo is ready to play live in a meeting or send as a video.</p></div></div></div></div>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-demos"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the demos engine</span></button><div class="mr-body" id="mr-demos"><div class="mr-in"><div><p>To show a new prospect what Hear could do for <em>their</em> business, I designed a demos engine inside the Lab. It runs the product from a script: it types the prospect's questions, answers them on demo data and moves a camera across the screens.</p><p>Each card in the library is a ready demo: play it in the Lab, or record a clean run.</p><p class="mr-why"><b>The aim:</b> no generic deck. Every demo is ready to play in a meeting or send as a video.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/demos-engine.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
@@ -1972,7 +1975,7 @@ footer .f-fine { margin-top: 22px; }
           <div class="ds-insp-txt">
             <div class="ds-insp-grp">Primary</div>
             <h3 class="ds-insp-nm">Pulse Coral</h3>
-            <p class="ds-insp-d">The signature Hear colour: warm, human connection and innovation.</p>
+            <p class="ds-insp-d">The signature Hear color: warm, human connection and innovation.</p>
             <p class="ds-insp-u"><b>Use for</b> <span>Primary CTAs, key highlights, focus and active states, links, accent elements.</span></p>
             <div class="ds-ramp" aria-label="Tint ramp"><i style="--s:#FF7056" data-l="C100"></i><i style="--s:#FF8D78" data-l="C80"></i><i style="--s:#FFA99A" data-l="C60"></i><i style="--s:#FFB8AB" data-l="C50"></i><i style="--s:#FFC6BB" data-l="C40"></i><i style="--s:#FFD4CC" data-l="C30"></i><i style="--s:#FFE2DD" data-l="C20"></i><i style="--s:#FFF1EE" data-l="C10"></i></div>
           </div>
@@ -2012,7 +2015,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="ext-row"><a class="ext" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Direction A (preview) ↗︎</a><a class="ext" href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Direction B (preview) ↗︎</a></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-web"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about branding and the website</span></button></div></div>
     </div>
-    <div class="mr-body mr-head mr-col" id="mr-web"><div class="mr-in"><div><p>The new site puts the brand in motion: a thesis that reveals itself as you scroll, a globe where nothing goes unheard, and a clear line from problem to platform.</p><dl class="mr-pts"><div><dt>Direction A · dark, cinematic</dt><dd>Hero, a scroll-revealed thesis, the globe, product sections and the integrations wall.</dd></div><div><dt>Direction B · cream and ink</dt><dd>A card for every role, AI agents held to one standard, customer stories, a dial from learning to acting, and security built in.</dd></div></dl><p>Off the screen, I carried the brand into print, signage, merch and trade-show booths abroad. Whatever the business needed next, I designed it.</p></div></div></div>
+    <div class="mr-body mr-head mr-col" id="mr-web"><div class="mr-in"><div><p>The new site puts the brand in motion: a thesis that reveals itself as you scroll, a globe where nothing goes unheard, and a clear line from problem to platform.</p><dl class="mr-pts"><div><dt>Direction A · dark, cinematic</dt><dd>Hero, a scroll-revealed thesis, the globe, product sections and the integrations wall.</dd></div><div><dt>Direction B · cream and ink</dt><dd>A card for every role, AI agents held to one standard, customer stories, a dial from learning to acting, and security built in.</dd></div></dl><p>Off the screen, I took the brand to trade-show booths and mocked it up for print, signage and merch. Whatever the business needed next, I designed it.</p></div></div></div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; build</dd></div><div><dt>Scope</dt><dd>Brand · marketing site</dd></div></dl>
     <a class="btn ghost cs-more rv" href="work/brand-web.html">Read the full case study <span aria-hidden="true">→</span></a>
     <div class="wx rv" data-on="a">
@@ -2029,8 +2032,8 @@ footer .f-fine { margin-top: 22px; }
     </div>
     <div class="offscreen rv">
       <div class="off-head">
-        <div class="label">Off the screen · <b>print, signage, merch, booths</b></div>
-        <p>From the production spec to the stand on the floor, at trade shows abroad.</p>
+        <div class="label">Off the screen · <b>booths and mockups</b></div>
+        <p>From the production spec to the stand on the floor, plus mockups for print, signage and merch.</p>
       </div>
       <div class="br-strip" tabindex="0" role="region" aria-label="Hear brand applications, scrolling gallery">
         <div class="br-track"><figure class="br-item"><div class="shot"><img src="img/br-booth-live-b.webp" data-full="img/br-booth-live-b-l.webp" alt="The booth as built at the show, from my design" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="Trade show booth render" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="Booth production spec with panel callouts" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="Hear sign on a building facade" width="818" height="460" loading="lazy" decoding="async"></div><span>Signage</span></figure><figure class="br-item"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="Hear printed books with dot-pattern covers" width="818" height="460" loading="lazy" decoding="async"></div><span>Print</span></figure><figure class="br-item"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="Hear tote bags" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch</span></figure><figure class="br-item"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="Hear billboard, Just growth delivered" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="Hear poster series" width="818" height="460" loading="lazy" decoding="async"></div><span>Posters</span></figure><figure class="br-item"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="Hear logo on an office lobby wall" width="818" height="460" loading="lazy" decoding="async"></div><span>Office</span></figure><figure class="br-item"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="Hear color palette" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="Hear typography" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="Hear brand graphics with product data cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="Hear brand imagery cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="Hear street-side digital sign" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-live-b.webp" data-full="img/br-booth-live-b-l.webp" alt="" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Signage</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Print</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Posters</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Office</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure></div>
@@ -2130,7 +2133,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-hear"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Hear</span></button><div class="mr-body" id="mr-job-hear"><div class="mr-in"><div><p>I designed the brand, the product, the design system and the website, ran UX research and user testing on complex workflows, and started the Design Lab.</p><div class="chips"><span>Design system</span><span>Brand from scratch</span><span>UX research</span></div></div></div></div></div></div></li>
       <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2022 · 2023 · Be'er Sheva</div><div class="co"><h3>Tap Mobile</h3></div><p class="role">User experience designer</p></div><div><p class="d">Consumer mobile apps, one with 100 million downloads. A/B tests and funnel analytics guided the UX, and I took on product definition too.</p><div class="chips"><span>Mobile apps</span><span>A/B testing</span></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-tap"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Tap Mobile</span></button><div class="mr-body" id="mr-job-tap"><div class="mr-in"><div><p>I used A/B tests and funnel analytics with product managers and developers to guide UX choices, and led the design of several engagement-focused apps.</p><div class="chips"><span>100 million downloads</span><span>Funnel analytics</span></div></div></div></div></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">May · Dec 2020 · Be'er Sheva</div><div class="co"><h3>Qualish</h3></div><p class="role">UX/UI designer</p></div><div><p class="d">Wireframes, workflows and interactive prototypes, with senior management.</p><div class="chips"><span>Prototyping</span><span>Mobile design</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">May · Dec 2020 · Be'er Sheva</div><div class="co"><h3>Qualish</h3></div><p class="role">UX/UI designer</p></div><div><p class="d">Wireframes, workflows and interactive prototypes, with senior management.</p><div class="chips"><span>Wireframes</span><span>Prototyping</span></div></div></li>
       <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">Mar · Jun 2020 · Tel Aviv</div><div class="co"><h3>VPlanSolutions</h3></div><p class="role">User experience designer</p></div><div><p class="d">Designed the logo and the website.</p><div class="chips"><span>Logo design</span><span>Web design</span></div></div></li>
     </ol>
   </div>
@@ -2350,9 +2353,9 @@ footer .f-fine { margin-top: 22px; }
 })();
 // lightbox for stills
 document.addEventListener('click', e => {
-  const img = e.target.closest(matchMedia('(max-width: 760px)').matches ? '.shot img, .tile img' : '.shot img'); if (!img || img.closest('a')) return;
+  const img = e.target.closest(matchMedia('(max-width: 760px)').matches ? '.shot img, .tile img, .ds-img img' : '.shot img'); if (!img || img.closest('a')) return;
   const lb = document.createElement('div'); lb.className = 'lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', img.alt || 'Enlarged image');
-  lb.innerHTML = `<img src="${img.dataset.full || img.currentSrc || img.src}" alt="">`;
+  lb.innerHTML = `<img src="${img.dataset.full || img.currentSrc || img.src}" alt=""><button type="button" class="lb-x">Close</button>`;
   const key = ev => { if (ev.key === 'Escape') close(); else if (ev.key === 'Tab') { ev.preventDefault(); lb.focus(); } };
   const close = () => { removeEventListener('keydown', key); lb.remove(); img.focus({ preventScroll: true }); };
   lb.addEventListener('click', close); lb.tabIndex = -1;
@@ -2752,13 +2755,13 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   const insp = sec.querySelector('.ds-insp'), sws = [...sec.querySelectorAll('.ds-sw .sw')];
   if (insp && sws.length) {
     const T = {
-      C: ['Primary', 'Pulse Coral', 'The signature Hear colour: warm, human connection and innovation.', 'Primary CTAs, key highlights, focus and active states, links, accent elements.', 'FF7056 FF8D78 FFA99A FFB8AB FFC6BB FFD4CC FFE2DD FFF1EE', '100 80 60 50 40 30 20 10'],
-      D: ['Primary', 'Charcoal', 'The deep neutral that grounds the system. Modern, confident and legible on light or colour backgrounds.', 'Primary text, icons, navigation and structural backgrounds.', '181818 464646 747474 8C8C8C A3A3A3 BABABA D1D1D1 E8E8E8', '100 80 60 50 40 30 20 10'],
-      B: ['Complementary', 'Blue Cobalt', 'A strong, trustworthy blue for interactive elements and data.', 'Links, data visualisation, focus states, component backgrounds.', '1779F7 4594F9 74AFFA 8BBCFB A2C9FC B9D7FD D1E4FD', '100 80 60 50 40 30 20'],
+      C: ['Primary', 'Pulse Coral', 'The signature Hear color: warm, human connection and innovation.', 'Primary CTAs, key highlights, focus and active states, links, accent elements.', 'FF7056 FF8D78 FFA99A FFB8AB FFC6BB FFD4CC FFE2DD FFF1EE', '100 80 60 50 40 30 20 10'],
+      D: ['Primary', 'Charcoal', 'The deep neutral that grounds the system. Modern, confident and legible on light or color backgrounds.', 'Primary text, icons, navigation and structural backgrounds.', '181818 464646 747474 8C8C8C A3A3A3 BABABA D1D1D1 E8E8E8', '100 80 60 50 40 30 20 10'],
+      B: ['Complementary', 'Blue Cobalt', 'A strong, trustworthy blue for interactive elements and data.', 'Links, data visualization, focus states, component backgrounds.', '1779F7 4594F9 74AFFA 8BBCFB A2C9FC B9D7FD D1E4FD', '100 80 60 50 40 30 20'],
       G: ['Complementary', 'Growth Green', 'A calm, natural green for positive feedback.', 'Success messages, positive metrics, growth and improvement states.', '4BA373 6FB58F 93C8AB A5D1B9 B7DAC7 C9E3D5 DBEDE3', '100 80 60 50 40 30 20'],
       L: ['Complementary', 'Lilac Purple', 'A soft, approachable purple for highlights and decoration.', 'Highlights, onboarding moments, decorative accents, illustrations.', 'D799E2 DFADE8 E7C2EE EBCCF1 EFD6F3 F3E0F6 F7EBF9', '100 80 60 50 40 30 20'],
       T: ['Accent', 'Deep Teal', 'A grounded, sophisticated teal for depth.', 'Backgrounds, navigation hovers, dark-mode accents and illustrations.', '455F61 6A7F81 8F9FA0 A2AFB0 B5BFC0 C7CFD0 DADFDF', '100 80 60 50 40 30 20'],
-      S: ['Accent', 'Sage Green', 'A muted, earthy tone for backgrounds and illustrations.', 'Background fills, cards, icon backgrounds and illustrations.', 'B09495 C0A9AA D0BFBF D8CACA DFD4D5 E7DFDF EFEAEA', '100 80 60 50 40 30 20'],
+      S: ['Accent', 'Sage Green', 'A muted, earthy pink-brown for backgrounds and illustrations (named Sage Green in the Storybook).', 'Background fills, cards, icon backgrounds and illustrations.', 'B09495 C0A9AA D0BFBF D8CACA DFD4D5 E7DFDF EFEAEA', '100 80 60 50 40 30 20'],
       H: ['Accent', 'Horizon Blue', 'An airy, open blue-grey for secondary UI surfaces.', 'Background fills, secondary UI elements, icons and illustrations.', '6E95A0 8BAAB3 A8BFC6 B7CAD0 C5D5D9 D4DFE3 E2EAEC', '100 80 60 50 40 30 20'],
       N: ['Neutrals', 'Light Text', 'The achromatic scale for text and UI chrome.', 'Secondary text, icons, dividers and disabled states.', '606060 7D7D7D 9B9B9B B9B9B9 D6D6D6', '100 80 60 40 20'],
       P: ['Neutrals', 'Near White', 'Warm off-whites for backgrounds and canvas.', 'App canvas, card surfaces and page backgrounds.', 'F4F3F1 F9F9F7 FFFFFF', '100 50 20']
@@ -3179,6 +3182,8 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
 })();
 
 </script>
+
+
 
 
 </body>
