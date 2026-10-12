@@ -1768,6 +1768,13 @@ html.sheet-arcs #top { z-index: 1; overflow-x: clip; overflow-y: visible; }
 /* about: once the portrait has developed into colour, a short real clip takes over: a smile and a wave, played once (again on hover) */
 #about .me-vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease; pointer-events: none; }
 #about .me-photo.vid-on .me-vid { opacity: 1; }
+
+/* the old full-width word strip at the foot of the work hero now sits under the arch; its border drew a second, straight line there */
+.hero .marquee { display: none; }
+html.sheet-arcs #top .stats { margin-bottom: clamp(90px, 9vw, 150px); }
+/* the work hero's grain fades out before its foot, so the only edge into the next section is the arch */
+html.sheet-arcs .hero::after { -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 320px), transparent calc(100% - 120px)); mask-image: linear-gradient(180deg, #000 calc(100% - 320px), transparent calc(100% - 120px)); }
+html.sheet-arcs #contact::after { top: 0; }
 </style>
 </head>
 <body>
@@ -3410,16 +3417,21 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   document.documentElement.classList.add('sheet-arcs');
 
   var reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  var base = 36, maxExtra = 84, k = 1.15;
+  var maxB = 56, vh = innerHeight;
   function sizes() {
-    var vw = document.documentElement.clientWidth;
-    base = Math.max(18, Math.min(36, vw * 0.025));
-    maxExtra = base * 2.35;
-    k = maxExtra / (vw < 700 ? 48 : 72); /* a hard flick (~48px/frame on phones, ~72 on desktop) reaches the full extra bend */
+    var vw = document.documentElement.clientWidth; vh = innerHeight;
+    maxB = Math.max(22, Math.min(56, vw * 0.038));
   }
   sizes();
-  var bend = base, bv = 0, vel = 0, lastY = scrollY, raf = 0;
-
+  var raf = 0;
+  /* scroll-linked, not speed-linked: a boundary enters the screen flat and eases into its curve as it rises (bottom of the view to 45% up); the drawn bend follows that target softly, so it always moves calmly */
+  function target(sh) {
+    if (reduce.matches) return maxB * 0.7;
+    var top = sh.el.getBoundingClientRect().top;
+    var p = (vh - top) / (vh * 0.55);
+    p = p < 0 ? 0 : p > 1 ? 1 : p;
+    return maxB * p * p * (3 - 2 * p);
+  }
   function draw(sh, b, force) {
     var w = sh.el.clientWidth || document.documentElement.clientWidth;
     var r = Math.round(b * 10) / 10;
@@ -3430,48 +3442,35 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     for (var i = 0; i < sh.fill.length; i++) sh.fill[i].setAttribute('d', d);
     if (sh.line) sh.line.setAttribute('d', 'M0 ' + (H - 0.5) + c.replace(' ' + H, ' ' + (H - 0.5)));
   }
-  function drawNear(force) {
-    for (var i = 0; i < sheets.length; i++) if (sheets[i].near || force) draw(sheets[i], bend, force);
-  }
-
   function tick() {
     raf = 0;
-    var y = scrollY, dy = y - lastY;
-    lastY = y;
-    if (dy > 160) dy = 160; else if (dy < -160) dy = -160;
-    vel = vel * 0.78 + dy * 0.22;
-    var target = base + Math.min(maxExtra, Math.abs(vel) * k);
-    bv = bv * 0.8 + (target - bend) * 0.12;
-    bend += bv;
-    if (bend < 0) { bend = 0; bv = 0; }
-    var settled = Math.abs(vel) < 0.05 && Math.abs(bend - base) < 0.05 && Math.abs(bv) < 0.05;
-    if (settled) { vel = 0; bv = 0; bend = base; }
-    drawNear(false);
-    if (!settled) raf = requestAnimationFrame(tick);
+    var moving = false;
+    for (var i = 0; i < sheets.length; i++) {
+      var sh = sheets[i]; if (!sh.near) continue;
+      var t = target(sh), cur = sh.b == null ? t : sh.b;
+      cur += (t - cur) * 0.09;
+      if (Math.abs(t - cur) < 0.05) cur = t; else moving = true;
+      sh.b = cur; draw(sh, cur, false);
+    }
+    if (moving) raf = requestAnimationFrame(tick);
   }
-  function kick() {
-    if (reduce.matches) { lastY = scrollY; return; }
-    if (!raf) raf = requestAnimationFrame(tick);
-  }
-
+  function kick() { if (!raf) raf = requestAnimationFrame(tick); }
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) {
       for (var i = 0; i < sheets.length; i++) if (sheets[i].el === e.target) {
         sheets[i].near = e.isIntersecting;
-        if (e.isIntersecting) draw(sheets[i], bend, false);
+        if (e.isIntersecting) { if (sheets[i].b == null) { sheets[i].b = target(sheets[i]); draw(sheets[i], sheets[i].b, true); } kick(); }
       }
     });
   }, { rootMargin: '240px 0px 240px 0px' });
-  sheets.forEach(function (sh) { draw(sh, base, true); io.observe(sh.el); });
-
+  sheets.forEach(function (sh) { draw(sh, 0, true); io.observe(sh.el); });
   addEventListener('scroll', kick, { passive: true });
   var rt = 0;
   addEventListener('resize', function () {
     clearTimeout(rt);
-    rt = setTimeout(function () { sizes(); if (!raf) bend = base; drawNear(true); for (var i = 0; i < sheets.length; i++) if (!sheets[i].near) draw(sheets[i], bend, true); }, 80);
+    rt = setTimeout(function () { sizes(); for (var i = 0; i < sheets.length; i++) { sheets[i].b = target(sheets[i]); draw(sheets[i], sheets[i].b, true); } }, 80);
   });
-  var onReduce = function () { if (reduce.matches) { if (raf) cancelAnimationFrame(raf); raf = 0; vel = 0; bv = 0; bend = base; lastY = scrollY; drawNear(true); } };
-  if (reduce.addEventListener) reduce.addEventListener('change', onReduce);
+  if (reduce.addEventListener) reduce.addEventListener('change', function () { for (var i = 0; i < sheets.length; i++) sheets[i].b = null; kick(); });
 })();
 
 
