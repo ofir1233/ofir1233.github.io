@@ -1818,6 +1818,35 @@ html.sheet-arcs #contact::after { top: 0; }
   #design-lab .lt-chaps button i { display: none; }
 }
 
+/* pb: design-system bento, shorter and without repeats. The live token specimen already shows the colours and the wall already carries the chat input
+   and chat bubble renders, so those two static tiles step out; the other five regroup without holes: sidebar, notifications and the whole icon set, then insights and buttons */
+#system .ds-bento > .k-colors, #system .ds-bento > .k-input { display: none; }
+#system .ds-bento > .k-insight, #system .ds-bento > .k-btn { order: 1; }
+@media (min-width: 1001px) {
+  #system .ds-bento { grid-template-rows: 470px 400px; }
+  #system .k-side { grid-column: span 1; }
+  #system .k-notif { grid-column: span 2; }
+  #system .k-icons { grid-column: span 3; }
+  #system .k-insight { grid-column: span 4; }
+  #system .k-btn { grid-column: span 2; }
+}
+@media (min-width: 601px) {
+  #system .k-icons .ds-img img { width: 100%; height: auto; }
+}
+@media (min-width: 601px) and (max-width: 1000px) {
+  #system .ds-bento { grid-template-rows: 420px auto 340px; }
+  #system .k-side, #system .k-notif { grid-column: span 1; }
+  #system .ds-bento > .k-btn { grid-column: span 2; order: 0; }
+  #system .k-insight { grid-column: span 4; }
+  #system .ds-bento > .k-icons { grid-column: span 4; order: 2; }
+}
+@media (max-width: 600px) {
+  #system .ds-bento { grid-template-rows: 360px auto 230px; }
+  #system .ds-bento > .k-icons { order: 1; }
+}
+/* pb: web. The caption under the A/B player spans the window, so "Open A/B" sits at its right edge instead of mid-line */
+#web .wx-fig figcaption { max-width: none; }
+
 </style>
 </head>
 <body>
@@ -2177,7 +2206,6 @@ html.sheet-arcs #contact::after { top: 0; }
         <h2>Branding &amp; website</h2>
       </div>
       <div><p>I designed Hear's brand from zero, and its new scroll-driven marketing site, now in preview in two directions.</p>
-        <div class="ext-row"><a class="ext" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Direction A (preview) ↗︎</a><a class="ext" href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Direction B (preview) ↗︎</a></div>
         <div class="mr"><a class="btn ghost cs-more cs-head" href="work/brand-web.html">Read the full case study <span aria-hidden="true">→</span></a></div></div>
     </div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; build</dd></div><div><dt>Scope</dt><dd>Brand · marketing site</dd></div></dl>
