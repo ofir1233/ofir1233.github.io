@@ -1924,7 +1924,7 @@ html.sheet-arcs #contact::after { top: 0; }
         <p class="quote">Boots on the ground, <span>not theory.</span></p>
         <p class="me-lead">I'm a product designer in Tel Aviv, focused on AI products. I work end to end: research, flows, interface, design system, brand and website.</p>
       </div>
-      <figure class="me-photo me-ill"><img src="img/me-ill-2.webp" width="1600" height="1568" alt="Illustrated portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
+      <figure class="me-photo me-ill"><img src="img/me-ill-2.webp" srcset="img/me-ill-2-900.webp 900w, img/me-ill-2-1200.webp 1200w, img/me-ill-2.webp 1600w" sizes="(min-width: 861px) min(56vw, 880px), 100vw" width="1600" height="1568" alt="Illustrated portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
     </div>
     <ol class="me-pillars">
       <li><span class="me-n">01</span><h3>End to end, alone</h3><p>Brand, product, design system, website.</p></li>
@@ -1952,9 +1952,9 @@ html.sheet-arcs #contact::after { top: 0; }
     <div class="stage" aria-hidden="true">
       <svg class="arcs" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false"><g transform="rotate(-22)"><circle r="96"/><ellipse rx="96" ry="96" style="animation-delay:0.0s"/><ellipse rx="96" ry="96" style="animation-delay:-3.0s"/><ellipse rx="96" ry="96" style="animation-delay:-6.0s"/><ellipse rx="96" ry="96" style="animation-delay:-9.0s"/><ellipse rx="96" ry="96" style="animation-delay:-12.0s"/><ellipse rx="96" ry="96" style="animation-delay:-15.0s"/><ellipse rx="96" ry="96" style="animation-delay:-18.0s"/><ellipse rx="96" ry="96" style="animation-delay:-21.0s"/><ellipse rx="96" ry="96" style="animation-delay:-24.0s"/><ellipse rx="96" ry="96" style="animation-delay:-27.0s"/><ellipse rx="96" ry="96" style="animation-delay:-30.0s"/><ellipse rx="96" ry="96" style="animation-delay:-33.0s"/></g></svg>
       <div class="stack" id="stack">
-        <div class="card c3"><video width="1440" height="900" data-src="img/hero-clip-compliance-b.mp4" poster="img/clip-compliance-poster-b.webp" muted loop playsinline preload="none"></video></div>
-        <div class="card c2"><video width="1440" height="900" data-src="img/hero-clip-actions-c-b.mp4" poster="img/clip-actions-poster-c-b.webp" muted loop playsinline preload="none"></video></div>
-        <div class="card c1"><video width="1440" height="900" data-src="img/hero-clip-topics-r.mp4" poster="img/clip-topics-poster.webp" muted loop playsinline preload="none"></video></div>
+        <div class="card c3"><video width="1440" height="900" data-src="img/hero-clip-compliance-b.mp4" poster="img/clip-compliance-poster-b-1120.webp" muted loop playsinline preload="none"></video></div>
+        <div class="card c2"><video width="1440" height="900" data-src="img/hero-clip-actions-c-b.mp4" poster="img/clip-actions-poster-c-b-1120.webp" muted loop playsinline preload="none"></video></div>
+        <div class="card c1"><video width="1440" height="900" data-src="img/hero-clip-topics-r.mp4" poster="img/clip-topics-poster-1120.webp" muted loop playsinline preload="none"></video></div>
       </div>
       <div class="label stage-note">Hear Design Lab · demo data</div>
     </div>
@@ -3206,7 +3206,8 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     if (v === chosen && byUser(v)) { held = v; if (pinned === v) pinned = null; chosen = null; }
   }, true);
   let raf = 0, tm = 0;
-  const req = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; pick(); }); clearTimeout(tm); tm = setTimeout(pick, 220); };
+  let lastPick = -1e9;
+  const req = () => { if (!raf && performance.now() - lastPick > 150) raf = requestAnimationFrame(() => { raf = 0; lastPick = performance.now(); pick(); }); clearTimeout(tm); tm = setTimeout(pick, 220); };
   addEventListener('scroll', req, { passive: true });
   addEventListener('resize', req);
   addEventListener('load', req);
