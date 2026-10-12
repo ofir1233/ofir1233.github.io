@@ -1726,6 +1726,10 @@ html.en-on .en-go { transition: opacity .8s cubic-bezier(.2,.7,.2,1) var(--en-d,
   #product.r8-stack .spot .media { position: static; }
   #product.r8-stack .spot + .spot { margin-top: 28px; }
 }
+
+/* separate "How I work" from the Design Lab: the Lab rises as its own lighter ink sheet with a rounded top and a hairline */
+section#code { padding-bottom: calc(clamp(48px, 6vw, 88px) + var(--sheet-r)); }
+section#design-lab { position: relative; z-index: 2; margin-top: calc(-1 * var(--sheet-r)); border-radius: var(--sheet-r) var(--sheet-r) 0 0; background: linear-gradient(180deg, #19191c, #111113 520px) !important; box-shadow: 0 -1px 0 rgba(255,255,255,.10), 0 -30px 60px -30px rgba(0,0,0,.8); }
 </style>
 </head>
 <body>
