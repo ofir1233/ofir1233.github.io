@@ -855,7 +855,7 @@ footer { padding-block: 28px 36px; font: 400 12px/1.6 var(--mono); letter-spacin
 #web .web-win[data-on="b"] .web-url { background: #f7f5f0; color: rgba(20,20,20,.58); box-shadow: inset 0 0 0 1px rgba(20,20,20,.07); }
 #web .web-win > video { display: block; transition: opacity .7s cubic-bezier(.4,0,.2,1), filter .7s; }
 #web .web-win > .web-vb { position: absolute; left: 0; top: 38px; width: 100%; height: calc(100% - 38px); object-fit: cover; }
-#web .web-win[data-on="a"] > .web-vb, #web .web-win[data-on="b"] > .web-va { opacity: 0; filter: blur(6px); pointer-events: none; }
+#web .web-win[data-on="a"] > .web-vb, #web .web-win[data-on="b"] > .web-va { opacity: 0; pointer-events: none; }
 #web .web-fig figcaption.web-cap-in { animation: webCap .5s both; }
 @keyframes webCap { from { opacity: 0; translate: 0 4px; } }
 
@@ -1866,6 +1866,48 @@ html.sheet-arcs #contact::after { top: 0; }
 }
 #about .me-photo.me-ill img { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 30%, #000 90%, transparent 100%), linear-gradient(180deg, transparent 0, #000 12%, #000 70%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 30%, #000 90%, transparent 100%), linear-gradient(180deg, transparent 0, #000 12%, #000 70%, transparent 100%); }
 @media (max-width: 860px) { #about .me-photo.me-ill { max-width: none; width: calc(100% + 32px); margin: 0 -16px; } #about .me-photo.me-ill img { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0, #000 10%, #000 72%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0, #000 10%, #000 72%, transparent 100%); } }
+/* fx: Newsroom and Demos engine cards fit one screen on desktop so they stack like the others: the main clip leads, the secondary figures sit beside it as a compact column */
+@media (min-width: 861px) {
+  #product .spot .media:has(> figure + .pair), #product .spot .media:has(> figure + figure) { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: start; column-gap: 16px; }
+  #product .spot .media > .pair { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  #product .spot .media > figure + figure figcaption, #product .spot .media > .pair figcaption { font-size: 13px; }
+  #product .spot:last-of-type .media > figure + figure .shot { aspect-ratio: 1600 / 1226; }
+}
+/* fx: chapter rails, the unlabeled lead-in and outro read as quiet dotted spacers, not missing labels */
+#product div.chap-s i { background: repeating-linear-gradient(90deg, rgba(242,239,231,.16) 0 2px, transparent 2px 6px); }
+#product div.chap-s b { background: rgba(255,112,86,.28); }
+#product div.chap-s.done b { background: rgba(255,112,86,.18); }
+/* fx: the brand filmstrip starts with its first tile clear of the edge fade */
+@media (min-width: 761px) {
+  #web .br-strip { -webkit-mask-image: linear-gradient(90deg, transparent, #000 clamp(16px, 4vw, 40px), #000 calc(100% - clamp(16px, 4vw, 40px)), transparent); mask-image: linear-gradient(90deg, transparent, #000 clamp(16px, 4vw, 40px), #000 calc(100% - clamp(16px, 4vw, 40px)), transparent); }
+}
+/* fx: phone nav, a quiet "Sections" toggle opens a small sheet under the pill with every section */
+.nav .nav-more-li { display: none; }
+.nav-sheet { display: none; }
+@media (max-width: 760px) {
+  .nav ul li.nav-more-li { display: block; }
+  .nav-more { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 10px 0 11px; border: 0; border-radius: 99px; background: none; color: rgba(242,239,231,.72); font: inherit; font-size: 14px; white-space: nowrap; cursor: pointer; transition: color .2s, background-color .2s; }
+  .nav-more svg { width: 10px; height: 10px; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+  .nav-more:hover, .nav-more[aria-expanded="true"] { color: var(--cream); background: rgba(255,255,255,.08); }
+  .nav-more[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .nav-more:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+  .nav-sheet { display: grid; position: absolute; left: 0; right: 0; top: calc(100% + 8px); padding: 6px; border-radius: 22px; background: #0c0c0d; box-shadow: 0 0 0 1px rgba(255,255,255,.09), 0 24px 48px -20px rgba(0,0,0,.8); opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity .22s ease, transform .3s cubic-bezier(.2,.7,.2,1), visibility 0s linear .3s; }
+  .nav-sheet.open { opacity: 1; visibility: visible; transform: none; transition: opacity .22s ease, transform .3s cubic-bezier(.2,.7,.2,1), visibility 0s; }
+  .nav .nav-sheet a { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 0 16px; border-radius: 16px; color: rgba(242,239,231,.78); font-size: 15px; text-decoration: none; }
+  .nav .nav-sheet a::after { content: ""; position: static; inset: auto; width: 5px; height: 5px; border-radius: 50%; background: var(--coral); opacity: 0; transition: opacity .2s; }
+  .nav .nav-sheet a:hover { color: var(--cream); background: rgba(255,255,255,.06); }
+  .nav .nav-sheet a[aria-current] { color: var(--cream); }
+  .nav .nav-sheet a[aria-current]::after { opacity: 1; }
+  .nav .nav-sheet a:focus-visible { outline: 2px solid var(--coral); outline-offset: -2px; }
+}
+@media (prefers-reduced-motion: reduce) { .nav-sheet, .nav-sheet.open, .nav-more svg { transition: none; } }
+
+
+/* about portrait: centred in its column rather than pinned to the window edge, with even fades on both sides */
+@media (min-width: 861px) {
+  #about .me-photo.me-ill { width: min(46vw, 660px); justify-self: center; margin: -36px 0 -24px; }
+  #about .me-photo.me-ill img { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20%, #000 80%, transparent 100%), linear-gradient(180deg, transparent 0, #000 12%, #000 72%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 20%, #000 80%, transparent 100%), linear-gradient(180deg, transparent 0, #000 12%, #000 72%, transparent 100%); }
+}
 </style>
 </head>
 <body>
@@ -1924,7 +1966,7 @@ html.sheet-arcs #contact::after { top: 0; }
         <p class="quote">Boots on the ground, <span>not theory.</span></p>
         <p class="me-lead">I'm a product designer in Tel Aviv, focused on AI products. I work end to end: research, flows, interface, design system, brand and website.</p>
       </div>
-      <figure class="me-photo me-ill"><img src="img/me-ill-2.webp" srcset="img/me-ill-2-900.webp 900w, img/me-ill-2-1200.webp 1200w, img/me-ill-2.webp 1600w" sizes="(min-width: 861px) min(56vw, 880px), 100vw" width="1600" height="1568" alt="Illustrated portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
+      <figure class="me-photo me-ill"><img src="img/me-ill-3.webp" srcset="img/me-ill-3-900.webp 900w, img/me-ill-3-1200.webp 1200w, img/me-ill-3.webp 1408w" sizes="(min-width: 861px) min(46vw, 660px), 100vw" width="1408" height="1568" alt="Illustrated portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
     </div>
     <ol class="me-pillars">
       <li><span class="me-n">01</span><h3>End to end, alone</h3><p>Brand, product, design system, website.</p></li>
@@ -1952,8 +1994,8 @@ html.sheet-arcs #contact::after { top: 0; }
     <div class="stage" aria-hidden="true">
       <svg class="arcs" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false"><g transform="rotate(-22)"><circle r="96"/><ellipse rx="96" ry="96" style="animation-delay:0.0s"/><ellipse rx="96" ry="96" style="animation-delay:-3.0s"/><ellipse rx="96" ry="96" style="animation-delay:-6.0s"/><ellipse rx="96" ry="96" style="animation-delay:-9.0s"/><ellipse rx="96" ry="96" style="animation-delay:-12.0s"/><ellipse rx="96" ry="96" style="animation-delay:-15.0s"/><ellipse rx="96" ry="96" style="animation-delay:-18.0s"/><ellipse rx="96" ry="96" style="animation-delay:-21.0s"/><ellipse rx="96" ry="96" style="animation-delay:-24.0s"/><ellipse rx="96" ry="96" style="animation-delay:-27.0s"/><ellipse rx="96" ry="96" style="animation-delay:-30.0s"/><ellipse rx="96" ry="96" style="animation-delay:-33.0s"/></g></svg>
       <div class="stack" id="stack">
-        <div class="card c3"><video width="1440" height="900" data-src="img/hero-clip-compliance-b.mp4" poster="img/clip-compliance-poster-b-1120.webp" muted loop playsinline preload="none"></video></div>
-        <div class="card c2"><video width="1440" height="900" data-src="img/hero-clip-actions-c-b.mp4" poster="img/clip-actions-poster-c-b-1120.webp" muted loop playsinline preload="none"></video></div>
+        <div class="card c3"><video width="1440" height="900" data-src="img/hero-clip-compliance-nb.mp4" poster="img/clip-compliance-poster-nb-1120.webp" muted loop playsinline preload="none"></video></div>
+        <div class="card c2"><video width="1440" height="900" data-src="img/hero-clip-actions-c-nb.mp4" poster="img/clip-actions-poster-c-nb-1120.webp" muted loop playsinline preload="none"></video></div>
         <div class="card c1"><video width="1440" height="900" data-src="img/hero-clip-topics-r.mp4" poster="img/clip-topics-poster-1120.webp" muted loop playsinline preload="none"></video></div>
       </div>
       <div class="label stage-note">Hear Design Lab · demo data</div>
@@ -2008,7 +2050,7 @@ html.sheet-arcs #contact::after { top: 0; }
     </div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Initiator · design &amp; code</dd></div><div><dt>Stack</dt><dd>React · Vite · Storybook</dd></div></dl>
 
-    <figure class="rv lab-tour"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/demo-tour-b-r.mp4" data-poster="img/demo-tour-poster-c.webp" muted loop playsinline preload="none" aria-label="A question typed into the Lab, the answer, then Topics, Compliance and Actions"></video></div>
+    <figure class="rv lab-tour"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/demo-tour-nb-r.mp4" data-poster="img/demo-tour-poster-flow.webp" muted loop playsinline preload="none" aria-label="A question typed into the Lab, the answer, then Topics, Compliance and Actions"></video></div>
       <div class="lt-rail" aria-hidden="true"><i class="lt-fill"></i></div>
       <figcaption><span class="lt-cap"><b>The Lab in 30 seconds.</b></span><span class="lt-chaps" role="group" aria-label="Jump to a part of the tour"><button type="button" data-t="6.5"><i>01</i>Ask</button><button type="button" data-t="12"><i>02</i>Answer</button><button type="button" data-t="20"><i>03</i>Topics</button><button type="button" data-t="23.3"><i>04</i>Compliance</button><button type="button" data-t="27.5"><i>05</i>Actions</button></span></figcaption></figure>
 
@@ -2078,7 +2120,7 @@ html.sheet-arcs #contact::after { top: 0; }
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-compliance"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Compliance</span></button><div class="mr-body" id="mr-compliance"><div class="mr-in"><div><p>Any cell opens a popover that places that agent against the whole team and says what the next button will do before you press it. One click on <b>Explore in Chat</b> hands that cell to the AI chat to dig deeper.</p><p class="mr-why"><b>Design choice:</b> only problems get color. A full grid of agents and criteria stays quiet until something needs attention.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
-      <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-compliance-b.mp4" data-poster="img/clip-compliance-poster-b.webp" muted loop playsinline preload="none" aria-label="Compliance overview, the agents heatmap and a cell popover, then Explore in Chat, where the AI explains that score"></video></div></figure></div>
+      <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-compliance-nb.mp4" data-poster="img/clip-compliance-poster-nb.webp" muted loop playsinline preload="none" aria-label="Compliance overview, the agents heatmap and a cell popover, then Explore in Chat, where the AI explains that score"></video></div></figure></div>
     </article>
 
     <article class="spot">
@@ -2102,7 +2144,7 @@ html.sheet-arcs #contact::after { top: 0; }
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-actions"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Actions</span></button><div class="mr-body" id="mr-actions"><div class="mr-in"><div><p>Alerts, signals and evaluations become tasks. Inside a task the team ticks off action items, moves the status and <b>@mentions</b> a teammate, and every step lands in the activity log.</p><p class="mr-why"><b>Design choice:</b> every task keeps its source, and closed work keeps its reason, such as duplicate or escalated, so the team learns from it.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/actions.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
-      <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-actions-c-b.mp4" data-poster="img/clip-actions-poster-c-b.webp" muted loop playsinline preload="none" aria-label="Actions board: filtering, opening a task, ticking an action item, moving it to In progress and @mentioning a teammate in a comment"></video></div></figure></div>
+      <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-actions-c-nb.mp4" data-poster="img/clip-actions-poster-c-nb.webp" muted loop playsinline preload="none" aria-label="Actions board: filtering, opening a task, ticking an action item, moving it to In progress and @mentioning a teammate in a comment"></video></div></figure></div>
     </article>
 
     <article class="spot">
@@ -2115,9 +2157,9 @@ html.sheet-arcs #contact::after { top: 0; }
         <div class="cs-links"><a class="cs-link" href="work/newsroom.html">Newsroom case study <span aria-hidden="true">→</span></a><a class="cs-link" href="work/data.html">Data &amp; signals case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
-        <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-news-c-b.mp4" data-poster="img/clip-news-poster-c.webp" muted loop playsinline preload="none" aria-label="Newsroom: the live ticker and the spike story, the monthly recap played as a story, then the feed filtered to one source"></video></div><figcaption><b>Newsroom</b></figcaption></figure>
+        <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-news-c-nb.mp4" data-poster="img/clip-news-poster-c.webp" muted loop playsinline preload="none" aria-label="Newsroom: the live ticker and the spike story, the monthly recap played as a story, then the feed filtered to one source"></video></div><figcaption><b>Newsroom</b></figcaption></figure>
         <div class="pair">
-          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-data-c-b.mp4" data-poster="img/clip-data-poster-d.webp" muted loop playsinline preload="none" aria-label="Data table: an AI filter from a plain-language request, a call opened in the side panel, then Ask AI about that call"></video></div><figcaption><b>Data</b></figcaption></figure>
+          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-data-c-nb.mp4" data-poster="img/clip-data-poster-d-nb.webp" muted loop playsinline preload="none" aria-label="Data table: an AI filter from a plain-language request, a call opened in the side panel, then Ask AI about that call"></video></div><figcaption><b>Data</b></figcaption></figure>
           <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-signals-c.mp4" data-poster="img/clip-signals-poster-d.webp" muted loop playsinline preload="none" aria-label="Turning a signal on, then creating a new one: name, folder, description and a field to extract"></video></div><figcaption><b>Signals</b></figcaption></figure>
         </div>
       </div>
@@ -2134,7 +2176,7 @@ html.sheet-arcs #contact::after { top: 0; }
       </div>
       <div class="media">
         <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Demos engine · demo data</span><video width="1440" height="900" data-src="img/demo-showcase.mp4" data-poster="img/demo-showcase-poster.webp" muted loop playsinline preload="none" aria-label="A 30-second showcase demo played by the engine: it asks what drove escalations this week, answers by topic, then asks who handled them"></video></div><figcaption><b>A 30-second showcase</b></figcaption></figure>
-        <figure class="rv"><div class="shot"><img src="img/demos-light-b.webp" alt="The demos library with showcase sequences" width="1600" height="1226" loading="lazy"></div><figcaption><b>The demo library</b></figcaption></figure>
+        <figure class="rv"><div class="shot"><img src="img/demos-light-nb.webp" alt="The demos library with showcase sequences" width="1600" height="1226" loading="lazy"></div><figcaption><b>The demo library</b></figcaption></figure>
       </div>
     </article>
   </div>
@@ -2207,7 +2249,7 @@ html.sheet-arcs #contact::after { top: 0; }
       <figure class="ds-tile k-colors rv" data-tier="foundations"><figcaption class="ds-tag"><span>Foundations</span> Color</figcaption><div class="ds-img"><img src="img/ds-colors.webp" width="1375" height="1400" alt="Color palette: Pulse Coral, Charcoal and Blue Cobalt, each with a name, a hex code, a reason for use and a full tint ramp" loading="lazy"></div></figure>
       <figure class="ds-tile k-side rv" data-tier="organisms"><figcaption class="ds-tag"><span>Organism</span> Sidebar</figcaption><div class="ds-img"><img src="img/ds-sidebar-b.webp" width="539" height="1455" alt="Sidebar navigation component" loading="lazy"></div></figure>
       <figure class="ds-tile k-notif rv" data-tier="organisms"><figcaption class="ds-tag"><span>Organism</span> Notifications</figcaption><div class="ds-img"><img src="img/ds-notifications.webp" width="795" height="1255" alt="Notifications popover component" loading="lazy"></div></figure>
-      <figure class="ds-tile k-insight rv" data-tier="organisms"><figcaption class="ds-tag"><span>Organism</span> Insights panel</figcaption><div class="ds-img"><img src="img/ds-insights-b.webp" width="1400" height="638" alt="Insights panel component with demo metrics" loading="lazy"></div></figure>
+      <figure class="ds-tile k-insight rv" data-tier="organisms"><figcaption class="ds-tag"><span>Organism</span> Insights panel</figcaption><div class="ds-img"><img src="img/ds-insights-nb.webp" width="1400" height="638" alt="Insights panel component with demo metrics" loading="lazy"></div></figure>
       <figure class="ds-tile k-btn rv" data-tier="atoms"><figcaption class="ds-tag"><span>Atom</span> Button</figcaption><div class="ds-img"><img src="img/ds-buttons.webp" width="820" height="520" alt="Button variants and sizes" loading="lazy"></div></figure>
       <figure class="ds-tile k-icons rv" data-tier="foundations"><figcaption class="ds-tag"><span>Foundations</span> Iconography</figcaption><div class="ds-img"><img src="img/ds-icons.webp" width="1400" height="1360" alt="Icon set: the Hear logo in coral and white, and sidebar navigation icons, each with its color token and component name" loading="lazy"></div></figure>
       <figure class="ds-tile k-input rv" data-tier="organisms molecules"><figcaption class="ds-tag"><span>Organism</span> Chat input <span>Molecule</span> Chat bubble</figcaption><div class="ds-img"><img src="img/ds-chatinput.webp" width="1400" height="270" alt="Chat input with an @ mention being typed" loading="lazy"><img src="img/ds-chatbubble.webp" width="1400" height="263" alt="AI response bubble" loading="lazy"></div></figure>
@@ -2246,7 +2288,7 @@ html.sheet-arcs #contact::after { top: 0; }
         <p>From the production spec to the stand on the floor, plus mockups for print, signage and merch.</p>
       </div>
       <div class="br-strip" tabindex="0" role="region" aria-label="Hear brand applications, scrolling gallery">
-        <div class="br-track"><figure class="br-item"><div class="shot"><img src="img/br-booth-live-b.webp" data-full="img/br-booth-live-b-l.webp" alt="The booth as built at the show, from my design" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="Trade show booth render" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="Booth production spec with panel callouts" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="Hear sign on a building facade" width="818" height="460" loading="lazy" decoding="async"></div><span>Signage</span></figure><figure class="br-item"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="Hear printed books with dot-pattern covers" width="818" height="460" loading="lazy" decoding="async"></div><span>Print</span></figure><figure class="br-item"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="Hear tote bags" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch</span></figure><figure class="br-item"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="Hear billboard, Just growth delivered" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="Hear poster series" width="818" height="460" loading="lazy" decoding="async"></div><span>Posters</span></figure><figure class="br-item"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="Hear logo on an office lobby wall" width="818" height="460" loading="lazy" decoding="async"></div><span>Office</span></figure><figure class="br-item"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="Hear color palette" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="Hear typography" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="Hear brand graphics with product data cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="Hear brand imagery cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="Hear street-side digital sign" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-live-b.webp" data-full="img/br-booth-live-b-l.webp" alt="" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Signage</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Print</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Posters</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Office</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure></div>
+        <div class="br-track"><figure class="br-item"><div class="shot"><img src="img/br-booth-live-nb.webp" data-full="img/br-booth-live-nb-l.webp" alt="The booth as built at the show, from my design" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="Trade show booth render" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="Booth production spec with panel callouts" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="Hear sign on a building facade" width="818" height="460" loading="lazy" decoding="async"></div><span>Signage</span></figure><figure class="br-item"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="Hear printed books with dot-pattern covers" width="818" height="460" loading="lazy" decoding="async"></div><span>Print</span></figure><figure class="br-item"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="Hear tote bags" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch</span></figure><figure class="br-item"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="Hear billboard, Just growth delivered" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="Hear poster series" width="818" height="460" loading="lazy" decoding="async"></div><span>Posters</span></figure><figure class="br-item"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="Hear logo on an office lobby wall" width="818" height="460" loading="lazy" decoding="async"></div><span>Office</span></figure><figure class="br-item"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="Hear color palette" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="Hear typography" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="Hear brand graphics with product data cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="Hear brand imagery cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="Hear street-side digital sign" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-live-nb.webp" data-full="img/br-booth-live-nb-l.webp" alt="" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Signage</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Print</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Posters</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Office</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Out of home</span></figure></div>
       </div>
     </div>
   </div>
@@ -2257,24 +2299,24 @@ html.sheet-arcs #contact::after { top: 0; }
 <section id="fyi" aria-labelledby="fyi-h">
   <div class="wrap fyi-wrap">
     <div class="fyi-copy">
-      <div class="label">Mobile app · <b>Product &amp; UI design</b></div>
+      <div class="label">Case study 05 · <b>Mobile app</b></div>
       <h2 id="fyi-h">FYI · iOS app</h2>
       <p>FYI (Focus Your Ideas) puts creative projects inside the chat: messages become tasks and an assistant joins the thread. I designed every screen in Figma, at Intune before Hear.</p>
       <ul class="fyi-chips" aria-label="What I designed"><li>A full design system</li><li>Dozens of screens</li></ul>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-fyi"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about FYI</span></button><div class="mr-body" id="mr-fyi"><div class="mr-in"><div><p>Calls in FYI share the screen, too. It's native iOS product design from before AI tools: every screen drawn by hand in Figma, on a full design system.</p></div></div></div></div>
       <a class="btn ghost cs-more" href="work/fyi.html">See the FYI case study <span aria-hidden="true">→</span></a>
     </div>
-    <div class="fyi-fan rv"><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-chats-t.webp" width="590" height="1279" alt="FYI chat list in dark mode: a project chat, two people and a group chat, with names and faces blurred" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-ai-assistant-t.webp" width="590" height="1279" alt="FYI AI assistant chat, with suggestions such as Design a database schema" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-chat-t.webp" width="590" height="1279" alt="FYI chat with Chat, Tasks and Project tabs, an image message, a link and replies" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-create-task-t.webp" width="590" height="1279" alt="Create task sheet with name, due date, description, assignees and status" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-call-share-t.webp" width="590" height="1279" alt="FYI video call with screen sharing and sync; the caller's photo is blurred" loading="lazy" decoding="async"></div></div></div>
+    <div class="fyi-fan rv"><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-chats-t-nb.webp" width="590" height="1279" alt="FYI chat list in dark mode: a project chat, two people and a group chat" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-ai-assistant-t.webp" width="590" height="1279" alt="FYI AI assistant chat, with suggestions such as Design a database schema" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-chat-t-nb.webp" width="590" height="1279" alt="FYI chat with Chat, Tasks and Project tabs, an image message, a link and replies" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-create-task-t-nb.webp" width="590" height="1279" alt="Create task sheet with name, due date, description, assignees and status" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-call-share-t-nb.webp" width="590" height="1279" alt="FYI video call with screen sharing and sync" loading="lazy" decoding="async"></div></div></div>
   </div>
 </section>
 
 <!-- ============================================================ IA -->
 <section id="ia">
   <div class="wrap">
-    <span class="bignum" aria-hidden="true">05</span>
+    <span class="bignum" aria-hidden="true">06</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study 05</div>
+        <div class="label">Case study 06</div>
         <h2>Information architecture</h2>
       </div>
       <div><p>Maps of Hear's product, website and sign-in flows. Pick a map and open any area.</p>
@@ -2308,7 +2350,7 @@ html.sheet-arcs #contact::after { top: 0; }
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <div class="label">How I work</div>
+        <div class="label">Redesign &amp; rebrand</div>
         <h2>Process</h2>
       </div>
       <div><p>Hear's redesign and rebrand, planned as one program in eight phases.</p>
@@ -3347,7 +3389,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   // the strip clips its own images, so the browser's lazy loading would leave blank frames drifting in: load them once the strip is near
   const imgs = track.querySelectorAll('img');
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(es => es.forEach(e => { vis = e.isIntersecting; loop(); }), { rootMargin: '80px 0px' }).observe(strip);
+    new IntersectionObserver(es => es.forEach(e => { vis = e.isIntersecting; if (vis && !strip.dataset.seen) { strip.dataset.seen = '1'; x = 0; paint(); hold = performance.now() + 3000; } loop(); }), { rootMargin: '80px 0px' }).observe(strip);
     const pre = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { imgs.forEach(i => { i.loading = 'eager'; }); pre.disconnect(); } }, { rootMargin: '1200px 0px' });
     pre.observe(strip);
   } else { vis = true; imgs.forEach(i => { i.loading = 'eager'; }); }
@@ -3375,7 +3417,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   });
   cards[0].before(nav);
   // the Data and Signals windows open on an empty greeting; while paused, rest them on the frame their poster shows
-  sec.querySelectorAll('video[data-poster$="-poster-d.webp"]').forEach(v => {
+  sec.querySelectorAll('video[data-poster*="-poster-d"]').forEach(v => {
     const rest = () => { if (v.paused && v.currentTime < 1.5 && v.readyState >= 1) { try { v.currentTime = 3; } catch (e) {} } };
     ['loadeddata', 'pause'].forEach(e => v.addEventListener(e, rest));
   });
@@ -3581,6 +3623,34 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     setTimeout(() => { location.href = 'mailto:' + addr + '?subject=' + encodeURIComponent('Hi Ofir'); }, 250);
   });
 })();
+// fx: phone nav. Below 760px the middle links hide, so a "Sections" toggle opens a small sheet with all of them (Esc, outside tap or a pick closes it)
+(() => {
+  const nav = document.querySelector('.nav'), wrap = nav && nav.querySelector('.wrap'), ul = wrap && wrap.querySelector('ul'); if (!ul) return;
+  const links = [...ul.querySelectorAll('li a[href^="#"]')].filter(a => a.getAttribute('href') !== '#contact');
+  if (links.length < 2) return;
+  const li = document.createElement('li'); li.className = 'nav-more-li';
+  const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'nav-more';
+  btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'nav-sheet');
+  btn.innerHTML = 'Sections<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  li.appendChild(btn); ul.prepend(li);
+  const sheet = document.createElement('div'); sheet.className = 'nav-sheet'; sheet.id = 'nav-sheet';
+  sheet.setAttribute('role', 'region'); sheet.setAttribute('aria-label', 'Sections');
+  links.forEach(a => { const c = document.createElement('a'); c.href = a.getAttribute('href'); c.textContent = a.textContent; c.tabIndex = -1; sheet.appendChild(c); });
+  wrap.appendChild(sheet);
+  const items = [...sheet.querySelectorAll('a')];
+  const isOpen = () => sheet.classList.contains('open');
+  const set = open => {
+    sheet.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open));
+    items.forEach((c, i) => { c.tabIndex = open ? 0 : -1; c.toggleAttribute('aria-current', links[i].hasAttribute('aria-current')); });
+  };
+  btn.addEventListener('click', () => { const open = !isOpen(); set(open); if (open && btn.matches(':focus-visible')) items[0].focus(); });
+  items.forEach(c => c.addEventListener('click', () => set(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && isOpen()) { set(false); btn.focus(); } });
+  document.addEventListener('pointerdown', e => { if (isOpen() && !sheet.contains(e.target) && !btn.contains(e.target)) set(false); });
+  sheet.addEventListener('focusout', e => { if (e.relatedTarget && !wrap.contains(e.relatedTarget)) set(false); });
+  matchMedia('(max-width: 760px)').addEventListener('change', e => { if (!e.matches) set(false); });
+})();
+
 </script>
 
 
