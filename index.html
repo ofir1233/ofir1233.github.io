@@ -1446,14 +1446,7 @@ footer .f-fine { margin-top: 22px; }
 @media (max-width: 520px) { .fyi-fan { --pw: 128px; --gap: 62px; } }
 
 
-/* brand & web: both site directions side by side, so neither is missed */
-#web .web-ab { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 2vw, 24px); }
-#web .web-dir .shot.win { padding-top: 30px; }
-#web .web-url2 { margin: 0 auto; transform: translateX(-24px); font: 500 11px/1 var(--mono); color: #8a857c; background: rgba(127,127,127,.12); padding: 5px 12px; border-radius: 99px; max-width: 70%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-#web .web-dir figcaption { display: block; }
-#web .web-tag { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 8px; border-radius: 6px; background: var(--coral); color: #160805; font: 600 12px/1 var(--mono); vertical-align: 1px; }
-#web .web-dir figcaption a { color: var(--coral); text-decoration: none; white-space: nowrap; }
-@media (max-width: 760px) { #web .web-ab { grid-template-columns: 1fr; } #web .web-url2 { transform: none; } }
+/* brand & web: the two-window A/B layout was replaced by the single frame (see brandfix) */
 
 /* about moves up: "who I am" right after the hero */
 #about .me-top { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px clamp(24px, 5vw, 80px); align-items: start; }
@@ -1564,6 +1557,106 @@ footer .f-fine { margin-top: 22px; }
   .code-steps li, .code-steps li + li { padding: 18px 2px 18px; border-left: 0; border-bottom: 1px solid var(--line); }
   .code-steps li + li::before { content: none; }
 }
+
+/* brandfix: Branding & website. One large browser frame plays Direction A, then B, then A again; a big two-part switch above it shows a progress bar per direction (stories-style) and jumps on click. Only the visible direction is a live video */
+#web .wx { width: min(100%, max(600px, calc((100svh - 250px) * 1.6))); margin: clamp(32px, 4.5vw, 56px) auto 0; }
+#web .wx-seg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+#web .wx-tab { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 3px 14px; min-height: 76px; padding: 20px 18px 14px; border: 0; border-radius: 16px; background: rgba(242,239,231,.035); box-shadow: inset 0 0 0 1px rgba(242,239,231,.09); color: rgba(242,239,231,.56); text-align: left; cursor: pointer; transition: background .3s, color .3s, box-shadow .3s; -webkit-tap-highlight-color: transparent; }
+#web .wx-tab:hover { color: var(--paper); box-shadow: inset 0 0 0 1px rgba(242,239,231,.22); }
+#web .wx-tab[aria-selected="true"] { background: rgba(242,239,231,.075); color: var(--paper); box-shadow: inset 0 0 0 1px rgba(242,239,231,.26); }
+#web .wx-tab:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+#web .wx-k { grid-row: 1 / span 2; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px; font: 600 15px/1 var(--mono); background: #000; color: var(--paper); box-shadow: inset 0 0 0 1px rgba(242,239,231,.22); }
+#web .wx-tab[data-dir="b"] .wx-k { background: #f1eee7; color: #141414; box-shadow: none; }
+#web .wx-name { font: 600 clamp(16px, 1.45vw, 19px)/1.2 var(--display); letter-spacing: -.01em; }
+#web .wx-url { font: 500 11.5px/1.3 var(--mono); letter-spacing: .01em; opacity: .62; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#web .wx-p { position: absolute; left: 18px; right: 18px; top: 9px; height: 3px; border-radius: 3px; background: rgba(242,239,231,.12); overflow: hidden; }
+#web .wx-p i { display: block; height: 100%; border-radius: inherit; background: var(--coral); transform: scaleX(0); transform-origin: 0 50%; }
+#web .wx-tab:not([aria-selected="true"]) .wx-p i { background: rgba(242,239,231,.4); }
+/* the frame: one browser window, bar and address follow the direction on screen */
+#web .wx-win { padding-top: 38px; background: #000; border-color: rgba(242,239,231,.1); transition: background .6s; }
+#web .wx[data-on="b"] .wx-win { background: #f1eee7; }
+#web .wx-win .bar { height: 38px; gap: 7px; padding-left: 15px; background: #161618; border-bottom: 1px solid #242428; transition: background .6s, border-color .6s; }
+#web .wx-win .bar i { width: 11px; height: 11px; background: #36363b; transition: background .6s; }
+#web .wx-win .bar i:first-child { background: #ff7056; }
+#web .wx[data-on="b"] .wx-win .bar { background: #e7e3da; border-color: #d6d1c6; }
+#web .wx[data-on="b"] .wx-win .bar i:not(:first-child) { background: #cbc6bb; }
+#web .wx-addr { position: absolute; left: 50%; top: 50%; translate: -50% -50%; display: grid; place-items: center; width: min(52%, 420px); height: 24px; padding: 0 12px; border-radius: 8px; background: #0b0b0c; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); color: rgba(242,239,231,.6); font: 500 11.5px/1 var(--mono); transition: background .6s, color .6s; }
+#web .wx-addr b { grid-area: 1 / 1; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; transition: opacity .45s, translate .45s; }
+#web .wx[data-on="a"] .wx-addr b[data-dir="b"], #web .wx[data-on="b"] .wx-addr b[data-dir="a"] { opacity: 0; translate: 0 4px; }
+#web .wx[data-on="b"] .wx-addr { background: #f7f5f0; color: rgba(20,20,20,.6); box-shadow: inset 0 0 0 1px rgba(20,20,20,.08); }
+#web .wx-stage { position: relative; aspect-ratio: 1120 / 700; }
+#web .wx-stage > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .7s cubic-bezier(.4,0,.2,1); }
+#web .wx[data-on="a"] .wx-v[data-dir="b"], #web .wx[data-on="b"] .wx-v[data-dir="a"] { opacity: 0; pointer-events: none; }
+#web .wx-fig figcaption { display: block; margin-top: 14px; }
+#web .wx-cap { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 18px; color: rgba(242,239,231,.62); font-size: 15px; }
+#web .wx-cap[hidden] { display: none; }
+#web .wx-cap b { color: var(--paper); font-weight: 600; }
+#web .wx-cap a { color: var(--coral); text-decoration: none; white-space: nowrap; font: 500 13px/1 var(--mono); }
+#web .wx-cap a:hover { text-decoration: underline; }
+@media (max-width: 760px) {
+  #web .wx { width: 100%; }
+  #web .wx-seg { gap: 8px; }
+  #web .wx-tab { grid-template-columns: 1fr; gap: 6px; min-height: 0; padding: 18px 12px 12px; border-radius: 14px; }
+  #web .wx-k { grid-row: auto; width: 30px; height: 30px; border-radius: 9px; font-size: 13px; }
+  #web .wx-name { font-size: 15px; }
+  #web .wx-url { display: none; }
+  #web .wx-p { left: 12px; right: 12px; top: 8px; }
+  #web .wx-win { padding-top: 26px; }
+  #web .wx-win .bar { height: 26px; gap: 5px; padding-left: 10px; }
+  #web .wx-win .bar i { width: 7px; height: 7px; }
+  #web .wx-addr { height: 17px; width: min(62%, 300px); padding: 0 8px; border-radius: 6px; font-size: 9.5px; }
+  #web .wx-cap { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #web .wx-tab, #web .wx-win, #web .wx-win .bar, #web .wx-win .bar i, #web .wx-addr, #web .wx-addr b, #web .wx-stage > video { transition: none; }
+}
+/* brandfix: the brand filmstrip drifts again (script-driven so it can also be dragged or swiped); it pauses on hover, focus and drag, and stays a still scrollable row under reduced motion */
+#web .br-strip.br-drift { overflow: hidden; scroll-snap-type: none; touch-action: pan-y; cursor: grab; }
+#web .br-strip.br-drift.dragging { cursor: grabbing; }
+#web .br-strip.br-drift .br-item[aria-hidden] { display: block; }
+#web .br-strip.br-drift .br-track { will-change: transform; }
+#web .br-strip.br-drift img { -webkit-user-drag: none; user-select: none; }
+#web .br-strip.br-drift.dragging img { cursor: grabbing; }
+
+/* prodfix: product cards fit their content. No pinning: a tight list of cards that break out a little wider than the text column, video ~66% of the card and top-aligned, text centred beside it with 2-3 fact chips; a slim sticky index pill marks the current card */
+#product .pf-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 0; padding: 0; }
+#product .pf-facts li { padding: 6px 11px 5px; border-radius: 99px; box-shadow: inset 0 0 0 1px rgba(242,239,231,.14); background: rgba(242,239,231,.035); color: rgba(242,239,231,.8); font: 500 12.5px/1.3 var(--body); letter-spacing: 0; }
+#product .pf-facts li::before { content: none; }
+#product .spot .head .spot-n { display: block; position: static; font: 500 11.5px/1 var(--mono); letter-spacing: .02em; color: rgba(242,239,231,.4); white-space: pre; }
+#product .spot .head .spot-n b { font-weight: 500; color: var(--coral); }
+#product .pf-idx { display: none; }
+@media (min-width: 861px) {
+  #product .spot, #product .spot:first-of-type, #product .spot:nth-of-type(even) { --cw: min(calc(100vw - 48px), 1400px); position: relative; top: auto; width: var(--cw); max-width: none; min-height: 0; margin: 20px 0 0 calc(50% - var(--cw) / 2); grid-template-columns: minmax(0, 34fr) minmax(0, 66fr); gap: clamp(28px, 3vw, 44px); align-items: start; align-content: start; padding: clamp(26px, 2.4vw, 36px); border: 1px solid var(--line); border-radius: 26px; background: linear-gradient(180deg, #19191c, #121214 60%); box-shadow: inset 0 1px 0 rgba(255,255,255,.05); }
+  #product .spot:nth-of-type(even) { grid-template-columns: minmax(0, 66fr) minmax(0, 34fr); }
+  #product .spot:first-of-type { margin-top: 16px; }
+  #product .spot::after { content: none; }
+  #product .spot .txt { position: static; top: auto; align-self: center; gap: 12px; padding-block: 8px; }
+  #product .spot .txt h3 { font-size: clamp(24px, 2.2vw, 30px); }
+  #product .spot .txt p { font-size: 16px; line-height: 1.55; }
+  #product .spot .txt .mr { margin-top: 4px; }
+  #product .spot .media { align-self: start; position: sticky; top: 132px; gap: 14px; }
+  #product .spot .media figure { margin: 0; }
+  #product .spot .chap { margin-top: 10px; }
+  #product .spot .pair { gap: 14px; }
+  /* the demo library still reads, but as a cropped strip so the card stays close to one screen */
+  #product .spot:last-of-type .media > figure + figure .shot { aspect-ratio: 16 / 7; overflow: hidden; }
+  #product .spot:last-of-type .media > figure + figure .shot img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+  #product .pf-idx { display: flex; position: sticky; top: 76px; z-index: 6; width: max-content; max-width: 100%; margin: clamp(26px, 3vw, 40px) auto 0; gap: 2px; padding: 4px; border-radius: 99px; background: rgba(8,8,9,.86); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 0 0 1px rgba(255,255,255,.09), 0 14px 30px -18px rgba(0,0,0,.7); overflow-x: auto; scrollbar-width: none; }
+  #product .pf-idx::-webkit-scrollbar { display: none; }
+  #product .pf-idx button { flex: none; display: inline-flex; align-items: baseline; gap: 7px; min-height: 32px; padding: 8px 13px 7px; border: 0; border-radius: 99px; background: none; color: rgba(242,239,231,.5); font: 500 12.5px/1.2 var(--body); white-space: nowrap; cursor: pointer; transition: color .2s, background-color .2s; }
+  #product .pf-idx button b { font: 500 11px/1 var(--mono); color: rgba(242,239,231,.38); }
+  #product .pf-idx button:hover { color: var(--paper); }
+  #product .pf-idx button.on { color: var(--paper); background: rgba(242,239,231,.09); }
+  #product .pf-idx button.on b { color: var(--coral); }
+  #product .pf-idx button:focus-visible { outline: 2px solid var(--coral); outline-offset: 1px; }
+}
+@media (min-width: 861px) and (max-width: 1180px) { #product .pf-idx button span { display: none; } #product .pf-idx button b { font-size: 12px; } }
+@media (max-width: 860px) {
+  #product .spot .media { order: -1; }
+  #product .spot .txt { gap: 12px; }
+  #product .spot .txt .mr { margin-top: 4px; }
+}
+@media (prefers-reduced-motion: reduce) { #product .pf-idx button { transition: none; } }
 
 </style>
 </head>
@@ -1763,6 +1856,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="topics"></span></div>
         <h3>Topics</h3>
         <p>What customers call about: size shows volume, color shows score.</p>
+        <ul class="pf-facts"><li>Boxes, circles and flow views</li><li>Sort by lowest score or biggest drop</li><li>AI explains what drives a score</li></ul>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-topics"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Topics</span></button><div class="mr-body" id="mr-topics"><div class="mr-in"><div><ul class="mr-list"><li>Boxes, circles and flow views</li><li>Hover breaks a score into its parameters</li><li>Sort daily scores by calls, lowest score or biggest drop</li><li>Click a parameter and the AI explains what drives it</li></ul><p class="mr-why"><b>Design choice:</b> size shows call volume and color shows score, so problem areas stand out before anyone reads a number.</p></div></div></div></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-topics-c.mp4" data-poster="img/clip-topics-poster-c.webp" muted loop playsinline preload="none" aria-label="Topics in the Ultra design: hovering tiles, sorting daily scores, circles and flow, then clicking a parameter to ask the AI what drives it"></video></div></figure></div>
@@ -1773,6 +1867,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="shield"></span></div>
         <h3>Compliance</h3>
         <p>Every agent against every criterion, and only problems get color.</p>
+        <ul class="pf-facts"><li>A popover per cell, against the whole team</li><li>One click to Explore in Chat</li></ul>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-compliance"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Compliance</span></button><div class="mr-body" id="mr-compliance"><div class="mr-in"><div><p>Any cell opens a popover that places that agent against the whole team and says what the next button will do before you press it. One click on <b>Explore in Chat</b> hands that cell to the AI chat to dig deeper.</p><p class="mr-why"><b>Design choice:</b> only problems get color. A full grid of agents and criteria stays quiet until something needs attention.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
@@ -1784,6 +1879,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="eval"></span></div>
         <h3>Agent evaluation</h3>
         <p>Ask the AI why a score moved, and see the exact calls behind it.</p>
+        <ul class="pf-facts"><li>Trend, distribution and every team</li><li>Check the AI instead of just trusting it</li></ul>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-eval"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Agent evaluation</span></button><div class="mr-body" id="mr-eval"><div class="mr-in"><div><p>See the trend, the distribution and every team on one screen, then ask the AI why a score moved.</p><p class="mr-why"><b>Design choice:</b> answers point to the exact calls behind a score, so people can check the AI instead of just trusting it.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
@@ -1795,6 +1891,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="kanban"></span></div>
         <h3>Actions</h3>
         <p>Alerts and signals become tasks with an owner, a priority and an activity log.</p>
+        <ul class="pf-facts"><li>Action items and status</li><li>@mention a teammate</li><li>Closed work keeps its reason</li></ul>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-actions"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Actions</span></button><div class="mr-body" id="mr-actions"><div class="mr-in"><div><p>Alerts, signals and evaluations become tasks. Inside a task the team ticks off action items, moves the status and <b>@mentions</b> a teammate, and every step lands in the activity log.</p><p class="mr-why"><b>Design choice:</b> every task keeps its source, and closed work keeps its reason, such as duplicate or escalated, so the team learns from it.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/actions.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
@@ -1806,14 +1903,15 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="news"></span></div>
         <h3>Newsroom, data &amp; signals</h3>
         <p>One set of data: a monthly story, a dense table and signals that fire on their own.</p>
+        <ul class="pf-facts"><li>The month as a 75-second story</li><li>The AI builds the filter</li><li>Fields pulled from every call</li></ul>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-news"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Newsroom, data and signals</span></button><div class="mr-body" id="mr-news"><div class="mr-in"><div><ul class="mr-list"><li><b>Newsroom</b> tells the month as a 75-second story and flags spikes against a baseline</li><li><b>Data</b>: describe the calls you want and the AI builds the filter, then open any call and ask about it</li><li><b>Signals</b>: switch one on, or build a new one, with what to detect and the fields to pull from every call</li></ul><p class="mr-why"><b>Design choice:</b> one set of data, three surfaces, each for a different person at a different moment.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/newsroom.html">Newsroom case study <span aria-hidden="true">→</span></a><a class="cs-link" href="work/data.html">Data &amp; signals case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
         <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-news-c-b.mp4" data-poster="img/clip-news-poster-c.webp" muted loop playsinline preload="none" aria-label="Newsroom: the live ticker and the spike story, the monthly recap played as a story, then the feed filtered to one source"></video></div><figcaption><b>Newsroom</b></figcaption></figure>
         <div class="pair">
-          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-data-c-b.mp4" data-poster="img/clip-data-poster-c-b.webp" muted loop playsinline preload="none" aria-label="Data table: an AI filter from a plain-language request, a call opened in the side panel, then Ask AI about that call"></video></div><figcaption><b>Data</b></figcaption></figure>
-          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-signals-c.mp4" data-poster="img/clip-signals-poster-c.webp" muted loop playsinline preload="none" aria-label="Turning a signal on, then creating a new one: name, folder, description and a field to extract"></video></div><figcaption><b>Signals</b></figcaption></figure>
+          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-data-c-b.mp4" data-poster="img/clip-data-poster-d.webp" muted loop playsinline preload="none" aria-label="Data table: an AI filter from a plain-language request, a call opened in the side panel, then Ask AI about that call"></video></div><figcaption><b>Data</b></figcaption></figure>
+          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-signals-c.mp4" data-poster="img/clip-signals-poster-d.webp" muted loop playsinline preload="none" aria-label="Turning a signal on, then creating a new one: name, folder, description and a field to extract"></video></div><figcaption><b>Signals</b></figcaption></figure>
         </div>
       </div>
     </article>
@@ -1823,6 +1921,7 @@ footer .f-fine { margin-top: 22px; }
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="play"></span></div>
         <h3>Demos engine</h3>
         <p>Scripted, narrated demos for each prospect, in English or Hebrew.</p>
+        <ul class="pf-facts"><li>Types the prospect's questions</li><li>A camera moves across the screens</li><li>Play live or send as a video</li></ul>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-demos"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the demos engine</span></button><div class="mr-body" id="mr-demos"><div class="mr-in"><div><p>To show a new prospect what Hear could do for <em>their</em> business, I designed a demos engine inside the Lab. It runs the product from a script: it types the prospect's questions, answers them on demo data and moves a camera across the screens.</p><p>Each card in the library is a ready demo: play it in the Lab, or record a clean run.</p><p class="mr-why"><b>The aim:</b> no generic deck. Every demo is ready to play live in a meeting or send as a video.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/demos-engine.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
@@ -1916,11 +2015,17 @@ footer .f-fine { margin-top: 22px; }
     <div class="mr-body mr-head mr-col" id="mr-web"><div class="mr-in"><div><p>The new site puts the brand in motion: a thesis that reveals itself as you scroll, a globe where nothing goes unheard, and a clear line from problem to platform.</p><dl class="mr-pts"><div><dt>Direction A · dark, cinematic</dt><dd>Hero, a scroll-revealed thesis, the globe, product sections and the integrations wall.</dd></div><div><dt>Direction B · cream and ink</dt><dd>A card for every role, AI agents held to one standard, customer stories, a dial from learning to acting, and security built in.</dd></div></dl><p>Off the screen, I carried the brand into print, signage, merch and trade-show booths abroad. Whatever the business needed next, I designed it.</p></div></div></div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; build</dd></div><div><dt>Scope</dt><dd>Brand · marketing site</dd></div></dl>
     <a class="btn ghost cs-more rv" href="work/brand-web.html">Read the full case study <span aria-hidden="true">→</span></a>
-    <div class="web-ab">
-      <figure class="rv web-dir"><div class="shot win" style="background:#000"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="web-url2">hear-public-staging.vercel.app</span></span><video width="1120" height="700" data-src="img/site-scroll-b-fast.mp4" data-poster="img/site-scroll-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Hear homepage, direction A, from top to bottom"></video></div>
-        <figcaption><span class="web-tag">A</span><b>Dark, cinematic.</b> <a href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Open ↗︎</a></figcaption></figure>
-      <figure class="rv web-dir"><div class="shot win" style="background:#f1eee7"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="web-url2">hear-public-staging-v2.vercel.app</span></span><video width="1120" height="700" data-src="img/site-scroll-v2-b-fast.mp4" data-poster="img/site-scroll-v2-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Hear homepage, direction B, from top to bottom"></video></div>
-        <figcaption><span class="web-tag">B</span><b>Cream and ink.</b> <a href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Open ↗︎</a></figcaption></figure>
+    <div class="wx rv" data-on="a">
+      <div class="wx-seg" role="tablist" aria-label="Website direction">
+        <button type="button" role="tab" class="wx-tab" id="wx-ta" data-dir="a" aria-selected="true" aria-controls="wx-fig"><span class="wx-p" aria-hidden="true"><i></i></span><span class="wx-k" aria-hidden="true">A</span><span class="wx-name">Dark, cinematic</span><span class="wx-url">hear-public-staging.vercel.app</span></button>
+        <button type="button" role="tab" class="wx-tab" id="wx-tb" data-dir="b" aria-selected="false" aria-controls="wx-fig" tabindex="-1"><span class="wx-p" aria-hidden="true"><i></i></span><span class="wx-k" aria-hidden="true">B</span><span class="wx-name">Cream and ink</span><span class="wx-url">hear-public-staging-v2.vercel.app</span></button>
+      </div>
+      <figure class="wx-fig" id="wx-fig" role="tabpanel" aria-labelledby="wx-ta">
+        <div class="shot win wx-win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="wx-addr"><b data-dir="a">hear-public-staging.vercel.app</b><b data-dir="b">hear-public-staging-v2.vercel.app</b></span></span>
+          <div class="wx-stage"><video class="wx-v" data-dir="a" width="1120" height="700" data-wx-src="img/site-scroll-b-fast.mp4" data-poster="img/site-scroll-poster.webp" muted playsinline preload="none" aria-label="Scrolling the Hear homepage, direction A, from top to bottom"></video><video class="wx-v" data-dir="b" width="1120" height="700" data-wx-src="img/site-scroll-v2-b-fast.mp4" data-poster="img/site-scroll-v2-poster.webp" muted playsinline preload="none" aria-label="Scrolling the Hear homepage, direction B, from top to bottom"></video></div>
+        </div>
+        <figcaption><span class="wx-cap" data-dir="a"><span><b>A · Dark, cinematic.</b> A scroll-revealed thesis, the globe, the integrations wall.</span><a href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Open A ↗︎</a></span><span class="wx-cap" data-dir="b" hidden><span><b>B · Cream and ink.</b> A card for every role, customer stories, security built in.</span><a href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Open B ↗︎</a></span></figcaption>
+      </figure>
     </div>
     <div class="offscreen rv">
       <div class="off-head">
@@ -2419,7 +2524,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   const sec = document.getElementById('product'); if (!sec) return;
   const cards = [...sec.querySelectorAll('article.spot')], n = cards.length, pad = k => String(k).padStart(2, '0');
   cards.forEach((c, i) => { const s = document.createElement('span'); s.className = 'spot-n'; s.setAttribute('aria-hidden', 'true'); s.innerHTML = `<b>${pad(i + 1)}</b>  /  ${pad(n)}`; c.prepend(s); });
-  const mq = matchMedia('(min-width: 861px)'), covered = new Set(), vids = c => c.querySelectorAll('video');
+  const mq = matchMedia('not all'), covered = new Set(), vids = c => c.querySelectorAll('video');
   const fit = () => {
     cards.forEach(c => { c.classList.remove('tall'); c.style.removeProperty('--pin'); c.style.removeProperty('--fill'); });
     if (!mq.matches) { sec.classList.remove('r8-stack'); return; }
@@ -2909,6 +3014,168 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
       t.textContent = open ? 'Show less' : 'Read more';
     });
   });
+})();
+
+// brandfix: Branding & website. One browser frame plays Direction A to its end, crossfades to B, then back to A.
+// The calm coordinator still decides when anything plays: the direction off screen is inert, so it only ever sees one video here.
+// A tab click jumps there and counts as the visitor's own play
+(() => {
+  const box = document.querySelector('#web .wx'); if (!box) return;
+  const fig = box.querySelector('.wx-fig'), tabs = [...box.querySelectorAll('.wx-tab')], order = tabs.map(t => t.dataset.dir);
+  const V = {}, P = {}, C = {};
+  box.querySelectorAll('.wx-v').forEach(v => { V[v.dataset.dir] = v; });
+  tabs.forEach(t => { P[t.dataset.dir] = t.querySelector('.wx-p i'); });
+  box.querySelectorAll('.wx-cap').forEach(c => { C[c.dataset.dir] = c; });
+  if (!order.every(d => V[d] && P[d])) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur = box.dataset.on || order[0], near = false, raf = 0;
+  const load = v => { if (!v.getAttribute('poster') && v.dataset.poster) v.poster = v.dataset.poster; if (!v.getAttribute('src') && v.dataset.wxSrc) v.src = v.dataset.wxSrc; };
+  const bar = () => order.forEach((d, i) => {
+    const v = V[d], ci = order.indexOf(cur);
+    const p = d === cur ? (v.duration ? Math.min(1, v.currentTime / v.duration) : 0) : (i < ci ? 1 : 0);
+    P[d].style.transform = `scaleX(${p})`;
+  });
+  const tick = () => { raf = 0; bar(); if (!V[cur].paused) raf = requestAnimationFrame(tick); };
+  const run = () => { if (!raf) raf = requestAnimationFrame(tick); };
+  const go = (d, user) => {
+    if (!V[d]) return;
+    const prev = V[cur], v = V[d]; cur = d; box.dataset.on = d;
+    tabs.forEach(t => { const on = t.dataset.dir === d; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; if (on && fig) fig.setAttribute('aria-labelledby', t.id); });
+    Object.entries(C).forEach(([k, c]) => { c.hidden = k !== d; });
+    Object.entries(V).forEach(([k, o]) => { const on = k === d; o.toggleAttribute('inert', !on); o.setAttribute('aria-hidden', String(!on)); o.tabIndex = on ? 0 : -1; });
+    if (prev !== v && !prev.paused) prev.pause();
+    if (near || user) load(v);
+    try { v.currentTime = 0; } catch (e) {}
+    bar();
+    if (user && !reduce) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+    else dispatchEvent(new Event('scroll')); // let the coordinator pick the new direction right away
+  };
+  Object.entries(V).forEach(([k, v]) => {
+    v.loop = false;
+    v.addEventListener('ended', () => { if (k === cur) go(order[(order.indexOf(k) + 1) % order.length], false); });
+    ['play', 'playing', 'seeked', 'loadedmetadata', 'pause'].forEach(ev => v.addEventListener(ev, () => { if (k === cur) { bar(); run(); } }));
+    const toggle = () => { if (k !== cur) return; load(v); if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause(); };
+    v.addEventListener('click', toggle);
+    v.addEventListener('keydown', e => { if (e.key !== ' ' && e.key !== 'Enter') return; e.preventDefault(); toggle(); });
+  });
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => go(t.dataset.dir, true));
+    t.addEventListener('keydown', e => {
+      const k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!k) return;
+      e.preventDefault(); const n = tabs[(i + k + tabs.length) % tabs.length]; n.focus(); go(n.dataset.dir, true);
+    });
+  });
+  const warm = () => { near = true; Object.values(V).forEach(v => { if (v.dataset.poster && !v.getAttribute('poster')) v.poster = v.dataset.poster; }); load(V[cur]); };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { warm(); io.disconnect(); } }, { rootMargin: '900px 0px' });
+    io.observe(box);
+  } else warm();
+  go(cur, false);
+})();
+
+// brandfix: the brand filmstrip drifts slowly in a seamless loop (~90s a lap). Hover, keyboard focus or a drag pauses it;
+// drag with a mouse or swipe on touch to move it by hand, it picks up again a moment later. Reduced motion keeps the still row
+(() => {
+  const strip = document.querySelector('#web .br-strip'), track = strip && strip.querySelector('.br-track'); if (!track) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const items = [...track.children], first = items[0], dup = items.find(i => i.hasAttribute('aria-hidden')); if (!first || !dup) return;
+  strip.classList.add('br-drift');
+  const LAP = 90000;
+  let x = 0, period = 0, vis = false, hover = false, focus = false, drag = null, hold = 0, last = 0, vel = 0, raf = 0, eat = false;
+  const measure = () => { period = dup.getBoundingClientRect().left - first.getBoundingClientRect().left; };
+  const paint = () => { if (period > 0) x = ((x % period) + period) % period; track.style.transform = `translate3d(${(-x).toFixed(2)}px,0,0)`; };
+  const frame = t => {
+    raf = 0;
+    const dt = last ? Math.min(64, t - last) : 16; last = t;
+    if (!drag) {
+      if (Math.abs(vel) > .01) { x += vel * dt; vel *= Math.pow(.92, dt / 16); }
+      else if (!hover && !focus && performance.now() > hold) x += period / LAP * dt;
+    }
+    paint(); loop();
+  };
+  const loop = () => { if (vis && !document.hidden) { if (!raf) raf = requestAnimationFrame(frame); } else { last = 0; } };
+  // pause on hover (mouse only), on keyboard focus inside the strip
+  strip.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hover = true; });
+  strip.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hover = false; });
+  strip.addEventListener('focusin', e => {
+    focus = true;
+    const it = e.target.closest && e.target.closest('.br-item'); if (!it || !e.target.matches(':focus-visible')) return;
+    requestAnimationFrame(() => { strip.scrollLeft = 0; const a = it.getBoundingClientRect(), s = strip.getBoundingClientRect(); x += (a.left + a.width / 2) - (s.left + s.width / 2); vel = 0; paint(); });
+  });
+  strip.addEventListener('focusout', e => { if (!strip.contains(e.relatedTarget)) focus = false; });
+  strip.addEventListener('keydown', e => {
+    if (e.target !== strip) return;
+    const k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!k) return;
+    e.preventDefault(); x += k * Math.min(360, strip.clientWidth * .6); vel = 0; hold = performance.now() + 2500; paint();
+  });
+  // drag or swipe: horizontal moves go to the strip, vertical ones still scroll the page (touch-action: pan-y)
+  strip.addEventListener('pointerdown', e => {
+    if (e.button !== 0) return;
+    drag = { id: e.pointerId, sx: e.clientX, x0: x, lx: e.clientX, lt: performance.now(), moved: false, touch: e.pointerType !== 'mouse' }; vel = 0;
+  });
+  strip.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.sx;
+    if (!drag.moved) { if (Math.abs(dx) < 6) return; drag.moved = true; strip.classList.add('dragging'); try { strip.setPointerCapture(e.pointerId); } catch (err) {} }
+    const t = performance.now(), dt = Math.max(1, t - drag.lt);
+    vel = -(e.clientX - drag.lx) / dt; drag.lx = e.clientX; drag.lt = t;
+    x = drag.x0 - dx; paint();
+  });
+  const end = e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    if (drag.moved) { eat = e.type === 'pointerup'; strip.classList.remove('dragging'); hold = performance.now() + (drag.touch ? 2500 : 1200); if (performance.now() - drag.lt > 80) vel = 0; vel = Math.max(-3, Math.min(3, vel)); }
+    else vel = 0;
+    drag = null;
+  };
+  strip.addEventListener('pointerup', end); strip.addEventListener('pointercancel', end);
+  // a drag is not a click: it does not open the lightbox
+  strip.addEventListener('click', e => { if (eat) { eat = false; e.preventDefault(); e.stopPropagation(); } }, true);
+  track.addEventListener('dragstart', e => e.preventDefault());
+  // the strip clips its own images, so the browser's lazy loading would leave blank frames drifting in: load them once the strip is near
+  const imgs = track.querySelectorAll('img');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => es.forEach(e => { vis = e.isIntersecting; loop(); }), { rootMargin: '80px 0px' }).observe(strip);
+    const pre = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { imgs.forEach(i => { i.loading = 'eager'; }); pre.disconnect(); } }, { rootMargin: '1200px 0px' });
+    pre.observe(strip);
+  } else { vis = true; imgs.forEach(i => { i.loading = 'eager'; }); }
+  imgs.forEach(i => { if (!i.complete) i.addEventListener('load', measure, { once: true }); });
+  addEventListener('resize', () => { measure(); paint(); });
+  document.addEventListener('visibilitychange', loop);
+  measure(); paint(); loop();
+})();
+
+// prodfix: product cards. Counter joins the icon row, and a slim sticky index marks the current card (click jumps there)
+(() => {
+  const sec = document.getElementById('product'); if (!sec) return;
+  const cards = [...sec.querySelectorAll('article.spot')]; if (!cards.length) return;
+  cards.forEach(c => { const n = c.querySelector(':scope > .spot-n'), h = c.querySelector('.txt .head'); if (n && h) h.appendChild(n); });
+  const nav = document.createElement('nav'); nav.className = 'pf-idx'; nav.setAttribute('aria-label', 'Product surfaces');
+  const pad = k => String(k).padStart(2, '0');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const btns = cards.map((c, i) => {
+    const b = document.createElement('button'); b.type = 'button';
+    const t = (c.querySelector('h3') || {}).textContent || '';
+    b.innerHTML = `<b>${pad(i + 1)}</b><span></span>`; b.querySelector('span').textContent = t.trim();
+    b.setAttribute('aria-label', t.trim());
+    b.addEventListener('click', () => scrollTo({ top: c.getBoundingClientRect().top + scrollY - 130, behavior: reduce ? 'auto' : 'smooth' }));
+    nav.appendChild(b); return b;
+  });
+  cards[0].before(nav);
+  // the Data and Signals windows open on an empty greeting; while paused, rest them on the frame their poster shows
+  sec.querySelectorAll('video[data-poster$="-poster-d.webp"]').forEach(v => {
+    const rest = () => { if (v.paused && v.currentTime < 1.5 && v.readyState >= 1) { try { v.currentTime = 3; } catch (e) {} } };
+    ['loadeddata', 'pause'].forEach(e => v.addEventListener(e, rest));
+  });
+  let cur = -1, raf = 0;
+  const sync = () => {
+    raf = 0; const line = innerHeight * .45; let k = 0;
+    cards.forEach((c, i) => { if (c.getBoundingClientRect().top < line) k = i; });
+    if (k === cur) return; cur = k;
+    btns.forEach((b, i) => { b.classList.toggle('on', i === k); b.toggleAttribute('aria-current', i === k); });
+  };
+  addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
+  addEventListener('resize', () => { cur = -1; sync(); });
+  sync();
 })();
 
 </script>
