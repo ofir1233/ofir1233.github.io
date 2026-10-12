@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
+
 <title>Ofir Nona · Product Designer</title>
 <meta name="description" content="Ofir Nona, product designer for AI products. Since 2023 the only designer and product person at Hear. Real work, not concepts.">
 <!-- link previews and icons for the hosted copy at ofir1233.github.io (the artifact viewer ignores them) -->
@@ -1407,6 +1408,43 @@ footer .f-fine { margin-top: 22px; }
 
 @media (min-width: 1001px) and (max-width: 1100px) { #system .sw { padding-left: 3px; padding-right: 3px; } #system .sw .nm { font-size: 12px; letter-spacing: -.01em; } }
 
+/* fyi: bonus section between Brand & web and IA, a cream sheet so the run reads system (cream), web (ink), fyi (cream), ia (ink), process (cream) */
+#web { padding-bottom: calc(var(--sec-pad) + var(--sheet-r)); }
+#fyi { position: relative; z-index: 1; margin-top: calc(-1 * var(--sheet-r)); border-radius: var(--sheet-r) var(--sheet-r) 0 0; padding-block: clamp(56px, 7vw, 96px) calc(clamp(56px, 7vw, 96px) + var(--sheet-r)); overflow-x: clip; color: var(--ink-t); background: radial-gradient(circle, rgba(27,27,27,.13) 1px, transparent 1.5px) 0 0 / 22px 22px, var(--cream); }
+#ia { position: relative; z-index: 1; margin-top: calc(-1 * var(--sheet-r)); border-radius: var(--sheet-r) var(--sheet-r) 0 0; background: var(--ink); box-shadow: 0 -1px 0 rgba(255,255,255,.06); }
+#fyi > .wrap::before, #ia > .wrap::before { content: none; }
+#fyi :focus-visible { outline-color: var(--ink-t); }
+.fyi-wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px clamp(24px, 4vw, 64px); align-items: center; }
+#fyi .label { display: block; width: fit-content; margin-bottom: 18px; padding: 5px 10px 4px; border-radius: 6px; background: rgba(27,27,27,.06); color: rgba(27,27,27,.72); font-size: 11.5px; line-height: 1.4; letter-spacing: .04em; text-transform: none; }
+#fyi .label b { color: #b0381f; }
+#fyi h2 { font-size: clamp(34px, 4.4vw, 58px); letter-spacing: -.04em; max-width: 13ch; }
+#fyi p { margin-top: 18px; max-width: 46ch; color: rgba(27,27,27,.72); }
+.fyi-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.fyi-chips li { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 10px; border-radius: 99px; background: rgba(255,253,248,.7); box-shadow: inset 0 0 0 1px rgba(27,27,27,.16); font: 500 12.5px/1.3 var(--mono); letter-spacing: .01em; color: var(--ink-t); }
+.fyi-chips li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--coral); }
+#fyi .cs-more { margin: 26px 0 0; color: var(--ink-t); box-shadow: inset 0 0 0 1px rgba(27,27,27,.22); }
+#fyi .cs-more:hover { box-shadow: inset 0 0 0 1px rgba(27,27,27,.6); }
+#fyi .cs-more::after { background: radial-gradient(circle, var(--coral) 0 3px, var(--ink-t) 3.6px); }
+#fyi .cs-more:hover::after { background: var(--ink-t); }
+#fyi .cs-more > span[aria-hidden] { color: var(--cream); }
+/* phone frame drawn in CSS (iPhone 14 Pro proportions); the screenshots already carry the status bar and Dynamic Island */
+.fyi-dev { container-type: inline-size; }
+.fyi-ph { position: relative; padding: 3.3cqw; border-radius: 15.5cqw; background: #050506; box-shadow: 0 0 0 .75cqw #34343a, 0 0 0 calc(.75cqw + 1px) rgba(255,255,255,.18), 0 2px 4px rgba(0,0,0,.25), 0 28px 56px -22px rgba(0,0,0,.6), 0 70px 120px -60px rgba(0,0,0,.5); }
+.fyi-ph::before, .fyi-ph::after { content: ""; position: absolute; width: 1cqw; border-radius: 1cqw; background: linear-gradient(90deg, #2a2a2f, #46464d); }
+.fyi-ph::before { left: -1.6cqw; top: 22%; height: 8%; box-shadow: 0 19cqw 0 #3a3a40; }
+.fyi-ph::after { right: -1.6cqw; top: 29%; height: 13%; }
+.fyi-ph img { display: block; width: 100%; height: auto; aspect-ratio: 393 / 852; border-radius: 12.2cqw; background: #000; }
+/* the fan: five phones; --s (spread) and --k (parallax, -1..1) are set on scroll by the fyi script, and default to a resting fan */
+.fyi-fan { --pw: clamp(122px, 12.6vw, 196px); --gap: clamp(58px, 7.2vw, 112px); --s: 1; --k: 0; position: relative; height: calc(var(--pw) * 2.32 + 70px); }
+.fyi-fan .fyi-dev { position: absolute; left: 50%; top: 20px; width: var(--pw); margin-left: calc(var(--pw) / -2); z-index: var(--z); transform-origin: 50% 90%; transform: translate(calc(var(--i) * var(--gap) * var(--s)), calc(var(--y) + var(--k) * var(--d))) rotate(calc(var(--i) * 6.5deg * var(--s))); }
+.fyi-fan .fyi-dev:nth-child(1) { --i: -2; --y: 46px; --d: 34px; --z: 1; }
+.fyi-fan .fyi-dev:nth-child(2) { --i: -1; --y: 14px; --d: -22px; --z: 2; }
+.fyi-fan .fyi-dev:nth-child(3) { --i: 0; --y: 0px; --d: 12px; --z: 3; }
+.fyi-fan .fyi-dev:nth-child(4) { --i: 1; --y: 14px; --d: -22px; --z: 2; }
+.fyi-fan .fyi-dev:nth-child(5) { --i: 2; --y: 46px; --d: 34px; --z: 1; }
+@media (max-width: 860px) { .fyi-wrap { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .fyi-fan { --pw: 128px; --gap: 62px; } }
+
 </style>
 </head>
 <body>
@@ -1730,6 +1768,20 @@ footer .f-fine { margin-top: 22px; }
   </div>
 </section>
 
+
+<!-- ============================================================ FYI (bonus, before AI) -->
+<section id="fyi" aria-labelledby="fyi-h">
+  <div class="wrap fyi-wrap">
+    <div class="fyi-copy">
+      <div class="label">Bonus · <b>Before AI</b></div>
+      <h2 id="fyi-h">Before Hear, a whole iOS app, drawn by hand</h2>
+      <p>FYI, short for Focus Your Ideas, puts creative projects inside the chat: messages become tasks, an assistant joins the thread, calls share the screen. I designed it at Intune before Hear, every screen in Figma.</p>
+      <ul class="fyi-chips" aria-label="What I designed"><li>Native iOS product design</li><li>A full design system</li><li>Dozens of flows</li></ul>
+      <a class="btn ghost cs-more" href="work/fyi.html">See the FYI case study <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="fyi-fan rv"><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-chats-t.webp" width="590" height="1279" alt="FYI chat list in dark mode: Shoe concept, Alisa, Dana and a group chat" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-ai-assistant-t.webp" width="590" height="1279" alt="FYI AI assistant chat, with suggestions such as Design a database schema" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-chat-t.webp" width="590" height="1279" alt="FYI chat with Chat, Tasks and Project tabs, an image message, a link and replies" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-create-task-t.webp" width="590" height="1279" alt="Create task sheet with name, due date, description, assignees and status" loading="lazy" decoding="async"></div></div><div class="fyi-dev"><div class="fyi-ph"><img src="img/fyi-call-share-t.webp" width="590" height="1279" alt="FYI video call with screen sharing and sync" loading="lazy" decoding="async"></div></div></div>
+  </div>
+</section>
 
 <!-- ============================================================ IA -->
 <section id="ia">
@@ -2592,6 +2644,25 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   if (!('IntersectionObserver' in window)) return;
   const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('q-off', !e.isIntersecting)), { rootMargin: '120px 0px' });
   document.querySelectorAll('main section[id], body > section[id]').forEach(s => io.observe(s));
+})();
+
+// fyi: the phone fan opens as the section scrolls in, then drifts gently (off for reduced motion)
+(() => {
+  const sec = document.getElementById('fyi'), fan = sec && sec.querySelector('.fyi-fan');
+  if (!fan || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let raf = 0;
+  const upd = () => {
+    raf = 0;
+    const r = sec.getBoundingClientRect(), vh = innerHeight;
+    if (r.bottom < -100 || r.top > vh + 100) return;
+    const c = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
+    fan.style.setProperty('--s', (0.55 + 0.45 * Math.min(1, c / 0.42)).toFixed(3));
+    fan.style.setProperty('--k', ((c - 0.5) * 2).toFixed(3));
+  };
+  const req = () => { if (!raf) raf = requestAnimationFrame(upd); };
+  addEventListener('scroll', req, { passive: true });
+  addEventListener('resize', req);
+  upd();
 })();
 
 </script>

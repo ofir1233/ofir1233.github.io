@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FYI, an iOS app before AI · Ofir Nona</title>
+<meta name="description" content="Before Hear, Ofir Nona designed FYI (Focus Your Ideas) at Intune: a dark iOS app where creative projects live inside the chat, with tasks, an AI assistant, voice, calls and a full design system, all drawn in Figma.">
+<meta name="theme-color" content="#0d0d0e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css">
+<style>
+/* fyi: page-only pieces */
+/* phone frame drawn in CSS (iPhone 14 Pro proportions); the screenshots already carry the status bar and Dynamic Island */
+.fyi-dev { container-type: inline-size; }
+.fyi-ph { position: relative; padding: 3.3cqw; border-radius: 15.5cqw; background: #050506; box-shadow: 0 0 0 .75cqw #34343a, 0 0 0 calc(.75cqw + 1px) rgba(255,255,255,.18), 0 2px 4px rgba(0,0,0,.25), 0 28px 56px -22px rgba(0,0,0,.6), 0 70px 120px -60px rgba(0,0,0,.5); }
+.fyi-ph::before, .fyi-ph::after { content: ""; position: absolute; width: 1cqw; border-radius: 1cqw; background: linear-gradient(90deg, #2a2a2f, #46464d); }
+.fyi-ph::before { left: -1.6cqw; top: 22%; height: 8%; box-shadow: 0 19cqw 0 #3a3a40; }
+.fyi-ph::after { right: -1.6cqw; top: 29%; height: 13%; }
+.fyi-ph img { display: block; width: 100%; height: auto; aspect-ratio: 393 / 852; border-radius: 12.2cqw; background: #000; }
+.sheet .fyi-ph { box-shadow: 0 0 0 .75cqw #34343a, 0 0 0 calc(.75cqw + 1px) rgba(255,255,255,.18), 0 2px 4px rgba(27,27,27,.2), 0 30px 60px -26px rgba(27,27,27,.55), 0 70px 120px -60px rgba(27,27,27,.4); }
+
+/* hero fan, same as the home section; --s and --k come from the script below */
+.fyi-fan { --pw: clamp(128px, 15vw, 232px); --gap: clamp(60px, 9vw, 150px); --s: 1; --k: 0; position: relative; height: calc(var(--pw) * 2.32 + 80px); margin-top: clamp(36px, 5vw, 64px); }
+.fyi-fan .fyi-dev { position: absolute; left: 50%; top: 20px; width: var(--pw); margin-left: calc(var(--pw) / -2); z-index: var(--z); transform-origin: 50% 90%; transform: translate(calc(var(--i) * var(--gap) * var(--s)), calc(var(--y) + var(--k) * var(--d))) rotate(calc(var(--i) * 6.5deg * var(--s))); }
+.fyi-fan .fyi-dev:nth-child(1) { --i: -2; --y: 50px; --d: 34px; --z: 1; }
+.fyi-fan .fyi-dev:nth-child(2) { --i: -1; --y: 16px; --d: -22px; --z: 2; }
+.fyi-fan .fyi-dev:nth-child(3) { --i: 0; --y: 0px; --d: 12px; --z: 3; }
+.fyi-fan .fyi-dev:nth-child(4) { --i: 1; --y: 16px; --d: -22px; --z: 2; }
+.fyi-fan .fyi-dev:nth-child(5) { --i: 2; --y: 50px; --d: 34px; --z: 1; }
+.cs-hero { overflow-x: clip; }
+.fyi-hero-glow { position: relative; }
+.fyi-hero-glow::before { content: ""; position: absolute; left: 50%; top: 42%; width: min(900px, 120vw); height: 70%; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(255,112,86,.16), transparent); pointer-events: none; }
+@media (max-width: 520px) { .fyi-fan { --pw: 128px; --gap: 62px; } }
+
+/* rows of phones with captions */
+.fyi-row { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(28px, 3.4vw, 48px) clamp(16px, 3vw, 44px); }
+.fyi-row > figure { flex: 0 1 250px; min-width: 0; }
+.fyi-row.sm > figure { flex-basis: 220px; }
+.fyi-row figcaption { margin-top: 18px; font-size: 13.5px; line-height: 1.5; }
+.fyi-gap { margin-top: clamp(40px, 5vw, 64px); }
+.fyi-flow { align-items: center; flex-wrap: nowrap; gap: 14px; }
+.fyi-flow > figure { flex: 0 1 220px; }
+.fyi-arrow { flex: none; align-self: center; font: 700 clamp(28px, 3vw, 40px)/1 var(--display); color: var(--coral-ink); margin-top: -60px; }
+@media (max-width: 760px) {
+  .fyi-row { gap: 28px 14px; }
+  .fyi-row > figure, .fyi-row.sm > figure { flex-basis: calc(50% - 7px); }
+  .fyi-arrow { display: none; }
+}
+
+/* fields and system notes */
+.fyi-rules { border-top: 1px solid var(--line); }
+.fyi-rules div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.fyi-rules dt { font: 500 11px/1.9 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--coral); }
+.fyi-rules dd { font-size: 15.5px; line-height: 1.55; color: var(--text); }
+.sheet .fyi-rules, .sheet .fyi-rules div { border-color: rgba(27,27,27,.14); }
+.sheet .fyi-rules dt { color: var(--coral-ink); }
+.sheet .fyi-rules dd { color: rgba(27,27,27,.78); }
+.fyi-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.fyi-tags span { padding: 3px 9px; border-radius: 6px; background: rgba(27,27,27,.06); font: 500 12px/1.5 var(--mono); color: var(--ink-t); }
+.fyi-status { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.fyi-status span { padding: 2px 10px; border-radius: 99px; box-shadow: inset 0 0 0 1px rgba(27,27,27,.2); font-size: 13.5px; color: var(--ink-t); }
+.fyi-close { margin-top: clamp(48px, 6vw, 80px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid rgba(27,27,27,.14); text-align: center; }
+.fyi-close p { margin-inline: auto; font: 700 clamp(26px, 3.4vw, 44px)/1.12 var(--display); letter-spacing: -.03em; color: var(--ink-t); max-width: 22ch; text-wrap: balance; }
+.fyi-close p em { color: var(--coral-ink); }
+@media (max-width: 760px) { .fyi-rules div { grid-template-columns: 1fr; gap: 4px; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="home" href="../index.html#fyi">Ofir<span>.</span> <i>← All work</i></a>
+    <nav aria-label="Case studies"><a class="pill" href="brand-web.html">← Brand &amp; web</a><a class="pill solid" href="design-lab.html">Next case</a></nav>
+    <span class="progress" aria-hidden="true"></span>
+  </div>
+</header>
+
+<main id="main">
+  <header class="cs-hero wrap">
+    <div class="label">Bonus · <b>Before AI</b></div>
+    <h1>FYI, a whole iOS app drawn by hand</h1>
+    <p class="lede">Before Hear, I designed FYI, short for Focus Your Ideas, at Intune. It is a dark iOS app for creative projects, where the work lives inside the chat: messages turn into tasks, an AI assistant joins the conversation, and calls share the screen. I designed the onboarding, dozens of flows and a full design system, every screen in Figma.</p>
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Product design · native iOS</dd></div>
+      <div><dt>When</dt><dd>At Intune, before Hear</dd></div>
+      <div><dt>Scope</dt><dd>Onboarding, chat, tasks, AI assistant, calls, design system</dd></div>
+      <div><dt>Status</dt><dd>Designed in Figma</dd></div>
+    </dl>
+    <nav class="toc" aria-label="On this page"><a class="pill" href="#idea"><span>01</span> The idea</a><a class="pill" href="#onboarding"><span>02</span> Onboarding &amp; brand</a><a class="pill" href="#chat"><span>03</span> Chat that does work</a><a class="pill" href="#tasks"><span>04</span> Message to task</a><a class="pill" href="#calls"><span>05</span> Calls &amp; groups</a><a class="pill" href="#system"><span>06</span> The system</a></nav>
+    <figure class="fyi-hero-glow rv">
+      <div class="fyi-fan" id="fyi-fan">
+        <div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-welcome.webp" width="786" height="1704" alt="FYI welcome screen: Focus Your Ideas, with a Continue button" decoding="async"></div></div>
+        <div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-ai-assistant.webp" width="786" height="1704" alt="New AI assistant chat with suggested prompts" decoding="async"></div></div>
+        <div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-chat.webp" width="786" height="1704" alt="A chat with Chat, Tasks and Project tabs" decoding="async"></div></div>
+        <div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-create-task.webp" width="786" height="1704" alt="Create task sheet" decoding="async"></div></div>
+        <div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-group.webp" width="786" height="1704" alt="Group info screen" decoding="async"></div></div>
+      </div>
+      <figcaption><b>Five screens from the Figma file.</b> Welcome, the AI assistant, a chat, a new task and group info, framed as an iPhone 14 Pro.</figcaption>
+    </figure>
+  </header>
+
+  <!-- 01 · ink -->
+  <section class="chapter" id="idea">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">01 · <b>The idea</b></div><h2>Focus creative projects inside the chat</h2></div>
+        <div class="prose"><p>The work around a creative project is mostly conversation. FYI keeps the project where the conversation already is: each chat carries its own project tab, a message can become a task, and an AI assistant works inside the thread.</p></div>
+      </div>
+      <ol class="steps rv" style="margin-bottom:clamp(36px,5vw,56px)">
+        <li><strong>Chats and groups</strong><span>One list for people and teams.</span></li>
+        <li><strong>A project tab per chat</strong><span>Chat, Tasks and Project sit side by side at the top of every conversation.</span></li>
+        <li><strong>Tasks from chat</strong><span>A message becomes a task with an owner, a date and a status.</span></li>
+        <li><strong>AI inside chat</strong><span>An assistant that helps with ideas without leaving the thread.</span></li>
+      </ol>
+      <div class="fyi-row">
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-chats.webp" width="786" height="1704" data-zoom alt="Chat list: Shoe concept recording a voice note, Alisa, Dana online, and a group chat; tabs for AI, Calls, Projects, Chats and Settings" loading="lazy" decoding="async"></div>
+          <figcaption><b>Chats.</b> People and groups, with a tab bar for AI, Calls, Projects, Chats and Settings.</figcaption></figure>
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-chat.webp" width="786" height="1704" data-zoom alt="Shoe concept chat with Chat, Tasks and Project tabs, a reply, an image with a link, and sent messages" loading="lazy" decoding="async"></div>
+          <figcaption><b>A chat.</b> Chat, Tasks and Project tabs on top; replies, images and links in the thread.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · sheet -->
+  <section class="chapter sheet" id="onboarding">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">02 · <b>Onboarding &amp; brand</b></div><h2>A storyboard before the first message</h2></div>
+        <div class="prose"><p>The brand opens on a speech-bubble mark and three lines that say what the app is for. Then two short steps: verify a phone number, and introduce yourself with a name and your skills.</p></div>
+      </div>
+      <div class="fyi-row sm">
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-welcome.webp" width="786" height="1704" data-zoom alt="Welcome screen: a speech-bubble mark and Focus Your Ideas, with terms and a Continue button" loading="lazy" decoding="async"></div>
+          <figcaption><b>Welcome.</b> “Focus Your Ideas”.</figcaption></figure>
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-turbocharge.webp" width="786" height="1704" data-zoom alt="Splash screen with the FYI logo over a soft gradient: Turbocharge Your Creativity" loading="lazy" decoding="async"></div>
+          <figcaption><b>Splash.</b> “Turbocharge your creativity”.</figcaption></figure>
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-create.webp" width="786" height="1704" data-zoom alt="Brand screen: Create and elaborate on complex projects" loading="lazy" decoding="async"></div>
+          <figcaption><b>Story, one.</b> “Create &amp; elaborate on complex projects”.</figcaption></figure>
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-collaborate.webp" width="786" height="1704" data-zoom alt="Brand screen over an illustrated pattern: Collaborate through powerful messaging" loading="lazy" decoding="async"></div>
+          <figcaption><b>Story, two.</b> “Collaborate through powerful messaging”.</figcaption></figure>
+      </div>
+      <div class="fyi-row fyi-gap">
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-verify.webp" width="786" height="1704" data-zoom alt="Phone verification: We will send an SMS to verify your phone number, with a country code field and a Send button" loading="lazy" decoding="async"></div>
+          <figcaption><b>Verify.</b> A phone number and an SMS code.</figcaption></figure>
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-profile.webp" width="786" height="1704" data-zoom alt="Just last one thing: avatar photo, name, and role and skills fields" loading="lazy" decoding="async"></div>
+          <figcaption><b>A short profile.</b> “Your name and skills help others understand and be in tune with you.”</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · ink -->
+  <section class="chapter ink" id="chat">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">03 · <b>Chat that does work</b></div><h2>The attachments sheet is where the work starts</h2></div>
+        <div class="prose"><p>Next to Camera and Documents, the attachments sheet offers to generate text, generate an image or open the assistant. A new assistant chat suggests where to begin, with prompts like “Design a database schema”. Voice messages record right in the composer.</p></div>
+      </div>
+      <div class="fyi-row">
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-attach-ai.webp" width="786" height="1704" data-zoom alt="Attachments sheet: Camera, Media Gallery, Documents, Project, Location, Contact, Giphy and New Task, with an AI button" loading="lazy" decoding="async"></div>
+          <figcaption><b>Attachments, with AI.</b> Generate text, generate an image, or ask the assistant.</figcaption></figure>
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-ai-assistant.webp" width="786" height="1704" data-zoom alt="New Ai assistant chat with suggestions such as Design a database schema and recommend approach" loading="lazy" decoding="async"></div>
+          <figcaption><b>New AI assistant chat.</b> Suggested prompts to get going.</figcaption></figure>
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-voice.webp" width="786" height="1704" data-zoom alt="Chat while recording a voice message, with a delete button and a microphone" loading="lazy" decoding="async"></div>
+          <figcaption><b>Voice.</b> Record, review, send or delete.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · sheet -->
+  <section class="chapter sheet" id="tasks">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">04 · <b>From message to task</b></div><h2>A task without leaving the conversation</h2></div>
+        <div class="prose"><p>New Task sits in the same attachments sheet as a photo. The task keeps everything the team needs in one card, and it shows up in the chat's tasks with its status.</p></div>
+      </div>
+      <div class="two" style="align-items:center">
+        <div class="fyi-row fyi-flow">
+          <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-create-task.webp" width="786" height="1704" data-zoom alt="Create task: name AI objects UX, due date 24 Mar 2023, description, assigned to Noam and Yossi, status In progress" loading="lazy" decoding="async"></div>
+            <figcaption><b>Create task.</b> Set it up in one sheet.</figcaption></figure>
+          <span class="fyi-arrow" aria-hidden="true">→</span>
+          <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-tasks.webp" width="786" height="1704" data-zoom alt="Media gallery filtered to Tasks: AI objects UX cards marked Started, Finished and In progress, with assignees" loading="lazy" decoding="async"></div>
+            <figcaption><b>Tasks.</b> Filtered in the chat's media gallery, each with its status.</figcaption></figure>
+        </div>
+        <div class="rv">
+          <dl class="fyi-rules">
+            <div><dt>Name</dt><dd>What the task is.</dd></div>
+            <div><dt>Due date</dt><dd>A date and a time.</dd></div>
+            <div><dt>Description</dt><dd>The detail behind it.</dd></div>
+            <div><dt>Assigned to</dt><dd>People from the chat, added and removed as chips.</dd></div>
+            <div><dt>Status</dt><dd><span class="fyi-status"><span>Approved</span><span>In progress</span><span>Finished</span></span></dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · ink -->
+  <section class="chapter ink" id="calls">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">05 · <b>Calls &amp; groups</b></div><h2>Talk, share the screen, see who read it</h2></div>
+        <div class="prose"><p>Video calls share the screen and keep it in sync. Group info gathers a project's media, music, voice notes, documents and links. Message info shows who read a message and when, with a transcription tab.</p></div>
+      </div>
+      <div class="fyi-row">
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-call-share.webp" width="786" height="1704" data-zoom alt="Video call at 00:49 with a picture-in-picture, call controls, and Sharing and Sync buttons" loading="lazy" decoding="async"></div>
+          <figcaption><b>Video call.</b> Screen sharing, with sync.</figcaption></figure>
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-group.webp" width="786" height="1704" data-zoom alt="Group info: message, audio and video actions, a Public project switch, and media, music, voice notes, documents, links, shared events, calls and groups in common" loading="lazy" decoding="async"></div>
+          <figcaption><b>Group info.</b> A public project switch and everything shared in the group.</figcaption></figure>
+        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-message-info.webp" width="786" height="1704" data-zoom alt="Message info: the message, Transcription and Info tabs, and Read by and Delivered to lists with times; names are blurred" loading="lazy" decoding="async"></div>
+          <figcaption><b>Message info.</b> Read receipts and transcription. Names are blurred.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · sheet -->
+  <section class="chapter sheet" id="system">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">06 · <b>The system behind it</b></div><h2>One design system under every screen</h2></div>
+        <div class="prose"><p>The Figma file has its own design-system page. Every screen above is built from it, from the type and colour styles up to the chat bubbles and the molecules made from them.</p></div>
+      </div>
+      <dl class="fyi-rules rv">
+        <div><dt>Typography</dt><dd>Named type styles for the whole app.</dd></div>
+        <div><dt>Colour</dt><dd><span class="fyi-tags"><span>Dark_1000</span><span>Light_1000</span><span>Chat_Blue</span><span>Green Active</span><span>Components Purple</span></span></dd></div>
+        <div><dt>Icons</dt><dd>One icon palette.</dd></div>
+        <div><dt>Chat bubbles</dt><dd>Text, voice, image, reply and link messages.</dd></div>
+        <div><dt>Molecules</dt><dd>The larger pieces built from those parts.</dd></div>
+      </dl>
+      <div class="fyi-close rv"><p>Designed before AI tools; <em>every screen drawn by hand in Figma.</em></p></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <a class="next" href="design-lab.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Design Lab</h2></div><span class="arrow" aria-hidden="true">→</span></a>
+    <div class="sources"><p>All screens are exports of Ofir's Figma file for FYI, designed at Intune before Hear and framed here in CSS. Names in the app are placeholders; names on the message-info screen and one chat preview are blurred. Quoted lines are the app's own copy.</p></div>
+  </div>
+</main>
+<footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<script src="case.js"></script>
+<script>
+// hero fan: opens as you scroll past it (off for reduced motion)
+(() => {
+  const fan = document.getElementById('fyi-fan');
+  if (!fan || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let raf = 0;
+  const upd = () => {
+    raf = 0;
+    const r = fan.getBoundingClientRect(), vh = innerHeight;
+    if (r.bottom < -100 || r.top > vh + 100) return;
+    const c = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
+    fan.style.setProperty('--s', (0.7 + 0.3 * Math.min(1, c / 0.5)).toFixed(3));
+    fan.style.setProperty('--k', ((c - 0.5) * 2).toFixed(3));
+  };
+  const req = () => { if (!raf) raf = requestAnimationFrame(upd); };
+  addEventListener('scroll', req, { passive: true });
+  addEventListener('resize', req);
+  upd();
+})();
+</script>
+</body>
+</html>
