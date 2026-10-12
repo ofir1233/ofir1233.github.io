@@ -6,8 +6,8 @@
 
 
 
-<title>Ofir Nona · Product Designer</title>
-<meta name="description" content="Ofir Nona, product designer for AI products. Since 2023 the only designer and product person at Hear. Real work, not concepts.">
+<title>Ofir Nona · Senior Product Designer</title>
+<meta name="description" content="Senior product designer for AI and data-heavy products. Since 2023, the only designer and product person at Hear, an AI platform for contact centers.">
 <!-- link previews and icons for the hosted copy at ofir1233.github.io (the artifact viewer ignores them) -->
 <meta name="theme-color" content="#0d0d0e">
 <meta property="og:type" content="website">
@@ -1779,6 +1779,45 @@ html.sheet-arcs #contact::after { top: 0; }
 #product .pf-prob { margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--coral); font-size: 15px; line-height: 1.55; color: rgba(242,239,231,.62); }
 #product .pf-prob b { display: block; margin-bottom: 4px; font: 500 11px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--coral); }
 #product .pf-sol { margin-top: 14px; font-size: 17px; line-height: 1.55; color: rgba(242,239,231,.9); }
+
+/* about: the illustrated portrait sits frameless on the paper, its edges dissolving into the cream */
+#about .me-photo.me-ill { aspect-ratio: auto; max-width: 600px; border-radius: 0; overflow: visible; background: none; box-shadow: none; }
+#about .me-photo.me-ill::after { content: none; }
+#about .me-photo.me-ill img { height: auto; mix-blend-mode: multiply; filter: none; transform: none; transition: none; opacity: 0; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16%, #000 86%, transparent 100%), linear-gradient(180deg, transparent 0, #000 14%, #000 78%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 16%, #000 86%, transparent 100%), linear-gradient(180deg, transparent 0, #000 14%, #000 78%, transparent 100%); mask-composite: intersect; }
+#about.seen .me-photo.me-ill img { opacity: 1; transition: opacity 1.4s ease .2s; }
+@media (max-width: 860px) { #about .me-photo.me-ill { max-width: 440px; justify-self: center; } }
+@media (prefers-reduced-motion: reduce) { #about .me-photo.me-ill img { opacity: 1; } }
+/* pc: contact heading keeps the label look */
+#contact h2.label { font-weight: 400; }
+
+
+/* pa: about / hero / code / design-lab polish */
+#about .me-lead, #about .me-pillars p, #code .code-steps p { text-wrap: pretty; }
+#about .me-pillars h3 { font-size: clamp(20px, 1.9vw, 24px); text-wrap: balance; }
+@media (prefers-reduced-motion: no-preference) {
+  #about .me-intro > *, #about .me-pillars, #about .me-path { animation: pa-rise .95s cubic-bezier(.2,.7,.2,1) both; }
+  #about .me-intro > :nth-child(2) { animation-delay: .08s; }
+  #about .me-intro > :nth-child(3) { animation-delay: .16s; }
+  #about .me-intro > :nth-child(4) { animation-delay: .24s; }
+  #about .me-pillars { animation-delay: .36s; }
+  #about .me-path { animation-delay: .44s; }
+  html.nda-on #about .me-intro > *, html.nda-on #about .me-pillars, html.nda-on #about .me-path { animation-play-state: paused; }
+}
+@keyframes pa-rise { from { opacity: 0; translate: 0 16px; } }
+@media (max-width: 860px) {
+  html.sheet-arcs #top::before { top: 72px; }
+}
+@media (max-width: 600px) {
+  #about .me-path { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px; padding: 18px 20px 20px; }
+  #about .me-path-l { grid-column: 1 / -1; }
+  #about .me-job { flex-direction: column; align-items: flex-start; gap: 6px; }
+  #about .me-job b { font-size: 17px; }
+  #design-lab .lab-tour.lt-on .lt-chaps { flex-wrap: nowrap; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  #design-lab .lab-tour.lt-on .lt-chaps::-webkit-scrollbar { display: none; }
+  #design-lab .lt-chaps button { flex: 1 0 auto; justify-content: center; padding: 0 9px; }
+  #design-lab .lt-chaps button i { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -1837,7 +1876,7 @@ html.sheet-arcs #contact::after { top: 0; }
         <p class="quote">Boots on the ground, <span>not theory.</span></p>
         <p class="me-lead">I'm a product designer in Tel Aviv, focused on AI products. I work end to end: research, flows, interface, design system, brand and website.</p>
       </div>
-      <figure class="me-photo"><img src="img/me.webp" width="1200" height="1500" alt="Portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
+      <figure class="me-photo me-ill"><img src="img/me-ill.webp" width="1400" height="1372" alt="Illustrated portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
     </div>
     <ol class="me-pillars">
       <li><span class="me-n">01</span><h3>End to end, alone</h3><p>Brand, product, design system, website.</p></li>
@@ -2191,7 +2230,7 @@ html.sheet-arcs #contact::after { top: 0; }
         <div class="label">Case study 05</div>
         <h2>Information architecture</h2>
       </div>
-      <div><p>Maps of Hear's product (admin layer included), website and sign-in flows. Pick a map and open any area.</p>
+      <div><p>Maps of Hear's product, website and sign-in flows. Pick a map and open any area.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-ia"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about information architecture</span></button></div></div>
     </div>
     <div class="mr-body mr-head mr-col" id="mr-ia"><div class="mr-in"><div><p>I mapped Hear's surfaces: the product, the website and the sign-in and sign-up flows. The product map includes the admin layer: data retention, the anonymizer, 2FA, team permissions and impersonation.</p></div></div></div>
@@ -2237,7 +2276,7 @@ html.sheet-arcs #contact::after { top: 0; }
       <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="onboard"></span><span class="n">05</span></div><h3>Growth</h3><p>Sign-up, onboarding and setup, product walkthroughs.</p></li>
       <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="product"></span><span class="n">06</span></div><h3>Product</h3><p>Current-state map, user types and paths, MVP scope, AI and LLM capabilities.</p></li>
       <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="ui"></span><span class="n">07</span></div><h3>UI design</h3><p>Product design, redesign flows, handoff and the design system.</p></li>
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="loop"></span><span class="n">08</span></div><h3>Process</h3><p>Principles, design-dev and marketing-design workflows, testing and iteration.</p></li>
+      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="loop"></span><span class="n">08</span></div><h3>Ways of working</h3><p>Principles, design-dev and marketing-design workflows, testing and iteration.</p></li>
     </ol>
   </div>
 </section>
@@ -2253,24 +2292,24 @@ html.sheet-arcs #contact::after { top: 0; }
     </div>
     <ol class="timeline" id="timeline">
       <li class="rail" aria-hidden="true" role="presentation"></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2023 · <b>Now</b> · Tel Aviv</div><div class="co"><h3>Hear</h3></div><p class="role">UX/UI designer at Intune (Hear) · only designer and product person</p></div><div><p class="d">Helped take Hear from zero to a growing AI platform: brand, product, design system, website, UX research, and the Design Lab.</p><div class="chips"><span>AI · SaaS</span><span>Zero to platform</span></div>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-hear"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Hear</span></button><div class="mr-body" id="mr-job-hear"><div class="mr-in"><div><p>I designed the brand, the product, the design system and the website, ran UX research and user testing on complex workflows, and started the Design Lab.</p><div class="chips"><span>Design system</span><span>Brand from scratch</span><span>UX research</span></div></div></div></div></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2022 · 2023 · Be'er Sheva</div><div class="co"><h3>Tap Mobile</h3></div><p class="role">User experience designer</p></div><div><p class="d">Consumer mobile apps, one with 100 million downloads. A/B tests and funnel analytics guided the UX, and I took on product definition too.</p><div class="chips"><span>Mobile apps</span><span>A/B testing</span></div>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-tap"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Tap Mobile</span></button><div class="mr-body" id="mr-job-tap"><div class="mr-in"><div><p>I used A/B tests and funnel analytics with product managers and developers to guide UX choices, and led the design of several engagement-focused apps.</p><div class="chips"><span>100 million downloads</span><span>Funnel analytics</span></div></div></div></div></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">May · Dec 2020 · Be'er Sheva</div><div class="co"><h3>Qualish</h3></div><p class="role">UX/UI designer</p></div><div><p class="d">Wireframes, workflows and interactive prototypes, with senior management.</p><div class="chips"><span>Wireframes</span><span>Prototyping</span></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">Mar · Jun 2020 · Tel Aviv</div><div class="co"><h3>VPlanSolutions</h3></div><p class="role">User experience designer</p></div><div><p class="d">Designed the logo and the website.</p><div class="chips"><span>Logo design</span><span>Web design</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2023 – <b>Now</b> · Tel Aviv</div><div class="co"><h3>Hear</h3></div><p class="role">UX/UI designer at Intune</p></div><div><p class="d">As the only designer and product person, I helped take Hear from zero to a growing AI platform: brand, product, design system, website, UX research and the Design Lab.</p><div class="chips"><span>AI · SaaS</span><span>Zero to platform</span></div>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-hear"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Hear</span></button><div class="mr-body" id="mr-job-hear"><div class="mr-in"><div><p>I built the brand from scratch, ran UX research and user testing on complex workflows, and started the Design Lab.</p><div class="chips"><span>Design system</span><span>Brand from scratch</span><span>UX research</span></div></div></div></div></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2022 – 2023 · Be'er Sheva</div><div class="co"><h3>Tap Mobile</h3></div><p class="role">User experience designer</p></div><div><p class="d">Consumer mobile apps, one with 100 million downloads. A/B tests and funnel analytics guided the UX, and I took on product definition too.</p><div class="chips"><span>Mobile apps</span><span>A/B testing</span></div>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-tap"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Tap Mobile</span></button><div class="mr-body" id="mr-job-tap"><div class="mr-in"><div><p>I worked with product managers and developers, and led the design of several engagement-focused apps.</p><div class="chips"><span>Product definition</span><span>Engagement</span></div></div></div></div></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">May – Dec 2020 · Be'er Sheva</div><div class="co"><h3>Qualish</h3></div><p class="role">UX/UI designer</p></div><div><p class="d">Wireframes, workflows and interactive prototypes, with senior management.</p><div class="chips"><span>Wireframes</span><span>Prototyping</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">Mar – Jun 2020 · Tel Aviv</div><div class="co"><h3>VPlanSolutions</h3></div><p class="role">User experience designer</p></div><div><p class="d">Designed the logo and the website.</p><div class="chips"><span>Logo design</span><span>Web design</span></div></div></li>
     </ol>
   </div>
 </section>
 
 
 
-<section id="contact" class="contact">
+<section id="contact" class="contact" aria-labelledby="contact-h">
   <div class="wrap">
-    <div class="label" style="margin-bottom:20px">Contact</div>
-    <a class="big" href="mailto:ofirnona123@gmail.com">Let's talk →</a>
+    <h2 class="label" id="contact-h" style="margin-bottom:20px">Contact</h2>
+    <a class="big" href="mailto:ofirnona123@gmail.com">Let's talk <span aria-hidden="true">→</span></a>
     <p class="pitch">Hiring a product designer for an AI or <span class="nw">data-heavy</span> product? I'd like to hear about it.</p>
-    <div class="row"><span class="mail"><a class="dp" href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a><button type="button" class="copy" data-copy="ofirnona123@gmail.com" aria-live="polite">Copy</button></span><a class="dp" href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a><a class="dp" href="ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a><span>Tel Aviv</span></div>
+    <div class="row"><span class="mail"><a class="dp" href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a><button type="button" class="copy" data-copy="ofirnona123@gmail.com" aria-live="polite">Copy</button></span><a class="dp" href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a><a class="dp" href="ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></div>
     
   </div>
 </section>
@@ -2281,9 +2320,6 @@ html.sheet-arcs #contact::after { top: 0; }
   <div class="f-top">
     <div class="f-id"><a class="brand" href="#about">Ofir Nona<span>.</span></a><p class="f-line">Product designer in Tel Aviv, focused on AI products.</p></div>
     <ul class="f-links">
-      <li><a href="mailto:ofirnona123@gmail.com">Email</a></li>
-      <li><a href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a></li>
-      <li><a href="ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></li>
       <li><a class="f-top-link" href="#about">Back to top <span aria-hidden="true">↑</span></a></li>
     </ul>
   </div>
