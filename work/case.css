@@ -341,3 +341,8 @@ html { scroll-padding-top: 84px; }
   .chapter.side:has(.ch-head .more:not([open])) > .wrap > .ch-head { grid-column: 1; grid-row: 1; grid-template-columns: minmax(0, 1fr); margin-bottom: 0; }
   .chapter.side:has(.ch-head .more:not([open])) > .wrap > .two:not(.xtra) { grid-column: 2; grid-row: 1; grid-template-columns: minmax(0, 1fr); margin: 0 !important; }
 }
+
+/* ---------- final QA: 40px tap targets for the way back, the version tabs and the footer link; no layout change */
+.topbar .home { min-height: 40px; }
+.topbar .pill, .vtabs [role="tab"] { min-height: 40px; }
+footer a { display: inline-block; padding-block: 11px; margin-block: -11px; text-underline-offset: 3px; }

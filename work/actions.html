@@ -15,6 +15,8 @@
 .actions-sub + .prose { margin-bottom: clamp(20px, 3vw, 32px); }
 .actions-crop { background: #efefed; padding: clamp(16px, 3vw, 32px) clamp(16px, 3vw, 32px) 52px; }
 .actions-crop img { width: auto; max-width: 100%; margin-inline: auto; border-radius: 10px; }
+/* two crops side by side share one frame height, the smaller crop centred in its frame */
+@media (min-width: 861px) { #closing .two:not(.xtra) { align-items: stretch; } #closing .two:not(.xtra) > figure { display: grid; grid-template-rows: 1fr auto; } #closing .two:not(.xtra) .actions-crop { display: grid; align-content: center; } }
 .actions-anat { list-style: none; counter-reset: a; margin: 0 !important; display: grid; gap: 12px !important; }
 .actions-anat li { counter-increment: a; display: grid; grid-template-columns: 28px 1fr; gap: 0 10px; }
 .actions-anat li::before { content: counter(a, decimal-leading-zero); font: 500 12px/1.9 var(--mono); color: var(--coral-ink); }
