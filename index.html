@@ -568,6 +568,110 @@ html.nda-on, html.nda-on body { overflow: hidden; }
 .site-dirs button:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
 .site-fig .shot { transition: background .4s; }
 @media (max-width: 520px) { .site-dirs button span { display: none; } }
+
+
+/* r5-v2style: visual language borrowed from the Hear site, direction B (cream and ink) */
+:root { --cream: #f2efe7; --ink-t: #1b1b1b; --sheet-r: clamp(28px, 4.4vw, 64px); --sec-pad: clamp(56px, 9vw, 120px); --coral-ink: #d4472d; }
+h2 { letter-spacing: -.035em; }
+
+/* 1. nav: a floating pill with blur; the current section gets a coral underline */
+.nav { top: calc(env(safe-area-inset-top, 0px) + 12px); margin-top: 12px; margin-bottom: -64px; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 0; pointer-events: none; }
+.nav .wrap { position: relative; pointer-events: auto; width: max-content; max-width: calc(100% - 24px); gap: 10px; padding: 6px 6px 6px 20px; border-radius: 99px; background: rgba(8,8,9,.86); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: 0 0 0 1px rgba(255,255,255,.09), 0 18px 40px -20px rgba(0,0,0,.7); }
+.brand { margin-right: 6px; }
+.nav ul { gap: 2px; align-items: center; }
+.nav ul a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 13px; border-radius: 99px; color: rgba(242,239,231,.72); transition: color .2s, background-color .2s; }
+.nav ul a:hover { color: var(--cream); background: rgba(255,255,255,.08); }
+.nav ul a::after { inset: -4px 0; }
+.nav ul a::before { content: ""; position: absolute; left: 13px; right: 13px; bottom: 3px; height: 1.5px; border-radius: 2px; background: var(--coral); transform: scaleX(0); transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+.nav ul a[aria-current]::before { transform: scaleX(1); }
+.nav ul a[aria-current] { color: var(--cream); }
+/* Contact: the light pill with a dark cap and a coral dot */
+.nav ul li:last-child { margin-left: 6px; }
+.nav ul li:last-child a, .nav ul li:last-child a:hover { gap: 12px; min-height: 40px; padding: 0 6px 0 16px; border: 0; color: var(--ink-t); background: var(--cream); font-weight: 500; }
+.nav ul li:last-child a::before { position: static; flex: none; order: 2; width: 28px; height: 28px; border-radius: 50%; transform: none; background: radial-gradient(circle, var(--coral) 0 2.6px, var(--ink-t) 3.2px); transition: background .3s; }
+.nav ul li:last-child a:hover::before { background: radial-gradient(circle, var(--coral) 0 5px, var(--ink-t) 5.6px); }
+/* reading progress moves into the pill as a hairline along its bottom edge */
+@supports (animation-timeline: scroll()) { @media (prefers-reduced-motion: no-preference) {
+  .nav::after { content: none; }
+  .nav .wrap::after { content: ""; position: absolute; left: 24px; right: 24px; bottom: 0; height: 1px; border-radius: 1px; background: linear-gradient(90deg, rgba(255,112,86,.25), var(--coral)); transform-origin: left; transform: scaleX(0); animation: prog linear both; animation-timeline: scroll(root); pointer-events: none; }
+} }
+html { scroll-padding-top: 84px; }
+.hero { padding-top: calc(clamp(48px, 8vw, 110px) + 64px); }
+@media (max-width: 760px) {
+  .nav { top: calc(env(safe-area-inset-top, 0px) + 10px); margin-top: 10px; margin-bottom: -60px; }
+  .hero { padding-top: calc(28px + 60px); }
+  .nav .wrap { padding-left: 16px; gap: 6px; }
+  .nav ul li:last-child a, .nav ul li:last-child a:hover { min-height: 38px; padding-left: 14px; gap: 10px; }
+  .nav ul li:last-child a::before { width: 26px; height: 26px; }
+}
+
+/* 2. buttons: pill with a dark cap; the coral dot turns into the arrow on hover */
+.btn { position: relative; gap: 16px; padding: 8px 8px 8px 24px; font-weight: 500; font-size: 16px; }
+.btn::after { content: ""; flex: none; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, var(--coral) 0 3px, var(--ink-t) 3.6px); transition: background .3s; }
+.btn > span[aria-hidden] { position: absolute; right: 8px; top: 50%; width: 40px; margin-top: -20px; line-height: 40px; text-align: center; color: var(--cream); font-size: 15px; z-index: 1; opacity: 0; transform: translateY(-6px); transition: opacity .25s, transform .3s cubic-bezier(.2,.7,.2,1); }
+.btn:hover > span[aria-hidden], .btn:focus-visible > span[aria-hidden] { opacity: 1; transform: none; }
+.btn:has(> span[aria-hidden]):hover::after, .btn:has(> span[aria-hidden]):focus-visible::after { background: var(--ink-t); }
+.btn.ghost { border: 0; box-shadow: inset 0 0 0 1px rgba(242,239,231,.18); }
+.btn.ghost::after { background: radial-gradient(circle, var(--coral) 0 3px, #26262a 3.6px); }
+.btn.ghost:hover { box-shadow: inset 0 0 0 1px rgba(242,239,231,.6); }
+.btn.ghost:hover::after { background: radial-gradient(circle, var(--coral) 0 6px, #26262a 6.6px); }
+@media (max-width: 760px) {
+  .cta .btn { justify-content: space-between; gap: 10px; min-height: 52px; padding: 8px 8px 8px 18px; }
+  .btn::after, .btn > span[aria-hidden] { width: 36px; height: 36px; }
+  .btn > span[aria-hidden] { margin-top: -18px; line-height: 36px; opacity: 1; transform: none; }
+  .btn:has(> span[aria-hidden])::after { background: var(--ink-t); }
+}
+@media (prefers-reduced-motion: reduce) { .btn::after, .btn > span[aria-hidden], .nav ul a::before { transition: none; } }
+
+/* 3. small boxed mono tags above headings */
+.hero-copy > .label, .sec-head .label, #about .label, .contact .label { display: block; width: fit-content; padding: 5px 10px 4px; border-radius: 6px; background: rgba(242,239,231,.07); color: rgba(242,239,231,.62); font-size: 11.5px; line-height: 1.4; letter-spacing: .04em; text-transform: none; }
+.hero-copy > .label { white-space: nowrap; max-width: 100%; }
+
+/* 4. three-column notes: hairline columns, numbered 01 / 03 */
+.story { counter-reset: st; }
+.story > div { position: relative; counter-increment: st; }
+@media (min-width: 861px) {
+  .story { gap: 0; }
+  .story > div { padding-right: 28px; }
+  .story > div + div { padding-left: 28px; border-left: 1px solid var(--line); }
+  .story > div::after { content: "0" counter(st) "  /  03"; white-space: pre; position: absolute; top: 24px; right: 28px; font: 500 11px/1 var(--mono); letter-spacing: .02em; color: rgba(242,239,231,.32); }
+}
+
+/* 5. sheets: the closing sections stack like paper, alternating cream and ink, each with a large rounded top edge */
+#process, #path, #about, #contact { position: relative; z-index: 1; margin-top: calc(-1 * var(--sheet-r)); border-radius: var(--sheet-r) var(--sheet-r) 0 0; }
+#ia, #process, #path, #about { padding-bottom: calc(var(--sec-pad) + var(--sheet-r)); }
+#process > .wrap::before, #path > .wrap::before, #about > .wrap::before, #contact > .wrap::before { content: none; }
+#path, #contact { background: var(--ink); box-shadow: 0 -1px 0 rgba(255,255,255,.06); }
+#process, #about { color: var(--ink-t); background: radial-gradient(circle, rgba(27,27,27,.13) 1px, transparent 1.5px) 0 0 / 22px 22px, var(--cream); }
+#process p, #about p { color: rgba(27,27,27,.68); }
+#process .label, #about .label { background: rgba(27,27,27,.06); color: rgba(27,27,27,.7); }
+#process .label b, #about .label b { color: var(--coral-ink); }
+#process :focus-visible, #about :focus-visible { outline-color: var(--ink-t); }
+#about .quote { color: var(--ink-t); }
+#about .quote span { color: var(--coral-ink); }
+footer { background: var(--ink); }
+
+/* process on cream: a centered display head, and phases as numbered hairline columns */
+#process .sec-head { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 22px; }
+#process .sec-head h2 { font-size: clamp(36px, 5.2vw, 68px); letter-spacing: -.045em; max-width: 15ch; margin-inline: auto; }
+#process .sec-head p { margin-inline: auto; max-width: 58ch; }
+#process .sec-head .label { margin-inline: auto; }
+.phases { gap: 0; border-top: 1px solid rgba(27,27,27,.14); }
+.phase, .phase:hover { background-color: transparent; border: 0; border-radius: 0; border-bottom: 1px solid rgba(27,27,27,.14); padding: 26px 26px 30px; transform: none; }
+.phase:hover { background-color: rgba(27,27,27,.025); }
+.phase { background-image: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgba(255,112,86,.10), transparent 60%); }
+.phase:not(:nth-child(4n+1)) { border-left: 1px solid rgba(27,27,27,.14); }
+.phase::after { height: 2px; }
+.phase h3 { color: var(--ink-t); }
+.phase .n, .phase:hover .n, .phase:focus-within .n { font: 500 11px/1 var(--mono); letter-spacing: .02em; color: var(--coral-ink); -webkit-text-stroke: 0; white-space: pre; }
+.phase .n::after { content: "  /  08"; color: rgba(27,27,27,.36); }
+.phase .ico { background: rgba(255,112,86,.12); }
+@media (max-width: 960px) {
+  .phase:not(:nth-child(4n+1)) { border-left: 0; }
+  .phase:nth-child(even) { border-left: 1px solid rgba(27,27,27,.14); }
+}
+@media (max-width: 520px) { .phase, .phase:hover { padding: 18px 14px 20px; } }
+
 </style>
 </head>
 <body>
@@ -777,6 +881,8 @@ html.nda-on, html.nda-on body { overflow: hidden; }
       <p>The Design Lab's system is documented in Storybook: foundations, atoms, molecules, organisms, templates and full pages. Every component comes with all its states, and tokens carry names and reasons, not just hex codes. The same tokens and components cover dark and light, English and Hebrew, left to right and right to left.</p>
     </div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; documentation</dd></div><div><dt>Coverage</dt><dd>Dark &amp; light · LTR &amp; RTL</dd></div><div><dt>Tiers</dt><dd>Foundations → Pages</dd></div><div><dt>Tooling</dt><dd>Storybook · CSS tokens</dd></div></dl>
+    <figure class="rv sys-fig" style="margin-bottom:clamp(24px,3vw,40px)"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-system.mp4" data-poster="img/clip-system-poster.webp" muted loop playsinline preload="none" aria-label="The same Compliance screen switching from light to dark, then from English to Hebrew, right to left, and back to light"></video></div>
+      <figcaption><b>One set of tokens, every mode.</b> The same screen goes from light to dark, then to Hebrew, right to left, without a single one-off style.</figcaption></figure>
     <div class="bento">
       <figure class="tile t-colors rv"><span class="tier">Foundations · Color</span><img src="img/ds-colors.webp" width="1375" height="1400" alt="Color palette: Pulse Coral, Charcoal and Blue Cobalt, each with a name, a hex code, a reason for use and a full tint ramp" loading="lazy"></figure>
       <figure class="tile t-side rv"><span class="tier">Organism · Sidebar</span><img src="img/ds-sidebar.webp" width="539" height="1400" alt="Sidebar navigation component" loading="lazy"></figure>
