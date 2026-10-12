@@ -1661,6 +1661,21 @@ footer .f-fine { margin-top: 22px; }
 }
 @media (prefers-reduced-motion: reduce) { #product .pf-idx button { transition: none; } }
 
+/* enter: one entrance system. When a section's head scrolls in, its label, heading, intro and first visual rise in once, in a short stagger. Only opacity and translate/scale on inner blocks (never the sticky cards themselves); the hero and anything on screen at load stay put. No JS, reduced motion and print: everything is simply there */
+html.en-on .rv.pre, html.en-on #path .job.rv.pre .lead > *, html.en-on #path .job.rv.pre > div:last-child > * { opacity: 1; transform: none; }
+html.en-on .en-x { opacity: 0 !important; translate: 0 18px !important; }
+html.en-on .en-x.en-m { scale: .98 !important; }
+html.en-on .en-go { transition: opacity .8s cubic-bezier(.2,.7,.2,1) var(--en-d, 0ms), translate .85s cubic-bezier(.2,.7,.2,1) var(--en-d, 0ms), scale .9s cubic-bezier(.2,.7,.2,1) var(--en-d, 0ms) !important; }
+@media print { html.en-on .en-x { opacity: 1 !important; translate: none !important; scale: none !important; } }
+/* process dial: ring, chips, active colour, counter and centre text move as one 600ms gesture. The needle holds still (no squash), the active colour hands over while the chips travel, and the old phase slides out as the new one slides in from the side you are heading, so there is never an empty or doubled frame */
+@media (min-width: 861px) and (prefers-reduced-motion: no-preference) {
+  #process.pd-on .pd-ring, #process.pd-on .pd-chip { transition: transform .6s cubic-bezier(.45,0,.2,1), background-color .6s cubic-bezier(.45,0,.2,1), color .6s cubic-bezier(.45,0,.2,1), border-color .6s cubic-bezier(.45,0,.2,1), box-shadow .6s cubic-bezier(.45,0,.2,1); }
+  #process.pd-on .pd-needle, #process.pd-on.pd-move .pd-needle { transform: none; transition: none; }
+  #process.pd-on .phase, #process.pd-on .phase:hover { transform: translateX(calc(var(--pd-dir, 1) * 18px)); transition: opacity .2s cubic-bezier(.4,0,.6,1), transform .2s cubic-bezier(.4,0,.6,1), visibility 0s .2s; }
+  #process.pd-on .phase.pd-out, #process.pd-on .phase.pd-out:hover { transform: translateX(calc(var(--pd-dir, 1) * -18px)); }
+  #process.pd-on .phase.on, #process.pd-on .phase.on:hover, #process.pd-on .phase.on.rv.pre { transform: none; transition: opacity .48s cubic-bezier(.2,.7,.2,1) .1s, transform .5s cubic-bezier(.2,.7,.2,1) .1s, visibility 0s; }
+}
+
 </style>
 </head>
 <body>
@@ -2670,7 +2685,8 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     let d = ((j - cur) % N + N) % N; if (d > N / 2) d -= N;
     rot -= d * step; cur = j;
     pd.style.setProperty('--rot', rot + 'deg');
-    items.forEach((li, i) => li.classList.toggle('on', i === j));
+    sec.style.setProperty('--pd-dir', d < 0 ? -1 : 1);
+    items.forEach((li, i) => { li.classList.toggle('pd-out', i !== j && li.classList.contains('on')); li.classList.toggle('on', i === j); });
     chips.forEach((b, i) => { const on = i === j; b.toggleAttribute('aria-current', on); if (on) b.setAttribute('aria-current', 'step'); b.tabIndex = on ? 0 : -1; });
     out.innerHTML = `<b>${pad(j + 1)}</b>  /  ${pad(N)}`;
     if (focus) chips[j].focus({ preventScroll: true });
@@ -3179,6 +3195,49 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
   addEventListener('resize', () => { cur = -1; sync(); });
   sync();
+})();
+
+// enter: section entrance. Each section below the fold waits until its head scrolls in, then label, heading, intro and first visual rise in once, 80ms apart. Sticky elements are never moved, only the blocks inside them
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('en-on');
+  const shown = el => el && el.getClientRects().length > 0;
+  const flat = (el, out) => { if (!shown(el)) return; if (getComputedStyle(el).position === 'sticky') [...el.children].forEach(c => flat(c, out)); else out.push(el); };
+  const big = el => el.getBoundingClientRect().height >= 100;
+  const SPEC = { about: ['.quote', '.me-intro', '.me-pillars', '.me-path'], fyi: ['.fyi-copy > .label', '.fyi-copy > h2', '.fyi-copy > :not(.label):not(h2)', '.fyi-fan'], contact: ['.wrap > .label', '.wrap > .big', '.wrap > .pitch', '.wrap > :not(.label):not(.big):not(.pitch)'] };
+  const plan = sec => {
+    const head = sec.querySelector('.sec-head'), steps = [];
+    const add = (...els) => { if (steps.length >= 5) return; const g = []; els.forEach(e => flat(e, g)); if (g.length) steps.push(g); };
+    if (SPEC[sec.id]) { const groups = SPEC[sec.id].map(s => [...sec.querySelectorAll(s)].filter(shown)).filter(g => g.length); groups.forEach(g => add(...g)); return { trigger: groups[0] && groups[0][0].parentElement, steps }; }
+    if (head) {
+      add(head.querySelector('.label')); add(head.querySelector('h2')); add(head.querySelector(':scope > :nth-child(2)'));
+      let n = head.nextElementSibling, small = [];
+      for (; n && steps.length < 5; n = n.nextElementSibling) {
+        if (n.matches('.mr-body, .bignum, script, style, template') || !shown(n)) continue;
+        if (big(n)) { if (small.length) add(...small); small = []; add(n); break; }
+        small.push(n);
+      }
+      if (small.length) add(...small);
+      return { trigger: head, steps };
+    }
+    const wrap = sec.querySelector(':scope > .wrap') || sec, kids = [...wrap.children].filter(k => shown(k) && !k.matches('.bignum'));
+    kids.slice(0, 4).forEach(k => add(k));
+    return { trigger: wrap, steps };
+  };
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const p = e.isIntersecting && e.target.__en; if (!p || p.done) return;
+    p.done = true; const all = p.steps.flat(); [p.trigger, ...all].forEach(el => io.unobserve(el));
+    p.steps.forEach((g, i) => g.forEach(el => { el.style.setProperty('--en-d', i * 80 + 'ms'); el.classList.add('en-go'); }));
+    requestAnimationFrame(() => requestAnimationFrame(() => all.forEach(el => el.classList.remove('en-x', 'en-m'))));
+    setTimeout(() => all.forEach(el => { el.classList.remove('en-go'); el.style.removeProperty('--en-d'); }), p.steps.length * 80 + 1100);
+  }), { rootMargin: '0px 0px -12% 0px' });
+  document.querySelectorAll('main > section').forEach(sec => {
+    const p = plan(sec); if (!p.trigger || !p.steps.length) return;
+    if (p.trigger.getBoundingClientRect().top < innerHeight) return;
+    p.steps.forEach((g, i) => g.forEach(el => { el.classList.add('en-x'); if (i >= 3 && big(el)) el.classList.add('en-m'); }));
+    // the head starts it; any of its blocks does too, so a jump past the head (a deep link) never leaves content hidden
+    [p.trigger, ...p.steps.flat()].forEach(el => { el.__en = p; io.observe(el); });
+  });
 })();
 
 </script>
