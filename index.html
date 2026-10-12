@@ -1908,6 +1908,30 @@ html.sheet-arcs #contact::after { top: 0; }
   #about .me-photo.me-ill { width: min(46vw, 660px); justify-self: center; margin: -36px 0 -24px; }
   #about .me-photo.me-ill img { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20%, #000 80%, transparent 100%), linear-gradient(180deg, transparent 0, #000 12%, #000 72%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 20%, #000 80%, transparent 100%), linear-gradient(180deg, transparent 0, #000 12%, #000 72%, transparent 100%); }
 }
+/* mq: phone and tablet polish (max-width only, desktop untouched) */
+@media (max-width: 860px) {
+  .cs-link { position: relative; }
+  .cs-link::before { content: ""; position: absolute; inset: -9px -6px -7px; }
+  .cs-links { row-gap: 16px; }
+  #web .wx-cap a { position: relative; }
+  #web .wx-cap a::before { content: ""; position: absolute; inset: -14px -10px; }
+}
+@media (min-width: 761px) and (max-width: 860px) {
+  .meta { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+}
+@media (min-width: 641px) and (max-width: 860px) {
+  .job { grid-template-columns: minmax(max-content, 5fr) minmax(0, 7fr); }
+}
+@media (min-width: 700px) and (max-width: 860px) {
+  #about .me-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+  #about .me-photo.me-ill { width: calc(100% + clamp(16px, 4vw, 40px)); margin: 0 calc(-1 * clamp(16px, 4vw, 40px)) 0 0; justify-self: end; }
+  #about .me-pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #about .me-pillars li + li { padding-left: 18px; border-top: 0; border-left: 1px solid rgba(127,127,127,.28); }
+}
+
+
+/* tablet: the portrait stays inside the content column, like desktop (the owner doesn't want it pinned to the window edge) */
+@media (min-width: 700px) and (max-width: 860px) { #about .me-photo.me-ill { width: 100%; margin: 0; justify-self: center; } #about .me-photo.me-ill img { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18%, #000 82%, transparent 100%), linear-gradient(180deg, transparent 0, #000 10%, #000 72%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 18%, #000 82%, transparent 100%), linear-gradient(180deg, transparent 0, #000 10%, #000 72%, transparent 100%); } }
 </style>
 </head>
 <body>
