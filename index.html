@@ -1719,6 +1719,13 @@ html.en-on .en-go { transition: opacity .8s cubic-bezier(.2,.7,.2,1) var(--en-d,
 }
 @media (prefers-reduced-motion: reduce) { #system .dw-track { animation: none !important; } }
 
+
+/* stack again (owner liked it): compact prodfix cards pin under the index pill and each next card slides over the last */
+@media (min-width: 861px) {
+  #product.r8-stack .spot, #product.r8-stack .spot:first-of-type, #product.r8-stack .spot:nth-of-type(even) { position: sticky; top: var(--pin, 128px); min-height: 0; padding: clamp(26px, 2.4vw, 36px); align-items: start; align-content: start; box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 -30px 60px -26px rgba(0,0,0,.8); }
+  #product.r8-stack .spot .media { position: static; }
+  #product.r8-stack .spot + .spot { margin-top: 28px; }
+}
 </style>
 </head>
 <body>
@@ -2610,13 +2617,13 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   const sec = document.getElementById('product'); if (!sec) return;
   const cards = [...sec.querySelectorAll('article.spot')], n = cards.length, pad = k => String(k).padStart(2, '0');
   cards.forEach((c, i) => { const s = document.createElement('span'); s.className = 'spot-n'; s.setAttribute('aria-hidden', 'true'); s.innerHTML = `<b>${pad(i + 1)}</b>  /  ${pad(n)}`; c.prepend(s); });
-  const mq = matchMedia('not all'), covered = new Set(), vids = c => c.querySelectorAll('video');
+  const mq = matchMedia('(min-width: 861px)'), covered = new Set(), vids = c => c.querySelectorAll('video');
   const fit = () => {
     cards.forEach(c => { c.classList.remove('tall'); c.style.removeProperty('--pin'); c.style.removeProperty('--fill'); });
     if (!mq.matches) { sec.classList.remove('r8-stack'); return; }
     sec.classList.add('r8-stack');
     const vh = innerHeight;
-    const m = cards.map((c, i) => { const top = 84 + i * 12, room = vh - top - 24, h = c.offsetHeight; return { c, top, room, h, tall: h > room }; });
+    const m = cards.map((c, i) => { const top = 128 + i * 14, room = vh - top - 20, h = c.offsetHeight; return { c, top, room, h, tall: h > room }; });
     const H = Math.max(0, ...m.filter(x => !x.tall).map(x => x.h));
     m.forEach(({ c, top, room, h, tall }) => {
       c.classList.toggle('tall', tall);
