@@ -105,8 +105,8 @@
       <div class="ch-head">
         <div><div class="label">01 · <b>The problem</b></div><h2>A summary that sounds surer than its data misleads</h2></div>
         <div class="prose">
-          <p>An AI summary of a contact center is only worth reading if people can check it. A headline that says a topic surged, with no baseline, no time frame and no calls behind it, asks the team to trust the wording.</p>
-          <p>So each story in Newsroom carries its evidence on the page: the source it came from, the time window it covers, a spike drawn against its baseline, and a closing line such as "See N calls".</p>
+          <p class="lead">Each story in Newsroom carries its evidence on the page: its source, its time window, a spike against its baseline, and a closing line such as "See N calls".</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>An AI summary of a contact center is only worth reading if people can check it. A headline that says a topic surged, with no baseline, no time frame and no calls behind it, asks the team to trust the wording.</p></div></details>
         </div>
       </div>
       <figure class="rv">
@@ -133,7 +133,7 @@
         <li data-n="6"><span><b>Time window.</b> A trend says "this week". It doesn't claim a timestamp it doesn't have.</span></li>
         <li data-n="7"><span><b>Evidence.</b> Each story ends with what it rests on, such as "See N calls".</span></li>
       </ol>
-      <p class="why rv"><b>Design choice:</b> a story distilled from a report names that report and the dates it covers, so a reader can trace the claim back to where it came from.</p>
+      <p class="why rv xtra"><b>Design choice:</b> a story distilled from a report names that report and the dates it covers, so a reader can trace the claim back to where it came from.</p>
     </div>
   </section>
 
@@ -143,10 +143,11 @@
       <div class="ch-head">
         <div><div class="label">02 · <b>How it evolved</b></div><h2>From editorial events to stories tied to the platform</h2></div>
         <div class="prose">
-          <p>Newsroom lives in the Lab's News tab, which took its shape in July 2026. I built V2 as a copy of V1 and left the original untouched beside it. Four days later V1 was gone, and V2 became the News tab.</p>
+          <p class="lead">Newsroom lives in the Lab's News tab, which took its shape in July 2026.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>I built V2 as a copy of V1 and left the original untouched beside it. Four days later V1 was gone, and V2 became the News tab.</p></div></details>
         </div>
       </div>
-      <ol class="steps newsroom-steps rv">
+      <ol class="steps newsroom-steps rv xtra">
         <li><strong>2 Jul · News V1</strong><span>An editorial event feed: highlights, a KPI strip, trending topics, a compliance watch, a timeline and a library of chart widgets. The lead story ended in "Create Signal".</span></li>
         <li><strong>2 Jul · News V2</strong><span>A copy of V1 where every event comes from a real part of the platform: Signals, Monitoring, AI Tasks, Compliance, Agent evaluation, Reports, Workflows, Customers and the Daily briefing.</span></li>
         <li><strong>6 Jul · Front page</strong><span>A masthead, a breaking strip, a lead story, sections by platform area, and an article page for each story. V1 deleted.</span></li>
@@ -155,7 +156,7 @@
         <li><strong>13 Jul · Hebrew</strong><span>The News tab in Hebrew, right to left, with its own scope rules. Chapter 04.</span></li>
       </ol>
 
-      <article class="decision rv">
+      <article class="decision rv xtra">
         <div class="label">Decision 1 · <b>What counts as a story</b></div>
         <h3>Should the feed report editorial events, or only things a user can open in the product?</h3>
         <ul class="opts">
@@ -165,7 +166,7 @@
         <p class="because"><b>Why:</b> so every story points at something real in Hear, an event "tied to a real platform surface". V1 was deleted four days later.</p>
       </article>
 
-      <article class="decision rv">
+      <article class="decision rv xtra">
         <div class="label">Decision 2 · <b>Where actions sit</b></div>
         <h3>Should every card in the feed carry its own action buttons?</h3>
         <ul class="opts">
@@ -183,11 +184,12 @@
       <div class="ch-head">
         <div><div class="label">03 · <b>Showing evidence</b></div><h2>Precision only where the platform has it</h2></div>
         <div class="prose">
-          <p>V1's lead story put a precise percentage in its headline. In the trust layer I wrote the rules into the feed's data, one set per story type. Each story's "Why you're seeing this" line shows its trigger, its basis and how strong the signal is.</p>
+          <p class="lead">Each story's "Why you're seeing this" line shows its trigger, its basis and how strong the signal is.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>V1's lead story put a precise percentage in its headline. In the trust layer I wrote the rules into the feed's data, one set per story type.</p></div></details>
         </div>
       </div>
 
-      <article class="decision rv">
+      <article class="decision rv xtra">
         <div class="label">Decision 3 · <b>How exact to sound</b></div>
         <h3>How much precision should a story's trigger show?</h3>
         <ul class="opts">
@@ -197,7 +199,7 @@
         <p class="because"><b>Why:</b> a trend has no configured threshold, so any number in its trigger would be made up. Trend triggers stay qualitative, with "no invented numeric thresholds", and only real moments, such as calls and alerts, carry clock times.</p>
       </article>
 
-      <div class="newsroom-rule rv" role="group" aria-label="The trust rule, per story type">
+      <div class="newsroom-rule rv xtra" role="group" aria-label="The trust rule, per story type">
         <section>
           <h3>Trends</h3>
           <div class="sub">Measured over a period</div>
@@ -221,7 +223,7 @@
         </section>
       </div>
 
-      <div class="newsroom-sub prose rv">
+      <div class="newsroom-sub prose rv xtra">
         <h3>How the charts carry it</h3>
         <ul class="newsroom-list">
           <li>Eleven hand-built SVG chart types sit in one registry, from trend lines and gauges to a causal chain, so a story names the chart it needs and the registry draws it.</li>
@@ -239,7 +241,8 @@
       <div class="ch-head center">
         <div><div class="label">04 · <b>Directions &amp; Hebrew</b></div><h2>Four ways to frame the same news</h2></div>
         <div class="prose">
-          <p>A week after the built feed, I sketched four low-fidelity directions, each a different main metaphor over the same content: grey skeletons with notes, wireframe fidelity on purpose. They sit in the Lab's sidebar as News · Directions, tagged DEV.</p>
+          <p class="lead">A week after the built feed, I sketched four low-fidelity directions, each a different main metaphor over the same content.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>They are grey skeletons with notes, wireframe fidelity on purpose. They sit in the Lab's sidebar as News · Directions, tagged DEV.</p></div></details>
         </div>
       </div>
       <ol class="newsroom-dirs rv">
@@ -248,10 +251,10 @@
         <li><span class="n">03</span><strong>Inbox</strong><q>work the queue</q><span>Marked as best for the risk owner.</span></li>
         <li><span class="n">04</span><strong>Briefing</strong><q>tell me, then let me dig</q></li>
       </ol>
-      <p class="why rv"><b>What stays:</b> every direction keeps the same three parts in its side panel: why, evidence, actions. All four remain explorations.</p>
+      <p class="why rv xtra"><b>What stays:</b> every direction keeps the same three parts in its side panel: why, evidence, actions. All four remain explorations.</p>
 
       <div class="two newsroom-sub">
-        <div class="prose rv">
+        <div class="prose rv xtra">
           <h3>Hebrew, right to left</h3>
           <p>Then News went to Hebrew: about 20 articles translated, the News area switches to right to left, and the chat inside an article answers in Hebrew. In July, News was the only tab in the Lab that changed language.</p>
           <p>The scope is set in one place: the app shell stays in English, and numbers stay in Latin digits, as is standard in Hebrew interfaces. Borders, quotes, arrows and padding use logical CSS properties, so one set of styles serves both directions, and arrows flip.</p>
@@ -274,14 +277,15 @@
       <div class="ch-head">
         <div><div class="label">05 · <b>Where AI belongs</b></div><h2>In the chat input, I added a moving logo, then took it out</h2></div>
         <div class="prose">
-          <p>News puts the AI's stories at the front of the page. The chat home is a different case: it came with that starting app, and in April and May I reworked parts of it. Some of what I added around the input, I later took out again.</p>
+          <p class="lead">In April and May I reworked parts of the chat home; some of what I added around the input, I later took out again.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>News puts the AI's stories at the front of the page. The chat home is a different case: it came with that starting app.</p></div></details>
         </div>
       </div>
       <figure class="rv newsroom-dark">
         <div class="shot win dark"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><img src="../img/cs-design-lab-chat-home.webp" data-zoom alt="Chat home in dark theme: the Hear mark above the greeting Good evening, ofir, a chat input with @, slash and microphone buttons, a pill that reads 3 alerts worth a look under the input, a Briefing V1 to V5 switcher in the header, and the sidebar with News and a News · Directions item tagged DEV" width="1600" height="1045" loading="lazy"></div>
         <figcaption><b>Chat home today, dark theme.</b> The page came with the starting app. The Hear mark now sits above the greeting, not in the field.</figcaption>
       </figure>
-      <ol class="steps newsroom-fig-top rv">
+      <ol class="steps newsroom-fig-top rv xtra">
         <li><strong>Suggestions</strong><span>AI suggestions capped at five, with the original suggestions design restored.</span></li>
         <li><strong>Daily briefing</strong><span>Tried inside the suggestions, then back in the page. It now fades out while you chat.</span></li>
         <li><strong>Controls</strong><span>A slash-command button added. The plus and attachment button removed.</span></li>
@@ -298,7 +302,7 @@
         <p class="because"><b>Result:</b> the Hear mark greets you above the field, and the field is left for the question.</p>
       </article>
 
-      <div class="newsroom-sub prose rv">
+      <div class="newsroom-sub prose rv xtra">
         <h3>Where it landed</h3>
         <p>In News, the AI's stories lead the page, and each one carries its source, its time window and its calls. In Chat, the AI's mark sits outside the field, and the briefing steps aside while you chat.</p>
       </div>

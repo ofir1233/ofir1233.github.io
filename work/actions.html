@@ -62,8 +62,8 @@
       <div class="ch-head">
         <div><div class="label">01 · <b>The problem</b></div><h2>A finding isn't finished until someone owns it</h2></div>
         <div class="prose">
-          <p>Alerts fire when a monitor trips, signals classify calls, and agent evaluations score each agent. Those screens are built to say that something happened. Saying who is dealing with it, and how it ended, is a different job.</p>
-          <p>Actions is where that hand-off happens. A finding becomes a task with an owner and a priority. The task keeps a link to where it came from, and when it closes, it records why. Later, the team can see what was raised, by which part of the product, who took it and how it ended.</p>
+          <p class="lead">Actions is where the hand-off happens: a finding becomes a task with an owner and a priority.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Alerts fire when a monitor trips, signals classify calls, and agent evaluations score each agent. Those screens are built to say that something happened. Saying who is dealing with it, and how it ended, is a different job.</p><p>The task keeps a link to where it came from, and when it closes, it records why. Later, the team can see what was raised, by which part of the product, who took it and how it ended.</p></div></details>
         </div>
       </div>
       <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><img src="../img/cs-actions-board-nb.webp" data-zoom alt="The Actions board in light mode with four columns, Pending, In progress, Done and Cancelled. Cards show a priority, a source such as Alert, Signal, Agent evaluation, Call or Report, a title and short context. The High priority quick filter is on, so non-matching cards are faded. The top of the Done column shows a close-reasons summary." width="1600" height="1046" loading="lazy"></div>
@@ -76,12 +76,13 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">02 · <b>The board</b></div><h2>One card: what happened, where it came from, who has it</h2></div>
-        <div class="prose"><p>Every card follows the same order, top to bottom: how urgent it is, where it came from, what happened, and who has it. The filter bar above the columns follows the same logic, starting with whose work you want to see.</p></div>
+        <div class="prose"><p class="lead">Every card follows the same order, top to bottom: how urgent it is, where it came from, what happened, and who has it.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The filter bar above the columns follows the same logic, starting with whose work you want to see.</p></div></details></div>
       </div>
       <div class="two">
         <figure class="rv"><div class="shot actions-crop"><span class="live">Design Lab · demo data</span><img src="../img/cs-actions-card-nb.webp" data-zoom alt="One Actions card: High priority, source Alert, Today; title Customer asked twice for a refund, was offered only a voucher; two lines of context; a Mentions you strip with the comment count; a footer with the assignee, action items done, comments and an attachment." width="396" height="226" loading="lazy"></div>
           <figcaption><b>A card from the board.</b> The same task is opened in the video at the top of the page.</figcaption></figure>
-        <div class="prose">
+        <div class="prose xtra">
           <ol class="actions-anat">
             <li><span><b>Priority.</b> High, Medium or Low, with a signal-bar icon.</span></li>
             <li><span><b>Source and age.</b> Alert, Signal, Agent evaluation, Call, Report or Feedback form, then Today, Yesterday or a date.</span></li>
@@ -97,21 +98,21 @@
       <figure class="rv"><div class="shot actions-strip"><img src="../img/cs-actions-filters.webp" data-zoom alt="The Actions filter bar. First row: a segmented control with Everyone, Assigned to me, Mentioned me and Not assigned, then dropdowns for Assignee, Status, Priority, Labels, Date and Close reason, and Clear filters. Second row: quick filters with counts, High priority, Open action items, From alerts, From agent evaluation and No call attached, and a line saying how many workflows are showing." width="1600" height="93" loading="lazy"></div>
         <span class="actions-hint" aria-hidden="true">Swipe to see the whole bar →</span>
         <figcaption><b>The filter bar.</b> Scope first, then six dropdowns, then quick filters with counts. A line on the right says how much of the board is showing. Design Lab · demo data.</figcaption></figure>
-      <div class="two actions-two-top">
+      <div class="two actions-two-top xtra">
         <div class="prose"><p>Left to right, the bar answers three questions. <b>Whose work?</b> Everyone, Assigned to me, Mentioned me or Not assigned. <b>Which tasks?</b> Assignee, Status, Priority, Labels, Date and Close reason. <b>From where?</b> Quick filters such as From alerts, From agent evaluation and No call attached, next to High priority and Open action items.</p></div>
         <div class="prose"><p>Mentions were in the filters from the first day, as an option inside the Assignee dropdown. On the current board, Assigned to me and Mentioned me are one click away, in their own control.</p>
           <p class="why"><b>Design choice:</b> a quick filter fades the cards that don't match instead of removing them, so the board keeps its shape while you focus.</p></div>
       </div>
 
-      <h3 class="actions-sub">Day one: built, then reworked the same day</h3>
-      <div class="prose"><p>The first Actions board went into the Lab in late March 2026. I kept reworking it for the rest of that day.</p></div>
-      <ol class="steps rv">
+      <h3 class="actions-sub xtra">Day one: built, then reworked the same day</h3>
+      <div class="prose xtra"><p>The first Actions board went into the Lab in late March 2026. I kept reworking it for the rest of that day.</p></div>
+      <ol class="steps rv xtra">
         <li><strong>Layout</strong><span>Fixed the header overlapping the board, then split the columns with full-height 1px dividers.</span></li>
         <li><strong>Card footer</strong><span>The badge moved to its own row so it stopped overlapping the date, then inline with the name because that "feels connected", then to the left under a divider line.</span></li>
         <li><strong>Filters</strong><span>Status and Priority options became colored pills.</span></li>
         <li><strong>Color</strong><span>Every color on the page moved onto design-system tokens, and Pending went from coral to grey.</span></li>
       </ol>
-      <article class="decision rv" style="margin-top:clamp(28px,4vw,44px)">
+      <article class="decision rv xtra" style="margin-top:clamp(28px,4vw,44px)">
         <div class="label">Decision 1 · <b>Status color, day one</b></div>
         <h3>What color should a task that's waiting be?</h3>
         <ul class="opts">
@@ -129,8 +130,9 @@
       <div class="ch-head">
         <div><div class="label">03 · <b>Closing the loop</b></div><h2>Closed work keeps its reason</h2></div>
         <div class="prose">
-          <p>A task ends in Done or in Cancelled, and either way it says why: <b>Resolved</b>, <b>Duplicate</b>, <b>Not actionable</b> or <b>Escalated</b>. The reason sits on the closed card as a tag. At the top of Done, a small summary counts the reasons for the most recent closed tasks across both columns. Close reason is also a filter, like any other.</p>
-          <p>A duplicate points to the task it repeats: "Same incident as … Closed as a duplicate." Feedback about the website search closes as Not actionable, with a line that says it isn't a contact-center issue.</p>
+          <p class="lead">A task ends in Done or in Cancelled, and either way it says why: <b>Resolved</b>, <b>Duplicate</b>, <b>Not actionable</b> or <b>Escalated</b>.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The reason sits on the closed card as a tag. At the top of Done, a small summary counts the reasons for the most recent closed tasks across both columns. Close reason is also a filter, like any other.</p>
+          <p>A duplicate points to the task it repeats: "Same incident as … Closed as a duplicate." Feedback about the website search closes as Not actionable, with a line that says it isn't a contact-center issue.</p></div></details>
         </div>
       </div>
       <div class="two">
@@ -140,8 +142,8 @@
           <figcaption><b>The Cancelled column.</b> A duplicate links to the task it repeats. The cards are faded because the High priority filter was on in this capture.</figcaption></figure>
       </div>
 
-      <h3 class="actions-sub">Inside a task, changes stay on the record</h3>
-      <div class="two">
+      <h3 class="actions-sub xtra">Inside a task, changes stay on the record</h3>
+      <div class="two xtra">
         <div class="prose">
           <p>Opening a card opens a side panel, the one in the video at the top. It holds the status, priority, owner and labels, the call the task came from and its topic. Below that: action items with a progress bar, attachments, comments with @mentions, and an activity log that writes down each change, such as Created, Assigned to and Moved to In progress.</p>
           <p><b>Open call</b> and <b>Ask AI</b> sit at the top of the panel, so the call behind the task is one click away. On the first day, the link to the call was only an icon. I replaced it with a labeled "View call" button, and in the current panel it reads "Open call".</p>
@@ -158,9 +160,10 @@
     <div class="wrap">
       <div class="ch-head center">
         <div><div class="label">04 · <b>Earlier work · June 2026</b></div><h2>AI Tasks: the AI proposes, a person decides</h2></div>
-        <div class="prose"><p>Actions starts from findings. AI Tasks starts from the AI's own proposals: an operation to run, or a change to the setup. It is a working prototype in the Lab.</p></div>
+        <div class="prose"><p class="lead">Actions starts from findings; AI Tasks starts from the AI's own proposals: an operation to run, or a change to the setup.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>It is a working prototype in the Lab.</p></div></details></div>
       </div>
-      <div class="two">
+      <div class="two xtra">
         <div class="prose actions-col">
           <h3>Three modes, one queue</h3>
           <p>Requests come in three modes: Operation Requests, System Improvements and Scheduled Tasks, the last a read-only list. The page's own copy sets the tone: "AI-proposed setup changes waiting for your review."</p>
@@ -180,7 +183,7 @@
         </div>
       </div>
 
-      <div class="stack" style="margin-top:clamp(36px,5vw,56px)">
+      <div class="stack xtra" style="margin-top:clamp(36px,5vw,56px)">
         <article class="decision rv">
           <div class="label">Decision 2 · <b>AI Tasks, lo-fi vs build</b></div>
           <h3>What should lead the page: status, or the kind of request?</h3>
@@ -208,9 +211,10 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">05 · <b>Earlier work · June to July 2026</b></div><h2>Alerts: a wireframe, a first build, then a rebuild</h2></div>
-        <div class="prose"><p>Alerts are one of the sources an Actions task can come from. Three concept images for the page, each a different layout, were folded into one lo-fi wireframe. The first build followed that lo-fi almost one to one. A few days later I rebuilt the page, and most of the lo-fi's extra ideas didn't carry over.</p></div>
+        <div class="prose"><p class="lead">Alerts are one of the sources an Actions task can come from.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Three concept images for the page, each a different layout, were folded into one lo-fi wireframe. The first build followed that lo-fi almost one to one. A few days later I rebuilt the page, and most of the lo-fi's extra ideas didn't carry over.</p></div></details></div>
       </div>
-      <article class="decision rv">
+      <article class="decision rv xtra">
         <div class="label">Decision 4 · <b>Alerts, first build vs rebuild</b></div>
         <h3>Keep the lo-fi's extra features, or rebuild around a table and a shared filter panel?</h3>
         <ul class="opts">
@@ -219,7 +223,7 @@
         </ul>
         <p class="because"><b>Result:</b> the rebuild replaced the first build, without the lo-fi's extras. The filter panel did travel: the same day, the Data page swapped its own filter strip for it.</p>
       </article>
-      <div class="two actions-two-top">
+      <div class="two actions-two-top xtra">
         <h3>The thread through all three</h3>
         <div class="prose"><p>Alerts raise findings. Actions gives each finding an owner and keeps the reason it closed. AI Tasks covers the case where the AI itself proposes a change, and a person decides.</p></div>
       </div>

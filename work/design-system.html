@@ -101,8 +101,9 @@
       <div class="ch-head">
         <div><div class="label">01 · <b>The problem</b></div><h2>A dense product needs one vocabulary</h2></div>
         <div class="prose">
-          <p>Hear's screens carry a lot at once. One Agent evaluation page holds a score chart, category bars, filters, version switches and a team table. Across the Lab there are data grids, charts, chat, alerts, a kanban board and settings. The system's job is to give all of them one set of names for color, surface and state.</p>
-          <p>The starting app gave me a base: a palette and semantic tokens in one CSS file, a Storybook with foundations, and a first set of components. I extended it as the Lab grew.</p>
+          <p class="lead">The system's job is to give all of Hear's screens one set of names for color, surface and state.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Hear's screens carry a lot at once. One Agent evaluation page holds a score chart, category bars, filters, version switches and a team table. Across the Lab there are data grids, charts, chat, alerts, a kanban board and settings.</p>
+          <p>The starting app gave me a base: a palette and semantic tokens in one CSS file, a Storybook with foundations, and a first set of components. I extended it as the Lab grew.</p></div></details>
         </div>
       </div>
       <figure class="ds-inv rv">
@@ -128,14 +129,15 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">02 · <b>Structure</b></div><h2>Foundations to full pages, each with its states</h2></div>
-        <div class="prose"><p>The starting app sorted Storybook in Atomic Design order: Foundations, Atoms, Molecules, Organisms, Templates. I added a Pages tier on top. The rest of my stories are molecules and organisms, where screens get assembled: chat bubbles, event cards, modals, filter drawers, headers, panels and popovers.</p></div>
+        <div class="prose"><p class="lead">The starting app sorted Storybook in Atomic Design order; I added a Pages tier on top.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The tiers run Foundations, Atoms, Molecules, Organisms, Templates. The rest of my stories are molecules and organisms, where screens get assembled: chat bubbles, event cards, modals, filter drawers, headers, panels and popovers.</p></div></details></div>
       </div>
       <div class="grid2">
         <figure class="rv"><div class="shot"><span class="live">Storybook</span><img src="../img/cs-design-system-sb-button.webp" data-zoom alt="Storybook docs page for Button. It states the tier (Atom), the variants primary, secondary, ghost and danger, the sizes, the states default, hover, active, disabled and loading, and the icon rules. The sidebar lists nine Button stories, from Default to On Dark and Reference Grid." width="1600" height="722" loading="lazy"></div><figcaption><b>Atom · Button.</b> Tier, four variants, sizes, five states and icon rules, with nine stories underneath, from Default to a Reference Grid.</figcaption></figure>
         <figure class="rv"><div class="shot"><span class="live">Storybook · demo data</span><img src="../img/cs-design-system-sb-chatbubble.webp" data-zoom alt="Storybook docs page for ChatBubble, tier Molecule. It describes three roles: ai renders markdown with an action row and related-question chips, user is right-aligned plain text, thinking is an animated three-dot indicator. Below, an AI answer with like, dislike, regenerate and copy actions and three Related follow-ups. The sidebar lists six stories." width="1600" height="880" loading="lazy"></div><figcaption><b>Molecule · ChatBubble.</b> Three roles (ai, user, thinking) and six stories, including a markdown table, a copied state and a bubble with no follow-ups.</figcaption></figure>
       </div>
 
-      <div class="two" style="margin-top:clamp(40px,6vw,72px)">
+      <div class="two xtra" style="margin-top:clamp(40px,6vw,72px)">
         <div class="prose">
           <h3 style="margin-top:0">Pages are stories too</h3>
           <p>The Pages tier holds 28 stories across nine pages, from Agent evaluation to Alerts, with variants such as Default, With Sidebar and Mobile. The Create report page also exports its page-local pieces as stories (sections, a toggle row, a tag, choice groups), so they are documented even though they live inside the page file.</p>
@@ -157,7 +159,8 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">03 · <b>Tokens</b></div><h2>Every color has a name and a reason</h2></div>
-        <div class="prose"><p>The rule is to ask for a role, not a hex code. The Colors page puts it in writing: "Always prefer semantic tokens (<code class="ds-code">--bg-canvas</code>, <code class="ds-code">--text-primary</code>) in components. Use raw palette tokens (<code class="ds-code">--c100</code>, <code class="ds-code">--b80</code>) only for one-off overrides or design explorations."</p></div>
+        <div class="prose"><p class="lead">The rule is to ask for a role, not a hex code.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The Colors page puts it in writing: "Always prefer semantic tokens (<code class="ds-code">--bg-canvas</code>, <code class="ds-code">--text-primary</code>) in components. Use raw palette tokens (<code class="ds-code">--c100</code>, <code class="ds-code">--b80</code>) only for one-off overrides or design explorations."</p></div></details></div>
       </div>
 
       <div class="ds-layers rv" role="group" aria-label="Three token layers">
@@ -200,7 +203,7 @@
 
       <div class="two">
         <figure class="rv"><div class="shot"><span class="live">Storybook</span><img src="../img/cs-design-system-sb-tokens.webp" data-zoom alt="Storybook, Foundations, Colors, Semantic Tokens. Each light-mode token is listed with its swatch, hex value and use: bg-canvas main app canvas background, bg-sidebar, bg-active active nav item fill, bg-card card surfaces, bg-elevated modals dropdowns popovers, text-primary body copy and headings, text-secondary, text-muted placeholder and timestamps, border-default, color-brand CTAs and logo fill, color-interactive links, focus rings and buttons. The dark-mode list starts below." width="1600" height="1469" loading="lazy"></div><figcaption><b>Semantic tokens, light then dark.</b> Each token carries its hex value and its job, such as "Placeholder, timestamps" or "Links, focus rings, buttons".</figcaption></figure>
-        <div class="prose">
+        <div class="prose xtra">
           <h3 style="margin-top:0">What I added, layer by layer</h3>
           <ul class="ds-list">
             <li><strong>Palette: an error red apart from the brand.</strong> <code>--red100</code> #E5484D with an 80 step and a hover, commented "destructive (distinct from brand coral)".</li>
@@ -214,7 +217,7 @@
 
       <div class="two" style="margin-top:clamp(40px,6vw,72px)">
         <figure class="rv"><div class="shot"><span class="live">Storybook</span><img src="../img/cs-design-system-sb-colors.webp" data-zoom alt="Storybook, Foundations, Colors. The page states the tier and the rule to prefer semantic tokens. Below, Pulse Coral, primary brand, hex FF7056, described as the signature Hear color, with its usage, and a ramp from C100 to C10. Then Charcoal, primary text, hex 181818, with its usage and a ramp from D100 to D10." width="1600" height="1062" loading="lazy"></div><figcaption><b>The raw palette, with reasons.</b> Each family has a role, a hex value, a sentence on why it exists, a usage line and a named ramp of steps.</figcaption></figure>
-        <div class="prose">
+        <div class="prose xtra">
           <h3 style="margin-top:0">Type, and one written exception</h3>
           <p>Type is Byrd, in seven weights with italics. The scale runs H1 to H8 for titles and P1 to P14 for body, as <code class="ds-code">--type-h*</code> and <code class="ds-code">--type-p*</code> tokens.</p>
           <p>One typeface exception is mine, and it is written into the code: News articles set their body text in an editorial serif, marked "News body text only (deliberate, scoped DS deviation)".</p>
@@ -227,7 +230,8 @@
     <div class="wrap">
       <div class="ch-head center">
         <div><div class="label">04 · <b>Contrast &amp; charts</b></div><h2>Contrast you can compute from the tokens</h2></div>
-        <div class="prose"><p>Text and surfaces are named tokens, so each pairing has one contrast ratio, computed straight from the token values rather than screen by screen.</p></div>
+        <div class="prose"><p class="lead">Text and surfaces are named tokens, so each pairing has one contrast ratio, computed straight from the token values rather than screen by screen.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
       </div>
       <div class="ds-ctwrap rv">
         <table class="ds-ct">
@@ -243,7 +247,7 @@
           </tbody>
         </table>
       </div>
-      <div class="prose ds-ctwrap" style="margin-top:clamp(40px,6vw,64px)"><h3 style="margin-top:0">Charts read the same tokens</h3><p>The News charts I added take every color from CSS variables, so they flip with the theme. Health uses tokens too: good is <code class="ds-code">--g100</code>, medium <code class="ds-code">--c80</code>, and poor the error red I added, <code class="ds-code">--red100</code>. The Alerts chart maps its series to the system's accent hues.</p></div>
+      <div class="prose ds-ctwrap xtra" style="margin-top:clamp(40px,6vw,64px)"><h3 style="margin-top:0">Charts read the same tokens</h3><p>The News charts I added take every color from CSS variables, so they flip with the theme. Health uses tokens too: good is <code class="ds-code">--g100</code>, medium <code class="ds-code">--c80</code>, and poor the error red I added, <code class="ds-code">--red100</code>. The Alerts chart maps its series to the system's accent hues.</p></div>
     </div>
   </section>
 
@@ -251,7 +255,8 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">05 · <b>Theme &amp; direction</b></div><h2>One attribute flips the theme, the same parts flip direction</h2></div>
-        <div class="prose"><p>The app sets <code class="ds-code">data-theme</code> on the root element from a saved preference. Under <code class="ds-code">[data-theme="dark"]</code> the semantic tokens take their dark values by role, so surfaces, text, borders, badges and the interactive blue change together.</p></div>
+        <div class="prose"><p class="lead">One attribute, <code class="ds-code">data-theme</code> on the root element, moves every semantic token to its dark value by role.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The app sets it from a saved preference. Under <code class="ds-code">[data-theme="dark"]</code>, surfaces, text, borders, badges and the interactive blue change together.</p></div></details></div>
       </div>
       <figure class="rv">
         <div class="compare">
@@ -266,7 +271,7 @@
 
       <div class="two" style="margin-top:clamp(40px,6vw,72px)">
         <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><img src="../img/cs-design-system-rtl.webp" data-zoom alt="The same Agent evaluation screen in Hebrew, right to left: the sidebar sits on the right, headings, filters and navigation read right to left, and the score chart keeps its axis and Latin digits" width="1440" height="900" loading="lazy"></div><figcaption><b>Hebrew, right to left.</b> The sidebar moves to the right and headings, filters and navigation mirror. The chart keeps its time axis running left to right, with Latin digits.</figcaption></figure>
-        <div class="prose">
+        <div class="prose xtra">
           <p>I first built right to left for the News tab: a language hook that follows the page's <code class="ds-code">lang</code>, UI strings in a dictionary, and logical CSS properties such as <code class="ds-code">borderInlineStart</code>, so the layout flips with the text.</p>
           <p>In the Lab today, the language menu switches the shell and this screen to Hebrew, and the whole layout mirrors.</p>
         </div>
@@ -276,8 +281,8 @@
 
   <section class="chapter sheet" id="decisions">
     <div class="wrap">
-      <div class="ch-head"><div><div class="label">06 · <b>Decisions</b></div><h2>Where the system forked</h2></div><div class="prose"><p>Two places where the system could have gone either way.</p></div></div>
-      <article class="decision rv">
+      <div class="ch-head"><div><div class="label">06 · <b>Decisions</b></div><h2>Where the system forked</h2></div><div class="prose"><p class="lead">Two places where the system could have gone either way.</p><details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div></div>
+      <article class="decision rv xtra">
         <div class="label">Decision 1 · <b>Documentation</b></div>
         <h3>Document the system in an in-app inspector, or in Storybook?</h3>
         <ul class="opts">
@@ -286,7 +291,7 @@
         </ul>
         <p class="because"><b>Result:</b> Storybook stayed as the one place the system is documented, next to the components it renders, with no separate definitions file to keep in sync by hand.</p>
       </article>
-      <article class="decision rv">
+      <article class="decision rv xtra">
         <div class="label">Decision 2 · <b>Surfaces</b></div>
         <h3>Should overlays get their own dark surface?</h3>
         <ul class="opts">

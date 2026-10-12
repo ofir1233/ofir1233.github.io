@@ -80,7 +80,8 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">01 · <b>The table</b></div><h2>One table, a lot of questions</h2></div>
-        <div class="prose"><p>Data answers very different questions from one table: which calls need review, which are high priority, what happened on this one call. All the controls sit in three slim rows above the table, and the table takes the rest of the screen.</p><p>Here is that toolbar, part by part.</p></div>
+        <div class="prose"><p class="lead">All the controls sit in three slim rows above the table, and the table takes the rest of the screen.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Data answers very different questions from one table: which calls need review, which are high priority, what happened on this one call.</p><p>Here is that toolbar, part by part.</p></div></details></div>
       </div>
 
       <figure class="rv data-anat">
@@ -115,7 +116,7 @@
 
       <div class="two data-gap">
         <figure class="rv"><div class="shot dark"><img src="../img/cs-data-calls-table-nb.webp" data-zoom alt="Data V2 in dark mode: the toolbar above a call table with columns for call, ID, call date, status, priority, assigned to, direction, proposed price and destination. Some rows carry a small warning sign." width="1600" height="1039" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Data V2, dark.</b> Topic and one-line summary first, then ID, date, status, priority and owner. Click to enlarge.</figcaption></figure>
-        <div class="prose">
+        <div class="prose xtra">
           <h3 style="margin-top:0">Rows that read left to right</h3>
           <p>Each row leads with the call's topic and a one-line summary. Then an ID chip with a copy button, the date and time, a status pill, a priority dot, the owner and the direction, with more fields further right.</p>
           <p>A small warning sign marks a call where an alert fired. Open the call and the side panel names the alert and whether it was marked a false positive.</p>
@@ -123,7 +124,7 @@
         </div>
       </div>
 
-      <div class="data-gap">
+      <div class="data-gap xtra">
         <h3>What the clip at the top shows</h3>
         <ol class="steps rv" style="margin-top:20px">
           <li><strong>Describe</strong><span>Open Filter, type "High priority calls" and press Generate.</span></li>
@@ -141,9 +142,10 @@
     <div class="wrap">
       <div class="ch-head center">
         <div><div class="label">02 · <b>Three versions</b></div><h2>Three versions of one page, kept side by side</h2></div>
-        <div class="prose"><p>I didn't redesign Data in place. I duplicated the page, changed the duplicate and kept both. V1 came with the starting app; V2 and V3 are mine, and the Lab still keeps more than one version, one click apart.</p></div>
+        <div class="prose"><p class="lead">I didn't redesign Data in place: I duplicated the page, changed the duplicate and kept both.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>V1 came with the starting app; V2 and V3 are mine, and the Lab still keeps more than one version, one click apart.</p></div></details></div>
       </div>
-      <ol class="steps data-steps rv">
+      <ol class="steps data-steps rv xtra">
         <li><strong>V1 · March</strong><span>From the starting app: a preset dropdown, filter chips, a filter popover with an explicit Apply, and "Add columns" in the header.</span></li>
         <li><strong>V2 · May</strong><span>A duplicate of V1, "so the existing filter system is preserved". Filters move into a strip that collapses to the preset and the applied chips. Opened, it shows a describe-your-query box, editable filter rows, and Reset, Save and Apply.</span></li>
         <li><strong>Columns · May</strong><span>Columns move inside the strip, as the saved-views plan proposed, then go back to a modal (Decision 1).</span></li>
@@ -151,7 +153,7 @@
         <li><strong>Shared filter · July</strong><span>V2's own strip gives way to the filter from the Alerts page, so both pages filter the same way.</span></li>
         <li><strong>The Lab today · October</strong><span>Tabs, a date range, a Filter with a plain-language box, Columns with a count, "Save as view", and a V2 / V3 Facelift switch on the page.</span></li>
       </ol>
-      <div class="two data-gap">
+      <div class="two data-gap xtra">
         <div class="prose">
           <h3 style="margin-top:0">What the versions explored</h3>
           <ul>
@@ -174,10 +176,11 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">03 · <b>Plan vs build</b></div><h2>The plan saved the whole screen as one view. The build took a longer road.</h2></div>
-        <div class="prose"><p>Saved views started as a one-page plan: three UI states, eight decisions, each with options, a recommendation and a reason, and twelve edge cases marked "Handle v1" or "Punt v2".</p><p>Its core idea: a <b>View</b> saves the filters, the visible columns and their order together, and a pill says when the screen no longer matches it. Here is what happened to each recommendation.</p></div>
+        <div class="prose"><p class="lead">Saved views started as a one-page plan. Here is what happened to each recommendation.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The plan had three UI states, eight decisions, each with options, a recommendation and a reason, and twelve edge cases marked "Handle v1" or "Punt v2".</p><p>Its core idea: a <b>View</b> saves the filters, the visible columns and their order together, and a pill says when the screen no longer matches it.</p></div></details></div>
       </div>
 
-      <div class="rv">
+      <div class="rv xtra">
         <table class="data-plan">
           <caption>The plan's recommendations, and what got built</caption>
           <thead><tr><th scope="col">The plan recommended</th><th scope="col">What happened</th></tr></thead>
@@ -191,7 +194,7 @@
         </table>
       </div>
 
-      <article class="decision rv data-gap">
+      <article class="decision rv data-gap xtra">
         <div class="label">Decision 1 · <b>Where columns go</b></div>
         <h3>Should columns sit inside the filter strip, or in their own modal?</h3>
         <ul class="opts">
@@ -208,9 +211,10 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">04 · <b>Decisions</b></div><h2>When filters apply, and table or list</h2></div>
-        <div class="prose"><p>Two habits run through my work on Data. <b>Reuse what exists:</b> Data dropped its own filter strip for the one on the Alerts page; the code comment reads "Filters (matches the Alerts page)". <b>Use real data:</b> the column-first presets "reference only real filterable columns + real values".</p><p>Reuse shows up again in the next two forks.</p></div>
+        <div class="prose"><p class="lead">Two habits run through my work on Data: reuse what exists, and use real data.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p><b>Reuse what exists:</b> Data dropped its own filter strip for the one on the Alerts page; the code comment reads "Filters (matches the Alerts page)". <b>Use real data:</b> the column-first presets "reference only real filterable columns + real values".</p><p>Reuse shows up again in the next two forks.</p></div></details></div>
       </div>
-      <article class="decision rv">
+      <article class="decision rv xtra">
         <div class="label">Decision 2 · <b>When filters apply</b></div>
         <h3>Should a filter apply the moment you click, or wait for Apply?</h3>
         <ul class="opts">
@@ -219,7 +223,7 @@
         </ul>
         <p class="because"><b>Why:</b> as the plan put it, toggling an option shouldn't re-run the query on every click.</p>
       </article>
-      <article class="decision rv">
+      <article class="decision rv xtra">
         <div class="label">Decision 3 · <b>Table or list</b></div>
         <h3>Reports and Signals: a grid like the other data pages, or an accordion list?</h3>
         <ul class="opts">
@@ -235,11 +239,12 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">05 · <b>Signals</b></div><h2>Signals that fire on their own</h2></div>
-        <div class="prose"><p>A signal is a classifier that runs on calls, either AI or rule-based. With its Auto switch on, it runs by itself, and its status says whether it is Active, Triggered, Paused or in Error. Signals feed the rest of Hear: on the Actions board, a task can come from a signal.</p></div>
+        <div class="prose"><p class="lead">A signal is a classifier that runs on calls, either AI or rule-based.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>With its Auto switch on, it runs by itself, and its status says whether it is Active, Triggered, Paused or in Error. Signals feed the rest of Hear: on the Actions board, a task can come from a signal.</p></div></details></div>
       </div>
       <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="../img/clip-signals-c.mp4" data-poster="../img/clip-signals-poster-c.webp" muted loop playsinline preload="none" aria-label="Signals list: a paused signal's Auto switch is turned on. Then Create: a name is typed, a folder is picked from a menu with New folder, a description is written, and an item gets a name, a key, a type and a description. After Save, the new signal appears at the top of the list."></video></div>
         <figcaption><b>Signals in the current Lab.</b> Switch one on, or build a new one: what to detect, which folder it lives in, and the fields to pull from every call.</figcaption></figure>
-      <div class="two data-gap">
+      <div class="two data-gap xtra">
         <div class="prose">
           <h3 style="margin-top:0">Creating one</h3>
           <ul>
