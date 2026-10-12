@@ -1445,6 +1445,15 @@ footer .f-fine { margin-top: 22px; }
 @media (max-width: 860px) { .fyi-wrap { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { .fyi-fan { --pw: 128px; --gap: 62px; } }
 
+
+/* brand & web: both site directions side by side, so neither is missed */
+#web .web-ab { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 2vw, 24px); }
+#web .web-dir .shot.win { padding-top: 30px; }
+#web .web-url2 { margin: 0 auto; transform: translateX(-24px); font: 500 11px/1 var(--mono); color: #8a857c; background: rgba(127,127,127,.12); padding: 5px 12px; border-radius: 99px; max-width: 70%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#web .web-dir figcaption { display: block; }
+#web .web-tag { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 8px; border-radius: 6px; background: var(--coral); color: #160805; font: 600 12px/1 var(--mono); vertical-align: 1px; }
+#web .web-dir figcaption a { color: var(--coral); text-decoration: none; white-space: nowrap; }
+@media (max-width: 760px) { #web .web-ab { grid-template-columns: 1fr; } #web .web-url2 { transform: none; } }
 </style>
 </head>
 <body>
@@ -1749,13 +1758,12 @@ footer .f-fine { margin-top: 22px; }
     </div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; build</dd></div><div><dt>Scope</dt><dd>Marketing site</dd></div><div><dt>Motion</dt><dd>Scroll-driven</dd></div><div><dt>Status</dt><dd>New site, in preview</dd></div></dl>
     <a class="btn ghost cs-more rv" href="work/brand-web.html">Read the full case study <span aria-hidden="true">→</span></a>
-    <div class="web-seg rv" role="tablist" aria-label="Site direction" data-on="a"><span class="web-seg-ind" aria-hidden="true"></span>
-      <button role="tab" id="web-tab-a" aria-controls="web-stage" aria-selected="true" data-dir="a"><i class="sw" aria-hidden="true"></i>Direction A <span>Dark, cinematic</span></button>
-      <button role="tab" id="web-tab-b" aria-controls="web-stage" aria-selected="false" tabindex="-1" data-dir="b"><i class="sw" aria-hidden="true"></i>Direction B <span>Cream and ink</span></button>
+    <div class="web-ab">
+      <figure class="rv web-dir"><div class="shot win" style="background:#000"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="web-url2">hear-public-staging.vercel.app</span></span><video width="1120" height="700" data-src="img/site-scroll-b-fast.mp4" data-poster="img/site-scroll-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Hear homepage, direction A, from top to bottom"></video></div>
+        <figcaption><span class="web-tag">A</span><b>Dark, cinematic.</b> Hero, a scroll-revealed thesis, the globe, product sections and the integrations wall. <a href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Open ↗︎</a></figcaption></figure>
+      <figure class="rv web-dir"><div class="shot win" style="background:#f1eee7"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="web-url2">hear-public-staging-v2.vercel.app</span></span><video width="1120" height="700" data-src="img/site-scroll-v2-b-fast.mp4" data-poster="img/site-scroll-v2-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Hear homepage, direction B, from top to bottom"></video></div>
+        <figcaption><span class="web-tag">B</span><b>Cream and ink.</b> A card for every role, AI agents held to one standard, customer stories, a dial from learning to acting, and security built in. <a href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Open ↗︎</a></figcaption></figure>
     </div>
-    <figure class="rv web-fig" id="web-stage" role="tabpanel" aria-labelledby="web-tab-a"><div class="shot win web-win" data-on="a"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="web-url"><b data-dir="a">hear-public-staging.vercel.app</b><b data-dir="b">hear-public-staging-v2.vercel.app</b></span></span><span class="live">Site preview · full scroll</span><video class="web-va" width="1280" height="800" data-src="img/site-scroll-b.mp4" data-poster="img/site-scroll-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Hear homepage, direction A, from top to bottom"></video><video class="web-vb" width="1280" height="800" data-b-src="img/site-scroll-v2-b.mp4" data-poster="img/site-scroll-v2-poster.webp" muted loop playsinline preload="none" tabindex="-1" inert aria-hidden="true" aria-label="Scrolling the Hear homepage, direction B, from top to bottom"></video></div>
-      <figcaption data-dir="a"><b>Direction A, top to bottom.</b> Hero, scroll-revealed thesis, the globe, product sections and the integrations wall.</figcaption>
-      <figcaption data-dir="b" hidden><b>Direction B, top to bottom.</b> The same story on cream and ink: a card for every role, AI agents held to one standard, customer stories, a dial that walks from learning to acting, and security built in.</figcaption></figure>
     <div class="offscreen rv">
       <div class="off-head">
         <div class="label">Off the screen · <b>one brand, everywhere it shows up</b></div>
