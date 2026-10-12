@@ -325,3 +325,19 @@ html { scroll-padding-top: 84px; }
 .sheet .lead { color: var(--ink-t); }
 /* a chapter whose body is all folded keeps no empty gap under its head */
 .chapter:has(.ch-head .more:not([open])) .ch-head:not(:has(~ :not(.xtra))) { margin-bottom: 0; }
+
+/* ---------- folded chapters keep no dead space (desktop only; phones already stack). While "Read more" is closed:
+   .two.solo  - the pair's text is folded, so its one picture takes the full width;
+   .duo       - two pictures that sat one under the other (each beside folded text) sit side by side, sized by --duo to equal heights;
+   .side      - a portrait screen moves up beside the heading, and the heading, lead and pill stack in the left column.
+   Opening "Read more" returns each block to its text-beside-picture layout. */
+@media (min-width: 861px) {
+  .chapter:has(.ch-head .more:not([open])) .two.solo { grid-template-columns: minmax(0, 1fr); }
+  .chapter:has(.ch-head .more:not([open])) .duo { display: grid; grid-template-columns: var(--duo, minmax(0, 1fr) minmax(0, 1fr)); gap: 16px; align-items: start; }
+  .chapter:has(.ch-head .more:not([open])) .duo > * { margin-top: 0 !important; min-width: 0; }
+  .chapter:has(.ch-head .more:not([open])) .duo > .two { grid-template-columns: minmax(0, 1fr); }
+  .chapter.side:has(.ch-head .more:not([open])) > .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 0 clamp(32px, 5vw, 72px); align-items: center; }
+  .chapter.side:has(.ch-head .more:not([open])) > .wrap > * { grid-column: 1 / -1; }
+  .chapter.side:has(.ch-head .more:not([open])) > .wrap > .ch-head { grid-column: 1; grid-row: 1; grid-template-columns: minmax(0, 1fr); margin-bottom: 0; }
+  .chapter.side:has(.ch-head .more:not([open])) > .wrap > .two:not(.xtra) { grid-column: 2; grid-row: 1; grid-template-columns: minmax(0, 1fr); margin: 0 !important; }
+}

@@ -201,6 +201,7 @@
       </div>
       <p class="ds-note" style="margin-bottom:clamp(32px,5vw,56px)">The three layers came with the starting app. I added to each of them.</p>
 
+      <div class="duo" style="--duo: minmax(0, 1fr) minmax(0, 1.38fr)">
       <div class="two">
         <figure class="rv"><div class="shot"><span class="live">Storybook</span><img src="../img/cs-design-system-sb-tokens.webp" data-zoom alt="Storybook, Foundations, Colors, Semantic Tokens. Each light-mode token is listed with its swatch, hex value and use: bg-canvas main app canvas background, bg-sidebar, bg-active active nav item fill, bg-card card surfaces, bg-elevated modals dropdowns popovers, text-primary body copy and headings, text-secondary, text-muted placeholder and timestamps, border-default, color-brand CTAs and logo fill, color-interactive links, focus rings and buttons. The dark-mode list starts below." width="1600" height="1469" loading="lazy"></div><figcaption><b>Semantic tokens, light then dark.</b> Each token carries its hex value and its job, such as "Placeholder, timestamps" or "Links, focus rings, buttons".</figcaption></figure>
         <div class="prose xtra">
@@ -222,6 +223,7 @@
           <p>Type is Byrd, in seven weights with italics. The scale runs H1 to H8 for titles and P1 to P14 for body, as <code class="ds-code">--type-h*</code> and <code class="ds-code">--type-p*</code> tokens.</p>
           <p>One typeface exception is mine, and it is written into the code: News articles set their body text in an editorial serif, marked "News body text only (deliberate, scoped DS deviation)".</p>
         </div>
+      </div>
       </div>
     </div>
   </section>
@@ -258,6 +260,7 @@
         <div class="prose"><p class="lead">One attribute, <code class="ds-code">data-theme</code> on the root element, moves every semantic token to its dark value by role.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The app sets it from a saved preference. Under <code class="ds-code">[data-theme="dark"]</code>, surfaces, text, borders, badges and the interactive blue change together.</p></div></details></div>
       </div>
+      <div class="duo">
       <figure class="rv">
         <div class="compare">
           <img src="../img/cs-design-system-light.webp" alt="Agent evaluation screen in light mode: sidebar, filters, an average score chart with bars, category averages and the team performance header" width="1440" height="900" loading="lazy">
@@ -275,6 +278,7 @@
           <p>I first built right to left for the News tab: a language hook that follows the page's <code class="ds-code">lang</code>, UI strings in a dictionary, and logical CSS properties such as <code class="ds-code">borderInlineStart</code>, so the layout flips with the text.</p>
           <p>In the Lab today, the language menu switches the shell and this screen to Hebrew, and the whole layout mirrors.</p>
         </div>
+      </div>
       </div>
     </div>
   </section>
