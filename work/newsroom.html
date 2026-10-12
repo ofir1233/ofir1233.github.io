@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Newsroom · Ofir Nona</title>
+<meta name="description" content="Case study: Newsroom, an AI news feed in Hear Design Lab where every story shows where it came from, how strong it is and which calls are behind it.">
+<meta name="theme-color" content="#0d0d0e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css">
+<style>
+/* annotated screen: numbered pins over the image */
+.newsroom-pins { position: relative; }
+.newsroom-pin { position: absolute; left: var(--x); top: var(--y); z-index: 2; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: #160805; font: 600 12px/1 var(--mono); box-shadow: 0 0 0 3px #fff, 0 6px 16px rgba(0,0,0,.3); pointer-events: none; }
+@media (max-width: 760px) { .newsroom-pin { width: 14px; height: 14px; font-size: 9px; box-shadow: 0 0 0 1.5px #fff; } }
+.newsroom-legend { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px 28px; margin-top: 28px; }
+.newsroom-legend li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.55; color: var(--text); }
+.newsroom-legend li::before { content: attr(data-n); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: #160805; font: 600 12px/1 var(--mono); }
+.newsroom-legend b { color: var(--paper); font-weight: 600; }
+/* six steps in three columns on wide screens */
+@media (min-width: 761px) {
+  .newsroom-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .newsroom-steps li:nth-child(3n+1) { padding-left: 0; border-left: 0; }
+  .newsroom-steps li:nth-child(n+4) { border-top: 1px solid rgba(27,27,27,.14); margin-top: 6px; }
+}
+.newsroom-steps + .decision { margin-top: clamp(32px, 4vw, 48px); }
+/* the trust rule, per story type */
+.newsroom-rule { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: clamp(28px, 4vw, 44px); }
+.newsroom-rule section { border: 1px solid var(--line); border-radius: 16px; padding: clamp(18px, 2.4vw, 26px); background: var(--ink-2); }
+.newsroom-rule h3 { font-size: 21px; }
+.newsroom-rule .sub { font: 500 11.5px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--mute); margin-top: 6px; }
+.newsroom-rule dl { margin-top: 16px; display: grid; gap: 0; }
+.newsroom-rule dl div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; padding: 11px 0; border-top: 1px solid var(--line); }
+.newsroom-rule dt { font: 500 11px/1.6 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--coral); }
+.newsroom-rule dd { font-size: 15px; color: var(--paper); line-height: 1.5; }
+.newsroom-rule .all { grid-column: 1 / -1; background: none; border-style: dashed; }
+.newsroom-rule .all p { font-size: 15px; }
+@media (max-width: 760px) { .newsroom-rule { grid-template-columns: 1fr; } }
+/* four directions */
+.newsroom-dirs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; list-style: none; }
+.newsroom-dirs li { background: #fffdf8; border-radius: 16px; padding: 20px 18px; box-shadow: 0 0 0 1px rgba(27,27,27,.1); display: grid; gap: 8px; align-content: start; }
+.newsroom-dirs .n { font: 500 12px/1 var(--mono); color: var(--coral-ink); }
+.newsroom-dirs strong { font-family: var(--display); font-size: 24px; letter-spacing: -.02em; line-height: 1.1; }
+.newsroom-dirs q { font-size: 15px; color: rgba(27,27,27,.72); }
+.newsroom-dirs span { font-size: 13.5px; color: rgba(27,27,27,.6); line-height: 1.5; }
+@media (max-width: 960px) { .newsroom-dirs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .newsroom-dirs { grid-template-columns: 1fr; } }
+/* LTR / RTL schematic: one set of logical CSS rules */
+.newsroom-rtl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.newsroom-rtl .card { background: #fffdf8; border-radius: 14px; padding: 18px; box-shadow: 0 0 0 1px rgba(27,27,27,.1); border-inline-start: 4px solid var(--coral); display: grid; gap: 10px; }
+.newsroom-rtl .tag { justify-self: start; font: 500 12px/1 var(--mono); color: rgba(27,27,27,.6); }
+.newsroom-rtl i { display: block; height: 10px; border-radius: 99px; background: rgba(27,27,27,.12); }
+.newsroom-rtl i.h { height: 16px; width: 78%; background: rgba(27,27,27,.28); }
+.newsroom-rtl i.k { width: 30%; background: rgba(176,56,31,.35); }
+.newsroom-rtl i.s { width: 62%; }
+.newsroom-rtl .q { padding-inline-start: 12px; border-inline-start: 2px solid rgba(27,27,27,.25); display: grid; gap: 8px; }
+.newsroom-rtl .foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 4px; }
+.newsroom-rtl .num { font: 500 13px/1 var(--mono); color: var(--ink-t); background: rgba(27,27,27,.06); padding: 6px 8px; border-radius: 6px; }
+.newsroom-rtl .arr { font-size: 18px; color: var(--coral-ink); line-height: 1; }
+.newsroom-rtl [dir="rtl"] .arr { transform: scaleX(-1); }
+@media (max-width: 520px) { .newsroom-rtl { grid-template-columns: 1fr; } }
+.newsroom-rtl-tag { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: rgba(27,27,27,.6); margin-bottom: 12px; }
+@media (max-width: 760px) { .newsroom-rtl-tag { margin-top: 16px; } }
+.newsroom-sub { margin-top: clamp(48px, 6vw, 72px); }
+.newsroom-sub h3 { margin-bottom: 14px; }
+.newsroom-list { margin: 1em 0 0 1.1em; color: var(--text); display: grid; gap: 8px; font-size: 16px; max-width: var(--read); }
+.newsroom-list li::marker { color: var(--coral); }
+.sheet .newsroom-list { color: rgba(27,27,27,.72); }
+.newsroom-fig-top { margin-top: clamp(28px, 4vw, 44px); }
+.newsroom-dark .shot { background: #1a1a1a; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="home" href="../index.html#product">Ofir<span>.</span> <i>← All work</i></a>
+    <nav aria-label="Case studies"><a class="pill" href="data.html">← Data &amp; signals</a><a class="pill solid" href="demos-engine.html">Next case</a></nav>
+    <span class="progress" aria-hidden="true"></span>
+  </div>
+</header>
+
+<main id="main">
+  <header class="cs-hero wrap">
+    <div class="label">Case study · <b>Newsroom</b></div>
+    <h1>An AI news feed that says why each story is there</h1>
+    <p class="lede">Hear turns a contact center's calls, chats and tickets into signals, alerts, reports and evaluations. Newsroom, which I designed and built with Claude Code in the Design Lab, retells what changed as AI-written stories, and each one shows its evidence: its source, how strong the signal is, and the calls behind it. One rule per story type sets the precision: trends get no invented numeric thresholds, and real thresholds appear only where one is configured.</p>
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Design and build, coded with Claude Code</dd></div>
+      <div><dt>When</dt><dd>July 2026, updated since</dd></div>
+      <div><dt>Scope</dt><dd>Feed · article · 4 directions · Hebrew</dd></div>
+      <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
+    </dl>
+    <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#history"><span>02</span> How it evolved</a><a class="pill" href="#evidence"><span>03</span> Showing evidence</a><a class="pill" href="#directions"><span>04</span> Directions &amp; Hebrew</a><a class="pill" href="#chat"><span>05</span> Where AI belongs</a></nav>
+    <figure class="hero-fig rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="../img/clip-news-c-b.mp4" data-poster="../img/clip-news-poster-c.webp" muted loop playsinline preload="none" aria-label="Newsroom in the Design Lab. First, the Just detected ticker scrolls above a spike story drawn against its baseline. Then Play opens the monthly recap, a full-screen story that counts up the month's calls. Last, one source is picked in the left rail and the feed narrows to the stories that source produced."></video></div>
+      <figcaption><b>Newsroom.</b> The ticker and the spike story, the monthly recap played as a story, then the feed filtered down to one source.</figcaption></figure>
+  </header>
+
+  <!-- 01 · ink -->
+  <section class="chapter" id="problem">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">01 · <b>The problem</b></div><h2>A summary that sounds surer than its data misleads</h2></div>
+        <div class="prose">
+          <p>An AI summary of a contact center is only worth reading if people can check it. A headline that says a topic surged, with no baseline, no time frame and no calls behind it, asks the team to trust the wording.</p>
+          <p>So each story in Newsroom carries its evidence on the page. It names the source it came from and the time window it covers, a spike is drawn against its baseline, and the story ends with the evidence behind it, such as "See N calls".</p>
+        </div>
+      </div>
+      <figure class="rv">
+        <div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span>
+          <div class="newsroom-pins">
+            <img src="../img/clip-news-poster-c.webp" data-zoom alt="Newsroom page in light theme, with seven numbered markers: the illustrative-data badge in the header, the Just detected ticker, the monthly recap card with a Play button, the Sources rail, a trend chart with a dotted baseline, the this week label, and the See N calls line that ends the story" width="1440" height="900" loading="lazy">
+            <span class="newsroom-pin" style="--x:41.7%;--y:4.8%" aria-hidden="true">1</span>
+            <span class="newsroom-pin" style="--x:18.6%;--y:21.1%" aria-hidden="true">2</span>
+            <span class="newsroom-pin" style="--x:86.8%;--y:32.2%" aria-hidden="true">3</span>
+            <span class="newsroom-pin" style="--x:30.6%;--y:27.1%" aria-hidden="true">4</span>
+            <span class="newsroom-pin" style="--x:48.6%;--y:62.2%" aria-hidden="true">5</span>
+            <span class="newsroom-pin" style="--x:90.3%;--y:76%" aria-hidden="true">6</span>
+            <span class="newsroom-pin" style="--x:49%;--y:90.6%" aria-hidden="true">7</span>
+          </div>
+        </div>
+        <figcaption><b>Anatomy of the feed.</b> The current Newsroom in the Lab. Every number on it is demo data.</figcaption>
+      </figure>
+      <ol class="newsroom-legend rv">
+        <li data-n="1"><span><b>Labeled data.</b> The header says "feed · illustrative data" on the page itself, not in a footnote.</span></li>
+        <li data-n="2"><span><b>Just detected.</b> Each detection scrolls past with the clock time it happened.</span></li>
+        <li data-n="3"><span><b>Monthly recap.</b> The month as a 75-second full-screen story with sound, which starts when you press Play.</span></li>
+        <li data-n="4"><span><b>Sources.</b> Reports the stories were distilled from, with counts and dates, kept apart from detections that come from no report. Pick one to filter the feed.</span></li>
+        <li data-n="5"><span><b>Baseline.</b> A spike is drawn against a dotted baseline, with the peak marked.</span></li>
+        <li data-n="6"><span><b>Time window.</b> A trend says "this week". It doesn't claim a timestamp it doesn't have.</span></li>
+        <li data-n="7"><span><b>Evidence.</b> Each story ends with what it rests on, such as "See N calls".</span></li>
+      </ol>
+      <p class="why rv"><b>Design choice:</b> a story distilled from a report names that report and the dates it covers, so a reader can trace the claim back to where it came from.</p>
+    </div>
+  </section>
+
+  <!-- 02 · sheet -->
+  <section class="chapter sheet" id="history">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">02 · <b>How it evolved</b></div><h2>From editorial events to stories tied to the platform</h2></div>
+        <div class="prose">
+          <p>News took its shape in July 2026. I built V2 as a copy of V1 and left the original untouched beside it. Four days later V1 was gone, and V2 became the News tab.</p>
+        </div>
+      </div>
+      <ol class="steps newsroom-steps rv">
+        <li><strong>2 Jul · News V1</strong><span>An editorial event feed: highlights, a KPI strip, trending topics, a compliance watch, a timeline and a library of chart widgets. The lead story ended in "Create Signal".</span></li>
+        <li><strong>2 Jul · News V2</strong><span>A copy of V1 where every event comes from a real part of the platform: Signals, Monitoring, AI Tasks, Compliance, Agent evaluation, Reports, Workflows, Customers and the Daily briefing.</span></li>
+        <li><strong>6 Jul · Front page</strong><span>A masthead, a breaking strip, a lead story, sections by platform area, and an article page for each story. V1 deleted.</span></li>
+        <li><strong>6 Jul · Trust layer</strong><span>"Why you're seeing this" on every story, a "See N calls" evidence line, and a chat inside the article, on the starting app's chat backend, that answers about that article.</span></li>
+        <li><strong>13 Jul · Four directions</strong><span>Low-fidelity wireframes of four other ways to frame the same news. Chapter 04.</span></li>
+        <li><strong>13 Jul · Hebrew</strong><span>The News tab in Hebrew, right to left, with its own scope rules. Chapter 04.</span></li>
+      </ol>
+
+      <article class="decision rv">
+        <div class="label">Decision 1 · <b>What counts as a story</b></div>
+        <h3>Should the feed report editorial events, or only things a user can open in the product?</h3>
+        <ul class="opts">
+          <li class="opt"><strong>Editorial events (V1)</strong><span>General editorial events about the contact center, shown with charts from a widget library.</span></li>
+          <li class="opt chosen"><strong>Real platform objects (V2)</strong><span>Every story comes from a real part of Hear, such as a signal, a monitor, an AI task, a compliance score, an evaluation or a report. Names of fields and metrics are real; the values are illustrative.</span></li>
+        </ul>
+        <p class="because"><b>Why:</b> so every story points at something real in Hear. In V2 each event is "tied to a real platform surface": field and metric names are real, values are illustrative. V1 was deleted four days later.</p>
+      </article>
+
+      <article class="decision rv">
+        <div class="label">Decision 2 · <b>Where actions sit</b></div>
+        <h3>Should every card in the feed carry its own action buttons?</h3>
+        <ul class="opts">
+          <li class="opt"><strong>Buttons on every card</strong><span>Edit signal, Open in Data and Read story on the cards themselves, in the feed.</span></li>
+          <li class="opt chosen"><strong>Actions on the article page</strong><span>The whole card opens the story. Edit signal, Open in Data and Run report sit there, with the "why" panel and the sources.</span></li>
+        </ul>
+        <p class="because"><b>Result:</b> the whole card opens the article, and actions live on the article page. The current feed still works this way: story cards end in their evidence line and carry no action buttons.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 03 · ink -->
+  <section class="chapter ink" id="evidence">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">03 · <b>Showing evidence</b></div><h2>Precision only where the platform has it</h2></div>
+        <div class="prose">
+          <p>V1's lead story put a precise percentage in its headline. In the trust layer I wrote the rules into the feed's data, one set per story type, so each story's "Why you're seeing this" line shows its trigger, its basis and how strong the signal is.</p>
+        </div>
+      </div>
+
+      <article class="decision rv">
+        <div class="label">Decision 3 · <b>How exact to sound</b></div>
+        <h3>How much precision should a story's trigger show?</h3>
+        <ul class="opts">
+          <li class="opt"><strong>Numbers everywhere</strong><span>Every trigger carries a figure, as V1's lead story did, even for trends that have no configured threshold.</span></li>
+          <li class="opt chosen"><strong>Precision by story type</strong><span>Trends get a trigger in words and a time window. Alerts, compliance and evaluations show their real configured thresholds, and real moments, such as alerts, keep their clock times.</span></li>
+        </ul>
+        <p class="because"><b>Why:</b> a trend has no configured threshold, so any number in its trigger would be made up. Trend triggers stay qualitative, with "no invented numeric thresholds", and only real moments, such as calls and alerts, carry clock times.</p>
+      </article>
+
+      <div class="newsroom-rule rv" role="group" aria-label="The trust rule, per story type">
+        <section>
+          <h3>Trends</h3>
+          <div class="sub">Measured over a period</div>
+          <dl>
+            <div><dt>Trigger</dt><dd>In words, with no invented threshold</dd></div>
+            <div><dt>Time</dt><dd>A window, such as "this week"</dd></div>
+            <div><dt>Basis</dt><dd>The method behind the story</dd></div>
+          </dl>
+        </section>
+        <section>
+          <h3>Alerts, compliance, evaluations</h3>
+          <div class="sub">Measured against a configured rule</div>
+          <dl>
+            <div><dt>Trigger</dt><dd>The real configured threshold</dd></div>
+            <div><dt>Time</dt><dd>A clock time for a real moment, such as an alert</dd></div>
+            <div><dt>Basis</dt><dd>The method behind the story</dd></div>
+          </dl>
+        </section>
+        <section class="all">
+          <p><b>Every story</b> gets a strength label (strong, moderate or for watch), itself marked illustrative in the Lab, and a "See N calls" line for its evidence. The article chat gets the article as context and is told that its figures are illustrative.</p>
+        </section>
+      </div>
+
+      <div class="newsroom-sub prose rv">
+        <h3>How the charts carry it</h3>
+        <ul class="newsroom-list">
+          <li>Eleven hand-built SVG chart types sit in one registry, from trend lines and gauges to a causal chain, so a story names the chart it needs and the registry draws it.</li>
+          <li>Each chart measures its container, so the SVG fills the width at real pixel size. Every color is a CSS variable, so light and dark flip with no extra code.</li>
+          <li>Articles pair each chart with a stats grid and a data table, so the figures also exist as text.</li>
+          <li>Story text is set in a serif, a deliberate exception to the design system, scoped to News.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · sheet -->
+  <section class="chapter sheet" id="directions">
+    <div class="wrap">
+      <div class="ch-head center">
+        <div><div class="label">04 · <b>Directions &amp; Hebrew</b></div><h2>Four ways to frame the same news</h2></div>
+        <div class="prose">
+          <p>A week after the built feed, I sketched four low-fidelity directions, each a different main metaphor over the same content: grey skeletons with notes, wireframe fidelity on purpose. They sit in the Lab's sidebar as News · Directions, tagged DEV.</p>
+        </div>
+      </div>
+      <ol class="newsroom-dirs rv">
+        <li><span class="n">01</span><strong>Edition</strong><q>read what changed</q><span>A front page, like the built feed.</span></li>
+        <li><span class="n">02</span><strong>Radar</strong><q>see the whole operation at once</q></li>
+        <li><span class="n">03</span><strong>Inbox</strong><q>work the queue</q><span>Marked as best for the risk owner.</span></li>
+        <li><span class="n">04</span><strong>Briefing</strong><q>tell me, then let me dig</q></li>
+      </ol>
+      <p class="why rv"><b>What stays:</b> every direction keeps the same three parts in its side panel: why, evidence, actions. All four remain explorations.</p>
+
+      <div class="two newsroom-sub">
+        <div class="prose rv">
+          <h3>Hebrew, right to left</h3>
+          <p>Then News went to Hebrew: about 20 articles translated, the News area switches to right to left, and the chat inside an article answers in Hebrew. In July, News was the only tab in the Lab that changed language.</p>
+          <p>The scope is set in one place: the app shell stays in English, and numbers stay in Latin digits, as is standard in Hebrew interfaces. Borders, quotes, arrows and padding use logical CSS properties, so one set of styles serves both directions, and arrows flip.</p>
+        </div>
+        <figure class="rv">
+          <p class="newsroom-rtl-tag" aria-hidden="true">Schematic · not a product screen</p>
+          <div class="newsroom-rtl" role="img" aria-label="Schematic: the same story card drawn twice. Left to right, the coral accent border and the quote line sit on the left and the arrow points right. Right to left, both move to the right and the arrow points left. The number stays in Latin digits in both.">
+            <div class="card" dir="ltr"><span class="tag" dir="ltr">dir="ltr"</span><i class="k"></i><i class="h"></i><div class="q"><i></i><i class="s"></i></div><div class="foot"><span class="num">123</span><span class="arr" aria-hidden="true">→</span></div></div>
+            <div class="card" dir="rtl"><span class="tag" dir="ltr">dir="rtl"</span><i class="k"></i><i class="h"></i><div class="q"><i></i><i class="s"></i></div><div class="foot"><span class="num">123</span><span class="arr" aria-hidden="true">→</span></div></div>
+          </div>
+          <figcaption><b>One story card, two directions.</b> A schematic of one set of logical CSS rules, drawn left to right and right to left. The accent border, the quote line and the arrow follow the reading direction; digits stay Latin.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · ink -->
+  <section class="chapter ink" id="chat">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">05 · <b>Where AI belongs</b></div><h2>In the chat input, I added a moving logo, then took it out</h2></div>
+        <div class="prose">
+          <p>News puts the AI's stories at the front of the page. The chat home is a different case: it came with a colleague's starting app, and in April and May I reworked parts of it. Some of what I added around the input, I later took out again.</p>
+        </div>
+      </div>
+      <figure class="rv newsroom-dark">
+        <div class="shot win dark"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><img src="../img/cs-design-lab-chat-home.webp" data-zoom alt="Chat home in dark theme: the Hear mark above the greeting Good evening, ofir, a chat input with @, slash and microphone buttons, a pill that reads 3 alerts worth a look under the input, a Briefing V1 to V5 switcher in the header, and the sidebar with News and a News · Directions item tagged DEV" width="1600" height="1045" loading="lazy"></div>
+        <figcaption><b>Chat home today, dark theme.</b> The page came with the starting app. The Hear mark now sits above the greeting, not in the field, and the header switches between five briefing designs, V1 to V5.</figcaption>
+      </figure>
+      <ol class="steps newsroom-fig-top rv">
+        <li><strong>Suggestions</strong><span>AI suggestions capped at five, with the original suggestions design restored.</span></li>
+        <li><strong>Daily briefing</strong><span>Tried inside the suggestions, then back in the page. It now fades out while you chat.</span></li>
+        <li><strong>Controls</strong><span>A slash-command button added. The plus and attachment button removed.</span></li>
+      </ol>
+
+      <article class="decision rv" style="margin-top:clamp(32px,4vw,48px)">
+        <div class="label">Decision 4 · <b>The AI's presence</b></div>
+        <h3>Does the AI need a face inside the input?</h3>
+        <ul class="opts">
+          <li class="opt"><strong>Logo in the field</strong><span>A morphing logo and a dot ring, with the logo in the input reacting to each keystroke.</span></li>
+          <li class="opt chosen"><strong>A plain field</strong><span>The logo leaves the input. The field holds what you type, two shortcut buttons and a mic.</span></li>
+        </ul>
+        <figure><div class="shot"><span class="live" style="top:12px;bottom:auto">Design Lab · demo data</span><img src="../img/ds-chatinput.webp" data-zoom alt="Chat input component: the text Loop in @ being typed, an @ button, a slash button and a blue send button" width="1400" height="270" loading="lazy"></div><figcaption><b>Chat input in the Lab's design system.</b> @ to bring someone in, / for commands, and send.</figcaption></figure>
+        <p class="because"><b>Result:</b> the Hear mark greets you above the field, and the field is left for the question.</p>
+      </article>
+
+      <div class="newsroom-sub prose rv">
+        <h3>Where it landed</h3>
+        <p>In News, the AI's stories lead the page, and each one carries its source, its time window and its calls. In Chat, the AI's mark sits outside the field, and the briefing steps aside while you chat.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <a class="next" href="demos-engine.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Demos engine</h2></div><span class="arrow" aria-hidden="true">→</span></a>
+    <div class="sources"><p>Screens from Hear Design Lab with demo data; people's names blurred. I started the Lab and coded it with Claude Code from a colleague's starting app. Quoted rules come from the Lab's code and commit notes.</p></div>
+  </div>
+</main>
+<footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<script src="case.js"></script>
+</body>
+</html>

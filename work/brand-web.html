@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Brand &amp; web · Ofir Nona</title>
+<meta name="description" content="Ofir Nona designed Hear's brand from zero and carried it into a new marketing site in two preview directions, print, signage, merch and trade-show booths, with the redesign and rebrand planned in eight phases.">
+<meta name="theme-color" content="#0d0d0e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css">
+<style>
+/* brand-web: page-only pieces */
+.brand-web-gap { margin-top: clamp(16px, 2vw, 24px); }
+.brand-web-sub { margin: clamp(40px, 5vw, 64px) 0 18px; }
+.brand-web-rules { border-top: 1px solid var(--line); }
+.brand-web-rules div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.brand-web-rules dt { font: 500 11px/1.9 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--coral); }
+.brand-web-rules dd { font-size: 15.5px; line-height: 1.55; color: var(--text); }
+.brand-web-dirs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: clamp(20px, 3vw, 32px); }
+.brand-web-dir { border-radius: 18px; padding: clamp(20px, 3vw, 32px); display: grid; gap: 10px; align-content: start; }
+.brand-web-dir h3 { font-size: clamp(24px, 2.6vw, 32px); }
+.brand-web-dir p { font-size: 15.5px; }
+.sheet .brand-web-dir.a { background: #0b0b0c; color: var(--paper); }
+.sheet .brand-web-dir.a p { color: var(--text); }
+.sheet .brand-web-dir.a .label { background: rgba(242,239,231,.08); color: rgba(242,239,231,.7); }
+.sheet .brand-web-dir.a .pill { color: var(--paper); border-color: #3a3a3f; }
+.sheet .brand-web-dir.b { background: #fffdf8; box-shadow: 0 0 0 1px rgba(27,27,27,.14); }
+.brand-web-dir .label { width: fit-content; padding: 5px 10px 4px; border-radius: 6px; text-transform: none; letter-spacing: .04em; }
+.brand-web-dir .pill { justify-self: start; margin-top: 6px; }
+.brand-web-row { display: flex; gap: 16px; align-items: flex-start; }
+.brand-web-row > figure { min-width: 0; }
+.brand-web-row .r-spec { flex: 1.254 1 0; } .brand-web-row .r-live { flex: .952 1 0; }
+.brand-web-mosaic { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.brand-web-mosaic figure { position: relative; min-width: 0; }
+.brand-web-mosaic .w2 { grid-column: span 2; }
+.brand-web-mosaic .shot { height: 100%; }
+.brand-web-mosaic .shot img { height: 100%; object-fit: cover; }
+.brand-web-mosaic figcaption { position: absolute; left: 10px; bottom: 10px; margin: 0; padding: 5px 10px; border-radius: 99px; background: rgba(13,13,14,.74); color: #f2efe7; font: 500 11px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; pointer-events: none; }
+.brand-web-phases { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px 16px; }
+.brand-web-phases .shot img { aspect-ratio: 912 / 1000; object-fit: cover; object-position: top; }
+.brand-web-phases figcaption { font-size: 13.5px; line-height: 1.5; }
+.brand-web-phases figcaption b { display: block; margin-bottom: 4px; font: 700 19px/1.2 var(--display); letter-spacing: -.01em; }
+.brand-web-phases figcaption b span { font: 500 11px/1 var(--mono); color: var(--coral-ink); margin-right: 6px; vertical-align: 2px; }
+.brand-web-ext { color: var(--coral); text-decoration: none; white-space: nowrap; }
+.brand-web-ext:hover { text-decoration: underline; }
+.lb:has(img[src*="cs-brand-web-plan-"]) { overflow-y: auto; place-items: start center; }
+.lb img[src*="cs-brand-web-plan-"] { max-height: none; width: min(100%, 912px); }
+.lb:has(img[src*="cs-brand-web-plan-"]) button { position: fixed; }
+@media (max-width: 1000px) { .brand-web-phases { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .brand-web-dirs { grid-template-columns: 1fr; }
+  .brand-web-row { flex-direction: column; } .brand-web-row > figure { flex: none; width: 100%; }
+  .brand-web-mosaic { grid-template-columns: 1fr; } .brand-web-mosaic .w2 { grid-column: auto; }
+  .brand-web-mosaic .shot, .brand-web-mosaic .shot img { height: auto; }
+  .brand-web-rules div { grid-template-columns: 1fr; gap: 4px; }
+  .brand-web-phases { gap: 28px 12px; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="home" href="../index.html#web">Ofir<span>.</span> <i>← All work</i></a>
+    <nav aria-label="Case studies"><a class="pill" href="design-system.html">← Design system</a><a class="pill solid" href="design-lab.html">Next case</a></nav>
+    <span class="progress" aria-hidden="true"></span>
+  </div>
+</header>
+
+<main id="main">
+  <header class="cs-hero wrap">
+    <div class="label">Case study · <b>Brand &amp; web</b></div>
+    <h1>I designed Hear's brand from zero</h1>
+    <p class="lede">I set its color, typography, imagery and graphics, then carried it onto a new marketing site, designed and built in two directions that are both still previews. Off the screen, it went into print, signage, merch and trade-show booths abroad. I planned the redesign and rebrand in eight phases on one Figma board.</p>
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Brand design · site design &amp; build</dd></div>
+      <div><dt>When</dt><dd>Since 2023 · site in preview</dd></div>
+      <div><dt>Scope</dt><dd>Identity, website, print, signage, merch, booths</dd></div>
+      <div><dt>Shown with</dt><dd>Brand work · site previews · Figma plan</dd></div>
+    </dl>
+    <nav class="toc" aria-label="On this page"><a class="pill" href="#brand"><span>01</span> The brand</a><a class="pill" href="#site"><span>02</span> The site</a><a class="pill" href="#offscreen"><span>03</span> Off the screen</a><a class="pill" href="#plan"><span>04</span> The plan</a></nav>
+    <figure class="hero-fig rv"><div class="shot win dark" style="background:#000"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Site preview · Direction A</span><video width="1280" height="800" data-src="../img/site-scroll-b.mp4" data-poster="../img/site-scroll-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Direction A preview of the Hear homepage from top to bottom: the hero with its line-art arcs and customer logos, the thesis revealing itself on scroll, the dotted globe, product sections, customer stories, a three-step dial, security, and the integrations wall."></video></div>
+      <figcaption><b>Direction A, top to bottom.</b> The full scroll of the new site's home page. <a class="brand-web-ext" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener" aria-label="Direction A preview, opens in a new tab">preview ↗</a></figcaption></figure>
+  </header>
+
+  <!-- 01 · ink -->
+  <section class="chapter" id="brand">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">01 · <b>The brand</b></div><h2>Color, type, imagery, graphics</h2></div>
+        <div class="prose"><p>These are boards from the brand. They write their rules down, and the quotes below are their own words.</p></div>
+      </div>
+      <figure class="rv"><div class="shot"><img src="../img/br-palette-c.webp" srcset="../img/br-palette-c.webp 1325w, ../img/br-palette-c-l.webp 1440w" sizes="(max-width: 1180px) 100vw, 1100px" data-full="../img/br-palette-c-l.webp" data-zoom alt="Hear color board in three groups: Professional Core with Charcoal, Deep Teal, Horizon and Sage; Signal and Growth with Cobalt, Pulse, Horizon and Growth; Human Touch with Light Grey and Pearl" width="1325" height="460" loading="lazy" decoding="async"></div>
+        <figcaption><b>Color system.</b> One board, three groups: Professional Core, Signal &amp; Growth, and Human Touch.</figcaption></figure>
+      <div class="grid2 brand-web-gap">
+        <figure class="rv"><div class="shot"><img src="../img/br-type.webp" srcset="../img/br-type.webp 818w, ../img/br-type-l.webp 1440w" sizes="(max-width: 860px) 100vw, 550px" data-full="../img/br-type-l.webp" data-zoom alt="Typography board: a rounded sans serif in seven weights with italics, with the line From conversations to clarity" width="818" height="460" loading="lazy" decoding="async"></div>
+          <figcaption><b>Typography.</b> The type board, set with the line “From conversations to clarity”.</figcaption></figure>
+        <figure class="rv"><div class="shot"><img src="../img/br-cards.webp" srcset="../img/br-cards.webp 818w, ../img/br-cards-l.webp 1440w" sizes="(max-width: 860px) 100vw, 550px" data-full="../img/br-cards-l.webp" data-zoom alt="Imagery board: three cards with line art, a stock photo on a color gradient, and Grow with impact over a blue and orange glow" width="818" height="460" loading="lazy" decoding="async"></div>
+          <figcaption><b>Imagery.</b> Line art, photography on color gradients, and glow.</figcaption></figure>
+      </div>
+      <div class="two brand-web-gap" style="margin-top:clamp(28px,4vw,48px)">
+        <figure class="rv"><div class="shot"><img src="../img/br-bento.webp" srcset="../img/br-bento.webp 818w, ../img/br-bento-l.webp 1440w" sizes="(max-width: 860px) 100vw, 550px" data-full="../img/br-bento-l.webp" data-zoom alt="Brand graphics: Guide with vision, grow with impact, line-art shapes, and two product data cards for Satisfaction and Incoming calls" width="818" height="460" loading="lazy" decoding="async"></div>
+          <figcaption><b>Brand graphics.</b> Line art and sample data cards in the brand colors.</figcaption></figure>
+        <div class="rv">
+          <dl class="brand-web-rules">
+            <div><dt>Color</dt><dd>“Grounding neutrals (Charcoal, Light Grey, Pearl), supportive mid-tones (Deep Teal, Horizon Dust, Balance Sage), and pops of vibrancy (Pulse Coral, Signal Green, Aura Lilac, Cobalt Blue).”</dd></div>
+            <div><dt>Type</dt><dd>“A rounded sans serif typeface in seven weights with corresponding italics.” It is “chunky, happy and a bit retro”, especially the heavier weights.</dd></div>
+            <div><dt>Imagery</dt><dd>“Serious professional and moments of human warmth or creativity sparks.”</dd></div>
+          </dl>
+          <p class="why"><b>In the product:</b> Pulse Coral and Charcoal are color ramps in the Design Lab's Storybook. The design system has <a href="design-system.html">its own case study</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · sheet -->
+  <section class="chapter sheet" id="site">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">02 · <b>The site</b></div><h2>A new site, built in two directions</h2></div>
+        <div class="prose"><p>The new marketing site puts the brand in motion: a thesis that reveals itself as you scroll, a globe where nothing goes unheard, and a clear line from problem to platform. I designed and built two directions of the same story. Both are previews.</p></div>
+      </div>
+      <div class="brand-web-dirs">
+        <article class="brand-web-dir a rv">
+          <div class="label">Direction A</div>
+          <h3>Dark, cinematic</h3>
+          <p>Hero, scroll-revealed thesis, the globe, product sections and the integrations wall.</p>
+          <a class="pill" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener" aria-label="Direction A preview, opens in a new tab">preview ↗</a>
+        </article>
+        <article class="brand-web-dir b rv">
+          <div class="label">Direction B</div>
+          <h3>Cream and ink</h3>
+          <p>The same story on cream and ink: a card for every role, AI agents held to one standard, customer stories, a dial that walks from learning to acting, and security built in.</p>
+          <a class="pill" href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener" aria-label="Direction B preview, opens in a new tab">preview ↗</a>
+        </article>
+      </div>
+      <div class="grid2">
+        <figure class="rv"><div class="shot dark"><span class="live">Site preview</span><img src="../img/cs-brand-web-site-hero.webp" data-zoom alt="Direction A hero: The AI operating layer for your contact center. Run your contact center on decisions, not dashboards. A Play demo button above line-art arcs that meet in a coral dot" width="1600" height="1000" loading="lazy" decoding="async"></div>
+          <figcaption><b>The hero, Direction A.</b> “Run your contact center on decisions, not dashboards,” over line-art arcs that meet in one coral point.</figcaption></figure>
+        <figure class="rv"><div class="shot dark"><span class="live">Site preview</span><img src="../img/cs-brand-web-site-globe.webp" data-zoom alt="Direction A globe section: a dotted globe with a Churn risk marker and the headline Nothing goes unheard" width="1600" height="1000" loading="lazy" decoding="async"></div>
+          <figcaption><b>The globe, Direction A.</b> A dotted globe with a “Churn risk” marker, under the line “Nothing goes unheard”.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · ink -->
+  <section class="chapter ink" id="offscreen">
+    <div class="wrap">
+      <div class="ch-head center">
+        <div><div class="label">03 · <b>Off the screen</b></div><h2>One brand, everywhere it shows up</h2></div>
+        <div class="prose"><p>The brand didn't stop at the product. I carried it into print, signage, merch and trade-show booths abroad, from the production spec to the stand on the floor. Whatever the business needed next, I designed it.</p></div>
+      </div>
+      <h3 class="brand-web-sub">Trade-show booths</h3>
+      <ol class="steps rv" style="margin-bottom:clamp(20px,3vw,32px)">
+        <li><strong>Render</strong><span>The booth design, shown in an exhibition hall.</span></li>
+        <li><strong>Production spec</strong><span>Each printed panel called out by letter and number.</span></li>
+        <li><strong>As built</strong><span>The stand on the show floor.</span></li>
+      </ol>
+      <figure class="rv"><div class="shot"><img src="../img/br-booth-render.webp" srcset="../img/br-booth-render.webp 844w, ../img/br-booth-render-l.webp 1024w" sizes="(max-width: 1180px) 100vw, 1100px" data-full="../img/br-booth-render-l.webp" data-zoom alt="Render of a black Hear booth with coral line graphics, screens and lounge seating, placed in an exhibition hall" width="844" height="460" loading="lazy" decoding="async"></div>
+        <figcaption><b>Render.</b> A Hear booth in black with coral line graphics, shown in the hall.</figcaption></figure>
+      <div class="brand-web-row brand-web-gap">
+        <figure class="r-spec rv"><div class="shot" style="background:#fff"><img src="../img/br-booth-spec.webp" srcset="../img/br-booth-spec.webp 577w, ../img/br-booth-spec-l.webp 1440w" sizes="(max-width: 760px) 100vw, 620px" data-full="../img/br-booth-spec-l.webp" data-zoom alt="Booth production spec with panel callouts F1 and F2 on the header boards, W1 and W2 on the walls, and C1 to C3 on the counter" width="577" height="460" loading="lazy" decoding="async"></div>
+          <figcaption><b>Production spec.</b> Header boards F1 and F2, walls W1 and W2, counter faces C1 to C3.</figcaption></figure>
+        <figure class="r-live rv"><div class="shot"><img src="../img/br-booth-live-b.webp" srcset="../img/br-booth-live-b.webp 438w, ../img/br-booth-live-b-l.webp 800w" sizes="(max-width: 760px) 100vw, 470px" data-full="../img/br-booth-live-b-l.webp" data-zoom alt="The booth as built at the show, from my design, with the Hear header board and a coral wall panel; faces are blurred" width="438" height="460" loading="lazy" decoding="async"></div>
+          <figcaption><b>As built.</b> The stand at the show, from my design. Faces are blurred.</figcaption></figure>
+      </div>
+
+      <h3 class="brand-web-sub">Print, signage, merch</h3>
+      <div class="brand-web-mosaic">
+        <figure class="w2 rv"><div class="shot"><img src="../img/br-billboard.webp" srcset="../img/br-billboard.webp 818w, ../img/br-billboard-l.webp 1440w" sizes="(max-width: 760px) 100vw, 740px" data-full="../img/br-billboard-l.webp" data-zoom alt="Hear billboard: Just growth delivered" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Out of home</figcaption></figure>
+        <figure class="rv"><div class="shot"><img src="../img/br-street.webp" srcset="../img/br-street.webp 818w, ../img/br-street-l.webp 1440w" sizes="(max-width: 760px) 100vw, 640px" data-full="../img/br-street-l.webp" data-zoom alt="Hear street-side digital sign at night" width="818" height="460" loading="lazy" decoding="async" style="object-position:12% 50%"></div><figcaption>Street sign</figcaption></figure>
+        <figure class="rv"><div class="shot"><img src="../img/br-building.webp" srcset="../img/br-building.webp 818w, ../img/br-building-l.webp 1440w" sizes="(max-width: 760px) 100vw, 370px" data-full="../img/br-building-l.webp" data-zoom alt="Hear sign on a building facade" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Signage</figcaption></figure>
+        <figure class="rv"><div class="shot"><img src="../img/br-lobby.webp" srcset="../img/br-lobby.webp 818w, ../img/br-lobby-l.webp 1440w" sizes="(max-width: 760px) 100vw, 370px" data-full="../img/br-lobby-l.webp" data-zoom alt="Hear logo on an office lobby wall" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Office</figcaption></figure>
+        <figure class="rv"><div class="shot"><img src="../img/br-books.webp" srcset="../img/br-books.webp 818w, ../img/br-books-l.webp 1440w" sizes="(max-width: 760px) 100vw, 370px" data-full="../img/br-books-l.webp" data-zoom alt="Hear printed books with dot-pattern covers" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Print</figcaption></figure>
+        <figure class="rv"><div class="shot"><img src="../img/br-totes.webp" srcset="../img/br-totes.webp 818w, ../img/br-totes-l.webp 1440w" sizes="(max-width: 760px) 100vw, 640px" data-full="../img/br-totes-l.webp" data-zoom alt="Hear tote bags with dot patterns" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Merch</figcaption></figure>
+        <figure class="w2 rv"><div class="shot"><img src="../img/br-posters.webp" srcset="../img/br-posters.webp 818w, ../img/br-posters-l.webp 1440w" sizes="(max-width: 760px) 100vw, 740px" data-full="../img/br-posters-l.webp" data-zoom alt="Hear poster series: Just growth delivered, and a coral line-art poster" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Posters</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · sheet -->
+  <section class="chapter sheet" id="plan">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">04 · <b>The plan</b></div><h2>One redesign, planned in eight phases</h2></div>
+        <div class="prose"><p>I planned Hear's redesign and rebrand on one Figma board, “Redesigning - Hear.ai”. Each phase lists its tasks and deliverables, from mapping key players to the workflows between design, development and marketing.</p><p>The brand phases, Branding and Designing, come second and third, ahead of the website and the product. UI design opens with the task “Translate new brand identity into UI language”. Open a phase to read it.</p></div>
+      </div>
+      <ol class="brand-web-phases">
+        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-1.webp" data-zoom alt="Phase 1 of the Figma plan, Research: the board's title and the Research phase with its tasks and deliverables" width="912" height="1844" loading="lazy" decoding="async"></div>
+          <figcaption><b><span>01</span>Research</b>Research · Hear's unique value proposition · Target audiences · Users and personas</figcaption></figure></li>
+        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-2.webp" data-zoom alt="Phase 2 of the Figma plan, Branding, with its tasks and deliverables" width="912" height="2424" loading="lazy" decoding="async"></div>
+          <figcaption><b><span>02</span>Branding</b>Branding · Personality · Brand identity · Messaging · Voice and tone · UX writing and copy</figcaption></figure></li>
+        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-3.webp" data-zoom alt="Phase 3 of the Figma plan, Designing: visual research, visual concepts and crafting the visual identity" width="912" height="1304" loading="lazy" decoding="async"></div>
+          <figcaption><b><span>03</span>Designing</b>Visual research · Visual concepts · Craft visual identity</figcaption></figure></li>
+        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-4.webp" data-zoom alt="Phase 4 of the Figma plan, Website, with its tasks and deliverables" width="912" height="1714" loading="lazy" decoding="async"></div>
+          <figcaption><b><span>04</span>Website</b>Information architecture · Wireframes · Design · Video assets · Develop</figcaption></figure></li>
+        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-5.webp" data-zoom alt="Phase 5 of the Figma plan, Growth: sign-up and sign-in pages, onboarding and setup, walkthroughs" width="912" height="1306" loading="lazy" decoding="async"></div>
+          <figcaption><b><span>05</span>Growth</b>Sign-up and sign-in pages · Onboarding and setup · Walkthroughs</figcaption></figure></li>
+        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-6.webp" data-zoom alt="Phase 6 of the Figma plan, Product, with nine workstreams and their tasks and deliverables" width="912" height="3368" loading="lazy" decoding="async"></div>
+          <figcaption><b><span>06</span>Product</b>Map current product · Information architecture · Main and secondary paths · User types · Use cases and MVP scope · APIs, AI capabilities and LLM integration · Product view variations · Low-fidelity concept wireframes · Engineering (backend and infra)</figcaption></figure></li>
+        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-7.webp" data-zoom alt="Phase 7 of the Figma plan, UI design, with its tasks and deliverables" width="912" height="1728" loading="lazy" decoding="async"></div>
+          <figcaption><b><span>07</span>UI design</b>Product design · Redesign flows · Design handoff · Design system development</figcaption></figure></li>
+        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-8.webp" data-zoom alt="Phase 8 of the Figma plan, Process, with its tasks and deliverables" width="912" height="1712" loading="lazy" decoding="async"></div>
+          <figcaption><b><span>08</span>Process</b>Foundational product principles · Problem-solving philosophy · Design-dev workflows · Marketing-design workflows · Testing and iteration</figcaption></figure></li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <a class="next" href="design-lab.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Design Lab</h2></div><span class="arrow" aria-hidden="true">→</span></a>
+    <div class="sources"><p>Brand boards, booth and print images are Ofir's brand work for Hear; faces in the booth photo are blurred. Site stills and video are from the Direction A preview; both directions are previews. The plan is Ofir's Figma board “Redesigning - Hear.ai”. Quoted lines are the boards' own words.</p></div>
+  </div>
+</main>
+<footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<script src="case.js"></script>
+</body>
+</html>

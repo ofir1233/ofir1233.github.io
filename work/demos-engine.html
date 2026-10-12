@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Demos engine · Ofir Nona</title>
+<meta name="description" content="How I designed a demos engine inside Hear Design Lab: it runs the real product from a script, in English or Hebrew, to show a prospect what Hear could do for their business.">
+<meta name="theme-color" content="#0d0d0e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css">
+<style>
+.demos-engine-form { max-width: 380px; margin-inline: auto; width: 100%; }
+.demos-engine-form .shot .live, .demos-engine-wide .shot .live { top: 12px; bottom: auto; }
+.demos-engine-rule { margin-bottom: clamp(28px, 4vw, 48px); }
+.demos-engine-rule .shot { background: #efefed; }
+.demos-engine-rule picture { display: block; }
+@media (max-width: 760px) { .demos-engine-rule .shot { overflow-x: auto; overscroll-behavior-x: contain; } .demos-engine-rule .shot img { width: 600px; max-width: none; } }
+.demos-engine-steps { margin-bottom: clamp(32px, 5vw, 56px); }
+.demos-engine-wide { margin-bottom: clamp(28px, 4vw, 48px); }
+.demos-engine-notes .why + .why { margin-top: 14px; }
+.demos-engine-notes h3, .demos-engine-card h3 { margin-top: 0; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="home" href="../index.html#product">Ofir<span>.</span> <i>← All work</i></a>
+    <nav aria-label="Case studies"><a class="pill" href="newsroom.html">← Newsroom</a><a class="pill solid" href="design-system.html">Next case</a></nav>
+    <span class="progress" aria-hidden="true"></span>
+  </div>
+</header>
+
+<main id="main">
+  <header class="cs-hero wrap">
+    <div class="label">Case study · <b>Demos engine</b></div>
+    <h1>Sales demos that run the real product from a script</h1>
+    <p class="lede">To show a prospect what Hear could do for their business, I designed a demos engine inside the Design Lab. It runs the product from a script: it types the prospect's questions into the real composer, presses the real send key, answers on demo data and moves a camera across the real screens, in English or Hebrew, with narration. The same sequence plays in a meeting or records as a clean video.</p>
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Design · built inside the Lab</dd></div>
+      <div><dt>When</dt><dd>2026</dd></div>
+      <div><dt>Scope</dt><dd>Script player · sequence library</dd></div>
+      <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
+    </dl>
+    <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#setup"><span>02</span> Setup</a><a class="pill" href="#engine"><span>03</span> The engine</a><a class="pill" href="#library"><span>04</span> The library</a><a class="pill" href="#run"><span>05</span> Play or record</a></nav>
+    <figure class="hero-fig rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="../img/demo-showcase.mp4" data-poster="../img/demo-showcase-poster.webp" muted loop playsinline preload="none" aria-label="The engine plays a showcase: Chat home in a demo workspace, then a title card with one claim, then the question What drove escalations this week? typed into the composer and sent, the answer card by topic as the camera pushes in, then Who handled them? and the answer table lifted out of a dimmed screen"></video></div>
+      <figcaption><b>A 30-second showcase, played by the engine.</b> The typing, the send, the camera push-in and the spotlight at the end are all the engine at work.</figcaption></figure>
+  </header>
+
+  <section class="chapter" id="problem">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">01 · <b>The problem</b></div><h2>A generic deck tells every prospect the same story</h2></div>
+        <div class="prose"><p>Hear reads every call, chat and ticket between a contact center's agents and its customers, then answers questions about them. Slides can describe that. They can't show it happening.</p><p>I wanted a prospect to watch the product itself answer the questions they would ask about their own business.</p></div>
+      </div>
+      <div class="two">
+        <figure class="rv"><div class="shot dark"><img src="../img/cs-design-lab-entry.webp" data-zoom alt="Design Lab entry screen: the Hear logo, a Design Lab tab and a Demo tab marked In development, a list of two demo environments and a Create new demo environment button, next to a video inside the wave-shaped Hear mark" width="1280" height="790" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Lab entry.</b> The Design Lab tab, a separate Demo tab marked In development, your demo environments, and Create new demo environment.</figcaption></figure>
+        <div class="prose">
+          <p>The engine lives in the Design Lab, the working replica of Hear that I started on my own initiative and coded with Claude Code from a colleague's starting app. The Lab runs the product's screens on realistic demo data.</p>
+          <p>Its entry screen lists the demo environments, one for each customer, with a button to create a new one.</p>
+          <p class="why"><b>The aim:</b> no generic deck. Every demo is ready to play in a meeting or send as a video.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter sheet" id="setup">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">02 · <b>Setup</b></div><h2>A new demo starts from a short form</h2></div>
+        <div class="prose"><p>A new environment starts from <b>Set up your demo</b>. It asks for three things: the company's website, a few sentences that describe the company, and a file (PDF, CSV, TXT or DOCX). Then <b>Start demo</b>.</p></div>
+      </div>
+      <div class="two" style="margin-bottom:clamp(28px,4vw,48px)">
+        <figure class="rv demos-engine-form"><div class="shot dark"><img src="../img/cs-design-lab-demo-form.webp" data-zoom alt="Set up your demo form: a company website URL field, a box to describe the company in a few sentences, a file drop for PDF, CSV, TXT or DOCX, and a Start demo button" width="440" height="690" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Set up your demo.</b> Three inputs and one button.</figcaption></figure>
+        <div class="prose">
+          <p>The form speaks to the company directly: <b>Your company website URL</b>, <b>Describe your company in a few sentences</b>. A link under the button leads back to the list of environments.</p>
+        </div>
+      </div>
+      <article class="decision rv">
+        <div class="label">Decision 1 · <b>One demo or many</b></div>
+        <h3>One generic deck, or a demo built for each prospect?</h3>
+        <ul class="opts">
+          <li class="opt"><strong>One generic deck</strong><span>The same slides for every prospect, whatever their business.</span></li>
+          <li class="opt chosen"><strong>A demo for each prospect</strong><span>Its own demo environment in the Lab, and sequences that tell its story on the real product.</span></li>
+        </ul>
+        <p class="because"><b>Result:</b> the Lab keeps a demo environment for each customer, and the library holds sequences written around one company or industry, like an insurer's renewals or a leasing company's calls.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="chapter ink" id="engine">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">03 · <b>The engine</b></div><h2>A script that drives the real product</h2></div>
+        <div class="prose"><p>A sequence is not a screen recording. It drives the product itself: it types into the real composer, presses the real send key, and moves a camera over the real screens. The library says so in its own header.</p></div>
+      </div>
+      <figure class="rv demos-engine-rule"><div class="shot"><picture><source media="(max-width: 760px)" srcset="../img/cs-demos-engine-rule-m.webp" width="650" height="90"><img src="../img/cs-demos-engine-rule.webp" data-zoom alt="Header of the Demos library: the title Showcase sequences, the line that says each sequence drives the real product, tabs for Showcase, Archive, Blocks, Voices and Docs, sorting by Default order or Top rated, and a New sequence button" width="1030" height="160" loading="lazy"></picture><span class="live">Design Lab · demo data</span></div><figcaption><b>The rule, on the screen.</b> Each sequence drives the real product. Play one here, or open a clean run and record that tab.</figcaption></figure>
+      <ol class="steps demos-engine-steps rv" aria-label="What a sequence does">
+        <li><strong>Shows a claim</strong><span>A full-screen title card with a single claim, between the product's own screens.</span></li>
+        <li><strong>Types the question</strong><span>Into the real composer, letter by letter, with the AI suggestions showing underneath.</span></li>
+        <li><strong>Presses send</strong><span>The real send key. The product thinks, then answers on demo data.</span></li>
+        <li><strong>Moves the camera</strong><span>Pushes in on the answer, then dims the screen and lifts out one table.</span></li>
+        <li><strong>Speaks</strong><span>Narration in English or Hebrew. Voices have their own tab in the library.</span></li>
+      </ol>
+      <article class="decision rv">
+        <div class="label">Decision 2 · <b>Where demos run</b></div>
+        <h3>A separate demo build, or the product I design in?</h3>
+        <ul class="opts">
+          <li class="opt"><strong>A separate demo shell</strong><span>In the July code, the starting app's Demo mode was an older layout of the product. Several pages showed Coming soon, and only some new work reached it.</span></li>
+          <li class="opt chosen"><strong>Drive the Lab itself</strong><span>Sequences run on the Lab's own screens, the same ones I test designs on, with the same demo data.</span></li>
+        </ul>
+        <p class="because"><b>Result:</b> the showcase above plays on the Lab's own Chat screen and sidebar, and Demos sits in that same sidebar. One build serves design reviews and sales demos.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="chapter sheet" id="library">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">04 · <b>The library</b></div><h2>Each demo is a short story with a running time</h2></div>
+        <div class="prose"><p>Showcase sequences sit in one library inside the Lab. Each card is a ready demo, and <b>New sequence</b> starts another. Tabs hold the Archive, Blocks, Voices and Docs, and the list sorts by default order or by Top rated.</p></div>
+      </div>
+      <figure class="rv demos-engine-wide"><div class="shot"><img src="../img/demos-light-b.webp" data-zoom alt="The Demos library: showcase sequence cards in English and Hebrew, each with a title, a running time, a one-line story, tags, a star rating, Play and Clean run" width="1600" height="1226" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The library.</b> Showcase sequences in English and Hebrew, each a ready demo.</figcaption></figure>
+      <div class="two">
+        <div class="prose demos-engine-card">
+          <h3>What a card holds</h3>
+          <ul>
+            <li>A title and its running time</li>
+            <li>An id and a step count</li>
+            <li>One line that says what the story is</li>
+            <li>Tags for the language, the kind of story (Recap, Daily, Briefing, Capabilities), Narrated, Film, Scored and an approximate length</li>
+            <li>A star rating, and the list can sort by Top rated</li>
+            <li>Play, Clean run and Copy link, plus archive and delete</li>
+          </ul>
+        </div>
+        <div class="prose demos-engine-notes">
+          <h3>Two details</h3>
+          <p class="why"><b>Languages as siblings:</b> the Hebrew July recap shares the English one's id (plus a language suffix), its step count and its running time, and its card says "same slides."</p>
+          <p class="why"><b>A story shape:</b> two cards describe themselves as "one claim, two questions, thirty seconds." The showcase at the top of this page follows that shape: a title card, then two questions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter ink" id="run">
+    <div class="wrap">
+      <div class="ch-head center">
+        <div><div class="label">05 · <b>Play or record</b></div><h2>Play it in the meeting, or record a clean run</h2></div>
+        <div class="prose"><p>One sequence, two ways out. <b>Play</b> runs it right here in the Lab, for a meeting. <b>Clean run</b> opens it in a clean tab to record, for a video to send.</p></div>
+      </div>
+      <figure class="rv demos-engine-wide"><div class="shot"><img src="../img/cs-demos-engine-library.webp" data-zoom alt="The Demos page inside the Design Lab: the Lab sidebar on the left with Demos tagged DEV, and showcase sequence cards, each with Play, Clean run and Copy link" width="1600" height="1045" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Demos, inside the Lab.</b> Every card has Play, Clean run and Copy link.</figcaption></figure>
+      <div class="prose demos-engine-end">
+        <h3 style="margin-top:0">Where it stands</h3>
+        <p>Demos sits in the Lab's sidebar with a DEV tag, next to Storybook, and every sequence plays on demo data.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <a class="next" href="design-system.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Design system</h2></div><span class="arrow" aria-hidden="true">→</span></a>
+    <div class="sources"><p>Screens and the video from Hear Design Lab with demo data; people's names blurred.</p></div>
+  </div>
+</main>
+<footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<script src="case.js"></script>
+</body>
+</html>

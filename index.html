@@ -805,7 +805,7 @@ section > .wrap::before { content: none; }
 footer { padding-block: 28px 36px; font: 400 12px/1.6 var(--mono); letter-spacing: .02em; color: rgba(242,239,231,.5); }
 
 
- r10 phone QA: invisible hit areas so the logo and the Direction A/B toggles reach 44px tap targets (no visual change) */
+/* r10 phone QA: invisible hit areas so the logo and the Direction A/B toggles reach 44px tap targets (no visual change) */
 .nav .brand { position: relative; }
 .nav .brand::after { content: ""; position: absolute; inset: -7px -6px; }
 .site-dirs button { position: relative; }
@@ -1375,6 +1375,17 @@ footer .f-fine { margin-top: 22px; }
   #design-lab .lab-story > div::before { transition: none; }
 }
 
+
+/* cs-links: links from each case study on the home page to its full case-study page in work/ */
+.cs-more { margin: -8px 0 clamp(28px, 4vw, 44px); width: fit-content; font-size: 15px; }
+#system .cs-more { color: var(--ink-t, #1b1b1b); box-shadow: inset 0 0 0 1px rgba(27,27,27,.22); }
+#system .cs-more:hover { box-shadow: inset 0 0 0 1px rgba(27,27,27,.6); }
+#system .cs-more::after { background: radial-gradient(circle, var(--coral) 0 3px, var(--ink-t, #1b1b1b) 3.6px); }
+#system .cs-more > span[aria-hidden] { color: var(--cream, #f2efe7); }
+.cs-link { display: inline-flex; align-items: center; gap: 8px; width: fit-content; margin-top: 4px; font-size: 14.5px; font-weight: 500; color: var(--paper); text-decoration: none; border-bottom: 1px solid rgba(255,112,86,.5); padding-bottom: 2px; transition: border-color .2s, gap .2s; }
+.cs-link:hover { border-color: var(--coral); gap: 12px; }
+.cs-link span { color: var(--coral); }
+.cs-links { display: flex; flex-wrap: wrap; gap: 6px 22px; }
 /* qa-phone: touch targets, no iOS focus zoom, readable chapter labels */
 @media (max-width: 860px) {
   #ia .ia-find input { font-size: 16px; }
@@ -1489,6 +1500,7 @@ footer .f-fine { margin-top: 22px; }
       <p>When AI tools arrived, I started a working replica of Hear on my own initiative, coded with Claude Code from a colleague's starting app. It runs on realistic demo data, and it's where I test designs before anything reaches development. It can also produce a demo tailored to a prospect.</p>
     </div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Initiator · design, coded with Claude&nbsp;Code</dd></div><div><dt>Scope</dt><dd>Working product replica</dd></div><div><dt>Built for</dt><dd>Testing designs · prospect demos</dd></div><div><dt>Stack</dt><dd>React · Vite · Storybook</dd></div></dl>
+    <a class="btn ghost cs-more rv" href="work/design-lab.html">Read the full case study <span aria-hidden="true">→</span></a>
 
     <figure class="rv lab-tour"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/demo-tour-b-r.mp4" data-poster="img/demo-tour-poster-c.webp" muted loop playsinline preload="none" aria-label="A question typed into the Lab, the answer, then Topics, Compliance and Actions"></video></div>
       <div class="lt-rail" aria-hidden="true"><i class="lt-fill"></i></div>
@@ -1560,6 +1572,7 @@ footer .f-fine { margin-top: 22px; }
         <h3>Every agent, every criterion, readable at a glance</h3>
         <p>Any cell opens a popover that places that agent against the whole team and says what the next button will do before you press it. One click on <b>Explore in Chat</b> hands that cell to the AI chat to dig deeper.</p>
         <div class="why"><b>Design choice:</b> only problems get color. A full grid of agents and criteria stays quiet until something needs attention.</div>
+        <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-compliance-b.mp4" data-poster="img/clip-compliance-poster-b.webp" muted loop playsinline preload="none" aria-label="Compliance overview, the agents heatmap and a cell popover, then Explore in Chat, where the AI explains that score"></video></div></figure></div>
     </article>
@@ -1570,6 +1583,7 @@ footer .f-fine { margin-top: 22px; }
         <h3>A score is useless unless it explains itself</h3>
         <p>See the trend, the distribution and every team on one screen, then ask the AI why a score moved.</p>
         <div class="why"><b>Design choice:</b> answers point to the exact calls behind a score, so people can check the AI instead of just trusting it.</div>
+        <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-agent-eval-c.mp4" data-poster="img/clip-agent-eval-poster-c.webp" muted loop playsinline preload="none" aria-label="Agent evaluation: zooming into a dip in the average score, then asking the AI why it dropped"></video></div></figure></div>
     </article>
@@ -1580,6 +1594,7 @@ footer .f-fine { margin-top: 22px; }
         <h3>From insight to done</h3>
         <p>Alerts, signals and evaluations become tasks with an owner and a priority. Inside a task the team ticks off action items, moves the status and <b>@mentions</b> a teammate, and every step lands in the activity log.</p>
         <div class="why"><b>Design choice:</b> every task keeps its source, and closed work keeps its reason, such as duplicate or escalated, so the team learns from it.</div>
+        <div class="cs-links"><a class="cs-link" href="work/actions.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-actions-c-b.mp4" data-poster="img/clip-actions-poster-c-b.webp" muted loop playsinline preload="none" aria-label="Actions board: filtering, opening a task, ticking an action item, moving it to In progress and @mentioning a teammate in a comment"></video></div></figure></div>
     </article>
@@ -1590,6 +1605,7 @@ footer .f-fine { margin-top: 22px; }
         <h3>The same data, told three ways</h3>
         <p>A newsroom that tells the month as a story and flags spikes against a baseline, a dense table to dig into, and signals that fire on their own.</p>
         <div class="why"><b>Design choice:</b> one set of data, three surfaces, each for a different person at a different moment.</div>
+        <div class="cs-links"><a class="cs-link" href="work/newsroom.html">Newsroom case study <span aria-hidden="true">→</span></a><a class="cs-link" href="work/data.html">Data &amp; signals case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
         <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-news-c-b.mp4" data-poster="img/clip-news-poster-c.webp" muted loop playsinline preload="none" aria-label="Newsroom: the live ticker and the spike story, the monthly recap played as a story, then the feed filtered to one source"></video></div><figcaption><b>Newsroom</b> · the month plays back as a 75-second story, and each source filters the feed down to what it found</figcaption></figure>
@@ -1606,6 +1622,7 @@ footer .f-fine { margin-top: 22px; }
         <h3>A demo built for every prospect</h3>
         <p>To show a new prospect what Hear could do for <em>their</em> business, I designed a demos engine inside the Lab. It runs the product from a script: it types the prospect's questions, answers them on demo data and moves a camera across the screens, in English or Hebrew, with narration.</p>
         <div class="why"><b>The aim:</b> no generic deck. Every demo is ready to play live in a meeting or send as a video.</div>
+        <div class="cs-links"><a class="cs-link" href="work/demos-engine.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
         <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Demos engine · demo data</span><video width="1440" height="900" data-src="img/demo-showcase.mp4" data-poster="img/demo-showcase-poster.webp" muted loop playsinline preload="none" aria-label="A 30-second showcase demo played by the engine: it asks what drove escalations this week, answers by topic, then asks who handled them"></video></div><figcaption><b>A 30-second showcase</b>, played by the engine in the Lab.</figcaption></figure>
@@ -1627,8 +1644,9 @@ footer .f-fine { margin-top: 22px; }
       <p>The Design Lab's system is documented in Storybook: foundations, atoms, molecules, organisms, templates and full pages. Every component comes with all its states, and tokens carry names and reasons, not just hex codes. The same tokens and components cover dark and light, English and Hebrew, left to right and right to left.</p>
     </div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; documentation</dd></div><div><dt>Coverage</dt><dd>Dark &amp; light · LTR &amp; RTL</dd></div><div><dt>Tiers</dt><dd>Foundations → Pages</dd></div><div><dt>Tooling</dt><dd>Storybook · CSS tokens</dd></div></dl>
+    <a class="btn ghost cs-more rv" href="work/design-system.html">Read the full case study <span aria-hidden="true">→</span></a>
     <figure class="rv sys-fig" style="margin-bottom:clamp(24px,3vw,40px)"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-system-b.mp4" data-poster="img/clip-system-poster-b.webp" muted loop playsinline preload="none" aria-label="The same Agent evaluation screen switching from light to dark, then from English to Hebrew, right to left, and back to light"></video></div>
-      <figcaption><b>One set of tokens, every mode.</b> The same screen goes from light to dark, then to Hebrew, right to left, without a single one-off style.</figcaption></figure>
+      <figcaption><b>One set of tokens, every mode.</b> The same screen goes from light to dark, then to Hebrew, right to left, on the same tokens and components.</figcaption></figure>
     <div class="ds-spec rv" role="group" aria-labelledby="ds-spec-t">
       <div class="ds-spec-top">
         <div class="ds-tag" id="ds-spec-t"><span>Foundations</span> Color tokens</div>
@@ -1692,11 +1710,12 @@ footer .f-fine { margin-top: 22px; }
         <div class="ext-row"><a class="ext" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Direction A (preview) ↗</a><a class="ext" href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Direction B (preview) ↗</a></div></div>
     </div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; build</dd></div><div><dt>Scope</dt><dd>Marketing site</dd></div><div><dt>Motion</dt><dd>Scroll-driven</dd></div><div><dt>Status</dt><dd>New site, in preview</dd></div></dl>
+    <a class="btn ghost cs-more rv" href="work/brand-web.html">Read the full case study <span aria-hidden="true">→</span></a>
     <div class="web-seg rv" role="tablist" aria-label="Site direction" data-on="a"><span class="web-seg-ind" aria-hidden="true"></span>
       <button role="tab" id="web-tab-a" aria-controls="web-stage" aria-selected="true" data-dir="a"><i class="sw" aria-hidden="true"></i>Direction A <span>Dark, cinematic</span></button>
       <button role="tab" id="web-tab-b" aria-controls="web-stage" aria-selected="false" tabindex="-1" data-dir="b"><i class="sw" aria-hidden="true"></i>Direction B <span>Cream and ink</span></button>
     </div>
-    <figure class="rv web-fig" id="web-stage" role="tabpanel" aria-labelledby="web-tab-a"><div class="shot win web-win" data-on="a"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="web-url"><b data-dir="a">hear-public-staging.vercel.app</b><b data-dir="b">hear-public-staging-v2.vercel.app</b></span></span><span class="live">Site preview · full scroll</span><video class="web-va" width="1280" height="800" data-src="img/site-scroll-b.mp4" data-poster="img/site-scroll-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Hear homepage, direction A, from top to bottom"></video><video class="web-vb" width="1280" height="800" data-b-src="img/site-scroll-v2.mp4" data-poster="img/site-scroll-v2-poster.webp" muted loop playsinline preload="none" tabindex="-1" inert aria-hidden="true" aria-label="Scrolling the Hear homepage, direction B, from top to bottom"></video></div>
+    <figure class="rv web-fig" id="web-stage" role="tabpanel" aria-labelledby="web-tab-a"><div class="shot win web-win" data-on="a"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="web-url"><b data-dir="a">hear-public-staging.vercel.app</b><b data-dir="b">hear-public-staging-v2.vercel.app</b></span></span><span class="live">Site preview · full scroll</span><video class="web-va" width="1280" height="800" data-src="img/site-scroll-b.mp4" data-poster="img/site-scroll-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Hear homepage, direction A, from top to bottom"></video><video class="web-vb" width="1280" height="800" data-b-src="img/site-scroll-v2-b.mp4" data-poster="img/site-scroll-v2-poster.webp" muted loop playsinline preload="none" tabindex="-1" inert aria-hidden="true" aria-label="Scrolling the Hear homepage, direction B, from top to bottom"></video></div>
       <figcaption data-dir="a"><b>Direction A, top to bottom.</b> Hero, scroll-revealed thesis, the globe, product sections and the integrations wall.</figcaption>
       <figcaption data-dir="b" hidden><b>Direction B, top to bottom.</b> The same story on cream and ink: a card for every role, AI agents held to one standard, customer stories, a dial that walks from learning to acting, and security built in.</figcaption></figure>
     <div class="offscreen rv">
@@ -1828,7 +1847,7 @@ footer .f-fine { margin-top: 22px; }
     </ul>
   </div>
   <p class="f-fine">© 2026 Ofir Nona. Product screens are shown in Hear Design Lab, a working replica of the product, with demo data for confidentiality.</p>
-</div></footer>
+</div></footer><!-- cs-links -->
 
 <script>
 // icons
@@ -2176,7 +2195,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
 (() => {
   const tabs = document.querySelectorAll('.site-dirs [data-dir]'), fig = document.querySelector('.site-fig'); if (!fig) return;
   const v = fig.querySelector('video'), shot = fig.querySelector('.shot');
-  const SRC = { a: ['img/site-scroll-b.mp4', 'img/site-scroll-poster.webp', '#000', 'direction A'], b: ['img/site-scroll-v2.mp4', 'img/site-scroll-v2-poster.webp', '#f1eee7', 'direction B'] };
+  const SRC = { a: ['img/site-scroll-b.mp4', 'img/site-scroll-poster.webp', '#000', 'direction A'], b: ['img/site-scroll-v2-b.mp4', 'img/site-scroll-v2-poster.webp', '#f1eee7', 'direction B'] };
   tabs.forEach(t => t.addEventListener('click', () => {
     const d = t.dataset.dir, [src, poster, bg, name] = SRC[d];
     tabs.forEach(x => x.setAttribute('aria-selected', x === t));

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hear Design Lab · Ofir Nona</title>
+<meta name="description" content="How I test designs in a working replica of Hear, on demo data, with several designs of one screen a click apart.">
+<meta name="theme-color" content="#0d0d0e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css">
+<style>
+.design-lab-sub { margin: clamp(40px, 6vw, 72px) 0 18px; }
+.design-lab-sub + p { margin-bottom: 22px; }
+.design-lab-tablabel { width: fit-content; padding: 5px 10px 4px; border-radius: 6px; margin-bottom: 2px; }
+.design-lab-note { margin-top: 18px; }
+.design-lab-gap { margin-top: clamp(28px, 4vw, 48px); }
+.design-lab-mini { max-width: 486px; }
+.design-lab-pair { display: grid; grid-template-columns: minmax(0, 2.54fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.design-lab-pair .form { max-width: 440px; }
+@media (max-width: 760px) { .design-lab-pair { grid-template-columns: 1fr; gap: 24px; } .design-lab-pair .form { margin-inline: auto; width: 100%; max-width: 260px; } .design-lab-mini { max-width: 300px; } }
+.compare.shot .live { pointer-events: none; }
+.design-lab-more { margin-top: 22px; }
+.design-lab-more a { color: var(--coral-ink); text-underline-offset: 3px; }
+.design-lab-close { margin-top: clamp(36px, 5vw, 64px); display: grid; gap: 14px; }
+.design-lab-close cite { font: 500 12px/1.4 var(--mono); letter-spacing: .04em; color: var(--mute); font-style: normal; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="home" href="../index.html#design-lab">Ofir<span>.</span> <i>← All work</i></a>
+    <nav aria-label="Case studies"><a class="pill" href="brand-web.html">← Brand &amp; web</a><a class="pill solid" href="explainable-scores.html">Next case</a></nav>
+    <span class="progress" aria-hidden="true"></span>
+  </div>
+</header>
+
+<main id="main">
+  <header class="cs-hero wrap">
+    <div class="label">Case study · <b>Design Lab</b></div>
+    <h1>A working copy of Hear, made to test designs</h1>
+    <p class="lede">When AI tools arrived, I didn't wait for a brief. I started Hear Design Lab, a working replica of Hear, our AI platform for contact centers, and coded it with Claude Code from a colleague's starting app. It runs on realistic demo data: I test designs there before development, switch between several designs of one screen, and make demos tailored to prospects.</p>
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Initiator · design, coded with Claude&nbsp;Code</dd></div>
+      <div><dt>When</dt><dd>Since Feb 2026</dd></div>
+      <div><dt>Scope</dt><dd>Working replica · version switchers · demo environments</dd></div>
+      <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
+    </dl>
+    <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#versions"><span>02</span> One screen, many designs</a><a class="pill" href="#decisions"><span>03</span> Decisions</a><a class="pill" href="#demos"><span>04</span> Demo environments</a><a class="pill" href="#build"><span>05</span> How I build it</a></nav>
+    <figure class="hero-fig rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1280" height="800" data-src="../img/demo-tour-b-r.mp4" data-poster="../img/demo-tour-poster-c.webp" muted loop playsinline preload="none" aria-label="Step by step: the Lab's AI home in a demo company greets the user. A title card reads: Thousands of calls. One clear answer. A question is typed and sent, and an answer card breaks it down by topic. Then the Topics flow view, the Compliance overview and the Actions board."></video></div>
+      <figcaption><b>The Lab in about 30 seconds.</b> A run recorded in the Lab, in a demo company: a question typed into the chat box, the answer, then the Topics, Compliance and Actions screens.</figcaption></figure>
+  </header>
+
+  <!-- 01 -->
+  <section class="chapter" id="problem">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">01 · <b>The problem</b></div><h2>Static mockups couldn't answer the real question</h2></div>
+        <div class="prose">
+          <p>Hear reads every call, chat and ticket between a contact center's agents and its customers. A static mockup shows one tidy state of that. It couldn't answer the real question: how does this design behave for <em>this</em> customer, with their data, at their scale?</p>
+          <p>So the Lab is a working copy of the product. Design decisions get made there, with real interactions and realistic data, not in a slide deck.</p>
+        </div>
+      </div>
+      <div class="two">
+        <figure class="rv"><div class="shot dark"><img src="../img/cs-design-lab-chat-home.webp" data-zoom alt="The Lab's AI home in dark mode. A co-branded workspace header with a customer logo and Powered by Hear, a sidebar in Main, Intelligence and Operations groups with three items tagged DEV, the greeting Good evening, ofir, one question box, a chip for alerts worth a look, and a Briefing V1 to V5 switch in the top bar." width="1600" height="1045" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The Lab's AI home.</b> One workspace per demo environment, the whole product in the sidebar, and a version switch for the briefing in the top bar.</figcaption></figure>
+        <div class="prose">
+          <h3 style="margin-top:0">What's in the Lab</h3>
+          <ul>
+            <li>The product's surfaces in one build, grouped as Main, Intelligence and Operations.</li>
+            <li>A workspace for each demo environment, with the customer's logo next to "Powered by Hear".</li>
+            <li>Version switchers on key screens. This home has one for its briefing, V1 to V5.</li>
+            <li>Three items tagged DEV at the foot of the sidebar: News · Directions, Demos and Storybook.</li>
+            <li>Dark and light themes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="design-lab-sub">How it started</h3>
+      <ol class="steps rv">
+        <li><strong>Feb 2026 · A gallery first</strong><span>A separate component-gallery site. I stopped after two days.</span></li>
+        <li><strong>Mar 2026 · A colleague's starting app</strong><span>A working app to build on: the chat home, sign-in, first versions of several pages, an in-app Design Inspector and Storybook foundations. That base came from a colleague.</span></li>
+        <li><strong>Mar to Jul 2026 · Built out with Claude Code</strong><span>A Lab shell built from the starting one, new pages such as Actions, Signals, Knowledge, AI Tasks and News, and copies of screens to try other designs.</span></li>
+        <li><strong>Oct 2026 · Today</strong><span>Demo environments, switchable versions on five key screens, and a demos engine for prospect demos.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="chapter sheet" id="versions">
+    <div class="wrap">
+      <div class="ch-head center">
+        <div><div class="label">02 · <b>One screen, many designs</b></div><h2>Several designs, one click apart</h2></div>
+        <div class="prose"><p>Key screens in the Lab hold more than one design. A Version control sits in the screen's own toolbar. One click swaps the design while the environment, the data and the view stay where they are.</p></div>
+      </div>
+
+      <div class="vtabs rv">
+        <div class="label design-lab-tablabel">Topics · Landscape · Boxes · <b>same screen, same data</b></div>
+        <div role="tablist" aria-label="Topics screen versions">
+          <button class="pill" role="tab" id="dl-t-face" aria-controls="dl-p-face" aria-selected="true">Facelift · score-first</button>
+          <button class="pill" role="tab" id="dl-t-ref" aria-controls="dl-p-ref" aria-selected="false">Refined</button>
+          <button class="pill" role="tab" id="dl-t-ultra" aria-controls="dl-p-ultra" aria-selected="false">Ultra · latest</button>
+        </div>
+        <div role="tabpanel" id="dl-p-face" aria-labelledby="dl-t-face"><figure><div class="shot"><img src="../img/vb-facelift.webp" data-zoom alt="Topics screen, Facelift version: the highest-volume topics as boxes sized by calls, filled red to green by score, each led by its average score in large type, and a daily calls and score panel drawn as soft areas on the right." width="1300" height="996" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Facelift, the score-first design.</b> Strong red-to-green fills, and the average score as the biggest number in every box. The daily panel draws each topic as a soft area.</figcaption></figure></div>
+        <div role="tabpanel" id="dl-p-ref" aria-labelledby="dl-t-ref" hidden><figure><div class="shot"><img src="../img/vb-refined.webp" data-zoom alt="Topics screen, Refined version: a one-line definition of the score, four summary tiles for calls, average score, lowest score and new topics, boxes in calmer colors, and daily bars for each topic on the right." width="1300" height="996" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Refined.</b> A line that defines the score, four summary tiles above the map, and calmer color: weak topics stay warm, strong ones go slate. Daily bars, each row scaled to its own busiest day.</figcaption></figure></div>
+        <div role="tabpanel" id="dl-p-ultra" aria-labelledby="dl-t-ultra" hidden><figure><div class="shot"><img src="../img/vb-ultra.webp" data-zoom alt="Topics screen, Ultra version: the same boxes as Refined, a Most to gain tile in place of Lowest score, and a daily score panel that sorts by most calls, lowest score or biggest drop." width="1300" height="996" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Ultra, the latest.</b> The "Lowest score" tile becomes "Most to gain". The daily panel shows score alone and sorts by most calls, lowest score or biggest drop.</figcaption></figure></div>
+      </div>
+      <p class="design-lab-note">The same switcher holds a fourth version, Current.</p>
+
+      <div class="compare shot rv design-lab-gap">
+        <img src="../img/vb-refined.webp" alt="Refined version of the Topics screen, with a Lowest score tile and daily bars for calls and score." width="1300" height="996" loading="lazy">
+        <div class="after"><img src="../img/vb-ultra.webp" alt="Ultra version of the same screen, with a Most to gain tile and a sortable daily score panel." width="1300" height="996" loading="lazy"></div>
+        <span class="tag l">Refined</span><span class="tag r">Ultra</span>
+        <input type="range" min="0" max="100" value="50" aria-label="Drag to compare the Refined and Ultra designs of the Topics screen">
+        <span class="handle" aria-hidden="true"></span>
+        <span class="live">Design Lab · demo data</span>
+      </div>
+      <p class="design-lab-note" style="font-size:14px"><b>Refined to Ultra.</b> Drag the handle. The layout holds still; the main changes are the third tile and the daily panel.</p>
+
+      <div class="two design-lab-gap">
+        <figure class="rv design-lab-mini"><div class="shot"><img src="../img/cs-design-lab-switchers.webp" data-zoom alt="Five version switchers from the Lab, each labeled with its screen: Chat home briefing V1 to V5, Data V2 or V3 Facelift, Topics Current, Facelift, Refined or Ultra, Agent Evaluation V2, V3, V4 or V4 plus Filter, and Actions V1 or V2." width="486" height="636" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Five switchers</b>, cropped from five screens and labeled on a neutral background.</figcaption></figure>
+        <div class="prose">
+          <h3 style="margin-top:0">The same control on five screens</h3>
+          <p>The switcher isn't a one-off for Topics. Five key screens carry it:</p>
+          <ul>
+            <li>the AI home's briefing, V1 to V5</li>
+            <li>the calls table, V2 and V3 Facelift</li>
+            <li>Topics: Current, Facelift, Refined and Ultra</li>
+            <li>agent evaluation, V2, V3, V4 and V4 + Filter</li>
+            <li>the actions board, V1 and V2</li>
+          </ul>
+          <p class="why"><b>Design choice:</b> the switch sits on the screen it changes, as the same small segmented control each time, so another version is one click away without leaving the screen.</p>
+        </div>
+      </div>
+
+      <article class="decision rv design-lab-gap">
+        <div class="label">Decision 1 · <b>Where an alternative design sits</b></div>
+        <h3>Should a new design get its own page, or a switch on the screen?</h3>
+        <ul class="opts">
+          <li class="opt"><strong>Its own page in the nav</strong><span>The earlier pattern: a copy of the page with its own nav item, such as Data and Data V2.</span></li>
+          <li class="opt chosen"><strong>A Version switch on the screen</strong><span>Five key screens now carry the switch on the screen itself. The design changes; the data and the view don't.</span></li>
+        </ul>
+        <p class="because"><b>Result:</b> each version is seen on the same data, in the same place. The three Topics designs above share one demo environment and one view, and only the design changes.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="chapter ink" id="decisions">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">03 · <b>Decisions</b></div><h2>Where the Lab forked</h2></div>
+        <div class="prose"><p>Two forks from the Lab's history: what kind of tool the Lab should be, and where its components are documented.</p></div>
+      </div>
+
+      <article class="decision rv">
+        <div class="label">Decision 2 · <b>Gallery or replica</b></div>
+        <h3>Should the Lab be a component gallery, or a working copy of the product?</h3>
+        <ul class="opts">
+          <li class="opt"><strong>A component gallery site</strong><span>My first attempt, in February 2026: a separate site with a sign-in and a gallery that showed each component with Preview and Code tabs. I stopped after two days, with two sample components in it.</span></li>
+          <li class="opt chosen"><strong>A working replica of Hear</strong><span>From March 2026, on a colleague's starting app: the product with its sign-in, navigation and demo data, where a design is tried as a screen among the screens around it.</span></li>
+        </ul>
+        <p class="because"><b>What it gave:</b> a design is judged inside the screen it belongs to, with the data it has to carry, not as a part on its own.</p>
+      </article>
+
+      <article class="decision rv">
+        <div class="label">Decision 3 · <b>Where components are documented</b></div>
+        <h3>Document components in a drawer inside the app, or in Storybook?</h3>
+        <ul class="opts">
+          <li class="opt"><strong>The in-app Design Inspector</strong><span>It came with the starting app: a floating button opened a drawer with Components, Foundations and Icons tabs. I fixed its crashes, documented new components in it and kept it in sync by hand.</span></li>
+          <li class="opt chosen"><strong>Storybook</strong><span>Also part of the starting app. By July 2026 I had added 55 of its 122 stories, including a Pages tier that shows whole screens.</span></li>
+        </ul>
+        <p class="because"><b>Result:</b> I removed the Inspector, and Storybook stayed as the one place the system is documented.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="chapter sheet" id="demos">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">04 · <b>Demo environments</b></div><h2>One build for design reviews and prospect demos</h2></div>
+        <div class="prose">
+          <p>The Lab holds a demo environment for each customer. Sign-in lists them, and a new one starts from a short form: the company's website, a few sentences about it, and its own files.</p>
+          <p>With the version switches, I can compare designs for different kinds of customers. The same build serves design reviews and sales demos.</p>
+        </div>
+      </div>
+
+      <div class="design-lab-pair">
+        <figure class="rv"><div class="shot dark"><img src="../img/cs-design-lab-entry.webp" data-zoom alt="The Lab's entry screen in dark mode: the Hear logo, a Design Lab and Demo toggle with Demo tagged In development, the line The AI for enterprise intelligence, two demo environments, a Create new demo environment button, and a blurred crowd video inside a wave-shaped mask." width="1280" height="790" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The entry.</b> A Design Lab and Demo toggle, the demo environments, and a button to create a new one.</figcaption></figure>
+        <figure class="rv form"><div class="shot dark"><img src="../img/cs-design-lab-demo-form.webp" data-zoom alt="The Set up your demo form: fields for the company website URL and a short description, a drop zone for PDF, CSV, TXT or DOCX files, and a Start demo button." width="440" height="690" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Set up your demo.</b> Website, description and files.</figcaption></figure>
+      </div>
+
+      <article class="decision rv design-lab-gap">
+        <div class="label">Decision 4 · <b>Two modes</b></div>
+        <h3>Should experiments get a shell of their own?</h3>
+        <ul class="opts">
+          <li class="opt"><strong>One shell for everything</strong><span>Keep adding every new page to the one shell the starting app came with.</span></li>
+          <li class="opt chosen"><strong>A Lab shell beside it</strong><span>I built a separate Lab shell from the starting one, for every experiment, and kept the starting shell as Demo mode, with a smaller set of screens.</span></li>
+        </ul>
+        <p class="because"><b>Result:</b> one sign-in, two modes. New work lands in the Lab first, and some of it moves on to Demo later. The entry still offers both, with Demo marked "In development".</p>
+      </article>
+      <p class="design-lab-more">The engine that plays guided demos in the Lab has its own case study: <a href="demos-engine.html">Demos engine</a>.</p>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="chapter ink" id="build">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">05 · <b>How I build it</b></div><h2>Prototyping in code, with Claude&nbsp;Code</h2></div>
+        <div class="prose">
+          <p>I'm a designer with a background in coding. I build the Lab in React with Claude Code, on top of the colleague's starting app, so a design review looks at a working screen, not a picture of one.</p>
+          <p>Three patterns run through the work.</p>
+        </div>
+      </div>
+
+      <ol class="steps rv">
+        <li><strong>Duplicate, compare, delete</strong><span>A new idea gets its own copy of the screen while the original keeps working. Later one of them goes: News V1 was dropped, and V2 became the News page. Data still keeps two versions side by side.</span></li>
+        <li><strong>Real fields, illustrative values</strong><span>Screens stay close to what the platform really has. News uses real field and metric names with illustrative values, the Data filter presets point only at columns you can really filter on, and an invented "risk" concept was taken out.</span></li>
+        <li><strong>Reuse before inventing</strong><span>New pages are built from parts that exist. The Settings section uses only existing components, and the Knowledge glossary row reuses the item row from Signals.</span></li>
+      </ol>
+
+      <dl class="facts rv design-lab-gap">
+        <div><dt>Key screens with switchable versions</dt><dd>5</dd></div>
+        <div><dt>Designs in the Topics switcher</dt><dd>4</dd></div>
+        <div><dt>Storybook stories I added, by July 2026</dt><dd>55</dd></div>
+      </dl>
+
+      <div class="design-lab-close rv">
+        <p class="pull">A replica of our platform I made to test designs and ideas.</p>
+        <cite>How I describe the Lab, Oct 2026</cite>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <a class="next" href="explainable-scores.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Explainable scores</h2></div><span class="arrow" aria-hidden="true">→</span></a>
+    <div class="sources"><p>Screens from Hear Design Lab with demo data; people's names blurred. The pull quote is Ofir's own description of the Lab (Oct 2026).</p></div>
+  </div>
+</main>
+<footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<script src="case.js"></script>
+</body>
+</html>
