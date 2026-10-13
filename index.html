@@ -2177,6 +2177,157 @@ html.sheet-arcs #product { background: none; }
   #system .dw-t:hover { transform: none; }
 }
 
+/* e-web: Branding & website. A calmer, framed A/B player; a brand strip with more presence; a gallery viewer for the brand images */
+/* A/B player: the window sits in soft depth, the address bar gets its lock, the open link reads as a quiet pill */
+#web .wx-win { border-radius: 18px; border-color: rgba(242,239,231,.1); box-shadow: 0 0 0 1px rgba(0,0,0,.4), 0 60px 120px -60px rgba(0,0,0,.95), 0 24px 48px -32px rgba(0,0,0,.7); }
+#web .wx-addr { padding: 0 14px 0 30px; }
+#web .wx-addr::before { content: ""; position: absolute; left: 12px; top: 50%; width: 9px; height: 10px; translate: 0 -50%; background: currentColor; opacity: .75; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 10'%3E%3Cpath d='M2 4V3a2.5 2.5 0 0 1 5 0v1h.5a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm1 0h3V3a1.5 1.5 0 0 0-3 0z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 10'%3E%3Cpath d='M2 4V3a2.5 2.5 0 0 1 5 0v1h.5a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm1 0h3V3a1.5 1.5 0 0 0-3 0z'/%3E%3C/svg%3E") center / contain no-repeat; }
+#web .wx-tab .wx-k { transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .3s; }
+#web .wx-tab[aria-selected="true"] .wx-k { box-shadow: inset 0 0 0 1px rgba(242,239,231,.22), 0 0 0 3px rgba(255,112,86,.22); }
+#web .wx-tab[data-dir="b"][aria-selected="true"] .wx-k { box-shadow: 0 0 0 3px rgba(255,112,86,.22); }
+#web .wx-tab:not([aria-selected="true"]) .wx-k { opacity: .8; }
+#web .wx-stage > video { cursor: pointer; }
+#web .wx-pz { position: absolute; left: 50%; top: 50%; z-index: 2; display: grid; place-items: center; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: rgba(13,13,14,.78); box-shadow: inset 0 0 0 1px rgba(242,239,231,.18), 0 18px 40px -16px rgba(0,0,0,.8); color: var(--paper); pointer-events: none; opacity: 0; transform: scale(.92); transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1); }
+#web .wx-pz svg { width: 22px; height: 22px; margin-left: 3px; }
+#web .wx.wx-paused .wx-pz { opacity: 1; transform: none; }
+#web .wx-cap a { display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border-radius: 99px; box-shadow: inset 0 0 0 1px rgba(255,112,86,.32); transition: background-color .25s, box-shadow .25s; }
+#web .wx-cap a:hover { text-decoration: none; background: rgba(255,112,86,.1); box-shadow: inset 0 0 0 1px rgba(255,112,86,.6); }
+#web .wx-cap a:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+#web .wx-cap { align-items: center; }
+
+/* brand strip: larger tiles on desktop, a gentle lift and an enlarge mark on hover */
+#web .br-strip { padding-block: 12px 2px; }
+#web .br-item .shot { transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease, border-color .3s; }
+#web .br-item .shot::before { content: ""; position: absolute; z-index: 2; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%; background: rgba(13,13,14,.82) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2efe7' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 4h5v5M9 20H4v-5M20 4l-6 6M4 20l6-6'/%3E%3C/svg%3E") center / 14px no-repeat; box-shadow: inset 0 0 0 1px rgba(242,239,231,.16); opacity: 0; transform: scale(.9); transition: opacity .3s ease, transform .4s cubic-bezier(.2,.7,.2,1); pointer-events: none; }
+@media (min-width: 761px) {
+  #web .br-item .shot { height: clamp(160px, 15vw, 264px); border-radius: 14px; }
+  #web .br-track { gap: 16px; }
+}
+@media (hover: hover) {
+  #web .br-item:hover .shot { transform: translateY(-5px); border-color: rgba(242,239,231,.18); box-shadow: 0 22px 40px -22px rgba(0,0,0,.95); }
+  #web .br-item:hover .shot::before { opacity: 1; transform: none; }
+  #web .br-strip.dragging .br-item .shot { transform: none; }
+  #web .br-strip.dragging .br-item .shot::before { opacity: 0; }
+}
+#web .br-hint { display: flex; justify-content: flex-end; max-width: none; margin: 14px 0 0; text-align: right; font: 500 11px/1.3 var(--mono); letter-spacing: .02em; color: rgba(242,239,231,.45); }
+#web .br-hint .t { display: none; }
+@media (hover: none) { #web .br-hint .m { display: none; } #web .br-hint .t { display: inline; } }
+
+/* brand viewer: one calm dark dialog, the large image, its name and line, arrows and a thumbnail rail */
+#web .bx { padding: 0; border: 0; margin: auto; width: min(1320px, calc(100vw - 48px)); max-width: none; max-height: calc(100dvh - 48px); border-radius: 24px; background: #111113; color: var(--paper); box-shadow: 0 0 0 1px rgba(242,239,231,.08), 0 40px 120px -40px rgba(0,0,0,.9); overflow: hidden; overscroll-behavior: contain; }
+#web .bx:focus, #web .bx:focus-visible { outline: none; }
+#web .bx::backdrop { background: rgba(6,6,7,.84); }
+#web .bx[open] { animation: bx-in .36s cubic-bezier(.2,.7,.2,1); }
+#web .bx[open]::backdrop { animation: bx-fade .36s ease; }
+#web .bx.out { opacity: 0; transform: translateY(6px) scale(.985); transition: opacity .18s ease, transform .18s ease; }
+@keyframes bx-in { from { opacity: 0; transform: translateY(10px) scale(.985); } }
+@keyframes bx-fade { from { opacity: 0; } }
+#web .bx-in { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: min(940px, calc(100dvh - 48px)); }
+#web .bx-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 6px 16px; padding: 18px 18px 14px 24px; }
+#web .bx-n { margin: 0; font: 500 11.5px/1.3 var(--mono); letter-spacing: .04em; color: rgba(242,239,231,.5); }
+#web .bx-n b { color: var(--coral); font-weight: 500; }
+#web .bx-t { grid-column: 1; margin: 0; font: 700 clamp(20px, 2vw, 27px)/1.1 var(--display); letter-spacing: -.025em; color: var(--paper); overflow-wrap: anywhere; }
+#web .bx-x { grid-column: 2; grid-row: 1 / span 2; }
+#web .bx-b { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border-radius: 99px; border: 0; background: rgba(242,239,231,.06); box-shadow: inset 0 0 0 1px rgba(242,239,231,.14); color: var(--paper); cursor: pointer; transition: background-color .2s, box-shadow .2s, transform .25s cubic-bezier(.2,.7,.2,1); }
+#web .bx-b svg { width: 18px; height: 18px; }
+#web .bx-b:hover { background: rgba(242,239,231,.1); box-shadow: inset 0 0 0 1px rgba(255,112,86,.7); }
+#web .bx-b:active { transform: scale(.96); }
+#web .bx-b:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+#web .bx-stage { position: relative; margin: 0 18px; display: grid; min-height: 0; overflow: hidden; border-radius: 16px; background: #0a0a0b; box-shadow: inset 0 0 0 1px rgba(242,239,231,.06); }
+#web .bx-sc { grid-area: 1 / 1; min-width: 0; min-height: 0; display: grid; place-items: center; overflow: hidden; overscroll-behavior: contain; }
+#web .bx-stage.zoom .bx-sc { place-items: start; overflow: auto; touch-action: pan-x pan-y; }
+#web .bx-img { display: block; margin: auto; max-width: none; border-radius: 10px; box-shadow: 0 30px 70px -40px rgba(0,0,0,.9); transition: opacity .28s ease; user-select: none; -webkit-user-drag: none; }
+#web .bx-img.ld { opacity: 0; }
+#web .bx-stage.can .bx-img { cursor: zoom-in; }
+#web .bx-stage.zoom .bx-img { cursor: zoom-out; border-radius: 0; }
+#web .bx-bot { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 14px 18px 18px; }
+#web .bx-mid { min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+#web .bx-d { margin: 0; max-width: none; font-size: 14px; line-height: 1.4; text-align: center; color: rgba(242,239,231,.66); }
+#web .bx-th { display: flex; gap: 6px; max-width: 100%; padding: 3px; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
+#web .bx-th::-webkit-scrollbar { display: none; }
+#web .bx-th button { flex: none; height: 40px; padding: 0; border: 0; border-radius: 7px; overflow: hidden; background: #1c1c1f; opacity: .45; cursor: pointer; transition: opacity .25s, box-shadow .25s; }
+#web .bx-th button img { display: block; height: 100%; width: auto; pointer-events: none; }
+#web .bx-th button:hover { opacity: .8; }
+#web .bx-th button[aria-current="true"] { opacity: 1; box-shadow: 0 0 0 2px var(--coral); }
+#web .bx-th button:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; opacity: 1; }
+#web .bx-h { margin: 0; font: 500 10.5px/1.3 var(--mono); letter-spacing: .04em; color: rgba(242,239,231,.38); }
+@media (hover: none) { #web .bx-h { display: none; } }
+@media (max-width: 760px) {
+  #web .bx { width: 100vw; max-height: 100dvh; height: 100dvh; border-radius: 0; }
+  #web .bx-in { height: 100dvh; }
+  #web .bx-top { padding: calc(env(safe-area-inset-top, 0px) + 14px) 12px 10px 16px; gap: 4px 10px; }
+  #web .bx-t { font-size: 19px; }
+  #web .bx-stage { margin: 0 10px; }
+  #web .bx-bot { grid-template-columns: auto minmax(0, 1fr) auto; padding: 10px 12px calc(env(safe-area-inset-bottom, 0px) + 14px); gap: 10px; }
+  #web .bx-d { font-size: 13px; }
+  #web .bx-th button { height: 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #web .br-item .shot, #web .br-item .shot::before, #web .wx-pz, #web .bx-img, #web .bx-b, #web .bx.out, #web .wx-tab .wx-k { transition: none !important; }
+  #web .br-item:hover .shot { transform: none; }
+  #web .bx[open], #web .bx[open]::backdrop { animation: none; }
+}
+
+/* e-lab: Design Lab tour gets a player row (play/pause, scrubbable rail with chapter segments, time) and chips that fill as the clip plays;
+   the three-version stage names the version in its window bar and takes arrow keys; Stack reads as chips */
+#design-lab .meta { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: max-content; }
+#design-lab .meta div { padding-right: clamp(32px, 5vw, 72px); }
+#design-lab .lab-stack { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+#design-lab .lab-stack li { padding: 5px 10px 4px; border-radius: 99px; font-size: 13.5px; line-height: 1.2; color: rgba(242,239,231,.86); background: rgba(242,239,231,.05); box-shadow: inset 0 0 0 1px rgba(242,239,231,.14); }
+#design-lab .meta dd.lab-stack-dd { margin-top: 7px; }
+
+#design-lab .lt-ctl { display: none; }
+#design-lab .lab-tour.lt-pp .lt-ctl { display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; align-items: center; gap: 14px; margin-top: 16px; }
+#design-lab .lab-tour.lt-pp .lt-ctl .lt-rail { margin: 0; }
+#design-lab .lt-pb { position: relative; display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 0; border-radius: 50%; color: #160805; background: var(--paper); cursor: pointer; transition: background-color .25s, transform .25s cubic-bezier(.2,.7,.2,1); }
+#design-lab .lt-pb:hover { background: #fff; transform: scale(1.05); }
+#design-lab .lt-pb:active { transform: scale(.96); }
+#design-lab .lt-pb:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+#design-lab .lt-pb svg { grid-area: 1 / 1; width: 14px; height: 14px; fill: currentColor; transition: opacity .2s, transform .25s; }
+#design-lab .lt-pb .i-pause, #design-lab .lab-tour.playing .lt-pb .i-play { opacity: 0; transform: scale(.7); }
+#design-lab .lab-tour.playing .lt-pb .i-pause { opacity: 1; transform: none; }
+#design-lab .lt-pb .i-play { transform: translateX(1px); }
+#design-lab .lt-time { min-width: 7.2ch; font: 500 12px/1 var(--mono); letter-spacing: .02em; font-variant-numeric: tabular-nums; text-align: right; color: rgba(242,239,231,.56); }
+#design-lab .lt-time b { font-weight: 500; color: var(--paper); }
+#design-lab .lab-tour.lt-pp .lt-rail { height: 4px; cursor: pointer; touch-action: none; }
+#design-lab .lab-tour.lt-pp .lt-rail::before { content: ""; position: absolute; inset: -14px 0; }
+#design-lab .lab-tour.lt-pp .lt-rail b { top: -2px; height: 8px; background: #111113; width: 3px; margin-left: -1.5px; border-radius: 0; }
+#design-lab .lab-tour.lt-pp .lt-fill { background: var(--coral); }
+#design-lab .lt-seg { position: absolute; top: 0; bottom: 0; border-radius: inherit; background: rgba(242,239,231,.14); opacity: 0; transition: opacity .3s; pointer-events: none; }
+#design-lab .lt-seg.on { opacity: 1; }
+#design-lab .lt-knob { position: absolute; top: 50%; left: calc(var(--p, 0) * 100%); width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--paper); box-shadow: 0 0 0 3px rgba(255,112,86,.35); opacity: 0; transform: scale(.5); transition: opacity .2s, transform .2s; pointer-events: none; }
+#design-lab .lt-rail:hover .lt-knob, #design-lab .lt-rail.drag .lt-knob { opacity: 1; transform: none; }
+#design-lab .lab-tour.lt-pp figcaption { margin-top: 14px; align-items: center; }
+
+#design-lab .lt-chaps button { position: relative; overflow: hidden; }
+#design-lab .lt-chaps button::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--coral); transform-origin: left; transform: scaleX(var(--cp, 0)); opacity: 0; transition: opacity .3s; }
+#design-lab .lt-chaps button.on::after { opacity: 1; }
+#design-lab .lt-chaps button.done { color: rgba(242,239,231,.8); }
+#design-lab .lt-chaps button.done i { color: var(--coral); }
+
+#design-lab .vl-title { position: absolute; left: 50%; top: 0; height: 30px; display: flex; align-items: center; gap: 8px; transform: translateX(-50%); white-space: nowrap; font: 500 11.5px/1 var(--mono); letter-spacing: .02em; color: #6d6a64; pointer-events: none; }
+#design-lab .vl-title b { font-weight: 500; color: #2a2724; }
+#design-lab .vl-title em { font-style: normal; color: #8a867e; }
+#design-lab .vl-title .vl-of { margin-left: 4px; color: #a19d95; }
+#design-lab .vl-title .vl-tt { transition: opacity .35s; }
+#design-lab .vl-title.sw .vl-tt { opacity: 0; transition: none; }
+#design-lab .vl-cap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+#design-lab .vl-keys { display: none; align-items: center; gap: 4px; color: rgba(242,239,231,.46); }
+#design-lab .vl-keys kbd { display: inline-grid; place-items: center; min-width: 22px; height: 20px; padding: 0 5px; border-radius: 5px; font: 500 12px/1 var(--body); color: rgba(242,239,231,.78); background: rgba(242,239,231,.05); box-shadow: inset 0 0 0 1px rgba(242,239,231,.16), inset 0 -1px 0 rgba(242,239,231,.12); }
+#design-lab .vl-keys span { margin-left: 4px; }
+@media (hover: hover) and (pointer: fine) { #design-lab .vl-keys { display: inline-flex; } }
+@media (max-width: 760px) {
+  #design-lab .vl-title { height: 20px; font-size: 10px; }
+  #design-lab .lab-tour.lt-pp .lt-ctl { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 12px; }
+  #design-lab .lt-pb { width: 34px; height: 34px; }
+  #design-lab .meta { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #design-lab .meta div { padding-right: 16px; }
+}
+@media (max-width: 420px) { #design-lab .vl-title .vl-of { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  #design-lab .lt-pb, #design-lab .lt-pb svg, #design-lab .lt-knob, #design-lab .vl-title .vl-tt { transition: none; }
+}
+
 </style>
 </head>
 <body>
@@ -2317,7 +2468,7 @@ html.sheet-arcs #product { background: none; }
       <div><p>A working replica of Hear that I started on my own initiative and coded with Claude Code from a colleague's starting app. I test designs there in a working interface instead of static mockups, and it produces demos tailored to each prospect.</p>
         <div class="mr"><a class="btn ghost cs-more cs-head" href="work/design-lab.html">Read the full case study <span aria-hidden="true">→</span></a></div></div>
     </div>
-    <dl class="meta rv"><div><dt>Role</dt><dd>Initiator · design &amp; code</dd></div><div><dt>Stack</dt><dd>React · Vite · Storybook</dd></div></dl>
+    <dl class="meta rv"><div><dt>Role</dt><dd>Initiator · design &amp; code</dd></div><div><dt>Stack</dt><dd class="lab-stack-dd"><ul class="lab-stack"><li>React</li><li>Vite</li><li>Storybook</li></ul></dd></div></dl>
 
     <figure class="rv lab-tour"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/demo-tour-nb-r2.mp4" data-poster="img/demo-tour-poster-flow.webp" muted loop playsinline preload="none" aria-label="A question typed into the Lab, the answer, then Topics, Compliance and Actions"></video></div>
       <div class="lt-rail" aria-hidden="true"><i class="lt-fill"></i></div>
@@ -4228,6 +4379,258 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     f.tabIndex = 0; f.setAttribute('role', 'button'); f.setAttribute('aria-haspopup', 'dialog');
     f.setAttribute('aria-label', 'Inspect ' + cap.textContent.replace(/\s+/g, ' ').trim());
     f.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(bentoSet(), tiles().indexOf(f), f, true); } });
+  });
+})();
+
+// e-web: brand viewer. Clicking a brand-strip image (or its drifting copy) opens one calm dialog with the large version, its name and line,
+// arrows, a thumbnail rail and swipe; Esc or a click outside closes. It runs before the page's generic lightbox, which stays for the rest of the site.
+// The A/B player also shows a quiet play mark when the visitor pauses it by hand
+(() => {
+  const sec = document.getElementById('web'); if (!sec) return;
+  const box = sec.querySelector('.wx');
+  if (box) {
+    const stage = box.querySelector('.wx-stage');
+    if (stage) {
+      const pz = document.createElement('span'); pz.className = 'wx-pz'; pz.setAttribute('aria-hidden', 'true');
+      pz.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a.6.6 0 0 0 .9.5l10.4-6.5a.6.6 0 0 0 0-1L8.9 5a.6.6 0 0 0-.9.5z"/></svg>';
+      stage.appendChild(pz);
+      let hand = 0;
+      box.querySelectorAll('.wx-v').forEach(v => {
+        v.addEventListener('pointerdown', () => { hand = performance.now(); });
+        v.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') hand = performance.now(); });
+        v.addEventListener('pause', () => { if (v.dataset.dir === box.dataset.on && performance.now() - hand < 600 && !v.ended) box.classList.add('wx-paused'); });
+        v.addEventListener('play', () => box.classList.remove('wx-paused'));
+      });
+      new MutationObserver(() => box.classList.remove('wx-paused')).observe(box, { attributes: true, attributeFilter: ['data-on'] });
+    }
+  }
+
+  const strip = sec.querySelector('.br-strip'), track = strip && strip.querySelector('.br-track');
+  if (!track || typeof HTMLDialogElement !== 'function') return;
+  const items = [...track.querySelectorAll('.br-item:not([aria-hidden])')]; if (!items.length) return;
+  const set = items.map(f => { const im = f.querySelector('img'), s = f.querySelector('span');
+    return { src: im.dataset.full || im.getAttribute('src'), th: im.getAttribute('src'), t: s ? s.textContent.trim() : '', d: im.alt || '' }; });
+  const N = set.length, pad = k => String(k).padStart(2, '0');
+  const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ico = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+
+  // a quiet hint under the strip, so the viewer is found
+  const hint = document.createElement('p'); hint.className = 'br-hint';
+  hint.innerHTML = '<span class="m">Drag to browse · click any image to view it larger</span><span class="t">Swipe to browse · tap any image to view it larger</span>';
+  strip.after(hint);
+  strip.setAttribute('aria-label', strip.getAttribute('aria-label') + '. Press Enter to view the images one by one');
+
+  const dlg = document.createElement('dialog');
+  dlg.className = 'bx'; dlg.setAttribute('aria-labelledby', 'bx-t'); dlg.setAttribute('aria-describedby', 'bx-d');
+  dlg.innerHTML = `<div class="bx-in">
+    <div class="bx-top"><p class="bx-n" aria-live="polite"><b></b> / ${pad(N)}</p><h3 class="bx-t" id="bx-t"></h3><button type="button" class="bx-b bx-x" aria-label="Close">${ico('M6 6l12 12M18 6L6 18')}</button></div>
+    <div class="bx-stage"><div class="bx-sc"><img class="bx-img" alt="" decoding="async"></div></div>
+    <div class="bx-bot"><button type="button" class="bx-b bx-p" aria-label="Previous image">${ico('M15 5l-7 7 7 7')}</button><div class="bx-mid"><p class="bx-d" id="bx-d"></p><div class="bx-th"></div><p class="bx-h">← → to browse · Esc to close</p></div><button type="button" class="bx-b bx-nx" aria-label="Next image">${ico('M9 5l7 7-7 7')}</button></div>
+  </div>`;
+  sec.appendChild(dlg);
+  const $ = s => dlg.querySelector(s), stage = $('.bx-stage'), sc = $('.bx-sc'), img = $('.bx-img'), rail = $('.bx-th');
+  const thumbs = set.map((it, k) => {
+    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', `Image ${k + 1} of ${N}: ${it.t}`);
+    const t = document.createElement('img'); t.src = it.th; t.alt = ''; t.loading = 'lazy'; t.decoding = 'async'; b.appendChild(t);
+    b.addEventListener('click', () => show(k)); rail.appendChild(b); return b;
+  });
+  let i = 0, from = null, kbd = false, zoom = false, fit = null;
+
+  const size = () => {
+    const nw = img.naturalWidth, nh = img.naturalHeight; if (!nw || !nh) return;
+    const r = stage.getBoundingClientRect(), gap = innerWidth <= 600 ? 16 : 40, aw = r.width - gap, ah = r.height - gap;
+    const s = Math.min(aw / nw, ah / nh, 1.25);
+    // on a narrow screen a wide image fills the stage height when zoomed, so its detail can be panned
+    const zs = Math.max(1, ah / nh * .98);
+    fit = { w: Math.round(nw * s), h: Math.round(nh * s), zw: Math.round(nw * Math.max(zs, s)), zh: Math.round(nh * Math.max(zs, s)) };
+    const can = fit.zw > fit.w * 1.3;
+    if (!can) zoom = false;
+    stage.classList.toggle('can', can); stage.classList.toggle('zoom', zoom);
+    $('.bx-h').textContent = can ? '← → to browse · click the image to zoom · Esc to close' : '← → to browse · Esc to close';
+    img.style.width = (zoom ? fit.zw : fit.w) + 'px'; img.style.height = (zoom ? fit.zh : fit.h) + 'px';
+  };
+  const show = n => {
+    i = (n + N) % N; zoom = false;
+    const it = set[i];
+    $('.bx-n b').textContent = pad(i + 1); $('.bx-t').textContent = it.t; $('.bx-d').textContent = it.d;
+    img.alt = it.d || it.t;
+    thumbs.forEach((b, k) => b.setAttribute('aria-current', String(k === i)));
+    const tb = thumbs[i]; rail.scrollTo({ left: tb.offsetLeft - rail.clientWidth / 2 + tb.offsetWidth / 2, behavior: reduce() ? 'auto' : 'smooth' });
+    if (img.getAttribute('src') !== it.src) { if (!reduce()) img.classList.add('ld'); img.src = it.src; }
+    size(); sc.scrollTo(0, 0);
+    (img.decode ? img.decode() : Promise.resolve()).catch(() => {}).then(() => { if (set[i] === it) { size(); img.classList.remove('ld'); } });
+    [set[(i + 1) % N], set[(i - 1 + N) % N]].forEach(x => { const p = new Image(); p.src = x.src; });
+  };
+  img.addEventListener('load', size);
+  const open = (n, el, k) => {
+    from = el; kbd = k;
+    dlg.classList.remove('out'); dlg.showModal(); show(n);
+    $('.bx-x').focus({ preventScroll: true });
+  };
+  let shut = 0;
+  const close = () => {
+    if (!dlg.open) return;
+    const done = () => { clearTimeout(shut); dlg.classList.remove('out'); if (dlg.open) dlg.close(); };
+    if (reduce()) done(); else { dlg.classList.add('out'); shut = setTimeout(done, 180); }
+  };
+  dlg.addEventListener('close', () => {
+    if (from && kbd) from.focus({ preventScroll: true }); else if (document.activeElement && dlg.contains(document.activeElement)) document.activeElement.blur();
+    from = null;
+  });
+  dlg.addEventListener('cancel', e => { e.preventDefault(); close(); });
+  dlg.addEventListener('click', e => { if (e.target === dlg) close(); });
+  $('.bx-x').addEventListener('click', close);
+  $('.bx-p').addEventListener('click', () => show(i - 1));
+  $('.bx-nx').addEventListener('click', () => show(i + 1));
+  dlg.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); show(i + (e.key === 'ArrowRight' ? 1 : -1)); }
+    else if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); show(e.key === 'Home' ? 0 : N - 1); }
+    else if (e.key === 'Tab') {
+      const f = [...dlg.querySelectorAll('button')], a = f.indexOf(document.activeElement);
+      e.preventDefault(); f[(a + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  });
+  // click the image to zoom and pan; the click point stays under the cursor
+  img.addEventListener('click', e => {
+    if (!stage.classList.contains('can') || moved) return;
+    const r = img.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+    zoom = !zoom; size();
+    if (zoom) sc.scrollTo(img.offsetLeft + fit.zw * px - sc.clientWidth / 2, img.offsetTop + fit.zh * py - sc.clientHeight / 2);
+  });
+  // the page under the dialog stays put
+  dlg.addEventListener('wheel', e => { if (!(zoom && sc.contains(e.target))) e.preventDefault(); }, { passive: false });
+  // swipe to step on touch (not while zoomed, where a swipe pans)
+  let sx = null, sy = 0, moved = false;
+  stage.addEventListener('pointerdown', e => { moved = false; if (e.pointerType !== 'mouse' && !zoom) { sx = e.clientX; sy = e.clientY; } });
+  stage.addEventListener('pointerup', e => {
+    if (sx === null) return; const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) { moved = true; show(i + (dx < 0 ? 1 : -1)); }
+  });
+  stage.addEventListener('pointercancel', () => { sx = null; });
+  let rt; addEventListener('resize', () => { if (!dlg.open) return; cancelAnimationFrame(rt); rt = requestAnimationFrame(size); });
+
+  // openers: any strip image, or Enter on the focused strip (starts from the first image in view)
+  const indexOf = fig => { const all = [...track.children]; return all.indexOf(fig) % N; };
+  strip.addEventListener('click', e => {
+    const fig = e.target.closest('.br-item'); if (!fig || !track.contains(fig)) return;
+    e.stopPropagation(); open(indexOf(fig), strip, false);
+  });
+  strip.addEventListener('keydown', e => {
+    if (e.target !== strip || (e.key !== 'Enter' && e.key !== ' ')) return;
+    e.preventDefault();
+    const sr = strip.getBoundingClientRect(), all = [...track.children];
+    const first = all.find(t => { const r = t.getBoundingClientRect(); return r.left >= sr.left - 2 && r.right <= sr.right + 2; }) || all[0];
+    open(indexOf(first), strip, true);
+  });
+})();
+
+// e-lab: Design Lab tour player row (play/pause, scrubbable rail with the current chapter's span, time) and chips that fill as the clip plays;
+// the versions stage names the shown version in its window bar and takes the arrow keys. Plays and pauses go through the video itself,
+// from buttons inside the section, so the one-video-at-a-time coordinator counts them as the visitor's own
+(() => {
+  const sec = document.getElementById('design-lab'); if (!sec) return;
+  const fig = sec.querySelector('.lab-tour.lt-on'), v = fig && fig.querySelector('video'), rail = fig && fig.querySelector('.lt-rail');
+  if (v && rail) {
+    const chips = [...fig.querySelectorAll('.lt-chaps [data-t]')], row = fig.querySelector('.lt-chaps'), DUR = 33.5;
+    const dur = () => (isFinite(v.duration) && v.duration > 0 ? v.duration : DUR);
+    const mmss = t => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
+    const ctl = document.createElement('div'); ctl.className = 'lt-ctl';
+    const pb = document.createElement('button'); pb.type = 'button'; pb.className = 'lt-pb';
+    pb.innerHTML = '<svg class="i-play" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.6v10.8a.6.6 0 00.9.5l8.6-5.4a.6.6 0 000-1L3.9 1.1a.6.6 0 00-.9.5z"/></svg><svg class="i-pause" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.5" y="1.5" width="3.2" height="11" rx="1"/><rect x="8.3" y="1.5" width="3.2" height="11" rx="1"/></svg>';
+    const tm = document.createElement('span'); tm.className = 'lt-time'; tm.setAttribute('aria-hidden', 'true');
+    rail.before(ctl); ctl.append(pb, rail, tm);
+    const knob = document.createElement('i'); knob.className = 'lt-knob'; rail.appendChild(knob);
+    const segs = chips.map(() => { const s = document.createElement('i'); s.className = 'lt-seg'; rail.insertBefore(s, rail.firstChild); return s; });
+    const layout = () => chips.forEach((c, i) => {
+      const a = +c.dataset.t, b = i + 1 < chips.length ? +chips[i + 1].dataset.t : dur();
+      segs[i].style.left = (a / dur() * 100) + '%'; segs[i].style.width = ((b - a) / dur() * 100) + '%';
+    });
+    let cur = -2, last = -1;
+    const paint = () => {
+      const t = v.currentTime || 0, d = dur(); let k = -1;
+      chips.forEach((c, i) => { if (t >= +c.dataset.t) k = i; });
+      chips.forEach((c, i) => {
+        const a = +c.dataset.t, b = i + 1 < chips.length ? +chips[i + 1].dataset.t : d;
+        c.style.setProperty('--cp', Math.max(0, Math.min(1, (t - a) / (b - a))).toFixed(3));
+        c.classList.toggle('done', i < k);
+      });
+      if (k !== cur) {
+        cur = k; segs.forEach((s, i) => s.classList.toggle('on', i === k));
+        const c = chips[k];
+        if (c && row && row.scrollWidth > row.clientWidth + 2) {
+          const l = c.offsetLeft - row.offsetLeft, r = l + c.offsetWidth;
+          if (l < row.scrollLeft || r > row.scrollLeft + row.clientWidth) row.scrollTo({ left: Math.max(0, l - 16), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        }
+      }
+      const s = Math.floor(t);
+      if (s !== last) { last = s; tm.innerHTML = `<b>${mmss(t)}</b> / ${mmss(d)}`; }
+    };
+    const state = () => {
+      const on = !v.paused; fig.classList.toggle('playing', on);
+      pb.setAttribute('aria-label', on ? 'Pause the tour' : 'Play the tour');
+    };
+    const ensure = go => {
+      if (!v.getAttribute('src') && v.dataset.src) { if (v.dataset.poster && !v.getAttribute('poster')) v.poster = v.dataset.poster; v.src = v.dataset.src; }
+      if (v.readyState >= 1) go(); else v.addEventListener('loadedmetadata', go, { once: true });
+    };
+    pb.addEventListener('click', () => { if (v.paused) ensure(() => v.play().catch(() => {})); else v.pause(); });
+    // the rail seeks: click or drag; the clip keeps its play state
+    const at = e => { const r = rail.getBoundingClientRect(); return Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)); };
+    let drag = false;
+    const seekTo = f => ensure(() => { v.currentTime = Math.min(dur() - .05, f * dur()); rail.style.setProperty('--p', f); paint(); });
+    rail.addEventListener('pointerdown', e => { if (e.button) return; drag = true; rail.classList.add('drag'); try { rail.setPointerCapture(e.pointerId); } catch (_) {} seekTo(at(e)); });
+    rail.addEventListener('pointermove', e => { if (drag) seekTo(at(e)); });
+    const end = () => { drag = false; rail.classList.remove('drag'); };
+    rail.addEventListener('pointerup', end); rail.addEventListener('pointercancel', end);
+    let raf = 0;
+    const loop = () => { paint(); raf = v.paused ? 0 : requestAnimationFrame(loop); };
+    v.addEventListener('play', () => { state(); if (!raf) raf = requestAnimationFrame(loop); });
+    v.addEventListener('pause', () => { state(); paint(); });
+    ['seeked', 'timeupdate'].forEach(n => v.addEventListener(n, () => { if (v.paused) paint(); }));
+    v.addEventListener('loadedmetadata', () => { layout(); paint(); });
+    layout(); paint(); state(); fig.classList.add('lt-pp');
+  }
+
+  // versions: a title in the window bar names the version on stage; left/right arrows step through them while the stage is hovered or focused
+  const vl = sec.querySelector('.vl'), tabs = vl ? [...vl.querySelectorAll('[role=tab]')] : [];
+  if (!tabs.length) return;
+  const bar = vl.querySelector('.vl-stage .bar'), cap = vl.querySelector('.vl-cap');
+  const names = tabs.map(t => (t.querySelector('.vl-name').firstChild.textContent || '').trim());
+  const ttl = document.createElement('span'); ttl.className = 'vl-title'; ttl.setAttribute('aria-hidden', 'true');
+  ttl.innerHTML = '<span class="vl-tt"></span>';
+  if (bar) bar.appendChild(ttl);
+  const sel = () => Math.max(0, tabs.findIndex(t => t.getAttribute('aria-selected') === 'true'));
+  let shown = -1;
+  const title = () => {
+    const i = sel(); if (i === shown) return; const first = shown < 0; shown = i;
+    const fill = () => { ttl.firstChild.innerHTML = `<em>Topics ·</em> <b>${names[i]}</b> <em class="vl-of">${String(i + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')}</em>`; };
+    if (first) return fill();
+    ttl.classList.add('sw'); setTimeout(() => { fill(); void ttl.offsetWidth; ttl.classList.remove('sw'); }, 380);
+  };
+  title();
+  new MutationObserver(title).observe(vl, { attributes: true, attributeFilter: ['data-v'] });
+  if (cap) {
+    const k = document.createElement('span'); k.className = 'vl-keys'; k.setAttribute('aria-hidden', 'true');
+    k.innerHTML = '<kbd>←</kbd><kbd>→</kbd><span>to compare</span>';
+    const label = document.createElement('span'); label.textContent = cap.textContent; cap.textContent = ''; cap.append(label, k);
+  }
+  const stage = vl.querySelector('.vl-stage'), grid = vl.querySelector('.vl-grid');
+  let over = false;
+  grid.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') over = true; });
+  grid.addEventListener('pointerleave', () => { over = false; });
+  const step = (d, focusImg) => {
+    const n = sel() + d; if (n < 0 || n >= tabs.length) return false;
+    tabs[n].click();
+    if (focusImg) { const im = vl.querySelector('.vl-imgs > img.on'); if (im) im.focus({ preventScroll: true }); }
+    return true;
+  };
+  document.addEventListener('keydown', e => {
+    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight')) return;
+    const a = document.activeElement, inStage = a && stage.contains(a);
+    if (!inStage && !(over && (!a || a === document.body))) return;
+    if (a && a.closest && a.closest('[role=tab], input, textarea, select, [contenteditable]')) return;
+    if (document.querySelector('.lb, [role=dialog][open]') && !inStage) return;
+    if (step(e.key === 'ArrowRight' ? 1 : -1, inStage)) e.preventDefault();
   });
 })();
 
