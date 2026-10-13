@@ -2328,6 +2328,52 @@ html.sheet-arcs #product { background: none; }
   #design-lab .lt-pb, #design-lab .lt-pb svg, #design-lab .lt-knob, #design-lab .vl-title .vl-tt { transition: none; }
 }
 
+/* e-prod: product cards craft pass. Window bars carry a quiet title and an Expand control; Expand opens the clip and its chapter rail in a larger focused window; on the desktop stack the card beneath recedes a touch as the next one slides over; the index pill underlines the current card's progress */
+#product .shot.win .bar { gap: 7px; padding-right: 6px; }
+#product .shot.win .bar .ep-t { flex: 1 1 auto; min-width: 0; margin-right: 52px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: center; font: normal 500 10.5px/1 var(--mono); letter-spacing: .04em; color: #8d887f; pointer-events: none; }
+#product .ep-xb { flex: none; display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px 0 8px; border: 0; border-radius: 99px; background: transparent; color: #6f6a62; font: 500 11px/1 var(--mono); letter-spacing: .02em; cursor: pointer; transition: background-color .2s, color .2s; }
+#product .ep-xb svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+#product .ep-xb:hover { background: rgba(24,24,24,.08); color: #1c1c1f; }
+#product .ep-xb:focus-visible { outline: 2px solid var(--coral); outline-offset: 1px; }
+#product .pair .ep-xb span, #product .pair .shot.win .bar .ep-t { display: none; }
+#product .pair .ep-xb { margin-left: auto; padding: 0 6px; }
+#product .ep-ph { aspect-ratio: 1440 / 900; background: #e9e7e2 center / cover no-repeat; }
+#product .ep-veil { display: none; }
+@media (max-width: 760px) { #product .ep-xb, #product .shot.win .bar .ep-t { display: none; } }
+@media (min-width: 861px) {
+  #product.r8-stack .spot .ep-veil { display: block; position: absolute; inset: -1px; z-index: 3; border-radius: inherit; background: #08080a; opacity: 0; pointer-events: none; }
+  #product.r8-stack .spot { will-change: scale; }
+  /* index pill: a coral hairline under the current card's label grows with its progress */
+  #product .pf-idx button { position: relative; }
+  #product .pf-idx button::after { content: ""; position: absolute; left: 13px; right: 13px; bottom: 3px; height: 1.5px; border-radius: 2px; background: var(--coral); opacity: 0; transform: scaleX(var(--pp, 0)); transform-origin: 0 50%; transition: opacity .3s; }
+  #product .pf-idx button.on::after { opacity: .9; }
+}
+/* the focused view: the same window, larger, with its chapter rail */
+#product .ep-x { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: var(--paper); overflow: hidden; overscroll-behavior: contain; }
+#product .ep-x::backdrop { background: rgba(8,8,9,.9); }
+#product .ep-x[open] { display: grid; place-items: center; }
+#product .ep-x-in { --vw: min(92vw, 1480px, calc((100vh - 150px) * 1.6)); width: 100%; height: 100%; display: grid; place-content: center; justify-items: center; padding: 24px; box-sizing: border-box; }
+#product .ep-x-win { position: relative; width: var(--vw); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; overflow: hidden; background: #f1f0ed; box-shadow: 0 40px 120px -40px rgba(0,0,0,.9); }
+#product .ep-x-bar { display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 8px 0 16px; background: #e6e4df; border-bottom: 1px solid #d9d6cf; }
+#product .ep-x-bar > i { flex: none; width: 10px; height: 10px; border-radius: 50%; background: #c9c5bd; }
+#product .ep-x-bar > i:first-child { background: var(--coral); }
+#product .ep-x-bar em { flex: 1 1 auto; min-width: 0; margin-left: 36px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: center; font: normal 500 11.5px/1 var(--mono); letter-spacing: .03em; color: #6f6a62; }
+#product .ep-x-close { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 26px; padding: 0 6px 0 11px; border: 0; border-radius: 99px; background: rgba(24,24,24,.07); color: #1c1c1f; font: 500 12px/1 var(--body); cursor: pointer; transition: background-color .2s; }
+#product .ep-x-close kbd { padding: 3px 5px; border-radius: 5px; background: rgba(24,24,24,.08); font: 500 10px/1 var(--mono); color: #6f6a62; }
+#product .ep-x-close:hover { background: rgba(24,24,24,.13); }
+#product .ep-x-close:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+#product .ep-x-v video { display: block; width: 100%; height: auto; cursor: pointer; }
+#product .ep-x-rail { width: var(--vw); }
+#product .ep-x-rail .chap { margin-top: 14px; }
+#product .ep-x-rail .chap-s { font-size: 12px; }
+@media (prefers-reduced-motion: no-preference) {
+  #product .ep-x[open] .ep-x-in { animation: epIn .32s cubic-bezier(.2,.7,.2,1) both; }
+  #product .ep-x[open]::backdrop { animation: epFade .32s ease both; }
+  @keyframes epIn { from { opacity: 0; transform: translateY(10px) scale(.985); } }
+  @keyframes epFade { from { opacity: 0; } }
+}
+@media (prefers-reduced-motion: reduce) { #product .ep-xb, #product .ep-x-close, #product .pf-idx button::after { transition: none; } }
+
 </style>
 </head>
 <body>
@@ -3378,7 +3424,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   };
   const mmss = t => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
   sec.querySelectorAll('video[data-src]').forEach(v => {
-    const key = (v.dataset.src.split('/').pop() || '').replace(/\.mp4$/, ''), spec = C[key]; if (!spec) return;
+    const key = (v.dataset.src.split('/').pop() || '').replace(/\.mp4$/, '').replace(/-nb$/, '-b'), spec = C[key]; if (!spec) return;
     const [dur, ...ch] = spec, shot = v.closest('.shot'); if (!shot) return;
     const bar = document.createElement('div'); bar.className = 'chap'; bar.setAttribute('role', 'group');
     bar.setAttribute('aria-label', 'Chapters of this clip');
@@ -4632,6 +4678,114 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     if (document.querySelector('.lb, [role=dialog][open]') && !inStage) return;
     if (step(e.key === 'ArrowRight' ? 1 : -1, inStage)) e.preventDefault();
   });
+})();
+
+// e-prod: product cards, craft pass.
+// 1. window chrome: each footage window gets a quiet title and an Expand control in its bar.
+// 2. Expand opens that clip, with its chapter rail, in a larger focused window (the same <video>, moved, so time and play state carry over; the calm coordinator still picks what plays).
+// 3. desktop stack: as the next card slides over, the card beneath recedes a touch (scale and a soft veil, tied to scroll, transform/opacity only).
+// 4. the sticky index pill underlines the current card with its progress.
+(() => {
+  const sec = document.getElementById('product'); if (!sec) return;
+  const cards = [...sec.querySelectorAll('article.spot')]; if (!cards.length) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stackOn = () => sec.classList.contains('r8-stack');
+
+  // 1 + 2. chrome and focused view
+  const dlg = document.createElement('dialog'); dlg.className = 'ep-x';
+  dlg.innerHTML = '<div class="ep-x-in"><div class="ep-x-win"><span class="ep-x-bar"><i></i><i></i><i></i><em></em><button type="button" class="ep-x-close" aria-label="Close the larger view">Close <kbd>Esc</kbd></button></span><div class="ep-x-v"></div></div><div class="ep-x-rail"></div></div>';
+  sec.appendChild(dlg);
+  const slot = dlg.querySelector('.ep-x-v'), rail = dlg.querySelector('.ep-x-rail'), ttl = dlg.querySelector('.ep-x-bar em');
+  let open = null;
+  const shut = () => { if (dlg.open) dlg.close(); };
+  dlg.querySelector('.ep-x-close').addEventListener('click', shut);
+  dlg.addEventListener('click', e => { if (e.target === dlg || e.target.classList.contains('ep-x-in')) shut(); });
+  // the page under the focused view holds still
+  ['wheel', 'touchmove'].forEach(t => dlg.addEventListener(t, e => e.preventDefault(), { passive: false }));
+  dlg.addEventListener('keydown', e => { if (['PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown'].includes(e.key)) e.preventDefault(); });
+  dlg.addEventListener('close', () => {
+    if (!open) return;
+    const { v, ph, chap, shot } = open; open = null;
+    ph.replaceWith(v); if (chap) shot.after(chap);
+    shot.style.removeProperty('min-height');
+    dispatchEvent(new Event('scroll'));
+  });
+  const expand = (shot, v, name) => {
+    if (open || !v.isConnected) return;
+    const fig = shot.parentElement, chap = fig.querySelector(':scope > .chap');
+    const ph = document.createElement('div'); ph.className = 'ep-ph';
+    const poster = v.getAttribute('poster') || v.dataset.poster;
+    if (poster) ph.style.backgroundImage = `url("${poster}")`;
+    shot.style.minHeight = shot.offsetHeight + 'px';
+    const wasPlaying = !v.paused;
+    v.replaceWith(ph); slot.appendChild(v);
+    rail.replaceChildren(); if (chap) rail.appendChild(chap);
+    ttl.textContent = name;
+    open = { v, ph, chap, shot };
+    dlg.setAttribute('aria-label', name + ', larger view');
+    dlg.showModal();
+    if (!v.getAttribute('src') && v.dataset.src) { if (poster && !v.getAttribute('poster')) v.poster = poster; v.src = v.dataset.src; }
+    if (v.paused || !wasPlaying) v.play().catch(() => {});
+  };
+  cards.forEach(c => {
+    const h = ((c.querySelector('h3') || {}).textContent || '').trim();
+    c.querySelectorAll('.shot.win').forEach(shot => {
+      const bar = shot.querySelector(':scope > .bar'), v = shot.querySelector(':scope > video'); if (!bar || !v) return;
+      const cap = shot.parentElement.querySelector('figcaption b');
+      const name = cap && cap.textContent.trim() !== h ? `${h} · ${cap.textContent.trim()}` : h;
+      const live = shot.querySelector('.live');
+      const t = document.createElement('em'); t.className = 'ep-t'; t.textContent = live ? live.textContent.trim() : name;
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'ep-xb';
+      b.setAttribute('aria-label', `Expand: ${name}`);
+      b.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5L9 7M6.5 13.5h-4v-4M2.5 13.5L7 9"/></svg><span>Expand</span>';
+      b.addEventListener('click', () => expand(shot, v, name));
+      bar.append(t, b);
+    });
+  });
+
+  // 3 + 4. stack depth and index progress, one rAF per scroll
+  const veils = cards.map(c => { const s = document.createElement('span'); s.className = 'ep-veil'; s.setAttribute('aria-hidden', 'true'); c.appendChild(s); return s; });
+  const idx = sec.querySelector('.pf-idx'), btns = idx ? [...idx.querySelectorAll('button')] : [];
+  const wrap = cards[0].parentElement;
+  let raf = 0, depthWas = false;
+  const px = el => parseFloat(getComputedStyle(el).marginTop) || 0;
+  const frame = () => {
+    raf = 0;
+    const on = stackOn(), vh = innerHeight, line = vh * .45;
+    const r = cards.map(c => c.getBoundingClientRect());
+    // depth: card k recedes over the last stretch of card k+1's climb to its pin
+    if (on && !reduce) {
+      depthWas = true;
+      cards.forEach((c, k) => {
+        let u = 0;
+        if (k + 1 < cards.length) {
+          const pin = parseFloat(cards[k + 1].style.getPropertyValue('--pin')) || 128, R = Math.max(240, r[k].height * .55);
+          u = Math.min(1, Math.max(0, 1 - (r[k + 1].top - pin) / R));
+        }
+        const s = (1 - .028 * u).toFixed(4), o = (.42 * u).toFixed(3);
+        if (c.style.scale !== s) c.style.scale = u ? s : '';
+        if (veils[k].style.opacity !== o) veils[k].style.opacity = o;
+      });
+    } else if (depthWas) { depthWas = false; cards.forEach((c, k) => { c.style.scale = ''; veils[k].style.opacity = ''; }); }
+    // index progress: the active button underlines as its card's turn plays out
+    if (btns.length && on) {
+      let k = 0; r.forEach((b, i) => { if (b.top < line) k = i; });
+      let p;
+      if (k + 1 < cards.length) p = 1 - (r[k + 1].top - line) / (r[k].height + px(cards[k + 1]));
+      else {
+        const pin = parseFloat(cards[k].style.getPropertyValue('--pin')) || 128, wb = wrap.getBoundingClientRect().bottom;
+        const tail = (parseFloat(getComputedStyle(wrap).paddingBottom) || 0) + (parseFloat(getComputedStyle(cards[k]).marginBottom) || 0);
+        p = 1 - (wb - (pin + r[k].height + tail)) / Math.max(1, line - pin);
+      }
+      p = Math.min(1, Math.max(0, p));
+      btns.forEach((b, i) => { const v = i === k ? p.toFixed(3) : i < k ? '1' : '0'; if (b.style.getPropertyValue('--pp') !== v) b.style.setProperty('--pp', v); });
+    }
+  };
+  const req = () => { if (!raf) raf = requestAnimationFrame(frame); };
+  addEventListener('scroll', req, { passive: true });
+  addEventListener('resize', req);
+  addEventListener('load', req);
+  req();
 })();
 
 </script>
