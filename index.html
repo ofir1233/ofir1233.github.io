@@ -2933,7 +2933,7 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
       </div>
       <figure class="wx-fig" id="wx-fig" role="tabpanel" aria-labelledby="wx-ta">
         <div class="shot win wx-win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="wx-addr"><b data-dir="a">hear-public-staging.vercel.app</b><b data-dir="b">hear-public-staging-v2.vercel.app</b></span></span>
-          <div class="wx-stage"><video class="wx-v" data-dir="a" width="1120" height="700" data-wx-src="img/site-scroll-a-c.mp4" data-poster="img/site-scroll-poster.webp" muted playsinline preload="none" aria-label="Scrolling the Hear homepage, direction A, from top to bottom"></video><video class="wx-v" data-dir="b" width="1120" height="700" data-wx-src="img/site-scroll-v3-d.mp4" data-poster="img/site-scroll-v3-poster.webp" muted playsinline preload="none" aria-label="Scrolling the Hear site, direction B: the homepage, then the Hear Labs and About pages"></video></div>
+          <div class="wx-stage"><video class="wx-v" data-dir="a" width="1120" height="700" data-wx-src="img/site-scroll-a-c.mp4" data-poster="img/site-scroll-poster.webp" muted playsinline preload="none" aria-label="Scrolling the Hear homepage, direction A, from top to bottom"></video><video class="wx-v" data-dir="b" width="1120" height="700" data-wx-src="img/site-scroll-v4.mp4" data-poster="img/site-scroll-v4-poster.webp" muted playsinline preload="none" aria-label="Scrolling the Hear site, direction B: the homepage, then the Hear Labs and About pages"></video></div>
         </div>
         <figcaption><span class="wx-cap" data-dir="a"><span><b>A · Dark, cinematic.</b> A scroll-revealed thesis, the globe, the integrations wall.</span><a href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Open A ↗︎</a></span><span class="wx-cap" data-dir="b" hidden><span><b>B · Cream and ink.</b> The homepage, then Hear Labs and About: a card for every role, research lanes, security built in.</span><a href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Open B ↗︎</a></span></figcaption>
       </figure>
@@ -3423,7 +3423,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
 (() => {
   const tabs = document.querySelectorAll('.site-dirs [data-dir]'), fig = document.querySelector('.site-fig'); if (!fig) return;
   const v = fig.querySelector('video'), shot = fig.querySelector('.shot');
-  const SRC = { a: ['img/site-scroll-a-c.mp4', 'img/site-scroll-poster.webp', '#000', 'direction A'], b: ['img/site-scroll-v3-d.mp4', 'img/site-scroll-v3-poster.webp', '#f1eee7', 'direction B'] };
+  const SRC = { a: ['img/site-scroll-a-c.mp4', 'img/site-scroll-poster.webp', '#000', 'direction A'], b: ['img/site-scroll-v4.mp4', 'img/site-scroll-v4-poster.webp', '#f1eee7', 'direction B'] };
   tabs.forEach(t => t.addEventListener('click', () => {
     const d = t.dataset.dir, [src, poster, bg, name] = SRC[d];
     tabs.forEach(x => x.setAttribute('aria-selected', x === t));
