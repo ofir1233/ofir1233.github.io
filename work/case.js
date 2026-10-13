@@ -17,8 +17,12 @@
   const load = v => { if (!v.src) { v.src = v.dataset.src; } };
   vids.forEach(v => { if (v.dataset.poster) v.poster = v.dataset.poster; v.setAttribute('tabindex', '0'); v.title = 'Click to pause or play'; });
   if (hasIO) {
-    const vo = new IntersectionObserver(es => es.forEach(e => { const v = e.target; const inV = !!v.closest('.cv'); if (e.isIntersecting) { load(v); if (!reduce && !v.dataset.paused && (!viewing || inV)) v.play().catch(() => {}); } else if (!inV) v.pause(); }), { rootMargin: '200px 0px' });
+    // a clip just below the fold waits for the first scroll, so the first load stays light
+    let moved = scrollY > 0; const wait = new Set();
+    const seen = v => { const r = v.getBoundingClientRect(); return r.top < innerHeight - 80 && r.bottom > 80; };
+    const vo = new IntersectionObserver(es => es.forEach(e => { const v = e.target; const inV = !!v.closest('.cv'); if (e.isIntersecting) { if (!moved && !inV && !v.src && !seen(v)) { wait.add(v); return; } load(v); if (!reduce && !v.dataset.paused && (!viewing || inV)) v.play().catch(() => {}); } else if (!inV) v.pause(); }), { rootMargin: '200px 0px' });
     vids.forEach(v => vo.observe(v));
+    if (!moved) addEventListener('scroll', () => { moved = true; wait.forEach(v => { vo.unobserve(v); vo.observe(v); }); wait.clear(); }, { passive: true, once: true });
   } else vids.forEach(v => { load(v); v.controls = true; });
   if (reduce) vids.forEach(v => { v.controls = true; });
   const toggle = v => { load(v); if (v.paused) { delete v.dataset.paused; v.play().catch(() => {}); } else { v.dataset.paused = '1'; v.pause(); } };
