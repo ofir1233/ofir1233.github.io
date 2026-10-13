@@ -2430,6 +2430,22 @@ html.sheet-arcs #product { background: none; }
 @keyframes hxNod { 50% { translate: 0 3px; } }
 @media (prefers-reduced-motion: reduce) { #top .stack .card, #top .stack .card > video.hx-v, #top .cta .btn { transition: none; } #top .hx-pager { display: none; } }
 
+/* dd2: whole-page unifying pass. One voice for the small controls: mono 12px / .04em mixed case for ghost pills, quiet hint lines at one tone, coral kept for "current" and numbers */
+/* the version list is already three obvious tabs; the arrow-key hint was a third label on one row (the keys still work) */
+#design-lab .vl-cap .vl-keys { display: none; }
+/* brand strip hint: the same quiet tone as the other mono hints */
+#web .br-hint { color: rgba(242,239,231,.5); }
+/* "Open A / B": a neutral ghost pill like Read more, coral only on hover, instead of the page's one coral-outlined control */
+#web .wx-cap a { color: rgba(242,239,231,.86); font: 500 12px/1 var(--mono); letter-spacing: .04em; box-shadow: inset 0 0 0 1px rgba(242,239,231,.18); }
+#web .wx-cap a:hover { color: var(--paper); background: rgba(255,112,86,.08); box-shadow: inset 0 0 0 1px rgba(255,112,86,.6); }
+/* "Pause motion": the same mixed-case mono pill as Read more on cream, not the page's one uppercase button */
+#system .dw-pause { min-height: 36px; padding: 0 15px 0 13px; border-color: rgba(27,27,27,.22); color: rgba(27,27,27,.78); font: 500 12px/1 var(--mono); letter-spacing: .04em; text-transform: none; transition: border-color .25s, color .25s; }
+#system .dw-pause:hover { border-color: rgba(27,27,27,.6); color: var(--ink-t); }
+/* FYI pager: the current phone reads in coral, like the hero pager, the chapter chips and the product index */
+#fyi .fyq-dot[aria-current]::before { background: var(--coral); }
+/* IA level guide: the cream-sheet coral the rest of the page uses for small text */
+#ia .ia-lv b { color: #b0381f; }
+
 </style>
 </head>
 <body>
@@ -4519,7 +4535,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
 
   // a quiet hint under the strip, so the viewer is found
   const hint = document.createElement('p'); hint.className = 'br-hint';
-  hint.innerHTML = '<span class="m">Drag to browse · click any image to view it larger</span><span class="t">Swipe to browse · tap any image to view it larger</span>';
+  hint.innerHTML = '<span class="m">Drag to browse · click to enlarge</span><span class="t">Swipe to browse · tap to enlarge</span>';
   strip.after(hint);
   strip.setAttribute('aria-label', strip.getAttribute('aria-label') + '. Press Enter to view the images one by one');
 
