@@ -78,4 +78,33 @@
     const upd = () => { raf = 0; const h = root.scrollHeight - innerHeight; bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, scrollY / h) : 0) + ')'; };
     addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true }); upd();
   }
+  // e-cs: hero window title, chapter scroll-spy (hero chips + a floating rail on wide screens)
+  const heroBar = document.querySelector('.hero-fig .shot.win > .bar');
+  const caseName = document.querySelector('.cs-hero > .label b');
+  if (heroBar && caseName && !heroBar.querySelector('.cs-t')) { const t = document.createElement('em'); t.className = 'cs-t'; t.textContent = caseName.textContent.trim(); heroBar.append(t); }
+  const toc = document.querySelector('.cs-hero .toc');
+  if (toc) {
+    const links = [...toc.querySelectorAll('a[href^="#"]')];
+    const secs = links.map(a => document.getElementById(a.getAttribute('href').slice(1)));
+    if (links.length && secs.every(Boolean)) {
+      const rail = document.createElement('nav'); rail.className = 'cs-rail'; rail.setAttribute('aria-label', 'Chapters');
+      links.forEach(a => { const c = a.cloneNode(true); c.className = ''; c.tabIndex = -1; rail.append(c); });
+      rail.setAttribute('aria-hidden', 'true');
+      document.body.append(rail);
+      const rl = [...rail.children], end = document.querySelector('.next');
+      let cur = -2, shown = null, raf2 = 0;
+      const spy = () => {
+        raf2 = 0;
+        const line = innerHeight * .38; let i = -1;
+        secs.forEach((s, k) => { if (s.getBoundingClientRect().top <= line) i = k; });
+        if (i !== cur) { cur = i; [links, rl].forEach(set => set.forEach((a, k) => { if (k === i) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); })); }
+        const tb = toc.getBoundingClientRect().bottom, et = end ? end.getBoundingClientRect().top : Infinity;
+        const on = tb < 0 && i >= 0 && et > innerHeight * .5;
+        if (on !== shown) { shown = on; rail.classList.toggle('on', on); rail.setAttribute('aria-hidden', on ? 'false' : 'true'); rl.forEach(a => { a.tabIndex = on ? 0 : -1; }); }
+      };
+      addEventListener('scroll', () => { if (!raf2) raf2 = requestAnimationFrame(spy); }, { passive: true });
+      addEventListener('resize', () => { if (!raf2) raf2 = requestAnimationFrame(spy); });
+      spy();
+    }
+  }
 })();
