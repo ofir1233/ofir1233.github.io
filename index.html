@@ -2979,7 +2979,7 @@ html.sheet-arcs #product { background: none; }
   const st = document.getElementById('stack'); const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hero = document.getElementById('top'); if (hero && 'IntersectionObserver' in window) new IntersectionObserver(([e]) => hero.classList.toggle('off', !e.isIntersecting)).observe(hero);
   if (st && !reduce && matchMedia('(pointer: fine)').matches) {
-    addEventListener('mousemove', e => { const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5; st.style.transform = `rotateY(${-16 + x * 10}deg) rotateX(${8 - y * 8}deg)`; });
+    addEventListener('mousemove', e => { if (st.classList.contains('hx-tilt') || (hero && hero.classList.contains('off'))) return; const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5; st.style.transform = `rotateY(${-16 + x * 10}deg) rotateX(${8 - y * 8}deg)`; });
   }
   document.querySelectorAll('.count').forEach(el => {
     if (reduce) return; const to = +el.dataset.to; let t0;
@@ -3128,9 +3128,10 @@ document.addEventListener('click', e => {
   const img = e.target.closest(matchMedia('(max-width: 760px)').matches ? '.shot img, .tile img, .ds-img img' : '.shot img'); if (!img || img.closest('a')) return;
   const lb = document.createElement('div'); lb.className = 'lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', img.alt || 'Enlarged image');
   lb.innerHTML = `<img src="${img.dataset.full || img.currentSrc || img.src}" alt=""><button type="button" class="lb-x">Close</button>`;
-  const key = ev => { if (ev.key === 'Escape') close(); else if (ev.key === 'Tab') { ev.preventDefault(); lb.focus(); } };
+  const key = ev => { if (ev.key === 'Escape') close(); else if (ev.key === 'Tab') { ev.preventDefault(); lb.focus(); } else if ([' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(ev.key)) ev.preventDefault(); };
   const close = () => { removeEventListener('keydown', key); lb.remove(); img.focus({ preventScroll: true }); };
   lb.addEventListener('click', close); lb.tabIndex = -1;
+  lb.addEventListener('wheel', ev => { if (lb.scrollWidth <= lb.clientWidth + 1) ev.preventDefault(); }, { passive: false });
   addEventListener('keydown', key);
   document.body.appendChild(lb); lb.focus();
 });
@@ -3238,7 +3239,7 @@ document.addEventListener('click', e => {
 // brand strip: duplicates stay out of the tab order
 document.querySelectorAll('.br-item[aria-hidden] img').forEach(i => { i.tabIndex = -1; i.removeAttribute('role'); });
 
-document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.target.matches('img:focus-visible')) e.target.scrollIntoView({ block: 'nearest', inline: 'center' }); });
+document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.target.matches('img:focus-visible') && !e.currentTarget.classList.contains('br-drift')) e.target.scrollIntoView({ block: 'nearest', inline: 'center' }); });
 
 // nda: first-visit confidentiality gate. Kept on this device only, so returning visitors go straight in
 (() => {
@@ -4731,7 +4732,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     const a = document.activeElement, inStage = a && stage.contains(a);
     if (!inStage && !(over && (!a || a === document.body))) return;
     if (a && a.closest && a.closest('[role=tab], input, textarea, select, [contenteditable]')) return;
-    if (document.querySelector('.lb, [role=dialog][open]') && !inStage) return;
+    if (document.querySelector('.lb, dialog[open], [role=dialog][open]') && !inStage) return;
     if (step(e.key === 'ArrowRight' ? 1 : -1, inStage)) e.preventDefault();
   });
 })();
