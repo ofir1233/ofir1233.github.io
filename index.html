@@ -2111,6 +2111,72 @@ html.sheet-arcs #product { background: none; }
   #ia .ia-lens, #ia .ia-lens i, #ia .ia-wires path, #ia .ia-grid .ia-area { transition: none; }
 }
 
+/* e-sys: inspectable design system. Wall tiles and bento tiles open a calm inspector (one dialog, steps through the same row) */
+#system .dw-t { position: relative; cursor: zoom-in; transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s, border-color .35s; }
+#system .dw-t::after, #system .ds-tile .ds-img::after { content: ""; position: absolute; z-index: 3; top: 8px; right: 8px; bottom: auto; width: 26px; height: 26px; border-radius: 99px; pointer-events: none; background: rgba(13,13,14,.72) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M15 4h5v5M9 20H4v-5M20 4l-6 6M4 20l6-6'/%3E%3C/svg%3E") center / 13px no-repeat; opacity: 0; transform: scale(.85); transition: opacity .25s, transform .3s cubic-bezier(.2,.7,.2,1); }
+#system .ds-tile .ds-img::after { top: auto; bottom: 12px; right: 12px; width: 32px; height: 32px; background-size: 15px; }
+#system .ds-tile { cursor: zoom-in; }
+#system .ds-tile:focus-visible { outline: 2px solid #1b1b1b; outline-offset: 3px; }
+#system .dw.dsx-on .dw-track, #system .dw.moving.run.dsx-on:not(.stopped) .dw-track { animation-play-state: paused; }
+@media (hover: hover) and (pointer: fine) {
+  #system .dw-t:hover { transform: translateY(-3px); border-color: rgba(27,27,27,.16); box-shadow: 0 1px 0 rgba(27,27,27,.04), 0 18px 34px -24px rgba(27,27,27,.5); }
+  #system .dw-t:hover::after, #system .ds-tile:hover .ds-img::after, #system .ds-tile:focus-visible .ds-img::after { opacity: 1; transform: none; }
+}
+@media (hover: none), (max-width: 760px) { #system .ds-tile .ds-img::after { opacity: 1; transform: none; width: 30px; height: 30px; bottom: 10px; right: 10px; } }
+
+#system .dsx { padding: 0; border: 0; margin: auto; width: min(1180px, calc(100vw - 48px)); max-width: none; max-height: calc(100dvh - 48px); border-radius: 24px; background: #f7f5f1; color: #1b1b1b; box-shadow: 0 40px 120px -40px rgba(0,0,0,.65); overflow: hidden; overscroll-behavior: contain; }
+#system .dsx:focus, #system .dsx:focus-visible { outline: none; }
+#system .dsx::backdrop { background: rgba(16,15,14,.66); }
+#system .dsx[open] { animation: dsx-in .34s cubic-bezier(.2,.7,.2,1); }
+#system .dsx[open]::backdrop { animation: dsx-fade .34s ease; }
+#system .dsx.out { opacity: 0; transform: translateY(6px) scale(.985); transition: opacity .18s ease, transform .18s ease; }
+@keyframes dsx-in { from { opacity: 0; transform: translateY(10px) scale(.985); } }
+@keyframes dsx-fade { from { opacity: 0; } }
+#system .dsx-in { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: min(860px, calc(100dvh - 48px)); touch-action: none; }
+#system .dsx-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 16px; padding: 18px 18px 14px 24px; }
+#system .dsx-tag { grid-column: 1; margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font: 500 11px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: rgba(27,27,27,.6); }
+#system .dsx-tier[hidden], #system .dsx-grp[hidden] { display: none; }
+#system .dsx-tier { padding: 4px 7px; border-radius: 6px; background: rgba(27,27,27,.07); color: #1b1b1b; }
+#system .dsx-t { grid-column: 1; margin: 0; font: 700 clamp(20px, 2.1vw, 28px)/1.1 var(--display); letter-spacing: -.03em; color: #1b1b1b; overflow-wrap: anywhere; }
+#system .dsx-x { grid-column: 2; grid-row: 1 / span 2; }
+#system .dsx-b { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border-radius: 99px; border: 1px solid rgba(27,27,27,.16); background: #fff; color: #1b1b1b; cursor: pointer; transition: border-color .2s, background-color .2s, transform .25s cubic-bezier(.2,.7,.2,1); }
+#system .dsx-b svg { width: 18px; height: 18px; }
+#system .dsx-b:hover { border-color: #b0381f; }
+#system .dsx-b:active { transform: scale(.96); }
+#system .dsx-b:focus-visible { outline: 2px solid #1b1b1b; outline-offset: 2px; }
+#system .dsx-stage { position: relative; margin: 0 18px; display: grid; min-height: 0; overflow: hidden; border-radius: 16px; border: 1px solid rgba(27,27,27,.08); background: #fff radial-gradient(rgba(27,27,27,.1) 1px, transparent 1.3px) 0 0 / 18px 18px; overscroll-behavior: contain; }
+#system .dsx-sc { grid-area: 1 / 1; min-width: 0; min-height: 0; display: grid; place-items: center; overflow: hidden; overscroll-behavior: contain; }
+#system .dsx-stage.zoom .dsx-sc { place-items: start; overflow: auto; touch-action: pan-x pan-y; }
+#system .dsx-img { display: block; margin: auto; max-width: none; border-radius: 8px; background: #fff; box-shadow: 0 0 0 1px rgba(27,27,27,.06), 0 24px 60px -36px rgba(27,27,27,.55); transition: opacity .22s ease; user-select: none; -webkit-user-drag: none; }
+#system .dsx-img.ld { opacity: 0; }
+#system .dsx-stage.can .dsx-img { cursor: zoom-in; }
+#system .dsx-stage.zoom .dsx-img { cursor: zoom-out; margin: 24px auto; }
+#system .dsx-z { position: absolute; right: 14px; bottom: 14px; z-index: 2; width: auto; height: 36px; gap: 7px; grid-auto-flow: column; padding: 0 14px 0 12px; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; box-shadow: 0 8px 20px -12px rgba(27,27,27,.5); }
+#system .dsx-z svg { width: 14px; height: 14px; }
+#system .dsx-z[hidden] { display: none; }
+
+#system .dsx-bot { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 14px 18px 18px; }
+#system .dsx-mid { min-width: 0; display: flex; flex-direction: column; gap: 4px; text-align: center; }
+#system .dsx-d, #system .dsx-h { max-width: none; }
+#system .dsx-d { margin: 0; font-size: 14px; line-height: 1.4; color: rgba(27,27,27,.72); }
+#system .dsx-d:empty { display: none; }
+#system .dsx-h { margin: 0; font: 500 10.5px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: rgba(27,27,27,.45); }
+@media (hover: none) { #system .dsx-h { display: none; } }
+@media (max-width: 600px) {
+  #system .dsx { width: 100vw; max-height: 100dvh; height: 100dvh; border-radius: 0; }
+  #system .dsx-in { height: 100dvh; }
+  #system .dsx-top { padding: calc(env(safe-area-inset-top, 0px) + 14px) 12px 10px 16px; gap: 4px 10px; }
+  #system .dsx-t { font-size: 19px; }
+  #system .dsx-stage { margin: 0 10px; }
+  #system .dsx-bot { padding: 10px 12px calc(env(safe-area-inset-bottom, 0px) + 14px); gap: 10px; }
+  #system .dsx-d { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #system .dw-t, #system .dw-t::after, #system .ds-tile .ds-img::after, #system .dsx-img, #system .dsx-b, #system .dsx.out { transition: none !important; }
+  #system .dsx[open], #system .dsx[open]::backdrop { animation: none; }
+  #system .dw-t:hover { transform: none; }
+}
+
 </style>
 </head>
 <body>
@@ -4015,6 +4081,154 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   grid.addEventListener('focusin', e => preview(e.target.closest('.ia-area')));
   grid.addEventListener('focusout', clear);
   grid.addEventListener('click', clear);
+})();
+
+// e-sys: component inspector. Clicking a wall tile or a bento tile opens one calm dialog with the render larger, its tier and name;
+// arrows step through the same row, Esc or a click outside closes, focus returns to where it came from
+(() => {
+  const sec = document.getElementById('system'), wall = document.getElementById('ds-wall');
+  if (!sec || typeof HTMLDialogElement !== 'function') return;
+  const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TIER = { foundations: 'Foundations', atoms: 'Atom', molecules: 'Molecule', organisms: 'Organism', templates: 'Template', pages: 'Page' };
+  const ico = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+  const dlg = document.createElement('dialog');
+  dlg.className = 'dsx'; dlg.setAttribute('aria-labelledby', 'dsx-t'); dlg.setAttribute('aria-describedby', 'dsx-d');
+  dlg.innerHTML = `<div class="dsx-in">
+    <div class="dsx-top"><p class="dsx-tag"><span class="dsx-tier"></span><span class="dsx-grp"></span></p><h3 class="dsx-t" id="dsx-t"></h3><button type="button" class="dsx-b dsx-x" aria-label="Close">${ico('M6 6l12 12M18 6L6 18')}</button></div>
+    <div class="dsx-stage"><div class="dsx-sc"><img class="dsx-img" alt="" decoding="async"></div><button type="button" class="dsx-b dsx-z" aria-pressed="false" hidden>${ico('M15 4h5v5M9 20H4v-5M20 4l-6 6M4 20l6-6')}<span>Zoom</span></button></div>
+    <div class="dsx-bot"><button type="button" class="dsx-b dsx-p" aria-label="Previous component">${ico('M15 5l-7 7 7 7')}</button><div class="dsx-mid"><p class="dsx-d" id="dsx-d"></p><p class="dsx-h"></p></div><button type="button" class="dsx-b dsx-nx" aria-label="Next component">${ico('M9 5l7 7-7 7')}</button></div>
+  </div>`;
+  sec.appendChild(dlg);
+  const $ = s => dlg.querySelector(s), stage = $('.dsx-stage'), sc = $('.dsx-sc'), img = $('.dsx-img');
+  let set = [], i = 0, from = null, kbd = false, zoom = false, fit = null;
+
+  // the wall's drifting copies are aria-hidden and hold nothing focusable; letting them take the pointer keeps hover and click on every tile
+  if (wall) {
+    const free = () => wall.querySelectorAll('.dw-list[aria-hidden]').forEach(l => { l.inert = false; });
+    free(); new MutationObserver(free).observe(wall, { childList: true, subtree: true });
+  }
+  const wallSet = row => [...row.querySelector('.dw-list:not([aria-hidden])').children].map(li => {
+    const im = li.querySelector('img'), m = /\/t-([a-z]+)-/.exec(im.getAttribute('src')) || [];
+    return { src: im.getAttribute('src'), nw: im.naturalWidth, nh: im.naturalHeight, w: +im.getAttribute('width'), h: +im.getAttribute('height'), wall: true,
+      tier: TIER[m[1]] || '', grp: row.querySelector('.dw-lab b').textContent, t: li.querySelector('.dw-c').textContent, d: '' };
+  });
+  const tiles = () => [...sec.querySelectorAll('.ds-bento > .ds-tile')].filter(f => getComputedStyle(f).display !== 'none');
+  const bentoSet = () => tiles().map(f => {
+    const im = f.querySelector('.ds-img img'), cap = f.querySelector('figcaption'), sp = cap.querySelector('span');
+    return { src: im.getAttribute('src'), nw: im.naturalWidth, nh: im.naturalHeight, w: +im.getAttribute('width'), h: +im.getAttribute('height'), wall: false,
+      tier: sp ? sp.textContent : '', grp: '', t: cap.textContent.replace(sp ? sp.textContent : '', '').trim(), d: im.alt };
+  });
+
+  const size = () => {
+    const it = set[i]; if (!it) return;
+    const nw = img.naturalWidth || it.nw || it.w, nh = img.naturalHeight || it.nh || it.h;
+    const r = stage.getBoundingClientRect(), pad = innerWidth <= 600 ? 20 : 48, aw = r.width - pad, ah = r.height - pad;
+    // wall renders are small: lift them a little (never past 1.6x) so a recruiter can read them; bento renders are 2x, shown up to their full pixels
+    const up = it.wall ? Math.min(1.6, Math.max(1, 460 / Math.max(nw, nh))) : 1;
+    const s = Math.min(aw / nw, ah / nh, up), full = it.wall ? up : 1;
+    fit = { w: Math.round(nw * s), h: Math.round(nh * s), zw: Math.round(nw * full), zh: Math.round(nh * full) };
+    const can = fit.zw > fit.w * 1.15;
+    if (!can) zoom = false;
+    stage.classList.toggle('can', can); stage.classList.toggle('zoom', zoom);
+    const z = $('.dsx-z'); z.hidden = !can; z.setAttribute('aria-pressed', String(zoom)); z.lastChild.textContent = zoom ? 'Fit' : 'Zoom';
+    $('.dsx-h').textContent = can ? '← → to browse · click the render to zoom · Esc to close' : '← → to browse · Esc to close';
+    img.style.width = (zoom ? fit.zw : fit.w) + 'px'; img.style.height = (zoom ? fit.zh : fit.h) + 'px';
+  };
+  const show = n => {
+    i = (n + set.length) % set.length; zoom = false;
+    const it = set[i];
+    $('.dsx-tier').textContent = it.tier; $('.dsx-tier').hidden = !it.tier; $('.dsx-grp').textContent = it.grp; $('.dsx-grp').hidden = !it.grp;
+    $('.dsx-t').textContent = it.t; $('.dsx-d').textContent = it.d;
+    img.alt = it.d || `${it.tier} ${it.t}`.trim();
+    const fresh = img.getAttribute('src') !== it.src;
+    if (fresh) { if (!reduce()) img.classList.add('ld'); img.src = it.src; }
+    size(); sc.scrollTo(0, 0);
+    (img.decode ? img.decode() : Promise.resolve()).catch(() => {}).then(() => { if (set[i] === it) { size(); img.classList.remove('ld'); } });
+    [set[i + 1], set[i - 1]].forEach(x => { if (x) { const p = new Image(); p.src = x.src; } });
+  };
+  const open = (s, n, el, k) => {
+    if (!s.length) return;
+    set = s; from = el; kbd = k;
+    if (wall) wall.classList.add('dsx-on');
+    dlg.classList.remove('out'); dlg.showModal(); show(n);
+    $('.dsx-x').focus({ preventScroll: true });
+  };
+  let shut = 0;
+  const close = () => {
+    if (!dlg.open) return;
+    const done = () => { clearTimeout(shut); dlg.classList.remove('out'); if (dlg.open) dlg.close(); };
+    if (reduce()) done(); else { dlg.classList.add('out'); shut = setTimeout(done, 180); }
+  };
+  dlg.addEventListener('close', () => {
+    if (wall) wall.classList.remove('dsx-on');
+    if (from && kbd) from.focus({ preventScroll: true }); else if (document.activeElement && dlg.contains(document.activeElement)) document.activeElement.blur();
+    from = null;
+  });
+  dlg.addEventListener('cancel', e => { e.preventDefault(); close(); });
+  dlg.addEventListener('click', e => { if (e.target === dlg) close(); });
+  $('.dsx-x').addEventListener('click', close);
+  $('.dsx-p').addEventListener('click', () => show(i - 1));
+  $('.dsx-nx').addEventListener('click', () => show(i + 1));
+  dlg.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); show(i + (e.key === 'ArrowRight' ? 1 : -1)); }
+    else if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); show(e.key === 'Home' ? 0 : set.length - 1); }
+    else if (e.key === 'Tab') {
+      const f = [...dlg.querySelectorAll('button')].filter(b => !b.hidden), a = f.indexOf(document.activeElement);
+      e.preventDefault(); f[(a + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  });
+  const toggle = (px, py) => {
+    zoom = !zoom; size();
+    if (zoom) sc.scrollTo(img.offsetLeft + fit.zw * px - sc.clientWidth / 2, img.offsetTop + fit.zh * py - sc.clientHeight / 2);
+  };
+  // click the image to see it at full size and pan; the click point stays under the cursor
+  img.addEventListener('click', e => {
+    if (!stage.classList.contains('can')) return;
+    const r = img.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+    toggle(px, py);
+  });
+  $('.dsx-z').addEventListener('click', () => toggle(.5, 0));
+  // the page under the dialog stays put; only the zoomed stage scrolls
+  dlg.addEventListener('wheel', e => { if (!(zoom && sc.contains(e.target))) e.preventDefault(); }, { passive: false });
+  // swipe to step on touch
+  let sx = null, sy = 0;
+  stage.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse' && !zoom) { sx = e.clientX; sy = e.clientY; } });
+  stage.addEventListener('pointerup', e => {
+    if (sx === null) return; const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) show(i + (dx < 0 ? 1 : -1));
+  });
+  stage.addEventListener('pointercancel', () => { sx = null; });
+  let rt; addEventListener('resize', () => { if (!dlg.open) return; cancelAnimationFrame(rt); rt = requestAnimationFrame(size); });
+
+  // openers: every wall tile (and its drifting copy) and each bento tile; this runs before the page's generic lightbox, which stays for the rest of the site
+  sec.addEventListener('click', e => {
+    if (dlg.contains(e.target)) return;
+    const li = e.target.closest('.dw-t'), tile = !li && e.target.closest('.ds-bento > .ds-tile');
+    if (!li && !tile) return;
+    e.stopPropagation();
+    if (li) {
+      const row = li.closest('.dw-row'), list = li.parentElement;
+      open(wallSet(row), [...list.children].indexOf(li), row.querySelector('.dw-strip'), false);
+    } else open(bentoSet(), tiles().indexOf(tile), tile, false);
+  });
+  if (wall) wall.querySelectorAll('.dw-row').forEach(row => {
+    const strip = row.querySelector('.dw-strip');
+    strip.setAttribute('aria-label', strip.getAttribute('aria-label') + '. Press Enter to inspect the components one by one');
+    strip.addEventListener('keydown', e => {
+      if (e.target !== strip || (e.key !== 'Enter' && e.key !== ' ')) return;
+      e.preventDefault();
+      // start from the first tile in view (the original or its drifting copy)
+      const sr = strip.getBoundingClientRect(), all = [...strip.querySelectorAll('.dw-t')];
+      const first = all.find(t => { const r = t.getBoundingClientRect(); return r.left >= sr.left - 2 && r.right <= sr.right + 2; }) || all[0];
+      open(wallSet(row), [...first.parentElement.children].indexOf(first), strip, true);
+    });
+  });
+  tiles().forEach(f => {
+    const cap = f.querySelector('figcaption');
+    f.tabIndex = 0; f.setAttribute('role', 'button'); f.setAttribute('aria-haspopup', 'dialog');
+    f.setAttribute('aria-label', 'Inspect ' + cap.textContent.replace(/\s+/g, ' ').trim());
+    f.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(bentoSet(), tiles().indexOf(f), f, true); } });
+  });
 })();
 
 </script>
