@@ -2552,6 +2552,16 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
 @media (max-width: 860px) { #about .eo-cue { display: none; } }
 @media print { #about .eo-cue { display: none; } }
 
+
+/* nda: the name is clearly required, and the button says what's still missing */
+.nda-req { margin-left: 8px; padding: 2px 6px; border-radius: 4px; font: 500 10px/1 var(--mono); font-style: normal; letter-spacing: .06em; color: #b0381f; background: rgba(176,56,31,.09); vertical-align: 1px; }
+.nda-field input { border-bottom-color: #b0381f; }
+.nda-field input::placeholder { color: #a8a294; }
+.nda-field.nda-done input { border-bottom-color: #cfc9bd; }
+.nda-field.nda-done input:focus { border-bottom-color: #141414; }
+.nda-field.nda-done .nda-req { display: none; }
+.nda-need { margin: 12px 0 0; text-align: center; font: 500 13px/1.4 var(--body); color: #b0381f; }
+.nda-need[hidden] { display: none; }
 </style>
 </head>
 <body>
@@ -3378,7 +3388,10 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   const ctx = cv.getContext('2d'); let inked = false, drawing = false, last = null, typed = false;
   const fit = () => { const r = pad.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); const img = inked ? cv.toDataURL() : null; cv.width = r.width * d; cv.height = r.height * d; ctx.setTransform(d, 0, 0, d, 0, 0); ctx.lineCap = ctx.lineJoin = 'round'; ctx.strokeStyle = '#1d1d1f'; if (img) { const i = new Image(); i.onload = () => ctx.drawImage(i, 0, 0, r.width, r.height); i.src = img; } };
   fit(); addEventListener('resize', fit);
-  const check = () => { go.disabled = !(name.value.trim().length > 1 && inked && ok.checked); };
+  const need = document.getElementById('nda-need');
+  const check = () => { const n = name.value.trim().length > 1; go.disabled = !(n && inked && ok.checked);
+    name.closest('.nda-field').classList.toggle('nda-done', n);
+    if (need) { const miss = [!n && 'your full name', !inked && 'a signature', !ok.checked && 'a tick in the box']; const m = miss.filter(Boolean); need.textContent = m.length ? 'To enter, add ' + (m.length > 1 ? m.slice(0, -1).join(', ') + ' and ' + m[m.length - 1] : m[0]) + '.' : ''; need.hidden = !m.length; } };
   const pt = e => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top, t: performance.now() }; };
   pad.addEventListener('pointerdown', e => { if (typed) clear(); drawing = true; last = pt(e); pad.setPointerCapture(e.pointerId); e.preventDefault(); });
   pad.addEventListener('pointermove', e => { if (!drawing) return; const p = pt(e), v = Math.hypot(p.x - last.x, p.y - last.y) / Math.max(1, p.t - last.t);
