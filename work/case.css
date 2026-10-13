@@ -507,3 +507,11 @@ footer a { display: inline-block; padding-block: 11px; margin-block: -11px; text
 /* a demo-data label at the top right moves clear of the zoom button */
 .shot.zx > .live[style*="top:12px"], .demos-engine-form .shot.zx > .live, .demos-engine-wide .shot.zx > .live { right: 54px; }
 @media (hover: none) { .shot.zx > .live[style*="top:12px"], .demos-engine-form .shot.zx > .live, .demos-engine-wide .shot.zx > .live { right: 42px; } }
+
+/* nm phone QA: the video zoom button and the inline preview link get a 40px tap area (no visual change); compare tags one step more legible */
+@media (hover: none) {
+  button.zx-i::after { content: ""; position: absolute; inset: -10px; }
+  .brand-web-ext { position: relative; }
+  .brand-web-ext::before { content: ""; position: absolute; inset: -11px -6px; }
+}
+@media (max-width: 760px) { .compare .tag { font-size: 10px; } }
