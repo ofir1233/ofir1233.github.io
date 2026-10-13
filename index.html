@@ -2374,6 +2374,62 @@ html.sheet-arcs #product { background: none; }
 }
 @media (prefers-reduced-motion: reduce) { #product .ep-xb, #product .ep-x-close, #product .pf-idx button::after { transition: none; } }
 
+/* e-hero: the floating pages take turns. Every few seconds the front page drifts away and the next one glides forward and plays (one clip at a time, through the calm coordinator); a quiet three-bar pager under the stack shows the turn and jumps to a page; on desktop the stack leans gently toward the pointer with the globe moving the other way; the stats count up once when they come into view */
+#top .stack .card { cursor: default; transition: transform 1s cubic-bezier(.22,.7,.2,1), opacity .9s ease, scale .45s ease, border-color .3s; }
+/* places are transforms (same spots as before), so a turn moves pages on the compositor and never counts as a layout shift */
+#top .stack { --hx-h: clamp(320px, 34vw, 480px); }
+#top .stack .card.c1, #top .stack .card.c2, #top .stack .card.c3 { left: 0; top: 0; }
+#top .stack .card.c1 { transform: translate3d(0, calc(var(--hx-h) * .18), 80px); }
+#top .stack .card.c2 { transform: translate3d(9.0909%, calc(var(--hx-h) * .08), 0); }
+#top .stack .card.c3 { transform: translate3d(18.1818%, calc(var(--hx-h) * -.02), -80px); }
+@media (max-width: 900px) {
+  #top .stack .card.c1 { transform: translate(5%, 24.828%); }
+  #top .stack .card.c2 { transform: translate(10%, 11.034%); }
+  #top .stack .card.c3 { transform: translate(20%, -2.759%); }
+}
+#top .stack .card.c1 { z-index: 3; } #top .stack .card.c2 { z-index: 2; } #top .stack .card.c3 { z-index: 1; }
+/* the bob belongs to the page, not to its place in the stack, so a page never jumps when it changes places */
+@media (prefers-reduced-motion: no-preference) {
+  #top .stack .card:nth-child(1) { animation: float 7s ease-in-out -4.6s infinite; }
+  #top .stack .card:nth-child(2) { animation: float 7s ease-in-out -2.3s infinite; }
+  #top .stack .card:nth-child(3) { animation: float 7s ease-in-out 0s infinite; }
+}
+#top .stack .card > img { display: block; width: 100%; height: auto; }
+#top .stack .card > video.hx-v { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .5s ease; }
+#top .stack .card > video.hx-v.hx-wait { opacity: 0; }
+#top .stack .card.hx-out { opacity: 0 !important; scale: .95; transition: opacity .45s ease, scale .45s ease; }
+#top .stack.hx-on .card:not(.c1) { cursor: pointer; }
+@media (hover: hover) { #top .stack.hx-on .card:not(.c1):hover { opacity: 1; border-color: rgba(255,255,255,.22); } }
+/* pager: three slim bars, the current one fills over its turn */
+#top .hx-row { display: flex; align-items: center; justify-content: flex-end; gap: 18px; margin-top: 14px; }
+#top .hx-row > .stage-note { margin: 0; }
+#top .hx-pager { display: flex; align-items: center; gap: 6px; height: 26px; }
+#top .hx-pager i { position: relative; display: block; width: 26px; height: 2px; padding: 0; border-radius: 2px; background: rgba(242,239,231,.18); overflow: hidden; cursor: pointer; }
+#top .hx-pager i::before { content: ""; position: absolute; inset: -10px -3px; }
+#top .hx-pager i::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--coral); transform: scaleX(0); transform-origin: 0 50%; }
+#top .hx-pager i.on::after { animation: hxFill var(--hx-dur, 9s) linear both; }
+#top .hx-pager i:hover { background: rgba(242,239,231,.34); }
+#top .stage.hx-hold .hx-pager i.on::after, #top .stage.hx-hidden .hx-pager i.on::after, #top.off .hx-pager i.on::after { animation-play-state: paused; }
+@keyframes hxFill { to { transform: scaleX(1); } }
+@media (max-width: 900px) {
+  #top .hx-row { flex-direction: column; gap: 6px; margin-top: 14px; }
+}
+/* desktop tilt: eased in the script, so no CSS transition on the stack while it follows the pointer */
+@media (min-width: 901px) {
+  #top .stack.hx-tilt { transition: none; }
+}
+/* stats: the number keeps its final width while it counts, so nothing beside it moves */
+#top .stats .count { display: inline-block; text-align: right; }
+/* CTAs: a soft tint on the ghost, a press on click, and the down arrow nods toward the work while hovered */
+#top .cta .btn { transition: transform .3s cubic-bezier(.22,.7,.2,1), box-shadow .3s, translate .35s cubic-bezier(.2,.7,.2,1), background-color .3s; }
+#top .cta .btn.ghost:hover { background-color: rgba(242,239,231,.05); }
+#top .cta .btn:active { transform: translateY(0) scale(.98); transition-duration: .12s; }
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  #top .cta .btn:hover > span[aria-hidden] { animation: hxNod 1.6s ease-in-out .35s infinite; }
+}
+@keyframes hxNod { 50% { translate: 0 3px; } }
+@media (prefers-reduced-motion: reduce) { #top .stack .card, #top .stack .card > video.hx-v, #top .cta .btn { transition: none; } #top .hx-pager { display: none; } }
+
 </style>
 </head>
 <body>
@@ -4786,6 +4842,128 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   addEventListener('resize', req);
   addEventListener('load', req);
   req();
+})();
+
+// e-hero: the hero pages take turns, the stack leans toward the pointer, the stats count up once in view.
+// Runs after the calm coordinator: only the front page ever holds a video, and the coordinator still decides when it plays
+(() => {
+  const hero = document.getElementById('top'), st = document.getElementById('stack');
+  if (!hero || !st) return;
+  const stage = st.closest('.stage');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const save = !!(navigator.connection && navigator.connection.saveData);
+  const cards = [...st.querySelectorAll('.card')];
+  const SLOTS = ['c1', 'c2', 'c3'];
+  const DUR = 9000;
+  // every page gets its still poster as an image underneath, so a page without a clip still looks the same
+  const SRC = { 'img/clip-topics-poster-1120.webp': 'img/hero-clip-topics-r.mp4', 'img/clip-actions-poster-c-nb-1120.webp': 'img/hero-clip-actions-c-nb.mp4', 'img/clip-compliance-poster-nb-1120.webp': 'img/hero-clip-compliance-nb.mp4' };
+  cards.forEach(c => {
+    const v = c.querySelector('video'), im = c.querySelector('img');
+    const poster = v ? v.getAttribute('poster') : im && im.getAttribute('src');
+    c.dataset.poster = poster || ''; c.dataset.clip = (v && (v.getAttribute('src') || v.dataset.src)) || SRC[poster] || '';
+    if (v) { const img = new Image(); img.src = poster; img.alt = ''; img.width = 1440; img.height = 900; img.decoding = 'async'; c.insertBefore(img, v); v.classList.add('hx-v'); }
+  });
+
+  // turns: the front page fades off and re-enters at the back (next), or a back page fades in at the front (prev); pages never pass through each other
+  const order = () => SLOTS.map(s => cards.find(c => c.classList.contains(s)));
+  const assign = list => list.forEach((c, i) => { SLOTS.forEach(s => c.classList.remove(s)); c.classList.add(SLOTS[i]); });
+  const ping = () => dispatchEvent(new Event('scroll'));
+  const giveClip = c => {
+    if (c.querySelector('video') || !c.dataset.clip) return;
+    const v = document.createElement('video');
+    v.className = 'hx-v hx-wait'; v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; v.preload = 'auto'; v.tabIndex = -1;
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('disablepictureinpicture', '');
+    v.width = 1440; v.height = 900; v.poster = c.dataset.poster; v.dataset.src = c.dataset.clip; v.src = c.dataset.clip;
+    v.addEventListener('playing', () => v.classList.remove('hx-wait'), { once: true });
+    c.appendChild(v);
+  };
+  const dropClip = c => {
+    const v = c.querySelector('video'); if (!v) return;
+    v.classList.add('hx-wait');
+    setTimeout(() => { if (c.classList.contains('c1')) { v.classList.remove('hx-wait'); return; } v.pause(); v.removeAttribute('src'); v.load(); v.remove(); }, 520);
+  };
+  let busy = false, paint = () => {};
+  const turn = dir => {
+    if (busy) return; busy = true;
+    const [f, m, b] = order();
+    const mover = dir > 0 ? f : b, next = dir > 0 ? [m, b, f] : [b, f, m];
+    giveClip(next[0]);
+    mover.classList.add('hx-out');
+    setTimeout(() => {
+      assign(next); dropClip(next[1]); dropClip(next[2]);
+      setTimeout(() => { mover.classList.remove('hx-out'); }, dir > 0 ? 300 : 120);
+      setTimeout(() => { busy = false; ping(); paint(); }, 1050);
+      setTimeout(ping, 400);
+    }, 460);
+  };
+
+  // count-up: the stats start at zero and count once when they come into view (the earlier load-time count is retired)
+  const stats = hero.querySelector('.stats');
+  if (stats && !reduce && 'IntersectionObserver' in window) {
+    const nums = [...stats.querySelectorAll('.count')].map(el => { const n = el.cloneNode(true); el.replaceWith(n); n.textContent = n.dataset.to; return n; });
+    const ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+    ready.then(() => {
+    nums.forEach(n => { const fs = parseFloat(getComputedStyle(n).fontSize) || 1; n.style.width = (n.getBoundingClientRect().width / fs).toFixed(3) + 'em'; n.textContent = '0'; });
+    const io = new IntersectionObserver(es => {
+      if (!es.some(e => e.isIntersecting)) return; io.disconnect();
+      nums.forEach((n, i) => {
+        const to = +n.dataset.to; let t0;
+        const run = t => { t0 ??= t; const k = Math.min(1, (t - t0) / 1600); n.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(run); };
+        setTimeout(() => requestAnimationFrame(run), 150 + i * 140);
+      });
+    }, { threshold: .5 });
+    io.observe(stats);
+    });
+  }
+
+  if (reduce) return;
+
+  // pager + timer: the coral fill is the clock; it rests while the pointer is on the stack, the hero is off screen or the tab is hidden
+  if (!save && cards.every(c => c.dataset.clip)) {
+    st.classList.add('hx-on');
+    stage.style.setProperty('--hx-dur', DUR + 'ms');
+    const pager = document.createElement('div'); pager.className = 'hx-pager'; pager.setAttribute('aria-hidden', 'true');
+    const ids = [...cards].reverse(); // front page first, in the order they first appear
+    const bars = ids.map(c => { const i = document.createElement('i'); i.addEventListener('click', () => go(c)); pager.appendChild(i); return i; });
+    const note = stage.querySelector('.stage-note'), row = document.createElement('div'); row.className = 'hx-row';
+    stage.insertBefore(row, note || null); row.appendChild(pager); if (note) row.appendChild(note);
+    paint = () => { const f = order()[0]; bars.forEach((b, k) => { const on = ids[k] === f; if (on) { b.classList.remove('on'); void b.offsetWidth; b.classList.add('on'); } else b.classList.remove('on'); }); };
+    const go = c => { const o = order(); if (c === o[1]) turn(1); else if (c === o[2]) turn(-1); };
+    pager.addEventListener('animationend', e => { if (e.target.classList.contains('on') && !busy) turn(1); });
+    cards.forEach(c => c.addEventListener('click', () => { if (!c.classList.contains('c1')) go(c); }));
+    const hold = on => stage.classList.toggle('hx-hold', on);
+    st.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hold(true); });
+    st.addEventListener('pointerleave', () => hold(false));
+    document.addEventListener('visibilitychange', () => stage.classList.toggle('hx-hidden', document.hidden));
+    paint();
+  }
+
+  // tilt: the stack eases toward the pointer (6° at most), the globe drifts a few pixels the other way; desktop pointers only
+  const mq = matchMedia('(min-width: 901px) and (hover: hover) and (pointer: fine)');
+  if (!mq.matches) return;
+  st.classList.add('hx-tilt'); const arcs = stage.querySelector('.arcs');
+  let tx = 0, ty = 0, x = 0, y = 0, raf = 0, last = 0;
+  const step = t => {
+    const dt = Math.min(64, t - (last || t)); last = t;
+    const k = 1 - Math.pow(1 - .075, dt / 16.7);
+    x += (tx - x) * k; y += (ty - y) * k;
+    st.style.setProperty('transform', `rotateY(${(-16 + x * 6).toFixed(3)}deg) rotateX(${(8 - y * 4).toFixed(3)}deg)`, 'important');
+    if (arcs) arcs.style.transform = `translate3d(${(-x * 14).toFixed(2)}px, ${(-y * 10).toFixed(2)}px, 0)`;
+    if (Math.abs(tx - x) + Math.abs(ty - y) > .002) raf = requestAnimationFrame(step); else { raf = 0; last = 0; }
+  };
+  const kick = () => { if (!raf && mq.matches) raf = requestAnimationFrame(step); };
+  mq.addEventListener && mq.addEventListener('change', () => { if (mq.matches) return; cancelAnimationFrame(raf); raf = 0; x = y = tx = ty = 0; st.style.removeProperty('transform'); if (arcs) arcs.style.removeProperty('transform'); });
+  let r = null;
+  const stale = () => { r = null; };
+  addEventListener('scroll', stale, { passive: true }); addEventListener('resize', stale);
+  addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse' || hero.classList.contains('off')) return;
+    if (!r) r = stage.getBoundingClientRect();
+    tx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (innerWidth / 2)));
+    ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (innerHeight / 2)));
+    kick();
+  }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', () => { tx = ty = 0; kick(); });
 })();
 
 </script>
