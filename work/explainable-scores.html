@@ -40,11 +40,11 @@
   <header class="cs-hero wrap">
     <div class="label">Case study · <b>Explainable scores</b></div>
     <h1>Every AI score should lead back to the calls behind it</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>People coach agents and check compliance from AI scores, so they need to audit a score, not just trust it.</dd></div><div><dt>What I designed</dt><dd>The path from a score to its evidence: a grid that colors only failures, a popover that places one agent against the team, and an AI answer that names the calls behind the number.</dd></div><div><dt>Outcome</dt><dd>Built around how people really coach and audit: answers point to the exact calls behind a score, so they can check the AI instead of just trusting&nbsp;it.</dd></div></dl>
+    <dl class="brief"><div><dt>The challenge</dt><dd>People coach agents and check compliance from AI scores, so they need to audit a score, not just trust it.</dd></div><div><dt>What I designed</dt><dd>In Compliance, and in the Agent evaluation versions I added (V2 to V4 + Filter), the path from a score to its evidence: a grid that colors only failures, a popover that places one agent against the team, and an AI answer that names the calls behind the number.</dd></div><div><dt>In the Lab</dt><dd>Built around how people really coach and audit: asked from a cell, an answer names the calls that pulled that score down, so they can check the AI instead of just trusting&nbsp;it.</dd></div></dl>
     <dl class="meta">
       <div><dt>Role</dt><dd>Only designer and product person</dd></div>
       <div><dt>When</dt><dd>2026 · screens from Oct 2026</dd></div>
-      <div><dt>Scope</dt><dd>Compliance heatmap and cell popover · Agent evaluation V2 to V4 · score answers in Ask AI</dd></div>
+      <div><dt>Scope</dt><dd>Compliance heatmap and cell popover · Agent evaluation V2 to V4 + Filter · score answers in Ask AI</dd></div>
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#grid"><span>02</span> A quiet grid</a><a class="pill" href="#cell"><span>03</span> One cell, in context</a><a class="pill" href="#answers"><span>04</span> Answers with evidence</a><a class="pill" href="#decisions"><span>05</span> Decisions</a></nav>
@@ -136,7 +136,7 @@
         <figure class="rv"><div class="shot pad es-light es-narrow"><img src="../img/cs-explainable-scores-ask-ai-nb.webp" alt="An Ask AI answer: the score as the average of a stated number of calls over a date range, a list headed Calls that pulled it down most with each call's score, the missed step and a short quote, a Pattern paragraph saying it may be a script or process issue, not only coaching, then answer actions and Related follow-ups" width="420" height="680" loading="lazy"><span class="live">Design Lab · demo data</span></div>
           <figcaption><b>An answer about one score.</b> From the Agent evaluation screen, light theme.</figcaption></figure>
         <div class="prose es-prose xtra">
-          <p>Every score answer in these screens has the same four parts, and the first three point at something you can check:</p>
+          <p>Every answer asked from a cell has the same four parts, and the first three point at something you can check:</p>
           <ol>
             <li><b>What the score is.</b> The average of a stated number of calls, between two stated dates.</li>
             <li><b>Calls that pulled it down most.</b> Each with its call number, its score, the step that was missed, and a short quote from the call.</li>
@@ -144,7 +144,7 @@
             <li><b>Related.</b> Open the lowest-scoring call, compare with the team average, or draft coaching notes.</li>
           </ol>
           <p>When other agents miss the same step, the answer says the cause may be the script or the process, before it offers <b>Draft coaching notes</b>. A score about one person doesn't automatically become that person's fault.</p>
-          <p class="why"><b>Design choice:</b> answers point to the exact calls behind a score, so people can check the AI instead of just trusting it.</p>
+          <p class="why"><b>Design choice:</b> an answer about one score points to the exact calls behind it, so people can check the AI instead of just trusting it.</p>
         </div>
       </div>
 
@@ -187,7 +187,7 @@
           <li class="opt"><strong>Keep the imported chart</strong><span>The area chart from the starting app (Recharts). It already drew the score over time.</span></li>
           <li class="opt chosen"><strong>Rebuild it for the hover</strong><span>In March 2026 I swapped it for a new chart (ApexCharts), for finer control over the tooltip and markers.</span></li>
         </ul>
-        <p class="because"><b>Result:</b> a custom tooltip with the date, the score in large type and the word "score". In the later V4 + Filter version, hovering a bar shows the day, the score out of 100 and how many calls it is based on.</p>
+        <p class="because"><b>Result:</b> in V4 + Filter, hovering a bar shows the day, the score out of 100 and how many calls it rests on. The first rebuild's tooltip showed the date and the score in large type.</p>
       </article>
     </div>
   </section>

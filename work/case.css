@@ -43,7 +43,7 @@ em { font-style: normal; color: var(--coral); }
 strong, p b { color: var(--paper); font-weight: 600; }
 
 /* top bar */
-.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(13,13,14,.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(13,13,14,.97); border-bottom: 1px solid var(--line); }
 .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
 .topbar a { text-decoration: none; }
 .topbar .home { font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: -.02em; display: inline-flex; gap: 10px; align-items: center; }
@@ -109,9 +109,9 @@ figcaption b { color: var(--paper); font-weight: 500; }
 .shot.dark { background: #0f0f11; }
 .shot.dark.win .bar { background: #151517; border-color: #26262a; }
 .shot.dark.win .bar i { background: #3a3a3f; }
-.shot .live { position: absolute; right: 12px; bottom: 12px; z-index: 1; display: inline-flex; align-items: center; gap: 6px; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: #fff; background: rgba(13,13,14,.72); padding: 6px 9px; border-radius: 99px; backdrop-filter: blur(6px); }
+.shot .live { position: absolute; right: 12px; bottom: 12px; z-index: 1; display: inline-flex; align-items: center; gap: 6px; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: #fff; background: rgba(13,13,14,.84); padding: 6px 9px; border-radius: 99px; }
 .shot .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--coral); }
-@media (max-width: 760px) { .shot .live { display: none; } }
+@media (max-width: 760px) { .shot .live { right: 8px; bottom: 8px; gap: 5px; padding: 4px 7px; font-size: 9.5px; letter-spacing: .05em; } .shot .live::before { width: 5px; height: 5px; } }
 /* the tag never takes clicks, and moves to the top corner when a clip shows its own controls (reduced motion) */
 .shot .live { pointer-events: none; }
 .shot:has(> video[controls]) .live { top: 12px; bottom: auto; }
@@ -129,7 +129,7 @@ figcaption b { color: var(--paper); font-weight: 500; }
 .decision { background: var(--cream); color: var(--cream-ink); border-radius: 18px; padding: clamp(20px, 3vw, 36px); display: grid; gap: 18px; }
 .decision + .decision { margin-top: 16px; }
 .decision .label { color: var(--cream-mute); }
-.decision .label b { color: #d4482f; }
+.decision .label b { color: var(--coral-ink); }
 .decision h3 { color: var(--cream-ink); }
 .decision p { color: #3c3a35; }
 .decision p b { color: var(--cream-ink); }
@@ -302,7 +302,7 @@ html { scroll-padding-top: 84px; }
 
 /* floating pill bar */
 .topbar { top: calc(env(safe-area-inset-top, 0px) + 12px); margin-top: 12px; margin-bottom: -64px; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 0; pointer-events: none; }
-.topbar .wrap { position: relative; pointer-events: auto; width: max-content; max-width: calc(100% - 24px); gap: 14px; padding: 6px 6px 6px 20px; border-radius: 99px; background: rgba(8,8,9,.86); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: 0 0 0 1px rgba(242,239,231,.08), 0 18px 40px -20px rgba(0,0,0,.8); }
+.topbar .wrap { position: relative; pointer-events: auto; width: max-content; max-width: calc(100% - 24px); gap: 14px; padding: 6px 6px 6px 20px; border-radius: 99px; background: rgba(8,8,9,.95); box-shadow: 0 0 0 1px rgba(242,239,231,.08), 0 18px 40px -20px rgba(0,0,0,.8); }
 .topbar .pill { border: 0; color: rgba(242,239,231,.72); min-height: 36px; padding: 0 13px; }
 .topbar .pill:hover { color: var(--cream); background: rgba(255,255,255,.08); }
 .progress { left: 24px; right: 24px; width: auto; bottom: 0; height: 1px; background: linear-gradient(90deg, rgba(255,112,86,.25), var(--coral)); }
@@ -427,6 +427,16 @@ html { scroll-padding-top: 84px; }
 .topbar .pill, .vtabs [role="tab"] { min-height: 40px; }
 footer a { display: inline-block; padding-block: 11px; margin-block: -11px; text-underline-offset: 3px; }
 
+/* phones: a zoomed image opens at its own size (or the screen height) and pans sideways, instead of shrinking to the screen width */
+@media (max-width: 760px) {
+  .lb { display: flex; align-items: center; overflow: auto; overscroll-behavior: contain; padding: 64px 0 20px; background: rgba(8,8,9,.985); }
+  .lb img { flex: none; margin: auto; max-width: none; width: auto; height: auto; max-height: calc(100dvh - 96px); border-radius: 0; }
+  .lb button { position: fixed; }
+  .compare .tag { top: 6px; padding: 4px 7px; font-size: 9px; letter-spacing: .05em; }
+  .compare .tag.l { left: 6px; } .compare .tag.r { right: 6px; }
+  .vtabs [role="tabpanel"] figcaption { min-height: 4.3em; }
+}
+
 /* ---------- e-cs: a crafted opening and a real end card.
    The hero screen gets the home page's window bar (a quiet centred title) and a deeper, softer shadow; the chapter chips light up
    for the chapter you are reading (in the hero and in a small floating rail under the top bar on wide screens); the next case
@@ -451,7 +461,7 @@ footer a { display: inline-block; padding-block: 11px; margin-block: -11px; text
 .cs-rail { display: none; }
 @media (min-width: 1024px) {
   html:has(.cs-rail) { scroll-padding-top: 128px; }
-  .cs-rail { display: flex; position: fixed; z-index: 19; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 78px); gap: 2px; padding: 4px; border-radius: 99px; background: rgba(8,8,9,.82); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: 0 0 0 1px rgba(242,239,231,.08), 0 14px 32px -18px rgba(0,0,0,.8); opacity: 0; visibility: hidden; transform: translate(-50%, -6px); transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1), visibility 0s linear .45s; }
+  .cs-rail { display: flex; position: fixed; z-index: 19; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 78px); gap: 2px; padding: 4px; border-radius: 99px; background: rgba(8,8,9,.95); box-shadow: 0 0 0 1px rgba(242,239,231,.08), 0 14px 32px -18px rgba(0,0,0,.8); opacity: 0; visibility: hidden; transform: translate(-50%, -6px); transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1), visibility 0s linear .45s; }
   .cs-rail.on { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition-delay: 0s; }
   .cs-rail a { display: inline-flex; align-items: center; gap: 7px; min-height: 32px; padding: 0 12px; border-radius: 99px; font-size: 13px; line-height: 1; color: rgba(242,239,231,.62); text-decoration: none; white-space: nowrap; transition: color .25s, background-color .25s; }
   .cs-rail a span { font: 500 10.5px/1 var(--mono); color: rgba(242,239,231,.4); transition: color .25s; }
