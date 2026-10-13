@@ -2046,6 +2046,71 @@ html.sheet-arcs #product { background: none; }
   #fyi .fyq, #fyi .fyq-ph, #fyi .fyq-scr::after, #fyi .fyq-cap, #fyi .fyq-dot, #fyi .fyq-dot::before { transition: none; }
 }
 
+/* e-end: experience, company badges in one system (Hear's real mark, initials for the rest) */
+#path .job .co { gap: 14px; margin-top: 12px; }
+#path .job .co h3 { margin-top: 0; }
+#path .co-mk { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; overflow: hidden; background: rgba(242,239,231,.05); box-shadow: inset 0 0 0 1px rgba(242,239,231,.12); font: 700 18px/1 var(--display); letter-spacing: -.02em; color: rgba(242,239,231,.78); transition: box-shadow .4s, color .4s; }
+#path .co-mk.is-logo { background: #efefed; box-shadow: 0 0 0 1px rgba(255,112,86,.35), 0 6px 18px -8px rgba(255,112,86,.55); }
+#path .co-mk img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+#path .timeline.sl .job.lit .co-mk:not(.is-logo) { color: var(--cream); box-shadow: inset 0 0 0 1px rgba(242,239,231,.22); }
+/* the current role reads first: a warm edge and a faint coral wash */
+#path .job:has(.when b) { border-color: rgba(255,112,86,.3); background-image: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgba(255,112,86,.10), transparent 60%), linear-gradient(125deg, rgba(255,112,86,.075), transparent 42%); }
+#path .job:has(.when b)::before { content: ""; position: absolute; top: -1px; left: 28px; right: 40%; height: 1px; background: linear-gradient(90deg, transparent, var(--coral) 35%, transparent); opacity: .8; pointer-events: none; }
+#path .job:has(.when b) .lead h3 { font-size: clamp(30px, 2.6vw, 38px); }
+@media (max-width: 640px) {
+  #path .co-mk { width: 40px; height: 40px; border-radius: 11px; font-size: 16px; }
+  #path .job .co { margin-top: 10px; gap: 12px; }
+  #path .job:has(.when b)::before { left: 20px; right: 30%; }
+}
+
+/* e-end: contact, the hero's meridian globe returns as a still backdrop, drawn once */
+#contact .end-globe-clip { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 68%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 68%, transparent 100%); }
+#contact .end-globe { position: absolute; left: 50%; top: 50%; width: min(880px, 120vw); aspect-ratio: 1; translate: -50% -50%; pointer-events: none; overflow: visible; opacity: .32; -webkit-mask: radial-gradient(closest-side, rgba(0,0,0,.28) 18%, #000 66%, rgba(0,0,0,.4) 97%, transparent 100%); mask: radial-gradient(closest-side, rgba(0,0,0,.28) 18%, #000 66%, rgba(0,0,0,.4) 97%, transparent 100%); }
+#contact .end-globe * { fill: none; stroke: #c9d4d8; stroke-width: 1; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 0; }
+#contact .end-globe .c { stroke: var(--coral); stroke-width: 1.25; }
+#contact .end-globe.gl-arm * { stroke-dashoffset: 1; }
+#contact .end-globe.gl-arm.gl-on * { stroke-dashoffset: 0; transition: stroke-dashoffset 2.6s cubic-bezier(.45,0,.2,1); transition-delay: calc(var(--i, 0) * 90ms); }
+/* the finale line carries more weight on a phone */
+@media (max-width: 640px) {
+  #contact a.big { font-size: clamp(56px, 17vw, 80px); }
+  #contact .end-globe { width: 150vw; opacity: .26; top: 44%; }
+}
+@media (prefers-reduced-motion: reduce) { #contact .end-globe * { transition: none !important; stroke-dashoffset: 0 !important; } }
+
+
+/* e-ia: a level guide over the tree, hover/focus path preview, a spine for the global layer, crumbs on the detail pane, and an admin-layer lens */
+#ia .ia-lens { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; padding: 0 16px 0 14px; border: 1px dashed #c3bdb1; border-radius: 99px; background: transparent; color: var(--ia-ink); font: 500 14px var(--body); cursor: pointer; transition: background .25s, border-color .25s; }
+#ia .ia-lens[hidden] { display: none; }
+#ia .ia-lens:hover { border-color: var(--ia-ink); }
+#ia .ia-lens i { width: 9px; height: 9px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--coral); transition: background .25s; }
+#ia .ia-lens[aria-pressed="true"] { border-style: solid; border-color: var(--coral); background: #fff1ec; }
+#ia .ia-lens[aria-pressed="true"] i { background: var(--coral); }
+#ia .ia-lens:focus-visible { outline: 2px solid var(--ia-ink); outline-offset: 2px; }
+#ia .ia-adm { font-weight: 500; color: #1d1d1f; background: #ffd6ca; border-radius: 4px; padding: 0 3px; }
+#ia .ia-cl li.adm::before { border-color: var(--coral); background: var(--coral); }
+#ia .ia-global.lq span:not(.adm):not(.ia-gl) { opacity: .45; }
+#ia .ia-global span.adm { background: var(--coral); color: #160805; }
+#ia .ia-grid .ia-area { transition: background .25s, color .25s, border-color .25s, opacity .3s, box-shadow .25s, transform .25s; }
+#ia .ia-grid.lq .ia-area:not([data-name="Settings"]) { opacity: .5; }
+#ia .ia-lv { display: none; }
+#ia .ia-sub-h .ia-cr { font: 500 11px/1 var(--mono); font-style: normal; color: rgba(255,255,255,.52); margin-right: -5px; }
+@media (min-width: 1060px) {
+  #ia .ia-lv { display: grid; grid-template-columns: minmax(150px, 176px) minmax(56px, 88px) minmax(0, 1fr); margin: -4px 0 14px; padding-bottom: 12px; border-bottom: 1px solid #e4e0d8; font: 500 10.5px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: #77736b; }
+  #ia .ia-lv-r { grid-column: 3; display: grid; grid-template-columns: minmax(170px, 210px) minmax(56px, 88px) minmax(0, 1fr); }
+  #ia .ia-lv-r > span:last-child { grid-column: 3; }
+  #ia .ia-lv b { margin-right: 8px; font-weight: 500; color: #c2462d; }
+  #ia .ia-global { margin-left: 8px; padding: 0 0 0 10px; border-left: 1.5px dashed var(--ia-line); }
+  #ia .ia-wires path { transition: opacity .25s, stroke .25s, stroke-width .25s; }
+  #ia .ia-wires path.pv { stroke: #ff9a85; stroke-width: 2; opacity: 1; }
+  #ia .ia-wires circle.pv { fill: var(--coral); }
+}
+@media (max-width: 640px) {
+  #ia .ia-lens { min-height: 40px; padding: 0 14px 0 12px; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #ia .ia-lens, #ia .ia-lens i, #ia .ia-wires path, #ia .ia-grid .ia-area { transition: none; }
+}
+
 </style>
 </head>
 <body>
@@ -2518,12 +2583,12 @@ html.sheet-arcs #product { background: none; }
     </div>
     <ol class="timeline" id="timeline">
       <li class="rail" aria-hidden="true" role="presentation"></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2023 – <b>Now</b> · Tel Aviv</div><div class="co"><h3>Hear</h3></div><p class="role">UX/UI designer at Intune</p></div><div><p class="d">As the only designer and product person, I work across all of Hear: brand, product, design system, website, UX research and the Design Lab.</p><div class="chips"><span>AI · SaaS</span><span>Only designer</span></div>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2023 – <b>Now</b> · Tel Aviv</div><div class="co"><span class="co-mk is-logo" aria-hidden="true"><img src="img/ds/t-atoms-hear-logo-large.webp" alt="" width="310" height="276" loading="lazy" decoding="async"></span><h3>Hear</h3></div><p class="role">UX/UI designer at Intune</p></div><div><p class="d">As the only designer and product person, I work across all of Hear: brand, product, design system, website, UX research and the Design Lab.</p><div class="chips"><span>AI · SaaS</span><span>Only designer</span></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-hear"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Hear</span></button><div class="mr-body" id="mr-job-hear"><div class="mr-in"><div><p>I built the brand from zero, ran UX research and user testing on complex workflows, and started the Design Lab.</p><div class="chips"><span>Design system</span><span>Brand from zero</span><span>UX research</span></div></div></div></div></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2022 – 2023 · Be'er Sheva</div><div class="co"><h3>Tap Mobile</h3></div><p class="role">User experience designer</p></div><div><p class="d">Consumer mobile apps, one with 100 million downloads. A/B tests and funnel analytics guided the UX, and I took on product definition too.</p><div class="chips"><span>Mobile apps</span><span>A/B testing</span></div>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2022 – 2023 · Be'er Sheva</div><div class="co"><span class="co-mk" aria-hidden="true">T</span><h3>Tap Mobile</h3></div><p class="role">User experience designer</p></div><div><p class="d">Consumer mobile apps, one with 100 million downloads. A/B tests and funnel analytics guided the UX, and I took on product definition too.</p><div class="chips"><span>Mobile apps</span><span>A/B testing</span></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-tap"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Tap Mobile</span></button><div class="mr-body" id="mr-job-tap"><div class="mr-in"><div><p>I worked with product managers and developers, and led the design of several engagement-focused apps.</p><div class="chips"><span>Product definition</span><span>Engagement</span></div></div></div></div></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">May – Dec 2020 · Be'er Sheva</div><div class="co"><h3>Qualish</h3></div><p class="role">UX/UI designer</p></div><div><p class="d">Wireframes, workflows and interactive prototypes, with senior management.</p><div class="chips"><span>Wireframes</span><span>Prototyping</span></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">Mar – Jun 2020 · Tel Aviv</div><div class="co"><h3>VPlanSolutions</h3></div><p class="role">User experience designer</p></div><div><p class="d">Designed the logo and the website.</p><div class="chips"><span>Logo design</span><span>Web design</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">May – Dec 2020 · Be'er Sheva</div><div class="co"><span class="co-mk" aria-hidden="true">Q</span><h3>Qualish</h3></div><p class="role">UX/UI designer</p></div><div><p class="d">Wireframes, workflows and interactive prototypes, with senior management.</p><div class="chips"><span>Wireframes</span><span>Prototyping</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">Mar – Jun 2020 · Tel Aviv</div><div class="co"><span class="co-mk" aria-hidden="true">V</span><h3>VPlanSolutions</h3></div><p class="role">User experience designer</p></div><div><p class="d">Designed the logo and the website.</p><div class="chips"><span>Logo design</span><span>Web design</span></div></div></li>
     </ol>
   </div>
 </section>
@@ -2531,6 +2596,7 @@ html.sheet-arcs #product { background: none; }
 
 
 <section id="contact" class="contact" aria-labelledby="contact-h">
+  <div class="end-globe-clip" aria-hidden="true"><svg class="end-globe" viewBox="-100 -100 200 200" focusable="false"><g transform="rotate(-22)"><circle r="96" pathLength="1" style="--i:0"/><ellipse rx="92.73" ry="96" pathLength="1" style="--i:1"/><ellipse rx="83.14" ry="96" pathLength="1" style="--i:2"/><ellipse rx="67.88" ry="96" pathLength="1" class="c" style="--i:3"/><ellipse rx="48.0" ry="96" pathLength="1" style="--i:4"/><ellipse rx="24.85" ry="96" pathLength="1" style="--i:5"/><ellipse rx="0.0" ry="96" pathLength="1" style="--i:6"/><ellipse rx="24.85" ry="96" pathLength="1" style="--i:7"/><ellipse rx="48.0" ry="96" pathLength="1" style="--i:8"/><ellipse rx="67.88" ry="96" pathLength="1" style="--i:9"/><ellipse rx="83.14" ry="96" pathLength="1" style="--i:10"/><ellipse rx="92.73" ry="96" pathLength="1" style="--i:11"/></g></svg></div>
   <div class="wrap">
     <h2 class="label" id="contact-h" style="margin-bottom:20px">Contact</h2>
     <a class="big" href="mailto:ofirnona123@gmail.com">Let's talk <span aria-hidden="true">→</span></a>
@@ -3855,6 +3921,100 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     if (!seen || over || document.hidden || mob.matches) return;
     steps++; set((act + 1) % ph.length);
   }, 4200);
+})();
+
+// e-end: the contact globe draws in once when the finale is reached, then stays still
+(() => {
+  const g = document.querySelector('#contact .end-globe'); if (!g) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const r = g.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) return;
+  g.classList.add('gl-arm');
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { g.classList.add('gl-on'); io.disconnect(); } }), { threshold: .2 });
+  io.observe(document.getElementById('contact'));
+})();
+
+
+// e-ia: level guide, hover/focus path preview, pane crumbs, admin-layer lens (reads the map the explorer renders; never changes its data)
+(() => {
+  const app = document.getElementById('ia-app'); if (!app) return;
+  const grid = document.getElementById('ia-grid'), board = document.getElementById('ia-panel'), glob = document.getElementById('ia-global'), q = document.getElementById('ia-q'), rootEl = document.getElementById('ia-root');
+  const wires = app.querySelector('.ia-wires'), bar = app.querySelector('.ia-tabs');
+  if (!grid || !board || !glob || !q || !wires || !bar || !rootEl) return;
+  const tabs = [...bar.querySelectorAll('[role=tab]')];
+  const cur = () => (tabs.find(t => t.getAttribute('aria-selected') === 'true') || tabs[0]).dataset.map;
+  const wide = matchMedia('(min-width: 1060px)');
+  const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  const lv = document.createElement('div'); lv.className = 'ia-lv'; lv.setAttribute('aria-hidden', 'true');
+  lv.innerHTML = '<span><b>L1</b>Root</span><span class="ia-lv-r"><span><b>L2</b>Areas</span><span><b>L3</b>Contents</span></span>';
+  board.before(lv);
+
+  const lens = document.createElement('button');
+  lens.type = 'button'; lens.className = 'ia-lens'; lens.setAttribute('aria-pressed', 'false');
+  lens.innerHTML = '<i aria-hidden="true"></i>Highlight the admin layer';
+  bar.after(lens);
+  const pressed = () => lens.getAttribute('aria-pressed') === 'true';
+
+  function apply() {
+    const on = pressed() && cur() === 'product' && !q.value.trim();
+    grid.classList.toggle('lq', on); glob.classList.toggle('lq', on);
+    glob.querySelectorAll('span:not(.ia-gl)').forEach(s => s.classList.toggle('adm', on && s.textContent.trim() === 'Impersonate'));
+    const st = grid.querySelector('.ia-area[data-name="Settings"]'), sub = st && st.nextElementSibling;
+    if (!sub) return;
+    sub.querySelectorAll('li').forEach(li => {
+      const d = li.querySelector('.d'), k = li.querySelector('.k'); if (!d || !k) return;
+      if (!d.dataset.raw) d.dataset.raw = d.textContent;
+      const raw = d.dataset.raw, re = k.textContent === 'Teams' ? /(permissions)/g : /(retention|anonymizer|2FA)/g;
+      const hit = on && raw.search(re) > -1;
+      li.classList.toggle('adm', hit);
+      if (hit) d.innerHTML = esc(raw).replace(re, '<b class="ia-adm">$1</b>');
+      else if (d.querySelector('.ia-adm')) d.textContent = raw;
+    });
+  }
+  function crumbs() {
+    grid.querySelectorAll('.ia-sub-h').forEach(h => {
+      if (h.querySelector('.ia-cr')) return;
+      const i = document.createElement('i'); i.className = 'ia-cr'; i.textContent = rootEl.textContent + ' /'; h.prepend(i);
+    });
+  }
+  const refresh = () => { lens.hidden = cur() !== 'product'; if (lens.hidden) lens.setAttribute('aria-pressed', 'false'); crumbs(); apply(); };
+  new MutationObserver(refresh).observe(grid, { childList: true });
+  refresh();
+
+  lens.addEventListener('click', () => {
+    const on = !pressed();
+    lens.setAttribute('aria-pressed', on);
+    if (on) {
+      if (q.value) { q.value = ''; q.dispatchEvent(new Event('input')); }
+      const st = grid.querySelector('.ia-area[data-name="Settings"]');
+      if (st && !st.classList.contains('open')) st.click();
+      apply();
+      // small screens: the highlighted features sit far below the button, so bring Settings into view
+      if (st && !wide.matches) { const r = st.getBoundingClientRect(); if (r.top > innerHeight * .8 || r.bottom < 80) st.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' }); }
+      return;
+    }
+    apply();
+  });
+  q.addEventListener('input', () => { if (q.value.trim() && pressed()) { lens.setAttribute('aria-pressed', 'false'); apply(); } });
+  tabs.forEach(t => t.addEventListener('click', refresh));
+
+  // path preview: hovering or focusing an area lights the wire from the root to it
+  let last = null, lit = [];
+  const clear = () => { lit.forEach(e => e.classList.remove('pv')); lit = []; last = null; };
+  function preview(a) {
+    if (a === last) return;
+    clear(); last = a;
+    if (!a || a.classList.contains('open') || !wide.matches) return;
+    const R = a.getBoundingClientRect(), y = R.top + R.height / 2;
+    const c = [...wires.querySelectorAll('circle:not(.on)')].find(c => { const r = c.getBoundingClientRect(); return Math.abs(r.top + r.height / 2 - y) < 4 && Math.abs(r.left + r.width / 2 - R.left) < 8; });
+    if (!c || !c.previousElementSibling) return;
+    lit = [c, c.previousElementSibling]; lit.forEach(e => e.classList.add('pv'));
+  }
+  grid.addEventListener('pointerover', e => { if (e.pointerType !== 'touch') preview(e.target.closest('.ia-area')); });
+  grid.addEventListener('pointerleave', clear);
+  grid.addEventListener('focusin', e => preview(e.target.closest('.ia-area')));
+  grid.addEventListener('focusout', clear);
+  grid.addEventListener('click', clear);
 })();
 
 </script>
