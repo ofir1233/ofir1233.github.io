@@ -217,17 +217,21 @@ footer { padding-block: 28px; border-top: 1px solid var(--line); font-size: 13px
 .zx-i svg { width: 15px; height: 15px; }
 button.zx-i { pointer-events: auto; cursor: pointer; }
 button.zx-i:hover { background: rgba(13,13,14,.92); }
-.shot.win > .zx-i { top: 42px; }
-.shot:has(> video[controls]) > .zx-i { right: auto; left: 12px; }
 .fyi-ph > .zx-i { top: 9cqw; right: 9cqw; width: 30px; height: 30px; }
-.zx:hover > .zx-i, .zx:has(> :focus-visible) > .zx-i, .shot:has(> video[controls]) > .zx-i { opacity: 1; transform: none; }
+.zx:hover > .zx-i, .zx:has(> :focus-visible) > .zx-i { opacity: 1; transform: none; }
+/* a clip in a window frame carries the mark in its title bar, like a window control */
+.shot.win > .zx-i { top: 4px; right: 8px; width: 22px; height: 22px; border-radius: 6px; color: #8d887f; background: transparent; box-shadow: none; opacity: .8; transform: none; }
+.shot.win > .zx-i svg { width: 13px; height: 13px; }
+.shot.win.dark > .zx-i { color: #8a867e; }
+.shot.win > button.zx-i:hover, .shot.win.zx:hover > .zx-i { opacity: 1; color: var(--coral); background: rgba(0,0,0,.05); }
+.shot.win.dark > button.zx-i:hover { background: rgba(255,255,255,.06); }
 @media (hover: none) {
-  .zx > .zx-i { opacity: .92; transform: none; width: 28px; height: 28px; top: 8px; right: 8px; }
-  .zx > .zx-i svg { width: 13px; height: 13px; }
-  .shot.win > .zx-i { top: 30px; }
-  .fyi-ph > .zx-i { top: 8cqw; right: 8cqw; }
+  .zx > .zx-i { opacity: .9; transform: none; width: 26px; height: 26px; top: 8px; right: 8px; }
+  .zx > .zx-i svg { width: 12px; height: 12px; }
+  .fyi-ph > .zx-i { top: 8cqw; right: 8cqw; width: 24px; height: 24px; opacity: .8; }
+  .shot.win > .zx-i { top: 4px; width: 22px; height: 22px; }
 }
-@media (max-width: 760px) { .hero-fig .shot.win > .zx-i { top: 30px; } }
+@media (max-width: 760px) { .hero-fig .shot.win > .zx-i { top: 1px; right: 6px; width: 20px; height: 20px; } .hero-fig .shot.win > .zx-i svg { width: 11px; height: 11px; } }
 .cv-ph { width: 100%; background: #0f0f11 center / cover no-repeat; }
 
 .cv { padding: 0; border: 0; margin: auto; width: min(1320px, calc(100vw - 48px)); max-width: none; max-height: calc(100dvh - 48px); border-radius: 24px; background: #111113; color: var(--paper); box-shadow: 0 0 0 1px rgba(242,239,231,.08), 0 40px 120px -40px rgba(0,0,0,.9); overflow: hidden; overscroll-behavior: contain; }

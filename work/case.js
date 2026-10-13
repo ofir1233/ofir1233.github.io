@@ -67,8 +67,9 @@
   const capOf = el => {
     const f = el.closest('figure'), c = f && f.querySelector('figcaption');
     if (!c) return { t: '', d: '' };
-    const b = c.querySelector('b, strong'), t = b ? b.textContent.trim() : '';
-    let d = c.textContent.replace(/\s+/g, ' ').trim(); if (t && d.startsWith(t)) d = d.slice(t.length).trim();
+    const b = c.querySelector(':scope > b, :scope > strong'), tidy = x => x.replace(/\s+/g, ' ').trim();
+    const t = b ? tidy([...b.childNodes].map(n => n.textContent.trim()).filter(Boolean).join(' ')) : '';
+    const d = tidy([...c.childNodes].filter(n => n !== b).map(n => n.textContent).join(''));
     return { t, d };
   };
   const mark = (host, btn) => {
@@ -107,7 +108,7 @@
       const can = zs > s * 1.3; if (!can) zoom = false;
       stage.classList.toggle('can', can); stage.classList.toggle('zoom', zoom);
       const parts = [];
-      if (list.length > 1) parts.push(touch ? 'Swipe to browse' : '← → to browse');
+      if (list.length > 1 && !zoom) parts.push(touch ? 'Swipe to browse' : '← → to browse');
       if (can) parts.push(zoom ? (touch ? 'Drag to pan · tap to fit' : 'Scroll to pan · click to fit') : (touch ? 'Tap to zoom' : 'Click the image to zoom'));
       if (!touch) parts.push('Esc to close');
       $('.cv-h').textContent = parts.join(' · ');
