@@ -3,169 +3,189 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>FYI, an iOS app drawn by hand · Ofir Nona</title>
-<meta name="description" content="Before Hear, Ofir Nona designed FYI (Focus Your Ideas) at Intune: a dark iOS app where creative projects live inside the chat, with tasks, an AI assistant, voice, calls and a full design system, all drawn in Figma.">
+<title>FYI, a messenger for creators, reimagined · Ofir Nona</title>
+<meta name="description" content="FYI (Focus Your Ideas) is a messenger for creators that Ofir Nona designed at Intune, before Hear. It did not launch. This case study reimagines it in 2026 with live, coded phone demos.">
 <meta name="theme-color" content="#0d0d0e">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
-<style>
-/* fyi: page-only pieces */
-/* phone frame drawn in CSS (iPhone 14 Pro proportions); the screenshots already carry the status bar and Dynamic Island */
-.fyi-dev { container-type: inline-size; }
-.fyi-ph { position: relative; padding: 3.3cqw; border-radius: 15.5cqw; background: #050506; box-shadow: 0 0 0 .75cqw #34343a, 0 0 0 calc(.75cqw + 1px) rgba(255,255,255,.18), 0 2px 4px rgba(0,0,0,.25), 0 28px 56px -22px rgba(0,0,0,.6), 0 70px 120px -60px rgba(0,0,0,.5); }
-.fyi-ph::before, .fyi-ph::after { content: ""; position: absolute; width: 1cqw; border-radius: 1cqw; background: linear-gradient(90deg, #2a2a2f, #46464d); }
-.fyi-ph::before { left: -1.6cqw; top: 22%; height: 8%; box-shadow: 0 19cqw 0 #3a3a40; }
-.fyi-ph::after { right: -1.6cqw; top: 29%; height: 13%; }
-.fyi-ph img { display: block; width: 100%; height: auto; aspect-ratio: 393 / 852; border-radius: 12.2cqw; background: #000; }
-.sheet .fyi-ph { box-shadow: 0 0 0 .75cqw #34343a, 0 0 0 calc(.75cqw + 1px) rgba(255,255,255,.18), 0 2px 4px rgba(27,27,27,.2), 0 30px 60px -26px rgba(27,27,27,.55), 0 70px 120px -60px rgba(27,27,27,.4); }
-
-/* hero fan, same as the home section; --s and --k come from the script below */
-.fyi-fan { --pw: clamp(128px, 15vw, 232px); --gap: clamp(60px, 9vw, 150px); --s: 1; --k: 0; position: relative; height: calc(var(--pw) * 2.32 + 80px); margin-top: clamp(36px, 5vw, 64px); }
-.fyi-fan .fyi-dev { position: absolute; left: 50%; top: 20px; width: var(--pw); margin-left: calc(var(--pw) / -2); z-index: var(--z); transform-origin: 50% 90%; transform: translate(calc(var(--i) * var(--gap) * var(--s)), calc(var(--y) + var(--k) * var(--d))) rotate(calc(var(--i) * 6.5deg * var(--s))); }
-.fyi-fan .fyi-dev:nth-child(1) { --i: -2; --y: 50px; --d: 34px; --z: 1; }
-.fyi-fan .fyi-dev:nth-child(2) { --i: -1; --y: 16px; --d: -22px; --z: 2; }
-.fyi-fan .fyi-dev:nth-child(3) { --i: 0; --y: 0px; --d: 12px; --z: 3; }
-.fyi-fan .fyi-dev:nth-child(4) { --i: 1; --y: 16px; --d: -22px; --z: 2; }
-.fyi-fan .fyi-dev:nth-child(5) { --i: 2; --y: 50px; --d: 34px; --z: 1; }
-.cs-hero { overflow-x: clip; }
-.fyi-hero-glow { position: relative; }
-.fyi-hero-glow::before { content: ""; position: absolute; left: 50%; top: 42%; width: min(900px, 120vw); height: 70%; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(255,112,86,.16), transparent); pointer-events: none; }
-@media (max-width: 520px) { .fyi-fan { --pw: 128px; --gap: 62px; } }
-
-/* rows of phones with captions */
-.fyi-row { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(28px, 3.4vw, 48px) clamp(16px, 3vw, 44px); }
-.fyi-row > figure { flex: 0 1 250px; min-width: 0; }
-.fyi-row.sm > figure { flex-basis: 220px; }
-.fyi-row figcaption { margin-top: 18px; font-size: 13.5px; line-height: 1.5; }
-.fyi-gap { margin-top: clamp(40px, 5vw, 64px); }
-.fyi-flow { align-items: center; flex-wrap: nowrap; gap: 14px; }
-.fyi-flow > figure { flex: 0 1 220px; }
-.fyi-arrow { flex: none; align-self: center; font: 700 clamp(28px, 3vw, 40px)/1 var(--display); color: var(--coral-ink); margin-top: -60px; }
-@media (max-width: 760px) {
-  .fyi-row { gap: 28px 14px; }
-  .fyi-row > figure, .fyi-row.sm > figure { flex-basis: calc(50% - 7px); }
-  .fyi-arrow { display: none; }
-}
-
-/* fields and system notes */
-.fyi-rules { border-top: 1px solid var(--line); }
-.fyi-rules div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-.fyi-rules dt { font: 500 11px/1.9 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--coral); }
-.fyi-rules dd { font-size: 15.5px; line-height: 1.55; color: var(--text); }
-.sheet .fyi-rules, .sheet .fyi-rules div { border-color: rgba(27,27,27,.14); }
-.sheet .fyi-rules dt { color: var(--coral-ink); }
-.sheet .fyi-rules dd { color: rgba(27,27,27,.78); }
-.fyi-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.fyi-tags span { padding: 3px 9px; border-radius: 6px; background: rgba(27,27,27,.06); font: 500 12px/1.5 var(--mono); color: var(--ink-t); }
-.fyi-status { display: inline-flex; gap: 6px; flex-wrap: wrap; }
-.fyi-status span { padding: 2px 10px; border-radius: 99px; box-shadow: inset 0 0 0 1px rgba(27,27,27,.2); font-size: 13.5px; color: var(--ink-t); }
-.fyi-close { margin-top: clamp(48px, 6vw, 80px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid rgba(27,27,27,.14); text-align: center; }
-.fyi-close p { margin-inline: auto; font: 700 clamp(26px, 3.4vw, 44px)/1.12 var(--display); letter-spacing: -.03em; color: var(--ink-t); max-width: 22ch; text-wrap: balance; }
-.fyi-close p em { color: var(--coral-ink); }
-@media (max-width: 760px) { .fyi-rules div { grid-template-columns: 1fr; gap: 4px; } }
-</style>
+<link rel="stylesheet" href="fyi-live.css">
+<link rel="stylesheet" href="fyi.css">
 </head>
-<body>
+<body class="fyi-page">
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
   <div class="wrap">
     <a class="home" href="../index.html#fyi">Ofir<span>.</span> <i>← All work</i></a>
-    <nav aria-label="Case studies"><a class="pill" href="brand-web.html">← Brand &amp; web</a><a class="pill solid" href="design-lab.html">Next case</a></nav>
+    <nav aria-label="Case studies"><button type="button" class="pill fx-all"><svg class="fx-all-i" viewBox="0 0 24 24" aria-hidden="true"><path class="ps" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/><path class="pl" d="M8 5.3v13.4a.7.7 0 0 0 1.1.6l10.3-6.7a.7.7 0 0 0 0-1.2L9.1 4.7A.7.7 0 0 0 8 5.3z"/></svg><span class="t">Pause demos</span></button><a class="pill" href="brand-web.html">← Brand &amp; web</a><a class="pill solid" href="design-lab.html">Next case</a></nav>
     <span class="progress" aria-hidden="true"></span>
   </div>
 </header>
 
 <main id="main">
-  <header class="cs-hero wrap">
-    <div class="label">Case study · <b>Mobile app</b></div>
-    <h1>FYI, a whole iOS app drawn by hand</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>The work around a creative project is mostly conversation, so the project should live where the chat already is.</dd></div><div><dt>What I designed</dt><dd>FYI (Focus Your Ideas), a dark iOS app I designed at Intune before Hear: messages turn into tasks, an AI assistant joins the thread and calls share the screen.</dd></div><div><dt>Outcome</dt><dd>The onboarding, the chat, task and call flows, and the design system behind them, every screen drawn by hand in Figma.</dd></div></dl>
-    <dl class="meta">
-      <div><dt>Role</dt><dd>Product design · native iOS</dd></div>
-      <div><dt>When</dt><dd>At Intune, before Hear</dd></div>
-      <div><dt>Scope</dt><dd>Onboarding, chat, tasks, AI assistant, calls, design system</dd></div>
-      <div><dt>Status</dt><dd>Designed in Figma</dd></div>
-    </dl>
-    <nav class="toc" aria-label="On this page"><a class="pill" href="#idea"><span>01</span> The idea</a><a class="pill" href="#onboarding"><span>02</span> Onboarding &amp; brand</a><a class="pill" href="#chat"><span>03</span> Chat that does work</a><a class="pill" href="#tasks"><span>04</span> Message to task</a><a class="pill" href="#calls"><span>05</span> Calls &amp; groups</a><a class="pill" href="#system"><span>06</span> The system</a></nav>
-    <figure class="fyi-hero-glow rv">
-      <div class="fyi-fan" id="fyi-fan">
-        <div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-welcome.webp" width="786" height="1704" alt="FYI welcome screen: Focus Your Ideas, with a Continue button" decoding="async"></div></div>
-        <div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-ai-assistant.webp" width="786" height="1704" alt="New AI assistant chat with suggested prompts" decoding="async"></div></div>
-        <div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-chat-nb.webp" width="786" height="1704" alt="A chat with Chat, Tasks and Project tabs" decoding="async"></div></div>
-        <div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-create-task-nb.webp" width="786" height="1704" alt="Create task sheet" decoding="async"></div></div>
-        <div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-group-nb.webp" width="786" height="1704" alt="Group info screen" decoding="async"></div></div>
+  <header class="cs-hero wrap fyi-hero">
+    <div class="label">Case study · <b>Mobile app</b>&nbsp;· Reimagined&nbsp;in&nbsp;2026</div>
+    <div class="fh-text">
+      <h1>FYI, a messenger for people who make things</h1>
+      <p class="lede">Think WhatsApp for creative crews, with AI inside the conversation, group work, and events you can promote from the chat. It never launched. What plays on this page is a 2026 reimagining.</p>
+      <dl class="brief"><div><dt>The challenge</dt><dd>The work around a creative project is mostly conversation, so the plan, the files and the launch should live where the chat already is.</dd></div><div><dt>What I designed</dt><dd>FYI (Focus Your Ideas), a dark iOS messenger for creators with an AI assistant, tasks, voice, video calls and group projects, from my first year at Intune, before Hear.</dd></div><div><dt>Outcome</dt><dd>FYI began as Intune's collaboration with will.i.am of the Black Eyed Peas, and it did not go ahead. In 2026 I reimagined it, and the screens below run as live code. The original Figma screens close the page.</dd></div></dl>
+    </div>
+    <div class="fh-stage stage" data-fx-stage role="group" aria-label="Live demo, reimagined in 2026 with demo content: a group chat gets a transcribed voice note, an AI plan, tasks and a promoted event.">
+      <svg class="echo" viewBox="-310 -260 620 520" aria-hidden="true"><g fill="none" stroke-linejoin="round"><path pathLength="1" stroke-width="0.458" transform="scale(2.27) translate(-62 -52)" d="M18 6h88a12 12 0 0 1 12 12v44a12 12 0 0 1-12 12H42L20 98V74H18A12 12 0 0 1 6 62V18A12 12 0 0 1 18 6z"/><path pathLength="1" stroke-width="0.339" transform="scale(3.07) translate(-62 -52)" d="M18 6h88a12 12 0 0 1 12 12v44a12 12 0 0 1-12 12H42L20 98V74H18A12 12 0 0 1 6 62V18A12 12 0 0 1 18 6z"/><path pathLength="1" stroke-width="0.269" transform="scale(3.86) translate(-62 -52)" d="M18 6h88a12 12 0 0 1 12 12v44a12 12 0 0 1-12 12H42L20 98V74H18A12 12 0 0 1 6 62V18A12 12 0 0 1 18 6z"/><path pathLength="1" stroke-width="0.223" transform="scale(4.66) translate(-62 -52)" d="M18 6h88a12 12 0 0 1 12 12v44a12 12 0 0 1-12 12H42L20 98V74H18A12 12 0 0 1 6 62V18A12 12 0 0 1 18 6z"/><path pathLength="1" stroke-width="0.191" transform="scale(5.45) translate(-62 -52)" d="M18 6h88a12 12 0 0 1 12 12v44a12 12 0 0 1-12 12H42L20 98V74H18A12 12 0 0 1 6 62V18A12 12 0 0 1 18 6z"/></g></svg>
+      <div class="fh-ph">
+        <div class="fx-dev" data-scene="trailer"></div>
+
       </div>
-      <figcaption><b>Five screens from the Figma file.</b> Welcome, the AI assistant, a chat, a new task and group info, framed as an iPhone 14 Pro.</figcaption>
-    </figure>
+      <div class="st-bar"><span class="demo-tag">Reimagined in 2026 · demo content</span><button type="button" class="fx-pp" aria-label="Pause the demo"></button><button type="button" class="pill fx-rp">Replay</button></div>
+      <p class="onphone">On the phone: one crew goes from a voice note to a promoted launch night.</p>
+      <ul class="constel" aria-label="What the demo shows">
+          <li class="cc" data-card="0"><span class="cl"><b>01</b> Voice, transcribed</span><span class="cw" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="cq">“What if it's a night.”</span></li>
+          <li class="cc" data-card="1"><span class="cl"><b>02</b> One crew, one thread</span><span class="cm"><span class="mg" aria-hidden="true"><i class="pm">M</i><i class="pt">T</i><i class="pi">I</i><i class="pk">K</i></span><span class="here">4 here now</span></span></li>
+          <li class="cc" data-card="2"><span class="cl"><b>03</b> AI in the thread</span><span class="cai"><b>Plan from this chat</b><span>2 tasks suggested. You confirm.</span></span></li>
+          <li class="cc" data-card="3"><span class="cl"><b>04</b> Tasks from the chat</span><span class="ctk"><i aria-hidden="true"></i><span>Cover art<br>Ines · no date yet</span></span></li>
+          <li class="cc" data-card="4"><span class="cl"><b>05</b> Launch, promoted</span><span class="cev"><b>COPPER HOURS<br>FRI NOV 20</b><span class="tiles"><i>Story</i><i>Post</i><i>Link</i></span></span></li>
+        </ul>
+    </div>
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Product design · iOS</dd></div>
+      <div><dt>When</dt><dd>First year at Intune, before Hear · reimagined in 2026</dd></div>
+      <div><dt>Scope</dt><dd>Messaging, AI, tasks, group work, calls, events</dd></div>
+      <div><dt>Status</dt><dd>Did not launch</dd></div>
+    </dl>
+    <nav class="toc" aria-label="On this page"><a class="pill" href="#origin"><span>01</span> Origin</a><a class="pill" href="#messaging"><span>02</span> Messaging</a><a class="pill" href="#ai"><span>03</span> AI</a><a class="pill" href="#tasks"><span>04</span> Tasks</a><a class="pill" href="#together"><span>05</span> Together</a><a class="pill" href="#launch"><span>06</span> Launch</a><a class="pill" href="#system"><span>07</span> System</a><a class="pill" href="#original"><span>08</span> Original</a></nav>
   </header>
 
-  <!-- 01 · ink -->
-  <section class="chapter" id="idea">
+  <!-- 01 · ink, plain chapter -->
+  <section class="chapter" id="origin">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">01 · <b>The idea</b></div><h2>Focus creative projects inside the chat</h2></div>
-        <div class="prose"><p class="lead">FYI keeps a creative project where the conversation already is.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The work around a creative project is mostly conversation. Each chat carries its own project tab, a message can become a task, and an AI assistant works inside the thread.</p></div></details></div>
+        <div><div class="label">01 · <b>Where it started</b></div><h2>The original, remastered</h2></div>
+        <div class="prose"><p class="lead">The original came out of Intune's work with will.i.am, and the reimagining starts from its welcome screen.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>In 2026 I went back to the original and asked where it could have gone. Everything that plays on this page is that reimagining, rebuilt as live code with fictional demo content.</p></div></details></div>
       </div>
-      <ol class="steps rv xtra" style="margin-bottom:clamp(36px,5vw,56px)">
-        <li><strong>Chats and groups</strong><span>One list for people and teams.</span></li>
-        <li><strong>A project tab per chat</strong><span>Chat, Tasks and Project sit side by side at the top of every conversation.</span></li>
-        <li><strong>Tasks from chat</strong><span>A message becomes a task with assignees, a date and a status.</span></li>
-        <li><strong>AI inside chat</strong><span>An assistant that helps with ideas without leaving the thread.</span></li>
+      <div class="stage st-l g-splash" data-fx-stage role="group" aria-label="Live demo: the original welcome screen becomes its 2026 version, then Maya sets up a profile, a crew and a project. Reimagined in 2026 with demo content. The steps are listed beside the phone.">
+        <div class="st-ph">
+          <div class="fx-dev" data-scene="origin"></div>
+          <ol class="rings" aria-hidden="true"><li data-r="1">1</li><li data-r="2">2</li><li data-r="3">3</li><li data-r="4">4</li><li data-r="5">5</li></ol>
+          <figure class="rm-orig"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-welcome.webp" width="786" height="1704" alt="" loading="lazy" decoding="async"></div></div><figcaption>Original · Figma</figcaption></figure>
+          <div class="st-bar"><span class="demo-tag">Reimagined in 2026 · demo content</span><button type="button" class="fx-pp" aria-label="Pause the demo"></button><button type="button" class="pill fx-rp">Replay</button></div>
+        </div>
+        <div class="st-txt">
+          <ol class="fx-beats">
+            <li><button type="button" tabindex="-1"><span class="n">01</span><span class="l">The original welcome screen, from my Figma file.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">02</span><span class="l">The same screen, reimagined in 2026.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">03</span><span class="l"><span class="rki"><span class="rk">1</span> Kept: the speech-bubble mark.</span><span class="rki"><span class="rk">2</span> Kept: Focus Your Ideas.</span><span class="rki"><span class="rk">3</span> Kept: Chat_Blue, one step deeper so white text passes 4.5:1.</span></span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">04</span><span class="l"><span class="rk">4</span> New in 2026: promotion joins the story. The first two headlines are the original's own copy.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">05</span><span class="l">Maya adds a name, a role and skills, as the original profile asked.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">06</span><span class="l">Maya picks a crew: Theo, Ines and Kofi.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">07</span><span class="l">A new project: Copper Hours.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">08</span><span class="l"><span class="rk">5</span> Kept: the original's Chat, Tasks and Project tabs. The group is ready.</span></button></li>
+          </ol>
+          <p class="onphone">On the phone: the original welcome screen wipes to its 2026 version, then Maya sets up a profile, a crew and a project.</p>
+          <p class="orig">In the original Figma file: the welcome screen, the splash, the two story screens, and a short profile with name, role and skills. See <a href="#o-01">01</a>, <a href="#o-02">02</a>, <a href="#o-03">03</a>, <a href="#o-04">04</a> and <a href="#o-06">06</a>.</p>
+        </div>
+      </div>
+      <ul class="cast" aria-label="The crew">
+        <li data-p="m"><span class="mono" style="--c:#E8B45C" aria-hidden="true">M</span><span><b>Maya</b> Artist and producer</span></li>
+        <li data-p="t"><span class="mono" style="--c:#C3DC6B" aria-hidden="true">T</span><span><b>Theo</b> Video director</span></li>
+        <li data-p="i"><span class="mono" style="--c:#F28DB2" aria-hidden="true">I</span><span><b>Ines</b> Designer</span></li>
+        <li data-p="k"><span class="mono" style="--c:#8EC8F2" aria-hidden="true">K</span><span><b>Kofi</b> Shows and venues</span></li>
+      </ul>
+      <p class="cast-cap">The crew is fictional demo content. Follow them from a voice note on Day&nbsp;1 to launch night on Day&nbsp;39.</p>
+      <div class="rules-h">Four rules I set for the reimagining</div>
+      <ol class="steps rules">
+        <li><strong>The conversation is the canvas.</strong><span>Tasks, files, events and AI results live in the thread as objects, and each one is also listed in its own tab.</span></li>
+        <li><strong>AI says who can see it.</strong><span>Ask it alone and only you see the answer, and posting it is your choice. Ask it in the group, or turn on call notes, and everyone sees it under a label that says so.</span></li>
+        <li><strong>Suggest, never assume.</strong><span>AI can propose a task, an owner or a date. A person confirms it, and a missing date stays empty.</span></li>
+        <li><strong>Color says who is acting.</strong><span>Blue is you, gray is everyone else, violet is AI, teal is an event, green is live.</span></li>
       </ol>
-      <div class="fyi-row">
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-chats-nb.webp" width="786" height="1704" data-zoom alt="Chat list: Shoe concept recording a voice note, two people and a group chat; tabs for AI, Calls, Projects, Chats and Settings" loading="lazy" decoding="async"></div>
-          <figcaption><b>Chats.</b> People and groups, with a tab bar for AI, Calls, Projects, Chats and Settings.</figcaption></figure>
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-chat-nb.webp" width="786" height="1704" data-zoom alt="Shoe concept chat with Chat, Tasks and Project tabs, a reply, an image with a link, and sent messages" loading="lazy" decoding="async"></div>
-          <figcaption><b>A chat.</b> Chat, Tasks and Project tabs on top; replies, images and links in the thread.</figcaption></figure>
-      </div>
     </div>
   </section>
 
   <!-- 02 · sheet -->
-  <section class="chapter sheet" id="onboarding">
+  <section class="chapter sheet" id="messaging">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">02 · <b>Onboarding &amp; brand</b></div><h2>A storyboard before the first message</h2></div>
-        <div class="prose"><p class="lead">The brand opens on a speech-bubble mark and three lines that say what the app is for.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Then two short steps: verify a phone number, and introduce yourself with a name and your skills.</p></div></details></div>
+        <div><div class="label">02 · Day 1, 11:14 PM · <b>Messaging</b></div><h2>It starts as a voice note</h2></div>
+        <div class="prose"><p class="lead">A messenger first: files go in at full size, and a voice note arrives with its transcript.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">What changed from the original</span><span class="less">Show less</span></summary><div class="more-body"><p>Nothing else on this page matters unless the chat itself is excellent, so the basics come first: full-size files, voice notes with transcripts, reactions and read receipts. The original promised “no file size limits”, so here a 2.1&nbsp;GB zip of stems goes in untouched. In the original, transcription sat in a tab inside message info. Here it sits under the bubble, where the crew reads it.</p></div></details></div>
       </div>
-      <div class="fyi-row sm">
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-welcome.webp" width="786" height="1704" data-zoom alt="Welcome screen: a speech-bubble mark and Focus Your Ideas, with terms and a Continue button" loading="lazy" decoding="async"></div>
-          <figcaption><b>Welcome.</b> “Focus Your Ideas”.</figcaption></figure>
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-turbocharge.webp" width="786" height="1704" data-zoom alt="Splash screen with the FYI logo over a soft gradient: Turbocharge Your Creativity" loading="lazy" decoding="async"></div>
-          <figcaption><b>Splash.</b> “Turbocharge Your Creativity”.</figcaption></figure>
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-create.webp" width="786" height="1704" data-zoom alt="Brand screen: Create and elaborate on complex projects" loading="lazy" decoding="async"></div>
-          <figcaption><b>Story, one.</b> “Create &amp; elaborate on complex projects”.</figcaption></figure>
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-collaborate.webp" width="786" height="1704" data-zoom alt="Brand screen over an illustrated pattern: Collaborate through powerful messaging" loading="lazy" decoding="async"></div>
-          <figcaption><b>Story, two.</b> “Collaborate through powerful messaging”.</figcaption></figure>
+      <div class="stage st-l g-blue" data-fx-stage role="group" aria-label="Live demo of Day 1 in Copper Hours, reimagined in 2026 with demo content: stems at full size, a transcribed voice note and the crew's replies. The steps are listed beside the phone.">
+        <div class="st-ph">
+          <div class="fx-dev" data-scene="spark"></div>
+          <div class="st-bar"><span class="demo-tag">Reimagined in 2026 · demo content</span><button type="button" class="fx-pp" aria-label="Pause the demo"></button><button type="button" class="pill fx-rp">Replay</button></div>
+        </div>
+        <div class="st-txt">
+          <ol class="fx-beats">
+            <li><button type="button" tabindex="-1"><span class="n">01</span><span class="l">Maya drops in the stems at full size: 2.1&nbsp;GB.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">02</span><span class="l">Maya records a voice note.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">03</span><span class="l">“What if the drop isn't a post. What if it's a night.”</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">04</span><span class="l">Theo: “the bridge is the video.”</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">05</span><span class="l">Ines reacts, then: “a night needs a poster.”</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">06</span><span class="l">Kofi: “I know a room.” Everyone has seen it.</span></button></li>
+          </ol>
+          <p class="onphone">On the phone: Maya sends 2.1&nbsp;GB of stems and a voice note, and the crew replies.</p>
+          <p class="orig">In the original Figma file: voice recording in the composer, the “no file size limits” story screen, and the Transcription tab in message info. See <a href="#o-11">11</a>, <a href="#o-04">04</a> and <a href="#o-16">16</a>.</p>
+        </div>
       </div>
-      <div class="fyi-row fyi-gap">
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-verify.webp" width="786" height="1704" data-zoom alt="Phone verification: We will send an SMS to verify your phone number, with a country code field and a Send button" loading="lazy" decoding="async"></div>
-          <figcaption><b>Verify.</b> A phone number and an SMS code.</figcaption></figure>
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-profile-nb.webp" width="786" height="1704" data-zoom alt="Just last one thing: an avatar photo, name, and role and skills fields" loading="lazy" decoding="async"></div>
-          <figcaption><b>A short profile.</b> An avatar photo, a name, and your role and skills.</figcaption></figure>
+      <div class="xtra edges">
+        <div class="label">Edge cases</div>
+        <ul>
+          <li>A large file sends in the background, and the thread stays usable.</li>
+          <li>A transcript folds away with one tap. The audio stays the source.</li>
+          <li>Read receipts keep the original message info: Read by and Delivered to, per person.</li>
+        </ul>
       </div>
     </div>
   </section>
 
   <!-- 03 · ink -->
-  <section class="chapter ink" id="chat">
+  <section class="chapter ink" id="ai">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">03 · <b>Chat that does work</b></div><h2>The attachments sheet is where the work starts</h2></div>
-        <div class="prose"><p class="lead">Next to Camera and Documents, the attachments sheet holds New Task and an AI button.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>A new assistant chat suggests where to begin, with prompts like “Design a database schema”. Voice messages record right in the composer.</p></div></details></div>
+        <div><div class="label">03 · Day 3, 8:02 AM · <b>AI&nbsp;in&nbsp;the&nbsp;conversation</b></div><h2>Catch up without scrolling back</h2></div>
+        <div class="prose"><p class="lead">Sixty-four messages later, one tap catches Maya up, and every fact points back to its source.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">What changed from the original</span><span class="less">Show less</span></summary><div class="more-body"><p>In the original, the AI assistant opened as its own chat with suggested prompts, and an AI button sat in the attachments sheet. In the reimagining it works on the thread itself, in two modes: private to you, like this catch-up, or in the group when someone asks it something. When it drafts a message, the person edits it and sends it as their own.</p></div></details></div>
       </div>
-      <div class="fyi-row">
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-attach-ai-nb.webp" width="786" height="1704" data-zoom alt="Attachments sheet: Camera, Media Gallery, Documents, Project, Location, Contact, Giphy and New Task, with an AI button" loading="lazy" decoding="async"></div>
-          <figcaption><b>Attachments, with AI.</b> An AI button in the sheet and beside the composer, and New Task at the bottom.</figcaption></figure>
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-ai-assistant.webp" width="786" height="1704" data-zoom alt="New AI assistant chat with suggestions such as Design a database schema and recommend approach" loading="lazy" decoding="async"></div>
-          <figcaption><b>New AI assistant chat.</b> Suggested prompts to get going.</figcaption></figure>
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-voice-nb.webp" width="786" height="1704" data-zoom alt="Chat while recording a voice message, with a delete button and a microphone" loading="lazy" decoding="async"></div>
-          <figcaption><b>Voice.</b> Record, review, send or delete.</figcaption></figure>
+      <div class="stage st-r g-violet" data-fx-stage role="group" aria-label="Live demo of a private AI catch-up in Copper Hours, reimagined in 2026 with demo content. The steps and the summary are listed beside the phone.">
+        <div class="st-ph">
+          <div class="fx-dev" data-scene="catchup"></div>
+          <div class="st-bar"><span class="demo-tag">Reimagined in 2026 · demo content</span><button type="button" class="fx-pp" aria-label="Pause the demo"></button><button type="button" class="pill fx-rp">Replay</button></div>
+        </div>
+        <div class="st-txt">
+          <ol class="fx-beats">
+            <li><button type="button" tabindex="-1"><span class="n">01</span><span class="l">64 new messages since last night.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">02</span><span class="l">Maya asks FYI AI to catch up, privately.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">03</span><span class="l">While you were away:<span class="sum-m"> the venue, the bridge, the covers and one open question.</span><span class="sum"><span>Launch night is on. Kofi is holding Fri, Nov 20 at Dock Hall 3. <i>Kofi · Wed 6:40 PM</i></span><span>Theo wants the visualizer to hit the bridge at 1:40. <i>Theo · Wed 9:12 PM</i></span><span>Ines is sketching three cover directions. <i>Ines · Wed 10:03 PM</i></span><span>Still open: who runs tickets? <i>open question</i></span></span></span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">04</span><span class="l">Each fact links to the message it came from.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">05</span><span class="l">AI drafts. Maya sends it as a normal message.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">06</span><span class="l">Kofi asks the AI in the group. Everyone sees the answer and who asked.</span></button></li>
+          </ol>
+          <p class="onphone">On the phone: a private catch-up with sources, a draft Maya sends as a normal message, and an answer the whole group sees.</p>
+          <p class="orig">In the original Figma file: the New AI assistant chat with suggested prompts, and the AI button in the attachments sheet. See <a href="#o-10">10</a> and <a href="#o-09">09</a>.</p>
+        </div>
+      </div>
+      <div class="xtra fold2">
+        <div class="decision">
+          <div class="label">Decision · <b>2026 reimagining</b></div>
+          <h3>Is AI a contact or a layer?</h3>
+          <ul class="opts">
+            <li class="opt"><strong>A contact in the chat list</strong><span>Familiar, but its answers look like a member's message.</span></li>
+            <li class="opt chosen"><strong>A layer in the thread</strong><span>Full-width cards with no avatar, a violet hairline and a label that says who can see it.</span></li>
+          </ul>
+          <p><b>Why:</b> in a group, nobody should have to guess whether a person or a model said something.</p>
+        </div>
+        <div class="edges">
+          <div class="label">Edge cases</div>
+          <ul>
+            <li>Catch me up appears only past 30 unread, because below that, reading is faster.</li>
+            <li>A summary that leaves something out says so: “Couldn't read 1 voice note.”</li>
+            <li>A deleted source shows “Message deleted”, and its line is marked.</li>
+            <li>An AI draft carries “Drafted with AI” until it is sent. After that it is the person's own message.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -174,95 +194,318 @@
   <section class="chapter sheet" id="tasks">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">04 · <b>From message to task</b></div><h2>A task without leaving the conversation</h2></div>
-        <div class="prose"><p class="lead">New Task sits in the same attachments sheet as a photo.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The task keeps everything the team needs in one card, and it shows up in the chat's tasks with its status.</p></div></details></div>
+        <div><div class="label">04 · Day 3, 8:20 AM · <b>Message to task</b></div><h2>A promise in the chat becomes a task</h2></div>
+        <div class="prose"><p class="lead">Theo promises a cut by Nov 12. FYI offers to make it a task, and Maya confirms.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">What changed from the original</span><span class="less">Show less</span></summary><div class="more-body"><p>The original put New Task in the attachments sheet, next to Camera and Documents, with a name, a due date, assignees and a status. The reimagining starts from the message instead: AI fills the same fields from Theo's words and only suggests the owners, and nothing becomes a task until a person taps the check. The task stays attached to its message, so the conversation and the plan never drift apart.</p></div></details></div>
       </div>
-      <div class="two solo" style="align-items:center">
-        <div class="fyi-row fyi-flow">
-          <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-create-task-nb.webp" width="786" height="1704" data-zoom alt="Create task: name AI objects UX, a due date, a description, two assignees, status In progress" loading="lazy" decoding="async"></div>
-            <figcaption><b>Create task.</b> Set it up in one sheet.</figcaption></figure>
-          <span class="fyi-arrow" aria-hidden="true">→</span>
-          <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-tasks-nb.webp" width="786" height="1704" data-zoom alt="Media gallery filtered to Tasks: AI objects UX cards marked Started, Finished and In progress, with assignees' photos" loading="lazy" decoding="async"></div>
-            <figcaption><b>Tasks.</b> Filtered in the chat's media gallery, each with its status.</figcaption></figure>
+      <div class="stage st-l st-anat g-shadow" data-fx-stage role="group" aria-label="Live demo of a message becoming a task, reimagined in 2026 with demo content. The steps and the field mapping are listed beside the phone.">
+        <div class="st-ph">
+          <div class="fx-dev" data-scene="task"></div>
+          <div class="st-bar"><span class="demo-tag">Reimagined in 2026 · demo content</span><button type="button" class="fx-pp" aria-label="Pause the demo"></button><button type="button" class="pill fx-rp">Replay</button></div>
         </div>
-        <div class="rv xtra">
-          <dl class="fyi-rules">
-            <div><dt>Name</dt><dd>What the task is.</dd></div>
-            <div><dt>Due date</dt><dd>A date and a time.</dd></div>
-            <div><dt>Description</dt><dd>The detail behind it.</dd></div>
-            <div><dt>Assigned to</dt><dd>People from the chat, added and removed as chips.</dd></div>
-            <div><dt>Status</dt><dd><span class="fyi-status"><span>Approved</span><span>In progress</span><span>Finished</span></span></dd></div>
-          </dl>
+        <div class="st-txt">
+          <div class="anat">
+            <div class="anat-h">Where each field came from</div>
+            <p class="anat-s">“<span data-a="3">I'll</span> have <span data-a="1">the visualizer cut</span> <span data-a="2">by Nov&nbsp;12</span>. <span data-a="4">need the final stems first</span> though”</p>
+            <p class="anat-who">Theo · 8:20 AM</p>
+            <ol class="anat-f">
+              <li data-a="1"><span class="n">1</span><b>Name</b> Visualizer cut, bridge at 1:40</li>
+              <li data-a="2"><span class="n">2</span><b>Due</b> Thu, Nov 12</li>
+              <li data-a="3"><span class="n">3</span><b>Assigned to</b> Theo, suggested</li>
+              <li data-a="4"><span class="n">4</span><b>Waiting on</b> Final stems, a new task. Owner suggested from Maya's role and skills. No date, because the message has none.</li>
+            </ol>
+          </div>
+          <ol class="fx-beats compact">
+            <li><button type="button" tabindex="-1"><span class="n">01</span><span class="l">Theo makes a promise in the chat.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">02</span><span class="l">FYI AI offers once, quietly.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">03</span><span class="l">Four phrases become four fields.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">04</span><span class="l">A person confirms. The task stays on its message.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">05</span><span class="l">One list for every promise in the group.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">06</span><span class="l">Day 9: the stems are done, so Theo can start.</span></button></li>
+          </ol>
+          <p class="onphone">On the phone: FYI suggests a task from Theo's message and fills it from Theo's words. Maya confirms, and the Tasks tab updates.</p>
+          <p class="orig">In the original Figma file: New Task in the attachments sheet, Create task with assignee chips and the statuses Approved, In progress and Finished, and the media gallery filtered to Tasks. See <a href="#o-09">09</a>, <a href="#o-12">12</a> and <a href="#o-13">13</a>.</p>
+        </div>
+      </div>
+      <div class="xtra fold2">
+        <div class="decision">
+          <div class="label">Decision · <b>2026 reimagining</b></div>
+          <h3>Where does a task start?</h3>
+          <ul class="opts">
+            <li class="opt"><strong>From the attachments sheet, as in the original</strong><span>A blank sheet, and the context gets typed again.</span></li>
+            <li class="opt chosen"><strong>From the message that asked for it</strong><span>The fields come from its words, and the attachments sheet keeps New Task for work that starts from scratch.</span></li>
+          </ul>
+          <p><b>Why:</b> the reason for a task is in the conversation, so the task should carry it.</p>
+        </div>
+        <div class="edges">
+          <div class="label">Edge cases</div>
+          <ul>
+            <li>With no date in the message, the date stays empty and marked. AI doesn't guess.</li>
+            <li>If two people make the same message a task, the second sees “Maya already made this a task” and opens it.</li>
+            <li>An edited message shows “Source edited” on its task.</li>
+            <li>The suggestion offers once. Dismissing it hides it for that message.</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 05 · ink -->
-  <section class="chapter ink" id="calls">
+  <section class="chapter ink" id="together">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">05 · <b>Calls &amp; groups</b></div><h2>Talk, share the screen, see who read it</h2></div>
-        <div class="prose"><p class="lead">Video calls share the screen and keep it in sync.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Group info gathers a project's media, music, voice notes, documents and links. Message info shows who read a message and when, with a transcription tab.</p></div></details></div>
+        <div><div class="label">05 · Day 19, 7:05 PM · <b>Together</b></div><h2>One thread, three phones, in sync</h2></div>
+        <div class="prose"><p class="lead">Ines posts three covers, the crew votes, and Theo shares the cut on a call. Every phone keeps up.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">What changed from the original</span><span class="less">Show less</span></summary><div class="more-body"><p>A group chat is never one screen, so I show one moment from three phones: your bubbles are blue, everyone else's are not, and the votes land on all three at once. The original call screen had Sharing and Sync buttons. In the reimagining, Sync means one shared playhead, so when Theo jumps to the bridge, everyone lands on the same frame. When the call ends, its notes post to the thread for everyone.</p></div></details></div>
       </div>
-      <div class="fyi-row">
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-call-share-nb.webp" width="786" height="1704" data-zoom alt="Video call at 00:49 with a picture-in-picture, call controls, and Sharing and Sync buttons" loading="lazy" decoding="async"></div>
-          <figcaption><b>Video call.</b> Screen sharing, with sync.</figcaption></figure>
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-group-nb.webp" width="786" height="1704" data-zoom alt="Group info: message, audio and video actions, a Public project switch, and media, music, voice notes, documents, links, shared events, calls and groups in common" loading="lazy" decoding="async"></div>
-          <figcaption><b>Group info.</b> A public project switch and everything shared in the group.</figcaption></figure>
-        <figure class="fyi-dev rv"><div class="fyi-ph"><img src="../img/fyi-message-info-nb.webp" width="786" height="1704" data-zoom alt="Message info: the message, Transcription and Info tabs, and Read by and Delivered to lists with times" loading="lazy" decoding="async"></div>
-          <figcaption><b>Message info.</b> Read receipts and transcription.</figcaption></figure>
+      <div class="stage st-trio g-green" data-fx-stage data-view="auto" role="group" aria-label="Live demo of one moment on three phones, Maya's, Ines's and Theo's, reimagined in 2026 with demo content: a vote, a call with a shared playhead, and notes for everyone. The steps are listed under the phones.">
+        <div class="trio-tabs" role="group" aria-label="Whose phone to show">
+          <button type="button" data-v="auto" aria-pressed="true">Auto</button><button type="button" data-v="0" aria-pressed="false">Maya</button><button type="button" data-v="1" aria-pressed="false">Ines</button><button type="button" data-v="2" aria-pressed="false">Theo</button>
+        </div>
+        <div class="presence" aria-hidden="true"><i data-p="0"></i><i data-p="1"></i><i data-p="2"></i></div>
+        <div class="trio" data-scene="together">
+          <i class="sync-line" aria-hidden="true"></i>
+          <div class="trio-ph" data-i="0"><div class="trio-tag">Maya's phone</div><div class="fx-dev"></div></div>
+          <div class="trio-ph" data-i="1"><div class="trio-tag">Ines's phone</div><div class="fx-dev"></div></div>
+          <div class="trio-ph" data-i="2"><div class="trio-tag">Theo's phone</div><div class="fx-dev"></div></div>
+        </div>
+        <div class="st-bar"><span class="demo-tag">Reimagined in 2026 · demo content</span><button type="button" class="fx-pp" aria-label="Pause the demo"></button><button type="button" class="pill fx-rp">Replay</button></div>
+        <p class="fx-now" aria-hidden="true"></p>
+        <div class="st-txt">
+          <ol class="fx-beats grid">
+            <li><button type="button" tabindex="-1"><span class="n">01</span><span class="l">Ines posts three covers.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">02</span><span class="l">Maya and Theo vote B, live on every screen.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">03</span><span class="l">Theo starts a call. Maya and Ines join.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">04</span><span class="l">Theo shares the cut.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">05</span><span class="l">Sync is one playhead. Every phone lands on 1:40 together.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">06</span><span class="l">Ines marks the arcs. Maya clips the moment.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">07</span><span class="l">The call leaves notes the whole group can see.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">08</span><span class="l">Who is here, and who has read it, shows in the thread.</span></button></li>
+          </ol>
+          <p class="onphone">On the phones: one moment seen by Maya, Ines and Theo, with a vote, a call with a shared playhead, and notes for everyone.</p>
+          <p class="orig">In the original Figma file: a video call with Sharing and Sync, and group info that gathers Media, Music, Voice notes, Documents and Links. See <a href="#o-14">14</a> and <a href="#o-15">15</a>.</p>
+        </div>
+      </div>
+      <div class="xtra fold2">
+        <div class="decision">
+          <div class="label">Decision · <b>2026 reimagining</b></div>
+          <h3>When do call notes run?</h3>
+          <ul class="opts">
+            <li class="opt"><strong>Always on</strong><span>Useful, but nobody chose it.</span></li>
+            <li class="opt"><strong>Only for whoever turns them on</strong><span>That means private notes on a shared call.</span></li>
+            <li class="opt chosen"><strong>On for the call, visible to all</strong><span>A label on every screen says Notes on, and anyone can turn them off.</span></li>
+          </ul>
+          <p><b>Why:</b> notes about a group should never be a secret from the group.</p>
+        </div>
+        <div class="edges">
+          <div class="label">Edge cases</div>
+          <ul>
+            <li>A phone that falls behind shows “Sync paused” instead of a stale frame.</li>
+            <li>Late joiners see notes from the moment they joined.</li>
+            <li>Anyone on the call can switch notes off for everyone.</li>
+            <li>A vote stays open until the person who asked closes it.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- 06 · sheet -->
-  <section class="chapter sheet" id="system">
+  <section class="chapter sheet" id="launch">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">06 · <b>The system behind it</b></div><h2>One design system under every screen</h2></div>
-        <div class="prose"><p class="lead">Every screen above is built from the Figma file's own design-system page.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>It runs from the type and color styles up to the chat bubbles and the molecules made from them.</p></div></details></div>
+        <div><div class="label">06 · Day 24, 6:10 PM · <b>Launch night</b></div><h2>Make it an event, then tell everyone</h2></div>
+        <div class="prose"><p class="lead">Kofi's message becomes an event. One switch makes it public, and one tap cuts a story, a post and a link page.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">What changed from the original</span><span class="less">Show less</span></summary><div class="more-body"><p>Group info in the original had a Public project switch at the top and a Shared Events list. This is where I took those two ideas furthest. AI drafts the event from the chat, a host checks it, and promotion makes the formats a creator needs, with RSVPs coming back to the same thread. The formats are views of the event, not copies, so a change in one place reaches all of them.</p></div></details></div>
       </div>
-      <dl class="fyi-rules rv xtra">
-        <div><dt>Typography</dt><dd>Named type styles for the whole app.</dd></div>
-        <div><dt>Color</dt><dd><span class="fyi-tags"><span>Dark_1000</span><span>Light_1000</span><span>Chat_Blue</span><span>Green Active</span><span>Components Purple</span></span></dd></div>
-        <div><dt>Icons</dt><dd>One icon palette.</dd></div>
-        <div><dt>Chat bubbles</dt><dd>Text, voice, image, reply and link messages.</dd></div>
-        <div><dt>Molecules</dt><dd>The larger pieces built from those parts.</dd></div>
-      </dl>
-      <div class="fyi-close rv"><p>Designed before my AI-first way of working; <em>every screen drawn by hand in Figma.</em></p></div>
+      <div class="stage st-launch g-teal" data-fx-stage data-ps="splash" role="group" aria-label="Live demo of launch night, reimagined in 2026 with demo content: FYI AI drafts an event from the chat, Maya promotes it as a story, a post and a link page, and RSVPs come back. The steps are listed under the phone.">
+        <div class="st-ph">
+          <div class="fx-dev" data-scene="launch"></div>
+          <div class="st-bar"><span class="demo-tag">Reimagined in 2026 · demo content</span><button type="button" class="fx-pp" aria-label="Pause the demo"></button><button type="button" class="pill fx-rp">Replay</button></div>
+          <p class="fx-now" aria-hidden="true"></p>
+        </div>
+        <div class="st-out">
+          <div class="fmts fx-vars" role="region" aria-label="Three promo formats made from the event">
+            <figure class="fmt f-story"><div class="fm"><div class="ps"><i class="arcs"></i></div><div class="fs-b"><b>COPPER HOURS<br>LAUNCH NIGHT</b><span>FRI NOV 20 · DOORS <span data-bind="doors">9 PM</span> · DOCK HALL 3</span><em>RSVP on FYI</em></div></div><span class="stale" hidden>Out of date <button type="button" class="rf">Refresh</button></span><figcaption>Story 9:16</figcaption></figure>
+            <figure class="fmt f-post"><div class="fm"><div class="ps"><i class="arcs"></i><b class="big">NOV 20</b><span class="sm">COPPER HOURS · LAUNCH NIGHT · DOCK HALL 3 · DOORS <span data-bind="doors">9 PM</span></span></div></div><span class="stale" hidden>Out of date <button type="button" class="rf">Refresh</button></span><figcaption>Post 1:1</figcaption></figure>
+            <figure class="fmt f-link"><div class="fm"><div class="lp-url">fyi/e/copper-hours</div><div class="ps lp-hero"><i class="arcs"></i></div><div class="lp-b"><b>Copper Hours: Launch Night</b><span>Fri, Nov 20 · Doors <span data-bind="doors">9 PM</span> · Dock Hall 3</span><span class="lp-rsvp">RSVP</span><span class="lp-hosts"><i class="pm">M</i><i class="pt">T</i><i class="pi">I</i><i class="pk">K</i><em>Going · 27</em></span></div></div><span class="stale" hidden>Out of date <button type="button" class="rf">Refresh</button></span><figcaption>Link page</figcaption></figure>
+          </div>
+          <div class="tryit">
+            <div class="tryit-h">Try it</div>
+            <p>Restyle the poster or move the doors. The phone and all three formats follow, because they are views of one event.</p>
+            <div class="tryit-c">
+              <div class="seg" role="group" aria-label="Poster style"><button type="button" data-ps="splash" aria-pressed="true">Splash</button><button type="button" data-ps="ink" aria-pressed="false">Ink</button><button type="button" data-ps="paper" aria-pressed="false">Paper</button></div>
+              <button type="button" class="pill doors">Move doors to 10 PM</button>
+              <button type="button" class="pill rfa" hidden>Refresh all</button>
+            </div>
+          </div>
+        </div>
+        <div class="st-txt">
+          <ol class="fx-beats wide">
+            <li><button type="button" tabindex="-1"><span class="n">01</span><span class="l">Kofi confirms the venue. FYI AI offers an event.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">02</span><span class="l">FYI AI drafts the event from the chat. A host checks it.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">03</span><span class="l">Posted. The crew is going.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">04</span><span class="l">One switch makes it public.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">05</span><span class="l">A story, a post and a link page, made from the event.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">06</span><span class="l">RSVPs come back into the thread.</span></button></li>
+            <li><button type="button" tabindex="-1"><span class="n">07</span><span class="l">Fri, Nov 20, 8:58 PM. Doors.</span></button></li>
+          </ol>
+          <p class="onphone">On the phone: FYI AI drafts the event from Kofi's message, Maya promotes it, RSVPs come back, and launch night starts.</p>
+          <p class="orig">In the original Figma file: the Public project switch and Shared Events in group info. See <a href="#o-15">15</a>.</p>
+        </div>
+      </div>
+      <div class="xtra fold2">
+        <div class="decision">
+          <div class="label">Decision · <b>2026 reimagining</b></div>
+          <h3>Are promo formats copies or views?</h3>
+          <ul class="opts">
+            <li class="opt"><strong>Copies</strong><span>Export once, and they drift the moment the event changes.</span></li>
+            <li class="opt chosen"><strong>Views</strong><span>Title, date and place are bound to the event, and a change flags every format.</span></li>
+          </ul>
+          <p><b>Why:</b> a launch needs one source of truth, and the chat already holds it.</p>
+        </div>
+        <div class="edges">
+          <div class="label">Edge cases</div>
+          <ul>
+            <li>A change to the date, time or place notifies each RSVP once, with the old value struck through.</li>
+            <li>Formats stay “Out of date” until a host refreshes them. Nothing republishes on its own.</li>
+            <li>AI drafts never go public without a host's tap.</li>
+            <li>A full event opens a waitlist.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 · ink -->
+  <section class="chapter ink" id="system">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">07 · <b>The system</b></div><h2>What stayed FYI, and what grew up</h2></div>
+        <div class="prose"><p class="lead">Same true black, same speech-bubble mark, and Chat_Blue one step deeper. AI and events got colors of their own.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">What changed from the original</span><span class="less">Show less</span></summary><div class="more-body"><p>The original design system named its colors Dark_1000, Light_1000, Chat_Blue, Green Active and Components Purple, and the reimagining keeps all five names. Chat_Blue went one step deeper so white text on a bubble passes 4.5:1, and Components Purple became the color only AI may use. The teal from the original splash screen now means an event. Every live phone on this page is built from these tokens, so the spec below describes the same parts that play above.</p></div></details></div>
+      </div>
+      <div class="sg">
+        <div><div class="sg-h">What stayed</div><ul><li>True black, the doodle wallpaper and heavy uppercase headlines</li><li>The outlined speech-bubble mark</li><li>Chat_Blue for your words, Green Active for who is here, a violet AI glyph</li><li>Chat, Tasks and Project tabs, with Approved, In progress and Finished</li><li>Sharing and Sync, the Public switch and Shared Events</li><li>Role and skills, Read by, Delivered to and Transcription</li></ul></div>
+        <div><div class="sg-h">What grew</div><ul><li>AI moves into every thread, private by default, with sources</li><li>Tasks start from the message that asked</li><li>Events become a message type with a poster and promotion</li><li>Teal means event</li><li>Your name no longer prints inside your own bubbles</li><li>A new tab bar: Chats, Projects, Events, Calls, AI</li></ul></div>
+      </div>
+      <div class="spec">
+        <figure class="spec-ph">
+          <div class="spec-dev"><div class="fx-dev" data-static="f1"></div>
+            <ol class="marks" aria-hidden="true"><li data-m="1">1</li><li data-m="2">2</li><li data-m="3">3</li><li data-m="4">4</li><li data-m="5">5</li><li data-m="6">6</li><li data-m="7">7</li><li data-m="8">8</li></ol>
+            <i class="spec-box" aria-hidden="true"></i>
+          </div>
+          <figcaption>Spec view of a frame from the Copper Hours thread. Hover or tap a number to outline its part. Reimagined in 2026 · demo content.</figcaption>
+        </figure>
+        <ol class="spec-list">
+          <li data-m="1"><button type="button"><span class="n">1</span><span><b>voice</b> · 30 bars · transcript 15/20 Text_2 with a 1 pt rule</span></button></li>
+          <li data-m="2"><button type="button"><span class="n">2</span><span><b>ai/card</b> · AI_Surface #121218 · 1px violet gradient hairline · visibility chip</span></button></li>
+          <li data-m="3"><button type="button"><span class="n">3</span><span><b>ai/source</b> · 12/16 · AI_Text #C9B8FF on rgba(150,56,240,.16)</span></button></li>
+          <li data-m="4"><button type="button"><span class="n">4</span><span><b>bubble/own</b> · r18, 6 on the tail corner · pad 7/12/8 · Chat_Blue #0F67F0 · 17/22</span></button></li>
+          <li data-m="5"><button type="button"><span class="n">5</span><span><b>bubble/other</b> · Surface_1 #1C1C1E · sender 13/600 in the person's tint</span></button></li>
+          <li data-m="6"><button type="button"><span class="n">6</span><span><b>object/task</b> · 28 tall · 3 pt status stripe · owner monogram 18</span></button></li>
+          <li data-m="7"><button type="button"><span class="n">7</span><span><b>object/event</b> · Splash poster · notches r8 · teal stub</span></button></li>
+          <li data-m="8"><button type="button"><span class="n">8</span><span><b>composer</b> · AI knot 36 · field r18 · mic or send 36 · hit areas 44</span></button></li>
+        </ol>
+      </div>
+      <div class="tokens xtra" role="table" aria-label="Color roles in the reimagined app">
+        <div class="tk-h" role="row"><span role="columnheader">Token</span><span role="columnheader">Hex</span><span role="columnheader">Role</span><span role="columnheader">Check</span></div>
+        <div role="row"><span role="cell"><i style="--s:#000000"></i><b>Dark_1000</b></span><span role="cell">#000000</span><span role="cell">Canvas</span><span role="cell">kept</span></div>
+        <div role="row"><span role="cell"><i style="--s:#1C1C1E"></i><b>Surface_1</b></span><span role="cell">#1C1C1E</span><span role="cell">Others' bubbles, cells, cards</span><span role="cell">white 17:1</span></div>
+        <div role="row"><span role="cell"><i style="--s:#FFFFFF"></i><b>Light_1000</b></span><span role="cell">#FFFFFF</span><span role="cell">Primary text</span><span role="cell">21:1</span></div>
+        <div role="row"><span role="cell"><i style="--s:#9A9AA0"></i><b>Text_2</b></span><span role="cell">#9A9AA0</span><span role="cell">Previews, meta, transcripts</span><span role="cell">7.5:1 on black</span></div>
+        <div role="row"><span role="cell"><i style="--s:#0F67F0"></i><b>Chat_Blue</b></span><span role="cell">#0F67F0</span><span role="cell">You: own bubbles, primary buttons, unread badges</span><span role="cell">white 4.98:1</span></div>
+        <div role="row"><span role="cell"><i style="--s:#30D158"></i><b>Green Active</b></span><span role="cell">#30D158</span><span role="cell">Live: presence, typing, speaking, Live now, Finished</span><span role="cell">10.4:1 on black</span></div>
+        <div role="row"><span role="cell"><i style="--s:linear-gradient(135deg,#6650F0,#9638F0)"></i><b>Components Purple</b></span><span role="cell">#6650F0 to #9638F0</span><span role="cell">AI only: knot, hairlines, caret, sparkles, suggestions</span><span role="cell">sampled from the original glyph</span></div>
+        <div role="row"><span role="cell"><i style="--s:#C9B8FF"></i><b>AI_Text</b></span><span role="cell">#C9B8FF</span><span role="cell">AI labels, chips, outline actions</span><span role="cell">10.5:1 on #121218</span></div>
+        <div role="row"><span role="cell"><i style="--s:#34D1BF"></i><b>Event_Teal</b></span><span role="cell">#34D1BF</span><span role="cell">Events: date blocks, Going, Public</span><span role="cell">11:1 on black</span></div>
+        <div role="row"><span role="cell"><i style="--s:#FFB547"></i><b>Needs input</b></span><span role="cell">#FFB547</span><span role="cell">A missing required field</span><span role="cell">12:1 on black</span></div>
+      </div>
+      <div class="xtra fold2 sys-x">
+        <div class="decision">
+          <div class="label">Decision · <b>2026 reimagining</b></div>
+          <h3>What earns a tab?</h3>
+          <ul class="opts">
+            <li class="opt"><strong>Keep the original order</strong><span>AI, Calls, Projects, Chats, Settings.</span></li>
+            <li class="opt chosen"><strong>Chats, Projects, Events, Calls, AI</strong><span>With Settings behind your avatar.</span></li>
+          </ul>
+          <p><b>Why:</b> chats are home, so they come first. Events needed a place of their own, and since AI now works in every thread, its tab holds the private assistant.</p>
+        </div>
+        <div class="sys-scale">
+          <div class="label">Type, in the 390 × 844 pt screen</div>
+          <dl class="scale">
+            <div><dt>Large title</dt><dd>34/41 · 700 · Geist</dd></div>
+            <div><dt>Body, bubbles, fields</dt><dd>17/22 · 400 · Geist</dd></div>
+            <div><dt>AI card body</dt><dd>16/22 · 400 · Geist</dd></div>
+            <div><dt>Secondary, transcripts</dt><dd>15/20 · 400 · Geist</dd></div>
+            <div><dt>Names, chips, tabs</dt><dd>13/16 · 600 · Geist</dd></div>
+            <div><dt>Meta and data</dt><dd>12/15 · Geist and Geist Mono</dd></div>
+            <div><dt>Posters and story lines</dt><dd>22 to 34 · 700 · Bricolage Grotesque, uppercase</dd></div>
+          </dl>
+          <div class="label">Motion</div>
+          <p class="motion">One rule: an object grows from the message it came from (pill to card, bubble to task sheet, ticket to formats) and shrinks back into it. Messages enter in 320 ms, sheets in 340 ms, and only live states loop: typing, recording, speaking, streaming and the AI knot while it thinks. Screens change with a push or a cut, never a crossfade.</p>
+        </div>
+        <div class="strips">
+          <div class="label">States</div>
+          <div class="strip-row" data-strip="ai" role="region" aria-label="AI card states" tabindex="0"></div>
+          <div class="strip-row" data-strip="task" role="region" aria-label="Task chip states" tabindex="0"></div>
+          <div class="strip-row" data-strip="event" role="region" aria-label="Event ticket states" tabindex="0"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 · sheet, centered head -->
+  <section class="chapter sheet" id="original">
+    <div class="wrap">
+      <div class="ch-head center">
+        <div><div class="label">08 · <b>The original</b></div><h2>Where it started, frame by frame</h2></div>
+        <div class="prose"><p class="lead">These are the FYI screens I designed in my first year at Intune. Everything above grew from them.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Welcome, the splash and story screens, verification and profile, chats, a chat with its Chat, Tasks and Project tabs, the attachments sheet with its AI button, the AI assistant, voice, tasks, a video call with Sharing and Sync, group info and message info. The original chat is paired with its 2026 counterpart. The strip below holds all sixteen screens, and each one opens larger.</p></div></details></div>
+      </div>
+      <figure class="cmp-fig">
+        <div class="cmp-pair">
+          <div class="cmp-col"><div class="cmp-tag">Original · Figma</div><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-chat-nb.webp" width="786" height="1704" alt="The original chat: a Shoe concept thread with Chat, Tasks and Project tabs, a reply, an image with a link, and sent messages" loading="lazy" decoding="async"></div></div></div>
+          <div class="cmp-col cmp-reim"><div class="cmp-tag">Reimagined in 2026 · demo content</div><div class="fyi-dev"><div class="fyi-ph"><div class="cmp-box"><div class="cmp-scr" data-static="f1-flat"></div></div></div></div></div>
+        </div>
+        <figcaption><b>Then and now.</b> The original chat from my Figma file, and the Copper Hours thread reimagined in 2026.</figcaption>
+      </figure>
+      <div class="strip-h">The original Figma screens · 16 frames</div>
+      <div class="ostrip">
+        <button type="button" class="os-b os-p" aria-label="Earlier screens"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="os-sc" role="region" aria-label="Original FYI screens" tabindex="0">
+          <figure id="o-01"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-welcome.webp" width="786" height="1704" data-zoom alt="Welcome screen: a speech-bubble mark and Focus Your Ideas, with terms and a Continue button" loading="lazy" decoding="async"></div></div><figcaption><span class="on">01</span><b>Welcome.</b> “Focus Your Ideas”</figcaption></figure>
+          <figure id="o-02"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-turbocharge.webp" width="786" height="1704" data-zoom alt="Splash screen with the FYI logo over a dark teal and red gradient: Turbocharge Your Creativity" loading="lazy" decoding="async"></div></div><figcaption><span class="on">02</span><b>Splash.</b> “Turbocharge Your Creativity”</figcaption></figure>
+          <figure id="o-03"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-create.webp" width="786" height="1704" data-zoom alt="Story screen: Create and elaborate on complex projects" loading="lazy" decoding="async"></div></div><figcaption><span class="on">03</span><b>Story one.</b> “Create &amp; elaborate on complex projects”</figcaption></figure>
+          <figure id="o-04"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-collaborate.webp" width="786" height="1704" data-zoom alt="Story screen over a doodle pattern: Collaborate through powerful messaging, with no file size limits" loading="lazy" decoding="async"></div></div><figcaption><span class="on">04</span><b>Story two.</b> “Collaborate through powerful messaging”</figcaption></figure>
+          <figure id="o-05"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-verify.webp" width="786" height="1704" data-zoom alt="Phone verification: We will send an SMS to verify your phone number" loading="lazy" decoding="async"></div></div><figcaption><span class="on">05</span><b>Verify.</b> A phone number and an SMS code</figcaption></figure>
+          <figure id="o-06"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-profile-nb.webp" width="786" height="1704" data-zoom alt="A short profile: an avatar photo, name, and role and skills fields" loading="lazy" decoding="async"></div></div><figcaption><span class="on">06</span><b>Profile.</b> “Just last one thing”</figcaption></figure>
+          <figure id="o-07"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-chats-nb.webp" width="786" height="1704" data-zoom alt="Chat list with a tab bar for AI, Calls, Projects, Chats and Settings" loading="lazy" decoding="async"></div></div><figcaption><span class="on">07</span><b>Chats.</b> Tabs for AI, Calls, Projects, Chats and Settings</figcaption></figure>
+          <figure id="o-08"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-chat-nb.webp" width="786" height="1704" data-zoom alt="Shoe concept chat with Chat, Tasks and Project tabs, a reply, an image with a link, and sent messages" loading="lazy" decoding="async"></div></div><figcaption><span class="on">08</span><b>A chat.</b> Chat, Tasks and Project tabs</figcaption></figure>
+          <figure id="o-09"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-attach-ai-nb.webp" width="786" height="1704" data-zoom alt="Attachments sheet: Camera, Media Gallery, Documents, Project, Location, Contact, Giphy and New Task, with an AI button" loading="lazy" decoding="async"></div></div><figcaption><span class="on">09</span><b>Attachments.</b> New Task and an AI button</figcaption></figure>
+          <figure id="o-10"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-ai-assistant.webp" width="786" height="1704" data-zoom alt="New AI assistant chat with suggested prompts" loading="lazy" decoding="async"></div></div><figcaption><span class="on">10</span><b>AI assistant.</b> A new assistant chat with suggested prompts</figcaption></figure>
+          <figure id="o-11"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-voice-nb.webp" width="786" height="1704" data-zoom alt="Chat while recording a voice message, with a delete button and a microphone" loading="lazy" decoding="async"></div></div><figcaption><span class="on">11</span><b>Voice.</b> Recording in the composer</figcaption></figure>
+          <figure id="o-12"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-create-task-nb.webp" width="786" height="1704" data-zoom alt="Create task: a name, a due date, a description, two assignees, status In progress" loading="lazy" decoding="async"></div></div><figcaption><span class="on">12</span><b>Create task.</b> Approved, In progress, Finished</figcaption></figure>
+          <figure id="o-13"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-tasks-nb.webp" width="786" height="1704" data-zoom alt="Media gallery filtered to Tasks, with Started, Finished and In progress cards" loading="lazy" decoding="async"></div></div><figcaption><span class="on">13</span><b>Tasks.</b> The media gallery filtered to Tasks</figcaption></figure>
+          <figure id="o-14"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-call-share-nb.webp" width="786" height="1704" data-zoom alt="Video call with a picture-in-picture, call controls, and Sharing and Sync buttons" loading="lazy" decoding="async"></div></div><figcaption><span class="on">14</span><b>Video call.</b> Sharing and Sync</figcaption></figure>
+          <figure id="o-15"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-group-nb.webp" width="786" height="1704" data-zoom alt="Group info: a Public project switch, media, music, voice notes, documents, links, shared events and calls" loading="lazy" decoding="async"></div></div><figcaption><span class="on">15</span><b>Group info.</b> Public project and Shared Events</figcaption></figure>
+          <figure id="o-16"><div class="fyi-dev"><div class="fyi-ph"><img src="../img/fyi-message-info-nb.webp" width="786" height="1704" data-zoom alt="Message info: Transcription and Info tabs, and Read by and Delivered to lists" loading="lazy" decoding="async"></div></div><figcaption><span class="on">16</span><b>Message info.</b> Read by, Delivered to, Transcription</figcaption></figure>
+        </div>
+        <button type="button" class="os-b os-n" aria-label="Later screens"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      <div class="fyi-close"><p>FYI didn't go ahead, and it was fun to work on. <em>This page is an echo of what it could have been.</em></p></div>
     </div>
   </section>
 
   <div class="wrap">
     <a class="next" href="design-lab.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Design Lab</h2></div><span class="next-thumb" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/demo-tour-poster-c.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
-    <div class="sources"><p>All screens are exports of my Figma file for FYI, designed at Intune before Hear and framed here in CSS. Quoted lines are the app's own copy.</p></div>
+    <div class="sources"><p>The original screens are exports of my Figma file for FYI, designed in my first year at Intune, before Hear. Quoted lines are the original app's own copy. The live screens are a 2026 reimagining, rebuilt as live code. Every person, track, venue, date and message inside them is fictional demo content. FYI did not launch.</p></div>
   </div>
 </main>
 <footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
 <script src="case.js"></script>
-<script>
-// hero fan: opens as you scroll past it (off for reduced motion)
-(() => {
-  const fan = document.getElementById('fyi-fan');
-  if (!fan || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let raf = 0;
-  const upd = () => {
-    raf = 0;
-    const r = fan.getBoundingClientRect(), vh = innerHeight;
-    if (r.bottom < -100 || r.top > vh + 100) return;
-    const c = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
-    fan.style.setProperty('--s', (0.7 + 0.3 * Math.min(1, c / 0.5)).toFixed(3));
-    fan.style.setProperty('--k', ((c - 0.5) * 2).toFixed(3));
-  };
-  const req = () => { if (!raf) raf = requestAnimationFrame(upd); };
-  addEventListener('scroll', req, { passive: true });
-  addEventListener('resize', req);
-  upd();
-})();
-</script>
+<script src="fyi-live.js"></script>
+<script src="fyi-scenes.js"></script>
+<script src="fyi-page.js"></script>
 </body>
 </html>
