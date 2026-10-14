@@ -515,3 +515,11 @@ footer a { display: inline-block; padding-block: 11px; margin-block: -11px; text
   .brand-web-ext::before { content: ""; position: absolute; inset: -11px -6px; }
 }
 @media (max-width: 760px) { .compare .tag { font-size: 10px; } }
+
+/* ---------- cs6 design pass: finished endings and full-width card rules (CSS only, no copy changes)
+   - a page that ends on a cream sheet closes it with the same rounded corners its top opens with;
+   - after an ink or plain last chapter, the next-case card no longer adds its own gap on top of the chapter's padding;
+   - a decision card's dashed "Result" rule runs the full card width, while its text keeps the reading measure. */
+.chapter.sheet:has(+ .wrap > .next) { border-radius: var(--sheet-r); }
+.chapter:not(.sheet):has(+ .wrap > .next) + .wrap > .next { margin-top: 0; }
+.decision .because { max-width: none; padding-right: max(0px, calc(100% - var(--read))); }
