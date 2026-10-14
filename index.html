@@ -838,6 +838,11 @@ footer { padding-block: 28px 36px; font: 400 12px/1.6 var(--mono); letter-spacin
 .hero.off .arcs ellipse { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .arcs ellipse { animation-play-state: paused; } }
 @keyframes mer { from { transform: scaleX(1); } to { transform: scaleX(-1); } }
+/* n3-perf: same meridian sweep drawn by animating rx (|scaleX| of the circle, ease-in-out split exactly at the flip), so frames repaint only the arcs instead of re-layerizing the page for an SVG transform */
+@supports (rx: 1px) {
+  .arcs ellipse { animation: mer-rx 18s linear infinite alternate; }
+  @keyframes mer-rx { 0% { rx: 96px; animation-timing-function: cubic-bezier(.42, 0, .71, .5); } 50% { rx: 0px; animation-timing-function: cubic-bezier(.29, .5, .58, 1); } 100% { rx: 96px; } }
+}
 @media (max-width: 900px) { .arcs { width: 112%; opacity: .3; translate: -50% -46%; } }
 
 /* web: Direction A/B segmented control, browser-frame preview with crossfade, quiet captioned filmstrip */
@@ -1420,6 +1425,8 @@ footer .f-fine { margin-top: 22px; }
 #design-lab .vl-imgs > img:focus-visible { outline: none; }
 /* q-perf: looping decoration stops while off screen (hero via .off, sections via .q-off) */
 .hero.off::before, .hero.off .card, .hero.off .marquee .track, .q-off .shot .live::before, .q-off .br-track, .q-off.contact::after, .q-off .end-orbit .ripple, .q-off .end-orbit .core, .q-off .job .dot::after { animation-play-state: paused !important; }
+/* n3-perf: the remaining looping decoration gets the same off-screen pause (section icons; the About scroll cue, also once it has faded out) */
+.q-off .anim *, .q-off .eo-cue i::after, .eo-cue.gone i::after { animation-play-state: paused !important; }
 @media (max-width: 960px) { #design-lab .vl-stage .shot:has(.vl-imgs > img:focus-visible) { outline-offset: -2px; } }
 
 @media (min-width: 1001px) and (max-width: 1100px) { #system .sw { padding-left: 3px; padding-right: 3px; } #system .sw .nm { font-size: 12px; letter-spacing: -.01em; } }
@@ -4013,12 +4020,23 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   }, true);
   let raf = 0, tm = 0;
   let lastPick = -1e9;
-  const req = () => { if (!raf && performance.now() - lastPick > 150) raf = requestAnimationFrame(() => { raf = 0; lastPick = performance.now(); pick(); }); clearTimeout(tm); tm = setTimeout(pick, 220); };
+  // n3-perf: the 1.2s re-check (covered cards, the gate, A/B swaps) only runs while a clip is near the screen or one is playing, and never in a hidden tab
+  const near = new Set();
+  let iv = 0;
+  const sync = () => {
+    near.forEach(v => { if (!v.isConnected) near.delete(v); });
+    const want = !document.hidden && (!nio || near.size > 0 || (chosen && !chosen.paused));
+    if (want && !iv) iv = setInterval(() => { if (!document.hidden) pick(); }, 1200);
+    else if (!want && iv) { clearInterval(iv); iv = 0; }
+  };
+  const nio = 'IntersectionObserver' in window ? new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? near.add(e.target) : near.delete(e.target)); sync(); }, { rootMargin: '25% 0px' }) : null;
+  const pk = () => { if (nio) all().forEach(v => nio.observe(v)); pick(); sync(); };
+  const req = () => { if (!raf && performance.now() - lastPick > 150) raf = requestAnimationFrame(() => { raf = 0; lastPick = performance.now(); pk(); }); clearTimeout(tm); tm = setTimeout(pk, 220); };
   addEventListener('scroll', req, { passive: true });
   addEventListener('resize', req);
   addEventListener('load', req);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) all().forEach(v => v.pause()); else req(); });
-  setInterval(() => { if (!document.hidden) pick(); }, 1200);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) all().forEach(v => v.pause()); else req(); sync(); });
+  sync();
   req();
 })();
 
