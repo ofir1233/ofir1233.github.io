@@ -1,4 +1,4 @@
-// FYI case study: the page around the phones (hero echo, the original strip, then-and-now fit, trio tabs, spec view,
+// FYI case study: the page around the phones (hero echo, trio tabs, spec view,
 // Try it). Scenes live in fyi-scenes.js; everything here also works with reduced motion.
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -10,33 +10,6 @@
     const upd = () => { raf = 0; const r = hero.getBoundingClientRect(); const k = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height))); echo.style.setProperty('--echo', (1 + k * .06).toFixed(4)); };
     addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
   }
-
-  // the original strip: arrow buttons page through the frames
-  document.querySelectorAll('.ostrip').forEach(st => {
-    const sc = st.querySelector('.os-sc'), p = st.querySelector('.os-p'), n = st.querySelector('.os-n');
-    // a button that reaches its end hands focus to the other one, so the keyboard never drops to the page
-    const upd = () => {
-      const s = sc.scrollLeft < 4, e = sc.scrollLeft + sc.clientWidth > sc.scrollWidth - 4;
-      if (e && !s && document.activeElement === n) { p.disabled = false; p.focus({ preventScroll: true }); }
-      if (s && !e && document.activeElement === p) { n.disabled = false; n.focus({ preventScroll: true }); }
-      p.disabled = s; n.disabled = e;
-    };
-    const go = d => sc.scrollBy({ left: d * sc.clientWidth * .8, behavior: reduce ? 'auto' : 'smooth' });
-    p.addEventListener('click', () => go(-1)); n.addEventListener('click', () => go(1));
-    sc.addEventListener('scroll', upd, { passive: true }); upd();
-  });
-  // a "See NN" link scrolls the strip to that frame
-  document.querySelectorAll('.orig a[href^="#o-"]').forEach(a => a.addEventListener('click', () => {
-    const f = document.querySelector(a.getAttribute('href'));
-    if (f) setTimeout(() => f.scrollIntoView({ block: 'center', inline: 'center', behavior: reduce ? 'auto' : 'smooth' }), 60);
-  }));
-
-  // then and now: the reimagined frame scales to the original's width
-  document.querySelectorAll('.cmp-scr').forEach(el => {
-    const box = el.closest('.cmp-box');
-    const fit = () => { const w = box.getBoundingClientRect().width; if (w) el.style.setProperty('--k', (w / 390).toFixed(5)); };
-    fit(); if ('ResizeObserver' in window) new ResizeObserver(fit).observe(box); else addEventListener('resize', fit);
-  });
 
   // 05: whose phone to show below 1024px (Auto follows the story)
   document.querySelectorAll('.st-trio').forEach(st => {

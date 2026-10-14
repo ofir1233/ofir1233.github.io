@@ -79,7 +79,7 @@
   };
   const ic = (n, cls = '') => F[n] ? `<svg class="i f ${cls}" viewBox="0 0 24 24" aria-hidden="true"><path d="${F[n]}"/></svg>` : `<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true"><path d="${P[n] || ''}"/></svg>`;
   FX.ic = ic;
-  // the FYI mark: the wordmark inside an outlined speech bubble, tail at the bottom left, as in the original
+  // the FYI mark: the wordmark inside an outlined speech bubble, tail at the bottom left
   FX.mark = (cls = '') => `<svg class="fx-mark ${cls}" viewBox="0 0 124 108" fill="none" stroke="currentColor" stroke-width="7.5" stroke-linejoin="miter" stroke-linecap="square" aria-hidden="true"><path class="bub" d="M6 6h112v68H42L20 98V74H6z"/><path class="ltr" d="M30 25v32M30 28h20M30 41h15M58 25l11 15 11-15M69 40v17M94 25v32"/></svg>`;
   const SB = '<div class="fx-sb" aria-hidden="true"><span>9:41</span><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12"><path d="M8 2.3c2.3 0 4.4.9 6 2.4l1.2-1.3A10.4 10.4 0 0 0 8 .5 10.4 10.4 0 0 0 .8 3.4L2 4.7a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.7 6.7 0 0 0 8 4.1a6.7 6.7 0 0 0-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4 10 7.5a3 3 0 0 0-4 0z"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="23" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="8" rx="2.2"/><path d="M25 4v4a2 2 0 0 0 0-4z" opacity=".45"/></svg></span></div>';
   FX.sb = SB;

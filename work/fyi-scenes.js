@@ -1,5 +1,5 @@
 // FYI case study: the live scenes and static frames. Each scene is isolated, so one failing scene cannot stop the others.
-// FYI reimagined: the app's building blocks as HTML strings, shared by every scene and static frame.
+// FYI: the app's building blocks as HTML strings, shared by every scene and static frame.
 // All sizes are points in the 390 x 844 screen; the styles live in fyi-live.css.
 (() => {
   const FX = window.FX, ic = FX.ic;
@@ -253,22 +253,16 @@ try {
 
 // ===== s1-origin =====
 try {
-// S1 · Remaster and first run (01 Origin). Day 1: the clock reads 11:10 through onboarding and 11:12 when the group opens.
-// Rest = B3 (index 2), end = B8.
-// B1 shows the original welcome export; B2 wipes it to the 2026 welcome under a coral scan line drawn on the glass;
-// B3 rings what was kept; B4 pages the story; B5 to B7 set up Maya, the crew and the project; B8 opens the group and
-// rings the original's tabs.
-// Page layer (all undone in reset): the stage tag, the numbered rings over the phone (ring 5 is added if the page lacks
-// it), the cast cards under the stage, and on the glass the scan line and the switch that hides the shell's status bar
-// while the original is on screen.
+// S1 · First run (01 Origin). Day 1: the clock reads 11:10 through onboarding and 11:12 when the group opens.
+// Rest = B1 (index 0), end = B6.
+// B1 opens on the welcome screen and rings the mark, the name and Continue; B2 pages the story; B3 to B5 set up Maya,
+// the crew and the project; B6 opens the group and rings its tabs.
+// Page layer (all undone in reset): the numbered rings over the phone (ring 5 is added if the page lacks it) and the
+// cast cards under the stage.
 (() => {
-  const ORIG = '../img/fyi-welcome.webp';
-  const TAG_O = 'Original · Figma', TAG_N = 'Reimagined in 2026 · demo content';
+  const TAG_N = 'Latest version · demo content';
   const TIME = '11:10';
   const EASE = 'cubic-bezier(.2,.7,.2,1)';
-  // keep the original decoded, so B1 never draws an empty frame on a replay
-  let keep = null;
-  try { keep = new Image(); keep.decoding = 'async'; keep.src = ORIG; } catch (e) { keep = null; }
 
   // ---------- the app's screens for this scene ----------
   const welcome = () => `<div class="a-welcome">${FX.mark()}<h3>Focus Your Ideas</h3><p class="sb">Messages, plans and launches for creative crews.</p><p class="terms">I agree to the <u>Terms of Service</u> and acknowledge the <u>Privacy Policy</u>.</p><div class="a-btn">Continue</div></div>`;
@@ -313,12 +307,7 @@ try {
   }
   const pop = (c, el) => c.anim(el, [{ transform: 'scale(.5)' }, { transform: 'scale(1.14)', offset: 0.6 }, { transform: 'none' }], { duration: 360, easing: 'ease-out' });
 
-  // ---------- page layer: tag, rings, cast ----------
-  function flipTag(c, t) {
-    c.tag(t);
-    const el = c.stage.querySelector('.demo-tag');
-    if (el) c.anim(el, [{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'none' }], { duration: 340, easing: EASE });
-  }
+  // ---------- page layer: rings, cast ----------
   // make=true adds a missing ring (the page's list may stop at 4); reset removes what was added
   const ringLi = (stage, n, make = false) => {
     let li = stage.querySelector(`.rings li[data-r="${n}"]`);
@@ -380,61 +369,31 @@ try {
   }
 
   FX.scene('origin', {
-    time: TIME, rest: 2,
-    // B1: the original export fills the glass (it carries its own status bar and home indicator)
-    html: () => `<div class="o1-orig"><img src="${ORIG}" alt="" decoding="async"></div>`,
+    time: TIME, rest: 0,
+    // B1: the welcome screen fills the glass
+    html: () => `<div class="o1-v o1-new">${welcome()}</div>`,
     reset(stage) {
       const tag = stage.querySelector('.demo-tag');
-      if (tag) tag.textContent = TAG_O;
+      if (tag) tag.textContent = TAG_N;
       stage.querySelectorAll('.rings li[data-o1]').forEach(li => li.remove());
       stage.querySelectorAll('.rings li').forEach(li => { li.classList.remove('on'); li.removeAttribute('style'); li._o1 = null; });
       (stage.closest('section') || document).querySelectorAll('.cast li.lit').forEach(li => lit(li, false, true));
-      const scr = stage.querySelector('[data-scene="origin"] .fx-screen');
-      if (scr) { scr.querySelectorAll(':scope > .o1-scan').forEach(e => e.remove()); scr.classList.add('o1-old'); }
     },
     async run(c) {
-      const app = c.app, scr = app.parentElement;
+      const app = c.app;
+      const nv = app.querySelector('.o1-new');
 
-      // B1: the original welcome, from the Figma file
+      // B1: the welcome screen; the mark, the name and Continue are ringed on the page and explained in the rail
       await c.beat(0);
-      c.tag(TAG_O);
-      await c.wait(1900);
-
-      // B2: a coral line scans down the glass; above it, the 2026 screen (with its own status bar until the line is gone)
-      await c.beat(1);
-      await c.wait(160);
-      const nv = c.add(app, `<div class="o1-v o1-new o1-wipe">${welcome()}${FX.sb}<i class="fx-home"></i></div>`, 'none');
-      const sbt = nv.querySelector('.fx-sb span');
-      if (sbt) sbt.textContent = TIME;
-      const scan = c.make('<i class="o1-scan" aria-hidden="true"></i>');
-      scan.style.transform = 'translateY(848px)';
-      scr.append(scan);
-      const W = { duration: 1600, easing: 'cubic-bezier(.45,.05,.55,.95)' }; // symmetric: the line is halfway at 800 ms
-      c.anim(nv, [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], W);
-      c.anim(scan, [{ transform: 'translateY(0)' }, { transform: 'translateY(848px)' }], W);
-      await c.wait(800);
-      flipTag(c, TAG_N);
-      await c.wait(820);
-      scan.remove();
-      const old = app.querySelector('.o1-orig');
-      if (old) old.remove();
-      nv.querySelectorAll(':scope > .fx-sb, :scope > .fx-home').forEach(e => e.remove());
-      nv.classList.remove('o1-wipe'); // back to document order, so every later view pushes in on top
-      scr.classList.remove('o1-old');
-      await c.wait(500);
-
-      // B3: what was kept, ringed on the page and explained in the rail
-      await c.beat(2);
       const wl = nv.querySelector('.a-welcome');
-      await c.wait(280);
+      await c.wait(900);
       ringOn(c, 1, wl.querySelector('.fx-mark'), 'box', 0);
       ringOn(c, 2, wl.querySelector('h3'), 'text', 170);
       ringOn(c, 3, wl.querySelector('.a-btn'), 'box', 340);
       await c.wait(2700);
 
-      // B4: Continue, then the story pages left as each dash fills; the first two pages are the original's own copy,
-      // so they hold long enough to read
-      await c.beat(3);
+      // B2: Continue, then the story pages left as each dash fills; the first two pages hold long enough to read
+      await c.beat(1);
       await ringOff(c, [1, 2, 3]);
       await c.tap(wl.querySelector('.a-btn'));
       const st = c.add(app, story(), 'none');
@@ -454,8 +413,8 @@ try {
         await c.wait(1600);
       }
 
-      // B5: a short profile: a name (the monogram comes from it) and a role with skills
-      await c.beat(4);
+      // B3: a short profile: a name (the monogram comes from it) and a role with skills
+      await c.beat(2);
       const off4 = ringOff(c, [4]);
       await c.tap(st.querySelector('.o1-nx'), { press: 0.9 });
       await off4;
@@ -473,8 +432,8 @@ try {
       ['Artist', 'Producer', 'Vocals', 'Mixing'].forEach((t, i) => c.add(tags, `<span>${t}</span>`, 'pop', { delay: i * 120 }));
       await c.wait(1300);
 
-      // B6: the crew, picked from people already on FYI; the cast cards on the page light with each check
-      await c.beat(5);
+      // B4: the crew, picked from people already on FYI; the cast cards on the page light with each check
+      await c.beat(3);
       const go6 = pf.querySelector('.o1-go');
       await c.tap(go6);
       const cw = c.add(app, crew(), 'none');
@@ -488,8 +447,8 @@ try {
       }
       await c.wait(560);
 
-      // B7: a new project: a name, a color, and the group's mark
-      await c.beat(6);
+      // B5: a new project: a name, a color, and the group's mark
+      await c.beat(4);
       await c.tap(go);
       c.add(cw, '<div class="a-dim"></div>', 'fade', { d: 320 });
       const sh = c.add(cw, sheet(), 'rise', { d: 420 });
@@ -505,9 +464,9 @@ try {
       }, { press: 0.88 });
       await c.wait(900);
 
-      // B8: the group opens and the story clock moves on; once the thread is in, ring 5 marks the original's
+      // B6: the group opens and the story clock moves on; once the thread is in, ring 5 marks the
       // Chat, Tasks and Project tabs
-      await c.beat(7);
+      await c.beat(5);
       await c.tap(sh.querySelector('.o1-mk'));
       const th = c.add(app, thread(), 'none');
       c.time('11:12');
