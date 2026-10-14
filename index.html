@@ -2572,6 +2572,12 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
   .lb-x { min-height: 40px; padding: 11px 16px; }
 }
 
+/* a11y: quiet window-bar text and the version-viewer title reach 4.5:1 on the light bar (same hierarchy, a shade darker) */
+#product .shot.win .bar .ep-t { color: #6a655d; }
+#product .ep-xb { color: #66615a; }
+#design-lab .vl-title em { color: #66615a; }
+#design-lab .vl-title .vl-of { color: #6a655d; }
+
 </style>
 </head>
 <body>
@@ -3271,7 +3277,7 @@ document.addEventListener('click', e => {
   const img = e.target.closest(matchMedia('(max-width: 760px)').matches ? '.shot img, .tile img, .ds-img img' : '.shot img'); if (!img || img.closest('a')) return;
   const lb = document.createElement('div'); lb.className = 'lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', img.alt || 'Enlarged image');
   lb.innerHTML = `<img src="${img.dataset.full || img.currentSrc || img.src}" alt=""><button type="button" class="lb-x">Close</button>`;
-  const key = ev => { if (ev.key === 'Escape') close(); else if (ev.key === 'Tab') { ev.preventDefault(); lb.focus(); } else if ([' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(ev.key)) ev.preventDefault(); };
+  const key = ev => { if (ev.key === 'Escape') close(); else if (ev.key === 'Tab') { ev.preventDefault(); lb.querySelector('.lb-x').focus(); } else if ([' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(ev.key)) ev.preventDefault(); };
   const close = () => { removeEventListener('keydown', key); lb.remove(); img.focus({ preventScroll: true }); };
   lb.addEventListener('click', close); lb.tabIndex = -1;
   lb.addEventListener('wheel', ev => { if (lb.scrollWidth <= lb.clientWidth + 1) ev.preventDefault(); }, { passive: false });
@@ -4989,7 +4995,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
       b.setAttribute('aria-label', `Expand: ${name}`);
       b.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5L9 7M6.5 13.5h-4v-4M2.5 13.5L7 9"/></svg><span>Expand</span>';
       b.addEventListener('click', () => expand(shot, v, name));
-      bar.append(t, b);
+      bar.append(t, b); bar.removeAttribute('aria-hidden');
     });
   });
 
@@ -5178,6 +5184,15 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   place(); addEventListener('resize', place);
   const off = () => { if (scrollY < 40) return; removeEventListener('scroll', off); removeEventListener('resize', place); cue.classList.add('gone'); setTimeout(() => cue.remove(), 700); };
   addEventListener('scroll', off, { passive: true });
+})();
+
+// a11y: the about pillars read as level-2 headings under the h1 (looks unchanged); the phone FYI scroller gets a name and an explicit tab stop
+(() => {
+  document.querySelectorAll('#about .me-pillars h3').forEach(h => h.setAttribute('aria-level', '2'));
+  const st = document.querySelector('#fyi .fyq-stage'); if (!st) return;
+  const mq = matchMedia('(max-width: 700px)');
+  const sync = () => { if (mq.matches) { st.tabIndex = 0; st.setAttribute('role', 'group'); st.setAttribute('aria-label', 'FYI screens, scroll sideways'); } else { st.removeAttribute('tabindex'); st.removeAttribute('role'); st.removeAttribute('aria-label'); } };
+  sync(); if (mq.addEventListener) mq.addEventListener('change', sync);
 })();
 
 </script>
