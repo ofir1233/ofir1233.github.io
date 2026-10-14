@@ -5155,6 +5155,55 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   req();
 })();
 
+// n5-perf: the meridian arcs draw on a canvas from the same timing as the mer-rx keyframes (18s alternate, ellipse k starts at -3k s,
+// each half eased as in the CSS), so a frame is one small draw instead of restyling and repainting twelve SVG ellipses.
+// Reduced motion (paused arcs) and browsers without canvas keep the SVG. Runs before e-hero, which moves .arcs with the tilt
+(() => {
+  const svg = document.querySelector('#top svg.arcs'), hero = document.getElementById('top');
+  if (!svg || !hero || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv = document.createElement('canvas'), ctx = cv.getContext && cv.getContext('2d');
+  if (!ctx) return;
+  const els = svg.querySelectorAll('circle, ellipse'); if (els.length < 3) return;
+  const grey = getComputedStyle(els[0]).stroke, coral = getComputedStyle(els[1]).stroke, n = els.length - 1;
+  // CSS cubic-bezier(x1, y1, x2, y2): solve x(t) = p, return y(t)
+  const bez = (x1, y1, x2, y2) => {
+    const f = (a, b, t) => ((1 - 3 * b + 3 * a) * t + (3 * b - 6 * a)) * t * t + 3 * a * t;
+    const d = (a, b, t) => 3 * (1 - 3 * b + 3 * a) * t * t + 2 * (3 * b - 6 * a) * t + 3 * a;
+    return p => {
+      let t = p;
+      for (let i = 0; i < 8; i++) { const e = f(x1, x2, t) - p, s = d(x1, x2, t); if (Math.abs(e) < 1e-7) return f(y1, y2, t); if (Math.abs(s) < 1e-6) break; t -= e / s; }
+      let lo = 0, hi = 1; t = p;
+      for (let i = 0; i < 40; i++) { const x = f(x1, x2, t); if (Math.abs(x - p) < 1e-7) break; if (x < p) lo = t; else hi = t; t = (lo + hi) / 2; }
+      return f(y1, y2, t);
+    };
+  };
+  const E1 = bez(.42, 0, .71, .5), E2 = bez(.29, .5, .58, 1);
+  const rx = s => { const k = Math.floor(s / 18); let p = (s - k * 18) / 18; if (k % 2) p = 1 - p; return p < .5 ? 96 * (1 - E1(p * 2)) : 96 * E2(p * 2 - 1); };
+  const R = -22 * Math.PI / 180, cos = Math.cos(R), sin = Math.sin(R);
+  let lw = 1, t = 0, last = 0, raf = 0, frozen = null;
+  const draw = ms => {
+    const w = cv.width, s = w / 200;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, w, w); ctx.lineWidth = lw;
+    for (let i = -1; i < n; i++) {
+      const r = i < 0 ? 96 : rx(ms / 1000 + 3 * i); if (r <= 0) continue; // an SVG ellipse with rx 0 is not drawn
+      ctx.setTransform(s * cos, s * sin, -s * sin, s * cos, w / 2, w / 2);
+      ctx.beginPath(); ctx.ellipse(0, 0, r, 96, 0, 0, 2 * Math.PI);
+      ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.strokeStyle = i === 0 ? coral : grey; ctx.stroke();
+    }
+  };
+  const run = () => !hero.classList.contains('off') && !document.hidden;
+  const loop = now => { raf = 0; if (last) t += now - last; last = now; draw(frozen ?? t); if (run()) raf = requestAnimationFrame(loop); else last = 0; };
+  const kick = () => { if (!raf && run()) raf = requestAnimationFrame(loop); };
+  const size = () => { const w = cv.clientWidth; if (!w) return; const px = Math.round(w * (devicePixelRatio || 1)); if (cv.width !== px) cv.width = cv.height = px; lw = px / w; draw(frozen ?? t); };
+  cv.className = svg.getAttribute('class'); cv.setAttribute('aria-hidden', 'true'); cv.width = cv.height = 200;
+  cv._freeze = ms => { frozen = ms; draw(ms ?? t); }; // test hook: draw one fixed moment (null resumes)
+  svg.replaceWith(cv); size();
+  if ('ResizeObserver' in window) new ResizeObserver(size).observe(cv); else addEventListener('resize', size);
+  new MutationObserver(kick).observe(hero, { attributes: true, attributeFilter: ['class'] });
+  document.addEventListener('visibilitychange', kick);
+  kick();
+})();
+
 // e-hero: the hero pages take turns, the stack leans toward the pointer, the stats count up once in view.
 // Runs after the calm coordinator: only the front page ever holds a video, and the coordinator still decides when it plays
 (() => {
