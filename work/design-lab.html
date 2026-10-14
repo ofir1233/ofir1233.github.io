@@ -8,8 +8,13 @@
 <meta name="theme-color" content="#0d0d0e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
+<link rel="stylesheet" href="lab-live.css">
+<link rel="stylesheet" href="lab-tour.css">
+<link rel="stylesheet" href="lab-topics.css">
+<link rel="stylesheet" href="lab-stage.css">
+<link rel="preload" as="image" href="../img/hear-hallway-sweater.webp">
 <style>
 .design-lab-sub { margin: clamp(40px, 6vw, 72px) 0 18px; }
 .design-lab-sub + p { margin-bottom: 22px; }
@@ -25,7 +30,13 @@
 .design-lab-more { margin-top: 22px; }
 .design-lab-more a { color: var(--coral-ink); text-underline-offset: 3px; }
 .design-lab-close { margin-top: clamp(36px, 5vw, 64px); display: grid; gap: 14px; }
-.design-lab-close cite { font: 500 12px/1.4 var(--mono); letter-spacing: .04em; color: var(--mute); font-style: normal; }
+.compare .tag { font-size: 13.5px; }
+.dl-tq { --ct-line: rgba(27,27,27,.16); --ct-tint: rgba(27,27,27,.05); --ct-mute: rgba(27,27,27,.66); --ct-text: var(--ink-t, #1b1b1b); --ct-coral: var(--coral-ink, #b0381f); }
+.dl-tq .ct-win { box-shadow: 0 0 0 1px rgba(13,13,14,.2); }
+.dl-tq .ct-rail .lx-pp { color: var(--ink-t, #1b1b1b); }
+.dl-tq .ct-rail .lx-beats li.on button::after { transform: scaleX(var(--p, 1)); }
+.dl-tq .ct-rail .lx-beats li.done button::after { background: rgba(176,56,31,.4); }
+.design-lab-close cite { font: 500 13.5px/1.4 var(--mono); letter-spacing: .04em; color: var(--mute); font-style: normal; }
 </style>
 </head>
 <body>
@@ -50,8 +61,18 @@
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#versions"><span>02</span> One screen, many designs</a><a class="pill" href="#decisions"><span>03</span> Decisions</a><a class="pill" href="#demos"><span>04</span> Demo environments</a><a class="pill" href="#build"><span>05</span> How I build it</a></nav>
-    <figure class="hero-fig rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1280" height="800" data-src="../img/demo-tour-nb-r2.mp4" data-poster="../img/demo-tour-poster-c.webp" muted loop playsinline preload="none" aria-label="Step by step: the Lab's chat home in a demo company greets the user. A title card reads: Thousands of calls. One clear answer. A question is typed and sent, and an answer card breaks it down by topic. Then the Topics flow view, the Compliance overview and the Actions board."></video></div>
-      <figcaption><b>The Lab in about 30 seconds.</b> A run recorded in the Lab, in a demo company: a question typed into the chat box, the answer, then the Topics, Compliance and Actions screens.</figcaption></figure>
+    <figure class="ct-fig ct-hero" id="demo" data-lx-stage style="--pw:160cqw;--px:0cqw;--py:-24cqw;--wx:3.5cqw;--wy:6.25cqw;--ww:56cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-14cqw;--pw-s:160cqw;--px-s:-26.8cqw;--py-s:-19cqw">
+      <div class="ct-stage">
+        <div class="ct-band">
+          <img class="ct-photo" src="../img/hear-hallway-sweater.webp" alt="" width="1600" height="1073" decoding="async" fetchpriority="high">
+        </div>
+        <div class="ct-win">
+          <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
+          <div class="lx" data-lab="tour" role="img" aria-label="Design Lab tour, step by step: the Chat home opens for the demo company Northwind; a title card reads “Thousands of calls. One clear answer.”; a question about escalations is typed into the chat box and sent; the answer counts 23 escalations this week and ranks their topics in a card; the view moves in close on the answer, then back out; Topics shows how the calls flow into each score zone; the Compliance trend lines rise one section at a time; the Actions board holds the follow-up work, then a Hear end card."></div>
+        </div>
+      </div>
+      <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
+      <figcaption><b>The Lab in about 30 seconds.</b> A run through the Lab in a demo company: a question typed into the chat box, the answer, then the Topics, Compliance and Actions screens.</figcaption></figure>
   </header>
 
   <!-- 01 -->
@@ -65,7 +86,7 @@
         </div>
       </div>
       <div class="two solo">
-        <figure class="rv"><div class="shot dark"><img src="../img/cs-design-lab-chat-home.webp" data-zoom alt="The Lab's chat home in dark mode. A co-branded workspace header with a customer logo and Powered by Hear, a sidebar in Main, Intelligence and Operations groups with three items tagged DEV, the greeting Good evening, ofir, one question box, a chip for alerts worth a look, and a Briefing V1 to V5 switch in the top bar." width="1600" height="1045" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The Lab's chat home.</b> One workspace per demo environment, the whole product in the sidebar, and a version switch for the briefing in the top bar.</figcaption></figure>
+        <figure class="rv"><div class="shot dark"><img src="../img/cs-design-lab-chat-home-nw.webp" data-zoom alt="The Lab's chat home in dark mode. A workspace header with the demo tenant's monogram and Powered by Hear, a sidebar in Main, Intelligence and Operations groups with three items tagged DEV, the greeting Good evening, ofir, one question box, a chip for alerts worth a look, and a Briefing V1 to V5 switch in the top bar." width="1600" height="1045" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The Lab's chat home.</b> One workspace per demo environment, the whole product in the sidebar, and a version switch for the briefing in the top bar.</figcaption></figure>
         <div class="prose xtra">
           <h3 style="margin-top:0">What's in the Lab</h3>
           <ul>
@@ -121,8 +142,6 @@
         <span class="live">Design Lab · demo data</span>
       </div>
       <p class="design-lab-note" style="font-size:14px"><b>Facelift to Ultra.</b> Drag the handle. Ultra follows the brand guidelines and goes deeper on UX: spot the key pain point, open an AI chat about it right away to understand the cause, and act on it with suggested signals.</p>
-      <figure class="rv design-lab-gap"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="../img/clip-topics-ultra-ai2.mp4" data-poster="../img/clip-topics-ultra-ai2-poster.webp" muted loop playsinline preload="none" aria-label="Topics, Ultra version: hovering the Most to gain tile lights up Flight Booking on the map; its worst parameter, handle time, is clicked and an AI chat explains what drives it; a follow-up asks which signals to set up and the AI suggests alerts to catch it early."></video></div>
-      <figcaption><b>Ultra in use.</b> Spot the key pain point, ask the AI why, and act with suggested signals.</figcaption></figure>
       </div>
 
       <div class="two design-lab-gap">
@@ -141,6 +160,16 @@
         </div>
       </div>
       </div>
+
+      <figure class="ct-fig ct-plain rv design-lab-gap dl-tq" data-lx-stage>
+        <div class="ct-stage">
+          <div class="ct-win">
+            <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
+            <div class="lx" data-lab="topics" role="img" aria-label="Topics, Ultra version, step by step: hovering the Most to gain tile lights up Flight Booking on the treemap, and hovering the topic opens its three scores; its worst score, Handle time, is clicked and the Ask AI panel slides in as the page narrows; the answer explains what drives the long handle time; a follow-up asks which signals to set up, and the answer suggests alerts that catch it early."></div>
+          </div>
+        </div>
+        <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
+        <figcaption><b>Ultra in use.</b> Spot the key pain point, ask the AI why, and act with suggested signals.</figcaption></figure>
 
       <article class="decision rv design-lab-gap xtra">
         <div class="label">Decision 1 · <b>Where an alternative design sits</b></div>
@@ -197,7 +226,7 @@
       </div>
 
       <div class="design-lab-pair">
-        <figure class="rv"><div class="shot dark"><img src="../img/cs-design-lab-entry.webp" data-zoom alt="The Lab's entry screen in dark mode: the Hear logo, a Design Lab and Demo toggle with Demo tagged In development, the line The AI for enterprise intelligence, two demo environments, a Create new demo environment button, and a crowd video inside a wave-shaped mask." width="1280" height="790" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The entry.</b> A Design Lab and Demo toggle, the demo environments, and a button to create a new one.</figcaption></figure>
+        <figure class="rv"><div class="shot dark"><img src="../img/cs-design-lab-entry-nw.webp" data-zoom alt="The Lab's entry screen in dark mode: the Hear logo, a Design Lab and Demo toggle with Demo tagged In development, the line The AI for enterprise intelligence, two demo environments, a Create new demo environment button, and a wave-shaped panel." width="1280" height="790" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The entry.</b> A Design Lab and Demo toggle, the demo environments, and a button to create a new one.</figcaption></figure>
         <figure class="rv form"><div class="shot dark"><img src="../img/cs-design-lab-demo-form.webp" data-zoom alt="The Set up your demo form: fields for the company website URL and a short description, a drop zone for PDF, CSV, TXT or DOCX files, and a Start demo button." width="440" height="690" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Set up your demo.</b> Website, description and a file.</figcaption></figure>
       </div>
 
@@ -245,10 +274,14 @@
 
   <div class="wrap">
     <a class="next" href="explainable-scores.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Explainable scores</h2></div><span class="next-thumb" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/clip-compliance-poster-nb.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
-    <div class="sources"><p>Screens from Hear Design Lab with demo data. The pull quote is my own description of the Lab (Oct 2026).</p></div>
+    <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy. The pull quote is my own description of the Lab (Oct 2026).</p></div>
   </div>
 </main>
 <footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<script src="lab-live.js" defer></script>
+<script src="lab-tour.js" defer></script>
+<script src="lab-topics.js" defer></script>
 <script src="case.js"></script>
+<script src="lab-stage.js" defer></script>
 </body>
 </html>

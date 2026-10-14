@@ -1,0 +1,134 @@
+/* The photo stage: a live Lab window set over a Hear brand photo, the way product sites set their UI over art.
+   The stage is laid out in container units (cqw) of its own width, so the photo and the window keep their relation
+   at every size. No blur, no glow, no soft masks: solid surfaces and hard crops only. */
+
+.ct-fig { --ct-line: rgba(242,239,231,.14); --ct-tint: rgba(242,239,231,.055); --ct-mute: var(--mute); --ct-text: var(--paper);
+  --ct-coral: var(--coral); --ct-win: #f1f0ed; --ct-bar: #e6e4df; --ct-bar-line: #d9d6cf; --ct-bar-ink: #5a5650;
+  margin: clamp(28px, 4vw, 48px) 0 0; }
+.ct-stage { position: relative; container-type: inline-size; isolation: isolate; }
+.ct-band { position: absolute; inset: 0; overflow: clip; background: #3b3733; z-index: 0; }
+.ct-photo { position: absolute; display: block; max-width: none; height: auto; user-select: none; pointer-events: none; }
+
+/* the window: a solid surface with a plain title bar, set fully inside the photo */
+.ct-win { position: relative; z-index: 2; overflow: clip; background: var(--ct-win); box-shadow: 0 0 0 1px rgba(13,13,14,.16); }
+.ct-bar { display: flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px 0 14px; background: var(--ct-bar); border-bottom: 1px solid var(--ct-bar-line); }
+.ct-bar i { width: 10px; height: 10px; border-radius: 50%; background: #c9c5bd; flex: none; }
+.ct-tag { margin-left: auto; font: 500 13.5px/1 var(--mono); letter-spacing: -.01em; color: var(--ct-bar-ink); white-space: nowrap; }
+.ct-win .lx { border-radius: 0; }
+
+/* the rail: play/pause, then one tab per beat; the active tab's top line fills over the beat */
+.ct-fig:not(.lx-ready) .ct-rail { visibility: hidden; }
+.ct-rail { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 2px; margin-top: 16px; }
+.ct-rail .lx-pp { position: relative; width: 52px; height: auto; min-height: 64px; border-radius: 0; display: grid; place-items: start center; padding-top: 14px; background: none; color: var(--paper); }
+.ct-rail .lx-pp::before { content: ""; position: absolute; inset: 0 0 auto 0; width: auto; height: 2px; border-radius: 0; background: var(--ct-line); -webkit-mask: none; mask: none; transition: none; }
+.ct-rail .lx-pp svg { width: 15px; height: 15px; }
+.ct-rail .lx-pp:hover { background: var(--ct-tint); }
+.ct-rail .lx-beats { gap: 2px; }
+.ct-rail .lx-beats button { position: relative; gap: 0; height: 100%; min-height: 64px; padding: 12px 14px 14px; border-top: 0; background: none; color: var(--ct-mute); font-size: 15px; line-height: 1.42; transition: color .25s, background-color .25s; }
+.ct-rail .lx-beats button::before, .ct-rail .lx-beats button::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--ct-line); }
+.ct-rail .lx-beats button::after { background: var(--ct-coral); transform-origin: 0 0; transform: scaleX(var(--p, 0)); }
+.ct-rail .lx-beats li:not(.on) button::after { transform: scaleX(0); }
+.ct-rail .lx-beats li.done button::after { transform: scaleX(1); background: rgba(255,112,86,.45); }
+.ct-rail .lx-beats .n { display: flex; align-items: center; gap: 9px; margin-bottom: 6px; font: 500 13.5px/1.2 var(--mono); color: var(--ct-mute); }
+.ct-rail .lx-beats .n::before { content: ""; width: 7px; height: 7px; flex: none; background: var(--ct-line); }
+.ct-rail .lx-beats li.on .n::before, .ct-rail .lx-beats li.done .n::before { background: var(--ct-coral); }
+.ct-rail .lx-beats li.done button { color: var(--ct-mute); }
+.ct-rail .lx-beats li.on button { color: var(--ct-text); background: var(--ct-tint); }
+.ct-rail .lx-beats li.on .n { color: var(--ct-coral); }
+.ct-rail .lx-beats button:hover, .ct-rail .lx-beats button:focus-visible { color: var(--ct-text); background: var(--ct-tint); }
+.ct-rail .lx-now { display: none; }
+.ct-fig figcaption { margin-top: 14px; }
+.lx-rm .ct-rail .lx-beats li.on button::after { transform: scaleX(1); }
+
+/* ---------------- wide: the photo fills the stage, the window floats over it on the right ---------------- */
+@media (min-width: 1240px) {
+  .ct-hero { --stw: min(1360px, 100vw - 80px); width: var(--stw); margin-left: calc(50% - var(--stw) / 2); }
+  .ct-hero .ct-stage { aspect-ratio: 2 / 1; border-radius: 24px; overflow: clip; }
+  /* each page sets its photo's crop and the window's place with custom properties on the figure; the defaults frame
+     the Actions traveler on the left, head clear of the top, with the window on the right, clear of every edge */
+  .ct-hero .ct-photo { width: var(--pw, 148cqw); left: var(--px, -48cqw); top: var(--py, -18.4cqw); }
+  .ct-hero .ct-win { position: absolute; left: var(--wx, 38cqw); top: var(--wy, 5.5cqw); width: var(--ww, 58.5cqw); border-radius: 12px; box-shadow: 0 0 0 1px rgba(13,13,14,.3); }
+  .ct-hero .ct-bar { height: 2.5cqw; }
+
+  .ct-still .ct-stage { aspect-ratio: 2 / 1; border-radius: 22px; overflow: clip; }
+  .ct-still .ct-photo { width: var(--pw, 100cqw); left: var(--px, 0cqw); top: var(--py, -1.5cqw); }
+  .ct-still .ct-win { position: absolute; left: var(--wx, 4cqw); top: var(--wy, 16.5cqw); width: var(--ww, 38cqw); border-radius: 12px; }
+  .ct-still .ct-bar { height: 2.5cqw; }
+  .ct-still .ct-pad { padding: 2.2cqw; }
+}
+
+/* ---------------- narrower: a photo band on top, the window overlapping its lower edge ---------------- */
+@media (max-width: 1239px) {
+  .ct-stage { padding-top: var(--ct-top); }
+  .ct-band { inset: 0 0 auto 0; height: var(--ct-band); border-radius: 20px; }
+  .ct-win { margin-inline: var(--ct-side); border-radius: 12px; }
+  .ct-hero .ct-stage { --ct-band: 46cqw; --ct-top: 36cqw; --ct-side: 4cqw; }
+  .ct-hero .ct-photo { width: var(--pw-m, 120cqw); left: var(--px-m, -4cqw); top: var(--py-m, -14.4cqw); }
+  .ct-still .ct-stage { --ct-band: 52cqw; --ct-top: 40cqw; --ct-side: 4cqw; }
+  .ct-still .ct-photo { width: var(--pw-m, 100cqw); left: var(--px-m, 0cqw); top: var(--py-m, -3cqw); }
+  .ct-still .ct-win { width: min(440px, 100% - 2 * var(--ct-side)); }
+  .ct-still .ct-pad { padding: 16px 16px 18px; }
+}
+@media (max-width: 1239px) {
+  /* the rail turns into numbered steps, with the current step's label written out under them */
+  .ct-rail { grid-template-columns: 48px minmax(0, 1fr); margin-top: 12px; }
+  .ct-rail .lx-pp { width: 48px; min-height: 52px; padding-top: 0; place-items: center; }
+  .ct-rail .lx-beats { display: grid; }
+  .ct-rail .lx-beats button { min-height: 52px; padding: 0; display: grid; place-items: center; }
+  .ct-rail .lx-beats .n { margin: 0; gap: 0; }
+  .ct-rail .lx-beats .n::before { display: none; }
+  .ct-rail .lx-beats .l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .ct-rail .lx-now { grid-column: 1 / -1; display: flex; gap: 10px; align-items: baseline; margin: 10px 0 0; max-width: none; font-size: 15px; line-height: 1.45; color: var(--ct-text); }
+  .ct-rail .lx-now b { font: 500 13.5px/1 var(--mono); color: var(--ct-coral); white-space: nowrap; }
+}
+@media (max-width: 719px) {
+  .ct-fig { margin-top: 28px; }
+  .ct-hero .ct-stage { --ct-band: 80cqw; --ct-top: 65cqw; --ct-side: 3.4cqw; }
+  .ct-hero .ct-photo { width: var(--pw-s, 223.5cqw); left: var(--px-s, -34cqw); top: var(--py-s, -25.8cqw); }
+  .ct-still .ct-stage { --ct-band: 92cqw; --ct-top: 76cqw; --ct-side: 3.4cqw; }
+  .ct-still .ct-photo { width: var(--pw-s, 205cqw); left: var(--px-s, -100cqw); top: var(--py-s, -2cqw); }
+  .ct-still .ct-win { width: auto; }
+  .ct-still .ct-pad { padding: 12px 12px 14px; }
+}
+
+/* ---------------- a still in the same system ---------------- */
+.ct-still { --ct-line: rgba(27,27,27,.14); --ct-tint: rgba(27,27,27,.045); --ct-mute: rgba(27,27,27,.62); --ct-text: var(--ink-t, #1b1b1b); }
+.ct-still .ct-win { box-shadow: 0 0 0 1px rgba(13,13,14,.2); }
+.ct-still .ct-pad { background: #efefed; }
+.ct-still .ct-pad .lx { border-radius: 10px; }
+.ct-anat { list-style: none; margin: 18px 0 0 !important; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px !important; }
+.ct-anat li { position: relative; padding: 14px 14px 16px; font-size: 17px; line-height: 1.6; color: rgba(27,27,27,.7); }
+.ct-anat li::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--ct-line); }
+.ct-anat li b { display: block; color: var(--ink-t, #1b1b1b); font-weight: 700; margin-bottom: 2px; }
+.ct-anat .n { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; font: 500 13.5px/1.2 var(--mono); color: rgba(27,27,27,.68); }
+.ct-anat .n::before { content: ""; width: 7px; height: 7px; flex: none; background: rgba(27,27,27,.2); }
+.ct-anat li.on { background: var(--ct-tint); }
+.ct-anat li.on::before, .ct-anat li.on .n::before { background: var(--coral-ink, #b0381f); }
+.ct-anat li.on .n { color: var(--coral-ink, #b0381f); }
+.ct-foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-top: 14px; }
+.ct-foot figcaption { margin: 0; }
+.ct-jump { display: inline-flex; align-items: center; gap: 9px; padding: 9px 14px 9px 12px; border: 1px solid rgba(27,27,27,.2); border-radius: 999px; background: none; color: var(--ink-t, #1b1b1b); font: 500 13.5px/1 var(--mono); text-decoration: none; cursor: pointer; }
+.ct-jump::before { content: ""; width: 0; height: 0; border-left: 8px solid var(--coral-ink, #b0381f); border-block: 5px solid transparent; }
+.ct-jump:hover, .ct-jump:focus-visible { border-color: var(--coral-ink, #b0381f); }
+@media (max-width: 1239px) { .ct-anat { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 719px) { .ct-anat { grid-template-columns: 1fr; } .ct-anat li { padding: 12px 12px 14px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ct-rail .lx-beats button { transition: none; }
+}
+
+/* ---------------- plain: the same window and rail without a photo, for a page's later demos ---------------- */
+.ct-plain .ct-stage { padding: 0; }
+/* on a light sheet chapter the rail takes ink tokens */
+.sheet .ct-plain { --ct-line: rgba(27,27,27,.14); --ct-tint: rgba(27,27,27,.045); --ct-mute: rgba(27,27,27,.64); --ct-text: var(--ink-t, #1b1b1b); --ct-coral: var(--coral-ink, #b0381f); }
+.sheet .ct-plain .ct-win { box-shadow: 0 0 0 1px rgba(13,13,14,.2); }
+.sheet .ct-plain .ct-rail .lx-pp { color: var(--ink-t, #1b1b1b); }
+.sheet .ct-plain .ct-rail .lx-beats li.done button::after { background: rgba(176,56,31,.4); }
+.ct-plain .ct-win { margin: 0; border-radius: 12px; box-shadow: 0 0 0 1px var(--ct-line); }
+.ct-plain .ct-bar { height: 30px; }
+
+/* ---------------- page text the stage pages share ---------------- */
+/* the demo-data label on a page's other Lab figures reads at caption size, in the same words and case as the window tag */
+.shot .live { font-size: 13.5px; letter-spacing: -.01em; text-transform: none; padding: 7px 10px; }
+@media (max-width: 760px) { .shot .live { font-size: 13.5px; letter-spacing: -.01em; padding: 5px 8px; } }
+.sources { font-size: 13.5px; }

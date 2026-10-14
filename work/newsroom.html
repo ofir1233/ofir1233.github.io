@@ -8,8 +8,12 @@
 <meta name="theme-color" content="#0d0d0e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
+<link rel="stylesheet" href="lab-live.css">
+<link rel="stylesheet" href="lab-news-recap.css">
+<link rel="stylesheet" href="lab-stage.css">
+<link rel="preload" as="image" href="../img/hear-car-keyfob.webp">
 <style>
 /* annotated screen: numbered pins over the image */
 .newsroom-pins { position: relative; }
@@ -62,7 +66,7 @@
 .newsroom-rtl .arr { font-size: 18px; color: var(--coral-ink); line-height: 1; }
 .newsroom-rtl [dir="rtl"] .arr { transform: scaleX(-1); }
 @media (max-width: 520px) { .newsroom-rtl { grid-template-columns: 1fr; } }
-.newsroom-rtl-tag { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: rgba(27,27,27,.6); margin-bottom: 12px; }
+.newsroom-rtl-tag { font: 500 13.5px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: rgba(27,27,27,.6); margin-bottom: 12px; }
 @media (max-width: 760px) { .newsroom-rtl-tag { margin-top: 16px; } }
 .newsroom-sub { margin-top: clamp(48px, 6vw, 72px); }
 .newsroom-sub h3 { margin-bottom: 14px; }
@@ -95,8 +99,18 @@
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#history"><span>02</span> How it evolved</a><a class="pill" href="#evidence"><span>03</span> Showing evidence</a><a class="pill" href="#directions"><span>04</span> Directions &amp; Hebrew</a><a class="pill" href="#chat"><span>05</span> Where AI belongs</a></nav>
-    <figure class="hero-fig rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="../img/clip-news-recap.mp4" data-poster="../img/clip-news-recap-poster.webp" muted loop playsinline preload="none" aria-label="Newsroom in the Design Lab. Play on the monthly recap card opens a full-screen story that plays through July one beat at a time: the month's call count, the peak day, the topic that took over, escalations down while volume rose, a customer quote, the top agent, and the CSAT result. It ends on a shareable summary card, then closes back to the Newsroom."></video></div>
-      <figcaption><b>Newsroom.</b> The ticker and the spike story, the monthly recap played as a story, then the feed filtered down to one source.</figcaption></figure>
+    <figure class="ct-fig ct-hero" id="demo" data-lx-stage style="--pw:122cqw;--px:-2cqw;--py:-6cqw;--wx:3.5cqw;--wy:5.5cqw;--ww:58.5cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-5.5cqw;--pw-s:190cqw;--px-s:-64cqw;--py-s:-12cqw">
+      <div class="ct-stage">
+        <div class="ct-band">
+          <img class="ct-photo" src="../img/hear-car-keyfob.webp" alt="" width="1600" height="1073" decoding="async" fetchpriority="high">
+        </div>
+        <div class="ct-win">
+          <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
+          <div class="lx" data-lab="news-recap" role="img" aria-label="Newsroom in the Design Lab. Play on the monthly recap card opens a full-screen story that plays through July one beat at a time: the month's call count, the peak day, the topic that took over, escalations down while volume rose, a customer quote, the top agent, sentiment rising for three months, and the CSAT result. It ends with “That was July” and a shareable summary card, then closes back to the Newsroom."></div>
+        </div>
+      </div>
+      <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
+      <figcaption><b>Newsroom.</b> The ticker and the spike story, then the monthly recap played as a story.</figcaption></figure>
   </header>
 
   <!-- 01 · ink -->
@@ -282,7 +296,7 @@
         </div>
       </div>
       <figure class="rv newsroom-dark">
-        <div class="shot win dark"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><img src="../img/cs-design-lab-chat-home.webp" data-zoom alt="Chat home in dark theme: the Hear mark above the greeting Good evening, ofir, a chat input with @, slash and microphone buttons, a pill that reads 3 alerts worth a look under the input, a Briefing V1 to V5 switcher in the header, and the sidebar with News and a News · Directions item tagged DEV" width="1600" height="1045" loading="lazy"></div>
+        <div class="shot win dark"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><img src="../img/cs-design-lab-chat-home-nw.webp" data-zoom alt="Chat home in dark theme: the Hear mark above the greeting Good evening, ofir, a chat input with @, slash and microphone buttons, a pill that reads 3 alerts worth a look under the input, a Briefing V1 to V5 switcher in the header, and the sidebar with News and a News · Directions item tagged DEV" width="1600" height="1045" loading="lazy"></div>
         <figcaption><b>Chat home today, dark theme.</b> I built the page in the Lab's first version. The Hear mark now sits above the greeting, not in the field.</figcaption>
       </figure>
       <ol class="steps newsroom-fig-top rv xtra">
@@ -311,10 +325,13 @@
 
   <div class="wrap">
     <a class="next" href="data.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Data &amp; signals</h2></div><span class="next-thumb" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/clip-data-poster-c-nb.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
-    <div class="sources"><p>Screens from Hear Design Lab with demo data. Quoted rules come from the Lab's code and commit notes.</p></div>
+    <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy. Quoted rules come from the Lab's code and commit notes.</p></div>
   </div>
 </main>
 <footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<script src="lab-live.js" defer></script>
+<script src="lab-news-recap.js" defer></script>
 <script src="case.js"></script>
+<script src="lab-stage.js" defer></script>
 </body>
 </html>

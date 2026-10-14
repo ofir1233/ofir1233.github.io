@@ -8,8 +8,12 @@
 <meta name="theme-color" content="#0d0d0e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
+<link rel="stylesheet" href="lab-live.css">
+<link rel="stylesheet" href="lab-system.css">
+<link rel="stylesheet" href="lab-stage.css">
+<link rel="preload" as="image" href="../img/hear-car-umbrella.webp">
 <style>
 .ds-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .ds-code, .ds-ct code, .ds-list code, .ds-layer code { font: 500 .86em/1.4 var(--mono); overflow-wrap: anywhere; }
@@ -68,6 +72,10 @@
   .ds-ct td:last-child { align-self: end; }
 }
 .ds-ctwrap { max-width: 860px; margin-inline: auto; }
+@media (min-width: 1240px) { .ct-hero.ds-stage .ct-stage { aspect-ratio: 16 / 9; } }
+@media (max-width: 1239px) { .ct-hero.ds-stage .ct-stage { --ct-band: 60cqw; --ct-top: 50cqw; } }
+@media (max-width: 719px) { .ct-hero.ds-stage .ct-stage { --ct-band: 84cqw; --ct-top: 69cqw; } }
+.compare .tag { font-size: 13.5px; }
 </style>
 </head>
 <body>
@@ -92,7 +100,17 @@
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#structure"><span>02</span> Structure</a><a class="pill" href="#tokens"><span>03</span> Tokens</a><a class="pill" href="#contrast"><span>04</span> Contrast &amp; charts</a><a class="pill" href="#theming"><span>05</span> Theme &amp; direction</a><a class="pill" href="#decisions"><span>06</span> Decisions</a></nav>
-    <figure class="hero-fig rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="../img/clip-system-b.mp4" data-poster="../img/clip-system-poster-b.webp" muted loop playsinline preload="none" aria-label="From the chat home, the Agent evaluation screen opens in light mode. A score bar is hovered to show its tooltip. The theme switches to dark. The language menu switches the app to Hebrew and the whole layout mirrors right to left. Then the theme switches back to light."></video></div>
+    <figure class="ct-fig ct-hero ds-stage" id="demo" data-lx-stage style="--pw:106cqw;--px:0cqw;--py:-18cqw;--wx:3.5cqw;--wy:13.5cqw;--ww:55.5cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-14.6cqw;--pw-s:140cqw;--px-s:-14cqw;--py-s:-20.4cqw">
+      <div class="ct-stage">
+        <div class="ct-band">
+          <img class="ct-photo" src="../img/hear-car-umbrella.webp" alt="" width="1600" height="1194" decoding="async" fetchpriority="high">
+        </div>
+        <div class="ct-win">
+          <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
+          <div class="lx" data-lab="system" role="img" aria-label="From the chat home, the Agent evaluation screen opens in light mode. A score bar is hovered to show its day and calls. The theme button switches the app to dark, and the chart is hovered again in dark. The language menu switches the app to Hebrew; the layout mirrors right to left while the chart keeps its time axis left to right. The theme switches back to light, still in Hebrew, and the tooltips read in Hebrew with the same scores."></div>
+        </div>
+      </div>
+      <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
       <figcaption><b>One screen, four modes.</b> Agent evaluation in the Design Lab goes from light to dark, then to Hebrew, right to left, and back to light. The components stay the same; the tokens and the direction change.</figcaption></figure>
   </header>
 
@@ -262,17 +280,17 @@
       <div class="duo">
       <figure class="rv">
         <div class="compare shot"><span class="live">Design Lab · demo data</span>
-          <img src="../img/cs-design-system-light.webp" alt="Agent evaluation screen in light mode: sidebar, filters, an average score chart with bars, category averages and the team performance header" width="1440" height="900" loading="lazy">
-          <div class="after"><img src="../img/cs-design-system-dark.webp" alt="The same Agent evaluation screen in dark mode, with the same layout and components" width="1440" height="900" loading="lazy"></div>
+          <div class="lx" data-lab="system" data-still="light" role="img" aria-label="Agent evaluation screen in light mode: sidebar, filters, an average score chart with bars, category averages and the team performance header"></div>
+          <div class="after"><div class="lx" data-lab="system" data-still="dark" role="img" aria-label="The same Agent evaluation screen in dark mode, with the same layout and components"></div></div>
           <span class="tag l">Light</span><span class="tag r">Dark</span>
           <input type="range" min="0" max="100" value="50" aria-label="Drag to compare the light and dark versions of the same screen">
           <span class="handle" aria-hidden="true"></span>
         </div>
-        <figcaption><b>Drag to compare.</b> The same Agent evaluation screen in light and dark, with demo data. Both stills are frames from the video at the top.</figcaption>
+        <figcaption><b>Drag to compare.</b> The same Agent evaluation screen in light and dark, with demo data. Both are states of the demo at the top.</figcaption>
       </figure>
 
       <div class="two" style="margin-top:clamp(40px,6vw,72px)">
-        <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><img src="../img/cs-design-system-rtl.webp" data-zoom alt="The same Agent evaluation screen in Hebrew, right to left: the sidebar sits on the right, headings, filters and navigation read right to left, and the score chart keeps its axis and Latin digits" width="1440" height="900" loading="lazy"></div><figcaption><b>Hebrew, right to left.</b> The sidebar moves to the right and headings, filters and navigation mirror. The chart keeps its time axis running left to right, with Latin digits.</figcaption></figure>
+        <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><div class="lx" data-lab="system" data-still="rtl" role="img" aria-label="The same Agent evaluation screen in Hebrew, right to left: the sidebar sits on the right, headings, filters and navigation read right to left, and the score chart keeps its axis and Latin digits"></div></div><figcaption><b>Hebrew, right to left.</b> The sidebar moves to the right and headings, filters and navigation mirror. The chart keeps its time axis running left to right, with Latin digits.</figcaption></figure>
         <div class="prose xtra">
           <p>I first built right to left for the News tab: a language hook that follows the page's <code class="ds-code">lang</code>, UI strings in a dictionary, and logical CSS properties such as <code class="ds-code">borderInlineStart</code>, so the layout flips with the text.</p>
           <p>In the Lab today, the language menu switches the shell and this screen to Hebrew, and the whole layout mirrors.</p>
@@ -308,10 +326,13 @@
 
   <div class="wrap">
     <a class="next" href="brand-web.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Brand &amp; web</h2></div><span class="next-thumb dark" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/site-scroll-poster.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
-    <div class="sources"><p>Screens from Hear Design Lab with demo data. Quoted lines come from the Lab's code and Storybook docs; contrast ratios are computed from the token values.</p></div>
+    <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy. The Storybook pages are screenshots; other quoted lines come from the Lab's code and Storybook docs, and contrast ratios are computed from the token values.</p></div>
   </div>
 </main>
 <footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<script src="lab-live.js" defer></script>
+<script src="lab-system.js" defer></script>
 <script src="case.js"></script>
+<script src="lab-stage.js" defer></script>
 </body>
 </html>

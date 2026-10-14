@@ -8,26 +8,31 @@
 <meta name="theme-color" content="#0d0d0e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
+<link rel="stylesheet" href="lab-live.css">
+<link rel="stylesheet" href="lab-actions.css">
+<link rel="stylesheet" href="lab-stage.css">
+<link rel="preload" as="image" href="../img/hear-platform-scarf.webp">
 <style>
 .actions-sub { margin: clamp(48px, 7vw, 88px) 0 clamp(18px, 2.4vw, 28px); }
 .actions-sub + .prose { margin-bottom: clamp(20px, 3vw, 32px); }
 .actions-crop { background: #efefed; padding: clamp(16px, 3vw, 32px) clamp(16px, 3vw, 32px) 52px; }
 .actions-crop img { width: auto; max-width: 100%; margin-inline: auto; border-radius: 10px; }
-/* two crops side by side share one frame height, the smaller crop centred in its frame */
+/* two crops side by side share one frame height, the smaller crop centered in its frame */
 @media (min-width: 861px) { #closing .two:not(.xtra) { align-items: stretch; } #closing .two:not(.xtra) > figure { display: grid; grid-template-rows: 1fr auto; } #closing .two:not(.xtra) .actions-crop { display: grid; align-content: center; } }
 .actions-anat { list-style: none; counter-reset: a; margin: 0 !important; display: grid; gap: 12px !important; }
 .actions-anat li { counter-increment: a; display: grid; grid-template-columns: 28px 1fr; gap: 0 10px; }
 .actions-anat li::before { content: counter(a, decimal-leading-zero); font: 500 12px/1.9 var(--mono); color: var(--coral-ink); }
 .actions-strip { overflow-x: auto; overscroll-behavior-x: contain; }
-.actions-hint { display: none; margin-top: 8px; font: 500 11px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: rgba(27,27,27,.55); }
+.actions-crop .lx { width: min(var(--sw), 100%); margin-inline: auto; border-radius: 10px; }
+.actions-hint { display: none; margin-top: 8px; font: 500 13.5px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: rgba(27,27,27,.55); }
 .actions-col h3 { margin: 0 0 .6em; }
 .actions-two-top { margin-top: clamp(28px, 4vw, 44px); }
 .actions-col ul + p { margin-top: 1em; }
 @media (max-width: 760px) {
   .actions-crop { padding-bottom: clamp(16px, 3vw, 32px); }
-  .actions-strip img { width: 1150px; max-width: none; }
+  .actions-strip .lx { width: 1150px; max-width: none; }
   .actions-hint { display: block; }
 }
 </style>
@@ -54,7 +59,17 @@
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#board"><span>02</span> The board</a><a class="pill" href="#closing"><span>03</span> Closing the loop</a><a class="pill" href="#ai-tasks"><span>04</span> AI Tasks</a><a class="pill" href="#alerts"><span>05</span> Alerts</a></nav>
-    <figure class="hero-fig rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="../img/clip-actions-c-nb.mp4" data-poster="../img/clip-actions-poster-c-nb.webp" muted loop playsinline preload="none" aria-label="Actions board, step by step: the High priority quick filter is clicked and the other cards fade; a task about a refund is opened in a side panel; an action item is ticked off; the status moves from Pending to In progress; a comment that @mentions a teammate is typed and posted; the panel scrolls to the activity log."></video></div>
+    <figure class="ct-fig ct-hero" id="demo" data-lx-stage>
+      <div class="ct-stage">
+        <div class="ct-band">
+          <img class="ct-photo" src="../img/hear-platform-scarf.webp" alt="" width="1600" height="1194" decoding="async" fetchpriority="high">
+        </div>
+        <div class="ct-win">
+          <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
+          <div class="lx" data-lab="actions" role="img" aria-label="Actions board, step by step: a card is hovered and its quick actions appear; the High priority quick filter is clicked and the other cards fade; a task about a refund is opened in a side panel; an action item is ticked off; the status moves from Pending to In progress; a comment that @mentions a teammate is typed and posted; the panel scrolls to the activity log."></div>
+        </div>
+      </div>
+      <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
       <figcaption><b>One task, step by step.</b> Filter to high priority, open a task, tick off an action item, move it to In progress and loop in a teammate with an @mention. The activity log at the bottom keeps the record.</figcaption></figure>
   </header>
 
@@ -68,36 +83,36 @@
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Alerts fire when a monitor trips, signals classify calls, and agent evaluations score each agent. Those screens are built to say that something happened. Saying who is dealing with it, and how it ended, is a different job.</p><p>The task keeps a link to where it came from, and when it closes, it records why. Later, the team can see what was raised, by which part of the product, who took it and how it ended.</p></div></details>
         </div>
       </div>
-      <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><img src="../img/cs-actions-board-nb.webp" data-zoom alt="The Actions board in light mode with four columns, Pending, In progress, Done and Cancelled. Cards show a priority, a source such as Alert, Signal, Agent evaluation, Call or Report, a title and short context. The High priority quick filter is on, so non-matching cards are faded. The top of the Done column shows a close-reasons summary." width="1600" height="1046" loading="lazy"></div>
+      <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><div class="lx" data-lab="actions" data-still="board" role="img" aria-label="The Actions board with four columns, Pending, In progress, Done and Cancelled. Cards show a priority, a source such as Alert, Signal, Agent evaluation, Call or Feedback form, a title and short context. The High priority quick filter is on, so non-matching cards are faded. The top of the Done column shows a close-reasons summary."></div></div>
         <figcaption><b>The Actions board, V2 in the Lab's version switch.</b> Four columns, Pending, In progress, Done and Cancelled, and every card names its source. The High priority quick filter is on, so the other cards fade back.</figcaption></figure>
     </div>
   </section>
 
   <!-- 02 · sheet -->
-  <section class="chapter sheet side" id="board">
+  <section class="chapter sheet" id="board">
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">02 · <b>The board</b></div><h2>One card: what happened, where it came from, who has it</h2></div>
         <div class="prose"><p class="lead">Every card follows the same order, top to bottom: how urgent it is, where it came from, what happened, and who has it.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The filter bar above the columns follows the same logic, starting with whose work you want to see.</p></div></details></div>
       </div>
-      <div class="two">
-        <figure class="rv"><div class="shot actions-crop"><span class="live">Design Lab · demo data</span><img src="../img/cs-actions-card-nb.webp" data-zoom alt="One Actions card: High priority, source Alert, Today; title Customer asked twice for a refund, was offered only a voucher; two lines of context; a Mentions you strip with the comment count; a footer with the assignee, action items done, comments and an attachment." width="396" height="226" loading="lazy"></div>
-          <figcaption><b>A card from the board.</b> The same task is opened in the video at the top of the page.</figcaption></figure>
-        <div class="prose xtra">
-          <ol class="actions-anat">
-            <li><span><b>Priority.</b> High, Medium or Low, with a signal-bar icon.</span></li>
-            <li><span><b>Source and age.</b> Alert, Signal, Agent evaluation, Call, Report or Feedback form, then Today, Yesterday or a date.</span></li>
-            <li><span><b>What happened.</b> A plain title and two lines of context.</span></li>
-            <li><span><b>Mentions.</b> A "Mentions you" strip with the comment count, on cards where someone has tagged you.</span></li>
-            <li><span><b>Owner and progress.</b> The assignee or "Not assigned", action items done out of the total, comments and attachments.</span></li>
-          </ol>
-          <p class="why"><b>Design choice:</b> being mentioned gets its own strip on the card, so you see you're needed before you open anything.</p>
+      <figure class="ct-fig ct-still rv">
+        <div class="ct-stage">
+          <div class="ct-band">
+            <img class="ct-photo" src="../img/hear-door-keychain.webp" alt="" width="1600" height="893" decoding="async" loading="lazy">
+          </div>
+          <div class="ct-win">
+            <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
+            <div class="ct-pad"><div class="lx" data-lab="actions" data-still="card" role="img" aria-label="One Actions card: High priority, source Alert, Today; title Customer asked twice for a refund, was offered only a voucher; two lines of context; a Mentions you strip with the comment count; a footer with the assignee, action items done, comments and an attachment."></div></div>
+          </div>
         </div>
-      </div>
+        <ol class="ct-anat" aria-label="The parts of a card, top to bottom"><li><span class="n">01</span><b>Priority.</b> High, Medium or Low, with a signal-bar icon.</li><li><span class="n">02</span><b>Source and age.</b> Alert, Signal, Agent evaluation, Call, Report or Feedback form, then Today, Yesterday or a date.</li><li><span class="n">03</span><b>What happened.</b> A plain title and two lines of context.</li><li class="on"><span class="n">04</span><b>Mentions.</b> A "Mentions you" strip with the comment count, on cards where someone has tagged you.</li><li><span class="n">05</span><b>Owner and progress.</b> The assignee or "Not assigned", action items done out of the total, comments and attachments.</li></ol>
+        <div class="ct-foot"><figcaption><b>A card from the board.</b> The same task is opened in the demo at the top of the page.</figcaption><a class="ct-jump" href="#demo" data-beat="2">Watch it open</a></div>
+      </figure>
+      <p class="why xtra"><b>Design choice:</b> being mentioned gets its own strip on the card, so you see you're needed before you open anything.</p>
 
       <h3 class="actions-sub">Filters that ask whose, which and from where</h3>
-      <figure class="rv"><div class="shot actions-strip"><img src="../img/cs-actions-filters.webp" data-zoom alt="The Actions filter bar. First row: a segmented control with Everyone, Assigned to me, Mentioned me and Not assigned, then dropdowns for Assignee, Status, Priority, Labels, Date and Close reason, and Clear filters. Second row: quick filters with counts, High priority, Open action items, From alerts, From agent evaluation and No call attached, and a line saying how many workflows are showing." width="1600" height="93" loading="lazy"></div>
+      <figure class="rv"><div class="shot actions-strip"><div class="lx" data-lab="actions" data-still="filters" role="img" aria-label="The Actions filter bar. First row: a segmented control with Everyone, Assigned to me, Mentioned me and Not assigned, then dropdowns for Assignee, Status, Priority, Labels, Date and Close reason, and Clear filters. Second row: quick filters with counts, High priority, Open action items, From alerts, From agent evaluation and No call attached, and a line saying how many workflows are showing."></div></div>
         <span class="actions-hint" aria-hidden="true">Swipe to see the whole bar →</span>
         <figcaption><b>The filter bar.</b> Scope first, then six dropdowns, then quick filters with counts. A line on the right says how much of the board is showing. Design Lab · demo data.</figcaption></figure>
       <div class="two actions-two-top xtra">
@@ -138,16 +153,16 @@
         </div>
       </div>
       <div class="two">
-        <figure class="rv"><div class="shot actions-crop"><span class="live">Design Lab · demo data</span><img src="../img/cs-actions-close-reasons.webp" data-zoom alt="Top of the Done column: a Close reasons card, labeled most recent, Done and Cancelled, with a segmented bar and four rows, Resolved, Duplicate, Not actionable and Escalated, each with a count." width="400" height="255" loading="lazy"></div>
+        <figure class="rv"><div class="shot actions-crop"><span class="live">Design Lab · demo data</span><div class="lx" data-lab="actions" data-still="reasons" role="img" aria-label="Top of the Done column: a Close reasons card, labeled most recent, Done and Cancelled, with a segmented bar and four rows, Resolved, Duplicate, Not actionable and Escalated, each with a count." style="--sw:404px"></div></div>
           <figcaption><b>Close reasons.</b> The summary at the top of Done covers the most recent tasks in both Done and Cancelled.</figcaption></figure>
-        <figure class="rv"><div class="shot actions-crop"><span class="live">Design Lab · demo data</span><img src="../img/cs-actions-cancelled-nb.webp" data-zoom alt="The Cancelled column: a card titled Duplicate: booking engine timeout, which names the task it repeats and reads Closed as a duplicate, tagged Duplicate; a card titled Feedback form: website search is slow, tagged Not actionable and Not assigned; and a line for older items." width="413" height="462" loading="lazy"></div>
-          <figcaption><b>The Cancelled column.</b> A duplicate links to the task it repeats. The cards are faded because the High priority filter was on in this capture.</figcaption></figure>
+        <figure class="rv"><div class="shot actions-crop"><span class="live">Design Lab · demo data</span><div class="lx" data-lab="actions" data-still="cancelled" role="img" aria-label="The Cancelled column: a card titled Duplicate: booking engine timeout, which says it repeats an earlier task and reads Closed as a duplicate, tagged Duplicate; a card titled Feedback form: website search is slow, tagged Not actionable and Not assigned; and a line for older items." style="--sw:413px"></div></div>
+          <figcaption><b>The Cancelled column.</b> Each closed card carries its reason as a tag.</figcaption></figure>
       </div>
 
       <h3 class="actions-sub xtra">Inside a task, changes stay on the record</h3>
       <div class="two xtra">
         <div class="prose">
-          <p>Opening a card opens a side panel, the one in the video at the top. It holds the status, priority, owner and labels, the call the task came from and its topic. Below that: action items with a progress bar, attachments, comments with @mentions, and an activity log that writes down each change, such as Created, Assigned to and Moved to In progress.</p>
+          <p>Opening a card opens a side panel, the one in the demo at the top. It holds the status, priority, owner and labels, the call the task came from and its topic. Below that: action items with a progress bar, attachments, comments with @mentions, and an activity log that writes down each change, such as Created, Assigned to and Moved to In progress.</p>
           <p><b>Open call</b> and <b>Ask AI</b> sit at the top of the panel, so the call behind the task is one click away. On the first day, the link to the call was only an icon. I replaced it with a labeled "View call" button, and in the current panel it reads "Open call".</p>
         </div>
         <div class="prose">
@@ -234,10 +249,13 @@
 
   <div class="wrap">
     <a class="next" href="newsroom.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Newsroom</h2></div><span class="next-thumb" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/clip-news-poster-c.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
-    <div class="sources"><p>Screens from Hear Design Lab with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy.</p></div>
+    <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy.</p></div>
   </div>
 </main>
 <footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<script src="lab-live.js" defer></script>
+<script src="lab-actions.js" defer></script>
 <script src="case.js"></script>
+<script src="lab-stage.js" defer></script>
 </body>
 </html>

@@ -8,14 +8,19 @@
 <meta name="theme-color" content="#0d0d0e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
+<link rel="stylesheet" href="lab-live.css">
+<link rel="stylesheet" href="lab-compliance.css">
+<link rel="stylesheet" href="lab-agent-eval.css">
+<link rel="stylesheet" href="lab-stage.css">
+<link rel="preload" as="image" href="../img/hear-desk-notebook.webp">
 <style>
 /* explainable-scores: page-only pieces */
 .es-scale { background: #fffdf8; border-radius: 14px; box-shadow: 0 0 0 1px rgba(27,27,27,.1); padding: clamp(18px, 2.6vw, 28px); display: grid; gap: 10px; }
 .es-scale .es-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
-.es-scale .es-cell { height: 46px; border-radius: 8px; display: grid; place-items: center; font: 500 13px/1 var(--mono); color: #1b1b1b; }
-.es-scale .es-band { display: grid; grid-template-columns: 3fr 2fr; gap: 6px; font: 500 11px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: rgba(27,27,27,.66); }
+.es-scale .es-cell { height: 46px; border-radius: 8px; display: grid; place-items: center; font: 500 13.5px/1 var(--mono); color: #1b1b1b; }
+.es-scale .es-band { display: grid; grid-template-columns: 3fr 2fr; gap: 6px; font: 500 13.5px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: rgba(27,27,27,.66); }
 .es-scale .es-band span { border-top: 2px solid #8b9599; padding-top: 8px; }
 .es-scale .es-band span + span { border-color: #ff6b59; color: var(--coral-ink); }
 .es-narrow { display: grid; place-items: center; }
@@ -24,6 +29,8 @@
 .shot.pad.es-light { background: #fff; }
 .es-prose ol + p { margin-top: 1em; }
 .es-gap { margin-top: clamp(36px, 5vw, 64px); }
+@media (max-width: 1239px) { .ct-hero.es-stage .ct-stage { --ct-band: 55cqw; --ct-top: 45cqw; } }
+@media (max-width: 719px) { .ct-hero.es-stage .ct-stage { --ct-band: 80cqw; --ct-top: 65cqw; } }
 </style>
 </head>
 <body>
@@ -48,7 +55,17 @@
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#grid"><span>02</span> A quiet grid</a><a class="pill" href="#cell"><span>03</span> One cell, in context</a><a class="pill" href="#answers"><span>04</span> Answers with evidence</a><a class="pill" href="#decisions"><span>05</span> Decisions</a></nav>
-    <figure class="hero-fig rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="../img/clip-compliance-nb.mp4" data-poster="../img/clip-compliance-poster-nb.webp" muted loop playsinline preload="none" aria-label="Compliance in the Design Lab, light theme. Step 1: the Compliance home, with a trend for each criterion against a target line. Step 2: the Agents tab, a heatmap of criteria by agent. Step 3: a click on one cell opens a popover that places that agent against the whole team. Step 4: Explore in Chat hands the cell to Ask AI, which explains the score and lists the calls that pulled it down."></video></div>
+    <figure class="ct-fig ct-hero es-stage" id="demo" data-lx-stage style="--pw:114cqw;--px:0cqw;--py:-15.6cqw;--wx:3.5cqw;--wy:10.3cqw;--ww:43cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-12cqw;--pw-s:136cqw;--px-s:-20cqw;--py-s:-11cqw">
+      <div class="ct-stage">
+        <div class="ct-band">
+          <img class="ct-photo" src="../img/hear-desk-notebook.webp" alt="" width="1600" height="1073" decoding="async" fetchpriority="high">
+        </div>
+        <div class="ct-win">
+          <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
+          <div class="lx" data-lab="compliance" role="img" aria-label="Compliance in the Design Lab, light theme, step by step: the Compliance home opens on its KPIs and a trend for each criterion against a target line; hovering the trend shows every criterion's score for that day; the Agents tab shows a heatmap of criteria by agent; hovering a cell tints it and marks its row; a click on one cell opens a popover that places that agent against the whole team; Explore in Chat hands the cell to Ask AI; the answer explains the score and names the calls that pulled it down."></div>
+        </div>
+      </div>
+      <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
       <figcaption><b>From a grid to the evidence, one click at a time.</b> The Compliance home, the agents heatmap, one cell's popover, then Ask AI explaining that score with the calls behind it.</figcaption></figure>
   </header>
 
@@ -82,7 +99,7 @@
           <p>The last row counts each agent's failing criteria, so the worst columns stand out without reading a single cell.</p></div></details>
         </div>
       </div>
-      <figure class="rv"><div class="shot"><img src="../img/cs-explainable-scores-heatmap-nb.webp" data-zoom alt="The Compliance Agents heatmap in dark theme: five criteria as rows, about twenty agents as columns, cells in grays with coral cells where a score fails, a Failing criteria row at the bottom, a Problems only switch and a five-step legend, and one cell's popover open" width="1600" height="793" loading="lazy"><span class="live">Design Lab · demo data</span></div>
+      <figure class="rv"><div class="shot"><img src="../img/cs-explainable-scores-heatmap-nw.webp" data-zoom alt="The Compliance Agents heatmap in dark theme: five criteria as rows, about twenty agents as columns, cells in grays with coral cells where a score fails, a Failing criteria row at the bottom, a Problems only switch and a five-step legend, and one cell's popover open" width="1600" height="793" loading="lazy"><span class="live">Design Lab · demo data</span></div>
         <figcaption><b>Compliance · Agents.</b> Criteria by agent, dark theme, with one cell's popover open.</figcaption></figure>
       <div class="two solo es-gap">
         <figure class="rv">
@@ -148,21 +165,22 @@
         </div>
       </div>
 
-      <div class="duo es-gap">
-      <figure class="rv"><div class="shot"><img src="../img/cs-explainable-scores-agent-eval-nb.webp" data-zoom alt="Agent evaluation in light theme: average score over time as bars with low periods in coral, a Poor to Good scale, agents grouped by score band, a team performance table, a version switcher, and the Ask AI panel open on the right with an answer that lists calls and a pattern" width="1600" height="1046" loading="lazy"><span class="live">Design Lab · demo data</span></div>
-        <figcaption><b>Agent evaluation, version V4 + Filter, with Ask AI open.</b> Average score over time, agents by score band, team performance, and the answer beside them.</figcaption></figure>
+      <div class="prose xtra es-gap">
+        <h3 style="margin-top:0">The chart explains itself too</h3>
+        <p>The score chart's subtitle states its own encoding: height and color are that period's score, and hovering shows the calls. Low periods turn coral, like the failing cells in Compliance, and a Poor to Good scale sits under the bars. The controls are written out on the chart: scroll to zoom, drag to select, double-click to reset.</p>
+        <h3>Two ways into the same chat</h3>
+        <p>Ask AI also opens from the top of the sidebar. It says "Ask about what you're looking at" and keeps the page and project as context. In the demo below, the chart is zoomed into a dip and the question typed is why the score dropped. The answer is general: the usual causes, and where to check. Decision 1 below compares the two ways in.</p>
+      </div>
 
-      <div class="two es-gap">
-        <div class="prose xtra">
-          <h3 style="margin-top:0">The chart explains itself too</h3>
-          <p>The score chart's subtitle states its own encoding: height and color are that period's score, and hovering shows the calls. Low periods turn coral, like the failing cells in Compliance, and a Poor to Good scale sits under the bars. The controls are written out on the chart: scroll to zoom, drag to select, double-click to reset.</p>
-          <h3>Two ways into the same chat</h3>
-          <p>Ask AI also opens from the top of the sidebar. It says "Ask about what you're looking at" and keeps the page and project as context. In this clip, the chart is zoomed into a dip and the question typed is why the score dropped. The answer is general: the usual causes, and where to check. Decision 1 below compares the two ways in.</p>
+      <figure class="ct-fig ct-plain rv es-gap" data-lx-stage>
+        <div class="ct-stage">
+          <div class="ct-win">
+            <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
+            <div class="lx" data-lab="agent-eval" role="img" aria-label="Agent evaluation in the Design Lab, light theme, step by step: the page opens on the average score over time, a bar per day; hovering a bar shows its day, its score and how many calls it is based on; a drag across the coral dip zooms the chart to seven days; the zoomed bars keep the same hover detail; Ask AI opens from the sidebar with the page and project as context; the question why the score dropped between Sep 30 and Oct 3 is typed and sent; a general answer lists likely causes and where to check, with related topics; the chat closes on the zoomed chart."></div>
+          </div>
         </div>
-        <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="../img/clip-agent-eval-c.mp4" data-poster="../img/clip-agent-eval-poster-c.webp" muted loop playsinline preload="none" aria-label="Agent evaluation, light theme. Step 1: hovering bars on the average score chart shows each day's score and how many calls it is based on. Step 2: a drag zooms into a dip of coral bars. Step 3: Ask AI opens from the sidebar with the page and project as context. Step 4: the question why the score dropped is typed, and the answer lists likely causes and where to check."></video></div>
-          <figcaption><b>A free question about a dip.</b> Zoom into the chart, open Ask AI, ask why it dropped. Compare its general answer with the cell answer above.</figcaption></figure>
-      </div>
-      </div>
+        <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
+        <figcaption><b>A free question about a dip.</b> Zoom into the chart, open Ask AI, ask why it dropped. Compare its general answer with the cell answer above.</figcaption></figure>
     </div>
   </section>
 
@@ -177,7 +195,7 @@
           <li class="opt"><strong>A blank chat</strong><span>Ask AI from the sidebar, with the page and project as context. You write the question, and you say which number you mean.</span></li>
           <li class="opt chosen"><strong>The cell itself</strong><span>Explore in Chat, the popover's main button, sends the agent, the criterion and the score along with the question.</span></li>
         </ul>
-        <p class="because"><b>Result:</b> both ways in stay in the Lab, and the two clips on this page show the difference. Asked from the sidebar why the chart dipped, the demo answer lists the usual causes and where to check. Asked from a cell, the answer names the calls that pulled that score down, so the AI can be checked instead of just trusted.</p>
+        <p class="because"><b>Result:</b> both ways in stay in the Lab, and the two demos on this page show the difference. Asked from the sidebar why the chart dipped, the demo answer lists the usual causes and where to check. Asked from a cell, the answer names the calls that pulled that score down, so the AI can be checked instead of just trusted.</p>
       </article>
 
       <article class="decision rv xtra">
@@ -193,11 +211,15 @@
   </section>
 
   <div class="wrap">
-    <a class="next" href="actions.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Actions</h2></div><span class="next-thumb" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/clip-actions-poster-c-nb.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
-    <div class="sources"><p>Screens from Hear Design Lab with demo data.</p></div>
+    <a class="next" href="actions.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Actions</h2></div><span class="next-thumb" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/clip-actions-poster-c-nw.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
+    <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy.</p></div>
   </div>
 </main>
 <footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<script src="lab-live.js" defer></script>
+<script src="lab-compliance.js" defer></script>
+<script src="lab-agent-eval.js" defer></script>
 <script src="case.js"></script>
+<script src="lab-stage.js" defer></script>
 </body>
 </html>
