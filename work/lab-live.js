@@ -303,30 +303,35 @@
         const r = t.getBoundingClientRect(), a = app.getBoundingClientRect(), kk = k();
         return [(r.left - a.left + r.width * (o.x ?? .5)) / kk + (o.dx || 0), (r.top - a.top + r.height * (o.y ?? .5)) / kk + (o.dy || 0)];
       };
+      // a script cut short can wake on something other than the clock (an animation's .finished, caught); from then on
+      // its clock calls reject, so it can never carry on beside the run that replaced it
+      const tok = P.token, gone = () => tok !== P.token;
       const c = {
-        q, qa, make, P, app, stage: P.stage, ic, tok: P.token,
+        q, qa, make, P, app, stage: P.stage, ic, tok,
         get ff() { return P.ff; },
-        wait: ms => P.wait(ms),
-        beat: i => P.beat(i),
+        wait: ms => gone() ? Promise.reject(CANCEL) : P.wait(ms),
+        beat: i => gone() ? Promise.reject(CANCEL) : P.beat(i),
         anim: (el, kf, o) => P.anim(el, kf, o),
         pt,
         // the cursor glides in a straight line with a light ease, at about the speed of the recordings
         async move(t, o = {}) {
+          if (gone()) throw CANCEL;
           const [x, y] = pt(t, o), x0 = P.cx, y0 = P.cy;
           P.cx = x; P.cy = y; P.place(); P.follow(x, y);
           if (P.ff) return;
           const d = o.d ?? Math.max(220, Math.min(520, Math.hypot(x - x0, y - y0) * 0.55));
           P.anim(P.cursor, [{ transform: `translate(${x0}px,${y0}px)` }, { transform: `translate(${x}px,${y}px)` }], { duration: d, easing: 'cubic-bezier(.35,.1,.25,1)' });
-          await P.wait(d);
+          await c.wait(d);
         },
-        jump(t, o = {}) { const [x, y] = pt(t, o); P.cx = x; P.cy = y; P.place(); P.follow(x, y); },
+        jump(t, o = {}) { if (gone()) return; const [x, y] = pt(t, o); P.cx = x; P.cy = y; P.place(); P.follow(x, y); },
         // frame a point on a narrow screen (a no-op on wide ones)
-        cam(t, o = {}) { const [x, y] = pt(t, o); if (P.root.classList.contains('lx-cam')) P.camTo(x - VW / 2, y - VH / 2, P.ff); },
+        cam(t, o = {}) { if (gone()) return; const [x, y] = pt(t, o); if (P.root.classList.contains('lx-cam')) P.camTo(x - VW / 2, y - VH / 2, P.ff); },
         // a click: the dot dips and rings once; the element presses if asked
         async click(el, o = {}) {
+          if (gone()) throw CANCEL;
           if (!P.ff) P.anim(P.cursor.firstElementChild, [{ transform: 'scale(1)' }, { transform: 'scale(.72)', offset: .35 }, { transform: 'scale(1)' }], { duration: 260, easing: 'ease-out' });
           if (el && o.press) P.anim(el, [{ transform: 'scale(1)' }, { transform: `scale(${o.press})` }, { transform: 'scale(1)' }], { duration: 200, easing: 'ease-out' });
-          await P.wait(o.after ?? 60);
+          await c.wait(o.after ?? 60);
         },
         hover(el, on = true) { if (el) el.classList.toggle('hv', on); },
         cls(el, name, on = true) { el.classList.toggle(name, on); },
@@ -391,15 +396,20 @@
 
   // the camera is a phone layout: it needs a narrow window and a phone-width screen
   const PHONE = matchMedia('(max-width: 719px)');
-  const fit = el => {
+  // from the resize observer, a change that alters the window's own height (portrait camera, a still's crop) waits for
+  // the next frame; done inside the callback it re-sizes what is being observed and the browser reports a loop error
+  const later = el => { if (!el._fitq) el._fitq = requestAnimationFrame(() => { el._fitq = 0; fit(el); }); };
+  const fit = (el, ro) => {
     const w = el.getBoundingClientRect().width; if (!w) return;
     if (el._st) {
       // a still can name a tighter crop for narrow screens
       const c = (w < NARROW && el._st.mcrop) || el._st.crop || [0, 0, W, H];
+      if (c !== el._crop && ro && el._crop) { el.style.setProperty('--k', (w / el._crop[2]).toFixed(5)); return later(el); }
       if (c !== el._crop) { el._crop = c; el.style.aspectRatio = `${c[2]} / ${c[3]}`; const a = el.querySelector('.lx-app'); a.style.setProperty('--cx', c[0]); a.style.setProperty('--cy', c[1]); }
       el.style.setProperty('--k', (el.getBoundingClientRect().width / c[2]).toFixed(5)); return;
     }
     const narrow = w < NARROW && PHONE.matches, was = el.classList.contains('lx-cam');
+    if (narrow !== was && ro) { el.style.setProperty('--k', (w / (was ? VW : W)).toFixed(5)); return later(el); }
     el.classList.toggle('lx-cam', narrow);
     el.style.setProperty('--k', (w / (narrow ? VW : W)).toFixed(5));
     if (narrow !== was && el._lx) { const p = el._lx; p.camX = p.camY = undefined; p.follow(p.cx, p.cy, true); }
@@ -445,7 +455,7 @@
   LX.scene = (name, def) => { SCENES[name] = def; if (booted) document.querySelectorAll('.lx[data-lab]').forEach(r => { if (r.dataset.lab === name) init(r); }); };
   const start = () => {
     if (booted) return; booted = true;
-    ro = 'ResizeObserver' in window ? new ResizeObserver(es => es.forEach(e => fit(e.target))) : null;
+    ro = 'ResizeObserver' in window ? new ResizeObserver(es => es.forEach(e => fit(e.target, true))) : null;
     if (!ro) addEventListener('resize', () => players.forEach(p => fit(p.root)));
     io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
       const p = e.target._lx;

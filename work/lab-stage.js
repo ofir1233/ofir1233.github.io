@@ -5,20 +5,37 @@
   if (!LX) return;
   const reduce = !!LX.reduce;
 
+  // the fill normally runs as a compositor animation of the bar (no style or paint work per frame), started from the
+  // player's clock at each beat and paused and re-synced whenever the window stops or starts; browsers that cannot
+  // animate a pseudo-element, and the manual test clock, write --p each frame instead
+  const GLIDE = !reduce && !LX.manual && typeof KeyframeEffect !== 'undefined' && 'pseudoElement' in KeyframeEffect.prototype;
+
   const stage = root => {
     const P = root._lx;
+    if (P && P.still) return;
     if (!P || !P.def) { setTimeout(() => stage(root), 30); return; }
     const fig = root.closest('[data-lx-stage]');
+    if (!fig || root._lxStage) return;
+    root._lxStage = true;
     const times = P.def.times || [];
-    let beat = Math.max(0, P.shown ?? 0), since = P.t, raf = 0;
+    let beat = Math.max(0, P.shown ?? 0), since = P.t, raf = 0, bar = null;
+    const dur = () => ((times[beat + 1] ?? times[beat] + 1.5) - (times[beat] ?? 0)) * 1000;
     const fill = () => {
-      const dur = ((times[beat + 1] ?? times[beat] + 1.5) - (times[beat] ?? 0)) * 1000;
-      const p = reduce ? 1 : Math.max(0, Math.min(1, (P.t - since) / dur));
+      const p = reduce ? 1 : Math.max(0, Math.min(1, (P.t - since) / dur()));
       const li = P.beatsEl && P.beatsEl.children[beat];
       if (li) { const b = li.firstElementChild, v = p.toFixed(3); if (b.style.getPropertyValue('--p') !== v) b.style.setProperty('--p', v); }
     };
+    const glide = () => {
+      const li = P.beatsEl && P.beatsEl.children[beat], b = li && li.firstElementChild;
+      if (bar && bar.b !== b) { bar.a.cancel(); bar = null; }
+      if (!b) return;
+      const d = Math.max(1, dur()), t = Math.max(0, Math.min(d, P.t - since));
+      if (!bar) bar = { b, a: b.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: d, easing: 'linear', fill: 'both', pseudoElement: '::after' }) };
+      bar.a.pause(); bar.a.currentTime = t;
+      if (t < d && P.live() && !document.hidden) bar.a.play();
+    };
     const frame = () => { raf = 0; fill(); if (P.live() && !document.hidden) raf = requestAnimationFrame(frame); };
-    const kick = () => { if (!raf && !LX.manual) raf = requestAnimationFrame(frame); };
+    const kick = GLIDE ? glide : () => { if (!raf && !LX.manual) raf = requestAnimationFrame(frame); };
     fig.addEventListener('lx:beat', e => { beat = Math.max(0, e.detail.i); since = P.t; fill(); kick(); });
     new MutationObserver(kick).observe(fig, { attributes: true, attributeFilter: ['class'] });
     if (LX.manual) { const adv = LX.advance; LX.advance = async ms => { await adv(ms); fill(); }; }
