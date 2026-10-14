@@ -39,6 +39,7 @@
     (tall && rail ? rail : fig).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: tall && rail ? 'end' : 'center' });
   }));
 
+  LX.stage = stage; // for windows that join after the page has started
   const go = () => { document.querySelectorAll('[data-lx-stage] .lx[data-lab]:not([data-still])').forEach(stage); jumps(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => setTimeout(go, 0)); else setTimeout(go, 0);
 })();

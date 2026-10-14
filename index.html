@@ -25,7 +25,18 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="work/lab-live.css">
+<link rel="stylesheet" href="work/lab-tour.css">
+<link rel="stylesheet" href="work/lab-topics.css">
+<link rel="stylesheet" href="work/lab-compliance.css">
+<link rel="stylesheet" href="work/lab-agent-eval.css">
+<link rel="stylesheet" href="work/lab-actions.css">
+<link rel="stylesheet" href="work/lab-news-recap.css">
+<link rel="stylesheet" href="work/lab-data.css">
+<link rel="stylesheet" href="work/lab-signals.css">
+<link rel="stylesheet" href="work/lab-showcase.css">
+<link rel="stylesheet" href="work/lab-stage.css">
 <style>
 /* Layout: one long editorial column on a dark stage; product screens are light and mostly live video. */
 :root {
@@ -171,8 +182,8 @@ section { padding-block: clamp(56px, 9vw, 120px); border-top: 1px solid var(--li
 .spot .txt { position: sticky; top: 90px; display: grid; gap: 14px; }
 .spot .txt .head { display: flex; align-items: center; gap: 14px; }
 .spot .txt p { font-size: 16px; }
-.spot ul { list-style: none; display: grid; gap: 8px; font-size: 15px; color: #cfcbc3; }
-.spot li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--coral); margin-right: 10px; transform: translateY(-2px); }
+.spot .txt ul { list-style: none; display: grid; gap: 8px; font-size: 15px; color: #cfcbc3; }
+.spot .txt li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--coral); margin-right: 10px; transform: translateY(-2px); }
 .spot .media { display: grid; gap: 16px; }
 .spot .why { margin-top: 6px; padding: 2px 0 2px 16px; border-left: 2px solid var(--coral); color: var(--paper); font-size: 15px; }
 @media (max-width: 860px) { .spot { grid-template-columns: 1fr; } .spot .txt { position: static; } }
@@ -471,9 +482,9 @@ footer { border-top: 0; background: linear-gradient(90deg, transparent, var(--li
   .lb { display: flex; align-items: center; justify-content: flex-start; overflow: auto; padding: 0; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
   .lb img { flex: none; max-width: none; max-height: none; height: min(72vh, 620px); width: auto; margin: auto; border-radius: 0; }
   /* 7. readable lists: hanging bullets */
-  .spot ul { gap: 10px; }
-  .spot li { position: relative; padding-left: 18px; }
-  .spot li::before { position: absolute; left: 0; top: .72em; margin: 0; transform: none; }
+  .spot .txt ul { gap: 10px; }
+  .spot .txt li { position: relative; padding-left: 18px; }
+  .spot .txt li::before { position: absolute; left: 0; top: .72em; margin: 0; transform: none; }
   /* 8. design-system tiles: less frame, more component */
   .bento { gap: 10px; }
   .tile { padding: 36px 10px 12px; }
@@ -2578,6 +2589,58 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
 #design-lab .vl-title em { color: #66615a; }
 #design-lab .vl-title .vl-of { color: #6a655d; }
 
+/* homelx: the Design Lab footage is now the Lab itself. Live windows (work/lab-*.js) replace the clips in the hero stack, the tour and the product cards.
+   The tour and three cards set their window over a Hear photo, as the case pages do; the other cards keep a clean framed window. Solid surfaces and hard crops, no blur. */
+#product .ct-fig { margin: 0; }
+#product .ct-plain .ct-win { box-shadow: 0 0 0 1px rgba(242,239,231,.14); }
+#product .ct-rail { margin-top: 12px; }
+/* a card's photo stage: a photo band with the window over its lower edge, and on wide screens the photo fills the stage with the window floating on it */
+#product .pf-st { --b-top: 28%; --b-h: 42cqw; --b-side: 4cqw; }
+#product .pf-st .ct-stage { padding-top: var(--b-top); }
+#product .pf-st .ct-band { inset: 0 0 auto 0; height: var(--b-h); border-radius: 18px; }
+#product .pf-st .ct-photo { width: var(--pw-m, 100cqw); left: var(--px-m, 0cqw); top: var(--py-m, 0cqw); }
+#product .pf-st .ct-win { margin: 0 var(--b-side); border-radius: 12px; box-shadow: 0 0 0 1px rgba(13,13,14,.3); }
+@media (max-width: 719px) {
+  #product .pf-st { --b-top: 56%; --b-h: 74cqw; --b-side: 3.4cqw; }
+  #product .pf-st .ct-photo { width: var(--pw-s, 160cqw); left: var(--px-s, -30cqw); top: var(--py-s, -10cqw); }
+}
+@media (min-width: 1240px) {
+  #product .pf-st:not(.pf-band) .ct-stage { padding: 0; aspect-ratio: var(--ar, 1.83); border-radius: 18px; overflow: clip; }
+  #product .pf-st:not(.pf-band) .ct-band { inset: 0; height: auto; border-radius: 0; }
+  #product .pf-st:not(.pf-band) .ct-photo { width: var(--pw, 120cqw); left: var(--px, 0cqw); top: var(--py, 0cqw); }
+  #product .pf-st:not(.pf-band) .ct-win { position: absolute; margin: 0; left: var(--wx, 3cqw); top: var(--wy, 5cqw); width: var(--ww, 66cqw); }
+  #product .pf-st:not(.pf-band) .ct-bar { height: 3.4cqw; }
+}
+/* product rails: four or five steps keep their names; a longer list, or a window that shares its card, shows numbered steps
+   with the current step written out underneath, as the case pages do on narrower screens */
+@media (min-width: 1240px) {
+  #product .pf-mini .ct-rail, #product .media > figure:not(:only-child) .ct-rail, #product .ct-rail:has(.lx-beats > li:nth-child(6)) { grid-template-columns: 48px minmax(0, 1fr); }
+  #product .pf-mini .ct-rail .lx-pp, #product .media > figure:not(:only-child) .ct-rail .lx-pp, #product .ct-rail:has(.lx-beats > li:nth-child(6)) .lx-pp { width: 48px; min-height: 48px; padding-top: 0; place-items: center; }
+  #product .pf-mini .ct-rail .lx-beats button, #product .media > figure:not(:only-child) .ct-rail .lx-beats button, #product .ct-rail:has(.lx-beats > li:nth-child(6)) .lx-beats button { min-height: 48px; padding: 0; display: grid; place-items: center; }
+  #product .pf-mini .ct-rail .lx-beats .n, #product .media > figure:not(:only-child) .ct-rail .lx-beats .n, #product .ct-rail:has(.lx-beats > li:nth-child(6)) .lx-beats .n { margin: 0; gap: 0; }
+  #product .pf-mini .ct-rail .lx-beats .n::before, #product .media > figure:not(:only-child) .ct-rail .lx-beats .n::before, #product .ct-rail:has(.lx-beats > li:nth-child(6)) .lx-beats .n::before { display: none; }
+  #product .pf-mini .ct-rail .lx-beats .l, #product .media > figure:not(:only-child) .ct-rail .lx-beats .l, #product .ct-rail:has(.lx-beats > li:nth-child(6)) .lx-beats .l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  #product .pf-mini .ct-rail .lx-now, #product .media > figure:not(:only-child) .ct-rail .lx-now, #product .ct-rail:has(.lx-beats > li:nth-child(6)) .lx-now { grid-column: 1 / -1; display: flex; gap: 10px; align-items: baseline; margin: 10px 0 0; max-width: none; font-size: 15px; line-height: 1.45; color: var(--ct-text); }
+  #product .pf-mini .ct-rail .lx-now b, #product .media > figure:not(:only-child) .ct-rail .lx-now b, #product .ct-rail:has(.lx-beats > li:nth-child(6)) .lx-now b { font: 500 13.5px/1 var(--mono); color: var(--ct-coral); white-space: nowrap; }
+}
+/* the two small windows beside the Newsroom: play/pause and numbered steps, the step names stay for screen readers */
+@media (min-width: 861px) {
+  #product .pf-mini .ct-rail { grid-template-columns: 40px minmax(0, 1fr); margin-top: 10px; }
+  #product .pf-mini .ct-rail .lx-pp { width: 40px; min-height: 40px; padding-top: 0; place-items: center; }
+  #product .pf-mini .ct-rail .lx-beats { display: grid; }
+  #product .pf-mini .ct-rail .lx-beats button { min-height: 40px; padding: 0; display: grid; place-items: center; }
+  #product .pf-mini .ct-rail .lx-beats .n { margin: 0; gap: 0; font-size: 12px; }
+  #product .pf-mini .ct-rail .lx-beats .n::before { display: none; }
+  #product .pf-mini .ct-rail .lx-beats .l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  #product .media > .pair .pf-mini .ct-rail .lx-now { display: none; }
+  #product .pf-mini .ct-bar { height: 24px; padding: 0 8px 0 10px; gap: 5px; }
+  #product .pf-mini .ct-bar i { width: 8px; height: 8px; }
+  #product .pf-mini .ct-tag { font-size: 11px; }
+}
+/* the tour keeps the section's measure on narrower screens */
+#design-lab .lab-live-tour { margin-top: clamp(28px, 4vw, 48px); }
+/* hero: each page of the stack is a live Lab window; only the front one runs */
+#top .stack .card > .lx { display: block; }
 </style>
 </head>
 <body>
@@ -2664,9 +2727,9 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
     <div class="stage" aria-hidden="true">
       <svg class="arcs" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false"><g transform="rotate(-22)"><circle r="96"/><ellipse rx="96" ry="96" style="animation-delay:0.0s"/><ellipse rx="96" ry="96" style="animation-delay:-3.0s"/><ellipse rx="96" ry="96" style="animation-delay:-6.0s"/><ellipse rx="96" ry="96" style="animation-delay:-9.0s"/><ellipse rx="96" ry="96" style="animation-delay:-12.0s"/><ellipse rx="96" ry="96" style="animation-delay:-15.0s"/><ellipse rx="96" ry="96" style="animation-delay:-18.0s"/><ellipse rx="96" ry="96" style="animation-delay:-21.0s"/><ellipse rx="96" ry="96" style="animation-delay:-24.0s"/><ellipse rx="96" ry="96" style="animation-delay:-27.0s"/><ellipse rx="96" ry="96" style="animation-delay:-30.0s"/><ellipse rx="96" ry="96" style="animation-delay:-33.0s"/></g></svg>
       <div class="stack" id="stack">
-        <div class="card c3"><video width="1440" height="900" data-src="img/hero-clip-compliance-nb.mp4" poster="img/clip-compliance-poster-nb-1120.webp" muted loop playsinline preload="none"></video></div>
-        <div class="card c2"><video width="1440" height="900" data-src="img/hero-clip-actions-c-nb.mp4" poster="img/clip-actions-poster-c-nb-1120.webp" muted loop playsinline preload="none"></video></div>
-        <div class="card c1"><video width="1440" height="900" data-src="img/hero-clip-topics-r.mp4" poster="img/clip-topics-poster-1120.webp" muted loop playsinline preload="none"></video></div>
+        <div class="card c3"><div class="lx" data-lab="compliance"></div></div>
+        <div class="card c2"><div class="lx" data-lab="actions"></div></div>
+        <div class="card c1"><div class="lx" data-lab="topics"></div></div>
       </div>
       <div class="label stage-note">Hear Design Lab · demo data</div>
     </div>
@@ -2720,9 +2783,7 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
     </div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Initiator · design &amp; code</dd></div><div><dt>Stack</dt><dd class="lab-stack-dd"><ul class="lab-stack"><li>React</li><li>Vite</li><li>Storybook</li></ul></dd></div></dl>
 
-    <figure class="rv lab-tour"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/demo-tour-nb-r2.mp4" data-poster="img/demo-tour-poster-flow.webp" muted loop playsinline preload="none" aria-label="A question typed into the Lab, the answer, then Topics, Compliance and Actions"></video></div>
-      <div class="lt-rail" aria-hidden="true"><i class="lt-fill"></i></div>
-      <figcaption><span class="lt-cap"><b>The Lab in about 30 seconds.</b></span><span class="lt-chaps" role="group" aria-label="Jump to a part of the tour"><button type="button" data-t="6"><i>01</i>Ask</button><button type="button" data-t="11.5"><i>02</i>Answer</button><button type="button" data-t="19.5"><i>03</i>Topics</button><button type="button" data-t="22.8"><i>04</i>Compliance</button><button type="button" data-t="27"><i>05</i>Actions</button></span></figcaption></figure>
+    <figure class="ct-fig ct-hero lab-live-tour" data-lx-stage style="--pw:160cqw;--px:0cqw;--py:-24cqw;--wx:3.5cqw;--wy:6.25cqw;--ww:56cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-14cqw;--pw-s:160cqw;--px-s:-26.8cqw;--py-s:-19cqw"><div class="ct-stage"><div class="ct-band"><img class="ct-photo" src="img/hear-hallway-sweater.webp" alt="" width="1600" height="1073" decoding="async" loading="lazy"></div><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="tour" role="img" aria-label="Design Lab tour, step by step: the Chat home opens for the demo company Northwind; a title card reads “Thousands of calls. One clear answer.”; a question about escalations is typed into the chat box and sent; the answer counts 23 escalations this week and ranks their topics in a card; the view moves in close on the answer, then back out; Topics shows how the calls flow into each score zone; the Compliance trend lines rise one section at a time; the Actions board holds the follow-up work, then a Hear end card."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>The Lab in about 30 seconds.</b></figcaption></figure>
 
     <div class="versions vl" data-v="0">
       <div class="label" style="margin-bottom:14px">Same screen · <b>three designs</b> · demo data</div>
@@ -2778,7 +2839,7 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
         <p class="pf-sol">In Ultra I put the key pain point first: open an AI chat about it in one click to understand the cause, then act on it with suggested signals.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-topics"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Topics</span></button><div class="mr-body" id="mr-topics"><div class="mr-in"><div><ul class="mr-list"><li>Boxes, circles and flow views</li><li>Hover breaks a score into its parameters</li><li>Sort daily scores by calls, lowest score or biggest drop</li><li>Click a parameter and the AI explains what drives it</li></ul><p class="mr-why"><b>Design choice:</b> size shows call volume and color shows score, so problem areas stand out before anyone reads a number.</p></div></div></div></div>
       </div>
-      <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-topics-ultra-ai2.mp4" data-poster="img/clip-topics-ultra-ai2-poster.webp" muted loop playsinline preload="none" aria-label="Topics in the Ultra design: the Most to gain tile points to Flight Booking, its worst parameter, handle time, opens an AI chat that explains the cause, and a follow-up asks which signals to set up"></video></div></figure></div>
+      <div class="media"><figure class="ct-fig pf-st rv" data-lx-stage style="--ar:1.83;--pw:122cqw;--px:-2cqw;--py:-6cqw;--wx:3cqw;--wy:5cqw;--ww:66cqw;--pw-m:118cqw;--px-m:-18cqw;--py-m:-12cqw;--pw-s:170cqw;--px-s:-70cqw;--py-s:-14cqw"><div class="ct-stage"><div class="ct-band"><img class="ct-photo" src="img/hear-door-keychain.webp" alt="" width="1600" height="893" decoding="async" loading="lazy"></div><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="topics" role="img" aria-label="Topics, Ultra version, step by step: hovering the Most to gain tile lights up Flight Booking on the treemap, and hovering the topic opens its three scores; its worst score, Handle time, is clicked and the Ask AI panel slides in as the page narrows; the answer explains what drives the long handle time; a follow-up asks which signals to set up, and the answer suggests alerts that catch it early."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot">
@@ -2790,7 +2851,7 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-compliance"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Compliance</span></button><div class="mr-body" id="mr-compliance"><div class="mr-in"><div><p>Any cell opens a popover that places that agent against the whole team and says what the next button will do before you press it. One click on <b>Explore in Chat</b> hands that cell to the AI chat to dig deeper.</p><p class="mr-why"><b>Design choice:</b> only problems get color. A full grid of agents and criteria stays quiet until something needs attention.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
-      <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-compliance-nb.mp4" data-poster="img/clip-compliance-poster-nb.webp" muted loop playsinline preload="none" aria-label="Compliance overview, the agents heatmap and a cell popover, then Explore in Chat, where the AI explains that score"></video></div></figure></div>
+      <div class="media"><figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="compliance" role="img" aria-label="Compliance in the Design Lab, light theme, step by step: the Compliance home opens on its KPIs and a trend for each criterion against a target line; hovering the trend shows every criterion's score for that day; the Agents tab shows a heatmap of criteria by agent; hovering a cell tints it and marks its row; a click on one cell opens a popover that places that agent against the whole team; Explore in Chat hands the cell to Ask AI; the answer explains the score and names the calls that pulled it down."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot">
@@ -2802,7 +2863,7 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-eval"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Agent evaluation</span></button><div class="mr-body" id="mr-eval"><div class="mr-in"><div><p>I designed V1 with the score over time, the score per skill and the tables of teams and agents, then V2 to V4 + Filter. In this clip, a free question about a dip gets a general answer: the usual causes, and where to check.</p><p class="mr-why"><b>Design choice:</b> asked about one score, the answer points to the exact calls behind it, so people can check the AI instead of just trusting it.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
-      <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-agent-eval-c.mp4" data-poster="img/clip-agent-eval-poster-c.webp" muted loop playsinline preload="none" aria-label="Agent evaluation: zooming into a dip in the average score, then asking the AI why it dropped"></video></div></figure></div>
+      <div class="media"><figure class="ct-fig pf-st rv" data-lx-stage style="--ar:1.83;--pw:150cqw;--px:-5cqw;--py:-12cqw;--wx:3cqw;--wy:5cqw;--ww:66cqw;--pw-m:110cqw;--px-m:-10cqw;--py-m:-16cqw;--pw-s:180cqw;--px-s:-80cqw;--py-s:-20cqw"><div class="ct-stage"><div class="ct-band"><img class="ct-photo" src="img/hear-desk-notebook.webp" alt="" width="1600" height="1073" decoding="async" loading="lazy"></div><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="agent-eval" role="img" aria-label="Agent evaluation in the Design Lab, light theme, step by step: the page opens on the average score over time, a bar per day; hovering a bar shows its day, its score and how many calls it is based on; a drag across the coral dip zooms the chart to seven days; the zoomed bars keep the same hover detail; Ask AI opens from the sidebar with the page and project as context; the question why the score dropped between Sep 30 and Oct 3 is typed and sent; a general answer lists likely causes and where to check, with related topics; the chat closes on the zoomed chart."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot">
@@ -2814,7 +2875,7 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-actions"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Actions</span></button><div class="mr-body" id="mr-actions"><div class="mr-in"><div><p>Inside a task, the team ticks off action items, moves the status and <b>@mentions</b> a teammate, and the activity log records each change, such as Created, Assigned to and Moved to In progress.</p><p class="mr-why"><b>Design choice:</b> every task keeps its source, and closed work keeps its reason, such as duplicate or escalated, so the team learns from it.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/actions.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
-      <div class="media"><figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-actions-c-nb.mp4" data-poster="img/clip-actions-poster-c-nb.webp" muted loop playsinline preload="none" aria-label="Actions board: filtering, opening a task, ticking an action item, moving it to In progress and @mentioning a teammate in a comment"></video></div></figure></div>
+      <div class="media"><figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="actions" role="img" aria-label="Actions board, step by step: a card is hovered and its quick actions appear; the High priority quick filter is clicked and the other cards fade; a task about a refund is opened in a side panel; an action item is ticked off; the status moves from Pending to In progress; a comment that @mentions a teammate is typed and posted; the panel scrolls to the activity log."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot">
@@ -2827,10 +2888,10 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
         <div class="cs-links"><a class="cs-link" href="work/newsroom.html">Newsroom case study <span aria-hidden="true">→</span></a><a class="cs-link" href="work/data.html">Data &amp; signals case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
-        <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-news-d.mp4" data-poster="img/clip-news-poster-d.webp" muted loop playsinline preload="none" aria-label="Newsroom: the ticker and the spike story, the monthly recap played as a story, then the feed filtered to one source"></video></div><figcaption><b>Newsroom</b></figcaption></figure>
+        <figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="news-recap" role="img" aria-label="Newsroom in the Design Lab. Play on the monthly recap card opens a full-screen story that plays through July one beat at a time: the month's call count, the peak day, the topic that took over, escalations down while volume rose, a customer quote, the top agent, sentiment rising for three months, and the CSAT result. It ends with “That was July” and a shareable summary card, then closes back to the Newsroom."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>Newsroom</b></figcaption></figure>
         <div class="pair">
-          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-data-c-nb.mp4" data-poster="img/clip-data-poster-d-nb.webp" muted loop playsinline preload="none" aria-label="Data table: an AI filter from a plain-language request, a call opened in the side panel, then Ask AI about that call"></video></div><figcaption><b>Data</b></figcaption></figure>
-          <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/clip-signals-c.mp4" data-poster="img/clip-signals-poster-d.webp" muted loop playsinline preload="none" aria-label="Turning a signal on, then creating a new one: name, folder, description and a field to extract"></video></div><figcaption><b>Signals</b></figcaption></figure>
+          <figure class="ct-fig ct-plain pf-mini rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="data" role="img" aria-label="Data table, step by step: the calls table loads with 2,000 calls listed; Filter opens and the calls are described in plain words, High priority calls; Generate turns the words into a Priority: High chip, with Clear all, Unsaved changes, Reset and Save as view; a call opens in the side panel beside the table; the arrow keys step the panel to the next calls; Ask AI is asked about this call from the panel; the answer explains the call and suggests related topics."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>Data</b></figcaption></figure>
+          <figure class="ct-fig ct-plain pf-mini rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="signals" role="img" aria-label="Signals list, step by step: the list shows each signal's status and source; a paused signal's Auto switch is turned on; Create opens a new signal and its name is typed; a folder is picked from a menu with New folder; a description of what to detect is written; an item gets a name, a key and a description; a second item is added and the signal is saved; the new signal appears at the top of the list."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>Signals</b></figcaption></figure>
         </div>
       </div>
     </article>
@@ -2845,7 +2906,7 @@ html:has(#system .dsx[open]) { overflow: hidden; scrollbar-gutter: stable; }
         <div class="cs-links"><a class="cs-link" href="work/demos-engine.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
-        <figure class="rv"><div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><video width="1440" height="900" data-src="img/demo-showcase.mp4" data-poster="img/demo-showcase-poster-19.webp" muted loop playsinline preload="none" aria-label="A 30-second showcase demo played by the engine: it asks what drove escalations this week, the Lab answers by topic, then it asks who handled them"></video></div><figcaption><b>A 30-second showcase</b></figcaption></figure>
+        <figure class="ct-fig pf-st pf-band rv" data-lx-stage style="--pw-m:104cqw;--px-m:-2cqw;--py-m:-14cqw;--pw-s:180cqw;--px-s:-40cqw;--py-s:-27cqw"><div class="ct-stage"><div class="ct-band"><img class="ct-photo" src="img/hear-couple-folder.webp" alt="" width="1600" height="1073" decoding="async" loading="lazy"></div><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="showcase" role="img" aria-label="The engine plays a showcase: Chat home in a demo workspace, then a title card with one claim, then the question What drove escalations this week? typed into the composer and sent, the answer with a count and a chart by topic as the camera pushes in, then Who handled them? and the answer table lifted out of a dimmed screen, then an end card counts up the time to answer."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>A 30-second showcase</b></figcaption></figure>
         <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><img src="img/demos-light-nb.webp" alt="The demos library with showcase sequences" width="1600" height="1226" loading="lazy"></div><figcaption><b>The demo library</b></figcaption></figure>
       </div>
     </article>
@@ -3470,13 +3531,15 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     if (keep && Math.abs(keep.getBoundingClientRect().top - y0) > 1 && y0 >= (parseFloat(getComputedStyle(keep).top) || 0) - 1) { const p = keep.style.position; keep.style.position = 'static'; const f = keep.getBoundingClientRect().top; keep.style.position = p; scrollBy({ top: f - y0, behavior: 'instant' }); }
     check();
   };
+  // live Lab windows under a covering card hold still too (the glue at the end of the page reads .r8-cov)
+  const lxSync = () => { if (window.LX) LX.players.forEach(p => p.sync()); };
   const show = c => vids(c).forEach(v => { if (!v.dataset.r8wait) return; delete v.dataset.r8wait; const r = v.getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight) v.play().catch(() => {}); });
   const check = () => {
     const on = sec.classList.contains('r8-stack'), vh = innerHeight;
     cards.forEach((c, i) => {
       const nx = cards[i + 1], hide = on && !!nx && nx.getBoundingClientRect().top < vh * .35;
-      if (hide && !covered.has(c)) { covered.add(c); vids(c).forEach(v => { if (!v.paused) { v.pause(); v.dataset.r8wait = '1'; } }); }
-      else if (!hide && covered.has(c)) { covered.delete(c); show(c); }
+      if (hide && !covered.has(c)) { covered.add(c); vids(c).forEach(v => { if (!v.paused) { v.pause(); v.dataset.r8wait = '1'; } }); c.classList.add('r8-cov'); lxSync(); }
+      else if (!hide && covered.has(c)) { covered.delete(c); show(c); c.classList.remove('r8-cov'); lxSync(); }
     });
   };
   cards.forEach(c => vids(c).forEach(v => { const play = v.play; v.play = () => { if (covered.has(c)) { v.dataset.r8wait = '1'; return Promise.resolve(); } return play.call(v); }; }));
@@ -5057,7 +5120,9 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   const DUR = 9000;
   // every page gets its still poster as an image underneath, so a page without a clip still looks the same
   const SRC = { 'img/clip-topics-poster-1120.webp': 'img/hero-clip-topics-r.mp4', 'img/clip-actions-poster-c-nb-1120.webp': 'img/hero-clip-actions-c-nb.mp4', 'img/clip-compliance-poster-nb-1120.webp': 'img/hero-clip-compliance-nb.mp4' };
+  const lxSync = () => { if (window.LX) LX.players.forEach(p => p.sync()); };
   cards.forEach(c => {
+    if (c.querySelector('.lx')) { c.dataset.clip = 'lx'; return; }
     const v = c.querySelector('video'), im = c.querySelector('img');
     const poster = v ? v.getAttribute('poster') : im && im.getAttribute('src');
     c.dataset.poster = poster || ''; c.dataset.clip = (v && (v.getAttribute('src') || v.dataset.src)) || SRC[poster] || '';
@@ -5069,7 +5134,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   const assign = list => list.forEach((c, i) => { SLOTS.forEach(s => c.classList.remove(s)); c.classList.add(SLOTS[i]); });
   const ping = () => dispatchEvent(new Event('scroll'));
   const giveClip = c => {
-    if (c.querySelector('video') || !c.dataset.clip) return;
+    if (c.querySelector('.lx') || c.querySelector('video') || !c.dataset.clip) return;
     const v = document.createElement('video');
     v.className = 'hx-v hx-wait'; v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; v.preload = 'auto'; v.tabIndex = -1;
     v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('disablepictureinpicture', '');
@@ -5078,7 +5143,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     c.appendChild(v);
   };
   const dropClip = c => {
-    const v = c.querySelector('video'); if (!v) return;
+    const v = c.querySelector('video'); if (!v) return lxSync();
     v.classList.add('hx-wait');
     setTimeout(() => { if (c.classList.contains('c1')) { v.classList.remove('hx-wait'); return; } v.pause(); v.removeAttribute('src'); v.load(); v.remove(); }, 520);
   };
@@ -5090,7 +5155,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     giveClip(next[0]);
     mover.classList.add('hx-out');
     setTimeout(() => {
-      assign(next); dropClip(next[1]); dropClip(next[2]);
+      assign(next); dropClip(next[1]); dropClip(next[2]); lxSync();
       setTimeout(() => { mover.classList.remove('hx-out'); }, dir > 0 ? 300 : 120);
       setTimeout(() => { busy = false; ping(); paint(); }, 1050);
       setTimeout(ping, 400);
@@ -5195,7 +5260,63 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   sync(); if (mq.addEventListener) mq.addEventListener('change', sync);
 })();
 
+// homelx: live Lab windows on this page. The engines (work/lab-*.js, deferred below) run each window only while it is on screen;
+// here they also hold still while a hero page is behind the front one or a product card is covered by the next.
+document.addEventListener('DOMContentLoaded', () => {
+  const LX = window.LX; if (!LX) return;
+  const held = p => {
+    const c = p.root.closest('#stack .card');
+    if (c) return !c.classList.contains('c1') || c.classList.contains('hx-out');
+    return !!p.root.closest('article.spot.r8-cov');
+  };
+  const patch = p => { if (p._hl) return; p._hl = true; const live = p.live; p.live = function () { return live.call(this) && !held(this); }; };
+  LX.players.forEach(patch);
+  const push = LX.players.push;
+  LX.players.push = function (...ps) { ps.forEach(patch); return push.apply(this, ps); };
+  // windows far down the page are held back (no app drawn, no clock) until they come within about two screens
+  if (LX.init && 'IntersectionObserver' in window) {
+    // one window per idle moment, so several coming into range at once never stall a scroll
+    const q = []; let busy = false;
+    const idle = window.requestIdleCallback ? f => requestIdleCallback(f, { timeout: 400 }) : f => setTimeout(f, 60);
+    const drain = () => { if (busy || !q.length) return; busy = true; idle(() => {
+      const el = q.shift(); el.dataset.lab = el.dataset.labWait; delete el.dataset.labWait;
+      LX.init(el); if (LX.stage) LX.stage(el); busy = false; drain();
+    }); };
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target); q.push(e.target); drain();
+    }), { rootMargin: '1600px 0px' });
+    document.querySelectorAll('.lx[data-lab]').forEach(el => {
+      if (el.closest('#stack')) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight + 1600 && r.bottom > -1600) return;
+      el.dataset.labWait = el.dataset.lab; el.removeAttribute('data-lab'); io.observe(el);
+    });
+  }
+  // the hero pages are small, tilted windows: they keep the full 1440 x 900 frame at every size (no phone camera) and scale from their own layout width
+  document.querySelectorAll('#stack .lx').forEach(el => {
+    const set = () => {
+      if (el.classList.contains('lx-cam')) el.classList.remove('lx-cam');
+      const k = (el.clientWidth / LX.W).toFixed(5);
+      if (el.clientWidth && el.style.getPropertyValue('--k') !== k) el.style.setProperty('--k', k);
+    };
+    new MutationObserver(set).observe(el, { attributes: true, attributeFilter: ['class', 'style'] });
+    if ('ResizeObserver' in window) new ResizeObserver(set).observe(el);
+    set();
+  });
+});
 </script>
+<script src="work/lab-live.js" defer></script>
+<script src="work/lab-tour.js" defer></script>
+<script src="work/lab-topics.js" defer></script>
+<script src="work/lab-compliance.js" defer></script>
+<script src="work/lab-agent-eval.js" defer></script>
+<script src="work/lab-actions.js" defer></script>
+<script src="work/lab-news-recap.js" defer></script>
+<script src="work/lab-data.js" defer></script>
+<script src="work/lab-signals.js" defer></script>
+<script src="work/lab-showcase.js" defer></script>
+<script src="work/lab-stage.js" defer></script>
 
 
 

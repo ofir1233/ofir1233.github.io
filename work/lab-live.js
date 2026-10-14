@@ -467,6 +467,8 @@
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else setTimeout(start, 0);
   LX.start = start;
+  // a window added or revealed after boot (a page can hold far-off windows back until they come near) joins the same clock
+  LX.init = r => { if (booted) init(r); else setTimeout(() => LX.init(r), 50); };
   LX.advance = async ms => {
     for (let s = 0; s < ms; s += 16) {
       for (const p of players) if (p.live()) p.advance(Math.min(16, ms - s));
