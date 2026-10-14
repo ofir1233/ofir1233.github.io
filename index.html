@@ -4111,44 +4111,74 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
 })();
 
 // brandfix: the brand filmstrip drifts slowly in a seamless loop (~90s a lap). Hover, keyboard focus or a drag pauses it;
-// drag with a mouse or swipe on touch to move it by hand, it picks up again a moment later. Reduced motion keeps the still row
+// drag with a mouse or swipe on touch to move it by hand, it picks up again a moment later. Reduced motion keeps the still row.
+// The drift is a compositor animation of the track (no main-thread work per frame, parked off screen); a drag, a fling, the
+// arrow keys or a focused frame park it and set the spot by hand, and it carries on from there
 (() => {
   const strip = document.querySelector('#web .br-strip'), track = strip && strip.querySelector('.br-track'); if (!track) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || typeof track.animate !== 'function') return;
   const items = [...track.children], first = items[0], dup = items.find(i => i.hasAttribute('aria-hidden')); if (!first || !dup) return;
   strip.classList.add('br-drift');
   const LAP = 90000;
-  let x = 0, period = 0, vis = false, hover = false, focus = false, drag = null, hold = 0, last = 0, vel = 0, raf = 0, eat = false;
-  const measure = () => { period = dup.getBoundingClientRect().left - first.getBoundingClientRect().left; };
-  const paint = () => { if (period > 0) x = ((x % period) + period) % period; track.style.transform = `translate3d(${(-x).toFixed(2)}px,0,0)`; };
+  let x = 0, period = 0, vis = false, hover = false, focus = false, drag = null, hold = 0, last = 0, vel = 0, raf = 0, eat = false, anim = null, holdT = 0;
+  const kf = () => [{ transform: 'translate3d(0,0,0)' }, { transform: `translate3d(${-period}px,0,0)` }];
+  // x is the spot while parked; while drifting the animation's clock holds it
+  const pull = () => { if (anim && period > 0 && anim.playState === 'running') x = ((anim.currentTime || 0) % LAP) / LAP * period; };
+  const paint = () => {
+    if (period > 0) x = ((x % period) + period) % period;
+    if (anim && period > 0) anim.currentTime = x / period * LAP; else track.style.transform = `translate3d(${(-x).toFixed(2)}px,0,0)`;
+  };
+  const measure = () => {
+    pull();
+    period = dup.getBoundingClientRect().left - first.getBoundingClientRect().left;
+    if (period > 0) {
+      if (anim) anim.effect.setKeyframes(kf());
+      else { track.style.transform = ''; anim = track.animate(kf(), { duration: LAP, iterations: Infinity, easing: 'linear' }); anim.pause(); }
+    }
+    paint(); state();
+  };
+  // drift only while the strip is on screen, the tab is visible and nothing holds it
+  const state = () => {
+    clearTimeout(holdT); holdT = 0;
+    if (!anim) return;
+    const free = vis && !document.hidden && !drag && !raf && !hover && !focus, now = performance.now();
+    if (free && now >= hold) { if (anim.playState !== 'running') anim.play(); return; }
+    if (anim.playState === 'running') { pull(); anim.pause(); paint(); }
+    if (free) holdT = setTimeout(state, hold - now + 5);
+  };
+  // a fling after a drag eases out frame by frame, then the drift takes over
   const frame = t => {
     raf = 0;
     const dt = last ? Math.min(64, t - last) : 16; last = t;
-    if (!drag) {
-      if (Math.abs(vel) > .01) { x += vel * dt; vel *= Math.pow(.92, dt / 16); }
-      else if (!hover && !focus && performance.now() > hold) x += period / LAP * dt;
-    }
-    paint(); loop();
+    if (!drag && Math.abs(vel) > .01 && vis && !document.hidden) { x += vel * dt; vel *= Math.pow(.92, dt / 16); paint(); raf = requestAnimationFrame(frame); return; }
+    last = 0; state();
   };
-  const loop = () => { if (vis && !document.hidden) { if (!raf) raf = requestAnimationFrame(frame); } else { last = 0; } };
+  const loop = () => {
+    if (!drag && Math.abs(vel) > .01 && vis && !document.hidden) { if (!raf) { pull(); if (anim && anim.playState === 'running') anim.pause(); raf = requestAnimationFrame(frame); } }
+    else last = 0;
+    state();
+  };
   // pause on hover (mouse only), on keyboard focus inside the strip
-  strip.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hover = true; });
-  strip.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hover = false; });
+  strip.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { hover = true; state(); } });
+  strip.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { hover = false; state(); } });
   strip.addEventListener('focusin', e => {
-    focus = e.target.matches(':focus-visible') && e.target !== strip._mz; strip._mz = null;
+    focus = e.target.matches(':focus-visible') && e.target !== strip._mz; strip._mz = null; state();
     const it = e.target.closest && e.target.closest('.br-item'); if (!it || !focus) return;
-    requestAnimationFrame(() => { strip.scrollLeft = 0; const a = it.getBoundingClientRect(), s = strip.getBoundingClientRect(); x = Math.max(0, x + (a.left + a.width / 2) - (s.left + s.width / 2)); vel = 0; paint(); });
+    requestAnimationFrame(() => { strip.scrollLeft = 0; pull(); const a = it.getBoundingClientRect(), s = strip.getBoundingClientRect(); x = Math.max(0, x + (a.left + a.width / 2) - (s.left + s.width / 2)); vel = 0; paint(); state(); });
   });
-  strip.addEventListener('focusout', e => { if (!strip.contains(e.relatedTarget)) focus = false; });
+  strip.addEventListener('focusout', e => { if (!strip.contains(e.relatedTarget)) { focus = false; state(); } });
   strip.addEventListener('keydown', e => {
     if (e.target !== strip) return;
     const k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!k) return;
-    e.preventDefault(); x += k * Math.min(360, strip.clientWidth * .6); vel = 0; hold = performance.now() + 2500; paint();
+    e.preventDefault(); pull(); x += k * Math.min(360, strip.clientWidth * .6); vel = 0; hold = performance.now() + 2500; paint(); state();
   });
   // drag or swipe: horizontal moves go to the strip, vertical ones still scroll the page (touch-action: pan-y)
   strip.addEventListener('pointerdown', e => {
     eat = false; if (e.button !== 0) return;
+    if (raf) { cancelAnimationFrame(raf); raf = 0; last = 0; }
+    pull();
     drag = { id: e.pointerId, sx: e.clientX, x0: x, lx: e.clientX, lt: performance.now(), moved: false, touch: e.pointerType !== 'mouse' }; vel = 0;
+    state();
   });
   strip.addEventListener('pointermove', e => {
     if (!drag || e.pointerId !== drag.id) return;
@@ -4162,7 +4192,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     if (!drag || e.pointerId !== drag.id) return;
     if (drag.moved) { eat = e.type === 'pointerup'; strip.classList.remove('dragging'); hold = performance.now() + (drag.touch ? 2500 : 1200); if (performance.now() - drag.lt > 80) vel = 0; vel = Math.max(-3, Math.min(3, vel)); }
     else vel = 0;
-    drag = null;
+    drag = null; loop();
   };
   strip.addEventListener('pointerup', end); strip.addEventListener('pointercancel', end);
   // a drag is not a click: it does not open the lightbox
@@ -4176,9 +4206,9 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     pre.observe(strip);
   } else { vis = true; imgs.forEach(i => { i.loading = 'eager'; }); }
   imgs.forEach(i => { if (!i.complete) i.addEventListener('load', measure, { once: true }); });
-  addEventListener('resize', () => { measure(); paint(); });
+  addEventListener('resize', measure);
   document.addEventListener('visibilitychange', loop);
-  measure(); paint(); loop();
+  measure(); loop();
 })();
 
 // prodfix: product cards. Counter joins the icon row, and a slim sticky index marks the current card (click jumps there)

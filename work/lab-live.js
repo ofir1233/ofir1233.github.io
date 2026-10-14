@@ -16,15 +16,32 @@
   LX.manual = /[?&]lxclock=manual\b/.test(location.search);
   if (LX.manual) document.documentElement.classList.add('lx-manual');
 
-  // one ticker for every window
-  let last = 0, raf = 0;
+  // one ticker for every window. Between steps, when nothing is due for a few frames, it naps on a timer instead of
+  // running every frame (the compositor keeps the animations going, so the page draws no main-thread frames), and
+  // goes back to frames just before the next wait falls due. A clock read during a nap counts the time slept
+  let last = 0, raf = 0, nap = null;
+  const NAP = 50, LEAD = 20;
   const tick = now => {
-    const dt = last ? Math.min(50, now - last) : 16; last = now;
-    let any = false;
-    for (const p of players) if (p.live()) { p.advance(dt); any = true; }
-    if (any) raf = requestAnimationFrame(tick); else { raf = 0; last = 0; }
+    raf = 0;
+    const dt = last ? Math.max(0, Math.min(50, now - last)) : 16; last = now;
+    let any = false, woke = false, due = Infinity;
+    for (const p of players) if (p.live()) { if (p.advance(dt)) woke = true; any = true; for (const w of p.waits) due = Math.min(due, w.at - p._t); }
+    if (!any) { last = 0; return; }
+    // a step that just woke may set its next wait in the coming microtasks, so it gets another frame first
+    if (woke || due <= NAP) { raf = requestAnimationFrame(tick); return; }
+    nap = { from: now, timer: setTimeout(rouse, Math.min(1000, due - LEAD)) };
+    for (const p of players) p._nap = p.live();
   };
-  const wake = () => { if (!raf && !LX.manual) { last = 0; raf = requestAnimationFrame(tick); } };
+  // end a nap: the clocks that were running take the time that passed, and the ticker goes back to frames
+  const rouse = () => {
+    if (!nap) return;
+    clearTimeout(nap.timer);
+    const now = performance.now(), slept = Math.max(0, now - nap.from);
+    for (const p of players) if (p._nap) { p._t += slept; p._nap = false; }
+    nap = null; last = now;
+    if (!raf) raf = requestAnimationFrame(tick);
+  };
+  const wake = () => { if (LX.manual) return; if (nap) return rouse(); if (!raf) { last = 0; raf = requestAnimationFrame(tick); } };
 
   // icons: 24-unit outline strokes in the Lucide manner, drawn at the size the class sets
   const P = {
@@ -129,15 +146,21 @@
       this.buildBeats(); this.bindPP();
     }
     live() { return this.visible && this.user && this.started && !this.done && (!LX.held || this.solo) && !LX.dialog && !document.hidden; }
+    // the scene clock (ms); while the ticker naps it reads as the time slept on top of the last tick
+    get t() { return nap && this._nap ? this._t + Math.max(0, performance.now() - nap.from) : this._t; }
+    set t(v) { this._t = nap && this._nap ? v - Math.max(0, performance.now() - nap.from) : v; }
     advance(dt) {
-      this.t += dt;
+      this._t += dt;
       if (LX.manual) this.anims.forEach(a => { try { const end = a.effect.getComputedTiming().endTime; const ct = (a.currentTime || 0) + dt; if (ct >= end) { a.finish(); this.anims.delete(a); } else a.currentTime = ct; } catch (e) { this.anims.delete(a); } });
-      if (!this.waits.length) return;
+      if (!this.waits.length) return false;
       const due = [], keep = [];
-      for (const w of this.waits) (w.at <= this.t ? due : keep).push(w);
+      for (const w of this.waits) (w.at <= this._t ? due : keep).push(w);
       this.waits = keep; due.forEach(w => w.ok());
+      return due.length > 0;
     }
     sync() {
+      // a change of state ends a nap first, so a clock that stops keeps exactly the time it ran
+      rouse();
       const on = this.live();
       this.root.classList.toggle('lx-paused', !on);
       this.anims.forEach(a => { try {

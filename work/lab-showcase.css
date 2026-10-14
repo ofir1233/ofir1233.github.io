@@ -88,10 +88,13 @@
 .sc-sh .sh-bub { position: absolute; right: 289px; height: 40px; display: flex; align-items: center; padding: 0 16px; border-radius: 12px 12px 4px 12px; background: var(--blue); color: #fff; font-size: 13.4px; font-weight: 700; white-space: nowrap; }
 .sc-sh .sh-think { position: absolute; left: 550.5px; height: 22px; display: flex; align-items: center; gap: 11px; font-size: 12px; font-weight: 500; color: #a6a6a6; }
 /* the thinking sphere: a diagonal halftone that drifts, lighter towards the rim */
-.sc-sh .sh-sph { width: 22px; height: 22px; border-radius: 50%; flex: none; background-color: #dce8fb;
-  background-image: radial-gradient(circle at 45% 40%, rgba(255,255,255,0) 40%, rgba(255,255,255,.55) 100%), radial-gradient(circle, #4f86ee 0 .85px, transparent 1.15px), radial-gradient(circle, #4f86ee 0 .85px, transparent 1.15px);
-  background-size: 100% 100%, 3.4px 3.4px, 3.4px 3.4px; background-position: 0 0, 0 0, 1.7px 1.7px; animation: sh-drift 1.4s linear infinite; }
-@keyframes sh-drift { to { background-position: 0 0, 3.4px 3.4px, 5.1px 5.1px; } }
+.sc-sh .sh-sph { position: relative; overflow: hidden; width: 22px; height: 22px; border-radius: 50%; flex: none; background-color: #dce8fb; }
+/* the dots drift as a compositor transform of a layer one dot step larger (the same as sliding the pattern 3.4px); the rim light sits above */
+.sc-sh .sh-sph::before { content: ""; position: absolute; left: -3.4px; top: -3.4px; width: calc(100% + 3.4px); height: calc(100% + 3.4px);
+  background-image: radial-gradient(circle, #4f86ee 0 .85px, transparent 1.15px), radial-gradient(circle, #4f86ee 0 .85px, transparent 1.15px);
+  background-size: 3.4px 3.4px, 3.4px 3.4px; background-position: 0 0, 1.7px 1.7px; animation: sh-drift 1.4s linear infinite; }
+.sc-sh .sh-sph::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(circle at 45% 40%, rgba(255,255,255,0) 40%, rgba(255,255,255,.55) 100%); }
+@keyframes sh-drift { to { transform: translate(3.4px, 3.4px); } }
 .sc-sh .sh-ans { position: absolute; left: 554px; font-size: 14.5px; line-height: 20px; font-weight: 500; color: #131313; white-space: nowrap; }
 .sc-sh .sh-ans b { font-weight: 700; color: #0c0c0c; }
 .sc-sh .sh-card { position: absolute; left: 546px; width: 532px; background: #fff; border: 1px solid #ececec; border-radius: 12px; }

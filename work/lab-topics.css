@@ -220,7 +220,10 @@
 .sc-tq .tq-pn .glb { position: relative; width: 22px; height: 22px; border-radius: 50%; overflow: hidden; background: #e3ecfc; flex: none; }
 .sc-tq .tq-pn .glb::before { content: ""; position: absolute; inset: -8px; background-image: radial-gradient(circle, #2f6fe0 0 .85px, transparent 1.1px); background-size: 3.4px 3.4px; transform: rotate(35deg); animation: tq-drift .8s linear infinite; }
 .sc-tq .tq-pn .glb::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0) 30%, rgba(255,255,255,.6) 100%); }
-@keyframes tq-drift { to { background-position: 3.4px 3.4px; } }
+/* the same drift as sliding the dots 3.4px along the pattern, as a compositor transform */
+@keyframes tq-drift { from { transform: rotate(35deg); } to { transform: rotate(35deg) translate(3.4px, 3.4px); } }
+/* a globe that is hidden (visibility) rests: a running animation nobody can see still costs the page a frame every frame */
+.sc-tq .tq-pn .hid .glb::before { animation-play-state: paused; }
 .sc-tq .tq-pn .ans { position: absolute; left: 24px; width: 345px; font-size: 14.6px; line-height: 23px; font-weight: 500; color: #363636; letter-spacing: -.012em; }
 .sc-tq .tq-pn .ans span { display: block; white-space: nowrap; }
 .sc-tq .tq-pn .a1 { top: 90px; } .sc-tq .tq-pn .a2 { top: 523px; }
