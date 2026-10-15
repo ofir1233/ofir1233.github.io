@@ -5,59 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Page not found · Ofir Nona</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#0d0d0e">
+<meta name="theme-color" content="#f3f4f2">
+<script>try{var t=localStorage.getItem('ofir-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d0d0e'/%3E%3Ccircle cx='32' cy='32' r='11' fill='%23ff7056'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* the site's own look (index.html): ink page, floating nav pill, cream Contact pill, coral dot buttons. Links are root-absolute because GitHub Pages serves this page at any missing path */
+/* the site's look (Porcelain & Evergreen): porcelain page, white nav pill, evergreen primary; night pine when the visitor chose dark. Links are root-absolute because GitHub Pages serves this page at any missing path */
 :root {
-  --ink: #0d0d0e; --line: #26262a; --paper: #eeebe5; --cream: #f2efe7; --ink-t: #1b1b1b; --mute: #9a978f; --coral: #ff7056;
+  --ink: #f3f4f2; --surface: #ffffff; --mist: #e3ece7; --line: #d5dbd6; --paper: #14201b; --mute: #56635c; --accent: #1f5c47; --on-accent: #f3f4f2;
+  --shadow: 0 1px 2px rgba(20,32,27,.10), 0 18px 40px -24px rgba(20,32,27,.35);
   --display: "Bricolage Grotesque", "Bricolage Fallback", "Helvetica Neue", Arial, sans-serif;
-  --body: "Geist", "Helvetica Neue", Arial, sans-serif;
-  --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  --body: "Figtree", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --ink: #101614; --surface: #17201c; --mist: #1f3229; --line: #2a3832; --paper: #e8eeea; --mute: #9db0a6; --accent: #7cc4a6; --on-accent: #0f1a15;
+  --shadow: 0 1px 2px rgba(0,0,0,.5), 0 18px 40px -24px rgba(0,0,0,.85);
   color-scheme: dark;
 }
 @font-face { font-family: "Bricolage Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"), local("HelveticaNeue-Bold"); font-weight: 700; size-adjust: 92%; ascent-override: 94%; descent-override: 24%; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; background: var(--ink); color: var(--paper); font-family: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
 a { color: inherit; text-decoration: none; }
-:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
 .nav { padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 0; }
-.nav .wrap { display: flex; align-items: center; gap: 10px; width: max-content; max-width: 100%; margin: 0 auto; padding: 6px 6px 6px 20px; border-radius: 99px; background: rgba(8,8,9,.98); box-shadow: 0 0 0 1px rgba(255,255,255,.09), 0 18px 40px -20px rgba(0,0,0,.7); white-space: nowrap; }
+.nav .wrap { display: flex; align-items: center; gap: 10px; width: max-content; max-width: 100%; margin: 0 auto; padding: 6px 6px 6px 20px; border-radius: 99px; background: var(--surface); box-shadow: var(--shadow); white-space: nowrap; }
 .brand { margin-right: 6px; font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: -.02em; }
-.brand span { color: var(--coral); }
+.brand span { color: var(--accent); }
 .nav ul { list-style: none; display: flex; align-items: center; gap: 2px; font-size: 14px; }
-.nav ul a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 13px; border-radius: 99px; color: rgba(242,239,231,.72); transition: color .2s, background-color .2s; }
-.nav ul a:hover { color: var(--cream); background: rgba(255,255,255,.08); }
+.nav ul a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 13px; border-radius: 99px; color: var(--mute); transition: color .2s, background-color .2s; }
+.nav ul a:hover { color: var(--paper); background: var(--mist); }
 .nav ul li:last-child { margin-left: 6px; }
-.nav ul li:last-child a, .nav ul li:last-child a:hover { gap: 12px; min-height: 40px; padding: 0 6px 0 16px; color: var(--ink-t); background: var(--cream); font-weight: 500; }
-.nav ul li:last-child a::after { content: ""; flex: none; width: 28px; height: 28px; border-radius: 50%; background: radial-gradient(circle, var(--coral) 0 2.6px, var(--ink-t) 3.2px); }
+.nav ul li:last-child a, .nav ul li:last-child a:hover { min-height: 40px; padding: 0 18px; color: var(--on-accent); background: var(--accent); font-weight: 600; }
 @media (max-width: 760px) {
   .nav { padding-top: calc(env(safe-area-inset-top, 0px) + 10px); }
   .nav .wrap { padding-left: 16px; gap: 6px; }
   .nav ul li:not(:last-child) { display: none; }
-  .nav ul li:last-child a, .nav ul li:last-child a:hover { min-height: 38px; padding-left: 14px; gap: 10px; }
-  .nav ul li:last-child a::after { width: 26px; height: 26px; }
+  .nav ul li:last-child a, .nav ul li:last-child a:hover { min-height: 38px; padding: 0 16px; }
 }
 
 main { flex: 1; display: grid; align-content: center; justify-items: start; gap: 22px; width: 100%; max-width: 1240px; margin: 0 auto; padding: clamp(56px, 10vw, 120px) clamp(16px, 4vw, 40px); }
-.label { display: block; width: fit-content; padding: 5px 10px 4px; border-radius: 6px; background: rgba(242,239,231,.07); color: rgba(242,239,231,.62); font: 400 13.5px/1.4 var(--mono); letter-spacing: .04em; }
+.label { display: block; width: fit-content; padding: 5px 12px; border-radius: 99px; background: var(--mist); color: var(--accent); font: 600 14px/1.4 var(--body); }
 h1 { font-family: var(--display); font-weight: 700; font-size: clamp(40px, 6vw, 80px); letter-spacing: -.035em; line-height: 1.02; text-wrap: balance; }
-h1 span { color: var(--coral); }
+h1 span { color: var(--accent); }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
-.btn { display: inline-flex; align-items: center; gap: 16px; padding: 8px 8px 8px 24px; border-radius: 99px; background: var(--coral); color: #160805; font-size: 16px; font-weight: 500; transition: box-shadow .25s, background-color .25s; }
-.btn::after { content: ""; flex: none; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, var(--coral) 0 3px, var(--ink-t) 3.6px); transition: background .3s; }
-.btn:hover::after { background: radial-gradient(circle, var(--coral) 0 6px, var(--ink-t) 6.6px); }
-.btn.ghost { background: transparent; color: var(--paper); box-shadow: inset 0 0 0 1px rgba(242,239,231,.18); }
-.btn.ghost::after { background: radial-gradient(circle, var(--coral) 0 3px, #26262a 3.6px); }
-.btn.ghost:hover { box-shadow: inset 0 0 0 1px rgba(242,239,231,.6); }
-.btn.ghost:hover::after { background: radial-gradient(circle, var(--coral) 0 6px, #26262a 6.6px); }
-@media (max-width: 760px) { .btn::after { width: 36px; height: 36px; } }
-@media (prefers-reduced-motion: reduce) { .nav ul a, .btn, .btn::after { transition: none; } }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-size: 16px; font-weight: 600; transition: background-color .25s, box-shadow .25s; }
+.btn:hover { background: color-mix(in srgb, var(--accent) 88%, var(--paper)); }
+.btn.ghost { background: transparent; color: var(--paper); box-shadow: inset 0 0 0 1.5px var(--line); }
+.btn.ghost:hover { background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--accent); }
+@media (prefers-reduced-motion: reduce) { .nav ul a, .btn { transition: none; } }
 </style>
 </head>
 <body>
