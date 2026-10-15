@@ -3512,6 +3512,17 @@ html section#design-lab:where(:not(.lx-app, .lx-app *)){ padding-top: clamp(56px
 #system .dw-c:where(:not(.lx-app, .lx-app *)), #system .ds-insp-grp:where(:not(.lx-app, .lx-app *)), #system .ds-tag:where(:not(.lx-app, .lx-app *)), #system .ds-tag span:where(:not(.lx-app, .lx-app *)),
 #fyi .fyq-n:where(:not(.lx-app, .lx-app *)), #process .pd-chip:where(:not(.lx-app, .lx-app *)), #path .when:where(:not(.lx-app, .lx-app *)), #path .when b:where(:not(.lx-app, .lx-app *)), #path .chips span:where(:not(.lx-app, .lx-app *)),
 #code .cf-tag:where(:not(.lx-app, .lx-app *)), .lx-beats .n, .lx-now b, #top .stage-note:where(:not(.lx-app, .lx-app *)), .stats .label:where(:not(.lx-app, .lx-app *)), footer .f-fine:where(:not(.lx-app, .lx-app *)){ font-size: 13.5px !important; }
+
+/* refresh-zdomes.css */
+
+/* sheet edges (15 Oct): every rising curve sits between two tones, never on the same colour, and never over content.
+   The closing run alternates: Brand & web (porcelain) → FYI (white sheet) → IA (porcelain) → Process (white) → Experience (porcelain) → Contact (white).
+   FYI's own bottom leaves room for IA's curve, so its caption is never covered. */
+#web:where(:not(.lx-app, .lx-app *)){ padding-bottom: calc(var(--sec-pad) + var(--sheet-r)); }
+#fyi:where(:not(.lx-app, .lx-app *)){ margin-top: calc(-1 * var(--sheet-r)); background: var(--cream); padding-bottom: calc(clamp(56px, 7vw, 96px) + var(--sheet-r)); }
+#fyi > .sheet-arc:where(:not(.lx-app, .lx-app *)){ display: block; }
+#fyi > .sheet-arc .a-fill:where(:not(.lx-app, .lx-app *)){ fill: var(--cream); }
+#fyi > .sheet-arc .a-fill[fill^="url"]:where(:not(.lx-app, .lx-app *)), #fyi > .sheet-arc .a-line:where(:not(.lx-app, .lx-app *)){ display: none; }
 </style>
 </head>
 <body>
