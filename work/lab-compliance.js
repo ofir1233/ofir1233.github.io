@@ -77,7 +77,7 @@
   const home = () => `<div class="cp-home">
     <section class="card kpi">${kpi(23, 'Sales without alerts', '72.6')}${kpi(406, 'Valid sales', '93.8')}${kpi(790, 'Agents above the success metric', '88.7')}<i class="kd" style="left:383px"></i><i class="kd" style="left:767px"></i></section>
     <section class="card trend"><h4>Compliance trend by section</h4><span class="tr-m">last 6 weeks · target 80%</span>
-      <div class="lg">${SER.map((s, j) => `<span style="left:${[18, 121, 266, 377, 536][j]}px"><i style="background:${s[1]}"></i>${s[0]}</span>`).join('')}</div></section>
+      <div class="lg">${SER.map((s, j) => `<span style="left:${[18, 121, 258, 392, 553][j]}px"><i style="background:${s[1]}"></i>${s[0]}</span>`).join('')}</div></section>
     ${chart()}
     <div class="cp-tip"></div>
     <section class="card al"><h4>Critical alerts by agent</h4>

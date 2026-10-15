@@ -4,8 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Demos engine · Ofir Nona</title>
-<meta name="description" content="How I designed a demos engine inside Hear Design Lab: it drives the Lab's working screens from a script, in English or Hebrew, to show a prospect what Hear could do for their business.">
+<meta name="description" content="I designed a demos engine that drives the working screens of Hear Design Lab from a script, in English or Hebrew, to show a prospect what Hear could do.">
 <meta name="theme-color" content="#0d0d0e">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ofir1233.github.io/work/demos-engine.html">
+<meta property="og:title" content="Demos engine · Ofir Nona">
+<meta property="og:description" content="I designed a demos engine that drives the working screens of Hear Design Lab from a script, in English or Hebrew, to show a prospect what Hear could do.">
+<meta property="og:image" content="https://ofir1233.github.io/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ofir Nona, senior product designer. A Topics screen from Hear Design Lab with demo data.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -32,7 +41,7 @@
 <header class="topbar">
   <div class="wrap">
     <a class="home" href="../index.html#product">Ofir<span>.</span> <i>← All work</i></a>
-    <nav aria-label="Case studies"><a class="pill" href="data.html">← Data &amp; signals</a><a class="pill solid" href="design-system.html" aria-label="Next case: Design system">Next case</a></nav>
+    <nav aria-label="Case studies"><a class="pill pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill" href="data.html">← Data &amp; signals</a><a class="pill solid" href="design-system.html" aria-label="Next case: Design system">Design system →</a></nav>
     <span class="progress" aria-hidden="true"></span>
   </div>
 </header>
@@ -40,10 +49,10 @@
 <main id="main">
   <header class="cs-hero wrap">
     <div class="label">Case study · <b>Demos engine</b></div>
-    <h1>Sales demos that drive the Design Lab from a script</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>A generic deck tells every prospect the same story. Slides can describe Hear; they can't show it happening.</dd></div><div><dt>What I designed</dt><dd>A demos engine that drives the Design Lab's working screens from a script: it types the prospect's questions into the Lab's chat, the Lab answers on demo data, and a camera moves across the screens.</dd></div><div><dt>In the Lab</dt><dd>Each sequence plays in the Lab during a meeting or opens in a clean tab to record as a video, in English or Hebrew, some with narration.</dd></div></dl>
+    <h1>Scripted demos for prospects, played inside Hear Design Lab</h1>
+    <dl class="brief"><div><dt>The challenge</dt><dd>Slides can describe Hear, an AI platform for contact centers, but they can't show it working.</dd></div><div><dt>What I designed</dt><dd>A demos engine in the Lab: a script types questions, the Lab answers on demo data, and a camera moves across the screens. Sequences come in English or Hebrew.</dd></div><div><dt>Where it stands</dt><dd>The Demos page sits in the Lab's sidebar, tagged DEV.</dd></div></dl>
     <dl class="meta">
-      <div><dt>Role</dt><dd>Design · built inside the Lab</dd></div>
+      <div><dt>Role</dt><dd>Design and build in the Lab, with Claude Code</dd></div>
       <div><dt>When</dt><dd>2026</dd></div>
       <div><dt>Scope</dt><dd>Script player · sequence library</dd></div>
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
@@ -56,11 +65,11 @@
         </div>
         <div class="ct-win">
           <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
-          <div class="lx" data-lab="showcase" role="img" aria-label="The engine plays a showcase: Chat home in a demo workspace, then a title card with one claim, then the question What drove escalations this week? typed into the composer and sent, the answer with a count and a chart by topic as the camera pushes in, then Who handled them? and the answer table lifted out of a dimmed screen, then an end card counts up the time to answer."></div>
+          <div class="lx" data-lab="showcase" role="img" aria-label="Demos engine showcase: a title card, two typed questions and their answers, and a camera moving across the Lab."></div>
         </div>
       </div>
       <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
-      <figcaption><b>A 30-second showcase, played by the engine.</b> The typing, the send, the camera push-in and the spotlight at the end are all the engine at work.</figcaption></figure>
+      <figcaption><b>A 30-second showcase.</b> Every keystroke and camera move comes from the engine.</figcaption></figure>
   </header>
 
   <section class="chapter" id="problem">
@@ -68,12 +77,12 @@
       <div class="ch-head">
         <div><div class="label">01 · <b>The problem</b></div><h2>A generic deck tells every prospect the same story</h2></div>
         <div class="prose"><p class="lead">I wanted a prospect to watch the screens answer the questions they would ask about their own business.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Hear answers questions about a contact center's calls, chats and tickets. Slides can describe that. They can't show it happening.</p></div></details></div>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
       </div>
       <div class="two solo">
-        <figure class="rv"><div class="shot dark"><img src="../img/cs-design-lab-entry-nw.webp" data-zoom alt="Design Lab entry screen: the Hear logo, a Design Lab tab and a Demo tab marked In development, a list of two demo environments and a Create new demo environment button, next to a wave-shaped panel" width="1280" height="790" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Lab entry.</b> The demo environments, a button to create a new one, and a Demo tab marked In development.</figcaption></figure>
+        <figure class="rv"><div class="shot dark"><img src="../img/cs-design-lab-entry-nw.webp" data-zoom alt="The Lab's entry screen: a Design Lab and Demo toggle with Demo tagged In development, two demo environments and a button to create one" width="1280" height="790" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The entry screen.</b> Demo environments are listed and created here.</figcaption></figure>
         <div class="prose xtra">
-          <p>The engine lives in the Design Lab, my working replica of Hear, which I built from scratch. Each customer gets its own demo environment there.</p>
+          <p>The engine lives in the Lab, my working replica of Hear.</p>
         </div>
       </div>
     </div>
@@ -83,23 +92,20 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">02 · <b>Setup</b></div><h2>A new demo starts from a short form</h2></div>
-        <div class="prose"><p class="lead">A new environment starts from <b>Set up your demo</b>.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>It asks for three things: the company's website, a few sentences that describe the company, and a file (PDF, CSV, TXT or DOCX). Then <b>Start demo</b>.</p></div></details></div>
+        <div class="prose"><p class="lead">The <b>Set up your demo</b> form asks for the company's website, a few sentences about the company and a file.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The file can be a PDF, CSV, TXT or DOCX.</p></div></details></div>
       </div>
-      <div class="two" style="margin-bottom:clamp(28px,4vw,48px)">
-        <figure class="rv demos-engine-form"><div class="shot dark"><img src="../img/cs-design-lab-demo-form.webp" data-zoom alt="Set up your demo form: a company website URL field, a box to describe the company in a few sentences, a file drop for PDF, CSV, TXT or DOCX, and a Start demo button" width="440" height="690" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Set up your demo.</b> Three inputs and one button.</figcaption></figure>
-        <div class="prose xtra">
-          <p>The form speaks to the company directly: <b>Your company website URL</b>, <b>Describe your company in a few sentences</b>. A link under the button leads back to the list of environments.</p>
-        </div>
+      <div class="two" style="grid-template-columns:minmax(0,1fr);margin-bottom:clamp(28px,4vw,48px)">
+        <figure class="rv demos-engine-form"><div class="shot dark"><img src="../img/cs-design-lab-demo-form.webp" data-zoom alt="Set up your demo form: a company website field, a box for a few sentences about the company, a file drop and a Start demo button" width="440" height="690" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Set up your demo.</b> Three inputs and one button.</figcaption></figure>
       </div>
       <article class="decision rv xtra">
         <div class="label">Decision 1 · <b>One demo or many</b></div>
-        <h3>One generic deck, or a demo built for each prospect?</h3>
+        <h3>One deck for everyone, or a demo for each prospect?</h3>
         <ul class="opts">
-          <li class="opt"><strong>One generic deck</strong><span>The same slides for every prospect, whatever their business.</span></li>
-          <li class="opt chosen"><strong>A demo for each prospect</strong><span>Its own demo environment in the Lab, and sequences that tell its story on the Lab's working screens.</span></li>
+          <li class="opt"><strong>One deck for everyone</strong><span>The same slides, whatever the prospect's business.</span></li>
+          <li class="opt chosen"><strong>A demo for each prospect</strong><span>Its own demo environment, and sequences that tell its story on the Lab's screens.</span></li>
         </ul>
-        <p class="because"><b>Result:</b> the Lab keeps a demo environment for each customer, and the library holds sequences written around one company or industry, like an insurer's renewals or a leasing company's calls.</p>
+        <p class="because"><b>Result:</b> each customer or prospect has a demo environment in the Lab. The library holds sequences written around one company or industry, like an insurer's renewals or a leasing company's calls.</p>
       </article>
     </div>
   </section>
@@ -108,25 +114,25 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">03 · <b>The engine</b></div><h2>A script that drives the Lab's working screens</h2></div>
-        <div class="prose"><p class="lead">A sequence is not a screen recording: it drives the Lab itself.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>It types into the real composer, presses the real send key, and moves a camera over the real screens. The library says so in its own header.</p></div></details></div>
+        <div class="prose"><p class="lead">I chose to run sequences in the Lab itself, rather than in a separate demo shell.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
       </div>
-      <figure class="rv demos-engine-rule"><div class="shot"><picture><source media="(max-width: 760px)" srcset="../img/cs-demos-engine-rule-m.webp" width="650" height="90"><img src="../img/cs-demos-engine-rule.webp" data-zoom alt="Header of the Demos library: the title Showcase sequences, the line that says each sequence drives the product itself, tabs for Showcase, Archive, Blocks, Voices and Docs, sorting by Default order or Top rated, and a New sequence button" width="1030" height="160" loading="lazy"></picture><span class="live">Design Lab · demo data</span></div><figcaption><b>The rule, on the screen.</b> Each sequence drives the Lab's own screens, not a recording. Play one here, or open a clean run and record that tab.</figcaption></figure>
+      <figure class="rv demos-engine-rule"><div class="shot"><picture><source media="(max-width: 760px)" srcset="../img/cs-demos-engine-rule-m.webp" width="650" height="90"><img src="../img/cs-demos-engine-rule.webp" data-zoom alt="Header of the Demos library: the title Showcase sequences, the line that says each sequence drives the product itself, tabs for Showcase, Archive, Blocks, Voices and Docs, sorting by Default order or Top rated, and a New sequence button" width="1030" height="160" loading="lazy"></picture><span class="live">Design Lab · demo data</span></div><figcaption><b>The library's header.</b> Each sequence drives the Lab's own screens, not a recording.</figcaption></figure>
       <ol class="steps demos-engine-steps rv xtra" aria-label="What a sequence does">
-        <li><strong>Shows a claim</strong><span>A full-screen title card with a single claim, between the product's own screens.</span></li>
+        <li><strong>Shows a claim</strong><span>A full-screen title card with a single claim, between the Lab's screens.</span></li>
         <li><strong>Types the question</strong><span>Into the real composer, letter by letter, with the AI suggestions showing underneath.</span></li>
-        <li><strong>Presses send</strong><span>The real send key. The product thinks, then answers on demo data.</span></li>
+        <li><strong>Presses send</strong><span>The real send key. The Lab shows its thinking state, then answers.</span></li>
         <li><strong>Moves the camera</strong><span>Pushes in on the answer, then dims the screen and lifts out one table.</span></li>
-        <li><strong>Speaks</strong><span>Narration in English or Hebrew. Voices have their own tab in the library.</span></li>
+        <li><strong>Speaks</strong><span>Some sequences add narration in English or Hebrew.</span></li>
       </ol>
       <article class="decision rv xtra">
         <div class="label">Decision 2 · <b>Where demos run</b></div>
         <h3>A separate demo shell, or the Lab I design in?</h3>
         <ul class="opts">
-          <li class="opt"><strong>A separate demo shell</strong><span>In July, the first version's Demo mode was an older layout of the product. Several pages showed Coming soon, and only some new work reached it.</span></li>
+          <li class="opt"><strong>A separate demo shell</strong><span>Demo mode, the Lab's first shell, had an older layout in July. Several pages showed Coming soon, and only some new work reached it.</span></li>
           <li class="opt chosen"><strong>Drive the Lab itself</strong><span>Sequences run on the Lab's own screens, the same ones I test designs on, with the same demo data.</span></li>
         </ul>
-        <p class="because"><b>Result:</b> the showcase above plays on the Lab's own Chat screen and sidebar, and Demos sits in that same sidebar.</p>
+        <p class="because"><b>Result:</b> the showcase above plays on the Lab's own Chat home and sidebar.</p>
       </article>
     </div>
   </section>
@@ -135,10 +141,10 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">04 · <b>The library</b></div><h2>Each demo is a short story with a running time</h2></div>
-        <div class="prose"><p class="lead">Showcase sequences sit in one library inside the Lab, and each card is a ready demo.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p><b>New sequence</b> starts another. Tabs hold the Archive, Blocks, Voices and Docs, and the list sorts by default order or by Top rated.</p></div></details></div>
+        <div class="prose"><p class="lead">Showcase sequences sit in one library, and each card is a ready demo.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Tabs hold the Archive, Blocks, Voices and Docs, and the <b>New sequence</b> button starts a new one.</p></div></details></div>
       </div>
-      <figure class="rv demos-engine-wide"><div class="shot"><img src="../img/demos-light-nb.webp" data-zoom alt="The Demos library: showcase sequence cards in English and Hebrew, each with a title, a running time, a one-line story, tags, a star rating, Play and Clean run" width="1600" height="1226" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The library.</b> Showcase sequences in English and Hebrew, each a ready demo.</figcaption></figure>
+      <figure class="rv demos-engine-wide"><div class="shot"><img src="../img/demos-light-nb.webp" data-zoom alt="The Demos library: showcase sequence cards in English and Hebrew, each with a running time, a one-line story, tags, Play and Clean run" width="1600" height="1226" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The library.</b> The Hebrew July recap sits beside the English one, with the same step count and running time.</figcaption></figure>
       <div class="two xtra">
         <div class="prose demos-engine-card">
           <h3>What a card holds</h3>
@@ -152,9 +158,9 @@
           </ul>
         </div>
         <div class="prose demos-engine-notes">
-          <h3>Two details</h3>
-          <p class="why"><b>Languages as siblings:</b> the Hebrew July recap shares the English one's id (plus a language suffix), its step count and its running time, and its card says "same slides."</p>
-          <p class="why"><b>A story shape:</b> two cards describe themselves as "one claim, two questions, thirty seconds." The showcase at the top of this page follows that shape: a title card, then two questions.</p>
+          
+          
+          <p class="why">The showcase at the top of this page follows the “one claim, two questions, thirty seconds” shape that two cards describe.</p>
         </div>
       </div>
     </div>
@@ -163,14 +169,14 @@
   <section class="chapter ink" id="run">
     <div class="wrap">
       <div class="ch-head center">
-        <div><div class="label">05 · <b>Play or record</b></div><h2>Play it in the meeting, or record a clean run</h2></div>
-        <div class="prose"><p class="lead">One sequence, two ways out: <b>Play</b> runs it right here in the Lab, for a meeting, and <b>Clean run</b> opens it in a clean tab to record a video to send.</p>
+        <div><div class="label">05 · <b>Play or record</b></div><h2>Play it in a meeting, or record a clean run</h2></div>
+        <div class="prose"><p class="lead"><b>Play</b> runs a sequence in the Lab, and <b>Clean run</b> opens it in a clean tab to record a video to send.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
       </div>
-      <figure class="rv demos-engine-wide"><div class="shot"><img src="../img/cs-demos-engine-library-nw.webp" data-zoom alt="The Demos page inside the Design Lab: the Lab sidebar on the left with Demos tagged DEV, and showcase sequence cards, each with Play, Clean run and Copy link" width="1600" height="1045" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Demos, inside the Lab.</b> Every card has Play, Clean run and Copy link.</figcaption></figure>
+      <figure class="rv demos-engine-wide"><div class="shot"><img src="../img/cs-demos-engine-library-nw.webp" data-zoom alt="The Demos page in the Lab: the sidebar on the left with Demos tagged DEV, and showcase sequence cards, each with Play, Clean run and Copy link" width="1600" height="1045" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Demos, inside the Lab.</b></figcaption></figure>
       <div class="prose demos-engine-end xtra">
-        <h3 style="margin-top:0">Where it stands</h3>
-        <p>Demos sits in the Lab's sidebar with a DEV tag, next to Storybook, and every sequence plays on demo data.</p>
+        
+        <p>Demo mode, the older shell, is still marked In development on the Lab's entry screen.</p>
       </div>
     </div>
   </section>
@@ -180,7 +186,7 @@
     <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy.</p></div>
   </div>
 </main>
-<footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<footer><div class="wrap"><div class="cs-contact"><p class="cs-contact-t">Get in touch</p><ul class="cs-contact-links"><li><a href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a></li><li><a href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a></li><li><a href="../ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></li></ul></div>© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
 <script src="lab-live.js" defer></script>
 <script src="lab-showcase.js" defer></script>
 <script src="case.js"></script>

@@ -4,8 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Design system · Ofir Nona</title>
-<meta name="description" content="How Ofir Nona built and documented the token-based design system of Hear Design Lab in Storybook: tiers, semantic tokens, contrast, theming and right to left.">
+<meta name="description" content="I built the token-based design system of Hear Design Lab and documented it in Storybook: tiers, tokens, contrast, themes and right to left.">
 <meta name="theme-color" content="#0d0d0e">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ofir1233.github.io/work/design-system.html">
+<meta property="og:title" content="Design system · Ofir Nona">
+<meta property="og:description" content="I built the token-based design system of Hear Design Lab and documented it in Storybook: tiers, tokens, contrast, themes and right to left.">
+<meta property="og:image" content="https://ofir1233.github.io/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ofir Nona, senior product designer. A Topics screen from Hear Design Lab with demo data.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -50,19 +59,21 @@
 @media (max-width: 860px) { .ds-layers { grid-template-columns: 1fr; } .ds-arrow { transform: rotate(90deg); justify-self: center; } }
 /* contrast table */
 .ds-ct { width: 100%; border-collapse: collapse; font-size: 15px; background: #fffdf8; border-radius: 16px; overflow: hidden; box-shadow: 0 0 0 1px rgba(27,27,27,.1); }
-.ds-ct caption { caption-side: bottom; text-align: left; padding-top: 12px; font-size: 14px; color: rgba(27,27,27,.62); }
+.ds-ct caption { caption-side: bottom; text-align: left; padding-top: 12px; font-size: 14px; color: rgba(27,27,27,.72); }
 .ds-ct th, .ds-ct td { padding: 13px 16px; text-align: left; vertical-align: middle; border-top: 1px solid rgba(27,27,27,.09); color: var(--ink-t); font-weight: 400; }
-.ds-ct thead th { border-top: 0; font: 500 11px/1.3 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: rgba(27,27,27,.6); background: rgba(27,27,27,.035); }
+.ds-ct thead th { border-top: 0; font: 500 13.5px/1.3 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: rgba(27,27,27,.72); background: rgba(27,27,27,.035); }
 .ds-ct tbody th { font-size: 14.5px; line-height: 1.45; }
-.ds-ct .ds-group td { padding-block: 9px 7px; font: 500 11px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: rgba(27,27,27,.55); background: rgba(27,27,27,.025); }
+.ds-ct code { font-size: 13.5px; }
+.ds-ct .ds-group td { padding-block: 9px 7px; font: 500 13.5px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: rgba(27,27,27,.72); background: rgba(27,27,27,.025); }
 .ds-aa { display: inline-flex; gap: 5px; margin-top: 6px; }
-.ds-aa span { font: 600 13px/1 var(--body); padding: 5px 7px; border-radius: 6px; box-shadow: inset 0 0 0 1px rgba(27,27,27,.12); }
+.ds-aa span { font: 600 13.5px/1 var(--body); padding: 5px 7px; border-radius: 6px; box-shadow: inset 0 0 0 1px rgba(27,27,27,.12); }
 .ds-ratio { font: 500 15px/1.2 var(--mono); white-space: nowrap; }
 .ds-meter { position: relative; display: block; height: 6px; margin-top: 8px; border-radius: 3px; background: rgba(27,27,27,.08); min-width: 120px; }
 .ds-meter span { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: var(--ink-t); width: calc((var(--hi) - 1) / 17 * 100%); }
 .ds-meter span.rng { background: linear-gradient(90deg, var(--ink-t) calc((var(--lo) - 1) / (var(--hi) - 1) * 100%), rgba(27,27,27,.35) 0); }
 .ds-meter::after { content: ""; position: absolute; top: -4px; bottom: -4px; left: calc(3.5 / 17 * 100%); width: 2px; background: var(--coral-ink); }
 .ds-v { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 99px; font-size: 13.5px; font-weight: 600; white-space: nowrap; color: #1d6340; background: rgba(29,99,64,.1); }
+.ds-v.no { color: var(--coral-ink); background: rgba(176,56,31,.1); }
 @media (max-width: 680px) {
   .ds-ct thead { display: none; }
   .ds-ct tr { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; padding: 14px 16px; border-top: 1px solid rgba(27,27,27,.09); }
@@ -76,6 +87,7 @@
 @media (max-width: 1239px) { .ct-hero.ds-stage .ct-stage { --ct-band: 60cqw; --ct-top: 50cqw; } }
 @media (max-width: 719px) { .ct-hero.ds-stage .ct-stage { --ct-band: 84cqw; --ct-top: 69cqw; } }
 .compare .tag { font-size: 13.5px; }
+.sheet figcaption { color: rgba(27,27,27,.72); }
 </style>
 </head>
 <body>
@@ -83,7 +95,7 @@
 <header class="topbar">
   <div class="wrap">
     <a class="home" href="../index.html#system">Ofir<span>.</span> <i>← All work</i></a>
-    <nav aria-label="Case studies"><a class="pill" href="demos-engine.html">← Demos engine</a><a class="pill solid" href="brand-web.html" aria-label="Next case: Brand &amp; web">Next case</a></nav>
+    <nav aria-label="Case studies"><a class="pill pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill" href="demos-engine.html">← Demos engine</a><a class="pill solid" href="brand-web.html" aria-label="Next case: Brand &amp; website">Brand &amp; website →</a></nav>
     <span class="progress" aria-hidden="true"></span>
   </div>
 </header>
@@ -91,11 +103,11 @@
 <main id="main">
   <header class="cs-hero wrap">
     <div class="label">Case study · <b>Design system</b></div>
-    <h1>One token set for a dense product, in light, dark and right to left</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>Hear's screens are dense: call tables, score charts, filters and an AI chat. They need one vocabulary for color, surface and state.</dd></div><div><dt>What I designed</dt><dd>A token-based React system and its Storybook, built from scratch: tokens, shared components and every story, including every full-page story.</dd></div><div><dt>In the Lab</dt><dd>The same components switch between dark and light through the tokens and mirror for Hebrew through logical CSS, documented in Storybook from foundations to full pages.</dd></div></dl>
+    <h1>One token set across light, dark and right to left</h1>
+    <dl class="brief"><div><dt>The challenge</dt><dd>Hear, an AI platform for contact centers, has dense screens that mix call tables, score charts, filters and chat.</dd></div><div><dt>What I designed</dt><dd>The token-based React system of Hear Design Lab, my working replica of Hear. I built its tokens, shared components and Storybook, with Claude Code.</dd></div><div><dt>Where it stands</dt><dd>Light and dark use the same components. The shell and the screen below switch to Hebrew, right to left.</dd></div></dl>
     <dl class="meta">
-      <div><dt>Role</dt><dd>Built the system and its docs</dd></div>
-      <div><dt>When</dt><dd>2026, since March</dd></div>
+      <div><dt>Role</dt><dd>Built the system and its Storybook</dd></div>
+      <div><dt>When</dt><dd>Since Mar 2026</dd></div>
       <div><dt>Scope</dt><dd>Tokens · components · Storybook</dd></div>
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
@@ -107,11 +119,11 @@
         </div>
         <div class="ct-win">
           <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
-          <div class="lx" data-lab="system" role="img" aria-label="From the chat home, the Agent evaluation screen opens in light mode. A score bar is hovered to show its day and calls. The theme button switches the app to dark, and the chart is hovered again in dark. The language menu switches the app to Hebrew; the layout mirrors right to left while the chart keeps its time axis left to right. The theme switches back to light, still in Hebrew, and the tooltips read in Hebrew with the same scores."></div>
+          <div class="lx" data-lab="system" role="img" aria-label="Agent evaluation in light, dark and Hebrew right to left, with the same scores."></div>
         </div>
       </div>
       <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
-      <figcaption><b>One screen, four modes.</b> Agent evaluation in the Design Lab goes from light to dark, then to Hebrew, right to left, and back to light. The components stay the same; the tokens and the direction change.</figcaption></figure>
+      <figcaption><b>One screen, four modes.</b> Agent evaluation, which scores each contact-center agent, changes theme and language from the app's own controls.</figcaption></figure>
   </header>
 
   <section class="chapter" id="problem">
@@ -119,9 +131,9 @@
       <div class="ch-head">
         <div><div class="label">01 · <b>The problem</b></div><h2>A dense product needs one vocabulary</h2></div>
         <div class="prose">
-          <p class="lead">The system's job is to give all of Hear's screens one set of names for color, surface and state.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Hear's screens carry a lot at once. One Agent evaluation page holds a score chart, category bars, filters, version switches and a team table. Across the Lab there are data grids, charts, chat, alerts, a kanban board and settings.</p>
-          <p>I built the base: a palette and semantic tokens in one CSS file, a Storybook with foundations, and a first set of components. I extended it as the Lab grew.</p></div></details>
+          <p class="lead">I built the system to give every screen in the Lab one set of names for color, surface and state.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>One Agent evaluation page holds a score chart, category bars, filters, version switches and a team table. Elsewhere in the Lab there are data grids, chat, alerts, a kanban board and settings.</p>
+          <p>I built the base first: a palette and semantic tokens in one CSS file, an initial set of components and a Storybook with foundations. Then I extended it as the Lab grew.</p></div></details>
         </div>
       </div>
       <figure class="ds-inv rv">
@@ -137,7 +149,7 @@
             <tr><th scope="row">Pages</th><td><div class="ds-bar" title="28 stories"><span class="ds-mine" style="width:calc(28 / 31 * 100%)"></span></div></td><td class="ds-n">28</td></tr>
           </tbody>
         </table>
-        <figcaption><b>Stories per tier: 122 across 32 components.</b> In the lower tiers I later extended my earlier pages: a "Chat Actions" set in Iconography, the <code class="ds-code">--bg-elevated</code> rows in Colors, and the Button docs.</figcaption>
+        <figcaption><b>Stories per tier.</b> By July 2026, Storybook held 122 stories across 32 components.</figcaption>
       </figure>
     </div>
   </section>
@@ -145,26 +157,26 @@
   <section class="chapter sheet" id="structure">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">02 · <b>Structure</b></div><h2>Foundations to full pages, each with its states</h2></div>
+        <div><div class="label">02 · <b>Structure</b></div><h2>Six tiers, from foundations to full pages</h2></div>
         <div class="prose"><p class="lead">I sorted Storybook in Atomic Design order, with a Pages tier on top.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The tiers run Foundations, Atoms, Molecules, Organisms, Templates. Molecules and organisms are where screens get assembled: chat bubbles, event cards, modals, filter drawers, headers, panels and popovers.</p></div></details></div>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
       </div>
       <div class="grid2">
-        <figure class="rv"><div class="shot"><span class="live">Storybook</span><img src="../img/cs-design-system-sb-button.webp" data-zoom alt="Storybook docs page for Button. It states the tier (Atom), the variants primary, secondary, ghost and danger, the sizes, the states default, hover, active, disabled and loading, and the icon rules. The sidebar lists nine Button stories, from Default to On Dark and Reference Grid" width="1600" height="722" loading="lazy"></div><figcaption><b>Atom · Button.</b> Tier, four variants, sizes, five states and icon rules, with nine stories underneath, from Default to a Reference Grid.</figcaption></figure>
-        <figure class="rv"><div class="shot"><span class="live">Storybook · demo data</span><img src="../img/cs-design-system-sb-chatbubble.webp" data-zoom alt="Storybook docs page for ChatBubble, tier Molecule. It describes three roles: ai renders markdown with an action row and related-question chips, user is right-aligned plain text, thinking is an animated three-dot indicator. Below, an AI answer with like, dislike, regenerate and copy actions and three Related follow-ups. The sidebar lists six stories" width="1600" height="880" loading="lazy"></div><figcaption><b>Molecule · ChatBubble.</b> Three roles (ai, user, thinking) and six stories, including a markdown table, a copied state and a bubble with no follow-ups.</figcaption></figure>
+        <figure class="rv"><div class="shot"><span class="live">Storybook</span><img src="../img/cs-design-system-sb-button.webp" data-zoom alt="Storybook docs page for the Button atom, naming the primary, secondary, ghost and danger variants and the states from default to loading" width="1600" height="722" loading="lazy"></div><figcaption><b>Atom · Button.</b> Its docs page sets out four variants, sizes, five states and icon rules, with nine stories in the sidebar.</figcaption></figure>
+        <figure class="rv"><div class="shot"><span class="live">Storybook · demo data</span><img src="../img/cs-design-system-sb-chatbubble.webp" data-zoom alt="Storybook docs page for the ChatBubble molecule: its role descriptions above a rendered AI answer with an action row and three related follow-ups" width="1600" height="880" loading="lazy"></div><figcaption><b>Molecule · ChatBubble.</b> Three roles (ai, user, thinking) and six stories, including a markdown table, a copied state and a bubble with no follow-ups.</figcaption></figure>
       </div>
 
       <div class="two xtra" style="margin-top:clamp(40px,6vw,72px)">
         <div class="prose">
           <h3 style="margin-top:0">Pages are stories too</h3>
-          <p>The Pages tier holds 28 stories across nine pages, from Agent evaluation to Alerts, with variants such as Default, With Sidebar and Mobile. The Create report page also exports its page-local pieces as stories (sections, a toggle row, a tag, choice groups), so they are documented even though they live inside the page file.</p>
+          <p>By July, the Pages tier held 28 stories for nine pages, including Agent evaluation and Alerts, with variants such as Default, With Sidebar and Mobile. The Create report page also exports its page-local pieces as stories, so they're documented even though they live inside the page file.</p>
         </div>
         <div class="prose">
           <h3 style="margin-top:0">Shared parts, with their specs written down</h3>
           <ul class="ds-list">
             <li><strong>Button, reworked, used in 21 files.</strong> I moved the primary from coral to blue and the secondary from blue to neutral. Its loading state sets <code>aria-busy</code>.</li>
-            <li><strong>PageHeader, new, used in 16 page files.</strong> Its spec sits in the code: 12 px gutters, 16 px radius, 1 px border, 56 px height.</li>
-            <li><strong>SegmentedTabs, new.</strong> It exports its 36 px height so sibling controls can match it, and calls itself the "single source of truth for its height/look".</li>
+            <li><strong>PageHeader, new, used in 16 page files.</strong> Its spec sits in the code: 12px gutters, 16px radius, 1px border, 56px height.</li>
+            <li><strong>SegmentedTabs, new.</strong> It exports its 36px height so sibling controls can match it, and calls itself the “single source of truth for its height/look.”</li>
             <li><strong>Badge, reworked, used in 13 files,</strong> with tinted fills that have their own tokens.</li>
           </ul>
         </div>
@@ -176,8 +188,8 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">03 · <b>Tokens</b></div><h2>Every color has a name and a reason</h2></div>
-        <div class="prose"><p class="lead">The rule is to ask for a role, not a hex code.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The Colors page puts it in writing: "Always prefer semantic tokens (<code class="ds-code">--bg-canvas</code>, <code class="ds-code">--text-primary</code>) in components. Use raw palette tokens (<code class="ds-code">--c100</code>, <code class="ds-code">--b80</code>) only for one-off overrides or design explorations."</p></div></details></div>
+        <div class="prose"><p class="lead">I built the tokens in three layers so components ask for a role, such as body text, rather than a palette color.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The Colors page in Storybook states the rule: “Always prefer semantic tokens (<code class="ds-code">--bg-canvas</code>, <code class="ds-code">--text-primary</code>) in components. Use raw palette tokens (<code class="ds-code">--c100</code>, <code class="ds-code">--b80</code>) only for one-off overrides or design explorations.”</p></div></details></div>
       </div>
 
       <div class="ds-layers rv" role="group" aria-label="Three token layers">
@@ -216,17 +228,14 @@
           </ul>
         </div>
       </div>
-      <p class="ds-note" style="margin-bottom:clamp(32px,5vw,56px)">I built the three layers.</p>
-
-      <div class="duo" style="--duo: minmax(0, 1fr) minmax(0, 1.38fr)">
+      <div class="duo" style="--duo: minmax(0, 1fr) minmax(0, 1.38fr); margin-top:clamp(32px,5vw,56px)">
       <div class="two">
-        <figure class="rv"><div class="shot"><span class="live">Storybook</span><img src="../img/cs-design-system-sb-tokens.webp" data-zoom alt="Storybook, Foundations, Colors, Semantic Tokens. Each light-mode token is listed with its swatch, hex value and use: bg-canvas main app canvas background, bg-sidebar, bg-active active nav item fill, bg-card card surfaces, bg-elevated modals dropdowns popovers, text-primary body copy and headings, text-secondary, text-muted placeholder and timestamps, border-default, color-brand CTAs and logo fill, color-interactive links, focus rings and buttons. The dark-mode list starts below" width="1600" height="1469" loading="lazy"></div><figcaption><b>Semantic tokens, light then dark.</b> Each token carries its hex value and its job, such as "Placeholder, timestamps" or "Links, focus rings, buttons".</figcaption></figure>
+        <figure class="rv"><div class="shot"><span class="live">Storybook</span><img src="../img/cs-design-system-sb-tokens.webp" data-zoom alt="Storybook Colors page, Semantic Tokens section: each light-theme token with its swatch, hex value and use, and the dark-theme list below" width="1600" height="1469" loading="lazy"></div><figcaption><b>Semantic tokens, light then dark.</b> Each token carries its hex value and its job, such as “Links, focus rings, buttons” for the interactive blue.</figcaption></figure>
         <div class="prose xtra">
-          <h3 style="margin-top:0">What I added, layer by layer</h3>
+          <h3 style="margin-top:0">How each layer grew</h3>
           <ul class="ds-list">
-            <li><strong>Palette: an error red apart from the brand.</strong> <code>--red100</code> #E5484D with an 80 step and a hover, commented "destructive (distinct from brand coral)".</li>
-            <li><strong>Semantic: header edges per theme.</strong> <code>--page-header-border</code> is none in light and 1 px in dark, with <code>--page-header-shadow</code> and <code>--sidebar-outline</code> beside it.</li>
-            <li><strong>Semantic: one overlay surface.</strong> <code>--bg-elevated</code> set equal to <code>--bg-card</code> in dark (decision 2 below), with its rows added to the Colors story.</li>
+            <li><strong>Palette: an error red apart from the brand.</strong> <code>--red100</code> #E5484D with an 80 step and a hover, commented “destructive (distinct from brand coral).”</li>
+            <li><strong>Semantic: header edges per theme.</strong> <code>--page-header-border</code> is none in light and 1px in dark, with <code>--page-header-shadow</code> and <code>--sidebar-outline</code> beside it.</li>
             <li><strong>Component: badge fills.</strong> <code>--badge-*-fill</code> at 12% in light and 20 to 22% in dark.</li>
           </ul>
           <p style="margin-top:18px">After building the Actions board, I aligned all of its colors to the system tokens.</p>
@@ -234,11 +243,11 @@
       </div>
 
       <div class="two" style="margin-top:clamp(40px,6vw,72px)">
-        <figure class="rv"><div class="shot"><span class="live">Storybook</span><img src="../img/cs-design-system-sb-colors.webp" data-zoom alt="Storybook, Foundations, Colors. The page states the tier and the rule to prefer semantic tokens. Below, Pulse Coral, primary brand, hex FF7056, described as the signature Hear color, with its usage, and a ramp from C100 to C10. Then Charcoal, primary text, hex 181818, with its usage and a ramp from D100 to D10" width="1600" height="1062" loading="lazy"></div><figcaption><b>The raw palette, with reasons.</b> Each family has a role, a hex value, a sentence on why it exists, a usage line and a named ramp of steps.</figcaption></figure>
+        <figure class="rv"><div class="shot"><span class="live">Storybook</span><img src="../img/cs-design-system-sb-colors.webp" data-zoom alt="Storybook Colors page with the rule to prefer semantic tokens, then Pulse Coral and Charcoal, each with its role, hex value, description and ramp" width="1600" height="1062" loading="lazy"></div><figcaption><b>The raw palette, with reasons.</b> Each family states its role and why it exists.</figcaption></figure>
         <div class="prose xtra">
           <h3 style="margin-top:0">Type, and one written exception</h3>
           <p>Type is Byrd, in seven weights with italics. The scale runs H1 to H8 for titles and P1 to P14 for body, as <code class="ds-code">--type-h*</code> and <code class="ds-code">--type-p*</code> tokens.</p>
-          <p>One typeface exception is mine, and it is written into the code: News articles set their body text in an editorial serif, marked "News body text only (deliberate, scoped DS deviation)".</p>
+          <p>I made one typeface exception. News articles set their body text in an editorial serif, marked in the code as “News body text only (deliberate, scoped DS deviation).”</p>
         </div>
       </div>
       </div>
@@ -249,7 +258,7 @@
     <div class="wrap">
       <div class="ch-head center">
         <div><div class="label">04 · <b>Contrast &amp; charts</b></div><h2>Contrast you can compute from the tokens</h2></div>
-        <div class="prose"><p class="lead">Text and surfaces are named tokens, so each pairing has one contrast ratio, computed straight from the token values rather than screen by screen.</p>
+        <div class="prose"><p class="lead">Because text and surfaces are named tokens, each pair has one contrast ratio, worked out once instead of screen by screen.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
       </div>
       <div class="ds-ctwrap rv">
@@ -261,38 +270,40 @@
             <tr><th scope="row">Light · <code>--text-primary</code> on card<br><span class="ds-aa" aria-hidden="true"><span style="color:#181818;background:#FFFFFF">Aa</span></span></th><td><span class="ds-ratio">17.8</span><span class="ds-meter" aria-hidden="true"><span style="--hi:17.8"></span></span></td><td><span class="ds-v">✓ Pass</span></td></tr>
             <tr><th scope="row">Light · <code>--text-secondary</code> #606060 on card / canvas<br><span class="ds-aa" aria-hidden="true"><span style="color:#606060;background:#FFFFFF">Aa</span><span style="color:#606060;background:#EFEFED">Aa</span></span></th><td><span class="ds-ratio">6.3 / 5.5</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:5.5;--hi:6.3"></span></span></td><td><span class="ds-v">✓ Pass</span></td></tr>
             <tr><th scope="row">Dark · <code>--text-secondary</code> #9B9B9B on canvas / card<br><span class="ds-aa" aria-hidden="true"><span style="color:#9B9B9B;background:#181818">Aa</span></span></th><td><span class="ds-ratio">6.4 / 5.6</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:5.6;--hi:6.4"></span></span></td><td><span class="ds-v">✓ Pass</span></td></tr>
+            <tr><th scope="row">Light · <code>--text-muted</code> #9B9B9B on card / canvas</th><td><span class="ds-ratio">2.8 / 2.4</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:2.4;--hi:2.8"></span></span></td><td><span class="ds-v no"><span aria-hidden="true">✕</span> Fail</span></td></tr>
+            <tr><th scope="row">Dark · <code>--text-muted</code> #606060 on canvas / card</th><td><span class="ds-ratio">2.8 / 2.5</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:2.5;--hi:2.8"></span></span></td><td><span class="ds-v no"><span aria-hidden="true">✕</span> Fail</span></td></tr>
             <tr class="ds-group"><td colspan="3">Badges, seven colors</td></tr>
-            <tr><th scope="row">Light · badge <code>-text</code> on the 12% fills I added</th><td><span class="ds-ratio">4.6 – 8.8</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:4.6;--hi:8.8"></span></span></td><td><span class="ds-v">✓ Pass</span></td></tr>
+            <tr><th scope="row">Light · badge <code>-text</code> on the 12% fills</th><td><span class="ds-ratio">4.6–8.8</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:4.6;--hi:8.8"></span></span></td><td><span class="ds-v">✓ Pass</span></td></tr>
           </tbody>
         </table>
       </div>
-      <div class="prose ds-ctwrap xtra" style="margin-top:clamp(40px,6vw,64px)"><h3 style="margin-top:0">Charts read the same tokens</h3><p>The News charts I added take every color from CSS variables, so they flip with the theme. Health uses tokens too: good is <code class="ds-code">--g100</code>, medium <code class="ds-code">--c80</code>, and poor the error red I added, <code class="ds-code">--red100</code>. The Alerts chart maps its series to the system's accent hues.</p></div>
+      <div class="prose ds-ctwrap xtra" style="margin-top:clamp(40px,6vw,64px)"><h3 style="margin-top:0">Charts read the same tokens</h3><p>I built the News charts to take every color from CSS variables, so they flip with the theme. Their good, medium and poor levels use <code class="ds-code">--g100</code>, <code class="ds-code">--c80</code> and the error red, <code class="ds-code">--red100</code>. The Alerts chart maps its series to the system's accent hues.</p></div>
     </div>
   </section>
 
   <section class="chapter ink" id="theming">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">05 · <b>Theme &amp; direction</b></div><h2>One attribute flips the theme, the same parts flip direction</h2></div>
+        <div><div class="label">05 · <b>Theme &amp; direction</b></div><h2>Tokens switch themes, and logical CSS mirrors the layout</h2></div>
         <div class="prose"><p class="lead">One attribute, <code class="ds-code">data-theme</code> on the root element, moves every semantic token to its dark value by role.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The app sets it from a saved preference. Under <code class="ds-code">[data-theme="dark"]</code>, surfaces, text, borders, badges and the interactive blue change together.</p></div></details></div>
       </div>
       <div class="duo">
       <figure class="rv">
         <div class="compare shot"><span class="live">Design Lab · demo data</span>
-          <div class="lx" data-lab="system" data-still="light" role="img" aria-label="Agent evaluation screen in light mode: sidebar, filters, an average score chart with bars, category averages and the team performance header"></div>
-          <div class="after"><div class="lx" data-lab="system" data-still="dark" role="img" aria-label="The same Agent evaluation screen in dark mode, with the same layout and components"></div></div>
+          <div class="lx" data-lab="system" data-still="light" role="img" aria-label="Agent evaluation screen in the light theme: sidebar, filters, an average score chart with bars, category averages and the team performance header"></div>
+          <div class="after"><div class="lx" data-lab="system" data-still="dark" role="img" aria-label="The same Agent evaluation screen in the dark theme, with the same layout and components"></div></div>
           <span class="tag l">Light</span><span class="tag r">Dark</span>
           <input type="range" min="0" max="100" value="50" aria-label="Drag to compare the light and dark versions of the same screen">
           <span class="handle" aria-hidden="true"></span>
         </div>
-        <figcaption><b>Drag to compare.</b> The same Agent evaluation screen in light and dark, with demo data. Both are states of the demo at the top.</figcaption>
+        <figcaption><b>Drag to compare.</b> The same Agent evaluation screen in light and dark, both stills from the demo at the top.</figcaption>
       </figure>
 
       <div class="two" style="margin-top:clamp(40px,6vw,72px)">
-        <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><div class="lx" data-lab="system" data-still="rtl" role="img" aria-label="The same Agent evaluation screen in Hebrew, right to left: the sidebar sits on the right, headings, filters and navigation read right to left, and the score chart keeps its axis and Latin digits"></div></div><figcaption><b>Hebrew, right to left.</b> The sidebar moves to the right and headings, filters and navigation mirror. The chart keeps its time axis running left to right, with Latin digits.</figcaption></figure>
+        <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><div class="lx" data-lab="system" data-still="rtl" role="img" aria-label="Agent evaluation in Hebrew, right to left: the sidebar on the right, mirrored headings and filters, and a chart that keeps its axis and Latin digits"></div></div><figcaption><b>Hebrew, right to left.</b> The sidebar, headings, filters and navigation mirror, while the chart's time axis still runs left to right, with Latin digits.</figcaption></figure>
         <div class="prose xtra">
-          <p>I first built right to left for the News tab: a language hook that follows the page's <code class="ds-code">lang</code>, UI strings in a dictionary, and logical CSS properties such as <code class="ds-code">borderInlineStart</code>, so the layout flips with the text.</p>
+          <p>I first built right to left for the News tab in July. A language hook follows the page's <code class="ds-code">lang</code>, and UI strings sit in a dictionary. Logical CSS properties such as <code class="ds-code">borderInlineStart</code> let the layout flip with the text.</p>
           <p>In the Lab today, the language menu switches the shell and this screen to Hebrew, and the whole layout mirrors.</p>
         </div>
       </div>
@@ -302,12 +313,12 @@
 
   <section class="chapter sheet" id="decisions">
     <div class="wrap">
-      <div class="ch-head"><div><div class="label">06 · <b>Decisions</b></div><h2>Where the system forked</h2></div><div class="prose"><p class="lead">Two places where the system could have gone either way.</p><details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div></div>
+      <div class="ch-head"><div><div class="label">06 · <b>Decisions</b></div><h2>Where the system forked</h2></div><div class="prose"><p class="lead">I moved the system's documentation from an in-app inspector to Storybook, and put every overlay on the card surface in the dark theme.</p><details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div></div>
       <article class="decision rv xtra">
         <div class="label">Decision 1 · <b>Documentation</b></div>
         <h3>Document the system in an in-app inspector, or in Storybook?</h3>
         <ul class="opts">
-          <li class="opt"><strong>In-app Design Inspector</strong><span>A drawer inside the app with Components, Foundations and Icons tabs, fed by a hand-kept definitions file. I built it, fixed its crashes and documented new components in it.</span></li>
+          <li class="opt"><strong>In-app Design Inspector</strong><span>A drawer with Components, Foundations and Icons tabs, fed by a hand-kept definitions file. I built it, fixed its crashes and documented new components in it.</span></li>
           <li class="opt chosen"><strong>Storybook</strong><span>Stories that render the real components, in tiers, with docs pages. I put my stories here and removed the Inspector.</span></li>
         </ul>
         <p class="because"><b>Result:</b> Storybook stayed as the one place the system is documented, next to the components it renders, with no separate definitions file to keep in sync by hand.</p>
@@ -319,17 +330,17 @@
           <li class="opt"><strong>A separate elevated surface</strong><span>Keep <code class="ds-code">--bg-elevated</code> on its own dark value, apart from cards.</span></li>
           <li class="opt chosen"><strong>One surface for every overlay</strong><span>Set <code class="ds-code">--bg-elevated</code> equal to <code class="ds-code">--bg-card</code> in dark, so modals, dropdowns and popovers all sit on it.</span></li>
         </ul>
-        <p class="because"><b>Result:</b> one dark surface for every overlay, as the token's comment puts it: "so all modals, dropdowns, and popovers share one color".</p>
+        <p class="because"><b>Result:</b> one dark surface for every overlay. The token's comment reads “so all modals, dropdowns, and popovers share one color.”</p>
       </article>
     </div>
   </section>
 
   <div class="wrap">
-    <a class="next" href="brand-web.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Brand &amp; web</h2></div><span class="next-thumb dark" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/site-scroll-poster.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
+    <a class="next" href="brand-web.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Brand &amp; website</h2></div><span class="next-thumb dark" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/site-scroll-poster.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
     <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy. The Storybook pages are screenshots; other quoted lines come from the Lab's code and Storybook docs, and contrast ratios are computed from the token values.</p></div>
   </div>
 </main>
-<footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<footer><div class="wrap"><div class="cs-contact"><p class="cs-contact-t">Get in touch</p><ul class="cs-contact-links"><li><a href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a></li><li><a href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a></li><li><a href="../ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></li></ul></div>© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
 <script src="lab-live.js" defer></script>
 <script src="lab-system.js" defer></script>
 <script src="case.js"></script>

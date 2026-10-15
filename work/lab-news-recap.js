@@ -134,13 +134,13 @@
     times: [0, 4.13, 22.1, 32.05, 43.7, 57.65, 73.3, 85.15, 96.47],
     beats: [
       'Play on the monthly recap card opens a full-screen story.',
-      'The story opens on July: 38,214 calls analyzed.',
-      'The peak day: 2,120 calls on Tuesday, July 14.',
-      'Refunds and payments was the topic that owned July.',
-      'Escalations fell 8% while call volume rose 12%.',
-      'A customer quote, then the agent of the month.',
-      'Sentiment climbed three months and beat the CSAT target.',
-      'A shareable summary card, then back to the Newsroom.',
+      'A count-up shows 38,214 calls analyzed in July.',
+      'The peak day is Tuesday, July 14, with 2,120 calls.',
+      'A slide names the topic of the month.',
+      'Escalations are down 8% while call volume is up 12%.',
+      'A customer quote leads into the agent of the month.',
+      'Sentiment rises over three months, and CSAT beats its target.',
+      'A shareable summary card ends the story, then the Newsroom returns.',
     ],
     async run(c) {
       const { q, qa, app } = c;

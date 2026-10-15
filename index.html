@@ -7,14 +7,14 @@
 
 
 
-<title>Ofir Nona · Senior Product Designer</title>
+<title>Ofir Nona · Senior product designer</title>
 <meta name="description" content="Senior product designer for AI and data-heavy products. Since 2023, the only designer and product person at Hear, an AI platform for contact centers.">
 <!-- link previews and icons for the hosted copy at ofir1233.github.io (the artifact viewer ignores them) -->
 <meta name="theme-color" content="#0d0d0e">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ofir1233.github.io/">
-<meta property="og:title" content="Ofir Nona · Senior Product Designer">
-<meta property="og:description" content="I design data-heavy tools around how customers really use them. Since 2023, the only designer and product person at Hear, an AI platform for contact centers.">
+<meta property="og:title" content="Ofir Nona · Senior product designer">
+<meta property="og:description" content="I design data-heavy tools around how customers use them. Since 2023, the only designer and product person at Hear, an AI platform for contact centers.">
 <meta property="og:image" content="https://ofir1233.github.io/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -1916,6 +1916,11 @@ html.sheet-arcs #contact:where(:not(.lx-app, .lx-app *))::after{ top: 0; }
   .nav .nav-sheet a:focus-visible:where(:not(.lx-app, .lx-app *)){ outline: 2px solid var(--coral); outline-offset: -2px; }
 }
 @media (prefers-reduced-motion: reduce) { .nav-sheet:where(:not(.lx-app, .lx-app *)), .nav-sheet.open:where(:not(.lx-app, .lx-app *)), .nav-more svg:where(:not(.lx-app, .lx-app *)){ transition: none; } }
+/* quick fixes: on phones the CV closes the Sections sheet below a hairline, with an arrow where the current-section dot sits */
+.nav .nav-sheet a.nav-sheet-cv:where(:not(.lx-app, .lx-app *)){ margin-top: 9px; }
+.nav .nav-sheet a.nav-sheet-cv:where(:not(.lx-app, .lx-app *))::before{ content: ""; position: absolute; left: 16px; right: 16px; top: -5px; height: 1px; background: rgba(242,239,231,.09); }
+.nav .nav-sheet a.nav-sheet-cv:where(:not(.lx-app, .lx-app *))::after{ content: none; }
+.nav .nav-sheet a.nav-sheet-cv span:where(:not(.lx-app, .lx-app *)){ color: rgba(242,239,231,.55); }
 
 
 /* about portrait: centred in its column rather than pinned to the window edge, with even fades on both sides */
@@ -2012,20 +2017,13 @@ html.en-on .en-now:where(:not(.lx-app, .lx-app *)){ transition: none !important;
 /* smooth scrolling starts after load, so a link to a #section opens there instead of gliding from the top */
 html:not(.ready):where(:not(.lx-app, .lx-app *)){ scroll-behavior: auto; }
 
-/* e-code: "How I work" steps get real visuals (Design Lab, Storybook, an illustrative PR card) joined by a thin coral line that draws once */
+/* e-code: "How I work" steps get real visuals (Design Lab, Storybook, an illustrative PR card) */
 #code .code-steps.cf:where(:not(.lx-app, .lx-app *)){ position: relative; margin-top: clamp(8px, 1.4vw, 20px); column-gap: 56px; }
 #code .code-steps.cf li:where(:not(.lx-app, .lx-app *)){ grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto auto auto 1fr; padding-top: 30px; padding-bottom: 8px; }
 #code .code-steps.cf li > .ico:where(:not(.lx-app, .lx-app *)){ grid-column: 1; grid-row: 2 / span 3; }
 #code .code-steps.cf li > .cs-n:where(:not(.lx-app, .lx-app *)), #code .code-steps.cf li > h3:where(:not(.lx-app, .lx-app *)), #code .code-steps.cf li > p:where(:not(.lx-app, .lx-app *)){ grid-column: 2; }
 #code .code-steps.cf li:where(:not(.lx-app, .lx-app *)), #code .code-steps.cf li + li:where(:not(.lx-app, .lx-app *)){ padding-left: 0; padding-right: 0; border-left: 0; }
 #code .code-steps.cf li + li:where(:not(.lx-app, .lx-app *))::before{ content: ""; position: absolute; left: -28px; top: 0; bottom: 0; width: 1px; height: auto; border-radius: 0; background: var(--line); box-shadow: none; }
-#code .code-steps.cf:where(:not(.lx-app, .lx-app *))::after{ content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: linear-gradient(90deg, var(--coral), rgba(255,112,86,.55) 70%, rgba(255,112,86,.15)); transform-origin: 0 50%; transition: transform 1.6s cubic-bezier(.45,.05,.2,1); pointer-events: none; }
-#code .code-steps.cf > li:where(:not(.lx-app, .lx-app *))::after{ content: ""; position: absolute; top: -4px; left: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 4px var(--ink), 0 0 0 5px rgba(255,112,86,.35); transition: transform .5s cubic-bezier(.3,1.4,.5,1), opacity .4s; }
-#code .code-steps.cf > li + li:where(:not(.lx-app, .lx-app *))::after{ left: -32px; }
-#code .code-steps.cf > li:nth-child(2):where(:not(.lx-app, .lx-app *))::after{ transition-delay: .55s; }
-#code .code-steps.cf > li:nth-child(3):where(:not(.lx-app, .lx-app *))::after{ transition-delay: 1.1s; }
-#code .code-steps.cf.cf-arm:not(.cf-on):where(:not(.lx-app, .lx-app *))::after{ transform: scaleX(0); }
-#code .code-steps.cf.cf-arm:not(.cf-on) > li:where(:not(.lx-app, .lx-app *))::after{ transform: scale(0); opacity: 0; }
 
 #code .cf-vis:where(:not(.lx-app, .lx-app *)){ grid-column: 1 / -1; grid-row: 1; position: relative; margin: 0 0 24px; aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden; background: var(--ink-2); box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 24px 48px -30px rgba(0,0,0,.9); transition: transform .6s cubic-bezier(.2,.7,.2,1), box-shadow .6s; }
 #code .cf-vis img:where(:not(.lx-app, .lx-app *)){ position: absolute; display: block; max-width: none; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
@@ -2063,17 +2061,14 @@ html:not(.ready):where(:not(.lx-app, .lx-app *)){ scroll-behavior: auto; }
   #code .cf-pr .cf-tag:where(:not(.lx-app, .lx-app *)){ font-size: 9.5px; }
 }
 @media (max-width: 860px) {
-  #code .code-steps.cf:where(:not(.lx-app, .lx-app *)){ border-top: 0; padding-left: 22px; }
-  #code .code-steps.cf:where(:not(.lx-app, .lx-app *))::after{ left: 3px; right: auto; top: 6px; bottom: 6px; width: 1px; height: auto; background: linear-gradient(180deg, var(--coral), rgba(255,112,86,.5) 70%, rgba(255,112,86,.12)); transform-origin: 50% 0; }
-  #code .code-steps.cf.cf-arm:not(.cf-on):where(:not(.lx-app, .lx-app *))::after{ transform: scaleY(0); }
+  #code .code-steps.cf:where(:not(.lx-app, .lx-app *)){ border-top: 0; }
   #code .code-steps.cf li:where(:not(.lx-app, .lx-app *)), #code .code-steps.cf li + li:where(:not(.lx-app, .lx-app *)){ padding: 26px 0 26px; }
-  #code .code-steps.cf > li:where(:not(.lx-app, .lx-app *))::after, #code .code-steps.cf > li + li:where(:not(.lx-app, .lx-app *))::after{ left: -22px; top: 30px; }
   #code .code-steps.cf > li:last-child:where(:not(.lx-app, .lx-app *)){ border-bottom: 0; }
   #code .code-steps.cf li + li:where(:not(.lx-app, .lx-app *))::before{ content: none; }
   #code .cf-vis:where(:not(.lx-app, .lx-app *)){ margin-bottom: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  #code .code-steps.cf:where(:not(.lx-app, .lx-app *))::after, #code .code-steps.cf > li:where(:not(.lx-app, .lx-app *))::after, #code .cf-vis:where(:not(.lx-app, .lx-app *)), #code .cf-vis img:where(:not(.lx-app, .lx-app *)){ transition: none; }
+  #code .cf-vis:where(:not(.lx-app, .lx-app *)), #code .cf-vis img:where(:not(.lx-app, .lx-app *)){ transition: none; }
 }
 
 /* e-fyi: the FYI showcase. Five thin-bezel iPhones with the real unblurred screens; one stands in front (--act, set by the script) with a one-line caption; a snap carousel on phones */
@@ -2504,7 +2499,7 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
 @media (min-width: 901px) {
   #top .stack.hx-tilt:where(:not(.lx-app, .lx-app *)){ transition: none; }
 }
-/* stats: the number keeps its final width while it counts, so nothing beside it moves */
+/* stats: the numbers are final in the HTML and stay as they are (no count-up) */
 #top .stats .count:where(:not(.lx-app, .lx-app *)){ display: inline-block; text-align: right; }
 /* CTAs: a soft tint on the ghost, a press on click, and the down arrow nods toward the work while hovered */
 #top .cta .btn:where(:not(.lx-app, .lx-app *)){ transition: transform .3s cubic-bezier(.22,.7,.2,1), box-shadow .3s, translate .35s cubic-bezier(.2,.7,.2,1), background-color .3s; }
@@ -2681,12 +2676,13 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
   <div class="wrap">
     <a class="brand" href="#about">Ofir Nona<span>.</span></a>
     <ul>
-      <li><a href="#design-lab">Work</a></li>
+      <li><a href="#design-lab">Design Lab</a></li>
       <li><a href="#product">Product</a></li>
       <li><a href="#system">Design system</a></li>
-      <li><a href="#web">Branding</a></li>
+      <li><a href="#web">Brand</a></li>
       <li><a href="#ia">IA</a></li>
       <li><a href="#path">Experience</a></li>
+      <li class="nav-cv"><a href="ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -2699,20 +2695,19 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
       <div class="me-intro">
         <div class="label">About · <b>Who I am</b></div>
         <h1 class="me-name" id="about-h">Ofir Nona<span aria-hidden="true">.</span></h1>
-        <p class="quote">Boots on the ground, <span>not theory.</span></p>
         <p class="me-lead">I'm a product designer in Tel Aviv, focused on AI products. I work end to end: research, flows, interface, design system, brand and website.</p>
       </div>
       <figure class="me-photo me-ill"><img src="img/me-ill-3.webp" srcset="img/me-ill-3-900.webp 900w, img/me-ill-3-1200.webp 1200w, img/me-ill-3.webp 1408w" sizes="(min-width: 861px) min(52vw, 780px), (min-width: 601px) 640px, 100vw" width="1408" height="1568" alt="Illustrated portrait of Ofir Nona" fetchpriority="high" decoding="async"></figure>
     </div>
     <ol class="me-pillars">
-      <li><span class="me-n">01</span><h3>End to end, the only designer</h3><p>Brand, product, design system, website.</p></li>
+      <li><span class="me-n">01</span><h3>AI that people can check</h3><p>I design AI answers that point to their evidence, and AI proposals a person approves, modifies or declines.</p></li>
       <li><span class="me-n">02</span><h3>Product, not just pixels</h3><p>Research, testing and flows, side by side with the developers.</p></li>
-      <li><span class="me-n">03</span><h3>Data and AI that people trust</h3><p>Ask about one score, and the AI names the calls behind it.</p></li>
+      <li><span class="me-n">03</span><h3>Structure for dense data</h3><p>I design heatmaps, call tables, task boards and IA maps that include the admin layer.</p></li>
     </ol>
     <a class="me-path" href="#path" aria-label="Experience, see the full timeline">
       <span class="me-path-l">Experience</span>
-      <span class="me-job"><b>Hear</b><i>2023 · now</i></span>
-      <span class="me-job"><b>Tap Mobile</b><i>2022 · 2023</i></span>
+      <span class="me-job"><b>Hear</b><i>2023–now</i></span>
+      <span class="me-job"><b>Tap Mobile</b><i>2022–2023</i></span>
       <span class="me-job"><b>Qualish</b><i>2020</i></span>
       <span class="me-job"><b>VPlanSolutions</b><i>2020</i></span>
       <span class="me-go" aria-hidden="true">↓</span>
@@ -2740,9 +2735,9 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
   <div class="wrap">
     <dl class="stats">
       <div><dt class="label">Years as Hear's only designer</dt><dd><span class="count" data-to="3">3</span>+</dd></div>
-      <div><dt class="label">Downloads, Tap Mobile app</dt><dd><span class="count" data-to="100">100</span><span style="font-size:.5em;letter-spacing:-.01em"> million</span></dd></div>
-      <div><dt class="label">Key screens in switchable versions</dt><dd><span class="count" data-to="5">5</span></dd></div>
-      <div><dt class="label">Owned end to end</dt><dd>Brand → UI</dd></div>
+      <div><dt class="label">Downloads of a Tap Mobile app I worked on</dt><dd><span class="count" data-to="100">100</span><span style="font-size:.5em;letter-spacing:-.01em"> million</span></dd></div>
+      <div><dt class="label">Storybook stories by Jul 2026</dt><dd><span class="count" data-to="122">122</span></dd></div>
+      <div><dt class="label">Owned end to end</dt><dd>Brand to UI</dd></div>
     </dl>
   </div>
   <div class="marquee" aria-hidden="true"><div class="track">
@@ -2757,15 +2752,15 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <div class="label">How I work · <b>AI-first</b></div>
+        <div class="label">How I work</div>
         <h2 id="code-h">I design and build with Claude Code</h2>
       </div>
-      <div><p>Most of my process now happens in Claude Code, from the first idea to front-end code in Hear's product. Figma is a helper for specific tasks.</p>
+      <div><p>Most of my process now happens in Claude Code, from the first idea to front-end code in Hear's product. I use Figma for specific tasks.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-code"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about how I work</span></button></div></div>
     </div>
-    <div class="mr-body mr-head mr-col" id="mr-code"><div class="mr-in"><div><p>The Design Lab started this way: a working replica of Hear that I built from scratch on my own initiative with Claude Code, on React, Vite and Storybook, connected to an AI API so it answers with real AI responses.</p><p>Its design system is documented in Storybook, every component with all its states, and the Lab is where designs get tested in a working interface instead of static mockups.</p></div></div></div>
+    <div class="mr-body mr-head mr-col" id="mr-code"><div class="mr-in"><div><p>I have a background in coding (HTML, CSS and JavaScript). In Hear Design Lab, shown below, I keep screens close to what Hear has and build new pages from existing parts. On the Data screen, for example, filter presets use only columns that can be filtered.</p></div></div></div>
     <ol class="code-steps cf">
-      <li><figure class="cf-vis cf-lab" aria-hidden="true"><span class="cf-tag">Design Lab · demo data</span><img src="img/cs-design-lab-entry.webp" alt="" width="1280" height="790" loading="lazy" decoding="async"></figure><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4.5l-3 15"/></svg></span><span class="cs-n">01</span><h3>Design</h3><p>I design and prototype in a working React app with Claude Code: flows, screens and interactions.</p></li>
+      <li><figure class="cf-vis cf-lab" aria-hidden="true"><span class="cf-tag">Design Lab · demo data</span><img src="img/cs-design-lab-entry.webp" alt="" width="1280" height="790" loading="lazy" decoding="async"></figure><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4.5l-3 15"/></svg></span><span class="cs-n">01</span><h3>Design</h3><p>I design and prototype flows, screens and interactions in a working React app.</p></li>
       <li><figure class="cf-vis cf-sb" aria-hidden="true"><span class="cf-tag">Storybook</span><img src="img/cs-design-system-sb-button.webp" alt="" width="1600" height="722" loading="lazy" decoding="async"></figure><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg></span><span class="cs-n">02</span><h3>System</h3><p>Every component lives in the design system, with all its states, documented in Storybook.</p></li>
       <li><figure class="cf-vis cf-pr" aria-hidden="true"><span class="cf-tag">Pull request to Hear · illustrative</span><div class="cf-card"><div class="cf-h"><svg viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="6" cy="18.5" r="2.2"/><circle cx="18" cy="18.5" r="2.2"/><path d="M6 7.7v8.6M18 16.3V10a3 3 0 00-3-3h-4"/><path d="M13 4.5L10.5 7 13 9.5"/></svg><b>Use semantic tokens in Button</b><em>Open</em></div><div class="cf-file"><span>Button.css</span><span><i class="p">+2</i> <i class="m">−2</i></span></div><div class="cf-diff"><code class="c"><s>12</s>.btn {</code><code class="m"><s>13</s>−  background: #1c1c1f;</code><code class="p"><s>13</s>+  background: var(--bg-canvas);</code><code class="m"><s>14</s>−  color: #f2efe7;</code><code class="p"><s>14</s>+  color: var(--text-primary);</code></div></div></figure><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="6" cy="18.5" r="2.2"/><circle cx="18" cy="18.5" r="2.2"/><path d="M6 7.7v8.6M18 16.3V10a3 3 0 00-3-3h-4"/><path d="M13 4.5L10.5 7 13 9.5"/></svg></span><span class="cs-n">03</span><h3>Ship</h3><p>I push front-end code to Hear's product itself, side by side with the developers, through pull requests.</p></li>
     </ol>
@@ -2778,18 +2773,18 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
     <span class="bignum" aria-hidden="true">01</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study 01</div>
-        <h2>Design Lab</h2>
+        <div class="label">Case study</div>
+        <h2>Hear Design Lab</h2>
       </div>
-      <div><p>A working replica of Hear that I built from scratch on my own initiative with Claude Code, connected to an AI API so it answers with real AI responses. I test designs there in a working interface instead of static mockups, and it produces demos tailored to each prospect.</p>
-        <div class="mr"><a class="btn ghost cs-more cs-head" href="work/design-lab.html">Read the full case study <span aria-hidden="true">→</span></a></div></div>
+      <div><p>I built this working replica of Hear from scratch with Claude Code, on my own initiative. Connected to an AI API, it gives realistic answers. I test designs there instead of in static mockups.</p>
+        <div class="mr"><a class="btn ghost cs-more cs-head" href="work/design-lab.html">Read the case study <span aria-hidden="true">→</span></a></div></div>
     </div>
-    <dl class="meta rv"><div><dt>Role</dt><dd>Initiator · design &amp; code</dd></div><div><dt>Stack</dt><dd class="lab-stack-dd"><ul class="lab-stack"><li>React</li><li>Vite</li><li>Storybook</li></ul></dd></div></dl>
+    <dl class="meta rv"><div><dt>Role</dt><dd>Design and build</dd></div><div><dt>Stack</dt><dd class="lab-stack-dd"><ul class="lab-stack"><li>React</li><li>Vite</li><li>Storybook</li></ul></dd></div></dl>
 
-    <figure class="ct-fig ct-hero lab-live-tour" data-lx-stage style="--pw:160cqw;--px:0cqw;--py:-24cqw;--wx:3.5cqw;--wy:6.25cqw;--ww:56cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-14cqw;--pw-s:160cqw;--px-s:-26.8cqw;--py-s:-19cqw"><div class="ct-stage"><div class="ct-band"><img class="ct-photo" src="img/hear-hallway-sweater.webp" alt="" width="1600" height="1073" decoding="async" loading="lazy"></div><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="tour" role="img" aria-label="Design Lab tour, step by step: the Chat home opens for the demo company Northwind; a title card reads “Thousands of calls. One clear answer.”; a question about escalations is typed into the chat box and sent; the answer counts 23 escalations this week and ranks their topics in a card; the view moves in close on the answer, then back out; Topics shows how the calls flow into each score zone; the Compliance trend lines rise one section at a time; the Actions board holds the follow-up work, then a Hear end card."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>The Lab in about 30 seconds.</b></figcaption></figure>
+    <figure class="ct-fig ct-hero lab-live-tour" data-lx-stage style="--pw:160cqw;--px:0cqw;--py:-24cqw;--wx:3.5cqw;--wy:6.25cqw;--ww:56cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-14cqw;--pw-s:160cqw;--px-s:-26.8cqw;--py-s:-19cqw"><div class="ct-stage"><div class="ct-band"><img class="ct-photo" src="img/hear-hallway-sweater.webp" alt="" width="1600" height="1073" decoding="async" loading="lazy"></div><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="tour" role="img" aria-label="Design Lab tour: a question in Chat home, its answer, then Topics, Compliance and Actions."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>The Lab in about 30 seconds.</b></figcaption></figure>
 
     <div class="versions vl" data-v="0">
-      <div class="label" style="margin-bottom:14px">Same screen · <b>three designs</b> · demo data</div>
+      <div class="label" style="margin-bottom:14px">Topics screen · <b>three designs</b> · demo data</div>
       <div class="vl-grid">
         <div class="vl-stage rv"><div class="shot win" id="vl-panel" role="tabpanel" aria-labelledby="vl-t0"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span>
           <div class="vl-imgs">
@@ -2810,8 +2805,8 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
           <div class="vl-cap">What changed</div>
           <div class="vl-tabs" role="tablist" aria-label="Topics design versions">
             <button type="button" role="tab" id="vl-t0" data-v="0" aria-controls="vl-panel" aria-selected="true"><span class="vl-n">01</span><span class="vl-name">Facelift</span><span class="vl-d">Strong colors, score as the headline.</span><i class="vl-p" aria-hidden="true"></i></button>
-            <button type="button" role="tab" id="vl-t1" data-v="1" aria-controls="vl-panel" aria-selected="false" tabindex="-1"><span class="vl-n">02</span><span class="vl-name">Refined</span><span class="vl-d">Summary row, defined score, calmer colors.</span><i class="vl-p" aria-hidden="true"></i></button>
-            <button type="button" role="tab" id="vl-t2" data-v="2" aria-controls="vl-panel" aria-selected="false" tabindex="-1"><span class="vl-n">03</span><span class="vl-name">Ultra <span class="vl-tag">Latest</span></span><span class="vl-d">On brand, deeper UX: find the key pain point, ask the AI why, act with suggested signals.</span><i class="vl-p" aria-hidden="true"></i></button>
+            <button type="button" role="tab" id="vl-t1" data-v="1" aria-controls="vl-panel" aria-selected="false" tabindex="-1"><span class="vl-n">02</span><span class="vl-name">Refined</span><span class="vl-d">A score definition, a summary row and calmer colors.</span><i class="vl-p" aria-hidden="true"></i></button>
+            <button type="button" role="tab" id="vl-t2" data-v="2" aria-controls="vl-panel" aria-selected="false" tabindex="-1"><span class="vl-n">03</span><span class="vl-name">Ultra <span class="vl-tag">Latest</span></span><span class="vl-d">On brand, Most to gain first, then Ask AI and suggested signals.</span><i class="vl-p" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -2825,76 +2820,74 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
     <span class="bignum" aria-hidden="true">02</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study 02</div>
+        <div class="label">Five case studies</div>
         <h2>Product design</h2>
       </div>
-      <div><p>Hear reads every call, chat and ticket in a contact center. I make that data calm and explainable, built around how teams really use it: what matters comes first, and asked about one score, the AI names the calls behind it.</p>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-product"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about product design</span></button></div></div>
+      <div><p>Hear reads every call, chat and ticket in a contact center. I make that data calm and explainable, built around how teams really use it: what matters comes first, and asked about one score, the AI names the calls behind it.</p></div>
     </div>
-    <div class="mr-body mr-head mr-col" id="mr-product"><div class="mr-in"><div><p>My job is to make that much data feel calm: show what matters first, explain every number, and let people act from the same screen. People have to trust and audit what the AI concludes, so an answer about one score names the calls behind it.</p><dl class="mr-pts"><div><dt>Role</dt><dd>Only designer and product person</dd></div><div><dt>Surfaces</dt><dd>Topics · Compliance · Agent evaluation · Actions · Newsroom · Data · Signals · Demos engine</dd></div></dl></div></div></div>
     
 
     <article class="spot">
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="topics"></span></div>
         <h3>Topics</h3>
-        <p class="pf-prob"><b>The challenge</b>Every conversation in the contact center, and no way to see the whole picture or where problems hide.</p>
-        <p class="pf-sol">In Ultra I put the key pain point first: open an AI chat about it in one click to understand the cause, then act on it with suggested signals.</p>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-topics"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Topics</span></button><div class="mr-body" id="mr-topics"><div class="mr-in"><div><ul class="mr-list"><li>Boxes, circles and flow views</li><li>Hover breaks a score into its parameters</li><li>Sort daily scores by calls, lowest score or biggest drop</li><li>Click a parameter and the AI explains what drives it</li></ul><p class="mr-why"><b>Design choice:</b> size shows call volume and color shows score, so problem areas stand out before anyone reads a number.</p></div></div></div></div>
+        <p class="pf-prob"><b>The challenge</b>With calls spread across many topics, it's hard to see which need attention.</p>
+        <p class="pf-sol">I sized topics by calls and colored them by score, so the weak ones stand out before anyone reads a number.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-topics"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Topics</span></button><div class="mr-body" id="mr-topics"><div class="mr-in"><div><ul class="mr-list"><li>The Topics screen has boxes, circles and flow views</li><li>Hovering a topic shows the parameters behind its score</li></ul></div></div></div></div>
       </div>
-      <div class="media"><figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="topics" role="img" aria-label="Topics, Ultra version, step by step: hovering the Most to gain tile lights up Online Booking on the treemap, and hovering the topic opens its three scores; its worst score, Handle time, is clicked and the Ask AI panel slides in as the page narrows; the answer explains what drives the long handle time; a follow-up asks which signals to set up, and the answer suggests alerts that catch it early."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
+      <div class="media"><figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="topics" role="img" aria-label="Topics, Ultra version: the topic with the most to gain, its scores, then Ask AI on the weakest one."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot">
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="shield"></span></div>
         <h3>Compliance</h3>
-        <p class="pf-prob"><b>The challenge</b>Checking every agent against every compliance rule, without drowning in numbers.</p>
-        <p class="pf-sol">A heatmap of agents against criteria where only problems get color. Any cell puts that agent against the whole team, and one click hands it to the AI chat.</p>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-compliance"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Compliance</span></button><div class="mr-body" id="mr-compliance"><div class="mr-in"><div><p>Any cell opens a popover that places that agent against the whole team and says what the next button will do before you press it. One click on <b>Explore in Chat</b> hands that cell to the AI chat to dig deeper.</p><p class="mr-why"><b>Design choice:</b> only problems get color. A full grid of agents and criteria stays quiet until something needs attention.</p></div></div></div></div>
-        <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
+        <p class="pf-prob"><b>The challenge</b>Compliance checks every contact-center agent against the center's rules, and failures are easy to miss.</p>
+        <p class="pf-sol">Only failing cells in the heatmap get color. Each cell's popover compares the agent with the team, and from there Ask AI names the calls that pulled the score down.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-compliance"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Compliance</span></button><div class="mr-body" id="mr-compliance"><div class="mr-in"><div><p>Each cell also shows its score as a number, so the grid never relies on color alone. Before anyone presses <b>Explore in Chat</b>, the popover says what the button will do.</p></div></div></div></div>
+        <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Explainable scores case study <span aria-hidden="true">→</span></a></div>
       </div>
-      <div class="media"><figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="compliance" role="img" aria-label="Compliance in the Design Lab, light theme, step by step: the Compliance home opens on its KPIs and a trend for each criterion against a target line; hovering the trend shows every criterion's score for that day; the Agents tab shows a heatmap of criteria by agent; hovering a cell tints it and marks its row; a click on one cell opens a popover that places that agent against the whole team; Explore in Chat hands the cell to Ask AI; the answer explains the score and names the calls that pulled it down."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
+      <div class="media"><figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="compliance" role="img" aria-label="Compliance: criterion trends, the agents heatmap, one cell's popover, and an Ask AI answer that names the calls behind the score."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot">
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="eval"></span></div>
         <h3>Agent evaluation</h3>
-        <p class="pf-prob"><b>The challenge</b>An AI score is only useful if people can trust it.</p>
-        <p class="pf-sol">V1 was my first version of the page. In my later versions, low periods turn coral, hover shows how many calls a score is based on, and an answer about one score names the calls that pulled it down.</p>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-eval"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Agent evaluation</span></button><div class="mr-body" id="mr-eval"><div class="mr-in"><div><p>I designed V1 with the score over time, the score per skill and the tables of teams and agents, then V2 to V4 + Filter. In this clip, a free question about a dip gets a general answer: the usual causes, and where to check.</p><p class="mr-why"><b>Design choice:</b> asked about one score, the answer points to the exact calls behind it, so people can check the AI instead of just trusting it.</p></div></div></div></div>
-        <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Read the case study <span aria-hidden="true">→</span></a></div>
+        <p class="pf-prob"><b>The challenge</b>Agent evaluation gives each agent an AI score, useful only if people can check it.</p>
+        <p class="pf-sol">In the latest version, shown here, low scores turn coral, and hovering a bar shows how many calls it's based on. I designed V1, my first version, then V2 to V4 + Filter.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-eval"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Agent evaluation</span></button><div class="mr-body" id="mr-eval"><div class="mr-in"><div><p>I kept two ways into the chat. In this clip, Ask AI opens from the sidebar with the page and project as context, and the answer about the dip is general. From a Compliance cell, Explore in Chat sends the agent, the criterion and the score with the question.</p></div></div></div></div>
+        <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Explainable scores case study <span aria-hidden="true">→</span></a></div>
       </div>
-      <div class="media"><figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="agent-eval" role="img" aria-label="Agent evaluation in the Design Lab, light theme, step by step: the page opens on the average score over time, a bar per day; hovering a bar shows its day, its score and how many calls it is based on; a drag across the coral dip zooms the chart to seven days; the zoomed bars keep the same hover detail; Ask AI opens from the sidebar with the page and project as context; the question why the score dropped between Sep 30 and Oct 3 is typed and sent; a general answer lists likely causes and where to check, with related topics; the chat closes on the zoomed chart."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
+      <div class="media"><figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="agent-eval" role="img" aria-label="Agent evaluation: the score over time, a zoom into a dip, and a general Ask AI answer about it."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot">
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="kanban"></span></div>
         <h3>Actions</h3>
-        <p class="pf-prob"><b>The challenge</b>Insights are only worth something if someone acts on them.</p>
-        <p class="pf-sol">Alerts, signals and evaluations become tasks with a source, a priority and an assignee, and closed work keeps its reason.</p>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-actions"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Actions</span></button><div class="mr-body" id="mr-actions"><div class="mr-in"><div><p>Inside a task, the team ticks off action items, moves the status and <b>@mentions</b> a teammate, and the activity log records each change, such as Created, Assigned to and Moved to In progress.</p><p class="mr-why"><b>Design choice:</b> every task keeps its source, and closed work keeps its reason, such as duplicate or escalated, so the team learns from it.</p></div></div></div></div>
+        <p class="pf-prob"><b>The challenge</b>Alerts, signals and evaluations raise findings, but each one still needs an owner.</p>
+        <p class="pf-sol">Each finding becomes a task with its source, a priority and an assignee. Closed work keeps its reason, such as Duplicate or Escalated.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-actions"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Actions</span></button><div class="mr-body" id="mr-actions"><div class="mr-in"><div><p>In June 2026 I also designed AI Tasks, a coded prototype in the Lab. The AI proposes changes in groups, and a person decides on each group before anything is submitted.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/actions.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
-      <div class="media"><figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="actions" role="img" aria-label="Actions board, step by step: a card is hovered and its quick actions appear; the High priority quick filter is clicked and the other cards fade; a task about a refund is opened in a side panel; an action item is ticked off; the status moves from Pending to In progress; a comment that @mentions a teammate is typed and posted; the panel scrolls to the activity log."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
+      <div class="media"><figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="actions" role="img" aria-label="Actions board: a quick filter, then one task opened and updated in its side panel, with a teammate @mentioned."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot">
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="news"></span></div>
-        <h3>Newsroom, data &amp; signals</h3>
-        <p class="pf-prob"><b>The challenge</b>Different people need the same data at different moments: a summary, a deep dive, an alert.</p>
-        <p class="pf-sol">One set of data, three surfaces: the month as a 75-second story, a table where the AI builds the filter, and signals that run on calls by themselves.</p>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-news"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Newsroom, data and signals</span></button><div class="mr-body" id="mr-news"><div class="mr-in"><div><ul class="mr-list"><li><b>Newsroom</b> tells the month as a 75-second story and flags spikes against a baseline</li><li><b>Data</b>: describe the calls you want and the AI builds the filter, then open any call and ask about it</li><li><b>Signals</b>: switch one on, or build a new one, with what to detect and the fields to pull from every call</li></ul><p class="mr-why"><b>Design choice:</b> one set of data, three surfaces, each for a different person at a different moment.</p></div></div></div></div>
+        <h3>Newsroom, Data &amp; Signals</h3>
+        <p class="pf-prob"><b>The challenge</b>Different people need the same data at different moments.</p>
+        <p class="pf-sol">I designed three surfaces for that data. Newsroom plays the month as a 75-second story. Data builds a filter from plain words, and Signals classify calls on their own.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-news"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Newsroom, Data and Signals</span></button><div class="mr-body" id="mr-news"><div class="mr-in"><div><ul class="mr-list"><li><b>Newsroom</b> stories show their source and end with a line such as “See N calls”</li><li><b>Data</b> shows the AI's filter as an ordinary chip that people can read and remove</li><li><b>Signals</b> are AI or rule-based classifiers, and the form for a new one asks what to detect and which fields to pull from every call</li></ul></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/newsroom.html">Newsroom case study <span aria-hidden="true">→</span></a><a class="cs-link" href="work/data.html">Data &amp; signals case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
-        <figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="news-recap" role="img" aria-label="Newsroom in the Design Lab. Play on the monthly recap card opens a full-screen story that plays through July one beat at a time: the month's call count, the peak day, the topic that took over, escalations down while volume rose, a customer quote, the top agent, sentiment rising for three months, and the CSAT result. It ends with “That was July” and a shareable summary card, then closes back to the Newsroom."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>Newsroom</b></figcaption></figure>
+        <figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="news-recap" role="img" aria-label="Newsroom: the July recap played as a full-screen story, ending on a shareable summary card."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>Newsroom</b></figcaption></figure>
         <div class="pair">
-          <figure class="ct-fig ct-plain pf-mini rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="data" role="img" aria-label="Data table, step by step: the calls table loads with 2,000 calls listed; Filter opens and the calls are described in plain words, High priority calls; Generate turns the words into a Priority: High chip, with Clear all, Unsaved changes, Reset and Save as view; a call opens in the side panel beside the table; the arrow keys step the panel to the next calls; Ask AI is asked about this call from the panel; the answer explains the call and suggests related topics."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>Data</b></figcaption></figure>
-          <figure class="ct-fig ct-plain pf-mini rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="signals" role="img" aria-label="Signals list, step by step: the list shows each signal's status and source; a paused signal's Auto switch is turned on; Create opens a new signal and its name is typed; a folder is picked from a menu with New folder; a description of what to detect is written; an item gets a name, a key and a description; a second item is added and the signal is saved; the new signal appears at the top of the list."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>Signals</b></figcaption></figure>
+          <figure class="ct-fig ct-plain pf-mini rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="data" role="img" aria-label="Data: plain words become a filter chip, then a call opens beside the table and Ask AI explains it."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>Data</b></figcaption></figure>
+          <figure class="ct-fig ct-plain pf-mini rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="signals" role="img" aria-label="Signals: a paused signal switched on, then a new signal created and saved."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>Signals</b></figcaption></figure>
         </div>
       </div>
     </article>
@@ -2903,14 +2896,13 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
       <div class="txt">
         <div class="head"><span class="ico lg anim" aria-hidden="true" data-icon="play"></span></div>
         <h3>Demos engine</h3>
-        <p class="pf-prob"><b>The challenge</b>Showing each prospect what Hear could do for their business.</p>
-        <p class="pf-sol">A demos engine inside the Lab that drives its working screens from a script: it types the prospect's questions, the Lab answers on demo data, and a camera moves across the screens. In English or Hebrew, in a meeting or as a video.</p>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-demos"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the demos engine</span></button><div class="mr-body" id="mr-demos"><div class="mr-in"><div><p>To show a new prospect what Hear could do for <em>their</em> business, I designed a demos engine inside the Lab. It drives the Lab's working screens from a script: it types the prospect's questions, the Lab answers them on demo data, and a camera moves across the screens.</p><p>Each card in the library is a ready demo: play it in the Lab, or record a clean run.</p><p class="mr-why"><b>The aim:</b> no generic deck. Every demo is ready to play in a meeting or send as a video.</p></div></div></div></div>
+        <p class="pf-prob"><b>The challenge</b>A prospect should see what Hear could do for their own business.</p>
+        <p class="pf-sol">I designed a demos engine that drives the Lab's working screens from a script, in English or Hebrew.</p>
         <div class="cs-links"><a class="cs-link" href="work/demos-engine.html">Read the case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
-        <figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="showcase" role="img" aria-label="The engine plays a showcase: Chat home in a demo workspace, then a title card with one claim, then the question What drove escalations this week? typed into the composer and sent, the answer with a count and a chart by topic as the camera pushes in, then Who handled them? and the answer table lifted out of a dimmed screen, then an end card counts up the time to answer."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>A 30-second showcase</b></figcaption></figure>
-        <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><img src="img/demos-light-nb.webp" alt="The demos library with showcase sequences" width="1600" height="1226" loading="lazy"></div><figcaption><b>The demo library</b></figcaption></figure>
+        <figure class="ct-fig ct-plain rv" data-lx-stage><div class="ct-stage"><div class="ct-win"><div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div><div class="lx" data-lab="showcase" role="img" aria-label="Demos engine showcase: a title card, two typed questions and their answers, and a camera moving across the Lab."></div></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div><figcaption><b>A 30-second showcase</b></figcaption></figure>
+        <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><img src="img/demos-light-nb.webp" alt="The demo library: showcase sequence cards in English and Hebrew, each with Play and Clean run" width="1600" height="1226" loading="lazy"></div><figcaption><b>The demo library</b></figcaption></figure>
       </div>
     </article>
   </div>
@@ -2922,17 +2914,17 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
     <span class="bignum" aria-hidden="true">03</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study 03</div>
+        <div class="label">Case study</div>
         <h2>Design system</h2>
       </div>
       <div><p>Documented in Storybook, from foundations to full pages, with every component state. One set of tokens covers dark and light, English and Hebrew, LTR and RTL.</p>
-        <div class="mr"><a class="btn ghost cs-more cs-head" href="work/design-system.html">Read the full case study <span aria-hidden="true">→</span></a></div></div>
+        <div class="mr"><a class="btn ghost cs-more cs-head" href="work/design-system.html">Read the case study <span aria-hidden="true">→</span></a></div></div>
     </div>
     
     <div class="dw" id="ds-wall">
       <div class="dw-head rv">
-        <p class="dw-stat"><span><b>122</b> stories</span> <i aria-hidden="true">·</i> <span><b>6</b> tiers</span> <i aria-hidden="true">·</i> <span>light &amp; dark</span> <i aria-hidden="true">·</i> <span>LTR &amp; RTL</span></p>
-        <p class="dw-sub">Every tile is a real render from the Storybook. I built the system and its stories, from the tokens and shared components to every full-page story.</p>
+        <p class="dw-stat"><span><b>122</b> stories</span> <i aria-hidden="true">·</i> <span><b>6</b> tiers</span> <i aria-hidden="true">·</i> <span>by Jul 2026</span></p>
+        <p class="dw-sub">Every tile is a real render from Storybook. I built the system and its stories.</p>
         <button type="button" class="dw-pause" aria-pressed="false" hidden><span class="dw-pi" aria-hidden="true"></span><span class="dw-pt">Pause motion</span></button>
       </div>
       <div class="dw-rows">
@@ -2997,13 +2989,12 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
     <span class="bignum" aria-hidden="true">04</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study 04</div>
-        <h2>Branding &amp; website</h2>
+        <div class="label">Case study</div>
+        <h2>Brand &amp; website</h2>
       </div>
-      <div><p>I designed Hear's brand from zero, and its new scroll-driven marketing site, now in preview in two directions.</p>
-        <div class="mr"><a class="btn ghost cs-more cs-head" href="work/brand-web.html">Read the full case study <span aria-hidden="true">→</span></a></div></div>
+      <div><p>I designed Hear's brand from zero. The new marketing site, which I designed and built, has two directions, both in preview.</p>
+        <div class="mr"><a class="btn ghost cs-more cs-head" href="work/brand-web.html">Read the case study <span aria-hidden="true">→</span></a></div></div>
     </div>
-    <dl class="meta rv"><div><dt>Role</dt><dd>Design &amp; build</dd></div><div><dt>Scope</dt><dd>Brand · marketing site</dd></div></dl>
     <div class="wx rv" data-on="a">
       <div class="wx-seg" role="tablist" aria-label="Website direction">
         <button type="button" role="tab" class="wx-tab" id="wx-ta" data-dir="a" aria-selected="true" aria-controls="wx-fig"><span class="wx-p" aria-hidden="true"><i></i></span><span class="wx-k" aria-hidden="true">A</span><span class="wx-name">Dark, cinematic</span><span class="wx-url">hear-public-staging.vercel.app</span></button>
@@ -3013,16 +3004,16 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
         <div class="shot win wx-win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="wx-addr"><b data-dir="a">hear-public-staging.vercel.app</b><b data-dir="b">hear-public-staging-v2.vercel.app</b></span></span>
           <div class="wx-stage"><video class="wx-v" data-dir="a" width="1120" height="700" data-wx-src="img/site-scroll-a-c.mp4" data-poster="img/site-scroll-poster.webp" muted playsinline preload="none" aria-label="Scrolling the Hear homepage, direction A, from top to bottom"></video><video class="wx-v" data-dir="b" width="1120" height="700" data-wx-src="img/site-scroll-v6.mp4" data-poster="img/site-scroll-v6-poster.webp" muted playsinline preload="none" aria-label="Scrolling the Hear site, direction B: the homepage, then the Hear Labs and About pages"></video></div>
         </div>
-        <figcaption><span class="wx-cap" data-dir="a"><span><b>A · Dark, cinematic.</b> A scroll-revealed thesis, the globe, the integrations wall.</span><a href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Open A ↗︎</a></span><span class="wx-cap" data-dir="b" hidden><span><b>B · Cream and ink.</b> The homepage, then Hear Labs and About: a card for every role, research lanes, security built in.</span><a href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Open B ↗︎</a></span></figcaption>
+        <figcaption><span class="wx-cap" data-dir="a"><span><b>A · Dark, cinematic.</b> The full homepage, with a thesis that appears as you scroll.</span><a href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener">Open preview A ↗︎</a></span><span class="wx-cap" data-dir="b" hidden><span><b>B · Cream and ink.</b> The homepage, then the Hear Labs and About pages.</span><a href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener">Open preview B ↗︎</a></span></figcaption>
       </figure>
     </div>
     <div class="offscreen rv">
       <div class="off-head">
         <div class="label">Off the screen · <b>booths and mockups</b></div>
-        <p>From the production spec to the stand on the floor, plus mockups for print, signage and merch.</p>
+        <p>A trade-show booth was built from my design. The print, signage and merch pieces are mockups.</p>
       </div>
       <div class="br-strip" tabindex="0" role="region" aria-label="Hear brand applications, scrolling gallery">
-        <div class="br-track"><figure class="br-item"><div class="shot"><img src="img/br-booth-live-nb.webp" data-full="img/br-booth-live-nb-l.webp" alt="The booth as built at the show, from my design" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="Trade show booth render" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="Booth production spec with panel callouts" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="Mockup of a Hear sign on a building facade" width="818" height="460" loading="lazy" decoding="async"></div><span>Building sign mockup</span></figure><figure class="br-item"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="Mockup of Hear printed books with dot-pattern covers" width="818" height="460" loading="lazy" decoding="async"></div><span>Print mockup</span></figure><figure class="br-item"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="Mockup of Hear tote bags" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch mockup</span></figure><figure class="br-item"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="Mockup of a Hear billboard, Just growth delivered" width="818" height="460" loading="lazy" decoding="async"></div><span>Billboard mockup</span></figure><figure class="br-item"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="Mockup of a Hear poster series" width="818" height="460" loading="lazy" decoding="async"></div><span>Poster mockups</span></figure><figure class="br-item"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="Mockup of the Hear logo on an office lobby wall" width="818" height="460" loading="lazy" decoding="async"></div><span>Lobby mockup</span></figure><figure class="br-item"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="Hear color palette" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="Hear typography" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="Hear brand graphics with product data cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="Hear brand imagery cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="Mockup of a Hear street-side digital sign" width="818" height="460" loading="lazy" decoding="async"></div><span>Street sign mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-live-nb.webp" data-full="img/br-booth-live-nb-l.webp" alt="" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Building sign mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Print mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Billboard mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Poster mockups</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Lobby mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Street sign mockup</span></figure></div>
+        <div class="br-track"><figure class="br-item"><div class="shot"><img src="img/br-booth-live-nb.webp" data-full="img/br-booth-live-nb-l.webp" alt="The booth as built at the show, from my design" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="Render of the trade-show booth" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="Booth production spec with panel callouts" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="Mockup of a Hear sign on a building facade" width="818" height="460" loading="lazy" decoding="async"></div><span>Building sign mockup</span></figure><figure class="br-item"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="Mockup of Hear printed books with dot-pattern covers" width="818" height="460" loading="lazy" decoding="async"></div><span>Print mockup</span></figure><figure class="br-item"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="Mockup of Hear tote bags" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch mockup</span></figure><figure class="br-item"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="Mockup of a Hear billboard, Just growth delivered" width="818" height="460" loading="lazy" decoding="async"></div><span>Billboard mockup</span></figure><figure class="br-item"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="Mockup of a Hear poster series" width="818" height="460" loading="lazy" decoding="async"></div><span>Poster mockups</span></figure><figure class="br-item"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="Mockup of the Hear logo on an office lobby wall" width="818" height="460" loading="lazy" decoding="async"></div><span>Lobby mockup</span></figure><figure class="br-item"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="Hear color palette" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="Hear typography" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="Hear brand graphics with product data cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="Hear brand imagery cards" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="Mockup of a Hear street-side digital sign" width="818" height="460" loading="lazy" decoding="async"></div><span>Street sign mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-live-nb.webp" data-full="img/br-booth-live-nb-l.webp" alt="" width="438" height="460" loading="lazy" decoding="async"></div><span>Booth · as built</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-render.webp" data-full="img/br-booth-render-l.webp" alt="" width="844" height="460" loading="lazy" decoding="async"></div><span>Booth · render</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-booth-spec.webp" data-full="img/br-booth-spec-l.webp" alt="" width="577" height="460" loading="lazy" decoding="async"></div><span>Booth · production spec</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-building.webp" data-full="img/br-building-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Building sign mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-books.webp" data-full="img/br-books-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Print mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-totes.webp" data-full="img/br-totes-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Merch mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-billboard.webp" data-full="img/br-billboard-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Billboard mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-posters.webp" data-full="img/br-posters-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Poster mockups</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-lobby.webp" data-full="img/br-lobby-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Lobby mockup</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-palette-c.webp" data-full="img/br-palette-c-l.webp" alt="" width="1325" height="460" loading="lazy" decoding="async"></div><span>Color system</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-type.webp" data-full="img/br-type-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Typography</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-bento.webp" data-full="img/br-bento-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Brand graphics</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-cards.webp" data-full="img/br-cards-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Imagery</span></figure><figure class="br-item" aria-hidden="true"><div class="shot"><img src="img/br-street.webp" data-full="img/br-street-l.webp" alt="" width="818" height="460" loading="lazy" decoding="async"></div><span>Street sign mockup</span></figure></div>
       </div>
     </div>
   </div>
@@ -3033,29 +3024,28 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
 <section id="fyi" aria-labelledby="fyi-h">
   <div class="wrap fyi-wrap">
     <div class="fyi-copy">
-      <div class="label">Case study 05 · <b>Mobile app</b></div>
-      <h2 id="fyi-h">FYI · iOS app</h2>
+      <div class="label">Case study · <b>Mobile app</b></div>
+      <h2 id="fyi-h">FYI, an iOS messenger</h2>
       <p>FYI (Focus Your Ideas) is a messenger for creative crews, with AI inside the conversation, group work and events you promote from the chat. I designed it at Intune, before Hear.</p>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-fyi"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about FYI</span></button><div class="mr-body" id="mr-fyi"><div class="mr-in"><div><p>Calls in FYI share the screen too. The case study walks through it with a live prototype.</p></div></div></div></div>
-      <a class="btn ghost cs-more" href="work/fyi.html">See the FYI case study <span aria-hidden="true">→</span></a>
+      <a class="btn ghost cs-more" href="work/fyi.html">Read the case study <span aria-hidden="true">→</span></a>
     </div>
-    <div class="fyi-fan fyi-show rv" role="region" aria-roledescription="carousel" aria-label="FYI screens"><div class="fyq-stage"><figure class="fyq" style="--i:0" data-cap="Chats: the Copper Hours crew and friends"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-1.webp" srcset="img/fyi-proto-1.webp 590w, img/fyi-proto-1-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="FYI chat list in dark mode: the Copper Hours group with Theo typing, direct chats with Ines, Kofi and Theo, and a collective" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:1" data-cap="A voice note, transcribed under the bubble"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-2.webp" srcset="img/fyi-proto-2.webp 590w, img/fyi-proto-2-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="Copper Hours group chat: a 2.1 GB stems file at full size, a voice note with its transcript, and the crew's replies" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq on" style="--i:2" data-cap="A private AI catch-up with every point sourced"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-3.webp" srcset="img/fyi-proto-3.webp 590w, img/fyi-proto-3-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="A private FYI AI catch-up card in the group chat: While you were away, with three updates and one open question" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:3" data-cap="A message in the chat becomes a task"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-4.webp" srcset="img/fyi-proto-4.webp 590w, img/fyi-proto-4-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="New task sheet filled from Theo's message: name, due date, assignee, and a waiting-on task with no date" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:4" data-cap="Launch night, promoted from the chat"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-5.webp" srcset="img/fyi-proto-5.webp 590w, img/fyi-proto-5-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="An event card for Copper Hours Launch Night, Fri, Nov 20 at Dock Hall 3, with Going, a story, a post and a link page, and RSVPs in the thread" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure></div><div class="fyq-bar"><p class="fyq-cap"><span class="fyq-n">03</span><span class="fyq-t">A private AI catch-up with every point sourced</span></p><div class="fyq-dots"><button type="button" class="fyq-dot" aria-label="Screen 1 of 5: Chats: the Copper Hours crew and friends"></button><button type="button" class="fyq-dot" aria-label="Screen 2 of 5: A voice note, transcribed under the bubble"></button><button type="button" class="fyq-dot" aria-label="Screen 3 of 5: A private AI catch-up with every point sourced" aria-current="true"></button><button type="button" class="fyq-dot" aria-label="Screen 4 of 5: A message in the chat becomes a task"></button><button type="button" class="fyq-dot" aria-label="Screen 5 of 5: Launch night, promoted from the chat"></button></div></div></div>
+    <div class="fyi-fan fyi-show rv" role="region" aria-roledescription="carousel" aria-label="FYI screens, latest version with demo content"><div class="fyq-stage"><figure class="fyq" style="--i:0" data-cap="Chats: the Copper Hours crew and friends"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-1.webp" srcset="img/fyi-proto-1.webp 590w, img/fyi-proto-1-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="FYI chat list: the Copper Hours group with Theo typing, direct chats with Ines, Kofi and Theo, and a collective" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:1" data-cap="A voice note, transcribed under the bubble"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-2.webp" srcset="img/fyi-proto-2.webp 590w, img/fyi-proto-2-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="Copper Hours group chat: a 2.1 GB stems file at full size, a voice note with its transcript, and the crew's replies" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq on" style="--i:2" data-cap="A private AI catch-up with every point sourced"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-3.webp" srcset="img/fyi-proto-3.webp 590w, img/fyi-proto-3-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="A private FYI AI catch-up card in the group chat: While you were away, with three updates and one open question" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:3" data-cap="A message in the chat becomes a task"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-4.webp" srcset="img/fyi-proto-4.webp 590w, img/fyi-proto-4-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="New task sheet filled from Theo's message: name, due date, assignee, and a waiting-on task with no date" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:4" data-cap="Launch night, promoted from the chat"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-5.webp" srcset="img/fyi-proto-5.webp 590w, img/fyi-proto-5-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="An event card for Copper Hours Launch Night, Fri, Nov 20 at Dock Hall 3, with Going, a story, a post and a link page, and RSVPs in the thread" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure></div><div class="fyq-bar"><p class="fyq-cap"><span class="fyq-n">03</span><span class="fyq-t">A private AI catch-up with every point sourced</span></p><div class="fyq-dots"><button type="button" class="fyq-dot" aria-label="Screen 1 of 5: Chats: the Copper Hours crew and friends"></button><button type="button" class="fyq-dot" aria-label="Screen 2 of 5: A voice note, transcribed under the bubble"></button><button type="button" class="fyq-dot" aria-label="Screen 3 of 5: A private AI catch-up with every point sourced" aria-current="true"></button><button type="button" class="fyq-dot" aria-label="Screen 4 of 5: A message in the chat becomes a task"></button><button type="button" class="fyq-dot" aria-label="Screen 5 of 5: Launch night, promoted from the chat"></button></div></div></div>
   </div>
 </section>
 
 <!-- ============================================================ IA -->
 <section id="ia">
   <div class="wrap">
-    <span class="bignum" aria-hidden="true">06</span>
+    <span class="bignum" aria-hidden="true">05</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study 06</div>
+        <div class="label">Interactive maps</div>
         <h2>Information architecture</h2>
       </div>
-      <div><p>I mapped Hear's product, website and sign-in flows, including the admin layer: data retention, the anonymizer, 2FA, team permissions and impersonation. Pick a map and open any area.</p>
+      <div><p>I mapped Hear's product, website and sign-in flows, including the admin layer: data retention, the anonymizer, 2FA, team permissions and impersonation.</p>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-ia"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about information architecture</span></button></div></div>
     </div>
-    <div class="mr-body mr-head mr-col" id="mr-ia"><div class="mr-in"><div><p>The product map runs from the dashboard to settings and billing, plus global controls such as the project switcher, the theme and impersonation. The other two maps cover the marketing site and the sign-in, sign-up and password reset flows.</p></div></div></div>
+    <div class="mr-body mr-head mr-col" id="mr-ia"><div class="mr-in"><div><p>The product map runs from the dashboard to settings and billing, plus global controls such as the project switcher and the theme.</p></div></div></div>
     <div class="ia" id="ia-app">
       <div class="ia-bar">
         <div class="ia-tabs" role="tablist" aria-label="Maps">
@@ -3084,21 +3074,21 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
     <div class="sec-head">
       <div>
         <div class="label">Redesign &amp; rebrand</div>
-        <h2>Process</h2>
+        <h2>An eight-phase plan</h2>
       </div>
-      <div><p>I planned Hear's redesign and rebrand as one program in eight phases.</p>
-        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-process"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the process</span></button></div></div>
+      <div><p>I planned Hear's redesign and rebrand as one program, from market research to the workflows between design, development and marketing.</p>
+        <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-process"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about the plan</span></button></div></div>
     </div>
-    <div class="mr-body mr-head mr-center" id="mr-process"><div class="mr-in"><div><p>Each phase has clear tasks and deliverables, from understanding the market to the workflows between design, development and marketing.</p></div></div></div>
+    <div class="mr-body mr-head mr-center" id="mr-process"><div class="mr-in"><div><p>The plan puts its two brand phases, Branding and Designing, before the website and the product.</p></div></div></div>
     <ol class="phases">
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="research"></span><span class="n">01</span></div><h3>Research</h3><p>Market and competitors, Hear's unique value, audiences, users and personas.</p></li>
+      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="research"></span><span class="n">01</span></div><h3>Research</h3><p>Market and competitors, Hear's unique value proposition, audiences, users and personas.</p></li>
       <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="brand"></span><span class="n">02</span></div><h3>Branding</h3><p>Essence and personality, identity, messaging, voice and tone, UX writing.</p></li>
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="visual"></span><span class="n">03</span></div><h3>Visual design</h3><p>Visual research, concepts, and crafting the identity.</p></li>
+      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="visual"></span><span class="n">03</span></div><h3>Designing</h3><p>Visual research, concepts and the visual identity.</p></li>
       <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="web"></span><span class="n">04</span></div><h3>Website</h3><p>Information architecture, wireframes, design, video, development.</p></li>
       <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="onboard"></span><span class="n">05</span></div><h3>Growth</h3><p>Sign-up, onboarding and setup, product walkthroughs.</p></li>
       <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="product"></span><span class="n">06</span></div><h3>Product</h3><p>Current-state map, user types and paths, MVP scope, AI and LLM capabilities.</p></li>
       <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="ui"></span><span class="n">07</span></div><h3>UI design</h3><p>Product design, redesign flows, handoff and the design system.</p></li>
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="loop"></span><span class="n">08</span></div><h3>Ways of working</h3><p>Principles, design-dev and marketing-design workflows, testing and iteration.</p></li>
+      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="loop"></span><span class="n">08</span></div><h3>Process</h3><p>Principles, design-dev and marketing-design workflows, testing and iteration.</p></li>
     </ol>
     <p class="coda rv">My solutions start from how customers really use the product, so they get value worth paying for with the least effort. <span>That's part of why Hear keeps growing and winning customers.</span></p>
   </div>
@@ -3109,7 +3099,7 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <div class="label">2020 to now</div>
+        <div class="label">2020–now</div>
         <h2>Experience</h2>
       </div>
     </div>
@@ -3119,8 +3109,8 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-hear"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Hear</span></button><div class="mr-body" id="mr-job-hear"><div class="mr-in"><div><p>I built the brand from zero, ran UX research and user testing on complex workflows, and built the Design Lab.</p><div class="chips"><span>Design system</span><span>Brand from zero</span><span>UX research</span></div></div></div></div></div></div></li>
       <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">2022 – 2023 · Be'er Sheva</div><div class="co"><span class="co-mk" aria-hidden="true">T</span><h3>Tap Mobile</h3></div><p class="role">User experience designer</p></div><div><p class="d">Consumer mobile apps, one with 100 million downloads. A/B tests and funnel analytics guided the UX, and I took on product definition too.</p><div class="chips"><span>Mobile apps</span><span>A/B testing</span></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-job-tap"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about my work at Tap Mobile</span></button><div class="mr-body" id="mr-job-tap"><div class="mr-in"><div><p>I worked with product managers and developers, and led the design of several engagement-focused apps.</p><div class="chips"><span>Product definition</span><span>Engagement</span></div></div></div></div></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">May – Dec 2020 · Be'er Sheva</div><div class="co"><span class="co-mk" aria-hidden="true">Q</span><h3>Qualish</h3></div><p class="role">UX/UI designer</p></div><div><p class="d">Wireframes, workflows and interactive prototypes, with senior management.</p><div class="chips"><span>Wireframes</span><span>Prototyping</span></div></div></li>
-      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">Mar – Jun 2020 · Tel Aviv</div><div class="co"><span class="co-mk" aria-hidden="true">V</span><h3>VPlanSolutions</h3></div><p class="role">User experience designer</p></div><div><p class="d">Designed the logo and the website.</p><div class="chips"><span>Logo design</span><span>Web design</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">May–Dec 2020 · Be'er Sheva</div><div class="co"><span class="co-mk" aria-hidden="true">Q</span><h3>Qualish</h3></div><p class="role">UX/UI designer</p></div><div><p class="d">I worked with senior management on wireframes, workflows and interactive prototypes.</p><div class="chips"><span>Wireframes</span><span>Prototyping</span></div></div></li>
+      <li class="job rv"><span class="dot" aria-hidden="true"></span><div class="lead"><div class="when">Mar–Jun 2020 · Tel Aviv</div><div class="co"><span class="co-mk" aria-hidden="true">V</span><h3>VPlanSolutions</h3></div><p class="role">User experience designer</p></div><div><p class="d">I designed the company's logo and website.</p><div class="chips"><span>Logo design</span><span>Web design</span></div></div></li>
     </ol>
   </div>
 </section>
@@ -3131,9 +3121,9 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
   <div class="end-globe-clip" aria-hidden="true"><svg class="end-globe" viewBox="-100 -100 200 200" focusable="false"><g transform="rotate(-22)"><circle r="96" pathLength="1" style="--i:0"/><ellipse rx="92.73" ry="96" pathLength="1" style="--i:1"/><ellipse rx="83.14" ry="96" pathLength="1" style="--i:2"/><ellipse rx="67.88" ry="96" pathLength="1" class="c" style="--i:3"/><ellipse rx="48.0" ry="96" pathLength="1" style="--i:4"/><ellipse rx="24.85" ry="96" pathLength="1" style="--i:5"/><ellipse rx="0.0" ry="96" pathLength="1" style="--i:6"/><ellipse rx="24.85" ry="96" pathLength="1" style="--i:7"/><ellipse rx="48.0" ry="96" pathLength="1" style="--i:8"/><ellipse rx="67.88" ry="96" pathLength="1" style="--i:9"/><ellipse rx="83.14" ry="96" pathLength="1" style="--i:10"/><ellipse rx="92.73" ry="96" pathLength="1" style="--i:11"/></g></svg></div>
   <div class="wrap">
     <h2 class="label" id="contact-h" style="margin-bottom:20px">Contact</h2>
-    <a class="big" href="mailto:ofirnona123@gmail.com">Let's talk <span aria-hidden="true">→</span></a>
-    <span class="tn-live" role="status" aria-live="polite"></span><p class="talk-note" hidden><span class="tn-ok" aria-hidden="true">✓</span> <span class="tn-t">Email copied: ofirnona123@gmail.com</span> <a class="tn-g" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=ofirnona123@gmail.com&amp;su=Hi%20Ofir" target="_blank" rel="noopener">Write in Gmail ↗</a></p>
-    <p class="pitch">Hiring a product designer for an AI or <span class="nw">data-heavy</span> product? I'd like to hear about it.</p>
+    <a class="big" href="mailto:ofirnona123@gmail.com">Email me <span aria-hidden="true">→</span></a>
+    <span class="tn-live" role="status" aria-live="polite"></span><p class="talk-note" hidden><span class="tn-ok" aria-hidden="true">✓</span> <span class="tn-t">Email copied: ofirnona123@gmail.com</span> <a class="tn-g" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=ofirnona123@gmail.com&amp;su=Hi%20Ofir" target="_blank" rel="noopener">Write in Gmail ↗︎</a></p>
+    <p class="pitch">Hiring a product designer for an AI or <span class="nw">data-heavy</span> product? I'd be glad to talk.</p>
     <div class="row"><span class="mail"><a class="dp" href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a><button type="button" class="copy" data-copy="ofirnona123@gmail.com" aria-label="Copy email address" aria-live="polite">Copy</button></span><a class="dp" href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a><a class="dp" href="ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></div>
     
   </div>
@@ -3187,18 +3177,13 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
   if (reduce) vids.forEach(v => { v.controls = true; });
 })();
 
-// hero: parallax tilt + count-up
+// hero: parallax tilt (the stats show their final numbers from the first paint)
 (() => {
   const st = document.getElementById('stack'); const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hero = document.getElementById('top'); if (hero && 'IntersectionObserver' in window) new IntersectionObserver(([e]) => hero.classList.toggle('off', !e.isIntersecting)).observe(hero);
   if (st && !reduce && matchMedia('(pointer: fine)').matches) {
     addEventListener('mousemove', e => { if (st.classList.contains('hx-tilt') || (hero && hero.classList.contains('off'))) return; const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5; st.style.transform = `rotateY(${-16 + x * 10}deg) rotateX(${8 - y * 8}deg)`; });
   }
-  document.querySelectorAll('.count').forEach(el => {
-    if (reduce) return; const to = +el.dataset.to; let t0;
-    const run = t => { t0 ??= t; const k = Math.min(1, (t - t0) / 1400); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(run); };
-    setTimeout(() => requestAnimationFrame(run), 400);
-  });
 })();
 
 // information architecture explorer
@@ -3240,7 +3225,7 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
       return `<button type="button" class="ia-area${on ? ' open' : ''}${s && !h ? ' dim' : ''}${h ? ' match' : ''}" aria-expanded="${on}" aria-controls="ia-sub-${i}" data-name="${esc(name)}"><span class="nm">${mark(name, s)}</span>${h ? `<em class="hits" aria-label="${h} matches">${h}</em>` : ''}<span class="ct" aria-label="${n} items">${n}</span><span class="cv" aria-hidden="true"></span></button>`
         + `<div class="ia-sub${on ? ' open' : ''}" id="ia-sub-${i}" role="region" aria-label="${esc(name)}"><div class="ia-sub-in"><div class="ia-sub-h"><b>${esc(name)}</b><span>${n} ${n === 1 ? 'item' : 'items'}</span></div><div class="ia-cls">${cl}</div></div></div>`;
     }).join('');
-    if (!s) stat.textContent = `${m.groups.length} areas · ${m.count} nodes`;
+    if (!s) stat.textContent = `${m.groups.length} areas · ${m.count - m.groups.length} items`;
     else if (total) stat.textContent = `${total} ${total === 1 ? 'match' : 'matches'} · ${areas ? `${areas} ${areas === 1 ? 'area' : 'areas'}` : 'Global'}`;
     else { const other = tabs.map(t => t.dataset.map).filter(k => k !== key && hitsIn(k, s)); stat.textContent = other.length ? `No matches here · try ${IA[other[0]].label}` : 'No matches'; }
     tabs.forEach(t => {
@@ -4224,6 +4209,23 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     nav.appendChild(b); return b;
   });
   cards[0].before(nav);
+  // the index lets go once the stack is complete: when the last card reaches its pin (or would meet the index), or sooner if a card pinned below it starts to slide off its pin
+  // (a taller card leaves first), the index scrolls away, so it never sits over a card or stays on into the next section. Its bottom margin ends its sticky run there; the first card's top margin gives the same amount back, so nothing moves
+  const lastCard = cards[cards.length - 1], railEl = cards[0].parentElement;
+  const release = () => {
+    nav.style.marginBottom = ''; cards[0].style.marginTop = '';
+    const s = getComputedStyle(nav); if (s.display === 'none' || s.position !== 'sticky') return;
+    const top = parseFloat(s.top) || 0, h = nav.offsetHeight, pin = parseFloat(lastCard.style.getPropertyValue('--pin')) || 0;
+    const y0 = lastCard.getBoundingClientRect().top, end = railEl.getBoundingClientRect().bottom - (parseFloat(getComputedStyle(railEl).paddingBottom) || 0);
+    const lead = Math.max(Math.max(top + h + 16, pin) + end - y0, ...cards.map(c => parseFloat(getComputedStyle(c).top)).map((p, i) => p >= top + h ? p + cards[i].offsetHeight : 0));
+    const m = Math.max(0, Math.round(lead - top - h)), m1 = parseFloat(getComputedStyle(cards[0]).marginTop) || 0;
+    nav.style.marginBottom = m + 'px'; cards[0].style.marginTop = (m1 - m) + 'px';
+    const dy = lastCard.getBoundingClientRect().top - y0; if (Math.abs(dy) > .5) cards[0].style.marginTop = (m1 - m - dy) + 'px';
+  };
+  let rlt = 0; addEventListener('resize', () => { clearTimeout(rlt); rlt = setTimeout(release, 200); });
+  addEventListener('load', release); if (document.fonts) document.fonts.ready.then(release);
+  if ('ResizeObserver' in window) { const ro = new ResizeObserver(() => release()); ro.observe(railEl); ro.observe(lastCard); }
+  release();
   // the Data and Signals windows open on an empty greeting; while paused, rest them on the frame their poster shows
   sec.querySelectorAll('video[data-poster*="-poster-d"]').forEach(v => {
     const rest = () => { if (v.paused && v.currentTime < 1.5 && v.readyState >= 1) { try { v.currentTime = 3; } catch (e) {} } };
@@ -4453,12 +4455,15 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   const sheet = document.createElement('div'); sheet.className = 'nav-sheet'; sheet.id = 'nav-sheet';
   sheet.setAttribute('role', 'region'); sheet.setAttribute('aria-label', 'Sections');
   links.forEach(a => { const c = document.createElement('a'); c.href = a.getAttribute('href'); c.textContent = a.textContent; c.tabIndex = -1; sheet.appendChild(c); });
+  // the CV link (hidden in the bar on phones) closes the sheet, as a file that opens in a new tab
+  const cv = ul.querySelector('li.nav-cv a');
+  if (cv) { const c = document.createElement('a'); c.href = cv.getAttribute('href'); c.target = '_blank'; c.rel = 'noopener'; c.className = 'nav-sheet-cv'; c.setAttribute('aria-label', cv.getAttribute('aria-label') || 'CV'); c.innerHTML = 'CV (PDF) <span aria-hidden="true">↗︎</span>'; c.tabIndex = -1; sheet.appendChild(c); }
   wrap.appendChild(sheet);
   const items = [...sheet.querySelectorAll('a')];
   const isOpen = () => sheet.classList.contains('open');
   const set = open => {
     sheet.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open));
-    items.forEach((c, i) => { c.tabIndex = open ? 0 : -1; c.toggleAttribute('aria-current', links[i].hasAttribute('aria-current')); });
+    items.forEach((c, i) => { c.tabIndex = open ? 0 : -1; c.toggleAttribute('aria-current', !!links[i] && links[i].hasAttribute('aria-current')); });
   };
   btn.addEventListener('click', () => { const open = !isOpen(); set(open); if (open && btn.matches(':focus-visible')) items[0].focus(); });
   items.forEach(c => c.addEventListener('click', () => set(false)));
@@ -4469,19 +4474,6 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
 })();
 // smooth scrolling switches on after load (html.ready), so a link to a #section opens right there
 (() => { const ready = () => requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.add('ready'))); if (document.readyState === 'complete') ready(); else addEventListener('load', ready, { once: true }); })();
-
-/* e-code: draw the "How I work" flow line once when the steps scroll into view */
-(() => {
-  const ol = document.querySelector('#code .code-steps.cf');
-  if (!ol || !('IntersectionObserver' in window)) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (ol.getBoundingClientRect().top < innerHeight * .8) return;
-  ol.classList.add('cf-arm');
-  const io = new IntersectionObserver((es) => {
-    if (es.some(e => e.isIntersecting)) { requestAnimationFrame(() => ol.classList.add('cf-on')); io.disconnect(); }
-  }, { rootMargin: '0px 0px -22% 0px' });
-  io.observe(ol);
-})();
 
 // e-fyi: the FYI showcase. Hover, tap or a dot brings a phone to the front and swaps the caption; a gentle auto-advance runs one round while
 // the showcase is in view (stops for good on any interaction; off for reduced motion and on phones); on phones the snap carousel drives it
@@ -5200,7 +5192,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   kick();
 })();
 
-// e-hero: the hero pages take turns, the stack leans toward the pointer, the stats count up once in view.
+// e-hero: the hero pages take turns and the stack leans toward the pointer.
 // Runs after the calm coordinator: only the front page ever holds a video, and the coordinator still decides when it plays
 (() => {
   const hero = document.getElementById('top'), st = document.getElementById('stack');
@@ -5254,25 +5246,6 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
       setTimeout(ping, 400);
     }, 460);
   };
-
-  // count-up: the stats start at zero and count once when they come into view (the earlier load-time count is retired)
-  const stats = hero.querySelector('.stats');
-  if (stats && !reduce && 'IntersectionObserver' in window) {
-    const nums = [...stats.querySelectorAll('.count')].map(el => { const n = el.cloneNode(true); el.replaceWith(n); n.textContent = n.dataset.to; return n; });
-    const ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-    ready.then(() => {
-    nums.forEach(n => { const fs = parseFloat(getComputedStyle(n).fontSize) || 1; n.style.width = (n.getBoundingClientRect().width / fs).toFixed(3) + 'em'; n.textContent = '0'; });
-    const io = new IntersectionObserver(es => {
-      if (!es.some(e => e.isIntersecting)) return; io.disconnect();
-      nums.forEach((n, i) => {
-        const to = +n.dataset.to; let t0;
-        const run = t => { t0 ??= t; const k = Math.min(1, (t - t0) / 1600); n.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(run); };
-        setTimeout(() => requestAnimationFrame(run), 150 + i * 140);
-      });
-    }, { threshold: .5 });
-    io.observe(stats);
-    });
-  }
 
   if (reduce) return;
 

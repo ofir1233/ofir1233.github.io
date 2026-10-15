@@ -202,7 +202,7 @@
     rest: 3,
     times: [0, 8.6, 12.9, 19.1, 32.2],
     beats: [
-      'Most to gain lights up Online Booking, then its scores.',
+      'Most to gain lights up a topic, then its scores.',
       'Clicking its worst score, Handle time, opens Ask AI.',
       'The answer explains what drives the long handle time.',
       'A follow-up asks which signals would catch it early.',

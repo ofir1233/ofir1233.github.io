@@ -164,12 +164,12 @@
     hold: 6000,
     times: [0, 7.6, 11.32, 16.32, 20.48, 23.68, 25.08, 31.4],
     beats: [
-      'The calls table loads with 2,000 calls listed.',
-      'Filter opens, and the calls are described in plain words.',
-      'Generate turns the words into a Priority: High chip.',
-      'A call opens in the side panel beside the table.',
+      'The calls table loads with 2,000 calls.',
+      'Filter opens, and a request is typed in plain words.',
+      'Generate turns the words into a High priority filter chip.',
+      'A call opens in a panel beside the table.',
       'The arrow keys step the panel to the next calls.',
-      'Ask AI is asked about this call, right from the panel.',
+      'A panel button opens Ask AI about this call.',
       'The answer explains the call and suggests related topics.',
     ],
     async run(c) {

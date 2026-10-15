@@ -390,6 +390,7 @@ html { scroll-padding-top: 84px; }
 .more::details-content { block-size: 0; overflow: clip; transition: block-size .45s cubic-bezier(.2,.7,.2,1), content-visibility .45s allow-discrete; }
 .more[open]::details-content { block-size: auto; }
 .more-body { padding-top: 16px; }
+.more-body:empty { display: none; }
 .more-body > * + * { margin-top: 1em; }
 .ch-head .more-body p { max-width: var(--read); }
 .chapter:has(.ch-head .more:not([open])) .xtra { display: none; }
@@ -523,3 +524,17 @@ footer a { display: inline-block; padding-block: 11px; margin-block: -11px; text
 .chapter.sheet:has(+ .wrap > .next) { border-radius: var(--sheet-r); }
 .chapter:not(.sheet):has(+ .wrap > .next) + .wrap > .next { margin-top: 0; }
 .decision .because { max-width: none; padding-right: max(0px, calc(100% - var(--read))); }
+
+/* ---------- quick fixes: the CV in the top bar (it stays on phones, where the previous-case link hides) and a quiet contact strip that opens the footer */
+@media (max-width: 640px) { .topbar nav .pill.pill-cv:not(.solid) { display: inline-flex; padding: 0 9px; } }
+/* FYI has one more control in its bar (pause demos), so between 361 and 389px its "All work" hint goes the way it already goes at 360px; "Ofir." stays the link home */
+@media (max-width: 389px) { .fyi-page .topbar .home i { display: none; } }
+/* below 320px that bar cannot fit the CV pill as well, so FYI drops it there; CV (PDF) stays in the contact strip at the foot of the page */
+@media (max-width: 319px) { .fyi-page .topbar nav .pill.pill-cv { display: none; } }
+.cs-contact { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px 32px; margin-bottom: 24px; padding: 4px 0 26px; border-bottom: 1px solid var(--line); }
+.cs-contact-t { font-size: 15px; font-weight: 500; color: var(--paper); }
+.cs-contact-links { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: 15px; }
+.cs-contact-links a { color: var(--text); text-decoration-color: rgba(238,235,229,.3); transition: color .2s, text-decoration-color .2s; }
+.cs-contact-links a:hover { color: var(--paper); text-decoration-color: currentColor; }
+.cs-contact-links span { color: var(--mute); }
+@media (prefers-reduced-motion: reduce) { .cs-contact-links a { transition: none; } }

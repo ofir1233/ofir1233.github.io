@@ -278,13 +278,13 @@
     times: [0, 2.43, 6.1, 10.1, 15.85, 20.1, 23.53, 26.9, 33.0],
     beats: [
       'The Chat home opens for the Northwind demo.',
-      'A title card reads: thousands of calls, one clear answer.',
+      'A title card reads “Thousands of calls. One clear answer.”',
       'A question about escalations is typed and sent.',
       'The answer counts 23 escalations and ranks their topics.',
       'The view moves in close on the answer, then back.',
       'Topics shows how calls flow into each score zone.',
-      'Compliance trends rise one section at a time.',
-      'Actions holds the follow-up work, then the end card.',
+      'Compliance trend lines rise into place one section at a time.',
+      'The tour ends on Actions, the board for follow-up work.',
     ],
     rest: 3,
     async run(c) {

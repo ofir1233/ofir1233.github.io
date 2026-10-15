@@ -4,8 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Explainable scores · Ofir Nona</title>
-<meta name="description" content="How I designed Compliance and later versions of Agent evaluation in Hear so people can audit an AI score: a quiet heatmap, a popover that places one agent against the team, and answers that point to the calls behind a score.">
+<meta name="description" content="I designed Compliance and Agent evaluation for Hear, an AI platform for contact centers, so people can check an AI score against its calls.">
 <meta name="theme-color" content="#0d0d0e">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ofir1233.github.io/work/explainable-scores.html">
+<meta property="og:title" content="Explainable scores · Ofir Nona">
+<meta property="og:description" content="I designed Compliance and Agent evaluation for Hear, an AI platform for contact centers, so people can check an AI score against its calls.">
+<meta property="og:image" content="https://ofir1233.github.io/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ofir Nona, senior product designer. A Topics screen from Hear Design Lab with demo data.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -38,7 +47,7 @@
 <header class="topbar">
   <div class="wrap">
     <a class="home" href="../index.html#product">Ofir<span>.</span> <i>← All work</i></a>
-    <nav aria-label="Case studies"><a class="pill" href="design-lab.html">← Design Lab</a><a class="pill solid" href="actions.html" aria-label="Next case: Actions">Next case</a></nav>
+    <nav aria-label="Case studies"><a class="pill pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill" href="design-lab.html">← Design Lab</a><a class="pill solid" href="actions.html" aria-label="Next case: Actions">Actions →</a></nav>
     <span class="progress" aria-hidden="true"></span>
   </div>
 </header>
@@ -47,14 +56,14 @@
   <header class="cs-hero wrap">
     <div class="label">Case study · <b>Explainable scores</b></div>
     <h1>Every AI score should lead back to the calls behind it</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>People coach agents and check compliance from AI scores, so they need to audit a score, not just trust it.</dd></div><div><dt>What I designed</dt><dd>In Compliance, and in the Agent evaluation versions I added (V2 to V4 + Filter), the path from a score to its evidence: a grid that colors only failures, a popover that places one agent against the team, and an AI answer that names the calls behind the number.</dd></div><div><dt>In the Lab</dt><dd>Built around how people really coach and audit: asked from a cell, an answer names the calls that pulled that score down, so they can check the AI instead of just trusting&nbsp;it.</dd></div></dl>
+    <dl class="brief"><div><dt>The challenge</dt><dd>Hear is an AI platform for contact centers. People coach agents and check compliance from AI scores, so they need to audit them.</dd></div><div><dt>What I designed</dt><dd>I designed Compliance, which checks agents against the contact center's rules. I also designed Agent evaluation, which scores each agent: my first version, then V2 to V4 + Filter.</dd></div><div><dt>Where it stands</dt><dd>Screens from Oct 2026 in Hear Design Lab, a working replica of Hear. Not every version in the Lab is finished.</dd></div></dl>
     <dl class="meta">
-      <div><dt>Role</dt><dd>Only designer and product person</dd></div>
-      <div><dt>When</dt><dd>2026 · screens from Oct 2026</dd></div>
-      <div><dt>Scope</dt><dd>Compliance heatmap and cell popover · Agent evaluation V2 to V4 + Filter · score answers in Ask AI</dd></div>
+      <div><dt>Role</dt><dd>Design and build in the Lab, with Claude Code</dd></div>
+      <div><dt>When</dt><dd>2026</dd></div>
+      <div><dt>Scope</dt><dd>Compliance heatmap and popover · Agent evaluation chart · score answers in Ask AI</dd></div>
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
-    <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#grid"><span>02</span> A quiet grid</a><a class="pill" href="#cell"><span>03</span> One cell, in context</a><a class="pill" href="#answers"><span>04</span> Answers with evidence</a><a class="pill" href="#decisions"><span>05</span> Decisions</a></nav>
+    <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#grid"><span>02</span> Compliance</a><a class="pill" href="#cell"><span>03</span> The popover</a><a class="pill" href="#answers"><span>04</span> Ask AI</a><a class="pill" href="#decisions"><span>05</span> Decisions</a></nav>
     <figure class="ct-fig ct-hero es-stage" id="demo" data-lx-stage style="--pw:114cqw;--px:0cqw;--py:-15.6cqw;--wx:3.5cqw;--wy:10.3cqw;--ww:43cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-12cqw;--pw-s:136cqw;--px-s:-20cqw;--py-s:-11cqw">
       <div class="ct-stage">
         <div class="ct-band">
@@ -62,29 +71,29 @@
         </div>
         <div class="ct-win">
           <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
-          <div class="lx" data-lab="compliance" role="img" aria-label="Compliance in the Design Lab, light theme, step by step: the Compliance home opens on its KPIs and a trend for each criterion against a target line; hovering the trend shows every criterion's score for that day; the Agents tab shows a heatmap of criteria by agent; hovering a cell tints it and marks its row; a click on one cell opens a popover that places that agent against the whole team; Explore in Chat hands the cell to Ask AI; the answer explains the score and names the calls that pulled it down."></div>
+          <div class="lx" data-lab="compliance" role="img" aria-label="Compliance: criterion trends, the agents heatmap, one cell's popover, and an Ask AI answer that names the calls behind the score."></div>
         </div>
       </div>
       <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
-      <figcaption><b>From a grid to the evidence, one click at a time.</b> The Compliance home, the agents heatmap, one cell's popover, then Ask AI explaining that score with the calls behind it.</figcaption></figure>
+      <figcaption><b>From a grid to the evidence.</b> The demo narrows from every criterion to one score and its Ask AI answer.</figcaption></figure>
   </header>
 
   <section class="chapter" id="problem">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">01 · <b>The problem</b></div><h2>A score you can't question is a score you can't use</h2></div>
+        <div><div class="label">01 · <b>The problem</b></div><h2>An unexplained score leaves two bad options</h2></div>
         <div class="prose">
-          <p class="lead">If an AI produced the number and nothing explains it, there are two bad options: trust it blindly, or ignore it.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>These are scores about people. The person reading them decides who needs coaching, or where a compliance rule is being missed.</p>
-          <p>Agent evaluation started as my V1 in the Design Lab, which I built from scratch. In the Lab's July 2026 build it showed a score over time, a score per skill, and tables of teams and agents, but nothing said why a score was what it was. Compliance wasn't built yet.</p>
-          <p>The screens here are from October 2026: Compliance, and the Agent evaluation versions I added to its version switcher, V2, V3, V4 and V4 + Filter. Not every version in the Lab is finished.</p>
-          <p>My job across Hear's product is to make a lot of data feel calm. On these two surfaces that comes down to three moves.</p></div></details>
+          <p class="lead">These scores are about people, and when nothing explains one, the person reading it can only trust the number blindly or ignore it.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body">
+          <p>Agent evaluation started as my first version in the Lab. In the Lab's July 2026 build, it showed scores over time and per skill, with tables of teams and agents. Nothing said why a score was what it was, and Compliance wasn't built yet.</p>
+          
+          <p>Both screens follow three principles.</p></div></details>
         </div>
       </div>
       <ol class="steps rv xtra">
         <li><strong>Show what matters first</strong><span>A full grid of agents and criteria where only the failing scores get color.</span></li>
-        <li><strong>Explain every number</strong><span>Any score opens into its place in the team, then into the calls behind it.</span></li>
-        <li><strong>Act from the same screen</strong><span>Explore in Chat, open the agent's evaluation, or draft coaching notes, without losing the context.</span></li>
+        <li><strong>Explain every number</strong><span>Any score opens into its place in the team, then into the evidence behind it.</span></li>
+        <li><strong>Act from the same screen</strong><span>Explore in Chat, open the agent's evaluation or draft coaching notes, without losing the context.</span></li>
       </ol>
     </div>
   </section>
@@ -94,9 +103,9 @@
       <div class="ch-head">
         <div><div class="label">02 · <b>Compliance</b></div><h2>A grid that stays quiet until something fails</h2></div>
         <div class="prose">
-          <p class="lead">Agents across, criteria down: each cell is one agent's score on one rule, over the selected date range.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Before the grid, the Compliance home shows each criterion's trend against a dashed target line. The Agents tab is where the detail lives.</p>
-          <p>The last row counts each agent's failing criteria, so the worst columns stand out without reading a single cell.</p></div></details>
+          <p class="lead">Only failing cells get color, so a row of grays looks fine before anyone reads a number.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The Compliance home shows each criterion's trend against a dashed target line. The Agents tab holds the grid, with agents across and criteria down. Each cell is one agent's score on one rule over the selected date range.</p>
+          <p>The last row counts each agent's failing criteria, so the worst columns stand out.</p></div></details>
         </div>
       </div>
       <figure class="rv"><div class="shot"><img src="../img/cs-explainable-scores-heatmap-nw.webp" data-zoom alt="The Compliance Agents heatmap in dark theme: five criteria as rows, about twenty agents as columns, cells in grays with coral cells where a score fails, a Failing criteria row at the bottom, a Problems only switch and a five-step legend, and one cell's popover open" width="1600" height="793" loading="lazy"><span class="live">Design Lab · demo data</span></div>
@@ -110,9 +119,9 @@
           <figcaption><b>The scale, redrawn.</b> The five steps of the Compliance legend, in the light theme's colors.</figcaption>
         </figure>
         <div class="prose xtra">
-          <p>The legend has five steps. In the light theme, the three passing steps are grays, from dark slate to light gray. Only the two failing steps are coral, and they are exactly the cells the bottom row counts.</p>
-          <p>So a row of grays reads as fine before anyone reads a number, and coral appears only where a rule is failing. Every cell still prints its score, so color is never the only cue. Beside the legend sits a <b>Problems only</b> switch.</p>
-          <p class="why"><b>Design choice:</b> only problems get color. A full grid of agents and criteria stays quiet until something needs attention.</p>
+          <p>In the light theme, the legend's three passing steps are grays, from dark slate to light gray. Only the two failing steps are coral, and they are exactly the cells the bottom row counts.</p>
+          <p>Every cell still prints its score, so color is never the only cue. Beside the legend sits a <b>Problems only</b> switch.</p>
+          
         </div>
       </div>
     </div>
@@ -122,21 +131,21 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">03 · <b>The popover</b></div><h2>One agent, placed against the whole team</h2></div>
-        <div class="prose"><p class="lead">Click a cell and a popover opens beside it.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>It answers three questions in order: how good is this score, compared with whom, and what can I do next.</p></div></details></div>
+        <div class="prose"><p class="lead">Clicking a cell opens a popover that puts the score in context and says what its main button will do.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
       </div>
       <div class="two">
         <figure class="rv"><div class="shot pad es-narrow"><img src="../img/cs-explainable-scores-popover-nb.webp" alt="The cell popover: the agent name, the criterion and selected date range, the score with its difference from the team average and its rank, a histogram across all agents with the team average marked, a line saying what the next button does, an Explore in Chat button and an Open agent evaluation link" width="310" height="496" loading="lazy"><span class="live">Design Lab · demo data</span></div>
           <figcaption><b>The cell popover.</b> Cropped from the Compliance screen, dark theme.</figcaption></figure>
         <div class="prose xtra">
           <ul>
-            <li>The header names the agent, the criterion and the date range, so the number is never read without its scope.</li>
+            <li>The header names the agent, criterion and date range, so the number is never read without its scope.</li>
             <li>The score sits next to its difference from the team average, and its rank among all agents.</li>
-            <li>A small histogram shows every agent's score on this criterion: the low end, the team average as a dashed line, the high end, and this agent's bar lit up.</li>
+            <li>A small histogram shows every agent's score on this criterion, with the team average as a dashed line and this agent's bar lit up.</li>
             <li>One sentence comes before the buttons: "Opens Chat, which looks up this agent's calls. Nothing extra loads until you click."</li>
             <li>Then two ways forward: <b>Explore in Chat</b> as the main button, and <b>Open agent evaluation</b> as a quieter link.</li>
           </ul>
-          <p class="why"><b>Design choice:</b> the popover says what the next button will do before you press it. Opening cells loads nothing extra; the lookup of calls starts only when someone asks for it.</p>
+          
         </div>
       </div>
     </div>
@@ -146,56 +155,56 @@
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">04 · <b>Ask AI</b></div><h2>An answer that shows its evidence</h2></div>
-        <div class="prose"><p class="lead"><b>Explore in Chat</b> hands the cell to Ask AI.</p>
+        <div class="prose"><p class="lead"><b>Explore in Chat</b> sends the cell to Ask AI, and its answer names the calls that lowered the score.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The question arrives already written, with the agent, the criterion and the score in it. The page and the project stay attached as context chips at the top of the chat.</p></div></details></div>
       </div>
       <div class="two">
         <figure class="rv"><div class="shot pad es-light es-narrow"><img src="../img/cs-explainable-scores-ask-ai-nb.webp" alt="An Ask AI answer: the score as the average of a stated number of calls over a date range, a list headed Calls that pulled it down most with each call's score, the missed step and a short quote, a Pattern paragraph saying it may be a script or process issue, not only coaching, then answer actions and Related follow-ups" width="420" height="680" loading="lazy"><span class="live">Design Lab · demo data</span></div>
           <figcaption><b>An answer about one score.</b> From the Agent evaluation screen, light theme.</figcaption></figure>
         <div class="prose es-prose xtra">
-          <p>Every answer asked from a cell has the same four parts, and the first three point at something you can check:</p>
+          <p>An answer asked from a cell has four parts, and the first three point at something you can check:</p>
           <ol>
             <li><b>What the score is.</b> The average of a stated number of calls, between two stated dates.</li>
-            <li><b>Calls that pulled it down most.</b> Each with its call number, its score, the step that was missed, and a short quote from the call.</li>
+            <li><b>Calls that pulled it down most.</b> Each with its call number, its score, the missed step and a short quote from the call.</li>
             <li><b>Pattern.</b> How often the step was missed, and how many other agents miss it too.</li>
-            <li><b>Related.</b> Open the lowest-scoring call, compare with the team average, or draft coaching notes.</li>
+            <li><b>Related.</b> Open the lowest-scoring call, compare with the team average or draft coaching notes.</li>
           </ol>
           <p>When other agents miss the same step, the answer says the cause may be the script or the process, before it offers <b>Draft coaching notes</b>. A score about one person doesn't automatically become that person's fault.</p>
-          <p class="why"><b>Design choice:</b> an answer about one score points to the exact calls behind it, so people can check the AI instead of just trusting it.</p>
+          
         </div>
       </div>
 
       <div class="prose xtra es-gap">
         <h3 style="margin-top:0">The chart explains itself too</h3>
-        <p>The score chart's subtitle states its own encoding: height and color are that period's score, and hovering shows the calls. Low periods turn coral, like the failing cells in Compliance, and a Poor to Good scale sits under the bars. The controls are written out on the chart: scroll to zoom, drag to select, double-click to reset.</p>
+        <p>In Agent evaluation, the score chart's subtitle states its own encoding: height and color are that period's score. Low periods turn coral, like the failing cells in Compliance, and a Poor to Good scale sits under the bars. The controls are written out on the chart: scroll to zoom, drag to select, double-click to reset.</p>
         <h3>Two ways into the same chat</h3>
-        <p>Ask AI also opens from the top of the sidebar. It says "Ask about what you're looking at" and keeps the page and project as context. In the demo below, the chart is zoomed into a dip and the question typed is why the score dropped. The answer is general: the usual causes, and where to check. Decision 1 below compares the two ways in.</p>
+        <p>Ask AI also opens from the top of the sidebar. It says “Ask about what you're looking at” and keeps the page and project as context.</p>
       </div>
 
       <figure class="ct-fig ct-plain rv es-gap" data-lx-stage>
         <div class="ct-stage">
           <div class="ct-win">
             <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
-            <div class="lx" data-lab="agent-eval" role="img" aria-label="Agent evaluation in the Design Lab, light theme, step by step: the page opens on the average score over time, a bar per day; hovering a bar shows its day, its score and how many calls it is based on; a drag across the coral dip zooms the chart to seven days; the zoomed bars keep the same hover detail; Ask AI opens from the sidebar with the page and project as context; the question why the score dropped between Sep 30 and Oct 3 is typed and sent; a general answer lists likely causes and where to check, with related topics; the chat closes on the zoomed chart."></div>
+            <div class="lx" data-lab="agent-eval" role="img" aria-label="Agent evaluation: the score over time, a zoom into a dip, and a general Ask AI answer about it."></div>
           </div>
         </div>
         <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
-        <figcaption><b>A free question about a dip.</b> Zoom into the chart, open Ask AI, ask why it dropped. Compare its general answer with the cell answer above.</figcaption></figure>
+        <figcaption><b>A question from the sidebar.</b> Asked why the score dropped, Ask AI gives a general answer, unlike the cell answer above.</figcaption></figure>
     </div>
   </section>
 
   <section class="chapter ink" id="decisions">
     <div class="wrap">
-      <div class="ch-head"><div><div class="label">05 · <b>Decisions</b></div><h2>Where the design forked</h2></div><div class="prose"><p class="lead">Two forks on the way from a number to its evidence.</p><details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div></div>
+      <div class="ch-head"><div><div class="label">05 · <b>Decisions</b></div><h2>Where the design forked</h2></div><div class="prose"><p class="lead">I kept both ways into Ask AI, the cell and the sidebar, and rebuilt the score chart to control its hover.</p><details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div></div>
 
       <article class="decision rv xtra">
         <div class="label">Decision 1 · <b>Starting point</b></div>
         <h3>Where should a question about a score start?</h3>
         <ul class="opts">
-          <li class="opt"><strong>A blank chat</strong><span>Ask AI from the sidebar, with the page and project as context. You write the question, and you say which number you mean.</span></li>
-          <li class="opt chosen"><strong>The cell itself</strong><span>Explore in Chat, the popover's main button, sends the agent, the criterion and the score along with the question.</span></li>
+          <li class="opt"><strong>A blank chat</strong><span>Ask AI from the sidebar. You write the question and say which number you mean.</span></li>
+          <li class="opt chosen"><strong>The cell itself</strong><span>Explore in Chat, the popover's main button, sends the cell's agent, criterion and score with the question.</span></li>
         </ul>
-        <p class="because"><b>Result:</b> both ways in stay in the Lab, and the two demos on this page show the difference. Asked from the sidebar why the chart dipped, the demo answer lists the usual causes and where to check. Asked from a cell, the answer names the calls that pulled that score down, so the AI can be checked instead of just trusted.</p>
+        <p class="because"><b>Result:</b> I kept both. A question from a cell already names its score, so the answer can point to the calls behind it. The sidebar takes open questions about the page.</p>
       </article>
 
       <article class="decision rv xtra">
@@ -205,7 +214,7 @@
           <li class="opt"><strong>Keep the first chart</strong><span>The area chart from my first version (Recharts). It already drew the score over time.</span></li>
           <li class="opt chosen"><strong>Rebuild it for the hover</strong><span>In March 2026 I swapped it for a new chart (ApexCharts), for finer control over the tooltip and markers.</span></li>
         </ul>
-        <p class="because"><b>Result:</b> in V4 + Filter, hovering a bar shows the day, the score out of 100 and how many calls it rests on. The first rebuild's tooltip showed the date and the score in large type.</p>
+        <p class="because"><b>Result:</b> in V4 + Filter, hovering a bar shows the day, the score out of 100 and how many calls it rests on.</p>
       </article>
     </div>
   </section>
@@ -215,7 +224,7 @@
     <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy.</p></div>
   </div>
 </main>
-<footer><div class="wrap">© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
+<footer><div class="wrap"><div class="cs-contact"><p class="cs-contact-t">Get in touch</p><ul class="cs-contact-links"><li><a href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a></li><li><a href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a></li><li><a href="../ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></li></ul></div>© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
 <script src="lab-live.js" defer></script>
 <script src="lab-compliance.js" defer></script>
 <script src="lab-agent-eval.js" defer></script>

@@ -106,12 +106,12 @@
     // when each beat starts and when the last one ends (s), for progress bars outside the window
     times: [0, 4.17, 7.1, 9.33, 10.83, 13.83, 25.0, 26.4],
     beats: [
-      'Hover a card: quick actions appear.',
-      'Filter to High priority: 4 of 17 stay lit.',
-      'Open a task in the side panel.',
-      'Tick off an action item.',
-      'Move it to In progress. The card moves too.',
-      'Loop in a teammate with an @mention.',
+      'Hovering a card shows its quick actions.',
+      'Filtering to High priority shows 4 of 17 tasks.',
+      'A task opens in the side panel.',
+      'Ticking off an action item updates the progress bar.',
+      'The task moves to In progress, and its card follows.',
+      'An @mention brings a teammate into the thread.',
       'The thread and the activity log keep the record.',
     ],
     async run(c) {
