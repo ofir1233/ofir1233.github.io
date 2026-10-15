@@ -3,25 +3,6 @@
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // light/dark switch in the top bar (light by default; the choice is remembered under the home page's key).
-  // The listener runs first at the button and stops there, so a second binding elsewhere can never toggle twice.
-  const root = document.documentElement, tg = document.querySelector('.theme-tg'), meta = document.querySelector('meta[name="theme-color"]');
-  const applyTheme = t => {
-    root.dataset.theme = t;
-    if (tg) { tg.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'); tg.setAttribute('aria-pressed', String(t === 'dark')); }
-    if (meta) meta.content = t === 'dark' ? '#101614' : '#f3f4f2';
-  };
-  applyTheme(root.dataset.theme === 'dark' ? 'dark' : 'light');
-  if (tg && !tg.dataset.bound) {
-    tg.dataset.bound = '1';
-    tg.addEventListener('click', e => {
-      e.stopImmediatePropagation();
-      const t = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      applyTheme(t);
-      try { localStorage.setItem('ofir-theme', t); } catch (err) {}
-    }, true);
-  }
-
   // hero: the echo rings widen a little as the hero scrolls away
   const hero = document.querySelector('.fyi-hero'), echo = hero && hero.querySelector('.echo');
   if (echo && !reduce) {
