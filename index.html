@@ -2661,7 +2661,7 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
   color-scheme: dark;
 }
 /* the product keeps its own world */
-.lx-app {
+:where(.lx-app) {
   --ink: #0d0d0e; --ink-2: #151517; --ink-3: #1c1c1f; --line: #26262a; --paper: #eeebe5; --mute: #9a978f;
   --coral: #ff7056; --coral-soft: rgba(255,112,86,.14); --cream: #f2efe7; --ink-t: #1b1b1b; --coral-ink: #d4472d;
   --body: "Geist", "Helvetica Neue", Arial, sans-serif; color-scheme: light;
@@ -2931,7 +2931,7 @@ footer .f-fine:where(:not(.lx-app, .lx-app *)){ max-width: 72ch; color: var(--mu
 
 /* =============================================================== DESIGN SYSTEM */
 #system .dw-stat:where(:not(.lx-app, .lx-app *)){ color: var(--paper); }
-#system .dw-stat i:where(:not(.lx-app, .lx-app *)), #system .dw-stat i + span:where(:not(.lx-app, .lx-app *))::before{ color: color-mix(in srgb, var(--mute) 55%, transparent); }
+#system .dw-stat i:where(:not(.lx-app, .lx-app *)), #system .dw-stat i + span:where(:not(.lx-app, .lx-app *))::before{ color: color-mix(in srgb, var(--mute) 75%, transparent); }
 #system .dw-sub:where(:not(.lx-app, .lx-app *)){ color: var(--text-2); }
 #system .dw-pause:where(:not(.lx-app, .lx-app *)){ min-height: 38px; padding: 0 16px 0 14px; border: 0; background: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line); color: var(--paper); font: 600 14px/1 var(--body); letter-spacing: 0; text-transform: none; }
 #system .dw-pause:hover:where(:not(.lx-app, .lx-app *)){ color: var(--paper); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--coral) 45%, var(--line)); }
@@ -3382,7 +3382,7 @@ html section#code:where(:not(.lx-app, .lx-app *)){ padding-top: clamp(56px, 7vw,
 #code .cf-file:where(:not(.lx-app, .lx-app *)){ color: #56635c; background: #f6f7f6; border-bottom-color: #e3e7e4; }
 #code .cf-file .p:where(:not(.lx-app, .lx-app *)){ color: #1f6b4f; }
 #code .cf-file .m:where(:not(.lx-app, .lx-app *)){ color: #a3352b; }
-#code .cf-diff s:where(:not(.lx-app, .lx-app *)){ color: #8c9891; }
+#code .cf-diff s:where(:not(.lx-app, .lx-app *)){ color: #5f6b65; }
 #code .cf-diff .c:where(:not(.lx-app, .lx-app *)){ color: #34413b; }
 #code .cf-diff .m:where(:not(.lx-app, .lx-app *)){ background: #fbecea; color: #9b2f25; }
 #code .cf-diff .p:where(:not(.lx-app, .lx-app *)){ background: #e6f2ec; color: #1b5a43; }
@@ -3483,22 +3483,7 @@ html section#design-lab:where(:not(.lx-app, .lx-app *)){ padding-top: clamp(56px
 #top .stack > .card.c1:where(:not(.lx-app, .lx-app *)){ -webkit-mask-image: linear-gradient(#000 80%, transparent 100%); mask-image: linear-gradient(#000 80%, transparent 100%); }
 #top .stack > .card.c2:where(:not(.lx-app, .lx-app *)), #top .stack > .card.c3:where(:not(.lx-app, .lx-app *)){ opacity: .88 !important; -webkit-mask-image: linear-gradient(to left, #000 50%, transparent 100%); mask-image: linear-gradient(to left, #000 50%, transparent 100%); }
 
-/* Topics: the stage fades from 70%. While the Ask AI panel is open (the answer, the follow-up input, the reduced-motion rest frame),
-   its column stays solid and only the dashboard part fades. On phones the fade runs 82% to 100%, and when the camera is on the panel
-   the panel fills the window, so nothing fades. */
-#product .spot:nth-of-type(1) .ct-plain .ct-stage:where(:not(.lx-app, .lx-app *)){ padding-bottom: 0; }
-#product .spot:nth-of-type(1) .ct-plain .ct-win:where(:not(.lx-app, .lx-app *)){ border-radius: 12px 12px 0 0;
-  -webkit-mask-image: linear-gradient(#000 70%, transparent 99%); mask-image: linear-gradient(#000 70%, transparent 99%); }
-#product .spot:nth-of-type(1) .ct-plain .ct-win:has(.tq-rail .ai.on):where(:not(.lx-app, .lx-app *)){
-  -webkit-mask-image: linear-gradient(#000, #000), linear-gradient(#000 70%, transparent 99%); mask-image: linear-gradient(#000, #000), linear-gradient(#000 70%, transparent 99%);
-  -webkit-mask-size: 28.5% 100%, 100% 100%; mask-size: 28.5% 100%, 100% 100%; -webkit-mask-position: 100% 0, 0 0; mask-position: 100% 0, 0 0;
-  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
-@media (max-width: 719px) {
-  #product#product .spot:nth-of-type(1) .ct-plain .ct-win:where(:not(.lx-app, .lx-app *)){ -webkit-mask-image: linear-gradient(#000 82%, transparent 100%); mask-image: linear-gradient(#000 82%, transparent 100%); }
-  #product#product .spot:nth-of-type(1) .ct-plain .ct-win:has(.tq-rail .ai.on):where(:not(.lx-app, .lx-app *)){
-    -webkit-mask-image: linear-gradient(#000, #000), linear-gradient(#000 82%, transparent 100%); mask-image: linear-gradient(#000, #000), linear-gradient(#000 82%, transparent 100%); }
-  #product#product .spot:nth-of-type(1) .ct-plain .ct-win:has(.lx-cam):has(.tq-rail .ai.on) { -webkit-mask-image: none; mask-image: none; }
-}
+/* Topics: the stage shape now lives in refresh-zz2-pe-product.css (handoff v2) */
 
 /* no filters: the portrait shows as drawn, in both themes */
 #about .me-photo img:where(:not(.lx-app, .lx-app *)), #about .me-photo.me-ill img:where(:not(.lx-app, .lx-app *)), :root[data-theme="dark"] #about .me-photo.me-ill img:where(:not(.lx-app, .lx-app *)){ filter: none !important; }
@@ -3523,6 +3508,205 @@ html section#design-lab:where(:not(.lx-app, .lx-app *)){ padding-top: clamp(56px
 #fyi > .sheet-arc:where(:not(.lx-app, .lx-app *)){ display: block; }
 #fyi > .sheet-arc .a-fill:where(:not(.lx-app, .lx-app *)){ fill: var(--cream); }
 #fyi > .sheet-arc .a-fill[fill^="url"]:where(:not(.lx-app, .lx-app *)), #fyi > .sheet-arc .a-line:where(:not(.lx-app, .lx-app *)){ display: none; }
+
+/* refresh-zz1-pe-hero.css */
+/* pe-hero: the hero windows. The window in front fades at its bottom as on the board (linear, 80% to 100%), except where a scene
+   puts its Ask AI panel, side panel, answer or active control: there the fade is shaped so it never covers them, at any step.
+   Each window keeps ONE mask in every slot, made of the same layers; a turn of the stack only slides those layers
+   (mask-position) in step with the window's own move, so nothing jumps. All values are percentages of the window
+   (the Lab frame is 1440x900 at every width, so the same numbers hold at 1440, 1100, 960 and 390).
+   Layers, top to bottom:
+     side    the back-slot fade: clear at the left edge, solid from 50% (the board's back windows; the page's own rule keeps them at .88).
+             In front it is slid past the left edge, so it does nothing there. It intersects everything below it.
+     column  Topics and Actions: where the panel column begins, a wide soft rise (from 50% of the width) from the dashboard's
+             fade to a column that stays solid to the window's bottom edge. Added to the layer below.
+     bottom  the board's front fade, linear 80% to 100% (Compliance: 92% to 100%). Written in a 120%-tall tile, so in the
+             back slots it is slid just below the window and does nothing there.
+   Composite: side ∩ (column ∪ bottom).
+   The column is solid to the bottom edge because the panels' content runs nearly that far: Topics' follow-up composer ends at
+   96.9% of the frame (872 of 900) and the panel at 98.6%; Actions' thread text runs to the panel's bottom edge at 98.3%. A fade
+   in the last 1.5% would be about 4 px on screen at 1440.
+   The column edges depend on the Lab layouts: Topics' Ask AI panel starts at 72.7% of the frame (lab-topics.js: left
+   78 + 955 + 14 = 1047 of 1440), Actions' task panel at 64.1% (lab-actions.css .dw: left 923 of 1440); each column is solid
+   1.6% before its panel. If a Lab layout changes, re-run the step check. */
+
+/* Topics: the dashboard fades 80% to 100%; from 50% to 71% of the width the fade gives way to the Ask AI column (question,
+   answers, related and the follow-up composer, steps 2-4), which stays solid. In step 1 the column falls on the Daily score
+   card (63.6% to 99%), whose lower rows fade less toward the right. */
+#top .stack > .card:is(.c1, .c2, .c3):has(> .lx[data-lab="topics"]) {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 33.333%), linear-gradient(to right, transparent 50%, #000 71%), linear-gradient(#000 83.333%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent, #000 33.333%), linear-gradient(to right, transparent 50%, #000 71%), linear-gradient(#000 83.333%, transparent 100%);
+  -webkit-mask-size: 150% 100%, 100% 100%, 100% 120%; mask-size: 150% 100%, 100% 100%, 100% 120%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-composite: source-in, source-over, source-over; mask-composite: intersect, add, add;
+  -webkit-mask-position: 0 0, 0 0, 0 0; mask-position: 0 0, 0 0, 0 0;
+}
+#top .stack > .card.c1:has(> .lx[data-lab="topics"]) { -webkit-mask-position: 100% 0, 0 0, 0 100%; mask-position: 100% 0, 0 0, 0 100%; }
+
+/* Actions: the board fades 80% to 100%; from 50% to 62.5% of the width the fade gives way to the task panel column (comment
+   box, @mention list, Comment button, thread and activity log, steps 3-7), which stays solid. */
+#top .stack > .card:is(.c1, .c2, .c3):has(> .lx[data-lab="actions"]) {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 33.333%), linear-gradient(to right, transparent 50%, #000 62.5%), linear-gradient(#000 83.333%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent, #000 33.333%), linear-gradient(to right, transparent 50%, #000 62.5%), linear-gradient(#000 83.333%, transparent 100%);
+  -webkit-mask-size: 150% 100%, 100% 100%, 100% 120%; mask-size: 150% 100%, 100% 100%, 100% 120%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-composite: source-in, source-over, source-over; mask-composite: intersect, add, add;
+  -webkit-mask-position: 0 0, 0 0, 0 0; mask-position: 0 0, 0 0, 0 0;
+}
+#top .stack > .card.c1:has(> .lx[data-lab="actions"]) { -webkit-mask-position: 100% 0, 0 0, 0 100%; mask-position: 100% 0, 0 0, 0 100%; }
+
+/* Compliance: the Ask AI sheet of steps 6-7 covers 6% to 94% of the width and 7% to 93% of the height (its composer ends
+   at 91%), so no column can keep it: the whole bottom fades, linear, from 92% to 100% (the sheet's bottom edge stays 86% visible). */
+#top .stack > .card:is(.c1, .c2, .c3):has(> .lx[data-lab="compliance"]) {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 33.333%), linear-gradient(#000 93.333%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent, #000 33.333%), linear-gradient(#000 93.333%, transparent 100%);
+  -webkit-mask-size: 150% 100%, 100% 120%; mask-size: 150% 100%, 100% 120%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-composite: source-in, source-over; mask-composite: intersect, add;
+  -webkit-mask-position: 0 0, 0 0; mask-position: 0 0, 0 0;
+}
+#top .stack > .card.c1:has(> .lx[data-lab="compliance"]) { -webkit-mask-position: 100% 0, 0 100%; mask-position: 100% 0, 0 100%; }
+
+/* a turn. The page hides the window that changes places (.hx-out, opacity 0) while it jumps to its new slot, but its own rule
+   loses to the back windows' .88 (both !important, same specificity, the .88 comes later), so a window brought forward from
+   the back popped across the stack at .88. This restores the page's intent; !important because the rule it beats is.
+   The two windows that slide keep their 1 s move, and their mask layers slide with it on the same curve. The window that
+   jumps (.hx-out) keeps the page's own transition, so its mask changes while it is hidden. Reduced motion has no turns. */
+#top .stack > .card.hx-out:is(.c1, .c2, .c3):where(:not(.lx-app, .lx-app *)){ opacity: 0 !important; }
+@media (prefers-reduced-motion: no-preference) {
+  #top .stack > .card:not(.hx-out):has(> .lx:is([data-lab="topics"], [data-lab="actions"], [data-lab="compliance"])) {
+    transition: transform 1s cubic-bezier(.22,.7,.2,1), opacity .9s ease, scale .45s ease, border-color .3s,
+      -webkit-mask-position 1s cubic-bezier(.22,.7,.2,1), mask-position 1s cubic-bezier(.22,.7,.2,1);
+  }
+}
+
+/* refresh-zz2-pe-product.css */
+/* ===== product windows: bottom fades that start below the last row a step uses (board check, 15 Oct), an addition on
+   top of 433d407
+   Each window gets one straight bottom fade, as on the board, that starts below the lowest row any step uses, so the
+   cursor, the numbers a step names, Ask AI answers and composers, side panels, history lists, toasts and hover tips stay
+   fully visible at every step. Where a side panel or the Ask AI column runs to the bottom (Topics, Actions), a solid
+   column is added on the right; it meets the fade through a 16%-wide horizontal ramp, so there is no hard vertical seam.
+   One static shape per window: nothing switches while the steps play. Horizontal stops are shares of the window width
+   (the app scales with it). A vertical stop written as calc(F% + Gpx) sits on the same app row at every width, because
+   the 30px title bar does not scale: app row f is at f * 100% + (1 - f) * 30px of the window.
+   Phones (under 720px, where lab-live.js switches the windows to the 480x600 camera) get no fade on these windows: at
+   some step each one's composer, panel or activity list sits in the bottom 15% of the camera frame. */
+
+@media (min-width: 720px) {
+  /* Topics: replaces the live rule, whose solid column switched on with the Ask AI rail button and drew a hard vertical
+     seam across the Daily score card for the frames before the panel slid over it. The right 28.5% (the Ask AI column,
+     from 72.8% of the window) is solid at every step, ramping in from 55.5%. The dashboard fades from 85% to 100%, below
+     the hover tooltip that rides on the cursor (its lowest line reaches 83.7% of the window at 1440 and 84.2% at 960 in
+     step 1, "then its scores"); the board's 70% start faded that tooltip to 0.53. Two IDs so this outranks both live
+     rules (1,4,0 and 1,7,0) without !important. */
+  #product .ct-plain .ct-win:has(.lx[data-lab="topics"], .lx[data-lab-wait="topics"]) {
+    -webkit-mask-image: linear-gradient(#000 85%, transparent 100%), linear-gradient(to right, transparent 55.5%, #000 71.5%);
+    mask-image: linear-gradient(#000 85%, transparent 100%), linear-gradient(to right, transparent 55.5%, #000 71.5%);
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-position: 0 0; mask-position: 0 0;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-composite: source-over; mask-composite: add;
+  }
+
+  /* Agent evaluation: one straight fade from app row 91.5%, below the Ask AI composer (its ring ends at app row 90.9%),
+     where the question is typed in step 6 and which stays on screen with the answer in step 7. Only the Team performance
+     header and its search field (steps 1-4 and 8) and the bottom of the sidebar fade. */
+  #product .ct-plain .ct-win:has(.lx[data-lab="agent-eval"], .lx[data-lab-wait="agent-eval"]) {
+    -webkit-mask-image: linear-gradient(#000 calc(91.5% + 2.55px), transparent 100%);
+    mask-image: linear-gradient(#000 calc(91.5% + 2.55px), transparent 100%);
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  }
+
+  /* Actions: the board fades from app row 87.5%, below the footer of "Recording disclosure missing" (app row 86.5%),
+     the lowest of the 4 High priority results step 2 shows. The task panel (from 64.1% of the width; properties, action
+     items, the comment composer, the thread and the activity log down to 98.5% in steps 3-7) stays solid at every
+     step, ramping in from 47.5%. */
+  #product .ct-plain .ct-win:has(.lx[data-lab="actions"], .lx[data-lab-wait="actions"]) {
+    -webkit-mask-image: linear-gradient(#000 calc(87.5% + 3.75px), transparent 100%), linear-gradient(to right, transparent 47.5%, #000 63.5%);
+    mask-image: linear-gradient(#000 calc(87.5% + 3.75px), transparent 100%), linear-gradient(to right, transparent 47.5%, #000 63.5%);
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-composite: source-over; mask-composite: add;
+  }
+
+  /* Data: no fade, as live (cropped by the frame). At some step its bottom is taken by the Filters applied toast
+     (50-58% wide, 94-98% high, step 3), the Ask AI composer (29-71%, 84-92%, steps 6-7), the call panel and its
+     Ask AI button (75-99% wide, down to 99%, steps 4-7) and the filter popover (29-51%, down to 99%, steps 2-3). */
+}
+
+@media (max-width: 719px) {
+  /* Topics on phones: no fade. From step 2 the camera frames the Ask AI panel, with its composer at 81-95% of the
+     frame, and the live rule's drop of the fade when the panel opens left the dashboard's bottom band without its
+     fade for about half a second before the camera reached the panel. Three IDs so this outranks the live phone rules
+     (up to 2,8,0). */
+  #product .ct-plain .ct-win:has(.lx[data-lab="topics"], .lx[data-lab-wait="topics"]) {
+    -webkit-mask-image: none; mask-image: none;
+  }
+}
+
+/* refresh-zz3-pe-cards.css */
+/* ===== pe-cards: the other faded product windows, checked step by step against the regions their steps use (board check,
+   15 Oct), an addition on top of 433d407. Each rule replaces the live mask of ONE window and nothing else:
+     - homepage Compliance card, homepage Signals card and the Signals window of work/data.html: no fade, cut by the frame
+       like Data (each has a region a step uses within 7% of its bottom edge, so a fade below it would only be a soft cut)
+     - Topics window of work/design-lab.html: the homepage Topics card's shape (pe-product) with its fade start on app row 85%
+       (calc(85% + 4.5px)), the right column solid
+   The homepage Newsroom card passes as it is (its story content ends above its 75% fade start) and is left alone.
+   One static shape per window: nothing switches while the steps play. Horizontal stops are shares of the window width (the
+   app scales with it). A vertical stop written as calc(F% + Gpx) sits on the same app row at every width, because the
+   30px title bar does not scale: app row f is at f * 100% + (1 - f) * 30px of the window. */
+
+/* Compliance (homepage): no fade at any width, as Data. The live fade (80% to 100%) faded the Ask AI sheet of steps 6-7,
+   which covers 6% to 94% of the width and runs to app row 92.9% (its composer, the question being answered, at 81-91%), so
+   no column can keep it, and a fade below the sheet is 20-30px tall (6.5% of the window), which reads as a soft cut and, in
+   dark, as a dark band under the light app. Phones had no fade already. Outranks the live 1,3,0 rule. */
+#product .ct-plain .ct-win:has(.lx[data-lab="compliance"], .lx[data-lab-wait="compliance"]) {
+  -webkit-mask-image: none; mask-image: none;
+}
+
+/* Signals (homepage, the small window beside Data): no fade, as Data has none. Step 2's "Signal updated successfully"
+   toast sits at app rows 93.3-97.2%, centred (43-57% of the width), and stays up into step 3; the live fade from 70% left
+   it 7% visible. A fade below it would be 1.5% of a 172px window, and a solid column around it would leave a stripe
+   through the list, so the window is cut by the frame instead. Phones had no fade already. Outranks the live 1,6,0 rule. */
+#product .spot .pair > .ct-fig.ct-plain .ct-win:has(.lx[data-lab="signals"], .lx[data-lab-wait="signals"]) {
+  -webkit-mask-image: none; mask-image: none;
+}
+
+/* Signals (work/data.html): no fade at any width. On desktop the step 2 toast sits at 94-97% of the window (the live fade
+   from 72% left it 9% visible); on phones the camera frames the editor in step 7 with the second item and Add Item down to
+   94.6% of the window (the live fade from 88% left them 58% visible). The window is cut by the frame, as Data above it.
+   Outranks the live 0,3,0 rule. */
+#signals .ct-plain .ct-win:has(.lx[data-lab="signals"], .lx[data-lab-wait="signals"]) {
+  -webkit-mask-image: none; mask-image: none;
+}
+
+@media (min-width: 720px) {
+  /* Topics (work/design-lab.html): replaces the live rule, whose solid column switched on with the Ask AI rail button and
+     drew a hard vertical seam across the Daily score card for the frames before the panel slid over it, and whose 70% start
+     faded the hover tooltip of step 1 (down to 84.7% of the window) to 0.53. The dashboard fades from app row 85% to the
+     bottom; the right 28.5% (from 72.8% of the window: the Daily card with its legend value, the 'all topics' number that
+     steps 1-2 switch, then the Ask AI column with question, answers, related and the follow-up composer, steps 2-4) is
+     solid at every step, ramping in from 55.5%. The homepage card's shape, but on app row 85%, 4.5px below the homepage card's
+     85% of the window. */
+  #versions .ct-plain.dl-tq .ct-win:has(.lx[data-lab="topics"], .lx[data-lab-wait="topics"]) {
+    -webkit-mask-image: linear-gradient(#000 calc(85% + 4.5px), transparent 100%), linear-gradient(to right, transparent 55.5%, #000 71.5%);
+    mask-image: linear-gradient(#000 calc(85% + 4.5px), transparent 100%), linear-gradient(to right, transparent 55.5%, #000 71.5%);
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-position: 0 0; mask-position: 0 0;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-composite: source-over; mask-composite: add;
+  }
+}
+
+@media (max-width: 719px) {
+  /* Topics (work/design-lab.html) on phones: no fade. In step 1 the hover tooltip rides on the cursor down to the window's
+     bottom edge (the live fade from 82% left it 8% visible), and from step 2 the camera frames the Ask AI panel with its
+     composer at 79-96% of the frame. Outranks the live phone rules (up to 0,9,0). */
+  #versions .ct-plain.dl-tq .ct-win:has(.lx[data-lab="topics"], .lx[data-lab-wait="topics"]) {
+    -webkit-mask-image: none; mask-image: none;
+  }
+}
 </style>
 </head>
 <body>

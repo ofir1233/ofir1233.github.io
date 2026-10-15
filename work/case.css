@@ -90,10 +90,11 @@ p a, .prose a, figcaption a { color: var(--coral); text-underline-offset: 3px; }
 .topbar .home span { color: var(--coral); }
 .topbar .home i { font-style: normal; color: var(--mute); font-family: var(--body); font-weight: 500; font-size: 14px; }
 .topbar nav { display: flex; gap: 8px; align-items: center; }
-.pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 99px; border: 0; font-size: 14px; font-weight: 500; color: var(--paper); text-decoration: none; background: var(--card); cursor: pointer; font-family: inherit; transition: background-color .2s, color .2s; }
-.pill:hover { background: var(--ink-3); }
-.pill.solid { background: var(--coral); color: var(--on-accent); font-weight: 600; }
-.pill.solid:hover { background: color-mix(in srgb, var(--coral) 88%, var(--paper)); }
+.pill:where(:not(.lx-app, .lx-app *)) { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 99px; border: 0; font-size: 14px; font-weight: 500; color: var(--paper); text-decoration: none; background: var(--card); cursor: pointer; font-family: inherit; transition: background-color .2s, color .2s; }
+.pill:where(:not(.lx-app, .lx-app *)):hover { background: var(--ink-3); }
+.pill.solid:where(:not(.lx-app, .lx-app *)) { background: var(--coral); color: var(--on-accent); font-weight: 600; }
+.pill.solid:where(:not(.lx-app, .lx-app *)):hover { background: color-mix(in srgb, var(--coral) 88%, var(--paper)); }
+:where(.lx-app .pill) { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 99px; border: 1px solid var(--line); font-size: 14px; color: var(--paper); text-decoration: none; background: transparent; cursor: pointer; font-family: inherit; transition: border-color .2s, background .2s; }
 .progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--coral); transform-origin: 0 50%; transform: scaleX(0); }
 @media (max-width: 640px) { .topbar .home i, .topbar nav .pill:not(.solid) { display: none; } }
 
@@ -645,3 +646,66 @@ footer a { display: inline-block; padding-block: 11px; margin-block: -11px; colo
 /* captions and small labels: at least 13.5px */
 .toc .pill span, .cs-rail a span, .topbar .home i, .ds-chips code, .a-src, .spec-dev .marks li, .newsroom-rtl .tag,
 .brand-web-mosaic figcaption, .lx-beats .n, .lx-now b, .ct-bar .ct-tag { font-size: 13.5px !important; }
+
+/* handoff v2 (15 Oct), css/pe-cards.css as shipped */
+/* ===== pe-cards: the other faded product windows, checked step by step against the regions their steps use (board check,
+   15 Oct), an addition on top of 433d407. Each rule replaces the live mask of ONE window and nothing else:
+     - homepage Compliance card, homepage Signals card and the Signals window of work/data.html: no fade, cut by the frame
+       like Data (each has a region a step uses within 7% of its bottom edge, so a fade below it would only be a soft cut)
+     - Topics window of work/design-lab.html: the homepage Topics card's shape (pe-product) with its fade start on app row 85%
+       (calc(85% + 4.5px)), the right column solid
+   The homepage Newsroom card passes as it is (its story content ends above its 75% fade start) and is left alone.
+   One static shape per window: nothing switches while the steps play. Horizontal stops are shares of the window width (the
+   app scales with it). A vertical stop written as calc(F% + Gpx) sits on the same app row at every width, because the
+   30px title bar does not scale: app row f is at f * 100% + (1 - f) * 30px of the window. */
+
+/* Compliance (homepage): no fade at any width, as Data. The live fade (80% to 100%) faded the Ask AI sheet of steps 6-7,
+   which covers 6% to 94% of the width and runs to app row 92.9% (its composer, the question being answered, at 81-91%), so
+   no column can keep it, and a fade below the sheet is 20-30px tall (6.5% of the window), which reads as a soft cut and, in
+   dark, as a dark band under the light app. Phones had no fade already. Outranks the live 1,3,0 rule. */
+#product .ct-plain .ct-win:has(.lx[data-lab="compliance"], .lx[data-lab-wait="compliance"]) {
+  -webkit-mask-image: none; mask-image: none;
+}
+
+/* Signals (homepage, the small window beside Data): no fade, as Data has none. Step 2's "Signal updated successfully"
+   toast sits at app rows 93.3-97.2%, centred (43-57% of the width), and stays up into step 3; the live fade from 70% left
+   it 7% visible. A fade below it would be 1.5% of a 172px window, and a solid column around it would leave a stripe
+   through the list, so the window is cut by the frame instead. Phones had no fade already. Outranks the live 1,6,0 rule. */
+#product .spot .pair > .ct-fig.ct-plain .ct-win:has(.lx[data-lab="signals"], .lx[data-lab-wait="signals"]) {
+  -webkit-mask-image: none; mask-image: none;
+}
+
+/* Signals (work/data.html): no fade at any width. On desktop the step 2 toast sits at 94-97% of the window (the live fade
+   from 72% left it 9% visible); on phones the camera frames the editor in step 7 with the second item and Add Item down to
+   94.6% of the window (the live fade from 88% left them 58% visible). The window is cut by the frame, as Data above it.
+   Outranks the live 0,3,0 rule. */
+#signals .ct-plain .ct-win:has(.lx[data-lab="signals"], .lx[data-lab-wait="signals"]) {
+  -webkit-mask-image: none; mask-image: none;
+}
+
+@media (min-width: 720px) {
+  /* Topics (work/design-lab.html): replaces the live rule, whose solid column switched on with the Ask AI rail button and
+     drew a hard vertical seam across the Daily score card for the frames before the panel slid over it, and whose 70% start
+     faded the hover tooltip of step 1 (down to 84.7% of the window) to 0.53. The dashboard fades from app row 85% to the
+     bottom; the right 28.5% (from 72.8% of the window: the Daily card with its legend value, the 'all topics' number that
+     steps 1-2 switch, then the Ask AI column with question, answers, related and the follow-up composer, steps 2-4) is
+     solid at every step, ramping in from 55.5%. The homepage card's shape, but on app row 85%, 4.5px below the homepage card's
+     85% of the window. */
+  #versions .ct-plain.dl-tq .ct-win:has(.lx[data-lab="topics"], .lx[data-lab-wait="topics"]) {
+    -webkit-mask-image: linear-gradient(#000 calc(85% + 4.5px), transparent 100%), linear-gradient(to right, transparent 55.5%, #000 71.5%);
+    mask-image: linear-gradient(#000 calc(85% + 4.5px), transparent 100%), linear-gradient(to right, transparent 55.5%, #000 71.5%);
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-position: 0 0; mask-position: 0 0;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-composite: source-over; mask-composite: add;
+  }
+}
+
+@media (max-width: 719px) {
+  /* Topics (work/design-lab.html) on phones: no fade. In step 1 the hover tooltip rides on the cursor down to the window's
+     bottom edge (the live fade from 82% left it 8% visible), and from step 2 the camera frames the Ask AI panel with its
+     composer at 79-96% of the frame. Outranks the live phone rules (up to 0,9,0). */
+  #versions .ct-plain.dl-tq .ct-win:has(.lx[data-lab="topics"], .lx[data-lab-wait="topics"]) {
+    -webkit-mask-image: none; mask-image: none;
+  }
+}
