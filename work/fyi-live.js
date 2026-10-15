@@ -448,6 +448,7 @@
       const p = e.target._fx;
       // play and pause at 45% visible, but start (or replay) only once the phone is nearly whole, so the first beat is seen
       p.visible = e.isIntersecting && e.intersectionRatio >= .45;
+      p.devs.forEach(d => d.classList.toggle('fx-off', !e.isIntersecting));
       const full = e.isIntersecting && (e.intersectionRatio >= .85 || e.intersectionRect.height >= innerHeight * .8);
       if (!e.isIntersecting && p.done) p.left = true;
       if (full && !p.seen) first(p);

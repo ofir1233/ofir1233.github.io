@@ -1836,5 +1836,11 @@ try {
     const set = strips[row.dataset.strip]; if (!set) return;
     row.innerHTML = set.map(([h, cap]) => fig(h, cap)).join('');
   });
+  // the strips' looping parts (the thinking knot, the caret) hold still while their row is off screen: a spinning SVG
+  // re-lays out and repaints every frame, and would otherwise do so behind every phone that plays
+  if ('IntersectionObserver' in window) {
+    const sio = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('fx-off', !e.isIntersecting)));
+    document.querySelectorAll('.strip-row[data-strip]').forEach(row => { row.classList.add('fx-off'); sio.observe(row); });
+  }
 })();
 } catch (e) { console.error('FYI statics', e); }

@@ -19,6 +19,8 @@
   background: radial-gradient(circle, rgba(255,255,255,.55) 0 40%, rgba(255,255,255,.18) 41% 100%); box-shadow: 0 0 0 1.5px rgba(255,255,255,.6), 0 6px 18px rgba(0,0,0,.4); }
 .fx-tag { display: none; }
 .fx-paused .fx-app *, .fx-ff .fx-app * { animation-play-state: paused !important; }
+/* fully off screen: loops hold still, pseudo-elements too (they would otherwise restyle every frame unseen) */
+.fx-off *, .fx-off *::before, .fx-off *::after { animation-play-state: paused !important; }
 .fx-ff .fx-app * { transition: none !important; }
 
 /* ---------- the reimagined app: tokens (each original style name keeps its role) ---------- */
