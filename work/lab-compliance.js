@@ -36,8 +36,8 @@
   // the trend chart: one value per day, 11 Sep to 11 Oct (null = no calls that day)
   const SER = [
     ['Fee disclosure', '#73999e', [88.86, null, 91.68, 89.70, 87.7, 90.9, 90.9, 89.1, null, 89.7, 87.4, 88.9, 88.6, 89.1, 89.4, null, 88.6, 87.18, 86.95, 87.77, 86.3, 87.7, null, 87.1, 86.1, 88.9, 88.6, 87.1, 86.9, null, 88.8]],
-    ['Mandate-to-continue', '#1677ff', [81.08, null, 83.17, 82.71, 79.4, 79.7, 79.2, 82.6, null, 79.4, 82.9, 80.3, 77.7, 80.0, 80.8, null, 83.2, 82.99, 81.79, 86.12, 86.0, 83.7, null, 84.0, 84.3, 85.7, 85.4, 86.0, 84.0, null, 86.6]],
-    ['KYC verification', '#da98e2', [89.07, null, 92.95, 88.77, 90.3, 89.7, 89.1, 92.6, null, 90.0, 91.4, 93.7, 92.0, 93.1, 94.3, null, 90.9, 92.75, 93.62, 92.13, 93.7, 90.9, null, 92.0, 91.4, 93.4, 92.0, 89.7, 90.3, null, 90.9]],
+    ['Consent to continue', '#1677ff', [81.08, null, 83.17, 82.71, 79.4, 79.7, 79.2, 82.6, null, 79.4, 82.9, 80.3, 77.7, 80.0, 80.8, null, 83.2, 82.99, 81.79, 86.12, 86.0, 83.7, null, 84.0, 84.3, 85.7, 85.4, 86.0, 84.0, null, 86.6]],
+    ['Identity verification', '#da98e2', [89.07, null, 92.95, 88.77, 90.3, 89.7, 89.1, 92.6, null, 90.0, 91.4, 93.7, 92.0, 93.1, 94.3, null, 90.9, 92.75, 93.62, 92.13, 93.7, 90.9, null, 92.0, 91.4, 93.4, 92.0, 89.7, 90.3, null, 90.9]],
     ['Vulnerable cust. protocol', '#a7949a', [83.02, null, 80.03, 83.75, 78.3, 83.7, 82.9, 81.7, null, 82.6, 81.7, 78.6, 80.9, 82.6, 82.3, null, 80.9, 80.17, 79.21, 82.00, 79.4, 78.3, null, 80.0, 78.9, 77.1, 80.6, 78.3, 80.0, null, 79.4]],
     ['Risk warning disclosure', '#4a4a4a', [76.41, null, 75.48, 72.44, 76.3, 73.1, 76.6, 73.1, null, 71.7, 71.7, 72.9, 70.0, 71.1, 69.4, null, 70.3, 67.36, 70.23, 69.79, 70.3, 68.3, null, 66.6, 67.7, 65.7, 66.3, 65.7, 68.6, null, 68.9]],
   ];
@@ -45,16 +45,16 @@
   const day = k => (k < 20 ? `${11 + k} Sep` : `${k - 19} Oct`);
   const TICKS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
   // critical alerts by agent: initials, monogram color, name, count
-  const ALERTS = [['NF', '#8fa388', 'Noa Friedm…', 17], ['CN', '#458af4', 'Carmit Nave', 15], ['DL', '#fe6e5a', 'Dana Levy', 14], ['DS', '#fe6e5a', 'David S', 13],
-    ['AR', '#62a69b', 'Avraham Ron', 12], ['SK', '#7dabb4', 'Sara K', 12], ['RC', '#8fa388', 'Roni Cohen', 12]];
+  const ALERTS = [['NF', '#8fa388', 'Nora Fields', 17], ['CN', '#458af4', 'Clara Nash', 15], ['DL', '#fe6e5a', 'Diane Lowe', 14], ['DS', '#fe6e5a', 'Derek S', 13],
+    ['AR', '#62a69b', 'Aaron Reyes', 12], ['SK', '#7dabb4', 'Selma K', 12], ['RC', '#8fa388', 'Rosa Costa', 12]];
   // the heatmap: id, name (two lines where it wraps), five criteria scores
-  const CRIT = ['Fee disclosure', 'Mandate-to-continue', 'KYC verification', 'Vulnerable cust. protocol', 'Risk warning disclosure'];
+  const CRIT = ['Fee disclosure', 'Consent to continue', 'Identity verification', 'Vulnerable cust. protocol', 'Risk warning disclosure'];
   const AG = [
-    [101, 'Cohen Dani', [85, 81, 90, 88, 69]], [102, 'Levi Yoel', [90, 72, 89, 70, 68]], [103, 'Avraham<br>Ron', [67, 67, 76, 72, 68]],
-    [104, 'Shimon M', [100, 89, 100, 61, 85]], [105, 'Golan Ori', [87, 82, 75, 76, 85]], [106, 'Peretz Adi', [94, 88, 98, 87, 70]],
-    [107, 'Barak Tamar', [78, 65, 92, 87, 66]], [108, 'Mizrachi N', [82, 91, 93, 89, 74]], [109, 'Shalom R', [79, 76, 82, 68, 62]],
-    [110, 'Alon Yona', [92, 79, 85, 100, 69]], [111, 'David S', [77, 65, 86, 54, 55]], [112, 'Sara K', [80, 66, 79, 60, 65]],
-    [113, 'Miriam Katz', [81, 81, 87, 80, 60]], [114, 'Eyal Ben-<br>David', [84, 85, 77, 71, 77]], [115, 'Noa<br>Friedman', [78, 67, 59, 73, 36]],
+    [101, 'Evan Doyle', [85, 81, 90, 88, 69]], [102, 'Lucy Yates', [90, 72, 89, 70, 68]], [103, 'Aaron<br>Reyes', [67, 67, 76, 72, 68]],
+    [104, 'Stefan M', [100, 89, 100, 61, 85]], [105, 'Iris Gale', [87, 82, 75, 76, 85]], [106, 'Ada Pierce', [94, 88, 98, 87, 70]],
+    [107, 'Tara Banks', [78, 65, 92, 87, 66]], [108, 'Martinez N', [82, 91, 93, 89, 74]], [109, 'Shaw R', [79, 76, 82, 68, 62]],
+    [110, 'Alma Young', [92, 79, 85, 100, 69]], [111, 'Derek S', [77, 65, 86, 54, 55]], [112, 'Selma K', [80, 66, 79, 60, 65]],
+    [113, 'Megan Kerr', [81, 81, 87, 80, 60]], [114, 'Ethan Bell-<br>Davies', [84, 85, 77, 71, 77]], [115, 'Nora<br>Fields', [78, 67, 59, 73, 36]],
   ];
   const bin = v => (v >= 90 ? 'b9' : v >= 80 ? 'b8' : v >= 70 ? 'b7' : v >= 60 ? 'b6' : 'b5');
   const CX = i => 480 + 66.6 * i, RY = r => 301 + 34.25 * r;
@@ -100,7 +100,7 @@
     </div>
     ${CRIT.map((c, r) => `<span class="crit" data-r="${r}" style="top:${RY(r).toFixed(2)}px"><i class="grip"></i><i class="cd"></i>${c}</span>`).join('')}
     <div class="pop">
-      <h5>Mizrachi N</h5>${ic('x', 'px')}
+      <h5>Martinez N</h5>${ic('x', 'px')}
       <p class="ps">#108 · Fee disclosure · selected date<br>range</p>
       <span class="pt b8">82</span><b class="pd">−1 vs team average</b><span class="pr">Top 47% · 29th of 62 agents</span>
       <span class="ov pa">Across all 62 agents</span>
@@ -110,7 +110,7 @@
       <span class="pb">${SPARK}Explore in Chat</span><span class="pl">Open agent evaluation</span>
     </div>
   </div>`;
-  const ASK = 'Why is Mizrachi N’s Fee disclosure 82?';
+  const ASK = 'Why is Martinez N’s Fee disclosure 82?';
   const modal = () => `<div class="cp-dim"></div><div class="cp-mo">
     <div class="mo-h"><span class="mo-tile">${SPARK}</span><h4>Ask AI</h4><span class="mo-sub">New conversation</span>
       <span class="mo-ic">${ic('cpHist')}${ic('cpEdit')}${ic('cpExp', 'ex')}${ic('x')}</span></div>
@@ -265,7 +265,7 @@
       await at(9.83); hover(cell(7, 0));
       await p6;
 
-      // 5. a click on Mizrachi N's Fee disclosure: the cell is selected and the popover opens
+      // 5. a click on Martinez N's Fee disclosure: the cell is selected and the popover opens
       await B(4, 9.85);
       c.cam([974, 500]); // phones: the popover
       await at(9.90); await c.click(cell(7, 0), { after: 0 });

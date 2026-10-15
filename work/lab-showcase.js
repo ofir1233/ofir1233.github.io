@@ -32,8 +32,8 @@
     ['h', 'Intelligence'], ['term', 'Signals'], ['alert', 'Alerts'], ['shield', 'Compliance'], ['shield', 'Agent Evaluation'], ['book', 'Knowledge'], ['spark', 'Magic API'],
     ['h', 'Operations'], ['shRadar', 'AI Tasks']];
   const shell = () => LX.shell({ active: 'Chat', nav: NAV })
-    .replace('<span class="sb-tile">H</span>', '<span class="sb-tile">DI</span>')
-    .replace('<b>Hear</b><small>', '<b>Demo inv</b><small>')
+    .replace('<span class="sb-tile">H</span>', '<span class="sb-tile">N</span>')
+    .replace('<b>Hear</b><small>', '<b>Northwind</b><small>')
     .replace(/<svg class="hmark "[\s\S]*?<\/svg>Hear/, `${mark()}Hear`)
     .replace(/<i class="av me"[^>]*>U<\/i><b>You<\/b>/, '<i class="av me" style="--c:#e0473f">OF</i><b>Ofir</b>')
     .replace('<div class="sb-user">', `<div class="sh-hist"><div class="sh-hh">${ic('down')}History${ic('shPen')}</div><div class="sh-hi">Welcome to Hear</div></div><div class="sb-user">`);
@@ -54,7 +54,7 @@
       <div class="sh-logo">${mark(`<defs><linearGradient id="sh-g" x1="1" y1="0" x2=".15" y2="1"><stop offset="0" stop-color="#62b4f2"/><stop offset=".55" stop-color="#2f86ea"/><stop offset="1" stop-color="#1f6be0"/></linearGradient></defs>`).replace('</svg>', `<path class="b" d="${MARK}"/></svg>`)}</div>
       <div class="sh-ring hid">${ring()}</div>
       <div class="sh-greet"><span>Good</span> <span>evening,</span> <span>Ofir.</span></div>
-      <div class="sh-sub">What would you like to explore for Demo inv?</div>
+      <div class="sh-sub">What would you like to explore for Northwind?</div>
       <div class="sh-pill"><i></i><span>Analyzing yesterday’s calls...</span></div>
       <div class="sh-sug hid"><h6>AI suggestions</h6>${CHIPS.map(r => `<div class="sh-chips">${r.map(t => `<span>${t}</span>`).join('')}</div>`).join('')}</div>
       <div class="sh-thr"><div class="sh-tin">

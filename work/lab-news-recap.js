@@ -28,11 +28,11 @@
     .replace(/<div class="sb-row"><span class="sb-ai">[\s\S]*?<\/div>/, '');
 
   // the "Just detected" ticker: [time, text, dot]
-  const TICK = [['4:12pm', 'Cancellation intent spiking (+240%)', 'r'], ['2:30pm', 'Team B handle time +40%', 'g'], ['11:20am', '“Distressed Client” monitor first trigger', 'r'],
-    ['10:20am', 'Fraud storm — 18× in 2h', 'r'], ['9:15am', 'Dana crosses 90 on empathy', 'n'], ['8:30am', 'Wait times trending past SLA', 'r']];
+  const TICK = [['4:12pm', 'Cancellation intent spiking (+240%)', 'r'], ['2:30pm', 'Team B handle time +40%', 'g'], ['11:20am', '“Escalation risk” monitor first trigger', 'r'],
+    ['10:20am', 'Fraud storm — 18× in 2h', 'r'], ['9:15am', 'Diane crosses 90 on empathy', 'n'], ['8:30am', 'Wait times trending past SLA', 'r']];
   const ticks = () => TICK.map(([t, s, d]) => `<span class="ti"><em>${t}</em><i class="${d}"></i><b>${s}</b></span>`).join('');
-  const SRC = [['Weekly Agent Performance Summary', '4 stories', 'Conversion Sales Calls · Jun 25 – Jul 2'], ['Missed Travel Insurance Calls', '2 stories', 'Insurance-eligible calls · Jun 25 – Jul 2'],
-    ['Daily Alerts Report (Conversion)', '1 story', 'Conversion calls · daily · Jul 2'], ['Most Requested Dates', '1 story', 'Booking demand · trailing 30 days']];
+  const SRC = [['Weekly Agent Performance Summary', '4 stories', 'All booking calls · Jun 25 – Jul 2'], ['Missed Upgrade Offers', '2 stories', 'Upgrade-eligible calls · Jun 25 – Jul 2'],
+    ['Daily Alerts Report', '1 story', 'Booking calls · daily · Jul 2'], ['Most Requested Dates', '1 story', 'Booking demand · trailing 30 days']];
   // the spike chart on the Newsroom: the recorded line, every 24 px
   const LINE = [[623, 692.5], [647, 690.5], [671, 689], [695, 687.5], [719, 687.5], [743, 689.5], [767, 694], [791, 697.5], [815, 697.5], [839, 692.5], [863, 684.5], [887, 675.5], [911, 668.5], [935, 667.5], [959, 669.5], [983, 669.5], [1007, 660.5], [1031, 634.5], [1055, 597], [1079, 560], [1103, 535.5], [1127, 536], [1151, 551], [1175, 570.5], [1199, 586.5], [1223, 594.5], [1247, 601.5], [1271, 605.5], [1295, 606.5], [1319, 602.5], [1343, 595], [1367, 585], [1391, 575]];
   // sentiment, three months, every 16 px (story slide 10)
@@ -54,7 +54,7 @@
 
   const html = () => `<div class="nr">${shell()}
     <header class="nr-top">
-      <span class="nr-bc"><b>News</b>${ic('right')}<span>Demo inv</span>${ic('right')}<span class="nr-chip">feed · illustrative data</span></span>
+      <span class="nr-bc"><b>News</b>${ic('right')}<span>Northwind</span>${ic('right')}<span class="nr-chip">feed · illustrative data</span></span>
       <span class="nr-ct" style="left:642px;width:140px">${ic('nrCal')}Last 7 days<i class="car"></i></span>
       <span class="nr-ct" style="left:790px;width:92px">Surface<i class="car"></i></span>
       <span class="nr-ct" style="left:890px;width:127px"><span class="g">Version ·</span><b>Full</b>${ic('down')}</span>
@@ -101,7 +101,7 @@
     ${sl(6, `${eye('The achievement')}<div class="sh">${words('Escalations down 8%')}<br>${words('while volume rose 12%.', 'l2')}</div><div class="ss">That’s not luck. That’s coaching.</div>${hbars([['Call volume', 325, '+12%', 'n'], ['Escalations', 125, '-8%', 'a']])}`, 'dots')}
     ${sl(7, `<div class="sq">${words('“Honestly? I called to cancel.')}<br>${words('Twenty minutes later I upgraded.')}<br>${words('Thank whoever trained that agent.”')}</div><div class="ss sa">customer · retention call · Jul 22</div>`)}
     ${sl(8, `<div class="sh big mvp">And your ${acc('MVP')}<br>was...</div>`)}
-    ${sl(9, `${eye('Agent of the month')}<div class="sh">Martha Kellett</div><div class="ss">Best QA score on the floor — three months running.</div>
+    ${sl(9, `${eye('Agent of the month')}<div class="sh">Hannah Moore</div><div class="ss">Best QA score on the floor — three months running.</div>
       <div class="rg"><svg viewBox="0 0 178 178" aria-hidden="true"><circle cx="89" cy="89" r="82" class="tr"/><circle cx="89" cy="89" r="82" class="ar" pathLength="100"/></svg><div class="rg-t"><b>94%</b><span>top QA score</span></div></div>`, 'dots')}
     ${sl(10, `${eye('Customer sentiment')}<div class="sh">${words('Three months, straight up.')}</div><div class="ss">+3pts vs June · avg sentiment</div>
       <div class="lc"><svg viewBox="410 470 620 170" aria-hidden="true"><defs><linearGradient id="nr-sa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".15"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="nr-sc"><rect class="lc-cl" x="440" y="470" width="514" height="170"/></clipPath></defs>
@@ -112,7 +112,7 @@
     ${sl(12, `${eye('Hear · AI')}<div class="sh">${words('That was')} ${acc('July.')}</div><div class="ss">August is already talking. → Share your recap</div>`)}
     <div class="st-sum"><div class="sum-c">
       <div class="sum-e">Hear · July 2026</div><div class="sum-t">That was July.</div>
-      <div class="sum-g">${[['38,214', 'Calls analyzed'], ['-8%', 'Escalations'], ['72%', 'Avg sentiment'], ['Martha K. · 94%', 'Top agent']].map(([v, l]) => `<div><b>${v}</b><span>${l}</span></div>`).join('')}</div>
+      <div class="sum-g">${[['38,214', 'Calls analyzed'], ['-8%', 'Escalations'], ['72%', 'Avg sentiment'], ['Hannah M. · 94%', 'Top agent']].map(([v, l]) => `<div><b>${v}</b><span>${l}</span></div>`).join('')}</div>
       <div class="sum-f">For Chief’s team · powered by Hear.ai</div></div>
       <div class="sum-p"><span class="clp">${CLAP}</span><span>${ic('nrLink')}Copy link</span><span>${ic('nrDl')}Download image</span><span>${ic('nrRe')}Replay</span><span class="pri">Open the full report →</span></div>
     </div>

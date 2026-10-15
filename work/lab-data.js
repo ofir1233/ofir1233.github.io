@@ -37,7 +37,7 @@
   const shell = () => LX.shell({ active: 'Data V2', nav: NAV }).replace('<div class="sb-user">', DEV + '<div class="sb-user">');
 
   // people: initials, name, color
-  const PPL = { SC: ['Sarah Chen', '#448bea'], MW: ['Marcus Webb', '#74af90'], LT: ['Layla Torres', '#f3aa9e'], NP: ['Nina Patel', '#d19adc'], JO: ['James Okafor', '#61a59b'] };
+  const PPL = { SC: ['Sofia Cruz', '#448bea'], MW: ['Milo West', '#74af90'], LT: ['Layla Torres', '#f3aa9e'], NP: ['Nina Patel', '#d19adc'], JO: ['James Okafor', '#61a59b'] };
   const av = ini => `<i class="av" style="--c:${PPL[ini][1]}">${ini}</i>`;
   const ST = { ip: 'In progress', dn: 'Done', pe: 'Pending', ca: 'Cancelled' };
   const PRI = { h: 'High', m: 'Medium', l: 'Low' };

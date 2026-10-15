@@ -76,27 +76,27 @@
   const ZC = [GRN, ORG, RED];
   // topic nodes: name, sub-line, y0, y1, color, share of the node into Good / Medium / Poor silence, label box [x, y, w, h], inline sub-line
   const TOP = [
-    ['Ticket Confirmation', '2,689 · 12%', 218.75, 283.75, GRN, [.92, .08, 0], [311, 236, 135, 31.5]],
-    ['Customer Relations &amp; Follow-up', '619 · 2.7%', 287.5, 301.25, GRN, [.85, .15, 0], [311, 287.5, 245, 15], 1],
-    ['Flight Details Change', '1,404 · 6.1%', 305, 350, GRN, [.92, .08, 0], [311, 319, 144, 31]],
-    ['Booking Status', '3,832 · 17%', 355, 445, ORG, [0, 0, 1], [311, 384, 114, 31]],
-    ['Seats &amp; Upgrades', '1,214 · 5.3%', 450, 483.75, ORG, [.9, .1, 0], [311, 464, 183, 16], 1],
-    ['Existing Flight Details', '2,594 · 11%', 490, 548.75, ORG, [.68, .32, 0], [311, 504, 144, 32]],
-    ['Flight Booking', '4,879 · 21%', 555, 668.75, ORG, [.75, .25, 0], [311, 596, 108, 33]],
-    ['Refunds &amp; Payments', '1,761 · 7.6%', 675, 713.75, ORG, [.42, .58, 0], [311, 679, 143, 31]],
-    ['Medical &amp; Special Assistance', '904 · 3.9%', 720, 738.75, ORG, [1, 0, 0], [311, 721, 235, 16.5], 1],
-    [null, null, 743.75, 753.75, RED, [.65, .35, 0]],
-    ['Ticket Changes &amp; Cancellations', '2,142 · 9.3%', 758.75, 807.5, RED, [.82, .18, 0], [311, 769, 195, 30]],
+    ['E-ticket Delivery', '2,451 · 11%', 218.75, 280.28, GRN, [.92, .08, 0], [311, 233.77, 118, 31.5]],
+    ['Complaints &amp; Follow-up', '702 · 3.2%', 284.03, 301.66, GRN, [.85, .15, 0], [311, 285.34, 207, 15], 1],
+    ['Schedule Changes', '1,329 · 6.0%', 305.41, 338.77, GRN, [.92, .08, 0], [311, 306.59, 129.5, 31]],
+    ['Trip Status', '3,968 · 18%', 343.77, 443.39, ORG, [0, 0, 1], [311, 378.08, 94, 31]],
+    ['Seating &amp; Extras', '1,061 · 4.8%', 448.39, 475.02, ORG, [.9, .1, 0], [311, 453.71, 176, 16], 1],
+    ['Itinerary Questions', '2,377 · 11%', 481.27, 540.95, ORG, [.68, .32, 0], [311, 495.11, 133, 32]],
+    ['Online Booking', '4,412 · 20%', 547.2, 657.96, ORG, [.75, .25, 0], [311, 586.08, 112, 33]],
+    ['Refunds &amp; Credits', '1,583 · 7.1%', 664.21, 703.95, ORG, [.42, .58, 0], [311, 668.58, 128, 31]],
+    ['Accessibility Requests', '873 · 3.9%', 710.2, 732.12, ORG, [1, 0, 0], [311, 712.91, 202, 16.5], 1],
+    [null, null, 737.12, 747.12, RED, [.65, .35, 0]],
+    ['Changes &amp; Cancellations', '2,206 · 10%', 752.12, 807.5, RED, [.82, .18, 0], [311, 764.81, 165, 30]],
   ];
   // zone columns: bar x, three nodes [y0, y1], labels [name, sub, box]
   const ZONES = [
-    [664, [[227.5, 578.75], [593.75, 696.25], [712.5, 800]], [['Good · &lt;5%', '14,890 · 64%', [572.5, 386, 87.5, 33]], ['Medium · 5%–10%', '4,387 · 19%', [536, 629, 124, 32]], ['Poor · &gt;10%', '3,832 · 17%', [574, 741, 86, 30]]]],
-    [1029, [[227.5, 398.75], [415, 670], [686.25, 800]], [['Good · &lt;3.0′', '7,279 · 31%', [935, 299, 90, 30]], ['Medium · 3.0′–6.0′', '10,935 · 47%', [904, 524, 121, 32]], ['Poor · &gt;6.0′', '4,895 · 21%', [942.5, 726, 82.5, 33]]]],
-    [1396, [[226.25, 438.75], [452.5, 628.75], [646.25, 800]], [['Good · &gt;4.3', '8,917 · 39%', [1304, 316, 88.5, 30]], ['Medium · 3.8–4.3', '7,576 · 33%', [1275, 524, 117.5, 32]], ['Poor · &lt;3.8', '6,616 · 29%', [1310, 706, 82.5, 30]]]],
+    [664, [[227.5, 571.41], [586.41, 686.79], [703.04, 800]], [['Good · &lt;5%', '14,074 · 64%', [572.5, 382.95, 87.5, 33]], ['Medium · 5%–10%', '4,108 · 19%', [536, 620.6, 124, 32]], ['Poor · &gt;10%', '3,968 · 18%', [574, 736.52, 86, 30]]]],
+    [1029, [[227.5, 404.25], [420.5, 671.63], [687.88, 800]], [['Good · &lt;3.0′', '7,250 · 33%', [935, 300.87, 90, 30]], ['Medium · 3.0′–6.0′', '10,301 · 47%', [904, 530.06, 121, 32]], ['Poor · &gt;6.0′', '4,599 · 21%', [942.5, 727.44, 82.5, 33]]]],
+    [1396, [[226.25, 433.62], [447.37, 629.96], [647.46, 800]], [['Good · &gt;4.3', '8,467 · 38%', [1304, 314.94, 88.5, 30]], ['Medium · 3.8–4.3', '7,455 · 34%', [1275, 522.67, 117.5, 32]], ['Poor · &lt;3.8', '6,228 · 28%', [1310, 708.73, 82.5, 30]]]],
   ];
   // flows between zone columns, in calls: [from zone][to zone]
-  const S2H = [[2620, 8150, 4120], [827, 2785, 775], [3832, 0, 0]];
-  const H2S = [[4250, 2100, 929], [3280, 3800, 3855], [1387, 1676, 1832]];
+  const S2H = [[2480, 7690, 3904], [802, 2611, 695], [3968, 0, 0]];
+  const H2S = [[4105, 2210, 935], [3060, 3655, 3586], [1302, 1590, 1707]];
   const TX = 297.5, BW = 6;
   const ribbon = (x0, a0, b0, x1, a1, b1) => {
     const m = (x0 + x1) / 2, f = n => n.toFixed(2);
@@ -155,7 +155,7 @@
   };
   const STAR = c => `<svg class="tp-st" viewBox="0 0 24 24" aria-hidden="true" style="color:${c}"><path d="M12 3.5v17M3.5 12h17M6 6l12 12M18 6L6 18"/></svg>`;
   const topics = () => `<section class="tr-pg tr-tp">
-    <header class="tp-hd"><b>Topics</b>${ic('right', 'chev')}<span class="ws">Demo inv</span>${ic('right', 'chev')}<span class="cnt">13 topics · 23,109 calls</span>
+    <header class="tp-hd"><b>Topics</b>${ic('right', 'chev')}<span class="ws">Northwind</span>${ic('right', 'chev')}<span class="cnt">13 topics · 22,150 calls</span>
       <span class="srch">Search topics...${ic('search')}</span>
       <span class="vw"><span class="on">Flow</span><span>Landscape</span><span>Pulse</span></span></header>
     <span class="tp-tg" style="left:274px;width:126px"><i></i>Color by topic</span><span class="tp-tg" style="left:411px;width:122px"><i></i>Overall score</span>
@@ -173,16 +173,16 @@
   // ---------- Compliance: the home tab ----------
   const SER = [
     ['Fee disclosure', '#73999e', [88.86, null, 91.68, 89.70, 87.7, 90.9, 90.9, 89.1, null, 89.7, 87.4, 88.9, 88.6, 89.1, 89.4, null, 88.6, 87.18, 86.95, 87.77, 86.3, 87.7, null, 87.1, 86.1, 88.9, 88.6, 87.1, 86.9, null, 88.8]],
-    ['Mandate-to-continue', '#1677ff', [81.08, null, 83.17, 82.71, 79.4, 79.7, 79.2, 82.6, null, 79.4, 82.9, 80.3, 77.7, 80.0, 80.8, null, 83.2, 82.99, 81.79, 86.12, 86.0, 83.7, null, 84.0, 84.3, 85.7, 85.4, 86.0, 84.0, null, 86.6]],
-    ['KYC verification', '#da98e2', [89.07, null, 92.95, 88.77, 90.3, 89.7, 89.1, 92.6, null, 90.0, 91.4, 93.7, 92.0, 93.1, 94.3, null, 90.9, 92.75, 93.62, 92.13, 93.7, 90.9, null, 92.0, 91.4, 93.4, 92.0, 89.7, 90.3, null, 90.9]],
+    ['Consent to continue', '#1677ff', [81.08, null, 83.17, 82.71, 79.4, 79.7, 79.2, 82.6, null, 79.4, 82.9, 80.3, 77.7, 80.0, 80.8, null, 83.2, 82.99, 81.79, 86.12, 86.0, 83.7, null, 84.0, 84.3, 85.7, 85.4, 86.0, 84.0, null, 86.6]],
+    ['Identity verification', '#da98e2', [89.07, null, 92.95, 88.77, 90.3, 89.7, 89.1, 92.6, null, 90.0, 91.4, 93.7, 92.0, 93.1, 94.3, null, 90.9, 92.75, 93.62, 92.13, 93.7, 90.9, null, 92.0, 91.4, 93.4, 92.0, 89.7, 90.3, null, 90.9]],
     ['Vulnerable cust. protocol', '#a7949a', [83.02, null, 80.03, 83.75, 78.3, 83.7, 82.9, 81.7, null, 82.6, 81.7, 78.6, 80.9, 82.6, 82.3, null, 80.9, 80.17, 79.21, 82.00, 79.4, 78.3, null, 80.0, 78.9, 77.1, 80.6, 78.3, 80.0, null, 79.4]],
     ['Risk warning disclosure', '#4a4a4a', [76.41, null, 75.48, 72.44, 76.3, 73.1, 76.6, 73.1, null, 71.7, 71.7, 72.9, 70.0, 71.1, 69.4, null, 70.3, 67.36, 70.23, 69.79, 70.3, 68.3, null, 66.6, 67.7, 65.7, 66.3, 65.7, 68.6, null, 68.9]],
   ];
   const X = k => 333 + 34.8 * k, Y = v => 535 - 1.75 * v;
   const day = k => (k < 20 ? `${11 + k} Sep` : `${k - 19} Oct`);
   const TICKS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
-  const ALERTS = [['NF', '#8fa88f', 'Noa Friedm…', 17], ['CN', '#3f86ee', 'Carmit Nave', 15], ['DL', '#f0705c', 'Dana Levy', 14], ['DS', '#f0705c', 'David S', 13],
-    ['AR', '#5fa38f', 'Avraham Ron', 12], ['SK', '#7fa9be', 'Sara K', 12], ['RC', '#8fa88f', 'Roni Cohen', 12]];
+  const ALERTS = [['NF', '#8fa88f', 'Nora Fields', 17], ['CN', '#3f86ee', 'Clara Nash', 15], ['DL', '#f0705c', 'Diane Lowe', 14], ['DS', '#f0705c', 'Derek S', 13],
+    ['AR', '#5fa38f', 'Aaron Reyes', 12], ['SK', '#7fa9be', 'Selma K', 12], ['RC', '#8fa88f', 'Rosa Costa', 12]];
   const kpi = (x, label, v) => `<div class="cp-k" style="left:${x}px"><span class="l">${label}${ic('trInfo')}</span><span class="v">${v}<small>%</small></span></div>`;
   const compliance = () => {
     const pts = s => s[2].map((v, k) => v == null ? null : `${X(k).toFixed(1)},${Y(v).toFixed(1)}`).filter(Boolean).join(' ');
@@ -211,17 +211,17 @@
   const TAG = { esc: ['fwd', 'Escalated'], res: ['check', 'Resolved'], dup: ['copy', 'Duplicate'], na: ['ban', 'Not actionable', 'dark'] };
   // priority, source, date, title, body, mentions-you comments, tag, [initials, name], counters
   const CARDS = {
-    P1: [3, 'alert', 'Today', 'Customer asked twice for a refund, was offered only a voucher', 'Cancelled TLV–LHR flight. The customer requested a cash refund twice; the agent offered a voucher both times.', 3, 0, ['DB', 'Daniel Brooks'], [['sqcheck', '0/2'], ['msg', '3'], ['clip', '1']]],
+    P1: [3, 'alert', 'Today', 'Customer asked twice for a refund, was offered only a voucher', 'Cancelled JFK–LHR flight. The customer requested a cash refund twice; the agent offered a voucher both times.', 3, 0, ['DB', 'Daniel Brooks'], [['sqcheck', '0/2'], ['msg', '3'], ['clip', '1']]],
     P2: [2, 'call', 'Yesterday', 'Reason for Call tagged as Billing — should be Service outage', '<b>@AI,</b> the Reason for Call parameter is tagged incorrectly. This was a service outage.', 0, 0, ['MC', 'Maya Collins'], [['msg', '2']]],
     P3: [3, 'eval', 'Yesterday', 'Recording disclosure missing in the first 30 seconds', 'Agent evaluation flagged the call: the mandatory recording disclosure was never read.', 0, 0, null, [['sqcheck', '0/1']]],
     P4: [2, 'signal', 'Oct 9', 'Callback promised within 24 hours', 'The agent promised to call the customer back about a seat change.', 0, 0, false],
-    I1: [3, 'alert', 'Oct 9', 'Technical failure blocked a booking', 'The booking engine timed out at payment; the customer could not complete the booking.', 5, 0, ['RC', 'Robert Chen'], [['sqcheck', '2/4'], ['msg', '5'], ['clip', '2']]],
-    I2: [3, 'eval', 'Oct 8', 'Identity verification skipped before a ticket change', 'The agent changed the passenger name without verifying identity. Compliance review needed.', 0, 0, ['PN', 'Priya Nair'], [['sqcheck', '1/2'], ['msg', '2']]],
-    I3: [2, 'call', 'Oct 7', 'Seat upgrade charged twice', 'Customer was charged twice for a business upgrade. The agent opened a refund request.', 0, 0, ['AW', 'Alan Watts'], [['sqcheck', '1/1'], ['msg', '4'], ['clip', '1']]],
-    I4: [2, 'alert', 'Oct 6', 'Unusual silence time on Booking Status calls', 'Silence time averaged 16% this week, double the usual. Agents wait on the booking system.', 0, 0, false],
-    D1: [2, 'alert', 'Oct 4', 'Lost baggage claim escalated to the ground team', 'Claim reference passed to the ground team; the customer received the bag the next day.', 0, 'esc', ['SC', 'Sarah Chen'], [['sqcheck', '2/2'], ['msg', '3'], ['clip', '1']]],
+    I1: [3, 'alert', 'Oct 9', 'Technical failure blocked a booking', 'The booking engine timed out at payment; the customer could not complete the booking.', 5, 0, ['RC', 'Ryan Cole'], [['sqcheck', '2/4'], ['msg', '5'], ['clip', '2']]],
+    I2: [3, 'eval', 'Oct 8', 'Identity verification skipped before a ticket change', 'The agent changed the passenger name without verifying identity. Compliance review needed.', 0, 0, ['PN', 'Paula Nunes'], [['sqcheck', '1/2'], ['msg', '2']]],
+    I3: [2, 'call', 'Oct 7', 'Seat upgrade charged twice', 'Customer was charged twice for a business upgrade. The agent opened a refund request.', 0, 0, ['AW', 'Alex Ward'], [['sqcheck', '1/1'], ['msg', '4'], ['clip', '1']]],
+    I4: [2, 'alert', 'Oct 6', 'Unusual silence time on Trip Status calls', 'Silence time averaged 16% this week, double the usual. Agents wait on the booking system.', 0, 0, false],
+    D1: [2, 'alert', 'Oct 4', 'Lost baggage claim escalated to the ground team', 'Claim reference passed to the ground team; the customer received the bag the next day.', 0, 'esc', ['SC', 'Sofia Cruz'], [['sqcheck', '2/2'], ['msg', '3'], ['clip', '1']]],
     D2: [1, 'call', 'Oct 3', 'Re-analyze sentiment on a VIP escalation', 'Sentiment was re-analyzed after the transcript was corrected; the call now reads neutral.', 0, 'res', ['MC', 'Maya Collins'], [['sqcheck', '1/1'], ['msg', '1']]],
-    C1: [2, 'alert', 'Oct 9', 'Duplicate: booking engine timeout', 'Same incident as an earlier report. Closed as a duplicate.', 0, 'dup', ['RC', 'Robert Chen'], [['msg', '1']]],
+    C1: [2, 'alert', 'Oct 9', 'Duplicate: booking engine timeout', 'Same incident as an earlier report. Closed as a duplicate.', 0, 'dup', ['RC', 'Ryan Cole'], [['msg', '1']]],
     C2: [1, 'form', 'Sep 29', 'Feedback form: website search is slow', 'Customer feedback about the website search. Not a contact-center issue.', 0, 'na', null, [['clip', '1']]],
   };
   const card = id => {

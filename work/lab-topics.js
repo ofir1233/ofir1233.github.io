@@ -1,4 +1,4 @@
-// Topics, Ultra version, with the Ask AI side panel: hovering Most to gain lights up Flight Booking on the treemap,
+// Topics, Ultra version, with the Ask AI side panel: hovering Most to gain lights up Online Booking on the treemap,
 // hovering the topic opens its three parameters, Handle time is clicked and the Ask AI panel slides in while the page
 // narrows (the treemap re-tiles as it goes), the answer explains the cause, and a follow-up asks which signals to set up.
 (() => {
@@ -42,16 +42,16 @@
   const n = v => v.toLocaleString('en-US');
   // the ten highest-volume topics: name, calls, score, change, New, fill, daily bar heights (px)
   const TOP = [
-    ['Flight Booking', 4879, 43, '▼9 pts', 1, '#e3bfb5', [17,16,17,17,17,17,17,17,17,17,17,16,17,17,17,17,17,17,17,16,17,17,16,15,14,13,13,13,13,13]],
-    ['Booking Status', 3832, 63, '▼5 pts', 0, '#959fa3', [24,23,23,23,23,23,23,23,23,23,23,23,23,23,22,22,22,22,22,22,22,23,22,22,22,22,21,21,20,20]],
-    ['Ticket Confirmation', 2689, 72, '▼1 pts', 0, '#687c7d', [28,27,27,27,27,27,27,27,27,27,27,26,26,25,25,25,25,25,25,25,25,25,26,25,26,26,27,27,27,27]],
-    ['Existing Flight Details', 2594, 43, '▼5 pts', 0, '#e3bfb7', [15,16,15,15,16,15,16,16,16,15,16,15,15,15,14,14,14,14,14,14,15,14,14,14,14,14,14,13,14,14]],
-    ['Ticket Changes & Cancellations', 2142, 34, '▼13 pts', 1, '#f0a294', [18,17,16,17,18,18,18,19,19,18,18,18,17,16,16,16,15,16,15,14,15,14,14,14,12,12,12,11,12,12]],
-    ['Refunds & Payments', 1761, 36, '▼9 pts', 1, '#efa799', [14,15,15,15,14,14,14,15,15,15,15,14,14,13,13,13,14,15,15,15,16,15,13,13,12,11,11,10,10,10]],
-    ['Flight Details Change', 1404, 63, '0 pts', 0, '#959fa3', [20,20,21,21,21,21,21,21,21,21,21,20,22,21,21,21,22,21,21,21,21,21,21,21,21,22,21,22,21,21]],
-    ['Seats & Upgrades', 1214, 49, '▼3 pts', 0, '#d7d0d0', [17,18,19,18,20,19,18,17,18,19,18,20,17,17,17,17,17,17,17,17,17,16,17,17,17,17,17,17,17,17]],
-    ['Medical & Special Assistance', 904, 44, '▲5 pts', 0, '#e1c2ba', [18,18,19,19,19,19,19,19,19,20,19,19,19,18,19,20,19,20,19,20,20,19,20,21,21,21,20,20,20,20]],
-    ['Customer Relations & Follow-up', 619, 72, '▼7 pts', 0, '#6a7c7f', [23,22,23,23,23,23,23,23,23,22,23,23,22,23,23,23,23,22,23,23,23,22,21,21,20,19,19,19,18,17]],
+    ['Online Booking', 4412, 43, '▼9 pts', 1, '#e3bfb5', [17,16,17,17,17,17,17,17,17,17,17,16,17,17,17,17,17,17,17,16,17,17,16,15,14,13,13,13,13,13]],
+    ['Trip Status', 3968, 63, '▼5 pts', 0, '#959fa3', [24,23,23,23,23,23,23,23,23,23,23,23,23,23,22,22,22,22,22,22,22,23,22,22,22,22,21,21,20,20]],
+    ['E-ticket Delivery', 2451, 72, '▼1 pts', 0, '#687c7d', [28,27,27,27,27,27,27,27,27,27,27,26,26,25,25,25,25,25,25,25,25,25,26,25,26,26,27,27,27,27]],
+    ['Itinerary Questions', 2377, 43, '▼5 pts', 0, '#e3bfb7', [15,16,15,15,16,15,16,16,16,15,16,15,15,15,14,14,14,14,14,14,15,14,14,14,14,14,14,13,14,14]],
+    ['Changes & Cancellations', 2206, 34, '▼13 pts', 1, '#f0a294', [18,17,16,17,18,18,18,19,19,18,18,18,17,16,16,16,15,16,15,14,15,14,14,14,12,12,12,11,12,12]],
+    ['Refunds & Credits', 1583, 36, '▼9 pts', 1, '#efa799', [14,15,15,15,14,14,14,15,15,15,15,14,14,13,13,13,14,15,15,15,16,15,13,13,12,11,11,10,10,10]],
+    ['Schedule Changes', 1329, 63, '0 pts', 0, '#959fa3', [20,20,21,21,21,21,21,21,21,21,21,20,22,21,21,21,22,21,21,21,21,21,21,21,21,22,21,22,21,21]],
+    ['Seating & Extras', 1061, 49, '▼3 pts', 0, '#d7d0d0', [17,18,19,18,20,19,18,17,18,19,18,20,17,17,17,17,17,17,17,17,17,16,17,17,17,17,17,17,17,17]],
+    ['Accessibility Requests', 873, 44, '▲5 pts', 0, '#e1c2ba', [18,18,19,19,19,19,19,19,19,20,19,19,19,18,19,20,19,20,19,20,20,19,20,21,21,21,20,20,20,20]],
+    ['Complaints & Follow-up', 702, 72, '▼7 pts', 0, '#6a7c7f', [23,22,23,23,23,23,23,23,23,22,23,23,22,23,23,23,23,22,23,23,23,22,21,21,20,19,19,19,18,17]],
   ].map(([name, calls, s, d, nw, fill, bars]) => ({ name, calls, s, d, nw, fill, bars, dark: s >= 70 }));
   // each topic's three parameters (only the three topics the cursor opens): name, value, score, fill, all-topics line
   const PAR = {
@@ -59,7 +59,7 @@
     2: [['Satisfaction', '4.3 / 5', 59, '#bcc4c7', 'all topics 4.2', 'avg 4.2'], ['Silence time', '2.7% of call time', 86, '#4f6362', 'all topics 4.6%', 'avg 4.6%'], ['Handle time', '2.2 min', 71, '#7f8a8b', 'all topics 4.2 min', 'avg 4.2 min']],
     3: [['Satisfaction', '3.8 / 5', 22, col(22), 'all topics 4.2', 'avg 4.2'], ['Silence time', '4.0% of call time', 71, col(71), 'all topics 4.6%', 'avg 4.6%'], ['Handle time', '4.3 min', 36, col(36), 'all topics 4.2 min', 'avg 4.2 min']],
   };
-  // Flight Booking's daily row while a parameter is hovered: value, change, swatch, bars, all-topics score
+  // Online Booking's daily row while a parameter is hovered: value, change, swatch, bars, all-topics score
   const TREND = {
     sil: [77, '▼9 pts', '#4c6766', [26,27,28,30,30,30,31,31,30,30,30,30,31,30,30,29,28,28,28,28,28,28,29,27,26,25,25,25,25,25], 65],
     sat: [44, '▼3 pts', '#e3bfb6', [16,17,16,16,16,19,16,15,16,16,17,16,16,16,17,18,19,18,16,18,19,19,16,16,15,15,15,15,15,14], 47],
@@ -91,16 +91,16 @@
   const rail = () => `<aside class="tq-rail"><svg class="mk" viewBox="0 0 57 51" aria-hidden="true"><path d="${MARK}"/></svg>${RAIL.map(([k, y, c]) => k === 'hr' ? `<i class="hr" style="top:${y - 13}px"></i>` : `<span class="ri${c ? ' ' + c : ''}" style="top:${y - 13}px">${ic(k)}</span>`).join('')}<span class="col">${ic('left')}</span></aside>`;
 
   // ---------- page parts ----------
-  const header = () => `<header class="tq-hd"><b class="cr">Topics</b>${ic('right', 'chv')}<span class="ws">Demo inv</span>${ic('right', 'chv')}<span class="cnt">13 topics · 23,109 calls</span>
+  const header = () => `<header class="tq-hd"><b class="cr">Topics</b>${ic('right', 'chv')}<span class="ws">Northwind</span>${ic('right', 'chv')}<span class="cnt">13 topics · 22,150 calls</span>
     <span class="srch">Search topics...${ic('search')}</span><span class="seg vw"><i>Flow</i><i class="on">Landscape</i><i>Pulse</i></span></header>
     <div class="tq-sr"><span class="sel"><span class="l">Score</span><b>Satisfaction</b><span class="p">+2</span><svg viewBox="0 0 6 4" aria-hidden="true"><path d="M0 0h6L3 4z"/></svg></span>
       <p class="def">Equal-weight average of <b>Satisfaction</b>, <b>Silence time</b> and <b>Handle time</b> · 0–100, higher is better</p>
       <span class="vl">Version</span><span class="seg ver"><i>Current</i><i>Facelift</i><i>Refined</i><i class="on">Ultra</i></span></div>
     <div class="tq-kpis">
-      <div class="tq-k"><h6>Calls</h6><div class="v"><b>23,109</b></div><p>13 topics · Sep 14 – Oct 13, 2026</p></div>
+      <div class="tq-k"><h6>Calls</h6><div class="v"><b>22,150</b></div><p>13 topics · Sep 14 – Oct 13, 2026</p></div>
       <div class="tq-k"><h6>Average score</h6><div class="v"><b>51</b><span>/ 100</span></div><p>Call-weighted · ▼7 pts in 30 days<i class="dt"></i></p></div>
-      <div class="tq-k gain"><h6>Most to gain</h6><div class="v"><b>+1.7</b><span>pts if lifted to the average</span></div><p><b>Flight Booking</b> · 4,879 calls at 43</p></div>
-      <div class="tq-k"><h6>New topics</h6><div class="v"><b>4</b><span>of 13</span></div><p>Flight Booking · Ticket Changes &amp; Cancellations · Refunds &amp; Payments</p></div>
+      <div class="tq-k gain"><h6>Most to gain</h6><div class="v"><b>+1.6</b><span>pts if lifted to the average</span></div><p><b>Online Booking</b> · 4,412 calls at 43</p></div>
+      <div class="tq-k"><h6>New topics</h6><div class="v"><b>4</b><span>of 13</span></div><p>Online Booking · Changes &amp; Cancellations · Refunds &amp; Credits</p></div>
     </div>`;
 
   // tile content in the wide and the narrow layout: padding, title, calls, score size, "avg score", New pill place, kind
@@ -151,10 +151,10 @@
   // ---------- the Ask AI panel ----------
   const globe = () => '<i class="glb"></i>';
   const A1 = ['The 5.9 min handle time is likely driven by complex', 'itineraries, extensive verification steps, and gaps', 'in agents’ fare-rule knowledge, pushing it above',
-    'the 4.4 min average and yielding a low score of 9.', 'Compared to other topics, Flight Booking has the', 'longest handle time and the poorest score,', 'marking it as a clear bottleneck. Next steps: (1)',
+    'the 4.4 min average and yielding a low score of 9.', 'Compared to other topics, Online Booking has the', 'longest handle time and the poorest score,', 'marking it as a clear bottleneck. Next steps: (1)',
     'coach agents on streamlined verification and', 'fare-rule shortcuts; (2) enrich the knowledge', 'base with quick-reference guides for common', 'flight scenarios; (3) audit the call flow to',
     'eliminate redundant prompts or automate data', 'capture.'];
-  const A2 = ['Set up alerts for: •Handle-time spikes on Flight', 'Booking (e.g., >5 min avg over 24 h); •Increasing', 'silence percentage (>4 % of call time); •Drop in',
+  const A2 = ['Set up alerts for: •Handle-time spikes on Online', 'Booking (e.g., >5 min avg over 24 h); •Increasing', 'silence percentage (>4 % of call time); •Drop in',
     'post-call satisfaction (<4.0) for the same topic;', 'and •Rapid growth in call volume indicating an', 'emerging issue. These signals will flag the', 'problem before it impacts overall performance.'];
   const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const ans = (lines, cls) => `<div class="ans ${cls} hid">${lines.map(l => `<span>${esc(l)}</span>`).join('')}</div>`;
@@ -165,7 +165,7 @@
       ${ic('tqClock', 'h1')}${ic('tqPen', 'h2')}${ic('tqExp', 'h3')}${ic('x', 'h4')}</div>
     <div class="chips"><span>Topics${ic('x')}</span><span>Project · Northwind</span></div>
     <div class="conv"><div class="scr">
-      <div class="bub q1">What’s driving Handle time on “Flight<br>Booking”? (5.9 min · score 9)</div>
+      <div class="bub q1">What’s driving Handle time on “Online<br>Booking”? (5.9 min · score 9)</div>
       <div class="think t1">${globe()}Thinking...</div>
       ${ans(A1, 'a1')}${acts('c1')}${rel(['Boosting satisfaction scores', 'Reducing silence time', 'Analyzing emerging topics'], 'r1')}
       <div class="bub q2 hid">Which signals should I set up to catch this<br>early?</div>
@@ -202,7 +202,7 @@
     rest: 3,
     times: [0, 8.6, 12.9, 19.1, 32.2],
     beats: [
-      'Most to gain lights up Flight Booking, then its scores.',
+      'Most to gain lights up Online Booking, then its scores.',
       'Clicking its worst score, Handle time, opens Ask AI.',
       'The answer explains what drives the long handle time.',
       'A follow-up asks which signals would catch it early.',
@@ -253,7 +253,7 @@
           b0.innerHTML = barsHTML(bars, k === 'ht' ? '#ff6b55' : null); row0.querySelector('.ref').style.bottom = REF(all) + 'px';
           dsub.innerHTML = `Trend: <b>${name}</b> · height = score`; q('.tq-lg .atv').textContent = all; q('.tq-lg .at').style.left = ((all - 20) / 60 * 100).toFixed(2) + '%';
         } else {
-          nm.textContent = '4,879 calls'; vv.querySelector('b').textContent = 43; vv.querySelector('small').textContent = '▼9 pts'; vv.querySelector('.sw').style.background = col(43);
+          nm.textContent = '4,412 calls'; vv.querySelector('b').textContent = 43; vv.querySelector('small').textContent = '▼9 pts'; vv.querySelector('.sw').style.background = col(43);
           b0.innerHTML = base0; row0.querySelector('.ref').style.bottom = REF(51) + 'px';
           dsub.textContent = 'Height = average score, 0–100'; q('.tq-lg .atv').textContent = 51; q('.tq-lg .at').style.left = '51.67%';
         }
@@ -286,7 +286,7 @@
       const press = () => { if (!c.ff) c.anim(P.cursor.firstElementChild, [{ transform: 'scale(1)' }, { transform: 'scale(.8)', offset: .4 }, { transform: 'scale(1)' }], { duration: 140, easing: 'ease-out' }); };
       const EIO = 'cubic-bezier(.45,0,.3,1)';
 
-      // ---------- 1. Most to gain lights up Flight Booking; the topic opens into its parameters ----------
+      // ---------- 1. Most to gain lights up Online Booking; the topic opens into its parameters ----------
       await B(0, 0);
       glide([[0, 576, 134], [.33, 577, 149], [.47, 579, 166], [.6, 581, 179], [.7, 582, 186]]);
       await at(.7); glide([[.7, 582, 186], [1.4, 582, 188]]);
