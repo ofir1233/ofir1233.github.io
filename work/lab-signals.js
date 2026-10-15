@@ -23,7 +23,7 @@
   // the sidebar: Main and Intelligence scroll in the nav, the DEV pages sit in their own block under it
   const NAV = [['h', 'Main'], ['sgHome', 'Chat'], ['news', 'News'], ['db', 'Data'], ['db', 'Data V2'], ['sgGrid', 'Topics'], ['report', 'Reports'], ['sgApps', 'Mini Apps'],
     ['h', 'Intelligence'], ['term', 'Signals'], ['alert', 'Alerts'], ['shieldPlain', 'Compliance'], ['shield', 'Agent Evaluation'], ['book', 'Knowledge']];
-  const DEV = `<div class="sg-dev">${[['news', 'News · Directions'], ['video', 'Demos'], ['story', 'Storybook']].map(([i, l]) => `<div class="sb-i dev" data-nav="${l}">${i === 'story' ? LX.mark('sm') : ic(i)}<span>${l}</span><em>DEV</em></div>`).join('')}</div>`;
+  const DEV = `<div class="sg-dev">${[['news', 'News · Directions'], ['video', 'Demos'], ['story', 'Storybook']].map(([i, l]) => `<div class="sb-i dev" data-nav="${l}">${i === 'story' ? LX.mark('sm') : ic(i)}<span>${l}</span></div>`).join('')}</div>`;
   const shell = () => LX.shell({ active: 'Signals', nav: NAV }).replace('<div class="sb-user">', DEV + '<div class="sb-user">');
 
   const ST = { a: 'Active', t: 'Triggered', p: 'Paused', e: 'Error' };

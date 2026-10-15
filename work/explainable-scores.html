@@ -1,12 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>/* a page opens at its top: a reload or a reopened tab never lands mid-page. A link to a #section still lands on it, then the address drops the #section so the next visit starts at the top. Back still returns to where the reader was */
+(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{},h=history,de=document.documentElement,moved=false,
+strip=function(){if(location.hash)h.replaceState(h.state,'',location.pathname+location.search);};
+if(n.type!=='back_forward'){
+if('scrollRestoration' in h)h.scrollRestoration='manual';
+if(location.hash&&n.type==='reload')strip();
+if(!location.hash){['wheel','touchstart','keydown','mousedown'].forEach(function(t){addEventListener(t,function(){moved=true;},{passive:true,once:true});});
+var top=function(){if(moved||!scrollY)return;var b=de.style.scrollBehavior;de.style.scrollBehavior='auto';scrollTo(0,0);de.style.scrollBehavior=b;};
+top();document.addEventListener('DOMContentLoaded',top);addEventListener('load',top);}
+addEventListener('load',function(){setTimeout(function(){if('scrollRestoration' in h)h.scrollRestoration='auto';strip();},700);});}
+addEventListener('hashchange',function(){setTimeout(strip,0);});
+addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
+}catch(e){}})();</script>
 <title>Explainable scores · Ofir Nona</title>
 <meta name="description" content="I designed Compliance and Agent evaluation for Hear, an AI platform for contact centers, so people can check an AI score against its calls.">
-<meta name="theme-color" content="#f3f4f2">
-<script>(function(){try{var n=performance.getEntriesByType('navigation')[0];if(!location.hash&&!(n&&n.type==='back_forward')){history.scrollRestoration='manual';var moved=false;['wheel','touchstart','keydown','mousedown'].forEach(function(e){addEventListener(e,function(){moved=true;},{once:true,passive:true});});var top=function(){if(!moved)window.scrollTo({top:0,left:0,behavior:'instant'});};top();addEventListener('DOMContentLoaded',top);addEventListener('load',top);}addEventListener('pagehide',function(){history.scrollRestoration='auto';});}catch(e){}})();</script>
+<meta name="theme-color" content="#101614">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/explainable-scores.html">
 <meta property="og:title" content="Explainable scores · Ofir Nona">
@@ -16,7 +28,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Ofir Nona, senior product designer. A Topics screen from Hear Design Lab with demo data.">
 <meta name="twitter:card" content="summary_large_image">
-<script>(function(){try{var t=localStorage.getItem('ofir-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<script>(function(){try{var t=localStorage.getItem('ofir-theme')==='light'?'light':'dark',m=document.querySelector('meta[name="theme-color"]');document.documentElement.dataset.theme=t;if(m)m.content=t==='dark'?'#101614':'#f3f4f2';}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -25,7 +37,6 @@
 <link rel="stylesheet" href="lab-compliance.css">
 <link rel="stylesheet" href="lab-agent-eval.css">
 <link rel="stylesheet" href="lab-stage.css">
-<link rel="preload" as="image" href="../img/hear-desk-notebook.webp">
 <style>
 /* explainable-scores: page-only pieces */
 .es-scale { background: var(--card); border-radius: 22px; padding: clamp(18px, 2.6vw, 28px); display: grid; gap: 10px; }
@@ -38,6 +49,10 @@
 .es-narrow img { width: auto; max-width: 100%; border-radius: 10px; }
 @media (min-width: 761px) { .shot.pad.es-narrow { padding-bottom: 56px; } }
 .shot.pad.es-light { background: #fff; }
+/* light theme: that white pad sits on the white sheet, so a hairline and the window shadow frame it as a product screen */
+:root:not([data-theme="dark"]) .sheet .shot.pad.es-light { box-shadow: 0 0 0 1px rgba(20,32,27,.08), var(--win-shadow); }
+/* print and PDF take the light look (see case.css) */
+@media print { :root[data-theme="dark"] .sheet .shot.pad.es-light { box-shadow: 0 0 0 1px rgba(20,32,27,.08), var(--win-shadow); } }
 .es-prose ol + p { margin-top: 1em; }
 .es-gap { margin-top: clamp(36px, 5vw, 64px); }
 @media (max-width: 1239px) { .ct-hero.es-stage .ct-stage { --ct-band: 55cqw; --ct-top: 45cqw; } }
@@ -50,7 +65,7 @@
   <div class="wrap">
     <a class="home" href="../index.html#product">Ofir<span>.</span> <i>← All work</i></a>
     <nav aria-label="Case studies"><a class="pill pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill" href="design-lab.html">← Design Lab</a><a class="pill solid" href="actions.html" aria-label="Next case: Actions">Actions →</a></nav>
-    <button type="button" class="theme-tg" aria-label="Switch to dark theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+    <button type="button" class="theme-tg" aria-label="Switch to light theme" aria-pressed="true"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
     <span class="progress" aria-hidden="true"></span>
   </div>
 </header>
@@ -59,26 +74,24 @@
   <header class="cs-hero wrap">
     <div class="label">Case study · <b>Explainable scores</b></div>
     <h1>Every AI score should lead back to the calls behind it</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>Hear is an AI platform for contact centers. People coach agents and check compliance from AI scores, so they need to audit them.</dd></div><div><dt>What I designed</dt><dd>I designed Compliance, which checks agents against the contact center's rules. I also designed Agent evaluation, which scores each agent: my first version, then V2 to V4 + Filter.</dd></div><div><dt>Where it stands</dt><dd>Screens from Oct 2026 in Hear Design Lab, a working replica of Hear. Not every version in the Lab is finished.</dd></div></dl>
+    <dl class="brief"><div><dt>The challenge</dt><dd>Hear is an AI platform for contact centers. People coach agents and check compliance from AI scores, so they need to audit them.</dd></div><div><dt>What I designed</dt><dd>I designed Compliance, which checks agents against the contact center's rules. I also designed Agent evaluation, which scores each agent. I took it from my first version to V4 + Filter.</dd></div><div><dt>Where it stands</dt><dd>Screens from Oct 2026 in Hear Design Lab, a working replica of Hear. Not every version in the Lab is finished.</dd></div></dl>
     <dl class="meta">
       <div><dt>Role</dt><dd>Design and build in the Lab, with Claude Code</dd></div>
-      <div><dt>When</dt><dd>2026</dd></div>
+      <div><dt>When</dt><dd>Mar–Oct 2026</dd></div>
       <div><dt>Scope</dt><dd>Compliance heatmap and popover · Agent evaluation chart · score answers in Ask AI</dd></div>
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#grid"><span>02</span> Compliance</a><a class="pill" href="#cell"><span>03</span> The popover</a><a class="pill" href="#answers"><span>04</span> Ask AI</a><a class="pill" href="#decisions"><span>05</span> Decisions</a></nav>
     <figure class="ct-fig ct-hero es-stage" id="demo" data-lx-stage style="--pw:114cqw;--px:0cqw;--py:-15.6cqw;--wx:3.5cqw;--wy:10.3cqw;--ww:43cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-12cqw;--pw-s:136cqw;--px-s:-20cqw;--py-s:-11cqw">
       <div class="ct-stage">
-        <div class="ct-band">
-          <img class="ct-photo" src="../img/hear-desk-notebook.webp" alt="" width="1600" height="1073" decoding="async" fetchpriority="high">
-        </div>
+        <div class="ct-band"></div>
         <div class="ct-win">
           <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
           <div class="lx" data-lab="compliance" role="img" aria-label="Compliance: criterion trends, the agents heatmap, one cell's popover, and an Ask AI answer that names the calls behind the score."></div>
         </div>
       </div>
       <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
-      <figcaption><b>From a grid to the evidence.</b> The demo narrows from every criterion to one score and its Ask AI answer.</figcaption></figure>
+      <figcaption><b>From a grid to the evidence.</b> The demo narrows from every criterion to one score and its Ask&nbsp;AI answer.</figcaption></figure>
   </header>
 
   <section class="chapter" id="problem">
@@ -145,7 +158,7 @@
             <li>The header names the agent, criterion and date range, so the number is never read without its scope.</li>
             <li>The score sits next to its difference from the team average, and its rank among all agents.</li>
             <li>A small histogram shows every agent's score on this criterion, with the team average as a dashed line and this agent's bar lit up.</li>
-            <li>One sentence comes before the buttons: "Opens Chat, which looks up this agent's calls. Nothing extra loads until you click."</li>
+            <li>One sentence comes before the buttons: “Opens Chat, which looks up this agent's calls. Nothing extra loads until you click.”</li>
             <li>Then two ways forward: <b>Explore in Chat</b> as the main button, and <b>Open agent evaluation</b> as a quieter link.</li>
           </ul>
           
@@ -163,7 +176,7 @@
       </div>
       <div class="two">
         <figure class="rv"><div class="shot pad es-light es-narrow"><img src="../img/cs-explainable-scores-ask-ai-nb.webp" alt="An Ask AI answer: the score as the average of a stated number of calls over a date range, a list headed Calls that pulled it down most with each call's score, the missed step and a short quote, a Pattern paragraph saying it may be a script or process issue, not only coaching, then answer actions and Related follow-ups" width="420" height="680" loading="lazy"><span class="live">Design Lab · demo data</span></div>
-          <figcaption><b>An answer about one score.</b> From the Agent evaluation screen, light theme.</figcaption></figure>
+          <figcaption><b>An answer about one score.</b> From the Compliance screen, light theme.</figcaption></figure>
         <div class="prose es-prose xtra">
           <p>An answer asked from a cell has four parts, and the first three point at something you can check:</p>
           <ol>

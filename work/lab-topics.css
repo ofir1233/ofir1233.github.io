@@ -1,6 +1,6 @@
 /* Topics (Ultra) with the Ask AI side panel. App pixels, 1440×900. */
 .sc-tq { background: #eeeeee; color: #111; }
-.sc-tq .lx-cur b { border: 1.5px solid #e8776f; background: rgba(239,96,80,.36); }
+.sc-tq .lx-cur b { border: 2px solid #e0664f; background: rgba(247,110,85,.33); }
 .sc-tq .tq-root { position: absolute; inset: 0; }
 .sc-tq .seg { display: flex; align-items: center; background: #fff; border: 1px solid #e2e2e0; border-radius: 10px; padding: 3px; }
 .sc-tq .seg i { height: 100%; display: grid; place-items: center; font-style: normal; font-weight: 500; color: #8f8f8f; border-radius: 7px; border: 1px solid transparent; white-space: nowrap; }
@@ -47,7 +47,7 @@
 .sc-tq .tq-sr .ver i:nth-child(1), .sc-tq .tq-sr .ver i:nth-child(2) { width: 75px; } .sc-tq .tq-sr .ver i:nth-child(3) { width: 73px; } .sc-tq .tq-sr .ver i:nth-child(4) { width: 54px; margin-left: 1px; font-size: 12.8px; color: #1b65c6; }
 
 .sc-tq .tq-kpis { position: absolute; left: 3px; right: 1px; top: 143px; height: 108px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 17px; }
-.sc-tq .tq-k { position: relative; background: #fff; border: 1px solid #eaeae7; border-radius: 12px; overflow: hidden; transition: border-color .15s ease-out; }
+.sc-tq .tq-k { position: relative; background: #fff; border: 1px solid #eaeae7; border-radius: 12px; overflow: hidden; }
 .sc-tq .tq-k.hv { border-color: #d7d7d4; }
 .sc-tq .tq-k h6 { position: absolute; left: 20px; top: 14px; margin: 0; font-size: 12.9px; line-height: 16px; font-weight: 600; color: #51514e; letter-spacing: -.01em; }
 .sc-tq .tq-k .v { position: absolute; left: 20px; right: 14px; top: 37px; height: 36px; display: flex; align-items: baseline; white-space: nowrap; }
@@ -88,11 +88,11 @@
 .sc-tq .tq-ft .gb + b + span { margin-left: 10px; }
 
 /* tiles */
-.sc-tq .tq-t { position: absolute; border-radius: 8px; overflow: hidden; transition: opacity .15s ease-out; }
-.sc-tq .tq-t::after { content: ""; position: absolute; inset: 0; border-radius: 8px; box-shadow: inset 0 0 0 1.5px #111; opacity: 0; transition: opacity .15s ease-out; z-index: 3; pointer-events: none; }
+.sc-tq .tq-t { position: absolute; border-radius: 8px; overflow: hidden; }
+.sc-tq .tq-t::after { content: ""; position: absolute; inset: 0; border-radius: 8px; box-shadow: inset 0 0 0 1.5px #111; opacity: 0; z-index: 3; pointer-events: none; }
 .sc-tq .tq-t.tg::after { opacity: 1; }
 .sc-tq .tq-t.dim, .sc-tq .tq-r.dim .g { opacity: .42; }
-.sc-tq .tq-t .tb { position: absolute; inset: 0; display: flex; flex-direction: column; color: #111; transition: opacity .07s; }
+.sc-tq .tq-t .tb { position: absolute; inset: 0; display: flex; flex-direction: column; color: #111; }
 .sc-tq .tq-t .tt { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 600; line-height: 1.2; letter-spacing: -.02em; }
 .sc-tq .tq-t .th { display: flex; align-items: flex-start; gap: 10px; }
 .sc-tq .tq-t .th .new { margin-left: auto; margin-top: -1px; }
@@ -100,20 +100,21 @@
 .sc-tq .tq-t .sc { margin-top: auto; display: flex; align-items: baseline; white-space: nowrap; }
 .sc-tq .tq-t .sc b { font-weight: 500; line-height: .74; letter-spacing: -.035em; }
 .sc-tq .tq-t .sc span { margin-left: 9px; font-size: 12.9px; font-weight: 500; color: rgba(0,0,0,.7); }
-.sc-tq .tq-t .sc .new { margin-left: auto; align-self: center; }
+.sc-tq .tq-t .sc .new { margin-left: auto; align-self: center; height: 17px; padding: 0 7px; font-size: 10px; font-weight: 700; color: #111; }
 .sc-tq .tq-t .new { flex: none; height: 19px; padding: 0 9px; display: grid; place-items: center; border: 1px solid rgba(0,0,0,.25); border-radius: 10px; font-size: 11px; font-weight: 700; color: #111; }
 .sc-tq .tq-t .inl, .sc-tq .tq-t .only { font-size: 11px; font-weight: 700; white-space: nowrap; }
 .sc-tq .tq-t .inl { margin-top: 1px; }
 .sc-tq .tq-t.dk .tb { color: #fff; }
 .sc-tq .tq-t.dk .cl, .sc-tq .tq-t.dk .sc span { color: rgba(255,255,255,.88); }
 .sc-tq .tq-t[data-i="9"] .tt { line-height: 1.17; }
-/* a hovered topic opens into its parameters */
-.sc-tq .tq-t .dl { position: absolute; inset: 0; opacity: 0; transition: opacity .07s; z-index: 2; }
+/* a hovered topic opens into its parameters: its label goes at once; the script pales its colour and fades the parameter tiles in */
+.sc-tq .tq-t .dl { position: absolute; inset: 0; opacity: 0; z-index: 2; }
 .sc-tq .tq-t.dr .dl { opacity: 1; }
 .sc-tq .tq-t.dr .tb { opacity: 0; }
 .sc-tq .tq-t .dh { position: absolute; display: flex; align-items: baseline; justify-content: space-between; white-space: nowrap; }
-.sc-tq .tq-t .dh b { font-size: 15.4px; font-weight: 700; color: #111; }
-.sc-tq .tq-t .dh span { font-size: 12.3px; font-weight: 500; color: #483f39; }
+.sc-tq .tq-t .dh b { min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 15.4px; font-weight: 600; color: #111; }
+.sc-tq .tq-t .dh.sm b { font-size: 13.5px; }
+.sc-tq .tq-t .dh span { flex: none; margin-left: 8px; font-size: 12.3px; font-weight: 500; color: #483f39; }
 .sc-tq .tq-t .sb { position: absolute; border-radius: 6px; padding: 9px 9px 7px; display: flex; flex-direction: column; overflow: hidden; color: #111; }
 .sc-tq .tq-t .sb b { font-size: 12.7px; line-height: 15px; font-weight: 700; white-space: nowrap; letter-spacing: -.025em; }
 .sc-tq .tq-t .sb small { margin-top: 2px; font-size: 11px; line-height: 13px; font-weight: 500; color: rgba(0,0,0,.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -133,12 +134,14 @@
 .sc-tq .tq-dy .sort .seg i { font-size: 12.3px; }
 .sc-tq .tq-dy .sort .seg i:nth-child(1) { width: 73px; font-size: 13px; } .sc-tq .tq-dy .sort .seg i:nth-child(2) { width: 97px; } .sc-tq .tq-dy .sort .seg i:nth-child(3) { width: 93px; }
 .sc-tq .tq-list { position: absolute; left: 0; right: 0; top: 110px; height: 412px; overflow: hidden; }
-.sc-tq .tq-r { position: absolute; left: 0; right: 0; height: 41.1px; border-bottom: 1px solid #ebebeb; transition: background-color .15s ease-out; }
+.sc-tq .tq-r { position: absolute; left: 0; right: 0; height: 41.1px; border-bottom: 1px solid #ebebeb; }
 .sc-tq .tq-r.on { background: #f9f9f7; }
-.sc-tq .tq-r .g { position: absolute; left: 20px; right: 21px; top: 0; height: 41px; display: grid; grid-template-columns: 183px minmax(0, 1fr) 92px; align-content: center; align-items: end; transition: opacity .15s ease-out; }
+.sc-tq .tq-r .g { position: absolute; left: 20px; right: 21px; top: 0; height: 41px; display: grid; grid-template-columns: 183px minmax(0, 1fr) 92px; align-content: center; align-items: end; }
 .sc-tq .tq-r .nm { width: 158px; padding-top: 1px; }
 .sc-tq .tq-r .nm b { display: block; font-size: 13px; line-height: 16px; font-weight: 700; color: #111; letter-spacing: -.015em; }
 .sc-tq .tq-r .nm small { display: block; margin-top: 1px; font-size: 11.9px; line-height: 15px; font-weight: 500; color: #999; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* a name that wraps to two lines sits a little lower in its row, as the recording draws it */
+.sc-tq .tq-r.w2 .nm { transform: translateY(3px); }
 .sc-tq .tq-r .nm small b { display: inline; font-size: 11.9px; line-height: 15px; color: #111; }
 .sc-tq .tq-r .sp { position: relative; height: 0; margin-bottom: -9px; }
 .sc-tq .tq-r .bars { position: absolute; left: 0; right: 0; bottom: 0; height: 40px; display: flex; align-items: flex-end; }
@@ -217,13 +220,11 @@
 .sc-tq .tq-pn .q1 { top: 16px; } .sc-tq .tq-pn .q2 { top: 448px; }
 .sc-tq .tq-pn .think { position: absolute; left: 18px; height: 22px; display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 500; color: #989898; }
 .sc-tq .tq-pn .t1 { top: 89px; } .sc-tq .tq-pn .t2 { top: 521px; }
-.sc-tq .tq-pn .glb { position: relative; width: 22px; height: 22px; border-radius: 50%; overflow: hidden; background: #e3ecfc; flex: none; }
-.sc-tq .tq-pn .glb::before { content: ""; position: absolute; inset: -8px; background-image: radial-gradient(circle, #2f6fe0 0 .85px, transparent 1.1px); background-size: 3.4px 3.4px; transform: rotate(35deg); animation: tq-drift .8s linear infinite; }
-.sc-tq .tq-pn .glb::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0) 30%, rgba(255,255,255,.6) 100%); }
-/* the same drift as sliding the dots 3.4px along the pattern, as a compositor transform */
-@keyframes tq-drift { from { transform: rotate(35deg); } to { transform: rotate(35deg) translate(3.4px, 3.4px); } }
-/* a globe that is hidden (visibility) rests: a running animation nobody can see still costs the page a frame every frame */
-.sc-tq .tq-pn .hid .glb::before { animation-play-state: paused; }
+/* the thinking globe: a fine lattice of blue dots on a sphere, darker at the middle, drifting */
+.sc-tq .tq-pn .glb { position: relative; width: 22px; height: 22px; border-radius: 50%; overflow: hidden; background: #dcebfd; flex: none; }
+.sc-tq .tq-pn .glb::before { content: ""; position: absolute; inset: -8px; background-image: radial-gradient(circle, #2b56c9 0 .78px, transparent 1.02px); background-size: 2.75px 2.75px; transform: rotate(-35deg); animation: tq-drift .8s linear infinite; }
+.sc-tq .tq-pn .glb::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 46% 44%, rgba(255,255,255,0) 32%, rgba(232,242,254,.4) 72%, rgba(236,244,255,.75) 100%); }
+@keyframes tq-drift { to { background-position: 2.75px 2.75px; } }
 .sc-tq .tq-pn .ans { position: absolute; left: 24px; width: 345px; font-size: 14.6px; line-height: 23px; font-weight: 500; color: #363636; letter-spacing: -.012em; }
 .sc-tq .tq-pn .ans span { display: block; white-space: nowrap; }
 .sc-tq .tq-pn .a1 { top: 90px; } .sc-tq .tq-pn .a2 { top: 523px; }
@@ -233,30 +234,32 @@
 .sc-tq .tq-pn .c1 { top: 415px; } .sc-tq .tq-pn .c2 { top: 710px; }
 .sc-tq .tq-pn .rel { position: absolute; left: 15px; width: 261px; }
 .sc-tq .tq-pn .r1 { top: 448px; } .sc-tq .tq-pn .r2 { top: 748px; }
-.sc-tq .tq-pn .rel h6 { margin: 0; height: 21.5px; font-size: 12.9px; line-height: 15px; font-weight: 700; color: #060606; }
-.sc-tq .tq-pn .r2 h6 { height: 16.5px; }
-.sc-tq .tq-pn .rel .ri { height: 37px; display: flex; align-items: center; padding: 0 8px; border-bottom: 1px solid #ebebeb; font-size: 12.1px; font-weight: 500; color: #5e5e5e; }
-.sc-tq .tq-pn .rel .ri .i { width: 12px; height: 12px; margin-left: auto; color: #999; stroke-width: 1.5; }
+.sc-tq .tq-pn .rel h6 { margin: 0; height: 21.5px; padding-top: 4px; font-size: 12.9px; line-height: 15px; font-weight: 700; color: #060606; }
+.sc-tq .tq-pn .r2 h6 { height: 16.5px; padding-top: 0; }
+.sc-tq .tq-pn .rel .ri { height: 37px; display: flex; align-items: center; padding: 0 8px 0 6px; border-bottom: 1px solid #ebebeb; font-size: 13.3px; font-weight: 500; color: #4f4f4f; letter-spacing: -.015em; }
+.sc-tq .tq-pn .rel .ri .i { width: 13px; height: 13px; margin-left: auto; color: #8f8f8f; stroke-width: 1.5; }
+/* the row under the pointer: its arrow darkens at once; over the label, the label and the rule under it darken */
+.sc-tq .tq-pn .rel .ri.hv .i { color: #161616; }
+.sc-tq .tq-pn .rel .ri.ht { color: #2e2e2e; border-bottom-color: #bdbdbd; }
 .sc-tq .tq-pn .comp { position: absolute; left: 13px; right: 13px; bottom: 14px; height: 88px; border: 1.5px solid #5b8bd0; border-radius: 14px; box-shadow: 0 0 0 3px #e6eefb; background: #fff; }
 .sc-tq .tq-pn .comp.tw2 { height: 109px; }
 .sc-tq .tq-pn .comp .tx { position: absolute; left: 9px; right: 9px; top: 11px; font-size: 15.8px; line-height: 21px; font-weight: 500; }
 .sc-tq .tq-pn .comp .ph0 { position: absolute; left: 0; top: 0; color: #959595; white-space: nowrap; }
 .sc-tq .tq-pn .comp .ty { position: relative; color: #222; white-space: nowrap; }
-.sc-tq .tq-pn .comp .ty::after { content: ""; display: inline-block; width: 1.5px; height: 18px; margin-left: 1px; vertical-align: -3px; background: #222; animation: tq-blink 1.06s steps(1) infinite; }
-@keyframes tq-blink { 50% { opacity: 0; } }
+/* the caret: the script shows it (.cu) or blinks it on the player clock */
+.sc-tq .tq-pn .comp .ty::after { content: ""; display: inline-block; width: 1.5px; height: 18px; margin-left: 1px; vertical-align: -3px; background: #222; opacity: 0; }
+.sc-tq .tq-pn .comp .ty.cu::after { opacity: 1; }
 .sc-tq .tq-pn .comp > .i { position: absolute; bottom: 17px; width: 15px; height: 15px; color: #7e7e7e; stroke-width: 1.7; }
 .sc-tq .tq-pn .comp .at { left: 14px; } .sc-tq .tq-pn .comp .sl { left: 44px; width: 16px; height: 16px; }
 .sc-tq .tq-pn .slot { position: absolute; right: 8px; bottom: 8px; width: 32px; height: 32px; }
-.sc-tq .tq-pn .slot > span { position: absolute; inset: 0; display: none; place-items: center; border-radius: 8px; }
+.sc-tq .tq-pn .slot > span { position: absolute; inset: 0; display: none; place-items: center; border-radius: 8px; overflow: hidden; }
 .sc-tq .tq-pn .slot[data-s="mic"] .mic, .sc-tq .tq-pn .slot[data-s="send"] .send, .sc-tq .tq-pn .slot[data-s="busy"] .busy { display: grid; }
-.sc-tq .tq-pn .slot .mic { color: #8a8a8a; } .sc-tq .tq-pn .slot .mic .i { width: 15px; height: 15px; stroke-width: 1.5; }
+.sc-tq .tq-pn .slot .mic { color: #8a8a8a; } .sc-tq .tq-pn .slot .mic .i { width: 17px; height: 17px; stroke-width: 1.5; }
 .sc-tq .tq-pn .slot .send, .sc-tq .tq-pn .slot .busy { background: #1677f5; color: #fff; }
-.sc-tq .tq-pn .slot .send .i { width: 16px; height: 16px; stroke-width: 2; }
-.sc-tq .tq-pn .slot .busy { grid-auto-flow: column; gap: 3px; place-content: center; }
-.sc-tq .tq-pn .slot .busy b { width: 3px; height: 3px; border-radius: 50%; background: #fff; animation: tq-pulse .9s ease-in-out infinite; }
-.sc-tq .tq-pn .slot .busy b:nth-child(2) { animation-delay: .15s; } .sc-tq .tq-pn .slot .busy b:nth-child(3) { animation-delay: .3s; }
-@keyframes tq-pulse { 0%, 100% { opacity: .45; } 35% { opacity: 1; } }
+.sc-tq .tq-pn .slot .send .i { width: 21px; height: 21px; stroke-width: 2; }
+.sc-tq .tq-pn .slot .busy .bw { display: flex; align-items: center; gap: 2.8px; padding-top: 2.4px; font-style: normal; }
+/* the busy dots rise and fall in a wave; the script runs it on the scene clock */
+.sc-tq .tq-pn .slot .busy b { width: 3px; height: 3px; border-radius: 50%; background: #fff; }
 @media (prefers-reduced-motion: reduce) {
-  .sc-tq .tq-pn .glb::before, .sc-tq .tq-pn .slot .busy b, .sc-tq .tq-pn .comp .ty::after { animation: none; }
-  .sc-tq .tq-t, .sc-tq .tq-t::after, .sc-tq .tq-t .dl, .sc-tq .tq-t .tb, .sc-tq .tq-r, .sc-tq .tq-r .g, .sc-tq .tq-k { transition: none; }
+  .sc-tq .tq-pn .glb::before { animation: none; }
 }

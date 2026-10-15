@@ -65,7 +65,6 @@
     <div class="tip"><b class="td"></b><span class="tv"><b></b><i>⁄</i>100</span><span class="tc"></span></div>`;
   const page = () => `<header class="card hd">
       <span class="pill-ae">Agent Evaluation</span>${ic('right', 'chev')}<span class="pill-tot">Total Agents<em>715</em></span>
-      <span class="btn dbg" style="left:490px;width:123px">${ic('aeBug')}Debug Query</span>
       <span class="btn" style="left:629px;width:88px">Hide Filters</span>
       <span class="btn" style="left:732px;width:174px">${ic('aeUser')}Show by agent name</span>
       <span class="seg"><span>V2</span><span>V3</span><span>V4</span><span class="on">V4 + Filter</span></span>

@@ -1,22 +1,34 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Data &amp; signals · Ofir Nona</title>
+<script>/* a page opens at its top: a reload or a reopened tab never lands mid-page. A link to a #section still lands on it, then the address drops the #section so the next visit starts at the top. Back still returns to where the reader was */
+(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{},h=history,de=document.documentElement,moved=false,
+strip=function(){if(location.hash)h.replaceState(h.state,'',location.pathname+location.search);};
+if(n.type!=='back_forward'){
+if('scrollRestoration' in h)h.scrollRestoration='manual';
+if(location.hash&&n.type==='reload')strip();
+if(!location.hash){['wheel','touchstart','keydown','mousedown'].forEach(function(t){addEventListener(t,function(){moved=true;},{passive:true,once:true});});
+var top=function(){if(moved||!scrollY)return;var b=de.style.scrollBehavior;de.style.scrollBehavior='auto';scrollTo(0,0);de.style.scrollBehavior=b;};
+top();document.addEventListener('DOMContentLoaded',top);addEventListener('load',top);}
+addEventListener('load',function(){setTimeout(function(){if('scrollRestoration' in h)h.scrollRestoration='auto';strip();},700);});}
+addEventListener('hashchange',function(){setTimeout(strip,0);});
+addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
+}catch(e){}})();</script>
+<title>Data &amp; Signals · Ofir Nona</title>
 <meta name="description" content="In Hear Design Lab, I designed three versions of the call table, with an AI filter that becomes a chip you can read and remove, and the Signals list.">
-<meta name="theme-color" content="#f3f4f2">
-<script>(function(){try{var n=performance.getEntriesByType('navigation')[0];if(!location.hash&&!(n&&n.type==='back_forward')){history.scrollRestoration='manual';var moved=false;['wheel','touchstart','keydown','mousedown'].forEach(function(e){addEventListener(e,function(){moved=true;},{once:true,passive:true});});var top=function(){if(!moved)window.scrollTo({top:0,left:0,behavior:'instant'});};top();addEventListener('DOMContentLoaded',top);addEventListener('load',top);}addEventListener('pagehide',function(){history.scrollRestoration='auto';});}catch(e){}})();</script>
+<meta name="theme-color" content="#101614">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/data.html">
-<meta property="og:title" content="Data &amp; signals · Ofir Nona">
+<meta property="og:title" content="Data &amp; Signals · Ofir Nona">
 <meta property="og:description" content="In Hear Design Lab, I designed three versions of the call table, with an AI filter that becomes a chip you can read and remove, and the Signals list.">
 <meta property="og:image" content="https://ofir1233.github.io/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Ofir Nona, senior product designer. A Topics screen from Hear Design Lab with demo data.">
 <meta name="twitter:card" content="summary_large_image">
-<script>(function(){try{var t=localStorage.getItem('ofir-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<script>(function(){try{var t=localStorage.getItem('ofir-theme')==='light'?'light':'dark',m=document.querySelector('meta[name="theme-color"]');document.documentElement.dataset.theme=t;if(m)m.content=t==='dark'?'#101614':'#f3f4f2';}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -25,23 +37,22 @@
 <link rel="stylesheet" href="lab-data.css">
 <link rel="stylesheet" href="lab-signals.css">
 <link rel="stylesheet" href="lab-stage.css">
-<link rel="preload" as="image" href="../img/hear-kitchen-mug.webp">
 <style>
 /* data: toolbar anatomy (pins; on phones the two ends of the strip stack), plan-vs-build table, 3-column steps */
 .data-anat .live { top: 4px; bottom: auto; }
 .data-img { position: relative; }
 .data-crop.b { display: none; }
-.data-pin { position: absolute; transform: translate(-50%, -50%); width: 22px; height: 22px; border-radius: 50%; background: var(--coral); color: var(--on-accent); font: 700 13px/22px var(--body); text-align: center; box-shadow: 0 0 0 3px #fff, 0 4px 12px rgba(20,32,27,.3); pointer-events: none; }
+.data-pin { position: absolute; transform: translate(-50%, -50%); width: 22px; height: 22px; border-radius: 50%; background: var(--coral); color: var(--on-accent); font: 700 13.5px/22px var(--body); text-align: center; box-shadow: 0 0 0 3px #fff, 0 4px 12px rgba(20,32,27,.3); pointer-events: none; }
 @media (max-width: 900px) {
   .data-crop { overflow: hidden; }
-  .data-pin { width: 20px; height: 20px; font-size: 12.5px; line-height: 20px; box-shadow: 0 0 0 2px #fff; }
+  .data-pin { width: 20px; height: 20px; font-size: 13.5px; line-height: 20px; box-shadow: 0 0 0 2px #fff; }
   .data-crop.a .data-img { width: 266.667%; }
   .data-crop.b { display: block; border-top: 6px solid #0f0f11; }
   .data-crop.b .data-img { width: 307.692%; margin-left: -207.692%; aspect-ratio: 1600 / 149; background: url("../img/cs-data-toolbar.webp") 0 0 / 100% auto no-repeat; }
 }
 .data-key { list-style: none; counter-reset: k; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 28px; margin-top: 24px; }
 .data-key li { counter-increment: k; display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.5; color: var(--text); }
-.data-key li::before { content: counter(k); width: 22px; height: 22px; border-radius: 50%; background: var(--coral); color: var(--on-accent); font: 700 13px/22px var(--body); text-align: center; margin-top: 1px; }
+.data-key li::before { content: counter(k); width: 22px; height: 22px; border-radius: 50%; background: var(--coral); color: var(--on-accent); font: 700 13.5px/22px var(--body); text-align: center; margin-top: 1px; }
 .data-key b { color: var(--paper); font-weight: 600; }
 @media (max-width: 1100px) { .data-key li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
 .data-gap { margin-top: clamp(40px, 6vw, 72px); }
@@ -53,7 +64,7 @@
 .data-plan thead th { font: 600 14px/1.3 var(--body); color: var(--mute); padding-block: 10px; }
 .data-plan tbody th { color: var(--paper); font-weight: 500; width: 46%; }
 .data-plan .q { display: block; margin-top: 4px; color: var(--mute); font-weight: 400; font-size: 14px; }
-.data-t { display: inline-block; margin-right: 6px; padding: 2px 10px 3px; border-radius: 99px; font: 600 13px/1.6 var(--body); background: var(--ink-3); color: var(--text); vertical-align: 1px; }
+.data-t { display: inline-block; margin-right: 6px; padding: 2px 10px 3px; border-radius: 99px; font: 600 13.5px/20.8px var(--body); background: var(--ink-3); color: var(--text); vertical-align: 1px; }
 .data-t.on { background: var(--coral); color: var(--on-accent); }
 @media (max-width: 760px) {
   .data-plan thead { display: none; }
@@ -64,6 +75,8 @@
 }
 .data-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 860px) { .data-steps { grid-template-columns: 1fr; } }
+/* the Signals window has no bottom fade: the stage's lower edge crops it, so the toast that confirms a change (at the window's foot) stays solid */
+:root .ct-plain:has(.lx[data-lab="signals"]) .ct-win { -webkit-mask-image: none; mask-image: none; }
 </style>
 </head>
 <body>
@@ -72,14 +85,14 @@
   <div class="wrap">
     <a class="home" href="../index.html#product">Ofir<span>.</span> <i>← All work</i></a>
     <nav aria-label="Case studies"><a class="pill pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill" href="newsroom.html">← Newsroom</a><a class="pill solid" href="demos-engine.html" aria-label="Next case: Demos engine">Demos engine →</a></nav>
-    <button type="button" class="theme-tg" aria-label="Switch to dark theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+    <button type="button" class="theme-tg" aria-label="Switch to light theme" aria-pressed="true"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
     <span class="progress" aria-hidden="true"></span>
   </div>
 </header>
 
 <main id="main">
   <header class="cs-hero wrap">
-    <div class="label">Case study · <b>Data &amp; signals</b></div>
+    <div class="label">Case study · <b>Data &amp; Signals</b></div>
     <h1>A dense call table that stays easy to slice</h1>
     <dl class="brief"><div><dt>The challenge</dt><dd>In Hear, an AI platform for contact centers, one table must show which calls need review, which are high priority and what happened on each.</dd></div><div><dt>What I designed</dt><dd>I designed V1 to V3 of the Data table and its AI filter. I also designed Signals, the page for AI or rule-based classifiers that run on calls.</dd></div><div><dt>Where it stands</dt><dd>V2 and V3 Facelift both still run in Hear Design Lab, a working replica of Hear. V1 is retired.</dd></div></dl>
     <dl class="meta">
@@ -91,9 +104,7 @@
     <nav class="toc" aria-label="On this page"><a class="pill" href="#table"><span>01</span> The table</a><a class="pill" href="#versions"><span>02</span> Three versions</a><a class="pill" href="#plan"><span>03</span> Plan vs. build</a><a class="pill" href="#decisions"><span>04</span> Decisions</a><a class="pill" href="#signals"><span>05</span> Signals</a></nav>
     <figure class="ct-fig ct-hero dt-stage" id="demo" data-lx-stage style="--pw:125cqw;--px:0cqw;--py:-17.4cqw;--wx:3.5cqw;--ww:48cqw;--wy:8.75cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-9.9cqw;--pw-s:150cqw;--px-s:-31.6cqw;--py-s:-16.6cqw">
       <div class="ct-stage">
-        <div class="ct-band">
-          <img class="ct-photo" src="../img/hear-kitchen-mug.webp" alt="" width="1600" height="1194" decoding="async" fetchpriority="high">
-        </div>
+        <div class="ct-band"></div>
         <div class="ct-win">
           <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
           <div class="lx" data-lab="data" role="img" aria-label="Data: plain words become a filter chip, then a call opens beside the table and Ask AI explains it."></div>
@@ -185,9 +196,9 @@
           <caption>The plan's recommendations, and what got built</caption>
           <thead><tr><th scope="col">The plan recommended</th><th scope="col">What happened</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Call it a View, not a Preset<span class="q">"Reads as the whole screen state, not just filters"</span></th><td data-l="What happened"><span class="data-t on">In the Lab</span>The July build still used “Preset” as the name. The current Lab saves with “Save as view” instead.</td></tr>
-            <tr><th scope="row">Show when the screen no longer matches the saved view</th><td data-l="What happened"><span class="data-t on">In the Lab</span>"Unsaved changes" appears with Reset and Save as view as soon as a filter changes.</td></tr>
-            <tr><th scope="row">Columns stacked under the filters, collapsed by default<span class="q">"Filters are edited often, columns rarely"</span></th><td data-l="What happened"><span class="data-t">Reverted</span>Built in the strip, then replaced by a columns modal (Decision 1).</td></tr>
+            <tr><th scope="row">Call it a View, not a Preset<span class="q">“Reads as the whole screen state, not just filters”</span></th><td data-l="What happened"><span class="data-t on">In the Lab</span>The July build still used “Preset” as the name. The current Lab saves with “Save as view” instead.</td></tr>
+            <tr><th scope="row">Show when the screen no longer matches the saved view</th><td data-l="What happened"><span class="data-t on">In the Lab</span>“Unsaved changes” appears with Reset and Save as view as soon as a filter changes.</td></tr>
+            <tr><th scope="row">Columns stacked under the filters, collapsed by default<span class="q">“Filters are edited often, columns rarely”</span></th><td data-l="What happened"><span class="data-t">Reverted</span>Built in the strip, then replaced by a columns modal (Decision 1).</td></tr>
             <tr><th scope="row">One saved state for filters and columns</th><td data-l="What happened"><span class="data-t">Partly</span>On the column-first page, the built-in presets set both. A preset you save there keeps filters only.</td></tr>
             <tr><th scope="row">A view switcher (rename, duplicate, set default, share), with views for a project or the whole org</th><td data-l="What happened"><span class="data-t">Not in July</span>The July build had no view switcher.</td></tr>
           </tbody>
@@ -210,7 +221,7 @@
   <section class="chapter sheet" id="decisions">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">04 · <b>Decisions</b></div><h2>Both decisions favored existing patterns</h2></div>
+        <div><div class="label">04 · <b>Decisions</b></div><h2>Existing patterns won twice</h2></div>
         <div class="prose"><p class="lead">Filters went back to an explicit Apply, and Reports and Signals to a grid like the other data pages.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Two habits run through my work on Data: reuse what exists, and build filters only from columns and values the table holds. I replaced Data's own filter strip with the one from the Alerts page, and the column-first presets “reference only real filterable columns + real values.”</p></div></details></div>
       </div>

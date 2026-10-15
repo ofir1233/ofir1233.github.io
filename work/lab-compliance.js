@@ -93,7 +93,7 @@
     <div class="hm-grid">
       ${AG.map(([id, n, v], i) => {
         const avg = Math.round(v.reduce((a, b) => a + b, 0) / 5), fail = v.filter(s => s < 70).length, two = n.includes('<br>');
-        return `<div class="hc${two ? ' two' : ''}" style="left:${CX(i).toFixed(1)}px"><b>${id}</b><span class="hn">${n}</span><span class="ha${avg < 70 ? ' low' : ''}">${avg}</span></div>
+        return `<div class="hc${two ? ' hc-2l' : ''}" style="left:${CX(i).toFixed(1)}px"><b>${id}</b><span class="hn">${n}</span><span class="ha${avg < 70 ? ' low' : ''}">${avg}</span></div>
           ${v.map((s, r) => `<i class="cl ${bin(s)}" data-c="${i}" data-r="${r}" style="left:${CX(i).toFixed(1)}px;top:${RY(r).toFixed(2)}px">${i < 14 ? s : ''}</i>`).join('')}
           <span class="fl${fail ? ' on' : ''}" style="left:${(CX(i) + 28.5).toFixed(1)}px">${fail}</span>`;
       }).join('')}
@@ -135,7 +135,7 @@
 
   const html = () => `${LX.shell({ active: 'Compliance', nav: NAV, scroll: 12 })}
     <header class="card hd"><span class="crumb">Compliance</span>${ic('right', 'chev')}
-      <span class="tabs"><span class="tb on" data-t="home">Home</span><span class="tb" data-t="ag">Agents</span><span class="tb">Reports</span><span class="tb">Agents (Mock)</span></span></header>
+      <span class="tabs"><span class="tb on" data-t="home">Home</span><span class="tb" data-t="ag">Agents</span><span class="tb">Reports</span></span></header>
     <section class="card pre"><b>Preset</b><span class="sel">Select a preset${ic('down')}</span><span class="clr">Clear preset</span>${ic('cpDdown', 'dd')}</section>
     ${home()}${heat()}${modal()}`;
 

@@ -25,6 +25,10 @@
     tqArrow: 'M4.5 12h15M14 6.5l5.5 5.5-5.5 5.5',
     tqPtr: 'M6 3.5l12.5 7-5.6 1.6L10 17.5z',
   });
+  // the Ask AI sparkle as the recording draws it: a large four-point star low in the box, a smaller one at the upper left
+  // and a small one at the upper right (filled, concave sides)
+  const star = (x, y, r, k = .22) => `M${x} ${y - r}Q${x + k * r} ${y - k * r} ${x + r} ${y}Q${x + k * r} ${y + k * r} ${x} ${y + r}Q${x - k * r} ${y + k * r} ${x - r} ${y}Q${x - k * r} ${y - k * r} ${x} ${y - r}z`;
+  LX.addIcons({ tqSpark: star(12, 16.4, 7.2) + star(6.4, 6.4, 4.1) + star(16.2, 3.9, 2.7) });
   // the Hear mark, filled coral at the top of the rail
   const MARK = 'M43.7 0C44.9-.2 46.6-.2 47.7.3 48.8.8 49.8 1.7 50.3 2.7 50.8 3.7 51 4.4 51 6.5 51 8.6 50.3 13.1 50.3 15.2 50.3 17.3 49.9 18 50.8 19.2 51.7 20.4 54.7 21.4 55.7 22.2 56.7 23 56.8 23.2 56.8 23.8 56.8 24.4 57.2 24.6 56 25.5 54.8 26.4 52.5 25.3 49.7 29 46.9 32.7 41.4 44.3 39.2 47.8 37 51.3 37.6 49.5 36.7 50 35.8 50.5 34.7 50.7 33.7 50.7 32.7 50.8 31.4 50.7 30.5 50.3 29.6 49.9 28.9 49.8 28.3 48.2 27.8 46.6 27.3 43.4 27.2 40.7 27.1 38 27.7 34.2 27.5 32.2 27.3 30.2 26.9 29.3 26.2 28.5 25.5 27.7 24.4 27.2 23.3 27.3 22.2 27.4 20.6 28.2 19.7 28.8 18.8 29.4 18.8 29.2 17.7 31 16.6 32.8 14.1 37.9 12.8 39.5 11.5 41.1 11 40.7 10 40.7 9 40.7 7.5 40.2 6.7 39.5 5.9 38.8 5.5 38.2 5.3 36.3 5.1 34.4 5.8 29.9 5.5 28.2 5.2 26.5 4 26.5 3.3 26 2.6 25.5 1.8 25.6 1.2 25.2.7 24.8-.1 24.1 0 23.7.1 23.3.5 23 1.5 22.7 2.5 22.4 5.1 22.3 6.2 21.8 7.3 21.3 7.3 21 8 19.7 8.7 18.4 9.5 15.4 10.2 14 10.9 12.6 11.4 11.8 12 11.2 12.6 10.6 12.7 10.5 13.5 10.2 14.3 9.9 16.2 9.5 17 9.5 17.8 9.5 17.9 9.9 18.3 10.3 18.7 10.8 18.7 10.6 19.3 12.2 19.9 13.8 20.9 18.4 21.7 20 22.5 21.6 23.5 21.3 24.3 21.5 25.1 21.7 25.5 21.9 26.7 21 27.9 20.1 30.2 18.1 31.5 16 32.8 13.9 33.8 10.2 34.7 8.3 35.6 6.4 36 5.9 37 4.7 38 3.5 39.4 2.1 40.5 1.3 41.6.5 42.5.2 43.7 0z';
 
@@ -49,7 +53,7 @@
     ['Changes & Cancellations', 2206, 34, '▼13 pts', 1, '#f0a294', [18,17,16,17,18,18,18,19,19,18,18,18,17,16,16,16,15,16,15,14,15,14,14,14,12,12,12,11,12,12]],
     ['Refunds & Credits', 1583, 36, '▼9 pts', 1, '#efa799', [14,15,15,15,14,14,14,15,15,15,15,14,14,13,13,13,14,15,15,15,16,15,13,13,12,11,11,10,10,10]],
     ['Schedule Changes', 1329, 63, '0 pts', 0, '#959fa3', [20,20,21,21,21,21,21,21,21,21,21,20,22,21,21,21,22,21,21,21,21,21,21,21,21,22,21,22,21,21]],
-    ['Seating & Extras', 1061, 49, '▼3 pts', 0, '#d7d0d0', [17,18,19,18,20,19,18,17,18,19,18,20,17,17,17,17,17,17,17,17,17,16,17,17,17,17,17,17,17,17]],
+    ['Seating & Extras', 1061, 49, '▼3 pts', 0, '#d7d0d0', [18,18,18,18,18,18,18,18,18,18,18,18,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17]],
     ['Accessibility Requests', 873, 44, '▲5 pts', 0, '#e1c2ba', [18,18,19,19,19,19,19,19,19,20,19,19,19,18,19,20,19,20,19,20,20,19,20,21,21,21,20,20,20,20]],
     ['Complaints & Follow-up', 702, 72, '▼7 pts', 0, '#6a7c7f', [23,22,23,23,23,23,23,23,23,22,23,23,22,23,23,23,23,22,23,23,23,22,21,21,20,19,19,19,18,17]],
   ].map(([name, calls, s, d, nw, fill, bars]) => ({ name, calls, s, d, nw, fill, bars, dark: s >= 70 }));
@@ -59,14 +63,21 @@
     2: [['Satisfaction', '4.3 / 5', 59, '#bcc4c7', 'all topics 4.2', 'avg 4.2'], ['Silence time', '2.7% of call time', 86, '#4f6362', 'all topics 4.6%', 'avg 4.6%'], ['Handle time', '2.2 min', 71, '#7f8a8b', 'all topics 4.2 min', 'avg 4.2 min']],
     3: [['Satisfaction', '3.8 / 5', 22, col(22), 'all topics 4.2', 'avg 4.2'], ['Silence time', '4.0% of call time', 71, col(71), 'all topics 4.6%', 'avg 4.6%'], ['Handle time', '4.3 min', 36, col(36), 'all topics 4.2 min', 'avg 4.2 min']],
   };
-  // Online Booking's daily row while a parameter is hovered: value, change, swatch, bars, all-topics score
+  // a topic's daily row while one of its parameters is hovered: value, change, swatch, bars, all-topics score, bar color.
+  // Online Booking's three trends are read from the recording; the other topics are only hovered for a frame or two, so
+  // their bars barely start to move before the pointer leaves, and they follow the topic's own curve at the new level
+  const lvl = (i, s) => TOP[i].bars.map(h => Math.round(h * s / TOP[i].s));
   const TREND = {
-    sil: [77, '▼9 pts', '#4c6766', [26,27,28,30,30,30,31,31,30,30,30,30,31,30,30,29,28,28,28,28,28,28,29,27,26,25,25,25,25,25], 65],
-    sat: [44, '▼3 pts', '#e3bfb6', [16,17,16,16,16,19,16,15,16,16,17,16,16,16,17,18,19,18,16,18,19,19,16,16,15,15,15,15,15,14], 47],
-    ht: [9, '▼14 pts', '#ff6d53', [9,7,7,7,7,5,5,5,5,5,5,5,5,7,5,5,7,7,7,7,7,5,3,3,2,2,2,2,2,2], 41],
+    0: {
+      sil: [77, '▼9 pts', '#4c6766', [26,27,28,30,30,30,31,31,30,30,30,30,31,30,30,29,28,28,28,28,28,28,29,27,26,25,25,25,25,25], 65],
+      sat: [44, '▼3 pts', '#e3bfb6', [16,17,16,16,16,19,16,15,16,16,17,16,16,16,17,18,19,18,16,18,19,19,16,16,15,15,15,15,15,14], 47],
+      ht: [9, '▼14 pts', '#ff6d53', [8,7,6,7,6,5,4,4,4,5,4,5,5,6,5,5,6,7,6,6,7,4,3,3,2,2,3,2,2,2], 41, '#ff6b55'],
+    },
+    2: { sil: [86, '▼7 pts', '#4f6362', lvl(2, 86), 65], sat: [59, '▲8 pts', '#bcc4c7', lvl(2, 59), 47], ht: [71, '▼4 pts', '#7f8a8b', lvl(2, 71), 41] },
+    3: { ht: [36, '▲10 pts', col(36), lvl(3, 36), 41] },
   };
   const PK = ['sat', 'sil', 'ht'];
-  const STATUS = s => s >= 65 ? ['Good', '#596561'] : s >= 40 ? ['Medium', '#d8c9c9'] : ['Poor', '#f2654f'];
+  const STATUS = s => s >= 65 ? ['Good', '#596561'] : s >= 35 ? ['Medium', '#d8c9c9'] : ['Poor', '#f2654f'];
 
   // ---------- squarified treemap with gaps ----------
   const worst = (row, s) => { const t = row.reduce((a, b) => a + b, 0); return Math.max(...row.map(r => Math.max(s * s * r / (t * t), t * t / (s * s * r)))); };
@@ -86,9 +97,9 @@
   };
 
   // ---------- the icon rail ----------
-  const RAIL = [['spark', 77, 'ai'], ['hr', 100], ['tqHome', 124], ['news', 160], ['db', 196], ['db', 231], ['tqGrid', 267, 'on'], ['doc', 303], ['tqMini', 339], ['hr', 362],
+  const RAIL = [['tqSpark', 77, 'ai'], ['hr', 100], ['tqHome', 124], ['news', 160], ['db', 196], ['db', 231], ['tqGrid', 267, 'on'], ['doc', 303], ['tqMini', 339], ['hr', 362],
     ['term', 385], ['alert', 421], ['tqShield', 457], ['tqShield', 493], ['book', 529], ['tqSpk', 565], ['hr', 588], ['tqHead', 611], ['users', 647], ['bolt', 683], ['bag', 719], ['hr', 800], ['gear', 825]];
-  const rail = () => `<aside class="tq-rail"><svg class="mk" viewBox="0 0 57 51" aria-hidden="true"><path d="${MARK}"/></svg>${RAIL.map(([k, y, c]) => k === 'hr' ? `<i class="hr" style="top:${y - 13}px"></i>` : `<span class="ri${c ? ' ' + c : ''}" style="top:${y - 13}px">${ic(k)}</span>`).join('')}<span class="col">${ic('left')}</span></aside>`;
+  const rail = () => `<aside class="tq-rail"><svg class="mk" viewBox="0 0 57 51" aria-hidden="true"><path d="${MARK}"/></svg>${RAIL.map(([k, y, c]) => k === 'hr' ? `<i class="hr" style="top:${y - 13}px"></i>` : `<span class="ri${c ? ' ' + c : ''}" style="top:${y - 13}px">${ic(k, k === 'tqSpark' ? 'f' : '')}</span>`).join('')}<span class="col">${ic('left')}</span></aside>`;
 
   // ---------- page parts ----------
   const header = () => `<header class="tq-hd"><b class="cr">Topics</b>${ic('right', 'chv')}<span class="ws">Northwind</span>${ic('right', 'chv')}<span class="cnt">13 topics · 22,150 calls</span>
@@ -105,17 +116,22 @@
 
   // tile content in the wide and the narrow layout: padding, title, calls, score size, "avg score", New pill place, kind
   const TS = {
-    w: [[24, 17.8, 14, 59, 1, 'tr'], [18, 17.8, 14, 49, 1], [17, 15, 13.1, 47.5, 1], [17, 15, 13.1, 47.5, 1], [17, 15, 13.1, 40, 1, 'tr'], [11, 13.3, 12.5, 28, 1, 'tr'], [12, 13.3, 12, 28, 1], [12, 13.3, 12, 26, 0], [12, 13.3, 12, 0, 0], [8, 12, 0, 0, 0, 0, 'in']],
-    n: [[18, 15, 13, 46, 0, 'br'], [18, 15, 13, 49, 1], [17, 15, 13, 41, 1], [17, 15, 13, 41, 1], [16, 15, 13, 36, 0, 'br'], [12, 13.3, 12, 26, 0, 'br'], [13, 13.3, 12, 0, 0], [10, 12, 0, 0, 0, 0, 'in'], [9, 0, 0, 0, 0, 0, 'only'], [9, 0, 0, 0, 0, 0, 'only']],
+    w: [[24, 17.8, 14, 59, 1, 'tr'], [18, 15, 13, 49, 1], [17, 15, 13.1, 47.5, 1], [17, 15, 13.1, 47.5, 1], [17, 15, 13.1, 40, 1, 'tr'], [11, 13.3, 12.5, 28, 1, 'tr'], [12, 13.3, 12, 28, 1], [12, 13.3, 12, 26, 0], [12, 13.3, 12, 0, 0], [8, 12, 0, 0, 0, 0, 'in']],
+    n: [[18, 15, 13, 49, 0, 'br'], [18, 15, 13, 49, 1], [17, 15, 13, 41, 1], [17, 15, 13, 41, 1], [16, 15, 13, 36, 0, 'br'], [12, 13.3, 12, 26, 0, 'br'], [13, 13.3, 12, 0, 0], [10, 12, 0, 0, 0, 0, 'in'], [9, 0, 0, 0, 0, 0, 'only'], [9, 0, 0, 0, 0, 0, 'only']],
   };
+  // where the recording's text sits against these paddings, measured per tile: extra top padding, and how far the score sits lower (px)
+  const NUDGE = { w: [[0, 3], [0, 3], [0, 1], [0, 1], [0, 3], [4, 3], [0, 4], [0, 1], [3.5, 0], [0, 0]], n: [[0, 0], [0, 2], [0, 0], [0, 0], [0, 0], [2, 0], [0, 0], [0, 0], [0, 0], [0, 0]] };
   const tileBody = (i, m) => {
-    const t = TOP[i], [p, ts, cs, ss, avg, pill, kind] = TS[m][i];
+    const t = TOP[i], [p, ts, cs, ss, avg, pill, kind] = TS[m][i], [pt, sy] = NUDGE[m][i], pad = `padding:${p + pt}px ${p}px ${p}px`;
+    // the calls line sits closer under a small title than under a large one
+    const cm = ts <= 13.3 ? 1.5 : ts >= 17 ? 3 : 5;
     if (kind === 'only') return `<div class="tb" style="padding:${p}px"><span class="only">${t.s}</span></div>`;
-    const nm = `<b class="tt" style="font-size:${ts}px">${t.name.replace('&', '&amp;')}</b>`;
-    if (kind === 'in') return `<div class="tb" style="padding:${p}px">${nm}<span class="inl">${n(t.calls)} · ${t.s}</span></div>`;
+    // in the narrow tiles the recording breaks "Ticket Changes / & Cancellations" and "Refunds & / Payments"
+    const nm = `<b class="tt" style="font-size:${ts}px">${m === 'n' && i === 4 ? t.name.replace('& ', '&amp;&nbsp;') : m === 'n' && i === 5 ? t.name.replace('& ', '&amp;<br>') : t.name.replace('&', '&amp;')}</b>`;
+    if (kind === 'in') return `<div class="tb" style="${pad}">${nm}<span class="inl">${n(t.calls)} · ${t.s}</span></div>`;
     const pl = t.nw && pill ? `<span class="new ${pill}">New</span>` : '';
-    return `<div class="tb" style="padding:${p}px">${pill === 'tr' ? `<div class="th">${nm}${pl}</div>` : nm}<span class="cl" style="font-size:${cs}px">${n(t.calls)} calls</span>
-      ${ss ? `<div class="sc"><b style="font-size:${ss}px">${t.s}</b>${avg ? '<span>avg score</span>' : ''}${pill === 'br' ? pl : ''}</div>` : ''}</div>`;
+    return `<div class="tb" style="${pad}">${pill === 'tr' ? `<div class="th">${nm}${pl}</div>` : nm}<span class="cl" style="font-size:${cs}px;margin-top:${cm}px">${n(t.calls)} calls</span>
+      ${ss ? `<div class="sc"${sy ? ` style="transform:translateY(${sy}px)"` : ''}><b style="font-size:${ss}px">${t.s}</b>${avg ? '<span>avg score</span>' : ''}${pill === 'br' ? pl : ''}</div>` : ''}</div>`;
   };
   const mix = (hex, a) => { const v = [1, 3, 5].map(k => parseInt(hex.slice(k, k + 2), 16)); return `rgb(${v.map(x => Math.round(255 + (x - 255) * a)).join(',')})`; };
   const drill = i => {
@@ -127,11 +143,16 @@
   // start laid out for the wide treemap area
   const tiles = () => { const R0 = squarify(TOP.map(t => t.calls), 0, 0, 775, 481); return TOP.map((t, i) => `<div class="tq-t${t.dark ? ' dk' : ''}" data-i="${i}" style="background:${t.fill};left:${R0[i][0]}px;top:${R0[i][1]}px;width:${R0[i][2]}px;height:${R0[i][3]}px">${tileBody(i, 'w')}${PAR[i] ? drill(i) : ''}</div>`).join(''); };
 
-  const barsHTML = (hs, c) => hs.map(h => `<i><u style="height:${Math.max(1, h - .5)}px;background:${c || col((h + .5) / .37)}"></u></i>`).join('');
+  // a day's colour is its score: the row's score, moved by how far that day's bar is from the row's mean height (0.37 px a point)
+  const dayCols = (hs, s) => { const m = hs.reduce((a, b) => a + b, 0) / hs.length; return hs.map(h => col(s + (h - m) / .37)); };
+  const barsHTML = (hs, s) => { const cs = dayCols(hs, s); return hs.map((h, j) => `<i><u style="height:${Math.max(1, h - .5)}px;background:${cs[j]}"></u></i>`).join(''); };
+  // where each row's bars sit, measured from the recording (px, up is negative)
+  const BDY = [-1, -2, -1, -2.5, 1.5, -1.5, -4.5, -2, 0, -9];
   const REF = s => (s * .37).toFixed(1);
-  const rows = () => TOP.map((t, i) => `<div class="tq-r" data-i="${i}" style="top:${(i * 41.1).toFixed(1)}px"><div class="g">
+  const W2 = [4, 8, 9];
+  const rows = () => TOP.map((t, i) => `<div class="tq-r${W2.includes(i) ? ' w2' : ''}" data-i="${i}" style="top:${(i * 41.1).toFixed(1)}px"><div class="g">
       <div class="nm"><b>${t.name.replace('&', '&amp;')}</b><small>${n(t.calls)} calls</small></div>
-      <div class="sp"><div class="bars">${barsHTML(t.bars)}</div><i class="ref" style="bottom:${REF(51)}px"></i></div>
+      <div class="sp"${BDY[i] ? ` style="transform:translateY(${BDY[i]}px)"` : ''}><div class="bars">${barsHTML(t.bars, t.s)}</div><i class="ref" style="bottom:${REF(51)}px"></i></div>
       <div class="vv"><span><i class="sw" style="background:${col(t.s)}"></i><b>${t.s}</b></span><small>${t.d}</small></div></div></div>`).join('');
 
   const cards = () => `<div class="tq-low">
@@ -161,7 +182,7 @@
   const acts = cls => `<div class="acts ${cls} hid">${['tqUpv', 'tqDnv', 'tqRegen', 'tqCopy', 'tqVdots'].map(k => ic(k, k === 'tqVdots' ? 'vd' : '')).join('')}</div>`;
   const rel = (items, cls) => `<div class="rel ${cls} hid"><h6>Related</h6>${items.map(t => `<div class="ri">${t}${ic('tqArrow')}</div>`).join('')}</div>`;
   const panel = () => `<section class="tq-pn">
-    <div class="ph"><span class="tile">${ic('spark')}</span><b>Ask AI</b><small class="st">New conversation</small>
+    <div class="ph"><span class="tile">${ic('tqSpark', 'f')}</span><b>Ask AI</b><small class="st">New conversation</small>
       ${ic('tqClock', 'h1')}${ic('tqPen', 'h2')}${ic('tqExp', 'h3')}${ic('x', 'h4')}</div>
     <div class="chips"><span>Topics${ic('x')}</span><span>Project · Northwind</span></div>
     <div class="conv"><div class="scr">
@@ -173,7 +194,7 @@
       ${ans(A2, 'a2')}${acts('c2')}${rel(['Handle time trend analysis', 'Agent coaching impact', 'Knowledge-base usage metrics'], 'r2')}
     </div></div>
     <div class="comp"><div class="tx"><span class="ph0">Ask anything about this page...</span><span class="ty"></span></div>
-      ${ic('at', 'at')}${ic('tqSlash', 'sl')}<span class="slot" data-s="busy"><span class="mic">${ic('tqMic')}</span><span class="send">${ic('tqUp')}</span><span class="busy"><b></b><b></b><b></b></span></span></div>
+      ${ic('at', 'at')}${ic('tqSlash', 'sl')}<span class="slot" data-s="busy"><span class="mic">${ic('tqMic')}</span><span class="send">${ic('tqUp')}</span><span class="busy"><i class="bw"><b></b><b></b><b></b></i></span></span></div>
   </section>`;
 
   const html = () => `<div class="tq-root">${rail()}<div class="tq-main">${header()}${cards()}</div>${panel()}</div>`;
@@ -210,18 +231,38 @@
     async run(c) {
       const { q, qa, app } = c, P = c.P;
       let off = 0;
-      const at = t => c.wait(Math.max(0, t * 1000 + off - c.P.t));
-      const B = async (i, t0) => { await at(t0); const ff = c.ff; await c.beat(i); if (ff) off = c.P.t - t0 * 1000; };
+      // a moment already reached goes on at once, so several steps due in the same frame all land in that frame
+      let due = 0;
+      const at = t => { due = t * 1000 + off; const ms = due - c.P.t; return ms > 0 || c.ff ? c.wait(Math.max(0, ms)) : Promise.resolve(); };
+      // the clock only wakes a step once per frame, so a step can start a few ms after its moment: its animations are
+      // started that much in, which keeps every motion on the recording's timeline at any frame rate
+      const lag = () => Math.max(0, Math.min(40, c.P.t - due));
+      // the player keeps every animation it starts and plays or pauses them all when it syncs (pause, play, scroll, tab
+      // switch); one this scene cancels must leave that list too, or the next sync would start it again from the top
+      const own = a => { const cc = a.cancel; a.cancel = () => { P.anims.delete(a); cc.call(a); }; return a; };
+      const anim = (el, kf, o = {}) => { const l = lag(); return own(c.anim(el, kf, l ? { ...o, delay: (o.delay || 0) - l } : o)); };
+      // a jump to a later beat fast-forwards to it; the clock then carries on from there, and a blinking caret starts again
+      const B = async (i, t0) => { await at(t0); const ff = c.ff; await c.beat(i); if (ff) { off = c.P.t - t0 * 1000; if (!c.ff && caretM === 'blink') caret('blink'); } };
 
       const root = q('.tq-root'), main = q('.tq-main'), area = q('.tq-area'), pn = q('.tq-pn');
       const T = qa('.tq-t'), R = qa('.tq-r'), gain = q('.tq-k.gain'), dsub = q('.tq-dy .sub');
       const tip = c.make('<div class="tq-tip"></div>'); P.cursor.append(tip);
+      // the composer caret runs on the player clock, as in the recording: it blinks (0.53 s on, 0.53 s off) while the box is
+      // idle and holds steady while text is typed. S is the clock time, in s, when an "on" phase starts
+      const tyEl = q('.comp .ty'), CK = [{ opacity: 1 }, { opacity: 1, offset: .502 }, { opacity: 0, offset: .502 }, { opacity: 0 }];
+      let caretA = null, caretM = 'off', caretS = 0;
+      const caret = (m, S) => {
+        caretM = m; if (S != null) caretS = S;
+        if (caretA) { caretA.cancel(); caretA = null; }
+        tyEl.classList.toggle('cu', m === 'on' || (m === 'blink' && c.ff));
+        if (m === 'blink' && !c.ff) caretA = own(c.anim(tyEl, CK, { pseudoElement: '::after', duration: 1056, iterations: Infinity, easing: 'linear', delay: caretS * 1000 + off - P.t, fill: 'none' }));
+      };
 
       // ---------- layout: the main column's width drives the KPI row and the cards; the treemap re-tiles for it ----------
       let mode = 'w';
       const subLayout = (el, w, h) => {
         const p = w > 250 ? 14 : 10, top = p === 14 ? 47 : 40;
-        el.querySelector('.dh').style.cssText = `left:${p}px;right:${p}px;top:${p === 14 ? 14 : 9}px`;
+        const dh = el.querySelector('.dh'); dh.style.cssText = `left:${p}px;right:${p}px;top:${p === 14 ? 14 : 9}px`; dh.classList.toggle('sm', p === 10);
         squarify([1, 1, 1], p, top, w - 2 * p, h - top - (p === 14 ? 13 : 10)).forEach(([x, y, sw, sh], k) => {
           const s = el.querySelectorAll('.sb')[k];
           s.style.cssText = `left:${x}px;top:${y}px;width:${sw}px;height:${sh}px;background:${s.style.background}`;
@@ -236,110 +277,245 @@
           const d = el.querySelector('.dl'); if (d) subLayout(d, w, h);
         });
       };
+      // the page keeps the Ask AI column solid on a window that fades at the bottom: with every move of the panel the scene
+      // gives the window around it (a .ct-win, if there is one) the column's width as --tq-col, so the column's left edge
+      // stays at the panel's left edge, a little inside the gap before it: 0 while the panel is closed, 27.5% when it is open
+      const W0 = 1348, W1 = 955;
       const setW = w => {
         main.style.width = w + 'px'; pn.style.left = (78 + w + 14) + 'px';
+        const host = P.root.closest('.ct-win');
+        if (host) { const f = Math.max(0, Math.min(1, (W0 - w) / (W0 - W1))); host.style.setProperty('--tq-col', f ? (27.5 * f).toFixed(3) + '%' : '0%'); }
         const nar = w < 1180; root.classList.toggle('nar', nar);
         tile();
       };
-      setW(1348);
+      setW(W0);
 
-      // ---------- hover state: one call sets what the pointer is over ----------
-      const row0 = R[0], b0 = row0.querySelector('.bars'), base0 = b0.innerHTML;
-      const setTrend = k => {
-        const nm = row0.querySelector('.nm small'), vv = row0.querySelector('.vv');
+      // ---------- small on-clock helpers ----------
+      const fadeIn = (el, d, delay = 0) => { if (!c.ff) anim(el, [{ opacity: 0 }, { opacity: 1 }], { duration: d, delay, easing: 'linear', fill: 'backwards' }); };
+      const show = (el, d, delay) => { el.classList.remove('hid'); fadeIn(el, d, delay); };
+      // a Related row arrives: it fades in while settling a few pixels leftward
+      const rowIn = (el, d, delay) => { if (!c.ff) anim(el, [{ opacity: 0, transform: 'translateX(3px)' }, { opacity: 1, transform: 'none' }], { duration: d, delay, easing: 'linear', fill: 'backwards' }); };
+      // the send button: busy dots, mic, or arrow. The app fades the old state out over the new one:
+      // mic -> arrow crossfades; arrow -> dots keeps the blue square while the arrow slides out to the left and the
+      // dots slide in from the right;
+      // dots -> mic shrinks the blue square a little as it fades, and the mic comes up through it
+      const slot = q('.slot');
+      const slotTo = (s, ms = 0) => {
+        const old = slot.dataset.s; if (old === s) return;
+        slot.dataset.s = s;
+        if (!ms || c.ff) return;
+        const o = slot.querySelector('.' + old), nw = slot.querySelector('.' + s);
+        o.style.display = 'grid'; o.style.zIndex = 1;
+        const kf = old === 'busy' && s === 'mic'
+          ? [{ opacity: 1, transform: 'scale(1)' }, { opacity: .8, transform: 'scale(.86)', offset: .15 }, { opacity: .35, transform: 'scale(.86)', offset: .45 }, { opacity: .12, transform: 'scale(.86)', offset: .7 }, { opacity: 0, transform: 'scale(.86)' }]
+          : [{ opacity: 1 }, { opacity: 0 }];
+        const a = anim(o, kf, { duration: ms, easing: 'linear', fill: 'forwards' });
+        const done = () => { o.style.display = ''; o.style.zIndex = ''; };
+        a.finished.then(() => { done(); a.cancel(); }, done);
+        if (old === 'send' && s === 'busy') {
+          anim(o.querySelector('.i'), [{ transform: 'translateX(0)' }, { transform: 'translateX(-13px)' }], { duration: ms, easing: 'cubic-bezier(.4,0,.8,.6)' });
+          anim(nw.querySelector('.bw'), [{ transform: 'translateX(15px)' }, { transform: 'translateX(0)' }], { duration: 170, delay: 15, easing: 'cubic-bezier(.5,1,.89,1)', fill: 'backwards' });
+          return;
+        }
+        const late = old === 'busy' ? ms * .3 : 0;
+        anim(nw, [{ opacity: 0 }, { opacity: 1 }], { duration: old === 'busy' ? ms * .3 : ms, delay: late, easing: 'linear', fill: 'backwards' });
+      };
+      // the busy dots rise and fall in a wave (one cycle a second, each dot 0.135 s behind the one before);
+      // S is the clock time, in s, when the first dot starts to rise
+      const BOUNCE = [
+        { transform: 'translateY(0)', opacity: .4, offset: 0, easing: 'ease-in-out' },
+        { transform: 'translateY(-4.3px)', opacity: 1, offset: .25 },
+        { transform: 'translateY(-4.3px)', opacity: 1, offset: .5, easing: 'ease-in-out' },
+        { transform: 'translateY(0)', opacity: .4, offset: .85 },
+        { transform: 'translateY(0)', opacity: .4, offset: 1 },
+      ];
+      let busyA = [];
+      const busyOff = () => { busyA.forEach(a => { try { a.cancel(); } catch (e) {} }); busyA = []; };
+      const busyOn = S => {
+        busyOff(); if (c.ff) return;
+        busyA = qa('.slot .busy b').map((b, k) => own(c.anim(b, BOUNCE, { duration: 1000, iterations: Infinity, easing: 'linear', delay: S * 1000 + off - P.t + k * 135, fill: 'backwards' })));
+      };
+
+      // ---------- the daily rows: a hovered parameter swaps its topic's row to that parameter's trend; bars grow or shrink ----------
+      // each bar eases to its new height over 0.27 s, its colour a little ahead; a new target that arrives mid-move carries the bar's speed on
+      // (a cubic from the current height and speed to the target at rest, sampled into keyframes on the player clock)
+      const BD = 270, barMove = new Map();
+      const herm = (m, s) => { const s2 = s * s, s3 = s2 * s; return { h: (2 * s3 - 3 * s2 + 1) * m.h0 + (s3 - 2 * s2 + s) * m.v0 * BD + (3 * s2 - 2 * s3) * m.h1, v: ((6 * s2 - 6 * s) * m.h0 + (3 * s2 - 4 * s + 1) * m.v0 * BD + (6 * s - 6 * s2) * m.h1) / BD }; };
+      const setBars = (row, hs, fixed, sc) => {
+        const dc = dayCols(hs, sc);
+        row.querySelectorAll('.bars u').forEach((u, j) => {
+          const h1 = Math.max(1, hs[j] - .5), bg = fixed || dc[j];
+          const prev = barMove.get(u), cs = getComputedStyle(u), b0 = cs.backgroundColor;
+          let h0 = parseFloat(cs.height), v0 = 0;
+          if (prev) { const sNow = (P.t - lag() - prev.t0) / BD; if (sNow < 1) ({ h: h0, v: v0 } = herm(prev, sNow)); try { prev.a.cancel(); } catch (e) {} barMove.delete(u); }
+          u.style.height = h1 + 'px'; u.style.background = bg;
+          if (c.ff || (Math.abs(h0 - h1) < .05 && !v0 && b0 === getComputedStyle(u).backgroundColor)) return;
+          const m = { h0, v0, h1, t0: P.t - lag() }, kf = [];
+          for (let k = 0; k <= 12; k++) { const sk = k / 12, sc = Math.min(1, sk * 1.5), cp = sc * sc * (3 - 2 * sc); kf.push({ offset: sk, height: herm(m, sk).h.toFixed(2) + 'px', backgroundColor: `color-mix(in srgb, ${bg} ${(cp * 100).toFixed(1)}%, ${b0})` }); }
+          m.a = anim(u, kf, { duration: BD, easing: 'linear' }); barMove.set(u, m);
+        });
+      };
+      const setRef = (row, s) => {
+        const r = row.querySelector('.ref'), b0 = getComputedStyle(r).bottom, b1 = REF(s) + 'px';
+        r.style.bottom = b1;
+        if (!c.ff && b0 !== b1) anim(r, [{ bottom: b0 }, { bottom: b1 }], { duration: 270, easing: 'ease-in-out' });
+      };
+      const rowTo = (i, k) => {
+        const row = R[i], t = TOP[i], nm = row.querySelector('.nm small'), vv = row.querySelector('.vv');
         if (k) {
-          const [v, d, sw, bars, all] = TREND[k], name = PAR[0][PK.indexOf(k)][0], val = PAR[0][PK.indexOf(k)][1];
+          const [v, d, sw, bars, all, fixed] = TREND[i][k], [name, val] = PAR[i][PK.indexOf(k)];
           nm.innerHTML = `<b>${name}</b> · ${val}`; vv.querySelector('b').textContent = v; vv.querySelector('small').textContent = d; vv.querySelector('.sw').style.background = sw;
-          b0.innerHTML = barsHTML(bars, k === 'ht' ? '#ff6b55' : null); row0.querySelector('.ref').style.bottom = REF(all) + 'px';
-          dsub.innerHTML = `Trend: <b>${name}</b> · height = score`; q('.tq-lg .atv').textContent = all; q('.tq-lg .at').style.left = ((all - 20) / 60 * 100).toFixed(2) + '%';
+          setBars(row, bars, fixed, v); setRef(row, all);
         } else {
-          nm.textContent = '4,412 calls'; vv.querySelector('b').textContent = 43; vv.querySelector('small').textContent = '▼9 pts'; vv.querySelector('.sw').style.background = col(43);
-          b0.innerHTML = base0; row0.querySelector('.ref').style.bottom = REF(51) + 'px';
-          dsub.textContent = 'Height = average score, 0–100'; q('.tq-lg .atv').textContent = 51; q('.tq-lg .at').style.left = '51.67%';
+          nm.textContent = `${n(t.calls)} calls`; vv.querySelector('b').textContent = t.s; vv.querySelector('small').textContent = t.d; vv.querySelector('.sw').style.background = col(t.s);
+          setBars(row, t.bars, null, t.s); setRef(row, 51);
         }
       };
-      let trend = null;
-      // o: { kpi, topic (index, opens it), row (Daily row lit), sub ('sat'|'sil'|'ht'), tip (html or '') }
+      let trow = null, tkey = null;
+      const setTrend = (i, k) => {
+        if (i === trow && k === tkey) return;
+        if (trow !== null && trow !== i) rowTo(trow, null);
+        trow = i; tkey = k;
+        if (i !== null) rowTo(i, k);
+        const all = k ? TREND[i][k][4] : 51;
+        dsub.innerHTML = k ? `Trend: <b>${PAR[i][PK.indexOf(k)][0]}</b> · height = score` : 'Height = average score, 0–100';
+        q('.tq-lg .atv').textContent = all; q('.tq-lg .at').style.left = ((all - 20) / 60 * 100).toFixed(2) + '%';
+      };
+
+      // ---------- hover state: one call sets what the pointer is over ----------
+      // o: { kpi, topic (index, opens it), row (that topic lit from the Daily list), sub ('sat'|'sil'|'ht'), tip (html or ''),
+      //      fade ([delay, duration] of the opening topic's parameter tiles, ms), shut (how long a closing topic holds, ms) }
+      // what the pointer is over dims the rest, outlines the tile and lights its Daily row. These run on the player clock:
+      // a dim comes in quickly (0.07 s) and lifts slowly (0.3 s), as in the recording; an outline shows at once and fades out
+      const DIM_IN = [70, 'ease-out'], DIM_OUT = [300, 'cubic-bezier(.15,.75,.35,1)'], LINE_OUT = [120, 'linear'];
+      const fx = new Map();
+      const flip = (el, cls, on, t, prop, dIn, dOut, pseudo) => {
+        if (el.classList.contains(cls) === on) return;
+        const key = pseudo ? t.dataset.fx || (t.dataset.fx = Math.random().toString(36).slice(2)) : t;
+        const v0 = getComputedStyle(t, pseudo || null)[prop], prev = fx.get(key);
+        if (prev) { try { prev.cancel(); } catch (e) {} fx.delete(key); }
+        el.classList.toggle(cls, on);
+        const d = on ? dIn : dOut;
+        if (c.ff || !d) return;
+        const v1 = getComputedStyle(t, pseudo || null)[prop]; if (v0 === v1) return;
+        fx.set(key, anim(t, [{ [prop]: v0 }, { [prop]: v1 }], { duration: d[0], easing: d[1], ...(pseudo ? { pseudoElement: pseudo } : {}) }));
+      };
+      let tipOn = false;
       const hov = (o = {}) => {
         const hi = o.topic ?? (o.kpi ? 0 : o.row ?? null);
-        gain.classList.toggle('hv', !!o.kpi);
+        flip(gain, 'hv', !!o.kpi, gain, 'borderColor', DIM_IN, DIM_OUT);
         T.forEach((el, i) => {
-          el.classList.toggle('dim', hi !== null && i !== hi);
-          el.classList.toggle('tg', hi === i && (o.kpi || o.topic === i));
-          el.classList.toggle('dr', o.topic === i && !!PAR[i]);
+          // a topic that closes while the pointer moves on shows its label in full on the pale open colour, outlined, for
+          // a frame or two; then it dims and the outline goes, both at once
+          const was = el.classList.contains('dr'), dr = o.topic === i && !!PAR[i], shut = was && !dr && hi !== null && i !== hi, SHUT = [o.shut || 66, 'steps(1, end)'];
+          flip(el, 'dim', hi !== null && i !== hi, el, 'opacity', shut ? SHUT : DIM_IN, DIM_OUT);
+          flip(el, 'tg', hi === i, el, 'opacity', null, was ? SHUT : LINE_OUT, '::after');
+          if (shut && !c.ff) { const pale = el.querySelector('.dl').style.background; anim(el, [{ backgroundColor: pale }, { backgroundColor: pale }], { duration: SHUT[0], easing: 'linear' }); }
+          el.classList.toggle('dr', dr);
+          // the tile's own label goes at once and the header shows; the tile's colour pales as its three parameter tiles fade in
+          if (dr && !was && !c.ff) {
+            const dl = el.querySelector('.dl');
+            anim(dl, [{ backgroundColor: TOP[i].fill }, { backgroundColor: dl.style.background }], { duration: 120, easing: 'linear' });
+            const [fd, fl] = o.fade || [0, 120];
+            dl.querySelectorAll('.sb').forEach(s => anim(s, [{ opacity: 0 }, { opacity: 1 }], { duration: fl, delay: fd, easing: 'linear', fill: 'backwards' }));
+          }
           el.querySelectorAll('.sb').forEach(s => s.classList.toggle('on', o.topic === i && s.dataset.p === o.sub));
         });
-        R.forEach((el, i) => { el.classList.toggle('dim', hi !== null && i !== hi); el.classList.toggle('on', hi === i); });
-        const tr = o.topic === 0 && o.sub ? o.sub : null;
-        if (tr !== trend) { trend = tr; setTrend(tr); }
+        R.forEach((el, i) => { flip(el, 'dim', hi !== null && i !== hi, el.querySelector('.g'), 'opacity', DIM_IN, DIM_OUT); flip(el, 'on', hi === i, el, 'backgroundColor', DIM_IN, DIM_OUT); });
+        const tk = o.topic != null && o.sub && TREND[o.topic] && TREND[o.topic][o.sub] ? o.sub : null;
+        if (tk) setTrend(o.topic, tk); else setTrend(trow === null ? null : trow, null);
         tip.innerHTML = o.tip || ''; tip.classList.toggle('on', !!o.tip);
+        if (o.tip && !tipOn && !c.ff) anim(tip, [{ opacity: 0 }, { opacity: 1 }], { duration: 90, easing: 'linear' });
+        tipOn = !!o.tip;
       };
       const FBt = { topic: 0, tip: tipTopic(0) }, FB = k => ({ topic: 0, sub: PK[k], tip: tipPar(0, k) });
+      const TC = k => k == null ? { topic: 2, tip: tipTopic(2) } : { topic: 2, sub: PK[k], tip: tipPar(2, k) };
+      const opening = (o, f) => ({ ...o, fade: f });
 
       // ---------- the pointer: waypoints from the recording, [t, x, y] ----------
       const glide = (pts, ease) => {
         const t0 = pts[0][0], t1 = pts[pts.length - 1][0], [, x1, y1] = pts[pts.length - 1];
         P.cx = x1; P.cy = y1; P.place();
         if (c.ff) return;
-        c.anim(P.cursor, pts.map(([t, x, y]) => ({ offset: (t - t0) / (t1 - t0), transform: `translate(${x}px,${y}px)` })), { duration: (t1 - t0) * 1000, easing: ease || 'linear' });
+        anim(P.cursor, pts.map(([t, x, y]) => ({ offset: (t - t0) / (t1 - t0), transform: `translate(${x}px,${y}px)` })), { duration: (t1 - t0) * 1000, easing: ease || 'linear' });
       };
-      const press = () => { if (!c.ff) c.anim(P.cursor.firstElementChild, [{ transform: 'scale(1)' }, { transform: 'scale(.8)', offset: .4 }, { transform: 'scale(1)' }], { duration: 140, easing: 'ease-out' }); };
+      const press = () => { if (!c.ff) anim(P.cursor.firstElementChild, [{ transform: 'scale(1)', easing: 'ease-in-out' }, { transform: 'scale(.81)', offset: .55 }, { transform: 'scale(.79)', offset: .78, easing: 'ease-in-out' }, { transform: 'scale(1)' }], { duration: 150, easing: 'linear' }); };
       const EIO = 'cubic-bezier(.45,0,.3,1)';
+      // a Related row under the moving pointer: its arrow darkens at once; over the label, the label and its rule darken too
+      const relAt = async (rows, steps) => {
+        for (const [t, k, cls, on, d] of steps) {
+          await at(t); const r = rows[k], c0 = getComputedStyle(r), v0 = [c0.color, c0.borderBottomColor];
+          r.classList.toggle(cls, on);
+          if (d && !c.ff) { const c1 = getComputedStyle(r); anim(r, [{ color: v0[0], borderBottomColor: v0[1] }, { color: c1.color, borderBottomColor: c1.borderBottomColor }], { duration: d, easing: 'linear' }); }
+        }
+      };
 
       // ---------- 1. Most to gain lights up Online Booking; the topic opens into its parameters ----------
       await B(0, 0);
       glide([[0, 576, 134], [.33, 577, 149], [.47, 579, 166], [.6, 581, 179], [.7, 582, 186]]);
       await at(.7); glide([[.7, 582, 186], [1.4, 582, 188]]);
       await at(1.4); glide([[1.4, 582, 188], [1.5, 609, 188], [1.67, 657, 188], [1.8, 752, 188], [1.93, 830, 188], [2.07, 885, 189], [2.2, 915, 189], [2.27, 922, 189]]);
-      await at(1.86); hov({ kpi: 1 });
+      await at(1.87); hov({ kpi: 1 });
       await at(4.23); c.cam([300, 450]);
       glide([[4.23, 922, 189], [4.3, 899, 201], [4.4, 849, 224], [4.47, 801, 246], [4.53, 708, 291], [4.6, 671, 308], [4.67, 544, 369], [4.73, 467, 405], [4.8, 433, 420], [4.83, 401, 435],
         [4.87, 374, 449], [4.93, 306, 481], [5, 290, 489], [5.03, 276, 496], [5.1, 254, 506], [5.2, 252, 507]]);
-      await at(4.47); hov({});
-      await at(4.63); hov({ topic: 2, tip: tipTopic(2) });
-      await at(4.67); hov({ topic: 2, sub: 'sil', tip: tipPar(2, 1) });
-      await at(4.73); hov({ topic: 2, sub: 'sat', tip: tipPar(2, 0) });
-      await at(4.83); hov(FBt);
-      await at(4.87); hov(FB(2));
+      await at(4.48); hov({});
+      await at(4.632); hov(opening(TC(), [0, 50]));
+      await at(4.67); hov(TC(1));
+      await at(4.73); hov(TC(0));
+      await at(4.83); hov({ ...opening(FBt, [-15, 75]), shut: 33 });
+      await at(4.85); hov(FB(2));
       await at(4.97); hov(FB(0));
-      await at(5.03); hov(FBt);
-      await at(5.07); hov(FB(1));
+      await at(5.02); hov(FBt);
+      await at(5.05); hov(FB(1));
       await at(6.23); glide([[6.23, 252, 507], [6.33, 244, 495], [6.43, 238, 486], [6.53, 220, 464], [6.63, 211, 451], [6.73, 206, 444]]);
       await at(6.33); hov(FBt);
       await at(6.43); hov(FB(0));
       await at(7.83); glide([[7.83, 206, 444], [7.93, 219, 448], [8.07, 253, 461], [8.13, 275, 469], [8.23, 299, 478], [8.27, 318, 485], [8.4, 331, 490], [8.5, 344, 496]]);
-      await at(8.23); hov(FBt);
-      await at(8.27); hov(FB(2));
+      // on a phone the camera eases right so the Handle time tooltip, with its "Click to ask AI about it", is in frame
+      await at(8.22); hov(FBt); c.cam([352, 450]);
+      await at(8.25); hov(FB(2));
 
       // ---------- 2. Handle time is clicked: the Ask AI panel slides in and the page narrows ----------
       await B(1, 8.6);
       await at(10.4); press();
       await at(10.47);
       q('.tq-rail .ai').classList.add('on');
-      const W0 = 1348, W1 = 955, D = 250;
-      if (c.ff) setW(W1);
-      else for (let s = 0; ; s += 16) { const t = Math.min(1, s / D), e = 1 - Math.pow(1 - t, 4); setW(W0 + (W1 - W0) * e); if (t >= 1) break; await c.wait(16); }
+      fadeIn(q('.q1'), 70); fadeIn(q('.t1'), 70);
+      busyOn(10.64);
+      // one width animation drives both: the panel's left edge and the main column (strong ease-out, a quarter second)
+      const D = 250, s0 = 10465 + off;
       c.cam([1200, 400]);
-      await at(11.9);
-      const st = q('.ph .st');
-      q('.t1').classList.add('hid'); st.textContent = 'What’s driving Handle time o...'; q('.ph .h3').classList.add('en');
-      q('.slot').dataset.s = 'mic';
-      [q('.a1'), q('.c1')].forEach(el => { el.classList.remove('hid'); c.enter(el, 'fade', { d: 150 }); });
-      const r1 = q('.r1'); r1.classList.remove('hid');
-      [...r1.children].forEach((el, k) => c.enter(el, 'fade', { d: 130, delay: k < 3 ? 0 : 40 }));
+      if (c.ff) setW(W1);
+      else for (;;) { const t = Math.min(1, (P.t - s0) / D), e = 1 - Math.pow(1 - t, 4); setW(W0 + (W1 - W0) * e); if (t >= 1) break; await c.wait(16); }
+      caret('on');
+      await at(11); caret('blink', 11.5);
+      // the first answer fades in where "Thinking..." was; the send button goes idle and Related follows, row by row
+      await at(11.91); slotTo('mic', 180);
+      await at(11.92);
+      q('.t1').classList.add('hid'); q('.ph .h3').classList.add('en');
+      show(q('.a1'), 140); show(q('.c1'), 140);
+      const r1 = q('.r1'), rr1 = [...r1.querySelectorAll('.ri')];
+      r1.classList.remove('hid'); fadeIn(r1.querySelector('h6'), 130, 10);
+      [50, 60, 90].forEach((dl, k) => rowIn(rr1[k], 80, dl));
+      await at(12.08); q('.ph .st').textContent = 'What’s driving Handle time o...';
+      await at(12.1); busyOff();
 
       // the pointer sweeps over to read the answer, passing over the treemap and the Daily card
       await at(12.63);
       glide([[12.63, 344, 496], [12.7, 363, 492], [12.83, 414, 480], [12.93, 501, 460], [13, 537, 451], [13.1, 669, 421], [13.23, 831, 383], [13.33, 974, 350], [13.43, 1051, 333], [13.5, 1137, 313], [13.6, 1187, 300], [13.67, 1206, 296]]);
-      hov({ topic: 2, tip: tipTopic(2) });
-      await at(12.67); hov({ topic: 2, sub: 'sil', tip: tipPar(2, 1) });
-      await at(12.87); hov({ topic: 2, tip: tipTopic(2) });
+      hov(opening(TC(), [25, 50]));
+      await at(12.67); hov(TC(1));
+      await at(12.85); hov(TC(2));
+      await at(12.89); hov(TC());
 
       // ---------- 3. the answer is read ----------
       await B(2, 12.9);
-      await at(12.93); hov({ topic: 3, tip: tipTopic(3) });
-      await at(13.07); hov({ row: 3 });
-      await at(13.2); hov({});
+      await at(12.92); hov({ topic: 3, tip: tipTopic(3), fade: [70, 80] });
+      await at(13.05); hov({ topic: 3, sub: 'ht', tip: tipPar(3, 2) });
+      await at(13.09); hov({ row: 3 });
+      await at(13.19); hov({ row: 0 });
+      await at(13.29); hov({});
       c.cam([1200, 400]);
       await at(15.23); glide([[15.23, 1206, 296], [15.33, 1218, 305], [15.53, 1269, 337], [15.7, 1312, 366], [15.83, 1331, 377]]);
       await at(17.13); glide([[17.13, 1331, 377], [17.33, 1293, 401], [17.5, 1247, 430], [17.67, 1196, 461], [17.73, 1187, 467]]);
@@ -348,40 +524,57 @@
 
       // ---------- 4. the follow-up is typed and sent; the second answer scrolls into view ----------
       await B(3, 19.1);
-      await at(20.1); press();
-      const comp = q('.comp'), ty = q('.comp .ty'), ph0 = q('.comp .ph0'), slot = q('.slot');
+      await relAt(rr1, [[19.2, 0, 'hv', true], [19.23, 0, 'ht', true], [19.265, 0, 'hv', false], [19.265, 0, 'ht', false], [19.265, 1, 'hv', true],
+        [19.3, 1, 'hv', false], [19.3, 2, 'hv', true], [19.3, 2, 'ht', true], [19.33, 2, 'hv', false], [19.365, 2, 'ht', false]]);
+      await at(20.11); press();
+      const comp = q('.comp'), ty = q('.comp .ty'), ph0 = q('.comp .ph0');
       const Q = 'Which signals should I set up to catch this early?';
+      // keystroke times read from the recording, one per character
+      const KT = [20.733, 20.833, 20.867, 20.933, 21, 21.033, 21.1, 21.133, 21.2, 21.233, 21.3, 21.333, 21.433, 21.467, 21.5, 21.533, 21.633, 21.667, 21.7, 21.733,
+        21.8, 21.833, 21.95, 22, 22.033, 22.067, 22.1, 22.133, 22.2, 22.267, 22.333, 22.4, 22.467, 22.5, 22.533, 22.6, 22.633, 22.7, 22.733, 22.833,
+        22.867, 22.9, 23, 23.033, 23.067, 23.1, 23.2, 23.233, 23.3, 23.333];
       let fade = null;
+      await at(20.71); slotTo('send', 150);
       for (let k = 1; k <= Q.length; k++) {
-        await at(20.7 + (k - 1) * (2.63 / (Q.length - 1)));
+        await at(KT[k - 1]);
         if (k === 1) {
-          slot.dataset.s = 'send';
-          if (!c.ff) { c.anim(slot.querySelector('.send'), [{ opacity: 0 }, { opacity: 1 }], { duration: 130 }); fade = c.anim(ph0, [{ opacity: 1 }, { opacity: 0 }], { duration: 2500, easing: 'linear', fill: 'forwards' }); }
+          caret('on');
+          // the placeholder does not vanish: it fades slowly under the typed text
+          if (!c.ff) fade = anim(ph0, [{ opacity: 1 }, { opacity: 0 }], { duration: 2500, easing: 'linear', fill: 'forwards' });
           else ph0.style.opacity = 0;
         }
         const s = Q.slice(0, k);
-        if (s.endsWith(' earl')) comp.classList.add('tw2');
-        ty.innerHTML = comp.classList.contains('tw2') ? esc(Q.slice(0, 43)) + '<br>' + esc(s.slice(44)) : esc(s);
+        // "early" no longer fits on the first line: it wraps and the composer grows up by a line
+        if (k === 49) comp.classList.add('tw2');
+        ty.innerHTML = k >= 49 ? esc(Q.slice(0, 43)) + '<br>' + esc(s.slice(44)) : esc(s);
       }
-      await at(23.93);
+      // after the last key the caret blinks again, its first "on" phase starting with that key; Enter does not reset it
+      await at(23.34); caret('blink', 23.333);
+      // Enter: the composer clears (its placeholder does not come back), the question joins the conversation and the app thinks again
+      await at(23.91);
       ty.textContent = ''; comp.classList.remove('tw2');
       if (fade) fade.cancel(); ph0.style.opacity = 0;
-      slot.dataset.s = 'busy'; q('.ph .h3').classList.remove('en');
+      q('.ph .h3').classList.remove('en');
       r1.classList.add('hid');
-      const q2 = q('.q2'), t2 = q('.t2');
-      q2.classList.remove('hid'); c.enter(q2, 'fade', { d: 150 });
-      t2.classList.remove('hid'); c.enter(t2, 'fade', { d: 150 });
-      await at(25.03);
-      t2.classList.add('hid'); q('.ph .h3').classList.add('en');
-      [q('.a2'), q('.c2')].forEach(el => { el.classList.remove('hid'); c.enter(el, 'fade', { d: 170 }); });
-      await at(25.07);
-      c.scroll(q('.scr'), 227, c.ff ? 0 : 230);
-      await at(25.2);
-      q('.c1').classList.add('hid');
-      const r2 = q('.r2'); r2.classList.remove('hid');
-      [...r2.children].forEach((el, k) => c.enter(el, 'fade', { d: 140, delay: k * 50 }));
-      slot.dataset.s = 'mic';
+      show(q('.q2'), 150); show(q('.t2'), 150);
+      busyOn(23.89);
+      await at(23.97); slotTo('busy', 95);
+      await at(25.04); slotTo('mic', 180);
+      await at(25.05);
+      q('.t2').classList.add('hid'); q('.ph .h3').classList.add('en');
+      show(q('.a2'), 170); show(q('.c2'), 170);
+      // the conversation scrolls up so the new answer is in view: it settles 6 px as the answer replaces "Thinking...",
+      // then at 25.10 a smooth scroll runs fast and slows into place (0.23 s), as the recording's frames trace it
+      const scr = q('.scr'); scr.style.transform = 'translateY(-227px)';
+      if (!c.ff) anim(scr, [{ offset: 0, transform: 'translateY(0)' }, { offset: 25 / 290, transform: 'translateY(-6px)' }, { offset: 60 / 290, transform: 'translateY(-6px)', easing: 'cubic-bezier(0,.7,.5,1)' }, { offset: 1, transform: 'translateY(-227px)' }], { duration: 290, delay: -10, easing: 'linear' });
+      await at(25.06); q('.c1').classList.add('hid');
+      const r2 = q('.r2'), rr2 = [...r2.querySelectorAll('.ri')];
+      r2.classList.remove('hid'); fadeIn(r2.querySelector('h6'), 70, 40);
+      [60, 100, 150].forEach((dl, k) => fadeIn(rr2[k], 70, dl));
+      await at(25.23); busyOff();
       await at(25.67); glide([[25.67, 1236, 816], [25.83, 1237, 773], [26, 1238, 675], [26.13, 1240, 530], [26.3, 1241, 467]]);
+      await relAt(rr2, [[25.865, 2, 'hv', true], [25.9, 2, 'ht', true], [25.93, 2, 'hv', false], [25.93, 1, 'hv', true], [25.975, 2, 'ht', false, 50],
+        [25.99, 1, 'hv', false], [25.99, 0, 'hv', true], [26.02, 0, 'hv', false]]);
       await at(27.63); glide([[27.63, 1241, 467], [28.13, 1187, 432]], EIO);
       await at(29.4); glide([[29.4, 1187, 432], [29.6, 1225, 451], [29.8, 1302, 488], [30, 1331, 503]]);
       await at(32.2);

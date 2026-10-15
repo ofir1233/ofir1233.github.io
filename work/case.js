@@ -271,7 +271,7 @@
   }
 })();
 
-// Porcelain & Evergreen: light/dark switch in the top bar (light by default, the choice is remembered; same key as the home page)
+// Porcelain & Evergreen: light/dark switch in the top bar (dark by default, the choice is remembered; same key as the home page)
 (() => {
   const root = document.documentElement, tg = document.querySelector('.theme-tg'), meta = document.querySelector('meta[name="theme-color"]');
   if (!tg) return;
@@ -280,7 +280,7 @@
     if (tg) { tg.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'); tg.setAttribute('aria-pressed', t === 'dark'); }
     if (meta) meta.content = t === 'dark' ? '#101614' : '#f3f4f2';
   };
-  apply(root.dataset.theme === 'dark' ? 'dark' : 'light');
+  apply(root.dataset.theme === 'light' ? 'light' : 'dark');
   if (tg) tg.addEventListener('click', () => {
     const t = root.dataset.theme === 'dark' ? 'light' : 'dark';
     apply(t);

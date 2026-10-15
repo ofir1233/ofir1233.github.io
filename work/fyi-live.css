@@ -1,4 +1,4 @@
-/* FYI live phones: the device, and the reimagined FYI app drawn in HTML. Every size inside the device is in the phone's own
+/* FYI live phones: the device, and the FYI app drawn in HTML. Every size inside the device is in the phone's own
    points (a 390 x 844 screen); the whole device is scaled to its slot by --k (set by fyi-live.js). Flat rendering only. */
 
 /* ---------- device ---------- */
@@ -23,7 +23,7 @@
 .fx-off *, .fx-off *::before, .fx-off *::after { animation-play-state: paused !important; }
 .fx-ff .fx-app * { transition: none !important; }
 
-/* ---------- the reimagined app: tokens (each original style name keeps its role) ---------- */
+/* ---------- the app: tokens (each style name keeps its role) ---------- */
 .fx-app, .fx-sb, .fx-vars {
   --fxf: "Geist", "Helvetica Neue", Arial, sans-serif;
   --fxd: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
@@ -57,7 +57,7 @@
 .fx-app .knot { width: 18px; height: 18px; }
 .fx-app .view { position: absolute; inset: 0; background: var(--bg); }
 
-/* wallpaper: the original's doodle ground, quieter, with a copper wash at the top for this project */
+/* wallpaper: the doodle ground, quieter, with a copper wash at the top for this project */
 .fx-wall { position: absolute; inset: 0; z-index: 0; background: radial-gradient(420px 340px at 50% -60px, rgba(227,154,91,.10), transparent 70%), var(--doodle) 0 0 / 180px 180px, #000; }
 
 /* ---------- people and groups: monograms and abstract marks, never photos ---------- */
@@ -96,7 +96,7 @@
 .cov-c::before { content: "COPPER HOURS"; left: 8%; right: 8%; top: 10%; font: 800 26px/.86 var(--fxd); letter-spacing: -.02em; color: var(--cream); white-space: normal; word-spacing: 100vw; }
 .cov-c::after { left: 8%; right: 8%; bottom: 10%; height: 3px; background: var(--cream); }
 .cov .a-lb { position: absolute; z-index: 2; left: 6px; top: 6px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 7px; display: grid; place-items: center; background: rgba(0,0,0,.6); color: #fff; font: 700 12px/1 var(--fxf); }
-/* poster styles (ticket, sheet, formats): Splash from the original splash light, Ink, Paper; cover B arcs in all three */
+/* poster styles (ticket, sheet, formats): Splash from the splash light, Ink, Paper; cover B arcs in all three */
 .ps { position: relative; overflow: hidden; color: var(--cream); background: linear-gradient(160deg, #0c4842 0%, #06201d 55%, #3a1c26 100%); }
 .ps .arcs { position: absolute; inset: 0; background: repeating-radial-gradient(circle at 0% 100%, var(--cu) 0 3.4%, transparent 3.4% 8%, var(--cu2) 8% 9.4%, transparent 9.4% 14%); -webkit-mask: radial-gradient(circle at 0% 100%, #000 0 58%, transparent 58.5%); mask: radial-gradient(circle at 0% 100%, #000 0 58%, transparent 58.5%); }
 .ps .pt { position: absolute; right: 14px; top: 14px; left: 40%; text-align: right; font: 700 22px/.95 var(--fxd); letter-spacing: -.02em; text-transform: uppercase; }

@@ -1,5 +1,5 @@
 /* Data V2: the calls table (V3 Facelift), its Filter popover, the call side panel and the Ask AI dialog */
-.sc-dt { --blue: #1677ff; --ink: #0e0907; --mu: #9b9b9c; background: #eeeeeb; }
+.sc-dt { --blue: #1677ff; --dt-ink: #0e0907; --mu: #9b9b9c; background: #eeeeeb; }
 .sc-dt .i { width: 14px; height: 14px; }
 .sc-dt .dt-sp { width: 14px; height: 14px; flex: none; fill: currentColor; }
 
@@ -56,7 +56,7 @@
 .sc-dt .dt-tbl { position: absolute; left: 274px; top: 159px; width: 1151px; height: 725px; background: #fff; border-radius: 10px 10px 0 0; box-shadow: 0 0 0 1px #e6e6e3; overflow: hidden; }
 .sc-dt.panel .dt-tbl { width: 799px; }
 .sc-dt .dt-th { position: absolute; left: 0; top: 0; width: 1151px; height: 39px; border-bottom: 1px solid #e8e8e8; font-size: 13.4px; font-weight: 600; color: #504d4e; }
-.sc-dt .dt-th > span { position: absolute; top: 11px; display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+.sc-dt .dt-th > span { position: absolute; top: 13px; display: flex; align-items: center; gap: 5px; white-space: nowrap; }
 .sc-dt .dt-th > span .i { width: 13px; height: 13px; color: #727272; stroke-width: 1.8; }
 .sc-dt .dt-th > i { position: absolute; top: 14px; width: 1px; height: 10px; background: #cbcbcb; }
 .sc-dt .dt-th .dt-cb { position: absolute; left: 16px; top: 13px; }
@@ -71,7 +71,7 @@
 .sc-dt .dt-r.ring::after { content: ""; position: absolute; left: 45px; top: 0; width: 271px; height: 49px; box-shadow: inset 0 0 0 1px #5b8fc9; }
 .sc-dt .dt-al { position: absolute; left: 62px; top: 17px; width: 14px; height: 14px; color: #e57373; stroke-width: 1.7; }
 .sc-dt .dt-call { position: absolute; left: 84px; top: 10px; width: 236px; }
-.sc-dt .dt-call b { display: block; font-size: 13.4px; line-height: 16px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+.sc-dt .dt-call b { display: block; font-size: 13.4px; line-height: 16px; font-weight: 700; color: var(--dt-ink); white-space: nowrap; }
 .sc-dt .dt-call small { display: block; margin-top: -1px; font-size: 12px; line-height: 15px; font-weight: 500; color: #666667; white-space: nowrap; }
 .sc-dt .dt-id { position: absolute; left: 333px; top: 16px; display: flex; align-items: center; gap: 8px; font: 400 10.3px/17px ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; letter-spacing: 0; color: #727172; }
 .sc-dt .dt-id .i { width: 12px; height: 12px; color: #acacac; }
@@ -79,9 +79,9 @@
 .sc-dt .dt-date b { display: block; font-size: 12.6px; line-height: 16px; font-weight: 600; color: #202121; }
 .sc-dt .dt-date small { display: block; margin-top: -1px; font-size: 11.6px; line-height: 15px; font-weight: 500; color: #9b9b9c; }
 .sc-dt .dt-st { position: absolute; left: 677px; top: 15px; }
-.sc-dt .pill { display: inline-flex; align-items: center; height: 21px; padding: 0 9px; border-radius: 11px; font-size: 11.6px; font-weight: 600; white-space: nowrap; background: #fff; box-shadow: inset 0 0 0 1px #dcdcdc; color: #5a5a58; }
-.sc-dt .pill.ip { background: #e1eefe; box-shadow: inset 0 0 0 1px #4a6fb0; color: #2b5398; }
-.sc-dt .pill.dn { background: #e2f4ea; box-shadow: inset 0 0 0 1px #557868; color: #2f5a45; }
+.sc-dt .dt-pill { display: inline-flex; align-items: center; height: 21px; padding: 0 9px; border-radius: 11px; font-size: 11.6px; font-weight: 600; white-space: nowrap; background: #fff; box-shadow: inset 0 0 0 1px #dcdcdc; color: #5a5a58; }
+.sc-dt .dt-pill.ip { background: #e1eefe; box-shadow: inset 0 0 0 1px #4a6fb0; color: #2b5398; }
+.sc-dt .dt-pill.dn { background: #e2f4ea; box-shadow: inset 0 0 0 1px #557868; color: #2f5a45; }
 .sc-dt .dt-dash { color: #bcbcbc; font-size: 12px; font-weight: 500; }
 .sc-dt .dt-st .dt-dash { position: relative; left: 2px; top: 2px; }
 .sc-dt .dt-pri { position: absolute; left: 803px; top: 16px; display: flex; align-items: center; gap: 8px; font-size: 12.6px; line-height: 17px; font-weight: 500; color: #1f1d1b; }
@@ -94,13 +94,16 @@
 /* ---------- the Filter popover ---------- */
 .sc-dt .dt-pop { position: absolute; left: 416px; top: 154px; width: 323px; height: 732px; z-index: 40; background: #fff; border-radius: 10px; box-shadow: 0 0 0 1px #e8e8e8, 0 8px 24px rgba(0,0,0,.1); overflow: hidden; }
 .sc-dt .pp-ai { height: 47px; border-bottom: 1px solid #efefef; display: flex; align-items: center; padding: 0 0 0 10px; }
-.sc-dt .pp-ai > .dt-sp { width: 15px; height: 15px; color: #2f6fd0; margin-top: 2px; }
+.sc-dt .pp-ai > .dt-sp { width: 14px; height: 14px; color: #2f7be0; margin-top: 1px; }
 .sc-dt .pp-in { position: relative; margin-left: 4px; margin-top: 3px; width: 193px; height: 27px; border-radius: 7px; background: #eeeeee; box-shadow: inset 0 0 0 1px #dcdcdc; font-size: 12.4px; font-weight: 500; }
-.sc-dt .pp-in .tx, .sc-dt .pp-in .ph { position: absolute; left: 9px; top: 0; line-height: 27px; white-space: nowrap; }
-.sc-dt .pp-in .tx { color: #342f2b; z-index: 1; }
+.sc-dt .pp-in .pp-tx, .sc-dt .pp-in .ph { position: absolute; left: 9px; top: 0; line-height: 27px; white-space: nowrap; }
+.sc-dt .pp-in .pp-tx { color: #26221f; z-index: 1; }
+.sc-dt .pp-in .tx { font-weight: 600; }
+/* the text caret, blinked by the script on the scene's clock */
+.sc-dt .crt { display: inline-block; width: 1px; height: 15px; margin-left: -.5px; vertical-align: -3px; background: #484848; }
+.sc-dt .pp-in .tx:not(:empty) + .crt { margin-left: 1px; }
 .sc-dt .pp-in .ph { right: 4px; overflow: hidden; color: #9a9a98; }
 .sc-dt .pp-in.has .ph { visibility: hidden; }
-.sc-dt .pp-in .tx.is-typing:empty::after { margin-left: -1px; }
 .sc-dt .pp-gen { margin-left: 6px; margin-top: 3px; width: 86px; height: 22px; border-radius: 7px; background: #fff; box-shadow: inset 0 0 0 1px transparent; display: grid; place-items: center; font-size: 13.2px; font-weight: 600; color: #a0a0a0; }
 .sc-dt .pp-gen.ok { color: #100b0c; box-shadow: inset 0 0 0 1px #ececec; }
 .sc-dt .pp-gen.hv { background: #f3f8ff; box-shadow: inset 0 0 0 1px #8da6d8; color: #2f5ea8; }
@@ -115,7 +118,7 @@
 .sc-dt .pp-l .off + h6 { margin-top: 6.4px; }
 
 /* ---------- the toast ---------- */
-.sc-dt .dt-toast { position: absolute; left: 720px; top: 840px; width: 110px; height: 35px; border-radius: 18px; background: #181818; color: #fff; display: grid; place-items: center; font-size: 12.3px; font-weight: 700; z-index: 45; visibility: hidden; }
+.sc-dt .dt-toast { position: absolute; left: 720px; top: 840px; width: 110px; height: 35px; border-radius: 18px; background: #181818; color: #fff; display: grid; place-items: center; font-size: 12.3px; font-weight: 700; z-index: 45; visibility: hidden; box-shadow: 0 5px 20px rgba(0,0,0,.2); }
 .sc-dt .dt-toast.on { visibility: visible; }
 
 /* ---------- the call side panel ---------- */
@@ -123,69 +126,79 @@
 .sc-dt.panel .dt-pn { visibility: visible; }
 .sc-dt .pn-h { position: relative; height: 91px; border-bottom: 1px solid #ececec; padding: 13px 0 0 15px; }
 .sc-dt .pn-h h4 { font-size: 15.7px; line-height: 20px; font-weight: 700; color: #0b0809; }
-.sc-dt .pn-id { margin-top: 5px; display: flex; align-items: center; gap: 9px; font: 400 10.3px/14px ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; letter-spacing: 0; color: #727172; }
+.sc-dt .pn-id { margin-top: 9px; display: flex; align-items: center; gap: 9px; font: 400 10.3px/14px ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; letter-spacing: 0; color: #727172; }
 .sc-dt .pn-id .i { width: 11px; height: 11px; color: #acacac; }
-.sc-dt .pn-m { display: block; margin-top: 7px; font-size: 11.9px; line-height: 15px; font-weight: 500; color: #999a99; }
+.sc-dt .pn-m { display: block; margin-top: 8px; font-size: 11.9px; line-height: 15px; font-weight: 500; color: #999a99; }
 .sc-dt .pn-x { position: absolute; right: 22px; top: 22px; width: 12px; height: 12px; color: #818282; stroke-width: 1.8; }
 .sc-dt .pn-b { height: 520px; overflow: hidden; padding: 0 14px 0 15px; }
 .sc-dt .pn-al { display: flex; gap: 9px; padding: 12px 0 0 1px; }
 .sc-dt .pn-al > .i { width: 13px; height: 13px; margin-top: 2px; color: #e57373; stroke-width: 1.8; }
 .sc-dt .pn-al b { display: block; font-size: 12.6px; line-height: 19px; font-weight: 500; color: #222021; }
 .sc-dt .pn-al span { display: block; font-size: 12.2px; line-height: 19px; font-weight: 500; color: #646464; }
-.sc-dt .pn-d { margin-top: 9px !important; font-size: 13.3px; line-height: 19.5px; font-weight: 500; color: #222022; }
+.sc-dt .pn-d { margin-top: 14px !important; font-size: 13.3px; line-height: 19.5px; font-weight: 500; color: #222022; }
 .sc-dt .pn-f { margin: 12px 0 0; }
 .sc-dt .pn-f div { height: 36px; border-top: 1px solid #ebebeb; display: flex; align-items: center; justify-content: space-between; }
 .sc-dt .pn-f dt { font-size: 12.7px; font-weight: 500; color: #606268; }
 .sc-dt .pn-f dd { margin: 0; display: flex; align-items: center; gap: 7px; font-size: 12.8px; font-weight: 600; color: #222628; }
-.sc-dt .pn-f dd .pill { height: 20px; padding: 0 8px; font-size: 12px; }
+.sc-dt .pn-f dd .dt-pill { height: 20px; padding: 0 8px; font-size: 12px; }
 .sc-dt .pn-f dd .av { width: 20px; height: 20px; }
 .sc-dt .pn-ft { position: absolute; left: 0; right: 0; top: 611px; bottom: 0; border-top: 1px solid #eeeeee; padding: 12px 0 0 16px; }
 .sc-dt .pn-open { width: 114px; height: 28px; border-radius: 7px; background: var(--blue); color: #fff; display: grid; place-items: center; font-size: 13.2px; font-weight: 700; }
 .sc-dt .pn-ask { margin: 8px 0 0 -1px; width: 194px; height: 29px; border-radius: 7px; box-shadow: inset 0 0 0 1px #e8e8e8; display: flex; align-items: center; gap: 9px; padding-left: 17px; font-size: 13.8px; font-weight: 700; color: #100b0c; }
 .sc-dt .pn-ask .dt-sp { width: 13px; height: 13px; color: #111; }
-.sc-dt .pn-ask.hv { box-shadow: inset 0 0 0 1px #9dacbc; color: #263551; }
+.sc-dt .pn-ask.hv { box-shadow: inset 0 0 0 1px #8ea9d8; color: #1b356a; }
+.sc-dt .pn-ask.hv .dt-sp { color: #1b356a; }
 .sc-dt .pn-ft small { display: block; margin-top: 10px; font-size: 11.2px; font-weight: 500; color: #a1a0a0; }
 
 /* ---------- Ask AI ---------- */
 .sc-dt .dt-dim { position: absolute; inset: 0; z-index: 60; background: rgba(0,0,0,.22); visibility: hidden; }
-.sc-dt .dt-mo { position: absolute; left: 86px; top: 63px; width: 1268px; height: 774px; z-index: 61; background: #fff; border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.18); overflow: hidden; visibility: hidden; }
+.sc-dt .dt-mo { position: absolute; left: 86px; top: 63px; width: 1268px; height: 774px; z-index: 61; background: #fff; border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.21); overflow: hidden; visibility: hidden; }
 .sc-dt.asking .dt-dim, .sc-dt.asking .dt-mo { visibility: visible; }
 .sc-dt .mo-h { position: relative; height: 64px; border-bottom: 1px solid #e8e8e8; }
 .sc-dt .mo-tile { position: absolute; left: 20px; top: 17px; width: 28px; height: 28px; border-radius: 8px; background: #e0ecfc; display: grid; place-items: center; color: #2975dc; }
-.sc-dt .mo-tile .dt-sp { width: 16px; height: 16px; }
+.sc-dt .mo-tile .dt-sp { width: 15px; height: 15px; }
 .sc-dt .mo-h h4 { position: absolute; left: 58px; top: 13px; font-size: 16px; line-height: 20px; font-weight: 700; color: #0b0b0b; }
 .sc-dt .mo-sub { position: absolute; left: 58px; top: 33px; font-size: 11.6px; line-height: 15px; font-weight: 500; color: #9f9f9f; white-space: nowrap; }
 .sc-dt .mo-ic { position: absolute; right: 21px; top: 23px; display: flex; gap: 22px; color: #818181; }
 .sc-dt .mo-ic .i { width: 16px; height: 16px; }
 .sc-dt .mo-ic .i:nth-child(3) { width: 15px; height: 15px; margin-top: 1px; }
+/* expand is unavailable while the answer is being written */
+.sc-dt .dt-mo:not(.done) .mo-ic .exp { color: #d0d0d0; }
 .sc-dt .mo-chips { height: 44px; border-bottom: 1px solid #eaeaea; display: flex; gap: 6px; padding: 12px 0 0 20px; }
 .sc-dt .mo-chips span { height: 21px; border-radius: 11px; box-shadow: inset 0 0 0 1px #e6e6e6; display: flex; align-items: center; gap: 8px; padding: 0 9px 0 9px; font-size: 11.7px; font-weight: 600; color: #5c5c5c; white-space: nowrap; }
 .sc-dt .mo-chips .i { width: 9px; height: 9px; color: #9a9a9a; stroke-width: 2; }
 .sc-dt .mo-q { position: absolute; left: 375px; top: 133px; width: 628px; height: 54px; border-radius: 12px; background: var(--blue); color: #fff; padding: 8px 14px 0; font-size: 13.4px; line-height: 18px; font-weight: 600; }
-.sc-dt .mo-think { position: absolute; left: 269px; top: 207px; height: 20px; display: flex; align-items: center; gap: 12px; font-size: 12.3px; font-weight: 500; color: #9a9a9a; }
-.sc-dt .globe { position: relative; width: 20px; height: 20px; border-radius: 50%; background: #dce8fb; overflow: hidden; }
-.sc-dt .globe i { position: absolute; left: -6px; top: -6px; width: 38px; height: 38px; background: radial-gradient(circle, #3b74d6 1.1px, transparent 1.4px) 0 0 / 4px 4px; transform-origin: 0 0; }
+.sc-dt .mo-think { position: absolute; left: 269px; top: 207px; height: 21px; display: flex; align-items: center; gap: 11px; font-size: 12.7px; font-weight: 500; color: #9a9a9a; }
+/* the thinking sphere: a lattice of blue dots on a pale blue disc, with light bands between its rows, laid on the
+   recording's diagonal (it keeps that angle) and drifted along it by the script */
+.sc-dt .globe { position: relative; width: 21px; height: 21px; border-radius: 50%; background: #b5cff8; overflow: hidden; }
+.sc-dt .globe i { position: absolute; left: -6px; top: -6px; width: 33px; height: 33px; transform: rotate(-50deg);
+  background: repeating-linear-gradient(to bottom, rgba(230,250,255,.95) 0 .65px, transparent .65px 2.7px, rgba(230,250,255,.95) 2.7px 3.35px), radial-gradient(circle, #3b78e0 .7px, transparent 1px) 0 0 / 3.35px 3.35px; }
 .sc-dt .mo-a { position: absolute; left: 274px; top: 209px; width: 760px; visibility: hidden; }
 .sc-dt .mo-a p { font-size: 14.75px; line-height: 23px; font-weight: 500; color: #3a3a3a; white-space: nowrap; }
-.sc-dt .mo-act { margin-top: 27px; display: flex; align-items: center; gap: 10px; color: #8f8f8f; }
-.sc-dt .mo-act .i { width: 14px; height: 14px; }
-.sc-dt .mo-act .i:last-child { margin-left: 2px; stroke-width: 2.6; }
+.sc-dt .mo-act { margin: 25px 0 0 -3px; display: flex; align-items: center; gap: 9px; color: #8a8a8a; }
+.sc-dt .mo-act .i { width: 15px; height: 15px; stroke-width: 1.9; }
+.sc-dt .mo-act .i:last-child { margin-left: -2px; stroke-width: 3.5; }
 .sc-dt .mo-a h5 { margin-top: 22px !important; margin-left: -9px; font-size: 12.9px; line-height: 16px; font-weight: 700; color: #090909; }
 .sc-dt .mo-a ul { list-style: none; margin: 2px 0 0 -9px; width: 553px; }
 .sc-dt .mo-a li { height: 37px; border-bottom: 1px solid #ececec; display: flex; align-items: center; padding-left: 8px; font-size: 12.6px; font-weight: 500; color: #676767; }
-.sc-dt .mo-a li .i { margin-left: auto; margin-right: 9px; width: 12px; height: 12px; color: #a8a8ac; }
+.sc-dt .mo-a li .i { margin-left: auto; margin-right: 7px; width: 15px; height: 15px; color: #9a9a9e; stroke-width: 1.7; }
 .sc-dt .dt-mo.done .mo-a { visibility: visible; }
 .sc-dt .dt-mo.done .mo-think { visibility: hidden; }
-.sc-dt .mo-cm { position: absolute; left: 331px; top: 664px; width: 606px; height: 89px; border-radius: 12px; box-shadow: inset 0 0 0 1px #d9d9d9; }
-.sc-dt .mo-cm.fo { box-shadow: inset 0 0 0 1.5px #4f86e8, 0 0 0 3px rgba(22,119,255,.12); }
+.sc-dt .mo-cm { position: absolute; left: 331px; top: 664px; width: 606px; height: 89px; border-radius: 12px; box-shadow: inset 0 0 0 1px #cbcbcb; }
+.sc-dt .mo-cm.fo { box-shadow: inset 0 0 0 1.5px #4f86e8, 0 0 0 4px rgba(22,119,255,.09); }
 .sc-dt .mo-cm .ph { position: absolute; left: 11px; top: 11px; font-size: 15.4px; line-height: 20px; font-weight: 500; color: #989898; }
-.sc-dt .mo-cm.fo .ph::before { content: ""; position: absolute; left: -1px; top: 1px; width: 1.5px; height: 18px; background: #222; animation: lx-caret 1s steps(1) infinite; }
-.sc-dt .mo-ics { position: absolute; left: 16px; top: 56px; display: flex; gap: 15px; color: #a3a3a3; }
-.sc-dt .mo-ics .i { width: 14px; height: 14px; }
-.sc-dt .mo-cm .mic { position: absolute; left: 571px; top: 53px; width: 16px; height: 18px; color: #a3a3a3; }
-.sc-dt .busy { position: absolute; left: 563px; top: 46px; width: 32px; height: 32px; border-radius: 8px; background: var(--blue); display: flex; align-items: center; justify-content: center; gap: 3px; }
-.sc-dt .busy i { width: 3.5px; height: 3.5px; border-radius: 50%; background: #fff; }
-.sc-dt .dt-mo.done .busy { visibility: hidden; }
+.sc-dt .mo-cm .crt { position: absolute; left: -1.5px; top: 2px; width: 1px; height: 17px; margin: 0; background: #555; }
+.sc-dt .mo-ics { position: absolute; left: 15px; top: 53px; height: 18px; display: flex; align-items: center; gap: 12px; color: #a3a3a3; }
+.sc-dt .mo-ics .i { width: 16px; height: 16px; }
+.sc-dt .mo-ics .i + .i { width: 18px; height: 18px; }
+.sc-dt .mo-cm .mic { position: absolute; left: 567px; top: 51px; width: 22px; height: 22px; color: #a3a3a3; }
+.sc-dt .busy { position: absolute; left: 563px; top: 46px; width: 32px; height: 32px; border-radius: 8px; background: var(--blue); display: flex; align-items: center; justify-content: center; gap: 2.75px; transform-origin: 50% 50%; }
+.sc-dt .busy i { width: 3px; height: 3px; border-radius: 50%; background: #fff; transform: translateY(1.8px); }
+.sc-dt .busy.gone { visibility: hidden; }
+
+/* ---------- phones: the toast sits at the bottom of the camera's frame (x 280-760, y 30-630 while it shows) ---------- */
+.lx-cam .sc-dt .dt-toast { left: 465px; top: 570px; }
 
 /* ---------- phones: Ask AI fills the 480×600 camera frame, laid out for it ---------- */
 /* The camera stops in the app's bottom-right corner (beside the panel's footer), and the sheet fills that frame. It runs
@@ -211,6 +224,6 @@
 .lx-cam .sc-dt.asking .lx-cur { opacity: 0 !important; }
 .lx-cam .sc-dt .mo-cm { left: 24px; top: auto; bottom: 20px; width: 440px; height: 72px; }
 .lx-cam .sc-dt .mo-cm .ph { top: 10px; }
-.lx-cam .sc-dt .mo-ics { top: 44px; }
-.lx-cam .sc-dt .mo-cm .mic { left: 408px; top: 41px; }
+.lx-cam .sc-dt .mo-ics { top: 41px; }
+.lx-cam .sc-dt .mo-cm .mic { left: 404px; top: 39px; }
 .lx-cam .sc-dt .busy { left: 400px; top: 32px; }

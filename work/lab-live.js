@@ -23,13 +23,15 @@
   const NAP = 50, LEAD = 20;
   const tick = now => {
     raf = 0;
-    const dt = last ? Math.max(0, Math.min(50, now - last)) : 16; last = now;
+    const dt = last ? Math.max(0, Math.min(50, now - last)) : 16; last = Math.max(last, now);
     let any = false, woke = false, due = Infinity;
     for (const p of players) if (p.live()) { if (p.advance(dt)) woke = true; any = true; for (const w of p.waits) due = Math.min(due, w.at - p._t); }
     if (!any) { last = 0; return; }
     // a step that just woke may set its next wait in the coming microtasks, so it gets another frame first
     if (woke || due <= NAP) { raf = requestAnimationFrame(tick); return; }
-    nap = { from: now, timer: setTimeout(rouse, Math.min(1000, due - LEAD)) };
+    // from `last`, not the frame time: the first frame after a wake can carry a timestamp from before the wake, and that
+    // stretch is already on the clocks
+    nap = { from: last, timer: setTimeout(rouse, Math.min(1000, due - LEAD)) };
     for (const p of players) p._nap = p.live();
   };
   // end a nap: the clocks that were running take the time that passed, and the ticker goes back to frames
@@ -115,7 +117,7 @@
     <div class="sb-brand"><span class="sb-tile">H</span><span class="sb-name"><b>Hear</b><small>Powered by ${LX.mark()}Hear</small></span></div>
     <div class="sb-row"><span class="sb-org"><i class="dotc"></i>Northwind${ic('down')}</span><span class="sb-bell">${ic('bell')}<b>2</b></span></div>
     <div class="sb-row"><span class="sb-ai">${ic('spark')}<span>A…</span><kbd>Ctrl J</kbd></span><span class="sb-ver"><span>V1</span><span class="on">V2</span></span></div>
-    <div class="sb-nav"><div class="sb-list" style="transform:translateY(${-(o.scroll ?? 0)}px)">${(o.nav || NAV).map(([icn, l, dev]) => icn === 'h' ? `<div class="sb-h">${l}</div>` : `<div class="sb-i${l === o.active ? ' on' : ''}${dev ? ' dev' : ''}" data-nav="${l}">${icn === 'story' ? LX.mark('sm') : ic(icn)}<span>${l}</span>${dev ? '<em>DEV</em>' : ''}</div>`).join('')}</div></div>
+    <div class="sb-nav"><div class="sb-list" style="transform:translateY(${-(o.scroll ?? 0)}px)">${(o.nav || NAV).map(([icn, l, dev]) => icn === 'h' ? `<div class="sb-h">${l}</div>` : `<div class="sb-i${l === o.active ? ' on' : ''}${dev ? ' dev' : ''}" data-nav="${l}">${icn === 'story' ? LX.mark('sm') : ic(icn)}<span>${l}</span></div>`).join('')}</div></div>
     <div class="sb-user"><span class="sb-me">${LX.av('U', 'me')}<b>You</b></span><span class="sb-lang">${ic('lang')}EN${ic('down')}</span></div>
     <div class="sb-tools">${ic('gear')}<i></i>${ic('moon')}<i></i>${ic('glasses')}<i></i>${ic('out')}</div>
     <span class="sb-tab">${ic('right')}</span>

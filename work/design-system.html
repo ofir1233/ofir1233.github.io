@@ -1,12 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>/* a page opens at its top: a reload or a reopened tab never lands mid-page. A link to a #section still lands on it, then the address drops the #section so the next visit starts at the top. Back still returns to where the reader was */
+(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{},h=history,de=document.documentElement,moved=false,
+strip=function(){if(location.hash)h.replaceState(h.state,'',location.pathname+location.search);};
+if(n.type!=='back_forward'){
+if('scrollRestoration' in h)h.scrollRestoration='manual';
+if(location.hash&&n.type==='reload')strip();
+if(!location.hash){['wheel','touchstart','keydown','mousedown'].forEach(function(t){addEventListener(t,function(){moved=true;},{passive:true,once:true});});
+var top=function(){if(moved||!scrollY)return;var b=de.style.scrollBehavior;de.style.scrollBehavior='auto';scrollTo(0,0);de.style.scrollBehavior=b;};
+top();document.addEventListener('DOMContentLoaded',top);addEventListener('load',top);}
+addEventListener('load',function(){setTimeout(function(){if('scrollRestoration' in h)h.scrollRestoration='auto';strip();},700);});}
+addEventListener('hashchange',function(){setTimeout(strip,0);});
+addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
+}catch(e){}})();</script>
 <title>Design system · Ofir Nona</title>
 <meta name="description" content="I built the token-based design system of Hear Design Lab and documented it in Storybook: tiers, tokens, contrast, themes and right to left.">
-<meta name="theme-color" content="#f3f4f2">
-<script>(function(){try{var n=performance.getEntriesByType('navigation')[0];if(!location.hash&&!(n&&n.type==='back_forward')){history.scrollRestoration='manual';var moved=false;['wheel','touchstart','keydown','mousedown'].forEach(function(e){addEventListener(e,function(){moved=true;},{once:true,passive:true});});var top=function(){if(!moved)window.scrollTo({top:0,left:0,behavior:'instant'});};top();addEventListener('DOMContentLoaded',top);addEventListener('load',top);}addEventListener('pagehide',function(){history.scrollRestoration='auto';});}catch(e){}})();</script>
+<meta name="theme-color" content="#101614">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/design-system.html">
 <meta property="og:title" content="Design system · Ofir Nona">
@@ -16,7 +28,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Ofir Nona, senior product designer. A Topics screen from Hear Design Lab with demo data.">
 <meta name="twitter:card" content="summary_large_image">
-<script>(function(){try{var t=localStorage.getItem('ofir-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<script>(function(){try{var t=localStorage.getItem('ofir-theme')==='light'?'light':'dark',m=document.querySelector('meta[name="theme-color"]');document.documentElement.dataset.theme=t;if(m)m.content=t==='dark'?'#101614':'#f3f4f2';}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,7 +36,6 @@
 <link rel="stylesheet" href="lab-live.css">
 <link rel="stylesheet" href="lab-system.css">
 <link rel="stylesheet" href="lab-stage.css">
-<link rel="preload" as="image" href="../img/hear-car-umbrella.webp">
 <style>
 .ds-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .ds-code, .ds-ct code, .ds-list code, .ds-layer code { font: 500 .86em/1.4 var(--mono); overflow-wrap: anywhere; }
@@ -58,9 +69,10 @@
 .ds-sw i { width: 18px; height: 18px; border-radius: 5px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--paper) 16%, transparent); }
 .ds-sw i + i { margin-left: -4px; }
 @media (max-width: 860px) { .ds-layers { grid-template-columns: 1fr; } .ds-arrow { transform: rotate(90deg); justify-self: center; } }
-/* contrast table */
-.ds-ct { width: 100%; border-collapse: collapse; font-size: 15px; background: var(--card); border-radius: 22px; overflow: hidden; }
-.ds-ct caption { caption-side: bottom; text-align: left; padding-top: 12px; font-size: 14px; color: var(--mute); }
+/* contrast table. Its rounded clip also takes in the caption, so the 22px corner would cut the start of the caption's last line:
+   the caption keeps a corner's depth (22px) of padding under its text and the table hands that depth back, so nothing below moves */
+.ds-ct { width: 100%; border-collapse: collapse; font-size: 15px; background: var(--card); border-radius: 22px; overflow: hidden; margin-bottom: -22px; }
+.ds-ct caption { caption-side: bottom; text-align: left; padding-top: 12px; padding-bottom: 22px; font-size: 14px; color: var(--mute); }
 .ds-ct th, .ds-ct td { padding: 13px 16px; text-align: left; vertical-align: middle; border-top: 1px solid color-mix(in srgb, var(--paper) 8%, transparent); color: var(--paper); font-weight: 400; }
 .ds-ct thead th { border-top: 0; font: 600 14px/1.3 var(--body); color: var(--mute); background: var(--ink-3); }
 .ds-ct tbody th { font-size: 14.5px; line-height: 1.45; }
@@ -76,6 +88,8 @@
 .ds-v { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 99px; font-size: 13.5px; font-weight: 600; white-space: nowrap; color: var(--coral); background: var(--ink-3); }
 .ds-v.no { color: #a3381f; background: color-mix(in srgb, #a3381f 10%, transparent); }
 :root[data-theme="dark"] .ds-v.no { color: #f2a48f; background: color-mix(in srgb, #f2a48f 12%, transparent); }
+/* print and PDF take the light look (see case.css) */
+@media print { :root[data-theme="dark"] .ds-v.no { color: #a3381f; background: color-mix(in srgb, #a3381f 10%, transparent); } }
 @media (max-width: 680px) {
   .ds-ct thead { display: none; }
   .ds-ct tr { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; padding: 14px 16px; border-top: 1px solid color-mix(in srgb, var(--paper) 8%, transparent); }
@@ -90,17 +104,15 @@
 @media (max-width: 1239px) { .ct-hero.ds-stage .ct-stage { --ct-band: 60cqw; --ct-top: 50cqw; } }
 @media (max-width: 719px) { .ct-hero.ds-stage .ct-stage { --ct-band: 84cqw; --ct-top: 69cqw; } }
 .compare .tag { font-size: 13.5px; }
-.sheet figcaption { color: rgba(27,27,27,.72); }
-:root[data-theme="dark"] .sheet figcaption { color: var(--mute); }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="topbar">
+<header class="topbar long-next">
   <div class="wrap">
     <a class="home" href="../index.html#system">Ofir<span>.</span> <i>← All work</i></a>
     <nav aria-label="Case studies"><a class="pill pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill" href="demos-engine.html">← Demos engine</a><a class="pill solid" href="brand-web.html" aria-label="Next case: Brand &amp; website">Brand &amp; website →</a></nav>
-    <button type="button" class="theme-tg" aria-label="Switch to dark theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+    <button type="button" class="theme-tg" aria-label="Switch to light theme" aria-pressed="true"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
     <span class="progress" aria-hidden="true"></span>
   </div>
 </header>
@@ -119,9 +131,7 @@
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#structure"><span>02</span> Structure</a><a class="pill" href="#tokens"><span>03</span> Tokens</a><a class="pill" href="#contrast"><span>04</span> Contrast &amp; charts</a><a class="pill" href="#theming"><span>05</span> Theme &amp; direction</a><a class="pill" href="#decisions"><span>06</span> Decisions</a></nav>
     <figure class="ct-fig ct-hero ds-stage" id="demo" data-lx-stage style="--pw:106cqw;--px:0cqw;--py:-18cqw;--wx:3.5cqw;--wy:13.5cqw;--ww:55.5cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-14.6cqw;--pw-s:140cqw;--px-s:-14cqw;--py-s:-20.4cqw">
       <div class="ct-stage">
-        <div class="ct-band">
-          <img class="ct-photo" src="../img/hear-car-umbrella.webp" alt="" width="1600" height="1194" decoding="async" fetchpriority="high">
-        </div>
+        <div class="ct-band"></div>
         <div class="ct-win">
           <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
           <div class="lx" data-lab="system" role="img" aria-label="Agent evaluation in light, dark and Hebrew right to left, with the same scores."></div>
@@ -182,7 +192,7 @@
             <li><strong>Button, reworked, used in 21 files.</strong> I moved the primary from coral to blue and the secondary from blue to neutral. Its loading state sets <code>aria-busy</code>.</li>
             <li><strong>PageHeader, new, used in 16 page files.</strong> Its spec sits in the code: 12px gutters, 16px radius, 1px border, 56px height.</li>
             <li><strong>SegmentedTabs, new.</strong> It exports its 36px height so sibling controls can match it, and calls itself the “single source of truth for its height/look.”</li>
-            <li><strong>Badge, reworked, used in 13 files,</strong> with tinted fills that have their own tokens.</li>
+            <li><strong>Badge, reworked, used in 13 files.</strong> Its tinted fills have their own tokens.</li>
           </ul>
         </div>
       </div>
@@ -309,7 +319,7 @@
         <figure class="rv"><div class="shot"><span class="live">Design Lab · demo data</span><div class="lx" data-lab="system" data-still="rtl" role="img" aria-label="Agent evaluation in Hebrew, right to left: the sidebar on the right, mirrored headings and filters, and a chart that keeps its axis and Latin digits"></div></div><figcaption><b>Hebrew, right to left.</b> The sidebar, headings, filters and navigation mirror, while the chart's time axis still runs left to right, with Latin digits.</figcaption></figure>
         <div class="prose xtra">
           <p>I first built right to left for the News tab in July. A language hook follows the page's <code class="ds-code">lang</code>, and UI strings sit in a dictionary. Logical CSS properties such as <code class="ds-code">borderInlineStart</code> let the layout flip with the text.</p>
-          <p>In the Lab today, the language menu switches the shell and this screen to Hebrew, and the whole layout mirrors.</p>
+          <p>In the Lab today, the language menu switches the shell and this screen to Hebrew.</p>
         </div>
       </div>
       </div>

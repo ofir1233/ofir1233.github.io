@@ -1,12 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>/* a page opens at its top: a reload or a reopened tab never lands mid-page. A link to a #section still lands on it, then the address drops the #section so the next visit starts at the top. Back still returns to where the reader was */
+(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{},h=history,de=document.documentElement,moved=false,
+strip=function(){if(location.hash)h.replaceState(h.state,'',location.pathname+location.search);};
+if(n.type!=='back_forward'){
+if('scrollRestoration' in h)h.scrollRestoration='manual';
+if(location.hash&&n.type==='reload')strip();
+if(!location.hash){['wheel','touchstart','keydown','mousedown'].forEach(function(t){addEventListener(t,function(){moved=true;},{passive:true,once:true});});
+var top=function(){if(moved||!scrollY)return;var b=de.style.scrollBehavior;de.style.scrollBehavior='auto';scrollTo(0,0);de.style.scrollBehavior=b;};
+top();document.addEventListener('DOMContentLoaded',top);addEventListener('load',top);}
+addEventListener('load',function(){setTimeout(function(){if('scrollRestoration' in h)h.scrollRestoration='auto';strip();},700);});}
+addEventListener('hashchange',function(){setTimeout(strip,0);});
+addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
+}catch(e){}})();</script>
 <title>Newsroom · Ofir Nona</title>
 <meta name="description" content="I designed Newsroom, an AI news feed in Hear Design Lab where each story shows where it came from, how strong it is and which calls it rests on.">
-<meta name="theme-color" content="#f3f4f2">
-<script>(function(){try{var n=performance.getEntriesByType('navigation')[0];if(!location.hash&&!(n&&n.type==='back_forward')){history.scrollRestoration='manual';var moved=false;['wheel','touchstart','keydown','mousedown'].forEach(function(e){addEventListener(e,function(){moved=true;},{once:true,passive:true});});var top=function(){if(!moved)window.scrollTo({top:0,left:0,behavior:'instant'});};top();addEventListener('DOMContentLoaded',top);addEventListener('load',top);}addEventListener('pagehide',function(){history.scrollRestoration='auto';});}catch(e){}})();</script>
+<meta name="theme-color" content="#101614">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/newsroom.html">
 <meta property="og:title" content="Newsroom · Ofir Nona">
@@ -16,7 +28,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Ofir Nona, senior product designer. A Topics screen from Hear Design Lab with demo data.">
 <meta name="twitter:card" content="summary_large_image">
-<script>(function(){try{var t=localStorage.getItem('ofir-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<script>(function(){try{var t=localStorage.getItem('ofir-theme')==='light'?'light':'dark',m=document.querySelector('meta[name="theme-color"]');document.documentElement.dataset.theme=t;if(m)m.content=t==='dark'?'#101614':'#f3f4f2';}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,17 +36,27 @@
 <link rel="stylesheet" href="lab-live.css">
 <link rel="stylesheet" href="lab-news-recap.css">
 <link rel="stylesheet" href="lab-stage.css">
-<link rel="preload" as="image" href="../img/hear-car-keyfob.webp">
 <style>
-/* annotated screen: numbered pins over the image */
+/* annotated screen: numbered pins over the image, each beside the part it names and on no text */
 .newsroom-pins { position: relative; }
-.newsroom-pin { position: absolute; left: var(--x); top: var(--y); z-index: 2; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: var(--on-accent); font: 700 13px/1 var(--body); box-shadow: 0 0 0 3px #fff, 0 6px 16px rgba(20,32,27,.3); pointer-events: none; }
-@media (max-width: 760px) { .newsroom-pin { width: 14px; height: 14px; font-size: 9px; box-shadow: 0 0 0 1.5px #fff; } }
+.newsroom-pin { position: absolute; left: var(--x); top: var(--y); z-index: 2; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: var(--on-accent); font: 700 13.5px/1 var(--body); box-shadow: 0 0 0 3px #fff, 0 6px 16px rgba(20,32,27,.3); pointer-events: none; }
+/* below 1024px a pin is larger against the screen than the gaps it sits in (between the heading and the Just detected strip, say),
+   so the pins that need it move to their compact spots (--xs, --ys); on phones the pin is the smallest circle that holds a 13.5px numeral */
+@media (max-width: 1023px) { .newsroom-pin { left: var(--xs, var(--x)); top: var(--ys, var(--y)); } }
+@media (max-width: 760px) { .newsroom-pin { width: 18px; height: 18px; box-shadow: 0 0 0 1.5px #fff; } }
 .newsroom-legend { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px 28px; margin-top: 28px; }
 .newsroom-legend li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.55; color: var(--text); }
-.newsroom-legend li::before { content: attr(data-n); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: var(--on-accent); font: 700 13px/1 var(--body); }
+.newsroom-legend li::before { content: attr(data-n); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: var(--on-accent); font: 700 13.5px/1 var(--body); }
 .newsroom-legend b { color: var(--paper); font-weight: 600; }
 @media (max-width: 1100px) { .newsroom-legend li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+/* the anatomy screen's demo-data label sits in the window's title bar, so it never shares a spot with a pin or with the screen */
+.newsroom-anat .shot.win > .live { top: 4px; right: 10px; bottom: auto; padding-block: 4px; box-shadow: none; }
+/* the chat input is a short strip: its demo-data label and enlarge mark sit in a band under the field, not on it. The band carries on the screenshot's last row of grey (the field's shadow across the middle), so there is no seam */
+.newsroom-chatin .shot { padding-bottom: calc(54px - 3.43%); background: linear-gradient(90deg, #efefed 2%, #eeeeed 4.3%, #ebedec 6.3%, #ebedec 94.3%, #eeeeed 95.7%, #efefed 98.5%); }
+.newsroom-chatin .shot > .live { top: auto; bottom: 12px; right: 54px; }
+.newsroom-chatin .shot > .zx-i { top: auto; bottom: 12px; }
+@media (hover: none) { .newsroom-chatin .shot > .live { right: 42px; } .newsroom-chatin .shot > .zx-i { bottom: 8px; } }
+@media (max-width: 760px) { .newsroom-chatin .shot { padding-bottom: calc(40px - 3.43%); } .newsroom-chatin .shot > .live { bottom: 8px; } }
 /* six steps in three columns on wide screens */
 @media (min-width: 761px) {
   .newsroom-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -90,8 +112,8 @@
 <header class="topbar">
   <div class="wrap">
     <a class="home" href="../index.html#product">Ofir<span>.</span> <i>← All work</i></a>
-    <nav aria-label="Case studies"><a class="pill pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill" href="actions.html">← Actions</a><a class="pill solid" href="data.html" aria-label="Next case: Data &amp; signals">Data &amp; signals →</a></nav>
-    <button type="button" class="theme-tg" aria-label="Switch to dark theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+    <nav aria-label="Case studies"><a class="pill pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill" href="actions.html">← Actions</a><a class="pill solid" href="data.html" aria-label="Next case: Data &amp; Signals">Data &amp; Signals →</a></nav>
+    <button type="button" class="theme-tg" aria-label="Switch to light theme" aria-pressed="true"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
     <span class="progress" aria-hidden="true"></span>
   </div>
 </header>
@@ -110,9 +132,7 @@
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#history"><span>02</span> How it evolved</a><a class="pill" href="#evidence"><span>03</span> Showing evidence</a><a class="pill" href="#directions"><span>04</span> Directions &amp; Hebrew</a><a class="pill" href="#chat"><span>05</span> Where AI belongs</a></nav>
     <figure class="ct-fig ct-hero" id="demo" data-lx-stage style="--pw:122cqw;--px:-2cqw;--py:-6cqw;--wx:3.5cqw;--wy:5.5cqw;--ww:58.5cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-5.5cqw;--pw-s:190cqw;--px-s:-64cqw;--py-s:-12cqw">
       <div class="ct-stage">
-        <div class="ct-band">
-          <img class="ct-photo" src="../img/hear-car-keyfob.webp" alt="" width="1600" height="1073" decoding="async" fetchpriority="high">
-        </div>
+        <div class="ct-band"></div>
         <div class="ct-win">
           <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
           <div class="lx" data-lab="news-recap" role="img" aria-label="Newsroom: the July recap played as a full-screen story, ending on a shareable summary card."></div>
@@ -132,23 +152,23 @@
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>An AI summary of a contact center is only worth reading if people can check it.</p></div></details>
         </div>
       </div>
-      <figure class="rv">
+      <figure class="rv newsroom-anat">
         <div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span>
           <div class="newsroom-pins">
             <img src="../img/clip-news-poster-c.webp" data-zoom alt="Newsroom feed in light theme, with seven numbered markers that match the list below" width="1440" height="900" loading="lazy">
-            <span class="newsroom-pin" style="--x:41.7%;--y:4.8%" aria-hidden="true">1</span>
-            <span class="newsroom-pin" style="--x:18.6%;--y:21.1%" aria-hidden="true">2</span>
+            <span class="newsroom-pin" style="--x:45.5%;--y:5.3%;--xs:47.4%;--ys:6.2%" aria-hidden="true">1</span>
+            <span class="newsroom-pin" style="--x:27.2%;--y:20%;--xs:41.7%;--ys:16.4%" aria-hidden="true">2</span>
             <span class="newsroom-pin" style="--x:86.8%;--y:32.2%" aria-hidden="true">3</span>
-            <span class="newsroom-pin" style="--x:30.6%;--y:27.1%" aria-hidden="true">4</span>
+            <span class="newsroom-pin" style="--x:28.9%;--y:30.4%;--xs:34.6%;--ys:30.4%" aria-hidden="true">4</span>
             <span class="newsroom-pin" style="--x:48.6%;--y:62.2%" aria-hidden="true">5</span>
-            <span class="newsroom-pin" style="--x:90.3%;--y:76%" aria-hidden="true">6</span>
-            <span class="newsroom-pin" style="--x:49%;--y:90.6%" aria-hidden="true">7</span>
+            <span class="newsroom-pin" style="--x:90.3%;--y:84.6%;--xs:88.8%;--ys:85.1%" aria-hidden="true">6</span>
+            <span class="newsroom-pin" style="--x:77.2%;--y:88.4%;--xs:79.2%;--ys:87.6%" aria-hidden="true">7</span>
           </div>
         </div>
         <figcaption><b>Anatomy of the feed.</b> The current Newsroom in the Lab.</figcaption>
       </figure>
       <ol class="newsroom-legend rv">
-        <li data-n="1"><span><b>Labeled data.</b> The header says "feed · illustrative data" on the page itself, not in a footnote.</span></li>
+        <li data-n="1"><span><b>Labeled data.</b> The header says “feed · illustrative data” on the page itself, not in a footnote.</span></li>
         <li data-n="2"><span><b>Just detected.</b> Each detection scrolls past with the clock time it happened.</span></li>
         <li data-n="3"><span><b>Monthly recap.</b> The month as a 75-second full-screen story with sound, which starts when you press Play.</span></li>
         <li data-n="4"><span><b>Sources.</b> The reports behind the stories, with counts and dates, listed apart from live detections. Picking one filters the feed.</span></li>
@@ -194,7 +214,7 @@
         <h3>Should every card in the feed carry its own action buttons?</h3>
         <ul class="opts">
           <li class="opt"><strong>Buttons on every card</strong><span>Edit signal, Open in Data and Read story on each card in the feed.</span></li>
-          <li class="opt chosen"><strong>Actions on the article page</strong><span>The whole card opens the story. Edit signal, Open in Data and Run report sit there, with the "why" panel and the sources.</span></li>
+          <li class="opt chosen"><strong>Actions on the article page</strong><span>The whole card opens the story. Edit signal, Open in Data and Run report sit there, with the “why” panel and the sources.</span></li>
         </ul>
         <p class="because"><b>Result:</b> I put the actions on the article page, and the feed still works that way. Each card ends in its evidence line, with no action buttons.</p>
       </article>
@@ -228,7 +248,7 @@
           <div class="sub">Measured over a period</div>
           <dl>
             <div><dt>Trigger</dt><dd>In words, with no invented threshold</dd></div>
-            <div><dt>Time</dt><dd>A window, such as "this week"</dd></div>
+            <div><dt>Time</dt><dd>A window, such as “this week”</dd></div>
             <div><dt>Basis</dt><dd>The method behind the story</dd></div>
           </dl>
         </section>
@@ -264,7 +284,7 @@
         <div><div class="label">04 · <b>Directions &amp; Hebrew</b></div><h2>Four ways to frame the same news</h2></div>
         <div class="prose">
           <p class="lead">A week after the built feed, I sketched four low-fidelity directions, each with a different main metaphor.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>I kept them at wireframe fidelity on purpose, as gray skeletons with notes. They sit in the Lab's sidebar as News · Directions, tagged DEV.</p></div></details>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>I kept them at wireframe fidelity on purpose, as gray skeletons with notes. They sit in the Lab's sidebar as News · Directions.</p></div></details>
         </div>
       </div>
       <ol class="newsroom-dirs rv">
@@ -304,7 +324,7 @@
         </div>
       </div>
       <figure class="rv newsroom-dark">
-        <div class="shot win dark"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><img src="../img/cs-design-lab-chat-home-nw.webp" data-zoom alt="Chat home in dark theme: the Hear mark above the greeting Good evening, ofir, a chat input with @, slash and microphone buttons, a pill that reads 3 alerts worth a look under the input, a Briefing V1 to V5 switcher in the header, and the sidebar with News and a News · Directions item tagged DEV" width="1600" height="1045" loading="lazy"></div>
+        <div class="shot win dark"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><img src="../img/cs-design-lab-chat-home-nw.webp" data-zoom alt="Chat home in dark theme: the Hear mark above the greeting Good evening, ofir, a chat input with @, slash and microphone buttons, a pill that reads 3 alerts worth a look under the input, a Briefing V1 to V5 switcher in the header, and the sidebar with News and a News · Directions item" width="1600" height="1045" loading="lazy"></div>
         <figcaption><b>Chat home today, dark theme.</b> I built the page in the Lab's first version. The Hear mark now sits above the greeting, not in the field.</figcaption>
       </figure>
       <ol class="steps newsroom-fig-top rv xtra">
@@ -320,14 +340,14 @@
           <li class="opt"><strong>Logo in the field</strong><span>A morphing logo and a dot ring, with the logo in the input reacting to each keystroke.</span></li>
           <li class="opt chosen"><strong>A plain field</strong><span>The logo leaves the input. The field holds what you type, two shortcut buttons and a mic.</span></li>
         </ul>
-        <figure><div class="shot"><span class="live" style="top:12px;bottom:auto">Design Lab · demo data</span><img src="../img/ds-chatinput.webp" data-zoom alt="Chat input component: the text Loop in @ being typed, an @ button, a slash button and a blue send button" width="1400" height="270" loading="lazy"></div><figcaption><b>Chat input in the Lab's design system.</b> @ to bring someone in, / for commands, and send.</figcaption></figure>
+        <figure class="newsroom-chatin"><div class="shot"><span class="live">Design Lab · demo data</span><img src="../img/ds-chatinput.webp" data-zoom alt="Chat input component: the text Loop in @ being typed, an @ button, a slash button and a blue send button" width="1400" height="270" loading="lazy"></div><figcaption><b>Chat input in the Lab's design system.</b> @ to bring someone in, / for commands, and send.</figcaption></figure>
         <p class="because"><b>Result:</b> the Hear mark greets you above the field, and the field is left for the question.</p>
       </article>
     </div>
   </section>
 
   <div class="wrap">
-    <a class="next" href="data.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Data &amp; signals</h2></div><span class="next-thumb" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/clip-data-poster-c-nb.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
+    <a class="next" href="data.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Data &amp; Signals</h2></div><span class="next-thumb" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/clip-data-poster-c-nb.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
     <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy. Quoted rules come from the Lab's code and commit notes.</p></div>
   </div>
 </main>

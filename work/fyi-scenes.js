@@ -1487,7 +1487,7 @@ try {
   const S = { ps: 'splash', doors: '9 PM', stale: { story: false, post: false, link: false } };
   const moved = () => S.doors !== '9 PM';
   const clock = () => (moved() ? '9:5' : '8:5'); // B7 runs up to doors minus 2 minutes
-  const B7 = () => `On Day 39, launch night starts at ${clock()}8 PM.`;
+  const B7 = () => `On Day 39, launch night goes live at ${clock()}8 PM, before doors.`;
   // side by side (1200px and up) the formats land from the phone at B5; stacked, they sit below the phone from the start
   const WIDE = matchMedia('(min-width: 1200px)');
   const wide = () => WIDE.matches;

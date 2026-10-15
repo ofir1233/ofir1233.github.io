@@ -22,8 +22,9 @@
     dtArrow: 'M4.5 12h15M14 6.5l5.5 5.5-5.5 5.5',
     dtCheck: 'M5 12.5l4.5 4.5L19 7',
   });
-  // the Lab's AI glyph: a large four-point star with a small one above it to the right
-  const SPARK = '<svg class="dt-sp" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6.5l1.7 4.8 4.8 1.7-4.8 1.7-1.7 4.8-1.7-4.8L3 13l4.8-1.7zM18 2.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>';
+  // the Lab's AI glyph: three four-point stars, a large one low in the middle, a medium one above it to the left and a
+  // small one above it to the right
+  const SPARK = '<svg class="dt-sp" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 7.5Q11.9 14.6 19 15.5Q11.9 16.4 11 23.5Q10.1 16.4 3 15.5Q10.1 14.6 11 7.5zM5.6 1.6Q6.05 5.15 9.6 5.6Q6.05 6.05 5.6 9.6Q5.15 6.05 1.6 5.6Q5.15 5.15 5.6 1.6zM16.2 1.4Q16.47 3.53 18.6 3.8Q16.47 4.07 16.2 6.2Q15.93 4.07 13.8 3.8Q15.93 3.53 16.2 1.4z"/></svg>';
 
   // the sidebar: Main and Intelligence scroll in the nav, the DEV pages sit in their own block under it
   const NAV = [['h', 'Main'], ['nrHome', 'Chat'], ['news', 'News'], ['db', 'Data'], ['db', 'Data V2'], ['dtGrid', 'Topics'], ['report', 'Reports'], ['dtApps', 'Mini Apps'],
@@ -33,7 +34,7 @@
     dtGrid: 'M5.5 4h3A1.5 1.5 0 0 1 10 5.5v3A1.5 1.5 0 0 1 8.5 10h-3A1.5 1.5 0 0 1 4 8.5v-3A1.5 1.5 0 0 1 5.5 4zM15.5 4h3A1.5 1.5 0 0 1 20 5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 14 8.5v-3A1.5 1.5 0 0 1 15.5 4zM5.5 14h3a1.5 1.5 0 0 1 1.5 1.5v3A1.5 1.5 0 0 1 8.5 20h-3A1.5 1.5 0 0 1 4 18.5v-3A1.5 1.5 0 0 1 5.5 14zM15.5 14h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a1.5 1.5 0 0 1-1.5-1.5v-3a1.5 1.5 0 0 1 1.5-1.5z',
     dtApps: 'M5.5 4h3A1.5 1.5 0 0 1 10 5.5v3A1.5 1.5 0 0 1 8.5 10h-3A1.5 1.5 0 0 1 4 8.5v-3A1.5 1.5 0 0 1 5.5 4zM15.5 4h3A1.5 1.5 0 0 1 20 5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 14 8.5v-3A1.5 1.5 0 0 1 15.5 4zM5.5 14h3a1.5 1.5 0 0 1 1.5 1.5v3A1.5 1.5 0 0 1 8.5 20h-3A1.5 1.5 0 0 1 4 18.5v-3A1.5 1.5 0 0 1 5.5 14zM17 14v6M14 17h6',
   });
-  const DEV = `<div class="dt-dev">${[['news', 'News · Directions'], ['video', 'Demos'], ['story', 'Storybook']].map(([i, l]) => `<div class="sb-i dev" data-nav="${l}">${i === 'story' ? LX.mark('sm') : ic(i)}<span>${l}</span><em>DEV</em></div>`).join('')}</div>`;
+  const DEV = `<div class="dt-dev">${[['news', 'News · Directions'], ['video', 'Demos'], ['story', 'Storybook']].map(([i, l]) => `<div class="sb-i dev" data-nav="${l}">${i === 'story' ? LX.mark('sm') : ic(i)}<span>${l}</span></div>`).join('')}</div>`;
   const shell = () => LX.shell({ active: 'Data V2', nav: NAV }).replace('<div class="sb-user">', DEV + '<div class="sb-user">');
 
   // people: initials, name, color
@@ -78,7 +79,7 @@
       <div class="dt-call"><b>${t}</b><small>${s}</small></div>
       <span class="dt-id">${id}${ic('dtCopy')}</span>
       <div class="dt-date"><b>${d}</b><small>${tm}</small></div>
-      <span class="dt-st">${st ? `<span class="pill ${st}">${ST[st]}</span>` : dash}</span>
+      <span class="dt-st">${st ? `<span class="dt-pill ${st}">${ST[st]}</span>` : dash}</span>
       <span class="dt-pri">${p ? `<i class="${p}"></i>${PRI[p]}` : dash}</span>
       <span class="dt-as">${a ? av(a) + PPL[a][0] : dash}</span>
       <span class="dt-dir">${dir}</span>
@@ -89,7 +90,7 @@
   const FIELDS = ['ID', 'File name', 'Call date', 'Created at', 'Audio length', 'Processing status', 'Team', 'Agent status'];
   const ALERTS = ['Any alert', 'Rejected alert', 'Pricing question', 'Customer frustration', 'Tone issue', 'Missed disclosure', 'Refund request', 'Policy breach', 'Third party', 'Data handling'];
   const popover = () => `<div class="dt-pop">
-      <div class="pp-ai">${SPARK}<span class="pp-in"><span class="tx"></span><span class="ph">Describe the calls you want to</span></span><span class="pp-gen">Generate</span></div>
+      <div class="pp-ai">${SPARK}<span class="pp-in"><span class="pp-tx"><span class="tx"></span><i class="crt"></i></span><span class="ph">Describe the calls you want to</span></span><span class="pp-gen">Generate</span></div>
       <div class="pp-sr"><span>Search fields...</span></div>
       <div class="pp-l"><h6>Call</h6>${FIELDS.map(f => `<div>${f}</div>`).join('')}<div class="off">Transcription text<small>No data</small></div>
         <h6>Alerts</h6>${ALERTS.map(f => `<div>${f}</div>`).join('')}</div>
@@ -113,7 +114,7 @@
     return `<div class="pn-h"><h4>${t}</h4><span class="pn-id">${id}${ic('dtCopy')}</span><span class="pn-m">${meta}</span>${ic('x', 'pn-x')}</div>
       <div class="pn-b"><div class="pn-al">${ic('dtTri')}<div><b>An alert was triggered on this call</b>${al.map(l => `<span>${l}</span>`).join('')}</div></div>
         <p class="pn-d">${desc}</p>
-        <dl class="pn-f"><div><dt>Status</dt><dd><span class="pill ip">In progress</span></dd></div><div><dt>Priority</dt><dd><i class="dot"></i>High</dd></div>
+        <dl class="pn-f"><div><dt>Status</dt><dd><span class="dt-pill ip">In progress</span></dd></div><div><dt>Priority</dt><dd><i class="dot"></i>High</dd></div>
           <div><dt>Assigned to</dt><dd>${av(who)}${PPL[who][0]}</dd></div>${LBL.map((l, i) => `<div><dt>${l}</dt><dd>${vals[i]}</dd></div>`).join('')}</dl></div>`;
   };
 
@@ -123,13 +124,13 @@
   const RELATED = ['Engineering escalation status', 'Third-party alert details', 'SSO integration troubleshooting steps'];
   const modal = () => `<div class="dt-dim"></div><div class="dt-mo">
       <div class="mo-h"><span class="mo-tile">${SPARK}</span><h4>Ask AI</h4><span class="mo-sub">New conversation</span>
-        <span class="mo-ic">${ic('dtHist')}${ic('dtEdit')}${ic('dtExp')}${ic('x')}</span></div>
+        <span class="mo-ic">${ic('dtHist')}${ic('dtEdit')}${ic('dtExp', 'exp')}${ic('x')}</span></div>
       <div class="mo-chips"><span>Data V2${ic('x')}</span><span>Project · Northwind</span></div>
       <div class="mo-q">${ASK}</div>
       <div class="mo-think"><i class="globe"><i></i></i>Thinking...</div>
       <div class="mo-a"><p>${ANSWER}</p><div class="mo-act">${ic('dtUp')}${ic('dtDown')}${ic('dtRe')}${ic('dtCopy')}${ic('dtKebab')}</div>
         <h5>Related</h5><ul>${RELATED.map(r => `<li>${r}${ic('dtArrow')}</li>`).join('')}</ul></div>
-      <div class="mo-cm"><span class="ph">Ask anything about this page...</span><span class="mo-ics">${ic('at')}${ic('dtSlash')}</span>${ic('dtMic', 'mic')}<span class="busy"><i></i><i></i><i></i></span></div>
+      <div class="mo-cm"><span class="ph"><i class="crt"></i>Ask anything about this page...</span><span class="mo-ics">${ic('at')}${ic('dtSlash')}</span>${ic('dtMic', 'mic')}<span class="busy"><i></i><i></i><i></i></span></div>
     </div>`;
 
   const html = () => `${shell()}
@@ -159,10 +160,11 @@
     cls: 'sc-dt',
     html,
     cursor: [137, 357],
-    // phones open on the header's call count, the toolbar and the first rows, with the pointer whole at the left edge
-    cam0: [357, 300],
-    hold: 6000,
-    times: [0, 7.6, 11.32, 16.32, 20.48, 23.68, 25.08, 31.4],
+    // phones open on the table card from its left edge: the header's call count, the toolbar and the first rows (the
+    // pointer rests in the sidebar, off to the left, until it crosses the rows)
+    cam0: [520, 300],
+    hold: 7000,
+    times: [0, 7.58, 11.32, 16.3, 20.44, 23.64, 25.05, 32.4],
     beats: [
       'The calls table loads with 2,000 calls.',
       'Filter opens, and a request is typed in plain words.',
@@ -176,140 +178,188 @@
       const { q, qa, app } = c;
       // the script follows the recording's clock: at(t) waits until t seconds into the take
       let off = 0;
-      const at = t => c.wait(Math.max(0, t * 1000 + off - c.P.t));
-      // a beat entered by a jump starts the take's clock over; in normal play small delays are not carried forward
-      const B = async (i, t0) => { await at(t0); await c.beat(i); const d = c.P.t - t0 * 1000; off = Math.abs(d) > 250 ? d : 0; };
-      // type at the recording's steady pace, one character every ms from t0
-      const typeAt = async (el, text, t0, ms, onChar) => {
-        el.classList.add('is-typing');
-        for (let i = 1; i <= text.length; i++) { await at(t0 + (i - 1) * ms / 1000); el.textContent = text.slice(0, i); if (onChar) onChar(el.textContent); }
-      };
-      const r = k => q(`.dt-r[data-k="${k}"]`);
-      const hov = k => { qa('.dt-r.hv').forEach(e => e.classList.remove('hv')); if (k) r(k).classList.add('hv'); };
+      const ms = t => Math.round(t * 1000) + off;
+      // a time already reached goes on at once (a wait of 0 would cost a tick); a cancelled run still stops here
+      const at = t => { const d = ms(t) - c.P.t; return d > 0 || c.tok !== c.P.token ? c.wait(Math.max(0, d)) : Promise.resolve(); };
+      // c.beat() takes one tick, so a beat is entered one tick early; after a jump the clock is taken again
+      const B = async (i, t0) => { await at(t0 - 0.016); const ff = c.ff; await c.beat(i); if (ff) off = c.P.t - Math.round(t0 * 1000); };
+      // an animation that starts at t on the recording's clock (part way through when it is set up late)
+      const A = (el, kf, t, d, easing = 'linear', fill = 'backwards', o = {}) => c.anim(el, kf, { duration: d, delay: ms(t) - c.P.t, easing, fill, ...o });
 
-      // 1. the table loads, then the pointer idles over the rows
+      // the rows under the pointer: the table shows the hover grey on whichever row the dot is over
+      const r = k => q(`.dt-r[data-k="${k}"]`);
+      let rowsNow = ALL, right = 1425, over = true, hk = null;
+      // phones: while pin is set the camera holds its frame and the glides do not pull it after the dot
+      let pin = false;
+      const hov = k => { if (k === hk) return; hk = k; qa('.dt-r.hv').forEach(e => e.classList.remove('hv')); if (k && r(k)) r(k).classList.add('hv'); };
+      const rowAt = (x, y) => (!over || x < 274 || x > right || y < 198 || y > 884) ? null : rowsNow[Math.floor((y - 198) / PITCH)] || null;
+      // the dot glides at an even speed along recorded points [t, x, y] (the first is when it leaves), and the row
+      // hover follows it frame by frame
+      const glide = async (pts, track = true) => {
+        const P = c.P, t0 = pts[0][0], [t1, x1, y1] = pts[pts.length - 1];
+        const all = [[t0, P.cx, P.cy], ...pts.slice(1)];
+        P.cx = x1; P.cy = y1; P.place(); if (!pin) P.follow(x1, y1);
+        if (c.ff) { if (track) hov(rowAt(x1, y1)); return; }
+        P.anim(P.cursor, all.map(([t, x, y]) => ({ transform: `translate(${x}px,${y}px)`, offset: (t - t0) / (t1 - t0) })),
+          { duration: (t1 - t0) * 1000, delay: ms(t0) - P.t, easing: 'linear', fill: 'backwards' });
+        if (!track) return at(t1);
+        for (;;) {
+          const t = (P.t - off) / 1000;
+          let k = 1; while (k < all.length - 1 && all[k][0] < t) k++;
+          const [ta, xa, ya] = all[k - 1], [tb, xb, yb] = all[k], u = Math.min(1, Math.max(0, (t - ta) / (tb - ta)));
+          hov(rowAt(xa + (xb - xa) * u, ya + (yb - ya) * u));
+          if (t >= t1) return;
+          await c.wait(8);
+        }
+      };
+      // a text caret that blinks on the scene's clock (0.52 s on, 0.52 s off) and starts its cycle again at t
+      const blinks = new Map();
+      const blink = (el, t) => {
+        const was = blinks.get(el); if (was) was.finish();
+        blinks.set(el, A(el, [{ opacity: 1 }, { opacity: 1, offset: .5 }, { opacity: 0, offset: .5 }, { opacity: 0 }], t, 1040, 'linear', 'none', { iterations: 9 }));
+      };
+
+      // 1. the table loads, then the pointer crosses the rows and comes back to them
       await B(0, 0);
-      c.cam([357, 300]);
-      await at(0.5); fillRows(app, ALL);
-      await at(3.44); await c.move([1357, 43], { d: 360 });
-      await at(5.24);
-      // phones: back from the header's right end, the call count and the call titles stay whole while rows are hovered
       c.cam([520, 300]);
-      let m = c.move([629, 225], { d: 360 });
-      await at(5.6); hov('pr'); await m;
-      await at(6.04);
-      m = c.move([629, 323], { d: 400 });
-      await at(6.12); hov('bi');
-      await at(6.28); hov('pd'); await m;
-      await at(6.84);
-      m = c.move([629, 423], { d: 360 });
-      await at(6.92); hov('on');
-      await at(7.12); hov('co'); await m;
+      await at(0.5); fillRows(app, ALL);
+      await at(3.42); await glide([[3.42, 137, 357], [3.8, 1357, 43]]);
+      // phones: back from the header's right end, the call count and the call titles stay whole while rows are hovered
+      await at(5.22); c.cam([520, 300]);
+      await glide([[5.22, 1357, 43], [5.6, 629, 225]]);
+      await at(6.0); await glide([[6.0, 629, 225], [6.38, 629, 325]]);
+      await at(6.81); await glide([[6.81, 629, 325], [7.18, 629, 424]]);
 
       // 2. Filter: the plain-language box on top
-      await B(1, 7.6);
+      await B(1, 7.58);
       // phones: "Data V2", the date range and the whole popover, with Generate inside the frame
       c.cam([520, 330]);
       const flt = q('.dt-filter');
-      m = c.move(flt, { d: 360, x: .5 });
-      await at(7.64); hov(null); await m;
-      await at(7.96); await c.click(flt, { after: 40 });
+      await glide([[7.58, 629, 424], [7.96, 460, 133]]);
+      await at(8.01);
       flt.classList.add('on');
       const pop = c.add(app, popover(), 'none');
-      c.anim(pop, [{ opacity: 0, transform: 'translateY(-1px)' }, { opacity: 1, transform: 'none' }], { duration: 110, easing: 'ease-out' });
-      const tx = pop.querySelector('.tx'), inp = pop.querySelector('.pp-in'), gen = pop.querySelector('.pp-gen');
-      tx.classList.add('is-typing');
-      await at(9.36); await c.move([539, 175], { d: 320 });
-      await at(10.04);
-      gen.classList.add('ok'); flt.classList.remove('on');
-      await typeAt(tx, 'High priority calls', 10.04, 42, () => inp.classList.add('has'));
+      A(pop, [{ opacity: 0, transform: 'translateY(-1px)' }, { opacity: 1, transform: 'none' }], 8.01, 100, 'cubic-bezier(0,0,.2,1)');
+      const tx = pop.querySelector('.tx'), crt = pop.querySelector('.crt'), inp = pop.querySelector('.pp-in'), gen = pop.querySelector('.pp-gen');
+      blink(crt, 8.01);
+      await at(9.33); glide([[9.33, 460, 133], [9.68, 540, 176]], false).catch(() => {});
+      // the button's open colors fade once the pointer has left it
+      await at(9.48);
+      flt.classList.remove('on');
+      A(flt, [{ background: '#eef3fc', boxShadow: 'inset 0 0 0 1px #5f8bc0', color: '#1f68c0' }, { background: '#fff', boxShadow: 'inset 0 0 0 1px #e6e6e6', color: '#121212' }], 9.48, 120, 'ease');
+      A(flt.querySelector('.i'), [{ color: '#1f68c0' }, { color: '#888' }], 9.48, 120, 'ease');
+      // "High priority calls" at an even 42 ms a key; the caret stays lit while keys come and blinks again after
+      const words = 'High priority calls';
+      for (let i = 1; i <= words.length; i++) {
+        const t = 10.03 + (i - 1) * 0.0441;
+        await at(t); tx.textContent = words.slice(0, i); inp.classList.add('has'); blink(crt, t);
+        if (i === 1) { await at(10.07); gen.classList.add('ok'); }
+      }
 
       // 3. Generate: the words become an ordinary filter chip and the rows re-flow
       await B(2, 11.32);
-      await c.move([685, 175], { d: 360 });
-      await at(11.64); gen.classList.add('hv');
-      await at(11.82); await c.click(gen, { after: 40 });
-      pop.remove(); flt.classList.remove('on');
+      glide([[11.32, 540, 176], [11.68, 685, 174]], false).catch(() => {});
+      await at(11.63); gen.classList.add('hv');
+      await at(11.86);
+      pop.remove(); blinks.get(crt).finish();
       app.classList.add('filtered');
       q('.dt-count').textContent = '800 calls';
       const toast = q('.dt-toast');
       toast.classList.add('on');
-      c.anim(toast, [{ opacity: 0, transform: 'scale(.95)' }, { opacity: 1, transform: 'none' }], { duration: 120, easing: 'ease-out' });
-      // rows that stay glide to their new slots, rows that drop out fade where they are, new rows rise into place
-      const list = q('.dt-rows');
-      const EASE = 'ease';
+      // the toast is full size from its first frame and only fades in
+      A(toast, [{ opacity: 0 }, { opacity: 1 }], 11.845, 170, 'ease-in-out');
+      // the rows that stay glide up to their new places; the ones that drop out fade where they are; the new ones come up
+      // from below, those the list had already drawn under the fold from where they were, the rest from just past the edge
+      const list = q('.dt-rows'), FLOW = 'cubic-bezier(.4,0,.2,1)';
+      const OLD = { br: 14, es: 16, nb: 19, pr2: 20 }, EDGE = { co2: 871, te2: 866, ex2: 861, pa2: 856, br2: 851 };
       ALL.forEach(k => {
         const el = r(k), j = HIGH.indexOf(k);
-        if (j < 0) { el.classList.add('out'); c.anim(el, [{ opacity: 1 }, { opacity: 0 }], { duration: 150, easing: 'linear', fill: 'forwards' }).finished.then(() => el.remove(), () => {}); return; }
+        if (j < 0) { A(el, [{ opacity: 1 }, { opacity: 0 }], 11.895, 130, 'linear', 'both').finished.then(() => el.remove(), () => {}); return; }
         const y0 = parseFloat(el.style.top), y1 = Y0 + j * PITCH;
         el.style.top = y1.toFixed(1) + 'px';
-        if (y0 !== y1) c.anim(el, [{ transform: `translateY(${(y0 - y1).toFixed(1)}px)` }, { transform: 'none' }], { duration: 360, easing: EASE });
+        if (y0 !== y1) A(el, [{ transform: `translateY(${(y0 - y1).toFixed(1)}px)` }, { transform: 'none' }], 11.845, 430, FLOW);
       });
-      HIGH.filter(k => !ALL.includes(k)).forEach((k, n) => {
-        const el = c.add(list, row(k, HIGH.indexOf(k)), 'none');
-        c.anim(el, [{ opacity: .4, transform: `translateY(${480 + n * 55}px)` }, { opacity: 1, transform: 'none' }], { duration: 360, easing: EASE });
+      HIGH.filter(k => !ALL.includes(k)).forEach(k => {
+        const j = HIGH.indexOf(k), y1 = Y0 + j * PITCH, y0 = k in OLD ? Y0 + OLD[k] * PITCH : EDGE[k];
+        const el = c.add(list, row(k, j), 'none');
+        A(el, [{ transform: `translateY(${(y0 - y1).toFixed(1)}px)` }, { transform: 'none' }], 11.845, 430, FLOW);
       });
+      rowsNow = HIGH;
       await at(15.0); toast.classList.remove('on');
 
       // 4. open a call beside the table
-      await B(3, 16.32);
-      m = c.move([629, 233], { d: 360 });
-      await at(16.44); hov('pr'); await m;
-      await at(17.12);
-      m = c.move([809, 297], { d: 360 });
-      await at(17.2); hov('co'); await m;
-      await at(17.88);
-      const t1 = r('pr').querySelector('.dt-call b');
-      m = c.move([378, 223], { d: 320 });
-      await at(18.08); hov('pr'); await m;
-      await c.click(t1, { after: 20 });
+      await B(3, 16.3);
+      // phones: the frame of the Filter steps holds (the chip, the call titles and IDs) while the dot wanders to the
+      // Call date column and back, then makes one pan to the panel when it opens
+      pin = true; c.cam([520, 330]);
+      await glide([[16.3, 685, 174], [16.67, 629, 235]]);
+      await at(17.04); await glide([[17.04, 629, 235], [17.42, 809, 297]]);
+      await at(17.84); await glide([[17.84, 809, 297], [18.2, 378, 223]]);
       r('pr').classList.add('ring');
-      await at(18.24);
-      openPanel(c, 'pr');
-      c.cam([1190, 430]);
+      await at(18.235);
+      openPanel(c, 'pr'); right = 1073;
+      // phones: the panel from just above its top edge down to its last field; the toolbar row stays out of the frame
+      c.cam([1190, 454]);
 
-      // 5. the arrow keys step to the next calls; the panel follows
-      await B(4, 20.48);
-      r('pr').classList.remove('ring'); r('co').classList.add('sel', 'ring');
+      // 5. the arrow keys step to the next calls; the focus ring moves a frame before the row and the panel follow
+      await B(4, 20.44);
+      r('pr').classList.remove('ring'); r('co').classList.add('ring');
+      await at(20.475);
+      r('co').classList.add('sel');
       q('.pn-in').innerHTML = panelBody('co');
-      await at(22.08);
+      await at(22.075);
       r('co').classList.remove('sel', 'ring'); r('te').classList.add('sel', 'ring');
       q('.pn-in').innerHTML = panelBody('te');
 
       // 6. Ask AI about this call
-      await B(5, 23.68);
-      hov(null);
+      await B(5, 23.64);
       const ask = q('.pn-ask');
       // phones: the camera's bottom-right stop, which frames the panel's footer and, once open, the whole Ask AI sheet
       c.cam([1200, 600]);
-      m = c.move(ask, { d: 360, x: .49, y: .4 });
-      // the row hover follows the pointer as it sweeps down to the panel's footer
-      for (const [t, k] of [[23.68, 'co'], [23.72, 'ex'], [23.76, 'pa'], [23.8, 'br'], [23.84, 'es'], [23.92, 'co2'], [24.0, null]]) { await at(t); hov(k); }
-      await m;
-      await at(24.08); c.hover(ask);
-      await at(24.1); await c.click(ask, { after: 40 });
-      c.hover(ask, false); r('te').classList.remove('ring');
+      // the dot sweeps down to the panel's footer at an even speed; the row hover follows it across the table
+      await glide([[23.64, 378, 223], [24.013, 1195, 831]]);
+      await at(24.065); c.hover(ask);
+      await at(24.125);
+      // the button's hover colors fade out as the dialog comes up over it
+      c.hover(ask, false); r('te').classList.remove('ring'); over = false; hov(null);
+      A(ask, [{ boxShadow: 'inset 0 0 0 1px #8ea9d8', color: '#1b356a' }, { boxShadow: 'inset 0 0 0 1px #e8e8e8', color: '#100b0c' }], 24.125, 110, 'ease-out');
+      A(ask.querySelector('.dt-sp'), [{ color: '#1b356a' }, { color: '#111' }], 24.125, 110, 'ease-out');
       app.classList.add('asking');
       q('.sb-ai').classList.add('on');
-      const mo = q('.dt-mo'), dim = q('.dt-dim');
-      c.anim(dim, [{ opacity: 0 }, { opacity: 1 }], { duration: 180, easing: 'ease-out' });
-      c.anim(mo, [{ opacity: 0, transform: 'translateY(2px)' }, { opacity: 1, transform: 'none' }], { duration: 180, easing: 'ease-out' });
+      const mo = q('.dt-mo'), dim = q('.dt-dim'), cm = q('.mo-cm');
+      A(dim, [{ opacity: 0 }, { opacity: 1 }], 24.125, 190, 'ease-out');
+      A(mo, [{ opacity: 0, transform: 'translateY(2px)' }, { opacity: 1, transform: 'none' }], 24.125, 200, 'ease-out');
       c.cam([1200, 600]);
-      const globe = q('.globe i'), dots = qa('.busy i');
-      c.anim(globe, [{ transform: 'translate(0,0)' }, { transform: 'translate(-6px,-6px)' }], { duration: 900, easing: 'linear' });
-      dots.forEach((d, i) => c.anim(d, [{ transform: 'translateY(0)' }, { transform: 'translateY(-3px)', offset: .3 }, { transform: 'translateY(0)', offset: .6 }, { transform: 'translateY(0)' }], { duration: 600, delay: i * 120, iterations: 2, easing: 'ease-in-out' }));
-      await at(24.56);
-      const cm = q('.mo-cm');
+      // thinking: the sphere's stripes keep their angle and drift slowly down and to the right (about 2.3 px a second), and
+      // the send button's dots rise 4.5 px and fall again in a 1.15 s wave, 0.15 s apart; the composer's caret blinks
+      A(q('.globe i'), [{ transform: 'rotate(-50deg) translateY(0)' }, { transform: 'rotate(-50deg) translateY(2.2px)' }], 24.125, 950);
+      const BOB = [{ transform: 'translateY(1.8px)', easing: 'ease-in-out' }, { transform: 'translateY(-2.7px)', easing: 'ease-in-out' }, { transform: 'translateY(1.8px)' }];
+      qa('.busy i').forEach((d, i) => A(d, BOB, 24.05 + i * .15, 1150, 'linear', 'backwards', { iterations: 2 }));
+      blink(q('.mo-cm .crt'), 24.14);
+      // the composer takes focus: the pale ring first, then the border turns blue
+      await at(24.54);
+      A(cm, [
+        { boxShadow: 'inset 0 0 0 1px #cbcbcb, 0 0 0 4px rgba(22,119,255,0)' },
+        { boxShadow: 'inset 0 0 0 1px #cbcbcb, 0 0 0 4px rgba(22,119,255,.09)', offset: .125 },
+        { boxShadow: 'inset 0 0 0 1px #c6ccd8, 0 0 0 4px rgba(22,119,255,.09)', offset: .375 },
+        { boxShadow: 'inset 0 0 0 1.25px #8eaae0, 0 0 0 4px rgba(22,119,255,.09)', offset: .625 },
+        { boxShadow: 'inset 0 0 0 1.5px #4f86e8, 0 0 0 4px rgba(22,119,255,.09)' }], 24.54, 160);
       cm.classList.add('fo');
-      c.anim(cm, [{ boxShadow: '0 0 0 0 rgba(22,119,255,0)', borderColor: '#d9d9d9' }, { boxShadow: '0 0 0 3px rgba(22,119,255,.12)', borderColor: '#4f86e8' }], { duration: 150, easing: 'ease-out' });
 
       // 7. the answer, with related topics
-      await B(6, 25.08);
+      await B(6, 25.05);
       mo.classList.add('done');
-      const ans = q('.mo-a');
-      c.anim(ans, [{ opacity: .3, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 240, easing: 'ease-out' });
-      qa('.mo-a li').forEach((li, i) => c.anim(li, [{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'none' }], { duration: 120, delay: i * 40, easing: 'ease-out', fill: 'backwards' }));
-      c.anim(q('.busy'), [{ opacity: 1 }, { opacity: 0 }], { duration: 120, easing: 'linear' });
+      A(q('.mo-a'), [{ opacity: 0, transform: 'translateY(7px)' }, { opacity: 1, transform: 'none' }], 25.05, 230, 'ease-out');
+      const li = qa('.mo-a li');
+      A(li[1], [{ opacity: 0 }, { opacity: 1 }], 25.1, 170, 'ease-out');
+      A(li[2], [{ opacity: 0 }, { opacity: 1 }], 25.18, 170, 'ease-out');
+      const busy = q('.busy');
+      // the busy button shrinks a little as it fades, and the mic comes up under it (the recording dissolves here)
+      A(busy, [{ opacity: 1 }, { opacity: 0 }], 25.045, 170, 'linear', 'both');
+      A(busy, [{ transform: 'none' }, { transform: 'scale(.8)' }], 25.045, 60, 'ease-out', 'both');
+      qa('.busy i').forEach(d => A(d, [{ opacity: 1 }, { opacity: 0 }], 25.045, 80, 'linear', 'both'));
+      A(q('.mo-cm .mic'), [{ opacity: 0 }, { opacity: 1 }], 25.08, 100);
+      await at(25.24); busy.classList.add('gone');
       await at(25.28);
       q('.mo-sub').textContent = 'What happened on this Technical issue call (Octobe';
       await at(25.4);
