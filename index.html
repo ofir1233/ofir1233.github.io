@@ -3545,7 +3545,7 @@ html section#design-lab:where(:not(.lx-app, .lx-app *)){ padding-top: clamp(56px
 
 
 <a class="skip" href="#main">Skip to content</a>
-<script>(function(){try{var t=localStorage.getItem('ofir-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<script>(function(){try{var t=localStorage.getItem('ofir-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}try{var n=performance.getEntriesByType('navigation')[0];if(!location.hash&&!(n&&n.type==='back_forward')){history.scrollRestoration='manual';var moved=false;['wheel','touchstart','keydown','mousedown'].forEach(function(e){addEventListener(e,function(){moved=true;},{once:true,passive:true});});var top=function(){if(!moved)window.scrollTo({top:0,left:0,behavior:'instant'});};top();addEventListener('DOMContentLoaded',top);addEventListener('load',top);}addEventListener('pagehide',function(){history.scrollRestoration='auto';});}catch(e){}})();</script>
 <nav class="nav" aria-label="Main">
   <div class="wrap">
     <a class="brand" href="#about">Ofir Nona<span>.</span></a>
