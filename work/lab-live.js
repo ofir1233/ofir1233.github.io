@@ -421,20 +421,23 @@
   const PHONE = matchMedia('(max-width: 719px)');
   // from the resize observer, a change that alters the window's own height (portrait camera, a still's crop) waits for
   // the next frame; done inside the callback it re-sizes what is being observed and the browser reports a loop error
+  // the window's layout width, which a scale on it or a parent (an entrance, a dialog opening) does not change, so the app
+  // always fills the window; half a pixel more covers the seam rounding can leave along the right and bottom edges
+  const lw = el => parseFloat(getComputedStyle(el).width) || 0;
   const later = el => { if (!el._fitq) el._fitq = requestAnimationFrame(() => { el._fitq = 0; fit(el); }); };
   const fit = (el, ro) => {
-    const w = el.getBoundingClientRect().width; if (!w) return;
+    const w = lw(el); if (!w) return;
     if (el._st) {
       // a still can name a tighter crop for narrow screens
       const c = (w < NARROW && el._st.mcrop) || el._st.crop || [0, 0, W, H];
-      if (c !== el._crop && ro && el._crop) { el.style.setProperty('--k', (w / el._crop[2]).toFixed(5)); return later(el); }
+      if (c !== el._crop && ro && el._crop) { el.style.setProperty('--k', ((w + .5) / el._crop[2]).toFixed(5)); return later(el); }
       if (c !== el._crop) { el._crop = c; el.style.aspectRatio = `${c[2]} / ${c[3]}`; const a = el.querySelector('.lx-app'); a.style.setProperty('--cx', c[0]); a.style.setProperty('--cy', c[1]); }
-      el.style.setProperty('--k', (el.getBoundingClientRect().width / c[2]).toFixed(5)); return;
+      el.style.setProperty('--k', ((lw(el) + .5) / c[2]).toFixed(5)); return;
     }
     const narrow = w < NARROW && PHONE.matches, was = el.classList.contains('lx-cam');
-    if (narrow !== was && ro) { el.style.setProperty('--k', (w / (was ? VW : W)).toFixed(5)); return later(el); }
+    if (narrow !== was && ro) { el.style.setProperty('--k', ((w + .5) / (was ? VW : W)).toFixed(5)); return later(el); }
     el.classList.toggle('lx-cam', narrow);
-    el.style.setProperty('--k', (w / (narrow ? VW : W)).toFixed(5));
+    el.style.setProperty('--k', ((w + .5) / (narrow ? VW : W)).toFixed(5));
     if (narrow !== was && el._lx) { const p = el._lx; p.camX = p.camY = undefined; p.follow(p.cx, p.cy, true); }
   };
   // "Pause demos": one switch for every live screen on the page, remembered for this reader when storage allows
