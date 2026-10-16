@@ -88,7 +88,8 @@
       tl.add(rise(one(".lead", hero)), 0.55);
       tl.add(rise(all(".btn-row > *", hero), { stagger: 0.09 }), 0.7);
       tl.add(rise(one(".hero__strip", hero), { y: 0, duration: 1 }), 0.95);
-      tl.add(gsap.from(all(".hero__frame", hero), { autoAlpha: 0, scale: 1.04, duration: 1.4, ease: "power2.out" }), 0.3);
+      /* The frame opens from the centre axis (brand 7.6.4: ornaments 1200ms from the axis) */
+      tl.add(gsap.fromTo(all(".hero__frame", hero), { clipPath: "inset(-6px 50% -6px 50%)" }, { clipPath: "inset(-6px -6px -6px -6px)", duration: 1.2, ease: EXPO }), 0.2);
     }
     /* Short pages and artist pages */
     var head = one(".page-head");
@@ -117,6 +118,14 @@
       if (kick) rise(kick, { y: 10, scrollTrigger: { trigger: h, start: "top 88%", once: true } });
       lines(h, null, h);
     });
+
+    /* Hero: as it scrolls away the video pushes in and the words lift off */
+    var hero = one(".hero--video");
+    if (hero) {
+      gsap.timeline({ scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 0.4 } })
+        .to(one(".hero__bg", hero), { scale: 1.12, ease: "none", duration: 1 }, 0)
+        .to(one(".hero__center", hero), { y: -70, opacity: 0, ease: "none", duration: 0.75 }, 0);
+    }
 
     /* Dot edges grow down from the dense edge: 900ms ease-out */
     all(".halftone-edge").forEach(function (el) {
