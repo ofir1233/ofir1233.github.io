@@ -120,7 +120,7 @@
   /* Hero video: pause control (WCAG 2.2.2), paused for reduced motion */
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* Studio: numbers count up and the drawing and signature reveal when they come into view */
+  /* Studio: numbers count up and the signature writes itself when they come into view */
   (function () {
     if (reduce || !("IntersectionObserver" in window)) return;
     document.documentElement.classList.add("anim");
@@ -141,7 +141,7 @@
         io.unobserve(e.target);
       });
     }, { threshold: 0.35 });
-    [].forEach.call(document.querySelectorAll(".stats, .sig, .studio__mark"), function (el) { io.observe(el); });
+    [].forEach.call(document.querySelectorAll(".stats, .sig"), function (el) { io.observe(el); });
   })();
   var vid = document.querySelector(".hero__bg"), tog = document.getElementById("hero-toggle");
   if (vid && hero) {
