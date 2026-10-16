@@ -265,6 +265,15 @@ a { color: inherit; }
 .status { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--mist); }
 .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--paper); }
 
+/* Piercing */
+.pierce { display: grid; gap: 64px; }
+@media (min-width: 1000px) { .pierce { grid-template-columns: 6fr 6fr; gap: 80px; align-items: start; } }
+.pierce > * { min-width: 0; }
+.pierce .facts { margin-top: 32px; }
+.pierce .section-cta { margin-top: 40px; }
+#piercing { padding-bottom: calc(var(--section-pad) * .6); }
+#piercing + #hygiene { padding-top: calc(var(--section-pad) * .6); background: linear-gradient(var(--mist), var(--mist)) top center / min(calc(100% - 2 * var(--gutter)), calc(1680px - 2 * var(--gutter))) 1px no-repeat, var(--paper); }
+
 /* Hygiene */
 .hyg-grid { display: grid; gap: 48px; align-items: center; }
 @media (min-width: 900px) { .hyg-grid { grid-template-columns: 5fr 7fr; gap: 80px; } }
