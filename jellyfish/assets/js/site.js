@@ -119,6 +119,30 @@
 
   /* Hero video: pause control (WCAG 2.2.2), paused for reduced motion */
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Studio: numbers count up and the drawing and signature reveal when they come into view */
+  (function () {
+    if (reduce || !("IntersectionObserver" in window)) return;
+    document.documentElement.classList.add("anim");
+    var fmt = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ","); };
+    var counts = [].slice.call(document.querySelectorAll(".count[data-to]"));
+    counts.forEach(function (el) { el.style.display = "inline-block"; el.style.minWidth = el.offsetWidth + "px"; el.style.textAlign = "end"; el.textContent = "0"; });
+    var run = function (el) {
+      var to = +el.dataset.to, t0 = null, dur = 1600;
+      var step = function (t) { if (t0 === null) t0 = t; var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+        el.textContent = fmt(Math.round(to * e)); if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    };
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("is-in");
+        [].forEach.call(e.target.querySelectorAll(".count[data-to]"), run);
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.35 });
+    [].forEach.call(document.querySelectorAll(".stats, .sig, .studio__mark"), function (el) { io.observe(el); });
+  })();
   var vid = document.querySelector(".hero__bg"), tog = document.getElementById("hero-toggle");
   if (vid && hero) {
     var setPaused = function (p) { hero.classList.toggle("is-paused", p); if (tog) { tog.setAttribute("aria-pressed", p ? "true" : "false"); tog.setAttribute("aria-label", p ? "הפעלת הווידאו" : "עצירת הווידאו"); } };
