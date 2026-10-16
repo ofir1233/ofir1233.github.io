@@ -87,9 +87,9 @@
       if (h1) tl.add(lines(h1, { stagger: 0.14, duration: 1.3 }), 0.1);
       tl.add(rise(one(".lead", hero)), 0.55);
       tl.add(rise(all(".btn-row > *", hero), { stagger: 0.09 }), 0.7);
-      /* The strip is the paper edge of the page: only its words fade in. Its dots rise from that edge in CSS
-         (brand 7.1.3: a dot is 100% paper, never faded through grey), timed to start with the words. */
-      tl.add(rise(all(".hero__strip > *", hero), { y: 0, duration: 1 }), 0.95);
+      tl.add(rise(one(".hero__strip", hero), { y: 0, duration: 1 }), 0.95);
+      /* The frame opens from the centre axis (brand 7.6.4: ornaments 1200ms from the axis) */
+      tl.add(gsap.fromTo(all(".hero__frame", hero), { clipPath: "inset(-6px 50% -6px 50%)" }, { clipPath: "inset(-6px -6px -6px -6px)", duration: 1.2, ease: EXPO }), 0.2);
     }
     /* Short pages and artist pages */
     var head = one(".page-head");
