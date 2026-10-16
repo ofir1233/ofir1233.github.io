@@ -1,6 +1,18 @@
 (function () {
   "use strict";
 
+  /* Always open at the top. A #section link from outside the site (WhatsApp, Instagram) or a reload
+     does not land mid-page; links between our own pages (aftercare.html -> ./#prices) still jump. */
+  (function () {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    var fromUs = false;
+    try { fromUs = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
+    if (!location.hash || fromUs) return;
+    history.replaceState(null, "", location.pathname + location.search);
+    var top = function () { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); };
+    top(); window.addEventListener("load", function () { top(); setTimeout(top, 0); });
+  })();
+
   /* ===== Settings ===== */
   var WHATSAPP = "972525659677";  // wa.me format: 972 + number without the leading 0 (052-5659677)
   var GA4_ID = "";                // [GA4 measurement ID, e.g. G-XXXXXXX]. Empty = no analytics, no consent bar
