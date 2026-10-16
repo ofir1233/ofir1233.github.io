@@ -221,7 +221,7 @@
     /* Hiding the bar or the window must not drop keyboard focus to the top of the page */
     var lastOut = null;
     document.addEventListener("focusin", function (e) { if (!(nlbar && nlbar.contains(e.target)) && !nl.contains(e.target)) lastOut = e.target; });
-    var refocus = function () { var t = document.querySelector("#mbar.is-on a") || lastOut; if (t && t.isConnected) t.focus({ preventScroll: true }); };
+    var refocus = function () { var m = document.querySelector("#mbar.is-on a"), t = m && m.getClientRects().length ? m : lastOut; if (t && t.isConnected) t.focus({ preventScroll: true }); };
     var dismiss = function () { var inBar = nlbar && nlbar.contains(document.activeElement); set("localStorage", "jf-nl-closed", String(Date.now())); if (nlbar) nlbar.hidden = true; if (nl.open) nl.close(); if (inBar) refocus(); };
     nl.addEventListener("close", function () { var a = document.activeElement; if (!a || a === document.body || nl.contains(a) || (nlbar && nlbar.contains(a))) refocus(); });
     document.querySelectorAll("[data-open-nl]").forEach(function (b) { b.addEventListener("click", function (e) { e.preventDefault(); openNl(true); }); });

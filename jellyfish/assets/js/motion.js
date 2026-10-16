@@ -15,7 +15,13 @@
   /* "late": the 2.5s fallback in <head> already showed everything (GSAP or the fonts came slowly). Then there is no intro,
      and nothing already on screen is hidden and replayed. */
   var late = false;
-  function seen(el) { return late && el && el.getBoundingClientRect().top < window.innerHeight; }
+  function seen(el) {
+    if (!el) return false;
+    var r = el.getBoundingClientRect();
+    /* Already scrolled past (a link straight to a section further down): it stays as it is. A once-trigger created
+       past its end kills itself inside ScrollTrigger's refresh and throws, which stopped every reveal after it. */
+    return r.bottom < 0 || (late && r.top < window.innerHeight);
+  }
   function ext(a, b) { for (var k in b) if (Object.prototype.hasOwnProperty.call(b, k)) a[k] = b[k]; return a; }
   function all(sel, root) { return [].slice.call((root || document).querySelectorAll(sel)); }
   function one(sel, root) { return (root || document).querySelector(sel); }
@@ -209,7 +215,7 @@
       p.tw.kill(); p.el.innerHTML = p.orig; p.el.classList.remove("is-split");
       return true;
     });
-    pending.forEach(function (p) { p.tw = lines(p.el, null, p.el); });
+    pending = pending.filter(function (p) { if (seen(p.el)) return false; p.tw = lines(p.el, null, p.el); return true; });
     ST.refresh();
   }
 

@@ -614,9 +614,20 @@ html { scroll-padding-top: calc(var(--nav-compact) + 8px); }
 }
 .mbar .btn span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 @media (max-width: 767px) { .mbar:not(.is-on) ~ .nlbar { bottom: env(safe-area-inset-bottom, 0px); } }
-/* the video pause button stays reachable while the list bar is up */
-.site--home:has(#nlbar:not([hidden])) .hero__toggle { bottom: 84px; }
-@media (max-width: 767px) { .site--home:has(#nlbar:not([hidden])) .hero__toggle { bottom: calc(64px + env(safe-area-inset-bottom, 0px)); } }
+/* The hero's link strip and pause button stay clear of the bars at the bottom of the screen.
+   Phones: the booking bar is always there (73px), the list bar adds 40px above it once it has come up. */
+@media (max-width: 767px) {
+  .site--home { --dock: 73px; }
+  .site--home:has(#nlbar:not([hidden])) { --dock: 113px; }
+  .site--home .hero__center { padding-bottom: calc(132px + var(--dock)); }
+  .site--home .hero__strip { padding-bottom: calc(6px + var(--dock) + env(safe-area-inset-bottom, 0px)); }
+  .site--home .hero__toggle { bottom: calc(8px + var(--dock) + env(safe-area-inset-bottom, 0px)); }
+}
+/* Desktop: on the home page the list card sits above the hero's link strip, and the pause button above the card */
+@media (min-width: 768px) {
+  .site--home .nlbar { bottom: 80px; }
+  .site--home:has(#nlbar:not([hidden])) .hero__toggle { bottom: 140px; }
+}
 @media (prefers-reduced-motion: reduce) { .mbar, .nlbar { transition: none; } }
 
 /* Atmosphere photos that actually read behind their sections (neutral ink scrims; never on tattoo photos) */
