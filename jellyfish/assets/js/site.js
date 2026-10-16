@@ -179,6 +179,16 @@
     drawer.addEventListener("click", function (e) { if (e.target.closest("a")) closeDrawer(); });
   }
 
+  /* Sideways rows on phones: a focused card comes fully into view (the browser stops scrolling once a sliver shows),
+     and a row is a Tab stop only while it actually scrolls */
+  document.addEventListener("focusin", function (e) {
+    var c = e.target.closest && e.target.closest(".vouchers > *, .cards > *, .styles > *");
+    if (c) c.scrollIntoView({ block: "nearest", inline: "nearest" });
+  });
+  var sideRows = document.querySelectorAll(".styles, .flash-grid");
+  var syncRows = function () { sideRows.forEach(function (el) { if (el.scrollWidth > el.clientWidth + 1) el.setAttribute("tabindex", "0"); else el.removeAttribute("tabindex"); }); };
+  if (sideRows.length) { syncRows(); window.addEventListener("resize", syncRows); window.addEventListener("load", syncRows); }
+
   /* Gallery: filter + lightbox */
   var chips = document.querySelectorAll(".chip"), tiles = document.querySelectorAll(".tile");
   chips.forEach(function (c) {
