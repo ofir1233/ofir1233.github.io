@@ -382,7 +382,7 @@ html { scroll-padding-top: calc(var(--nav-compact) + 8px); }
 .footer__base { border-top: 1px solid var(--mist); padding-block: 24px 96px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
 /* Mobile booking bar + floating WhatsApp */
-.mbar { position: fixed; z-index: 56; inset: auto 0 0; display: none; padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); background: var(--ink); border-top: 1px solid var(--graphite); transform: translateY(110%); transition: transform .3s; }
+.mbar { position: fixed; z-index: 56; inset: auto 0 0; display: none; padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); background: var(--ink); border-top: 1px solid var(--graphite); }
 .mbar .btn { flex: 1; min-height: 52px; }
 .mbar.is-on { transform: none; }
 .wa { position: fixed; z-index: 55; inset-inline-start: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: 56px; height: 56px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; box-shadow: 0 6px 20px rgba(0,0,0,.25); text-decoration: none; }
@@ -777,3 +777,7 @@ html { scroll-padding-top: calc(var(--nav-compact) + 8px); }
   html.js .js-art.jf-crop, html.js .js-art.jf-spiral, html.js .js-art.jf-mark { clip-path: inset(0 calc(100% - var(--ax, 50%)) 0 var(--ax, 50%)); transition: clip-path 1200ms ease-out; }
   html.js .js-art.is-in:is(.jf-crop, .jf-spiral, .jf-mark) { clip-path: inset(0 0 0 0); }
 }
+
+/* No hairline above "עוד בסטודיו" when the band before it already ends on a rule (Eliran's timeline) or is dark */
+.history + .team-more, .band--ink + .team-more { background: var(--paper); }
+.history + .team-more { padding-top: calc(var(--section-pad) * .4); }

@@ -133,33 +133,19 @@
   }
   window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
-  /* Mobile booking bar. One red button on screen at a time: the bar hides while one of the page's own red booking
-     buttons (hero, section buttons, closer) is on screen, and otherwise borrows the words and WhatsApp message of the
-     section crossing the middle of the screen, so the thumb button always matches what the visitor is reading. */
+  /* Mobile booking bar: always on screen on phones, never hides or slides. It carries the page's own booking
+     message (the artist's name on an artist page, piercing on Yaniv's page); the home page keeps the general one. */
   var mbar = document.getElementById("mbar");
-  function mbarOn(on) { if (!mbar) return; mbar.classList.toggle("is-on", on); mbar.setAttribute("aria-hidden", on ? "false" : "true"); mbar.querySelectorAll("a").forEach(function (a) { a.tabIndex = on ? 0 : -1; }); }
   if (mbar) {
-    var mLink = mbar.querySelector("a"), mText = document.createElement("span");
-    var words = function (b) { return [].slice.call(b.childNodes).filter(function (n) { return n.nodeType === 3; }).map(function (n) { return n.textContent; }).join("").trim(); };
-    var asCta = function (b) { return { href: b.href, text: words(b), kind: b.getAttribute("data-wa") || "site" }; };
-    var take = function (c) { mLink.href = c.href; mText.textContent = c.text; mLink.setAttribute("data-wa", c.kind); };
+    var mLink = mbar.querySelector("a");
     var pageBtn = !isHome && document.querySelector("main .btn--book.js-wa");
-    var base = pageBtn ? asCta(pageBtn) : asCta(mLink);
-    [].slice.call(mLink.childNodes).forEach(function (n) { if (n.nodeType === 3) mLink.removeChild(n); });
-    mLink.appendChild(mText);
-    take(base);
-    if ("IntersectionObserver" in window) {
-      var onScreen = [];
-      var redIo = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { var i = onScreen.indexOf(e.target); if (e.isIntersecting && i < 0) onScreen.push(e.target); if (!e.isIntersecting && i > -1) onScreen.splice(i, 1); });
-        mbarOn(onScreen.length === 0 || mbar.contains(document.activeElement));
-      });
-      document.querySelectorAll("main .btn--book.js-wa, .closer .btn--book.js-wa").forEach(function (b) { redIo.observe(b); });
-      var secIo = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (!e.isIntersecting) return; var b = e.target.querySelector(".btn--book.js-wa"); take(b ? asCta(b) : base); });
-      }, { rootMargin: "-50% 0px -50% 0px" });
-      document.querySelectorAll("main section, main > header, .closer").forEach(function (s) { secIo.observe(s); });
-    } else mbarOn(true);
+    if (pageBtn) {
+      var words = [].slice.call(pageBtn.childNodes).filter(function (n) { return n.nodeType === 3; }).map(function (n) { return n.textContent; }).join("").trim();
+      [].slice.call(mLink.childNodes).forEach(function (n) { if (n.nodeType === 3) mLink.removeChild(n); });
+      var mText = document.createElement("span"); mText.textContent = words; mLink.appendChild(mText);
+      mLink.href = pageBtn.href; mLink.setAttribute("data-wa", pageBtn.getAttribute("data-wa") || "site");
+    }
+    mbar.classList.add("is-on"); mbar.removeAttribute("aria-hidden"); mLink.removeAttribute("tabindex");
   }
 
   /* Hero video: pause control (WCAG 2.2.2), paused for reduced motion */
