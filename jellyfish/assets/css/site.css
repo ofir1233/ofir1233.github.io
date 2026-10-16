@@ -509,6 +509,8 @@ html { scroll-padding-top: calc(var(--nav-compact) + 8px); }
   .rules li { border-color: var(--ink); }
   .rules span, .rules li::before { color: var(--graphite); }
   body { font-size: 12pt; }
+  /* GSAP keeps rows it has not revealed yet hidden with inline styles: print everything as it finally looks */
+  [style*="opacity"], [style*="transform"], [style*="translate"], [style*="clip-path"], [style*="visibility"] { opacity: 1 !important; transform: none !important; translate: none !important; clip-path: none !important; visibility: visible !important; }
 }
 /* Site credit: deliberately quiet, for whoever looks for who built the site */
 .footer__base { align-items: baseline; }
