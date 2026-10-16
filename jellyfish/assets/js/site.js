@@ -234,12 +234,20 @@
         fetch(LIST_ENDPOINT, { method: "POST", mode: "no-cors", body: d }).catch(function () {});
       } else if (WHATSAPP) {
         /* No mailing tool connected yet: the sign-up arrives as a WhatsApp message to the studio */
-        window.open(waLink(TEXTS.list + "\nשם: " + name + "\nמייל: " + email + (tel ? "\nטלפון: " + tel : "")), "_blank", "noopener");
+        window.open(waLink(TEXTS.list + "\nשם: " + name + "\nמייל: " + email + (tel ? "\nטלפון: " + tel : "") + "\nהסכמה: סימנתי באתר ״אשמח לקבל מ-Jellyfish Tattoo עדכונים על דפי פלאש ותורים פנויים. אפשר להסיר בכל רגע.״"), "_blank", "noopener");
       }
       set("localStorage", "jf-nl-joined", "1");
       track("sign_up", { method: "list" });
       try { if (window.fbq) window.fbq("track", "Lead", { content_name: "list" }); } catch (x) {}
-      form.hidden = true; done.hidden = false; done.focus();
+      form.hidden = true; done.hidden = false;
+      if (!LIST_ENDPOINT) {
+        /* No mailing tool yet: the sign-up is the WhatsApp message that just opened, so ask them to send it */
+        var dl = done.querySelector(".latin"), dh = done.querySelector("h2"), dp = done.querySelector("p");
+        if (dl) dl.textContent = "One more step";
+        if (dh) dh.textContent = "עוד צעד אחד.";
+        if (dp) dp.textContent = "שלחו את ההודעה שנפתחה בוואטסאפ, ואתם ברשימה. דף הפלאש הבא יגיע אליכם 24 שעות לפני כולם.";
+      }
+      done.focus();
     });
 
     var closedAt = Number(get("localStorage", "jf-nl-closed") || 0);
