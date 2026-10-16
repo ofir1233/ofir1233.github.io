@@ -12,6 +12,10 @@
   gsap.registerPlugin(ST);
   gsap.defaults({ ease: "power3.out", duration: 0.9 });
 
+  /* "late": the 2.5s fallback in <head> already showed everything (GSAP or the fonts came slowly). Then there is no intro,
+     and nothing already on screen is hidden and replayed. */
+  var late = false;
+  function seen(el) { return late && el && el.getBoundingClientRect().top < window.innerHeight; }
   function ext(a, b) { for (var k in b) if (Object.prototype.hasOwnProperty.call(b, k)) a[k] = b[k]; return a; }
   function all(sel, root) { return [].slice.call((root || document).querySelectorAll(sel)); }
   function one(sel, root) { return (root || document).querySelector(sel); }
@@ -63,6 +67,7 @@
       prev = br;
     });
     el.textContent = "";
+    el.classList.add("is-split");
     var ls = frags.map(function (f) {
       var mask = document.createElement("span"), line = document.createElement("span");
       mask.className = "line-mask"; line.className = "line";
@@ -72,10 +77,10 @@
     return gsap.from(ls, ext({
       yPercent: 112, duration: 1.15, ease: EXPO, stagger: 0.11,
       scrollTrigger: trigger ? { trigger: trigger, start: "top 86%", once: true } : undefined,
-      onComplete: function () { el.innerHTML = orig; }
+      onComplete: function () { el.innerHTML = orig; el.classList.remove("is-split"); }
     }, vars || {}));
   }
-  function rise(targets, vars) { return gsap.from(targets, ext({ autoAlpha: 0, y: 18, duration: 0.8, stagger: 0.08 }, vars || {})); }
+  function rise(targets, vars) { return gsap.from(targets, ext({ opacity: 0, y: 18, duration: 0.8, stagger: 0.08 }, vars || {})); }
 
   function intro() {
     /* Home hero */
@@ -106,17 +111,18 @@
         th.add(rise(one(".portrait figcaption", head), { y: 8 }), 0.8);
       }
       var card = one(".head-card", head);
-      if (card) th.add(gsap.from(card, { autoAlpha: 0, y: 60, rotation: -10, duration: 1.3, ease: EXPO }), 0.25);
+      if (card) th.add(gsap.from(card, { opacity: 0, y: 60, rotation: -10, duration: 1.3, ease: EXPO }), 0.25);
     }
   }
 
   function scroll() {
     /* Section headings (h2.display), with their kicker */
     all("main section .display, main .flash-wrap .display, .closer .display").forEach(function (h) {
+      if (seen(h)) return;
       var sec = h.closest("section") || h;
       var kick = h.previousElementSibling && h.previousElementSibling.classList.contains("kicker") ? h.previousElementSibling : (one(".kicker", sec));
       if (kick) rise(kick, { y: 10, scrollTrigger: { trigger: h, start: "top 88%", once: true } });
-      lines(h, null, h);
+      cut(h);
     });
 
     /* Hero: as it scrolls away the video pushes in and the words lift off */
@@ -131,32 +137,35 @@
 
     /* Studio numbers: rows rise, numbers count up to whole numbers, words lift out of a mask, the signature writes itself */
     all(".stats").forEach(function (list) {
+      if (seen(list)) return;
       var rows = all("li", list);
       var tl = gsap.timeline({ scrollTrigger: { trigger: list, start: "top 82%", once: true } });
-      tl.from(rows, { autoAlpha: 0, y: 28, duration: 0.9, stagger: 0.16, ease: EXPO }, 0);
+      tl.from(rows, { opacity: 0, y: 28, duration: 0.9, stagger: 0.16, ease: EXPO }, 0);
       all(".count[data-to]", list).forEach(function (el) {
         var to = +el.getAttribute("data-to");
         el.style.display = "inline-block"; el.style.minWidth = el.offsetWidth + "px"; el.style.textAlign = "end";
-        tl.fromTo(el, { textContent: 0 }, { textContent: to, duration: 1.8, ease: "power2.out", snap: { textContent: 1 } }, 0.1);
+        tl.fromTo(el, { textContent: 0 }, { textContent: to, duration: 1.8, ease: "power2.out", snap: { textContent: 1 }, immediateRender: false }, 0.1);
       });
       all(".stat__word", list).forEach(function (w, i) {
         w.innerHTML = '<span class="word-mask"><span class="word">' + w.innerHTML + "</span></span>";
         tl.from(one(".word", w), { yPercent: 115, duration: 1.1, ease: EXPO }, 0.25 + i * 0.16);
       });
-      tl.from(all(".stat__l", list), { autoAlpha: 0, x: 12, duration: 0.7, stagger: 0.16 }, 0.35);
+      tl.from(all(".stat__l", list), { opacity: 0, x: 12, duration: 0.7, stagger: 0.16 }, 0.35);
     });
     all(".sig__img").forEach(function (img) {
+      if (seen(img)) return;
       gsap.fromTo(img, { clipPath: "inset(-10% 100% -10% 0%)" }, { clipPath: "inset(-10% 0% -10% 0%)", duration: 1.8, ease: "power2.inOut",
         scrollTrigger: { trigger: img, start: "top 90%", once: true } });
     });
-    all(".studio__quote, .story__quote").forEach(function (q) { rise(q, { y: 20, duration: 1, scrollTrigger: { trigger: q, start: "top 88%", once: true } }); });
+    all(".studio__quote, .story__quote").forEach(function (q) { if (!seen(q)) rise(q, { y: 20, duration: 1, scrollTrigger: { trigger: q, start: "top 88%", once: true } }); });
 
     /* Gallery tiles and the team, in batches as they come in */
     function batch(sel, vars) {
-      var items = all(sel); if (!items.length) return;
-      gsap.set(items, { autoAlpha: 0, y: vars && vars.y != null ? vars.y : 44 });
+      var items = all(sel).filter(function (el) { return !seen(el); }); if (!items.length) return;
+      gsap.set(items, { opacity: 0, y: vars && vars.y != null ? vars.y : 44 });
+      /* vars only set the start offset: every item ends at y 0 */
       ST.batch(items, { start: "top 90%", once: true, onEnter: function (b) {
-        gsap.to(b, ext({ autoAlpha: 1, y: 0, duration: 1, stagger: 0.1, ease: EXPO, overwrite: true }, vars || {}));
+        gsap.to(b, ext(ext({}, vars || {}), { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: EXPO, overwrite: true }));
       } });
     }
     batch(".gallery > .tile");
@@ -164,17 +173,18 @@
     batch(".mate");
     batch(".voucher", { y: 36 });
     all(".cards .artist").forEach(function (card, i) {
+      if (seen(card)) return;
       var img = one(".artist__photo", card);
       var tl = gsap.timeline({ scrollTrigger: { trigger: card, start: "top 86%", once: true }, delay: i * 0.12 });
       if (img) tl.fromTo(img, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: EXPO }, 0);
-      tl.from(all(".artist__meta, .artist > p, .artist > a", card), { autoAlpha: 0, y: 14, duration: 0.7, stagger: 0.07 }, 0.35);
+      tl.from(all(".artist__meta, .artist > p, .artist > a", card), { opacity: 0, y: 14, duration: 0.7, stagger: 0.07 }, 0.35);
     });
 
     /* Lists that read as rows: prices, facts, steps, timelines, the flash sheet */
     function rows(groupSel, rowSel, vars) {
       all(groupSel).forEach(function (g) {
-        var r = all(rowSel, g); if (!r.length) return;
-        gsap.from(r, ext({ autoAlpha: 0, y: 16, duration: 0.7, stagger: 0.07, scrollTrigger: { trigger: g, start: "top 86%", once: true } }, vars || {}));
+        var r = all(rowSel, g); if (!r.length || seen(g)) return;
+        gsap.from(r, ext({ opacity: 0, y: 16, duration: 0.7, stagger: 0.07, scrollTrigger: { trigger: g, start: "top 86%", once: true } }, vars || {}));
       });
     }
     rows(".prices", "tr");
@@ -184,15 +194,55 @@
     rows(".timeline", ":scope > li", { stagger: 0.12, y: 24 });
     rows(".flash-grid", ":scope > li", { stagger: 0.035, y: 20, scale: 0.94 });
     rows(".faq, .faq-list", "details");
-    all(".archive, .send-card, .care-card").forEach(function (el) { rise(el, { y: 30, duration: 1, scrollTrigger: { trigger: el, start: "top 88%", once: true } }); });
+    all(".archive, .send-card, .care-card").forEach(function (el) { if (!seen(el)) rise(el, { y: 30, duration: 1, scrollTrigger: { trigger: el, start: "top 88%", once: true } }); });
   }
 
+  var pending = [];
+  function cut(h) {
+    var orig = h.innerHTML, tw = lines(h, null, h);
+    if (tw) pending.push({ el: h, orig: orig, tw: tw });
+  }
+  function recut() {
+    pending = pending.filter(function (p) {
+      if (p.tw.progress() > 0 || !p.el.classList.contains("is-split")) return false;
+      if (p.tw.scrollTrigger) p.tw.scrollTrigger.kill();
+      p.tw.kill(); p.el.innerHTML = p.orig; p.el.classList.remove("is-split");
+      return true;
+    });
+    pending.forEach(function (p) { p.tw = lines(p.el, null, p.el); });
+    ST.refresh();
+  }
+
+  /* Keyboard: an element that gets focus before its reveal shows at once (scrubbed hero motion is left to the scroll) */
+  document.addEventListener("focusin", function (e) {
+    for (var el = e.target; el && el !== document.body; el = el.parentElement) {
+      if (!el._gsap || +getComputedStyle(el).opacity >= 1) continue;
+      var scrubbed = false;
+      gsap.getTweensOf(el).forEach(function (t) {
+        var a = t; while (a.parent && a.parent !== gsap.globalTimeline) a = a.parent;
+        if (a.scrollTrigger && a.scrollTrigger.vars.scrub) scrubbed = true; else a.progress(1);
+      });
+      if (!scrubbed) gsap.set(el, { opacity: 1, y: 0, x: 0, scale: 1 });
+    }
+  });
+
   function start() {
+    late = html.classList.contains("motion-done");
     /* ScrollTrigger must never put back a remembered scroll position: the page opens at the top */
     if (ST.clearScrollMemory) ST.clearScrollMemory("manual");
-    intro();
+    if (!late) intro();
     scroll();
     ready();
+    /* Printing or saving as PDF before scrolling: finish every reveal first */
+    window.addEventListener("beforeprint", function () {
+      ST.getAll().forEach(function (s) { if (s.animation && s.vars.once) s.animation.progress(1); });
+      gsap.set(all(".gallery > .tile, .style-card, .mate, .voucher"), { opacity: 1, y: 0 });
+    });
+    var lastW = window.innerWidth, rt;
+    window.addEventListener("resize", function () {
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth; clearTimeout(rt); rt = setTimeout(recut, 250);
+    });
     /* Images and late fonts change the page height: measure again once everything is in */
     window.addEventListener("load", function () { ST.refresh(); });
   }
@@ -200,5 +250,5 @@
   var fonts = document.fonts && document.fonts.ready;
   var started = false;
   function go() { if (started) return; started = true; start(); }
-  if (fonts) { fonts.then(go); setTimeout(go, 450); } else go();
+  if (fonts) { fonts.then(function () { if (started) recut(); else go(); }); setTimeout(go, 450); } else go();
 })();

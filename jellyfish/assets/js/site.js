@@ -38,6 +38,7 @@
     artist: HI + "אשמח לקבוע אצל ",
     piercing: HI + "פירסינג אצל יניב",
     gift: HI + "אשמח לשובר מתנה",
+    ask: HI + "יש לי שאלה",
     heal: HI + "שולח/ת תמונת החלמה",
     jobs: HI + "בעניין עבודה בסטודיו",
     google: HI + "הגעתי מגוגל",
@@ -184,6 +185,8 @@
       chips.forEach(function (x) { x.setAttribute("aria-pressed", x === c ? "true" : "false"); });
       var f = c.getAttribute("data-filter");
       tiles.forEach(function (t) { t.hidden = !(f === "all" || t.getAttribute("data-kind") === f); });
+      /* tiles that moved up into view still wait for their reveal: measure again so they come in */
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
     });
   });
   var lb = document.getElementById("lb");
@@ -191,6 +194,7 @@
     var lbImg = document.getElementById("lb-img"), lbCap = document.getElementById("lb-cap");
     document.querySelectorAll(".tile img").forEach(function (img) {
       img.tabIndex = 0; img.setAttribute("role", "button");
+      img.setAttribute("aria-haspopup", "dialog"); img.setAttribute("aria-label", "להגדלה: " + img.alt);
       var openLb = function () { lbImg.src = img.src; lbImg.alt = img.alt; lbCap.textContent = img.closest("figure").querySelector("figcaption span").textContent; if (lb.showModal) lb.showModal(); };
       img.addEventListener("click", openLb);
       img.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLb(); } });
