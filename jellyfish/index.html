@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Jellyfish Tattoo · קעקועים עדינים בבאר שבע</title>
 <meta name="description" content="Jellyfish Tattoo, סטודיו לקעקועים ולפירסינג בעיר העתיקה של באר שבע. פיין ליין, בוטני ודוטוורק אורנמנטלי. מיני ג׳ליפיש ב-350 ₪ בכל חמישי. קביעת תור בוואטסאפ.">
-<link rel="icon" href="assets/logo/mark-small.svg">
+<link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/logo/favicon-48.png" sizes="48x48" type="image/png">
 <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Jellyfish Tattoo">
@@ -28,7 +29,7 @@
 <script src="assets/vendor/gsap/ScrollTrigger.min.js" defer></script>
 <script src="assets/js/site.js" defer></script>
 <script src="assets/js/motion.js" defer></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TattooParlor","name":"Jellyfish Tattoo","description":"סטודיו לקעקועים ולפירסינג: פיין ליין, בוטני ודוטוורק אורנמנטלי","telephone":"+972525659677","address":{"@type":"PostalAddress","streetAddress":"החלוץ 113","addressLocality":"באר שבע","addressCountry":"IL"},"sameAs":["https://www.instagram.com/jellyfish_tattoo_/"],"priceRange":"₪₪"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TattooParlor","name":"Jellyfish Tattoo","alternateName":"ג׳ליפיש טאטו","description":"סטודיו לקעקועים ולפירסינג: פיין ליין, בוטני ודוטוורק אורנמנטלי","telephone":"+972525659677","address":{"@type":"PostalAddress","streetAddress":"החלוץ 113","addressLocality":"באר שבע","addressCountry":"IL"},"sameAs":["https://www.instagram.com/jellyfish_tattoo_/"],"priceRange":"₪₪"}</script>
 <meta name="robots" content="noindex">
 </head>
 <body>
@@ -49,14 +50,13 @@
       <li><a href="#visit">הגעה</a></li>
     </ul>
     <div class="nav__end">
-      <a class="lang latin" href="#top" title="English version: coming soon">EN</a>
       <a class="btn btn--book js-wa" href="https://wa.me/972525659677">לקביעת תור</a>
       <button class="menu-btn" type="button" id="menu-open" aria-label="תפריט" aria-expanded="false" aria-controls="drawer"><span></span></button>
     </div>
   </div>
 </nav>
 
-<div class="drawer" id="drawer" hidden>
+<dialog class="drawer" id="drawer" aria-label="תפריט">
   <button class="close" type="button" id="menu-close" aria-label="סגירת התפריט">×</button>
   <a href="#studio">הסטודיו</a>
   <a href="#styles">סגנונות</a>
@@ -70,7 +70,7 @@
   <a href="#faq">שאלות</a>
   <a href="#visit">הגעה</a>
   <a class="btn btn--book js-wa" href="https://wa.me/972525659677"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.3 8.4c.3-.5.6-.5.9-.5h.5c.2 0 .4.1.5.4l.6 1.4c.1.2 0 .4-.1.6l-.5.6c.5.9 1.2 1.6 2.1 2.1l.6-.5c.2-.1.4-.2.6-.1l1.4.6c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.9-.6.3-1.6.4-3.2-.6-1.4-.9-2.4-2.1-3-3.4-.5-1.2-.4-2.1.2-2.5z" fill="currentColor"/></svg>לקביעת תור בוואטסאפ</a>
-</div>
+</dialog>
 
 <main id="main">
 <!-- HERO -->
@@ -98,7 +98,7 @@
     <span class="dot" aria-hidden="true"></span>
     <a href="#mini">מיני ג׳ליפיש · 350&nbsp;₪ · כל חמישי<span data-until="2026-11-19"> · מ-<bdi dir="ltr">19.11</bdi></span></a>
   </div>
-  <button class="hero__toggle" id="hero-toggle" type="button" aria-pressed="false" aria-label="עצירת הווידאו">
+  <button class="hero__toggle" id="hero-toggle" type="button" aria-label="עצירת הווידאו">
     <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3v12H4zM9 2h3v12H9z" fill="currentColor"/></svg>
     <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z" fill="currentColor"/></svg>
   </button>
@@ -136,7 +136,7 @@
   <div class="wrap">
     <div class="kicker"><span lang="en" class="latin muted-on-paper">Three styles</span></div>
     <h2 class="display" id="styles-h">שלושה סגנונות. קו אחד.</h2>
-    <div class="styles">
+    <div class="styles" tabindex="0" role="region" aria-label="שלושה סגנונות">
       <figure class="style-card">
         <img class="media" src="assets/img/work-hand-line.jpg" alt="קו ונקודה בקו דק על גב כף היד" loading="lazy">
         <h3>פיין ליין</h3>
@@ -207,13 +207,13 @@
         <p class="lead muted-on-ink">דף של 13 עיצובים חדשים, וכל אחד יקועקע פעם אחת בלבד.</p>
       </div>
       <dl class="facts">
-        <div><dt>DATES</dt><dd>חמישי <bdi dir="ltr">12.11</bdi> ושישי <bdi dir="ltr">13.11</bdi></dd></div>
-        <div><dt>PRICE</dt><dd>313 ₪ לעיצוב · מקדמה 100 ₪</dd></div>
-        <div><dt>SPOTS</dt><dd>13 מקומות, 2 מקעקעים</dd></div>
-        <div><dt>WHERE</dt><dd>החלוץ 113, העיר העתיקה · מגיל 18</dd></div>
+        <div><dt><span lang="en" aria-hidden="true">DATES</span><span class="sr">תאריכים</span></dt><dd>חמישי <bdi dir="ltr">12.11</bdi> ושישי <bdi dir="ltr">13.11</bdi></dd></div>
+        <div><dt><span lang="en" aria-hidden="true">PRICE</span><span class="sr">מחיר</span></dt><dd>313 ₪ לעיצוב · מקדמה 100 ₪</dd></div>
+        <div><dt><span lang="en" aria-hidden="true">SPOTS</span><span class="sr">מקומות</span></dt><dd>13 מקומות, 2 מקעקעים</dd></div>
+        <div><dt><span lang="en" aria-hidden="true">WHERE</span><span class="sr">איפה</span></dt><dd>החלוץ 113, העיר העתיקה · מגיל 18</dd></div>
       </dl>
     </div>
-    <ol class="flash-grid" aria-label="13 העיצובים, נחשפים ב-1.11">
+    <ol class="flash-grid" tabindex="0" aria-label="13 העיצובים, נחשפים ב-1.11">
       <li><span>01</span></li><li><span>02</span></li><li><span>03</span></li><li><span>04</span></li><li><span>05</span></li><li><span>06</span></li><li><span>07</span></li><li><span>08</span></li><li><span>09</span></li><li><span>10</span></li><li><span>11</span></li><li><span>12</span></li><li><span>13</span></li>
     </ol>
     <p class="draft-note">הדף נחשף ב-<bdi dir="ltr">1.11</bdi>. <span class="ph">[כאן ייכנסו 13 העיצובים]</span></p>
@@ -231,9 +231,9 @@
     <div class="book-grid">
       <div>
         <ol class="steps">
-          <li><span class="h3">כותבים לנו בוואטסאפ.</span><p>מה הרעיון, איפה בגוף ובאיזה גודל בערך. תמונות השראה מתקבלות בשמחה.</p></li>
-          <li><span class="h3">מקבלים הצעת מחיר.</span><p>תשובה עוד היום, בשעות הסטודיו. לעיצוב אישי מגיעה גם סקיצה ראשונה.</p></li>
-          <li><span class="h3">משריינים במקדמה.</span><p>מקדמה של 100 ₪ למיני או 200 ₪ לעיצוב אישי, בקישור תשלום. הקבלה נשלחת מיד, והמקדמה יורדת מהמחיר הסופי.</p></li>
+          <li><h3 class="h3">כותבים לנו בוואטסאפ.</h3><p>מה הרעיון, איפה בגוף ובאיזה גודל בערך. תמונות השראה מתקבלות בשמחה.</p></li>
+          <li><h3 class="h3">מקבלים הצעת מחיר.</h3><p>תשובה עוד היום, בשעות הסטודיו. לעיצוב אישי מגיעה גם סקיצה ראשונה.</p></li>
+          <li><h3 class="h3">משריינים במקדמה.</h3><p>מקדמה של 100 ₪ למיני או 200 ₪ לעיצוב אישי, בקישור תשלום. הקבלה נשלחת מיד, והמקדמה יורדת מהמחיר הסופי.</p></li>
         </ol>
         <p class="small muted-on-paper" style="margin:32px 0 0;max-width:48ch">ביום התור את הסקיצה הסופית רואים יחד בסטודיו, ומדייקים אותה לפני שמתחילים.</p>
       </div>
@@ -262,12 +262,12 @@
       <p class="lead muted-on-ink">קעקוע עדין עד 5 ס״מ מדף הפלאש של החודש, במחיר קבוע. בוחרים עיצוב מהדף, מגיעים ביום חמישי, והולכים הביתה עם קעקוע.</p>
       <div class="price-tag"><span class="num">350 <small>₪</small></span><span class="muted-on-ink">מחיר קבוע · <span class="ph">[לאישור]</span></span></div>
       <dl class="facts">
-        <div><dt>WHEN</dt><dd><span data-until="2026-11-19">מתחילים בחמישי <bdi dir="ltr">19.11</bdi>, ואז </span>כל חמישי, <bdi dir="ltr">14:00–18:00</bdi> <span class="ph">[לאישור]</span></dd></div>
-        <div><dt>SPOTS</dt><dd>4 מקומות בכל חמישי</dd></div>
-        <div><dt>AGE</dt><dd>מגיל 18, עם תעודה מזהה</dd></div>
-        <div><dt>PERSONAL</dt><dd>מיני אישי: שם, תאריך או ראשי תיבות · 400 ₪</dd></div>
-        <div><dt>FOR TWO</dt><dd>באים בשניים? משריינים 2 תורים צמודים</dd></div>
-        <div><dt>AFTER</dt><dd>בדיקת החלמה וטאץ׳ אפ עד 3 חודשים, כלולים</dd></div>
+        <div><dt><span lang="en" aria-hidden="true">WHEN</span><span class="sr">מתי</span></dt><dd><span data-until="2026-11-19">מתחילים בחמישי <bdi dir="ltr">19.11</bdi>, ואז </span>כל חמישי, <bdi dir="ltr">14:00–18:00</bdi> <span class="ph">[לאישור]</span></dd></div>
+        <div><dt><span lang="en" aria-hidden="true">SPOTS</span><span class="sr">מקומות</span></dt><dd>4 מקומות בכל חמישי</dd></div>
+        <div><dt><span lang="en" aria-hidden="true">AGE</span><span class="sr">גיל</span></dt><dd>מגיל 18, עם תעודה מזהה</dd></div>
+        <div><dt><span lang="en" aria-hidden="true">PERSONAL</span><span class="sr">אישי</span></dt><dd>מיני אישי: שם, תאריך או ראשי תיבות · 400 ₪</dd></div>
+        <div><dt><span lang="en" aria-hidden="true">FOR TWO</span><span class="sr">לשניים</span></dt><dd>באים בשניים? משריינים 2 תורים צמודים</dd></div>
+        <div><dt><span lang="en" aria-hidden="true">AFTER</span><span class="sr">אחרי</span></dt><dd>בדיקת החלמה וטאץ׳ אפ עד 3 חודשים, כלולים</dd></div>
       </dl>
       <div class="section-cta">
         <a class="btn btn--book js-wa" data-wa="mini" href="https://wa.me/972525659677"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.3 8.4c.3-.5.6-.5.9-.5h.5c.2 0 .4.1.5.4l.6 1.4c.1.2 0 .4-.1.6l-.5.6c.5.9 1.2 1.6 2.1 2.1l.6-.5c.2-.1.4-.2.6-.1l1.4.6c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.9-.6.3-1.6.4-3.2-.6-1.4-.9-2.4-2.1-3-3.4-.5-1.2-.4-2.1.2-2.5z" fill="currentColor"/></svg>לשריון מקום במיני</a>
@@ -355,10 +355,10 @@
       <h2 class="display" id="piercing-h">פירסינג. עם יניב.</h2>
       <p class="lead muted-on-paper">אותו סטודיו ואותה הקפדה על ניקיון, בתור משלו אצל יניב. בוחרים מקום ותכשיט, ומקבלים מחיר מראש.</p>
       <dl class="facts">
-        <div><dt>WHO</dt><dd>יניב, הפירסר של הסטודיו</dd></div>
-        <div><dt>JEWELRY</dt><dd><span class="ph">[סוג התכשיטים ליישום ראשון]</span></dd></div>
-        <div><dt>AGE</dt><dd><span class="ph">[מאיזה גיל, ומתי צריך אישור הורה]</span></dd></div>
-        <div><dt>SAME VISIT</dt><dd>אפשר מיני ופירסינג באותו ביקור, כל אחד במחיר המלא שלו.</dd></div>
+        <div><dt><span lang="en" aria-hidden="true">WHO</span><span class="sr">מי</span></dt><dd>יניב, הפירסר של הסטודיו</dd></div>
+        <div><dt><span lang="en" aria-hidden="true">JEWELRY</span><span class="sr">תכשיטים</span></dt><dd><span class="ph">[סוג התכשיטים ליישום ראשון]</span></dd></div>
+        <div><dt><span lang="en" aria-hidden="true">AGE</span><span class="sr">גיל</span></dt><dd><span class="ph">[מאיזה גיל, ומתי צריך אישור הורה]</span></dd></div>
+        <div><dt><span lang="en" aria-hidden="true">SAME VISIT</span><span class="sr">באותו ביקור</span></dt><dd>אפשר מיני ופירסינג באותו ביקור, כל אחד במחיר המלא שלו.</dd></div>
       </dl>
       <div class="section-cta"><a class="btn btn--book js-wa" data-wa="piercing" href="https://wa.me/972525659677"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.3 8.4c.3-.5.6-.5.9-.5h.5c.2 0 .4.1.5.4l.6 1.4c.1.2 0 .4-.1.6l-.5.6c.5.9 1.2 1.6 2.1 2.1l.6-.5c.2-.1.4-.2.6-.1l1.4.6c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.9-.6.3-1.6.4-3.2-.6-1.4-.9-2.4-2.1-3-3.4-.5-1.2-.4-2.1.2-2.5z" fill="currentColor"/></svg>לקביעת פירסינג אצל יניב</a><a class="btn btn--ghost" href="yaniv.html">לעבודות של יניב</a></div>
     </div>
@@ -453,10 +453,10 @@
       <div class="kicker"><span lang="en" class="latin muted-on-paper">Come by</span></div>
       <h2 class="display" id="visit-h">בואו לבקר.</h2>
       <dl>
-        <div><dt>ADDRESS</dt><dd>החלוץ 113, העיר העתיקה, באר שבע <span class="ph">[לאישור]</span></dd></div>
-        <div><dt>HOURS</dt><dd class="hours"><span class="ph">[שעות]</span> · בתיאום מראש</dd></div>
-        <div><dt>WHATSAPP</dt><dd><a class="js-wa number" href="https://wa.me/972525659677" style="font-size:20px">052-5659677</a></dd></div>
-        <div><dt>INSTAGRAM</dt><dd><a href="https://www.instagram.com/jellyfish_tattoo_/" target="_blank" rel="noopener" dir="ltr">@jellyfish_tattoo_</a></dd></div>
+        <div><dt><span lang="en" aria-hidden="true">ADDRESS</span><span class="sr">כתובת</span></dt><dd>החלוץ 113, העיר העתיקה, באר שבע <span class="ph">[לאישור]</span></dd></div>
+        <div><dt><span lang="en" aria-hidden="true">HOURS</span><span class="sr">שעות</span></dt><dd class="hours"><span class="ph">[שעות]</span> · בתיאום מראש</dd></div>
+        <div><dt><span lang="en" aria-hidden="true">WHATSAPP</span><span class="sr">וואטסאפ</span></dt><dd><a class="js-wa number" href="https://wa.me/972525659677" style="font-size:20px">052-5659677</a></dd></div>
+        <div><dt><span lang="en" aria-hidden="true">INSTAGRAM</span><span class="sr">אינסטגרם</span></dt><dd><a href="https://www.instagram.com/jellyfish_tattoo_/" target="_blank" rel="noopener" dir="ltr">@jellyfish_tattoo_</a></dd></div>
       </dl>
       <div class="section-cta">
         <a class="btn btn--book js-wa" href="https://wa.me/972525659677"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.3 8.4c.3-.5.6-.5.9-.5h.5c.2 0 .4.1.5.4l.6 1.4c.1.2 0 .4-.1.6l-.5.6c.5.9 1.2 1.6 2.1 2.1l.6-.5c.2-.1.4-.2.6-.1l1.4.6c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.9-.6.3-1.6.4-3.2-.6-1.4-.9-2.4-2.1-3-3.4-.5-1.2-.4-2.1.2-2.5z" fill="currentColor"/></svg>לקביעת תור בוואטסאפ</a>
@@ -517,7 +517,7 @@
       </ul>
     </div>
   </div>
-  <div class="wrap footer__base small muted-on-paper"><span>© 2026 Jellyfish Tattoo</span><span>קעקועים מגיל 18 · בתיאום מראש</span><a class="credit latin" href="https://wa.me/972526923101?text=%D7%94%D7%99%D7%99%20Nuna%20Studio%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20Jellyfish%20Tattoo%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%91%D7%A0%D7%99%D7%99%D7%AA%20%D7%90%D7%AA%D7%A8" target="_blank" rel="noopener" title="Nuna Studio · וואטסאפ 052-6923101" dir="ltr">Site by Nuna Studio</a></div>
+  <div class="wrap footer__base small muted-on-paper"><span lang="en" dir="ltr">© 2026 Jellyfish Tattoo</span><span>קעקועים מגיל 18 · בתיאום מראש</span><a class="credit latin" href="https://wa.me/972526923101?text=%D7%94%D7%99%D7%99%20Nuna%20Studio%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20Jellyfish%20Tattoo%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%91%D7%A0%D7%99%D7%99%D7%AA%20%D7%90%D7%AA%D7%A8" target="_blank" rel="noopener" title="Nuna Studio · וואטסאפ 052-6923101" dir="ltr">Site by Nuna Studio</a></div>
 </footer>
 
 <div class="mbar" id="mbar" aria-hidden="true">
@@ -544,7 +544,8 @@
         <div class="field"><label for="nl-email">מייל</label><input id="nl-email" name="email" type="email" autocomplete="email" dir="ltr" required></div>
       </div>
       <div class="field"><label for="nl-phone">טלפון לעדכונים בוואטסאפ <span class="opt">(לא חובה)</span></label><input id="nl-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr"></div>
-      <label class="check" for="nl-consent"><input type="checkbox" id="nl-consent" name="consent" required><span>אשמח לקבל מ-Jellyfish Tattoo עדכונים על דפי פלאש ותורים פנויים. אפשר להסיר בכל רגע. <a href="privacy.html">פרטיות</a></span></label>
+      <label class="check" for="nl-consent"><input type="checkbox" id="nl-consent" name="consent" required><span>אשמח לקבל מ-Jellyfish Tattoo עדכונים על דפי פלאש ותורים פנויים. אפשר להסיר בכל רגע.</span></label>
+      <p class="nl__note">לא חובה למסור פרטים, אבל בלי שם ומייל לא נוכל לצרף אתכם. הם נשמרים אצל <span lang="en" dir="ltr">Jellyfish Tattoo</span> רק לשליחת העדכונים, ואפשר לבקש לראות, לתקן או למחוק אותם. <a href="privacy.html">מדיניות הפרטיות</a></p>
       <p class="nl__err" id="nl-err" role="alert" hidden></p>
       <div class="btn-row"><button class="btn btn--book" type="submit">להצטרפות לרשימה</button><button class="btn btn--ghost" type="button" data-close-nl>לא עכשיו</button></div>
     </form>

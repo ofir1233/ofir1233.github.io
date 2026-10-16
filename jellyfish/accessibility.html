@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>הצהרת נגישות · Jellyfish Tattoo</title>
 <meta name="description" content="הצהרת הנגישות של Jellyfish Tattoo: האתר והסטודיו.">
-<link rel="icon" href="assets/logo/mark-small.svg">
+<link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/logo/favicon-48.png" sizes="48x48" type="image/png">
 <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Jellyfish Tattoo">
@@ -48,14 +49,13 @@
       <li><a href="./#visit">הגעה</a></li>
     </ul>
     <div class="nav__end">
-      <a class="lang latin" href="./" title="English version: coming soon">EN</a>
       <a class="btn btn--book js-wa" href="https://wa.me/972525659677">לקביעת תור</a>
       <button class="menu-btn" type="button" id="menu-open" aria-label="תפריט" aria-expanded="false" aria-controls="drawer"><span></span></button>
     </div>
   </div>
 </nav>
 
-<div class="drawer" id="drawer" hidden>
+<dialog class="drawer" id="drawer" aria-label="תפריט">
   <button class="close" type="button" id="menu-close" aria-label="סגירת התפריט">×</button>
   <a href="./#studio">הסטודיו</a>
   <a href="./#styles">סגנונות</a>
@@ -69,7 +69,7 @@
   <a href="./#faq">שאלות</a>
   <a href="./#visit">הגעה</a>
   <a class="btn btn--book js-wa" href="https://wa.me/972525659677"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.3 8.4c.3-.5.6-.5.9-.5h.5c.2 0 .4.1.5.4l.6 1.4c.1.2 0 .4-.1.6l-.5.6c.5.9 1.2 1.6 2.1 2.1l.6-.5c.2-.1.4-.2.6-.1l1.4.6c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.9-.6.3-1.6.4-3.2-.6-1.4-.9-2.4-2.1-3-3.4-.5-1.2-.4-2.1.2-2.5z" fill="currentColor"/></svg>לקביעת תור בוואטסאפ</a>
-</div>
+</dialog>
 
 <main id="main">
 <header class="page-head page-head--plain" id="top">
@@ -161,7 +161,7 @@
       </ul>
     </div>
   </div>
-  <div class="wrap footer__base small muted-on-paper"><span>© 2026 Jellyfish Tattoo</span><span>קעקועים מגיל 18 · בתיאום מראש</span><a class="credit latin" href="https://wa.me/972526923101?text=%D7%94%D7%99%D7%99%20Nuna%20Studio%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20Jellyfish%20Tattoo%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%91%D7%A0%D7%99%D7%99%D7%AA%20%D7%90%D7%AA%D7%A8" target="_blank" rel="noopener" title="Nuna Studio · וואטסאפ 052-6923101" dir="ltr">Site by Nuna Studio</a></div>
+  <div class="wrap footer__base small muted-on-paper"><span lang="en" dir="ltr">© 2026 Jellyfish Tattoo</span><span>קעקועים מגיל 18 · בתיאום מראש</span><a class="credit latin" href="https://wa.me/972526923101?text=%D7%94%D7%99%D7%99%20Nuna%20Studio%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20Jellyfish%20Tattoo%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%91%D7%A0%D7%99%D7%99%D7%AA%20%D7%90%D7%AA%D7%A8" target="_blank" rel="noopener" title="Nuna Studio · וואטסאפ 052-6923101" dir="ltr">Site by Nuna Studio</a></div>
 </footer>
 
 <div class="mbar" id="mbar" aria-hidden="true">
@@ -188,7 +188,8 @@
         <div class="field"><label for="nl-email">מייל</label><input id="nl-email" name="email" type="email" autocomplete="email" dir="ltr" required></div>
       </div>
       <div class="field"><label for="nl-phone">טלפון לעדכונים בוואטסאפ <span class="opt">(לא חובה)</span></label><input id="nl-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr"></div>
-      <label class="check" for="nl-consent"><input type="checkbox" id="nl-consent" name="consent" required><span>אשמח לקבל מ-Jellyfish Tattoo עדכונים על דפי פלאש ותורים פנויים. אפשר להסיר בכל רגע. <a href="privacy.html">פרטיות</a></span></label>
+      <label class="check" for="nl-consent"><input type="checkbox" id="nl-consent" name="consent" required><span>אשמח לקבל מ-Jellyfish Tattoo עדכונים על דפי פלאש ותורים פנויים. אפשר להסיר בכל רגע.</span></label>
+      <p class="nl__note">לא חובה למסור פרטים, אבל בלי שם ומייל לא נוכל לצרף אתכם. הם נשמרים אצל <span lang="en" dir="ltr">Jellyfish Tattoo</span> רק לשליחת העדכונים, ואפשר לבקש לראות, לתקן או למחוק אותם. <a href="privacy.html">מדיניות הפרטיות</a></p>
       <p class="nl__err" id="nl-err" role="alert" hidden></p>
       <div class="btn-row"><button class="btn btn--book" type="submit">להצטרפות לרשימה</button><button class="btn btn--ghost" type="button" data-close-nl>לא עכשיו</button></div>
     </form>

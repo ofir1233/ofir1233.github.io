@@ -46,6 +46,9 @@
   /* Source of the visit (?src=ig|ad|qr|google|card), kept for the session */
   var src = params.get("src");
   if (src) set("sessionStorage", "jf-src", src); else src = get("sessionStorage", "jf-src");
+  /* Where the lead came from, added to the end of every specific message (13, mini, artist...) so no source is lost */
+  var SRC_TAG = { google: "הגעתי מגוגל", card: "קיבלתי כרטיס מחבר/ה: ", ad: "ראיתי את המודעה", qr: "עברתי ברחוב" };
+  if (src && !SRC_TAG.hasOwnProperty(src) && src !== "site" && src !== "ig") src = null;
 
   /* Accent preview: ?accent=teal */
   if (params.get("accent") === "teal") {
@@ -85,10 +88,10 @@
 
   /* WhatsApp links */
   function textFor(key, extra) {
-    var t;
-    if (key && key !== "site") t = (key === "mini" && (src === "ad" || src === "qr")) ? TEXTS[src] : TEXTS[key];
-    if (!t) t = TEXTS[src] && src !== "site" ? TEXTS[src] : TEXTS.site;
-    return t + (extra || "");
+    if (key === "mini" && (src === "ad" || src === "qr")) return TEXTS[src] + (extra || "");
+    var tag = SRC_TAG[src] && key !== "heal" && key !== "jobs" ? " · " + SRC_TAG[src] : "";
+    if (key && key !== "site" && TEXTS.hasOwnProperty(key)) return TEXTS[key] + (extra || "") + tag;
+    return (SRC_TAG[src] ? TEXTS[src] : TEXTS.site) + (extra || "");
   }
   function waLink(text) { return "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(text); }
   document.querySelectorAll(".js-wa").forEach(function (a) {
@@ -155,7 +158,7 @@
 
   var vid = document.querySelector(".hero__bg"), tog = document.getElementById("hero-toggle");
   if (vid && hero) {
-    var setPaused = function (p) { hero.classList.toggle("is-paused", p); if (tog) { tog.setAttribute("aria-pressed", p ? "true" : "false"); tog.setAttribute("aria-label", p ? "הפעלת הווידאו" : "עצירת הווידאו"); } };
+    var setPaused = function (p) { hero.classList.toggle("is-paused", p); if (tog) tog.setAttribute("aria-label", p ? "הפעלת הווידאו" : "עצירת הווידאו"); };
     if (reduce) { vid.removeAttribute("autoplay"); vid.pause(); setPaused(true); }
     if (tog) tog.addEventListener("click", function () { if (vid.paused) { vid.play().catch(function () {}); setPaused(false); } else { vid.pause(); setPaused(true); } });
   }
@@ -171,11 +174,12 @@
   /* Mobile menu */
   var drawer = document.getElementById("drawer"), openBtn = document.getElementById("menu-open");
   if (drawer && openBtn) {
-    var closeDrawer = function () { drawer.hidden = true; openBtn.setAttribute("aria-expanded", "false"); };
-    openBtn.addEventListener("click", function () { drawer.hidden = false; openBtn.setAttribute("aria-expanded", "true"); var c = document.getElementById("menu-close"); if (c) c.focus(); });
+    /* A modal <dialog>: focus stays inside, the page behind is inert, Escape closes it and focus returns to the menu button */
+    var closeDrawer = function () { if (drawer.open) drawer.close(); };
+    drawer.addEventListener("close", function () { openBtn.setAttribute("aria-expanded", "false"); });
+    openBtn.addEventListener("click", function () { if (drawer.showModal) drawer.showModal(); else drawer.setAttribute("open", ""); openBtn.setAttribute("aria-expanded", "true"); var c = document.getElementById("menu-close"); if (c) c.focus(); });
     document.getElementById("menu-close").addEventListener("click", closeDrawer);
     drawer.addEventListener("click", function (e) { if (e.target.closest("a")) closeDrawer(); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !drawer.hidden) closeDrawer(); });
   }
 
   /* Gallery: filter + lightbox */
@@ -201,13 +205,13 @@
   }
 
   /* "First to know" mailing list: name + email (+ optional phone), unticked consent.
-     Desktop: a small card in the bottom-left corner, away from the WhatsApp button. Phone: a thin bar above the booking bar,
-     never a full-screen window. Auto-shows once per visit after ~20 s or half the page; after closing, not again for 30 days. */
+     On every screen the automatic prompt is a thin bar (phone: above the booking bar; tablet and up: the bottom-left corner,
+     away from the WhatsApp button). It never takes focus and never covers the hero; the form opens only on click.
+     Auto-shows once per visit after ~20 s or half the page, once the hero is scrolled past; after closing, not again for 30 days. */
   var nl = document.getElementById("nl"), nlbar = document.getElementById("nlbar");
   if (nl && nl.showModal) {
     var DAY = 1000 * 60 * 60 * 24;
-    var phone = function () { return window.matchMedia("(max-width: 767px)").matches; };
-    var blocked = function () { return nl.open || (lb && lb.open) || (drawer && !drawer.hidden); };
+    var blocked = function () { return nl.open || (lb && lb.open) || (drawer && drawer.open); };
     var openNl = function (modal) {
       if (blocked()) return;
       if (nlbar) nlbar.hidden = true;
@@ -215,7 +219,12 @@
       if (modal) nl.showModal(); else nl.show();
       track("list_popup", { mode: modal ? "modal" : "float" });
     };
-    var dismiss = function () { set("localStorage", "jf-nl-closed", String(Date.now())); if (nlbar) nlbar.hidden = true; if (nl.open) nl.close(); };
+    /* Hiding the bar or the window must not drop keyboard focus to the top of the page */
+    var lastOut = null;
+    document.addEventListener("focusin", function (e) { if (!(nlbar && nlbar.contains(e.target)) && !nl.contains(e.target)) lastOut = e.target; });
+    var refocus = function () { var t = document.querySelector("#mbar.is-on a") || lastOut; if (t && t.isConnected) t.focus({ preventScroll: true }); };
+    var dismiss = function () { var inBar = nlbar && nlbar.contains(document.activeElement); set("localStorage", "jf-nl-closed", String(Date.now())); if (nlbar) nlbar.hidden = true; if (nl.open) nl.close(); if (inBar) refocus(); };
+    nl.addEventListener("close", function () { var a = document.activeElement; if (!a || a === document.body || nl.contains(a) || (nlbar && nlbar.contains(a))) refocus(); });
     document.querySelectorAll("[data-open-nl]").forEach(function (b) { b.addEventListener("click", function (e) { e.preventDefault(); openNl(true); }); });
     document.querySelectorAll("[data-dismiss-nl]").forEach(function (b) { b.addEventListener("click", dismiss); });
     nl.addEventListener("click", function (e) { if (e.target === nl || e.target.closest("[data-close-nl]")) dismiss(); });
@@ -227,14 +236,18 @@
       e.preventDefault();
       var d = new FormData(form);
       var name = String(d.get("name") || "").trim(), email = String(d.get("email") || "").trim(), tel = String(d.get("phone") || "").trim();
-      var problem = !name ? "חסר שם." : !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) ? "המייל לא נראה תקין." : !d.get("consent") ? "צריך לסמן את תיבת ההסכמה." : "";
-      if (problem) { err.textContent = problem; err.hidden = false; (form.querySelector(":invalid") || form.querySelector("input")).focus(); return; }
+      var emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+      var bad = !name ? "nl-name" : !emailOk ? "nl-email" : !d.get("consent") ? "nl-consent" : "";
+      var problem = !name ? "חסר שם." : !emailOk ? (email ? "המייל לא נראה תקין." : "חסר מייל.") : !d.get("consent") ? "צריך לסמן את תיבת ההסכמה." : "";
+      form.querySelectorAll("input").forEach(function (i) { i.removeAttribute("aria-invalid"); i.removeAttribute("aria-describedby"); });
+      if (problem) { var f = document.getElementById(bad); f.setAttribute("aria-invalid", "true"); f.setAttribute("aria-describedby", "nl-err"); err.textContent = problem; err.hidden = false; f.focus(); return; }
       err.hidden = true;
       if (LIST_ENDPOINT) {
         fetch(LIST_ENDPOINT, { method: "POST", mode: "no-cors", body: d }).catch(function () {});
       } else if (WHATSAPP) {
         /* No mailing tool connected yet: the sign-up arrives as a WhatsApp message to the studio */
-        window.open(waLink(TEXTS.list + "\nשם: " + name + "\nמייל: " + email + (tel ? "\nטלפון: " + tel : "") + "\nהסכמה: סימנתי באתר ״אשמח לקבל מ-Jellyfish Tattoo עדכונים על דפי פלאש ותורים פנויים. אפשר להסיר בכל רגע.״"), "_blank", "noopener");
+        var signup = waLink(TEXTS.list + "\nשם: " + name + "\nמייל: " + email + (tel ? "\nטלפון: " + tel : "") + "\nהסכמה: סימנתי באתר ״אשמח לקבל מ-Jellyfish Tattoo עדכונים על דפי פלאש ותורים פנויים. אפשר להסיר בכל רגע.״");
+        window.open(signup, "_blank", "noopener");
       }
       set("localStorage", "jf-nl-joined", "1");
       track("sign_up", { method: "list" });
@@ -246,6 +259,9 @@
         if (dl) dl.textContent = "One more step";
         if (dh) dh.textContent = "עוד צעד אחד.";
         if (dp) dp.textContent = "שלחו את ההודעה שנפתחה בוואטסאפ, ואתם ברשימה. דף הפלאש הבא יגיע אליכם 24 שעות לפני כולם.";
+        /* the button resends exactly that sign-up message, in case the WhatsApp tab was blocked or closed */
+        var cta = done.querySelector(".js-wa");
+        if (cta && signup) { cta.href = signup; cta.setAttribute("data-wa", "list"); cta.lastChild.textContent = "לשליחת ההודעה בוואטסאפ"; }
       }
       done.focus();
     });
@@ -256,15 +272,19 @@
       var fired = false;
       var auto = function () {
         if (fired || get("sessionStorage", "jf-wa") || blocked()) return;
+        if (isHome && hero && hero.getBoundingClientRect().bottom > 0) { clearTimeout(timer); timer = setTimeout(auto, 4000); return; }
         fired = true; set("sessionStorage", "jf-nl-shown", "1");
         window.removeEventListener("scroll", onDepth); clearTimeout(timer);
-        if (phone() && nlbar) nlbar.hidden = false; else openNl(false);
+        if (nlbar) nlbar.hidden = false; else openNl(false);
       };
       var onDepth = function () { var h = document.documentElement.scrollHeight - window.innerHeight; if (h > 0 && window.scrollY / h > 0.5) auto(); };
       var timer = setTimeout(auto, 20000);
       window.addEventListener("scroll", onDepth, { passive: true });
     }
   }
+
+  /* Smooth scrolling for in-page links only, not for the jump to a #section on arrival, which it would cut short */
+  window.addEventListener("load", function () { setTimeout(function () { document.documentElement.classList.add("smooth-scroll"); }, 300); });
 
   /* Print / save as PDF */
   document.querySelectorAll("[data-print]").forEach(function (b) { b.addEventListener("click", function () { window.print(); }); });
