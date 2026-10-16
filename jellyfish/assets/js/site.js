@@ -1,17 +1,7 @@
 (function () {
   "use strict";
 
-  /* Always open at the top. A #section link from outside the site (WhatsApp, Instagram) or a reload
-     does not land mid-page; links between our own pages (aftercare.html -> ./#prices) still jump. */
-  (function () {
-    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-    var fromUs = false;
-    try { fromUs = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
-    if (!location.hash || fromUs) return;
-    history.replaceState(null, "", location.pathname + location.search);
-    var top = function () { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); };
-    top(); window.addEventListener("load", function () { top(); setTimeout(top, 0); });
-  })();
+  /* Opening at the top is handled by the first script in <head>, before the browser can restore or jump. */
 
   /* Art layer (brand book 7.6.4): stipple edges and drawing crops are revealed once, as they enter the screen.
      The CSS does the motion (dots from the dense edge, 900ms; the drawing from its axis, 1200ms) and skips it for

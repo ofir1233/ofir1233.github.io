@@ -24,6 +24,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karantina:wght@400;700&family=Heebo:wght@300..600&family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
+<script>/* Always open at the top (fresh load, reload, reopened tab, back from another site). Only a link between our own pages
+   to a #section (aftercare -> index.html#prices) or the back button after leaving through one keeps its place. */
+(function(w,h){try{if("scrollRestoration" in h)h.scrollRestoration="manual"}catch(e){}
+var ss=function(){try{return w.sessionStorage}catch(e){return null}},s=ss(),own=false;
+try{own=!!document.referrer&&new URL(document.referrer).origin===location.origin}catch(e){}
+var nav=(w.performance&&performance.getEntriesByType&&performance.getEntriesByType("navigation")[0])||{};
+var keep=location.hash&&own&&nav.type==="navigate";
+if(location.hash&&!keep)try{h.replaceState(null,"",location.pathname+location.search)}catch(e){}
+var user=false,mark=function(){user=true};["wheel","touchstart","keydown","pointerdown"].forEach(function(t){w.addEventListener(t,mark,{passive:true,capture:true})});
+var top=function(){if(!keep&&!user&&(w.scrollY||w.scrollX))w.scrollTo(0,0)};
+top();document.addEventListener("DOMContentLoaded",top);
+w.addEventListener("load",function(){top();setTimeout(top,0);setTimeout(top,200);setTimeout(top,600);setTimeout(function(){keep=true},700)});
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(a&&s&&a.origin===location.origin&&a.pathname!==location.pathname)try{s.setItem("jf-left",location.pathname)}catch(x){}},true);
+w.addEventListener("pageshow",function(e){if(!e.persisted)return;var left=null;try{left=s&&s.getItem("jf-left");s&&s.removeItem("jf-left")}catch(x){}if(left===location.pathname)return;keep=false;user=false;top();setTimeout(top,50)});
+})(window,history)</script>
 <script>(function(d){d.classList.add("js");setTimeout(function(){if(!d.classList.contains("art-io"))d.classList.remove("js")},4000);try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return}catch(e){}d.classList.add("motion");setTimeout(function(){d.classList.add("motion-done")},2500)})(document.documentElement)</script>
 <script src="assets/vendor/gsap/gsap.min.js" defer></script>
 <script src="assets/vendor/gsap/ScrollTrigger.min.js" defer></script>
@@ -112,13 +127,15 @@
       <h2 class="display" id="studio-h">הסטודיו האגדי <span class="hl">חוזר</span> לעיר.</h2>
     </div>
     <ul class="stats" aria-label="במספרים">
+      <li><b class="stat__n"><bdi dir="ltr">2011</bdi></b><span class="stat__l">שנת ההקמה של Jellyfish</span></li>
       <li><b class="stat__n"><bdi dir="ltr"><span class="count" data-to="20">20</span>+</bdi></b><span class="stat__l">שנות ניסיון של אלירן</span></li>
       <li><b class="stat__n stat__word">אלפי</b><span class="stat__l">לקוחות מרוצים</span></li>
       <li><a class="stat__ig" href="https://www.instagram.com/jellyfish_tattoo_/" target="_blank" rel="noopener"><b class="stat__n stat__word">אלפי</b><span class="stat__l">עוקבים באינסטגרם <span class="handle" dir="ltr">@jellyfish_tattoo_</span></span></a></li>
     </ul>
     <div class="studio__text">
-      <p class="lead">במשך שנים Jellyfish היה אחת הכתובות של העיר העתיקה בבאר שבע, ואלפי אנשים יצאו ממנו עם קעקוע שהם אוהבים עד היום. עכשיו הוא חוזר לאותם רחובות, עם אותה יד.</p>
-      <p>אלירן נונה, בעל הסטודיו, מקעקע כבר יותר מ-20 שנה. לצידו בוריס בקעקוע ויניב בפירסינג. וכל עיצוב עדיין מצויר אצלנו ביד, בשבילכם.</p>
+      <p class="lead">אלירן נונה הקים את Jellyfish ב-<bdi dir="ltr">2011</bdi>, אחרי שנים של קעקוע. מאז יצאו מהסטודיו אלפי אנשים עם קעקוע שהם אוהבים עד היום. עכשיו הוא חוזר לעיר, עם אותה יד.</p>
+      <p>עם השנים נבנה סביבו צוות של אמנים, וכל אחד מביא איתו סגנון משלו, דמיון ואהבה אמיתית לעבודה. היום לצד אלירן עובדים בוריס בקעקוע ויניב בפירסינג.</p>
+      <p>אנחנו כאן כדי להפוך את הרעיון שלכם לאמנות. כל עיצוב מצויר אצלנו ביד, בשבילכם.</p>
       <p class="studio__quote">״טוב לחזור לבאר שבע. ספרו לי מה בפנים.״</p>
       <div class="studio__foot">
         <figure class="sig">

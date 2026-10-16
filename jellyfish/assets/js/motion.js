@@ -188,6 +188,8 @@
   }
 
   function start() {
+    /* ScrollTrigger must never put back a remembered scroll position: the page opens at the top */
+    if (ST.clearScrollMemory) ST.clearScrollMemory("manual");
     intro();
     scroll();
     ready();

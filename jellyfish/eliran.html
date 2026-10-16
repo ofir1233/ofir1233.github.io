@@ -24,6 +24,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karantina:wght@400;700&family=Heebo:wght@300..600&family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
+<script>/* Always open at the top (fresh load, reload, reopened tab, back from another site). Only a link between our own pages
+   to a #section (aftercare -> index.html#prices) or the back button after leaving through one keeps its place. */
+(function(w,h){try{if("scrollRestoration" in h)h.scrollRestoration="manual"}catch(e){}
+var ss=function(){try{return w.sessionStorage}catch(e){return null}},s=ss(),own=false;
+try{own=!!document.referrer&&new URL(document.referrer).origin===location.origin}catch(e){}
+var nav=(w.performance&&performance.getEntriesByType&&performance.getEntriesByType("navigation")[0])||{};
+var keep=location.hash&&own&&nav.type==="navigate";
+if(location.hash&&!keep)try{h.replaceState(null,"",location.pathname+location.search)}catch(e){}
+var user=false,mark=function(){user=true};["wheel","touchstart","keydown","pointerdown"].forEach(function(t){w.addEventListener(t,mark,{passive:true,capture:true})});
+var top=function(){if(!keep&&!user&&(w.scrollY||w.scrollX))w.scrollTo(0,0)};
+top();document.addEventListener("DOMContentLoaded",top);
+w.addEventListener("load",function(){top();setTimeout(top,0);setTimeout(top,200);setTimeout(top,600);setTimeout(function(){keep=true},700)});
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(a&&s&&a.origin===location.origin&&a.pathname!==location.pathname)try{s.setItem("jf-left",location.pathname)}catch(x){}},true);
+w.addEventListener("pageshow",function(e){if(!e.persisted)return;var left=null;try{left=s&&s.getItem("jf-left");s&&s.removeItem("jf-left")}catch(x){}if(left===location.pathname)return;keep=false;user=false;top();setTimeout(top,50)});
+})(window,history)</script>
 <script>(function(d){d.classList.add("js");setTimeout(function(){if(!d.classList.contains("art-io"))d.classList.remove("js")},4000);try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return}catch(e){}d.classList.add("motion");setTimeout(function(){d.classList.add("motion-done")},2500)})(document.documentElement)</script>
 <script src="assets/vendor/gsap/gsap.min.js" defer></script>
 <script src="assets/vendor/gsap/ScrollTrigger.min.js" defer></script>
@@ -150,7 +165,7 @@
     </div>
     <ol class="timeline">
       <li><span class="when"><span class="ph">[YEAR]</span></span><div><h3>המכונה הראשונה.</h3><p>אלירן מתחיל לקעקע. <span class="ph">[איפה ואצל מי למד]</span></p></div></li>
-      <li><span class="when"><span class="ph">[YEAR]</span></span><div><h3>Jellyfish בעיר העתיקה.</h3><p>הסטודיו נפתח בעיר העתיקה של באר שבע, והופך לאחת הכתובות של העיר לקעקועים.</p></div></li>
+      <li><span class="when">2011</span><div><h3>Jellyfish נולד.</h3><p>אלירן מקים את Jellyfish, שהופך לאחת הכתובות של באר שבע לקעקועים. עם השנים נבנה סביבו צוות של אמנים, כל אחד עם סגנון משלו.</p></div></li>
       <li><span class="when"><span lang="en" aria-hidden="true">YEARS</span><span class="sr">לאורך השנים</span></span><div><h3>אלפי לקוחות.</h3><p>שנים של עבודה יום-יומית, ואלפי אנשים שיצאו עם קעקוע שהם אוהבים עד היום.</p></div></li>
       <li class="is-key"><span class="when">2026</span><div><h3>חוזרים לעיר.</h3><p>Jellyfish חוזר לבאר שבע: אלירן ובוריס בקעקוע, ויניב בפירסינג.</p></div></li>
     </ol>
