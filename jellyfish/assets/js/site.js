@@ -162,6 +162,7 @@
   /* Hero video: stop decoding while the hero is off screen (battery), unless the visitor paused it */
   if (vid && hero && "IntersectionObserver" in window) {
     new IntersectionObserver(function (es) {
+      document.documentElement.classList.toggle("hero-on", es[0].isIntersecting);
       if (hero.classList.contains("is-paused")) return;
       if (es[0].isIntersecting) vid.play().catch(function () {}); else vid.pause();
     }).observe(hero);
