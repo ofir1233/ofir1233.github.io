@@ -289,13 +289,6 @@ a { color: inherit; }
 .stat__ig:hover .stat__l, .stat__ig:focus-visible .stat__l { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 @media (min-width: 1000px) { .stats { margin-top: 12px; } .stats li { padding: 20px 0; } }
 #studio + #styles { padding-top: calc(var(--section-pad) * .6); background: linear-gradient(var(--mist), var(--mist)) top center / min(calc(100% - 2 * var(--gutter)), calc(1680px - 2 * var(--gutter))) 1px no-repeat, var(--paper); }
-/* Reveals (only when site.js has run and motion is allowed) */
-.anim .sig__img { clip-path: inset(-10% 100% -10% 0); transition: clip-path 1.6s cubic-bezier(.45,.05,.3,1) .2s; }
-.anim .sig.is-in .sig__img { clip-path: inset(-10% 0 -10% 0); }
-.anim .stat__word { clip-path: inset(0 0 0 100%); transition: clip-path .9s ease-out .3s; }
-.anim .stats.is-in .stat__word { clip-path: inset(0 0 0 0); }
-.anim .stats li + li .stat__word { transition-delay: .5s; } .anim .stats li + li + li .stat__word { transition-delay: .7s; }
-
 /* Piercing */
 .pierce { display: grid; gap: 64px; }
 @media (min-width: 1000px) { .pierce { grid-template-columns: 6fr 6fr; gap: 80px; align-items: start; } }
@@ -510,3 +503,60 @@ a { color: inherit; }
 .footer__base { align-items: baseline; }
 .credit { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--graphite); opacity: .6; text-decoration: none; transition: opacity .2s; }
 .credit:hover, .credit:focus-visible { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Artist pages (eliran / boris / yaniv): ink header with the portrait, story, work, more of the team */
+.page-head--artist { background-image: none; padding-bottom: clamp(56px, 7vw, 104px); }
+.page-head--artist .display-xl { max-width: none; }
+.artist-head { align-items: end; }
+.artist-status { margin: 24px 0 0; }
+.artist-status .status { font-size: 15px; }
+.portrait { margin: 0; width: 100%; max-width: 440px; justify-self: center; }
+@media (min-width: 1000px) { .portrait { justify-self: end; } }
+.portrait img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; background: #161616; } /* true color, no filters */
+.portrait figcaption { display: flex; justify-content: space-between; gap: 12px; padding-top: 12px; border-top: 1px solid #2a2a2a; margin-top: 12px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; color: var(--mist); direction: ltr; }
+.story .facts { margin-top: 8px; }
+.story__text { max-width: 62ch; }
+.story__text .lead { margin-bottom: 24px; }
+.story__text p { margin: 0 0 18px; }
+.story__quote { margin: 36px 0 8px; padding: 0; }
+.story__quote p { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 4vw, 60px); line-height: .95; margin: 0; text-wrap: balance; }
+.band--ink .tile figcaption { color: var(--mist); }
+.band--ink .tile img { background: #161616; }
+@media (min-width: 900px) { .gallery--4 { grid-template-columns: repeat(4, 1fr); } }
+.tile--more { display: grid; aspect-ratio: 4 / 5; border: 1px solid #3a3a3a; color: var(--paper); text-decoration: none; transition: background-color .2s, color .2s; }
+.tile--more__in { display: grid; gap: 10px; align-content: center; justify-items: center; text-align: center; padding: 16px; }
+.tile--more .mono { color: var(--mist); }
+.tile--more .h3 { font-size: clamp(28px, 2.4vw, 36px); }
+.tile--more:hover, .tile--more:focus-visible { background: var(--paper); color: var(--ink); }
+.tile--more-paper { border-color: var(--ink); color: var(--ink); }
+.tile--more-paper .mono { color: var(--graphite); }
+.tile--more-paper:hover, .tile--more-paper:focus-visible { background: var(--ink); color: var(--paper); }
+.archive { margin: 8px 0 0; aspect-ratio: 4 / 3; border: 1px dashed var(--mist); display: grid; gap: 10px; align-content: center; justify-items: center; text-align: center; padding: 24px; color: var(--graphite); }
+.history .timeline .when .ph { font-size: 1em; }
+.prices--ink th, .prices--ink td, .prices--ink tr:first-child th, .prices--ink tr:first-child td { border-color: #2a2a2a; }
+.prices--ink th small { color: var(--mist); }
+.care-card { border: 1px solid var(--ink); padding: clamp(24px, 3vw, 40px); display: grid; gap: 16px; align-content: start; justify-items: start; }
+.care-card p { margin: 0; }
+@media (min-width: 1000px) { .care-card { position: sticky; top: calc(var(--nav-compact) + 24px); } }
+.team-more { padding-top: calc(var(--section-pad) * .6); background: linear-gradient(var(--mist), var(--mist)) top center / min(calc(100% - 2 * var(--gutter)), calc(1680px - 2 * var(--gutter))) 1px no-repeat, var(--paper); }
+.team-more__grid { display: grid; gap: 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; }
+.mate { display: grid; gap: 8px; align-content: start; text-decoration: none; color: inherit; }
+.mate img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; background: #eee; }
+.mate__name { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 4vw, 56px); line-height: .9; margin-top: 8px; }
+.mate__role { color: var(--graphite); }
+.mate:hover .mate__name, .mate:focus-visible .mate__name { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+/* Home: artist cards link to the pages */
+.artist__link { display: block; }
+.artist__name a { text-decoration: none; }
+.artist__name a:hover, .artist__name a:focus-visible { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.artist__page { font-weight: 500; text-underline-offset: 6px; }
+.footer__sub { font-size: 14px; color: var(--graphite); padding-inline-start: 12px; margin-top: -4px; }
+.studio__links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+
+/* Motion (assets/js/motion.js). The inline script in <head> adds .motion when motion is allowed; motion.js adds .motion-done
+   once GSAP has set the starting states, or after 2.5s if the scripts never load. Nothing is hidden without JS. */
+.motion:not(.motion-done) :is(.hero--video .hero__center, .hero--video .hero__strip, .page-head .wrap) { visibility: hidden; }
+.line-mask { display: block; overflow: clip; padding-block: .08em .2em; margin-block: -.08em -.2em; }
+.line { display: block; }
+.word-mask { display: inline-block; overflow: clip; padding-block: .06em .18em; margin-block: -.06em -.18em; vertical-align: top; }
+.word { display: inline-block; }
