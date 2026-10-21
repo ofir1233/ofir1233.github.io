@@ -135,7 +135,7 @@ section[id] { scroll-margin-top: calc(var(--nav-compact) - var(--nav-h)); }
 
 /* Nav: parchment; a hairline and a little blur once the page moves */
 .nav { position: fixed; inset: 0 0 auto; padding-top: env(safe-area-inset-top, 0px); z-index: 50; background: transparent; color: var(--ink); border-bottom: 1px solid transparent; transition: background-color .3s, border-color .3s; }
-.nav.is-solid { background: rgba(242, 232, 218, .93); border-bottom-color: var(--line); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.nav.is-solid { background: var(--paper); border-bottom-color: var(--line); }
 .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: var(--nav-h); transition: height .3s; }
 .nav.is-compact .wrap { height: var(--nav-compact); }
 .nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; direction: ltr; }
@@ -167,12 +167,12 @@ section[id] { scroll-margin-top: calc(var(--nav-compact) - var(--nav-h)); }
 
 /* Ornaments: shared */
 .orn { position: absolute; pointer-events: none; -webkit-user-select: none; user-select: none; max-width: none; }
-.orn-mandala { rotate: var(--spin, 0deg); display: block; aspect-ratio: 1; background: var(--terra); -webkit-mask: url(../orn/mandala-lotus.svg) center / contain no-repeat; mask: url(../orn/mandala-lotus.svg) center / contain no-repeat; }
+.orn-mandala { display: block; aspect-ratio: 1; background: var(--terra); -webkit-mask: url(../orn/mandala-lotus.svg) center / contain no-repeat; mask: url(../orn/mandala-lotus.svg) center / contain no-repeat; }
 .orn-mandala--geo { -webkit-mask-image: url(../orn/mandala-geo.svg); mask-image: url(../orn/mandala-geo.svg); }
 .orn-pendant { width: auto; }
 .spark { display: block; width: 18px; height: 18px; color: var(--coral); fill: currentColor; }
 
-/* Home hero: the studio film over the whole screen (the owner's call), printed onto paper by a grain layer, a warm ink wash
+/* Home hero: the studio film over the whole screen (the owner's call), a warm ink wash
    on the reading side so the parchment lockup and the pill read, painted leaves over the far foot */
 .hero { position: relative; isolation: isolate; overflow: clip; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding-top: var(--nav-h); background: var(--ink); color: var(--paper); }
 .hero__film { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
@@ -181,7 +181,6 @@ section[id] { scroll-margin-top: calc(var(--nav-compact) - var(--nav-h)); }
   background: linear-gradient(180deg, rgba(21, 19, 18, .5) 0, rgba(21, 19, 18, 0) 180px),
               linear-gradient(270deg, rgba(21, 19, 18, .74) 0%, rgba(21, 19, 18, .5) 34%, rgba(21, 19, 18, .1) 64%, rgba(21, 19, 18, 0) 80%),
               linear-gradient(0deg, rgba(21, 19, 18, .45) 0%, rgba(21, 19, 18, 0) 32%); }
-.hero__film::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: url(../orn/paper.png) 0 0 / 512px 512px; mix-blend-mode: multiply; opacity: .5; }
 .hero__grid { position: relative; width: 100%; padding-block: 32px 88px; }
 .hero__text { position: relative; z-index: 2; display: grid; justify-items: start; min-width: 0; max-width: 620px; }
 .hero__logo { margin: 0 0 clamp(20px, 2.4vw, 32px); width: min(100%, 500px); }
@@ -770,17 +769,6 @@ bdi { white-space: nowrap; }
 .band--ink + .band, .band--teal + .band, .flash-wrap + .band { padding-top: calc(var(--section-pad) * .8); }
 .band--ink + .band--ink::before, .band--ink + .footer::before { content: none; }
 
-/* Motion (assets/js/motion.js). The inline script in <head> adds .motion when motion is allowed; motion.js adds .motion-done
-   once GSAP has set the starting states, or after 2.5s if the scripts never load. Nothing is hidden without JS. */
-.motion:not(.motion-done) :is(.hero .hero__text, .page-head .wrap) { visibility: hidden; }
-.page-head--artist { overflow-x: clip; }
-.line-mask { display: block; overflow: hidden; overflow: clip; padding-block: .1em .22em; margin-block: -.1em -.22em; }
-.is-split { display: flex; flex-direction: column; }
-.hero__line.is-split, .statement__text p.is-split { align-items: inherit; }
-.line { display: block; }
-.word-mask { display: inline-block; overflow: hidden; overflow: clip; padding-block: .06em .18em; margin-block: -.06em -.18em; vertical-align: top; }
-.word { display: inline-block; }
-
 /* Phone: thumb-width section buttons */
 @media (max-width: 767px) {
   .section-cta .btn { flex: 1 1 100%; }
@@ -793,16 +781,3 @@ bdi { white-space: nowrap; }
 }
 @media (prefers-reduced-motion: reduce) { .mbar, .nlbar, .site--home .nlbar { transition: none; } }
 
-/* Reveal of the ornaments (site.js adds .is-in when one enters the screen): pendants drop from their thread, the brush arc
-   is painted along its sweep, mandalas and leaves surface. Sizes never change, only a clip or opacity. */
-@media (prefers-reduced-motion: no-preference) {
-  html.js .js-art.orn-pendant, html.js .head-art__orn.js-art img { clip-path: inset(0 0 100% 0); transition: clip-path 1400ms cubic-bezier(.2,.7,.1,1); }
-  html.js .js-art.orn-pendant.is-in, html.js .head-art__orn.js-art.is-in img { clip-path: inset(0 0 0 0); }
-  html.js .js-art.closer__arcs { clip-path: inset(0 0 0 100%); transition: clip-path 1600ms cubic-bezier(.3,.6,.1,1); }
-  html.js .js-art.closer__arcs.is-in { clip-path: inset(0 0 0 0); }
-  html.js .js-art:is(.orn-mandala, .hero__leaves, .closer__leaves) { opacity: 0; transition: opacity 1600ms ease-out; }
-  html.js .js-art.orn-mandala.is-in { opacity: var(--o, .5); }
-  html.js .js-art:is(.hero__leaves, .closer__leaves).is-in { opacity: 1; }
-  html.js .band--ink.js-drip::after, html.js .band--teal.js-drip::after { clip-path: inset(0 0 100% 0); transition: clip-path 1500ms cubic-bezier(.3,.6,.1,1); }
-  html.js .band--ink.js-drip.is-in::after, html.js .band--teal.js-drip.is-in::after { clip-path: inset(0 0 0 0); }
-}

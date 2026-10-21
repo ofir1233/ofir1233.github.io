@@ -3,28 +3,6 @@
 
   /* Opening at the top is handled by the first script in <head>, before the browser can restore or jump. */
 
-  /* Art layer (brand book 7.6.4): stipple edges and drawing crops are revealed once, as they enter the screen.
-     The CSS does the motion (dots from the dense edge, 900ms; the drawing from its axis, 1200ms) and skips it for
-     reduced motion. The inline script in <head> sets .js so nothing flashes; "art-io" tells it this script runs,
-     otherwise it drops .js after 4s and all art simply shows. Runs first, so an error further down cannot hide art. */
-  (function () {
-    var root = document.documentElement, art = [].slice.call(document.querySelectorAll(".js-art"));
-    root.classList.add("art-io");
-    var show = function (el) { el.classList.add("is-in"); };
-    if (!art.length || !root.classList.contains("js")) return;  /* no .js (a very slow load dropped it): the art already shows */
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) { art.forEach(show); return; }
-    /* The observer sees an element through its own clip-path, which starts closed on the axis. A drawing whose axis
-       is past the page edge (the prices crop) is therefore watched through its heading block instead. */
-    var watch = function (el) { return (el.classList.contains("head-art__crop") && el.parentElement) || el; };
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (!e.isIntersecting) return; io.unobserve(e.target); art.forEach(function (el) { if (watch(el) === e.target) show(el); }); });
-    }, { rootMargin: "99999px 0px -8% 0px" });  /* a huge top margin: art already scrolled past (a fast fling) counts as seen */
-    art.forEach(function (el) { io.observe(watch(el)); });
-    /* whatever already shows on the first screen, even its last few pixels, comes in now (and again once the page has loaded) */
-    var first = function () { art.forEach(function (el) { if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < window.innerHeight) { show(el); io.unobserve(watch(el)); } }); };
-    first(); window.addEventListener("load", first);
-  })();
-
   /* ===== Settings ===== */
   var WHATSAPP = "972525659677";  // wa.me format: 972 + number without the leading 0 (052-5659677)
   var GA4_ID = "";                // [GA4 measurement ID, e.g. G-XXXXXXX]. Empty = no analytics, no consent bar
