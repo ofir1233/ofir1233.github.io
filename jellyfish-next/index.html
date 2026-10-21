@@ -89,16 +89,18 @@ w.addEventListener("pageshow",function(e){if(!e.persisted)return;var left=null;t
 </dialog>
 
 <main id="main">
-<!-- HERO: parchment. The lockup and the booking pill on the reading side, the studio film in an arch on the far side,
-     a faded lotus mandala behind it, beaded pendants hanging from the top, painted leaves over its foot -->
+<!-- HERO: the studio film over the whole screen (the owner's call), a warm ink wash on the reading side with paper grain over
+     the film, the parchment lockup and the booking pill over it, painted leaves over its far foot -->
 <header class="hero" id="top">
-  <img class="orn hero__arc js-art" src="assets/orn/brush-arc.svg" alt="" aria-hidden="true">
-  <img class="orn orn-pendant hero__pend hero__pend--1 js-art" src="assets/orn/pendant-a.svg" alt="" aria-hidden="true">
-  <img class="orn orn-pendant hero__pend hero__pend--2 js-art" src="assets/orn/pendant-b.svg" alt="" aria-hidden="true">
-  <img class="orn orn-pendant hero__pend hero__pend--3 js-art" src="assets/orn/pendant-c.svg" alt="" aria-hidden="true">
+  <div class="hero__film" aria-hidden="true">
+    <video class="hero__bg" poster="assets/video/hero-bg.jpg" autoplay muted loop playsinline preload="auto">
+      <source src="assets/video/hero-bg.mp4" type="video/mp4" media="(min-width: 768px)">
+      <source src="assets/video/hero-bg-m.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="wrap hero__grid">
     <div class="hero__text">
-      <h1 class="hero__logo"><img src="assets/orn/lockup-words.svg" alt="Jellyfish Tattoo" width="853" height="486"></h1>
+      <h1 class="hero__logo"><img src="assets/orn/lockup-words-paper.svg" alt="Jellyfish Tattoo" width="853" height="486"></h1>
       <p class="hero__line">יש הרבה מקעקעים. מעט אמנים.</p>
       <p class="lead">פיין ליין, בוטני ודוטוורק אורנמנטלי, מצויר ביד ע״י אלירן ובוריס. חוזרים לבאר שבע.</p>
       <div class="btn-row">
@@ -112,22 +114,11 @@ w.addEventListener("pageshow",function(e){if(!e.persisted)return;var left=null;t
         <a href="#artists">אמנים, לא רק מקעקעים</a>
       </div>
     </div>
-    <div class="hero__media">
-      <span class="orn orn-mandala hero__mandala js-art" aria-hidden="true"></span>
-      <div class="hero__arch">
-        <video class="hero__bg" poster="assets/video/hero-bg.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-          <source src="assets/video/hero-bg.mp4" type="video/mp4" media="(min-width: 768px)">
-          <source src="assets/video/hero-bg-m.mp4" type="video/mp4">
-        </video>
-      </div>
-      <svg class="spark hero__spark hero__spark--a" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0c.8 6 4 9.2 10 10-6 .8-9.2 4-10 10-.8-6-4-9.2-10-10 6-.8 9.2-4 10-10z"/></svg>
-      <svg class="spark hero__spark hero__spark--b" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0c.8 6 4 9.2 10 10-6 .8-9.2 4-10 10-.8-6-4-9.2-10-10 6-.8 9.2-4 10-10z"/></svg>
-      <button class="hero__toggle" id="hero-toggle" type="button" aria-label="עצירת הווידאו">
-        <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3v12H4zM9 2h3v12H9z" fill="currentColor"/></svg>
-        <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z" fill="currentColor"/></svg>
-      </button>
-    </div>
   </div>
+  <button class="hero__toggle" id="hero-toggle" type="button" aria-label="עצירת הווידאו">
+    <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3v12H4zM9 2h3v12H9z" fill="currentColor"/></svg>
+    <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z" fill="currentColor"/></svg>
+  </button>
   <img class="orn hero__leaves js-art" src="assets/orn/leaves-br.webp" alt="" aria-hidden="true" width="932" height="980">
 </header>
 

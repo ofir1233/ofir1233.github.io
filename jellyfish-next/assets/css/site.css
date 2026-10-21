@@ -172,61 +172,61 @@ section[id] { scroll-margin-top: calc(var(--nav-compact) - var(--nav-h)); }
 .orn-pendant { width: auto; }
 .spark { display: block; width: 18px; height: 18px; color: var(--coral); fill: currentColor; }
 
-/* Home hero: parchment, the lockup and the booking pill on the reading side, the studio film in an arch on the far side,
-   a faded lotus mandala behind it, beaded pendants hanging from the top and painted leaves over its foot */
-.hero { position: relative; isolation: isolate; overflow: clip; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding-top: var(--nav-h); }
-.hero__grid { position: relative; width: 100%; display: grid; gap: 48px; align-items: center; padding-block: 24px 72px; }
-@media (min-width: 1000px) { .hero__grid { grid-template-columns: 7fr 5fr; gap: clamp(40px, 5vw, 96px); padding-block: 32px 64px; } }
-.hero__text { position: relative; z-index: 2; display: grid; justify-items: start; min-width: 0; }
+/* Home hero: the studio film over the whole screen (the owner's call), printed onto paper by a grain layer, a warm ink wash
+   on the reading side so the parchment lockup and the pill read, painted leaves over the far foot */
+.hero { position: relative; isolation: isolate; overflow: clip; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding-top: var(--nav-h); background: var(--ink); color: var(--paper); }
+.hero__film { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.hero__bg { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hero__film::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(21, 19, 18, .5) 0, rgba(21, 19, 18, 0) 180px),
+              linear-gradient(270deg, rgba(21, 19, 18, .74) 0%, rgba(21, 19, 18, .5) 34%, rgba(21, 19, 18, .1) 64%, rgba(21, 19, 18, 0) 80%),
+              linear-gradient(0deg, rgba(21, 19, 18, .45) 0%, rgba(21, 19, 18, 0) 32%); }
+.hero__film::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: url(../orn/paper.png) 0 0 / 512px 512px; mix-blend-mode: multiply; opacity: .5; }
+.hero__grid { position: relative; width: 100%; padding-block: 32px 88px; }
+.hero__text { position: relative; z-index: 2; display: grid; justify-items: start; min-width: 0; max-width: 620px; }
 .hero__logo { margin: 0 0 clamp(20px, 2.4vw, 32px); width: min(100%, 500px); }
 .hero__logo img { width: 100%; height: auto; }
-.hero__line { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 3.1vw, 46px); line-height: 1.08; margin: 0; text-wrap: balance; }
-.hero .lead { margin-top: 14px; color: var(--graphite); max-width: 42ch; }
+.hero__line { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 3.1vw, 46px); line-height: 1.08; margin: 0; text-wrap: balance; color: var(--paper); }
+.hero .lead { margin-top: 14px; color: var(--mist); max-width: 42ch; }
 .hero .btn-row { margin-top: 32px; }
-.hero__labels { display: flex; flex-wrap: wrap; align-items: stretch; margin-top: 36px; font-size: 14px; font-weight: 500; letter-spacing: .03em; line-height: 1.35; }
-.hero__labels > * { display: block; padding: 6px 18px; border-inline-start: 1px solid var(--line-strong); text-decoration: none; }
+.hero .btn--ghost { color: var(--paper); border-color: var(--paper); }
+.hero .btn--ghost:hover { background: var(--paper); color: var(--ink); }
+.hero__labels { display: flex; flex-wrap: wrap; align-items: stretch; margin-top: 36px; font-size: 14px; font-weight: 500; letter-spacing: .03em; line-height: 1.35; color: var(--paper); }
+.hero__labels > * { display: block; padding: 6px 18px; border-inline-start: 1px solid rgba(242, 232, 218, .45); text-decoration: none; }
 .hero__labels > :first-child { padding-inline-start: 0; border-inline-start: 0; }
-.hero__labels a:hover { color: var(--clay); text-decoration: underline; text-underline-offset: 5px; }
-.hero__media { position: relative; z-index: 1; justify-self: center; width: min(100%, 470px); }
-.hero__arch { position: relative; aspect-ratio: 4 / 5; border-radius: var(--arch); overflow: hidden; background: var(--ink); }
-.hero__media::before { content: ""; position: absolute; inset: -14px; border: 1px solid var(--ink); border-radius: 50% 50% 0 0 / 39% 39% 0 0; border-bottom: 0; pointer-events: none; }
-.hero__bg { width: 100%; height: 100%; object-fit: cover; }
-.hero__spark { position: absolute; top: 34%; }
-.hero__spark--a { inset-inline-end: -40px; }
-.hero__spark--b { inset-inline-start: -40px; top: 52%; width: 12px; height: 12px; color: var(--ink); }
-.hero__toggle { position: absolute; z-index: 3; bottom: 16px; inset-inline-start: 16px; width: 40px; height: 40px; display: grid; place-items: center; background: rgba(242, 232, 218, .9); border: 0; border-radius: 50%; color: var(--ink); cursor: pointer; }
+.hero__labels a:hover { color: var(--coral-light); text-decoration: underline; text-underline-offset: 5px; }
+.hero .ph { background: rgba(212, 154, 51, .35); border-bottom-color: var(--ochre-light); }
+/* the far side is the left in Hebrew: the pause button sits there, above the leaves */
+.hero__toggle { position: absolute; z-index: 3; top: calc(var(--nav-h) + 20px); left: max(var(--gutter), calc((100vw - 1680px) / 2 + var(--gutter))); width: 40px; height: 40px; display: grid; place-items: center; background: rgba(242, 232, 218, .9); border: 0; border-radius: 50%; color: var(--ink); cursor: pointer; }
 .hero__toggle svg { width: 14px; height: 14px; }
 .hero__toggle .i-play { display: none; }
 .hero.is-paused .hero__toggle .i-play { display: block; }
 .hero.is-paused .hero__toggle .i-pause { display: none; }
-.hero__mandala { z-index: -1; width: 210%; top: 50%; left: 50%; transform: translate(-50%, -50%); --o: .42; opacity: .42; }
-.hero__arc { z-index: -1; width: min(92vw, 640px); height: auto; top: -18%; left: -24%; opacity: .9; transform: rotate(-18deg); }
-.hero__pend { z-index: 0; top: 0; height: auto; }
-.hero__pend--1 { left: 3%; width: 22px; }
-.hero__pend--2 { left: 7.5%; width: 18px; }
-.hero__pend--3 { left: 42%; width: 16px; display: none; }
-.hero__leaves { z-index: 2; width: min(40vw, 560px); height: auto; bottom: -48px; left: 0; transform: scaleX(-1); }
-.hero__splat { z-index: 0; width: 260px; height: auto; bottom: 4%; left: 40%; opacity: .9; }
+.hero__leaves { z-index: 2; width: min(34vw, 500px); height: auto; bottom: -48px; left: 0; transform: scaleX(-1); }
+/* over the film the top of the nav is parchment; once it turns solid it goes back to ink */
+.nav:not(.is-solid) { color: var(--paper); }
+.nav:not(.is-solid) .nav__links a, .nav:not(.is-solid) .menu-btn { color: var(--paper); }
+.nav:not(.is-solid) .mark-small { background-image: url(../orn/doll-paper.svg); }
 @media (max-width: 999px) {
-  .hero { min-height: 0; align-items: start; }
-  .hero__grid { padding-block: 8px 112px; }
-  .hero__text { justify-items: center; text-align: center; }
+  .hero { align-items: end; }
+  .hero__grid { padding-block: 24px 64px; }
+  .hero__text { justify-items: center; text-align: center; max-width: none; }
+  .hero__film::before { background: linear-gradient(180deg, rgba(21, 19, 18, .55) 0%, rgba(21, 19, 18, .3) 30%, rgba(21, 19, 18, .55) 60%, rgba(21, 19, 18, .8) 100%); }
   .hero__logo { width: min(86%, 440px); }
   .hero .lead { margin-inline: auto; }
   .hero .btn-row { justify-content: center; }
   .hero__labels { justify-content: center; }
-  .hero__media { width: min(78%, 400px); }
-  .hero__leaves { width: min(64vw, 380px); bottom: -24px; }
-  .hero__arc { top: auto; bottom: 8%; left: -40%; width: min(110vw, 560px); }
+  .hero__leaves { display: none; }
 }
 @media (max-width: 767px) {
+  .hero__grid { padding-block: 64px 92px; }  /* room above for the pause button, below for the WhatsApp bar */
   .hero__logo { width: min(90%, 380px); }
   .hero__line { font-size: clamp(26px, 7.4vw, 34px); }
   .hero .btn-row { flex-direction: column; align-items: stretch; width: 100%; max-width: 400px; margin-inline: auto; gap: 8px; }
-  .hero__labels { display: grid; gap: 0; width: 100%; max-width: 400px; margin-top: 28px; text-align: center; }
-  .hero__labels > * { padding: 12px 0; border-inline-start: 0; border-top: 1px solid var(--line); }
+  .hero__labels { display: grid; gap: 0; width: 100%; max-width: 400px; margin-top: 24px; text-align: center; }
+  .hero__labels > * { padding: 10px 0; border-inline-start: 0; border-top: 1px solid rgba(242, 232, 218, .3); }
   .hero__labels > :first-child { border-top: 0; }
-  .hero__pend--1 { left: 2%; } .hero__pend--2 { left: auto; right: 3%; }
+  .hero__toggle { top: calc(var(--nav-h) + 12px); left: 16px; }
 }
 
 /* Short-page header: parchment, a big ink title, a faded mandala and pendants on the far side */
@@ -772,7 +772,7 @@ bdi { white-space: nowrap; }
 
 /* Motion (assets/js/motion.js). The inline script in <head> adds .motion when motion is allowed; motion.js adds .motion-done
    once GSAP has set the starting states, or after 2.5s if the scripts never load. Nothing is hidden without JS. */
-.motion:not(.motion-done) :is(.hero .hero__text, .hero .hero__media, .page-head .wrap) { visibility: hidden; }
+.motion:not(.motion-done) :is(.hero .hero__text, .page-head .wrap) { visibility: hidden; }
 .page-head--artist { overflow-x: clip; }
 .line-mask { display: block; overflow: hidden; overflow: clip; padding-block: .1em .22em; margin-block: -.1em -.22em; }
 .is-split { display: flex; flex-direction: column; }
@@ -798,8 +798,8 @@ bdi { white-space: nowrap; }
 @media (prefers-reduced-motion: no-preference) {
   html.js .js-art.orn-pendant, html.js .head-art__orn.js-art img { clip-path: inset(0 0 100% 0); transition: clip-path 1400ms cubic-bezier(.2,.7,.1,1); }
   html.js .js-art.orn-pendant.is-in, html.js .head-art__orn.js-art.is-in img { clip-path: inset(0 0 0 0); }
-  html.js .js-art.hero__arc, html.js .js-art.closer__arcs { clip-path: inset(0 0 0 100%); transition: clip-path 1600ms cubic-bezier(.3,.6,.1,1); }
-  html.js .js-art.hero__arc.is-in, html.js .js-art.closer__arcs.is-in { clip-path: inset(0 0 0 0); }
+  html.js .js-art.closer__arcs { clip-path: inset(0 0 0 100%); transition: clip-path 1600ms cubic-bezier(.3,.6,.1,1); }
+  html.js .js-art.closer__arcs.is-in { clip-path: inset(0 0 0 0); }
   html.js .js-art:is(.orn-mandala, .hero__leaves, .closer__leaves) { opacity: 0; transition: opacity 1600ms ease-out; }
   html.js .js-art.orn-mandala.is-in { opacity: var(--o, .5); }
   html.js .js-art:is(.hero__leaves, .closer__leaves).is-in { opacity: 1; }

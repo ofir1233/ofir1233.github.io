@@ -101,13 +101,10 @@
       tl.add(rise(one(".lead", hero)), 0.85);
       tl.add(rise(all(".btn-row > *", hero), { stagger: 0.09 }), 0.95);
       tl.add(rise(all(".hero__labels > *", hero), { y: 8, stagger: 0.07 }), 1.1);
-      /* The film opens upward inside its arch */
-      var arch = one(".hero__arch", hero);
-      if (arch) {
-        tl.add(gsap.fromTo(arch, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.5, ease: EXPO, clearProps: "clipPath" }), 0.25);
-        tl.add(gsap.from(one(".hero__bg", hero), { scale: 1.16, duration: 2.2, ease: EXPO, clearProps: "transform" }), 0.25);
-        tl.add(rise(all(".hero__spark, .hero__toggle", hero), { y: 0, duration: 1 }), 1.2);
-      }
+      /* The film settles from a slow push-in behind the text */
+      var bg = one(".hero__bg", hero);
+      if (bg) tl.add(gsap.from(bg, { scale: 1.12, duration: 2.6, ease: EXPO, clearProps: "transform" }), 0);
+      tl.add(rise(one(".hero__toggle", hero), { y: 0, duration: 1 }), 1.2);
     }
     /* Short pages and artist pages */
     var head = one(".page-head");
