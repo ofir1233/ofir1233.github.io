@@ -13,12 +13,15 @@
     var show = function (el) { el.classList.add("is-in"); };
     if (!art.length || !root.classList.contains("js")) return;  /* no .js (a very slow load dropped it): the art already shows */
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) { art.forEach(show); return; }
+    /* The observer sees an element through its own clip-path, which starts closed on the axis. A drawing whose axis
+       is past the page edge (the prices crop) is therefore watched through its heading block instead. */
+    var watch = function (el) { return (el.classList.contains("head-art__crop") && el.parentElement) || el; };
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+      es.forEach(function (e) { if (!e.isIntersecting) return; io.unobserve(e.target); art.forEach(function (el) { if (watch(el) === e.target) show(el); }); });
     }, { rootMargin: "99999px 0px -8% 0px" });  /* a huge top margin: art already scrolled past (a fast fling) counts as seen */
-    art.forEach(function (el) { io.observe(el); });
+    art.forEach(function (el) { io.observe(watch(el)); });
     /* whatever already shows on the first screen, even its last few pixels, comes in now (and again once the page has loaded) */
-    var first = function () { art.forEach(function (el) { if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < window.innerHeight) { show(el); io.unobserve(el); } }); };
+    var first = function () { art.forEach(function (el) { if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < window.innerHeight) { show(el); io.unobserve(watch(el)); } }); };
     first(); window.addEventListener("load", first);
   })();
 
@@ -179,11 +182,14 @@
     drawer.addEventListener("click", function (e) { if (e.target.closest("a")) closeDrawer(); });
   }
 
-  /* Sideways rows on phones: a focused card comes fully into view (the browser stops scrolling once a sliver shows),
+  /* Sideways rows on phones: a focused card comes fully into view sideways (the browser stops scrolling once a sliver shows; the page itself is left alone),
      and a row is a Tab stop only while it actually scrolls */
   document.addEventListener("focusin", function (e) {
     var c = e.target.closest && e.target.closest(".vouchers > *, .cards > *, .styles > *");
-    if (c) c.scrollIntoView({ block: "nearest", inline: "nearest" });
+    if (!c) return;
+    var row = c.parentElement, rb = row.getBoundingClientRect(), cb = c.getBoundingClientRect();
+    var dx = cb.left < rb.left + 6 ? cb.left - rb.left - 6 : cb.right > rb.right - 6 ? cb.right - rb.right + 6 : 0;
+    if (dx) row.scrollLeft += dx;
   });
   var sideRows = document.querySelectorAll(".styles, .flash-grid");
   var syncRows = function () { sideRows.forEach(function (el) { if (el.scrollWidth > el.clientWidth + 1) el.setAttribute("tabindex", "0"); else el.removeAttribute("tabindex"); }); };

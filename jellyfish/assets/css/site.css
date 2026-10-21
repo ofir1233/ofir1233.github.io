@@ -118,12 +118,12 @@ section[id] { scroll-margin-top: calc(var(--nav-compact) - var(--nav-h)); }
 @media (min-width: 1100px) { .nav__links { display: flex; } .menu-btn { display: none; } }
 @media (max-width: 520px) { .nav__end .btn { display: none; } }
 .drawer:not([open]) { display: none; }
-.drawer { border: 0; margin: 0; width: 100%; height: 100%; max-width: none; max-height: none; position: fixed; inset: 0; z-index: 70; background: var(--ink); color: var(--paper); padding: calc(env(safe-area-inset-top, 0px) + 24px) max(24px, env(safe-area-inset-right, 0px)) 24px max(24px, env(safe-area-inset-left, 0px)); display: flex; flex-direction: column; gap: 4px; overflow-y: auto; }
+.drawer { border: 0; margin: 0; width: 100%; height: 100%; max-width: none; max-height: none; position: fixed; inset: 0; z-index: 70; background: var(--ink); color: var(--paper); padding: calc(env(safe-area-inset-top, 0px) + 24px) max(24px, env(safe-area-inset-right, 0px)) 24px max(24px, env(safe-area-inset-left, 0px)); display: flex; flex-direction: column; gap: 4px; overflow-y: auto; scroll-padding-block: 24px; }
 .drawer a { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 4.6svh, 48px); text-decoration: none; line-height: 1.2; }
 .drawer .btn { font: 500 17px/1 var(--font-text); margin-top: auto; align-self: stretch; position: sticky; bottom: 0; box-shadow: 0 -24px 0 var(--ink); }
 /* the button's ink band never sits on the last link; on short screens (landscape phones) it follows the links instead of floating over them */
 .drawer > a:nth-last-child(2) { margin-bottom: 24px; }
-@media (max-height: 640px) { .drawer .btn { position: static; box-shadow: none; margin-top: 24px; } }
+@media (max-height: 640px) { .drawer .btn { position: static; box-shadow: none; margin-top: auto; } }
 .drawer .close { align-self: flex-end; flex: none; background: none; border: 1px solid var(--graphite); color: var(--paper); width: 44px; height: 44px; font-size: 22px; cursor: pointer; margin-bottom: 16px; }
 
 /* Video hero */
@@ -587,6 +587,8 @@ section[id] { scroll-margin-top: calc(var(--nav-compact) - var(--nav-h)); }
 /* Motion (assets/js/motion.js). The inline script in <head> adds .motion when motion is allowed; motion.js adds .motion-done
    once GSAP has set the starting states, or after 2.5s if the scripts never load. Nothing is hidden without JS. */
 .motion:not(.motion-done) :is(.hero--video .hero__center, .hero--video .hero__strip, .page-head .wrap) { visibility: hidden; }
+bdi { white-space: nowrap; }
+.page-head--artist { overflow-x: clip; }
 .line-mask { display: block; overflow: hidden; overflow: clip; padding-block: .08em .2em; margin-block: -.08em -.2em; }
 /* while a heading is cut into masks it keeps its own height: the masks' negative margins stay inside it, so nothing
    around it (the art beside the prices heading, the next block) moves when the reveal ends */
@@ -627,7 +629,7 @@ section[id] { scroll-margin-top: calc(var(--nav-compact) - var(--nav-h)); }
 @media (max-width: 767px) {
   .site--home { --dock: 73px; }
   .site--home:has(#nlbar:not([hidden])) { --dock: 113px; }
-  .site--home .hero__center { padding-bottom: calc(132px + var(--dock)); }
+  .site--home .hero__center { padding-bottom: calc(132px + 73px); }
   .site--home .hero__strip { padding-bottom: calc(6px + var(--dock) + env(safe-area-inset-bottom, 0px)); }
   .site--home .hero__toggle { bottom: calc(8px + var(--dock) + env(safe-area-inset-bottom, 0px)); }
 }
@@ -782,6 +784,7 @@ section[id] { scroll-margin-top: calc(var(--nav-compact) - var(--nav-h)); }
 .head-art__crop { position: absolute; top: calc(-1 * var(--section-pad)); bottom: calc(-1 * var(--display-mb)); left: calc(-1 * var(--gutter)); aspect-ratio: 170 / 320; pointer-events: none; }
 .head-art__crop > .jf-crop { position: absolute; inset: 0; }
 @media (min-width: 1681px) { .head-art__crop { left: calc((1680px - 100vw) / 2 - var(--gutter)); } }
+@media (max-width: 767px) { .head-art__crop { left: calc(-1 * var(--gutter) - 12px); } }
 /* The opening mark above the quotes, centred on the axis of the quote block (7.3.4).
    Phones: the band is solid ink from 420px down, and the mark sits below that. 768-899px: the band is the jellyfish
    photo under a scrim, so no mark there (7.2.6, 2.11). From 900px the block is the start-side 62%: its axis is at 31%. */
