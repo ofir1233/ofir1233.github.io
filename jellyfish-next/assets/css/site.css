@@ -54,7 +54,7 @@ body { margin: 0; background: var(--paper) url(../orn/paper.png) 0 0 / 512px 512
 img, video, svg { max-width: 100%; display: block; }
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.band--ink :focus-visible, .band--teal :focus-visible, .footer :focus-visible, .lb :focus-visible, .consent :focus-visible, .nlbar :focus-visible { outline-color: var(--paper); }
+.band--ink :focus-visible, .band--teal :focus-visible, .footer :focus-visible, .lb :focus-visible, .consent :focus-visible, .nlbar :focus-visible, .hero :focus-visible, .nav:not(.is-solid) :focus-visible { outline-color: var(--paper); }
 .nlbar :focus-visible { outline-offset: -4px; }
 .wa:focus-visible, .hero__toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; box-shadow: 0 0 0 2px var(--paper); }
 html { scroll-padding-top: calc(var(--nav-h) + 8px); }
@@ -192,7 +192,7 @@ html:not(.js) .menu-btn { display: none; }
 .hero__logo { margin: 0 0 clamp(20px, 2.4vw, 32px); width: min(100%, 500px); }
 .hero__logo img { width: 100%; height: auto; }
 .hero__line { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 3.1vw, 46px); line-height: 1.08; margin: 0; text-wrap: balance; color: var(--paper); }
-.hero .lead { margin-top: 14px; color: var(--mist); max-width: 42ch; }
+.hero .lead { margin-top: 14px; color: var(--paper); max-width: 42ch; }
 .hero .btn-row { margin-top: 32px; }
 .hero .btn--ghost { color: var(--paper); border-color: var(--paper); }
 .hero .btn--ghost:hover { background: var(--paper); color: var(--ink); }
@@ -217,7 +217,7 @@ html:not(.js) .menu-btn { display: none; }
   .hero { align-items: end; }
   .hero__grid { padding-block: 24px 64px; }
   .hero__text { justify-items: center; text-align: center; max-width: none; }
-  .hero__film::before { background: linear-gradient(180deg, rgba(21, 19, 18, .55) 0%, rgba(21, 19, 18, .3) 30%, rgba(21, 19, 18, .55) 60%, rgba(21, 19, 18, .8) 100%); }
+  .hero__film::before { background: linear-gradient(180deg, rgba(21, 19, 18, .55) 0%, rgba(21, 19, 18, .45) 30%, rgba(21, 19, 18, .6) 60%, rgba(21, 19, 18, .8) 100%); }
   .hero__logo { width: min(86%, 440px); }
   .hero .lead { margin-inline: auto; }
   .hero .btn-row { justify-content: center; }
