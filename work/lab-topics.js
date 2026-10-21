@@ -277,14 +277,10 @@
           const d = el.querySelector('.dl'); if (d) subLayout(d, w, h);
         });
       };
-      // the page keeps the Ask AI column solid on a window that fades at the bottom: with every move of the panel the scene
-      // gives the window around it (a .ct-win, if there is one) the column's width as --tq-col, so the column's left edge
-      // stays at the panel's left edge, a little inside the gap before it: 0 while the panel is closed, 27.5% when it is open
+      // the dashboard's width with the Ask AI panel closed (W0) and open (W1)
       const W0 = 1348, W1 = 955;
       const setW = w => {
         main.style.width = w + 'px'; pn.style.left = (78 + w + 14) + 'px';
-        const host = P.root.closest('.ct-win');
-        if (host) { const f = Math.max(0, Math.min(1, (W0 - w) / (W0 - W1))); host.style.setProperty('--tq-col', f ? (27.5 * f).toFixed(3) + '%' : '0%'); }
         const nar = w < 1180; root.classList.toggle('nar', nar);
         tile();
       };

@@ -287,3 +287,6 @@
     try { localStorage.setItem('ofir-theme', t); } catch (e) {}
   });
 })();
+
+// smooth scrolling switches on after load (html.ready), so a link to a #section opens right there, as on the homepage
+(() => { const ready = () => requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.add('ready'))); if (document.readyState === 'complete') ready(); else addEventListener('load', ready, { once: true }); })();

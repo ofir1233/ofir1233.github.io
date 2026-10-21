@@ -2647,6 +2647,9 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
   #product .pf-mini .ct-bar i:where(:not(.lx-app, .lx-app *)){ width: 8px; height: 8px; }
   #product .pf-mini .ct-tag:where(:not(.lx-app, .lx-app *)){ font-size: 11px; }
 }
+/* up to 1439px some of those step labels wrap to two lines and others do not, so the label keeps two lines and the page below
+   does not move as the steps change */
+@media (min-width: 1240px) and (max-width: 1439px) { #product .pf-mini .ct-rail .lx-now, #product .media > figure:not(:only-child) .ct-rail .lx-now, #product .ct-rail:has(.lx-beats > li:nth-child(6)) .lx-now { min-height: 2.9em; } }
 /* those two windows are 136-207px wide from 861px to about 1270px, too narrow for "Design Lab · demo data" at 13.5px beside the dots:
    there the bar reads "Demo data". The query reads the window's own stage (.ct-stage is the container), so the full tag returns as soon as it fits */
 .ct-tag .tag-short:where(:not(.lx-app, .lx-app *)){ display: none; }
@@ -3571,7 +3574,8 @@ html section#design-lab:where(:not(.lx-app, .lx-app *)){ padding-top: clamp(56px
 :root[data-theme="dark"] section#about .me-photo.me-ill img:where(:not(.lx-app, .lx-app *)){ mix-blend-mode: multiply; }
 /* the night-pine page rises over the porcelain first screen with the same dome as the sheets further down (night pine only: in light
    both are porcelain). The dome peaks at clamp(22px, 3.8vw, 56px) mid-width, so half of that moves from #top's top space to #about's
-   bottom space: at the dome's peak the light and dark spaces still match, and the total stays light's, so nothing below moves */
+   bottom space: the porcelain left between the Experience strip and the dome's peak equals #top's own top space, and the two spaces
+   still add up to light's, so nothing below moves */
 :root[data-theme="dark"] section#about:where(:not(.lx-app, .lx-app *)){ padding-bottom: calc((clamp(40px, 5vw, 72px) + clamp(56px, 7vw, 104px) + clamp(22px, 3.8vw, 56px)) / 2); }
 :root[data-theme="dark"] #top.hero:where(:not(.lx-app, .lx-app *)){ padding-top: calc((clamp(40px, 5vw, 72px) + clamp(56px, 7vw, 104px) - clamp(22px, 3.8vw, 56px)) / 2); }
 @media screen {
@@ -5512,7 +5516,8 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     const on = ok() && near;
     if (on) { build(); timing(); }
     wall.classList.toggle('moving', on);
-    btn.hidden = !on;
+    // the button shows wherever the wall can move, even before the wall is near, so it never pushes the section down under the reader
+    btn.hidden = !ok();
     wall.querySelectorAll('.dw-list[aria-hidden]').forEach(l => { l.style.display = on ? '' : 'none'; });
   };
   set();

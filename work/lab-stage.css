@@ -71,6 +71,8 @@
 }
 @media (max-width: 1239px) {
   /* the rail turns into numbered steps, with the current step's label written out under them */
+  /* two lines are kept for the label (no label needs three), so the page below does not move when a step's label wraps differently */
+  .ct-rail .lx-now { min-height: 2.9em; }
   .ct-rail { grid-template-columns: 48px minmax(0, 1fr); margin-top: 12px; }
   .ct-rail .lx-pp { width: 48px; min-height: 52px; padding-top: 0; place-items: center; }
   .ct-rail .lx-beats { display: grid; }

@@ -480,7 +480,22 @@
     if (reduce) { p.cur = p.rest; p.show(p.rest); }
     if (went) { launch(p); p.sync(); }
   };
-  LX.scene = (name, def) => { SCENES[name] = def; if (booted) document.querySelectorAll('.lx[data-lab]').forEach(r => { if (r.dataset.lab === name) init(r); }); };
+  // a window's step rail is written as soon as its scene is known (the steps, and on the one-line rail of narrower screens the step
+  // the window will open on: step 1, or its rest step with reduced motion or demos paused), not when the window starts, so the rail
+  // has its final size from the first paint and a page never grows under the reader; the player then finds the steps in place and
+  // only wires them up (buildBeats), and its first step replaces the lit tab and the label with the same ones
+  const rail = r => {
+    const def = SCENES[r.dataset.lab || r.dataset.labWait]; if (!def || r.dataset.still) return;
+    const stage = r.closest('[data-lx-stage]') || r.closest('figure') || r.parentElement, be = stage.querySelector('.lx-beats'), now = stage.querySelector('.lx-now');
+    if (!be) return;
+    if (!be.children.length && (def.beats || []).length) { be.style.setProperty('--n', def.beats.length); be.innerHTML = def.beats.map((b, i) => `<li><button type="button"><span class="n">${String(i + 1).padStart(2, '0')}</span><span class="l">${b}</span></button></li>`).join(''); }
+    const n = be.children.length, k = reduce || LX.held ? Math.min(n - 1, def.rest ?? n - 1) : 0, li = be.children[k], l = li && li.querySelector('.l');
+    if (!l || be.querySelector(':scope > li.on')) return;
+    [...be.children].forEach((x, j) => { x.classList.toggle('on', j === k); x.classList.toggle('done', j < k); });
+    if (now && !now.textContent) { now.innerHTML = `<b>${String(k + 1).padStart(2, '0')} / ${String(n).padStart(2, '0')}</b>`; now.append(l.textContent); }
+  };
+  const rails = name => document.querySelectorAll('.lx[data-lab], .lx[data-lab-wait]').forEach(r => { if (!name || (r.dataset.lab || r.dataset.labWait) === name) rail(r); });
+  LX.scene = (name, def) => { SCENES[name] = def; rails(name); if (booted) document.querySelectorAll('.lx[data-lab]').forEach(r => { if (r.dataset.lab === name) init(r); }); };
   const start = () => {
     if (booted) return; booted = true;
     ro = 'ResizeObserver' in window ? new ResizeObserver(es => es.forEach(e => fit(e.target, true))) : null;
@@ -493,6 +508,7 @@
       else if (full && p.parked && !LX.held && !reduce) { p.parked = false; p.user = true; p.restart(); }
       p.sync();
     }), { threshold: [0, .2, .4, .6, .8, 1] }) : null;
+    rails();
     document.querySelectorAll('.lx[data-lab]').forEach(init);
     // a page's figure viewer pauses every screen while it is open
     const d = document.querySelector('dialog.cv'); if (d) new MutationObserver(() => { LX.dialog = d.open; players.forEach(p => p.sync()); }).observe(d, { attributes: true, attributeFilter: ['open'] });

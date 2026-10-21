@@ -84,6 +84,11 @@
 
 /* narrow screens: a portrait window that frames the part of the app where things happen */
 .lx.lx-cam { aspect-ratio: 4 / 5; }
+/* on a phone a window in a stage shows the camera's 4:5 view once its scene starts (lab-live.js, under 640px wide at up to
+   719px); it takes that shape from the first paint, so a window further down does not grow when the reader reaches it and a
+   jump to a section lands where it should. Stills keep their crop, and the homepage hero stack, which sits outside a stage,
+   keeps the full frame. Every stage window is under 640px wide at these widths; a wider one would need a container query. */
+@media (max-width: 719px) { [data-lx-stage] .lx:not([data-still]) { aspect-ratio: 4 / 5; } }
 .lx-still .lx-app { transform: scale(var(--k, .5)) translate(calc(var(--cx, 0) * -1px), calc(var(--cy, 0) * -1px)); }
 .lx-cam .lx-app { transform: scale(var(--k, .75)) translate(calc(var(--cx, 0) * -1px), calc(var(--cy, 0) * -1px)); transition: transform .7s cubic-bezier(.3,.7,.2,1); }
 .lx-ff .lx-app, .lx-paused .lx-app { transition: none !important; }
