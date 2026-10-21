@@ -178,9 +178,8 @@ section[id] { scroll-margin-top: calc(var(--nav-compact) - var(--nav-h)); }
 .hero__grid { position: relative; width: 100%; display: grid; gap: 48px; align-items: center; padding-block: 24px 72px; }
 @media (min-width: 1000px) { .hero__grid { grid-template-columns: 7fr 5fr; gap: clamp(40px, 5vw, 96px); padding-block: 32px 64px; } }
 .hero__text { position: relative; z-index: 2; display: grid; justify-items: start; min-width: 0; }
-.hero__logo { margin: 0; width: min(100%, 500px); }
+.hero__logo { margin: 0 0 clamp(20px, 2.4vw, 32px); width: min(100%, 500px); }
 .hero__logo img { width: 100%; height: auto; }
-.hero__rule { display: block; width: 56px; height: 2px; background: var(--coral); margin: clamp(20px, 2.4vw, 32px) 0; }
 .hero__line { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 3.1vw, 46px); line-height: 1.08; margin: 0; text-wrap: balance; }
 .hero .lead { margin-top: 14px; color: var(--graphite); max-width: 42ch; }
 .hero .btn-row { margin-top: 32px; }

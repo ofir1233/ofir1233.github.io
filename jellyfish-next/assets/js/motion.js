@@ -93,10 +93,9 @@
     var hero = one(".hero");
     if (hero) {
       var tl = gsap.timeline({ delay: 0.15 });
-      /* The lockup is pressed onto the paper from the top, the coral rule draws from the reading side, then the line and the pill */
+      /* The lockup is pressed onto the paper from the top, then the line and the pill */
       var logo = one(".hero__logo", hero);
       if (logo) tl.add(gsap.fromTo(logo, { clipPath: "inset(0% -4% 100% -4%)", y: 16 }, { clipPath: "inset(-6% -4% -6% -4%)", y: 0, duration: 1.4, ease: EXPO, clearProps: "clipPath,transform" }), 0.05);
-      tl.add(gsap.fromTo(all(".hero__rule", hero), { scaleX: 0 }, { scaleX: 1, transformOrigin: "100% 50%", duration: 0.9, ease: EXPO }), 0.6);
       var line = one(".hero__line", hero);
       if (line) tl.add(lines(line, { stagger: 0.12, duration: 1.1 }), 0.62);
       tl.add(rise(one(".lead", hero)), 0.85);
