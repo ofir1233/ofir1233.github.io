@@ -185,6 +185,8 @@ html:not(.js) .menu-btn { display: none; }
   background: linear-gradient(180deg, rgba(21, 19, 18, .5) 0, rgba(21, 19, 18, 0) 180px),
               linear-gradient(270deg, rgba(21, 19, 18, .74) 0%, rgba(21, 19, 18, .5) 34%, rgba(21, 19, 18, .1) 64%, rgba(21, 19, 18, 0) 80%),
               linear-gradient(0deg, rgba(21, 19, 18, .45) 0%, rgba(21, 19, 18, 0) 32%); }
+/* a light halftone screen over the film, as on the first site: clear in the middle, denser toward the edges. Static, no blend */
+.hero__film::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background-image: radial-gradient(circle, rgba(21, 19, 18, .72) 1.1px, transparent 1.6px); background-size: 6px 6px; -webkit-mask-image: radial-gradient(ellipse 72% 62% at 50% 48%, transparent 0%, rgba(0, 0, 0, .3) 45%, rgba(0, 0, 0, .85) 100%); mask-image: radial-gradient(ellipse 72% 62% at 50% 48%, transparent 0%, rgba(0, 0, 0, .3) 45%, rgba(0, 0, 0, .85) 100%); }
 .hero__grid { position: relative; width: 100%; padding-block: 32px 88px; }
 .hero__text { position: relative; z-index: 2; display: grid; justify-items: start; min-width: 0; max-width: 620px; }
 .hero__logo { margin: 0 0 clamp(20px, 2.4vw, 32px); width: min(100%, 500px); }
