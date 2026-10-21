@@ -1,6 +1,8 @@
-/* Jellyfish Tattoo: motion. GSAP + ScrollTrigger, self-hosted in assets/vendor/gsap (GSAP standard no-charge license).
-   Everything is readable without JS, and nothing moves under prefers-reduced-motion.
-   Brand book, chapter 7: dots grow from their dense edge in 900ms ease-out; one ornamental focus per section; photos are never tinted. */
+/* Jellyfish Tattoo: motion for type. GSAP + ScrollTrigger, self-hosted in assets/vendor/gsap (GSAP standard no-charge license).
+   Section headings rise line by line, the studio numbers count up, the signature writes itself, quotes rise: once each, as
+   they come in. The hero and page-head intro is CSS (site.css, "Intro"), so it starts at first paint without waiting for GSAP.
+   Ornaments, illustrations, cards, rows and photos never move here: the many small reveals made phones stutter (owner, 2026-10-21).
+   Everything is readable without JS, and nothing moves under prefers-reduced-motion. */
 (function () {
   "use strict";
   var html = document.documentElement;
@@ -11,16 +13,20 @@
   var gsap = window.gsap, ST = window.ScrollTrigger;
   gsap.registerPlugin(ST);
   gsap.defaults({ ease: "power3.out", duration: 0.9 });
+  /* Reveals stay 2D: with force3D "auto" every tween promotes its target to a compositor layer and drops it at the end,
+     which rebuilt the layer tree almost every frame while scrolling on phones */
+  gsap.config({ force3D: false });
 
-  /* "late": the 2.5s fallback in <head> already showed everything (GSAP or the fonts came slowly). Then there is no intro,
-     and nothing already on screen is hidden and replayed. */
-  var late = false;
+  /* "late": GSAP or the fonts came after the 2.5s mark set in <head>. Then nothing already on screen is hidden and replayed. */
+  var late = false, landed = false;
   function seen(el) {
     if (!el) return false;
     var r = el.getBoundingClientRect();
     /* Already scrolled past (a link straight to a section further down): it stays as it is. A once-trigger created
-       past its end kills itself inside ScrollTrigger's refresh and throws, which stopped every reveal after it. */
-    return r.bottom < 0 || (late && r.top < window.innerHeight);
+       past its end kills itself inside ScrollTrigger's refresh and throws, which stopped every reveal after it.
+       "landed": the page opened on a section (index.html#studio from another page), so what is on screen was already
+       painted whole and is not hidden and replayed. */
+    return r.bottom < 0 || ((late || landed) && r.top < window.innerHeight);
   }
   function ext(a, b) { for (var k in b) if (Object.prototype.hasOwnProperty.call(b, k)) a[k] = b[k]; return a; }
   function all(sel, root) { return [].slice.call((root || document).querySelectorAll(sel)); }
@@ -81,49 +87,12 @@
       return line;
     });
     return gsap.from(ls, ext({
-      yPercent: 112, duration: 1.15, ease: EXPO, stagger: 0.11,
+      yPercent: 135, duration: 1.15, ease: EXPO, stagger: 0.11,
       scrollTrigger: trigger ? { trigger: trigger, start: "top 86%", once: true } : undefined,
       onComplete: function () { el.innerHTML = orig; el.classList.remove("is-split"); }
     }, vars || {}));
   }
   function rise(targets, vars) { return gsap.from(targets, ext({ opacity: 0, y: 18, duration: 0.8, stagger: 0.08 }, vars || {})); }
-
-  function intro() {
-    /* Home hero */
-    var hero = one(".hero");
-    if (hero) {
-      var tl = gsap.timeline({ delay: 0.15 });
-      /* The lockup is pressed onto the paper from the top, then the line and the pill */
-      var logo = one(".hero__logo", hero);
-      if (logo) tl.add(gsap.fromTo(logo, { clipPath: "inset(0% -4% 100% -4%)", y: 16 }, { clipPath: "inset(-6% -4% -6% -4%)", y: 0, duration: 1.4, ease: EXPO, clearProps: "clipPath,transform" }), 0.05);
-      var line = one(".hero__line", hero);
-      if (line) tl.add(lines(line, { stagger: 0.12, duration: 1.1 }), 0.62);
-      tl.add(rise(one(".lead", hero)), 0.85);
-      tl.add(rise(all(".btn-row > *", hero), { stagger: 0.09 }), 0.95);
-      tl.add(rise(all(".hero__labels > *", hero), { y: 8, stagger: 0.07 }), 1.1);
-      /* The film settles from a slow push-in behind the text */
-      var bg = one(".hero__bg", hero);
-      if (bg) tl.add(gsap.from(bg, { scale: 1.12, duration: 2.6, ease: EXPO, clearProps: "transform" }), 0);
-      tl.add(rise(one(".hero__toggle", hero), { y: 0, duration: 1 }), 1.2);
-    }
-    /* Short pages and artist pages */
-    var head = one(".page-head");
-    if (head) {
-      var th = gsap.timeline({ delay: 0.1 });
-      th.add(rise(all(".crumbs, .kicker", head), { y: 10 }), 0);
-      var h = one("h1", head);
-      if (h) th.add(lines(h), 0.08);
-      th.add(rise(all(".lead, .artist-status, .btn-row > *", head), { stagger: 0.08 }), 0.45);
-      var pic = one(".portrait img", head);
-      if (pic) {
-        th.add(gsap.fromTo(pic, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.3, ease: EXPO }), 0.15);
-        th.add(gsap.from(pic, { scale: 1.12, duration: 1.8, ease: EXPO, clearProps: "transform" }), 0.15);
-        th.add(rise(one(".portrait figcaption", head), { y: 8 }), 0.8);
-      }
-      var card = one(".head-card", head);
-      if (card) th.add(gsap.from(card, { opacity: 0, y: 60, rotation: -10, duration: 1.3, ease: EXPO }), 0.25);
-    }
-  }
 
   function scroll() {
     /* Section headings (h2.display), with their kicker */
@@ -134,9 +103,6 @@
       if (kick) rise(kick, { y: 10, scrollTrigger: { trigger: h, start: "top 88%", once: true } });
       cut(h);
     });
-
-    /* Ornaments and illustrations (.orn, .js-art) never move: scroll-driven ornament motion made the site stutter.
-       Only type, numbers, the signature, photos and cards reveal, once each, as they come in. */
 
     /* Studio numbers: rows rise, numbers count up to whole numbers, words lift out of a mask, the signature writes itself */
     all(".stats").forEach(function (list) {
@@ -157,47 +123,10 @@
     });
     all(".sig__img").forEach(function (img) {
       if (seen(img)) return;
-      gsap.fromTo(img, { clipPath: "inset(-10% 100% -10% 0%)" }, { clipPath: "inset(-10% 0% -10% 0%)", duration: 1.8, ease: "power2.inOut",
+      gsap.fromTo(img, { clipPath: "inset(-10% 100% -10% 0%)" }, { clipPath: "inset(-10% 0% -10% 0%)", duration: 1.8, ease: "power2.inOut", clearProps: "clipPath",
         scrollTrigger: { trigger: img, start: "top 90%", once: true } });
     });
     all(".studio__quote, .story__quote").forEach(function (q) { if (!seen(q)) rise(q, { y: 20, duration: 1, scrollTrigger: { trigger: q, start: "top 88%", once: true } }); });
-
-    /* Gallery tiles and the team, in batches as they come in */
-    function batch(sel, vars) {
-      var items = all(sel).filter(function (el) { return !seen(el); }); if (!items.length) return;
-      gsap.set(items, { opacity: 0, y: vars && vars.y != null ? vars.y : 44 });
-      /* vars only set the start offset: every item ends at y 0 */
-      ST.batch(items, { start: "top 90%", once: true, onEnter: function (b) {
-        gsap.to(b, ext(ext({}, vars || {}), { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: EXPO, overwrite: true }));
-      } });
-    }
-    batch(".gallery > .tile");
-    batch(".style-card");
-    batch(".mate");
-    batch(".voucher", { y: 36 });
-    all(".cards .artist").forEach(function (card, i) {
-      if (seen(card)) return;
-      var img = one(".artist__photo", card);
-      var tl = gsap.timeline({ scrollTrigger: { trigger: card, start: "top 86%", once: true }, delay: i * 0.12 });
-      if (img) tl.fromTo(img, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: EXPO }, 0);
-      tl.from(all(".artist__meta, .artist > p, .artist > a", card), { opacity: 0, y: 14, duration: 0.7, stagger: 0.07 }, 0.35);
-    });
-
-    /* Lists that read as rows: prices, facts, steps, timelines, the flash sheet */
-    function rows(groupSel, rowSel, vars) {
-      all(groupSel).forEach(function (g) {
-        var r = all(rowSel, g); if (!r.length || seen(g)) return;
-        gsap.from(r, ext({ opacity: 0, y: 16, duration: 0.7, stagger: 0.07, scrollTrigger: { trigger: g, start: "top 86%", once: true } }, vars || {}));
-      });
-    }
-    rows(".prices", "tr");
-    rows(".policy", "li");
-    rows(".facts", ":scope > div");
-    rows(".steps", ":scope > li", { stagger: 0.14, y: 24 });
-    rows(".timeline", ":scope > li", { stagger: 0.12, y: 24 });
-    rows(".flash-grid", ":scope > li", { stagger: 0.035, y: 20, scale: 0.94 });
-    rows(".faq, .faq-list", "details");
-    all(".archive, .send-card, .care-card").forEach(function (el) { if (!seen(el)) rise(el, { y: 30, duration: 1, scrollTrigger: { trigger: el, start: "top 88%", once: true } }); });
   }
 
   var pending = [];
@@ -231,15 +160,15 @@
 
   function start() {
     late = html.classList.contains("motion-done");
+    landed = window.scrollY > 0;
     /* ScrollTrigger must never put back a remembered scroll position: the page opens at the top */
     if (ST.clearScrollMemory) ST.clearScrollMemory("manual");
-    if (!late) intro();
     scroll();
+    landed = false;
     ready();
     /* Printing or saving as PDF before scrolling: finish every reveal first */
     window.addEventListener("beforeprint", function () {
       ST.getAll().forEach(function (s) { if (s.animation && s.vars.once) s.animation.progress(1); });
-      gsap.set(all(".gallery > .tile, .style-card, .mate, .voucher"), { opacity: 1, y: 0 });
     });
     var lastW = window.innerWidth, rt;
     window.addEventListener("resize", function () {

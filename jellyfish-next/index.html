@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Heebo:wght@300..600&display=swap">
 <link rel="preload" href="assets/fonts/jellyfish-display/JellyfishDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=f1205d8d">
+<link rel="stylesheet" href="assets/css/site.css?v=51cc9e07">
 <script>/* Always open at the top (fresh load, reload, reopened tab, back from another site). Only a link between our own pages
    to a #section (aftercare -> index.html#prices) or the back button after leaving through one keeps its place. */
 (function(w,h){try{if("scrollRestoration" in h)h.scrollRestoration="manual"}catch(e){}
@@ -42,10 +42,10 @@ w.addEventListener("pageshow",function(e){if(!e.persisted)return;var left=null;t
 })(window,history)</script>
 <script>document.documentElement.classList.add("js")</script>
 <script>(function(d){try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return}catch(e){}d.classList.add("motion");setTimeout(function(){d.classList.add("motion-done")},2500)})(document.documentElement)</script>
+<script src="assets/js/site.js?v=5d879b57" defer></script>
 <script src="assets/vendor/gsap/gsap.min.js?v=5e6e6cba" defer></script>
 <script src="assets/vendor/gsap/ScrollTrigger.min.js?v=00a3e5c7" defer></script>
-<script src="assets/js/motion.js?v=0563f9f1" defer></script>
-<script src="assets/js/site.js?v=5d879b57" defer></script>
+<script src="assets/js/motion.js?v=a9fa8c4d" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TattooParlor","@id":"https://ofir1233.github.io/jellyfish-next/#studio","url":"https://ofir1233.github.io/jellyfish-next/","name":"Jellyfish Tattoo","alternateName":"ג׳ליפיש טאטו","description":"סטודיו לקעקועים ולפירסינג: פיין ליין, בוטני ודוטוורק אורנמנטלי","telephone":"+972525659677","address":{"@type":"PostalAddress","addressLocality":"באר שבע","addressCountry":"IL"},"sameAs":["https://www.instagram.com/jellyfish_tattoo_/"],"priceRange":"₪₪"}</script>
 <meta name="robots" content="noindex">
 </head>
@@ -95,7 +95,7 @@ w.addEventListener("pageshow",function(e){if(!e.persisted)return;var left=null;t
 <header class="hero" id="top">
   <div class="hero__film" aria-hidden="true">
     <video class="hero__bg" poster="assets/video/hero-bg.jpg?v=13692df2" autoplay muted loop playsinline preload="auto">
-      <source src="assets/video/hero-bg.mp4?v=03af47d4" type="video/mp4" media="(min-width: 768px)">
+      <source src="assets/video/hero-bg-d.mp4?v=6bf5f4f4" type="video/mp4" media="(min-width: 768px)">
       <source src="assets/video/hero-bg-m.mp4?v=f07b7974" type="video/mp4">
     </video>
   </div>
@@ -120,8 +120,11 @@ w.addEventListener("pageshow",function(e){if(!e.persisted)return;var left=null;t
     <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3v12H4zM9 2h3v12H9z" fill="currentColor"/></svg>
     <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z" fill="currentColor"/></svg>
   </button>
-  <img class="orn hero__leaves js-art" src="assets/orn/leaves-br.webp?v=e0b0faae" alt="" aria-hidden="true" width="932" height="980">
+  <!-- the leaves only show from 1000px up: phones get an empty pixel instead of the 220 KB painting -->
+  <picture><source media="(max-width: 999px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><img class="orn hero__leaves js-art" src="assets/orn/leaves-br.webp?v=e0b0faae" alt="" aria-hidden="true" width="980" height="980"></picture>
 </header>
+<!-- the dated hero labels are settled before the first paint, so the hero never jumps when site.js runs -->
+<script>(function(n){var d=function(s){return new Date(s+"T00:00:00+02:00")};document.querySelectorAll("#top [data-until],#top [data-from]").forEach(function(e){var u=e.getAttribute("data-until"),f=e.getAttribute("data-from");if((u&&n>=d(u))||(f&&n<d(f)))e.remove()})})(new Date())</script>
 
 <!-- STUDIO: the story, the owner, the numbers -->
 <section class="band band--paper studio" id="studio" aria-labelledby="studio-h">
@@ -497,7 +500,7 @@ w.addEventListener("pageshow",function(e){if(!e.persisted)return;var left=null;t
         <a class="small" href="https://waze.com/ul?q=%D7%94%D7%97%D7%9C%D7%95%D7%A5%20113%20%D7%91%D7%90%D7%A8%20%D7%A9%D7%91%D7%A2&amp;navigate=yes" target="_blank" rel="noopener">או <span class="nobr">ב-<span lang="en" dir="ltr">Waze</span></span></a>
       </div>
     </div>
-    <div class="map" role="img" aria-label="חזית הסטודיו: חלון הראווה עם השם והשלט התלוי, מקום שמור למפה"></div>
+    <div class="map" role="img" aria-label="חזית הסטודיו: חלון הראווה עם השם והשלט התלוי, מקום שמור למפה"><img src="assets/img/storefront.jpg?v=1c9b443e" alt="" loading="lazy" width="869" height="1086"></div>
   </div>
 </section>
 
