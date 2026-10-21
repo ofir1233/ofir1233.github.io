@@ -779,6 +779,18 @@ bdi { white-space: nowrap; }
 .band--ink + .band, .band--teal + .band, .flash-wrap + .band { padding-top: calc(var(--section-pad) * .8); }
 .band--ink + .band--ink::before, .band--ink + .footer::before { content: none; }
 
+/* Motion (assets/js/motion.js): type, numbers, the signature, photos and cards reveal once. Ornaments stay still.
+   The inline script in <head> adds .motion when motion is allowed; motion.js adds .motion-done once GSAP has set the
+   starting states, or after 2.5s if the scripts never load. Nothing is hidden without JS. */
+.motion:not(.motion-done) :is(.hero .hero__text, .page-head .wrap) { visibility: hidden; }
+.page-head--artist { overflow-x: clip; }
+.line-mask { display: block; overflow: hidden; overflow: clip; padding-block: .1em .22em; margin-block: -.1em -.22em; }
+.is-split { display: flex; flex-direction: column; }
+.hero__line.is-split, .statement__text p.is-split { align-items: inherit; }
+.line { display: block; }
+.word-mask { display: inline-block; overflow: hidden; overflow: clip; padding-block: .06em .18em; margin-block: -.06em -.18em; vertical-align: top; }
+.word { display: inline-block; }
+
 /* Phone: thumb-width section buttons */
 @media (max-width: 767px) {
   .section-cta .btn { flex: 1 1 100%; }
