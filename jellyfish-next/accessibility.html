@@ -40,6 +40,7 @@ w.addEventListener("load",function(){top();setTimeout(top,0);setTimeout(top,200)
 document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(a&&s&&a.origin===location.origin&&a.pathname!==location.pathname)try{s.setItem("jf-left",location.pathname)}catch(x){}},true);
 w.addEventListener("pageshow",function(e){if(!e.persisted)return;var left=null;try{left=s&&s.getItem("jf-left");s&&s.removeItem("jf-left")}catch(x){}if(left===location.pathname)return;keep=false;user=false;top();setTimeout(top,50)});
 })(window,history)</script>
+<script>document.documentElement.classList.add("js")</script>
 <script src="assets/js/site.js" defer></script>
 <meta name="robots" content="noindex">
 </head>
@@ -147,7 +148,7 @@ w.addEventListener("pageshow",function(e){if(!e.persisted)return;var left=null;t
 <footer class="footer">
   <div class="wrap footer__grid">
     <div class="footer__brand">
-      <img src="assets/orn/lockup-words-paper.svg" alt="Jellyfish Tattoo" width="853" height="486" loading="lazy">
+      <img src="assets/orn/lockup-words-paper.svg" alt="Jellyfish Tattoo" lang="en" width="853" height="486" loading="lazy">
       <p class="small muted-on-paper">מה שבפנים, על העור.<br>מצויר ביד ע״י אלירן ובוריס. פירסינג: יניב.</p>
     </div>
     <div>
