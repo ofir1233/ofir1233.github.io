@@ -5,10 +5,12 @@
    Everything is readable without JS, and nothing moves under prefers-reduced-motion. */
 (function () {
   "use strict";
-  var html = document.documentElement;
-  function ready() { html.classList.add("motion-done"); }
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce || !window.gsap || !window.ScrollTrigger) { ready(); return; }
+  /* Keyboard: a control that gets focus while the CSS intro is still bringing it in shows at once (finish keeps it from replaying) */
+  document.addEventListener("focusin", function (e) {
+    for (var el = e.target; el && el !== document.body; el = el.parentElement) if (el.getAnimations) el.getAnimations().forEach(function (a) { if (/^jf-/.test(a.animationName || "") && a.playState !== "finished") a.finish(); });
+  });
+  if (reduce || !window.gsap || !window.ScrollTrigger) return;
 
   var gsap = window.gsap, ST = window.ScrollTrigger;
   gsap.registerPlugin(ST);
@@ -17,16 +19,13 @@
      which rebuilt the layer tree almost every frame while scrolling on phones */
   gsap.config({ force3D: false });
 
-  /* "late": GSAP or the fonts came after the 2.5s mark set in <head>. Then nothing already on screen is hidden and replayed. */
-  var late = false, landed = false;
   function seen(el) {
     if (!el) return false;
     var r = el.getBoundingClientRect();
-    /* Already scrolled past (a link straight to a section further down): it stays as it is. A once-trigger created
-       past its end kills itself inside ScrollTrigger's refresh and throws, which stopped every reveal after it.
-       "landed": the page opened on a section (index.html#studio from another page), so what is on screen was already
-       painted whole and is not hidden and replayed. */
-    return r.bottom < 0 || ((late || landed) && r.top < window.innerHeight);
+    /* Already on screen or scrolled past when this runs: it has been painted whole, so it stays as it is and is never
+       hidden and replayed (a heading on a page's first screen, a link straight to index.html#studio). A once-trigger
+       created past its end also kills itself inside ScrollTrigger's refresh and throws, which stopped every reveal after it. */
+    return r.bottom < 0 || r.top < window.innerHeight;
   }
   function ext(a, b) { for (var k in b) if (Object.prototype.hasOwnProperty.call(b, k)) a[k] = b[k]; return a; }
   function all(sel, root) { return [].slice.call((root || document).querySelectorAll(sel)); }
@@ -88,7 +87,7 @@
     });
     return gsap.from(ls, ext({
       yPercent: 135, duration: 1.15, ease: EXPO, stagger: 0.11,
-      scrollTrigger: trigger ? { trigger: trigger, start: "top 86%", once: true } : undefined,
+      scrollTrigger: trigger ? { trigger: trigger, start: "top 86%", once: true, fastScrollEnd: true } : undefined,
       onComplete: function () { el.innerHTML = orig; el.classList.remove("is-split"); }
     }, vars || {}));
   }
@@ -100,7 +99,7 @@
       if (seen(h)) return;
       var sec = h.closest("section") || h;
       var kick = h.previousElementSibling && h.previousElementSibling.classList.contains("kicker") ? h.previousElementSibling : (one(".kicker", sec));
-      if (kick) rise(kick, { y: 10, scrollTrigger: { trigger: h, start: "top 88%", once: true } });
+      if (kick && !seen(kick)) rise(kick, { y: 10, scrollTrigger: { trigger: h, start: "top 88%", once: true, fastScrollEnd: true } });
       cut(h);
     });
 
@@ -108,7 +107,7 @@
     all(".stats").forEach(function (list) {
       if (seen(list)) return;
       var rows = all("li", list);
-      var tl = gsap.timeline({ scrollTrigger: { trigger: list, start: "top 82%", once: true } });
+      var tl = gsap.timeline({ scrollTrigger: { trigger: list, start: "top 82%", once: true, fastScrollEnd: true } });
       tl.from(rows, { opacity: 0, y: 28, duration: 0.9, stagger: 0.16, ease: EXPO }, 0);
       all(".count[data-to]", list).forEach(function (el) {
         var to = +el.getAttribute("data-to");
@@ -124,9 +123,9 @@
     all(".sig__img").forEach(function (img) {
       if (seen(img)) return;
       gsap.fromTo(img, { clipPath: "inset(-10% 100% -10% 0%)" }, { clipPath: "inset(-10% 0% -10% 0%)", duration: 1.8, ease: "power2.inOut", clearProps: "clipPath",
-        scrollTrigger: { trigger: img, start: "top 90%", once: true } });
+        scrollTrigger: { trigger: img, start: "top 90%", once: true, fastScrollEnd: true } });
     });
-    all(".studio__quote, .story__quote").forEach(function (q) { if (!seen(q)) rise(q, { y: 20, duration: 1, scrollTrigger: { trigger: q, start: "top 88%", once: true } }); });
+    all(".studio__quote, .story__quote").forEach(function (q) { if (!seen(q)) rise(q, { y: 20, duration: 1, scrollTrigger: { trigger: q, start: "top 88%", once: true, fastScrollEnd: true } }); });
   }
 
   var pending = [];
@@ -159,13 +158,9 @@
   });
 
   function start() {
-    late = html.classList.contains("motion-done");
-    landed = window.scrollY > 0;
     /* ScrollTrigger must never put back a remembered scroll position: the page opens at the top */
     if (ST.clearScrollMemory) ST.clearScrollMemory("manual");
     scroll();
-    landed = false;
-    ready();
     /* Printing or saving as PDF before scrolling: finish every reveal first */
     window.addEventListener("beforeprint", function () {
       ST.getAll().forEach(function (s) { if (s.animation && s.vars.once) s.animation.progress(1); });
