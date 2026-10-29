@@ -3835,6 +3835,9 @@ html section#design-lab:where(:not(.lx-app, .lx-app *)){ padding-top: clamp(56px
     -webkit-mask-image: none; mask-image: none;
   }
 }
+/* private case study: a locked pill beside the Lab's case study; the talk lives in case-study/ behind a password */
+#design-lab .cs-pair:where(:not(.lx-app, .lx-app *)){ display: flex; flex-wrap: wrap; gap: 10px; }
+#design-lab .cs-private .cs-lock:where(:not(.lx-app, .lx-app *)){ flex: none; color: var(--coral); }
 </style>
 </head>
 <body>
@@ -3974,7 +3977,7 @@ html section#design-lab:where(:not(.lx-app, .lx-app *)){ padding-top: clamp(56px
         <h2>Hear Design Lab</h2>
       </div>
       <div><p>I built this working replica of Hear from scratch with Claude Code, on my own initiative. Connected to an AI API, it gives realistic answers. I test designs there instead of in static mockups.</p>
-        <div class="mr"><a class="btn ghost cs-more cs-head" href="work/design-lab.html">Read the case study <span aria-hidden="true">→</span></a></div></div>
+        <div class="mr cs-pair"><a class="btn ghost cs-more cs-head" href="work/design-lab.html">Read the case study <span aria-hidden="true">→</span></a><a class="btn ghost cs-more cs-head cs-private" href="case-study/" aria-label="Private case study, password required"><svg class="cs-lock" viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Private case study <span aria-hidden="true">→</span></a></div></div>
     </div>
     <dl class="meta rv"><div><dt>Role</dt><dd>Design and build</dd></div><div><dt>Stack</dt><dd class="lab-stack-dd"><ul class="lab-stack"><li>React</li><li>Vite</li><li>Storybook</li></ul></dd></div></dl>
 
