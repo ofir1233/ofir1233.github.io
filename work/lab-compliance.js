@@ -115,10 +115,12 @@
   const ID = {
     ask: 'Why is Tara Banks’s Identity verification 92?',
     pop: { h: 'Tara Banks', ps: '#107 · Identity verification · selected date<br>range', pt: 92, pd: '+3 vs team average', pr: 'Top 40% · 25th of 62 agents',
-      hist: [3, 2, 4, 6, 9, 14, 24, 38, 31, 18], me: 8, avg: 175, hx: ['Low 59', 'Team avg 89', 'High 100'] },
+      hist: [3, 2, 4, 6, 9, 14, 24, 38, 31, 18], me: 8, avg: 175, hx: ['Low 62', 'Team avg 89', 'High 100'] },
     a0: 'The score of <b>92</b> is the average of <b>23 calls</b> between 12 Sep 2026 and 12 Oct 2026.',
     li: ['<b>Call 48213</b> · Score 71 — Missed: Confirmed the ID number. “We can skip the full checks <br>this time.”',
       '<b>Call 73052</b> · Score 80 — Missed: Asked the security question. “It’s clearly you, so let’s <br>go ahead.”'],
+    // three other agents fail the same criterion, so the row shows a process problem, not one person's
+    fails: [[2, 64], [4, 66], [13, 62], [14, 72]], // Nora's cell sits at the edge, so she passes here and Ethan fails instead
     a1: 'Confirmed the ID number was missed in 2 of 23 calls. 3 other agents miss it too, so it may be a <br>script or process issue, not only coaching.',
   };
   const modal = () => `<div class="cp-dim"></div><div class="cp-mo">
@@ -182,6 +184,13 @@
         qa('.hist i:not(.avg)').forEach((b, j) => { b.style.height = P.hist[j] + 'px'; b.classList.toggle('me', j === P.me); });
         q('.hist i.avg').style.left = P.avg + 'px';
         ['l', 'm', 'r'].forEach((k, j) => { q(`.hx.${k}`).textContent = P.hx[j]; });
+        V.fails.forEach(([i, v]) => {
+          const vals = AG[i][2].slice(); vals[2] = v;
+          const el = q(`.cl[data-c="${i}"][data-r="2"]`); el.className = 'cl ' + bin(v); el.textContent = i < 14 ? v : '';
+          const avg = Math.round(vals.reduce((x, y) => x + y, 0) / 5), fail = vals.filter(n => n < 70).length;
+          const ha = qa('.hc .ha')[i]; ha.textContent = avg; ha.classList.toggle('low', avg < 70);
+          const fl = qa('.fl')[i]; fl.textContent = fail; fl.classList.toggle('on', fail > 0);
+        });
         q('.mo-q').textContent = V.ask;
         q('.mo-a .a0').innerHTML = V.a0;
         qa('.mo-a ul li').forEach((li, j) => { li.innerHTML = V.li[j]; });
