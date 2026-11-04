@@ -177,6 +177,13 @@
     'eliminate redundant prompts or automate data', 'capture.'];
   const A2 = ['Set up alerts for: •Handle-time spikes on Online', 'Booking (e.g., >5 min avg over 24 h); •Increasing', 'silence percentage (>4 % of call time); •Drop in',
     'post-call satisfaction (<4.0) for the same topic;', 'and •Rapid growth in call volume indicating an', 'emerging issue. These signals will flag the', 'problem before it impacts overall performance.'];
+  // a host can ask for the action-first follow-up (data-ask="fix" on its .lx): how to bring handle time down, with the
+  // alerts kept as the way to check the fix holds. The default follow-up stays the signals question.
+  const FIX = {
+    q: 'How do I bring handle time down?',
+    a: ['Start with verification: a shorter script could', 'cut about 40 s per call and bring Online Booking', 'closer to the 4.4 min average. Then add quick',
+      'fare-rule guides to the knowledge base. To check', 'the fix holds, set up alerts for handle time', '(>5 min avg over 24 h), silence (>4 % of call', 'time) and post-call satisfaction (<4.0).'],
+  };
   const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const ans = (lines, cls) => `<div class="ans ${cls} hid">${lines.map(l => `<span>${esc(l)}</span>`).join('')}</div>`;
   const acts = cls => `<div class="acts ${cls} hid">${['tqUpv', 'tqDnv', 'tqRegen', 'tqCopy', 'tqVdots'].map(k => ic(k, k === 'tqVdots' ? 'vd' : '')).join('')}</div>`;
@@ -230,6 +237,8 @@
     ],
     async run(c) {
       const { q, qa, app } = c, P = c.P;
+      const host = app.closest('.lx'), V = host && host.dataset.ask === 'fix' ? FIX : null;
+      if (V) { q('.q2').textContent = V.q; q('.a2').innerHTML = V.a.map(l => `<span>${esc(l)}</span>`).join(''); }
       let off = 0;
       // a moment already reached goes on at once, so several steps due in the same frame all land in that frame
       let due = 0;
@@ -524,7 +533,7 @@
         [19.3, 1, 'hv', false], [19.3, 2, 'hv', true], [19.3, 2, 'ht', true], [19.33, 2, 'hv', false], [19.365, 2, 'ht', false]]);
       await at(20.11); press();
       const comp = q('.comp'), ty = q('.comp .ty'), ph0 = q('.comp .ph0');
-      const Q = 'Which signals should I set up to catch this early?';
+      const Q = V ? V.q : 'Which signals should I set up to catch this early?';
       // keystroke times read from the recording, one per character
       const KT = [20.733, 20.833, 20.867, 20.933, 21, 21.033, 21.1, 21.133, 21.2, 21.233, 21.3, 21.333, 21.433, 21.467, 21.5, 21.533, 21.633, 21.667, 21.7, 21.733,
         21.8, 21.833, 21.95, 22, 22.033, 22.067, 22.1, 22.133, 22.2, 22.267, 22.333, 22.4, 22.467, 22.5, 22.533, 22.6, 22.633, 22.7, 22.733, 22.833,
@@ -545,7 +554,7 @@
         ty.innerHTML = k >= 49 ? esc(Q.slice(0, 43)) + '<br>' + esc(s.slice(44)) : esc(s);
       }
       // after the last key the caret blinks again, its first "on" phase starting with that key; Enter does not reset it
-      await at(23.34); caret('blink', 23.333);
+      await at(23.34); caret('blink', KT[Q.length - 1]);
       // Enter: the composer clears (its placeholder does not come back), the question joins the conversation and the app thinks again
       await at(23.91);
       ty.textContent = ''; comp.classList.remove('tw2');
