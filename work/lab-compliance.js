@@ -177,6 +177,7 @@
         pop.style.left = (840 + DX) + 'px'; pop.style.top = (338 + DY) + 'px';
         q('.pop h5').textContent = P.h; q('.pop .ps').innerHTML = P.ps;
         const pt = q('.pop .pt'); pt.className = 'pt ' + bin(P.pt); pt.textContent = P.pt;
+        if (P.pt >= 90) pt.style.color = '#fff'; // the darkest fill takes white text, as the heatmap cells do
         q('.pop .pd').textContent = P.pd; q('.pop .pr').textContent = P.pr;
         qa('.hist i:not(.avg)').forEach((b, j) => { b.style.height = P.hist[j] + 'px'; b.classList.toggle('me', j === P.me); });
         q('.hist i.avg').style.left = P.avg + 'px';
@@ -286,8 +287,8 @@
       await p5;
       await at(9.53);
       if (V) {
-        // down to Tara Banks's Identity verification instead
-        const p6 = path([[9.53, 786, 350], [9.60, 823, 356], [9.67, 860, 366], [9.77, 895, 378], [9.87, 908, 382]]);
+        // down to Tara Banks's Identity verification instead, stopping at the cell's right edge so the dot leaves its score readable
+        const p6 = path([[9.53, 786, 350], [9.60, 823, 356], [9.67, 860, 366], [9.77, 905, 380], [9.87, 931, 390]]);
         await at(9.60); hover(cell(5, 1));
         await at(9.70); hover(cell(6, 1));
         await at(9.77); grip(2); hover(cell(6, 2));
