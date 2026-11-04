@@ -111,6 +111,16 @@
     </div>
   </div>`;
   const ASK = 'Why is Martinez N’s Fee disclosure 82?';
+  // a case-study variant (data-ask="id" on the host): Tara Banks's Identity verification, the score the case study follows
+  const ID = {
+    ask: 'Why is Tara Banks’s Identity verification 92?',
+    pop: { h: 'Tara Banks', ps: '#107 · Identity verification · selected date<br>range', pt: 92, pd: '+3 vs team average', pr: 'Top 40% · 25th of 62 agents',
+      hist: [3, 2, 4, 6, 9, 14, 24, 38, 31, 18], me: 8, avg: 175, hx: ['Low 59', 'Team avg 89', 'High 100'] },
+    a0: 'The score of <b>92</b> is the average of <b>23 calls</b> between 12 Sep 2026 and 12 Oct 2026.',
+    li: ['<b>Call 48213</b> · Score 71 — Missed: Confirmed the ID number. “We can skip the full checks <br>this time.”',
+      '<b>Call 73052</b> · Score 80 — Missed: Asked the security question. “It’s clearly you, so let’s <br>go ahead.”'],
+    a1: 'Confirmed the ID number was missed in 2 of 23 calls. 3 other agents miss it too, so it may be a <br>script or process issue, not only coaching.',
+  };
   const modal = () => `<div class="cp-dim"></div><div class="cp-mo">
     <div class="mo-h"><span class="mo-tile">${SPARK}</span><h4>Ask AI</h4><span class="mo-sub">New conversation</span>
       <span class="mo-ic">${ic('cpHist')}${ic('cpEdit')}${ic('cpExp', 'ex')}${ic('x')}</span></div>
@@ -159,6 +169,23 @@
     ],
     async run(c) {
       const { q, qa, app } = c;
+      const host = app.closest('.lx'), V = host && host.dataset.ask === 'id' ? ID : null;
+      // the clicked cell (column, row), where the popover opens, and the question it hands to Ask AI
+      const SC = V ? [6, 2] : [7, 0], DX = V ? -66.6 : 0, DY = V ? 68.5 : 0, Q = V ? V.ask : ASK;
+      if (V) {
+        const P = V.pop, pop = q('.pop');
+        pop.style.left = (840 + DX) + 'px'; pop.style.top = (338 + DY) + 'px';
+        q('.pop h5').textContent = P.h; q('.pop .ps').innerHTML = P.ps;
+        const pt = q('.pop .pt'); pt.className = 'pt ' + bin(P.pt); pt.textContent = P.pt;
+        q('.pop .pd').textContent = P.pd; q('.pop .pr').textContent = P.pr;
+        qa('.hist i:not(.avg)').forEach((b, j) => { b.style.height = P.hist[j] + 'px'; b.classList.toggle('me', j === P.me); });
+        q('.hist i.avg').style.left = P.avg + 'px';
+        ['l', 'm', 'r'].forEach((k, j) => { q(`.hx.${k}`).textContent = P.hx[j]; });
+        q('.mo-q').textContent = V.ask;
+        q('.mo-a .a0').innerHTML = V.a0;
+        qa('.mo-a ul li').forEach((li, j) => { li.innerHTML = V.li[j]; });
+        q('.mo-a .a1').innerHTML = V.a1;
+      }
       // the script follows the recording's clock: at(t) waits until t seconds into the take
       let off = 0;
       const at = t => c.wait(Math.max(0, t * 1000 + off - c.P.t));
@@ -258,19 +285,28 @@
       await at(8.90); hover(cell(4, 1));
       await p5;
       await at(9.53);
-      const p6 = path([[9.53, 786, 346], [9.57, 801, 343], [9.60, 823, 340], [9.63, 846, 335], [9.67, 869, 332], [9.77, 914, 323], [9.80, 936, 320], [9.87, 974, 313]]);
-      await at(9.60); hover(cell(5, 1));
-      await at(9.70); hover(cell(6, 0));
-      await at(9.77); grip(0);
-      await at(9.83); hover(cell(7, 0));
-      await p6;
+      if (V) {
+        // down to Tara Banks's Identity verification instead
+        const p6 = path([[9.53, 786, 350], [9.60, 823, 356], [9.67, 860, 366], [9.77, 895, 378], [9.87, 908, 382]]);
+        await at(9.60); hover(cell(5, 1));
+        await at(9.70); hover(cell(6, 1));
+        await at(9.77); grip(2); hover(cell(6, 2));
+        await p6;
+      } else {
+        const p6 = path([[9.53, 786, 346], [9.57, 801, 343], [9.60, 823, 340], [9.63, 846, 335], [9.67, 869, 332], [9.77, 914, 323], [9.80, 936, 320], [9.87, 974, 313]]);
+        await at(9.60); hover(cell(5, 1));
+        await at(9.70); hover(cell(6, 0));
+        await at(9.77); grip(0);
+        await at(9.83); hover(cell(7, 0));
+        await p6;
+      }
 
-      // 5. a click on Martinez N's Fee disclosure: the cell is selected and the popover opens
+      // 5. a click on the cell (Martinez N's Fee disclosure, or the variant's): the cell is selected and the popover opens
       await B(4, 9.85);
-      c.cam([974, 500]); // phones: the popover
-      await at(9.90); await c.click(cell(7, 0), { after: 0 });
+      c.cam([974 + DX, 500 + DY]); // phones: the popover
+      await at(9.90); await c.click(cell(...SC), { after: 0 });
       await at(9.93);
-      hover(null); cell(7, 0).classList.add('sel');
+      hover(null); cell(...SC).classList.add('sel');
       app.classList.add('pop-on');
       c.anim(q('.pop'), [{ opacity: .15 }, { opacity: .6, offset: .35 }, { opacity: .85, offset: .65 }, { opacity: 1 }], { duration: 140, easing: 'ease-out' });
 
@@ -278,7 +314,7 @@
       await B(5, 13.2);
       const btn = q('.pb');
       await at(13.27);
-      const p7 = path([[13.27, 974, 335], [13.33, 974, 369], [13.37, 974, 402], [13.47, 974, 502], [13.57, 974, 569], [13.63, 974, 624]]);
+      const p7 = path([[13.27, 974, 335], [13.33, 974, 369], [13.37, 974, 402], [13.47, 974, 502], [13.57, 974, 569], [13.63, 974, 624]].map(([t, x, y]) => [t, x + DX, y + DY]));
       await at(13.37); grip(-1);
       await p7;
       btn.classList.add('dn');
@@ -307,7 +343,7 @@
       c.anim(q('.mo-q'), [{ transform: 'translateY(3px)' }, { transform: 'none' }], { duration: 60, easing: 'ease-out' });
       qa('.mo-a ol li').forEach((li, i) => c.anim(li, [{ opacity: 0, transform: 'translate(3px,1px)' }, { opacity: 1, transform: 'none' }], { duration: 60, delay: i * 30, easing: 'ease-out', fill: 'backwards' }));
       await at(15.53);
-      q('.mo-sub').textContent = ASK;
+      q('.mo-sub').textContent = Q;
       await at(16.23);
       const drift = path([[16.23, 968, 621], [16.33, 926, 600], [16.40, 892, 582], [16.47, 862, 566], [16.53, 845, 558], [16.60, 821, 545], [16.63, 809, 539]]);
       c.cam([974, 600]); // the camera stays on the answer while the dot drifts
