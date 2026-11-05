@@ -238,6 +238,8 @@
     async run(c) {
       const { q, qa, app } = c, P = c.P;
       const host = app.closest('.lx'), V = host && host.dataset.ask === 'fix' ? FIX : null;
+      // deck-only: plain version names on the switch
+      if (host && host.dataset.ver === 'plain') qa('.seg.ver i').forEach((el, i) => { el.textContent = ['Table', 'Map', 'Summary', 'Ask AI'][i]; });
       if (V) { q('.q2').textContent = V.q; q('.a2').innerHTML = V.a.map(l => `<span>${esc(l)}</span>`).join(''); }
       let off = 0;
       // a moment already reached goes on at once, so several steps due in the same frame all land in that frame
