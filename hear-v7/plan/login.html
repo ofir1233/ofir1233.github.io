@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<link rel="icon" href="../favicon.svg">
+<title>Hear · Sign in</title>
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- A copy of public/concept/login.html for the site (made by sync-concept.py; edit the source, not this file). The header's "Sign in" opens it and signing in opens plan/studio.html. A doorway, not a lock: the fields have no names, nothing typed is sent or kept.
+      The sign-in screen of the rebuilt system (2026-11-19), in the same language as studio.html: the painted sky and city in the morning, the Hear mark as a cloud in the sky (his pick for the logo here), one glass plate
+     under it, a paper card, Byrd, one blue. The same plate, in the same place, becomes the chat after signing in.
+     What is on it is what production's sign-in has today: email, password, keep me logged in, forgot password, sign in, Google, sign up.
+     "Sign in" goes to studio.html. No real address or password is ever shown here. -->
+<style>
+@font-face{font-family:Byrd;src:url(../fonts/Byrd-Regular.woff2);font-weight:400}
+@font-face{font-family:Byrd;src:url(../fonts/Byrd-Medium.woff2);font-weight:500}
+@font-face{font-family:Byrd;src:url(../fonts/Byrd-SemiBold.woff2);font-weight:600}
+:root{--ink:#181818;--mut:#6A7078;--blue:#139FFD;--line:#D5DDE4}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#0b2a55}
+.stage{position:relative;width:100vw;height:100vh;height:100dvh;overflow:hidden;overflow:clip;font-family:Byrd,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 70%}      /* the horizon is at 70% of the painting: pinning that line keeps it at 70% of the window, whatever the window's shape */
+.wrap{position:absolute;left:50%;top:50%;width:min(492px,calc(100vw - 24px));translate:-50% -50%;scale:var(--s,1);display:flex;flex-direction:column;align-items:center;gap:24px}      /* the cloud and the plate, as one group: the script sizes it to the window */
+.glass{position:relative;width:100%;border-radius:30px;padding:18px;background:rgba(255,255,255,.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),inset 0 1.5px 0 rgba(255,255,255,.9),0 24px 48px -16px rgba(10,40,80,.4)}
+.card{border-radius:22px;padding:34px 40px 26px;background:radial-gradient(135% 110% at 16% 2%,#fff 0,#fff 26%,#F6F9FD 48%,#E9F0F9 74%,#DCE8F5 100%);box-shadow:0 8px 22px rgba(16,34,60,.14)}
+.cloud{display:block;width:48%;aspect-ratio:1200/1091}      /* the Hear mark as a cloud, loose in the sky over the plate (his brief: no frame). The sky above the plate is painted without clouds, so it is not lost among them. */
+h1{margin:0;text-align:center;font-size:30px;font-weight:500;letter-spacing:-.02em;line-height:1.1}
+form{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+input[type=email],input[type=password]{height:54px;border-radius:16px;border:1.5px solid var(--line);background:#fff;padding:0 18px;font:inherit;font-size:17px;color:var(--ink);outline:0}
+input::placeholder{color:#9AA1A8}
+input[type=email]:focus,input[type=password]:focus,input.is-focus{border-color:var(--blue);box-shadow:0 0 0 5px rgba(19,159,253,.16)}
+.row{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 6px;font-size:15px;color:#3d444c}
+.row label{display:flex;align-items:center;gap:9px;cursor:pointer}
+.row input{appearance:none;width:18px;height:18px;margin:0;border-radius:6px;border:1.5px solid #B9C3CC;background:#fff;cursor:pointer}
+.row input:checked{background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.4l3 3 6-6.6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat;border-color:var(--blue)}
+a{color:var(--ink);text-underline-offset:3px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;height:54px;border-radius:27px;border:0;font:inherit;font-size:17px;font-weight:500;cursor:pointer;text-decoration:none}
+.btn--primary{background:#232323;color:#fff}
+.btn--ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.or{display:flex;align-items:center;gap:14px;margin:4px 0;font-size:14px;color:var(--mut)}
+.or::before,.or::after{content:'';flex:1;height:1px;background:var(--line)}
+.foot{margin-top:22px;text-align:center;font-size:15px;color:var(--mut)}
+
+@media (max-width:520px){.card{padding-left:22px;padding-right:22px}.row{font-size:14px}.row label,.row a{white-space:nowrap}}      /* phones: the row under the fields stays on one line */
+
+/* In depth, like the plates on the landing page (his ask, 2026-11-19). Under the mouse the plate leans toward the pointer and its paper
+   shifts a little on it, the painted sky moves the other way, the cloud (nearer than the sky) moves further the same way, and the
+   daylight on the paper travels against the lean. --tx / --ty (−1 … 1) come from the script: followed closely, and let go with weight.
+   The cloud also floats very slowly on its own. Mouse only, wide windows only, never with reduced motion. */
+@media (hover:hover) and (pointer:fine) and (min-width:761px){
+  .bg{scale:1.07;translate:calc(var(--tx,0)*-18px) calc(var(--ty,0)*-10px);will-change:translate}
+  .cloud{translate:calc(var(--tx,0)*-34px) calc(var(--ty,0)*-18px);will-change:translate}
+  .glass{transform:perspective(1500px) rotateX(calc(var(--ty,0)*-4.5deg)) rotateY(calc(var(--tx,0)*5.5deg));will-change:transform}
+  .card{translate:calc(var(--tx,0)*6px) calc(var(--ty,0)*5px);
+    background:radial-gradient(135% 110% at calc(16% - var(--tx,0)*46%) calc(2% - var(--ty,0)*42%),#fff 0,#fff 26%,#F6F9FD 48%,#E9F0F9 74%,#DCE8F5 100%)}
+}
+@media (prefers-reduced-motion:no-preference){
+  .cloud{animation:cloud-float 11s ease-in-out infinite alternate}
+}
+@keyframes cloud-float{from{transform:translateY(-5px)}to{transform:translateY(6px)}}
+
+/* the paintings are part of the room, not things to pick up: they cannot be dragged or selected, and clicks pass through them */
+.bg,.cloud,.tile,.side .logo{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}
+</style>
+
+<div class="stage">
+  <img class="bg" draggable="false" src="login/bg-sky.jpg" alt="">
+  <div class="wrap" id="wrap">
+  <img class="cloud" draggable="false" src="login/cloud-logo.png" alt="Hear">
+  <main class="glass"><div class="card">
+    <h1>Sign in</h1>
+    <form action="studio.html"><input type="hidden" name="welcome" value="1">
+      <input class="is-focus" type="email" placeholder="Work email" aria-label="Work email" autocomplete="off">
+      <input type="password" placeholder="Password" aria-label="Password" autocomplete="off">
+      <div class="row"><label><input type="checkbox"> Keep me logged in</label><a href="#">Forgot password?</a></div>
+      <button class="btn btn--primary" type="submit">Sign in</button>
+      <div class="or">or</div>
+      <a class="btn btn--ghost" href="studio.html?welcome=1"><svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.2C12.4 13.7 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.9 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.9c-.6 3-2.3 5.5-4.8 7.2l7.7 6c4.5-4.200 7.100-10.300 7.100-17.700z"/><path fill="#FBBC05" d="M10.500 28.600c-.5-1.400-.8-3-.8-4.600s.3-3.200.8-4.600l-7.900-6.200C1 16.400 0 20.100 0 24s1 7.600 2.600 10.800l7.900-6.200z"/><path fill="#34A853" d="M24 48c6.500 0 11.900-2.100 15.800-5.800l-7.700-6c-2.100 1.400-4.900 2.300-8.100 2.300-6.300 0-11.600-4.200-13.500-9.900l-7.900 6.200C6.500 42.600 14.600 48 24 48z"/></svg>Continue with Google</a>
+    </form>
+    <p class="foot">Don’t have an account? <a href="#">Sign up</a></p>
+  </div></main>
+  </div>
+</div>
+<script>
+// The cloud and the plate are one group that always fits the window: at its own size when there is room, smaller when the window is
+// short (the group never scrolls and is never cut). The painting keeps its horizon at 70% of the height at any window shape.
+(function(){ const w=document.getElementById('wrap'); if(!w) return;
+  const fit=()=>{ const h=w.offsetHeight||1, room=innerHeight*(innerWidth>760?.88:.95);      // air above the cloud and under the plate
+    const design=innerWidth>760?Math.max(.72,innerWidth/1720)*1.06:9;      // on a laptop the group is drawn smaller, by the same ratio as the system's screens
+    w.style.setProperty('--s',Math.min(1.12,room/h,(innerWidth-24)/w.offsetWidth,design).toFixed(4)) };
+  addEventListener('resize',fit); addEventListener('load',fit); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit); fit() })();
+// The screen in depth: --tx / --ty follow the mouse over the whole screen, quickly and without snapping; when the mouse leaves they are
+// let go like something with weight, swing gently past level once and settle (the landing page's own spring).
+(function(){ if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const st=document.querySelector('.stage'); let tx=0, ty=0, x=0, y=0, vx=0, vy=0, raf=0, last=0, over=false;
+  function tick(t){ const dt=Math.min(.034,(t-last)/1000||.016); last=t;
+    const k=over?110:15, c=over?21:4.6;
+    vx+=((tx-x)*k-vx*c)*dt; vy+=((ty-y)*k-vy*c)*dt; x+=vx*dt; y+=vy*dt;
+    st.style.setProperty('--tx',x.toFixed(4)); st.style.setProperty('--ty',y.toFixed(4));
+    if(Math.abs(tx-x)>.0008||Math.abs(ty-y)>.0008||Math.abs(vx)>.002||Math.abs(vy)>.002) raf=requestAnimationFrame(tick);
+    else { raf=0; x=tx; y=ty; vx=vy=0; st.style.setProperty('--tx',x); st.style.setProperty('--ty',y) } }
+  const go=()=>{ if(!raf){ last=performance.now(); raf=requestAnimationFrame(tick) } };
+  st.addEventListener('pointermove',e=>{ if(e.pointerType!=='mouse') return; over=true; const r=st.getBoundingClientRect();
+    tx=Math.max(-1,Math.min(1,((e.clientX-r.left)/r.width-.5)*2)); ty=Math.max(-1,Math.min(1,((e.clientY-r.top)/r.height-.5)*2)); go() });
+  st.addEventListener('pointerleave',()=>{ over=false; tx=0; ty=0; go() });
+})();
+</script>
+</html>

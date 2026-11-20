@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<link rel="icon" href="../favicon.svg">
+<title>Hear · Studio</title>
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- A copy of public/concept/studio.html for the site (made by sync-concept.py; edit the source, not this file). The new sign-in (plan/login.html) opens it.
+      The base of the rebuilt system, high fidelity (2026-11-19). His two states, now inside the real shell and with a real use case:
+       1 before: the sidebar, and only the chat in the middle of the room                 studio.html
+       2 after:  the sidebar, the chat at the side, the built system shown beside it      studio.html?s=2
+     The sidebar is a must (he: "אין שם sidebar שחייב אותו"): one sheet of frosted glass, the shell; the chat and the app are paper on glass plates.
+     Use case: production's own suggestion, "A heatmap of evaluation criteria by agent" (QA lead). All names and scores are SAMPLE DATA.
+     Scores use one fixed scale for the whole page (five steps of the one blue); nothing is stretched to the data.
+     Send / Enter in state 1 builds; "New app" goes back. Direction: the landing page's glass on the painted sky, Byrd, one blue. The room is open sky only: the city stays on the sign-in screen. -->
+<style>
+@font-face{font-family:Byrd;src:url(../fonts/Byrd-Regular.woff2);font-weight:400}
+@font-face{font-family:Byrd;src:url(../fonts/Byrd-Medium.woff2);font-weight:500}
+@font-face{font-family:Byrd;src:url(../fonts/Byrd-SemiBold.woff2);font-weight:600}
+:root{--ink:#181818;--ink2:#3d444c;--mut:#6A7078;--blue:#139FFD;--chip:#E9EEF2;--line:#DDE3E8;--side:260px}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#0b2a55}
+button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
+.stage{position:relative;width:100vw;height:100vh;height:100dvh;overflow:hidden;overflow:clip;font-family:Byrd,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%}      /* the working screens sit in open sky: no city, a few small clouds low down */
+svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* the shell: one sheet of frosted glass */
+.side{position:absolute;left:0;top:0;bottom:0;width:var(--side);display:flex;flex-direction:column;padding:22px 14px 16px;background:rgba(255,255,255,.66);-webkit-backdrop-filter:blur(26px) saturate(1.3);backdrop-filter:blur(26px) saturate(1.3);
+  box-shadow:inset -1px 0 0 rgba(255,255,255,.8),8px 0 40px -18px rgba(10,40,80,.35)}
+.new{display:flex;align-items:center;justify-content:center;gap:8px;height:42px;margin-top:22px;border-radius:21px;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;font-size:15px;font-weight:500}
+.s1 .new{background:#232323;color:#fff;box-shadow:none}
+.side h3{margin:22px 10px 6px;font-size:12.5px;font-weight:500;color:var(--mut)}
+.nv{display:flex;align-items:center;gap:10px;height:38px;padding:0 10px;border-radius:12px;font-size:14.5px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left;width:100%}
+.nv svg{color:#7C858E}
+.nv:hover{background:rgba(255,255,255,.6)}
+.nv.on{background:#fff;color:var(--ink);font-weight:500;box-shadow:0 4px 14px -6px rgba(16,34,60,.25)}
+.nv.on svg{color:var(--blue)}
+.s1 .nv.fresh{display:none}
+.side hr{width:calc(100% - 20px);margin:14px 10px 8px;border:0;border-top:1px solid rgba(24,36,48,.1)}
+.side .sp{flex:1}
+.me{display:flex;align-items:center;gap:10px;margin-top:8px;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.7)}
+.me b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#D6DEE4;font-size:12px;font-weight:600;color:#4b535b}
+.me span{font-size:14px;font-weight:500;line-height:1.2}
+.me small{display:block;font-size:12.5px;font-weight:400;color:var(--mut)}
+
+/* paper on glass */
+.glass{position:absolute;border-radius:30px;background:rgba(255,255,255,.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),inset 0 1.5px 0 rgba(255,255,255,.9),0 24px 48px -16px rgba(10,40,80,.4)}
+.card{position:absolute;inset:14px;border-radius:20px;background:radial-gradient(135% 110% at 16% 2%,#fff 0,#fff 26%,#F6F9FD 48%,#E9F0F9 74%,#DCE8F5 100%);box-shadow:0 8px 22px rgba(16,34,60,.14);overflow:hidden}
+
+/* 1 · before: only the chat, in the middle of the room */
+
+/* 2 · after: the chat at the side, the system that was built beside it */
+.chat{left:calc(var(--side) + 20px);top:20px;bottom:20px;width:336px}
+.chat .card{display:flex;flex-direction:column;padding:20px 18px 18px}
+.chat h4{margin:0 2px;font-size:13px;font-weight:500;color:var(--mut)}
+.you{align-self:flex-end;max-width:88%;background:var(--chip);border-radius:16px 16px 4px 16px;padding:10px 13px}
+.it b{font-weight:600}
+.it span{display:block;color:var(--mut);margin-top:3px}
+.it em{display:inline-block;margin-top:8px;font-style:normal;font-size:12.5px;font-weight:500;padding:3px 10px;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);color:var(--ink2)}
+.app{left:calc(var(--side) + 372px);top:20px;right:20px;bottom:20px}
+.app .card{padding:30px 34px;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:none}
+.app .card::-webkit-scrollbar{display:none}
+.top{display:flex;align-items:flex-start;gap:12px}
+.top h2{margin:0;font-size:27px;font-weight:500;letter-spacing:-.02em;line-height:1.15}
+.top p{margin:5px 0 0;font-size:14.5px;color:var(--mut)}
+.top .sp{flex:1}
+.act{display:flex;align-items:center;gap:8px;height:36px;padding:0 15px;border-radius:18px;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;font-size:14px;font-weight:500;white-space:nowrap}
+.act.sq{width:36px;padding:0;justify-content:center}
+.kpis{display:flex;margin-top:22px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.kpis div{flex:1;padding:16px 0 16px 24px;border-left:1px solid var(--line)}
+.kpis div:first-child{padding-left:0;border-left:0}
+.kpis small{display:block;font-size:13.5px;color:var(--mut)}
+.kpis b{display:block;margin-top:5px;font-size:38px;font-weight:500;letter-spacing:-.03em;line-height:1}
+.kpis i{display:block;margin-top:7px;font-style:normal;font-size:13px;color:var(--mut)}
+.hm{margin-top:20px;width:100%;border-collapse:separate;border-spacing:4px 4px;table-layout:fixed;font-size:14px}
+.hm th{font-weight:400;font-size:11.5px;color:var(--mut);padding:0 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}      /* on a very small window a long criterion name shortens with an ellipsis, it never runs into its neighbour */
+.hm th:first-child{width:150px;text-align:left}
+.hm th:last-child,.hm td:last-child{width:56px}
+.hm td{height:38px;border-radius:9px;text-align:center;font-weight:500;font-variant-numeric:tabular-nums}
+.hm td:first-child{text-align:left;font-weight:400;white-space:nowrap;border-radius:0}
+.hm td:first-child span{display:flex;align-items:center;gap:9px}
+.hm td:first-child b{display:grid;place-items:center;flex:none;width:26px;height:26px;border-radius:50%;background:#D6DEE4;font-size:10px;font-weight:600;color:#4b535b}
+.hm td:last-child{font-weight:600;font-size:15px;background:none}
+.b5{background:#139FFD;color:#fff}.b4{background:#63BEFE;color:#06365c}.b3{background:#A9DAFE;color:#0b3a5e}.b2{background:#DCEFFE;color:#1b4666}.b1{background:#fff;box-shadow:inset 0 0 0 1.5px #C9D3DB;color:var(--ink)}
+.key{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:14px;font-size:12.5px;color:var(--mut)}
+.key i{width:26px;height:12px;border-radius:4px}
+.key span{margin-right:10px}
+
+/* Three improvements to the base he liked (first shown as V2 on a Design switch; he had the switch removed, 2026-11-19, and this is now the page):
+   1 the empty lower third of the app becomes the evidence: pick a score, see the calls behind it (every number opens its conversations);
+   2 the scores that need attention are the loudest thing on the page (ink), not the quietest (white);
+   3 the chat joins the shell (frosted glass, like the sidebar), so the app is the one sheet of paper in the room. */
+.v2 .b1{background:#232323;color:#fff;box-shadow:none}
+.v2 .chat{border-radius:26px;background:rgba(255,255,255,.66);-webkit-backdrop-filter:blur(26px) saturate(1.3);backdrop-filter:blur(26px) saturate(1.3);box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),0 20px 44px -20px rgba(10,40,80,.35)}
+.v2 .chat .card{inset:0;background:none;box-shadow:none;padding:22px 20px 20px}
+.v2 .chat .you{background:#fff;box-shadow:0 2px 8px -4px rgba(16,34,60,.2)}
+.v2 .key{margin-top:0;padding-top:10px}
+.v2 .hm td[data-a]{cursor:pointer}
+.v2 .hm td.sel{outline:2.5px solid var(--ink);outline-offset:2px}
+.ev{flex:1;min-height:0;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column}
+.ev header{display:flex;align-items:baseline;gap:10px;font-size:14px;color:var(--mut)}
+.ev header b{font-size:16px;font-weight:600;color:var(--ink)}
+.ev header a{margin-left:auto;color:var(--ink);font-weight:500;text-decoration:none;white-space:nowrap}
+.ev .pl{display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA}
+.ev .pl::before{content:'';border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent var(--ink);margin-left:2px}
+
+/* One design size. The screen is drawn for a window about 1720 px wide and the script draws it smaller, by the same ratio, on a smaller
+   window (he: on his MacBook everything looked big, and right at the browser's 80%). The classes below are set by the script from the
+   size the screen is DRAWN at, so they tighten the layout only when even that is small. */
+.stage{--side:260px}      /* a little wider ("אולי נעשה גם את ה-sidebar יותר רחב קצת", 11-19; was 236) */
+.is-narrow{--side:232px}
+.is-narrow .chat{width:300px} .is-narrow .app{left:calc(var(--side) + 336px)} .is-narrow .hm th:first-child{width:138px} .is-narrow .nv{font-size:13.5px;gap:8px;padding:0 8px}
+.is-short .app .card{padding:22px 28px} .is-short .top h2{font-size:23px} .is-short .top p{margin-top:3px;font-size:13.5px}
+.is-short .kpis{margin-top:14px} .is-short .kpis div{padding:10px 0 10px 20px} .is-short .kpis b{font-size:30px;margin-top:3px} .is-short .kpis i{margin-top:4px}
+.is-short .hm{margin-top:12px;border-spacing:3px} .is-short .hm td{height:31px}
+.is-short.v2 .key{padding-top:6px} .is-short .ev{margin-top:8px;padding-top:8px} .is-short .evtab{margin-top:2px} .is-short .evtab td{height:38px}
+.is-tiny .hm td{height:27px;font-size:13px} .is-tiny .evtab td{height:32px} .is-tiny .kpis b{font-size:26px}
+
+/* In depth, like the sign-in and the plates on the landing page (his ask: "אני רוצה גם כאן את ה-3D"). Before there is an app, the one plate
+   leans toward the pointer, its paper shifts a little on it, the daylight on the paper travels against the lean, and the sky moves the
+   other way. Once an app is open only the sky still moves, slightly: a table someone is reading should stay still. Mouse only. */
+@media (hover:hover) and (pointer:fine){
+  .bg{scale:1.06;translate:calc(var(--tx,0)*-16px) calc(var(--ty,0)*-9px);will-change:translate}
+  .s2 .bg{translate:calc(var(--tx,0)*-7px) calc(var(--ty,0)*-4px)}
+  .s1 .before{transform:perspective(1700px) rotateX(calc(var(--ty,0)*-3.6deg*var(--lean,1))) rotateY(calc(var(--tx,0)*4.4deg*var(--lean,1)));will-change:transform}
+  .s1 .before .card{translate:calc(var(--tx,0)*6px) calc(var(--ty,0)*5px);
+    background:radial-gradient(135% 110% at calc(16% - var(--tx,0)*46%) calc(2% - var(--ty,0)*42%),#fff 0,#fff 26%,#F6F9FD 48%,#E9F0F9 74%,#DCE8F5 100%)}
+}
+
+.s1 .chat,.s1 .app{display:none}
+.s2 .before{display:none}
+.s3 .before,.s3 .chat,.s3 .app{display:none}
+.s1 .gal,.s2 .gal{display:none}
+
+/* the paintings are part of the room, not things to pick up: they cannot be dragged or selected, and clicks pass through them */
+.bg,.cloud,.tile{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}
+</style>
+<link rel="stylesheet" href="login/studio-composer.css">
+
+<div class="stage s1 v2 brand-powered" id="stage">
+  <img class="bg" draggable="false" src="login/bg-calm-sky.jpg" alt="">
+
+  <aside class="side">
+    <div class="side__top"><button type="button" class="ws" id="ws" data-tip="Northwind" aria-label="Workspace: Northwind. Switch workspace"><b class="ws__mark">N</b><span class="ws__name">Northwind</span><svg class="i ws__chev" viewBox="0 0 18 18"><path d="M6 7.5l3-3 3 3M6 10.5l3 3 3-3"/></svg></button><button type="button" class="tgl" id="tgl"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="3" width="13" height="12" rx="3"/><path d="M7 3v12"/></svg></button></div>
+    <button class="new" id="new"><svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New app</button>
+    <!-- the Apps heading IS the way to all apps ("All apps לא נראה מופרד מספיק מהשאר", 11-19): a header row, not one more item in the list -->
+    <button class="nv nv--all" id="nav-all"><svg class="i" viewBox="0 0 18 18"><path d="M3 6.2 9 3l6 3.2L9 9.4zM3 9.4l6 3.2 6-3.2M3 12.6l6 3.2 6-3.2"/></svg><b class="cnt">See all <span id="all-n">5</span><svg class="i" viewBox="0 0 18 18"><path d="M7 4.5l4.5 4.5L7 13.5"/></svg></b>Apps</button>
+    <button class="nv on fresh"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="2.5" y="10.1" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="10.1" width="5.4" height="5.4" rx="1.2"/></svg>Evaluation by agent</button>
+    <button class="nv"><svg class="i" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h8"/></svg>Disclosure review</button>
+    <button class="nv"><svg class="i" viewBox="0 0 18 18"><path d="M3.5 15V9M9 15V3.5M14.5 15V7"/></svg>Handle time by team</button>
+    <button class="nv"><svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.2"/><path d="M6.3 9.2l1.9 1.9 3.6-4"/></svg>Compliance review</button>
+    <hr>
+    <button class="nv"><svg class="i" viewBox="0 0 18 18"><path d="M3 7.5v3M6 5v8M9 7v4M12 3.5v11M15 7.5v3"/></svg>Conversations</button>
+    <button class="nv"><svg class="i" viewBox="0 0 18 18"><path d="M3.5 3.5h8a2 2 0 0 1 2 2v9h-8a2 2 0 0 1-2-2zM3.5 12.5a2 2 0 0 1 2-2h8"/></svg>Knowledge</button>
+    <button class="nv"><svg class="i" viewBox="0 0 18 18"><path d="M10 2.5 4 10h4.5L8 15.5 14 8H9.5z"/></svg>Workflows</button>
+    <div class="sp"></div>
+    <button class="nv nv--bell" id="bell" aria-haspopup="dialog"><svg class="i" viewBox="0 0 18 18"><path d="M4.5 12.5V8.2a4.5 4.5 0 0 1 9 0v4.3l1.2 1.5H3.3zM7.3 15.5a1.8 1.8 0 0 0 3.4 0"/></svg><b class="badge" id="bell-n"></b>Notifications</button>
+    <button class="nv"><svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.5"/><path d="M7.2 7.2a1.9 1.9 0 1 1 2.6 1.8c-.5.3-.8.7-.8 1.3M9 12.7v.1"/></svg>Help</button>
+    <button class="nv"><svg class="i" viewBox="0 0 18 18"><path d="M3 5.5h6.5M12.5 5.5H15M3 12.5h2.5M8.5 12.5H15"/><circle cx="11" cy="5.5" r="1.5"/><circle cx="7" cy="12.5" r="1.5"/></svg>Settings</button>
+    <div class="me"><b>MC</b><span>Maya Chen<small>QA lead</small></span></div>
+    <!-- his pick (11-19, B): the company on top, then its apps, then the person, and Hear signs at the foot -->
+    <div class="powered" aria-label="Powered by Hear"><svg viewBox="0 0 69 60" aria-hidden="true"><path class="powered__mark"/></svg><span>Powered by Hear</span></div>
+  </aside>
+
+  <!-- All apps (his pick A, 11-19): every app of the team as a card with a live preview of what is really in it -->
+  <div class="glass gal" id="gal"><div class="card"><div class="gal__top"><div><h2>All apps</h2><p id="gal-sub"></p></div><div class="sp"></div><label class="gal__search"><svg class="i" viewBox="0 0 18 18"><circle cx="8" cy="8" r="4.8"/><path d="M11.6 11.6 15 15"/></svg><input id="gal-q" type="text" placeholder="Search apps" autocomplete="off" spellcheck="false"></label></div><div class="gal__bar"><div class="gal__chips" id="gal-chips"></div><button type="button" class="gal__sort">Recently used<svg class="i" viewBox="0 0 18 18"><path d="M5 7.5l4 4 4-4"/></svg></button></div><div class="gal__grid" id="gal-grid"></div></div></div>
+  <div class="peek" id="peek" aria-hidden="true"></div>
+  <div class="notes" id="notes" role="dialog" aria-label="Notifications" hidden><header><b>Notifications</b><button type="button" id="notes-read">Mark all as read</button></header><ul id="notes-l"></ul></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <div class="glass before" id="plate"><div class="card">
+    <div class="markbox"><svg class="mark" viewBox="0 0 69 60"><path fill="#139FFD"/></svg></div>
+    <h1><span class="h1a">Describe it.</span> <span class="h1b">Hear builds it.</span></h1>
+    <div class="field cmp" id="cmp-create"></div>
+    <div class="ideas"><div><div class="try" id="try" aria-label="Ideas to start from"></div></div></div>
+    <div class="steps"><div><ol id="steps"><li>Planning</li><li>Building</li><li>Checking</li></ol></div></div>
+  </div></div>
+
+  <div class="glass chat"><div class="card">
+    <h4>Conversation</h4>
+    <div class="msgs" id="msgs">
+      <div class="thread on" data-v="eval">
+      <div class="you" id="said">A heatmap of evaluation criteria by agent for the last 30 days</div>
+      <div class="it work is-done" id="work">
+        <div class="work__line"><svg class="work__mark" viewBox="0 0 69 60" aria-hidden="true"><path/></svg><span class="work__status" id="wstatus">Worked for 4s</span><button type="button" class="work__tgl" id="wtgl" aria-expanded="false" aria-label="Show the steps"><svg class="i" viewBox="0 0 18 18"><path d="M5 7.5l4 4 4-4"/></svg></button></div>
+        <div class="work__steps"><ol id="wsteps"></ol></div>
+        <div class="work__done"><b>Done. Your app is ready.</b><span id="built"></span><em>v1</em></div>
+      </div>
+      </div>
+    </div>
+    <div class="next" id="next"></div>
+    <div class="field cmp" id="cmp-chat"></div>
+  </div></div>
+
+  <div class="glass app"><div class="card">
+    <div class="appv on" data-v="eval">
+    <div class="top">
+      <div><h2>Evaluation by agent</h2><p id="sub"></p></div><div class="sp"></div>
+      <button class="act">Share</button>
+      <button class="act sq" aria-label="Open full page"><svg class="i" viewBox="0 0 18 18"><path d="M10.5 3.5h4v4M14.5 3.5 9.8 8.2M7.5 14.5h-4v-4M3.5 14.5l4.7-4.7"/></svg></button>
+    </div>
+    <div class="filters" id="filters" hidden><button type="button">Team: All<svg class="i" viewBox="0 0 18 18"><path d="M5 7.5l4 4 4-4"/></svg></button></div>
+    <div class="kpis" id="kpis"></div>
+    <table class="hm" id="hm"></table>
+    <div class="key"><span>Score</span><i class="b1"></i><span>under 60</span><i class="b2"></i><span>60–69</span><i class="b3"></i><span>70–79</span><i class="b4"></i><span>80–89</span><i class="b5"></i><span>90 and up</span></div>
+    <section class="ev"><header><b id="evt"></b><span id="evs"></span><a href="#" id="eva"></a></header><table class="evtab"><thead><tr><th>Call</th><th>Date</th><th>Length</th><th>Moment</th><th>Score</th><th>What Hear found</th></tr></thead><tbody id="evl"></tbody></table></section>
+    </div>
+    <!-- the team's other apps, each in its own shape (his ask, 11-19: "צריך משהו ייחודי מעניין ומתאים לכל אחד"); drawn by the script -->
+    <div class="appv" data-v="disc" id="v-disc"></div>
+    <div class="appv" data-v="aht" id="v-aht"></div>
+    <div class="appv" data-v="comp" id="v-comp"></div>
+  </div></div>
+</div>
+
+<!-- Welcome to Hear Studio, right after signing in (his ask, 11-19: "פופ-אפ עם כל התמונה הזו וטקסט מתחת, וחוויה של walk through שמסביר איך זה
+     עובד ועושה איתך תהליך יצירה … loop animation עדין … רגע של celebration"). The painting is his approved "Hear Studio" parade. -->
+<div class="welcome" id="welcome" hidden>
+  <div class="welcome__card" role="dialog" aria-modal="true" aria-labelledby="wl-t" tabindex="-1">
+    <div class="welcome__art"><video src="login/welcome-parade-loop.mp4" poster="login/welcome-parade-loop.jpg" autoplay muted loop playsinline preload="auto" aria-label="A city parade with Hear Studio written in balloons"></video><!-- the painting alive: his pick (11-19): the ORIGINAL Omni clip (v1), only its steady middle (1.5 s–5 s, where the band marks time), played forward then backward (7 s), so it never jumps --><canvas id="confetti" aria-hidden="true"></canvas></div>
+    <div class="welcome__text">
+      <h2 id="wl-t">Meet Hear Studio</h2>
+      <p>Describe the app your team needs. Hear builds it from your conversations, and you change it in plain words.</p>
+      <div class="welcome__acts"><button type="button" class="welcome__later" id="wl-later">Maybe later</button><button type="button" class="welcome__go" id="wl-go"><span>Build one with me</span><svg class="i" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 9h10M10 5l4 4-4 4"/></svg></button></div>
+    </div>
+  </div>
+</div>
+<!-- The walkthrough: a soft spotlight on the part in play and one small card that walks the four steps with you -->
+<div class="coach" id="coach" hidden><div class="coach__spot" id="coach-spot"></div>
+  <div class="coach__pos" id="coach-pos"><div class="coach__card" id="coach-card" role="dialog" aria-live="polite"><small id="coach-n"></small><b id="coach-t"></b><p id="coach-p"></p>
+    <div class="coach__acts"><button type="button" class="coach__skip" id="coach-skip">Skip</button><button type="button" class="coach__go" id="coach-go"></button></div></div></div></div>
+
+<script src="login/studio-composer.js"></script>
+<script>
+const MARK='M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z';
+document.querySelectorAll('.mark path').forEach(p=>p.setAttribute('d',MARK));
+// production's own four suggestions
+const TRY=['A table of every agent and how many calls they handled','A heatmap of evaluation criteria by agent for the last 30 days','A chart of average handle time per team','A table of the top dispositions this month'];
+document.getElementById('try').innerHTML=TRY.map((t,i)=>`<button type="button" style="--i:${i}"><svg class="i" viewBox="0 0 18 18"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span>${t}</span><kbd>↵</kbd></button>`).join('');
+
+// SAMPLE DATA: evaluation criteria, and each agent's evaluated calls and score per criterion (0–100)
+const CRIT=['Greeting','Verification','Discovery','Resolution','Compliance','Empathy','Closing'];
+const AG=[['Tyler Shaw',172,[92,64,71,68,58,77,81]],['Nina Vargas',148,[88,71,66,74,69,62,84]],['Omar Haddad',131,[95,58,79,81,72,85,78]],['Luis Ortega',166,[84,76,83,72,81,74,90]],
+          ['Grace Kim',189,[97,82,78,86,77,91,88]],['Dana Levi',154,[91,79,88,84,92,83,86]],['Sam Rivera',160,[96,88,85,91,89,87,93]],['Ines Moreau',164,[98,93,90,94,96,92,95]]];
+const avg=a=>Math.round(a.reduce((x,y)=>x+y,0)/a.length), band=v=>v>=90?'b5':v>=80?'b4':v>=70?'b3':v>=60?'b2':'b1';
+const rows=AG.map(([n,c,s])=>({n,c,s,o:avg(s)})).sort((a,b)=>a.o-b.o);          // lowest overall first, as asked in the conversation
+const calls=rows.reduce((x,r)=>x+r.c,0), all=avg(rows.map(r=>r.o));
+const byCrit=CRIT.map((c,i)=>[c,avg(rows.map(r=>r.s[i]))]).sort((a,b)=>a[1]-b[1]);
+const fmt=n=>n.toLocaleString('en-US');
+document.getElementById('sub').textContent=`Last 30 days · ${rows.length} agents · ${CRIT.length} criteria`;
+document.getElementById('built').textContent=`Built from ${fmt(calls)} evaluated calls in the last 30 days.`;
+document.getElementById('kpis').innerHTML=`<div><small>Average score</small><b>${all}</b><i>All agents</i></div><div><small>Evaluated calls</small><b>${fmt(calls)}</b><i>Last 30 days</i></div><div><small>Lowest criterion</small><b>${byCrit[0][1]}</b><i>${byCrit[0][0]}</i></div>`;
+const ini=n=>n.split(' ').map(w=>w[0]).join('');
+document.getElementById('hm').innerHTML='<tr><th>Agent</th>'+CRIT.map(c=>`<th>${c}</th>`).join('')+'<th>Overall</th></tr>'
+  +rows.map(r=>`<tr><td><span><b>${ini(r.n)}</b>${r.n}</span></td>${r.s.map((v,i)=>`<td class="${band(v)}" data-a="${r.n}" data-c="${CRIT[i]}" data-v="${v}" data-n="${r.c}">${v}</td>`).join('')}<td>${r.o}</td></tr>`).join('');
+
+// The calls behind a score, as a table (his ask, 11-19: "במקום החלק התחתון הזה להניח איזו טבלה"): pick a score in the heatmap and the table
+// shows that agent's calls for that criterion, lowest first: when, how long, the moment it was judged, the call's own score, and what was found.
+// SAMPLE calls, derived from the picked cell so the table always agrees with the heatmap.
+// Each agent's calls are their own (critic round 5: the same four calls for every cell looked like nothing changed): a seeded generator per
+// agent + criterion gives each call a reason, a date in the last 30 days, a length, the moment it was judged, a score around the cell's, and a
+// finding picked from that criterion's own misses or passes. The table takes as many rows as the page has room for (4 to 7).
+const REASONS=['Billing dispute','Card replacement','Address change','Payment plan','Fraud alert','Cancel request','Plan upgrade','Refund status','Login help','Delivery delay','Rate question','Account closure'];
+const MISS={Greeting:['No name or company in the opening','Opened with the account number, no greeting','Greeting cut short'],
+  Verification:['Skipped the date-of-birth check','Verified on one detail only','Shared the balance before checking identity'],
+  Discovery:['Did not ask why the customer called','Jumped to a fix before asking','Missed the second question'],
+  Resolution:['Left the issue open, no next step','Promised a callback with no time','Transferred without a fix'],
+  Compliance:['Recording disclosure not read','Fees stated after the agreement','Disclosure read too fast'],
+  Empathy:['Talked over the customer','No acknowledgement of the complaint','Flat tone on a hardship call'],
+  Closing:['Ended without a summary','No confirmation of the next step','Closed while the customer was talking']};
+const MET={Greeting:['Full greeting','Name, company, offer to help'],Verification:['Identity checked in full','Two-factor check done'],
+  Discovery:['Reason for the call confirmed','Asked and summarised the need'],Resolution:['Resolved, next step agreed','Fixed on the call'],
+  Compliance:['All disclosures read','Disclosure read and confirmed'],Empathy:['Acknowledged the concern','Calm on a hard call'],Closing:['Summed up and confirmed','Next step confirmed']};
+const seeded=str=>{ let h=2166136261; for(const ch of str){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619) } return ()=>{ h^=h<<13; h^=h>>>17; h^=h<<5; return ((h>>>0)%10000)/10000 } };
+const at=(len,f)=>{ const [m,x]=len.split(':'), t=Math.round((m*60+ +x)*f); return Math.floor(t/60)+':'+String(t%60).padStart(2,'0') };
+const MON=['Oct','Nov'];
+function callsFor(agent,crit,v,n){ const r=seeded(agent+'|'+crit), used=new Set(), out=[];
+  for(let k=0;k<n;k++){ let ri; do{ ri=Math.floor(r()*REASONS.length) }while(used.has(ri)&&used.size<REASONS.length); used.add(ri);
+    const day=Math.floor(r()*30), d=day<18?'Nov '+(18-day):'Oct '+(31-(day-18)), secs=150+Math.floor(r()*480), len=Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0');
+    // scores spread evenly around the cell's average (a real spread, some under it and some over), with a little jitter
+    const s=Math.max(20,Math.min(100,Math.round(+v-13+(n>1?26*k/(n-1):0)+(r()-.5)*5))), miss=s<70, pool=miss?MISS[crit]:MET[crit];
+    const used2=out.filter(o=>o.miss===miss).length;      // findings cycle through the criterion's list, so neighbours differ
+    out.push({reason:REASONS[ri],d,len,mom:at(len,.06+r()*.3),s,miss,find:pool[(Math.floor(r()*pool.length)+used2)%pool.length]}) }
+  return out.sort((a,b)=>a.s-b.s) }
+function callRows(agent,crit,v,n){ return callsFor(agent,crit,v,n).map(r=>`<tr><td><span class="evc"><i class="pl" role="button" aria-label="Play from ${r.mom}"></i>${r.reason}</span></td><td>${r.d}</td><td>${r.len}</td><td>${r.mom}</td><td><b class="evs ${band(r.s)}">${r.s}</b></td><td class="evf ${r.s<70?'is-miss':''}">${r.find}</td></tr>`).join('') }
+function fillCalls(td){ const tb=document.getElementById('evl'), card=document.querySelector('.app .card');
+  let n=7; tb.innerHTML=callRows(td.dataset.a,td.dataset.c,td.dataset.v,n);
+  while(n>4&&card.scrollHeight>card.clientHeight+1){ n--; tb.lastElementChild.remove() }      // as many rows as fit; never fewer than 4
+  tb.innerHTML=callRows(td.dataset.a,td.dataset.c,td.dataset.v,n);      // then the real n calls, spread over the whole range
+  document.getElementById('evs').textContent=n+' of the calls behind this score' }
+function pick(td){ document.querySelectorAll('#hm td.sel').forEach(x=>x.classList.remove('sel')); td.classList.add('sel');
+  document.getElementById('evt').textContent=td.dataset.a+' · '+td.dataset.c+' · '+td.dataset.v;
+  document.getElementById('eva').textContent='All '+td.dataset.n+' calls →';
+  fillCalls(td); const tb=document.getElementById('evl'); tb.classList.remove('is-new'); void tb.offsetWidth; tb.classList.add('is-new') }
+addEventListener('resize',()=>{ const sel=document.querySelector('#hm td.sel'); if(sel&&!stage.classList.contains('s1')) fillCalls(sel) });
+document.querySelectorAll('#hm td[data-a]').forEach(td=>td.addEventListener('click',()=>pick(td)));
+// start on the lowest score of the lowest criterion: where a QA lead would look first
+const first=[...document.querySelectorAll(`#hm td[data-c="${byCrit[0][0]}"]`)].sort((a,b)=>a.dataset.v-b.dataset.v)[0]; if(first) pick(first);
+
+// the two states
+const stage=document.getElementById('stage');
+var curApp='eval';      // which app the second state shows: eval (built here), disc, aht, comp
+const set=n=>{ stage.classList.remove('s1','s2','s3','is-fresh','is-leaving'); stage.classList.add('s'+n); if(n===2&&typeof nextChips==='function') nextChips(); if(n===2&&curApp==='eval'){ const sel=document.querySelector('#hm td.sel'); if(sel&&typeof fillCalls==='function') fillCalls(sel) } };      // the chips are fitted when the chat is on screen (hidden, everything measures zero)
+// One design size: drawn for a window about 1720 px wide; on a smaller window everything is drawn smaller by the same ratio (never
+// below 72%, never above 110%). The layout classes follow the size the screen is drawn at.
+const fitStage=()=>{ const z=Math.max(.72,Math.min(1.1,innerWidth/1720)), W=innerWidth/z, H=innerHeight/z;
+  stage.style.zoom=z; stage.style.width=W+'px'; stage.style.height=H+'px';
+  stage.classList.toggle('is-narrow',W<=1400); stage.classList.toggle('is-short',H<=840); stage.classList.toggle('is-tiny',H<=680) };
+addEventListener('resize',fitStage); fitStage();
+// The screen in depth: --tx / --ty follow the mouse over the room (measured in the area right of the sidebar), quickly and without
+// snapping; when the mouse leaves they are let go like something with weight (the landing page's own spring).
+(function(){ if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  let tx=0, ty=0, x=0, y=0, vx=0, vy=0, raf=0, last=0, over=false;
+  function tick(t){ const dt=Math.min(.034,(t-last)/1000||.016); last=t;
+    const k=over?110:15, c=over?21:4.6;
+    vx+=((tx-x)*k-vx*c)*dt; vy+=((ty-y)*k-vy*c)*dt; x+=vx*dt; y+=vy*dt;
+    stage.style.setProperty('--tx',x.toFixed(4)); stage.style.setProperty('--ty',y.toFixed(4));
+    if(Math.abs(tx-x)>.0008||Math.abs(ty-y)>.0008||Math.abs(vx)>.002||Math.abs(vy)>.002) raf=requestAnimationFrame(tick);
+    else { raf=0; x=tx; y=ty; vx=vy=0; stage.style.setProperty('--tx',x); stage.style.setProperty('--ty',y) } }
+  const go=()=>{ if(!raf){ last=performance.now(); raf=requestAnimationFrame(tick) } };
+  stage.addEventListener('pointermove',e=>{ if(e.pointerType!=='mouse') return; over=true;
+    const side=document.querySelector('.side').getBoundingClientRect().right, w=innerWidth-side;
+    tx=Math.max(-1,Math.min(1,((e.clientX-side)/w-.5)*2)); ty=Math.max(-1,Math.min(1,(e.clientY/innerHeight-.5)*2)); go() });
+  stage.addEventListener('pointerleave',()=>{ over=false; tx=0; ty=0; go() });
+})();
+// ── The sidebar folds to a rail (button beside the logo, or ⇧⌘S); the choice is remembered ──
+document.querySelectorAll('.side .nv, .side .new').forEach(b=>{ const t=b.lastChild; if(t&&t.nodeType===3&&t.textContent.trim()){ const sp=document.createElement('span'); sp.className='lbl'; sp.textContent=t.textContent.trim(); b.dataset.tip=sp.textContent; b.replaceChild(sp,t) } });
+document.querySelector('.me').dataset.tip='Maya Chen';
+const tgl=document.getElementById('tgl');
+function rail(on){ stage.classList.toggle('is-rail',on); const w=on?'Open sidebar':'Close sidebar'; tgl.setAttribute('aria-label',w); tgl.dataset.tip=w+'   ⇧⌘S'; try{ localStorage.setItem('hear-concept-rail',on?'1':'') }catch(e){} }
+let railed=false; try{ railed=localStorage.getItem('hear-concept-rail')==='1' }catch(e){}
+rail(railed);
+tgl.addEventListener('click',()=>rail(!stage.classList.contains('is-rail')));
+addEventListener('keydown',e=>{ if((e.metaKey||e.ctrlKey)&&e.shiftKey&&e.key.toLowerCase()==='s'){ e.preventDefault(); rail(!stage.classList.contains('is-rail')) } });
+
+// ── What "@" and "/" offer. SAMPLE DATA, the same people and criteria as the app ──
+const AT=[{title:'Teams',show:4,items:[['Team Atlas',312],['Team Birch',298],['Team Cedar',356],['Team Delta',318]].map(([t,n])=>[t,n+' calls',t.split(' ')[1][0]])},      // every team, each with its calls (critic round 6)
+          {title:'Agents',items:rows.map(r=>[r.n,r.c+' evaluated calls',ini(r.n)])},
+          {title:'Criteria',items:CRIT.map(c=>[c,'','#'])},
+          {title:'Period',items:[['Last 7 days','','7'],['Last 30 days','','30'],['This month','','M']]}];
+const KINDS=[{title:'What kind of app',show:4,items:[['Table','rows to sort and filter','T','A table of '],['Chart','one measure, by group or over time','C','A chart of '],['Heatmap','two dimensions, coloured by score','H','A heatmap of '],['Review queue','calls to go through, one by one','Q','A review queue of ']]}];
+const IC={edit:'<svg class="i" viewBox="0 0 18 18"><path d="M11.8 3.4l2.8 2.8-7.9 7.9-3.4.6.6-3.4z"/></svg>',ask:'<svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.5"/><path d="M7.2 7.2a1.9 1.9 0 1 1 2.6 1.8c-.5.3-.8.7-.8 1.3M9 12.7v.1"/></svg>',back:'<svg class="i" viewBox="0 0 18 18"><path d="M4 7.5h7a3.5 3.5 0 0 1 0 7H8M6.5 4.5 3.5 7.5l3 3"/></svg>'};
+const MOVES=[{title:'In this conversation',show:3,items:[['Change the app','in plain words',IC.edit,'Change '],['Ask about it','a question on the data',IC.ask,'Why '],['Go back a version','',IC.back,'Go back to v1']]}];
+
+// ── 1 · before: the centred plate ──
+const plate=document.getElementById('plate'), stepLis=[...document.querySelectorAll('#steps li')], said=document.getElementById('said');
+let timers=[];
+let create=null, wasAwake=false, demoError=new URLSearchParams(location.search).get('demo')==='error';      // ?demo=error: show the error state once in each place
+const wake=()=>{ if(!create) return; const on=plate.contains(document.activeElement); plate.classList.toggle('is-active',on); plate.classList.toggle('is-texted',create.has());
+  const words=create.ta.value.toLowerCase().split(/\s+/).filter(w=>w.length>1&&!/^[@\/]/.test(w)); document.querySelectorAll('#try button').forEach(b=>{ const t=b.textContent.toLowerCase(); b.classList.toggle('is-off',words.length>0&&!words.every(w=>t.includes(w))) }); if(on!==wasAwake){ wasAwake=on; create.rest() } };
+create=composer(document.getElementById('cmp-create'),{label:'Describe the app your team needs',placeholder:'Describe the app your team needs…',ideas:TRY,at:AT,slash:KINDS,slashLabel:'Kind of app',sendLabel:'Build it',
+  hintEmpty:'',      // his note: no "@ your data / kind of app" hint; the @ and / buttons stay
+  hintText:'',busyHint:'<kbd>esc</kbd> stop',      // no key hints while typing either (critic round 5: "↵ build" was the kind of hint he removed)
+  roomBottom:()=>plate.querySelector('.card').getBoundingClientRect().bottom,
+  awake:()=>plate.contains(document.activeElement), onChange:()=>wake(), onSend:text=>build(text), onCancel:()=>stop(),
+  onKey(e,c){ if(e.key==='ArrowDown'&&!c.has()){ const b=document.querySelector('#try button'); if(b){ e.preventDefault(); b.focus() } } } });
+plate.addEventListener('focusin',wake); plate.addEventListener('focusout',()=>setTimeout(wake,0));
+// Opening the field draws its frame ("Opening the field" in studio-composer.css): the class is set on every focus, so the frame is drawn each time.
+(function(){ if(matchMedia('(prefers-reduced-motion:reduce)').matches) return; const f=document.getElementById('cmp-create');
+  create.ta.addEventListener('focus',()=>{ f.classList.remove('is-drawing'); void f.offsetWidth; f.classList.add('is-drawing') });
+  create.ta.addEventListener('blur',()=>setTimeout(()=>{ if(document.activeElement!==create.ta) f.classList.remove('is-drawing') },0)); })();
+// the ideas: the mouse or the arrow keys; choosing one writes it into the field, ready to be changed before it is sent
+const ideas=[...document.querySelectorAll('#try button')];
+document.getElementById('try').addEventListener('pointerdown',e=>e.preventDefault());      // pressing an idea never takes the field out of its active state
+ideas.forEach((b,i)=>{ b.addEventListener('click',()=>create.set(b.querySelector('span').textContent));
+  b.addEventListener('keydown',e=>{ if(e.key==='ArrowDown'){ e.preventDefault(); (ideas[i+1]||ideas[0]).focus() } else if(e.key==='ArrowUp'){ e.preventDefault(); i?ideas[i-1].focus():create.focus() } else if(e.key==='Escape'){ create.focus() } }) });
+function steps(k){ stepLis.forEach((li,j)=>{ li.classList.toggle('is-done',j<k); li.classList.toggle('is-now',j===k) }) }
+function build(text){ said.textContent=text; create.busy(true); plate.classList.add('is-building'); wake(); steps(0);
+  if(demoError){ timers=[setTimeout(()=>steps(1),850),setTimeout(()=>{ timers=[]; plate.classList.remove('is-building'); steps(-1); create.fail("Couldn't build this app. Your request is kept.",c=>{ demoError=false; build(text) }); wake(); demoErrorChat=true },1700)]; return }
+  // the plate steps aside at once (his pick, 11-19: "כן, מיד"): the chat says what Hear is doing while the app builds itself beside it
+  stage.classList.add('is-leaving');
+  timers=[setTimeout(()=>{ stop(true); create.clear(); showApp('eval'); set(2); stage.classList.add('is-fresh'); setTimeout(()=>stage.classList.remove('is-fresh'),1700); makeApp(text) },260)] }
+function stop(done){ timers.forEach(clearTimeout); timers=[]; plate.classList.remove('is-building'); stage.classList.remove('is-leaving'); create.busy(false); steps(-1); if(!done) create.focus(); wake() }
+
+// ── 2 · after: the chat at the side. The replies are SAMPLES: this page shows how the conversation behaves, it does not build or answer ──
+const msgs=document.getElementById('msgs'); let pending=null, thinkT=0, demoErrorChat=false, ver=1, used=new Set();
+// The replies are SAMPLES, written from the numbers this screen shows, so what the chat says and what the app shows always agree.
+function reply(text){
+  if(curApp!=='eval'&&APPS[curApp]) return APPS[curApp].reply(text.toLowerCase());
+  const t=text.toLowerCase(), byC=CRIT.map((c,i)=>({c,i,avg:avg(rows.map(r=>r.s[i]))})).sort((a,b)=>a.avg-b.avg), low=byC[0];
+  if(/filter/.test(t)&&/team/.test(t)){ const f=document.getElementById('filters'); f.hidden=false; f.classList.remove('is-new'); void f.offsetWidth; f.classList.add('is-new'); ver++; used.add('filter');
+    return `<p>Added a <strong>Team</strong> filter above the scores. It starts on all teams.</p><em>v${ver}</em>` }
+  const crit=byC.find(x=>t.includes(x.c.toLowerCase()))||(/lowest|worst/.test(t)?low:null);
+  if(crit){ const two=rows.map(r=>({n:r.n,v:r.s[crit.i]})).sort((a,b)=>a.v-b.v).slice(0,2); used.add('why');
+    return `<p><strong>${crit.c}</strong> averages <strong>${crit.avg}</strong>${crit===low?`, the lowest of the ${CRIT.length} criteria`:''}.</p><p>Two agents pull it down most: ${two.map(x=>`${x.n} (${x.v})`).join(' and ')}.</p>` }
+  const ag=rows.find(r=>t.includes(r.n.toLowerCase().split(' ')[0]));
+  if(ag){ const w=CRIT.map((c,i)=>({c,v:ag.s[i]})).sort((a,b)=>a.v-b.v)[0];
+    return `<p><strong>${ag.n}</strong> scores <strong>${ag.o}</strong> overall on ${ag.c} evaluated calls. The weakest criterion is ${w.c} (${w.v}).</p>` }
+  return `<p>I can change this app or answer a question about these scores. Try one of the suggestions above the field.</p>` }
+function nextChips(){ const all=curApp!=='eval'&&APPS[curApp]?APPS[curApp].chips:[['filter','Add a filter by team'],['why',`Why is ${CRIT.map((c,i)=>({c,a:avg(rows.map(r=>r.s[i]))})).sort((a,b)=>a.a-b.a)[0].c} the lowest?`],['agent',`How is ${rows[2].n} doing?`]];
+  const n=document.getElementById('next'); n.innerHTML=all.filter(([k])=>!used.has(k)).slice(0,2).map(([k,t])=>`<button type="button" data-k="${k}">${t}</button>`).join('');
+  [...n.children].forEach((b,i)=>{ if(i&&b.offsetLeft+b.offsetWidth>n.clientWidth) b.remove() });      // one row of whole chips: measured on layout, not on the arriving animation
+  n.querySelectorAll('button').forEach(b=>{ b.classList.add('is-in'); setTimeout(()=>b.classList.remove('is-in'),450);      // new chips take no clicks for a moment: one never lands live under the pointer
+    b.addEventListener('click',()=>{ used.add(b.dataset.k); chat.set(b.textContent); b.remove() }) }) }      // a chip that is used leaves the row at once
+const thread=()=>msgs.querySelector('.thread.on')||msgs;
+const say=(cls,html)=>{ const d=document.createElement('div'); d.className=cls+' is-new'; d.innerHTML=html; thread().appendChild(d); msgs.scrollTop=msgs.scrollHeight; return d };
+const chat=composer(document.getElementById('cmp-chat'),{label:'Ask a question or ask for a change',placeholder:'Ask or change…',at:AT,slash:MOVES,slashLabel:'Change or ask',sendLabel:'Send',up:true,
+  hintEmpty:'',hintText:'',busyHint:'',listenHint:'',
+  onSend(text,c){ say('you','').textContent=text; c.clear(); c.busy(true); pending=say('it think','<span class="dots" aria-label="Thinking"><i></i><i></i><i></i></span>');
+    thinkT=setTimeout(()=>{ if(demoErrorChat){ demoErrorChat=false; pending.remove(); pending=null; thread().lastElementChild.remove(); c.set(text); c.fail('Connection lost. Not sent.',cc=>{ cc.focus() }); return }
+      pending.classList.remove('think'); pending.innerHTML=reply(text); pending=null; msgs.scrollTop=msgs.scrollHeight; nextChips(); c.busy(false); c.focus() },1400) },
+  onCancel(c){ if(making){ stopMaking(); return } clearTimeout(thinkT); if(pending){ pending.remove(); pending=null } c.busy(false); c.focus() } });
+nextChips();
+document.getElementById('next').addEventListener('pointerdown',e=>e.preventDefault());
+document.querySelectorAll('#hm tr').forEach((tr,i)=>tr.style.setProperty('--r',3+i));
+
+// ── Making the app, seen in two places (his ask, 11-19: "כש-ה-UI מופיע אני רוצה לראות את זה קורה בחלקים … והחלק של הצ'אט כמו בקלוד, שהוא
+//    טוען ואומר שעובד על זה, ויש אנימציה קטנה של איזה אייקון; אני רוצה את האופציה להרחיב אותו"). The chat holds one working line (the mark
+//    breathing, a status that changes) that opens into the steps; the app shows every part first as an empty tile, then fills it, each part
+//    starting when the chat says it is working on it. SAMPLE: the steps and the timing are the design of the moment, nothing is computed.
+const work=document.getElementById('work'), wstatus=document.getElementById('wstatus'), wsteps=document.getElementById('wsteps'), wtgl=document.getElementById('wtgl'), appEl=document.querySelector('.app');
+work.querySelector('.work__mark path').setAttribute('d',MARK);
+const STEPS=[['Reading the conversations',`Reading ${fmt(calls)} evaluated calls…`,`${fmt(calls)} evaluated calls from the last 30 days`],
+             ['Scoring the agents',`Scoring ${rows.length} agents on ${CRIT.length} criteria…`,`${rows.length} agents on ${CRIT.length} criteria · average ${all}`],
+             ['Laying out the heatmap','Laying out the heatmap…','Lowest overall first · one colour scale'],
+             ['Finding the evidence','Finding the calls behind the lowest score…',`The calls behind ${rows.map(r=>({n:r.n,v:r.s[CRIT.indexOf(byCrit[0][0])]})).sort((a,b)=>a.v-b.v)[0].n.split(' ')[0]}’s ${byCrit[0][0]}`],
+             ['Checking the numbers','Checking the numbers…',`Lowest criterion: ${byCrit[0][0]}, ${byCrit[0][1]}`]];
+wsteps.innerHTML=STEPS.map(([t,,d])=>`<li><i></i><div><b>${t}</b><span>${d}</span></div></li>`).join('');
+const wLis=[...wsteps.children];
+let readT=0;
+function wstep(k){ clearInterval(readT); wLis.forEach((li,j)=>{ li.classList.toggle('is-done',j<k); li.classList.toggle('is-now',j===k) }); if(k<STEPS.length) wstatus.textContent=STEPS[k][1];
+  if(k===0){ const t0=performance.now(), D=2200; readT=setInterval(()=>{ const q=Math.min(1,(performance.now()-t0)/D); wstatus.textContent=`Reading evaluated calls… ${fmt(Math.round(calls*q))} of ${fmt(calls)}`; if(q>=1) clearInterval(readT) },60) } }
+wstep(STEPS.length);      // the page can open on the built app (?s=2): every step is done
+wtgl.addEventListener('click',()=>{ const o=!work.classList.contains('is-open'); work.classList.toggle('is-open',o); wtgl.setAttribute('aria-expanded',o); wtgl.setAttribute('aria-label',o?'Hide the steps':'Show the steps') });
+const parts=()=>[appEl.querySelector('.top'),...document.querySelectorAll('#kpis>div'),...document.querySelectorAll('#hm tr'),appEl.querySelector('.key'),appEl.querySelector('.ev')];
+document.querySelectorAll('#kpis b').forEach(b=>b.dataset.v=b.textContent.replace(/,/g,''));
+const kpiText=v=>+v>=1000?fmt(+v):String(v);
+function countUp(b){ const to=+b.dataset.v, t0=performance.now(), d=650;
+  (function step(t){ const k=Math.min(1,(t-t0)/d); b.textContent=kpiText(Math.round(to*(1-Math.pow(1-k,3)))); if(k<1) requestAnimationFrame(step) })(t0) }
+function show(el){ if(!el) return; el.classList.remove('sk'); el.classList.add('rv'); const b=el.matches('#kpis>div')&&el.querySelector('b'); if(b) countUp(b) }
+let making=null;
+function makeApp(text){
+  said.textContent=text; work.classList.remove('is-done','is-open','is-stopped'); work.classList.add('is-working'); wtgl.setAttribute('aria-expanded','false'); wstep(0);
+  parts().forEach(e=>{ e.classList.add('sk'); e.classList.remove('rv','is-gone') });
+  stage.classList.add('is-making'); chat.busy(true); chat.focus();      // focus in the chat: esc and the stop button there end the making
+  const P=parts(), n=document.querySelectorAll('#hm tr').length, top=P[0], kp=P.slice(1,4), tr=P.slice(4,4+n), key=P[4+n], ev=P[5+n];
+  const T=[], at=(ms,f)=>T.push(setTimeout(f,ms));
+  // about 11 s in five steps, so each thing the system does can be followed (his note, 11-19: it was too fast to understand)
+  at(900,()=>show(top));                                                        // 1 reading the calls (the count runs in the status)
+  at(2500,()=>wstep(1)); kp.forEach((e,i)=>at(3000+i*600,()=>show(e)));       // 2 scoring: the three numbers, one by one
+  at(4900,()=>wstep(2)); tr.forEach((e,i)=>at(5200+i*360,()=>show(e)));       // 3 the heatmap, row by row
+  at(8600,()=>wstep(3)); at(8900,()=>show(key)); at(9500,()=>show(ev));       // 4 the calls behind the lowest score
+  at(10100,()=>wstep(4));                                                     // 5 checking the numbers
+  at(11200,finish);
+  making={T,t0:Date.now()} }
+function finish(){ if(!making) return; const sec=Math.max(1,Math.round((Date.now()-making.t0)/1000)); making=null; wstep(STEPS.length);
+  work.classList.remove('is-working'); work.classList.add('is-done'); wstatus.textContent=`Worked for ${sec}s`;
+  stage.classList.remove('is-making'); chat.busy(false); nextChips(); chat.focus() }
+function stopMaking(){ if(!making) return; making.T.forEach(clearTimeout); making=null; const done=wLis.filter(li=>li.classList.contains('is-done')).length;
+  parts().forEach(e=>{ if(e.classList.contains('sk')) e.classList.add('is-gone') }); wLis.forEach(li=>li.classList.remove('is-now'));
+  work.classList.remove('is-working'); work.classList.add('is-stopped'); wstatus.textContent=`Stopped after ${done} of ${STEPS.length} steps`;
+  stage.classList.remove('is-making'); chat.busy(false); chat.focus() }
+function resetMaking(){ if(making){ making.T.forEach(clearTimeout); making=null }
+  parts().forEach(e=>e.classList.remove('sk','rv','is-gone')); document.querySelectorAll('#kpis b').forEach(b=>b.textContent=kpiText(b.dataset.v));
+  work.classList.remove('is-working','is-stopped','is-open'); work.classList.add('is-done'); wstep(STEPS.length); stage.classList.remove('is-making'); chat.busy(false) }
+
+addEventListener('keydown',e=>{ if(e.key==='Escape'&&making){ e.preventDefault(); stopMaking() } });      // esc stops the making wherever the focus is
+document.querySelector('.powered__mark').setAttribute('d',MARK);      // Hear signs at the foot of the sidebar (his pick B, 11-19)
+// ── The team's other apps (his ask, 11-19: "צריך משהו ייחודי מעניין ומתאים לכל אחד"): each opens from the sidebar in its own shape, with its
+//    own conversation. Disclosure review = a work queue with the call in focus; Handle time by team = one measure against a target, by team;
+//    Compliance review = the rules and where they fail. SAMPLE data throughout, consistent with the evaluation app's people and teams.
+const EXPAND='<svg class="i" viewBox="0 0 18 18"><path d="M10.5 3.5h4v4M14.5 3.5 9.8 8.2M7.5 14.5h-4v-4M3.5 14.5l4.7-4.7"/></svg>';
+const I_OK='<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M5 9.4l2.6 2.6L13 6.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const I_NO='<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M6 6l6 6M12 6l-6 6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
+const head=(t,sub)=>`<div class="top"><div><h2>${t}</h2><p>${sub}</p></div><div class="sp"></div><button class="act">Share</button><button class="act sq" aria-label="Open full page">${EXPAND}</button></div>`;
+const kpis=k=>`<div class="kpis">${k.map(([a,b,c])=>`<div><small>${a}</small><b>${b}</b><i>${c}</i></div>`).join('')}</div>`;
+const sec=t=>{ const m=Math.floor(t/60); return m+':'+String(Math.round(t%60)).padStart(2,'0') }, toS=l=>{ const [m,x]=l.split(':'); return m*60+ +x };
+const TEAM={'Team Atlas':['Tyler Shaw','Nina Vargas'],'Team Birch':['Omar Haddad','Luis Ortega'],'Team Cedar':['Grace Kim','Dana Levi'],'Team Delta':['Sam Rivera','Ines Moreau']};
+const pickRow=(sel,el)=>{ el.parentElement.querySelectorAll(sel).forEach(x=>x.classList.toggle('on',x===el)) };
+// as many rows as the card has room for (critic round 6: the new screens ended early): render 9, drop from the end while the card scrolls
+function fitRows(tb,make,min=3){ let n=9; tb.innerHTML=make(n); const card=document.querySelector('.app .card'); while(n>min&&card.scrollHeight>card.clientHeight+1){ n--; tb.lastElementChild.remove() } return n }
+
+// 1 · Disclosure review: the calls that miss a required sentence, one at a time
+const DISC=['Call recording notice','Fee disclosure','Cooling-off period'];
+const DQ=[{a:'Nina Vargas',r:'Payment plan',d:'Nov 18',len:'8:05',said:[15,null,null]},{a:'Tyler Shaw',r:'Billing dispute',d:'Nov 18',len:'6:42',said:[21,null,358]},
+          {a:'Luis Ortega',r:'Cancel request',d:'Nov 17',len:'4:18',said:[18,null,241]},{a:'Omar Haddad',r:'Plan upgrade',d:'Nov 17',len:'5:10',said:[null,132,290]},
+          {a:'Grace Kim',r:'Card replacement',d:'Nov 16',len:'7:11',said:[22,175,null]},{a:'Dana Levi',r:'Rate question',d:'Nov 15',len:'3:54',said:[19,null,201]},
+          {a:'Sam Rivera',r:'Refund status',d:'Nov 15',len:'6:20',said:[17,null,330]},{a:'Ines Moreau',r:'Address change',d:'Nov 14',len:'4:02',said:[16,98,null]},
+          {a:'Tyler Shaw',r:'Fraud alert',d:'Nov 14',len:'9:15',said:[null,210,470]},{a:'Nina Vargas',r:'Plan upgrade',d:'Nov 13',len:'5:44',said:[20,null,301]},
+          {a:'Omar Haddad',r:'Delivery delay',d:'Nov 13',len:'3:31',said:[14,null,186]},{a:'Grace Kim',r:'Payment plan',d:'Nov 12',len:'7:58',said:[19,null,null]}];
+// where each sentence belongs in the call, and a few lines of the conversation around that moment (SAMPLE); the missing sentence is a dashed gap
+const WHERE=[[.02,'Before the account details',[['Agent','Thanks for calling Northwind, this is {A}.'],['Customer','Hi, I have a question about my account.'],['Agent','Sure, can I have your account number?'],['Customer','It’s 4471 2290.']]],
+             [.62,'Before the customer agreed',[['Customer','Can we spread it over a few months?'],['Agent','Of course, I can set up a payment plan for you.'],['Customer','Okay, let’s do that.'],['Agent','Great, I’ve set that up for you, starting next month.']]],
+             [.9,'Before the call ended',[['Customer','So it starts on the first?'],['Agent','That’s right, the first of the month.'],['Customer','Perfect, thanks.'],['Agent','Is there anything else I can help with today?']]]];
+const REQUIRED=['“This call may be recorded for quality and training.”','“There is a monthly fee of $4.99 for this plan.”','“You can cancel within 14 days at no cost.”'];
+let dqLeft=12, dqDone=5, dqCur=0, dqGap=null;
+const dqOpen=()=>DQ.map((c,i)=>i).filter(i=>!DQ[i].done);
+function renderDisc(){ const v=document.getElementById('v-disc');
+  v.innerHTML=head('Disclosure review',`Last 7 days · ${DISC.length} required disclosures · 412 calls checked`)
+   +kpis([['To review','<span id="dq-left">12</span>','Calls missing a disclosure'],['Reviewed today','<span id="dq-done">5</span>','Of 17 flagged this week'],['Most missed','7','Fee disclosure']])
+   +`<div class="dq"><div class="dq__list"><div class="dq__rows" id="dq-rows"></div><a href="#" class="dq__more" id="dq-more"></a></div><div class="dq__detail" id="dq-detail"></div></div>`;
+  dqList(); dqShow(dqOpen()[0]) }
+function dqList(){ const box=document.getElementById('dq-rows'), open=dqOpen();
+  box.innerHTML=open.map(i=>{ const c=DQ[i], miss=c.said.filter(x=>x==null).length; return `<button type="button" class="dq__row${i===dqCur?' on':''}" data-i="${i}"><span class="dq__who"><b>${c.a}</b><small>${c.r} · ${c.d}</small></span><em class="dq__n">${miss} missing</em></button>` }).join('');
+  // as many rows as the column has room for; the rest is counted in "N more"
+  const rows=[...box.children]; let shown=rows.length; while(shown>3&&box.scrollHeight>box.clientHeight+1){ shown--; rows[shown].remove() }
+  const more=open.length-shown, m=document.getElementById('dq-more'); m.textContent=more?`${more} more to review →`:''; m.hidden=!more;
+  box.querySelectorAll('.dq__row').forEach(b=>b.addEventListener('click',()=>{ dqShow(+b.dataset.i) })) }
+function dqShow(i){ const d=document.getElementById('dq-detail');
+  if(i===undefined){      // the queue is empty: the end state, with one quiet next step
+    d.innerHTML=`<div class="dq__end"><i class="dq__endic">${I_OK}</i><b>All ${12} reviewed</b><p>Nice work. New calls join the queue as soon as they are analyzed.</p><button class="act" type="button">See this week’s summary</button></div>`;
+    d.classList.remove('is-new'); void d.offsetWidth; d.classList.add('is-new'); return }
+  dqCur=i; document.querySelectorAll('.dq__row').forEach(x=>x.classList.toggle('on',+x.dataset.i===i));
+  const c=DQ[i], L=toS(c.len), missK=c.said.map((x,k)=>x==null?k:-1).filter(k=>k>=0); if(dqGap===null||!missK.includes(dqGap)) dqGap=missK[0];
+  const at=k=>Math.max(8,Math.round(L*WHERE[k][0]));
+  const bars=Array.from({length:72},(_,k)=>{ const h=8+Math.abs(Math.sin((k+i*7)*1.31))*24+((k*5+i*3)%6); return `<i style="left:${(k/72*100).toFixed(2)}%;height:${h.toFixed(0)}px"></i>` }).join('');
+  const pins=c.said.map((t,k)=>t==null?`<b class="dq__pin is-miss${k===dqGap?' on':''}" style="left:${(at(k)/L*100).toFixed(1)}%" data-t="${sec(at(k))}"></b>`:`<b class="dq__pin" style="left:${(t/L*100).toFixed(1)}%" data-t="${sec(t)}"></b>`).join('');
+  const k=dqGap, lines=WHERE[k][2].map(([who,t])=>[who,t.replace('{A}',c.a.split(' ')[0])]);
+  const conv=lines.slice(0,3).map(([w,t])=>`<li class="is-${w.toLowerCase()}"><small>${w}</small><p>${t}</p></li>`).join('')
+    +`<li class="dq__slot"><small>Should be here</small><p>${REQUIRED[k]}</p></li>`+lines.slice(3).map(([w,t])=>`<li class="is-${w.toLowerCase()}"><small>${w}</small><p>${t}</p></li>`).join('');
+  d.innerHTML=`<div class="dq__head"><b>${c.a} · ${c.r}</b><small>Inbound call · ${c.d} · ${c.len}</small></div><div class="dq__wave"><i class="pl" role="button" aria-label="Play"></i><div class="dq__bars">${bars}${pins}</div></div>`
+   +`<ul class="dq__checks">${DISC.map((n,j)=>c.said[j]==null?`<li class="is-miss${j===k?' on':''}" data-k="${j}" tabindex="0"><i class="ic">${I_NO}</i><span>${n}</span><em>Not said</em></li>`:`<li class="is-said"><i class="ic">${I_OK}</i><span>${n}</span><em>Said at ${sec(c.said[j])}</em></li>`).join('')}</ul>`
+   +`<div class="dq__gap"><header><small>${DISC[k]} · should come ${WHERE[k][1].toLowerCase()} · ${sec(at(k))}</small><button type="button" class="dq__jump"><i class="pl"></i>Play from ${sec(at(k))}</button></header><ol class="dq__conv">${conv}</ol></div>`
+   +`<div class="dq__acts"><button class="act">Send to coaching</button><button class="dq__done" type="button">Mark reviewed</button></div>`;
+  d.classList.remove('is-new'); void d.offsetWidth; d.classList.add('is-new');
+  // a "Not said" row moves the ink pin and swaps the conversation (critic round 6)
+  d.querySelectorAll('.dq__checks .is-miss').forEach(li=>{ const go=()=>{ dqGap=+li.dataset.k; dqShow(i) }; li.addEventListener('click',go); li.addEventListener('keydown',e=>{ if(e.key==='Enter') go() }) });
+  // Mark reviewed: the row leaves, the counts move (12 → 11 to review, 5 → 6 reviewed), the next call takes the focus
+  d.querySelector('.dq__done').addEventListener('click',()=>{ const row=document.querySelector(`.dq__row[data-i="${i}"]`); if(row) row.classList.add('is-leaving');
+    DQ[i].done=true; dqLeft--; dqDone++; dqGap=null;
+    const bump=(id,n)=>{ const e=document.getElementById(id); e.textContent=n; e.classList.remove('is-bump'); void e.offsetWidth; e.classList.add('is-bump') };
+    bump('dq-left',dqLeft); bump('dq-done',dqDone);
+    setTimeout(()=>{ const next=dqOpen()[0]; dqCur=next===undefined?-1:next; dqList(); dqShow(next) },260) }) }
+
+// 2 · Handle time by team: one measure, the target, and what makes the long calls long
+const TEAMS=[['Team Atlas',312,312],['Team Birch',298,408],['Team Cedar',356,340],['Team Delta',318,471]], TARGET=360, AXIS=600, LONGN=[3,6,2,12];      // LONGN: each team's calls over 12:00 (23 in all)
+const LONGWHY=['Long hold while checking a refund','Transferred twice','Identity checked twice','System lookup took four minutes','Three questions in one call','Escalated to a supervisor'];
+function renderAht(){ const v=document.getElementById('v-aht'), calls=TEAMS.reduce((x,t)=>x+t[1],0), avgT=TEAMS.reduce((x,t)=>x+t[1]*t[2],0)/calls, over=TEAMS.filter(t=>t[2]>TARGET);
+  v.innerHTML=head('Handle time by team',`Last 30 days · ${TEAMS.length} teams · target ${sec(TARGET)}`)
+   +kpis([['Average handle time',sec(avgT),'All teams'],['Over target',String(over.length),over.map(t=>t[0].split(' ')[1]).join(' and ')],['Calls over 12:00','23','Last 30 days']])
+   +`<div class="aht"><div class="aht__legend"><span><i class="lg-t"></i>Target ${sec(TARGET)}</span><span><i class="lg-o"></i>Over target</span><span><i class="lg-u"></i>On target</span></div><div class="aht__plot">${[0,2,4,6,8,10].map(m=>`<i class="aht__grid" style="bottom:${m*60/AXIS*100}%"><span>${m} min</span></i>`).join('')}`
+   +`<div class="aht__target" style="bottom:${TARGET/AXIS*100}%"></div>`
+   +`<div class="aht__bars">${TEAMS.map((t,i)=>`<button type="button" class="aht__bar ${t[2]>TARGET?'is-over':''}" data-i="${i}" style="height:${(t[2]/AXIS*100).toFixed(1)}%" aria-label="${t[0]}, ${sec(t[2])}"><b>${sec(t[2])}</b></button>`).join('')}</div></div>`
+   +`<div class="aht__names">${TEAMS.map(t=>`<span>${t[0]}<small>${t[1]} calls</small></span>`).join('')}</div></div>`
+   +`<section class="ev aht__ev"><header><b id="aht-t"></b><span>The longest calls, and what made them long</span><a href="#" id="aht-a"></a></header><table class="tbl"><colgroup><col style="width:24%"><col style="width:18%"><col style="width:11%"><col style="width:11%"><col style="width:10%"><col></colgroup><thead><tr><th>Agent</th><th>Call</th><th>Date</th><th>Length</th><th>On hold</th><th>What made it long</th></tr></thead><tbody id="aht-l"></tbody></table></section>`;
+  v.querySelectorAll('.aht__bar').forEach(b=>b.addEventListener('click',()=>{ pickRow('.aht__bar',b); ahtShow(+b.dataset.i) }));
+  const worst=TEAMS.reduce((a,t,i)=>t[2]>TEAMS[a][2]?i:a,0); pickRow('.aht__bar',v.querySelectorAll('.aht__bar')[worst]); ahtShow(worst) }
+let ahtCur=0, compCur=0;
+function ahtShow(i){ ahtCur=i; const t=TEAMS[i], r=seeded('aht|'+t[0]), rows=[];
+  for(let k=0;k<9;k++){ const len=Math.round(t[2]*1.7+r()*300), hold=Math.round(60+r()*(t[2]>TARGET?260:120)), day=Math.floor(r()*28);
+    rows.push({a:TEAM[t[0]][k%2],c:REASONS[Math.floor(r()*REASONS.length)],d:day<18?'Nov '+(18-day):'Oct '+(31-(day-18)),len,hold,why:LONGWHY[Math.floor(r()*LONGWHY.length)]}) }
+  rows.sort((a,b)=>b.len-a.len);
+  document.getElementById('aht-t').textContent=`${t[0]} · ${sec(t[2])} average`;
+  document.getElementById('aht-a').textContent=`All ${t[1]} calls →`;
+  const tb=document.getElementById('aht-l'); fitRows(tb,n=>rows.slice(0,n).map(x=>`<tr><td><span class="evc"><i class="pl" role="button" aria-label="Play"></i>${x.a}</span></td><td>${x.c}</td><td>${x.d}</td><td>${sec(x.len)}</td><td>${sec(x.hold)}</td><td class="${x.hold>180?'is-miss':''}">${x.why}</td></tr>`).join(''));
+  tb.classList.remove('is-new'); void tb.offsetWidth; tb.classList.add('is-new') }
+
+// 3 · Compliance review: every required rule, how often it passes, and the calls where it failed
+const RULES=[['Call recording notice',99,.4],['Identity verified before account details',96,2.1],['Fee disclosure',88,-2.4],['Cooling-off period stated',93,-.8],['No promise of guaranteed results',98,.2],['Complaint logged when raised',91,1.3]];
+const RFIND={'Call recording notice':['Notice read after the account details','Notice skipped on a callback'],'Identity verified before account details':['Balance shared before the check','Checked on one detail only'],
+  'Fee disclosure':['Fees not read before the agreement','Fees read after the customer agreed','Only part of the fees read'],'Cooling-off period stated':['Cooling-off period not mentioned','Wrong length of the period given'],
+  'No promise of guaranteed results':['Promised the fee would be waived','Said the refund was certain'],'Complaint logged when raised':['Complaint heard, not logged','Logged as a general query']};
+const CHECKED=1284;
+function renderComp(){ const v=document.getElementById('v-comp'), pass=Math.round(RULES.reduce((x,r)=>x+r[1],0)/RULES.length), low=RULES.filter(r=>r[1]<95);
+  v.innerHTML=head('Compliance review',`This month · ${RULES.length} required rules · ${fmt(CHECKED)} calls checked`)
+   +kpis([['Pass rate',pass+'%','All rules'],['Calls with a failure','287','Of '+fmt(CHECKED)+' checked'],['Rules under 95%',String(low.length),low.map(r=>r[0].split(' ')[0]).join(', ')]])
+   +`<table class="tbl rules"><colgroup><col><col style="width:30%"><col style="width:13%"><col style="width:15%"></colgroup><thead><tr><th>Rule</th><th>Pass rate</th><th>Failed calls</th><th>Since last month</th></tr></thead><tbody>${RULES.map((r,i)=>`<tr data-i="${i}" tabindex="0"><td>${r[0]}</td><td><span class="rbar ${r[1]<95?'is-low':''}" style="--p:${r[1]}%"><i></i><b>${r[1]}%</b></span></td><td>${Math.round(CHECKED*(100-r[1])/100)}</td><td class="${r[2]<0?'is-down':''}">${r[2]>0?'+':''}${r[2].toFixed(1)} pts</td></tr>`).join('')}</tbody></table>`
+   +`<section class="ev comp__ev"><header><b id="comp-t"></b><span>Where it failed</span><a href="#" id="comp-a"></a></header><table class="tbl"><colgroup><col style="width:24%"><col style="width:18%"><col style="width:11%"><col style="width:11%"><col></colgroup><thead><tr><th>Agent</th><th>Call</th><th>Date</th><th>Moment</th><th>What Hear found</th></tr></thead><tbody id="comp-l"></tbody></table></section>`;
+  v.querySelectorAll('.rules tbody tr').forEach(tr=>{ const go=()=>{ pickRow('tr',tr); compShow(+tr.dataset.i) }; tr.addEventListener('click',go); tr.addEventListener('keydown',e=>{ if(e.key==='Enter') go() }) });
+  const worst=RULES.reduce((a,r,i)=>r[1]<RULES[a][1]?i:a,0); pickRow('tr',v.querySelectorAll('.rules tbody tr')[worst]); compShow(worst) }
+function compShow(i){ compCur=i; const rule=RULES[i], r=seeded('comp|'+rule[0]), all=Object.values(TEAM).flat(), rows=[];
+  for(let k=0;k<9;k++){ const len=200+Math.floor(r()*420), day=Math.floor(r()*28), f=RFIND[rule[0]];
+    rows.push({a:all[Math.floor(r()*all.length)],c:REASONS[Math.floor(r()*REASONS.length)],d:day<18?'Nov '+(18-day):'Oct '+(31-(day-18)),m:sec(Math.round(len*(.1+r()*.6))),f:f[(k+Math.floor(r()*f.length))%f.length]}) }
+  const nf=Math.round(CHECKED*(100-rule[1])/100); document.getElementById('comp-t').textContent=`${rule[0]} · ${nf} failed calls`; document.getElementById('comp-a').textContent=`All ${nf} calls →`;
+  const tb=document.getElementById('comp-l'); fitRows(tb,n=>rows.slice(0,n).map(x=>`<tr><td><span class="evc"><i class="pl" role="button" aria-label="Play"></i>${x.a}</span></td><td>${x.c}</td><td>${x.d}</td><td>${x.m}</td><td class="is-miss">${x.f}</td></tr>`).join(''));
+  tb.classList.remove('is-new'); void tb.offsetWidth; tb.classList.add('is-new') }
+
+// each app's conversation (how it was made) and what its chat answers. SAMPLE
+const THREADS={
+  disc:[['you','A review queue of calls that miss a required disclosure, last 7 days'],['it','<b>Done. Your app is ready.</b><span>Built from 412 calls in the last 7 days.</span><em>v1</em>'],['you','Add the fee disclosure as a third check'],['it','<p>Added <strong>Fee disclosure</strong> as a third check. 7 more calls now need a review.</p><em>v2</em>']],
+  aht:[['you','A chart of average handle time per team'],['it','<b>Done. Your app is ready.</b><span>Built from 1,284 calls in the last 30 days.</span><em>v1</em>'],['you','Show the 6:00 target as a line'],['it','<p>Added the target line at <strong>6:00</strong>. Birch and Delta are over it.</p><em>v2</em>']],
+  comp:[['you','A compliance review of every required rule this month'],['it','<b>Done. Your app is ready.</b><span>Built from 1,284 calls checked this month.</span><em>v1</em>']]};
+const APPS={
+  disc:{chips:[['d1','Who misses the fee disclosure most?'],['d2','Why is the fee disclosure missed?']],
+    reply:t=>/why/.test(t)?'<p>It is missed mostly on billing calls that end in a payment plan: the agent moves to the plan before reading the fees (5 of 7).</p>'
+      :/who|most|agent/.test(t)?'<p><strong>Nina Vargas</strong> misses it most: 3 of her 5 flagged calls this week, all payment plans.</p>'
+      :'<p>I can change this queue or answer a question about the calls in it. Try one of the suggestions above the field.</p>'},
+  aht:{chips:[['h1','Why is Delta over target?'],['h2','Who has the longest calls?']],
+    reply:t=>/why|delta/.test(t)?'<p><strong>Team Delta</strong> spends longer on hold: about 2:40 a call, against 1:10 for the other teams, mostly while checking refunds.</p>'
+      :/who|longest/.test(t)?'<p><strong>Ines Moreau</strong> in Delta: 9:12 on average across 164 calls, with the most transfers.</p>'
+      :'<p>I can change this chart or answer a question about handle time. Try one of the suggestions above the field.</p>'},
+  comp:{chips:[['c1','Why is the fee disclosure low?'],['c2','Which rule improved most?']],
+    reply:t=>/why|fee/.test(t)?'<p>The <strong>fee disclosure</strong> fails most when the customer agrees early: the fees are read after the agreement in 6 of 10 failed calls.</p>'
+      :/improv|best/.test(t)?'<p><strong>Identity verified before account details</strong> improved most: up 2.1 points from last month.</p>'
+      :'<p>I can change this review or answer a question about the rules. Try one of the suggestions above the field.</p>'}};
+Object.entries(THREADS).forEach(([v,list])=>{ const th=document.createElement('div'); th.className='thread'; th.dataset.v=v;
+  th.innerHTML=list.map(([c,h])=>`<div class="${c}">${h}</div>`).join(''); msgs.appendChild(th) });
+renderDisc(); renderAht(); renderComp();
+// a view can only measure its room while it is on screen: re-fit its rows each time it is shown, and on resize
+function refit(v){ if(v==='disc') dqList(); else if(v==='aht') ahtShow(ahtCur); else if(v==='comp') compShow(compCur) }
+addEventListener('resize',()=>{ if(stage.classList.contains('s2')) refit(curApp) });
+function showApp(v){ curApp=v;
+  document.querySelectorAll('.app .appv').forEach(e=>e.classList.toggle('on',e.dataset.v===v));
+  requestAnimationFrame(()=>{ if(stage.classList.contains('s2')) refit(v) });
+  document.querySelectorAll('#msgs .thread').forEach(e=>e.classList.toggle('on',e.dataset.v===v));
+  document.querySelectorAll('.side .nv[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v)) }
+function openApp(v){ if(typeof making!=='undefined'&&making) return; showApp(v);
+  if(!stage.classList.contains('s2')) set(2); else nextChips();
+  if(v==='eval'){ const sel=document.querySelector('#hm td.sel'); if(sel) fillCalls(sel) }
+  stage.classList.remove('is-switch'); void stage.offsetWidth; stage.classList.add('is-switch'); setTimeout(()=>stage.classList.remove('is-switch'),700);
+  msgs.scrollTop=msgs.scrollHeight }
+const NAVV={'Evaluation by agent':'eval','Disclosure review':'disc','Handle time by team':'aht','Compliance review':'comp'};
+document.querySelectorAll('.side .nv').forEach(b=>{ const v=NAVV[(b.querySelector('.lbl')||b).textContent.trim()]; if(v){ b.dataset.v=v; b.addEventListener('click',()=>openApp(v)) } });
+const qApp=new URLSearchParams(location.search).get('app'); if(qApp&&APPS[qApp]){ showApp(qApp) }
+
+// ── All apps (his pick A, 11-19, from the low-fi sheet studio-apps-lofi): a gallery. Every card's preview is drawn from that app's own data, so
+//    what you see on the card is what is in the app. First card: describe a new one. Filters by team and "Made by me", search, sort by use.
+const GAL=[{v:'eval',n:'Evaluation by agent',team:'QA',by:'Maya Chen',when:'2 h ago',line:`Lowest criterion: ${byCrit[0][0]} ${byCrit[0][1]}`,live:true},
+           {v:'disc',n:'Disclosure review',team:'Compliance',by:'Dana Levi',when:'today',line:'12 calls to review',live:true},
+           {v:'aht',n:'Handle time by team',team:'Operations',by:'Sam Rivera',when:'yesterday',line:'Delta and Birch over target',live:true},
+           {v:'comp',n:'Compliance review',team:'Compliance',by:'Maya Chen',when:'3 d ago',line:'Pass rate 94%',live:true},
+           {v:'coach',n:'Coaching queue',team:'QA',by:'Tyler Shaw',when:'last week',line:'Draft · not built yet',live:false,ask:'A coaching queue of the agents with the lowest scores this week'}];
+const ME='Maya Chen';
+// The previews: an abstract picture of each app's layout that fills the whole frame, in the page's blue scale with ink for what needs attention,
+// and no text (his notes, 11-19: only the heatmap card "looks good"; "it needs to be abstract general description of the layout that fills the
+// placeholder"). The heatmap is its own picture; the others draw their layout the same way: full, dense, coloured.
+const H=[.62,.9,.48,.75,.58,.95,.7,.42,.85,.66,.52,.8,.6,.92,.5,.72,.45,.88,.64,.55,.82,.68,.5,.77];
+const prev={
+  eval:()=>`<div class="pv-heat">${rows.map(r=>r.s.map(v=>`<i class="${band(v)}"></i>`).join('')).join('')}</div>`,
+  // calmer (his note, 11-19: "יותר מדי עומס ויזואלי"): one idea per preview, few shapes, one ink accent at most
+  // Disclosure review: the call itself, edge to edge in the page's blues, with the two moments a disclosure was missing in ink. It used to be a
+  // picture of a screen (boxes in a box, empty white, thin pale lines), the only preview not drawn as its data (his note, 11-19: "רק זה מכוער
+  // והוא יוצא דופן, תביני למה ותסדרי").
+  disc:()=>{ const W=[.42,.66,.5,.82,.58,.95,.7,.46,.88,.62,.54,.78,.6,.9,.48,.74,.44,.86,.64,.52,.8,.68,.5,.72,.58,.84], miss=[8,19], tone=['#A9DAFE','#63BEFE','#139FFD'];
+    return `<div class="pa pa-wavefull">${W.map((h,k)=>`<i style="height:${Math.round(h*100)}%;background:${miss.includes(k)?'#232323':tone[(k*7+3)%3]}"></i>`).join('')}</div>` },
+  // Handle time by team: just the bars against the dashed target
+  aht:()=>`<div class="pa pa-aht"><div class="pa-chart"><s style="bottom:60%"></s>${TEAMS.map(t=>`<i class="${t[2]>TARGET?'no':''}" style="height:${Math.round(t[2]/AXIS*100)}%"></i>`).join('')}</div></div>`,
+  // Compliance review: one bar per rule, the weakest in ink
+  comp:()=>`<div class="pa pa-comp"><div class="pa-rules">${RULES.map(r=>`<p><i class="${r[1]===Math.min(...RULES.map(x=>x[1]))?'no':''}" style="--p:${(r[1]-80)*5}%"></i></p>`).join('')}</div></div>`,
+  // a draft: the layout it will have, still pale
+  coach:()=>`<div class="pa pa-coach">${[0,1,2,3,4].map(i=>`<p><b></b><em style="width:${[72,58,80,50,66][i]}%"></em><i></i></p>`).join('')}</div>`};
+let galTeam='All', galQ='';
+function galPaint(){ const q=galQ.toLowerCase(), list=GAL.filter(a=>(galTeam==='All'||(galTeam==='Made by me'?a.by===ME:a.team===galTeam))&&(!q||a.n.toLowerCase().includes(q)||a.team.toLowerCase().includes(q)));
+  document.getElementById('gal-sub').textContent=`${GAL.length} apps · built by your team`;
+  const teams=['All','Compliance','QA','Operations','Made by me'], cnt=t=>t==='All'?GAL.length:t==='Made by me'?GAL.filter(a=>a.by===ME).length:GAL.filter(a=>a.team===t).length;
+  const ch=document.getElementById('gal-chips'); ch.innerHTML=teams.map(t=>`<button type="button" class="${t===galTeam?'on':''}" data-t="${t}">${t}<em>${cnt(t)}</em></button>`).join('');
+  ch.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ galTeam=b.dataset.t; galPaint() }));
+  const g=document.getElementById('gal-grid');
+  g.innerHTML=`<button type="button" class="gal__new" id="gal-new"><i>+</i><b>Describe a new app</b><span>One sentence. Hear builds it from your conversations.</span></button>`
+    +list.map((a,i)=>`<button type="button" class="gal__card${a.live?'':' is-draft'}" data-v="${a.v}" style="--i:${i}"><div class="gal__pv">${prev[a.v]()}${a.live?`<i class="gal__eye" role="button" tabindex="-1" aria-label="Preview ${a.n}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12c2.3-4.3 5.6-6.5 9.5-6.5s7.2 2.2 9.5 6.5c-2.3 4.3-5.6 6.5-9.5 6.5S4.8 16.3 2.5 12z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></i>`:''}</div>`
+      +`<div class="gal__meta"><b>${a.n}</b><small>${a.team} · ${a.by.split(' ')[0]} · ${a.when}</small><span><em class="${a.live?'live':''}">${a.live?'Live':'Draft'}</em>${a.line}</span></div></button>`).join('')
+    +(list.length?'':`<p class="gal__none">No apps match “${galQ}”.</p>`);
+  g.classList.remove('is-new'); void g.offsetWidth; g.classList.add('is-new');
+  document.getElementById('gal-new').addEventListener('click',()=>document.getElementById('new').click());
+  g.querySelectorAll('.gal__eye').forEach(e=>e.addEventListener('click',ev=>{ ev.stopPropagation(); ev.preventDefault(); peekOpen(e.closest('.gal__card')) }));
+  g.querySelectorAll('.gal__card').forEach(c=>c.addEventListener('click',()=>{ const a=GAL.find(x=>x.v===c.dataset.v);
+    if(a.live) openApp(a.v); else { document.getElementById('new').click(); create.set(a.ask) } })) }
+function openAll(){ if(typeof making!=='undefined'&&making) return; document.querySelectorAll('.side .nv.on').forEach(b=>b.classList.remove('on')); document.getElementById('nav-all').classList.add('on');
+  set(3); galPaint() }
+document.getElementById('nav-all').addEventListener('click',openAll); document.getElementById('nav-all').dataset.tip='All apps';
+document.getElementById('gal-q').addEventListener('input',e=>{ galQ=e.target.value; galPaint() });
+document.getElementById('all-n').textContent=GAL.length;      // the same count as the screen's header and its "All" chip
+// Hover a card: everything dims under a 60% black layer, the card stays lit, and a large live preview of the app opens beside it (his ask,
+// 11-19: "כשמרחף על אחד מהם רואים תצוגה מקדימה של האפליקציה, נוצרת שכבה מאחור של שחור 60 אחוז"). The preview is the app itself, cloned
+// and scaled. Nothing in the layer takes the pointer, so the hover stays on the real card; a click opens the app.
+const peekEl=document.getElementById('peek'); let peekT=0, peekLeaveT=0, peekV=null, peekFrame=null;
+function peekOpen(card){ clearTimeout(peekLeaveT); const v=card.dataset.v; if(peekV===v&&peekEl.classList.contains('is-on')) return; peekV=v;
+  const z=parseFloat(stage.style.zoom)||1, r=card.getBoundingClientRect(), g=document.getElementById('gal').getBoundingClientRect();
+  const cx=r.left/z, cy=r.top/z, cw=r.width/z, ch=r.height/z, gl=g.left/z, gr=g.right/z, SH=stage.offsetHeight;
+  const side=parseFloat(getComputedStyle(stage).getPropertyValue('--side'))||260, appW=stage.offsetWidth-side-392, appH=SH-40;
+  const right=gr-(cx+cw)-28, left=cx-gl-28, room=Math.max(right,left);
+  let s=Math.min(room/appW,(SH-80)/appH,.46); const pw=appW*s, ph=appH*s;      // smaller (his note, 11-19: "המסך preview גדול מידי"): at most 46% of the real app
+  const px=right>=left?cx+cw+28:cx-28-pw, py=Math.max(40,Math.min(SH-ph-40,cy+ch/2-ph/2));
+  const a=GAL.find(x=>x.v===v), clone=card.cloneNode(true); clone.classList.add('is-peek'); clone.removeAttribute('style'); clone.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id'));
+  let body;
+  if(a.live){ const view=document.querySelector(`.app .appv[data-v="${v}"]`).cloneNode(true); view.classList.add('on'); view.removeAttribute('id'); view.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id'));
+    body=`<div class="peek__frame" style="left:${px}px;top:${py}px;width:${pw}px;height:${ph}px"><div class="peek__scale" style="width:${appW}px;height:${appH}px;transform:scale(${s})"><div class="glass peek__glass"><div class="card">${view.outerHTML}</div></div></div><span class="peek__tag">Live preview · click to open</span></div>` }
+  else body=`<div class="peek__frame is-draft" style="left:${px}px;top:${py+ph/2-90}px;width:${pw}px;height:180px"><div class="peek__draft"><small>Not built yet</small><p>“${a.ask}”</p><span>Click to build it</span></div></div>`;
+  // the veil stays lit while you move between cards (his note, 11-19: "המסך נכבה ונדלק וזה יוצר הבהוב"); only the frame and the lit card change
+  const was=peekEl.classList.contains('is-on')&&peekEl.querySelector('.peek__veil');
+  if(!was) peekEl.innerHTML='<i class="peek__veil"></i>'; else peekEl.querySelectorAll('.peek__frame,.gal__card').forEach(e=>e.remove());
+  peekEl.insertAdjacentHTML('beforeend',body); if(was) peekEl.querySelector('.peek__frame').classList.add('is-swap');
+  // fit the copy to its frame like the app fits its card: drop rows from the end until nothing runs past the foot (no fade, no cut row)
+  const pc=peekEl.querySelector('.peek__glass .card'); if(pc){      // only the lists of calls give way (never the heatmap)
+    let guard=40; while(guard--&&pc.scrollHeight>pc.clientHeight+1){ const tb=[...pc.querySelectorAll('.ev tbody')].filter(t=>t.children.length>3).sort((x,y)=>y.children.length-x.children.length)[0]; if(!tb) break; tb.lastElementChild.remove() }
+    const dq=pc.querySelector('.dq__rows'); if(dq){ const lim=dq.getBoundingClientRect().bottom+.5; [...dq.children].forEach(r=>{ if(r.getBoundingClientRect().bottom>lim) r.remove() }) } }
+  clone.style.cssText=`left:${cx}px;top:${cy}px;width:${cw}px;height:${ch}px`; peekEl.appendChild(clone);
+  if(!was){ peekEl.classList.remove('is-on'); void peekEl.offsetWidth; peekEl.classList.add('is-on') } }
+function peekClose(){ peekV=null; peekEl.classList.remove('is-on'); peekLeaveT=setTimeout(()=>{ if(!peekV) peekEl.innerHTML='' },220) }
+const galGrid=document.getElementById('gal-grid');
+// The preview lives on the eye only (his note, 11-19: "אחרי שנדלק ה-preview זה נשאר גם לריחופים הבאים - לסדר"): it opens while the pointer is on
+// an eye (120 ms, so a passing pointer does not trigger it), and closes when the pointer leaves that eye. From one eye straight to another it
+// switches without the layer going dark in between (a short grace covers the trip).
+galGrid.addEventListener('pointerover',e=>{ if(e.pointerType==='touch') return; const eye=e.target.closest('.gal__eye'); if(!eye) return;
+  clearTimeout(peekT); clearTimeout(peekLeaveT); const c=eye.closest('.gal__card'); peekT=setTimeout(()=>peekOpen(c),peekV?0:120) });
+galGrid.addEventListener('pointerout',e=>{ const eye=e.target.closest('.gal__eye'); if(!eye||eye.contains(e.relatedTarget)) return; clearTimeout(peekT);
+  peekLeaveT=setTimeout(peekClose,peekV?180:0) });
+document.querySelector('.gal .card').addEventListener('scroll',()=>{ clearTimeout(peekT); peekClose() },{passive:true});
+galGrid.addEventListener('click',e=>{ if(e.target.closest('.gal__eye')) return; clearTimeout(peekT); peekV=null; peekEl.classList.remove('is-on'); peekEl.innerHTML=''; peekFrame=null },true);
+
+// leaving the gallery for an app takes the "All apps" highlight off
+const _openAppG=openApp; openApp=function(v){ document.getElementById('nav-all').classList.remove('on'); _openAppG(v) };
+if(new URLSearchParams(location.search).get('all')) requestAnimationFrame(openAll);
+
+// ── Notifications (his ask, 11-19: "אני רוצה פה איפשהו notifications, וכשלוחצים והאפליקציה מוכנה זה שולח התראה"). A bell in the sidebar with
+//    an unread count; its list opens beside the sidebar; a finished build posts "Your app is ready" there and as a toast. SAMPLE inbox, about
+//    things Hear found in calls that were already analyzed (never live calls).
+const bell=document.getElementById('bell'), bellN=document.getElementById('bell-n'), notes=document.getElementById('notes'), notesL=document.getElementById('notes-l'), toast=document.getElementById('toast');
+const NOTES=[{v:'disc',t:'3 new calls to review',d:'Disclosure review · 2 h ago',unread:true},{v:'comp',t:'Fee disclosure fell to 88%',d:'Compliance review · yesterday',unread:true},
+             {v:'aht',t:'Team Delta over target for 3 days',d:'Handle time by team · 2 days ago',unread:false}];
+const NOTE_IC={eval:'<svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="2.5" y="10.1" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="10.1" width="5.4" height="5.4" rx="1.2"/></svg>',
+  disc:'<svg class="i" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h8"/></svg>',aht:'<svg class="i" viewBox="0 0 18 18"><path d="M3.5 15V9M9 15V3.5M14.5 15V7"/></svg>',comp:'<svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.2"/><path d="M6.3 9.2l1.9 1.9 3.6-4"/></svg>'};
+function paintNotes(){ const n=NOTES.filter(x=>x.unread).length; bellN.textContent=n; bellN.hidden=!n; bell.classList.toggle('has-new',n>0);
+  notesL.innerHTML=NOTES.map((x,i)=>`<li><button type="button" data-i="${i}" class="${x.unread?'is-unread':''}"><i class="notes__ic">${NOTE_IC[x.v]}</i><span><b>${x.t}</b><small>${x.d}</small></span><em></em></button></li>`).join('');
+  notesL.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ const x=NOTES[+b.dataset.i]; x.unread=false; closeNotes(); paintNotes(); openApp(x.v) })) }
+function placeNotes(){ const r=bell.getBoundingClientRect(), z=parseFloat(stage.style.zoom)||1, h=notes.offsetHeight;
+  notes.style.top=Math.max(16,(r.bottom/z)-h)+'px' }
+function openNotes(){ notes.hidden=false; placeNotes(); notes.classList.remove('is-in'); void notes.offsetWidth; notes.classList.add('is-in'); bell.classList.add('on-open'); bell.setAttribute('aria-expanded','true') }
+function closeNotes(){ notes.hidden=true; bell.classList.remove('on-open'); bell.setAttribute('aria-expanded','false') }
+bell.addEventListener('click',e=>{ e.stopPropagation(); notes.hidden?openNotes():closeNotes() });
+document.getElementById('notes-read').addEventListener('click',()=>{ NOTES.forEach(x=>x.unread=false); paintNotes() });
+addEventListener('pointerdown',e=>{ if(!notes.hidden&&!notes.contains(e.target)&&!bell.contains(e.target)) closeNotes() });
+addEventListener('keydown',e=>{ if(e.key==='Escape'&&!notes.hidden) closeNotes() });
+let toastT=0;
+function notify(v,title,detail){ NOTES.unshift({v,t:title,d:detail,unread:true}); paintNotes();
+  bell.classList.remove('is-ring'); void bell.offsetWidth; bell.classList.add('is-ring');
+  toast.innerHTML=`<i class="toast__ic">${NOTE_IC[v]}</i><span><b>${title}</b><small>${detail}</small></span><button type="button" class="toast__go">Open</button><button type="button" class="toast__x" aria-label="Dismiss">×</button>`;
+  toast.hidden=false; toast.classList.remove('is-in','is-out'); void toast.offsetWidth; toast.classList.add('is-in');
+  const hide=()=>{ toast.classList.add('is-out'); setTimeout(()=>{ toast.hidden=true },320) };
+  toast.querySelector('.toast__go').addEventListener('click',()=>{ NOTES[0].unread=false; paintNotes(); hide(); openApp(v) });
+  toast.querySelector('.toast__x').addEventListener('click',hide);
+  clearTimeout(toastT); toastT=setTimeout(hide,7000) }
+paintNotes();
+const _finishN=finish; finish=function(){ const was=!!making; _finishN(); if(was) notify('eval','Your app is ready','Evaluation by agent · '+fmt(calls)+' calls') };
+
+// ── Welcome to Hear Studio + a walkthrough that builds one app with you (his ask, 11-19). Opens after signing in (?welcome=1). ──
+const wl=document.getElementById('welcome'), coach=document.getElementById('coach'), spot=document.getElementById('coach-spot'), cpos=document.getElementById('coach-pos'), ccard=document.getElementById('coach-card');
+const calmMotion=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const zoomUI=()=>{ const z=parseFloat(stage.style.zoom)||1; document.querySelector('.welcome__card').style.zoom=z; ccard.style.zoom=z;
+  // centred on the work area, on the board's own axis, not on the whole window ("זה לא במרכז המסך", 11-19: centred on the window it sat left of the board)
+  const sr=document.querySelector('.side').getBoundingClientRect().right; wl.style.paddingLeft=(sr+24)+'px'; wl.style.paddingRight='24px' };
+addEventListener('resize',zoomUI); zoomUI();
+// the painting stays alive: slow confetti in the painting's own colours, forever falling (forward only); one burst when the popup opens
+const Confetti=(function(){
+  const cv=document.getElementById('confetti'), ctx=cv.getContext('2d'), BASE=16,      // fewer: the painting now moves by itself
+    COLS=['#F07A64','#F59A84','#B9A3E3','#D7C6F2','#FFFFFF','#F6B6C8','#8FC8FF','#F4C66B'];
+  let W=0,H=0,raf=0,last=0,on=false,parts=[];
+  function size(){ const r=cv.getBoundingClientRect(), d=Math.min(2,devicePixelRatio||1); W=r.width; H=r.height; cv.width=Math.round(W*d); cv.height=Math.round(H*d); ctx.setTransform(d,0,0,d,0,0) }
+  function piece(burst){ const d=.45+Math.random()*.55;      // depth: small ones are far, slower and paler
+    const p={x:Math.random()*W,y:-12-Math.random()*H,w:(5+Math.random()*6)*d,h:(3+Math.random()*4)*d,c:COLS[Math.random()*COLS.length|0],r:Math.random()*6.28,vr:(Math.random()-.5)*.08,
+      vx:0,vy:(.16+Math.random()*.36)*d,sw:.4+Math.random()*1.1,ph:Math.random()*6.28,a:.5+.42*d,burst:false,extra:burst};
+    if(burst){ p.x=W*(.22+Math.random()*.56); p.y=H*(.5+Math.random()*.2); const ang=-Math.PI/2+(Math.random()-.5)*1.7, sp=(3.4+Math.random()*5.2)*d; p.vx=Math.cos(ang)*sp; p.vy=Math.sin(ang)*sp; p.burst=true }
+    return p }
+  function frame(t){ const dt=last?Math.min(50,t-last)/16.67:1; last=t; ctx.clearRect(0,0,W,H);
+    for(const p of parts){
+      if(p.burst){ p.vy+=.12*dt; p.vx*=Math.pow(.985,dt); if(p.vy>.5){ p.burst=false; p.vy=.25+Math.random()*.35 } }
+      p.ph+=.03*dt; p.x+=(p.vx+Math.sin(p.ph)*p.sw*.35)*dt; p.y+=p.vy*dt; p.r+=p.vr*dt;
+      if(p.y>H+14){ if(p.extra) p.dead=true; else { Object.assign(p,piece(false)); p.y=-10 } }
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.scale(1,.2+Math.abs(Math.cos(p.ph*1.3))*.8); ctx.globalAlpha=p.a; ctx.fillStyle=p.c;
+      ctx.beginPath(); if(ctx.roundRect) ctx.roundRect(-p.w/2,-p.h/2,p.w,p.h,1.2); else ctx.rect(-p.w/2,-p.h/2,p.w,p.h); ctx.fill(); ctx.restore() }
+    if(parts.some(p=>p.dead)) parts=parts.filter(p=>!p.dead);
+    raf=on?requestAnimationFrame(frame):0 }
+  return { start(){ if(calmMotion) return; size(); parts=Array.from({length:BASE},()=>{ const p=piece(false); p.y=Math.random()*H; return p }); on=true; last=0; cancelAnimationFrame(raf); raf=requestAnimationFrame(frame) },
+           burst(n){ if(calmMotion||!on) return; for(let i=0;i<n;i++) parts.push(piece(true)) },
+           stop(){ on=false; cancelAnimationFrame(raf); raf=0 } } })();
+// the popup in depth: --wx/--wy follow the pointer over the whole veil on a soft spring, and settle back when it leaves
+(function(){ if(calmMotion) return; const card=document.querySelector('.welcome__card'); let tx=0,ty=0,x=0,y=0,raf=0;
+  const tick=()=>{ x+=(tx-x)*.09; y+=(ty-y)*.09; card.style.setProperty('--wx',x.toFixed(4)); card.style.setProperty('--wy',y.toFixed(4));
+    raf=(Math.abs(tx-x)>.001||Math.abs(ty-y)>.001)?requestAnimationFrame(tick):0 };
+  const go=()=>{ if(!raf) raf=requestAnimationFrame(tick) };
+  wl.addEventListener('pointermove',e=>{ if(e.pointerType!=='mouse') return; const r=card.getBoundingClientRect();
+    tx=Math.max(-1,Math.min(1,(e.clientX-(r.left+r.width/2))/(r.width/2))); ty=Math.max(-1,Math.min(1,(e.clientY-(r.top+r.height/2))/(r.height/2))); go() });
+  wl.addEventListener('pointerleave',()=>{ tx=0; ty=0; go() }); })();
+function openWelcome(){ const v=wl.querySelector('video'); if(v){ if(calmMotion){ v.removeAttribute('autoplay'); v.pause() } else { v.currentTime=0; v.play().catch(()=>{}) } }
+  wl.hidden=false; wl.classList.remove('is-out'); wl.classList.add('is-in'); zoomUI();
+  requestAnimationFrame(()=>{ Confetti.start(); setTimeout(()=>Confetti.burst(90),450) }); setTimeout(()=>document.querySelector('.welcome__card').focus({preventScroll:true}),60) }      // focus the dialog, not the button: no focus ring on arrival
+function closeWelcome(then){ wl.classList.add('is-out'); setTimeout(()=>{ wl.hidden=true; wl.classList.remove('is-in','is-out'); Confetti.stop(); if(then) then() },300) }
+document.getElementById('wl-later').addEventListener('click',()=>closeWelcome(()=>create.focus()));
+document.getElementById('wl-go').addEventListener('click',()=>closeWelcome(()=>tour.start()));
+wl.addEventListener('keydown',e=>{ if(e.key==='Escape'){ e.stopPropagation(); closeWelcome(()=>create.focus()) } });
+// the walkthrough: the four steps of the Studio film (describe it, Hear builds it, change it, ask about it), done for real with you
+const tour=(function(){
+  let k=-1, iv=0;
+  const n=document.getElementById('coach-n'), t=document.getElementById('coach-t'), pp=document.getElementById('coach-p'), go=document.getElementById('coach-go');
+  const EX='A heatmap of evaluation criteria by agent for the last 30 days';
+  const press=ta=>ta.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true,cancelable:true}));
+  function writeIt(){ create.focus(); go.disabled=true; let i=0;
+    const tick=()=>{ create.ta.value=EX.slice(0,++i); create.ta.dispatchEvent(new Event('input',{bubbles:true})); if(i<EX.length) setTimeout(tick,24); else { go.disabled=false; go.textContent='Build it'; TOUR[0].act=()=>{ create.ta.focus(); press(create.ta) } } };
+    setTimeout(tick,600) }
+  function sendChat(text,next){ go.disabled=true; chat.set(text); setTimeout(()=>{ press(chat.ta); setTimeout(()=>{ go.disabled=false; show(next) },1900) },350) }
+  const TOUR=[
+    {el:()=>document.getElementById('cmp-create'),side:'below',n:'1 of 4 · Describe it',t:'Say what your team needs',p:'In plain words, the way you would ask a colleague. Let’s start with a heatmap of your agents.',go:'Write it for me',act:writeIt},
+    {el:()=>document.getElementById('work'),side:'right',n:'2 of 4 · Hear builds it',t:'Watch it come together',p:'Hear reads your evaluated calls and lays out the app, part by part. Open the steps to see what it found.',go:null},
+    {el:()=>document.querySelector('#cmp-chat'),side:'right',n:'3 of 4 · Change it',t:'Change it in plain words',p:'Ask for a change and the app updates, with a new version you can always go back from.',go:'Add a filter by team',act:()=>sendChat('Add a filter by team',3)},
+    {el:()=>document.getElementById('hm'),side:'above',n:'4 of 4 · Ask about it',t:'Ask about the numbers',p:'Ask why a score is low, or click any score to see the calls behind it.',go:'Why is it the lowest?',act:()=>sendChat(`Why is ${byCrit[0][0]} the lowest?`,4)},
+    {el:()=>document.querySelector('.app .card'),side:'center',n:'You’re set',t:'Now build your own',p:'Your team’s next app is one sentence away.',go:'Start my own',act:()=>{ end(); resetMaking(); stop(true); create.clear(); set(1); create.focus() }}];
+  function place(){ if(k<0) return; const s=TOUR[k], el=s.el(); if(!el) return; const r=el.getBoundingClientRect(), pad=10;
+    Object.assign(spot.style,{left:r.left-pad+'px',top:r.top-pad+'px',width:r.width+pad*2+'px',height:r.height+pad*2+'px'});
+    const cr=ccard.getBoundingClientRect(), cw=cr.width, ch=cr.height; let x,y;
+    if(s.side==='below'){ x=r.left+r.width/2-cw/2; y=r.bottom+pad+14 }
+    else if(s.side==='right'){ x=r.right+pad+16; y=r.top+r.height/2-ch/2 }
+    else if(s.side==='above'){ x=r.left+r.width/2-cw/2; y=r.top-pad-14-ch }
+    else { x=r.left+r.width/2-cw/2; y=r.top+r.height/2-ch/2 }
+    cpos.style.left=Math.max(12,Math.min(innerWidth-cw-12,x))+'px'; cpos.style.top=Math.max(12,Math.min(innerHeight-ch-12,y))+'px' }
+  function show(i){ k=i; const s=TOUR[i]; coach.hidden=false; n.textContent=s.n; t.textContent=s.t; pp.textContent=s.p; go.hidden=!s.go; if(s.go){ go.textContent=s.go; go.disabled=false }
+    ccard.classList.remove('is-swap'); void ccard.offsetWidth; ccard.classList.add('is-swap'); place(); setTimeout(place,60) }
+  function end(){ k=-1; coach.hidden=true; clearInterval(iv); iv=0 }
+  go.addEventListener('click',()=>{ const s=TOUR[k]; if(s&&s.act) s.act() });
+  document.getElementById('coach-skip').addEventListener('click',end);
+  addEventListener('keydown',e=>{ if(e.key==='Escape'&&k>=0&&!making){ end() } });
+  // the steps follow the real work: the build starting moves to step 2, the app being ready moves to step 3
+  const _make=makeApp; makeApp=function(text){ _make(text); if(k===0) setTimeout(()=>show(1),450) };
+  const _finish=finish; finish=function(){ _finish(); if(k===1) setTimeout(()=>show(2),600) };
+  return { start(){ clearInterval(iv); iv=setInterval(place,250); show(0) }, end } })();
+if(new URLSearchParams(location.search).get('welcome')) openWelcome();
+
+if(new URLSearchParams(location.search).get('s')==='2'||qApp) set(2);
+if(qApp&&APPS[qApp]) requestAnimationFrame(()=>refit(qApp));
+document.getElementById('new').addEventListener('click',()=>{ resetMaking(); stop(true); create.clear(); document.querySelectorAll('.side .nv.on').forEach(b=>b.classList.remove('on')); set(1); create.focus() });
+</script>
+</html>

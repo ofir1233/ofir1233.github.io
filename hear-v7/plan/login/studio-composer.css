@@ -1,0 +1,934 @@
+/* The composer: ONE writing component for the whole system. The centred plate ("What does your team need?") and the chat at the side
+   are the same component with different options (studio-composer.js). His brief, 2026-11-19: polish every interaction of the chat
+   screen, active and not active, at the highest level; the reference is the Ask screen he sent (resting field that types its own
+   examples, a mark that wakes up, suggestions that appear only when the field is active).
+
+   States of the field:  rest · hover · focus (empty) · typing · menu open (@ or /) · listening · busy (sent) · nudge (sent empty)
+   One accent only: the blue. Everything eases; nothing jumps. */
+
+@property --lean{syntax:'<number>';inherits:true;initial-value:1}
+
+:focus-visible{outline:2.5px solid var(--blue);outline-offset:2px}
+textarea:focus-visible{outline:0}
+kbd{display:inline-block;min-width:18px;padding:1px 5px;border-radius:5px;background:#fff;box-shadow:inset 0 0 0 1px #D5DDE4;font:inherit;font-size:11.5px;line-height:1.35;text-align:center;color:#6A7078}
+
+/* ── the field ── */
+.field{position:relative;border-radius:20px;border:1.5px solid #D5DDE4;background:#fff;cursor:text;transition:border-color .18s,box-shadow .22s,background-color .18s}
+.field:hover{border-color:#B4C2CE;box-shadow:0 8px 20px -10px rgba(16,34,60,.22)}
+.field.is-focus{border-color:var(--blue);box-shadow:0 0 0 5px rgba(19,159,253,.16),0 12px 30px rgba(19,159,253,.16)}
+.field.is-listening{border-color:var(--blue);box-shadow:0 0 0 5px rgba(19,159,253,.16)}
+.field.is-busy,.field.is-busy:hover{border-color:#D5DDE4;box-shadow:none;background:#F6F9FC;cursor:default}
+/* The border follows the pointer (his note 11-19: "נשכח חלק חשוב מהרכיב": the lab's Ask field, src/components/ChatInput.jsx).
+   Within 120 px of the field, a soft light gathers on the border at the point nearest the pointer, stronger the closer it is; over
+   one of the field's own buttons it is full and turns from a clear sky blue to a deeper blue (the lab's original goes coral → blue; he asked for blue, 11-19). Off while the field is
+   focused, holds text, listens or is busy: then the blue focus ring speaks. --gx/--gy are percentages, so the stage's zoom never
+   shifts the light. */
+.field.is-glow,.field.is-glow:hover{--gb:color-mix(in srgb,#E3E8ED calc(var(--gi,0)*100%),#D5DDE4);border-color:transparent;
+  background:linear-gradient(#fff,#fff) padding-box,
+    radial-gradient(circle at var(--gx,50%) var(--gy,50%),color-mix(in srgb,rgb(var(--gc,64,172,255)) calc(var(--ga,0)*100%),var(--gb)) 0%,color-mix(in srgb,rgb(var(--gc,64,172,255)) calc(var(--ga,0)*70%),var(--gb)) 30%,var(--gb) 62%) border-box;
+  box-shadow:0 0 calc(var(--gi,0)*26px) rgba(var(--gc,64,172,255),calc(var(--gi,0)*.2)),0 8px 20px -10px rgba(16,34,60,calc(var(--gi,0)*.12))}
+/* "הקו מרגיש לא אחיד, עובי שונה" (11-19): the light used to be a second ring laid over the border; at the stage's zoom both were about
+   1.2 px and never fell on the same pixels, so some sides read double. Now the border ITSELF carries the light (one line, one width):
+   the field's white fills the padding box and the gradient shows only in the border box.
+   "כשאני מתרחק מה-chatbox הוא מהבהב" (11-19): the light used to switch off at 120 px, and the border passed through transparent on its
+   way back to grey. Now, once lit, the field stays in this mode and the light simply fades to zero: at zero the border is exactly the
+   resting grey (#D5DDE4) and the shadow is gone, so there is nothing left to switch. The mode ends only when the field is used. */
+.field.is-nudge{animation:nudge .34s}
+@keyframes nudge{20%{translate:-6px 0}50%{translate:5px 0}75%{translate:-3px 0}}
+
+.cmp__in{position:relative;padding:18px 22px 0;font-size:19px;line-height:1.35}
+/* the text is drawn twice: this layer (invisible words) gives the field its height and paints the highlight under "@" names;
+   the textarea lies exactly over it. The field is one line tall at rest and opens when it is being used. */
+.cmp__hl{min-height:calc(1.35em*var(--rows,1));max-height:calc(1.35em*7);overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;color:transparent;transition:min-height .3s cubic-bezier(.3,.9,.3,1)}
+.field.is-focus .cmp__hl,.field.has-text .cmp__hl,.field.is-listening .cmp__hl{--rows:var(--rows-on,3)}
+.cmp__hl mark{color:transparent;background:rgba(19,159,253,.15);border-radius:5px;box-shadow:0 0 0 2.5px rgba(19,159,253,.15)}
+.cmp__in textarea{position:absolute;left:22px;top:18px;width:calc(100% - 44px);height:calc(100% - 18px);padding:0;border:0;outline:0;resize:none;overflow:auto;scrollbar-width:none;background:none;font:inherit;color:var(--ink);caret-color:var(--blue)}
+.cmp__in textarea::-webkit-scrollbar{display:none}
+.field.is-busy textarea{color:var(--ink2)}
+.cmp__ph{position:absolute;left:22px;right:22px;top:18px;color:#9AA1A8;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.field.has-text .cmp__ph{display:none}
+.cmp__ph i{display:none;width:1.5px;height:1.05em;margin-left:1px;background:#9AA1A8;vertical-align:-.16em;animation:caret 1s steps(1) infinite}
+.field.is-rest .cmp__ph i{display:inline-block}
+@keyframes caret{50%{opacity:0}}
+
+/* ── the bar under the text: tools at the left, what the keys do in the middle, voice and send at the right ── */
+.cmp__bar{display:flex;align-items:center;gap:4px;height:54px;padding:0 10px 10px 12px}
+.before .cmp__bar{margin-top:14px}      /* air between the words and the tools in the big field */
+.tool{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:10px;color:#A9B1B9;transition:background-color .15s,color .15s,scale .12s,box-shadow .2s}
+.tool:hover{background:#EEF2F6;color:var(--ink)}
+.tool:active{scale:.9}
+.tool.is-on{background:#E3F2FF;color:var(--blue)}
+.tool svg{width:18px;height:18px}      /* his note 11-19, "הכפתורים פה בצבע חזק מידי והם קרובים מידי לשדה טקסט": quieter grey (was #7C858E), a touch smaller; hover still turns them to ink */
+.field.is-busy .tool{opacity:.35;pointer-events:none}
+.tool.mic.is-on{background:var(--blue);color:#fff;animation:ring 1.5s ease-out infinite}
+@keyframes ring{from{box-shadow:0 0 0 0 rgba(19,159,253,.45)}to{box-shadow:0 0 0 10px rgba(19,159,253,0)}}
+.cmp__hint{flex:1;min-width:0;padding:0 8px;text-align:right;font-size:13.5px;color:#7E868E;white-space:nowrap;overflow:hidden;opacity:0;transition:opacity .2s}
+.field.is-focus .cmp__hint,.field.is-listening .cmp__hint,.field.is-busy .cmp__hint{opacity:1}
+.cmp__wave{display:inline-flex;align-items:center;gap:2.5px;height:16px;margin-right:8px;vertical-align:-3px}
+.cmp__wave i{width:2.5px;height:100%;border-radius:2px;background:var(--blue);animation:wave .9s ease-in-out infinite alternate}
+.cmp__wave i:nth-child(2){animation-delay:-.6s}.cmp__wave i:nth-child(3){animation-delay:-.2s}.cmp__wave i:nth-child(4){animation-delay:-.75s}.cmp__wave i:nth-child(5){animation-delay:-.4s}
+@keyframes wave{from{scale:1 .25}to{scale:1 1}}
+
+/* send: its place is always kept (the mic never moves). Inactive grey until there is something to send (not while only "@" or "/" is typed,
+   not while a menu is open); blue when there is; dark "stop" while the answer is being made. (Critic round 3.) */
+.send{position:relative;flex:none;width:42px;height:42px;margin-left:6px;border-radius:12px;background:#E6EBEF;pointer-events:none;overflow:hidden;
+  transition:background-color .18s,box-shadow .15s,scale .2s cubic-bezier(.3,1.3,.5,1)}
+.send{opacity:0;scale:.85;transition:opacity .18s,scale .18s cubic-bezier(.3,1.3,.5,1),background-color .18s,box-shadow .15s}      /* his note: no send until there is text ("אין סיבה שיופיע עד שנכתב טקסט") */
+/* Voice and send share one slot, flush at the right edge ("זה לא הגיוני שזה לא צמוד, זה יושב במקום מוזר", 11-19): at rest the mic;
+   with text (or while sending) the send, in the same spot. They cross-fade in place, so nothing ever moves. */
+.cmp__act{display:grid;flex:none;place-items:center}
+.cmp__act>*{grid-area:1/1}
+.cmp__act .send{margin-left:0}
+.tool.mic{transition:background-color .15s,color .15s,scale .18s cubic-bezier(.3,1.3,.5,1),box-shadow .2s,opacity .16s}
+.field.can-send .tool.mic,.field.is-busy .tool.mic{opacity:0;scale:.8;pointer-events:none}
+.field.can-send .send{background:var(--blue);pointer-events:auto;opacity:1;scale:1}
+.field.is-busy .send{opacity:1;scale:1}
+.field.is-busy .send{pointer-events:auto}
+.send::before{content:'';position:absolute;left:50%;top:50%;width:2px;height:38%;background:#A9B3BC;translate:-50% -50%;border-radius:2px;transition:width .18s,height .18s,border-radius .18s}
+.send::after{content:'';position:absolute;left:50%;top:44%;width:10px;height:10px;border-left:2px solid #A9B3BC;border-top:2px solid #A9B3BC;transform:translate(-50%,-50%) rotate(45deg);transition:opacity .12s}
+.field.can-send .send::before,.field.is-busy .send::before{background:#fff}
+.field.can-send .send::after{border-color:#fff}
+.field.can-send .send:hover{background:#0B8FEB;box-shadow:0 8px 18px -6px rgba(19,159,253,.7)}
+.field.can-send .send:active,.field.is-busy .send:active{scale:.92}
+.field.is-busy .send{background:#232323}
+.field.is-busy .send:hover{background:#000;box-shadow:none}
+.field.is-busy .send::before{width:12px;height:12px;border-radius:3px}
+.field.is-busy .send::after{opacity:0}
+
+/* ── the menus: "@" points at the company's own data, "/" picks a kind ── */
+.menu{position:absolute;left:8px;top:calc(100% + 10px);z-index:30;width:324px;padding:6px;border-radius:16px;background:#fff;box-shadow:0 0 0 1px rgba(16,34,60,.08),0 20px 46px -14px rgba(16,34,60,.4);font-size:14.5px;cursor:default;transform-origin:22px 0;animation:menu-in .17s cubic-bezier(.3,1.25,.5,1)}
+.menu[hidden]{display:none}
+.menu--up{top:auto;bottom:calc(100% + 10px);transform-origin:22px 100%}
+@keyframes menu-in{from{opacity:0;scale:.95}}
+.menu__list{position:relative;max-height:312px;overflow-y:auto;scrollbar-width:none}
+.menu__list::-webkit-scrollbar{display:none}
+.menu h5{margin:8px 10px 3px;font-size:11.5px;font-weight:500;color:#8A929A}
+.menu button{display:flex;align-items:center;gap:10px;width:100%;height:36px;padding:0 8px;border-radius:10px;text-align:left;color:var(--ink);white-space:nowrap}
+.menu button i svg{width:14px;height:14px}
+.menu button i{display:grid;place-items:center;flex:none;width:24px;height:24px;border-radius:8px;background:#EEF2F6;font-style:normal;font-size:10.5px;font-weight:600;color:#4B535B;transition:background-color .12s}
+.menu button small{margin-left:auto;padding-left:10px;font-size:12.5px;color:#8A929A;overflow:hidden;text-overflow:ellipsis}
+.menu button.is-sel{background:#EAF5FF}
+.menu button.is-sel i{background:#fff}
+.menu button:active{background:#D9EDFF}
+.menu footer{display:flex;gap:14px;margin-top:6px;padding:8px 8px 3px;border-top:1px solid var(--line);font-size:12px;color:#8A929A}
+
+/* ── the centred plate: as tall as what is in it; it opens when the field wakes up ── */
+.before{left:calc(var(--side) + (100% - var(--side))/2);top:50%;width:760px;height:auto;translate:-50% -50%;transform-origin:50% 0;transition:--lean .4s,opacity .28s,scale .28s}      /* always centred (his ask, 11-19: "כשה-frame גדל הוא לא מתמרכז"): the plate grows up and down equally, and since its height eases (the ideas' grid rows), the re-centring glides with it. This replaces the pinned top edge from critic round 1. */
+.before.is-active,.before.is-building{--lean:0}      /* while someone writes, the plate holds still, so its text is drawn flat and sharp */
+.s2 .before,.before.is-active,.before.is-building{will-change:auto}
+.before.is-active .card,.before.is-building .card{translate:0 0}
+.before .card{position:relative;inset:auto;margin:18px;border-radius:22px;display:flex;flex-direction:column;align-items:center;padding:30px 40px 40px;overflow:visible}      /* bottom = sides ("הרווח בצדדים ולמטה לא שווים", 11-19) */
+.markbox{position:relative;display:grid;place-items:center;width:84px;height:84px}
+/* the plate's mark at rest: blue and smaller, breathing quietly: "I'm on and waiting for you" (his try, 11-19: "להחזיר את האייקון לכחול
+   וקטן יותר, משהו שאומר אני פעיל ומחכה ל-feedback"; it was pale grey before). Opening still settles it 20% bigger than its base. */
+.before .markbox .mark{scale:.8}
+.before.is-active .markbox .mark path,.before.is-building .markbox .mark path{fill:var(--blue)}
+.markbox .mark{width:46px;transition:scale .35s cubic-bezier(.3,1.4,.5,1)}
+.is-building .markbox .mark{animation:breathe 1s ease-in-out infinite alternate}
+@keyframes spin{to{rotate:360deg}}
+@keyframes breathe{from{scale:.86}to{scale:1}}
+/* calmer heading ("משהו בתצוגה של הטקסט מרגיש לי צעקני מידי", 11-19): 36 → 32 px, weight 500 → 400, a softer ink, looser tracking */
+.before h1{margin:4px 0 0;font-size:32px;font-weight:400;letter-spacing:-.015em;line-height:1.15;color:#272C33;max-height:2.4em;overflow:hidden;
+  transition:opacity 0s,max-height .34s cubic-bezier(.3,.9,.3,1),margin .34s cubic-bezier(.3,.9,.3,1)}
+/* "כשהצ'אט נפתח תורידי את המשפט!" (11-19): once the field is open (and while it builds) the heading folds away; the mark and the
+   field stay. It comes back when the field is left. */
+.before.is-active h1,.before.is-building h1{opacity:0;max-height:0;margin-top:0;margin-bottom:-6px;
+  transition:opacity .1s .3s,max-height .34s cubic-bezier(.3,.9,.3,1) .12s,margin .34s cubic-bezier(.3,.9,.3,1) .12s}
+.before .field{width:100%;margin-top:24px}
+
+/* under the field, one thing at a time: at rest nothing (the field writes its own examples; the chip was removed at his note "אני לא אוהב את הכפתור הזה", 11-19); when the field is active and empty, the ideas; while building, the steps */
+.ideas,.steps{display:grid;width:100%;grid-template-rows:0fr;margin-top:0;opacity:0;transition:grid-template-rows .32s cubic-bezier(.3,.9,.3,1),margin .32s cubic-bezier(.3,.9,.3,1),opacity .2s}
+.ideas>div,.steps>div{min-height:0;overflow:hidden;visibility:hidden;transition:visibility 0s .32s}
+.is-active:not(.is-building) .ideas,.is-building .steps{grid-template-rows:1fr;margin-top:14px;opacity:1}
+.is-active:not(.is-building) .ideas>div,.is-building .steps>div{visibility:visible;transition-delay:0s}
+/* "זה צפוף ונראה בעייתי" (11-19): the rows had hairlines drawn as box-shadows on rounded buttons, so every line bent up at its ends,
+   and dark 15.5 px text competed with the field. Now: no lines, a little air between rows, quieter text and a grey spark; the
+   row under the pointer is the only one in colour (pale blue ground, ink text, blue spark). More room above the list. */
+.is-active:not(.is-building) .ideas{margin-top:22px}
+.try{display:flex;flex-direction:column;gap:4px;padding:14px 2px 2px;border-top:1px solid #DDE3E8}      /* no "Ideas to start from" heading: one plain line parts the ideas from the field ("בלי כותרת - תוסיפי פשוט קו מפריד", 11-19) */
+.try button{display:flex;align-items:center;gap:12px;height:44px;flex:none;padding:0 12px 0 10px;border-radius:12px;font-size:15px;color:var(--mut);text-align:left;transition:background-color .14s,color .14s,padding .18s}
+.try svg{flex:none;color:#A9B1B9;transition:rotate .3s,scale .2s,color .14s}
+.try svg.i{fill:currentColor}      /* the spark is solid, not an outline ("האייקון פה צריך להיות מלא", 11-19) */
+.try span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.5;padding-block:1px}      /* tall enough that "g", "y", "p" are never cut (critic round 5) */
+.try kbd{opacity:0;transition:opacity .14s}
+.try button:hover,.try button:focus-visible{background:rgba(19,159,253,.07);color:var(--ink);padding-left:13px}
+.try button:hover svg,.try button:focus-visible svg{rotate:90deg;scale:1.1;color:var(--blue)}
+.try button:hover kbd,.try button:focus-visible kbd{opacity:1}
+.try button:active{background:rgba(19,159,253,.15)}
+.try button.is-off{opacity:.38}
+.try button.is-off:hover,.try button.is-off:focus-visible{opacity:1}
+.is-active .try button{animation:idea-in .34s cubic-bezier(.3,.9,.3,1) both;animation-delay:calc(var(--i,0)*45ms + 60ms)}
+@keyframes idea-in{from{opacity:0;translate:0 8px}}
+.steps ol{display:flex;justify-content:center;align-items:center;gap:0;list-style:none;margin:0;padding:6px 2px 2px}
+.steps li{display:flex;align-items:center;gap:8px;height:24px;font-size:14px;color:#9AA1A8;transition:color .25s}
+.steps li+li::after{content:none}
+.steps li+li{margin-left:14px;padding-left:14px;box-shadow:-1px 0 0 var(--line)}      /* a plain progress line, not chips: nothing here can be pressed */
+.steps li::before{content:'';width:8px;height:8px;border-radius:50%;background:#C9D3DB;transition:background-color .25s}
+.steps li.is-now{color:var(--ink);font-weight:500}
+.steps li.is-now::before{background:var(--blue);animation:ring 1.1s ease-out infinite}
+.steps li.is-done{color:var(--ink2)}
+.steps li.is-done::before{background:var(--ink)}
+.is-short .before .card{padding:24px 40px 40px}
+.is-short .markbox{width:72px;height:72px}
+.is-short .before .field{margin-top:18px}
+.is-short .try button{height:38px}
+
+/* from the plate to the app: the plate lets go, then the chat and the app arrive, the app's rows one after another */
+.is-leaving .before{opacity:0;scale:.965}
+.is-fresh .chat{animation:chat-in .5s cubic-bezier(.3,.9,.3,1) both}
+.is-fresh .app{animation:app-in .55s cubic-bezier(.3,.9,.3,1) .08s both}
+@keyframes chat-in{from{opacity:0;translate:70px 0;scale:.98}}
+@keyframes app-in{from{opacity:0;translate:0 16px}}
+@keyframes row-in{from{opacity:0;translate:0 8px}}
+
+/* ── the chat at the side: the same composer, smaller; above it, one quiet row of next steps ── */
+.chat .card{overflow:visible}
+.msgs{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;display:flex;flex-direction:column;gap:14px;margin-top:16px;font-size:15px;line-height:1.4}
+.msgs::-webkit-scrollbar{display:none}
+.msgs>*{flex:none}
+.msgs .is-new{animation:msg-in .3s cubic-bezier(.3,1.1,.4,1) both}
+@keyframes msg-in{from{opacity:0;translate:0 10px;scale:.97}}
+.it .dots,.dots{display:inline-flex;gap:5px;padding:9px 2px;margin:0;color:inherit}      /* .it span is a block elsewhere: the dots must stay a row, or they draw at zero width */
+.dots i{width:7px;height:7px;border-radius:50%;background:#1F1F1F;opacity:.35;animation:dot 1s ease-in-out infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,60%,100%{translate:0 0;opacity:.35}30%{translate:0 -3px;opacity:1}}
+.it em+em{margin-left:6px}
+.it em.q{color:#8A929A;font-weight:400}
+.next{display:flex;flex-wrap:nowrap;gap:6px;margin:12px 0 10px;overflow:hidden;transition:opacity .2s}
+.next button{flex:none;white-space:nowrap}      /* a chip is never cut: one that does not fit whole is left out (the script) */
+.next button.is-used,.chat .card:has(.field.is-busy) .next{opacity:.4;pointer-events:none}
+.next button.is-in{animation:msg-in .3s cubic-bezier(.3,1.1,.4,1) both;pointer-events:none}
+.next button{height:30px;padding:0 12px;border-radius:15px;background:rgba(255,255,255,.72);box-shadow:inset 0 0 0 1px #D9E1E8;font-size:13px;color:var(--ink2);transition:background-color .15s,color .15s,scale .12s,box-shadow .15s}
+.next button:hover{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px #B4C2CE}
+.next button:active{scale:.96}
+.chat .field{border-radius:18px}
+.chat .cmp__in{padding:13px 15px 0;font-size:15.5px}
+.chat .cmp__in textarea{left:15px;top:13px;width:calc(100% - 30px);height:calc(100% - 13px)}
+.chat .cmp__ph{left:15px;right:15px;top:13px}
+.chat .cmp__hl{--rows-on:2}
+.chat .cmp__bar{height:48px;padding:0 8px 8px}
+.chat .send{width:38px;height:38px;border-radius:11px}
+.chat .menu{left:0;width:296px;bottom:calc(100% + 18px);box-shadow:0 0 0 1px rgba(16,34,60,.08),0 14px 30px -18px rgba(16,34,60,.45)}
+
+/* ── everything else that can be pressed answers the hand too ── */
+.nv{transition:background-color .15s,color .15s,scale .12s,box-shadow .2s}
+.nv:active{scale:.975}
+.new{transition:background-color .15s,box-shadow .15s,scale .12s}
+.new:hover{box-shadow:inset 0 0 0 1.5px #94A6B5}
+.s1 .new:hover{background:#000;box-shadow:none}
+.new:active{scale:.975}
+.act{transition:background-color .15s,box-shadow .15s,scale .12s}
+.act:hover{background:#F6F9FC;box-shadow:inset 0 0 0 1.5px #94A6B5}
+.act:active{scale:.95}
+.hm td[data-a]{transition:scale .14s cubic-bezier(.3,1.4,.5,1),filter .14s}
+.hm td[data-a]:hover{scale:1.07;filter:brightness(1.04) saturate(1.1);position:relative;z-index:1}
+.hm td[data-a]:active{scale:.98}
+/* the calls behind the picked score, as a table (11-19) */
+.evtab{width:100%;margin-top:14px;border-collapse:collapse;table-layout:fixed;font-size:14.5px}      /* bigger and airier ("מרגיש קטן וצפוף", 11-19) */
+.evtab th{padding:0 14px 9px 0;font-size:12.5px;font-weight:400;color:var(--mut);text-align:left;white-space:nowrap}
+.evtab th:nth-child(1){width:196px}.evtab th:nth-child(2){width:98px}.evtab th:nth-child(3){width:84px}.evtab th:nth-child(4){width:92px}.evtab th:nth-child(5){width:84px}
+.evtab td{height:44px;padding:0 14px 0 0;border-top:1px solid var(--line);color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+.evtab tbody tr{transition:background-color .14s}
+.evtab tbody tr:hover{background:rgba(19,159,253,.06)}
+.evc{display:flex;align-items:center;gap:12px;color:var(--ink)}
+.evtab .pl{width:28px;height:28px}.evtab .pl::before{border-width:5px 0 5px 8px}
+.ev .pl{transition:box-shadow .14s,scale .12s,background-color .14s;cursor:pointer}
+.evtab tbody tr:hover .pl{box-shadow:inset 0 0 0 1.5px var(--blue)}
+.evs{display:inline-grid;place-items:center;min-width:44px;height:28px;padding:0 10px;border-radius:8px;font-size:14px;font-weight:500}
+.evf.is-miss{color:var(--ink)}
+.evtab tbody.is-new tr{animation:part-in .3s cubic-bezier(.3,.9,.3,1) both}
+.evtab tbody.is-new tr:nth-child(2){animation-delay:.04s}.evtab tbody.is-new tr:nth-child(3){animation-delay:.08s}.evtab tbody.is-new tr:nth-child(4){animation-delay:.12s}
+.ev .pl:active{scale:.9}
+.ev header a{transition:color .14s}
+.ev header a:hover{color:var(--blue)}
+.me{transition:background-color .15s;cursor:pointer}
+.me:hover{background:#fff}
+
+@media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation-duration:.01s !important;animation-iteration-count:1 !important;transition-duration:.01s !important} }
+
+/* ── the sidebar folds to a rail of icons (his ask: "כמו ב-gpt אני רוצה להיות יכול לצמצם את התפריט") ──
+   The button sits beside the logo; folded, the logo itself turns into the button under the pointer. ⇧⌘S does the same. The choice is
+   remembered. Folded, every icon says its name beside it. The room (the plate, the chat, the app) takes the width that is freed. */
+.side{z-index:5;transition:width .34s cubic-bezier(.3,.9,.3,1)}      /* above the plates, so the names beside the folded icons are never covered */
+.chat,.app{transition:left .34s cubic-bezier(.3,.9,.3,1)}
+.before{transition:--lean .4s,opacity .28s,scale .28s,left .34s cubic-bezier(.3,.9,.3,1)}
+.side__top{position:relative;display:flex;align-items:center;justify-content:space-between;height:34px}
+.tgl{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:10px;color:#6A7078;transition:background-color .15s,color .15s,scale .12s,opacity .15s}
+.tgl:hover{background:rgba(255,255,255,.75);color:var(--ink)}
+.tgl:active{scale:.9}
+.tgl svg{width:19px;height:19px}
+.stage.is-rail{--side:68px}
+.is-rail .side{align-items:center}
+.is-rail .side .lbl,.is-rail .side h3,.is-rail .me span{display:none}
+.is-rail .side__top{width:40px;height:40px;justify-content:center}
+.is-rail .side .tgl{position:absolute;inset:0;width:auto;height:auto;opacity:0}
+.is-rail .side__top:hover .tgl,.is-rail .side .tgl:focus-visible{opacity:1}
+.is-rail .new{width:40px;height:40px;padding:0;border-radius:50%;margin-bottom:18px}      /* folded, the "Apps" heading is gone, so the + needs its own air ("הפלוס קרוב מידי לשאר כשממוזער", 11-19) */
+.is-rail .nv{width:40px;padding:0;justify-content:center;overflow:visible}
+.is-rail .side hr{width:24px;margin:12px 0 8px}
+.is-rail .me{padding:4px;background:none}
+.side [data-tip]:not(.tgl){position:relative}      /* not the fold button: folded, it lies exactly over the logo (absolute), and this rule must never pull it back into the row */
+.is-rail .side [data-tip]::after,.tgl::after{content:attr(data-tip);position:absolute;left:calc(100% + 12px);top:50%;translate:-4px -50%;z-index:40;padding:6px 10px;border-radius:9px;background:#232323;color:#fff;font-size:12.5px;font-weight:500;line-height:1.3;white-space:pre;opacity:0;pointer-events:none;transition:opacity .12s,translate .15s}
+.is-rail .side [data-tip]:hover::after,.is-rail .side [data-tip]:focus-visible::after,.tgl:hover::after,.tgl:focus-visible::after{opacity:1;translate:0 -50%;transition-delay:.4s}
+
+/* ── the error state (critic round 1): the field unlocks, the text stays, one plain ink line and Retry ── */
+.cmp__err{display:flex;align-items:center;gap:10px;margin:0 12px 12px;padding:9px 10px 9px 12px;border-radius:12px;background:#F4F6F8;font-size:14px;color:var(--ink);animation:msg-in .22s cubic-bezier(.3,1.1,.4,1)}
+.cmp__err[hidden]{display:none}
+.cmp__err::before{content:'!';flex:none;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--ink);font-size:11.5px;font-weight:600;line-height:1}      /* a status mark, not a list bullet */
+.field.is-error .send{opacity:0;scale:.85;pointer-events:none}
+.field.is-error .send::before{background:#A9B3BC}.field.is-error .send::after{border-color:#A9B3BC}      /* one action at a time: Retry; send stays in its place, inactive, until the text is edited */
+.field.is-error .cmp__hint{opacity:0}
+.cmp__err span{flex:1;min-width:0}
+.cmp__retry{flex:none;height:30px;padding:0 13px;border-radius:15px;background:#232323;color:#fff;font-size:13.5px;font-weight:500;transition:background-color .15s,scale .12s}
+.cmp__retry:hover{background:#000}
+.cmp__retry:active{scale:.95}
+.field.is-error,.field.is-error:hover{border-color:#6A7078;box-shadow:none}
+/* the side chat is narrow: no key hints there, and the menu notes are left out */
+.chat .cmp__hint{display:none}
+.chat .cmp__act{margin-left:auto}      /* voice and send sit at the right edge, as in the big field */
+.chat .menu button small{display:none}
+.chat .cmp__err{margin:0 8px 8px;padding:7px 7px 7px 10px;gap:8px;font-size:13px}
+.chat .cmp__err span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat .cmp__retry{height:28px;padding:0 11px;font-size:13px}
+
+/* ── replies that belong to the screen (critic round 2) ── */
+.it p{margin:0}
+.it p+p{margin-top:6px}
+.it strong{font-weight:600}
+.app .filters{display:flex;gap:8px;margin-top:14px}
+.app .filters[hidden]{display:none}
+.app .filters button{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:15px;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;font-size:13.5px;transition:box-shadow .15s}
+.app .filters button:hover{box-shadow:inset 0 0 0 1.5px #94A6B5}
+.app .filters button svg{width:13px;height:13px;color:#7C858E}
+.app .filters.is-new button{animation:just-added 1.6s ease-out}
+@keyframes just-added{0%,30%{box-shadow:inset 0 0 0 1.5px var(--blue),0 0 0 5px rgba(19,159,253,.2)}}
+
+/* ── Opening the field: "now it's time to create" ──────────────────────────────────────────────────────────────────────
+   His note 11-19: "עשית את המינימום… אני רוצה אנימציה מושקעת עם כוונה, משהו שמראה עכשיו הזמן ליצור".
+   What he should understand: he clicks, the invitation hands the stage to him, Hear wakes up, the frame is drawn around his
+   field, the field tells him what to do, and the ideas arrive last. Now you create. Beats, in ms after the click:
+     0–100    keyframe 1: the mark gathers; then LIGHT breaks from it across the card (90–1090) and a soft glow stays
+     0        the field gives a little under the click and springs back (it felt you)
+     100–430  the heading lifts away into the light in two breaths, "Describe it." then "Hear builds it.", rising and blurring
+     120      the heading's room closes; the plate re-centres in the same glide
+     60–680   the mark wakes: one sound-like squash and stretch, then it settles
+     160–520  the field catches the light: its border turns blue and its halo blooms (no line drawn around it: his call)
+     80–500   the field opens to three lines with a soft overshoot
+     300–800  "Describe the app your team needs…" writes itself left to right
+     420+     the ideas arrive one after another
+   Leaving reverses it calmly: the room opens first, then the two phrases settle back in. Reduced motion: none of it. */
+@property --lo{syntax:'<number>';inherits:false;initial-value:0}
+@property --lr{syntax:'<length>';inherits:false;initial-value:0px}
+@media (prefers-reduced-motion:no-preference){
+  .before h1 span{display:inline-block;transition:opacity .28s cubic-bezier(.3,.9,.3,1),translate .34s cubic-bezier(.3,.9,.3,1),filter .3s}
+  .before h1 .h1a{transition-delay:.14s}
+  .before h1 .h1b{transition-delay:.21s}
+  .before.is-active h1 span,.before.is-building h1 span{opacity:0;translate:0 -16px;filter:blur(7px)}
+  .before.is-active h1 .h1a,.before.is-building h1 .h1a{transition-delay:.1s}
+  .before.is-active h1 .h1b,.before.is-building h1 .h1b{transition-delay:.17s}
+
+  .before .markbox .mark{transition:scale .4s cubic-bezier(.3,1.2,.5,1),filter .4s}
+  /* grey at rest, blue once the field is open ("בהתחלה אני רוצה שיהיה אפור… וכשגדל שיהיה האייקון קצת יותר גדול", then
+     "אמרתי שבהתחלה לא יהיה כחול", 11-19): the mark comes alive in colour at the burst of its wake, and greys again on leaving */
+  .before .markbox .mark path{transition:fill .35s .12s}
+  /* waiting: a slow breath with a faint blue glow, every 2.8 s; it starts after a short delay so leaving the field can glide back first */
+  .before:not(.is-active):not(.is-building) .markbox .mark{animation:mark-idle 2.8s ease-in-out .5s infinite}
+  @keyframes mark-idle{0%,100%{scale:.8;filter:drop-shadow(0 0 0 rgba(19,159,253,0))}50%{scale:.86;filter:drop-shadow(0 0 9px rgba(19,159,253,.32))}}
+  .before.is-active .markbox .mark path,.before.is-building .markbox .mark path{fill:var(--blue)}
+  .before.is-active .markbox .mark{scale:1.2;filter:drop-shadow(0 0 8px rgba(19,159,253,.18))}
+  .before.is-active:not(.is-building) .markbox .mark{animation:mark-wake .72s cubic-bezier(.3,.9,.3,1) backwards}
+  @keyframes mark-wake{0%{scale:.8;filter:drop-shadow(0 0 0 rgba(19,159,253,0))}14%{scale:.72;filter:drop-shadow(0 0 0 rgba(19,159,253,0))}
+    40%{scale:1.32 1.24;filter:drop-shadow(0 0 14px rgba(19,159,253,.38))}70%{scale:1.15 1.24}100%{scale:1.2;filter:drop-shadow(0 0 8px rgba(19,159,253,.18))}}
+  .before.is-building .markbox .mark{animation:breathe-lit 1s ease-in-out infinite alternate}
+  @keyframes breathe-lit{from{scale:1.06}to{scale:1.2}}
+
+  /* the frame is not drawn around the field ("אני רק לא אוהב את החלק של הקו שנסגר מסביב", 11-19): the field catches the light instead:
+     a small press under the click, then its border turns blue and its halo blooms as the light reaches it */
+  .before .field.is-drawing{animation:field-press .28s cubic-bezier(.3,1.4,.5,1)}
+  @keyframes field-press{0%{scale:1}35%{scale:.986}100%{scale:1}}
+  .before .field.is-focus{transition:border-color .36s .16s,box-shadow .5s .2s,background-color .18s}
+
+  .before .field.is-focus .cmp__hl{transition:min-height .42s cubic-bezier(.34,1.32,.5,1) .08s}
+  .before .field.is-focus .cmp__ph span{display:inline-block;animation:ph-write .5s cubic-bezier(.3,.9,.3,1) .42s both}
+  @keyframes ph-write{from{clip-path:inset(0 100% 0 0);opacity:.3}to{clip-path:inset(0 0 0 0);opacity:1}}
+
+  .before.is-active:not(.is-building) .ideas{transition-delay:.18s}
+  .before.is-active .try button{animation-delay:calc(var(--i,0)*60ms + 540ms)}
+
+  /* Keyframe 1 is light ("בהתחלה אני רוצה שיהיה אור", 11-19): the mark gathers, then light breaks from it across the card, the heading
+     dissolves into it, and a soft glow stays behind the mark while the field is open. The light is a radial wash clipped to the card,
+     drawn under the content; its reach (--lr) and strength (--lo) are registered so leaving fades it out instead of cutting it. */
+  .before .card>*{position:relative;z-index:1}
+  .before .card::before{content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;pointer-events:none;opacity:var(--lo);
+    background:radial-gradient(ellipse calc(var(--lr)*2.1) var(--lr) at 50% 72px,rgba(255,255,255,1) 0%,rgba(214,238,255,.85) 22%,rgba(140,204,255,.26) 55%,rgba(19,159,253,0) 100%);
+    transition:--lo .5s,--lr .5s}
+  .before.is-active .card::before{--lo:.16;--lr:260px;animation:light-break 1.05s cubic-bezier(.2,.8,.2,1) .09s backwards}
+  @keyframes light-break{0%{--lo:0;--lr:12px}26%{--lo:.5;--lr:220px}100%{--lo:.16;--lr:260px}}      /* toned down: "החלק של ה-glare מוגזם מידי" (11-19) */
+}
+
+/* ── Making the app, seen in two places (his ask, 11-19) ───────────────────────────────────────────────────────────────────────────────
+   The chat: one working line (the mark breathing, a status that shimmers as it changes, a chevron that opens the steps), then "Done.".
+   The app: every part first an empty tile (a grey bar or cell), then it fills, in the order the chat names it. */
+.work .work__status{display:inline;margin:0;color:var(--ink2)}
+.work__line{display:flex;align-items:center;gap:9px;min-height:28px;font-size:14.5px}
+.work__mark{flex:none;width:22px;height:19px}
+.work__mark path{fill:var(--blue);transition:fill .3s}
+.work.is-stopped .work__mark path{fill:#A9B1B9}
+.work.is-done .work__status,.work.is-stopped .work__status{color:var(--mut);font-size:13.5px}
+.work__tgl{display:grid;place-items:center;flex:none;width:24px;height:24px;margin-left:-3px;border-radius:7px;color:#8A929A;transition:rotate .22s cubic-bezier(.3,.9,.3,1),background-color .15s,color .15s}
+.work__tgl svg{width:15px;height:15px}
+.work__tgl:hover,.work__tgl:focus-visible{background:#EEF2F6;color:var(--ink)}
+.work.is-open .work__tgl{rotate:180deg}
+.work__steps{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s cubic-bezier(.3,.9,.3,1)}
+.work.is-open .work__steps{grid-template-rows:1fr}
+.work__steps>ol{min-height:0;overflow:hidden;list-style:none;margin:0;padding:0}      /* icons and their guide line sit INSIDE the list (it clips, to fold) */
+.work__steps li{position:relative;padding:7px 0 7px 31px}
+.work__steps li::before{content:"";position:absolute;left:10.5px;top:0;bottom:0;width:1px;background:var(--line)}
+.work__steps li:first-child::before{top:17px}.work__steps li:last-child::before{bottom:auto;height:17px}
+.work__steps li:first-child{margin-top:6px}
+.work__steps li>i{position:absolute;left:4px;top:10px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA}
+.work__steps li.is-now>i{box-shadow:none;border:1.5px solid #D5DDE4;border-top-color:var(--blue);animation:spin .8s linear infinite}
+.work__steps li.is-done>i{background:var(--blue);box-shadow:none}
+.work__steps li.is-done>i::after{content:"";position:absolute;left:5px;top:2.6px;width:3.2px;height:6.4px;border:solid #fff;border-width:0 1.6px 1.6px 0;rotate:45deg}
+.work__steps li:not(.is-done):not(.is-now){opacity:.5}
+.work__steps b{display:block;font-size:13.5px;font-weight:500;color:var(--ink2)}
+.work__steps span{font-size:12.5px;margin-top:1px}
+.work__steps li:not(.is-done) span{display:none}      /* what a step found shows only once it is done */
+.work__done{display:none}
+.work.is-done .work__done{display:block;margin-top:6px;animation:msg-in .3s cubic-bezier(.3,1.1,.4,1) both}
+.stage.is-making .chat .card .next{opacity:0;pointer-events:none}      /* beats the busy field's .4 (that rule uses :has, so it weighs more) */
+
+/* the app, part by part */
+.app .top.sk h2,.app .top.sk p,.kpis .sk small,.kpis .sk b,.kpis .sk i,.app .key.sk span,.ev.sk header b,.ev.sk header span,.ev.sk header a{
+  width:fit-content;color:transparent!important;border-radius:7px;background:linear-gradient(90deg,#E6EBF0 30%,#F3F6F8 50%,#E6EBF0 70%);background-size:300% 100%}
+.kpis .sk b{min-width:96px}
+.app .top.sk .act,.app .key.sk i{opacity:0}
+.ev.sk tbody tr{background:linear-gradient(90deg,#E6EBF0 30%,#F3F6F8 50%,#E6EBF0 70%);background-size:300% 100%}
+.ev.sk td{border-top-color:#fff}
+.ev.sk td>*,.ev.sk td{color:transparent}
+.ev.sk .pl,.ev.sk .evs{opacity:0}
+.ev.sk th{color:transparent}
+.hm tr.sk th{color:transparent}
+.hm tr.sk td{color:transparent;background:#E9EEF2;box-shadow:none;outline:none!important}
+.hm tr.sk td:first-child,.hm tr.sk td:last-child{background:none}
+.hm tr.sk td:first-child span{opacity:0}
+.hm td{transition:background-color .5s,color .35s,box-shadow .5s}
+.app .is-gone{opacity:0;transition:opacity .3s}
+@media (prefers-reduced-motion:no-preference){
+  .work.is-working .work__mark{animation:work-breath 1.3s ease-in-out infinite}
+  @keyframes work-breath{0%,100%{scale:.86;filter:drop-shadow(0 0 0 rgba(19,159,253,0))}50%{scale:1.04;filter:drop-shadow(0 0 6px rgba(19,159,253,.45))}}
+  .work.is-working .work__status{background:linear-gradient(90deg,var(--ink2) 0 38%,#BFC8D1 50%,var(--ink2) 62% 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:text-sweep 1.7s linear infinite}
+  @keyframes text-sweep{from{background-position:100% 0}to{background-position:-60% 0}}
+  .app .top.sk h2,.app .top.sk p,.kpis .sk small,.kpis .sk b,.kpis .sk i,.app .key.sk span,.ev.sk header b,.ev.sk header span,.ev.sk header a,.ev.sk tbody tr{animation:sk-sweep 1.3s linear infinite}
+  @keyframes sk-sweep{from{background-position:100% 0}to{background-position:0 0}}
+  .hm tr.sk{animation:sk-pulse 1.2s ease-in-out infinite}
+  @keyframes sk-pulse{50%{opacity:.55}}
+  .app .rv{animation:part-in .4s cubic-bezier(.3,.9,.3,1) both}
+  .hm tr.rv{animation:none}
+  .hm tr.rv td:first-child span{animation:part-in .35s cubic-bezier(.3,.9,.3,1) both}
+  @keyframes part-in{from{opacity:0;translate:0 6px}}
+}
+
+/* ── The sidebar is the same paper as the plate ("תעשי את הצבע של התפריט כמו המרכז", 11-19) ──
+   No glass: the card's own white-to-pale-blue, anchored top-left like the card. What lit up on glass (white hovers) now darkens a touch. */
+.side{background:radial-gradient(160% 70% at 0% 0%,#fff 0,#fff 30%,#F6F9FD 55%,#E9F0F9 80%,#DCE8F5 100%);-webkit-backdrop-filter:none;backdrop-filter:none;
+  box-shadow:1px 0 0 rgba(16,34,60,.07),10px 0 30px -18px rgba(10,40,80,.3)}
+.nv:hover{background:rgba(16,34,60,.05)}
+.nv.on{box-shadow:0 4px 14px -6px rgba(16,34,60,.25),inset 0 0 0 1px rgba(16,34,60,.06)}
+.tgl:hover{background:rgba(16,34,60,.06)}
+.me{background:rgba(16,34,60,.04)}
+.me:hover{background:rgba(16,34,60,.07)}
+.is-rail .me{background:none}
+
+/* ── The company, under Hear (his question 11-19: "איפה אפשר להראות את שם החברה? הרי החברה משתמשת במוצר שלנו ורק אז הסוכן או המנהל
+   בתוך החברה"). Order top to bottom: Hear · the company (a workspace row, switchable) · its apps · the person at the foot. */
+.ws{display:flex;align-items:center;gap:10px;width:100%;margin-top:16px;padding:6px 8px 6px 6px;border-radius:12px;text-align:left;transition:background-color .15s}
+.ws:hover,.ws:focus-visible{background:rgba(16,34,60,.05)}
+.ws__mark{display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:8px;background:#2B3A4A;color:#fff;font-size:13px;font-weight:600;letter-spacing:.01em}
+.ws__name{flex:1;min-width:0;font-size:14.5px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ws__chev{flex:none;width:16px;height:16px;color:#8A929A}
+.ws+.new{margin-top:14px}
+.is-rail .ws{width:40px;justify-content:center;padding:6px}
+.is-rail .ws__name,.is-rail .ws__chev{display:none}
+/* the person's avatar in colour ("האווטר MC צריך להיות צבוע", 11-19): the one blue, white initials */
+.me b{background:var(--blue);color:#fff}
+
+/* ── The company on top, "Powered by Hear" at the foot: his pick B over A (Hear on top), 11-19 ── */
+.powered{display:none}
+.brand-powered .side__top .ws{flex:1;min-width:0;margin:0 6px 0 0}
+.brand-powered .side__top{height:auto}
+.brand-powered .ws+.new,.brand-powered .side__top+.new{margin-top:18px}
+.brand-powered .powered{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:16px;font-size:12px;color:#8A929A;letter-spacing:.01em}
+.brand-powered .powered svg{flex:none;width:15px;height:13px}
+.brand-powered .powered path{fill:#A9B1B9}
+.brand-powered.is-rail .side__top .ws{flex:none;margin:0;opacity:1;transition:opacity .15s}
+.brand-powered.is-rail .side__top:hover .ws{opacity:0}
+.brand-powered.is-rail .powered span{display:none}
+/* the foot of the sidebar breathes ("מרגיש לי קצת צפוף", 11-19): more room above the person, and below "Powered by Hear" */
+.side{padding-bottom:22px}
+.me{margin-top:14px}
+
+/* ── Welcome to Hear Studio (his ask, 11-19): right after signing in, his "Hear Studio" parade in a popup, a few words, and two ways on.
+   The picture is alive but quiet: slow painted-colour confetti keeps falling over it (forward only, never a drift back and forth), and the
+   popup opens with one burst of confetti: the celebration. The popup and the coach card are drawn at the stage's own zoom. ── */
+.welcome{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:24px;background:rgba(6,10,18,.6);      /* no blur, just darker ("השכבה שמאחורי ה-popup בלי blur, רק יותר שחורה", 11-19) */
+  font-family:Byrd,system-ui,sans-serif;color:var(--ink)}
+.welcome[hidden]{display:none}
+.welcome__card{width:min(880px,92vw);border-radius:26px;background:#fff;overflow:hidden;box-shadow:0 40px 90px -30px rgba(10,30,60,.55),0 0 0 1px rgba(255,255,255,.7)}
+.welcome__art{position:relative;aspect-ratio:16/9;overflow:hidden;background:#cfe3f7}
+.welcome__art img,.welcome__art video{display:block;width:100%;height:100%;object-fit:cover;-webkit-user-drag:none;user-select:none;pointer-events:none}
+.welcome__art canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.welcome__text{padding:26px 34px 28px;text-align:center}
+.welcome__text h2{margin:0;font-size:30px;font-weight:400;letter-spacing:-.015em;line-height:1.15;color:#272C33}
+.welcome__text p{margin:10px auto 0;max-width:520px;font-size:16px;line-height:1.45;color:var(--mut)}
+.welcome__acts{display:flex;justify-content:center;gap:10px;margin-top:22px}
+/* the call to action, stronger ("אני רוצה את ה-call to action יותר חזק", 11-19): bigger, the one blue, a glow under it, an arrow that leans
+   forward on hover, and every few seconds a soft shine runs across it */
+.welcome__card:focus{outline:none}
+.welcome__go{position:relative;display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 26px 0 30px;border-radius:26px;overflow:hidden;background:var(--blue);color:#fff;font-size:16.5px;font-weight:500;letter-spacing:-.005em;
+  box-shadow:0 12px 26px -10px rgba(19,159,253,.75),inset 0 1px 0 rgba(255,255,255,.25);transition:background-color .15s,box-shadow .2s,translate .2s,scale .12s}
+.welcome__go svg{width:18px;height:18px;stroke-width:2;transition:translate .2s cubic-bezier(.3,1.4,.5,1)}
+.welcome__go:hover{background:#0B8FEB;translate:0 -1px;box-shadow:0 16px 30px -10px rgba(19,159,253,.85),inset 0 1px 0 rgba(255,255,255,.25)}
+.welcome__go:hover svg{translate:3px 0}
+.welcome__go:active{scale:.97;translate:0 0}
+.welcome__go::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);translate:0 0;pointer-events:none}
+.welcome__later{align-self:center}
+.welcome__later{height:52px;padding:0 18px;border-radius:22px;color:var(--ink2);font-size:15px;transition:background-color .15s}
+.welcome__later:hover{background:#F1F4F7}
+.welcome.is-out{opacity:0;transition:opacity .3s}
+
+/* the walkthrough: a soft spotlight (a hole in a light veil; clicks pass through everywhere) and one card that walks the four steps */
+.coach{position:fixed;inset:0;z-index:70;pointer-events:none}
+.coach[hidden]{display:none}
+/* the spotlight: back to the original walkthrough box (his note 11-19: "תורידי את הבלור… שיהיה איך שהיה ב-walk through"): a crisp rounded
+   hole in a light veil with a white rim; no blur. (The feathered version was tried and removed.) */
+.coach__spot{position:fixed;border-radius:20px;box-shadow:0 0 0 9999px rgba(14,32,56,.30),0 0 0 2px rgba(255,255,255,.95);
+  transition:left .45s cubic-bezier(.3,.9,.3,1),top .45s cubic-bezier(.3,.9,.3,1),width .45s cubic-bezier(.3,.9,.3,1),height .45s cubic-bezier(.3,.9,.3,1)}
+.coach__pos{position:fixed;transition:left .45s cubic-bezier(.3,.9,.3,1),top .45s cubic-bezier(.3,.9,.3,1)}
+.coach__card{pointer-events:auto;width:300px;padding:16px 18px 14px;border-radius:16px;background:#fff;box-shadow:0 22px 50px -18px rgba(10,30,60,.5),0 0 0 1px rgba(16,34,60,.06);font-family:Byrd,system-ui,sans-serif;color:var(--ink)}
+.coach__card small{display:block;font-size:12px;font-weight:500;color:var(--blue)}
+.coach__card b{display:block;margin-top:4px;font-size:17px;font-weight:500;letter-spacing:-.01em}
+.coach__card p{margin:6px 0 0;font-size:14px;line-height:1.45;color:var(--mut)}
+.coach__acts{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.coach__skip{padding:6px 4px;font-size:13.5px;color:var(--mut)}.coach__skip:hover{color:var(--ink)}
+.coach__go{height:36px;padding:0 16px;border-radius:18px;background:var(--blue);color:#fff;font-size:14px;font-weight:500;transition:background-color .15s,opacity .15s}
+.coach__go:hover{background:#0B8FEB}.coach__go:disabled{opacity:.5;pointer-events:none}.coach__go[hidden]{display:none}
+@media (prefers-reduced-motion:no-preference){
+  .welcome.is-in{animation:wl-fade .45s ease both}
+  .welcome.is-in .welcome__card{animation:wl-card .7s cubic-bezier(.2,1.25,.35,1) .05s both}
+  .welcome.is-in .welcome__art img,.welcome.is-in .welcome__art video{animation:wl-art 1.6s cubic-bezier(.2,.8,.2,1) .05s both}
+  .welcome.is-in .welcome__text>*{animation:part-in .5s cubic-bezier(.3,.9,.3,1) both}
+  .welcome.is-in .welcome__text h2{animation-delay:.35s}.welcome.is-in .welcome__text p{animation-delay:.45s}.welcome.is-in .welcome__acts{animation-delay:.55s}
+  .welcome.is-out .welcome__card{scale:.97;transition:scale .3s}
+  .welcome.is-in .welcome__go::after{animation:cta-shine 3.6s ease-in-out 1.4s infinite}
+  @keyframes cta-shine{0%{translate:0 0}35%,100%{translate:560% 0}}
+  @keyframes wl-fade{from{opacity:0}}
+  @keyframes wl-card{from{opacity:0;translate:0 28px;scale:.94}}
+  @keyframes wl-art{from{scale:1.08}}
+  .coach__card.is-swap{animation:part-in .35s cubic-bezier(.3,.9,.3,1)}
+}
+
+/* ── The popup in depth ("אני רוצה את האפקט עומק בתמונה הזו", 11-19), like the plate and the sign-in: the card leans toward the pointer,
+   the painting slides the other way behind its window (drawn 7% larger so its edges never show), the confetti sits in front and moves
+   with the pointer, and a soft light crosses the paper. --wx/--wy run from -1 to 1 on a spring (studio.html). */
+@media (prefers-reduced-motion:no-preference){
+  /* the card itself stays still ("אני לא רוצה שהפופ-אפ יזוז, רק התמונה בפנים", 11-19): only the picture moves behind its window */
+  .welcome__art img,.welcome__art video{scale:1.08;translate:calc(var(--wx,0)*-18px) calc(var(--wy,0)*-11px)}
+  .welcome__art canvas{translate:calc(var(--wx,0)*10px) calc(var(--wy,0)*7px)}
+  .welcome__art::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;opacity:.55;
+    background:radial-gradient(70% 90% at calc(50% + var(--wx,0)*30%) calc(30% + var(--wy,0)*25%),rgba(255,255,255,.55),rgba(255,255,255,0) 60%)}
+}
+
+/* ── Critic round 5 ──
+   1 · On the plate, "@" and "/" open their list IN the ideas' place: the ideas fade out, the slot stays open (the plate keeps its size),
+       and the list is solid paper at the field's width, ending inside the plate. No key-hint footer (he removed key hints). */
+.before .menu{left:0;right:0;width:auto;top:calc(100% + 14px);border-radius:14px;background:#fff;box-shadow:0 0 0 1px rgba(16,34,60,.08),0 10px 24px -14px rgba(16,34,60,.3)}
+.before .menu footer{display:none}
+.before:has(.field.is-menu) .ideas{grid-template-rows:1fr;margin-top:14px;opacity:1}
+.before:has(.field.is-menu) .ideas>div{visibility:visible;transition-delay:0s}
+.before:has(.field.is-menu) .try{opacity:0;transition:opacity .12s}
+/*  · The mic leaves as soon as there is text (send takes its spot only when there is something to send) */
+.field.has-text .tool.mic{opacity:0;scale:.8;pointer-events:none}
+
+/* ── The team's other apps (11-19). Each view fills the app card like the evaluation one; only the open one shows ── */
+.appv{display:none;flex-direction:column;flex:1;min-height:0}
+.appv.on{display:flex}
+.thread{display:none;flex-direction:column;gap:14px}
+.thread.on{display:flex}
+.thread>*{flex:none}
+.is-switch .appv.on>*{animation:part-in .38s cubic-bezier(.3,.9,.3,1) both}
+.is-switch .appv.on>:nth-child(2){animation-delay:.05s}.is-switch .appv.on>:nth-child(3){animation-delay:.1s}.is-switch .appv.on>:nth-child(4){animation-delay:.15s}
+.is-switch .thread.on{animation:part-in .3s cubic-bezier(.3,.9,.3,1) both}
+
+/* a plain table for the new apps (the calls table's look, without its fixed columns) */
+.tbl{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14.5px}
+.tbl th{padding:0 14px 9px 0;font-size:12.5px;font-weight:400;color:var(--mut);text-align:left;white-space:nowrap}
+.tbl td{height:44px;padding:0 14px 0 0;border-top:1px solid var(--line);color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+.tbl tbody tr{transition:background-color .14s}
+.tbl tbody tr:hover{background:rgba(19,159,253,.06)}
+.tbl td.is-miss{color:var(--ink)}
+.tbl .pl{width:28px;height:28px}.tbl .pl::before{border-width:5px 0 5px 8px}
+.tbl tbody.is-new tr{animation:part-in .3s cubic-bezier(.3,.9,.3,1) both}
+.tbl tbody.is-new tr:nth-child(2){animation-delay:.04s}.tbl tbody.is-new tr:nth-child(3){animation-delay:.08s}.tbl tbody.is-new tr:nth-child(4){animation-delay:.12s}
+
+/* 1 · Disclosure review: the queue at the left, the call in focus at the right */
+.dq{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:22px;flex:1;min-height:0;margin-top:22px}
+.dq__list{display:flex;flex-direction:column;min-height:0}
+.dq__rows{display:flex;flex-direction:column;gap:4px;flex:1;min-height:0;overflow:hidden}
+.dq__row{display:flex;align-items:center;gap:12px;flex:none;height:58px;padding:0 14px 0 16px;border-radius:14px;text-align:left;transition:background-color .14s,box-shadow .18s}
+.dq__row:hover{background:rgba(19,159,253,.06)}
+.dq__row.on{background:#fff;box-shadow:0 4px 14px -6px rgba(16,34,60,.25)}
+.dq__who{display:flex;flex-direction:column;flex:1;min-width:0}
+.dq__who b{font-size:14.5px;font-weight:500;color:var(--ink)}
+.dq__who small{font-size:12.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dq__n{flex:none;padding:4px 10px;border-radius:999px;background:#EEF2F6;font-style:normal;font-size:12.5px;font-weight:500;color:var(--ink2)}
+.dq__row.is-done .dq__n{background:none;color:var(--mut)}
+.dq__more{margin:8px 14px 0;font-size:13.5px;font-weight:500;color:var(--ink);text-decoration:none}
+.dq__more:hover{color:var(--blue)}
+.dq__detail{display:flex;flex-direction:column;min-height:0;padding:22px 24px 20px;border-radius:18px;background:#fff;box-shadow:0 0 0 1px rgba(16,34,60,.06),0 12px 28px -18px rgba(16,34,60,.35)}
+.dq__detail.is-new{animation:part-in .3s cubic-bezier(.3,.9,.3,1)}
+.dq__head b{display:block;font-size:18px;font-weight:500;letter-spacing:-.01em}
+.dq__head small{display:block;margin-top:3px;font-size:13.5px;color:var(--mut)}
+.dq__wave{display:flex;align-items:center;gap:14px;margin-top:26px}
+.dq__wave .pl{flex:none;width:34px;height:34px;cursor:pointer}
+.dq__bars{position:relative;flex:1;height:52px}
+.dq__bars i{position:absolute;top:50%;width:2.5px;border-radius:2px;background:#C3CED6;translate:0 -50%}
+.dq__pin{position:absolute;top:-6px;bottom:-6px;width:2px;border-radius:2px;background:var(--blue)}
+.dq__pin::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;translate:-50% -3px;font-size:11.5px;font-weight:500;color:var(--blue)}
+.dq__checks{list-style:none;margin:20px 0 0;padding:0}
+.dq__checks li{display:flex;align-items:center;gap:12px;height:48px;border-top:1px solid var(--line);font-size:15px;color:var(--ink)}
+.dq__checks .ic{display:grid;place-items:center;flex:none;width:24px;height:24px;border-radius:50%}
+.dq__checks .ic svg{width:16px;height:16px}
+.dq__checks .is-said .ic{background:var(--blue)}
+.dq__checks .is-miss .ic{background:#232323}
+.dq__checks span{flex:1}
+.dq__checks em{font-style:normal;font-size:14px;color:var(--mut)}
+.dq__checks .is-miss em{font-weight:500;color:var(--ink)}
+.dq__gap{margin-top:18px;padding:14px 16px;border-radius:14px;background:#F3F6F9}
+.dq__gap small{display:block;font-size:12.5px;color:var(--mut)}
+.dq__gap p{margin:6px 0 0;font-size:15px;line-height:1.45;color:var(--ink)}
+.dq__jump{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-size:13.5px;font-weight:500;color:var(--ink)}
+.dq__jump .pl{width:24px;height:24px}.dq__jump .pl::before{border-width:4px 0 4px 7px}
+.dq__jump:hover{color:var(--blue)}
+.dq__acts{display:flex;justify-content:flex-end;gap:10px;margin-top:auto;padding-top:18px}
+.dq__done{height:36px;padding:0 18px;border-radius:18px;background:#232323;color:#fff;font-size:14px;font-weight:500;transition:background-color .15s,scale .12s}
+.dq__done:hover{background:#000}.dq__done:active{scale:.96}
+
+/* 2 · Handle time by team: bar height IS the handle time on an honest 0-10 min axis; teams over target in ink; the target is one dashed line */
+.aht{margin-top:26px}
+.aht__plot{position:relative;height:clamp(180px,26vh,260px);margin-left:48px}
+.aht__grid{position:absolute;left:0;right:0;height:1px;background:var(--line);font-style:normal}
+.aht__grid span{position:absolute;right:calc(100% + 10px);top:-8px;font-size:11.5px;color:var(--mut);white-space:nowrap}
+.aht__target{position:absolute;left:0;right:0;z-index:2;border-top:2px dashed #232323;pointer-events:none}
+.aht__legend{display:flex;justify-content:flex-end;gap:18px;margin:0 0 14px 48px;font-size:12.5px;color:var(--mut)}
+.aht__legend span{display:flex;align-items:center;gap:7px}
+.aht__legend i{display:inline-block}
+.lg-t{width:18px;border-top:2px dashed #232323}
+.lg-o{width:12px;height:12px;border-radius:3px;background:#232323}
+.lg-u{width:12px;height:12px;border-radius:3px;background:var(--blue)}
+.aht__bars{position:absolute;inset:0;display:flex;justify-content:space-around;align-items:flex-end}
+.aht__bar{position:relative;width:min(118px,15%);border-radius:12px 12px 4px 4px;background:var(--blue);transition:box-shadow .18s,filter .15s}
+.aht__bar:hover{filter:brightness(1.06)}
+.aht__bar.is-over{background:#232323}
+.aht__bar.on{box-shadow:0 0 0 3px #fff,0 0 0 5px var(--blue)}
+.aht__bar b{position:absolute;top:10px;left:50%;translate:-50% 0;font-size:16px;font-weight:600;color:#fff}      /* the value sits inside the bar, so the target line never crosses it */
+.aht__names{display:flex;justify-content:space-around;margin-left:48px;padding-top:10px}
+.aht__names span{display:flex;flex-direction:column;align-items:center;width:min(118px,15%);font-size:14px;font-weight:500;color:var(--ink);white-space:nowrap}
+.aht__names small{font-size:12px;font-weight:400;color:var(--mut)}
+.aht__ev,.comp__ev{margin-top:18px}
+
+/* 3 · Compliance review: each rule's pass rate as a bar; rules under 95% in ink */
+.rules{margin-top:20px}
+.rules td{height:42px;cursor:pointer}
+.rules tbody tr.on{background:rgba(19,159,253,.08)}
+.rules tbody tr.on td:first-child{font-weight:500;color:var(--ink)}
+.rbar{display:flex;align-items:center;gap:12px}
+.rbar i{position:relative;flex:1;height:8px;border-radius:4px;background:#E3E9EE;overflow:hidden}
+.rbar i::after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--p);border-radius:4px;background:var(--blue)}
+.rbar.is-low i::after{background:#232323}
+.rbar b{flex:none;width:42px;text-align:right;font-weight:500;color:var(--ink)}
+.rules td.is-down{color:var(--ink);font-weight:500}
+/* the play button outside the calls section (its base style lives under .ev) */
+.dq .pl{display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;cursor:pointer;transition:box-shadow .14s,scale .12s}
+.dq .pl::before{content:'';border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent var(--ink);margin-left:2px}
+.dq .pl:hover,.dq__jump:hover .pl{box-shadow:inset 0 0 0 1.5px var(--blue)}
+.dq__wave .pl{width:36px;height:36px}.dq__wave .pl::before{border-width:6px 0 6px 10px}
+.dq__jump .pl{width:26px;height:26px}.dq__jump .pl::before{border-width:4px 0 4px 7px}
+
+/* ── Notifications (11-19): the bell with an unread count, its list beside the sidebar, and the "app ready" toast ── */
+.nv .badge{order:3;display:grid;place-items:center;min-width:20px;height:20px;margin-left:auto;padding:0 6px;border-radius:10px;background:var(--blue);color:#fff;font-size:11.5px;font-weight:600;font-style:normal}
+.nv .badge[hidden]{display:none}
+.nv--bell .lbl{order:2}
+.nv--bell.on-open{background:rgba(16,34,60,.06);color:var(--ink)}
+.is-rail .nv .badge{position:absolute;top:2px;right:2px;min-width:16px;height:16px;padding:0 4px;font-size:10px;box-shadow:0 0 0 2px #F3F7FC}
+@media (prefers-reduced-motion:no-preference){
+  .nv--bell.is-ring svg{animation:ring-bell .9s cubic-bezier(.3,.9,.3,1)}
+  @keyframes ring-bell{0%,100%{rotate:0}15%{rotate:14deg}30%{rotate:-12deg}45%{rotate:9deg}60%{rotate:-6deg}75%{rotate:3deg}}
+  .nv--bell.is-ring .badge{animation:badge-pop .5s cubic-bezier(.3,1.5,.5,1)}
+  @keyframes badge-pop{0%{scale:.4}60%{scale:1.2}100%{scale:1}}
+}
+.nv--bell svg{transform-origin:50% 20%}
+.notes{position:absolute;left:calc(var(--side) + 12px);z-index:40;width:360px;padding:14px 10px 10px;border-radius:18px;background:#fff;box-shadow:0 0 0 1px rgba(16,34,60,.08),0 24px 50px -18px rgba(16,34,60,.45)}
+.notes[hidden]{display:none}
+.notes.is-in{animation:notes-in .26s cubic-bezier(.3,1.1,.4,1)}
+@keyframes notes-in{from{opacity:0;translate:-8px 0;scale:.98}}
+.notes header{display:flex;align-items:baseline;justify-content:space-between;padding:0 8px 10px}
+.notes header b{font-size:15px;font-weight:600}
+.notes header button{font-size:12.5px;color:var(--mut)}.notes header button:hover{color:var(--ink)}
+.notes ul{list-style:none;margin:0;padding:0}
+.notes li button{display:flex;align-items:center;gap:12px;width:100%;padding:10px 8px;border-radius:12px;text-align:left;transition:background-color .14s}
+.notes li button:hover{background:rgba(19,159,253,.06)}
+.notes__ic{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:10px;background:#EEF2F6;color:var(--ink2)}
+.notes li span{display:flex;flex-direction:column;flex:1;min-width:0}
+.notes li b{font-size:14px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.notes li small{margin-top:2px;font-size:12.5px;color:var(--mut)}
+.notes li em{flex:none;width:8px;height:8px;border-radius:50%}
+.notes li .is-unread em{background:var(--blue)}
+.notes li .is-unread .notes__ic{background:#E3F2FF;color:var(--blue)}
+.toast{position:absolute;right:28px;bottom:28px;z-index:45;display:flex;align-items:center;gap:12px;width:380px;padding:14px 12px 14px 14px;border-radius:18px;background:#fff;box-shadow:0 0 0 1px rgba(16,34,60,.08),0 24px 50px -16px rgba(16,34,60,.5)}
+.toast[hidden]{display:none}
+.toast__ic{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:11px;background:var(--blue);color:#fff}
+.toast span{display:flex;flex-direction:column;flex:1;min-width:0}
+.toast b{font-size:15px;font-weight:600}
+.toast small{margin-top:2px;font-size:12.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toast__go{flex:none;height:34px;padding:0 14px;border-radius:17px;background:#232323;color:#fff;font-size:13.5px;font-weight:500}
+.toast__go:hover{background:#000}
+.toast__x{flex:none;width:28px;height:28px;border-radius:8px;font-size:18px;line-height:1;color:var(--mut)}
+.toast__x:hover{background:#F1F4F7;color:var(--ink)}
+@media (prefers-reduced-motion:no-preference){
+  .toast.is-in{animation:toast-in .45s cubic-bezier(.2,1.3,.4,1)}
+  @keyframes toast-in{from{opacity:0;translate:0 18px;scale:.96}}
+  .toast.is-out{opacity:0;translate:0 10px;transition:opacity .3s,translate .3s}
+}
+
+/* ── Critic round 6 ── */
+/* the tables of the new apps sit as far under their heading as the evaluation table does */
+.ev .tbl{margin-top:14px}
+/* Disclosure review */
+.dq__row.is-leaving{opacity:0;translate:-12px 0;transition:opacity .22s,translate .22s}
+.dq__more[hidden]{display:none}
+.dq__pin.is-miss{background:#232323;width:2px;opacity:.55}
+.dq__pin.is-miss::after{color:var(--ink)}
+.dq__pin.is-miss.on{opacity:1;width:3px}
+.dq__pin.is-miss:not(.on)::after{content:none}
+.dq__checks .is-miss{cursor:pointer;border-radius:10px;transition:background-color .14s}
+.dq__checks .is-miss:hover{background:rgba(16,34,60,.04)}
+.dq__checks .is-miss.on span{font-weight:500}
+.dq__gap{display:flex;flex-direction:column;flex:1;min-height:0;margin-top:16px;padding:14px 16px 0;border-radius:14px;background:#F3F6F9;overflow:hidden;
+  -webkit-mask-image:linear-gradient(#000 calc(100% - 26px),transparent);mask-image:linear-gradient(#000 calc(100% - 26px),transparent)}
+.dq__gap header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dq__gap header small{font-size:12.5px;color:var(--mut)}
+.dq__jump{margin-top:0}
+.dq__conv{list-style:none;margin:10px 0 0;padding:0}
+.dq__conv li{display:grid;grid-template-columns:72px 1fr;gap:10px;padding:7px 0;font-size:14px;line-height:1.4}
+.dq__conv small{padding-top:1px;font-size:12px;color:var(--mut)}
+.dq__conv p{margin:0;color:var(--ink2)}
+.dq__conv .is-agent p{color:var(--ink)}
+.dq__slot{margin:4px 0;padding:8px 10px!important;border:1.5px dashed #232323;border-radius:10px;background:#fff}
+.dq__slot small{color:var(--ink);font-weight:500}
+.dq__slot p{color:var(--mut)!important;font-style:italic}
+.dq__end{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:8px;text-align:center}
+.dq__endic{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--blue)}
+.dq__endic svg{width:28px;height:28px}
+.dq__end b{margin-top:6px;font-size:20px;font-weight:500}
+.dq__end p{margin:0 0 8px;max-width:300px;font-size:14.5px;line-height:1.45;color:var(--mut)}
+.kpis b span{display:inline-block}
+@media (prefers-reduced-motion:no-preference){
+  .kpis b .is-bump{animation:kpi-bump .45s cubic-bezier(.3,1.4,.5,1)}
+  @keyframes kpi-bump{0%{translate:0 -8px;opacity:0}100%{translate:0 0;opacity:1}}
+}
+/* the @ list keeps the ideas' exact slot, so the plate never changes height when it opens */
+.before .menu{top:calc(100% + 22px)}
+.before:has(.field.is-menu) .ideas{margin-top:22px}
+
+/* ── All apps: the gallery (his pick A, 11-19) ── */
+.nv .cnt{order:3;margin-left:auto;font-style:normal;font-weight:400;font-size:12.5px;color:var(--mut)}
+.nv--all .lbl{order:2}
+.is-rail .nv .cnt{display:none}
+.gal{left:calc(var(--side) + 20px);top:20px;right:20px;bottom:20px}
+.gal .card{display:flex;flex-direction:column;padding:30px 34px 28px;overflow-y:auto;scrollbar-width:none}
+.gal .card::-webkit-scrollbar{display:none}
+.gal__top{display:flex;align-items:flex-start;gap:12px}
+.gal__top h2{margin:0;font-size:27px;font-weight:500;letter-spacing:-.02em}
+.gal__top p{margin:5px 0 0;font-size:14.5px;color:var(--mut)}
+.gal__top .sp{flex:1}
+.gal__search{display:flex;align-items:center;gap:8px;width:260px;height:38px;padding:0 14px;border-radius:19px;background:#fff;box-shadow:inset 0 0 0 1.5px #D5DDE4;color:#8A929A;transition:box-shadow .15s}
+.gal__search:focus-within{box-shadow:inset 0 0 0 1.5px var(--blue),0 0 0 4px rgba(19,159,253,.14)}
+.gal__search input{flex:1;min-width:0;border:0;outline:0;background:none;font:inherit;font-size:14.5px;color:var(--ink)}
+.gal__bar{display:flex;align-items:center;gap:10px;margin-top:22px}
+.gal__chips{display:flex;gap:6px;flex-wrap:wrap}
+.gal__chips button{display:flex;align-items:center;gap:7px;height:34px;padding:0 14px;border-radius:17px;background:#fff;box-shadow:inset 0 0 0 1.5px #D5DDE4;font-size:14px;color:var(--ink2);transition:background-color .15s,box-shadow .15s,color .15s}
+.gal__chips button:hover{box-shadow:inset 0 0 0 1.5px #B4C2CE;color:var(--ink)}
+.gal__chips button em{font-style:normal;font-size:12.5px;color:#8A929A}
+.gal__chips button.on{background:#232323;box-shadow:none;color:#fff}
+.gal__chips button.on em{color:rgba(255,255,255,.7)}
+.gal__sort{display:flex;align-items:center;gap:6px;margin-left:auto;height:34px;padding:0 10px;border-radius:10px;font-size:14px;color:var(--ink2)}
+.gal__sort svg{width:16px;height:16px}
+.gal__sort:hover{background:rgba(16,34,60,.05)}
+.gal__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;margin-top:20px}
+.gal__new,.gal__card{position:relative;display:flex;flex-direction:column;min-height:300px;border-radius:18px;text-align:left}
+.gal__new{align-items:center;justify-content:center;gap:6px;padding:24px;border:2px dashed #C9D3DB;color:var(--ink2);transition:border-color .15s,background-color .15s}
+.gal__new:hover{border-color:var(--blue);background:rgba(19,159,253,.04)}
+.gal__new i{display:grid;place-items:center;width:46px;height:46px;margin-bottom:6px;border-radius:50%;background:var(--blue);color:#fff;font-style:normal;font-size:26px;font-weight:300}
+.gal__new b{font-size:16px;font-weight:500;color:var(--ink)}
+.gal__new span{max-width:210px;font-size:13.5px;line-height:1.4;color:var(--mut);text-align:center}
+.gal__card{overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(16,34,60,.07),0 10px 24px -18px rgba(16,34,60,.4);transition:translate .2s cubic-bezier(.3,1.2,.5,1),box-shadow .2s}
+.gal__card:hover,.gal__card:focus-visible{translate:0 -3px;box-shadow:0 0 0 1px rgba(16,34,60,.08),0 18px 34px -16px rgba(16,34,60,.45)}
+.gal__pv{position:relative;flex:1;min-height:170px;margin:10px 10px 0;border-radius:12px;background:#F3F6F9;overflow:hidden}
+.gal__pv>div{position:absolute;inset:14px;transition:scale .35s cubic-bezier(.3,.9,.3,1)}
+.gal__card:hover .gal__pv>div{scale:1.03}
+.gal__meta{display:flex;flex-direction:column;gap:3px;padding:14px 16px 16px}
+.gal__meta b{font-size:16px;font-weight:500;color:var(--ink)}
+.gal__meta small{font-size:12.5px;color:var(--mut)}
+.gal__meta span{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:13.5px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gal__meta em{flex:none;padding:2px 8px;border-radius:999px;background:#EEF2F6;font-style:normal;font-size:11.5px;font-weight:500;color:var(--mut)}
+.gal__meta em.live{background:#E3F2FF;color:#0B6FB8}
+.gal__eye{position:absolute;left:50%;top:50%;z-index:2;display:grid;place-items:center;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#fff;box-shadow:0 10px 26px -8px rgba(0,0,0,.55);color:var(--ink);cursor:zoom-in;opacity:0;scale:.85;transition:opacity .18s,scale .25s cubic-bezier(.3,1.4,.5,1),background-color .15s,color .15s}      /* in the middle of the preview, which darkens under it (his note, 11-19: "האייקון יכול להופיע במרכז של ה-placeholder, וה-placeholder יכול להפוך ליותר חשוך") */
+.gal__eye svg{width:26px;height:26px}
+.gal__card:hover .gal__eye,.gal__card:focus-visible .gal__eye,.peek .gal__card .gal__eye{opacity:1;scale:1}
+.gal__eye:hover,.peek .gal__card .gal__eye{background:var(--blue);color:#fff;scale:1.06;box-shadow:0 12px 28px -8px rgba(19,120,220,.7)}
+.gal__eye:active{scale:.92}
+.gal__card.is-draft .gal__pv>div{opacity:.45}
+.gal__none{grid-column:2/-1;align-self:center;margin:0;font-size:14.5px;color:var(--mut)}
+.gal__grid.is-new>*{animation:part-in .35s cubic-bezier(.3,.9,.3,1) both;animation-delay:calc(var(--i,0)*40ms + 40ms)}
+/* the previews, drawn from each app's own data */
+.pv-heat{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;align-content:center}
+.pv-heat i{aspect-ratio:1.9;border-radius:3px}
+.pv-q{display:flex;gap:10px}
+.pv-q__l{display:flex;flex-direction:column;gap:6px;width:42%}
+.pv-q__l i{display:flex;align-items:center;gap:6px;height:22px;padding:0 7px;border-radius:6px}
+.pv-q__l i.on{background:#fff;box-shadow:0 2px 6px -3px rgba(16,34,60,.3)}
+.pv-q__l b{flex:1;height:5px;border-radius:3px;background:#C3CED6}
+.pv-q__l em{width:12px;height:10px;border-radius:5px;background:#DCE3E9;font-size:0}
+.pv-q__d{flex:1;display:flex;flex-direction:column;gap:7px;padding:10px;border-radius:9px;background:#fff;box-shadow:0 2px 8px -4px rgba(16,34,60,.3)}
+.pv-q__d b{width:70%;height:6px;border-radius:3px;background:#454D52;margin-bottom:4px}
+.pv-q__d i{height:9px;border-radius:5px;position:relative;padding-left:14px}
+.pv-q__d i::before{content:"";position:absolute;left:0;top:0;width:9px;height:9px;border-radius:50%}
+.pv-q__d i::after{content:"";position:absolute;left:14px;right:20%;top:2px;height:5px;border-radius:3px;background:#DCE3E9}
+.pv-q__d i.ok::before{background:var(--blue)}.pv-q__d i.no::before{background:#232323}
+.pv-q__d u{margin-top:auto;height:26px;border:1.5px dashed #232323;border-radius:6px}
+.pv-bars{display:flex;justify-content:space-around;align-items:flex-end;border-bottom:1.5px solid #D5DDE4}
+.pv-bars i{width:16%;border-radius:5px 5px 1px 1px;background:var(--blue)}
+.pv-bars i.over{background:#232323}
+.pv-bars s{position:absolute;left:0;right:0;border-top:1.5px dashed #232323;text-decoration:none}
+.pv-rules{display:flex;flex-direction:column;justify-content:space-around}
+.pv-rules i{display:flex;align-items:center;gap:10px}
+.pv-rules b{width:38%;height:5px;border-radius:3px;background:#C3CED6}
+.pv-rules em{position:relative;flex:1;height:8px;border-radius:4px;background:#DCE3E9;overflow:hidden}
+.pv-rules em::after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--p);border-radius:4px;background:var(--blue)}
+.pv-rules em.low::after{background:#232323}
+.pv-list{display:flex;flex-direction:column;justify-content:space-around}
+.pv-list i{display:flex;align-items:center;gap:10px}
+.pv-list b{width:18px;height:18px;border-radius:50%;background:#C3CED6}
+.pv-list em{flex:1;height:6px;border-radius:3px;background:#DCE3E9}
+
+/* the Apps heading row: the way to all apps, set apart from the apps under it (11-19) */
+.nv--all{height:32px;margin-top:20px;margin-bottom:4px;padding:0 6px 0 10px}
+.nv--all>svg{display:none}
+.nv--all .lbl{font-size:12.5px;font-weight:500;color:var(--mut)}
+/* "See all" reads as a button (his note, 11-19: "עכשיו זה נראה לא כאילו זה לחיץ"): white pill, border, an arrow that moves on hover */
+.nv--all .cnt{display:flex;align-items:center;gap:5px;height:26px;padding:0 6px 0 11px;border-radius:13px;background:#fff;box-shadow:inset 0 0 0 1.5px #D5DDE4,0 2px 6px -4px rgba(16,34,60,.3);font-size:12.5px;font-weight:500;color:var(--ink);transition:box-shadow .15s,color .15s,background-color .15s}
+.nv--all .cnt span{display:grid;place-items:center;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#EEF2F6;font-size:11px;color:var(--ink2)}
+.nv--all .cnt svg{width:13px;height:13px;stroke-width:2;transition:translate .18s cubic-bezier(.3,1.4,.5,1)}
+.nv--all{cursor:pointer}
+.nv--all:hover{background:none}
+.nv--all:hover .cnt{box-shadow:inset 0 0 0 1.5px var(--blue),0 4px 10px -6px rgba(19,159,253,.6);color:var(--blue)}
+.nv--all:hover .cnt svg{translate:2px 0}
+.nv--all:active .cnt{scale:.96}
+.nv--all.on{background:none;box-shadow:none}
+.nv--all.on .lbl{color:var(--ink)}
+.nv--all.on .cnt{background:#232323;box-shadow:none;color:#fff}
+.nv--all.on .cnt span{background:rgba(255,255,255,.18);color:#fff}
+.is-rail .nv--all{height:40px;margin:14px 0 6px;padding:0}
+.is-rail .nv--all>svg{display:block}
+.is-rail .nv--all.on{background:#fff;box-shadow:0 4px 14px -6px rgba(16,34,60,.25)}
+
+/* the previews: abstract layouts that fill the frame (11-19). Blue scale like the heatmap; ink = needs attention; no text. */
+.pa{display:flex;gap:6px}
+.pa i,.pa b,.pa em,.pa p,.pa u,.pa s{display:block;margin:0;text-decoration:none}
+/* Disclosure review */
+.pa-disc{flex-direction:row}
+.pa-q{display:flex;flex-direction:column;gap:5px;width:38%}
+.pa-q i{flex:1;display:flex;align-items:center;justify-content:flex-end;padding-right:7px;border-radius:5px;background:#DCEFFE}
+.pa-q i.on{background:#fff;box-shadow:0 2px 6px -3px rgba(16,34,60,.35)}
+.pa-q b{width:16px;height:9px;border-radius:5px;background:#A9DAFE}
+.pa-q b.no{background:#232323}
+.pa-call{flex:1;display:flex;flex-direction:column;gap:6px;padding:9px;border-radius:7px;background:#fff;box-shadow:0 2px 8px -4px rgba(16,34,60,.3)}
+.pa-call u{height:8px;width:62%;border-radius:4px;background:#232323}
+.pa-wave{flex:1.3;display:flex;align-items:center;gap:2px}
+.pa-wave i{flex:1;border-radius:2px;background:#A9DAFE}
+.pa-wave i:nth-child(6n+2){background:#63BEFE}
+.pa-call p{flex:.55;display:flex;align-items:center;gap:6px}
+.pa-call p b{width:12px;height:12px;border-radius:50%;background:var(--blue)}
+.pa-call p.no b{background:#232323}
+.pa-call p em{flex:1;height:7px;border-radius:4px;background:#DCEFFE}
+.pa-call s{flex:.7;border:1.5px dashed #232323;border-radius:6px}
+/* Handle time by team, Compliance review: figures on top */
+.pa-aht,.pa-comp{flex-direction:column}
+.pa-k{display:flex;gap:6px;height:24%}
+.pa-k i{flex:1;display:flex;align-items:flex-end;padding:7px;border-radius:6px;background:#DCEFFE}
+.pa-k b{width:55%;height:9px;border-radius:4px;background:#139FFD}
+.pa-k i:nth-child(2) b{background:#232323;width:30%}
+.pa-chart{position:relative;flex:1;display:flex;justify-content:space-around;align-items:flex-end;padding:0 4px;border-bottom:2px solid #C9D3DB}
+.pa-chart i{width:17%;border-radius:6px 6px 1px 1px;background:var(--blue)}
+.pa-chart i.no{background:#232323}
+.pa-chart s{position:absolute;left:0;right:0;z-index:1;border-top:2px dashed #232323}
+.pa-rules{flex:1;display:flex;flex-direction:column;justify-content:space-between;padding-top:4px}
+.pa-rules p{display:flex;align-items:center;gap:8px}
+.pa-rules p b{width:30%;height:9px;border-radius:5px;background:#A9DAFE}
+.pa-rules p i{position:relative;flex:1;height:12px;border-radius:6px;background:#DCEFFE;overflow:hidden}
+.pa-rules p i::after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--p);border-radius:6px;background:var(--blue)}
+.pa-rules p i.no::after{background:#232323}
+/* the draft: its layout, still pale */
+.pa-coach{flex-direction:column;justify-content:space-between}
+.pa-coach p{display:flex;align-items:center;gap:8px;height:16%;padding:0 8px;border-radius:6px;background:#EEF4FA}
+.pa-coach b{width:18px;height:18px;border-radius:50%;background:#D6E2EC}
+.pa-coach em{height:8px;border-radius:4px;background:#D6E2EC}
+.pa-coach i{margin-left:auto;width:26px;height:10px;border-radius:5px;background:#D6E2EC}
+.gal__card.is-draft .gal__pv>div{opacity:1}
+
+/* ── Hover a card: a 60% black layer, the card lit above it, a large live preview beside it (11-19) ── */
+.peek{position:absolute;inset:0;z-index:58;pointer-events:none;visibility:hidden}
+.peek.is-on{visibility:visible}
+.peek__veil{position:absolute;inset:0;display:block;background:rgba(0,0,0,.6);opacity:0;transition:opacity .14s}
+.peek.is-on .peek__veil{opacity:1}
+.peek .gal__card{position:absolute;margin:0;box-shadow:0 0 0 1px rgba(255,255,255,.4),0 24px 50px -16px rgba(0,0,0,.6)}
+.peek__frame{position:absolute;border-radius:12px;overflow:visible;box-shadow:0 0 0 1px rgba(255,255,255,.55),0 28px 60px -18px rgba(0,0,0,.55)}
+.peek__scale{position:absolute;left:0;top:0;transform-origin:0 0}
+.peek__glass{position:absolute;inset:0;border-radius:26px;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.peek__glass .card{inset:0;padding:30px 34px;display:flex;flex-direction:column;overflow:hidden;border-radius:26px}      /* the app's paper, edge to edge: no glass ring, no fade at the foot ("הצל למטה מכוער", 11-19) */
+.peek__glass .card .appv{pointer-events:none}
+.peek__tag{position:absolute;left:50%;bottom:-36px;translate:-50% 0;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;font-size:12.5px;font-weight:500;white-space:nowrap}
+.peek__frame.is-draft{display:grid;place-items:center;border-radius:20px;background:#fff;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.peek__draft{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 28px;text-align:center}
+.peek__draft small{font-size:12px;color:var(--mut)}
+.peek__draft p{margin:0;font-size:16px;line-height:1.45;color:var(--ink)}
+.peek__draft span{font-size:13px;font-weight:500;color:var(--blue)}
+@media (prefers-reduced-motion:no-preference){
+  .peek.is-on .peek__frame{animation:peek-in .22s cubic-bezier(.2,1.2,.35,1) both}
+  .peek.is-on .peek__frame.is-swap{animation:peek-swap .2s ease both}
+  @keyframes peek-swap{from{opacity:.35}}
+  @keyframes peek-in{from{opacity:0;scale:.96}}
+}
+
+/* calmer previews (11-19): fewer shapes, softer tones, one ink accent at most */
+.pa-q{gap:7px;width:34%}
+.pa-q i{border-radius:7px;background:#E4F1FC;padding:0}
+.pa-q i.on{background:#fff;box-shadow:0 2px 8px -4px rgba(16,34,60,.3)}
+.pa-call{display:flex;align-items:center;justify-content:center;padding:14px;gap:0}
+.pa-wave{height:62%;flex:none;width:100%;gap:3px}
+.pa-wave i{background:#BFE2FD}
+.pa-wave i:nth-child(6n+2){background:#BFE2FD}
+.pa-wave i.no{background:#232323}
+.pa-aht .pa-chart{padding:6px 10px 0;border-bottom:2px solid #D5DDE4}
+.pa-chart i{width:16%;border-radius:8px 8px 2px 2px}
+.pa-chart i:not(.no){background:#63BEFE}
+.pa-rules{justify-content:space-around;padding:6px 4px}
+.pa-rules p i{height:14px;border-radius:7px;background:#E4F1FC}
+.pa-rules p i::after{border-radius:7px;background:#63BEFE}
+/* Disclosure review's preview: one full-bleed waveform of chunky bars, like the other previews draw their data */
+.pa-wavefull{align-items:center;justify-content:space-between;gap:0}
+.pa-wavefull i{width:2.6%;border-radius:999px}
+/* the preview darkens while the card is hovered, so the eye in its middle reads at once */
+.gal__pv::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(14,22,32,.5);opacity:0;transition:opacity .2s;pointer-events:none}
+.gal__card:not(.is-draft):hover .gal__pv::after,.peek .gal__card .gal__pv::after{opacity:1}
