@@ -4,25 +4,25 @@
 
 /* ---------- tokens (the site's names: --ink is the ground, --paper the text, --coral the accent) ---------- */
 :root {
-  --ink: #f3f4f2; --ink-2: #ffffff; --ink-3: #e3ece7; --line: #d5dbd6;
-  --paper: #14201b; --mute: #56635c; --text: #34413b; --text-2: #34413b;
-  --coral: #1f5c47; --coral-soft: color-mix(in srgb, #1f5c47 12%, transparent); --on-accent: #f3f4f2;
-  --cream: #ffffff; --ink-t: #14201b; --coral-ink: #1f5c47; --mist: #e3ece7; --cream-t: #56635c;
-  --cream-ink: #14201b; --cream-mute: #56635c; --cream-line: #d5dbd6;
+  --ink: #f3f4f2; --ink-2: #ffffff; --ink-3: #e2e8ed; --line: #d5d8db;
+  --paper: #131a21; --mute: #555d64; --text: #333a42; --text-2: #333a42;
+  --coral: #0b6fcf; --coral-soft: color-mix(in srgb, #0b6fcf 12%, transparent); --on-accent: #f3f4f2;
+  --cream: #ffffff; --ink-t: #131a21; --coral-ink: #0b6fcf; --mist: #e2e8ed; --cream-t: #555d64;
+  --cream-ink: #131a21; --cream-mute: #555d64; --cream-line: #d5d8db;
   --body: "Figtree", "Helvetica Neue", Arial, sans-serif;
   --track: rgba(20,32,27,.14);
   --bar-shadow: 0 1px 2px rgba(20,32,27,.06), 0 16px 36px -20px rgba(20,32,27,.34);
   --card-shadow: 0 1px 2px rgba(20,32,27,.07), 0 14px 30px -18px rgba(20,32,27,.32);
   /* marks drawn over the black phone screen: the accent's light tint, so they read on the app in both themes */
-  --mark: #7cc4a6; --mark-ink: #0f1a15;
+  --mark: #139ffd; --mark-ink: #0e141b;
   color-scheme: light;
 }
 :root[data-theme="dark"] {
-  --ink: #101614; --ink-2: #17201c; --ink-3: #1f3229; --line: #2a3832;
-  --paper: #e8eeea; --mute: #9db0a6; --text: #c3cfc9; --text-2: #c3cfc9;
-  --coral: #7cc4a6; --coral-soft: color-mix(in srgb, #7cc4a6 14%, transparent); --on-accent: #0f1a15;
-  --cream: #17201c; --ink-t: #e8eeea; --coral-ink: #7cc4a6; --mist: #1f3229; --cream-t: #9db0a6;
-  --cream-ink: #e8eeea; --cream-mute: #9db0a6; --cream-line: #2a3832;
+  --ink: #101316; --ink-2: #161b21; --ink-3: #1e2833; --line: #293139;
+  --paper: #e8ebee; --mute: #9ca6b1; --text: #c2c9d0; --text-2: #c2c9d0;
+  --coral: #139ffd; --coral-soft: color-mix(in srgb, #139ffd 14%, transparent); --on-accent: #0e141b;
+  --cream: #161b21; --ink-t: #e8ebee; --coral-ink: #139ffd; --mist: #1e2833; --cream-t: #9ca6b1;
+  --cream-ink: #e8ebee; --cream-mute: #9ca6b1; --cream-line: #293139;
   --track: rgba(232,238,234,.16);
   --bar-shadow: 0 1px 2px rgba(0,0,0,.4), 0 16px 36px -20px rgba(0,0,0,.8);
   --card-shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 30px -18px rgba(0,0,0,.8);
@@ -468,7 +468,7 @@
 :root[data-theme="dark"] .fmt .fm { box-shadow: 0 2px 3px rgba(0,0,0,.4), 0 40px 70px -30px rgba(0,0,0,.8); }
 .fmt figcaption { margin-top: 12px; font: 600 14px/1.3 "Figtree", "Helvetica Neue", Arial, sans-serif; color: var(--mute); text-align: center; }
 /* light: the paper's shadow falls across the caption, so its moss grey goes a step darker (4.5:1 on the darkest shadow pixel) */
-:root:not([data-theme="dark"]) .fmt figcaption { color: #4a5650; }
+:root:not([data-theme="dark"]) .fmt figcaption { color: #495057; }
 .f-story .fm { width: 180px; height: 320px; }
 .f-post .fm { width: 220px; height: 220px; }
 .f-link .fm { width: 200px; height: 300px; background: #fff; }
@@ -476,15 +476,15 @@
 /* the poster style follows the stage's data-ps */
 .fmt .ps { position: absolute; inset: 0; }
 .f-story .ps { bottom: 60%; background: none; }
-.f-story .fm { background: linear-gradient(160deg, #0c4842 0%, #06201d 55%, #3a1c26 100%); color: #f6efe6; }
+.f-story .fm { background: linear-gradient(160deg, #082a4c 0%, #041322 55%, #3a1c26 100%); color: #f6efe6; }
 .f-story .fs-b { position: absolute; left: 14px; right: 14px; bottom: 16px; display: grid; gap: 8px; }
 .f-story .fs-b b { font: 700 25px/.95 var(--display); letter-spacing: -.02em; }
 .f-story .fs-b span { font: 600 13.5px/1.3 var(--body); letter-spacing: .03em; opacity: .9; }
-.f-story .fs-b em { margin-top: 4px; justify-self: start; padding: 4px 9px; border-radius: 99px; background: #34d1bf; color: #04201c; font: normal 600 13.5px/1.2 var(--body); }
+.f-story .fs-b em { margin-top: 4px; justify-self: start; padding: 4px 9px; border-radius: 99px; background: #34d1bf; color: #021222; font: normal 600 13.5px/1.2 var(--body); }
 .f-post .big { position: absolute; left: 14px; right: 14px; top: 16px; font: 800 58px/.9 var(--display); letter-spacing: -.04em; text-align: right; color: inherit; }
 .f-post .sm { position: absolute; left: 14px; right: 14px; bottom: 12px; font: 600 13.5px/1.3 var(--body); letter-spacing: .02em; text-align: right; z-index: 2; }
 /* a scrim in the poster's own ground keeps the small line clear of the arcs */
-.f-post .ps::after { content: ""; position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 52%; background: linear-gradient(to top, #06201d 0 34%, rgba(6,32,29,0)); }
+.f-post .ps::after { content: ""; position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 52%; background: linear-gradient(to top, #041322 0 34%, rgba(6,32,29,0)); }
 [data-ps="ink"] .f-post .ps::after { background: linear-gradient(to top, #0b0b0c 0 34%, rgba(11,11,12,0)); }
 [data-ps="paper"] .f-post .ps::after { background: linear-gradient(to top, #f6efe6 0 34%, rgba(246,239,230,0)); }
 .f-link .lp-url { height: 26px; display: flex; align-items: center; padding-left: 10px; background: #efede8; font: 500 13.5px/1 "Geist Mono", ui-monospace, Menlo, monospace; color: rgba(27,27,27,.65); }
@@ -492,7 +492,7 @@
 .f-link .lp-b { display: grid; gap: 7px; padding: 10px 12px; color: #1b1b1b; }
 .f-link .lp-b b { font: 700 16px/1.15 var(--display); letter-spacing: -.01em; }
 .f-link .lp-b > span:not(.lp-rsvp):not(.lp-hosts) { font-size: 13.5px; line-height: 1.35; color: rgba(27,27,27,.72); }
-.f-link .lp-rsvp { justify-self: start; padding: 6px 16px; border-radius: 99px; background: #34d1bf; color: #04201c; font-weight: 600; font-size: 14px; }
+.f-link .lp-rsvp { justify-self: start; padding: 6px 16px; border-radius: 99px; background: #34d1bf; color: #021222; font-weight: 600; font-size: 14px; }
 .f-link .lp-hosts { display: flex; align-items: center; }
 .f-link .lp-hosts i { width: 24px; height: 24px; font-size: 13.5px; box-shadow: 0 0 0 2px #fff; }
 .f-link .lp-hosts i + i { margin-left: -4px; }
@@ -504,7 +504,7 @@
 .fmt .stale { position: absolute; z-index: 3; left: 50%; top: -18px; transform: translateX(-50%); white-space: nowrap; display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 5px 5px 5px 10px; border-radius: 9px; background: #fff; box-shadow: 0 6px 16px rgba(27,27,27,.25); font-size: 13.5px; font-weight: 600; color: #1b1b1b; }
 .fmt .stale[hidden] { display: none; }
 .fmt .rf::after { content: ""; position: absolute; inset: -5px; }
-.fmt .rf { position: relative; min-height: 32px; padding: 0 10px; border: 0; border-radius: 99px; background: none; box-shadow: inset 0 0 0 1.5px #1c9e90; color: #0b5e55; font: inherit; font-size: 13.5px; cursor: pointer; }
+.fmt .rf { position: relative; min-height: 32px; padding: 0 10px; border: 0; border-radius: 99px; background: none; box-shadow: inset 0 0 0 1.5px #125da8; color: #053464; font: inherit; font-size: 13.5px; cursor: pointer; }
 /* before the breakout: crop marks where each format will land */
 .js .st-launch:not([data-out]) .fmt .fm { visibility: hidden; }
 /* before the breakout the empty slots keep their names, so they read as places the formats will land */
@@ -1212,11 +1212,11 @@ html:not(.js) .st-launch .st-out { display: none; }
    takes the light look; each night-pine rule above gets its light values back here, and a new one needs its light side added too. */
 @media print {
   :root[data-theme="dark"] {
-    --ink: #f3f4f2; --ink-2: #ffffff; --ink-3: #e3ece7; --line: #d5dbd6;
-    --paper: #14201b; --mute: #56635c; --text: #34413b; --text-2: #34413b;
-    --coral: #1f5c47; --coral-soft: color-mix(in srgb, #1f5c47 12%, transparent); --on-accent: #f3f4f2;
-    --cream: #ffffff; --ink-t: #14201b; --coral-ink: #1f5c47; --mist: #e3ece7; --cream-t: #56635c;
-    --cream-ink: #14201b; --cream-mute: #56635c; --cream-line: #d5dbd6;
+    --ink: #f3f4f2; --ink-2: #ffffff; --ink-3: #e2e8ed; --line: #d5d8db;
+    --paper: #131a21; --mute: #555d64; --text: #333a42; --text-2: #333a42;
+    --coral: #0b6fcf; --coral-soft: color-mix(in srgb, #0b6fcf 12%, transparent); --on-accent: #f3f4f2;
+    --cream: #ffffff; --ink-t: #131a21; --coral-ink: #0b6fcf; --mist: #e2e8ed; --cream-t: #555d64;
+    --cream-ink: #131a21; --cream-mute: #555d64; --cream-line: #d5d8db;
     --track: rgba(20,32,27,.14);
     --bar-shadow: 0 1px 2px rgba(20,32,27,.06), 0 16px 36px -20px rgba(20,32,27,.34);
     --card-shadow: 0 1px 2px rgba(20,32,27,.07), 0 14px 30px -18px rgba(20,32,27,.32);
@@ -1227,6 +1227,6 @@ html:not(.js) .st-launch .st-out { display: none; }
   @media (min-width: 1200px) { :root[data-theme="dark"] .st-launch::before { background-image: var(--gl), none; } }
   :root[data-theme="dark"] .fyi-page .fx-body { box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.16), inset 0 0 0 6px #0a0a0b, 0 1px 2px rgba(20,32,27,.35), 0 40px 70px -34px rgba(20,32,27,.5), 0 90px 120px -80px rgba(20,32,27,.4); }
   :root[data-theme="dark"] .fmt .fm { box-shadow: 0 2px 3px rgba(20,32,27,.16), 0 40px 70px -30px rgba(20,32,27,.42); }
-  :root[data-theme="dark"] .fmt figcaption { color: #4a5650; }
+  :root[data-theme="dark"] .fmt figcaption { color: #495057; }
   :root[data-theme="dark"] .tokens i { box-shadow: inset 0 0 0 1px rgba(20,32,27,.12); }
 }
