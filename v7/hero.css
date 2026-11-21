@@ -1,0 +1,57 @@
+/* v7 - header and opening (#about). Loaded after the page's own sheet.
+   Header: a full-width bar on paper in the Hear layout: the name left, the sections centred, CV and Contact right.
+   Clear at the top of the page; once the page moves it takes a paper ground and a hairline.
+   Opening: the name lives in the header only. The heading says what Ofir does, a short lead, two buttons, then the framed painting. */
+.hv-sr{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (min-width: 900px) {
+  nav.nav{ top: 0 !important; margin-top: 0 !important; margin-bottom: -72px !important; pointer-events: auto !important; background: transparent !important; transition: background-color .3s, box-shadow .3s; }
+  html.hv-stuck nav.nav{ background: color-mix(in srgb, var(--v7-paper, #f4f3f1) 92%, transparent) !important; -webkit-backdrop-filter: blur(16px) saturate(1.3) !important; backdrop-filter: blur(16px) saturate(1.3) !important; box-shadow: 0 1px 0 #dcdbd7; }
+  html.hv-stuck nav.nav .wrap{ height: 60px; }
+  nav.nav .wrap{ width: auto !important; max-width: var(--wrap) !important; height: 72px; transition: height .3s; gap: 0 !important; padding: 0 clamp(16px, 4vw, 40px) !important; border-radius: 0 !important; background: none !important; box-shadow: none !important; }
+  nav.nav .wrap::after{ content: none !important; }
+  nav.nav .brand{ flex: 0 0 196px; margin: 0 !important; font-size: 22px !important; letter-spacing: -.03em; color: var(--v7-ink, #171b20) !important; }
+  nav.nav ul{ flex: 1; gap: 6px !important; font-size: 15px !important; }
+  nav.nav ul li:has(> a[href="#ia"]){ display: none; }
+  nav.nav ul li:has(> a[href="#design-lab"]){ margin-left: auto; }
+  nav.nav ul a{ min-height: 38px !important; padding: 0 14px !important; color: var(--v7-ink-2, #464b52) !important; font-weight: 500; }
+  nav.nav ul a:hover{ color: var(--v7-ink, #171b20) !important; background: none !important; }
+  nav.nav ul a[aria-current]{ color: var(--v7-ink, #171b20) !important; }
+  nav.nav ul a::before{ left: 14px !important; right: 14px !important; bottom: 4px !important; }
+  nav.nav ul li.nav-cv{ display: none; }
+  nav.nav ul li:last-child{ flex: 0 0 196px; margin-left: auto !important; display: flex; justify-content: flex-end; }
+  nav.nav ul li:last-child a, nav.nav ul li:last-child a:hover{ min-height: 42px !important; padding: 0 20px !important; color: #fff !important; background: var(--v7-ink, #171b20) !important; font-weight: 600; }
+  nav.nav ul li:last-child a:hover{ background: var(--v7-blue-ink, #0b6fcf) !important; }
+}
+
+/* the opening */
+#about{ padding-top: clamp(100px, 13vh, 120px) !important; }
+#about .hv-eye{ margin: 0; font-size: 15.5px; line-height: 1.3; font-weight: 500; color: var(--v7-muted, #6a6f76); }
+#about .hv-eye b{ font-weight: 600; color: var(--v7-blue-ink, #0b6fcf); }
+#about .hv-h{ margin: 24px 0 0 !important; max-width: none; font-size: clamp(38px, 5vw, 72px) !important; line-height: 1.06 !important; letter-spacing: -.03em !important; font-weight: 500 !important; color: var(--v7-ink, #171b20) !important; white-space: normal !important; text-wrap: balance; }
+#about .hv-h em{ font-style: normal; color: var(--v7-blue-ink, #0b6fcf); }
+#about .me-intro .me-lead{ margin-top: 24px !important; max-width: 33em; font-size: clamp(17px, 1.4vw, 20px) !important; line-height: 1.48 !important; color: var(--v7-ink-2, #464b52) !important; }
+#about .hv-cta{ display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 32px; }
+#about .hv-btn{ display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 24px; border-radius: 99px; font-size: 16px; font-weight: 600; letter-spacing: -.01em; text-decoration: none; transition: background-color .25s, box-shadow .25s, transform .25s; }
+#about .hv-btn-1{ color: #fff; background: var(--v7-ink, #171b20); }
+#about .hv-btn-1:hover{ background: var(--v7-blue-ink, #0b6fcf); transform: translateY(-1px); }
+#about .hv-btn-2{ color: var(--v7-ink, #171b20); background: #fff; box-shadow: inset 0 0 0 1px var(--v7-line-2, #d2d2d0); }
+#about .hv-btn-2:hover{ box-shadow: inset 0 0 0 1.5px var(--v7-ink, #171b20); transform: translateY(-1px); }
+#about .hv-btn:focus-visible{ outline: 2px solid var(--v7-blue, #139ffd); outline-offset: 3px; }
+#about .hv-btn small{ font-size: 13px; font-weight: 500; color: var(--v7-muted, #6a6f76); }
+/* the frame takes what the window has left under the copy */
+#about .me-photo.me-v7{ height: clamp(300px, calc(100vh - 540px), 660px); }
+html.me-scroll #about .me-pin{ --h0: clamp(300px, calc(100vh - 540px), 660px); }
+#about .eo-cue{ display: none !important; }
+/* the copy leaves as the frame arrives, not before it; the facts sit on a deeper shade */
+html.me-scroll #about .me-intro{ opacity: calc(1 - var(--g, 0) * 1.7) !important; }
+html.me-scroll #about .me-photo.me-v7::before{ background: linear-gradient(to top, rgba(10,18,24,.9) 0, rgba(10,18,24,.72) 22%, rgba(10,18,24,.34) 40%, rgba(10,18,24,0) 58%); }
+html.me-scroll #about .me-facts .me-k{ font-weight: 600; color: #fff; }
+/* phones keep the floating pill; its Contact matches the bar's ink */
+@media (max-width: 899px) { nav.nav ul li:last-child a, nav.nav ul li:last-child a:hover{ background: var(--v7-ink, #171b20) !important; color: #fff !important; } }
+@media (max-width: 860px) {
+  #about{ padding-top: 96px !important; }
+  #about .me-photo.me-v7{ height: auto; }
+  #about .hv-h{ font-size: clamp(29px, 8.5vw, 56px) !important; }
+}
+@media (prefers-reduced-motion: reduce) { nav.nav, #about .hv-btn{ transition: none; } }
