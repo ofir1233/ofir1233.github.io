@@ -51,7 +51,7 @@
 /* each window is ONE small object, scaled up until its words are body size, and as wide as its crop asks for: 1 a question
    to Ask AI and the start of its answer; 2 one task card; 3 three tiles of the topics map. The gap is wide, so at rest only one
    window is in the frame, and the rail is lifted so the window sits on the sky */
-#top .tz-rail{ --w1: min(63cqw, 86cqh); --w2: min(50cqw, 66cqh); --w3: min(78cqw, 124cqh); position: relative; display: flex; align-items: center; gap: 30cqw; width: max-content; margin-bottom: 42cqh;
+#top .tz-rail{ --w1: min(86cqw, 118cqh); --w2: min(86cqw, 118cqh); --w3: min(86cqw, 118cqh); position: relative; display: flex; align-items: center; gap: 30cqw; width: max-content; margin-bottom: 0;
   padding: 0 calc((100cqw - var(--w3)) / 2) 0 calc((100cqw - var(--w1)) / 2); box-sizing: content-box; will-change: transform; }
 #top .tz-win{ flex: none; width: var(--w1); scroll-snap-align: center; transform-origin: 50% 50%;
   transform: translate3d(calc(var(--tx, 0) * 12px), calc(var(--ty, 0) * 9px), 0) scale(calc(1 - var(--a, 0) * .06)); }
@@ -81,8 +81,8 @@ html.tz-scroll #top .tz-track{ overflow: hidden; scroll-snap-type: none; }
 @media (max-width: 719px) {
   #top{ padding: 56px 0 40px !important; }
   #top .tz-h{ font-size: clamp(34px, 9.6vw, 44px) !important; }
-  #top .tz-frame{ aspect-ratio: 5 / 6; }
-  #top .tz-rail{ --w1: min(92cqw, 100cqh); --w2: min(80cqw, 60cqh); --w3: min(92cqw, 120cqh); }
+  #top .tz-frame{ aspect-ratio: 1 / 1; }
+  #top .tz-rail{ --w1: min(90cqw, 104cqh); --w2: min(90cqw, 104cqh); --w3: min(90cqw, 104cqh); }
   #top .tz-note{ text-align: left; }
   #top .tz-cta{ flex: none; }
 }
