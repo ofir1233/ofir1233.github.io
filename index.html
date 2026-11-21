@@ -3888,68 +3888,7 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
 #about .me-facts .me-v-a{ font-size: clamp(28px, 3vw, 44px); }
 @media (max-width: 860px) { #about ol.me-pillars.me-facts{ grid-template-columns: repeat(2, minmax(0, 1fr)); } #about .me-facts li{ min-height: 120px; } }
 
-/* top, like the Hear site's "We don't stop at the insight": a light section. On the left the heading, the line and three numbered
-   steps, one open at a time; on the right a painted sky over Tel Aviv in a frame, and in front of it ONE Design Lab window at a time,
-   whole and unfaded, in a glass frame. Under the mouse the window tilts toward the pointer and the painting travels the other way.
-   The steps and the window's pager are one control: a step opens its window, and the window's clock opens the next step. */
-#top{ --tp: #171b20; background: #f4f3f1 !important; color: var(--tp); }
-#top::before{ content: none; }
-#top > .sheet-arc{ display: none; }
-#top .hero-h{ color: var(--tp); }
-#top .hero-h em{ color: #0b6fcf; }
-#top .lede{ color: color-mix(in srgb, var(--tp) 74%, transparent); }
-#top .hero-copy > .label{ color: color-mix(in srgb, var(--tp) 80%, transparent); background: color-mix(in srgb, var(--tp) 7%, transparent); }
-#top .hero-copy > .label b{ color: #0b6fcf; }
-#top .cta .btn{ background: #139ffd; color: #fff; }
-#top .cta .btn.ghost{ background: none; color: var(--tp); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tp) 28%, transparent); }
-#top .stage, :root[data-theme="dark"] #top .stage{ background: #2f7fd6 url(img/top-sky-tlv.webp) calc(50% + var(--tx, 0) * -16px) calc(60% + var(--ty, 0) * -10px) / auto 118% no-repeat; padding: clamp(22px, 3vw, 44px) clamp(14px, 1.8vw, 26px) clamp(64px, 5.6vw, 84px) !important; }
-#top .stage .arcs{ display: none; }
-#top .stack{ transform: perspective(1300px); transform-style: flat; transition: none; }
-#top .stack > .card{ left: 0 !important; top: 0 !important; width: 100% !important; animation: none !important; -webkit-mask-image: none !important; mask-image: none !important; transform: scale(.97) !important; opacity: 0 !important; pointer-events: none;
-  padding: clamp(7px, .9vw, 13px); border-radius: clamp(18px, 2vw, 28px); border: 1px solid rgba(255,255,255,.75); background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(150,205,255,.34)); -webkit-backdrop-filter: blur(16px) saturate(1.3); backdrop-filter: blur(16px) saturate(1.3);
-  box-shadow: 0 40px 80px -36px rgba(8,40,90,.6), inset 0 1px 0 rgba(255,255,255,.7); transition: opacity .7s ease, transform .9s cubic-bezier(.2,.7,.2,1) !important; }
-#top .stack > .card.c1:not(.hx-out){ opacity: 1 !important; transform: none !important; pointer-events: auto; }
-#top .stack > .card > .lx, #top .stack > .card > img, #top .stack > .card > video{ border-radius: clamp(12px, 1.3vw, 18px); overflow: hidden; }
-#top .stage::after{ content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; background: radial-gradient(80% 70% at calc(22% - var(--tx, 0) * 40%) calc(8% - var(--ty, 0) * 36%), rgba(255,255,255,.22) 0, rgba(255,255,255,.08) 38%, rgba(255,255,255,0) 68%); }
-#top .hx-pager i{ background: rgba(255,255,255,.5); }
-#top .hx-pager i::after{ background: #fff; }
-#top .hx-steps{ list-style: none; margin: clamp(22px, 2.6vw, 36px) 0 clamp(22px, 2.6vw, 34px); padding: 0; max-width: 34em; }
-#top .hx-steps li{ position: relative; padding-bottom: 18px; }
-#top .hx-steps li:last-child{ padding-bottom: 0; }
-#top .hx-steps li:not(:last-child)::before{ content: ""; position: absolute; left: 16px; top: 40px; bottom: 4px; width: 2px; border-radius: 1px; background: color-mix(in srgb, var(--tp) 14%, transparent); }
-#top .hx-step-h{ display: flex; align-items: center; gap: 16px; width: 100%; padding: 0; border: 0; background: none; font: inherit; color: color-mix(in srgb, var(--tp) 62%, transparent); text-align: left; cursor: pointer; transition: color .35s; }
-#top .hx-n{ flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-size: 14px; font-weight: 600; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--tp) 24%, transparent); transition: background .35s, color .35s, box-shadow .35s; }
-#top .hx-t{ font-size: clamp(19px, 1.6vw, 23px); font-weight: 600; letter-spacing: -.01em; }
-#top .hx-step-h:hover{ color: var(--tp); }
-#top .hx-steps li.on .hx-step-h{ color: var(--tp); }
-#top .hx-steps li.on .hx-n{ background: #139ffd; color: #fff; box-shadow: none; }
-#top .hx-step-h:focus-visible{ outline: 2px solid #139ffd; outline-offset: 4px; border-radius: 8px; }
-#top .hx-b{ display: grid; grid-template-rows: 1fr; padding-left: 50px; }
-#top .hx-b p{ overflow: hidden; margin: 0; padding-top: 6px; font-size: clamp(15.5px, 1.2vw, 17px); line-height: 1.5; color: color-mix(in srgb, var(--tp) 72%, transparent); }
-#top .hx-steps.live .hx-b{ grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .6s cubic-bezier(.2,.7,.2,1), opacity .45s; }
-#top .hx-steps.live li.on .hx-b{ grid-template-rows: 1fr; opacity: 1; }
-#top .hx-steps.live li.on:not(:last-child)::before{ background: linear-gradient(#139ffd, color-mix(in srgb, var(--tp) 14%, transparent)); }
-@media (prefers-reduced-motion: reduce) { #top .hx-steps.live .hx-b{ transition: none; } }
-
-/* top, the Hear layout and its scroll: a quiet label, the heading, the line and the steps on the left; the framed painting on the
-   right with its note under it. On a wide window with motion allowed the section pins and the scroll itself walks 1 → 2 → 3:
-   the open step's line fills as you go, and the window changes with the step. */
-#top .hero-copy > .label{ background: none !important; padding: 0 !important; box-shadow: none !important; border: 0 !important; font-size: 15px; letter-spacing: 0; text-transform: none; }
-#top .hero-h{ font-size: clamp(34px, 3.7vw, 54px) !important; line-height: 1.06; margin-top: 14px !important; }
-#top .lede{ margin-top: 16px; font-size: clamp(15.5px, 1.2vw, 17.5px); line-height: 1.5; max-width: 46ch; }
-#top .hero-grid{ align-items: center; }
-#top .stage{ overflow: visible !important; }
-#top .stage::after{ border-radius: inherit; }
-#top .hx-row{ position: absolute; left: 4px; right: 4px; top: calc(100% + 12px); margin: 0 !important; display: flex; align-items: center; justify-content: space-between; }
-#top .stage-note, #top .hx-row > .stage-note{ background: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; font-size: 13.5px !important; letter-spacing: 0; text-transform: none; color: color-mix(in srgb, var(--tp) 62%, transparent) !important; }
-#top .hx-pager i{ background: color-mix(in srgb, var(--tp) 16%, transparent); }
-#top .hx-pager i::after{ background: #139ffd; }
-#top .hx-steps li.on:not(:last-child)::after{ content: ""; position: absolute; left: 16px; top: 40px; bottom: 4px; width: 2px; border-radius: 1px; background: #139ffd; transform-origin: 50% 0; transform: scaleY(var(--sp, .35)); }
-#top .hx-steps.live li.on:not(:last-child)::before{ background: color-mix(in srgb, var(--tp) 14%, transparent); }
-html.hx-scroll #top{ height: calc(100vh + 150vh); padding-bottom: 0; }
-html.hx-scroll #top .hero-grid{ position: sticky; top: var(--hx-top, 96px); }
-html.hx-scroll #top .hx-pager{ visibility: hidden; }
-html.hx-scroll #top .hx-pager i.on::after{ animation: none !important; }
+/* top: this section's v7 styles live in v7/top.css */
 /* ===== v7, one light version (21 Nov 2026, owner: "no light and dark, one version"). The whole page sits on one paper ground; the
    theme switch is gone and <html data-theme="light"> is fixed. The domed sheet tops are off: with one ground there is no sheet to rise.
    Shared pieces every section may use: .v7-frame (a painting in a rounded frame that tilts under the pointer), .v7-paint (the painting
@@ -4052,33 +3991,34 @@ html.hx-scroll #top .hx-pager i.on::after{ animation: none !important; }
     </a>
   </div>
 </section>
-<header class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <div class="label">Senior product designer · <b>Enterprise AI</b></div>
-      <h2 class="hero-h" style="margin-top:22px">One designer.<br>A whole AI <em>product.</em></h2>
-      <p class="lede">Since 2023 I've been the only designer and product person at Hear, an AI platform for contact centers, where I designed the brand, the product and the website, and built the design system. Before that I designed consumer mobile apps at Tap Mobile, one with 100 million downloads.</p>
-      <ol class="hx-steps">
-        <li class="on"><button type="button" class="hx-step-h"><span class="hx-n">1</span><span class="hx-t">AI that people can check</span></button><div class="hx-b"><p>I design AI answers that point to their evidence, and AI proposals a person approves, modifies or declines.</p></div></li>
-        <li><button type="button" class="hx-step-h"><span class="hx-n">2</span><span class="hx-t">Product, not just pixels</span></button><div class="hx-b"><p>Research, testing and flows, side by side with the developers.</p></div></li>
-        <li><button type="button" class="hx-step-h"><span class="hx-n">3</span><span class="hx-t">Structure for dense data</span></button><div class="hx-b"><p>I design heatmaps, call tables, task boards and IA maps that include the admin layer.</p></div></li>
-      </ol>
-      <div class="cta"><a class="btn" href="#design-lab">See the work <span aria-hidden="true">↓</span></a><a class="btn ghost" href="#contact">Get in touch</a></div>
-    </div>
-    <div class="stage" aria-hidden="true">
-      <svg class="arcs" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false"><g transform="rotate(-22)"><circle r="96"/><ellipse rx="96" ry="96" style="animation-delay:0.0s"/><ellipse rx="96" ry="96" style="animation-delay:-3.0s"/><ellipse rx="96" ry="96" style="animation-delay:-6.0s"/><ellipse rx="96" ry="96" style="animation-delay:-9.0s"/><ellipse rx="96" ry="96" style="animation-delay:-12.0s"/><ellipse rx="96" ry="96" style="animation-delay:-15.0s"/><ellipse rx="96" ry="96" style="animation-delay:-18.0s"/><ellipse rx="96" ry="96" style="animation-delay:-21.0s"/><ellipse rx="96" ry="96" style="animation-delay:-24.0s"/><ellipse rx="96" ry="96" style="animation-delay:-27.0s"/><ellipse rx="96" ry="96" style="animation-delay:-30.0s"/><ellipse rx="96" ry="96" style="animation-delay:-33.0s"/></g></svg>
-      <div class="stack" id="stack">
-        <div class="card c3"><div class="lx" data-lab="topics"></div></div>
-        <div class="card c2"><div class="lx" data-lab="compliance"></div></div>
-        <div class="card c1"><div class="lx" data-lab="actions"></div></div>
+<header class="hero" id="top" aria-labelledby="top-h">
+  <div class="tz-pin">
+    <div class="wrap tz-grid">
+      <div class="tz-copy">
+        <p class="tz-label">Senior product designer · <b>Enterprise AI</b></p>
+        <h2 class="hero-h tz-h" id="top-h">One designer.<br>A whole AI <em>product.</em></h2>
+        <ol class="tz-steps">
+          <li class="on"><button type="button" class="tz-step" aria-current="step"><span class="tz-n">1</span><span class="tz-t">AI that people can check</span></button><p class="tz-d">Every AI answer points to its evidence.</p></li>
+          <li><button type="button" class="tz-step"><span class="tz-n">2</span><span class="tz-t">Product, not just pixels</span></button><p class="tz-d">Research, testing and flows, with the developers.</p></li>
+          <li><button type="button" class="tz-step"><span class="tz-n">3</span><span class="tz-t">Structure for dense data</span></button><p class="tz-d">Heatmaps, call tables and task boards.</p></li>
+        </ol>
+        <a class="btn tz-cta" href="#design-lab">See the work <span aria-hidden="true">↓</span></a>
       </div>
-      <div class="label stage-note">Hear Design Lab · demo data</div>
+      <figure class="tz-fig">
+        <div class="tz-frame v7-frame" data-v7-tilt>
+          <!-- the painting: ONE reference, swap this src for any 4:3 sky-over-city painting (sky in the top half) --><img class="tz-paint" src="img/top-sky-tlv.webp" width="2400" height="1792" alt="A knife-painted sky with white clouds over the Tel Aviv coast and its towers." decoding="async">
+          <div class="tz-track" tabindex="-1">
+            <div class="tz-rail">
+              <div class="tz-win tz-fade on" data-crop="1056,113,371,214" data-mcrop="1062,116,358,188"><div class="tz-glass"><div class="tz-crop" role="img" aria-label="Ask AI in the Hear Design Lab: the question What's driving Handle time on Online Booking, and the start of an answer that gives the figures behind it."><div class="tz-view"><div class="lx" data-lab="topics" data-tz-beat="2"></div></div></div></div></div>
+              <div class="tz-win" data-crop="270,263,287,214"><div class="tz-glass"><div class="tz-crop" role="img" aria-label="One task card on the Actions board in the Hear Design Lab: a high-priority alert, Customer asked twice for a refund, was offered only a voucher, with its owner and progress."><div class="tz-view"><div class="lx" data-lab="actions" data-tz-beat="-1"></div></div></div></div></div>
+              <div class="tz-win" data-crop="411,531,470,176" data-mcrop="411,531,361,176"><div class="tz-glass"><div class="tz-crop" role="img" aria-label="Three tiles of the Topics map in the Hear Design Lab, sized by call volume and coloured by score: Changes and Cancellations 34, Schedule Changes 63, Seating and Extras 49."><div class="tz-view"><div class="lx" data-lab="topics" data-tz-beat="-1"></div></div></div></div></div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="tz-note">Hear Design Lab · demo data</figcaption>
+      </figure>
     </div>
   </div>
-  <div class="marquee" aria-hidden="true"><div class="track">
-    <span>Design Lab</span><i></i><span>Topics</span><i></i><span>Compliance</span><i></i><span>Agent evaluation</span><i></i><span>Actions</span><i></i><span>Newsroom</span><i></i><span>Demos engine</span><i></i><span>Design system</span><i></i><span>hear.ai</span><i></i>
-    <span>Design Lab</span><i></i><span>Topics</span><i></i><span>Compliance</span><i></i><span>Agent evaluation</span><i></i><span>Actions</span><i></i><span>Newsroom</span><i></i><span>Demos engine</span><i></i><span>Design system</span><i></i><span>hear.ai</span><i></i>
-  </div></div>
 </header>
 
 
@@ -6776,39 +6716,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(on){ measure(); cur=target(); draw(cur); }
     else { ['--g','--z','--io','--sh','--pt','--t0','--ch'].forEach(function(k){ pin.style.removeProperty(k) }); cards.forEach(function(c,i){ c.style.opacity=c.style.transform=c.style.filter=''; if(nums[i]) nums[i].textContent=nums[i].getAttribute('data-n'); }); } }
   set(); addEventListener('scroll',go,{passive:true}); addEventListener('resize',set); ok.addEventListener('change',set); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ if(on){ measure(); go(); } });
-})();
-</script>
-<script>
-/* top: the three steps and the window's pager are one control. Wide windows with motion allowed: the section is pinned and the
-   scroll picks the step (1 → 2 → 3); otherwise a click picks it and the window's own clock moves on. */
-(function(){ var top=document.getElementById('top'); if(!top) return; var list=top.querySelector('.hx-steps'), pager=top.querySelector('.hx-pager'), grid=top.querySelector('.hero-grid'); if(!list||!pager||!grid) return;
-  var steps=[].slice.call(list.children), bars=[].slice.call(pager.children); if(steps.length!==bars.length) return;
-  list.classList.add('live');
-  var mq=matchMedia('(min-width: 901px) and (prefers-reduced-motion: no-preference)'), root=document.documentElement, pinned=false, want=0, timer=0;
-  function front(){ var k=-1; bars.forEach(function(b,i){ if(b.classList.contains('on')) k=i; }); return k; }
-  function show(k){ steps.forEach(function(s,i){ s.classList.toggle('on',i===k); s.firstElementChild.setAttribute('aria-expanded',i===k?'true':'false'); }); }
-  function chase(){ timer=0; if(front()===want) return; bars[want].click(); timer=setTimeout(chase,350); }
-  function pick(k){ want=k; show(k); if(!timer) chase(); }
-  function span(){ return top.offsetHeight-innerHeight; }
-  function onScroll(){ if(!pinned) return; var p=Math.max(0,Math.min(.9999,-top.getBoundingClientRect().top/Math.max(1,span()))), k=Math.floor(p*3); if(k!==want||!steps[k].classList.contains('on')) pick(k); steps[k].style.setProperty('--sp',(p*3-k).toFixed(3)); }
-  function fit(){ var h=grid.offsetHeight, t=Math.max(84,Math.round((innerHeight-h)/2+20)); top.style.setProperty('--hx-top',t+'px'); }
-  function set(){ var on=mq.matches&&grid.offsetHeight<innerHeight-70; if(on!==pinned){ pinned=on; root.classList.toggle('hx-scroll',on); if(!on) steps.forEach(function(s){ s.style.removeProperty('--sp') }); } if(pinned){ fit(); onScroll(); } }
-  steps.forEach(function(s,i){ s.firstElementChild.addEventListener('click',function(){ if(pinned){ scrollTo({top:top.getBoundingClientRect().top+scrollY+span()*(i+.35)/3,behavior:'smooth'}); } else pick(i); }); });
-  new MutationObserver(function(){ if(pinned) return; var k=front(); if(k>=0){ want=k; show(k); } }).observe(pager,{attributes:true,attributeFilter:['class'],subtree:true});
-  set(); addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',set); mq.addEventListener('change',set); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(set);
-  if(!pinned){ var k=front(); if(k>=0) show(k); }
-})();
-</script>
-<script>
-/* top: the pointer tilts the window and moves the painting behind it; let go, it swings back once and settles */
-(function(){ var fr=document.querySelector('#top .stage'); if(!fr||matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-  var tx=0,ty=0,x=0,y=0,vx=0,vy=0,raf=0,last=0,over=false;
-  function tick(t){ var dt=Math.min(.034,(t-last)/1000||.016); last=t; var k=over?110:15,c=over?21:4.6;
-    vx+=((tx-x)*k-vx*c)*dt; vy+=((ty-y)*k-vy*c)*dt; x+=vx*dt; y+=vy*dt; fr.style.setProperty('--tx',x.toFixed(4)); fr.style.setProperty('--ty',y.toFixed(4));
-    if(Math.abs(tx-x)>.0008||Math.abs(ty-y)>.0008||Math.abs(vx)>.002||Math.abs(vy)>.002) raf=requestAnimationFrame(tick); else { raf=0; x=tx; y=ty; vx=vy=0; } }
-  function go(){ if(!raf){ last=performance.now(); raf=requestAnimationFrame(tick); } }
-  fr.addEventListener('pointermove',function(e){ if(e.pointerType!=='mouse') return; over=true; var r=fr.getBoundingClientRect(); tx=Math.max(-1,Math.min(1,((e.clientX-r.left)/r.width-.5)*2)); ty=Math.max(-1,Math.min(1,((e.clientY-r.top)/r.height-.5)*2)); go(); });
-  fr.addEventListener('pointerleave',function(){ over=false; tx=0; ty=0; go(); });
 })();
 </script>
 <script>
