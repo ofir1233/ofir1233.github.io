@@ -62,15 +62,17 @@ html.me-scroll #about .me-facts .me-k{ font-weight: 600; color: #fff; }
   #about .me-intro{ text-align: left; align-items: flex-start; }
   #about .me-intro .me-lead{ margin-left: 0; margin-right: 0; max-width: 24em; }
   #about .hv-cta{ justify-content: flex-start; }
-  #about .hv-h{ font-size: clamp(34px, 3.75vw, 56px) !important; }
+  #about .hv-h{ font-size: clamp(30px, 3.6vw, 54px) !important; white-space: nowrap !important; }
   html.me-scroll #about .me-top{ height: 100%; }
   html.me-scroll #about .me-intro{ width: 47%; height: 100%; justify-content: center; padding-bottom: 4vh; transform: translateX(calc(var(--g, 0) * -60px)) !important; }
-  html.me-scroll #about .me-photo.me-v7{ top: 0; height: 100%; left: calc(51% * (1 - var(--g, 0))); width: calc(49% + 51% * var(--g, 0)); }
+  /* at rest the frame keeps its own proportions (about 10:11) whatever the window's height, centred beside the copy */
+  html.me-scroll #about .me-pin{ container-type: size; --fh: min(100cqh, 54cqw); }
+  html.me-scroll #about .me-photo.me-v7{ top: calc((100cqh - var(--fh)) / 2 * (1 - var(--g, 0))); height: calc(var(--fh) + (100cqh - var(--fh)) * var(--g, 0)); left: calc(51% * (1 - var(--g, 0))); width: calc(49% + 51% * var(--g, 0)); }
   html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ left: calc(14% + 48% * var(--g, 0)); }
   html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ object-position: calc(64% - 14% * var(--g, 0)) 58%; }
   /* no pin (reduced motion): the same two columns, still */
   html:not(.me-scroll) #about .me-top{ display: grid; grid-template-columns: 47% minmax(0, 1fr); gap: 4%; align-items: center; }
-  html:not(.me-scroll) #about .me-photo.me-v7{ margin: 0; width: 100%; height: clamp(420px, calc(100vh - 220px), 680px); }
+  html:not(.me-scroll) #about .me-photo.me-v7{ margin: 0; width: 100%; height: auto; aspect-ratio: 10 / 11; }
   html:not(.me-scroll) #about .me-photo.me-v7 .me-v7-fg{ left: 14%; }
   html:not(.me-scroll) #about .me-photo.me-v7 .me-v7-bg{ object-position: 64% 58%; }
 }
