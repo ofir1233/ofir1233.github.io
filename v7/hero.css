@@ -56,20 +56,46 @@ html.me-scroll #about .me-facts .me-k{ font-weight: 600; color: #fff; }
 }
 @media (prefers-reduced-motion: reduce) { nav.nav, #about .hv-btn{ transition: none; } }
 
-/* wide windows: the copy sits left and the painting right, a tall frame; on scroll the frame widens to the left over the copy
-   until it fills the stage (--g 0..1 from the page's own pin script), then the facts rise over it */
+/* wide windows. The pinned stage is as tall as the window, and the opening fills it whatever its shape:
+   - a landscape stage: copy left, painting right, both the full height;
+   - a tall stage: copy on top (centred, as on Hear), the painting under it taking all the height left.
+   The experience strip closes the stage at the bottom. On scroll (--g 0..1 from the page's pin script) the frame grows over
+   the copy and the strip until it fills the stage, then the facts rise over it. */
+#about .hv-b3{ display: none; }
 @media (min-width: 861px) {
+  #about{ padding-top: 100px !important; }
   #about .me-intro{ text-align: left; align-items: flex-start; }
   #about .me-intro .me-lead{ margin-left: 0; margin-right: 0; max-width: 24em; }
   #about .hv-cta{ justify-content: flex-start; }
   #about .hv-h{ font-size: clamp(30px, 3.6vw, 54px) !important; white-space: nowrap !important; }
+
+  html.me-scroll #about .me-pin{ container-type: size; --sb: 92px; }
   html.me-scroll #about .me-top{ height: 100%; }
-  html.me-scroll #about .me-intro{ width: 47%; height: 100%; justify-content: center; padding-bottom: 4vh; transform: translateX(calc(var(--g, 0) * -60px)) !important; }
-  /* at rest the frame keeps its own proportions (about 10:11) whatever the window's height, centred beside the copy */
-  html.me-scroll #about .me-pin{ container-type: size; --fh: min(100cqh, 54cqw); }
-  html.me-scroll #about .me-photo.me-v7{ top: calc((100cqh - var(--fh)) / 2 * (1 - var(--g, 0))); height: calc(var(--fh) + (100cqh - var(--fh)) * var(--g, 0)); left: calc(51% * (1 - var(--g, 0))); width: calc(49% + 51% * var(--g, 0)); }
+  html.me-scroll #about .me-path{ position: absolute; left: 0; right: 0; bottom: 0; margin: 0 !important; flex-wrap: nowrap; opacity: calc(1 - var(--g, 0) * 3); }
+  /* landscape stage */
+  html.me-scroll #about .hv-b2{ display: none; }
+  html.me-scroll #about .hv-b3{ display: inline; }
+  html.me-scroll #about .hv-h{ font-size: clamp(34px, 5.9cqw, 70px) !important; line-height: 1.04 !important; }
+  html.me-scroll #about .me-intro .me-lead{ font-size: clamp(17px, 1.75cqw, 21px) !important; }
+  html.me-scroll #about .me-intro{ width: 47%; height: calc(100% - var(--sb)); justify-content: center; transform: translateX(calc(var(--g, 0) * -60px)) !important; }
+  html.me-scroll #about .me-photo.me-v7{ top: 0; height: calc(100cqh - var(--sb) * (1 - var(--g, 0))); left: calc(51% * (1 - var(--g, 0))); width: calc(49% + 51% * var(--g, 0)); }
   html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ left: calc(14% + 48% * var(--g, 0)); }
   html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ object-position: calc(64% - 14% * var(--g, 0)) 58%; }
+  /* tall stage */
+  @container (max-aspect-ratio: 13 / 10) {
+    html.me-scroll #about .hv-b2{ display: inline; }
+    html.me-scroll #about .hv-b3{ display: none; }
+    html.me-scroll #about .hv-h{ font-size: clamp(38px, 6.4cqw, 76px) !important; }
+    html.me-scroll #about .me-top{ height: auto; }
+    html.me-scroll #about .me-intro{ width: 100%; height: auto; text-align: center; align-items: center; transform: translateY(calc(var(--g, 0) * -46px)) !important; }
+    html.me-scroll #about .me-intro .me-lead{ margin-left: auto; margin-right: auto; max-width: 30em; }
+    html.me-scroll #about .hv-cta{ justify-content: center; }
+    html.me-scroll #about .me-pin > *{ --rest: min(100cqh - var(--t0, 330px) - var(--sb), 130cqw); }
+    html.me-scroll #about .me-photo.me-v7{ left: 0; width: 100%; top: calc(var(--t0, 330px) * (1 - var(--g, 0))); height: calc(var(--rest) + (100cqh - var(--rest)) * var(--g, 0)); }
+    html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ left: 54%; height: min(92%, 62cqw); }
+    html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ object-position: 50% 58%; }
+    html.me-scroll #about .me-path{ bottom: auto; top: calc(var(--t0, 330px) + var(--rest) + 24px); }
+  }
   /* no pin (reduced motion): the same two columns, still */
   html:not(.me-scroll) #about .me-top{ display: grid; grid-template-columns: 47% minmax(0, 1fr); gap: 4%; align-items: center; }
   html:not(.me-scroll) #about .me-photo.me-v7{ margin: 0; width: 100%; height: auto; aspect-ratio: 10 / 11; }
