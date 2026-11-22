@@ -83,6 +83,11 @@ Owner's order, 22.11.2026: from now on only OpenAI's best and most expensive ima
 
 - REPLACED, approved by the owner and placed as `img/hw-sky-city.webp` (1600 square cropped from y=420): `images/edits`, `gpt-image-2.6-sunburst`, `1600x2400`, quality `max`, same two reference images, about $0.30 (plus $0.05 for a low check). Measured: sky hue 208, saturation 73, warm colours 0%, foliage hue 173 (a little too teal; hardly seen in the crop). The sky came out as thick visible knife strokes. The owner said 4K is not needed: strongest model and `max`, at a size that gives 2x the CSS pixels and no more. The script is `scratchpad/sky6.py`; its prompt is the fixed prompt below.
 
+- OPENING PICTURE repainted the same day so all paintings speak one language, approved and placed: studio `img/me-v7-studio-b-1920.webp` (`2400x1600`, max, about $0.31) and portrait `img/me-v7-fig-b.webp` (`1168x1600`, max, about $0.22). These two are now the quality and style reference; the older `me-v7-studio-1536.webp` and `me-v7-fig-blue.webp` are the previous generation. Script `scratchpad/paint.py`.
+  - Repainting an existing picture: image 1 = the picture to keep ("same composition, same camera, every object in the same place"), image 2 = a painting already in the new technique ("same painter, same day"), then the fixed TECHNIQUE and COLOURS blocks, then the content region by region.
+  - The model ADDS things when repainting (extra people, a potted palm, a planter, more flowers). A COUNT block ("exactly four designers at the desk ... nobody else ... exactly one lamp") removed the extra people and lamps; the palm and planter stayed. Check the low draft for additions.
+  - Portrait: the transparent background is not requested. Ask for "one flat, even, plain light grey (#ecece8), clean hard painted edge, no glow, no halo, no shadow", then cut it out with a flood fill from the borders (`scratchpad/cut.py`), which keeps the white collar. Likeness comes from giving the approved painted portrait as image 1 and listing the features; only the owner judges it.
+
 ## THE FIXED PROMPT. Every painting uses these blocks word for word.
 
 Only the SUBJECT block changes from picture to picture. Both reference images go in with every call.
