@@ -192,3 +192,30 @@
   #code .hw-d small{ display: table; margin: 14px 0 12px; padding: 5px 12px; border: 1px solid #d3d2cd; border-radius: 999px; font-size: 13px; line-height: 1.2; color: #4a5058; }
 }
 @media (prefers-reduced-motion: reduce) { #code .hw-nav::after{ transition: none; } }
+
+/* the Ship plate, played as the work itself: the two hard-coded values are marked removed and the token lines are typed under them,
+   the checks run, the pull request is merged. Without motion it stays the finished, open pull request. */
+#code .hw-prd u{ text-decoration: none; }
+#code #hw-3 .hl-card{ transition: opacity .45s ease; }
+#code #hw-3 .hl-card.c0{ opacity: 0; }
+#code #hw-3 .hs-run .hw-prd code.m{ background-color: rgba(253,238,234,0); transition: background-color .4s ease; }
+#code #hw-3 .hs-run .hw-prd code.m.show{ background-color: #fdeeea; }
+#code #hw-3 .hs-run .hw-prd code.m u{ opacity: 0; transition: opacity .3s ease; }
+#code #hw-3 .hs-run .hw-prd code.m.show u{ opacity: 1; }
+#code #hw-3 .hs-run .hw-prd code.p{ max-height: 0; padding-top: 0; padding-bottom: 0; overflow: hidden; opacity: 0; transition: max-height .36s cubic-bezier(.2,.7,.2,1), padding .36s cubic-bezier(.2,.7,.2,1), opacity .22s ease; }
+#code #hw-3 .hs-run .hw-prd code.p.show{ max-height: 36px; padding-top: 3px; padding-bottom: 3px; opacity: 1; }
+#code #hw-3 .hw-prd .ty::after{ content: ""; display: inline-block; width: 2px; height: 1.15em; margin-left: 1px; vertical-align: -3px; background: #0b6fcf; animation: hs-caret 1s steps(1) infinite; }
+@keyframes hs-caret { 50% { opacity: 0; } }
+#code #hw-3 .hw-prm span{ transition: opacity .35s ease; }
+#code #hw-3 .hw-prm span.wait{ opacity: 0; }
+#code #hw-3 .hw-prm span.spin i{ box-sizing: border-box; width: 14px; height: 14px; margin: 0 -2.5px; background: none; border: 2px solid #139FFD; border-right-color: transparent; animation: hs-spin .75s linear infinite; }
+#code #hw-3 .hw-prm span.pop i{ animation: hs-pop .5s cubic-bezier(.3,1.5,.5,1); }
+@keyframes hs-spin { to { rotate: 360deg; } }
+@keyframes hs-pop { from { scale: .2; } }
+#code #hw-3 .hw-prm b{ box-sizing: border-box; text-align: center; transition: background-color .45s ease, color .45s ease, scale .12s ease; }
+#code #hw-3 .hw-prm b.off{ background: #eceae6; color: #a6a9ae; }
+#code #hw-3 .hw-prm b.dn{ scale: .96; }
+#code #hw-3 .hw-prm b.busy{ background: #4a4f56; }
+#code #hw-3 .hw-prm b.done{ background: #e4f2fe; color: #0b6fcf; }
+#code #hw-3 .hw-prh em{ transition: background-color .45s ease, color .45s ease; }
+#code #hw-3 .hw-prh em.done{ background: #139FFD; color: #fff; }

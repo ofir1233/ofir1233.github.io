@@ -132,3 +132,58 @@
   new MutationObserver(check).observe(li, { attributes: true, attributeFilter: ['class'] }); check();
   if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ if (!ol.classList.contains('hw-pin')) see(es[0].isIntersecting); }, { threshold: .5 }).observe(li);
 })();
+
+/* the Ship plate: when its screen comes on, the pull request is made in front of you. Each beat has its own length: a hard-coded value
+   is marked removed, a line opens under it and the token is typed in (a breath after the colon and the bracket, the second line a
+   little quicker than the first), the three checks finish one by one, the slowest last, the button wakes, is pressed, and the
+   request is merged. Then it rests and starts over. */
+(function(){
+  var card = document.querySelector('#hw-3 .hl-card'), li = card && card.closest('li'); if (!card || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var glass = card.parentNode, prd = card.querySelector('.hw-prd'), rem = [].slice.call(prd.querySelectorAll('code.m')), add = [].slice.call(prd.querySelectorAll('code.p')),
+      badge = card.querySelector('.hw-prh em'), sp = card.querySelector('.hw-prf .p'), sm = card.querySelector('.hw-prf .m'), st = card.querySelector('.hw-prm span'), btn = card.querySelector('.hw-prm b');
+  if (!rem.length || !add.length || !st || !btn) return;
+  var minus = sm.textContent.charAt(0), stT = st.lastChild;
+  var full = add.map(function(c){ var t = c.lastChild, x = t.nodeValue; c.removeChild(t); var u = document.createElement('u'); u.textContent = x.charAt(0); var s = document.createElement('span'); s.textContent = x.slice(1); c.appendChild(u); c.appendChild(s); return x.slice(1); });
+  rem.forEach(function(c){ var t = c.lastChild, x = t.nodeValue, u = document.createElement('u'); u.textContent = x.charAt(0); t.nodeValue = x.slice(1); c.insertBefore(u, t); });
+  var hd = document.createElement('div'); hd.className = 'hd'; hd.innerHTML = '<span class="hd-cur"><svg viewBox="0 0 24 24"><path d="M4 3l6.5 17 2.6-7.1L20 10.2z"/></svg><b>Ofir</b></span>'; glass.appendChild(hd);
+  var cur = hd.firstChild, run = 0, timers = [], shown = false, sized = false;
+  function rest(){ rem.forEach(function(c){ c.classList.remove('show'); }); add.forEach(function(c, i){ c.classList.remove('show'); c.lastChild.classList.remove('ty'); c.lastChild.textContent = full[i]; });
+    badge.textContent = 'Open'; badge.classList.remove('done'); sp.textContent = '+2'; sm.textContent = minus + '2'; st.classList.remove('wait', 'spin', 'pop'); stT.nodeValue = 'All checks passed';
+    btn.textContent = 'Merge pull request'; btn.classList.remove('off', 'dn', 'busy', 'done'); cur.classList.remove('show', 'down'); }
+  function clear(){ run++; timers.forEach(clearTimeout); timers = []; rest(); card.classList.remove('c0'); }
+  function play(){ clear(); var me = run;
+    if (!sized) { sized = true; prd.style.minHeight = prd.offsetHeight + 'px'; btn.style.minWidth = btn.offsetWidth + 'px'; }
+    card.classList.add('hs-run'); add.forEach(function(c){ c.lastChild.textContent = ''; }); sp.textContent = '+0'; sm.textContent = minus + '0'; st.classList.add('wait'); btn.classList.add('off');
+    function wait(ms){ return new Promise(function(res){ timers.push(setTimeout(function(){ if (me === run) res(); }, ms)); }); }
+    function curAt(x, y, d){ glass.style.setProperty('--d', d + 'ms'); cur.style.translate = Math.round(x - 3) + 'px ' + Math.round(y - 2) + 'px'; return wait(d); }
+    (async function(){
+      await wait(700);
+      for (var i = 0; i < add.length; i++) {
+        rem[i].classList.add('show'); sm.textContent = minus + (i + 1); await wait(i ? 320 : 460);
+        var s = add[i].lastChild, x = full[i], n = x.length - x.replace(/^\s+/, '').length, base = i ? 30 : 36;
+        add[i].classList.add('show'); s.textContent = x.slice(0, n); s.classList.add('ty'); await wait(i ? 380 : 480);
+        for (n++; n <= x.length; n++) { s.textContent = x.slice(0, n); var ch = x.charAt(n - 1);
+          await wait(base + Math.round(11 * Math.sin(n * 2.7)) + (ch === ':' ? 150 : ch === '(' ? 110 : ch === ';' ? 60 : 0)); }
+        sp.textContent = '+' + (i + 1); await wait(340); s.classList.remove('ty'); await wait(i ? 480 : 260);
+      }
+      st.classList.remove('wait'); st.classList.add('spin'); stT.nodeValue = 'Running checks 0 / 3';
+      var ck = [640, 860, 1220]; for (var k = 0; k < 3; k++) { await wait(ck[k]); stT.nodeValue = 'Running checks ' + (k + 1) + ' / 3'; }
+      await wait(260); st.classList.remove('spin'); st.classList.add('pop'); stT.nodeValue = 'All checks passed';
+      await wait(320); btn.classList.remove('off'); await wait(480);
+      var g = glass.getBoundingClientRect(), sc = g.width / glass.offsetWidth || 1, b = btn.getBoundingClientRect(),
+          bx = (b.left - g.left + b.width * .62) / sc, by = (b.top - g.top + b.height * .56) / sc;
+      cur.style.transition = 'none'; cur.style.translate = Math.round(glass.offsetWidth + 50) + 'px ' + Math.round(by - 110) + 'px'; cur.offsetWidth; cur.style.transition = '';
+      cur.classList.add('show'); await curAt(bx, by, 760); await wait(200);
+      cur.classList.add('down'); btn.classList.add('dn'); await wait(120); cur.classList.remove('down'); btn.classList.remove('dn'); await wait(140);
+      btn.classList.add('busy'); btn.textContent = 'Merging…'; await wait(860);
+      btn.classList.remove('busy'); btn.classList.add('done'); btn.textContent = 'Merged'; badge.textContent = 'Merged'; badge.classList.add('done'); stT.nodeValue = 'Merged into main';
+      await wait(520); await curAt(glass.offsetWidth + 80, by - 40, 900); cur.classList.remove('show');
+      await wait(2800); card.classList.add('c0'); await wait(520);
+      play();
+    })(); }
+  function see(on){ if (on === shown) return; shown = on; if (on) play(); else { clear(); card.classList.remove('hs-run'); } }
+  var ol = li.parentNode;
+  function check(){ if (ol.classList.contains('hw-pin')) see(li.classList.contains('on')); }
+  new MutationObserver(check).observe(li, { attributes: true, attributeFilter: ['class'] }); check();
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ if (!ol.classList.contains('hw-pin')) see(es[0].isIntersecting); }, { threshold: .5 }).observe(li);
+})();
