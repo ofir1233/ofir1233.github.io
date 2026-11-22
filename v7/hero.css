@@ -159,3 +159,6 @@ html.me-scroll #about .me-photo.me-v7 .hsig{ right: clamp(26px, 3.2vw, 52px); bo
 html.hp-wait #about .me-photo.me-v7 .me-v7-in img{ visibility: hidden; }
 html.hp-wait #about .me-photo.me-v7{ background: #eeede9 !important; }
 #about .me-photo.me-v7 .me-v7-in .hp-cv{ position: absolute; inset: 0; z-index: 3; display: block; width: 100%; height: 100%; pointer-events: none; transition: opacity .26s ease; }
+/* while the frame is bare paper the signature and its soft shade wait too, then come in with the paint */
+html.hp-wait #about .me-photo.me-v7 .hsig{ opacity: 0 !important; }
+html:not(.me-scroll) #about .me-photo.me-v7 .hsig{ transition: opacity .6s ease; }

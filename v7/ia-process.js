@@ -69,11 +69,11 @@
     const mode = W >= 900 ? 'wide' : W >= 720 ? 'mid' : 'small';
     const TH = mode === 'small' ? 64 : 84, chip = mode === 'small' ? 32 : 40;
     const side = mode === 'wide' ? 128 : mode === 'mid' ? 36 : chip / 2 + 4;
-    const R = Math.min(mode === 'wide' ? 410 : mode === 'mid' ? 360 : 300, (W - 2 * side) / (2 * Math.sin(TH * D)));
+    const R = Math.min(mode === 'wide' ? 432 : mode === 'mid' ? 360 : 300, (W - 2 * side) / (2 * Math.sin(TH * D)));
     const top = mode === 'wide' ? 58 : chip / 2 + 8, A = R * (1 - Math.cos(TH * D));
     const tps = mode === 'small' ? 8 : 10;
     G = { W, mode, TH, R, STEP: 2 * TH / (N - 1), cx: W / 2, cy: top + R, top, A, chip, tps,
-          rT: R - chip / 2 - 8, h1: chip / 2 + 6, h2: mode === 'small' ? 42 : 90, bulge: mode === 'small' ? 6 : 9, sig: (2 * TH / (N - 1)) * .2 };
+          rT: R - chip / 2 - 8, h1: chip / 2 + 6, h2: mode === 'small' ? 42 : mode === 'wide' ? 78 : 72, bulge: mode === 'small' ? 6 : 9, sig: (2 * TH / (N - 1)) * .2 };
     G.faceH = Math.ceil(top + A + chip / 2 + 10);
     pz.dataset.mode = mode; pz.style.setProperty('--chip', chip + 'px');
     face.setAttribute('viewBox', '0 0 ' + W + ' ' + G.faceH); face.setAttribute('width', W); face.setAttribute('height', G.faceH);
@@ -109,11 +109,13 @@
     place();
     return true;
   };
-  // where the text stands: centred in the bowl when there is room, tucked under the hand on a phone
+  // where the text stands: centred in the bowl when there is room, tucked under the hand on a phone.
+  // Owner, 22.11.2026 night: "the title is tight to the margins". The name now starts 46px under the top of the bowl
+  // (it was 2px), the hand is shorter so its dot never comes near the name, and the dial is a little larger.
   const place = () => {
     if (!G) return;
     core.style.paddingTop = '0px';
-    const g = G, coreH = core.offsetHeight, yTop = g.top + g.h2 + (g.mode === 'small' ? 34 : 22);
+    const g = G, coreH = core.offsetHeight, yTop = g.top + g.h2 + (g.mode === 'small' ? 34 : 20 + (g.mode === 'wide' ? 46 : 38));
     let ty = yTop;
     if (g.mode === 'small') {
       const hH = items[0].firstChild.offsetHeight, limit = g.top + g.A + g.chip / 2 + 12;
