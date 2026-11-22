@@ -33,6 +33,7 @@ He does NOT adopt its subject. People at desks, rows of chairs, headsets, laptop
 - Still forbidden: yellow, yellow-green, olive, lime, warm or golden foliage, orange roofs, sunset tones, beige.
 - The low draft goes to the owner BEFORE any max render, every time, even when the money is pre-approved.
 - Closing picture, draft that carries this colourfulness without people: `scratchpad/end3.py` (harbour city from the water: coral boat and awnings, lilac sail, flowering balconies, beach cabins, lighthouse with a coral band). Waiting for the owner's answer.
+- 22.11.2026: end3 was painted at max (about $0.29) and placed as `img/end-harbour.webp` (and `end-harbour-1152.webp` for phones) behind the closing section, see `v7/path-contact.css`. The owner had said to spend what is left and not to ask; he has seen the draft's direction but has not yet said a word about the placed picture. Measured: sky hue 209, saturation 67; warm 6.9%, which is the coral and is intended.
 
 ## What made the opening picture work
 
