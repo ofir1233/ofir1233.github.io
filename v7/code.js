@@ -81,7 +81,7 @@
   function clear(){ run++; timers.forEach(clearTimeout); timers = []; parts.forEach(function(e){ e.classList.remove('show'); }); btn.classList.remove('sq'); card.classList.remove('fin', 'c0'); glass.classList.remove('g0');
     [sel, gap, prop, cur].forEach(function(e){ e.classList.remove('show'); }); }
   function play(){ clear(); card.classList.add('hd-run', 'c0'); glass.classList.add('g0'); var me = run, g = box(glass), k = box(card), e = box(email), p = box(pass), b = box(btn), W = g.w;
-    function at(t, f){ timers.push(setTimeout(function(){ if (me === run) f(); }, t)); }
+    function at(t, f){ timers.push(setTimeout(function(){ if (me === run) f(); }, t * .58)); }
     setSel(g, true); curTo(W + 30, 30); propN.textContent = '6';
     at(350, function(){ cur.classList.add('show'); curTo(-3, -2); });
     at(1100, function(){ sel.classList.add('show'); setSel(g); end(g); });
