@@ -1,10 +1,19 @@
-/* v7 - code ("How I work"): the short index beside the heading marks the step whose screen is in the middle of the window. */
+/* v7 - code ("How I work"): on a wide window the frame stays in place and the three screens change inside it as the page scrolls;
+   the short index beside the heading marks the step on show and jumps to it. On a narrow window the three are a plain list. */
 (function(){
-  var links = [].slice.call(document.querySelectorAll('#code .hw-nav a')); if (!links.length || !('IntersectionObserver' in window)) return;
-  var steps = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
-  function mark(i){ links.forEach(function(a, k){ a.classList.toggle('on', k === i); }); }
-  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) mark(steps.indexOf(e.target)); }); }, { rootMargin: '-45% 0px -45% 0px' });
-  steps.forEach(function(s){ if (s) io.observe(s); }); mark(0);
+  var ol = document.querySelector('#code .hw-steps'); if (!ol) return;
+  var steps = [].slice.call(ol.children), links = [].slice.call(document.querySelectorAll('#code .hw-nav a'));
+  var mq = matchMedia('(min-width: 900px)'), cur = -1, TOP = 118;
+  function range(){ return Math.max(1, ol.offsetHeight - steps[0].offsetHeight); }
+  function mark(i){ if (i === cur) return; cur = i; steps.forEach(function(s, k){ s.classList.toggle('on', k === i); }); links.forEach(function(a, k){ a.classList.toggle('on', k === i); }); }
+  function set(){
+    var pin = mq.matches; ol.classList.toggle('hw-pin', pin); if (!pin) { cur = -1; return; }
+    var p = (TOP - ol.getBoundingClientRect().top) / range();
+    mark(Math.max(0, Math.min(steps.length - 1, Math.floor(p * steps.length))));
+  }
+  links.forEach(function(a, i){ a.addEventListener('click', function(e){ if (!mq.matches) return; e.preventDefault();
+    scrollTo({ top: ol.getBoundingClientRect().top + scrollY - TOP + range() * (i + .5) / steps.length, behavior: 'smooth' }); }); });
+  addEventListener('scroll', set, { passive: true }); addEventListener('resize', set); set();
 })();
 
 /* the sign-in page in the Design step: drawn at 760 px and scaled to its frame; under the mouse its layers move in depth,

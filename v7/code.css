@@ -98,3 +98,16 @@
 #code .hw-prm{ display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-top: 1px solid #ecebe7; font-size: 15px; color: #3d444c; }
 #code .hw-prm span{ display: flex; align-items: center; gap: 9px; } #code .hw-prm i{ width: 9px; height: 9px; border-radius: 50%; background: #139FFD; }
 #code .hw-prm b{ padding: 11px 18px; border-radius: 99px; font-weight: 500; color: #fff; background: #232323; }
+
+/* wide windows: one frame that stays, the three screens change inside it (the script adds .hw-pin and marks the step on show with .on) */
+@media (min-width: 900px) {
+  #code .hw-steps.hw-pin{ gap: 0; grid-template-rows: calc(250vh - 170px); }   /* one tall row: the screens stick inside it */
+  #code .hw-steps.hw-pin > li{ grid-area: 1 / 1; position: sticky; top: 118px; align-self: start; justify-self: end; width: min(100%, calc(100vh - 290px)); min-width: 380px;
+    opacity: 0; visibility: hidden; transition: opacity .5s ease, visibility 0s linear .5s; }
+  #code .hw-steps.hw-pin > li.on{ opacity: 1; visibility: visible; transition: opacity .5s ease, visibility 0s; }
+  #code .hw-steps.hw-pin > li .hw-cap{ translate: 0 14px; transition: translate .6s cubic-bezier(.2,.7,.2,1); }
+  #code .hw-steps.hw-pin > li.on .hw-cap{ translate: 0 0; }
+  #code .hw-steps.hw-pin > li .hl-wrap{ transition: scale .7s cubic-bezier(.2,.7,.2,1); scale: calc(var(--ws, .93) * .955); }
+  #code .hw-steps.hw-pin > li.on .hl-wrap{ scale: var(--ws, .93); }
+}
+@media (prefers-reduced-motion: reduce) { #code .hw-steps.hw-pin > li, #code .hw-steps.hw-pin > li .hw-cap, #code .hw-steps.hw-pin > li .hl-wrap{ transition: none !important; } }
