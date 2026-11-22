@@ -200,12 +200,12 @@ html body section#product#product .pf-prob{ background:none !important; border-r
 
 /* One sample call, followed through four screens (v7/product.js, THREAD). A quiet line in the text of each card: a blue rule (the thread),
    the count, one sentence, and a text button that shows the call in the screen beside it. No icon. */
-#product#product .pf-call{ margin:22px 0 0; padding:2px 0 2px 14px; box-shadow:inset 2px 0 0 #d9d8d4; max-width:46ch; transition:box-shadow .3s ease; }
+#product#product .pf-call{ margin:22px 0 0; padding:2px 0 2px 14px; box-shadow:inset 2px 0 0 #d9d8d4; max-width:none; transition:box-shadow .3s ease; }
 /* the rule is the challenge's grey until this stop has been shown; then it is blue, and stays blue: the trace of the way taken */
 #product#product .pf-call.is-seen{ box-shadow:inset 2px 0 0 #139FFD; }
 #product#product .pf-call-k{ margin:0; font:600 14px/1.35 var(--body); letter-spacing:-.003em; color:#171b20; }
 #product#product .pf-call-k i{ font-style:normal; font-weight:500; font-size:13px; color:#7a8088; margin-left:8px; }
-#product#product .pf-call-t{ margin:6px 0 0; font:400 14px/1.5 var(--body); color:#4a5057; text-wrap:pretty; }
+#product#product .pf-call-t{ margin:6px 0 0; font:400 14px/1.5 var(--body); color:#4a5057; text-wrap:balance; }
 #product#product .pf-call-t b{ font-weight:600; color:#171b20; }
 #product#product .pf-call-go{ margin:8px 0 0 -2px; padding:6px 2px; border:0; background:none; cursor:pointer; font:600 14px/1.3 var(--body); color:#0B6FCF; text-decoration:underline; text-decoration-color:rgba(11,111,207,.35); text-underline-offset:4px; text-decoration-thickness:1px; transition:text-decoration-color .2s, color .2s, opacity .18s ease; }
 #product#product .pf-call-go:hover{ color:#084f96; text-decoration-color:currentColor; }
@@ -218,3 +218,15 @@ html body section#product#product .pf-prob{ background:none !important; border-r
   /* on a phone the block sits right above its window, so the press and what it does are seen together */
   #product#product article.spot > .txt > .pf-call{ order:-3; margin:16px 0 18px; scroll-margin-top:84px; }
   #product#product .pf-call-go{ min-height:44px; padding:10px 2px; margin-top:2px; } }
+
+/* While a window holds the call, what the frame cuts at its edges (half a word, half a row) goes to haze over the last 22px, so the
+   crop reads as chosen. Only in a hold: the playing demo keeps its clear edges. (API critic, round 3) */
+#product#product .px-win::after{ content:""; position:absolute; inset:0; z-index:4; pointer-events:none; opacity:0; transition:opacity .35s ease;
+  background:linear-gradient(90deg, rgba(231,240,250,.94), rgba(231,240,250,0) 22px, rgba(231,240,250,0) calc(100% - 22px), rgba(231,240,250,.94)),
+             linear-gradient(180deg, rgba(231,240,250,.94), rgba(231,240,250,0) 20px, rgba(231,240,250,0) calc(100% - 20px), rgba(231,240,250,.94)); }
+#product#product .px-fig.is-held .px-win::after{ opacity:1; transition:opacity .5s ease .5s; }
+@media (max-width:860px){
+  #product#product .px-win::after{ background:linear-gradient(90deg, rgba(231,240,250,.94), rgba(231,240,250,0) 11px, rgba(231,240,250,0) calc(100% - 11px), rgba(231,240,250,.94)),
+             linear-gradient(180deg, rgba(231,240,250,.94), rgba(231,240,250,0) 12px, rgba(231,240,250,0) calc(100% - 12px), rgba(231,240,250,.94)); }
+}
+@media (prefers-reduced-motion:reduce){ #product#product .px-win::after{ transition:none !important; } }

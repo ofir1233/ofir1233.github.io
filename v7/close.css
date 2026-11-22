@@ -198,7 +198,7 @@ html body #contact#contact#contact{
 /* Ink, not a UI chip: a rubber stamp's double rule and nearly square corners, letters smaller than the postmark's, turned a little more
    than the card, and the ink a little uneven along its length (the mask), as a hand stamp leaves it. It overlaps nothing, and keeps
    clear of the address line under it. */
-#contact#contact.has-via .cl-via{ position:relative; display:inline-grid; align-self:flex-start; gap:1px; margin:-8px 0 16px 12px; padding:9px 15px 7px; border:1.25px solid currentColor; border-radius:2px; color:#22324a; font:600 8.8px/1.5 var(--body); letter-spacing:.09em; text-transform:uppercase; white-space:nowrap; rotate:-4deg; transform-origin:30% 50%; opacity:0; scale:1.16;
+#contact#contact.has-via .cl-via{ position:relative; display:inline-grid; align-self:flex-start; gap:1px; margin:4px 0 18px 1px; padding:10px 16px 8px; border:1.25px solid currentColor; border-radius:2px; color:#22324a; font:600 10px/1.5 var(--body); letter-spacing:.11em; text-transform:uppercase; white-space:nowrap; rotate:-4deg; transform-origin:30% 50%; opacity:0; scale:1.16;
   -webkit-mask-image:linear-gradient(97deg, #000 0, rgba(0,0,0,.76) 21%, #000 40%, rgba(0,0,0,.7) 62%, #000 79%, rgba(0,0,0,.84) 100%); mask-image:linear-gradient(97deg, #000 0, rgba(0,0,0,.76) 21%, #000 40%, rgba(0,0,0,.7) 62%, #000 79%, rgba(0,0,0,.84) 100%); }
 #contact#contact.has-via .cl-via::before{ content:""; position:absolute; inset:2px; border:.75px solid currentColor; border-radius:1px; pointer-events:none; }
 #contact#contact.has-via .cl-via span + span{ font-weight:500; letter-spacing:.11em; }
@@ -214,3 +214,6 @@ html body #contact#contact#contact{
   #contact#contact.has-via .cl-via{ order:2; align-self:flex-end; margin:24px 0 26px 0; transform-origin:70% 50%; }
 }
 @media (prefers-reduced-motion:reduce){ #contact#contact.has-via .cl-via{ scale:1; } #contact#contact.has-via.via-on .cl-via{ transition:opacity .2s linear; } #contact#contact.has-via.via-on .cl-card{ animation:none; } }
+
+/* a narrow phone: the mark's two lines must fit the card with air at both sides */
+@media (max-width:420px){ #contact#contact.has-via .cl-via{ font-size:9px; letter-spacing:.09em; padding:9px 13px 7px; } }

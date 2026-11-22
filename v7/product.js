@@ -77,16 +77,16 @@
   var THREAD = {
     /* Refunds & Credits is the sixth topic and the map opens on five boxes: the map is asked for ten, and the frame goes to its box,
        with its neighbours in view so its size and colour mean something (undo puts five back). os: the same on a phone, closer. */
-    topics: { k: 0, sel: '#tp-map [data-k="5"]', o: { pad: 120, max: 1.7 }, os: { pad: 26, max: 2.6, gx: 3, gy: 3 },
+    topics: { k: 0, sel: '#tp-map [data-k="5"]', o: { pad: 120, max: 1.7, gx: 1, gy: 1 }, os: { pad: 34, max: 2.6, gx: 1, gy: 1 },
       act: function (w) { var t = w.hearTopics, b = w.document.querySelector('#tp-view button[data-i="1"]'); t.close(); if (b && !b.classList.contains('on')) b.click(); t.hot(5, -1, 'map'); },
       undo: function (w) { var b = w.document.querySelector('#tp-view button[data-i="0"]'); if (b && !b.classList.contains('on')) b.click(); } },
-    compliance: { k: 2, sel: '.sx-side.on li:first-child', o: { pad: 54, max: 2, gx: 10, gy: 0 }, late: true },
+    compliance: { k: 2, sel: '.sx-side.on li:first-child', o: { pad: 54, max: 2, gx: 10, gy: 0 }, os: { pad: 38, max: 2.4, gx: 10, gy: 0 }, late: true },
     /* the task, from its header ("From an alert") down to its facts: priority, who has it, which call. A phone cannot read all of that
        at once: it reads the task first, then (then:) the frame moves down to the facts. */
     actions: { k: 2, sel: function (small) { return small ? '.sx-side.on header, .sx-side.on .a' : '.sx-side.on header, .sx-side.on .a, .sx-side.on dl'; },
       o: { pad: 40, max: 2, gx: 16, gy: 10 }, os: { pad: 20, max: 2, gx: 14, gy: 10 }, late: true,
       then: function (small) { return small ? { at: 2600, sel: '.sx-side.on dl', o: { pad: 22, max: 2, gx: 14, gy: 10 } } : null; } },
-    news: { k: 0, sel: '.nr-col:last-child .nr-item:nth-child(5)', o: { pad: 70, max: 1.9, gx: 14, gy: 0 }, os: { pad: 15, max: 2.2, gx: 10, gy: 0 } }
+    news: { k: 0, sel: '.nr-col:last-child .nr-item:nth-child(5)', o: { pad: 70, max: 1.9, gx: 14, gy: 0 }, os: { pad: 28, max: 2.2, gx: 10, gy: 0 } }
   };
   /* How long each step lasts once the frame has landed on it (the way there is added: see P.off). */
   var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 4400, 7600], agents: [5600, 4400, 4600], actions: [5600, 4200, 7400, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9400], signals: [7600, 6600, 9000] };
@@ -329,7 +329,7 @@
     }
     function show(k, hold) {
       if (P.thr && P.onfree) { try { P.onfree(); } catch (e) {} }
-      P.k = k; P.ms = 0; P.si = 0; P.q = []; P.off = 0; P.thr = null;
+      P.k = k; P.ms = 0; P.si = 0; P.q = []; P.off = 0; P.thr = null; fig.classList.remove('is-held');
       if (P.undo) { try { P.undo(frame.contentWindow); } catch (e) {} P.undo = null; }
       [].forEach.call(beats.children, function (li, i) { li.classList.toggle('on', i === k); li.classList.toggle('done', i < k); li.style.setProperty('--p', 0); if (li.firstChild) li.firstChild.setAttribute('aria-current', i === k ? 'step' : 'false'); });
       if (P.rest) { P.rest = false; button(); } P.re.forEach(clearTimeout); P.re = [];
@@ -400,7 +400,7 @@
       show(th.k, true);
       if (th.act) { try { th.act(frame.contentWindow, P.small); } catch (e) {} }
       P.undo = th.undo || null;
-      P.thr = [0, sel, o];
+      P.thr = [0, sel, o]; fig.classList.add('is-held');   /* while the call is held, the window's edges go to haze (product.css) */
       if (th.late && !reduce) { unlight(); var to = target(true, true); ms = to ? move(to, fin(o), BEAT.panel) : BEAT.panel; }
       else ms = look(reduce ? 0 : null);
       [ms + 300, ms + 1500].forEach(function (t) { P.re.push(setTimeout(function () { if (P.thr) { if (P.r) settle(); else look(reduce ? 0 : null); } }, t)); });
