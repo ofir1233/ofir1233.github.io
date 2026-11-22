@@ -154,3 +154,33 @@ figure:has(> .shot.dark){ max-width:860px; }
   background:linear-gradient(#171b20,#171b20) calc(50% - 3.5px) 50% / 1.5px 14px no-repeat, linear-gradient(#171b20,#171b20) calc(50% + 3.5px) 50% / 1.5px 14px no-repeat, #fff !important;
   box-shadow:0 0 0 1px rgba(23,27,32,.12), 0 10px 24px -8px rgba(23,27,32,.45) !important; }
 .compare input[type="range"]:focus-visible + .handle::after{ outline:2px solid #139FFD !important; outline-offset:3px !important; }
+
+/* THE FIGURE VIEWER (a picture opened large). It was the last dark piece on these pages: a near-black sheet from the old look.
+   It is now the page's own paper: a white sheet on a paper haze, ink text, white round controls with a hairline, modest corners.
+   A video keeps its own black behind it. (22.11.2026 night) */
+dialog.cv{ --paper:#171b20; --coral:#0b6fcf; --on-accent:#fff; border-radius:16px !important; background:#fff !important; color:#171b20 !important;
+  box-shadow:0 0 0 1px rgba(23,27,32,.06), 0 40px 90px -40px rgba(23,27,32,.38) !important; }
+dialog.cv::backdrop{ background:rgba(236,235,231,.9) !important; -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
+dialog.cv .cv-top{ padding:14px 14px 12px 26px; }
+dialog.cv .cv-n{ color:#7a8088 !important; }
+dialog.cv .cv-n b{ color:#171b20 !important; }
+dialog.cv .cv-b{ background:#fff !important; color:#171b20 !important; box-shadow:inset 0 0 0 1px #d5d8db !important; }
+dialog.cv .cv-b:hover{ background:#f4f3f1 !important; color:#171b20 !important; box-shadow:inset 0 0 0 1px #b9bdc2 !important; }
+dialog.cv .cv-b:focus-visible{ outline:2px solid #0b6fcf !important; }
+dialog.cv .cv-stage{ margin:0 18px; border-radius:10px !important; background:#f1f0ed !important; box-shadow:inset 0 0 0 1px rgba(23,27,32,.05); }
+dialog.cv .cv-img{ border-radius:6px !important; box-shadow:0 0 0 1px rgba(23,27,32,.08), 0 26px 60px -34px rgba(23,27,32,.4) !important; }
+dialog.cv .cv-stage.zoom .cv-img{ border-radius:0 !important; box-shadow:none !important; }
+dialog.cv .cv-sc > video{ border-radius:6px !important; }
+dialog.cv .cv-bot{ padding:18px 18px 22px; }
+dialog.cv .cv-t{ color:#171b20 !important; }
+dialog.cv .cv-d{ color:#4b5158 !important; text-wrap:pretty; }
+dialog.cv .cv-h{ color:#7a8088 !important; }
+.cv-ph{ background-color:#e9e8e4 !important; }
+@media (max-width:760px){
+  dialog.cv{ border-radius:0 !important; box-shadow:none !important; }
+  dialog.cv .cv-stage{ margin:0 10px; }
+  dialog.cv .cv-bot{ padding:12px 12px calc(env(safe-area-inset-bottom, 0px) + 16px); }
+}
+
+/* body text and captions never leave one word alone on the last line */
+.chapter p, .chapter li, .ch-head p, .hero p{ text-wrap:pretty; }
