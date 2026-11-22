@@ -154,3 +154,8 @@ html.me-scroll #about .me-photo.me-v7 .hsig::before{ content: none; }
 @keyframes hsig-write{ to{ stroke-dashoffset: 0; } }
 html.me-scroll #about .me-photo.me-v7 .hsig{ right: clamp(26px, 3.2vw, 52px); bottom: calc(clamp(22px, 4vh, 40px) + var(--ch, 90px) + 64px + clamp(30px, 4.6cqh, 44px)); width: clamp(128px, 14cqw, 176px); opacity: clamp(0, calc((var(--g, 0) - .8) * 4.7), .94); }
 @media (prefers-reduced-motion: reduce) { #about .hsig mask path{ stroke-dashoffset: 0 !important; animation: none !important; } }
+/* The picture is painted in front of the visitor (v7/hero-paint.js). While the pencil is being prepared the frame is bare paper,
+   so the finished picture is never seen first; then one canvas of pencil lies over the picture and thins out role by role. */
+html.hp-wait #about .me-photo.me-v7 .me-v7-in img{ visibility: hidden; }
+html.hp-wait #about .me-photo.me-v7{ background: #eeede9 !important; }
+#about .me-photo.me-v7 .me-v7-in .hp-cv{ position: absolute; inset: 0; z-index: 3; display: block; width: 100%; height: 100%; pointer-events: none; transition: opacity .26s ease; }

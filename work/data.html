@@ -39,7 +39,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=12">
-<link rel="stylesheet" href="../v7/case.css?v=11">
+<link rel="stylesheet" href="../v7/case.css?v=12">
 <style>
 /* data: toolbar anatomy (pins; on phones the two ends of the strip stack), plan-vs-build table, 3-column steps */
 .data-anat .live { top: 4px; bottom: auto; }
@@ -47,11 +47,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .data-crop.b { display: none; }
 .data-pin { position: absolute; transform: translate(-50%, -50%); width: 22px; height: 22px; border-radius: 50%; background: var(--coral); color: var(--on-accent); font: 700 13.5px/22px var(--body); text-align: center; box-shadow: 0 0 0 3px #fff, 0 4px 12px rgba(20,32,27,.3); pointer-events: none; }
 @media (max-width: 900px) {
-  .data-crop { overflow: hidden; }
   .data-pin { width: 20px; height: 20px; font-size: 13.5px; line-height: 20px; box-shadow: 0 0 0 2px #fff; }
-  .data-crop.a .data-img { width: 266.667%; }
-  .data-crop.b { display: block; border-top: 6px solid #0f0f11; }
-  .data-crop.b .data-img { width: 307.692%; margin-left: -207.692%; aspect-ratio: 1600 / 149; background: url("../img/cs-data-toolbar.webp") 0 0 / 100% auto no-repeat; }
+  .data-bar { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
+  .data-bar .data-img { width: 940px; }
+  .data-bar .live { display: none; }
 }
 .data-key { list-style: none; counter-reset: k; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 28px; margin-top: 24px; }
 .data-key li { counter-increment: k; display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.5; color: var(--text); }
@@ -97,7 +96,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <header class="cs-hero wrap">
     <div class="label">Case study · <b>Data &amp; Signals</b></div>
     <h1>A dense call table that stays easy to slice</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>In Hear, an AI platform for contact centers, one table must show which calls need review, which are high priority and what happened on each.</dd></div><div><dt>What I designed</dt><dd>I designed V1 to V3 of the Data table and its AI filter. I also designed Signals, the page for AI or rule-based classifiers that run on calls.</dd></div><div><dt>Where it stands</dt><dd>V2 and V3 Facelift both still run in Hear Design Lab, a working replica of Hear. V1 is retired.</dd></div></dl>
+    <dl class="brief"><div><dt>The challenge</dt><dd>In Hear, an AI platform for contact centers, one table must show which calls need review, which are high priority and what happened on each.</dd></div><div><dt>What I designed</dt><dd>I designed V1 to V3 of the Data table and its AI filter. I also designed Signals, the page for AI or rule-based classifiers that run on calls.</dd></div><div><dt>Where it stands</dt><dd>V2 and V3 both still run in Hear Design Lab, a working replica of Hear. V1 is retired.</dd></div></dl>
     <dl class="meta">
       <div><dt>Role</dt><dd>Design and build in the Lab, with Claude&nbsp;Code</dd></div>
       <div><dt>When</dt><dd>Mar–Oct 2026</dd></div>
@@ -117,37 +116,30 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       </div>
 
       <figure class="rv data-anat">
-        <div class="shot dark win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span>
-          <div class="data-crop a"><div class="data-img">
-            <img src="../img/cs-data-toolbar.webp" alt="The Data toolbar in the V3 Facelift design, dark theme: breadcrumb, tabs, then the date range, Filter and Columns" width="1600" height="149" loading="lazy">
-            <span class="data-pin" style="left:24.5%;top:18%" aria-hidden="true">1</span>
-            <span class="data-pin" style="left:35.3%;top:55%" aria-hidden="true">2</span>
-            <span class="data-pin" style="left:8%;top:82%" aria-hidden="true">3</span>
-            <span class="data-pin" style="left:17.1%;top:82%" aria-hidden="true">4</span>
-            <span class="data-pin" style="left:89.4%;top:82%" aria-hidden="true">5</span>
-            <span class="data-pin" style="left:69.06%;top:18%" aria-hidden="true">6</span>
-            <span class="data-pin" style="left:93.7%;top:47%" aria-hidden="true">7</span>
-          </div></div>
-          <div class="data-crop b" aria-hidden="true"><div class="data-img">
-            <span class="data-pin" style="left:89.4%;top:82%">5</span>
-            <span class="data-pin" style="left:69.06%;top:18%">6</span>
-            <span class="data-pin" style="left:93.7%;top:47%">7</span>
-          </div></div>
+        <div class="shot v7s data-bar">
+          <div class="data-img">
+            <img src="../img/v7s-data-toolbar.webp" alt="The Data toolbar: breadcrumb and search on the first row, six tabs on the second, a filter box for plain words, then the date range, Filter and Columns" width="2543" height="366" loading="lazy">
+            <span class="data-pin" style="left:24.0%;top:19%" aria-hidden="true">1</span>
+            <span class="data-pin" style="left:52.3%;top:41%" aria-hidden="true">2</span>
+            <span class="data-pin" style="left:20.5%;top:89%" aria-hidden="true">3</span>
+            <span class="data-pin" style="left:90.7%;top:65%" aria-hidden="true">4</span>
+            <span class="data-pin" style="left:87.7%;top:89%" aria-hidden="true">5</span>
+            <span class="data-pin" style="left:69.2%;top:19%" aria-hidden="true">6</span>
+          </div>
         </div>
-        <figcaption><b>The Data toolbar.</b> Numbers match the list below.</figcaption>
+        <figcaption><b>The Data toolbar.</b> Numbers match the list below. Design Lab, demo data.</figcaption>
       </figure>
       <ol class="data-key rv">
         <li><span><b>Where you are.</b> The breadcrumb, how many calls are in view and how many are still processing.</span></li>
         <li><span><b>Tabs.</b> All calls, Needs review, High priority, Alerts, Done and Agent evaluation slice the same table.</span></li>
         <li><span><b>Date range first.</b> It sits ahead of every other filter.</span></li>
-        <li><span><b>Filter.</b> A plain-language box on top, then a searchable list of fields in groups, starting with Call and Alerts.</span></li>
+        <li><span><b>Filter in plain words.</b> One box across the table. A single condition is added with Filter, beside the date range.</span></li>
         <li><span><b>Columns.</b> One button, with a count, at the far end of the row.</span></li>
         <li><span><b>Search and Upload.</b> Top right, apart from the controls that slice the table.</span></li>
-        <li><span><b>Version switch.</b> V2 and V3 Facelift, two designs of this page.</span></li>
       </ol>
 
       <div class="two solo data-gap">
-        <figure class="rv"><div class="shot dark"><img src="../img/cs-data-calls-table-nw.webp" data-zoom alt="Data in the V3 Facelift design, dark theme: the toolbar above the call table, with a small warning sign on some rows" width="1600" height="1039" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Data, V3 Facelift design, dark.</b> Each row leads with the call's topic and a one-line summary. Click to enlarge.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-data-table.webp" data-zoom alt="The Data page: the toolbar above the call table. Each row has the call’s topic, a one-line summary, its date, status, priority, owner, sentiment and score." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The call table.</b> Each row leads with the call's topic and a one-line summary. Click to enlarge.</figcaption></figure>
         <div class="prose xtra">
           <h3 style="margin-top:0">Flagged calls</h3>
           <p>A small warning sign marks a call where an alert fired. Open the call and the side panel names the alert and whether it was marked a false positive.</p>
@@ -171,7 +163,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div class="two data-gap xtra">
         <div class="prose">
           <h3 style="margin-top:0">Why keep more than one</h3>
-          <p>The Lab's version switch lets one screen hold several designs on the same data. Today Data carries a V2 / V3 Facelift switch, and Signals a V1 / V2 one.</p>
+          <p>The Lab's version switch lets one screen hold several designs on the same data. Today Data carries a V2 / V3 switch, and Signals a V1 / V2 one.</p>
         </div>
       </div>
     </div>

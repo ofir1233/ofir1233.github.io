@@ -17,12 +17,12 @@ addEventListener('hashchange',function(){setTimeout(strip,0);});
 addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
 }catch(e){}})();</script>
 <title>Brand &amp; website · Ofir Nona</title>
-<meta name="description" content="I designed Hear's brand from zero and took it to a new marketing site in preview, a trade-show booth and a set of print, signage and merch mockups.">
+<meta name="description" content="I designed Hear's brand from zero: a mark, a palette, one typeface and a painted city, taken to a marketing site, a LinkedIn campaign, signage and merch.">
 <meta name="theme-color" content="#f4f3f1">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/brand-web.html">
 <meta property="og:title" content="Brand &amp; website · Ofir Nona">
-<meta property="og:description" content="I designed Hear's brand from zero and took it to a new marketing site in preview, a trade-show booth and a set of print, signage and merch mockups.">
+<meta property="og:description" content="I designed Hear's brand from zero: a mark, a palette, one typeface and a painted city, taken to a marketing site, a LinkedIn campaign, signage and merch.">
 <meta property="og:image" content="https://ofir1233.github.io/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -34,7 +34,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/case.css?v=11">
+<link rel="stylesheet" href="../v7/case.css?v=12">
 <link rel="stylesheet" href="../v7/campaign.css?v=3">
 <style>
 /* brand-web: page-only pieces */
@@ -91,6 +91,52 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .brand-web-rules div { grid-template-columns: 1fr; gap: 4px; }
   .brand-web-phases { gap: 28px 12px; }
 }
+/* v7 brand pieces (22.11): everything on this page is the current brand */
+.bw-logos { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+.bw-logos figure { display: grid; grid-template-rows: 1fr auto; min-width: 0; }
+.bw-logo { display: grid; place-items: center; min-height: clamp(180px, 22vw, 300px); border-radius: 18px; background: #fff; box-shadow: 0 1px 2px rgba(23,40,70,.05), 0 18px 36px -28px rgba(23,40,70,.4); }
+.bw-logo img { width: min(52%, 300px); height: auto; }
+.bw-logos .shot.v7s { height: 100%; }
+.bw-logos .shot.v7s > img { height: 100%; object-fit: cover; }
+.bw-pal { display: grid; grid-template-columns: 2fr 2fr 2fr 3fr; gap: clamp(14px, 2.2vw, 32px); padding: clamp(18px, 2.4vw, 30px); border-radius: 22px; background: #fff; box-shadow: 0 1px 2px rgba(23,40,70,.05), 0 18px 36px -28px rgba(23,40,70,.4); }
+.bw-g > span { display: block; margin-bottom: 12px; font: 500 13.5px/1 var(--body); color: #5b6570; }
+.bw-g > div { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 8px; }
+.bw-c i { display: block; aspect-ratio: 1 / 1.08; border-radius: 10px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(23,27,32,.08); }
+.bw-c b { display: block; margin-top: 10px; font: 600 13.5px/1.2 var(--body); color: #171b20; }
+.bw-c code { font: 400 12px/1.5 "Geist Mono", ui-monospace, monospace; color: #5b6570; }
+.bw-type { display: grid; gap: clamp(16px, 2.2vw, 28px); padding: clamp(22px, 3.2vw, 44px); border-radius: 22px; background: #fff; box-shadow: 0 1px 2px rgba(23,40,70,.05), 0 18px 36px -28px rgba(23,40,70,.4); }
+.bw-type p { margin: 0; max-width: none; color: #171b20; letter-spacing: -.02em; line-height: 1.08; font-family: var(--display); }
+.bw-type small { display: block; margin-top: 8px; font: 400 13px/1.3 var(--body); letter-spacing: 0; color: #5b6570; }
+.bw-type .w7 { font-weight: 700; font-size: clamp(28px, 4.6vw, 58px); }
+.bw-type .w6 { font-weight: 600; font-size: clamp(23px, 3.4vw, 42px); }
+.bw-type .w5 { font-weight: 500; font-size: clamp(20px, 2.6vw, 32px); }
+.bw-type .w4 { font-weight: 400; font-size: clamp(18px, 2.1vw, 25px); }
+.bw-three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.bw-rules { margin: clamp(18px, 2.4vw, 28px) 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 40px); }
+.bw-rules li { padding: 13px 0; border-top: 1px solid rgba(23,27,32,.1); font: 400 15px/1.5 var(--body); color: #3a424c; }
+.bw-rules b { color: #171b20; font-weight: 600; }
+.bw-pair { display: grid; gap: 16px; align-items: start; }
+.bw-pair figure { min-width: 0; }
+.bw-go { margin-top: clamp(18px, 2.4vw, 28px); }
+.bw-tag { position: absolute; left: 10px; top: 10px; z-index: 2; padding: 5px 10px 6px; border-radius: 99px; background: #fff; font: 600 12.5px/1 var(--body); color: #171b20; box-shadow: 0 1px 2px rgba(23,40,70,.12), 0 6px 14px -8px rgba(23,40,70,.4); }
+.bw-tag::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: #FF6F52; vertical-align: 1px; }
+.bw-tag.ok::before { background: #4BA373; }
+.bw-rej { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.bw-rej .shot { position: relative; }
+.bw-rej.two-up { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; }
+.bw-test { margin: clamp(28px, 4vw, 48px) 0 0; padding: clamp(20px, 2.6vw, 30px) clamp(22px, 3vw, 36px); border-radius: 18px; background: #fff; box-shadow: 0 1px 2px rgba(23,40,70,.05), 0 18px 36px -28px rgba(23,40,70,.4); }
+.bw-test p { margin: 0; max-width: 62ch; }
+.bw-test .q { font: 600 clamp(20px, 2.4vw, 28px)/1.2 var(--display); letter-spacing: -.015em; color: #171b20; }
+.bw-test .a { margin-top: 8px; font-size: 15.5px; color: #3a424c; }
+@media (max-width: 860px) {
+  .bw-logos { grid-template-columns: 1fr; }
+  .bw-pal { grid-template-columns: 1fr 1fr; row-gap: 22px; }
+  .bw-g:last-child { grid-column: 1 / -1; }
+  .bw-three, .bw-rej { grid-template-columns: 1fr; }
+  .bw-rej.two-up { grid-template-columns: 1fr 1fr; }
+  .bw-rules { grid-template-columns: 1fr; }
+  .bw-pair { grid-template-columns: 1fr !important; }
+}
 </style>
 </head>
 <body>
@@ -108,16 +154,16 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <header class="cs-hero wrap">
     <div class="label">Case study · <b>Brand &amp; website</b></div>
     <h1>I designed Hear's brand from zero</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>Hear, an AI platform for contact centers, needed one brand for the product, the website, print and trade shows.</dd></div><div><dt>What I designed</dt><dd>The brand's color, typography, imagery and graphics, then a new marketing site in two directions.</dd></div><div><dt>Where it stands</dt><dd>A trade-show booth was built from my design. Print, signage and merch are mockups, and both site directions are previews.</dd></div></dl>
+    <dl class="brief"><div><dt>The challenge</dt><dd>Hear, an AI platform for contact centers, needed one brand for the product, the website, social and print.</dd></div><div><dt>What I designed</dt><dd>The mark, the color, the type and one painted city, then the marketing site, a LinkedIn campaign, signage and merch.</dd></div><div><dt>Where it stands</dt><dd>The site runs on staging. The campaign, the station sign and the tote are mockups. A trade-show booth was built from my earlier design.</dd></div></dl>
     <dl class="meta">
       <div><dt>Role</dt><dd>Brand design · site design &amp; build</dd></div>
-      <div><dt>When</dt><dd>Since 2023 · site in preview</dd></div>
-      <div><dt>Scope</dt><dd>Identity, website, print, signage, merch, trade-show booth</dd></div>
-      <div><dt>Shown with</dt><dd>Brand work · site previews · Figma plan</dd></div>
+      <div><dt>When</dt><dd>Since 2023 · site on staging</dd></div>
+      <div><dt>Scope</dt><dd>Identity, website, campaign, signage, merch, trade-show booth</dd></div>
+      <div><dt>Shown with</dt><dd>Brand work · the staging site · working sketches</dd></div>
     </dl>
-    <nav class="toc" aria-label="On this page"><a class="pill" href="#social"><span>01</span> The campaign</a><a class="pill" href="#brand"><span>02</span> The brand</a><a class="pill" href="#site"><span>03</span> The site</a><a class="pill" href="#offscreen"><span>04</span> Off the screen</a><a class="pill" href="#plan"><span>05</span> The plan</a></nav>
-    <figure class="hero-fig rv"><div class="shot win dark" style="background:#000"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Site preview · Direction A</span><video width="1280" height="800" data-src="../img/site-scroll-a-c.mp4" data-poster="../img/site-scroll-poster.webp" muted loop playsinline preload="none" aria-label="Scrolling the Direction A preview of the Hear homepage from the hero past the thesis, the dotted globe and customer stories to the integrations wall"></video></div>
-      <figcaption><b>Direction A, top to bottom.</b> The full scroll of the new site's homepage. <a class="brand-web-ext" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener" aria-label="Direction A preview, opens in a new tab">preview ↗︎</a></figcaption></figure>
+    <nav class="toc" aria-label="On this page"><a class="pill" href="#social"><span>01</span> The campaign</a><a class="pill" href="#brand"><span>02</span> The brand</a><a class="pill" href="#site"><span>03</span> The site</a><a class="pill" href="#offscreen"><span>04</span> Off the screen</a><a class="pill" href="#process"><span>05</span> The process</a></nav>
+    <figure class="hero-fig rv"><div class="shot v7s"><span class="live">Staging site</span><img src="../img/v7b-site-hero.webp" data-zoom alt="The Hear homepage: the line Run your contact center on what customers actually say, two buttons, and a painting of a contact center with a wall of windows onto a city" width="2160" height="1350" decoding="async"></div>
+      <figcaption><b>The homepage.</b> One line, two buttons and a painting of the contact center. <a class="brand-web-ext" href="https://hear-public-staging-v7.vercel.app/" target="_blank" rel="noopener" aria-label="The staging site, opens in a new tab">Open the site ↗︎</a></figcaption></figure>
   </header>
 
   <!-- 01 · the campaign (22.11.2026) -->
@@ -147,135 +193,161 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </section>
 
-  <!-- 01 · ink -->
+  <!-- 02 -->
   <section class="chapter" id="brand">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">02 · <b>The brand</b></div><h2>Color, type, imagery, graphics</h2></div>
-        <div class="prose"><p class="lead">These four boards set the brand's rules, with a palette grounded in neutrals and a rounded, slightly retro typeface.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
+        <div><div class="label">02 · <b>The brand</b></div><h2>A mark, nine colors, one typeface and a painted city</h2></div>
+        <div class="prose"><p class="lead">Every color has one job, one typeface sets every line, and every picture comes from the same city.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The same values run through the product and the site. In the paintings the colors are oil paint, not fixed values, but they are the same family: a blue sky, coral, lilac and green.</p></div></details></div>
       </div>
-      <figure class="rv"><div class="shot"><img src="../img/br-palette-c.webp" srcset="../img/br-palette-c.webp 1325w, ../img/br-palette-c-l.webp 1440w" sizes="(max-width: 1180px) 100vw, 1100px" data-full="../img/br-palette-c-l.webp" data-zoom alt="Hear color board: Charcoal, Deep Teal, Horizon and Sage, then Cobalt, Pulse, Horizon and Growth, then Light Grey and Pearl" width="1325" height="460" loading="lazy" decoding="async"></div>
-        <figcaption><b>Color system.</b> The palette falls into three groups: Professional Core, Signal &amp; Growth and Human Touch.</figcaption></figure>
-      <div class="grid2 brand-web-gap">
-        <figure class="rv"><div class="shot"><img src="../img/br-type.webp" srcset="../img/br-type.webp 818w, ../img/br-type-l.webp 1440w" sizes="(max-width: 860px) 100vw, 550px" data-full="../img/br-type-l.webp" data-zoom alt="Typography board: a rounded sans serif in seven weights with italics, with the line From conversations to clarity" width="818" height="460" loading="lazy" decoding="async"></div>
-          <figcaption><b>Typography.</b> The type board, set with the line “From conversations to clarity.”</figcaption></figure>
-        <figure class="rv"><div class="shot"><img src="../img/br-cards.webp" srcset="../img/br-cards.webp 818w, ../img/br-cards-l.webp 1440w" sizes="(max-width: 860px) 100vw, 550px" data-full="../img/br-cards-l.webp" data-zoom alt="Imagery board: three cards with line art, a stock photo on a color gradient, and Grow with impact over a blue and orange glow" width="818" height="460" loading="lazy" decoding="async"></div>
-          <figcaption><b>Imagery.</b> Line art, glow and photography on color gradients.</figcaption></figure>
+
+      <div class="bw-logos">
+        <figure class="rv"><div class="bw-logo"><img src="../hear-v7/hear-logo.svg" alt="The Hear logo: the mark and the name, dark on a light ground" width="126" height="34" loading="lazy" decoding="async"></div>
+          <figcaption><b>The logo.</b> The mark and the name together, dark on paper.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-ok-cloud.webp" data-zoom alt="The Hear mark painted as a white cloud on a deep blue sky" width="900" height="900" loading="lazy" decoding="async"></div>
+          <figcaption><b>The mark as a cloud.</b> For the profile picture.</figcaption></figure>
       </div>
-      <div class="two solo brand-web-gap" style="margin-top:clamp(28px,4vw,48px)">
-        <figure class="rv"><div class="shot"><img src="../img/br-bento.webp" srcset="../img/br-bento.webp 818w, ../img/br-bento-l.webp 1440w" sizes="(max-width: 860px) 100vw, 1100px" data-full="../img/br-bento-l.webp" data-zoom alt="Brand graphics: Guide with vision, grow with impact, line-art shapes, and two product data cards for Satisfaction and Incoming calls" width="818" height="460" loading="lazy" decoding="async"></div>
-          <figcaption><b>Brand graphics.</b> Line art and sample data cards in the brand colors.</figcaption></figure>
-        <div class="rv xtra">
-          <dl class="brand-web-rules">
-            <div><dt>Color</dt><dd>“Grounding neutrals (Charcoal, Light Grey, Pearl), supportive mid-tones (Deep Teal, Horizon Dust, Balance Sage), and pops of vibrancy (Pulse Coral, Signal Green, Aura Lilac, Cobalt Blue).”</dd></div>
-            <div><dt>Type</dt><dd>“A rounded sans serif typeface in seven weights with corresponding italics.” It is “chunky, happy and a bit retro,” especially the heavier weights.</dd></div>
-          </dl>
-          <p class="why">Pulse Coral and Charcoal carry over as color ramps in Hear Design Lab's Storybook. The design system has <a href="design-system.html">its own case study</a>.</p>
+
+      <h3 class="brand-web-sub">Color</h3>
+      <figure class="rv"><div class="bw-pal" role="img" aria-label="The nine colors in four roles. Ground: Paper and Sky. Structure: Glass Gray and Ink. Voice: Hear Blue and Deep Blue. Meaning: Coral, Green and Lilac."><div class="bw-g"><span>Ground</span><div><div class="bw-c" style="--c:#F4F3F1"><i></i><b>Paper</b><code>#F4F3F1</code></div><div class="bw-c" style="--c:#CFE4F6"><i></i><b>Sky</b><code>#CFE4F6</code></div></div></div><div class="bw-g"><span>Structure</span><div><div class="bw-c" style="--c:#CBD3DA"><i></i><b>Glass Gray</b><code>#CBD3DA</code></div><div class="bw-c" style="--c:#181818"><i></i><b>Ink</b><code>#181818</code></div></div></div><div class="bw-g"><span>Voice</span><div><div class="bw-c" style="--c:#139FFD"><i></i><b>Hear Blue</b><code>#139FFD</code></div><div class="bw-c" style="--c:#0B6FCF"><i></i><b>Deep Blue</b><code>#0B6FCF</code></div></div></div><div class="bw-g"><span>Meaning</span><div><div class="bw-c" style="--c:#FF6F52"><i></i><b>Coral</b><code>#FF6F52</code></div><div class="bw-c" style="--c:#4BA373"><i></i><b>Green</b><code>#4BA373</code></div><div class="bw-c" style="--c:#D59BE0"><i></i><b>Lilac</b><code>#D59BE0</code></div></div></div></div>
+        <figcaption><b>Nine colors, four roles.</b> Shared by the pictures and the screens.</figcaption></figure>
+      <ul class="bw-rules rv xtra">
+        <li><b>One accent per screen.</b> A page is not improved by more colors and tags.</li>
+        <li><b>Coral is a signature.</b> It is used sparingly, never as a background.</li>
+        <li><b>A painted sky first.</b> It is preferred over a flat fill of brand color.</li>
+      </ul>
+
+      <h3 class="brand-web-sub">Type</h3>
+      <figure class="rv"><div class="bw-type">
+          <p class="w7">What your customers actually said.<small>Byrd Bold 700 · headlines inside paintings and ads</small></p>
+          <p class="w6">We hear every call. Even here.<small>Byrd SemiBold 600 · subheads and emphasis</small></p>
+          <p class="w5">Every conversation. Not a sample.<small>Byrd Medium 500 · small headings and buttons</small></p>
+          <p class="w4">Run your contact center on what customers actually say.<small>Byrd Regular 400 · the site's large headlines and running text</small></p>
         </div>
+        <figcaption><b>Byrd, everywhere.</b> On the site, in the product, in the ads and in the writing inside the paintings.</figcaption></figure>
+      <ul class="bw-rules rv xtra">
+        <li><b>Sentence case.</b> A capital only starts a sentence. No headline is set in capitals.</li>
+        <li><b>Our typeface inside the picture.</b> The object never picks the font, and the writing is large.</li>
+        <li><b>Tight headlines.</b> Running text keeps normal spacing.</li>
+      </ul>
+
+      <h3 class="brand-web-sub">The painted city</h3>
+      <div class="bw-three">
+        <figure class="rv"><div class="shot v7s"><img src="../img/cw-parade.webp" data-zoom alt="Painting of a city parade under giant coral balloon letters" width="1200" height="628" loading="lazy" decoding="async"></div><figcaption><b>The city celebrates.</b> The parade.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><img src="../img/cw-rome.webp" data-zoom alt="Painting of a street in Rome with a telephone handset resting on the Colosseum" width="1200" height="628" loading="lazy" decoding="async"></div><figcaption><b>Another city, the same hand.</b> Rome.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><img src="../img/cw-paper.webp" data-zoom alt="Painting of two hands holding a Hear newspaper at a café" width="1200" height="628" loading="lazy" decoding="async"></div><figcaption><b>Through the eyes of someone in the scene.</b> The morning paper.</figcaption></figure>
       </div>
+      <ul class="bw-rules rv xtra">
+        <li><b>Thick oil paint, with a knife.</b> Sharp patches with clear edges. Nothing smooth, sprayed or photographed.</li>
+        <li><b>Bright daylight.</b> Saturated color, glass towers, a blue sky with heavy clouds, flowers and people.</li>
+        <li><b>Grown-up realism.</b> Not a caricature and not a children's illustration.</li>
+        <li><b>The world is full, edge to edge.</b> Only the area around the message stays open.</li>
+        <li><b>A person's point of view.</b> A spectator in the crowd, a customer at a table. People are small or seen from behind.</li>
+        <li><b>The world writes the message.</b> A receipt, a plane's trail, balloon letters, a headline. Never a layer on top.</li>
+      </ul>
+      <p class="why xtra">The same nine colors run through Hear Design Lab. The design system has <a href="design-system.html">its own case study</a>.</p>
     </div>
   </section>
-
-  <!-- 02 · sheet -->
+  <!-- 03 · sheet -->
   <section class="chapter sheet" id="site">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">03 · <b>The site</b></div><h2>The same story in two directions</h2></div>
-        <div class="prose"><p class="lead">I designed and built both directions of the new marketing site, and each one is a preview.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The site animates the brand as you scroll, and its story runs from the problem to the platform.</p></div></details></div>
-      </div>
-      <div class="brand-web-dirs">
-        <article class="brand-web-dir a rv">
-          <div class="label">Direction A</div>
-          <h3>Dark, cinematic</h3>
-          <p>The hero, a scroll-revealed thesis, the globe, product sections and the integrations wall.</p>
-          <a class="pill" href="https://hear-public-staging.vercel.app/" target="_blank" rel="noopener" aria-label="Direction A preview, opens in a new tab">preview ↗︎</a>
-        </article>
-        <article class="brand-web-dir b rv">
-          <div class="label">Direction B</div>
-          <h3>Cream and ink</h3>
-          <p>A card for every role, AI agents held to one standard, customer stories, security built in and a dial that walks from learning to acting.</p>
-          <a class="pill" href="https://hear-public-staging-v2.vercel.app/" target="_blank" rel="noopener" aria-label="Direction B preview, opens in a new tab">preview ↗︎</a>
-        </article>
+        <div><div class="label">03 · <b>The site</b></div><h2>The same city, built as a site</h2></div>
+        <div class="prose"><p class="lead">I designed and built the marketing site, and it runs on staging.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The page opens on the painted contact center. Below it the product appears in glass panels that sit on the same sky, and the story runs from the people who use Hear to what it checks.</p></div></details></div>
       </div>
       <div class="grid2">
-        <figure class="rv"><div class="shot dark"><span class="live">Site preview</span><img src="../img/cs-brand-web-site-hero.webp" data-zoom alt="Direction A hero: Run your contact center on decisions, not dashboards, with a Play demo button above line-art arcs that meet in a coral dot" width="1600" height="1000" loading="lazy" decoding="async"></div>
-          <figcaption><b>The hero, Direction A.</b> “Run your contact center on decisions, not dashboards,” over line-art arcs that meet in one coral point.</figcaption></figure>
-        <figure class="rv"><div class="shot dark"><span class="live">Site preview</span><img src="../img/cs-brand-web-site-globe.webp" data-zoom alt="Direction A globe section: a dotted globe with a Churn risk marker and the headline Nothing goes unheard" width="1600" height="1000" loading="lazy" decoding="async"></div>
-          <figcaption><b>The globe, Direction A.</b> A dotted globe with a “Churn risk” marker, under the line “Nothing goes unheard.”</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><span class="live">Staging site</span><img src="../img/v7b-site-roles.webp" data-zoom alt="The By role section: This is where Hear moves the numbers, above four tall portrait cards. Three are in gray and the open one, Sales and Marketing, is in color" width="2160" height="1350" loading="lazy" decoding="async"></div><figcaption><b>Built for every role.</b> Four teams as four portraits, and the open one takes color.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><span class="live">Staging site</span><img src="../img/v7b-site-insight.webp" data-zoom alt="The Beyond the insight section: We don’t stop at the insight, three numbered steps, and a glass panel with a call waveform over a painted city park" width="2160" height="1350" loading="lazy" decoding="async"></div><figcaption><b>Beyond the insight.</b> Three steps beside a glass panel on the painted sky.</figcaption></figure>
       </div>
+      <div class="grid2 brand-web-gap">
+        <figure class="rv"><div class="shot v7s"><span class="live">Staging site</span><img src="../img/v7b-site-agents.webp" data-zoom alt="The AI agents section: You’re not just managing people anymore, above a table that compares what gets checked without Hear and with Hear" width="2160" height="1350" loading="lazy" decoding="async"></div><figcaption><b>AI agents.</b> One table for what gets checked, without Hear and with it.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><span class="live">Staging site</span><img src="../img/v7b-site-trust.webp" data-zoom alt="Two columns, Plugs in. Levels up. and Built in, not bolted on., each above a glass panel on a painted sky: the platforms conversations come from, and four security certifications" width="2160" height="1350" loading="lazy" decoding="async"></div><figcaption><b>Integrations and security.</b> Two glass panels over the same sky.</figcaption></figure>
+      </div>
+      <p class="bw-go"><a class="pill" href="https://hear-public-staging-v7.vercel.app/" target="_blank" rel="noopener" aria-label="The staging site, opens in a new tab">Open the site ↗︎</a></p>
     </div>
   </section>
-
-  <!-- 03 · ink -->
+  <!-- 04 · ink -->
   <section class="chapter ink" id="offscreen">
     <div class="wrap">
       <div class="ch-head center">
-        <div><div class="label">04 · <b>Off the screen</b></div><h2>The brand beyond the product</h2></div>
-        <div class="prose"><p class="lead">I carried the brand onto a trade-show booth, from the production spec to the stand on the floor, and into print, signage and merch mockups.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
+        <div><div class="label">04 · <b>Off the screen</b></div><h2>The brand beyond the screen</h2></div>
+        <div class="prose"><p class="lead">A station sign and a tote carry the brand off the screen, as mockups. Before them, a trade-show booth was built from my design.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Both pieces come from one campaign, about the customers who were heard.</p></div></details></div>
       </div>
-      <h3 class="brand-web-sub">Trade-show booth</h3>
-      <ol class="steps rv xtra" style="margin-bottom:clamp(20px,3vw,32px)">
-        <li><strong>Render</strong><span>The booth design, shown in an exhibition hall.</span></li>
-        <li><strong>Production spec</strong><span>Each printed panel called out by letter and number.</span></li>
-        <li><strong>As built</strong><span>The stand on the show floor.</span></li>
-      </ol>
-      <figure class="rv"><div class="shot"><img src="../img/br-booth-render.webp" srcset="../img/br-booth-render.webp 844w, ../img/br-booth-render-l.webp 1024w" sizes="(max-width: 1180px) 100vw, 1100px" data-full="../img/br-booth-render-l.webp" data-zoom alt="Render of a black Hear booth with coral line graphics, screens and lounge seating, placed in an exhibition hall" width="844" height="460" loading="lazy" decoding="async"></div>
-        <figcaption><b>Render.</b> A Hear booth in black with coral line graphics, set in an exhibition hall.</figcaption></figure>
-      <div class="brand-web-row brand-web-gap">
+
+      <h3 class="brand-web-sub">Station sign</h3>
+      <div class="bw-pair" style="grid-template-columns:minmax(0,2.399fr) minmax(0,1.791fr)">
+        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-ad-station.webp" data-zoom alt="The station ad: a wall of small gray painted portraits with one in color, and the line One of them told you what to build next" width="1600" height="667" loading="lazy" decoding="async"></div><figcaption><b>The ad.</b> “One of them told you what to build next.” One portrait in color among the gray ones.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-station.webp" data-zoom alt="Mockup of the ad on a station wall, with a passer-by in front of it" width="1800" height="1005" loading="lazy" decoding="async"></div><figcaption><b>In the station.</b> Mockup.</figcaption></figure>
+      </div>
+
+      <h3 class="brand-web-sub">Tote bag</h3>
+      <div class="bw-pair" style="grid-template-columns:minmax(0,1fr) minmax(0,.805fr);max-width:820px">
+        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-ad-tote.webp" data-zoom alt="The tote print: a speech bubble filled with painted sky, with the words Said out loud, above the Hear logo" width="900" height="900" loading="lazy" decoding="async"></div><figcaption><b>The print.</b> “Said out loud.” in a speech bubble of sky.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-tote.webp" data-zoom alt="Mockup of the tote bag on a person’s shoulder in the street" width="1100" height="1366" loading="lazy" decoding="async"></div><figcaption><b>On the street.</b> Mockup.</figcaption></figure>
+      </div>
+
+      <h3 class="brand-web-sub">Trade-show booth · the earlier identity</h3>
+      <div class="brand-web-row">
         <figure class="r-spec rv"><div class="shot" style="background:#fff"><img src="../img/br-booth-spec.webp" srcset="../img/br-booth-spec.webp 577w, ../img/br-booth-spec-l.webp 1440w" sizes="(max-width: 760px) 100vw, 620px" data-full="../img/br-booth-spec-l.webp" data-zoom alt="Booth production spec with panel callouts F1 and F2 on the header boards, W1 and W2 on the walls, and C1 to C3 on the counter" width="577" height="460" loading="lazy" decoding="async"></div>
           <figcaption><b>Production spec.</b> Each printed panel has its own letter-and-number callout.</figcaption></figure>
         <figure class="r-live rv"><div class="shot"><img src="../img/br-booth-live-nb.webp" srcset="../img/br-booth-live-nb.webp 438w, ../img/br-booth-live-nb-l.webp 800w" sizes="(max-width: 760px) 100vw, 470px" data-full="../img/br-booth-live-nb-l.webp" data-zoom alt="The booth as built at the show, from my design, with the Hear header board and a coral wall panel" width="438" height="460" loading="lazy" decoding="async"></div>
-          <figcaption><b>As built.</b> The stand at the show, from my design.</figcaption></figure>
-      </div>
-
-      <h3 class="brand-web-sub">Print, signage and merch mockups</h3>
-      <div class="brand-web-mosaic">
-        <figure class="w2 rv"><div class="shot"><img src="../img/br-billboard.webp" srcset="../img/br-billboard.webp 818w, ../img/br-billboard-l.webp 1440w" sizes="(max-width: 760px) 100vw, 740px" data-full="../img/br-billboard-l.webp" data-zoom alt="Billboard mockup: Hear, Just growth delivered" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Billboard mockup</figcaption></figure>
-        <figure class="rv"><div class="shot"><img src="../img/br-street.webp" srcset="../img/br-street.webp 818w, ../img/br-street-l.webp 1440w" sizes="(max-width: 760px) 100vw, 640px" data-full="../img/br-street-l.webp" data-zoom alt="Street sign mockup: a Hear digital sign at night" width="818" height="460" loading="lazy" decoding="async" style="object-position:12% 50%"></div><figcaption>Street sign mockup</figcaption></figure>
-        <figure class="rv"><div class="shot"><img src="../img/br-building.webp" srcset="../img/br-building.webp 818w, ../img/br-building-l.webp 1440w" sizes="(max-width: 760px) 100vw, 370px" data-full="../img/br-building-l.webp" data-zoom alt="Building sign mockup: Hear on a facade" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Building sign mockup</figcaption></figure>
-        <figure class="rv"><div class="shot"><img src="../img/br-lobby.webp" srcset="../img/br-lobby.webp 818w, ../img/br-lobby-l.webp 1440w" sizes="(max-width: 760px) 100vw, 370px" data-full="../img/br-lobby-l.webp" data-zoom alt="Lobby mockup: the Hear logo on an office wall" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Lobby mockup</figcaption></figure>
-        <figure class="rv"><div class="shot"><img src="../img/br-books.webp" srcset="../img/br-books.webp 818w, ../img/br-books-l.webp 1440w" sizes="(max-width: 760px) 100vw, 370px" data-full="../img/br-books-l.webp" data-zoom alt="Print mockup: books with dot-pattern covers" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Print mockup</figcaption></figure>
-        <figure class="rv"><div class="shot"><img src="../img/br-totes.webp" srcset="../img/br-totes.webp 818w, ../img/br-totes-l.webp 1440w" sizes="(max-width: 760px) 100vw, 640px" data-full="../img/br-totes-l.webp" data-zoom alt="Merch mockup: tote bags with dot patterns" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Merch mockup</figcaption></figure>
-        <figure class="w2 rv"><div class="shot"><img src="../img/br-posters.webp" srcset="../img/br-posters.webp 818w, ../img/br-posters-l.webp 1440w" sizes="(max-width: 760px) 100vw, 740px" data-full="../img/br-posters-l.webp" data-zoom alt="Poster mockups: Just growth delivered, and a coral line-art poster" width="818" height="460" loading="lazy" decoding="async"></div><figcaption>Poster mockups</figcaption></figure>
+          <figcaption><b>As built.</b> The stand at the show, from my design, before the painted city.</figcaption></figure>
       </div>
     </div>
   </section>
-
-  <!-- 04 · sheet -->
-  <section class="chapter sheet" id="plan">
+  <!-- 05 · sheet -->
+  <section class="chapter sheet" id="process">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">05 · <b>The plan</b></div><h2>One redesign, planned in eight phases</h2></div>
-        <div class="prose"><p class="lead">I put the brand phases ahead of the website and the product in my plan for Hear's redesign and rebrand.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Each phase lists its tasks and deliverables, from mapping key players to the workflows between design, development and marketing.</p><p>Branding and Designing come second and third, after Research. “Translate new brand identity into UI language” is the first task under UI design. Open a phase to read it.</p></div></details></div>
+        <div><div class="label">05 · <b>The process</b></div><h2>Every picture starts as three gray sketches</h2></div>
+        <div class="prose"><p class="lead">Each picture follows one order: the idea in words, three gray compositions, one painting, then a check at the size of a real post.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>No picture is made before its idea and its composition are chosen, and the work moves one picture at a time.</p><p>The brand came ahead of the website and the product in my plan for Hear's redesign. Its eight phases are Research, Branding, Designing, Website, Growth, Product, UI design and Process.</p></div></details></div>
       </div>
-      <ol class="brand-web-phases">
-        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-1.webp" data-zoom alt="Phase 1 of the Figma plan, Research: the board's title and the Research phase with its tasks and deliverables" width="912" height="1844" loading="lazy" decoding="async"></div>
-          <figcaption><b><span>01</span>Research</b>Hear's unique value proposition · Target audiences · Users and personas</figcaption></figure></li>
-        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-2.webp" data-zoom alt="Phase 2 of the Figma plan, Branding, with its tasks and deliverables" width="912" height="2424" loading="lazy" decoding="async"></div>
-          <figcaption><b><span>02</span>Branding</b>Personality · Brand identity · Messaging · Voice and tone · UX writing and copy</figcaption></figure></li>
-        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-3.webp" data-zoom alt="Phase 3 of the Figma plan, Designing: visual research, visual concepts and crafting the visual identity" width="912" height="1304" loading="lazy" decoding="async"></div>
-          <figcaption><b><span>03</span>Designing</b>Visual research · Visual concepts · Craft visual identity</figcaption></figure></li>
-        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-4.webp" data-zoom alt="Phase 4 of the Figma plan, Website, with its tasks and deliverables" width="912" height="1714" loading="lazy" decoding="async"></div>
-          <figcaption><b><span>04</span>Website</b>Information architecture · Wireframes · Design · Video assets · Develop</figcaption></figure></li>
-        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-5.webp" data-zoom alt="Phase 5 of the Figma plan, Growth: sign-up and sign-in pages, onboarding and setup, walkthroughs" width="912" height="1306" loading="lazy" decoding="async"></div>
-          <figcaption><b><span>05</span>Growth</b>Sign-up and sign-in pages · Onboarding and setup · Walkthroughs</figcaption></figure></li>
-        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-6.webp" data-zoom alt="Phase 6 of the Figma plan, Product, with nine workstreams and their tasks and deliverables" width="912" height="3368" loading="lazy" decoding="async"></div>
-          <figcaption><b><span>06</span>Product</b>Map current product · Information architecture · Main and secondary paths · User types · Use cases and MVP scope · APIs, AI capabilities and LLM integration · Product view variations · Low-fidelity concept wireframes · Engineering (backend and infra)</figcaption></figure></li>
-        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-7.webp" data-zoom alt="Phase 7 of the Figma plan, UI design, with its tasks and deliverables" width="912" height="1728" loading="lazy" decoding="async"></div>
-          <figcaption><b><span>07</span>UI design</b>Product design · Redesign flows · Design handoff · Design system development</figcaption></figure></li>
-        <li class="rv"><figure><div class="shot"><img src="../img/cs-brand-web-plan-8.webp" data-zoom alt="Phase 8 of the Figma plan, Process, with its tasks and deliverables" width="912" height="1712" loading="lazy" decoding="async"></div>
-          <figcaption><b><span>08</span>Process</b>Foundational product principles · Problem-solving philosophy · Design-dev workflows · Marketing-design workflows · Testing and iteration</figcaption></figure></li>
+
+      <ol class="steps rv">
+        <li><strong>The idea, in words</strong><span>What you see, where the words live in the scene, and what a stranger understands about Hear.</span></li>
+        <li><strong>Three gray compositions</strong><span>Gray shapes in the final format, with one color for the place of the words.</span></li>
+        <li><strong>One painting</strong><span>Painted only after a composition is chosen, then fixed one problem at a time.</span></li>
+        <li><strong>A check at feed size</strong><span>Inside a mockup of the feed, at the size a post is really seen.</span></li>
       </ol>
+
+      <h3 class="brand-web-sub">From the sketch to the post</h3>
+      <figure class="rv"><div class="shot v7s"><img src="../img/v7b-lofi-parade.webp" data-zoom alt="Three gray composition sketches of the parade: from the crowd looking down the avenue, at the kerb as the parade passes, and looking up at the balloon between the towers. The place of the words is blue." width="1100" height="318" loading="lazy" decoding="async"></div><figcaption><b>Three gray compositions.</b> I chose the middle one, at more of an angle.</figcaption></figure>
+      <div class="grid2 brand-web-gap">
+        <figure class="rv"><div class="shot v7s"><img src="../img/cw-parade.webp" data-zoom alt="The finished painting of the parade, with coral balloon letters that spell Hear Studio" width="1200" height="628" loading="lazy" decoding="async"></div><figcaption><b>The painting.</b> After the fixes.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-feed.webp" data-zoom alt="The parade painting inside a mockup of a LinkedIn feed" width="1100" height="746" loading="lazy" decoding="async"></div><figcaption><b>At feed size.</b> Inside a mockup of the feed.</figcaption></figure>
+      </div>
+      <div class="xtra">
+        <h3 class="brand-web-sub">The sketches behind three more posts</h3>
+        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-lofi-receipt.webp" data-zoom alt="Three gray sketches of the café receipt: from above, at eye level, and on the counter" width="1100" height="245" loading="lazy" decoding="async"></div><figcaption><b>The café.</b> I chose A, and the painting ended up seen from the seat at the table.</figcaption></figure>
+        <figure class="rv brand-web-gap"><div class="shot v7s"><img src="../img/v7b-lofi-plane.webp" data-zoom alt="Three gray sketches of a figure on a terrace under the words 100% coverage in the sky" width="1100" height="245" loading="lazy" decoding="async"></div><figcaption><b>The plane.</b> I chose A, with the figure on the left.</figcaption></figure>
+        <figure class="rv brand-web-gap"><div class="shot v7s"><img src="../img/v7b-lofi-balloons.webp" data-zoom alt="Three gray sketches of a large bunch of balloons marked 100% beside a small 2%" width="1100" height="248" loading="lazy" decoding="async"></div><figcaption><b>The balloons.</b> I chose C, with two carts.</figcaption></figure>
+      </div>
+
+      <h3 class="brand-web-sub">What I rejected, and why</h3>
+      <div class="bw-rej two-up">
+        <figure class="rv"><div class="shot v7s"><span class="bw-tag">Rejected</span><img src="../img/v7b-no-print.webp" data-zoom alt="The newspaper painting with smooth, sharp print on the page" width="640" height="641" loading="lazy" decoding="async"></div><figcaption><b>Print that looked pasted.</b> Smooth type on a painted page reads as a sticker.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><span class="bw-tag ok">Approved</span><img src="../img/v7b-ok-print.webp" data-zoom alt="The same page with the ink painted in knife strokes and a shadow of leaves across it" width="640" height="641" loading="lazy" decoding="async"></div><figcaption><b>The same page, repainted.</b> The ink is painted with the knife, and the lines bend with the paper.</figcaption></figure>
+      </div>
+      <div class="bw-rej brand-web-gap" style="margin-top:clamp(24px,3vw,40px)">
+        <figure class="rv"><div class="shot v7s"><span class="bw-tag">Rejected</span><img src="../img/v7b-no-cloud-a.webp" data-zoom alt="A flat white paint shape of the Hear mark on blue" width="700" height="700" loading="lazy" decoding="async"></div><figcaption><b>A patch of paint in the mark’s shape.</b> It kept the shape and lost the cloud.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><span class="bw-tag">Rejected</span><img src="../img/v7b-no-cloud-b.webp" data-zoom alt="A cloud in the shape of the mark on a sky that grows pale toward the bottom" width="700" height="700" loading="lazy" decoding="async"></div><figcaption><b>A sky that pales toward the bottom.</b> The light part dissolves the mark.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><span class="bw-tag ok">Approved</span><img src="../img/v7b-ok-cloud.webp" data-zoom alt="A full white cloud in the shape of the mark on a deep, even blue sky" width="900" height="900" loading="lazy" decoding="async"></div><figcaption><b>A real cloud first.</b> The shape is close to the mark, on a deep and even blue.</figcaption></figure>
+      </div>
+
+      <div class="bw-test rv">
+        <p class="q">What does a stranger understand about Hear from this picture?</p>
+        <p class="a">The test every idea passes. If there is no one sentence, there is no idea.</p>
+      </div>
     </div>
   </section>
 
   <div class="wrap">
     <a class="next" href="fyi.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>FYI</h2></div><span class="next-thumb phones" aria-hidden="true"><img src="../img/fyi-proto-3.webp" width="590" height="1279" alt="" loading="lazy" decoding="async"><img src="../img/fyi-proto-1-l.webp" width="786" height="1704" alt="" loading="lazy" decoding="async"><img src="../img/fyi-proto-4.webp" width="590" height="1279" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
-    <div class="sources"><p>Brand boards, booth images and mockups are my brand work for Hear. Site stills and video are from the Direction A preview. “Redesigning - Hear.ai” is my Figma board for the plan. Quoted lines come from the boards and the site previews.</p></div>
+    <div class="sources"><p>The brand pieces, booth images and mockups are my brand work for Hear. Site stills are from the staging site. The sketches and the rejected versions come from my working files. The campaign has not been published.</p></div>
   </div>
 </main>
 <footer><div class="wrap"><div class="cs-contact"><p class="cs-contact-t">Get in touch</p><ul class="cs-contact-links"><li><a href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a></li><li><a href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a></li><li><a href="../ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></li></ul></div>© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>

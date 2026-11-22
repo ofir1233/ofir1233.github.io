@@ -38,7 +38,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=12">
-<link rel="stylesheet" href="../v7/case.css?v=11">
+<link rel="stylesheet" href="../v7/case.css?v=12">
 <style>
 /* annotated screen: numbered pins over the image, each beside the part it names and on no text */
 .newsroom-pins { position: relative; }
@@ -53,10 +53,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .newsroom-legend b { color: var(--paper); font-weight: 600; }
 @media (max-width: 1100px) { .newsroom-legend li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
 /* the anatomy screen's demo-data label sits in the window's title bar, so it never shares a spot with a pin or with the screen */
-.newsroom-anat .shot.win > .live { top: 4px; right: 10px; bottom: auto; padding-block: 4px; box-shadow: none; }
+.newsroom-anat .shot > .live { right: 14px; bottom: 14px; top: auto; }
 /* the chat input is a short strip: its demo-data label and enlarge mark sit in a band under the field, not on it. The band carries on the screenshot's last row of grey (the field's shadow across the middle), so there is no seam */
-.newsroom-chatin .shot { padding-bottom: calc(54px - 3.43%); background: linear-gradient(90deg, #efefed 2%, #eeeeed 4.3%, #ebedec 6.3%, #ebedec 94.3%, #eeeeed 95.7%, #efefed 98.5%); }
-.newsroom-chatin .shot > .live { top: auto; bottom: 12px; right: 54px; }
+.newsroom-chatin .shot { max-width: 620px; }
+.newsroom-chatin .shot > .live { top: auto; bottom: 10px; right: 12px; }
 .newsroom-chatin .shot > .zx-i { top: auto; bottom: 12px; }
 @media (hover: none) { .newsroom-chatin .shot > .live { right: 42px; } .newsroom-chatin .shot > .zx-i { bottom: 8px; } }
 @media (max-width: 760px) { .newsroom-chatin .shot { padding-bottom: calc(40px - 3.43%); } .newsroom-chatin .shot > .live { bottom: 8px; } }
@@ -147,28 +147,24 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
       <figure class="rv newsroom-anat">
-        <div class="shot win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span>
+        <div class="shot v7s"><span class="live">Design Lab · demo data</span>
           <div class="newsroom-pins">
-            <img src="../img/clip-news-poster-c.webp" data-zoom alt="Newsroom feed in light theme, with seven numbered markers that match the list below" width="1440" height="900" loading="lazy">
-            <span class="newsroom-pin" style="--x:45.5%;--y:5.3%;--xs:47.4%;--ys:6.2%" aria-hidden="true">1</span>
-            <span class="newsroom-pin" style="--x:27.2%;--y:20%;--xs:41.7%;--ys:16.4%" aria-hidden="true">2</span>
-            <span class="newsroom-pin" style="--x:86.8%;--y:32.2%" aria-hidden="true">3</span>
-            <span class="newsroom-pin" style="--x:28.9%;--y:30.4%;--xs:34.6%;--ys:30.4%" aria-hidden="true">4</span>
-            <span class="newsroom-pin" style="--x:48.6%;--y:62.2%" aria-hidden="true">5</span>
-            <span class="newsroom-pin" style="--x:90.3%;--y:84.6%;--xs:88.8%;--ys:85.1%" aria-hidden="true">6</span>
-            <span class="newsroom-pin" style="--x:77.2%;--y:88.4%;--xs:79.2%;--ys:87.6%" aria-hidden="true">7</span>
+            <img src="../img/v7s-news-feed.webp" data-zoom alt="The Newsroom feed, with five numbered markers that match the list below: the monthly recap with its Play button, the call volume chart with its peak marked, and this week’s developments, each with a source line and a one-word tag" width="2060" height="1327" loading="lazy">
+            <span class="newsroom-pin" style="--x:17.1%;--y:32.4%" aria-hidden="true">1</span>
+            <span class="newsroom-pin" style="--x:74.6%;--y:13.7%" aria-hidden="true">2</span>
+            <span class="newsroom-pin" style="--x:90.9%;--y:18.6%" aria-hidden="true">3</span>
+            <span class="newsroom-pin" style="--x:73.6%;--y:29.9%" aria-hidden="true">4</span>
+            <span class="newsroom-pin" style="--x:39.6%;--y:51.9%" aria-hidden="true">5</span>
           </div>
         </div>
         <figcaption><b>Anatomy of the feed.</b> The current Newsroom in the Lab.</figcaption>
       </figure>
       <ol class="newsroom-legend rv">
-        <li data-n="1"><span><b>Labeled data.</b> The header says “feed · illustrative data” on the page itself, not in a footnote.</span></li>
-        <li data-n="2"><span><b>Just detected.</b> Each detection scrolls past with the clock time it happened.</span></li>
-        <li data-n="3"><span><b>Monthly recap.</b> The month as a 75-second full-screen story with sound, which starts when you press Play.</span></li>
-        <li data-n="4"><span><b>Sources.</b> The reports behind the stories, with counts and dates, listed apart from live detections. Picking one filters the feed.</span></li>
-        <li data-n="5"><span><b>Baseline.</b> A spike is drawn against a dotted baseline, with the peak marked.</span></li>
-        <li data-n="6"><span><b>Time window.</b> A trend is labeled “this week” and claims no timestamp it doesn't have.</span></li>
-        <li data-n="7"><span><b>Evidence.</b> Each story ends with what it rests on, such as a “See N calls” line.</span></li>
+        <li data-n="1"><span><b>Monthly recap.</b> The month as a 75-second full-screen story, which starts when you press Play.</span></li>
+        <li data-n="2"><span><b>Time window.</b> The list is labeled “this week” and says how many stories it holds.</span></li>
+        <li data-n="3"><span><b>Strength.</b> Each story carries one word for how strong it is: Surging, Rising, New, Steady or Improving.</span></li>
+        <li data-n="4"><span><b>Source.</b> Under each headline: where the story came from, such as a signal or a report, and its time.</span></li>
+        <li data-n="5"><span><b>Peak.</b> The chart marks its highest day with the count and the date.</span></li>
       </ol>
       <p class="why rv xtra"><b>Design choice:</b> a story distilled from a report names that report and the dates it covers, so a reader can trace the claim to its source.</p>
     </div>
@@ -317,9 +313,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>News puts the AI's stories at the front of the page. The chat home is a different case, one I built in the Lab's first version.</p></div></details>
         </div>
       </div>
-      <figure class="rv newsroom-dark">
-        <div class="shot win dark"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="live">Design Lab · demo data</span><img src="../img/cs-design-lab-chat-home-nw.webp" data-zoom alt="Chat home in dark theme: the Hear mark above the greeting Good evening, ofir, a chat input with @, slash and microphone buttons, a pill that reads 3 alerts worth a look under the input, a Briefing V1 to V5 switcher in the header, and the sidebar with News and a News · Directions item" width="1600" height="1045" loading="lazy"></div>
-        <figcaption><b>Chat home today, dark theme.</b> I built the page in the Lab's first version. The Hear mark now sits above the greeting, not in the field.</figcaption>
+      <figure class="rv newsroom-home">
+        <div class="shot v7s wide"><span class="live">Design Lab · demo data</span><img src="../img/v7s-studio-home.webp" data-zoom alt="The home screen: the Hear mark above the line Describe it. Hear builds it., one field with an at button, a slash button and a microphone, on a painted sky, with the product in the sidebar" width="2560" height="1440" loading="lazy"></div>
+        <figcaption><b>Home today.</b> The Hear mark sits above the line, not in the field.</figcaption>
       </figure>
       <ol class="steps newsroom-fig-top rv xtra">
         <li><strong>Suggestions</strong><span>AI suggestions capped at five, with the original suggestions design restored.</span></li>
@@ -334,7 +330,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <li class="opt"><strong>Logo in the field</strong><span>A morphing logo and a dot ring, with the logo in the input reacting to each keystroke.</span></li>
           <li class="opt chosen"><strong>A plain field</strong><span>The logo leaves the input. The field holds what you type, two shortcut buttons and a mic.</span></li>
         </ul>
-        <figure class="newsroom-chatin"><div class="shot"><span class="live">Design Lab · demo data</span><img src="../img/ds-chatinput.webp" data-zoom alt="Chat input component: the text Loop in @ being typed, an @ button, a slash button and a blue send button" width="1400" height="270" loading="lazy"></div><figcaption><b>Chat input in the Lab's design system.</b> @ to bring someone in, / for commands, and send.</figcaption></figure>
+        <figure class="newsroom-chatin"><div class="shot v7s"><span class="live">Design Lab · demo data</span><img src="../img/v7s-studio-composer.webp" alt="The field on the home screen: a line of text, an at button, a slash button and a microphone" width="1522" height="339" loading="lazy"></div><figcaption><b>The field today.</b> @ to bring someone in, / for commands, and a microphone.</figcaption></figure>
         <p class="because"><b>Result:</b> the Hear mark greets you above the field, and the field is left for the question.</p>
       </article>
     </div>

@@ -89,3 +89,30 @@ figure:has(> .shot.dark){ max-width:860px; }
   .cs-rail a{ transition:max-width .45s cubic-bezier(.2,.7,.2,1), padding .45s cubic-bezier(.2,.7,.2,1), opacity .25s, color .25s, background-color .25s !important; }
 }
 @media (prefers-reduced-motion:reduce){ .cs-rail, .cs-rail a{ transition:none !important; } }
+
+/* V7 STILLS (owner, 22.11.2026: "the inner pages still show old designs: everything up to date, on every page").
+   Every picture of the product on a case page is now cut from Hear Studio itself (hear-v7/plan), the same screens the windows at
+   the top of the pages play: img/v7s-*.webp. A whole screen fills its white frame; a small part (a card, a column, a popover) sits
+   on the soft sky mat at its own size. */
+.shot.v7s{ padding:0 !important; }
+.shot.v7s > img{ display:block; width:100%; height:auto; }
+.shot.pad.v7s, .actions-crop.v7s{ display:grid; place-items:center; padding:clamp(22px, 4vw, 52px) clamp(18px, 3.4vw, 44px) !important; }
+.shot.pad.v7s > img, .actions-crop.v7s > img{ width:min(100%, var(--iw, 380px)); max-width:none; margin:0; border-radius:var(--ir, 10px); box-shadow:0 1px 2px rgba(23,40,70,.06), 0 22px 40px -26px rgba(23,40,70,.5); }
+.shot.v7s.actions-bar{ background:#fff !important; }
+/* a part and its list: the picture on the left, what each line of it is on the right */
+.v7-anat{ display:grid; grid-template-columns:minmax(0, 6fr) minmax(0, 5fr); column-gap:clamp(24px, 4vw, 56px); align-items:center; }
+.v7-anat > .ct-foot{ grid-column:1 / -1; }
+.v7-parts{ list-style:none; margin:0; padding:0; }
+.v7-parts li{ padding:15px 0 15px 40px; border-top:1px solid rgba(23,27,32,.1); font:400 16px/1.5 var(--body); color:#3a424c; text-indent:-40px; }
+.v7-parts li:first-child{ border-top:0; }
+.v7-parts .n{ display:inline-block; width:40px; text-indent:0; font:500 13px/1 var(--body); font-variant-numeric:tabular-nums; color:#0B6FCF; }
+.v7-parts b{ color:#171b20; font-weight:600; }
+@media (max-width:760px){
+  .v7-anat{ grid-template-columns:1fr; row-gap:14px; }
+  /* a whole screen at 390 is unreadable: it keeps a readable size and swipes sideways */
+  .shot.v7s.wide{ overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:none; }
+  .shot.v7s.wide::-webkit-scrollbar{ display:none; }
+  .shot.v7s.wide > img{ width:760px; max-width:none; }
+  .shot.v7s.actions-bar{ overflow-x:auto; scrollbar-width:none; }
+  .shot.v7s.actions-bar > img{ width:640px; max-width:none; }
+}

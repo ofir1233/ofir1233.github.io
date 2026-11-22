@@ -133,3 +133,7 @@
 @media (max-width: 760px) and (prefers-reduced-motion: reduce){ #path#path .xp-js .xp-past .xp-body{ opacity:1; translate:none; transition:none; } }
 /* phone: Read more is not on the edge of the card */
 @media (max-width: 760px){ #path#path .xp-now .xp-body{ padding-bottom:22px; } }
+
+/* the Hear card ends below its Read more, at every width (owner: the button sat on the edge) */
+#path#path .xp-now .xp-body{ padding-bottom:calc(var(--pad) - 8px); }
+@media (max-width: 760px){ #path#path .xp-now .xp-body{ padding-bottom:22px; } }

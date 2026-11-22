@@ -39,13 +39,13 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=12">
-<link rel="stylesheet" href="../v7/case.css?v=11">
+<link rel="stylesheet" href="../v7/case.css?v=12">
 <style>
 /* explainable-scores: page-only pieces */
 .es-scale { background: var(--card); border-radius: 22px; padding: clamp(18px, 2.6vw, 28px); display: grid; gap: 10px; }
-.es-scale .es-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.es-scale .es-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
 .es-scale .es-cell { height: 46px; border-radius: 8px; display: grid; place-items: center; font: 600 14px/1 var(--body); font-variant-numeric: tabular-nums; color: #1b1b1b; }
-.es-scale .es-band { display: grid; grid-template-columns: 3fr 2fr; gap: 6px; font: 600 14px/1.3 var(--body); color: var(--mute); }
+.es-scale .es-band { display: grid; grid-template-columns: 1fr 2fr; gap: 6px; font: 600 14px/1.3 var(--body); color: var(--mute); }
 .es-scale .es-band span { border-top: 2px solid #8b9599; padding-top: 8px; }
 .es-scale .es-band span + span { border-color: #ff6b59; color: var(--paper); }
 .es-narrow { display: grid; place-items: center; }
@@ -103,7 +103,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <ol class="steps rv">
         <li><strong>Show what matters first</strong><span>A full grid of agents and criteria where only the failing scores get color.</span></li>
         <li><strong>Explain every number</strong><span>Any score opens into its place in the team, then into the evidence behind it.</span></li>
-        <li><strong>Act from the same screen</strong><span>Explore in Chat, open the agent's evaluation or draft coaching notes, without losing the context.</span></li>
+        <li><strong>Act from the same screen</strong><span>Ask AI which calls, from the cell itself, without losing the context.</span></li>
       </ol>
     </div>
   </section>
@@ -114,23 +114,23 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><div class="label">02 · <b>Compliance</b></div><h2>A grid that stays quiet until something fails</h2></div>
         <div class="prose">
           <p class="lead">Only failing cells get color, so a row of grays looks fine before anyone reads a number.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The Compliance home shows each criterion's trend against a dashed target line. The Agents tab holds the grid, with agents across and criteria down. Each cell is one agent's score on one rule over the selected date range.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The grid has agents across and criteria down. Each cell is one agent's score on one rule over the selected date range.</p>
           <p>The last row counts each agent's failing criteria, so the worst columns stand out.</p></div></details>
         </div>
       </div>
-      <figure class="rv"><div class="shot dark"><img src="../img/cs-explainable-scores-heatmap-nw.webp" data-zoom alt="The Compliance Agents heatmap in dark theme: five criteria as rows, about twenty agents as columns, cells in grays with coral cells where a score fails, a Failing criteria row at the bottom, a Problems only switch and a five-step legend, and one cell's popover open" width="1600" height="793" loading="lazy"><span class="live">Design Lab · demo data</span></div>
-        <figcaption><b>Compliance · Agents.</b> Criteria by agent, dark theme, with one cell's popover open.</figcaption></figure>
+      <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-es-grid.webp" data-zoom alt="The Compliance screen: five criteria as rows and ten agents as columns. Passing scores are grey, failing scores are coral, a Failing criteria row counts them, and one failing cell has its popover open." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div>
+        <figcaption><b>Compliance, criteria by agent.</b> Only a failing score takes color. One cell's popover is open. Click to enlarge.</figcaption></figure>
       <div class="two solo es-gap">
         <figure class="rv">
-          <div class="es-scale" role="img" aria-label="The five legend steps: 90 and up in dark slate, 80 in gray, 70 in light gray, all passing; 60 in light coral and under 60 in coral, both failing">
-            <div class="es-row" aria-hidden="true"><span class="es-cell" style="background:#435e5f;color:#fff">≥90</span><span class="es-cell" style="background:#8b9599">80</span><span class="es-cell" style="background:#d6d6d6">70</span><span class="es-cell" style="background:#f0a799">60</span><span class="es-cell" style="background:#ff6b59">&lt;60</span></div>
-            <div class="es-band" aria-hidden="true"><span>Passing · grays</span><span>Failing · coral</span></div>
+          <div class="es-scale" role="img" aria-label="The three legend steps: 70 and up in a quiet gray, passing; 60 to 69 in pale coral and under 60 in coral, both failing">
+            <div class="es-row" aria-hidden="true"><span class="es-cell" style="background:#eef0f2;color:#3a424c">70 and up</span><span class="es-cell" style="background:#FFD0C4;color:#8E2A14">60–69</span><span class="es-cell" style="background:#FF6F52;color:#fff">under 60</span></div>
+            <div class="es-band" aria-hidden="true"><span>Passing · gray</span><span>Failing · coral</span></div>
           </div>
-          <figcaption><b>The scale, redrawn.</b> The five steps of the Compliance legend, in the light theme's colors.</figcaption>
+          <figcaption><b>The scale.</b> The three steps of the Compliance legend.</figcaption>
         </figure>
         <div class="prose xtra">
-          <p>In the light theme, the legend's three passing steps are grays, from dark slate to light gray. Only the two failing steps are coral, and they are exactly the cells the bottom row counts.</p>
-          <p>Every cell still prints its score, so color is never the only cue. Beside the legend sits a <b>Problems only</b> switch.</p>
+          <p>Every passing score, 70 and up, is the same quiet gray. Only the two failing steps take color, pale coral from 60 to 69 and coral under 60, and they are exactly the cells the bottom row counts.</p>
+          <p>Every cell still prints its score, so color is never the only cue.</p>
           
         </div>
       </div>
@@ -141,19 +141,18 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">03 · <b>The popover</b></div><h2>One agent, placed against the whole team</h2></div>
-        <div class="prose"><p class="lead">Clicking a cell opens a popover that puts the score in context and says what its main button will do.</p>
+        <div class="prose"><p class="lead">Clicking a cell opens a popover that puts the score beside the team's and offers the next question.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
       </div>
       <div class="two">
-        <figure class="rv"><div class="shot pad es-narrow"><img src="../img/cs-explainable-scores-popover-nb.webp" style="width: 310px" alt="The cell popover: the agent name, the criterion and selected date range, the score with its difference from the team average and its rank, a histogram across all agents with the team average marked, a line saying what the next button does, an Explore in Chat button and an Open agent evaluation link" width="310" height="496" loading="lazy"><span class="live">Design Lab · demo data</span></div>
-          <figcaption><b>The cell popover.</b> Cropped from the Compliance screen, dark theme.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><img src="../img/v7s-es-popover.webp" alt="The cell popover under a failing score of 54: Selma K., Vulnerable customer protocol, 12 of 26 calls failed this rule, a bar for Selma at 54 and a bar for the team at 81, and a link, Ask AI which calls." width="992" height="791" loading="lazy"><span class="live">Design Lab · demo data</span></div>
+          <figcaption><b>The cell popover.</b> Cropped from the Compliance screen.</figcaption></figure>
         <div class="prose xtra">
           <ul>
-            <li>The header names the agent, criterion and date range, so the number is never read without its scope.</li>
-            <li>The score sits next to its difference from the team average, and its rank among all agents.</li>
-            <li>A small histogram shows every agent's score on this criterion, with the team average as a dashed line and this agent's bar lit up.</li>
-            <li>One sentence comes before the buttons: “Opens Chat, which looks up this agent's calls. Nothing extra loads until you click.”</li>
-            <li>Then two ways forward: <b>Explore in Chat</b> as the main button, and <b>Open agent evaluation</b> as a quieter link.</li>
+            <li>The header names the agent and the criterion, so the number is never read without its scope.</li>
+            <li>One line says what the score rests on: 12 of 26 calls failed this rule.</li>
+            <li>Two bars put the agent beside the team average, 54 against 81.</li>
+            <li>One way forward: <b>Ask AI which calls</b>, a question already written for this cell.</li>
           </ul>
           
         </div>
@@ -165,28 +164,27 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">04 · <b>Ask AI</b></div><h2>An answer that shows its evidence</h2></div>
-        <div class="prose"><p class="lead"><b>Explore in Chat</b> sends the cell to Ask AI, and its answer names the calls that lowered the score.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The question arrives already written, with the agent, the criterion and the score in it. The page and the project stay attached as context chips at the top of the chat.</p></div></details></div>
+        <div class="prose"><p class="lead"><b>Ask AI which calls</b> sends the cell to Ask AI, and its answer names the calls that lowered the score.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The question arrives already written, with the agent and the criterion in it, and the agent's name stays at the top of the panel.</p></div></details></div>
       </div>
       <div class="two">
-        <figure class="rv"><div class="shot pad es-light es-narrow"><img src="../img/cs-explainable-scores-ask-ai-nb.webp" style="width: 420px" alt="An Ask AI answer: the score as the average of a stated number of calls over a date range, a list headed Calls that pulled it down most with each call's score, the missed step and a short quote, a Pattern paragraph saying it may be a script or process issue, not only coaching, then answer actions and Related follow-ups" width="420" height="680" loading="lazy"><span class="live">Design Lab · demo data</span></div>
-          <figcaption><b>An answer about one score.</b> From the Compliance screen, light theme.</figcaption></figure>
+        <figure class="rv"><div class="shot pad v7s" style="--iw:400px;--ir:12px"><img src="../img/v7s-es-ask.webp" alt="An Ask AI answer for Selma K.: the question, Which calls pulled Selma’s Vulnerable customer protocol score down, then 12 calls failed and 9 of them share one cause, then three calls by date, each with what was missed." width="830" height="935" loading="lazy"><span class="live">Design Lab · demo data</span></div>
+          <figcaption><b>An answer about one score.</b> From the Compliance screen.</figcaption></figure>
         <div class="prose es-prose xtra">
-          <p>An answer asked from a cell has four parts, and the first three point at something you can check:</p>
+          <p>An answer asked from a cell has three parts, and each points at something you can check:</p>
           <ol>
-            <li><b>What the score is.</b> The average of a stated number of calls, between two stated dates.</li>
-            <li><b>Calls that pulled it down most.</b> Each with its call number, its score, the missed step and a short quote from the call.</li>
-            <li><b>Pattern.</b> How often the step was missed, and how many other agents miss it too.</li>
-            <li><b>Related.</b> Open the lowest-scoring call, compare with the team average or draft coaching notes.</li>
+            <li><b>How many calls failed.</b> A stated number, out of the calls the score rests on.</li>
+            <li><b>What they share.</b> The cause most of them have in common, in one sentence.</li>
+            <li><b>The calls.</b> Each with its date and the step that was missed.</li>
           </ol>
-          <p>When other agents miss the same step, the answer says the cause may be the script or the process, before it offers <b>Draft coaching notes</b>. A score about one person doesn't automatically become that person's fault.</p>
+          <p>The answer names the cause before it names the person. A score about one agent doesn't automatically become that agent's fault.</p>
           
         </div>
       </div>
 
       <div class="prose xtra es-gap">
         <h3 style="margin-top:0">The chart explains itself too</h3>
-        <p>In Agent evaluation, the score chart's subtitle states its own encoding: height and color are that period's score. Low periods turn coral, like the failing cells in Compliance, and a Poor to Good scale sits under the bars. The controls are written out on the chart: scroll to zoom, drag to select, double-click to reset.</p>
+        <p>In Agent evaluation, the score chart's subtitle states its own encoding: height and color are that day's score. Low days turn coral, like the failing cells in Compliance, and the scale sits under the bars.</p>
         <h3>Two ways into the same chat</h3>
         <p>Ask AI also opens from the top of the sidebar. It says “Ask about what you're looking at” and keeps the page and project as context.</p>
       </div>
@@ -204,7 +202,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <h3>Where should a question about a score start?</h3>
         <ul class="opts">
           <li class="opt"><strong>A blank chat</strong><span>Ask AI from the sidebar. You write the question and say which number you mean.</span></li>
-          <li class="opt chosen"><strong>The cell itself</strong><span>Explore in Chat, the popover's main button, sends the cell's agent, criterion and score with the question.</span></li>
+          <li class="opt chosen"><strong>The cell itself</strong><span>Ask AI which calls, the popover's one button, sends the cell's agent and criterion with the question.</span></li>
         </ul>
         <p class="because"><b>Result:</b> I kept both. A question from a cell already names its score, so the answer can point to the calls behind it. The sidebar takes open questions about the page.</p>
       </article>

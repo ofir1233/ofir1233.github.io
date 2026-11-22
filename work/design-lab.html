@@ -39,13 +39,18 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=12">
-<link rel="stylesheet" href="../v7/case.css?v=11">
+<link rel="stylesheet" href="../v7/case.css?v=12">
 <style>
 .design-lab-sub { margin: clamp(40px, 6vw, 72px) 0 18px; }
 .design-lab-sub + p { margin-bottom: 22px; }
 .design-lab-tablabel { width: fit-content; padding: 6px 13px 7px; border-radius: 99px; margin-bottom: 2px; background: var(--ink-3); color: var(--text); }
 .design-lab-note { margin-top: 18px; }
 .design-lab-gap { margin-top: clamp(28px, 4vw, 48px); }
+.lab-notes { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.lab-notes li { display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px 18px; border-radius: 16px; background: var(--card); font: 500 15px/1.45 var(--body); color: var(--paper); }
+.lab-notes b { flex: none; width: 24px; height: 24px; border-radius: 50%; background: #139FFD; color: #fff; font: 700 13px/24px var(--body); text-align: center; }
+@media (max-width: 860px) { .lab-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .lab-notes { grid-template-columns: minmax(0, 1fr); } }
 .design-lab-mini { max-width: 505px; }
 @media (max-width: 860px) { .design-lab-mini { margin-inline: auto; } }
 .design-lab-pair { display: grid; grid-template-columns: minmax(0, 2.54fr) minmax(0, 1fr); gap: 16px; align-items: start; }
@@ -97,14 +102,13 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
       <div class="two solo">
-        <figure class="rv"><div class="shot dark"><img src="../img/cs-design-lab-chat-home-nw.webp" data-zoom alt="Chat home in the Lab's dark theme, with the product's sidebar, one question box and a Briefing V1 to V5 switch in the top bar" width="1600" height="1045" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Chat home.</b> The whole product sits in the sidebar, and the top bar holds a version switch for the briefing.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-home.webp" data-zoom alt="The Lab home: the line Describe it. Hear builds it. above one field, on a painted sky, with the workspace, the apps and the product areas in the sidebar" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Home.</b> The whole product sits in the sidebar, around one field.</figcaption></figure>
         <div class="prose xtra">
           <h3 style="margin-top:0">What's in the Lab</h3>
           <ul>
-            <li>The sidebar groups the screens as Main, Intelligence and Operations.</li>
-            <li>A workspace for each demo environment, with “Powered by Hear” next to the customer's logo.</li>
-            <li>Three items at the foot of the sidebar: News · Directions, Demos and Storybook.</li>
-            <li>Dark and light themes.</li>
+            <li>The sidebar holds the apps built so far, then Conversations, Knowledge, Workflows and Topics.</li>
+            <li>A workspace for each demo environment, with “Powered by Hear” at the foot of the sidebar.</li>
+            <li>Notifications, Help and Settings sit above the signed-in user.</li>
           </ul>
         </div>
       </div>
@@ -122,52 +126,28 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="chapter sheet" id="versions">
     <div class="wrap">
       <div class="ch-head center">
-        <div><div class="label">02 · <b>One screen, many designs</b></div><h2>Several designs, one click apart</h2></div>
-        <div class="prose"><p class="lead">Some screens in the Lab hold more than one design, and I added a version switch to compare the designs in place.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The switch is the same small segmented control each time, set in the screen's own toolbar.</p></div></details></div>
+        <div><div class="label">02 · <b>One screen, many designs</b></div><h2>Several designs of one screen, compared in place</h2></div>
+        <div class="prose"><p class="lead">Some screens in the Lab hold more than one design. Topics holds two stages, the wireframe and the built screen, on the same data.</p>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The design changes and the data doesn’t, so the two can be judged side by side. Earlier, five key screens carried a version switch in their own toolbar.</p></div></details></div>
       </div>
 
-      <div class="vtabs rv">
-        <div class="label design-lab-tablabel">Topics · <b>same screen, same data</b></div>
-        <div role="tablist" aria-label="Topics screen versions">
-          <button class="pill" role="tab" id="dl-t-face" aria-controls="dl-p-face" aria-selected="true">Facelift · score-first</button>
-          <button class="pill" role="tab" id="dl-t-ref" aria-controls="dl-p-ref" aria-selected="false">Refined</button>
-          <button class="pill" role="tab" id="dl-t-ultra" aria-controls="dl-p-ultra" aria-selected="false">Ultra · latest</button>
-        </div>
-        <div role="tabpanel" id="dl-p-face" aria-labelledby="dl-t-face"><figure><div class="shot"><img src="../img/vb-facelift.webp" data-zoom alt="Topics screen, Facelift version: boxes sized by calls and filled red to green by score, each led by its average score" width="1300" height="996" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Facelift, the score-first design.</b> Each box leads with its average score, on a strong <span style="white-space:nowrap">red-to-green</span> fill.</figcaption></figure></div>
-        <div role="tabpanel" id="dl-p-ref" aria-labelledby="dl-t-ref" hidden><figure><div class="shot"><img src="../img/vb-refined.webp" data-zoom alt="Topics screen, Refined version: a line that defines the score, four summary tiles, calmer box colors and daily bars per topic" width="1300" height="996" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Refined.</b> A line defines the score, and calmer colors keep weak topics warm and turn strong ones slate.</figcaption></figure></div>
-        <div role="tabpanel" id="dl-p-ultra" aria-labelledby="dl-t-ultra" hidden><figure><div class="shot"><img src="../img/vb-ultra.webp" data-zoom alt="Topics screen, Ultra version: a Most to gain tile, and a daily score panel that sorts by most calls, lowest score or biggest drop" width="1300" height="996" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Ultra, the latest.</b> “Most to gain” replaces the “Lowest score” tile, and the daily panel shows score alone.</figcaption></figure></div>
-      </div>
-      <p class="design-lab-note">The same switch also holds a fourth version, Current.</p>
-
-      <div class="duo design-lab-gap" style="--duo: minmax(0, 1.71fr) minmax(0, 1fr)">
-      <div>
-      <div class="compare shot rv">
-        <img src="../img/vb-facelift.webp" alt="Facelift version of the Topics screen: boxes filled red to green with the score as the headline, and soft daily areas" width="1300" height="996" loading="lazy">
-        <div class="after"><img src="../img/vb-ultra.webp" alt="Ultra version of the same screen, with a Most to gain tile and a sortable daily score panel" width="1300" height="996" loading="lazy"></div>
-        <span class="tag l">Facelift</span><span class="tag r">Ultra</span>
-        <input type="range" min="0" max="100" value="50" aria-label="Drag to compare the Facelift and Ultra designs of the Topics screen">
+      <div class="compare shot v7s rv">
+        <img src="../img/v7s-topics-lo.webp" alt="Topics as a wireframe: gray boxes sized by calls, each with its average score, a daily score list, and four numbered notes in blue" width="2560" height="1440" loading="lazy">
+        <div class="after"><img src="../img/v7s-topics-hi.webp" alt="The same Topics screen, built: the boxes in one blue that deepens as the score drops, on a glass panel over a painted sky" width="2560" height="1440" loading="lazy"></div>
+        <span class="tag l">Wireframe</span><span class="tag r">Built</span>
+        <input type="range" min="0" max="100" value="50" aria-label="Drag to compare the wireframe and the built Topics screen">
         <span class="handle" aria-hidden="true"></span>
         <span class="live">Design Lab · demo data</span>
       </div>
-      <p class="design-lab-note" style="font-size:14px"><b>Facelift to Ultra.</b> Drag the handle to compare. Ultra follows the brand guidelines.</p>
-      </div>
+      <p class="design-lab-note" style="font-size:14px"><b>Wireframe to built.</b> Drag the handle to compare. Same topics, same numbers.</p>
 
-      <div class="two design-lab-gap">
-        <figure class="rv design-lab-mini"><div class="shot"><img src="../img/cs-design-lab-switchers.webp" data-zoom alt="Five version switchers from the Lab, each labeled with its screen: Chat home, Data, Topics, Agent evaluation and Actions" width="505" height="636" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Five switchers</b>, cropped from five screens and labeled on a neutral background.</figcaption></figure>
-        <div class="prose xtra">
-          <h3 style="margin-top:0">The same control on five screens</h3>
-          <p>The switcher isn't a one-off for Topics. Five key screens carry it:</p>
-          <ul>
-            <li>Chat home briefing: V1 to V5</li>
-            <li>Data: V2 and V3 Facelift</li>
-            <li>Topics: Current, Facelift, Refined and Ultra</li>
-            <li>Agent evaluation: V2, V3, V4 and V4 + Filter</li>
-            <li>Actions board: V1 and V2</li>
-          </ul>
-        </div>
-      </div>
-      </div>
+      <ol class="lab-notes rv" aria-label="Four notes the wireframe carries">
+        <li><b>1</b><span>The score is defined before any number is shown.</span></li>
+        <li><b>2</b><span>A box’s size is its calls. The darkest boxes need attention first.</span></li>
+        <li><b>3</b><span>Hovering a box shows the three scores behind it.</span></li>
+        <li><b>4</b><span>The daily panel lists the same topics, by day.</span></li>
+      </ol>
+      <p class="design-lab-note" style="font-size:14px">The built screen keeps all four notes and adds one color: the deeper the blue, the lower the score.</p>
 
       <div class="px-host rv design-lab-gap"><figure class="px-fig" data-px="topics"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?topics=hi" title="Topics in Hear Studio: every topic as a box sized by calls and coloured by score." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
 
@@ -178,7 +158,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <li class="opt"><strong>Its own page in the nav</strong><span>The earlier pattern was a copy of the page with its own nav item, such as Data and Data V2.</span></li>
           <li class="opt chosen"><strong>A Version switch on the screen</strong><span>Five key screens now carry the switch on the screen itself. The design changes; the data and the view don't.</span></li>
         </ul>
-        <p class="because"><b>Result:</b> each version is seen on the same data and in the same view, like the three Topics designs above.</p>
+        <p class="because"><b>Result:</b> each version is seen on the same data and in the same view, like the two stages of Topics above.</p>
       </article>
     </div>
   </section>
@@ -225,9 +205,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
 
-      <div class="design-lab-pair">
-        <figure class="rv"><div class="shot dark"><img src="../img/cs-design-lab-entry-nw.webp" data-zoom alt="The Lab's entry screen in the dark theme: a Design Lab and Demo toggle with Demo tagged In development, and two demo environments" width="1280" height="790" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The entry screen.</b> A toggle picks the Lab or Demo mode, above the list of demo environments.</figcaption></figure>
-        <figure class="rv form"><div class="shot dark"><img src="../img/cs-design-lab-demo-form.webp" data-zoom alt="The Set up your demo form: website URL, short description, a drop zone for PDF, CSV, TXT or DOCX files and a Start demo button" width="440" height="690" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Set up your demo.</b> Each new demo environment starts from this form.</figcaption></figure>
+      <div class="grid2">
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-login.webp" data-zoom alt="The sign-in screen: a glass panel with work email, password and Continue with Google, under the Hear mark as a cloud, on a painted sky above a city" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Sign in.</b> One sign-in leads into every demo environment.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-apps.webp" data-zoom alt="All apps in the Northwind workspace: a card to describe a new app, then Evaluation by agent, Disclosure review, Handle time by team, Compliance review and Coaching queue" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>A demo environment.</b> The Northwind workspace, with the apps built in it.</figcaption></figure>
       </div>
 
       <article class="decision rv design-lab-gap xtra">
@@ -261,8 +241,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       </ol>
 
       <dl class="facts rv design-lab-gap">
-        <div><dt>Key screens with switchable versions</dt><dd>5</dd></div>
-        <div><dt>Designs in the Topics switcher</dt><dd>4</dd></div>
+        <div><dt>Key screens that carried a version switch</dt><dd>5</dd></div>
+        <div><dt>Stages of Topics kept on the same data</dt><dd>2</dd></div>
       </dl>
 
       <div class="design-lab-close rv">
