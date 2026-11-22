@@ -89,7 +89,7 @@ html.me-scroll #about .me-facts .me-k{ font-weight: 600; color: #fff; }
   html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ left: calc(14% + 48% * var(--g, 0)); }
   html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ object-position: calc(64% - 14% * var(--g, 0)) 58%; }
   /* tall stage */
-  @container (max-aspect-ratio: 13 / 10) {
+  @container (min-width: 0px) { /* always: the headline centred above, the picture below it, at every window shape */
     html.me-scroll #about .hv-b2{ display: inline; }
     html.me-scroll #about .hv-b3{ display: none; }
     html.me-scroll #about .hv-h{ font-size: clamp(38px, 6.4cqw, 76px) !important; }
