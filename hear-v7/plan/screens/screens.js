@@ -56,7 +56,7 @@
   /* ---------- Agent evaluation ---------- */
   S.agents = {
     nav: 'Agent evaluation', icon: '<circle cx="9" cy="6" r="2.8"/><path d="M3.5 15c.6-3 2.7-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/>',
-    steps: ['Each day’s bar is the average score of every agent.', 'A low day turns coral. Hovering shows the calls behind it.', 'The spread shows who needs coaching: 8 agents under 60.'],
+    steps: ['Each day’s bar is the average score of every agent.', 'A low day turns coral, and opens onto the calls behind it.', 'The spread shows who needs coaching: 8 agents under 60.'],
     build: function () {
       var D = [76, 76, 75, 75, 74, 74, 76, 74, 74, 75, 75, 75, 76, 76, 77, 76, 77, 66, 68, 67, 67, 77, 77, 77, 77, 81, 80, 81, 76, 75];
       var bars = D.map(function (v, i) { return '<i class="ae-b ' + (v < 70 ? 'l1 low' : v < 76 ? 'l3' : v < 80 ? 'l4' : 'l5') + '" data-b="' + i + '" style="height:' + ((v - 50) / 36 * 100).toFixed(1) + '%"><em>' + v + '</em></i>'; }).join('');
@@ -77,7 +77,7 @@
   /* ---------- Actions ---------- */
   S.actions = {
     nav: 'Actions', icon: '<rect x="2.5" y="3" width="3.6" height="12" rx="1.2"/><rect x="7.2" y="3" width="3.6" height="8" rx="1.2"/><rect x="11.9" y="3" width="3.6" height="10" rx="1.2"/>',
-    steps: ['Each finding is a task with its source and an owner.', 'Hovering a card shows what can be done with it.', 'The task opens with the call it came from.', 'Closed work keeps its reason.'],
+    steps: ['Each finding is a task with its source and an owner.', 'A card shows what can be done with it: assign, start or close.', 'The task opens with the call it came from.', 'Closed work keeps its reason.'],
     build: function () {
       var card = function (src, hi, title, who, tag, cls) { return '<div class="ac-card' + (cls ? ' ' + cls : '') + '"><small><u' + (hi ? ' class="hi"' : '') + '></u>' + src + '</small><p>' + title + '</p><footer>' + (who ? av(who) + who : '<span style="color:var(--mut)">Not assigned</span>') + (tag ? '<span class="sx-tag' + (tag === 'Resolved' ? ' ok' : tag === 'Escalated' ? ' ink' : '') + '">' + tag + '</span>' : '') + '</footer><div class="qa"><span>Assign</span><span>Start</span><span>Close</span></div></div>'; };
       var col = function (n, c, cards, more) { return '<section class="ac-col"><h4>' + n + '<i>' + c + '</i></h4>' + cards + (more ? '<span class="ac-more">+' + more + ' more</span>' : '') + '</section>'; };

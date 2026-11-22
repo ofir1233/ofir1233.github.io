@@ -16,3 +16,11 @@ a.pill.solid, .next .arrow, .cs-rail a[aria-current="true"]{ background:#171b20 
 a.pill.solid:hover{ background:#2a3038 !important; }
 .toc a[aria-current="true"]{ background:#171b20 !important; color:#fff !important; }
 .toc a[aria-current="true"] *{ color:inherit !important; }
+
+/* ONE BAR AT THE TOP. The chapter chips sat under the top pill and covered the heading and the first lines of every chapter.
+   They are a dock at the bottom of the window now, so a chapter opens with nothing on top of it. */
+@media (min-width:1024px){
+  html:has(.cs-rail){ scroll-padding-top:96px !important; }
+  .cs-rail{ top:auto !important; bottom:calc(env(safe-area-inset-bottom, 0px) + 20px); transform:translate(-50%, 8px) !important; background:rgba(255,255,255,.86) !important; -webkit-backdrop-filter:blur(18px) saturate(1.4); backdrop-filter:blur(18px) saturate(1.4); box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 14px 34px -12px rgba(23,27,32,.28) !important; }
+  .cs-rail.on{ transform:translate(-50%, 0) !important; }
+}

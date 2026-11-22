@@ -46,6 +46,8 @@
       var all = CAMS[fig.getAttribute('data-px')], c = (!P.paused && !reduce && P.live && all && all[P.k]) || null, W = P.w, H = Math.round(P.w * 9 / 16);
       /* on a phone the screen is drawn without its sidebar, so the same place sits elsewhere, and the frame moves in closer */
       if (c && P.small) c = c[2] < 1.2 ? [860, 170, 1.5] : [(c[0] - 204) * .94, c[1] * .77, c[2] * 1.5];
+      /* a phone never shows the whole screen at once, it would be too small to read: a step with no place of its own opens on the top left, where the title is */
+      if (!c && P.small && P.live && !P.paused && !reduce && !(fig.getAttribute('data-px') === 'news' && P.k > 0)) c = [0, 0, 1.45]; /* the Newsroom story fills the screen: it is shown whole */
       var z = c ? c[2] : 1;
       var tx = c ? Math.min(0, Math.max(W - W * z, W / 2 - c[0] * z)) : 0, ty = c ? Math.min(0, Math.max(H - H * z, H / 2 - c[1] * z)) : 0;
       frame.style.transform = 'translate(' + (tx * P.s).toFixed(1) + 'px,' + (ty * P.s).toFixed(1) + 'px) scale(' + (P.s * z).toFixed(4) + ')';
@@ -95,6 +97,13 @@
     new IntersectionObserver(function (es) { P.inView = es[0].isIntersecting; }, { threshold: 0.3 }).observe(win);
     button();
     return P;
+  });
+  /* A link in the text, like "Watch it open", brings the window into view and plays it from that step. */
+  document.addEventListener('click', function (e) {
+    var j = e.target.closest ? e.target.closest('.ct-jump[data-beat]') : null; if (!j) return;
+    var host = document.querySelector(j.getAttribute('href')), b = host && host.querySelectorAll('.px-steps li button')[+j.getAttribute('data-beat')];
+    if (!b) return;
+    e.preventDefault(); host.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); b.click();
   });
   var last = performance.now();
   (function tick(t) { var dt = Math.min(100, t - last); last = t; players.forEach(function (p) { p.tick(dt); }); requestAnimationFrame(tick); })(last);
