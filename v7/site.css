@@ -55,3 +55,14 @@ html body section#contact .label{ background:rgba(255,255,255,.75) !important; b
 html body section#fyi{ padding-bottom:96px !important; }
 /* phone: every Read more is a full finger high */
 @media (max-width:760px){ html body section .mr-btn{ min-height:44px !important; } }
+
+/* Outside critic, 22.11.2026 night: a 64px title sat 22px over its paragraph, less than its own cap height. Titles get more air below,
+   and the small label a little more above. */
+@media (min-width:861px){
+  html body :is(#process, #system, #path) .sec-head{ gap:32px !important; }
+  html body section .sec-head .label{ margin-bottom:22px !important; }
+}
+/* "Global" is a small label over its chips, not a grey bar with the word against its rim */
+html body section#ia .ia-global > span.ia-gl{ background:none !important; padding:0 0 2px 2px !important; }
+/* the strip holds six pieces now, not thirteen: it keeps its old pace */
+html body .br-track{ animation-duration:46s; }

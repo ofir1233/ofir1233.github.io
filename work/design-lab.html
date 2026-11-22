@@ -38,8 +38,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-topics.css">
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/px.css?v=12">
-<link rel="stylesheet" href="../v7/case.css?v=12">
+<link rel="stylesheet" href="../v7/px.css?v=14">
+<link rel="stylesheet" href="../v7/case.css?v=14">
 <style>
 .design-lab-sub { margin: clamp(40px, 6vw, 72px) 0 18px; }
 .design-lab-sub + p { margin-bottom: 22px; }
@@ -80,7 +80,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <header class="cs-hero wrap">
     <div class="label">Case study · <b>Hear Design Lab</b></div>
     <h1>A working replica of Hear, built to test designs</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>Hear is an AI platform for contact centers. A design has to hold up with each customer's data and volume.</dd></div><div><dt>What I designed</dt><dd>I built Hear Design Lab from scratch, on my own initiative. It's connected to an AI API, so it gives realistic answers.</dd></div><div><dt>Where it stands</dt><dd>As of October 2026, the Lab has demo environments, version switches and a demos engine. Demo mode is in development.</dd></div></dl>
+    <dl class="brief"><div><dt>The challenge</dt><dd>Hear is an AI platform for contact centers. A design has to hold up with each customer's data and volume.</dd></div><div><dt>What I designed</dt><dd>I built Hear Design Lab from scratch, on my own initiative. It's connected to an AI API, so it gives realistic answers.</dd></div><div><dt>Where it stands</dt><dd>As of October 2026, the Lab has demo environments and version switches. Demo mode is in development.</dd></div></dl>
     <dl class="meta">
       <div><dt>Role</dt><dd>Started it and built it alone, with Claude&nbsp;Code</dd></div>
       <div><dt>When</dt><dd>Since Feb 2026</dd></div>
@@ -88,7 +88,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#versions"><span>02</span> One screen, many designs</a><a class="pill" href="#decisions"><span>03</span> Decisions</a><a class="pill" href="#demos"><span>04</span> Demo environments</a><a class="pill" href="#build"><span>05</span> How I build it</a></nav>
-    <div class="px-host" id="demo"><figure class="px-fig" data-px="compliance"><div class="px-tabs" role="group" aria-label="Screen shown in the window"><button type="button" data-k="compliance" data-q="screen=compliance" aria-pressed="true">Compliance</button><button type="button" data-k="agents" data-q="screen=agents" aria-pressed="false">Agent evaluation</button><button type="button" data-k="actions" data-q="screen=actions" aria-pressed="false">Actions</button><button type="button" data-k="news" data-q="screen=news" aria-pressed="false">Newsroom</button></div><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=compliance" title="The Lab: Compliance, Agent evaluation, Actions and Newsroom, each played in the same working replica." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
+    <div class="px-host" id="demo"><figure class="px-fig" data-px="compliance"><div class="px-tabs" role="group" aria-label="Screen shown in the window"><button type="button" data-k="compliance" data-q="screen=compliance" aria-pressed="true">Compliance</button><button type="button" data-k="agents" data-q="screen=agents" aria-pressed="false">Agents</button><button type="button" data-k="actions" data-q="screen=actions" aria-pressed="false">Actions</button><button type="button" data-k="news" data-q="screen=news" aria-pressed="false">Newsroom</button></div><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=compliance" title="The Lab: Compliance, Agent evaluation, Actions and Newsroom, each played in the same working replica." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
   </header>
 
   <!-- 01 -->
@@ -139,7 +139,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <span class="handle" aria-hidden="true"></span>
         <span class="live">Design Lab · demo data</span>
       </div>
-      <p class="design-lab-note" style="font-size:14px"><b>Wireframe to built.</b> Drag the handle to compare. Same topics, same numbers.</p>
+      <p class="design-lab-note" style="font-size:14px"><b>Wireframe to built.</b> The wireframe is on the left, the built screen on the right. Drag the handle. Same topics, same numbers. Design Lab, demo data.</p>
 
       <ol class="lab-notes rv" aria-label="Four notes the wireframe carries">
         <li><b>1</b><span>The score is defined before any number is shown.</span></li>
@@ -156,7 +156,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <h3>Should a new design get its own page, or a switch on the screen?</h3>
         <ul class="opts">
           <li class="opt"><strong>Its own page in the nav</strong><span>The earlier pattern was a copy of the page with its own nav item, such as Data and Data V2.</span></li>
-          <li class="opt chosen"><strong>A Version switch on the screen</strong><span>Five key screens now carry the switch on the screen itself. The design changes; the data and the view don't.</span></li>
+          <li class="opt chosen"><strong>A Version switch on the screen</strong><span>Five key screens carried the switch on the screen itself. The design changes; the data and the view don't.</span></li>
         </ul>
         <p class="because"><b>Result:</b> each version is seen on the same data and in the same view, like the two stages of Topics above.</p>
       </article>
@@ -167,9 +167,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="chapter ink" id="decisions">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">03 · <b>Decisions</b></div><h2>Two choices that shaped the Lab</h2></div>
-        <div class="prose"><p class="lead">I chose a working replica over a component gallery, and Storybook over an in-app drawer for documenting components.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
+        <div><div class="label">03 · <b>Decisions</b></div><h2>The choice that shaped the Lab</h2></div>
+        <div class="prose"><p class="lead">I chose a working replica over a component gallery. How the components are documented is in the <a href="design-system.html#decisions">Design system</a> case.</p></div>
       </div>
 
       <article class="decision rv">
@@ -182,15 +181,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <p class="because"><b>Result:</b> I judge a design inside the screen it belongs to, with the data it has to carry.</p>
       </article>
 
-      <article class="decision rv xtra">
-        <div class="label">Decision 3 · <b>Where components are documented</b></div>
-        <h3>Document components inside the app, or in Storybook?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>The in-app Design Inspector</strong><span>I built it first and kept it in sync by hand.</span></li>
-          <li class="opt chosen"><strong>Storybook</strong><span>I built its stories, including a Pages tier for whole screens.</span></li>
-        </ul>
-        <p class="because"><b>Result:</b> I kept Storybook, which renders the real components, and removed the Inspector.</p>
-      </article>
     </div>
   </section>
 
@@ -198,9 +188,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="chapter sheet" id="demos">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">04 · <b>Demo environments</b></div><h2>One build for design reviews and prospect demos</h2></div>
+        <div><div class="label">04 · <b>Demo environments</b></div><h2>One build, several demo environments</h2></div>
         <div class="prose">
-          <p class="lead">The Lab holds a demo environment for each customer or prospect, so I can compare designs for different kinds of customers.</p>
+          <p class="lead">The Lab holds separate demo environments, such as Northwind, so I can check one design against different kinds of customers.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details>
         </div>
       </div>
@@ -211,7 +201,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       </div>
 
       <article class="decision rv design-lab-gap xtra">
-        <div class="label">Decision 4 · <b>Two modes</b></div>
+        <div class="label">Decision 3 · <b>Two modes</b></div>
         <h3>Should experiments get a shell of their own?</h3>
         <ul class="opts">
           <li class="opt"><strong>One shell for everything</strong><span>Keep adding every new page to the one shell of my first version.</span></li>
@@ -219,7 +209,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </ul>
         <p class="because"><b>Result:</b> one sign-in leads to both modes. New work lands in the Lab first, and some of it moves on to Demo mode later.</p>
       </article>
-      <p class="design-lab-more">The engine that plays guided demos in the Lab has its own case study: <a href="demos-engine.html">Demos engine</a>.</p>
     </div>
   </section>
 
@@ -240,10 +229,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <li><strong>Reuse before inventing</strong><span>I build new pages from parts the Lab already has. The Settings section uses only existing components, and the Knowledge glossary row reuses the item row from Signals.</span></li>
       </ol>
 
-      <dl class="facts rv design-lab-gap">
-        <div><dt>Key screens that carried a version switch</dt><dd>5</dd></div>
-        <div><dt>Stages of Topics kept on the same data</dt><dd>2</dd></div>
-      </dl>
 
       <div class="design-lab-close rv">
         <p class="pull">A replica of our platform I made to test designs and ideas.</p>

@@ -144,3 +144,10 @@
 @media (prefers-reduced-motion: reduce){
   #system#system .tk *, #system#system .tk *::after{ transition:none !important; animation:none !important; }
 }
+
+/* Outside critic, 22.11.2026 night. The two name pills stand 16px inside their frames (12px on a phone), not 9 to 12px from the corner.
+   A colour that has not arrived yet is a faint tint of itself with a quiet name, so the row reads as "to come" and not as empty white squares. */
+#system#system .tk-lab{ left:16px; top:16px; }
+@media (max-width:760px){ #system#system .tk-lab{ left:12px; top:12px; } }
+#system#system .tk[data-mode="build"] .tk-c:not(.in) i, #system#system .tk.js[data-mode="wait"] .tk-c i{ background:color-mix(in srgb, var(--c) 13%, #F6F5F3); box-shadow:inset 0 0 0 1px rgba(23,27,32,.07); }
+#system#system .tk[data-mode="build"] .tk-c:not(.in) span, #system#system .tk.js[data-mode="wait"] .tk-c span{ color:#a4a8ad; }

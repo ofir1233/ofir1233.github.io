@@ -38,8 +38,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-signals.css">
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/px.css?v=12">
-<link rel="stylesheet" href="../v7/case.css?v=12">
+<link rel="stylesheet" href="../v7/px.css?v=14">
+<link rel="stylesheet" href="../v7/case.css?v=14">
 <style>
 /* data: toolbar anatomy (pins; on phones the two ends of the strip stack), plan-vs-build table, 3-column steps */
 .data-anat .live { top: 4px; bottom: auto; }
@@ -110,7 +110,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="chapter" id="table">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">01 · <b>The table</b></div><h2>Three slim rows hold all the controls</h2></div>
+        <div><div class="label">01 · <b>The table</b></div><h2>Four slim rows hold all the controls</h2></div>
         <div class="prose"><p class="lead">I gave the table the rest of the screen, and a call opens in a side panel next to it.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>That keeps the filtered table in view, and the arrow keys step through its calls without closing the panel.</p></div></details></div>
       </div>
@@ -132,14 +132,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <ol class="data-key rv">
         <li><span><b>Where you are.</b> The breadcrumb, how many calls are in view and how many are still processing.</span></li>
         <li><span><b>Tabs.</b> All calls, Needs review, High priority, Alerts, Done and Agent evaluation slice the same table.</span></li>
-        <li><span><b>Date range first.</b> It sits ahead of every other filter.</span></li>
+        <li><span><b>Date range.</b> It opens the last row, ahead of Filter.</span></li>
         <li><span><b>Filter in plain words.</b> One box across the table. A single condition is added with Filter, beside the date range.</span></li>
         <li><span><b>Columns.</b> One button, with a count, at the far end of the row.</span></li>
         <li><span><b>Search and Upload.</b> Top right, apart from the controls that slice the table.</span></li>
       </ol>
 
       <div class="two solo data-gap">
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-data-table.webp" data-zoom alt="The Data page: the toolbar above the call table. Each row has the call’s topic, a one-line summary, its date, status, priority, owner, sentiment and score." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The call table.</b> Each row leads with the call's topic and a one-line summary. Click to enlarge.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-data-table.webp" data-zoom alt="The Data page: the toolbar above the call table. Each row has the call’s topic, a one-line summary, its date, status, priority, owner, sentiment and score." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The call table.</b> Each row leads with the call's topic and a one-line summary.</figcaption></figure>
         <div class="prose xtra">
           <h3 style="margin-top:0">Flagged calls</h3>
           <p>A small warning sign marks a call where an alert fired. Open the call and the side panel names the alert and whether it was marked a false positive.</p>
@@ -173,7 +173,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">03 · <b>Plan vs. build</b></div><h2>Saved views: the plan against the build</h2></div>
-        <div class="prose"><p class="lead">Two of the one-page plan's recommendations are in the Lab today, one is partly there and one was reverted.</p>
+        <div class="prose"><p class="lead">Of the plan's five recommendations, two are in the Lab today, one is partly there, one was reverted and one was not built by July.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The plan had three UI states, eight decisions and 12 edge cases. Each decision gave options, a recommendation and a reason, and each edge case carried a “Handle v1” or “Punt v2” mark.</p><p>Its core idea was a <b>View</b> that saves the filters, the visible columns and their order together.</p></div></details></div>
       </div>
 

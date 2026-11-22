@@ -37,8 +37,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-news-recap.css">
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/px.css?v=12">
-<link rel="stylesheet" href="../v7/case.css?v=12">
+<link rel="stylesheet" href="../v7/px.css?v=14">
+<link rel="stylesheet" href="../v7/case.css?v=14">
 <style>
 /* annotated screen: numbered pins over the image, each beside the part it names and on no text */
 .newsroom-pins { position: relative; }
@@ -46,7 +46,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 /* below 1024px a pin is larger against the screen than the gaps it sits in (between the heading and the Just detected strip, say),
    so the pins that need it move to their compact spots (--xs, --ys); on phones the pin is the smallest circle that holds a 13.5px numeral */
 @media (max-width: 1023px) { .newsroom-pin { left: var(--xs, var(--x)); top: var(--ys, var(--y)); } }
-@media (max-width: 760px) { .newsroom-pin { width: 18px; height: 18px; box-shadow: 0 0 0 1.5px #fff; } }
+/* on a phone the annotated screen keeps a readable size and swipes sideways, pins and all */
+@media (max-width: 760px) { .newsroom-anat .shot { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; } .newsroom-anat .shot::-webkit-scrollbar { display: none; } .newsroom-pins { width: 760px; } .newsroom-pin { width: 22px; height: 22px; box-shadow: 0 0 0 2px #fff; left: var(--x); top: var(--y); } .newsroom-anat .shot > .live, .newsroom-chatin .shot > .live { display: none; }
+  .newsroom-home .shot.v7s.wide { overflow: hidden; } .newsroom-home .shot.v7s.wide > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 66% 50%; } }
 .newsroom-legend { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px 28px; margin-top: 28px; }
 .newsroom-legend li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.55; color: var(--text); }
 .newsroom-legend li::before { content: attr(data-n); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: var(--on-accent); font: 700 13.5px/1 var(--body); }
@@ -162,7 +164,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <ol class="newsroom-legend rv">
         <li data-n="1"><span><b>Monthly recap.</b> The month as a 75-second full-screen story, which starts when you press Play.</span></li>
         <li data-n="2"><span><b>Time window.</b> The list is labeled “this week” and says how many stories it holds.</span></li>
-        <li data-n="3"><span><b>Strength.</b> Each story carries one word for how strong it is: Surging, Rising, New, Steady or Improving.</span></li>
+        <li data-n="3"><span><b>Direction.</b> Each story carries one word for where it is heading: Surging, Rising, New, Steady or Improving.</span></li>
         <li data-n="4"><span><b>Source.</b> Under each headline: where the story came from, such as a signal or a report, and its time.</span></li>
         <li data-n="5"><span><b>Peak.</b> The chart marks its highest day with the count and the date.</span></li>
       </ol>
@@ -218,11 +220,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><div class="label">03 · <b>Showing evidence</b></div><h2>Precision only where the platform has it</h2></div>
         <div class="prose">
           <p class="lead">In each story's “Why you're seeing this” line, I show a threshold only where a configured rule sets one, so trends stay in words.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>V1's lead story put a precise percentage in its headline. In the trust layer I defined the rules in the feed's data, one set per story type.</p></div></details>
+          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>In the trust layer I defined the rules in the feed's data, one set per story type.</p></div></details>
         </div>
       </div>
 
-      <article class="decision rv xtra">
+      <article class="decision rv">
         <div class="label">Decision 3 · <b>How exact to sound</b></div>
         <h3>How much precision should a story's trigger show?</h3>
         <ul class="opts">
@@ -313,7 +315,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>News puts the AI's stories at the front of the page. The chat home is a different case, one I built in the Lab's first version.</p></div></details>
         </div>
       </div>
-      <figure class="rv newsroom-home">
+      <figure class="rv newsroom-home nohint">
         <div class="shot v7s wide"><span class="live">Design Lab · demo data</span><img src="../img/v7s-studio-home.webp" data-zoom alt="The home screen: the Hear mark above the line Describe it. Hear builds it., one field with an at button, a slash button and a microphone, on a painted sky, with the product in the sidebar" width="2560" height="1440" loading="lazy"></div>
         <figcaption><b>Home today.</b> The Hear mark sits above the line, not in the field.</figcaption>
       </figure>

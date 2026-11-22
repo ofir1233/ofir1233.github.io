@@ -38,8 +38,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-agent-eval.css">
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/px.css?v=12">
-<link rel="stylesheet" href="../v7/case.css?v=12">
+<link rel="stylesheet" href="../v7/px.css?v=14">
+<link rel="stylesheet" href="../v7/case.css?v=14">
 <style>
 /* explainable-scores: page-only pieces */
 .es-scale { background: var(--card); border-radius: 22px; padding: clamp(18px, 2.6vw, 28px); display: grid; gap: 10px; }
@@ -119,7 +119,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
       <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-es-grid.webp" data-zoom alt="The Compliance screen: five criteria as rows and ten agents as columns. Passing scores are grey, failing scores are coral, a Failing criteria row counts them, and one failing cell has its popover open." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div>
-        <figcaption><b>Compliance, criteria by agent.</b> Only a failing score takes color. One cell's popover is open. Click to enlarge.</figcaption></figure>
+        <figcaption><b>Compliance, criteria by agent.</b> Only a failing score takes color. One cell's popover is open.</figcaption></figure>
       <div class="two solo es-gap">
         <figure class="rv">
           <div class="es-scale" role="img" aria-label="The three legend steps: 70 and up in a quiet gray, passing; 60 to 69 in pale coral and under 60 in coral, both failing">
@@ -177,15 +177,17 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             <li><b>What they share.</b> The cause most of them have in common, in one sentence.</li>
             <li><b>The calls.</b> Each with its date and the step that was missed.</li>
           </ol>
-          <p>The answer names the cause before it names the person. A score about one agent doesn't automatically become that agent's fault.</p>
+          <p>The answer names the cause before it names the person.</p>
           
         </div>
       </div>
 
-      <div class="prose xtra es-gap">
+      <div class="prose es-gap">
         <h3 style="margin-top:0">The chart explains itself too</h3>
         <p>In Agent evaluation, the score chart's subtitle states its own encoding: height and color are that day's score. Low days turn coral, like the failing cells in Compliance, and the scale sits under the bars.</p>
-        <h3>Two ways into the same chat</h3>
+      </div>
+      <div class="prose xtra es-gap">
+        <h3 style="margin-top:0">Two ways into the same chat</h3>
         <p>Ask AI also opens from the top of the sidebar. It says “Ask about what you're looking at” and keeps the page and project as context.</p>
       </div>
 
@@ -204,7 +206,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <li class="opt"><strong>A blank chat</strong><span>Ask AI from the sidebar. You write the question and say which number you mean.</span></li>
           <li class="opt chosen"><strong>The cell itself</strong><span>Ask AI which calls, the popover's one button, sends the cell's agent and criterion with the question.</span></li>
         </ul>
-        <p class="because"><b>Result:</b> I kept both. A question from a cell already names its score, so the answer can point to the calls behind it. The sidebar takes open questions about the page.</p>
+        <p class="because"><b>Result:</b> the cell leads. It sends the agent and the criterion, so the answer can name the calls. The sidebar stays for open questions about the page.</p>
       </article>
 
       <article class="decision rv xtra">

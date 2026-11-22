@@ -34,8 +34,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/case.css?v=12">
-<link rel="stylesheet" href="../v7/campaign.css?v=3">
+<link rel="stylesheet" href="../v7/case.css?v=14">
+<link rel="stylesheet" href="../v7/campaign.css?v=93">
 <style>
 /* brand-web: page-only pieces */
 .brand-web-gap { margin-top: clamp(16px, 2vw, 24px); }
@@ -65,6 +65,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .brand-web-dir .pill { justify-self: start; margin-top: 6px; }
 .brand-web-row { display: flex; gap: 16px; align-items: flex-start; }
 .brand-web-row > figure { min-width: 0; }
+/* the earlier booth is the "before": smaller than the new pieces under it */
+.brand-web-row.bw-before { max-width: 760px; }
+.bw-art { max-width: 760px; margin-top: 16px; }
 .brand-web-row .r-spec { flex: 1.254 1 0; } .brand-web-row .r-live { flex: .952 1 0; }
 .brand-web-mosaic { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .brand-web-mosaic figure { position: relative; min-width: 0; }
@@ -186,9 +189,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div class="cw-page">
         <div class="cw-cover" tabindex="0" role="img" aria-label="The LinkedIn cover: a painted strip of the city with the line Every customer call, heard."><img src="../img/cw-cover.webp" alt="" width="2256" height="382" loading="lazy" decoding="async"></div>
         <div class="cw-pg"><img class="cw-pg-av" src="../img/cw-cloud.webp" alt="The Hear mark painted as a cloud" width="320" height="320" loading="lazy" decoding="async"><div class="cw-pg-who"><b>Hear</b><span>AI contact center intelligence platform</span></div>
-          <p class="cw-pg-note"><b>The company page.</b> The cover is one strip of the same city. The profile picture is the mark, painted as a cloud.</p>
           <button type="button" class="cw-open" data-full="../img/cw-page.webp" data-alt="Mockup of the whole Hear company page on LinkedIn" data-tall>See the whole page</button></div>
       </div>
+      <p class="cw-pg-cap"><b>The company page.</b> The cover is one strip of the same city. The profile picture is the mark, painted as a cloud.</p>
       </div>
     </div>
   </section>
@@ -234,7 +237,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 
       <h3 class="brand-web-sub">The painted city</h3>
       <div class="bw-three">
-        <figure class="rv"><div class="shot v7s"><img src="../img/cw-parade.webp" data-zoom alt="Painting of a city parade under giant coral balloon letters" width="1200" height="628" loading="lazy" decoding="async"></div><figcaption><b>The city celebrates.</b> The parade.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><img src="../img/cw-plane.webp" data-zoom alt="Painting of a woman on a terrace looking at the city. A plane has written 100% coverage in the sky." width="1200" height="628" loading="lazy" decoding="async"></div><figcaption><b>The words are part of the scene.</b> A plane writes them in the sky.</figcaption></figure>
         <figure class="rv"><div class="shot v7s"><img src="../img/cw-rome.webp" data-zoom alt="Painting of a street in Rome with a telephone handset resting on the Colosseum" width="1200" height="628" loading="lazy" decoding="async"></div><figcaption><b>Another city, the same hand.</b> Rome.</figcaption></figure>
         <figure class="rv"><div class="shot v7s"><img src="../img/cw-paper.webp" data-zoom alt="Painting of two hands holding a Hear newspaper at a café" width="1200" height="628" loading="lazy" decoding="async"></div><figcaption><b>Through the eyes of someone in the scene.</b> The morning paper.</figcaption></figure>
       </div>
@@ -273,28 +276,26 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="wrap">
       <div class="ch-head center">
         <div><div class="label">04 · <b>Off the screen</b></div><h2>The brand beyond the screen</h2></div>
-        <div class="prose"><p class="lead">A station sign and a tote carry the brand off the screen, as mockups. Before them, a trade-show booth was built from my design.</p>
+        <div class="prose"><p class="lead">Before the painted city, a trade-show booth was built from my design. A station sign and a tote now carry the new brand off the screen, as mockups.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Both pieces come from one campaign, about the customers who were heard.</p></div></details></div>
       </div>
 
-      <h3 class="brand-web-sub">Station sign</h3>
-      <div class="bw-pair" style="grid-template-columns:minmax(0,2.399fr) minmax(0,1.791fr)">
-        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-ad-station.webp" data-zoom alt="The station ad: a wall of small gray painted portraits with one in color, and the line One of them told you what to build next" width="1600" height="667" loading="lazy" decoding="async"></div><figcaption><b>The ad.</b> “One of them told you what to build next.” One portrait in color among the gray ones.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-station.webp" data-zoom alt="Mockup of the ad on a station wall, with a passer-by in front of it" width="1800" height="1005" loading="lazy" decoding="async"></div><figcaption><b>In the station.</b> Mockup.</figcaption></figure>
-      </div>
-
-      <h3 class="brand-web-sub">Tote bag</h3>
-      <div class="bw-pair" style="grid-template-columns:minmax(0,1fr) minmax(0,.805fr);max-width:820px">
-        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-ad-tote.webp" data-zoom alt="The tote print: a speech bubble filled with painted sky, with the words Said out loud, above the Hear logo" width="900" height="900" loading="lazy" decoding="async"></div><figcaption><b>The print.</b> “Said out loud.” in a speech bubble of sky.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-tote.webp" data-zoom alt="Mockup of the tote bag on a person’s shoulder in the street" width="1100" height="1366" loading="lazy" decoding="async"></div><figcaption><b>On the street.</b> Mockup.</figcaption></figure>
-      </div>
-
-      <h3 class="brand-web-sub">Trade-show booth · the earlier identity</h3>
-      <div class="brand-web-row">
+      <h3 class="brand-web-sub">Before · a trade-show booth in the earlier identity</h3>
+      <div class="brand-web-row bw-before">
         <figure class="r-spec rv"><div class="shot" style="background:#fff"><img src="../img/br-booth-spec.webp" srcset="../img/br-booth-spec.webp 577w, ../img/br-booth-spec-l.webp 1440w" sizes="(max-width: 760px) 100vw, 620px" data-full="../img/br-booth-spec-l.webp" data-zoom alt="Booth production spec with panel callouts F1 and F2 on the header boards, W1 and W2 on the walls, and C1 to C3 on the counter" width="577" height="460" loading="lazy" decoding="async"></div>
           <figcaption><b>Production spec.</b> Each printed panel has its own letter-and-number callout.</figcaption></figure>
         <figure class="r-live rv"><div class="shot"><img src="../img/br-booth-live-nb.webp" srcset="../img/br-booth-live-nb.webp 438w, ../img/br-booth-live-nb-l.webp 800w" sizes="(max-width: 760px) 100vw, 470px" data-full="../img/br-booth-live-nb-l.webp" data-zoom alt="The booth as built at the show, from my design, with the Hear header board and a coral wall panel" width="438" height="460" loading="lazy" decoding="async"></div>
           <figcaption><b>As built.</b> The stand at the show, from my design, before the painted city.</figcaption></figure>
+      </div>
+
+      <h3 class="brand-web-sub">Station sign</h3>
+      <figure class="rv"><div class="shot v7s"><span class="live">Mockup</span><img src="../img/v7b-station.webp" data-zoom alt="Mockup of the ad on a station wall, with a passer-by in front of it" width="1800" height="1005" loading="lazy" decoding="async"></div><figcaption><b>In the station.</b> The ad on a station wall, with a passer-by in front of it.</figcaption></figure>
+      <figure class="rv bw-art"><div class="shot v7s"><img src="../img/v7b-ad-station.webp" data-zoom alt="The station ad: a wall of small gray painted portraits with one in color, and the line One of them told you what to build next" width="1600" height="667" loading="lazy" decoding="async"></div><figcaption><b>The ad.</b> “One of them told you what to build next.” One portrait in color among the gray ones.</figcaption></figure>
+
+      <h3 class="brand-web-sub">Tote bag</h3>
+      <div class="bw-pair" style="grid-template-columns:minmax(0,1fr) minmax(0,.805fr);max-width:820px">
+        <figure class="rv"><div class="shot v7s"><img src="../img/v7b-ad-tote.webp" data-zoom alt="The tote print: a speech bubble filled with painted sky, with the words Said out loud, above the Hear logo" width="900" height="900" loading="lazy" decoding="async"></div><figcaption><b>The print.</b> “Said out loud.” in a speech bubble of sky.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s"><span class="live">Mockup</span><img src="../img/v7b-tote.webp" data-zoom alt="Mockup of the tote bag on a person’s shoulder in the street" width="1100" height="1366" loading="lazy" decoding="async"></div><figcaption><b>On the street.</b> The print on a bag, on a shoulder.</figcaption></figure>
       </div>
     </div>
   </section>

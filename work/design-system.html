@@ -34,9 +34,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/px.css?v=8">
+<link rel="stylesheet" href="../v7/px.css?v=14">
 <link rel="stylesheet" href="../v7/system.css?v=4">
-<link rel="stylesheet" href="../v7/case.css?v=12">
+<link rel="stylesheet" href="../v7/case.css?v=14">
 <style>
 .ds-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .ds-code, .ds-ct code, .ds-list code, .ds-layer code { font: 500 .86em/1.4 var(--mono); overflow-wrap: anywhere; }
@@ -99,7 +99,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .ds-ctwrap { max-width: 860px; margin-inline: auto; }
 /* v7 specimens: components and colors drawn in code with the Lab's current values, so no picture on this page shows an earlier look */
 .shot.sx { background: #fff; padding: clamp(20px, 2.6vw, 30px) clamp(18px, 2.4vw, 28px) 54px; font-family: var(--body); color: #181818; }
-.shot.sx.sx-cv { background: #F4F3F1; }
+.shot.sx.sx-cv { background: #F4F3F1 !important; }
 .sx-g { display: grid; grid-auto-flow: column; grid-template-rows: repeat(6, auto); grid-template-columns: auto auto auto; justify-content: center; gap: 12px clamp(22px, 4vw, 44px); align-items: center; justify-items: start; }
 .sx-g > .h, .sx-chat > .h, .sx-pal h4 { margin: 0; font: 500 12.5px/1.2 var(--body); letter-spacing: 0; color: #6A7078; }
 .sx-g > .r { font: 500 12.5px/1.2 var(--body); color: #6A7078; }
@@ -131,7 +131,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .sx-tag { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 99px; background: #E9EEF2; font: 500 12.5px/1 var(--body); color: #3d444c; }
 .sx-n { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: #0B6FCF; font: 600 11px/1 var(--body); font-style: normal; color: #fff; vertical-align: 1px; margin-left: 5px; }
 .sx-card > .sx-n { position: absolute; top: -8px; right: -8px; margin: 0; }
-.sx-anat > .sx-n { position: absolute; top: 14px; left: 14px; margin: 0; }
+.sx-anat > .sx-n { position: absolute; top: 22px; left: 22px; margin: 0; }
 .sx-roles { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px; }
 .sx-roles li { display: flex; align-items: center; gap: 9px; min-width: 0; font: 400 13.5px/1.35 var(--body); color: #3d444c; }
 .sx-roles li .sx-n { flex: none; margin: 0; }
@@ -148,6 +148,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 /* four screens, one token set */
 .ds-screens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 32px) 16px; }
 @media (max-width: 860px) { .ds-screens { grid-template-columns: minmax(0, 1fr); } }
+.ds-screens-note { margin: 14px 0 0; font: 400 14px/1.5 var(--body); color: var(--mute); }
+/* a pair of specimens stands in frames of one height, so their captions start on one line */
+.grid2 > figure:has(> .shot.sx) { display: grid; grid-template-rows: 1fr auto; }
+.grid2 > figure > .shot.sx { display: grid; align-content: center; }
 </style>
 </head>
 <body>
@@ -329,7 +333,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           </tbody>
         </table>
       </div>
-      <div class="prose ds-ctwrap xtra" style="margin-top:clamp(40px,6vw,64px)"><h3 style="margin-top:0">Charts read the same tokens</h3><p>I built the News charts to take every color from CSS variables. On the Topics map and in the score lists, one blue deepens as the score drops, so color means one thing on a chart.</p></div>
+      <div class="prose ds-ctwrap xtra" style="margin-top:clamp(40px,6vw,64px)"><h3 style="margin-top:0">Charts read the same tokens</h3><p>I built the News charts to take every color from CSS variables. On the Topics map, one blue deepens as the score drops.</p></div>
     </div>
   </section>
 
@@ -342,11 +346,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <p>The same approach carried direction. I first built right to left for the News tab in July. A language hook follows the page's <code class="ds-code">lang</code>, UI strings sit in a dictionary, and logical CSS properties such as <code class="ds-code">borderInlineStart</code> let the layout flip with the text.</p></div></details></div>
       </div>
       <div class="ds-screens">
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-topics-hi.webp" data-zoom alt="The Topics screen: boxes sized by calls, in one blue that deepens as the score drops, on a glass panel over a painted sky" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Topics.</b> The blue is the score scale.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-actions-board.webp" data-zoom alt="The Actions board in four columns, Pending, In progress, Done and Cancelled. Every card names its source, its date and its owner." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Actions.</b> White cards on a gray column, with gray tags.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-es-grid.webp" data-zoom alt="The Compliance screen: five criteria as rows and ten agents as columns. Passing scores are gray, failing scores are coral, and one failing cell has its popover open." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Compliance.</b> Coral marks only the failing scores.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-news-feed.webp" data-zoom alt="The Newsroom feed: the monthly recap with its Play button, the call volume chart with its peak marked, and this week’s developments, each with a source line and a one-word tag" width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Newsroom.</b> The chart and the tags take the same blue and the same tints.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-topics-panel.webp" data-zoom alt="The Topics screen: boxes sized by calls, in one blue that deepens as the score drops, with the daily score list beside them" width="2072" height="1339" loading="lazy"></div><figcaption><b>Topics.</b> The blue is the score scale.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-actions-board.webp" data-zoom alt="The Actions board in four columns, Pending, In progress, Done and Cancelled. Every card names its source, its date and its owner." width="2060" height="1327" loading="lazy"></div><figcaption><b>Actions.</b> White cards on a gray column, with gray tags.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-es-grid.webp" data-zoom alt="The Compliance screen: five criteria as rows and ten agents as columns. Passing scores are gray, failing scores are coral, and one failing cell has its popover open." width="2060" height="1327" loading="lazy"></div><figcaption><b>Compliance.</b> Coral marks only the failing scores.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-news-feed.webp" data-zoom alt="The Newsroom feed: the monthly recap with its Play button, the call volume chart with its peak marked, and this week’s developments, each with a source line and a one-word tag" width="2060" height="1327" loading="lazy"></div><figcaption><b>Newsroom.</b> The chart and the tags take the same blue and the same tints.</figcaption></figure>
       </div>
+      <p class="ds-screens-note">All four: Design Lab, demo data.</p>
     </div>
   </section>
 
@@ -367,9 +372,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <h3>Should a score scale run red to green, or stay in one hue?</h3>
         <ul class="opts">
           <li class="opt"><strong>Red to green</strong><span>A different color for each score band. On a dense map the colors compete and the screen is hard to read.</span></li>
-          <li class="opt chosen"><strong>One blue, in steps</strong><span>The deeper the blue, the lower the score. Coral, green and lilac stay for small marks that each mean one thing.</span></li>
+          <li class="opt chosen"><strong>One blue, in steps</strong><span>On the Topics map, the deeper the blue, the lower the score. Coral, green and lilac stay for small marks that each mean one thing.</span></li>
         </ul>
-        <p class="because"><b>Result:</b> the Topics map and the score lists read in one hue, and a color on a screen always means the same thing.</p>
+        <p class="because"><b>Result:</b> the Topics map and its daily list read in one hue.</p>
       </article>
     </div>
   </section>

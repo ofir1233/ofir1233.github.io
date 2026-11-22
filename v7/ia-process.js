@@ -66,7 +66,7 @@
 
   const layout = () => {
     const W = pz.clientWidth; if (!W) return false;
-    const mode = W >= 900 ? 'wide' : W >= 720 ? 'mid' : 'small';
+    const mode = W >= 1010 ? 'wide' : W >= 720 ? 'mid' : 'small'; // from 1010 the wide dial is larger than the mid one, so the dial never shrinks as the window grows
     const TH = mode === 'small' ? 64 : 84, chip = mode === 'small' ? 32 : 40;
     const side = mode === 'wide' ? 128 : mode === 'mid' ? 36 : chip / 2 + 4;
     const R = Math.min(mode === 'wide' ? 432 : mode === 'mid' ? 360 : 300, (W - 2 * side) / (2 * Math.sin(TH * D)));
@@ -115,11 +115,13 @@
   const place = () => {
     if (!G) return;
     core.style.paddingTop = '0px';
-    const g = G, coreH = core.offsetHeight, yTop = g.top + g.h2 + (g.mode === 'small' ? 34 : 20 + (g.mode === 'wide' ? 46 : 38));
+    const g = G, coreH = core.offsetHeight, yTop = g.top + g.h2 + (g.mode === 'small' ? 46 : 20 + 46);
     let ty = yTop;
     if (g.mode === 'small') {
-      const hH = items[0].firstChild.offsetHeight, limit = g.top + g.A + g.chip / 2 + 12;
-      read.style.setProperty('--pz-gap', Math.max(10, Math.round(limit - ty - hH)) + 'px');
+      // the sentence starts 24px under the dial's feet; the name travels down with it, so the two never drift apart on a wide phone or a tablet
+      const hH = items[0].firstChild.offsetHeight, limit = g.top + g.A + g.chip / 2 + 24;
+      ty = Math.max(yTop, limit - hH - 16);
+      read.style.setProperty('--pz-gap', Math.max(12, Math.round(limit - ty - hH)) + 'px');
     } else {
       read.style.removeProperty('--pz-gap');
       const yBot = g.top + g.A + g.chip / 2;
@@ -208,7 +210,7 @@
       ang = posAt(m, t);
       if (!m.landed && t >= m.tA) {
         const i = clamp(Math.round((ang + G.TH) / G.STEP), 0, N - 1);
-        if (i !== showI) { showI = i; mark(i, 'scan'); if (!intro.on && aOf(i) !== m.to) nudge(btns[i]); }
+        if (i !== showI) { showI = i; if (!m.o.quiet) mark(i, 'scan'); if (!intro.on && aOf(i) !== m.to) nudge(btns[i]); }
       }
       if (!m.landed && t >= m.tA + m.tL) { m.landed = true; if (m.o.onLand) m.o.onLand(); }
       if (anim === m && t >= m.tA + m.tT + m.tS) { ang = m.to; anim = null; if (m.o.onDone) m.o.onDone(); }
@@ -261,7 +263,7 @@
       setTimeout(() => {
         if (!intro.on) return;
         const px = 180 / Math.PI / G.R * Math.sqrt(G.R / 410);
-        move(aOf(0), { over: 12 * px, dur: 700, onLand: () => land(0), onDone: () => { intro.on = false; dwell(); } });
+        mark(-1, 'scan'); move(aOf(0), { quiet: true, over: 12 * px, dur: 700, onLand: () => land(0), onDone: () => { intro.on = false; dwell(); } });
       }, 200);
     } });
   };
@@ -273,6 +275,7 @@
   const sync = () => { if (ringAnim) { if (held()) ringAnim.pause(); else ringAnim.play(); } };
   function dwell() {
     if (!auto || anim || !rc.animate) return;
+    if (left <= 1) { stopAuto(); return; }
     btns[cur].append(ring); void ring.offsetWidth; ring.classList.add('on');
     ringAnim = rc.animate([{ strokeDashoffset: 100 }, { strokeDashoffset: 0 }], { duration: DWELL, easing: 'linear', fill: 'forwards' });
     ringAnim.onfinish = () => { if (!auto) return; if (--left <= 0) { stopAuto(); return; } go(cur + 1); };
@@ -320,7 +323,7 @@
   } else addEventListener('resize', fit);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(es => { es.forEach(e => { inView = e.isIntersecting; }); sync(); }, { threshold: .2 }).observe(pz);
+    new IntersectionObserver(es => { es.forEach(e => { inView = e.isIntersecting; }); sync(); }, { threshold: .5 }).observe(pz);
     if (!reduce) { const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); if (!G) fit(); start(); } }, { threshold: .5 }); io.observe(pz); }
   } else { inView = true; if (!reduce) start(); }
 })();

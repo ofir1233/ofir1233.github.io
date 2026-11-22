@@ -116,3 +116,34 @@ figure:has(> .shot.dark){ max-width:860px; }
   .shot.v7s.actions-bar{ overflow-x:auto; scrollbar-width:none; }
   .shot.v7s.actions-bar > img{ width:640px; max-width:none; }
 }
+
+/* Critic round, 22.11.2026 night (UX on a phone, art director).
+   A pair of figures stacked on a phone must not let a wide still stretch its column: the caption was cut off at the screen's edge. */
+@media (max-width:860px){ .two, .grid2, .grid3{ grid-template-columns:minmax(0,1fr) !important; } }
+@media (max-width:760px){
+  /* a picture wider than the phone says so, in the caption, where the reader is already looking */
+  figure:has(> .shot.v7s.wide) > figcaption::after, figure:has(> .shot.v7s.actions-bar) > figcaption::after, .data-anat > figcaption::after, .newsroom-anat > figcaption::after{ content:" Swipe the picture sideways."; color:#0B6FCF; }
+  figure.nohint > figcaption::after{ content:none !important; }
+  /* the compare handle on a phone shows the middle of the screen larger, and nothing sits on it but the handle */
+  .compare.v7s > img, .compare.v7s .after img{ width:100%; height:auto; aspect-ratio:4 / 3; object-fit:cover; object-position:62% 0; }
+  .compare.v7s .tag{ display:none; }
+}
+.compare.v7s .live{ display:none; }
+/* the filter bar is one thin strip: an enlarge mark on it only covers a chip */
+.shot.v7s.actions-bar > .zx-i{ display:none; }
+/* fingers: 44px */
+@media (hover:none){ .more > summary, .toc a, .px-host.px-host .px-tabs button{ min-height:44px; } }
+
+/* Art director, 22.11.2026 night: the inner pages kept rounder corners than the home page (a decision card at 26, tiles at 22).
+   The home page's scale holds here too: a page card is 20, a tile 16, an option 14, a small note 12. Pills stay pills. */
+.decision{ border-radius:20px !important; }
+.steps li, .facts div, .brief div, .meta{ border-radius:16px !important; }
+.opt{ border-radius:14px !important; }
+.why{ border-radius:12px !important; }
+.compare{ border-radius:16px !important; }
+.next{ border-radius:20px !important; }
+:root{ --sheet-r: clamp(20px, 2.2vw, 26px) !important; }
+@media (max-width:700px){
+  .decision, .next{ border-radius:18px !important; }
+  .steps li, .facts div, .brief div, .meta{ border-radius:14px !important; }
+}

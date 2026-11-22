@@ -72,3 +72,6 @@
   #web#web .wv-done:focus-visible{ outline:2px solid #139FFD; outline-offset:3px; }
 }
 @media (prefers-reduced-motion: reduce){ #web#web .wv-done{ transition:none; } }
+
+/* a mouse drawn on a touch screen is the wrong picture: on touch the invitation is the words alone */
+@media (hover:none){ #web#web .wv-go span > svg{ display:none; } #web#web .wv-go span{ padding-left:20px; } }

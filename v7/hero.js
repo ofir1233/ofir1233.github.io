@@ -63,10 +63,11 @@
   box.classList.add('js');
   var root = document.documentElement, pin = fig.closest('.me-pin'), signed = false, timer = 0, tick = false;
   function ready() {
+    if (root.classList.contains('hp-wait') || root.classList.contains('hp-on')) return false; // a picture is signed when it is finished, not while it is being painted
     if (root.classList.contains('me-scroll')) return !!pin && pin.classList.contains('me-grown');
     var r = fig.getBoundingClientRect(); return r.bottom < innerHeight - 8 && r.bottom > 140;
   }
-  function stop() { removeEventListener('scroll', ask); removeEventListener('resize', ask); if (mo) mo.disconnect(); }
+  function stop() { removeEventListener('scroll', ask); removeEventListener('resize', ask); if (mo) mo.disconnect(); if (mr) mr.disconnect(); }
   function check() {
     tick = false; if (signed) return;
     if (!ready()) { if (timer) { clearTimeout(timer); timer = 0; } return; }
@@ -76,5 +77,7 @@
   function ask() { if (!tick) { tick = true; requestAnimationFrame(check); } }
   var mo = pin && 'MutationObserver' in window ? new MutationObserver(ask) : null;
   if (mo) mo.observe(pin, { attributes: true, attributeFilter: ['class'] });
+  var mr = 'MutationObserver' in window ? new MutationObserver(ask) : null;
+  if (mr) mr.observe(root, { attributes: true, attributeFilter: ['class'] });
   addEventListener('scroll', ask, { passive: true }); addEventListener('resize', ask); ask();
 })();

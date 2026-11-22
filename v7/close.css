@@ -182,3 +182,12 @@ html body #contact#contact#contact{
   #contact#contact .cl-scene{ border-radius:14px; }
 }
 @media (prefers-reduced-motion: reduce){ #contact#contact.cl-arm.cl-in .cl-card{ animation:none; } }
+
+/* Outside critic, 22.11.2026 night: on a narrow phone the address was cut ("...gmail.co"), the one line a recruiter needs.
+   The address is never cut: under 420px the Copy button keeps its mark and drops its word. */
+@media (max-width:420px){
+  #contact#contact .cl-lines .cl-ad{ font-size:14px; overflow:visible; text-overflow:clip; }
+  #contact#contact .cl-copy{ width:34px; padding:0; justify-content:center; gap:0; }
+  #contact#contact .cl-copy .cl-w{ position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+}
+@media (max-width:340px){ #contact#contact .cl-lines .cl-ad{ font-size:13px; letter-spacing:-.01em; } }

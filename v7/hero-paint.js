@@ -14,7 +14,7 @@
   var bg = inn && inn.querySelector('.me-v7-bg'), fg = inn && inn.querySelector('.me-v7-fg');
   var over = false, cv = null, guard = setTimeout(end, Math.max(400, 2400 - performance.now()));
   function end() {
-    if (over) return; over = true; clearTimeout(guard); root.classList.remove('hp-wait');
+    if (over) return; over = true; clearTimeout(guard); root.classList.remove('hp-wait', 'hp-on');
     removeEventListener('scroll', away); removeEventListener('resize', leave);
     try { sessionStorage.setItem('hp', '1'); } catch (e) {}
   }
@@ -79,7 +79,7 @@
     }
     cx.putImageData(id, 0, 0);
     c.className = 'hp-cv'; c.setAttribute('aria-hidden', 'true'); inn.appendChild(c); cv = c;
-    clearTimeout(guard); root.classList.remove('hp-wait');
+    clearTimeout(guard); root.classList.remove('hp-wait'); root.classList.add('hp-on'); /* hp-on: the paint is running; the signature waits for it (hero.js) */
     addEventListener('scroll', away, { passive: true }); addEventListener('resize', leave);
     var T0 = performance.now() + 420, DUR = 640, GAP = 300, lut = [new Float32Array(256), new Float32Array(256), new Float32Array(256), new Float32Array(256)];
     function frame(now) {
