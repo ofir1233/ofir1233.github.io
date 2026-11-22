@@ -109,20 +109,6 @@
 #code .hs-ramp{ grid-column: 1 / -1; display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
 #code .hs-ramp i{ height: 16px; border-radius: 4px; background: color-mix(in srgb, var(--c) var(--m), #fff); }
 
-/* System plate, lower half: the chat components. The script types the question into the field, sends it, and writes the answer word by word. */
-#code .hc{ display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
-#code .hc-q{ align-self: flex-end; max-width: 80%; padding: 12px 18px; border-radius: 18px 18px 6px 18px; font-size: 17px; font-weight: 500; color: #fff; background: #1779F7; transition: opacity .35s, translate .45s cubic-bezier(.2,.7,.2,1); }
-#code .hc-a{ min-height: 108px; font-size: 17.5px; line-height: 1.55; color: #2b3138; }
-#code .hc-a b{ font-weight: 600; color: #181818; }
-#code .hc-a .w{ transition: opacity .3s; }
-#code .hc.run .hc-q.off{ opacity: 0; translate: 0 14px; }
-#code .hc.run .hc-a .w.off{ opacity: 0; }
-#code .hc-in{ display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 58px; margin-top: 4px; padding: 0 9px 0 18px; border-radius: 16px; border: 1.5px solid #139FFD; background: #fff; box-shadow: 0 0 0 5px rgba(19,159,253,.14); }
-#code .hc-t{ font-size: 17px; color: #181818; white-space: nowrap; overflow: hidden; }
-#code .hc-t:empty::before{ content: attr(data-ph); color: #9AA1A8; }
-#code .hc.typing .hc-t::after{ content: ""; display: inline-block; width: 1.5px; height: 1.1em; margin-left: 2px; vertical-align: -.18em; background: #139FFD; }
-#code .hc-send{ flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: #1779F7; }
-#code .hc-send svg{ width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* wide windows: the step's text sits in the index on the left and opens under the step on show; the frame on the right carries no caption */
 @media (min-width: 900px) {
@@ -173,3 +159,20 @@
 #code .hd-cur svg{ width: 24px; height: 24px; fill: #139FFD; stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; filter: drop-shadow(0 2px 3px rgba(16,34,60,.3)); transform-origin: 4px 3px; transition: scale .12s ease; }
 #code .hd-cur.down svg{ scale: .84; }
 #code .hd-cur b{ margin: 18px 0 0 -2px; padding: 4px 9px; border-radius: 4px 9px 9px 9px; font: 500 13px/1.2 var(--body); color: #fff; background: #139FFD; }
+
+/* System plate, lower half: the type scale, one specimen line per step, with its size / line height and weight beside it */
+#code .ht{ display: grid; margin-top: 6px; }
+#code .ht-r{ display: grid; grid-template-columns: 124px 1fr; align-items: center; gap: 16px; padding: 13px 0; border-top: 1px solid #DCE3EA; }
+#code .ht-r:first-child{ border-top: 0; }
+#code .ht-r small{ display: grid; gap: 3px; font: 400 11.5px/1.2 ui-monospace, Menlo, Consolas, monospace; color: #8a9097; }
+#code .ht-r small b{ font: 600 13.5px/1.2 var(--body); color: #181818; }
+#code .ht-r > span{ color: #181818; white-space: nowrap; letter-spacing: -.02em; }
+#code .ht-r.d > span{ font-size: 48px; line-height: 52px; font-weight: 500; letter-spacing: -.035em; }
+#code .ht-r.h > span{ font-size: 30px; line-height: 36px; font-weight: 600; }
+#code .ht-r.b > span{ font-size: 18px; line-height: 28px; font-weight: 400; letter-spacing: 0; }
+#code .ht-r.c > span{ font-size: 13px; line-height: 18px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  #code .hw-steps.hw-pin > li .ht-r > span, #code .hw-steps.hw-pin > li .ht-r small{ opacity: 0; translate: 0 12px; transition: opacity .3s ease, translate .3s ease; }
+  #code .hw-steps.hw-pin > li.on .ht-r > span, #code .hw-steps.hw-pin > li.on .ht-r small{ opacity: 1; translate: 0 0; transition: opacity .6s ease calc(var(--i) * 110ms + 380ms), translate .8s cubic-bezier(.2,.7,.2,1) calc(var(--i) * 110ms + 380ms); }
+  #code .hw-steps.hw-pin > li.on .ht-r small{ transition-delay: calc(var(--i) * 110ms + 520ms); }
+}
