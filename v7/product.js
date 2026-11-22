@@ -2,7 +2,7 @@
 /* Each product window is Hear Studio itself with one screen open (hear-v7/plan/screens, and Topics). The page only tells the
    screen which step to show and draws the player under the frame. Paused, the screen takes the pointer. */
 (function () {
-  var figs = [].slice.call(document.querySelectorAll('#product .px-fig'));
+  var figs = [].slice.call(document.querySelectorAll('.px-fig'));
   if (!figs.length) return;
   var TRIM = 3, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ICON = '<svg class="pa" viewBox="0 0 18 18" aria-hidden="true"><rect x="4" y="3.5" width="3.4" height="11" rx="1"/><rect x="10.6" y="3.5" width="3.4" height="11" rx="1"/></svg><svg class="pl" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.2v11.6a.6.6 0 0 0 .9.5l9.4-5.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5z"/></svg>';

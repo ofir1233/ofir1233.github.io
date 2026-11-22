@@ -37,6 +37,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-actions.css">
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=1">
+<link rel="stylesheet" href="../v7/px.css?v=1">
 <link rel="stylesheet" href="../v7/case.css?v=2">
 <style>
 .actions-sub { margin: clamp(48px, 7vw, 88px) 0 clamp(18px, 2.4vw, 28px); }
@@ -84,16 +85,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#board"><span>02</span> The board</a><a class="pill" href="#closing"><span>03</span> Closing the loop</a><a class="pill" href="#ai-tasks"><span>04</span> AI Tasks</a><a class="pill" href="#alerts"><span>05</span> Alerts</a></nav>
-    <figure class="ct-fig ct-hero" id="demo" data-lx-stage>
-      <div class="ct-stage">
-        <div class="ct-band"></div>
-        <div class="ct-win">
-          <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
-          <div class="lx" data-lab="actions" role="img" aria-label="Actions board: a quick filter, then one task opened and updated in its side panel, with a teammate @mentioned."></div>
-        </div>
-      </div>
-      <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
-      <figcaption><b>One task, step by step.</b> Each change in the side panel also updates the task's card on the board.</figcaption></figure>
+    <div class="px-host" id="demo"><figure class="px-fig" data-px="actions"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=actions" title="Actions in Hear Studio: findings as tasks on a board, one task opened with the call it came from." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
   </header>
 
   <!-- 01 · ink -->
@@ -266,5 +258,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script src="lab-actions.js" defer></script>
 <script src="case.js"></script>
 <script src="lab-stage.js" defer></script>
+<script src="../v7/product.js?v=1" defer></script>
 </body>
 </html>

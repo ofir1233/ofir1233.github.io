@@ -38,6 +38,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-topics.css">
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=1">
+<link rel="stylesheet" href="../v7/px.css?v=1">
 <link rel="stylesheet" href="../v7/case.css?v=2">
 <style>
 .design-lab-sub { margin: clamp(40px, 6vw, 72px) 0 18px; }
@@ -82,16 +83,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#versions"><span>02</span> One screen, many designs</a><a class="pill" href="#decisions"><span>03</span> Decisions</a><a class="pill" href="#demos"><span>04</span> Demo environments</a><a class="pill" href="#build"><span>05</span> How I build it</a></nav>
-    <figure class="ct-fig ct-hero" id="demo" data-lx-stage style="--pw:160cqw;--px:0cqw;--py:-24cqw;--wx:3.5cqw;--wy:6.25cqw;--ww:56cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-14cqw;--pw-s:160cqw;--px-s:-26.8cqw;--py-s:-19cqw">
-      <div class="ct-stage">
-        <div class="ct-band"></div>
-        <div class="ct-win">
-          <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
-          <div class="lx" data-lab="tour" role="img" aria-label="Design Lab tour: a question in Chat home, its answer, then Topics, Compliance and Actions."></div>
-        </div>
-      </div>
-      <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
-      <figcaption><b>The Lab in about 30 seconds.</b></figcaption></figure>
+    <div class="px-host" id="demo"><figure class="px-fig" data-px="compliance"><div class="px-tabs" role="group" aria-label="Screen shown in the window"><button type="button" data-k="compliance" data-q="screen=compliance" aria-pressed="true">Compliance</button><button type="button" data-k="agents" data-q="screen=agents" aria-pressed="false">Agent evaluation</button><button type="button" data-k="actions" data-q="screen=actions" aria-pressed="false">Actions</button><button type="button" data-k="news" data-q="screen=news" aria-pressed="false">Newsroom</button></div><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=compliance" title="The Lab: Compliance, Agent evaluation, Actions and Newsroom, each played in the same working replica." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
   </header>
 
   <!-- 01 -->
@@ -177,15 +169,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       </div>
       </div>
 
-      <figure class="ct-fig ct-plain rv design-lab-gap dl-tq" data-lx-stage>
-        <div class="ct-stage">
-          <div class="ct-win">
-            <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
-            <div class="lx" data-lab="topics" role="img" aria-label="Topics, Ultra version: the topic with the most to gain, its scores, then Ask AI on the weakest one."></div>
-          </div>
-        </div>
-        <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
-        <figcaption><b>Ultra in use</b>, from the Most to gain tile to an Ask AI answer that suggests signals.</figcaption></figure>
+      <div class="px-host rv design-lab-gap"><figure class="px-fig" data-px="topics"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?topics=hi" title="Topics in Hear Studio: every topic as a box sized by calls and coloured by score." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
 
       <article class="decision rv design-lab-gap xtra">
         <div class="label">Decision 1 · <b>Where an alternative design sits</b></div>
@@ -299,5 +283,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script src="lab-topics.js" defer></script>
 <script src="case.js"></script>
 <script src="lab-stage.js" defer></script>
+<script src="../v7/product.js?v=1" defer></script>
 </body>
 </html>

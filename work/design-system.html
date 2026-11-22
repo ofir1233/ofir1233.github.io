@@ -37,6 +37,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-system.css">
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=1">
+<link rel="stylesheet" href="../v7/px.css?v=1">
+<link rel="stylesheet" href="../v7/system.css?v=1">
 <link rel="stylesheet" href="../v7/case.css?v=2">
 <style>
 .ds-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -113,7 +115,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <header class="topbar long-next">
   <div class="wrap">
     <a class="home" href="../index.html#system">Ofir<span>.</span> <i>← All work</i></a>
-    <nav aria-label="Case studies"><a class="pill pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill" href="demos-engine.html">← Demos engine</a><a class="pill solid" href="brand-web.html" aria-label="Next case: Brand &amp; website">Brand &amp; website →</a></nav>
+    <nav aria-label="Case studies"><a class="pill pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill" href="data.html">← Data &amp; Signals</a><a class="pill solid" href="brand-web.html" aria-label="Next case: Brand &amp; website">Brand &amp; website →</a></nav>
     <button type="button" class="theme-tg" aria-label="Switch to light theme" aria-pressed="true"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
     <span class="progress" aria-hidden="true"></span>
   </div>
@@ -131,16 +133,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#structure"><span>02</span> Structure</a><a class="pill" href="#tokens"><span>03</span> Tokens</a><a class="pill" href="#contrast"><span>04</span> Contrast &amp; charts</a><a class="pill" href="#theming"><span>05</span> Theme &amp; direction</a><a class="pill" href="#decisions"><span>06</span> Decisions</a></nav>
-    <figure class="ct-fig ct-hero ds-stage" id="demo" data-lx-stage style="--pw:106cqw;--px:0cqw;--py:-18cqw;--wx:3.5cqw;--wy:13.5cqw;--ww:55.5cqw;--pw-m:100cqw;--px-m:0cqw;--py-m:-14.6cqw;--pw-s:140cqw;--px-s:-14cqw;--py-s:-20.4cqw">
-      <div class="ct-stage">
-        <div class="ct-band"></div>
-        <div class="ct-win">
-          <div class="ct-bar" aria-hidden="true"><i></i><i></i><i></i><span class="ct-tag">Design Lab · demo data</span></div>
-          <div class="lx" data-lab="system" role="img" aria-label="Agent evaluation in light, dark and Hebrew right to left, with the same scores."></div>
-        </div>
-      </div>
-      <div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div>
-      <figcaption><b>One screen, four modes.</b> Agent evaluation, which scores each contact-center agent, changes theme and language from the app's own controls.</figcaption></figure>
+    <div id="system" class="px-host ds-wall"><div class="dk" id="ds-kit"><div class="dw-head dk-head"><p class="dw-stat"><span><b>122</b> stories</span> <i aria-hidden="true">·</i> <span><b>6</b> tiers</span></p><p class="dw-sub">Real components, not pictures: press a chip, flip a switch, send a question.</p><button type="button" class="dk-pause" aria-pressed="false" hidden><span class="dk-pi" aria-hidden="true"></span><span class="dk-pt">Pause motion</span></button></div><div class="dk-rows"></div></div></div>
   </header>
 
   <section class="chapter" id="problem">
@@ -362,5 +355,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script src="lab-system.js" defer></script>
 <script src="case.js"></script>
 <script src="lab-stage.js" defer></script>
+<script src="../v7/system.js?v=1" defer></script>
 </body>
 </html>
