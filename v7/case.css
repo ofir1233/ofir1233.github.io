@@ -147,3 +147,10 @@ figure:has(> .shot.dark){ max-width:860px; }
   .decision, .next{ border-radius:18px !important; }
   .steps li, .facts div, .brief div, .meta{ border-radius:14px !important; }
 }
+
+/* The compare line: white with a hairline, and a grip of two short strokes. No typed arrow, no coral (coral is kept for meaning). */
+.compare .handle{ background:#fff !important; box-shadow:0 0 0 1px rgba(23,27,32,.16) !important; }
+.compare .handle::after{ content:"" !important; width:30px !important; height:46px !important; border-radius:15px !important;
+  background:linear-gradient(#171b20,#171b20) calc(50% - 3.5px) 50% / 1.5px 14px no-repeat, linear-gradient(#171b20,#171b20) calc(50% + 3.5px) 50% / 1.5px 14px no-repeat, #fff !important;
+  box-shadow:0 0 0 1px rgba(23,27,32,.12), 0 10px 24px -8px rgba(23,27,32,.45) !important; }
+.compare input[type="range"]:focus-visible + .handle::after{ outline:2px solid #139FFD !important; outline-offset:3px !important; }

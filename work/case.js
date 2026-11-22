@@ -8,7 +8,8 @@
   const rvs = document.querySelectorAll('.rv');
   if (hasIO && !reduce) {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -6% 0px' });
-    rvs.forEach(el => io.observe(el));
+    // what is on screen when the page opens is simply there; only what the reader scrolls to comes in
+    rvs.forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) el.classList.add('in'); else io.observe(el); });
   } else rvs.forEach(el => el.classList.add('in'));
 
   // videos: <video data-src data-poster muted loop playsinline preload="none">
@@ -57,7 +58,28 @@
   document.querySelectorAll('.compare').forEach(box => {
     const r = box.querySelector('input[type="range"]'); if (!r) return;
     const set = () => box.style.setProperty('--pos', r.value + '%');
-    r.addEventListener('input', set); set();
+    let touched = false;
+    r.addEventListener('input', () => { touched = true; set(); }); set();
+    ['pointerdown', 'keydown'].forEach(ev => r.addEventListener(ev, () => { touched = true; }));
+    // The line moves once by itself when the picture has come into view: a little to the left, a little to the right, and back.
+    // That is how the reader learns it can be dragged. A touch on it at any time ends the move where the hand is.
+    if (hasIO && !reduce) {
+      const io = new IntersectionObserver(es => {
+        if (!es[0].isIntersecting) return; io.disconnect();
+        const from = +r.value, keys = [[0, from], [560, from - 18], [1320, from + 12], [1900, from]];
+        const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        let t0 = null;
+        const step = t => {
+          if (touched) return; if (t0 == null) t0 = t;
+          const ms = t - t0; let i = 1; while (i < keys.length - 1 && ms > keys[i][0]) i++;
+          const k0 = keys[i - 1], k1 = keys[i], k = Math.min(1, Math.max(0, (ms - k0[0]) / (k1[0] - k0[0])));
+          box.style.setProperty('--pos', (k0[1] + (k1[1] - k0[1]) * ease(k)).toFixed(2) + '%');
+          if (ms < keys[keys.length - 1][0]) requestAnimationFrame(step); else set();
+        };
+        setTimeout(() => requestAnimationFrame(step), 500);
+      }, { threshold: .6 });
+      io.observe(box);
+    }
   });
 
   // figure viewer: one calm dark dialog for the page's screenshots (caption, ← →, click to zoom and pan, swipe, Esc) and for clips

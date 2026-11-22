@@ -137,3 +137,9 @@
 
 /* Owner, 22.11.2026: the product windows do not answer the mouse, playing or paused. A hover inside the app lit tiles and rows and spoiled the staged steps. */
 @media (max-width: 700px){ #design-lab#design-lab .meta > div:first-child::before{ display:none; } }
+
+/* The "Case study" chip carries a 22px bottom margin from the general label rule, so in a row centred on its middle it sat 11px above
+   the words beside it. The row now aligns to its top and the words take the chip's own height, centred in it: they share one middle
+   line, and the distance to the title is what it was. (API critic, 22.11) */
+#design-lab#design-lab .dl-eyebrow{ align-items:flex-start; }
+#design-lab#design-lab .dl-eyebrow > .meta{ min-height:30px; align-items:center; }

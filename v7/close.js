@@ -44,6 +44,65 @@
     addEventListener('resize', drift); drift();
   }
 
+  /* The card remembers the visit. The headline says "You've seen my work"; a second ink mark says what this visitor did see:
+     the parts of the page they stayed on, and for how long. A part counts after five seconds with its middle on screen, while the tab is
+     in front. Nothing is stored and nothing leaves the page. The mark is composed while the card is still out of sight (so the card
+     never changes size in front of the reader) and lands after the postmark. Someone who came straight here gets no mark. */
+  var via = $('.cl-via'), cardEl = $('.cl-card');
+  if (via && cardEl && 'IntersectionObserver' in window) {
+    var NAMES = [['code', 'How I work'], ['design-lab', 'Design Lab'], ['product', 'Product'], ['system', 'Design system'], ['web', 'Brand'], ['fyi', 'FYI app'], ['ia', 'Architecture'], ['process', 'Process'], ['path', 'Experience']];
+    var secs = [], dwell = {}, total = 0, stamped = false;
+    NAMES.forEach(function (n) { var e = document.getElementById(n[0]); if (e) { secs.push({ id: n[0], name: n[1], el: e }); dwell[n[0]] = 0; } });
+    /* real time, not a count of ticks: a browser may slow a page's timers, and the seconds must still be true. One tick never counts
+       for more than a second and a half, so a laptop that slept adds nothing. */
+    var t0 = performance.now();
+    setInterval(function () {
+      var t = performance.now(), dt = Math.min(1.5, (t - t0) / 1000); t0 = t;
+      if (document.hidden || stamped) return; total += dt;
+      var mid = innerHeight / 2;
+      for (var k = 0; k < secs.length; k++) { var r = secs[k].el.getBoundingClientRect(); if (r.top <= mid && r.bottom > mid) { dwell[secs[k].id] += dt; break; } }
+    }, 500);
+    var compose = function () {
+      var seen = secs.filter(function (x) { return dwell[x.id] >= 5; }); if (!seen.length) return false;
+      var byTime = seen.slice().sort(function (p, q) { return dwell[q.id] - dwell[p.id]; });
+      var pick = function (n) { var top = byTime.slice(0, n); return seen.filter(function (x) { return top.indexOf(x) >= 0; }).map(function (x) { return x.name; }); };
+      var names = pick(3); if (names.join(' · ').length > 30) names = pick(2); if (names.join(' · ').length > 30) names = pick(1);
+      /* a postal word, "via", and the parts in page order: up to three, the ones stayed on longest. No minutes and no counts: a card
+         that reports numbers reads as tracking, not as post. A second line is written only for someone who followed the sample call
+         in Product through all four of its screens. */
+      var th = window.v7Thread || {}, rode = th.Topics && th.Compliance && th.Actions && th.Newsroom, all = seen.length === secs.length;
+      via.textContent = '';
+      var l1 = document.createElement('span'); l1.textContent = all ? 'Via the whole page' : 'Via ' + names.join(' · '); via.append(l1);
+      if (rode) { var l2 = document.createElement('span'); l2.textContent = 'Followed one call to Newsroom'; via.append(l2); }
+      via.setAttribute('aria-label', 'You came here by way of ' + seen.map(function (x) { return x.name; }).join(', ') + '.' + (rode ? ' You followed one call to Newsroom.' : ''));
+      return true;
+    };
+    /* The mark takes its place only while the card is out of sight; its words are refreshed at the moment it lands. */
+    /* On the wide card the mark is beside the postmark and lands when the card's lines have been ruled (they end at about 2.26s; it
+       waits a beat more, so it is its own event and not the ruling's tail). On the stacked card it is at the card's foot, often
+       below the screen when the card arrives: there it lands when the mark itself has come into view. */
+    var near = false, half = false, inview = false, stacked = matchMedia('(max-width:960px)');
+    var land = function () {
+      if (stamped || !sec.classList.contains('has-via') || !(stacked.matches ? inview : half)) return;
+      stamped = true; compose();
+      var arriving = sec.classList.contains('cl-arm') && !sec.classList.contains('cl-set');
+      setTimeout(function () { sec.classList.add('via-on'); }, reduce ? 0 : stacked.matches || !arriving ? 320 : 2560);
+    };
+    new IntersectionObserver(function (es) {
+      var was = near; near = es[es.length - 1].isIntersecting;
+      if (near && !was && !half && !stamped && !sec.classList.contains('has-via') && compose()) sec.classList.add('has-via');
+      land();
+    }, { rootMargin: '100% 0px 100% 0px' }).observe(cardEl);
+    new IntersectionObserver(function (es) {
+      var e = es[es.length - 1], was = half; half = e.isIntersecting && e.intersectionRatio >= .5;
+      /* the reader jumped straight to the card (End key, the Contact button with no smooth scroll): it is a new picture in any case,
+         so the mark may take its place in it now */
+      if (half && !was && !stamped && !sec.classList.contains('has-via') && compose()) sec.classList.add('has-via');
+      land();
+    }, { threshold: [.5] }).observe(cardEl);
+    new IntersectionObserver(function (es) { var e = es[es.length - 1]; inview = e.isIntersecting && e.intersectionRatio >= .9; land(); }, { threshold: [.9] }).observe(via);
+  }
+
   var sr = $('.cl-sr'), say = function (s) { if (!sr) return; sr.textContent = ''; setTimeout(function () { sr.textContent = s; }, 80); };
   var put = function () {
     try { if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(ADDR).then(function () { return true; }, function () { return false; }); } catch (e) {}

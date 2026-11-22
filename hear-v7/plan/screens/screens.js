@@ -51,7 +51,7 @@
       }
       if (i === 2) ui.side('<header>' + MK + 'Ask AI<small>Selma K.</small></header><div class="q">Which calls pulled Selma’s Vulnerable customer protocol score down?</div>' +
         '<div class="a"><p><b>12 calls</b> failed, and 9 of them share one cause: the customer said they were struggling to pay and the protocol questions were skipped.</p>' +
-        '<ul><li><b>Oct 9</b>Customer mentions a missed payment at 02:14. No affordability check.</li><li><b>Oct 7</b>Bereavement mentioned. The sale continues without a pause.</li><li><b>Oct 3</b>Customer asks to stop twice. The script carries on.</li></ul></div>');
+        '<ul><li><b>Oct 13</b>Cannot afford to rebook. Refund asked twice, voucher offered.</li><li><b>Oct 9</b>Customer mentions a missed payment at 02:14. No affordability check.</li><li><b>Oct 7</b>Bereavement mentioned. The sale continues without a pause.</li></ul></div>');
     }
   };
 
@@ -96,7 +96,7 @@
       if (i === 1 || i === 2) c.classList.add('hot');
       if (i === 2) ui.side('<header>Task<small>From an alert · Today</small></header><div class="a" style="margin-top:14px"><p style="font-size:19px;line-height:1.25;color:var(--ink);font-weight:500">Customer asked twice for a refund, was offered only a voucher</p><p>Cancelled JFK–LHR flight. The customer asked for a cash refund twice and the agent offered a voucher both times.</p></div>' +
         '<dl><dt>Source</dt><dd><span class="sx-tag blue">Alert</span>Refund refused</dd><dt>Priority</dt><dd>High</dd><dt>Assignee</dt><dd>' + av('Daniel Brooks') + 'Daniel Brooks</dd><dt>Call</dt><dd>Oct 13 · 6 min 12 sec</dd></dl>' +
-        '<h4>Checklist</h4><div class="ac-check done"><i>✓</i>Listen to the call</div><div class="ac-check" data-late><i></i>Refund the customer</div><div class="ac-check"><i></i>Coach the agent on the refund policy</div>' +
+        '<h4>Checklist</h4><div class="ac-check done"><i>✓</i>Listen to the call</div><div class="ac-check" data-late><i></i>Refund the customer</div><div class="ac-check"><i></i>Coach Selma K. on the refund policy</div>' +
         '<div class="ft">' + act('Reassign') + act('Close as Resolved', 'ink') + '</div>');
       if (i === 2) { var late = el.querySelector('.sx-side [data-late]'), tick = function () { late.classList.add('done'); late.firstChild.textContent = '✓'; }; if (ui.jump) tick(); else later(tick, 4300); }
     }
@@ -107,7 +107,7 @@
     nav: 'Newsroom', icon: '<rect x="2.5" y="3.5" width="13" height="11" rx="2"/><path d="M5.5 7h4M5.5 10h7"/>',
     steps: ['Newsroom writes what changed in the calls as stories.', 'Play opens the month as a 75-second story.', 'It counts the 38,214 calls analysed in July.', 'Then it names the one thing that changed most.'],
     build: function () {
-      var N = [['“Cancellation intent” is surging past its 30-day baseline', 'Signal · 240% over baseline · 4:12 pm', 'Surging', 'ink'], ['Team B handle time is up 40% since Monday', 'Agent performance · 2:30 pm', 'Rising', 'blue'], ['Missed upgrade offers: 2 stories from 214 eligible calls', 'Daily alerts report', 'New', 'nw'], ['Most requested refund reason: schedule change', 'Weekly summary · 3 stories', 'Steady', ''], ['Silence on Trip Status calls is down a third', 'Signal · since the new script', 'Improving', 'ok'], ['Three agents moved above the success metric', 'Agent evaluation · this week', 'Steady', '']];
+      var N = [['“Cancellation intent” is surging past its 30-day baseline', 'Signal · 240% over baseline · 4:12 pm', 'Surging', 'ink'], ['Team B handle time is up 40% since Monday', 'Agent performance · 2:30 pm', 'Rising', 'blue'], ['Missed upgrade offers: 2 stories from 214 eligible calls', 'Daily alerts report', 'New', 'nw'], ['Refund asked twice, voucher offered: 6 calls since Monday', 'Alert · Refund refused · Oct 13', 'Rising', 'blue'], ['Silence on Trip Status calls is down a third', 'Signal · since the new script', 'Improving', 'ok'], ['Three agents moved above the success metric', 'Agent evaluation · this week', 'Steady', '']];
       return top('Newsroom', 'What changed in your calls, written as stories you can read or play.', act('Last 7 days' + chev) + act('Share')) +
         '<div class="sx-body nr-body"><section class="nr-col"><div class="nr-feat"><small>Monthly recap · Story</small><h3>38,214 calls. One story.</h3><p>The day you never caught your breath, the topic that took over, and the agent who carried the floor.</p><span class="nr-play"><svg viewBox="0 0 12 12"><path d="M2.5 1.2v9.6L10.5 6z"/></svg>Play · 75 sec</span></div>' +
         '<div class="nr-chart"><div class="sx-h"><b>Call volume</b><span>July, by day</span></div><div class="nr-plot"><svg viewBox="0 0 600 150" preserveAspectRatio="none"><path d="M0 120C40 118 70 112 110 110S170 116 210 96 270 30 310 26 370 70 410 78 480 62 520 66 570 52 600 48V150H0z" fill="#DCEFFE"/><path d="M0 120C40 118 70 112 110 110S170 116 210 96 270 30 310 26 370 70 410 78 480 62 520 66 570 52 600 48" fill="none" stroke="#139FFD" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg><i class="g" style="top:33%"></i><i class="g" style="top:66%"></i><span class="pk"><b>1,912 calls</b> Jul 14</span></div><div class="ae-dates"><span>Jul 1</span><span>Jul 8</span><span>Jul 15</span><span>Jul 22</span><span>Jul 31</span></div></div></section>' +
@@ -141,7 +141,7 @@
         COPY = '<rect x="6.5" y="6.5" width="8" height="8" rx="2"/><path d="M4 11.5h-.2a1.3 1.3 0 0 1-1.3-1.3V4.8a1.3 1.3 0 0 1 1.3-1.3h5.4a1.3 1.3 0 0 1 1.3 1.3V5"/>',
         WARN = '<path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/>';
       /* alert, call, summary, id, day, time, status, priority, who, length, sentiment, score, direction (0 in, 1 out) */
-      var A = [[1, 'Refunds & Credits', 'Charged twice for a cancelled flight, wants the money back', '00002000-r4k', 'Oct 13', '14:02', 'In progress', 3, 'Daniel Brooks', '6:12', 'Negative', 38, 0],
+      var A = [[1, 'Refunds & Credits', 'Asks twice for a refund on a cancelled flight, is offered a voucher', '00002000-r4k', 'Oct 13', '14:02', 'In progress', 3, 'Daniel Brooks', '6:12', 'Negative', 38, 0],
         [0, 'Online Booking', 'Books two seats to Lisbon and adds a bag at checkout', '00001999-b7m', 'Oct 13', '13:47', 'Done', 1, 'Maya Collins', '3:05', 'Positive', 82, 0],
         [0, 'Trip Status', 'Asks whether the 18:40 to Madrid is still on time', '00001998-t2x', 'Oct 13', '13:31', 'Done', 1, 'Ryan Cole', '2:40', 'Neutral', 71, 0],
         [1, 'Refunds & Credits', 'A refund promised ten days ago has not arrived', '00001997-r9d', 'Oct 13', '13:18', 'In progress', 3, 'Paula Nunes', '7:48', 'Negative', 41, 0],

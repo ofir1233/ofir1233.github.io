@@ -69,6 +69,25 @@
       [[0, '.sg-new', { part: [0, 0, .66, 1], pad: 70, max: 1.7, tap: false }], [5200, '.sg-new, .sg-r.fresh', { part: [.38, 0, 1, 1], pad: 40, max: 1.7 }]]
     ]
   };
+  /* ONE CALL, FOLLOWED. The same sample call (Oct 13: a refund asked twice, a voucher offered) is in four of the screens: a box on the
+     Topics map, a line in the Ask AI answer in Compliance, a task in Actions, a story in Newsroom. The text beside each window says so,
+     and its button shows it: the window stops on the step where the call is, and the frame goes to the call itself.
+     k: the step; sel: where the call is in the screen; act: what the screen is asked to do when the step's own action does not show it;
+     late: the call is in a panel that slides in, so the frame waits for the panel. */
+  var THREAD = {
+    /* Refunds & Credits is the sixth topic and the map opens on five boxes: the map is asked for ten, and the frame goes to its box,
+       with its neighbours in view so its size and colour mean something (undo puts five back). os: the same on a phone, closer. */
+    topics: { k: 0, sel: '#tp-map [data-k="5"]', o: { pad: 120, max: 1.7 }, os: { pad: 26, max: 2.6, gx: 3, gy: 3 },
+      act: function (w) { var t = w.hearTopics, b = w.document.querySelector('#tp-view button[data-i="1"]'); t.close(); if (b && !b.classList.contains('on')) b.click(); t.hot(5, -1, 'map'); },
+      undo: function (w) { var b = w.document.querySelector('#tp-view button[data-i="0"]'); if (b && !b.classList.contains('on')) b.click(); } },
+    compliance: { k: 2, sel: '.sx-side.on li:first-child', o: { pad: 54, max: 2, gx: 10, gy: 0 }, late: true },
+    /* the task, from its header ("From an alert") down to its facts: priority, who has it, which call. A phone cannot read all of that
+       at once: it reads the task first, then (then:) the frame moves down to the facts. */
+    actions: { k: 2, sel: function (small) { return small ? '.sx-side.on header, .sx-side.on .a' : '.sx-side.on header, .sx-side.on .a, .sx-side.on dl'; },
+      o: { pad: 40, max: 2, gx: 16, gy: 10 }, os: { pad: 20, max: 2, gx: 14, gy: 10 }, late: true,
+      then: function (small) { return small ? { at: 2600, sel: '.sx-side.on dl', o: { pad: 22, max: 2, gx: 14, gy: 10 } } : null; } },
+    news: { k: 0, sel: '.nr-col:last-child .nr-item:nth-child(5)', o: { pad: 70, max: 1.9, gx: 14, gy: 0 }, os: { pad: 15, max: 2.2, gx: 10, gy: 0 } }
+  };
   /* How long each step lasts once the frame has landed on it (the way there is added: see P.off). */
   var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 4400, 7600], agents: [5600, 4400, 4600], actions: [5600, 4200, 7400, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9400], signals: [7600, 6600, 9000] };
   /* the beat, in ms */
@@ -105,7 +124,7 @@
     var pp = box.querySelector('.px-pp'), beats = box.querySelector('ol');
     var tabs = fig.querySelector('.px-tabs');
     var P = { fig: fig, inView: false, paused: reduce, live: false, k: 0, ms: 0, steps: [], dur: [], api: null, s: 1, w: 1120, small: false, loops: 0, rest: false, win: win, si: 0, re: [], q: [], off: 0,
-      c: { x: 0, y: 0, z: 1 }, r: null, lit: false };
+      c: { x: 0, y: 0, z: 1 }, r: null, lit: false, thr: null, undo: null, onfree: null };
     P.depth = window.v7Depth ? window.v7Depth(frame, win) : { drift: function () {} };
     var key = function () { return fig.getAttribute('data-px'); };
     var H = function () { return Math.round(P.w * 9 / 16); };
@@ -124,9 +143,13 @@
       var d = frame.contentDocument, els = d.querySelectorAll(sel), x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9, n = 0;
       [].forEach.call(els, function (el) {
         var r = el.getBoundingClientRect(), dx = 0, dy = 0; if (r.width < 2 || r.height < 2) return;
-        if (rest) {                              /* where it will be once it has slid in: its own slide is taken off */
-          try { var m = new frame.contentWindow.DOMMatrixReadOnly(frame.contentWindow.getComputedStyle(el).transform), k = r.width / (el.offsetWidth || r.width);
-            if (Math.abs(m.a - 1) < .01 && Math.abs(m.d - 1) < .01) { dx = m.e * k; dy = m.f * k; } } catch (e) {}
+        if (rest) {                              /* where it will be once it has slid in: its own slide, and the slide of what carries it, are taken off */
+          try { var k = r.width / (el.offsetWidth || r.width), a = el, up = 0;
+            while (a && a.nodeType === 1 && a !== d.body && up++ < 8) {
+              var m = new frame.contentWindow.DOMMatrixReadOnly(frame.contentWindow.getComputedStyle(a).transform);
+              if (Math.abs(m.a - 1) < .01 && Math.abs(m.d - 1) < .01) { dx += m.e * k; dy += m.f * k; }
+              a = a.parentElement;
+            } } catch (e) {}
         }
         n++; x0 = Math.min(x0, r.left - dx); y0 = Math.min(y0, r.top - dy); x1 = Math.max(x1, r.right - dx); y1 = Math.max(y1, r.bottom - dy);
       });
@@ -140,7 +163,7 @@
     function shotsOf(k) { var st = (SHOTS[key()] || [])[k]; return st && !P.small ? st.filter(function (x) { return !(x[2] && x[2].small); }) : st; }
     /* the framing options once the step has opened what it opens */
     function fin(o) { if (o.pad2 == null) return o; var n = {}; for (var k in o) n[k] = o[k]; n.pad = o.pad2; return n; }
-    function shot() { var st = P.live && !reduce && shotsOf(P.k); return (st && st[Math.min(P.si, st.length - 1)]) || null; }
+    function shot() { if (P.thr && P.live) return P.thr; var st = P.live && !reduce && shotsOf(P.k); return (st && st[Math.min(P.si, st.length - 1)]) || null; }
     /* the place the current shot is about; with full, what the step opened is counted in */
     function target(full, rest) {
       var sh = shot(), o = (sh && sh[2]) || {};
@@ -211,7 +234,10 @@
       if (lit) {
         /* the hairline is 1px on the page at any zoom; the corner is the marked part's own corner plus the air around it, so the
            two curves are concentric. A part with square corners gets a nearly square frame. */
-        var g = 6, x = r[0] - g, y = r[1] - g, w = r[2] + 2 * g, h = r[3] + 2 * g, k = P.s * c.z;
+        /* the air between the part and its rim: 6 all round, unless the shot says otherwise (text that starts at the part's own edge
+           needs more at the sides; rows ruled by hairlines need none above and below, or the rules show inside the rim) */
+        var gx = o.gx == null ? 6 : o.gx, gy = o.gy == null ? 6 : o.gy, g = Math.max(0, Math.min(gx, gy));
+        var x = r[0] - gx, y = r[1] - gy, w = r[2] + 2 * gx, h = r[3] + 2 * gy, k = P.s * c.z;
         var T = was ? 'opacity .3s ease, left ' + geo + ', top ' + geo + ', width ' + geo + ', height ' + geo + ', border-radius ' + geo : 'opacity .46s ease ' + Math.round(ms * .5) + 'ms';
         var boxes = [[0, 0, P.w, Math.max(0, y)], [0, y + h, P.w, H()], [0, y, Math.max(0, x), h], [x + w, y, P.w, h]];
         if (!was) { rim.style.transition = 'none'; [].forEach.call(soft, function (el) { el.style.transition = 'none'; }); }
@@ -301,8 +327,10 @@
       at(ms + BEAT.still + BEAT.press + BEAT.opens, settle);
       at(ms + BEAT.still + BEAT.press + BEAT.opens + 1300, settle);
     }
-    function show(k) {
-      P.k = k; P.ms = 0; P.si = 0; P.q = []; P.off = 0;
+    function show(k, hold) {
+      if (P.thr && P.onfree) { try { P.onfree(); } catch (e) {} }
+      P.k = k; P.ms = 0; P.si = 0; P.q = []; P.off = 0; P.thr = null;
+      if (P.undo) { try { P.undo(frame.contentWindow); } catch (e) {} P.undo = null; }
       [].forEach.call(beats.children, function (li, i) { li.classList.toggle('on', i === k); li.classList.toggle('done', i < k); li.style.setProperty('--p', 0); if (li.firstChild) li.firstChild.setAttribute('aria-current', i === k ? 'step' : 'false'); });
       if (P.rest) { P.rest = false; button(); } P.re.forEach(clearTimeout); P.re = [];
       var st = shotsOf(k);
@@ -310,6 +338,7 @@
         /* paused, a step is shown finished, on its closest shot: no sequence to wait for */
         if (st) P.si = st.length - 1;
         act();
+        if (hold) return;                        /* the caller takes the frame somewhere itself, in one move */
         look(reduce ? 0 : 700);
         [560, 1300].forEach(function (ms) { P.re.push(setTimeout(function () { look(reduce ? 0 : 640); }, ms)); });
         return;
@@ -360,9 +389,32 @@
       P.live = true; fig.classList.add('is-live', 'lx-ready'); box.classList.add('on'); box.classList.remove('is-loading');
       show(reduce ? P.steps.length - 1 : 0);
     });
+    /* Show the call: the window stops on its step, shown finished, and the frame goes to the call in ONE move. Where the call is in
+       a panel that slides in, the light goes out, the panel leaves, and the frame leaves in the same instant for where the call will
+       stand: they arrive together (860ms), and the light comes back over the second half. Play carries on from that step.
+       No "Paused" note here: the reader asked for this, and the button beside the text says what comes next. */
+    P.follow = function () {
+      var th = THREAD[key()]; if (!th || !P.live) return false;
+      var o = (P.small && th.os) || th.o || {}, sel = typeof th.sel === 'function' ? th.sel(P.small) : th.sel, ms;
+      P.loops = 0; P.paused = true; box.classList.remove('by-user');
+      show(th.k, true);
+      if (th.act) { try { th.act(frame.contentWindow, P.small); } catch (e) {} }
+      P.undo = th.undo || null;
+      P.thr = [0, sel, o];
+      if (th.late && !reduce) { unlight(); var to = target(true, true); ms = to ? move(to, fin(o), BEAT.panel) : BEAT.panel; }
+      else ms = look(reduce ? 0 : null);
+      [ms + 300, ms + 1500].forEach(function (t) { P.re.push(setTimeout(function () { if (P.thr) { if (P.r) settle(); else look(reduce ? 0 : null); } }, t)); });
+      var nxt = th.then && th.then(P.small);
+      if (nxt && !reduce) P.re.push(setTimeout(function () { if (!P.thr) return; P.thr = [0, nxt.sel, nxt.o]; look(null); }, ms + nxt.at));
+      button(); return ms + 1;                   /* how long the way there takes (+1, so it is never 0) */
+    };
+    P.held = function () { return !!P.thr; };
+    /* the reader has gone on: the window lets the call go and plays again */
+    P.release = function () { if (!P.thr) return; P.paused = reduce; box.classList.remove('by-user'); button(); show(P.k); };
     pp.addEventListener('click', function () {
       /* it played twice and came to rest: the button is then a replay, and starts it from the top */
       if (P.rest && !P.paused) { P.loops = 0; show(0); return; }
+      if (P.thr) { P.paused = false; box.classList.remove('by-user'); button(); show(P.k); return; }
       P.paused = !P.paused; box.classList.toggle('by-user', P.paused); button(); });
     beats.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b || !P.live) return;
@@ -391,6 +443,51 @@
     var done = false, go = function () { if (done) return; done = true; removeEventListener('scrollend', go); setTimeout(function () { b.click(); }, 250); };
     if (reduce) go(); else { addEventListener('scrollend', go); setTimeout(go, 1600); }
   });
+  /* "Show it in Topics", beside a window: the window comes into view if it is not, then shows the call. When the frame has landed on
+     the call, the button hands on: "Follow it into Compliance" brings the next window and shows the call there. Four presses, one
+     path; the last one says so. A button reads "Follow" only while its window holds the call: when the window lets go (Play, a step,
+     a tab, or the reader has moved on) it is itself again. The rule at the block's left turns blue once its stop has been shown. */
+  var calls = [].slice.call(document.querySelectorAll('#product [data-follow]')), phone = matchMedia('(max-width:860px)');
+  var rode = function () { var t = window.v7Thread || {}; return calls.every(function (c) { return t[c.getAttribute('data-follow')]; }); };
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-follow]') : null; if (!b) return;
+    if (b.getAttribute('aria-disabled') === 'true') return;
+    if (b._t && performance.now() - b._t < 400) return;          /* a double click must not jump a card */
+    if (b.classList.contains('is-next')) { b = calls[calls.indexOf(b) + 1] || calls[0]; try { b.focus({ preventScroll: true }); } catch (x) {} }
+    var card = b.closest('article.spot'), fig = card && card.querySelector('.px-fig'), p = players.filter(function (x) { return x.fig === fig; })[0];
+    if (!p) return;
+    /* the window may be on another of its tabs (Data, Signals): the call is in the first one */
+    var tabs = fig.querySelector('.px-tabs'), first = tabs && tabs.querySelector('button');
+    if (first && first.getAttribute('aria-pressed') !== 'true') first.click();
+    var blk = b.closest('.pf-call'), name = b.getAttribute('data-follow'), nx = calls[calls.indexOf(b) + 1], tries = 0;
+    var free = function () { if (b.getAttribute('data-l')) b.textContent = b.getAttribute('data-l'); b.classList.remove('is-next', 'is-shown', 'is-swap'); b.removeAttribute('aria-disabled'); };
+    var hand = function () {
+      if (!p.held()) return;
+      if (!b.getAttribute('data-l')) b.setAttribute('data-l', b.textContent);
+      if (blk) blk.classList.add('is-seen');
+      var done = !nx && rode(), text = nx ? 'Follow it into ' + nx.getAttribute('data-follow') : done ? 'Shown in all four screens.' : 'Start it in ' + calls[0].getAttribute('data-follow');
+      var set = function () {
+        b.classList.remove('is-swap'); if (!p.held()) return;
+        b.textContent = text; b.classList.toggle('is-next', !done); b.classList.toggle('is-shown', done);
+        if (done) b.setAttribute('aria-disabled', 'true'); b._t = performance.now();
+      };
+      if (reduce) { set(); return; }
+      b.classList.add('is-swap'); setTimeout(set, 130);          /* the words dip out and come back changed */
+    };
+    var go = function () {
+      var ms = p.follow();
+      if (!ms) { if (++tries < 30) setTimeout(go, 150); return; }
+      p.onfree = free;
+      (window.v7Thread = window.v7Thread || {})[name] = 1;      /* the postcard at the end of the page may say so */
+      setTimeout(hand, reduce ? 0 : ms - 1 + BEAT.still);       /* when the frame has landed and the eye has arrived */
+    };
+    /* a phone has the block right above its window: the block goes to the top of the screen, so the words and the window are seen together */
+    var r = p.win.getBoundingClientRect(), small = phone.matches && blk, top = small ? blk.getBoundingClientRect().top : r.top;
+    if (top >= 60 && r.bottom <= innerHeight - 20) { go(); return; }
+    (small ? blk : p.win).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: small ? 'start' : 'center' });
+    var done = false, land = function () { if (done) return; done = true; removeEventListener('scrollend', land); setTimeout(go, 200); };
+    if (reduce) land(); else { addEventListener('scrollend', land); setTimeout(land, 1400); }
+  });
   var last = performance.now();
   /* One window plays at a time: the one in view whose middle is nearest the middle of the screen. The others hold their place.
      A card that the next card has slid over is still in view and often nearer the middle: it does not count. */
@@ -407,10 +504,28 @@
         if (bot - top < r.height * .45) return;
         var d = Math.abs(r.top + r.height / 2 - innerHeight / 2) - (bot - top); if (d < best) { best = d; lead = p; }
       });
+      /* a window that still holds the call after the reader has moved on lets it go, a second and a half later */
+      players.forEach(function (p) { if (p !== lead && p.held()) { if (!p.away) p.away = t; else if (t - p.away > 1500) { p.away = 0; p.release(); } } else p.away = 0; });
       players.forEach(function (p) { var card = p.fig.closest('article.spot'); if (card) card.classList.toggle('lead', p === lead); p.depth.drift(p === lead && p.live && !p.paused); if (p !== lead) { p.clear(); p.led = false; } else if (!p.led) { p.led = true; p.relight(); } });
     }
     /* one bad frame must never stop every window on the page */
     try { if (lead) lead.tick(dt); } catch (e) { if (window.console) console.error('px', e && e.stack || e); }
     requestAnimationFrame(tick);
   })(last);
+})();
+
+/* The chapter row (01 to 05) is pinned under the header. When the section ends, the page carries the row up and the header cut its
+   numbers in half. It now fades over the first 18px of that climb, so it is either whole or gone. */
+(function () {
+  var idx = document.querySelector('#product .pf-idx'); if (!idx) return;
+  var raf = 0, was = '';
+  function set() {
+    raf = 0;
+    var cs = getComputedStyle(idx), pin = parseFloat(cs.top);
+    if (cs.position !== 'sticky' || isNaN(pin)) { if (was) { idx.style.opacity = was = ''; idx.style.pointerEvents = ''; } return; }
+    var up = pin - idx.getBoundingClientRect().top, o = up <= 1 ? '' : String(Math.max(0, 1 - (up - 1) / 18).toFixed(3));
+    if (o !== was) { idx.style.opacity = was = o; idx.style.pointerEvents = o && +o < .5 ? 'none' : ''; }
+  }
+  function ask() { if (!raf) raf = requestAnimationFrame(set); }
+  addEventListener('scroll', ask, { passive: true }); addEventListener('resize', ask); ask();
 })();
