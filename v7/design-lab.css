@@ -1,1 +1,43 @@
 /* v7 - design-lab: this section's styles. Loaded after the page's own sheet. */
+
+/* Head: centred, like the opening */
+#design-lab#design-lab .sec-head{ display:block; text-align:center; margin:0 0 28px; }
+#design-lab#design-lab .sec-head > div{ width:auto; }
+#design-lab#design-lab .sec-head .label{ display:inline-block; margin:0 0 18px; }
+#design-lab#design-lab .sec-head h2{ text-align:center; margin:0; }
+#design-lab#design-lab .sec-head p{ max-width:640px; margin:22px auto 0; text-align:center; text-wrap:balance; }
+#design-lab#design-lab .sec-head .cs-pair{ flex-direction:row; flex-wrap:wrap; justify-content:center; align-items:center; gap:12px; margin:26px 0 0; }
+#design-lab#design-lab .meta{ display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:10px 36px; margin:0 0 8px; }
+#design-lab#design-lab .meta > div{ display:flex; align-items:center; gap:12px; margin:0; padding:0; border:0; }
+#design-lab#design-lab .meta dt, #design-lab#design-lab .meta dd{ margin:0; }
+
+/* Frame: the painted sky, same width as the opening picture */
+#design-lab#design-lab .ct-fig{ margin:44px 0 0; width:100%; }
+#design-lab#design-lab .ct-stage{ width:100%; border-radius:28px; }
+#design-lab#design-lab .ct-band{ background:#3b8ed3 url(../img/hw-sky-city.webp?v=2) 50% 64% / cover no-repeat; }
+#design-lab#design-lab .ct-band::before, #design-lab#design-lab .ct-band::after{ display:none; }
+#design-lab#design-lab .ct-band > *{ display:none; }
+#design-lab#design-lab .ct-win{ box-shadow:0 0 0 10px rgba(255,255,255,.3), 0 0 0 11px rgba(255,255,255,.55), 0 30px 60px -20px rgba(12,50,100,.45); border-radius:14px; }
+@media (min-width: 861px){
+  #design-lab#design-lab .ct-stage{ aspect-ratio:1160 / 650; }
+  #design-lab#design-lab .ct-win{ inset:0; margin:auto; width:70%; height:fit-content; }
+}
+
+/* Steps: a thin progress strip, the current step written under it */
+#design-lab#design-lab .ct-rail{ display:grid; grid-template-columns:44px minmax(0,1fr); align-items:center; gap:0 12px; width:100%; margin:22px 0 0; }
+#design-lab#design-lab .ct-rail .lx-pp{ width:44px; height:44px; min-height:0; padding:0; place-items:center; border-radius:50%; border:0; box-shadow:none; background:#e8e7e3; color:#171b20; }
+#design-lab#design-lab .ct-rail .lx-pp:hover{ background:#dddcd7; }
+#design-lab#design-lab .ct-rail .lx-beats{ display:grid; grid-template-columns:repeat(8, minmax(0,1fr)); gap:6px; }
+#design-lab#design-lab .ct-rail .lx-beats button{ display:block; width:100%; min-height:44px; padding:19px 0 0; background:none; border-radius:0; text-align:left; position:relative; }
+#design-lab#design-lab .ct-rail .lx-beats button::after{ display:none; }
+#design-lab#design-lab .ct-rail .lx-beats button::before{ content:""; position:absolute; left:0; right:0; top:8px; height:4px; border-radius:2px; background:#d9d8d3; transition:background .3s; }
+#design-lab#design-lab .ct-rail .lx-beats li.done button::before{ background:#9fd3fb; }
+#design-lab#design-lab .ct-rail .lx-beats li.on button::before{ background:#139ffd; }
+#design-lab#design-lab .ct-rail .lx-beats button:hover::before{ background:#6cc0fc; }
+#design-lab#design-lab .ct-rail .lx-beats .n{ display:block; margin:0; font:600 13px/1 var(--body); font-variant-numeric:tabular-nums; color:#a9acb1; }
+#design-lab#design-lab .ct-rail .lx-beats .n::before{ display:none; }
+#design-lab#design-lab .ct-rail .lx-beats li.on .n{ color:#0b6fcf; }
+#design-lab#design-lab .ct-rail .lx-beats .l{ position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+#design-lab#design-lab .ct-rail .lx-now{ grid-column:1 / -1; display:flex; justify-content:center; align-items:baseline; gap:14px; margin:18px 0 0; max-width:none; min-height:1.5em; font-size:19px; line-height:1.4; color:#171b20; text-align:center; }
+#design-lab#design-lab .ct-rail .lx-now b{ font:600 15px/1 var(--body); font-variant-numeric:tabular-nums; color:#0b6fcf; white-space:nowrap; }
+#design-lab#design-lab .ct-fig > figcaption{ position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
