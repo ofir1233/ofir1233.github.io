@@ -69,9 +69,16 @@ html.me-scroll #about .me-facts .me-k{ font-weight: 600; color: #fff; }
   #about .hv-cta{ justify-content: flex-start; }
   #about .hv-h{ font-size: clamp(30px, 3.6vw, 54px) !important; white-space: nowrap !important; }
 
-  html.me-scroll #about .me-pin{ container-type: size; --sb: 92px; }
+  html.me-scroll #about .me-pin{ container-type: size; --sb: 0px; }
   html.me-scroll #about .me-top{ height: 100%; }
-  html.me-scroll #about .me-path{ position: absolute; left: 0; right: 0; bottom: 0; margin: 0 !important; flex-wrap: nowrap; opacity: calc(1 - var(--g, 0) * 3); }
+  /* the experience strip lives inside the picture: it comes in last, after the four facts (--pe 0..1), under them */
+  html.me-scroll #about .me-path{ position: absolute; z-index: 4; left: clamp(16px, 2.4cqw, 34px); right: clamp(16px, 2.4cqw, 34px); bottom: clamp(14px, 2.2cqh, 24px); margin: 0 !important; flex-wrap: nowrap; padding: 14px 22px !important; border-radius: 18px !important;
+    background: rgba(255,255,255,.13) !important; -webkit-backdrop-filter: blur(16px) saturate(1.3); backdrop-filter: blur(16px) saturate(1.3); box-shadow: inset 0 0 0 1px rgba(255,255,255,.24) !important;
+    opacity: var(--pe, 0); translate: 0 calc((1 - var(--pe, 0)) * 26px); pointer-events: none; animation: none !important; transform: none !important; }
+  html.me-scroll #about .me-pin.me-end .me-path{ pointer-events: auto; }
+  html.me-scroll #about .me-path, html.me-scroll #about .me-path *{ color: #fff !important; opacity: 1; }
+  html.me-scroll #about .me-path{ opacity: var(--pe, 0); }
+  html.me-scroll #about .me-facts{ translate: 0 calc(var(--pe, 0) * -78px); }
   /* landscape stage */
   html.me-scroll #about .hv-b2{ display: none; }
   html.me-scroll #about .hv-b3{ display: inline; }
@@ -94,7 +101,6 @@ html.me-scroll #about .me-facts .me-k{ font-weight: 600; color: #fff; }
     html.me-scroll #about .me-photo.me-v7{ left: 0; width: 100%; top: calc(var(--t0, 330px) * (1 - var(--g, 0))); height: calc(var(--rest) + (100cqh - var(--rest)) * var(--g, 0)); }
     html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ left: 54%; height: min(92%, 62cqw); }
     html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ object-position: 50% 58%; }
-    html.me-scroll #about .me-path{ bottom: auto; top: calc(var(--t0, 330px) + var(--rest) + 24px); }
   }
   /* no pin (reduced motion): the same two columns, still */
   html:not(.me-scroll) #about .me-top{ display: grid; grid-template-columns: 47% minmax(0, 1fr); gap: 4%; align-items: center; }

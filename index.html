@@ -6709,14 +6709,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function clamp(v){ return v<0?0:v>1?1:v } function io(t){ return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2 } function out(t){ return 1-Math.pow(1-t,4) }
   function measure(){ var pt=parseFloat(getComputedStyle(about).paddingTop)||118; pin.style.setProperty('--pt',pt+'px'); pin.style.setProperty('--t0',(intro.offsetHeight+Math.max(22,Math.min(40,innerWidth*.03)))+'px'); pin.style.setProperty('--ch',Math.max(60,list.offsetHeight-64)+'px'); }
   function target(){ var pt=parseFloat(pin.style.getPropertyValue('--pt'))||118, total=stage.offsetHeight-pin.offsetHeight; return clamp((pt-stage.getBoundingClientRect().top)/total); }
-  function draw(p){ var g=io(clamp(p/.3)); pin.style.setProperty('--g',g.toFixed(4)); pin.style.setProperty('--z',p.toFixed(4)); pin.style.setProperty('--io',clamp(1-g*3.2).toFixed(3)); pin.style.setProperty('--sh',clamp((p-.26)/.12).toFixed(3));
-    cards.forEach(function(c,i){ var t=clamp((p-(.34+i*.15))/.15), a=out(t), y=(1-a)*80, sc=.93+a*.07, rx=(1-a)*12, bl=(1-a)*12;
+  function draw(p){ var g=io(clamp(p/.3)); pin.style.setProperty('--g',g.toFixed(4)); pin.style.setProperty('--z',p.toFixed(4)); pin.style.setProperty('--io',clamp(1-g*3.2).toFixed(3)); pin.style.setProperty('--sh',clamp((p-.26)/.12).toFixed(3)); pin.style.setProperty('--pe',out(clamp((p-.82)/.13)).toFixed(3)); pin.classList.toggle('me-end',p>.86);
+    cards.forEach(function(c,i){ var t=clamp((p-(.30+i*.125))/.13), a=out(t), y=(1-a)*80, sc=.93+a*.07, rx=(1-a)*12, bl=(1-a)*12;
       c.style.opacity=a.toFixed(3); c.style.transform='translateY('+y.toFixed(1)+'px) rotateX('+rx.toFixed(2)+'deg) scale('+sc.toFixed(4)+')'; c.style.filter=bl>.2?'blur('+bl.toFixed(1)+'px)':'none'; if(nums[i]){ var v=String(Math.round(+nums[i].getAttribute('data-n')*out(clamp(t*1.15)))); if(nums[i].textContent!==v) nums[i].textContent=v; } }); }
   function tick(){ var t=target(); cur+=(t-cur)*.16; if(Math.abs(t-cur)<.0004) cur=t; draw(cur); raf=Math.abs(t-cur)>0?requestAnimationFrame(tick):0; }
   function go(){ if(on&&!raf) raf=requestAnimationFrame(tick); }
   function set(){ var want=ok.matches; if(want===on){ if(on){ measure(); go(); } return; } on=want; root.classList.toggle('me-scroll',on);
     if(on){ measure(); cur=target(); draw(cur); }
-    else { ['--g','--z','--io','--sh','--pt','--t0','--ch'].forEach(function(k){ pin.style.removeProperty(k) }); cards.forEach(function(c,i){ c.style.opacity=c.style.transform=c.style.filter=''; if(nums[i]) nums[i].textContent=nums[i].getAttribute('data-n'); }); } }
+    else { ['--g','--z','--io','--sh','--pe','--pt','--t0','--ch'].forEach(function(k){ pin.style.removeProperty(k) }); cards.forEach(function(c,i){ c.style.opacity=c.style.transform=c.style.filter=''; if(nums[i]) nums[i].textContent=nums[i].getAttribute('data-n'); }); } }
   set(); addEventListener('scroll',go,{passive:true}); addEventListener('resize',set); ok.addEventListener('change',set); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ if(on){ measure(); go(); } });
 })();
 </script>
