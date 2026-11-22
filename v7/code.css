@@ -34,7 +34,7 @@
 
 @media (min-width: 900px) {
   #code .hw{ grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
-  #code .hw-side{ position: sticky; top: 118px; }
+  #code .hw-side{ position: sticky; top: var(--hw-top, 118px); }
   #code .hw-nav{ display: grid; gap: 2px; margin-top: 36px; padding-top: 22px; border-top: 1px solid #dddcd7; max-width: 300px; }
   #code .hw-nav a{ display: flex; align-items: baseline; gap: 14px; padding: 7px 0; font: 500 17px/1.3 var(--body) !important; color: #9a9ea4 !important; text-decoration: none !important; transition: color .3s, translate .3s; }
   #code .hw-nav a i{ font: 500 13px/1 var(--body); font-style: normal; font-variant-numeric: tabular-nums; }
@@ -86,7 +86,7 @@
 /* wide windows: one frame that stays, the three screens change inside it (the script adds .hw-pin and marks the step on show with .on) */
 @media (min-width: 900px) {
   #code .hw-steps.hw-pin{ gap: 0; grid-template-rows: calc(250vh - 170px); }   /* one tall row: the screens stick inside it */
-  #code .hw-steps.hw-pin > li{ grid-area: 1 / 1; position: sticky; top: 118px; align-self: start; justify-self: end; width: min(100%, calc(100vh - 200px)); min-width: 380px;
+  #code .hw-steps.hw-pin > li{ grid-area: 1 / 1; position: sticky; top: var(--hw-top, 118px); align-self: start; justify-self: end; width: min(100%, calc(100vh - 200px)); min-width: 380px;
     opacity: 0; visibility: hidden; transition: opacity .5s ease, visibility 0s linear .5s; }
   #code .hw-steps.hw-pin > li.on{ opacity: 1; visibility: visible; transition: opacity .5s ease, visibility 0s; }
   #code .hw-steps.hw-pin > li .hw-cap{ translate: 0 14px; transition: translate .6s cubic-bezier(.2,.7,.2,1); }

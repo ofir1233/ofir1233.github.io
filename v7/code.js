@@ -11,6 +11,8 @@
   function mark(i){ if (i === cur) return; cur = i; steps.forEach(function(s, k){ s.classList.toggle('on', k === i); }); links.forEach(function(a, k){ a.classList.toggle('on', k === i); }); }
   function set(){
     var pin = mq.matches; ol.classList.toggle('hw-pin', pin); if (!pin) { cur = -1; return; }
+    /* the frame is held in the middle of the window, under the header, and the heading beside it starts level with it */
+    var top = Math.max(84, Math.round((innerHeight + 60 - steps[0].offsetHeight) / 2)); if (top !== TOP) { TOP = top; ol.parentNode.style.setProperty('--hw-top', TOP + 'px'); }
     var p = (TOP - ol.getBoundingClientRect().top) / range();
     mark(Math.max(0, Math.min(steps.length - 1, Math.floor(p * steps.length))));
   }
