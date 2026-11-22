@@ -115,3 +115,6 @@
 
 /* Topics frame: the app is drawn at the frame's own size (design-lab.js sets width, height and the frame's proportion) */
 #design-lab#design-lab .tp-fig .hs-app{ width:1120px; height:630px; }
+
+/* the tour's camera (design-lab.js shoot()): the move between steps is eased */
+#design-lab#design-lab .hs-fig:not(.tp-fig) .hs-app{ transition:transform .9s cubic-bezier(.2,.7,.2,1), opacity .5s; }

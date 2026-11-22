@@ -13,7 +13,16 @@
   var paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches, inView = false, started = false, touched = false;
   var run = 0, step = 0, stepMs = 0, stepDone = false, scale = 1;
 
-  function fit() { scale = stage.clientWidth / (W - 2 * TRIM); fig.style.setProperty('--s', scale); if (!started) ptr.style.translate = (1000 * scale) + 'px ' + (560 * scale) + 'px'; }
+  /* On a phone the whole app at this size cannot be read, so the frame moves in: on the card while it signs in and asks,
+     on the built screen once Hear has built it. [left, top, zoom] in the app's own pixels. */
+  var cam = [0, 0, 1];
+  function at(x, y) { return ((x - cam[0]) * scale * cam[2]) + 'px ' + ((y - cam[1]) * scale * cam[2]) + 'px'; }
+  function shoot() {
+    var z = stage.clientWidth < 560 ? (step === 3 ? 1.72 : 1.62) : 1;
+    cam = z === 1 ? [0, 0, 1] : step === 3 ? [556, 0, z] : [717 - 717 / z, Math.max(0, 470 - 402 / z), z];
+    frame.style.transform = 'translate(' + (-cam[0] * scale * z).toFixed(1) + 'px,' + (-cam[1] * scale * z).toFixed(1) + 'px) scale(' + (scale * z).toFixed(4) + ')';
+  }
+  function fit() { scale = stage.clientWidth / (W - 2 * TRIM); fig.style.setProperty('--s', scale); shoot(); if (!started) ptr.style.translate = at(1000, 560); }
   new ResizeObserver(fit).observe(stage); fit();
 
   var going = function () { return inView && !paused; };
@@ -22,7 +31,7 @@
     fig.classList.toggle('is-paused', paused);
   }
   function setStep(k) {
-    step = k; stepMs = 0; stepDone = false;
+    step = k; stepMs = 0; stepDone = false; shoot();
     items.forEach(function (li, i) { li.classList.toggle('on', i === k); li.classList.toggle('done', i < k); li.style.setProperty('--p', i < k ? 1 : 0); });
     bar.style.setProperty('--p', 0);
     var name = items[k].querySelector('button').getAttribute('data-l');
@@ -35,6 +44,7 @@
   (function tick(t) {
     var dt = Math.min(100, t - last); last = t;
     if (going() && started) { stepMs += dt; var pr = stepDone ? 1 : Math.min(0.96, stepMs / EST[step]); items[step].style.setProperty('--p', pr); bar.style.setProperty('--p', pr); }
+    if (stage.scrollTop || stage.scrollLeft) { stage.scrollTop = 0; stage.scrollLeft = 0; }      // a moved-in frame is larger than its window; nothing may scroll it
     if (!paused && document.activeElement === frame) frame.blur();      // the pages focus their own field; the keyboard stays with this page
     requestAnimationFrame(tick);
   })(last);
@@ -71,7 +81,7 @@
   function move(el, my, fx, ms) {
     var r = el.getBoundingClientRect();
     ptr.style.transitionDuration = (ms || 800) + 'ms';
-    ptr.style.translate = ((r.left - TRIM + r.width * (fx == null ? 0.5 : fx)) * scale) + 'px ' + ((r.top - TRIM + r.height / 2) * scale) + 'px';
+    ptr.style.translate = at(r.left - TRIM + r.width * (fx == null ? 0.5 : fx), r.top - TRIM + r.height / 2);
     return wait((ms || 800) + 160, my);
   }
   function press(my) { ptr.classList.add('down'); return wait(130, my).then(function () { ptr.classList.remove('down'); }); }
@@ -130,7 +140,7 @@
         var send = box.querySelector('.send') || doc().querySelector('.send');
         await move(send, my); await press(my); send.click();
         await wait(500, my);
-        ptr.style.transitionDuration = '900ms'; ptr.style.translate = (1180 * scale) + 'px ' + (700 * scale) + 'px';
+        ptr.style.transitionDuration = '900ms'; ptr.style.translate = at(1180, 700);
         await until(function () { return /app is ready/.test(doc().body.innerText); }, my, 30000);
         stepDone = true;
         await wait(3800, my);
