@@ -7,11 +7,11 @@
   steps.forEach(function(s){ if (s) io.observe(s); }); mark(0);
 })();
 
-/* the sign-in page in the Design step: drawn at 1600 px and scaled to its frame; under the mouse its layers move in depth,
+/* the sign-in page in the Design step: drawn at 760 px and scaled to its frame; under the mouse its layers move in depth,
    followed closely and let go with weight (the same spring as the page it comes from). */
 (function(){
   var fig = document.querySelector('#code .hw-live'), st = fig && fig.querySelector('.hl'); if (!st) return;
-  function fit(){ st.style.setProperty('--k', (fig.clientWidth / 1600).toFixed(5)); }
+  function fit(){ st.style.setProperty('--k', (fig.clientWidth / 760).toFixed(5)); }
   if ('ResizeObserver' in window) new ResizeObserver(fit).observe(fig); addEventListener('resize', fit); fit();
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var tx = 0, ty = 0, x = 0, y = 0, vx = 0, vy = 0, raf = 0, last = 0, over = false;
