@@ -47,3 +47,30 @@
   #code .hw-tag{ grid-column: 3; padding-top: 8px; }
 }
 @media (prefers-reduced-motion: reduce) { #code .hw-nav a{ transition: none; } }
+
+/* the Design step is the Hear sign-in page itself, drawn at 1600 x 1000 and scaled to the frame (--k from the script), in depth:
+   under the mouse the plate leans to the pointer, the sky moves the other way and the cloud further (--tx / --ty, -1..1). */
+#code .hw-live{ position: relative; aspect-ratio: 16 / 10; background: #5aa9f0 !important; }
+#code .hl{ position: absolute; left: 0; top: 0; width: 1600px; height: 1000px; overflow: hidden; transform-origin: 0 0; transform: scale(var(--k, .43)); font-family: "Byrd", system-ui, sans-serif; color: #181818; -webkit-font-smoothing: antialiased; user-select: none; -webkit-user-select: none; }
+#code .hl-bg{ position: absolute; inset: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: 50% 70%; scale: 1.09; translate: calc(var(--tx, 0) * -26px) calc(var(--ty, 0) * -15px); will-change: translate; pointer-events: none; }
+#code .hl-wrap{ position: absolute; left: 50%; top: 50%; width: 492px; translate: -50% -50%; scale: .986; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+#code .hl-cloud{ display: block; width: 48% !important; height: auto !important; aspect-ratio: 1200 / 1091; translate: calc(var(--tx, 0) * -48px) calc(var(--ty, 0) * -26px); will-change: translate; pointer-events: none; }
+#code .hl-glass{ position: relative; width: 100%; border-radius: 30px; padding: 18px; background: rgba(255,255,255,.2); -webkit-backdrop-filter: blur(18px) saturate(1.2); backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.7), inset 0 1.5px 0 rgba(255,255,255,.9), 0 24px 48px -16px rgba(10,40,80,.4);
+  transform: perspective(1500px) rotateX(calc(var(--ty, 0) * -6deg)) rotateY(calc(var(--tx, 0) * 7.5deg)); will-change: transform; }
+#code .hl-card{ display: flex; flex-direction: column; gap: 12px; border-radius: 22px; padding: 34px 40px 26px; box-shadow: 0 8px 22px rgba(16,34,60,.14); translate: calc(var(--tx, 0) * 8px) calc(var(--ty, 0) * 6px);
+  background: radial-gradient(135% 110% at calc(16% - var(--tx, 0) * 46%) calc(2% - var(--ty, 0) * 42%), #fff 0, #fff 26%, #F6F9FD 48%, #E9F0F9 74%, #DCE8F5 100%); }
+#code .hl-t{ margin-bottom: 14px; text-align: center; font-size: 30px; font-weight: 500; letter-spacing: -.02em; line-height: 1.1; }
+#code .hl-in{ display: flex; align-items: center; height: 54px; border-radius: 16px; border: 1.5px solid #D5DDE4; background: #fff; padding: 0 18px; font-size: 17px; color: #9AA1A8; }
+#code .hl-in.on{ border-color: #139FFD; box-shadow: 0 0 0 5px rgba(19,159,253,.16); }
+#code .hl-row{ display: flex; align-items: center; justify-content: space-between; margin: 4px 2px 6px; font-size: 15px; color: #3d444c; }
+#code .hl-row span{ display: flex; align-items: center; gap: 9px; }
+#code .hl-row i{ width: 18px; height: 18px; border-radius: 6px; border: 1.5px solid #B9C3CC; background: #fff; }
+#code .hl-row u, #code .hl-foot u{ color: #181818; text-underline-offset: 3px; }
+#code .hl-btn{ display: flex; align-items: center; justify-content: center; gap: 10px; height: 54px; border-radius: 27px; font-size: 17px; font-weight: 500; background: #232323; color: #fff; }
+#code .hl-btn.g{ background: #fff; color: #181818; box-shadow: inset 0 0 0 1.5px #D5DDE4; }
+#code .hl-or{ display: flex; align-items: center; gap: 14px; margin: 4px 0; font-size: 14px; color: #6A7078; }
+#code .hl-or::before, #code .hl-or::after{ content: ""; flex: 1; height: 1px; background: #D5DDE4; }
+#code .hl-foot{ margin-top: 10px; text-align: center; font-size: 15px; color: #6A7078; }
+@media (prefers-reduced-motion: no-preference) { #code .hl-cloud{ animation: hl-float 11s ease-in-out infinite alternate; } }
+@keyframes hl-float{ from{ transform: translateY(-5px); } to{ transform: translateY(6px); } }
