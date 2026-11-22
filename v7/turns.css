@@ -1,0 +1,68 @@
+/* v7 - turns: "Three decisions I reversed". Sits between the eight-phase plan and Experience: the plan, then what the build changed.
+   Every word here is taken from the case studies (work/data.html, work/actions.html). No picture is drawn of screens that no longer exist.
+   The one moment: the first decision stands in ink, a pen line crosses it out, and the decision that replaced it is written under it.
+   turns.js adds .tn-live to the list (so without scripts everything is simply shown) and .on to a row when it is read. */
+
+#turns#turns{ background:transparent; }
+#turns#turns .sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+#turns#turns .sec-head{ grid-template-columns:1fr; justify-items:center; text-align:center; gap:32px; }
+#turns#turns .sec-head h2{ font-size:clamp(36px, 5.2vw, 68px); letter-spacing:-.045em; max-width:15ch; margin-inline:auto; }
+#turns#turns .sec-head p{ margin-inline:auto; max-width:50ch; text-wrap:balance; }
+#turns#turns .sec-head .label{ margin-inline:auto; }
+
+#turns#turns .tn{ list-style:none; margin:0 auto; padding:0; max-width:1120px; }
+#turns#turns .tn-row{ display:grid; grid-template-columns:208px minmax(0, 1fr) minmax(0, 392px); column-gap:48px; align-items:start; margin:0; padding:48px 0 50px; border-top:1px solid #dddcd7; }
+#turns#turns .tn-row:last-child{ border-bottom:1px solid #dddcd7; }
+
+/* where it happened */
+#turns#turns .tn-k{ margin:0; padding-top:10px; font:400 15px/22px var(--body); color:#6b7178; }
+#turns#turns .tn-k b{ display:block; font-weight:600; color:#171b20; }
+
+/* the two decisions, one under the other, same size: only the pen line and the weight tell them apart */
+#turns#turns .tn-old, #turns#turns .tn-new{ margin:0; font-family:var(--display); font-size:clamp(26px, 2.7vw, 36px); line-height:1.16; letter-spacing:-.028em; }
+#turns#turns .tn-old{ font-weight:500; color:#6b7178; }
+#turns#turns .tn-old del{ position:relative; display:inline-block; white-space:nowrap; text-decoration:none; }
+#turns#turns .tn-x{ position:absolute; left:-6px; top:50%; width:calc(100% + 12px); height:20px; margin-top:-8px; overflow:visible; pointer-events:none; }
+#turns#turns .tn-x path{ fill:none; stroke:#ff5a3c; stroke-width:2.5; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+#turns#turns .tn-new{ margin-top:12px; font-weight:600; color:#171b20; }
+
+/* what was built, and why it was taken back */
+#turns#turns .tn-y{ padding-top:8px; }
+#turns#turns .tn-y p{ margin:0; font:400 16px/1.5 var(--body); color:#4a5057; text-wrap:pretty; }
+#turns#turns .tn-y p + p{ margin-top:14px; }
+#turns#turns .tn-y p b{ font-weight:600; color:#171b20; }
+#turns#turns .tn-y a{ display:inline-block; margin-top:18px; font:500 15px/24px var(--body); color:#171b20; text-decoration:underline; text-decoration-color:rgba(23,27,32,.28); text-decoration-thickness:1px; text-underline-offset:5px; transition:text-decoration-color .2s; }
+#turns#turns .tn-y a:hover, #turns#turns .tn-y a:focus-visible{ text-decoration-color:#171b20; }
+
+/* the moment. Before: the first decision stands in ink, nothing under it.
+   0ms the pen line starts (520ms, left to right), the words lose their ink over the same time;
+   380ms the decision that replaced it comes up (460ms); 520ms the reasons follow (460ms). */
+#turns#turns .tn-live .tn-row{ --d:0ms; }
+#turns#turns .tn-live .tn-old{ color:#171b20; transition:color .52s ease var(--d); }
+#turns#turns .tn-live .tn-x{ clip-path:inset(-10px 100% -10px 0); transition:clip-path .52s cubic-bezier(.55,0,.25,1) var(--d); }
+#turns#turns .tn-live .tn-new{ opacity:0; transform:translateY(10px); transition:opacity .46s ease calc(var(--d) + 380ms), transform .46s cubic-bezier(.2,.7,.2,1) calc(var(--d) + 380ms); }
+#turns#turns .tn-live .tn-y{ opacity:0; transition:opacity .46s ease calc(var(--d) + 520ms); }
+#turns#turns .tn-live .tn-row.on .tn-old{ color:#6b7178; }
+#turns#turns .tn-live .tn-row.on .tn-x{ clip-path:inset(-10px -8px -10px 0); }
+#turns#turns .tn-live .tn-row.on .tn-new{ opacity:1; transform:none; }
+#turns#turns .tn-live .tn-row.on .tn-y{ opacity:1; }
+
+@media (max-width:1040px){
+  #turns#turns .tn-row{ grid-template-columns:150px minmax(0, 1fr) minmax(0, 340px); column-gap:32px; }
+}
+/* stacked below 960: three columns at 900 left the two decisions 24px from the reasons */
+@media (max-width:960px){
+  #turns#turns .sec-head{ gap:22px; }
+  #turns#turns .tn{ max-width:640px; }
+  #turns#turns .tn-row{ grid-template-columns:1fr; row-gap:0; padding:34px 0 36px; }
+  #turns#turns .tn-k{ padding-top:0; margin-bottom:14px; }
+  #turns#turns .tn-k b{ display:inline; }
+  #turns#turns .tn-k b::after{ content:"\00a0\00b7\00a0"; font-weight:400; color:#6b7178; }
+  #turns#turns .tn-old, #turns#turns .tn-new{ font-size:clamp(23px, 6.4vw, 30px); }
+  #turns#turns .tn-new{ margin-top:8px; }
+  #turns#turns .tn-y{ padding-top:20px; }
+  #turns#turns .tn-y a{ min-height:44px; margin-top:8px; padding-top:10px; }
+}
+@media (prefers-reduced-motion: reduce){
+  #turns#turns .tn-live .tn-old, #turns#turns .tn-live .tn-x, #turns#turns .tn-live .tn-new, #turns#turns .tn-live .tn-y{ transition:none; }
+}
