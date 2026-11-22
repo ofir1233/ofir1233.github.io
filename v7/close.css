@@ -233,3 +233,8 @@ html body #contact#contact#contact.cl-night{ background-color:#17458a !important
   html body #contact#contact#contact.cl-dusk{ background-color:#d8d2f4 !important; }
   html body #contact#contact#contact.cl-night{ background-color:#2b5fae !important; }
 }
+
+/* Critic sweep, 23.11.2026. A phone broke the time line after "in", leaving "the morning." alone: the two sentences share the width.
+   The copy button's finger area is 50 x 50 around its 34px mark. */
+@media (max-width:960px){ #contact#contact .cl-now, #contact#contact .cl-note{ text-wrap:balance; } }
+@media (max-width:420px){ #contact#contact .cl-copy::after{ inset:-8px; } }

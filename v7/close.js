@@ -100,15 +100,16 @@
       var seen = secs.filter(function (x) { return dwell[x.id] >= 5; }); if (!seen.length) return false;
       var byTime = seen.slice().sort(function (p, q) { return dwell[q.id] - dwell[p.id]; });
       var pick = function (n) { var top = byTime.slice(0, n); return seen.filter(function (x) { return top.indexOf(x) >= 0; }).map(function (x) { return x.name; }); };
-      var names = pick(3); if (names.join(' · ').length > 30) names = pick(2); if (names.join(' · ').length > 30) names = pick(1);
-      /* a postal word, "via", and the parts in page order: up to three, the ones stayed on longest. No minutes and no counts: a card
+      var names = pick(3); if (names.join(' · ').length > 25) names = pick(2); if (names.join(' · ').length > 25) names = pick(1);
+      /* "You read" and the parts in page order: up to three, the ones stayed on longest. (It said "Via ...", a postal word; three critics
+         out of three did not understand what the mark was, 23.11.2026, so it says it plainly.) No minutes and no counts: a card
          that reports numbers reads as tracking, not as post. A second line is written only for someone who followed the sample call
          in Product through all four of its screens. */
       var th = window.v7Thread || {}, rode = th.Topics && th.Compliance && th.Actions && th.Newsroom, all = seen.length === secs.length;
       via.textContent = '';
-      var l1 = document.createElement('span'); l1.textContent = all ? 'Via the whole page' : 'Via ' + names.join(' · '); via.append(l1);
+      var l1 = document.createElement('span'); l1.textContent = all ? 'You read the whole page' : 'You read: ' + names.join(' · '); via.append(l1);
       if (rode) { var l2 = document.createElement('span'); l2.textContent = 'Followed one call to Newsroom'; via.append(l2); }
-      via.setAttribute('aria-label', 'You came here by way of ' + seen.map(function (x) { return x.name; }).join(', ') + '.' + (rode ? ' You followed one call to Newsroom.' : ''));
+      via.title = 'The parts of this page you stayed on'; via.setAttribute('aria-label', 'On the way here you read ' + seen.map(function (x) { return x.name; }).join(', ') + '.' + (rode ? ' You followed one call to Newsroom.' : ''));
       return true;
     };
     /* The mark takes its place only while the card is out of sight; its words are refreshed at the moment it lands. */

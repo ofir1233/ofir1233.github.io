@@ -271,7 +271,7 @@ const MISS={Greeting:['No name or company in the opening','Opened with the accou
   Empathy:['Talked over the customer','No acknowledgement of the complaint','Flat tone on a hardship call'],
   Closing:['Ended without a summary','No confirmation of the next step','Closed while the customer was talking']};
 const MET={Greeting:['Full greeting','Name, company, offer to help'],Verification:['Identity checked in full','Two-factor check done'],
-  Discovery:['Reason for the call confirmed','Asked and summarised the need'],Resolution:['Resolved, next step agreed','Fixed on the call'],
+  Discovery:['Reason for the call confirmed','Asked and summarized the need'],Resolution:['Resolved, next step agreed','Fixed on the call'],
   Compliance:['All disclosures read','Disclosure read and confirmed'],Empathy:['Acknowledged the concern','Calm on a hard call'],Closing:['Summed up and confirmed','Next step confirmed']};
 const seeded=str=>{ let h=2166136261; for(const ch of str){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619) } return ()=>{ h^=h<<13; h^=h>>>17; h^=h<<5; return ((h>>>0)%10000)/10000 } };
 const at=(len,f)=>{ const [m,x]=len.split(':'), t=Math.round((m*60+ +x)*f); return Math.floor(t/60)+':'+String(t%60).padStart(2,'0') };
@@ -340,7 +340,7 @@ const AT=[{title:'Teams',show:4,items:[['Team Atlas',312],['Team Birch',298],['T
           {title:'Agents',items:rows.map(r=>[r.n,r.c+' evaluated calls',ini(r.n)])},
           {title:'Criteria',items:CRIT.map(c=>[c,'','#'])},
           {title:'Period',items:[['Last 7 days','','7'],['Last 30 days','','30'],['This month','','M']]}];
-const KINDS=[{title:'What kind of app',show:4,items:[['Table','rows to sort and filter','T','A table of '],['Chart','one measure, by group or over time','C','A chart of '],['Heatmap','two dimensions, coloured by score','H','A heatmap of '],['Review queue','calls to go through, one by one','Q','A review queue of ']]}];
+const KINDS=[{title:'What kind of app',show:4,items:[['Table','rows to sort and filter','T','A table of '],['Chart','one measure, by group or over time','C','A chart of '],['Heatmap','two dimensions, colored by score','H','A heatmap of '],['Review queue','calls to go through, one by one','Q','A review queue of ']]}];
 const IC={edit:'<svg class="i" viewBox="0 0 18 18"><path d="M11.8 3.4l2.8 2.8-7.9 7.9-3.4.6.6-3.4z"/></svg>',ask:'<svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.5"/><path d="M7.2 7.2a1.9 1.9 0 1 1 2.6 1.8c-.5.3-.8.7-.8 1.3M9 12.7v.1"/></svg>',back:'<svg class="i" viewBox="0 0 18 18"><path d="M4 7.5h7a3.5 3.5 0 0 1 0 7H8M6.5 4.5 3.5 7.5l3 3"/></svg>'};
 const MOVES=[{title:'In this conversation',show:3,items:[['Change the app','in plain words',IC.edit,'Change '],['Ask about it','a question on the data',IC.ask,'Why '],['Go back a version','',IC.back,'Go back to v1']]}];
 
@@ -811,7 +811,7 @@ if(qApp&&APPS[qApp]) requestAnimationFrame(()=>refit(qApp));
 document.getElementById('new').addEventListener('click',()=>{ resetMaking(); stop(true); create.clear(); document.querySelectorAll('.side .nv.on').forEach(b=>b.classList.remove('on')); set(1); create.focus() });
 </script>
 <!-- Topics: a screen added for the portfolio, at two fidelities (topics/) -->
-<script src="topics/topics.js?v=9"></script>
+<script src="topics/topics.js?v=10"></script>
 <!-- Product screens: the Design Lab's other screens, made simple in the Studio look (screens/) -->
-<script src="screens/screens.js?v=17"></script>
+<script src="screens/screens.js?v=18"></script>
 </html>

@@ -27,7 +27,7 @@
   /* ---------- Compliance ---------- */
   S.compliance = {
     nav: 'Compliance', icon: '<path d="M9 2.5 3.5 4.6v4.2c0 3.2 2.2 5.6 5.5 6.7 3.3-1.1 5.5-3.5 5.5-6.7V4.6z"/><path d="M6.5 9l1.8 1.8 3.3-3.6"/>',
-    steps: ['Every agent is checked against the same five rules.', 'A failing score opens the agent against the team.', 'Ask AI names the calls that pulled it down.'],
+    steps: ['Every agent is checked against the same five rules.', 'A failing score opens the agent, compared with the team.', 'Ask AI names the calls that pulled it down.'],
     build: function () {
       var A = ['Evan', 'Lucy', 'Aaron', 'Stefan', 'Iris', 'Ada', 'Tara', 'Martina', 'Shaw', 'Selma'];
       var C = [['Fee disclosure', [85, 90, 67, 100, 87, 94, 78, 82, 79, 92]], ['Consent to continue', [81, 72, 87, 89, 82, 88, 65, 91, 76, 79]], ['Identity verification', [90, 89, 76, 100, 75, 98, 92, 93, 82, 85]],
@@ -38,7 +38,7 @@
       g += '<div class="rw ft">Failing criteria</div>' + A.map(function (a, i) { var n = C.filter(function (c) { return c[1][i] < 70; }).length; return '<div class="ft">' + (n ? '<b>' + n + '</b>' : '–') + '</div>'; }).join('');
       return top('Compliance', 'How every agent did against the center’s rules. 5 criteria · 26 agents · last 6 weeks', act('Last 6 weeks' + chev) + act('Share')) +
         kpis([['Sales without alerts', '72.6<small>%</small>', '▲ 2.1 pts against the 6 weeks before'], ['Valid sales', '93.8<small>%</small>', 'target 90%'], ['Agents above the success metric', '88.7<small>%</small>', '23 of 26 agents']]) +
-        '<div class="sx-body"><div class="sx-h"><b>Criteria by agent</b><span>Only a failing score takes colour</span><span class="sx-seg r"><span class="on">Agents</span><span>Teams</span></span></div>' +
+        '<div class="sx-body"><div class="sx-h"><b>Criteria by agent</b><span>Only a failing score takes color</span><span class="sx-seg r"><span class="on">Agents</span><span>Teams</span></span></div>' +
         '<div class="cm-grid">' + g + '</div>' +
         '<div class="sx-note"><span>Score</span><i style="background:rgba(24,36,48,.07)"></i><span>70 and up</span><i style="background:#FFD0C4"></i><span>60–69</span><i style="background:var(--coral)"></i><span>under 60</span></div></div>';
     },
@@ -65,7 +65,7 @@
       var G = [['90–100', 27, 'l5'], ['80–89', 193, 'l4'], ['70–79', 349, 'l3'], ['60–69', 138, 'l2'], ['under 60', 8, 'l1']];
       return top('Agent evaluation', 'An AI score for every agent, with the calls it is based on. 715 agents · 8 criteria', act('Service quality' + chev) + act('Last 30 days' + chev)) +
         kpis([['Agents', '715', 'active in the last 30 days'], ['Average score', '76<small>/ 100</small>', '▲ 1 pt against the 30 days before'], ['Under 60', '8', 'agents to coach first']]) +
-        '<div class="sx-body"><div class="sx-h"><b>Average score over time</b><span>Height and colour are that day’s score</span><span class="sx-seg r"><span class="on">Bars</span><span>Trend</span></span></div>' +
+        '<div class="sx-body"><div class="sx-h"><b>Average score over time</b><span>Height and color are that day’s score</span><span class="sx-seg r"><span class="on">Bars</span><span>Trend</span></span></div>' +
         '<div class="ae-plot">' + bars + '</div><div class="ae-dates"><span>Sep 13</span><span>Sep 20</span><span>Sep 27</span><span>Oct 4</span><span>Oct 12</span></div>' +
         '<div class="ae-dist"><div class="sx-h"><b>Agents by average score</b><span>715 agents</span></div><div class="ae-strip">' + G.map(function (g) { return '<i class="' + g[2] + '" data-g="' + g[0] + '" style="flex:' + Math.max(g[1], 14) + '"></i>'; }).join('') + '</div>' +
         '<div class="ae-leg">' + G.map(function (g) { return '<span data-g="' + g[0] + '"><i class="' + g[2] + '"></i>' + g[0] + ' <b>' + g[1] + '</b></span>'; }).join('') + '</div></div></div>';
@@ -88,7 +88,7 @@
         '<div class="ac-board">' +
         col('Pending', 6, card('Alert · Today · High', 1, 'Customer asked twice for a refund, was offered only a voucher', 'Daniel Brooks', '', 'src') + card('Call · Yesterday', 0, 'Reason for call tagged as Billing, should be Service outage', 'Maya Collins') + card('Agent evaluation · Yesterday · High', 1, 'Recording disclosure missing in the first 30 seconds', ''), 3) +
         col('In progress', 5, card('Alert · Oct 10 · High', 1, 'Technical failure blocked a booking at payment', 'Ryan Cole') + card('Agent evaluation · Oct 9', 0, 'Identity verification skipped before a ticket change', 'Paula Nunes'), 3) +
-        col('Done', 4, card('Alert · Today', 0, 'Customer asked twice for a refund, was offered only a voucher', 'Daniel Brooks', 'Resolved', 'moved') + card('Alert · Oct 5', 0, 'Lost baggage claim escalated to the ground team', 'Sofia Cruz', 'Escalated') + card('Call · Oct 4', 0, 'Sentiment re-analysed on a VIP escalation', 'Maya Collins', 'Resolved'), 2) +
+        col('Done', 4, card('Alert · Today', 0, 'Customer asked twice for a refund, was offered only a voucher', 'Daniel Brooks', 'Resolved', 'moved') + card('Alert · Oct 5', 0, 'Lost baggage claim escalated to the ground team', 'Sofia Cruz', 'Escalated') + card('Call · Oct 4', 0, 'Sentiment re-analyzed on a VIP escalation', 'Maya Collins', 'Resolved'), 2) +
         col('Cancelled', 2, card('Alert · Oct 10', 0, 'Duplicate: booking engine timeout', 'Ryan Cole', 'Duplicate') + card('Feedback · Sep 30', 0, 'Website search is slow', '', 'Not actionable')) + '</div>';
     },
     show: function (el, i, ui) {
@@ -105,7 +105,7 @@
   /* ---------- Newsroom ---------- */
   S.news = {
     nav: 'Newsroom', icon: '<rect x="2.5" y="3.5" width="13" height="11" rx="2"/><path d="M5.5 7h4M5.5 10h7"/>',
-    steps: ['Newsroom writes what changed in the calls as stories.', 'Play opens the month as a 75-second story.', 'It counts the 38,214 calls analysed in July.', 'Then it names the one thing that changed most.'],
+    steps: ['Newsroom writes what changed in the calls as stories.', 'Play opens the month as a 75-second story.', 'It counts the 38,214 calls analyzed in July.', 'Then it names the one thing that changed most.'],
     build: function () {
       var N = [['“Cancellation intent” is surging past its 30-day baseline', 'Signal · 240% over baseline · 4:12 pm', 'Surging', 'ink'], ['Team B handle time is up 40% since Monday', 'Agent performance · 2:30 pm', 'Rising', 'blue'], ['Missed upgrade offers: 2 stories from 214 eligible calls', 'Daily alerts report', 'New', 'nw'], ['Refund asked twice, voucher offered: 6 calls since Monday', 'Alert · Refund refused · Oct 13', 'Rising', 'blue'], ['Silence on Trip Status calls is down a third', 'Signal · since the new script', 'Improving', 'ok'], ['Three agents moved above the success metric', 'Agent evaluation · this week', 'Steady', '']];
       return top('Newsroom', 'What changed in your calls, written as stories you can read or play.', act('Last 7 days' + chev) + act('Share')) +
@@ -114,7 +114,7 @@
         '<section class="nr-col"><div class="sx-h"><b>Developments</b><span>31 this week</span></div>' + N.map(function (n) { return '<div class="nr-item"><b>' + n[0] + '</b><span class="sx-tag ' + n[3] + '">' + n[2] + '</span><span>' + n[1] + '</span></div>'; }).join('') + '</section></div>' +
         '<div class="nr-story" data-s="0"><div class="pr"><i class="on"></i><i></i><i></i><i></i><i></i></div>' +
         '<div class="sl s0"><small>July 2026 · Your recap</small><h3>Chief, your month was loud.</h3><p>Let’s listen back.</p></div>' +
-        '<div class="sl s1"><small>Calls analysed</small><h3>38,214</h3><p>9% more than June</p></div>' +
+        '<div class="sl s1"><small>Calls analyzed</small><h3>38,214</h3><p>9% more than June</p></div>' +
         '<div class="sl s2"><small>What changed most</small><h3>Cancellation intent rose 240% after the fare change.</h3><p>July 14 to July 19</p></div></div>';
     },
     show: function (el, i, ui) {

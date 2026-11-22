@@ -7,7 +7,7 @@
   var TRIM = 3, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ICON = '<svg class="pa" viewBox="0 0 18 18" aria-hidden="true"><rect x="4" y="3.5" width="3.4" height="11" rx="1"/><rect x="10.6" y="3.5" width="3.4" height="11" rx="1"/></svg><svg class="pl" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.2v11.6a.6.6 0 0 0 .9.5l9.4-5.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5z"/></svg><svg class="rp" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.6a5.6 5.6 0 1 0 5.4 7"/><path d="M8.6.9v5.4l4-2.7z"/></svg>';
   var TOPICS = {
-    steps: ['Every topic is a box: its size is the calls, its colour is the score.', 'A topic opens into the three scores behind it.', 'Ask AI explains what drives a score, from the calls behind it.'],
+    steps: ['Every topic is a box: its size is the calls, its color is the score.', 'A topic opens into the three scores behind it.', 'Ask AI explains what drives a score, from the calls behind it.'],
     step: function (w, i) {
       var t = w.hearTopics;
       if (i < 2) t.close();
@@ -42,7 +42,8 @@
       [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.sx-tip.on .go' }], [3600, '.sx-side.on', { fit: 'w', part: [0, .16, 1, 1], keep: true, small: true, pad: 26, max: 2 }]]
     ],
     agents: [
-      [[0, null], [1700, '.ae-plot, .ae-dates', { pad: 30, ax: .62 }]],
+      /* the chart is nearly as wide as the screen: a small zoom only cut the screen's title in half at the top rim, so the screen stays whole and the chart is lit */
+      [[0, null], [1700, '.ae-plot, .ae-dates', { pad: 80, ax: .62 }]],
       [[0, '[data-b="17"]', { pad: 130, pad2: 50, max: 1.85, grow: '.sx-tip.on' }]],
       [[0, '.ae-strip i:last-child', { pad: 170, pad2: 54, max: 1.85, grow: '.sx-tip.on' }]]
     ],
@@ -206,7 +207,10 @@
            top left, where the title is. The Newsroom story fills the screen, so it is shown whole. */
         if (!(key() === 'news' && P.k > 0)) { z = 1.45; cx = 0; cy = 0; }
       }
-      return { x: Math.min(0, Math.max(W - W * z, W / 2 - cx * z)), y: Math.min(0, Math.max(h - h * z, h / 2 - cy * z)), z: z };
+      /* The app's panel floats on a sky margin of about 20px. Zoomed in on something beside the right or bottom edge, a sliver of that
+         margin showed at the rim as a stray blue strip: the frame stops at the panel's edge, unless the thing itself reaches into the margin. */
+      var mr = r && z > 1.05 && r[0] + r[2] <= W - 24 ? 20 : 0, mb = r && z > 1.05 && r[1] + r[3] <= h - 24 ? 20 : 0;
+      return { x: Math.min(0, Math.max(W - W * z + mr * z, W / 2 - cx * z)), y: Math.min(0, Math.max(h - h * z + mb * z, h / 2 - cy * z)), z: z };
     }
     /* How long a move takes: a longer way takes longer, a change of zoom counts as way, and nothing is rushed or dragged out. */
     function span(c) {

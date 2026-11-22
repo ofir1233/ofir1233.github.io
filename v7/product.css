@@ -118,6 +118,13 @@
   #product#product .px-pp{ width:44px; height:44px; }
 }
 
+/* A button centres its words in its own height: with one sentence on three lines and the others on two, the numbers 02-04 sat 8px lower
+   than 01. Every step starts at the top line. */
+@media (min-width:861px){
+  #product#product .px-steps ol{ align-items:start; }
+  #product#product .px-steps li button{ height:auto; }
+}
+
 /* Owner, 22.11.2026: the product windows do not answer the mouse, playing or paused. A hover inside the app lit tiles and rows and spoiled the staged steps. */
 
 /* the note shows only after the visitor pressed pause, never by itself on load. Under reduced motion nothing in the window animates. */

@@ -48,7 +48,7 @@
       ['Chat bubble', 'Answer', 340, '<div class="dk-ai">' + MARK + '<p><b>12 calls</b> failed, and 9 of them share one cause: the customer said they were struggling to pay and the protocol questions were skipped.</p></div>'],
       ['Chat bubble', 'Thinking', 220, '<div class="dk-ai">' + MARK + '<span class="dk-think"><i></i><i></i><i></i></span></div>'],
       ['Score row', 'Thirty days', 380, '<div class="dk-srow"><b>Trip Status</b>' + bars([62, 60, 66, 64, 61, 68, 70, 63, 59, 64, 66, 69, 71, 65, 62, 60, 58, 63, 66, 68, 64, 61, 63, 65]) + '<small>▼ 5 pts</small><em>63</em></div>'],
-      ['Heatmap row', 'Only failing scores take colour', 450, '<div class="dk-hrow"><b>Fee disclosure</b>' + [85, 90, 67, 100, 87, 54].map(cell).join('') + '</div>'],
+      ['Heatmap row', 'Only failing scores take color', 450, '<div class="dk-hrow"><b>Fee disclosure</b>' + [85, 90, 67, 100, 87, 54].map(cell).join('') + '</div>'],
       ['Story', 'With status', 360, '<div class="dk-story"><span><b>“Cancellation intent” is surging past its 30-day baseline</b><small>Signal · 240% over baseline · 4:12 pm</small></span><span class="dk-tag ink">Surging</span></div>'],
       ['Task card', 'Open', 270, task('Recording disclosure missing in the first 30 seconds', 'PN', 'Open')],
       ['Notification', 'Unread', 320, note('check', 'Fee disclosure fell to 88%', 'Compliance review · yesterday', 1)],

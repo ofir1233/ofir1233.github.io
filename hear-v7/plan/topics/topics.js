@@ -68,7 +68,7 @@
       '<div class="tp-gain" tabindex="0"><small>Most to gain</small><b>+' + gain + '</b><i><u>' + esc(T[gainK].n) + '</u> · ' + num(T[gainK].c) + ' calls at ' + T[gainK].s + '</i></div>' +
       '<div><small>New topics</small><b>' + T.filter(function (t) { return t.fresh; }).length + '</b><i>first seen this month</i></div></div>' +
     '<div class="tp-body">' +
-      '<section class="tp-col"><header class="tp-h"><b id="tp-mt">10 highest-volume topics</b><span class="sub">Area is calls, colour is score</span>' + note(2, 'Size is calls. The darkest need attention first') + seg('tp-view', ['5', '10', 'All'], 1) + '</header>' +
+      '<section class="tp-col"><header class="tp-h"><b id="tp-mt">10 highest-volume topics</b><span class="sub">Area is calls, color is score</span>' + note(2, 'Size is calls. The darkest need attention first') + seg('tp-view', ['5', '10', 'All'], 1) + '</header>' +
         '<div class="tp-map" id="tp-map"></div>' +
         '<div class="key"><span>Score</span><i class="b1"></i><span>under 40</span><i class="b2"></i><span>40–49</span><i class="b3"></i><span>50–59</span><i class="b4"></i><span>60–69</span><i class="b5"></i><span>70 and up</span>' +
           '<em class="tp-hint"><svg class="i" viewBox="0 0 18 18"><path d="M4.5 2.8l9.6 5.3-4.3 1.2-2.2 4z"/></svg>Hover a topic</em>' + note(3, 'Hover: the 3 scores behind it') + '</div></section>' +

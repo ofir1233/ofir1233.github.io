@@ -24,7 +24,7 @@
     ['L', 'Meaning', 'Lilac', 'D59BE0', 'The AI is speaking.', 'the flowers and one sail', 'an AI-made filter, an AI answer']
   ];
   var touch = !matchMedia('(hover: hover) and (pointer: fine)').matches;
-  var ALL = ['The palette', 'Nine colours, one job each', 'Four roles, shared by the picture and the screen.', (touch ? 'Tap' : 'Point at') + ' a colour, here or in the picture, to see it alone in both.', ''];
+  var ALL = ['The palette', 'Nine colors, one job each', 'Four roles, shared by the picture and the screen.', (touch ? 'Tap' : 'Point at') + ' a color, here or in the picture, to see it alone in both.', ''];
   /* the build's four beats: role, its colours, the sentence, where it is in the picture, where in the product */
   var BEATS = [
     ['Ground', 'PS', 'What everything rests on.', 'the bare canvas, the light in the clouds', 'the page and the space behind a card'],

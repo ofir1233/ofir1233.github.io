@@ -178,7 +178,7 @@
   var stage = fig.querySelector('.hs-win'), frame = fig.querySelector('.tp-app'), bar = fig.querySelector('.tp-bar'), pp = bar.querySelector('.hs-pp'), now = fig.querySelector('.tp-now');
   var kEl = now.querySelector('.hs-k'), tEl = now.querySelector('.hs-t'), dEl = now.querySelector('.tp-d');
   var COPY = {
-    lo: ['Step 1 of 2', 'Structure first', 'Grey boxes and three notes: what the screen holds and why, before any colour.'],
+    lo: ['Step 1 of 2', 'Structure first', 'Gray boxes and four notes: what the screen holds and why, before any color.'],
     hi: ['Step 2 of 2', 'Then the Hear look', 'The same screen on glass and sky, with blue for the scores and coral for what needs attention.']
   };
   var items = [].slice.call(bar.querySelectorAll('.tp-segs li'));
