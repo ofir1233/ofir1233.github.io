@@ -86,7 +86,7 @@
 /* wide windows: one frame that stays, the three screens change inside it (the script adds .hw-pin and marks the step on show with .on) */
 @media (min-width: 900px) {
   #code .hw-steps.hw-pin{ gap: 0; grid-template-rows: calc(250vh - 170px); }   /* one tall row: the screens stick inside it */
-  #code .hw-steps.hw-pin > li{ grid-area: 1 / 1; position: sticky; top: 118px; align-self: start; justify-self: end; width: min(100%, calc(100vh - 290px)); min-width: 380px;
+  #code .hw-steps.hw-pin > li{ grid-area: 1 / 1; position: sticky; top: 118px; align-self: start; justify-self: end; width: min(100%, calc(100vh - 200px)); min-width: 380px;
     opacity: 0; visibility: hidden; transition: opacity .5s ease, visibility 0s linear .5s; }
   #code .hw-steps.hw-pin > li.on{ opacity: 1; visibility: visible; transition: opacity .5s ease, visibility 0s; }
   #code .hw-steps.hw-pin > li .hw-cap{ translate: 0 14px; transition: translate .6s cubic-bezier(.2,.7,.2,1); }
@@ -123,3 +123,16 @@
 #code .hc.typing .hc-t::after{ content: ""; display: inline-block; width: 1.5px; height: 1.1em; margin-left: 2px; vertical-align: -.18em; background: #139FFD; }
 #code .hc-send{ flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: #1779F7; }
 #code .hc-send svg{ width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* wide windows: the step's text sits in the index on the left and opens under the step on show; the frame on the right carries no caption */
+@media (min-width: 900px) {
+  #code .hw-steps.hw-pin > li .hw-cap{ display: none; }
+  #code .hw-nav{ max-width: 360px; }
+  #code .hw-nav a{ display: grid; grid-template-columns: auto 1fr; gap: 0 14px; font-size: 19px !important; }
+  #code .hw-d{ grid-column: 2; display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .5s cubic-bezier(.2,.7,.2,1), opacity .35s; }
+  #code .hw-d > span{ overflow: hidden; min-height: 0; font: 400 16.5px/1.5 var(--body); color: #4a5058; }
+  #code .hw-d > span::before{ content: ""; display: block; height: 8px; }
+  #code .hw-d small{ display: block; margin: 10px 0 12px; font-size: 13.5px; color: #6a6f76; }
+  #code .hw-nav a.on .hw-d{ grid-template-rows: 1fr; opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { #code .hw-d{ transition: none; } }

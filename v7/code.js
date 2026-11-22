@@ -4,6 +4,9 @@
   var ol = document.querySelector('#code .hw-steps'); if (!ol) return;
   var steps = [].slice.call(ol.children), links = [].slice.call(document.querySelectorAll('#code .hw-nav a'));
   var mq = matchMedia('(min-width: 900px)'), cur = -1, TOP = 118;
+  /* the text of each step moves into the index beside the heading: it opens under the step on show */
+  links.forEach(function(l, i){ var c = steps[i] && steps[i].querySelector('.hw-cap'); if (!c) return; var d = document.createElement('span'); d.className = 'hw-d';
+    var t = c.querySelector('p'), g = c.querySelector('.hw-tag'); d.innerHTML = '<span>' + (t ? t.innerHTML : '') + (g ? '<small>' + g.innerHTML + '</small>' : '') + '</span>'; l.appendChild(d); });
   function range(){ return Math.max(1, ol.offsetHeight - steps[0].offsetHeight); }
   function mark(i){ if (i === cur) return; cur = i; steps.forEach(function(s, k){ s.classList.toggle('on', k === i); }); links.forEach(function(a, k){ a.classList.toggle('on', k === i); }); }
   function set(){
