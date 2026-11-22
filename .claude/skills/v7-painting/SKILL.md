@@ -37,6 +37,15 @@ The owner pays for every call. A bad result is money thrown away, and an excuse 
 The prompt asked for a sky "completely empty", "calm", with buildings that "stay low", to leave room for a UI card.
 The result was flat: a smooth striped sky, a small thin city, no thick paint. The owner called it garbage, rightly.
 
+## THE MODEL. Only the strongest one.
+
+Owner's order, 22.11.2026: from now on only OpenAI's best and most expensive image model. On that day five calls were wasted on `gpt-image-1.5` because the model name was copied from an old script without checking.
+
+- Before every painting session, list the account's image models (`scratchpad/models.py`, free) and read `https://developers.openai.com/api/docs/guides/image-generation`. Use the newest "Sunburst" model (the detailed one; "Flare" is the fast one). Never take a model name from an old script.
+- On 22.11.2026 that is `gpt-image-2.6-sunburst`: endpoint `v1/images/edits` with reference images, quality `low / medium / high / xhigh / max`, custom sizes up to 3840 px a side and 8.29 MP (sides multiples of 16), `complexity` defaults to high.
+- Final pictures: quality `max`. Size large enough that the part the page shows has at least 2x the CSS pixels (for the How I work square: portrait `2304x3456`).
+- Price: $30 per million output tokens. From the calculator on that page: max 2304x3456 = 15,303 tokens = about $0.46; max 1600x2400 = about $0.27; max 1024x1536 = about $0.16; low 1024x1536 = about $0.02. Add a few cents for the reference images. Read the calculator again when the model or size changes, and tell the owner the number.
+
 ## Before the prompt: know exactly what is wanted
 
 1. Look at the picture being replaced and write down what must STAY (layout, horizon height, where it is open, what sits on top of it in the page) and what must CHANGE. On 22.11.2026 I skipped this and lost three paid calls: the old background already had the right layout (sky on 75%, clouds low, city band), and only its style had to change.
@@ -69,6 +78,26 @@ The result was flat: a smooth striped sky, a small thin city, no thick paint. Th
 - Then the owner rejected that draft for its COLOURS, and showed Hear's own painting `hear-v7/media/hero-contact-center-1600.webp` as what he means. Measured: in both reference paintings the foliage is cool emerald (hue ~150, about #43765d) and the sky cobalt-azure (hue ~207, about #3b8ed3). The draft had yellow-olive trees (hue 65) on 18% of the picture, pink and purple flower masses and orange roofs. I had passed "style" by eye and never checked colour.
 
 - APPROVED and placed as `img/hw-sky-city.webp`: `images/edits`, `gpt-image-1.5`, `1024x1536`, `high`, two reference images (Hear's hero painting, the opening picture), then a 1024 square cropped from y=150. Measured: foliage hue 146, sky hue 204, warm colours 0%. The prompt that worked, in order: "paint the OUTSIDE VIEW seen through the windows of the references, sky and city only" → COLOURS with hex values and the forbidden list → TECHNIQUE (small crisp flat strokes, graphic, no weave / cracks / stripes) → SKY (open blue above and in the middle, white cumulus low and at the sides) → CITY (dense blue glass towers, white blocks with rounded balconies, emerald tree crowns along the bottom, strip of sea at the left).
+
+- The owner then said that picture was not good: thin digital-looking strokes, blue too strong (saturation 85). The cause was the technique wording "small crisp flat strokes, graphic, like an editorial illustration" and the old model.
+
+- REPLACED, approved by the owner and placed as `img/hw-sky-city.webp` (1600 square cropped from y=420): `images/edits`, `gpt-image-2.6-sunburst`, `1600x2400`, quality `max`, same two reference images, about $0.30 (plus $0.05 for a low check). Measured: sky hue 208, saturation 73, warm colours 0%, foliage hue 173 (a little too teal; hardly seen in the crop). The sky came out as thick visible knife strokes. The owner said 4K is not needed: strongest model and `max`, at a size that gives 2x the CSS pixels and no more. The script is `scratchpad/sky6.py`; its prompt is the fixed prompt below.
+
+## THE FIXED PROMPT. Every painting uses these blocks word for word.
+
+Only the SUBJECT block changes from picture to picture. Both reference images go in with every call.
+
+OPENING: "It must look as if the same painter made it on the same day as the FIRST reference image."
+
+TECHNIQUE: "a real impasto oil painting, thick opaque paint laid with a palette knife and flat brushes in thousands of small, crisp, confident strokes; every stroke a distinct plane of colour with a sharp edge and a slight ridge of paint; clearly hand-painted at every scale. Not a digital illustration, not anime, not pixel art, not vector, not a print: no flat fills, no outlines, no dithering, no fine hatching, no canvas weave, no cracks, no stripes, no blur, no photo realism."
+
+COLOURS: "taken from the windows of the references and from nowhere else. Sky: cobalt-azure blue, about #3b8ed3, with darker #2a78c6 and lighter #6cb4ec strokes; rich but natural, not electric, not neon, not ultramarine. Trees: COOL emerald and teal greens only, about #43765d, with darker #2c5a48 and lighter #6aa98a. Absolutely no yellow, no yellow-green, no olive, no lime, no golden or warm foliage. Buildings: blue glass towers (cobalt, azure and pale sky-blue reflections) and clean cool white facades with pale blue shadows. Only tiny accents of coral and lilac. No pink or purple flower masses, no orange roofs. The whole picture is cool: blue, white and emerald."
+
+SUBJECT (changes): what is in the picture, region by region, with many named things in each region. For the How I work background it was SKY (blue built from broad knife strokes in different directions; top and centre open; thick sculpted white cumulus with pale blue and lilac shadows only low above the skyline, larger at the far left and right) and CITY (dense blue glass towers with window grids and reflections, white apartment blocks with rounded balconies and roof terraces, big rounded emerald tree crowns along the bottom, a thin strip of sea at the far left).
+
+CLOSING: "Bright late-morning light from the left, strong light and shadow planes on every building. No text, no letters, no logos."
+
+Never write "flat strokes", "graphic" or "editorial illustration" in the technique: that wording gave the thin digital look.
 
 ## Colour is checked with numbers, every time
 
