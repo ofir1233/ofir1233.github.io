@@ -60,7 +60,7 @@
 .tp-tile.hot .tb,.tp-tile:focus-visible .tb{outline:2px solid var(--ink);outline-offset:-1px}
 .tp-tile.on .tb,.tp-tile.on .dl{outline:2.5px solid var(--ink);outline-offset:-1px}
 /* a topic opened into the three parameters behind its score */
-.tp-tile .dl{display:flex;flex-direction:column;gap:8px;padding:11px;background:#F4F8FC;box-shadow:inset 0 0 0 1.5px var(--ink);opacity:0;pointer-events:none;transition:opacity .12s}
+.tp-tile .dl{display:flex;flex-direction:column;gap:8px;padding:11px;background:#F3F7FC;box-shadow:inset 0 0 0 1.5px var(--ink);opacity:0;pointer-events:none;transition:opacity .12s}
 .tp-tile.open{z-index:2}
 .tp-tile.open .dl{opacity:1;pointer-events:auto}
 .tp-tile.open .tb{opacity:0}
@@ -96,7 +96,7 @@
 .tp-row small b{font-weight:500;color:var(--ink)}
 .tp-bars{position:relative;display:flex;align-items:flex-end;gap:2px;height:32px}
 .tp-bars i{flex:1;min-height:2px;border-radius:1.5px;transition:height .27s cubic-bezier(.3,.7,.3,1),background-color .2s}
-.tp-bars .b2{background:#C3E3FD}
+.tp-bars .b2{background:#A9DAFE}
 .tp-bars .ref{position:absolute;left:-4px;right:-4px;height:0;border-top:1.5px dashed rgba(24,36,48,.38);transition:bottom .27s ease-in-out}
 .tp-row .sc{text-align:right;font-variant-numeric:tabular-nums}
 .tp-row .sc b{font-size:19px;font-weight:600;letter-spacing:-.02em}
@@ -249,11 +249,14 @@
    understood this way; better one hue, otherwise it cannot be read". The map is one blue in five steps, and the step is the
    need for attention: the lower the score, the deeper the blue, so a large weak topic is the heaviest thing on the screen.
    It is the wireframe's own rule (there the lowest band is the darkest grey). Rises and falls in the list keep green and pink. */
-.stage:not(.lofi) .tp .b1{background:#0B4A94;color:#fff;box-shadow:none}
-.stage:not(.lofi) .tp .b2{background:#1A73D1;color:#fff;box-shadow:none}
-.stage:not(.lofi) .tp .b3{background:#6DB9F6;color:#06305A;box-shadow:none}
-.stage:not(.lofi) .tp .b4{background:#B4DAFB;color:#0B3A5E;box-shadow:none}
-.stage:not(.lofi) .tp .b5{background:#E3F1FD;color:#1B4666;box-shadow:inset 0 0 0 1px rgba(19,100,180,.14)}
+/* Owner, 23.11.2026: "the blue on this screen differs from the blue on the other screens; you cannot just invent another shade".
+   The five steps are the product's own blues and nothing else: Deep Blue and Hear Blue from the palette, then the three tints of
+   the score scale every other screen uses (.sx .l4, .l3, .l2 in screens.css), with that scale's own text colours. */
+.stage:not(.lofi) .tp .b1{background:#0B6FCF;color:#fff;box-shadow:none}
+.stage:not(.lofi) .tp .b2{background:#139FFD;color:#fff;box-shadow:none}
+.stage:not(.lofi) .tp .b3{background:#63BEFE;color:#06365C;box-shadow:none}
+.stage:not(.lofi) .tp .b4{background:#A9DAFE;color:#0B3A5E;box-shadow:none}
+.stage:not(.lofi) .tp .b5{background:#DCEFFE;color:#1B4666;box-shadow:inset 0 0 0 1px rgba(19,159,253,.14)}
 .stage:not(.lofi) .tp-row .sc small.dn{color:#9A3FA5}
 .stage:not(.lofi) .tp-row .sc small.up{color:#2A8554}
 .stage:not(.lofi) .tp-tile .tb em{background:rgba(255,255,255,.92);color:#171b20;box-shadow:none;opacity:1}
@@ -266,11 +269,11 @@
 .stage:not(.lofi) .tp-bars{gap:4px;height:32px}
 .stage:not(.lofi) .tp-bars i{flex:1 1 0;min-width:0;border-radius:2px;box-shadow:none}
 /* the 30 days follow the map's rule: a low day is the deep blue, a good day is pale */
-.stage:not(.lofi) .tp-bars .b1{background:#0B4A94;box-shadow:none}
-.stage:not(.lofi) .tp-bars .b2{background:#1A73D1;box-shadow:none}
-.stage:not(.lofi) .tp-bars .b3{background:#6DB9F6;box-shadow:none}
-.stage:not(.lofi) .tp-bars .b4{background:#A6D2F9;box-shadow:none}
-.stage:not(.lofi) .tp-bars .b5{background:#C9E4FB;box-shadow:none}
+.stage:not(.lofi) .tp-bars .b1{background:#0B6FCF;box-shadow:none}
+.stage:not(.lofi) .tp-bars .b2{background:#139FFD;box-shadow:none}
+.stage:not(.lofi) .tp-bars .b3{background:#63BEFE;box-shadow:none}
+.stage:not(.lofi) .tp-bars .b4{background:#A9DAFE;box-shadow:none}
+.stage:not(.lofi) .tp-bars .b5{background:#DCEFFE;box-shadow:inset 0 0 0 1px rgba(19,159,253,.2)}
 .stage:not(.lofi) .tp-bars .ref{left:0;right:0;border-top:1px dashed rgba(24,36,48,.3)}
 /* with the chat open the chart is narrow: every second day, so the lines keep their air */
 .stage:not(.lofi).ask-on .tp-bars{gap:3px}
