@@ -35,3 +35,26 @@
     tx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - .5) * 2)); ty = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height - .5) * 2)); go(); });
   fig.addEventListener('pointerleave', function(){ over = false; tx = 0; ty = 0; go(); });
 });
+
+/* the chat on the System plate: when its screen comes on, the question is typed into the field and sent, then the answer is written
+   word by word. Without motion (or without this script) the finished conversation simply stands there. */
+(function(){
+  var hc = document.querySelector('#code .hc'), li = hc && hc.closest('li'); if (!hc || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var q = hc.querySelector('.hc-q'), a = hc.querySelector('.hc-a'), t = hc.querySelector('.hc-t'), text = q.textContent, run = 0, shown = false;
+  (function wrap(n){ [].slice.call(n.childNodes).forEach(function(c){
+    if (c.nodeType === 3) { var f = document.createDocumentFragment(); c.textContent.split(/(\s+)/).forEach(function(p){ if (!p) return; if (/^\s+$/.test(p)) f.appendChild(document.createTextNode(p)); else { var s = document.createElement('span'); s.className = 'w'; s.textContent = p; f.appendChild(s); } }); n.replaceChild(f, c); }
+    else wrap(c); }); })(a);
+  var words = [].slice.call(a.querySelectorAll('.w'));
+  function reset(){ run++; hc.classList.add('run'); hc.classList.remove('typing'); q.classList.add('off'); words.forEach(function(w){ w.classList.add('off'); }); t.textContent = ''; }
+  function play(){ reset(); var me = run, i = 0; hc.classList.add('typing');
+    (function type(){ if (me !== run) return; if (i < text.length) { t.textContent = text.slice(0, ++i); setTimeout(type, 26 + Math.random() * 30); return; }
+      setTimeout(function(){ if (me !== run) return; hc.classList.remove('typing'); t.textContent = ''; q.classList.remove('off'); var k = 0;
+        setTimeout(function write(){ if (me !== run) return; if (k < words.length) { words[k++].classList.remove('off'); setTimeout(write, 55); } }, 520); }, 380); })(); }
+  function see(on){ if (on === shown) return; shown = on; if (on) setTimeout(play, 350); else reset(); }
+  reset();
+  var ol = li.parentNode;
+  function check(){ if (ol.classList.contains('hw-pin')) see(li.classList.contains('on')); }
+  new MutationObserver(check).observe(li, { attributes: true, attributeFilter: ['class'] }); check();
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ if (!ol.classList.contains('hw-pin')) see(es[0].isIntersecting); }, { threshold: .5 }).observe(li);
+  else see(true);
+})();
