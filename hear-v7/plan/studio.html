@@ -138,6 +138,8 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .bg,.cloud,.tile{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}
 </style>
 <link rel="stylesheet" href="login/studio-composer.css">
+<link rel="stylesheet" href="topics/topics.css?v=4">
+<link rel="stylesheet" href="screens/screens.css?v=2">
 
 <div class="stage s1 v2 brand-powered" id="stage">
   <img class="bg" draggable="false" src="login/bg-calm-sky.jpg" alt="">
@@ -808,4 +810,8 @@ if(new URLSearchParams(location.search).get('s')==='2'||qApp) set(2);
 if(qApp&&APPS[qApp]) requestAnimationFrame(()=>refit(qApp));
 document.getElementById('new').addEventListener('click',()=>{ resetMaking(); stop(true); create.clear(); document.querySelectorAll('.side .nv.on').forEach(b=>b.classList.remove('on')); set(1); create.focus() });
 </script>
+<!-- Topics: a screen added for the portfolio, at two fidelities (topics/) -->
+<script src="topics/topics.js?v=4"></script>
+<!-- Product screens: the Design Lab's other screens, made simple in the Studio look (screens/) -->
+<script src="screens/screens.js?v=3"></script>
 </html>

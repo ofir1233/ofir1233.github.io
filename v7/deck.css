@@ -1,0 +1,27 @@
+/* v7 - the private case-study deck. Added by the gate after the deck opens (case-study/index.html, show()).
+   The deck is drawn from variables, so the v7 look is one set of values: paper, ink, blue, Byrd. No dark. */
+@font-face{ font-family:"Byrd"; src:url("../fonts/Byrd-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+@font-face{ font-family:"Byrd"; src:url("../fonts/Byrd-Medium.woff2") format("woff2"); font-weight:500; font-display:swap; }
+@font-face{ font-family:"Byrd"; src:url("../fonts/Byrd-SemiBold.woff2") format("woff2"); font-weight:600; font-display:swap; }
+@font-face{ font-family:"Byrd"; src:url("../fonts/Byrd-Bold.woff2") format("woff2"); font-weight:700; font-display:swap; }
+:root{
+  --display:"Byrd", "Helvetica Neue", Arial, sans-serif !important;
+  --body:"Byrd", "Helvetica Neue", Arial, sans-serif !important;
+}
+:root, :root[data-theme], body.is-read .slide{
+  --bg:#f4f3f1 !important; --surface:#ffffff !important; --surface-2:#eceae6 !important;
+  --line:#d9d7d2 !important; --line-soft:#e6e4df !important;
+  --text-1:#171b20 !important; --text-2:#333a42 !important; --mute:#676d75 !important;
+  --accent:#0b6fcf !important; --accent-ink:#ffffff !important;
+  --accent-soft:rgba(19,159,253,.10) !important; --accent-line:rgba(11,111,207,.38) !important;
+  --warm:#a8551a !important; --warm-soft:rgba(168,85,26,.10) !important;
+  --ink-t:#171b20 !important; --coral-ink:#0b6fcf !important; --cream-t:#171b20 !important;
+  --bad:#c2452d !important; --bad-soft:rgba(194,69,45,.10) !important;
+  --rp-bg:#f4f3f1 !important; --rp-card:#ffffff !important; --rp-chip:#e6e8ea !important; --rp-ink:#171b20 !important;
+  --rp-text:#333a42 !important; --rp-mute:#555d64 !important; --rp-accent:#0b6fcf !important; --rp-on-accent:#ffffff !important;
+  --rp-nav-shadow:0 0 0 1px rgba(23,27,32,.07), 0 1px 2px rgba(23,27,32,.06), 0 16px 36px -20px rgba(23,27,32,.3) !important;
+  color-scheme:light !important;
+}
+.read-theme{ display:none !important; }
+/* The dot field is drawn light-on-dark by the deck's script: flipped here to dark dots that sit on the paper. */
+canvas.field{ filter:invert(1) hue-rotate(60deg) saturate(1.6) !important; mix-blend-mode:multiply !important; opacity:.9; }

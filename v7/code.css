@@ -181,9 +181,11 @@
    ending inside the step that is open */
 @media (min-width: 900px) {
   #code .hw-nav{ position: relative; gap: 6px; margin-top: 40px; padding: 2px 0 2px 26px; border-top: 0; max-width: 400px; }
-  #code .hw-nav::before, #code .hw-nav::after{ content: ""; position: absolute; left: 0; top: 0; width: 3px; border-radius: 2px; }
-  #code .hw-nav::before{ bottom: 0; background: #dddcd7; }
-  #code .hw-nav::after{ height: var(--hf, 0px); background: var(--v7-blue, #139ffd); transition: height .45s cubic-bezier(.2,.7,.2,1); }
+  /* the rail is three pieces, one per step: each fills on its own as its step is scrolled through */
+  #code .hw-nav a{ position: relative; }
+  #code .hw-nav a::before, #code .hw-nav a::after{ content: ""; position: absolute; left: -26px; top: 0; bottom: 0; width: 3px; border-radius: 2px; }
+  #code .hw-nav a::before{ background: #dddcd7; }
+  #code .hw-nav a::after{ background: var(--v7-blue, #139ffd); transform-origin: 50% 0; transform: scaleY(var(--p, 0)); transition: transform .45s cubic-bezier(.2,.7,.2,1); }
   #code .hw-nav a{ align-items: baseline; gap: 0 12px; padding: 9px 0; font-size: 30px !important; line-height: 1.15 !important; letter-spacing: -.02em; color: #a9acb1 !important; transition: color .45s; }
   #code .hw-nav a i{ font-size: 13px; letter-spacing: 0; }
   #code .hw-nav a.on{ translate: none; }
@@ -191,7 +193,7 @@
   #code .hw-d > span::before{ height: 10px; }
   #code .hw-d small{ display: table; margin: 14px 0 12px; padding: 5px 12px; border: 1px solid #d3d2cd; border-radius: 999px; font-size: 13px; line-height: 1.2; color: #4a5058; }
 }
-@media (prefers-reduced-motion: reduce) { #code .hw-nav::after{ transition: none; } }
+@media (prefers-reduced-motion: reduce) { #code .hw-nav a::after{ transition: none; } }
 
 /* the Ship plate, played as the work itself: the two hard-coded values are marked removed and the token lines are typed under them,
    the checks run, the pull request is merged. Without motion it stays the finished, open pull request. */

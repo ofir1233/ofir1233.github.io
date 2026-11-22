@@ -1,1 +1,31 @@
 /* v7 - web-fyi: this section's styles. Loaded after the page's own sheet. */
+/* One site, running live in the same white frame as the Design Lab */
+#web#web .wv{ margin:44px 0 0; width:100%; }
+#web#web .wv-stage{ position:relative; box-sizing:border-box; padding:10px; border-radius:calc(var(--s, .8) * 30px + 10px); background:#fff; box-shadow:0 1px 0 rgba(23,27,32,.04), 0 40px 80px -48px rgba(23,27,32,.35), 0 0 0 1px rgba(23,27,32,.06); }
+#web#web .wv-win{ position:relative; width:100%; aspect-ratio:16 / 9; border-radius:calc(var(--s, .8) * 30px); overflow:hidden; clip-path:inset(0 round calc(var(--s, .8) * 30px)); isolation:isolate; background:#f4f3f1; }
+#web#web .wv-app{ position:absolute; left:0; top:0; width:1440px; height:810px; border:0; transform-origin:0 0; transform:scale(var(--s, 1)); opacity:0; transition:opacity .5s; pointer-events:none; background:#f4f3f1; }
+#web#web .wv.is-live .wv-app{ opacity:1; }
+#web#web .wv.is-on .wv-app{ pointer-events:auto; }
+#web#web .wv-go{ position:absolute; inset:0; z-index:2; display:flex; align-items:flex-end; justify-content:center; padding:0 0 26px; border:0; background:none; cursor:pointer; }
+#web#web .wv-go span{ display:inline-flex; align-items:center; gap:9px; height:44px; padding:0 20px 0 15px; border-radius:22px; background:#171b20; color:#fff; font:500 15px/1 var(--body); box-shadow:0 14px 30px -12px rgba(23,27,32,.6); transition:transform .3s cubic-bezier(.2,.7,.2,1), opacity .25s; }
+#web#web .wv-go svg{ width:19px; height:19px; }
+#web#web .wv-go:hover span{ transform:translateY(-3px); }
+#web#web .wv-go:focus-visible span{ outline:2px solid #139FFD; outline-offset:3px; }
+#web#web .wv.is-on .wv-go{ pointer-events:none; }
+#web#web .wv.is-on .wv-go span{ opacity:0; transform:translateY(8px); }
+#web#web .wv-bar{ display:flex; align-items:center; justify-content:space-between; gap:24px; margin:28px 0 0; padding:0 6px; }
+#web#web .wv-bar p{ margin:0; max-width:none; font:400 16px/1.45 var(--body); color:#5d636a; }
+#web#web .wv-bar b{ font-weight:600; color:#171b20; }
+#web#web .wv-bar a{ flex:none; display:inline-flex; align-items:center; gap:7px; height:44px; padding:0 18px; border-radius:22px; background:#fff; box-shadow:inset 0 0 0 1px rgba(23,27,32,.14); color:#171b20; font:500 15px/1 var(--body); text-decoration:none; transition:box-shadow .2s, color .2s; }
+#web#web .wv-bar a:hover{ color:#0B6FCF; box-shadow:inset 0 0 0 1.5px #139FFD; }
+#web#web .wv-bar a:focus-visible{ outline:2px solid #139FFD; outline-offset:3px; }
+@media (max-width: 700px){
+  #web#web .wv{ margin-top:28px; }
+  #web#web .wv-stage{ padding:5px; border-radius:16px; }
+  #web#web .wv-win{ aspect-ratio:10 / 16; border-radius:12px; clip-path:inset(0 round 12px); }
+  #web#web .wv-app{ width:390px; height:624px; }
+  #web#web .wv-go{ padding-bottom:16px; }
+  #web#web .wv-go span{ height:40px; font-size:14px; }
+  #web#web .wv-bar{ flex-direction:column; align-items:flex-start; gap:14px; margin-top:20px; padding:0 2px; }
+}
+@media (prefers-reduced-motion: reduce){ #web#web .wv-go span, #web#web .wv-app{ transition:none; } }

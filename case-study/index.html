@@ -9,26 +9,27 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- the fonts never hold up the password field: on a stalled network it shows at once, in the fallback fonts -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500&family=Figtree:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../v7/font.css?v=1">
 <style>
-  :root { --bg: #0c1210; --surface: #151d1a; --line: #2a3832; --text-1: #eef3f0; --text-2: #c3cfc9; --mute: #93a79c; --accent: #7cc4a6; --err: #ef8f7a; color-scheme: dark; }
+  :root { --bg: #f4f3f1; --surface: #ffffff; --line: #d9d7d2; --text-1: #171b20; --text-2: #333a42; --mute: #676d75; --accent: #0b6fcf; --err: #c2452d; color-scheme: light; }
   * { box-sizing: border-box; }
   html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text-1); }
-  body { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; font: 400 17px/1.5 "Figtree", system-ui, sans-serif; overflow: hidden; }
-  .glow { position: fixed; width: 1100px; aspect-ratio: 1; right: -380px; top: -420px; pointer-events: none; background: radial-gradient(closest-side, rgba(124,196,166,.14), rgba(124,196,166,.04) 55%, transparent 72%); animation: drift 40s ease-in-out infinite alternate; }
+  body { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; font: 400 17px/1.5 "Byrd", system-ui, sans-serif; overflow: hidden; }
+  .glow { position: fixed; width: 1100px; aspect-ratio: 1; right: -380px; top: -420px; pointer-events: none; background: radial-gradient(closest-side, rgba(19,159,253,.14), rgba(19,159,253,.04) 55%, transparent 72%); animation: drift 40s ease-in-out infinite alternate; }
   @keyframes drift { to { transform: translate(-120px, 90px) scale(1.08); } }
   main { position: relative; width: min(100%, 420px); animation: in 900ms cubic-bezier(.2,.7,.2,1) both; }
   @keyframes in { from { opacity: 0; transform: translateY(14px); } }
   .kicker { margin: 0 0 18px; font: 500 13px/1 "Geist Mono", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-  h1 { margin: 0 0 10px; font: 500 44px/1.02 "Bricolage Grotesque", sans-serif; letter-spacing: -.03em; }
+  h1 { margin: 0 0 10px; font: 500 44px/1.02 "Byrd", sans-serif; letter-spacing: -.03em; }
   p.sub { margin: 0 0 34px; color: var(--text-2); }
   label { display: block; margin-bottom: 8px; font: 500 13px/1 "Geist Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
   .row { display: flex; gap: 10px; }
-  input[type=password] { flex: 1; min-width: 0; height: 52px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--text-1); font: 500 18px "Figtree", sans-serif; transition: border-color .2s; }
-  input[type=password]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,196,166,.18); }
-  button { height: 52px; padding: 0 22px; border: 0; border-radius: 12px; background: var(--accent); color: #0c1210; font: 600 17px "Figtree", sans-serif; cursor: pointer; transition: transform .15s, opacity .2s; }
+  input[type=password] { flex: 1; min-width: 0; height: 52px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--text-1); font: 500 18px "Byrd", sans-serif; transition: border-color .2s; }
+  input[type=password]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(19,159,253,.18); }
+  button { height: 52px; padding: 0 22px; border: 0; border-radius: 99px; background: #171b20; color: #ffffff; font: 600 17px "Byrd", sans-serif; cursor: pointer; transition: transform .15s, opacity .2s; }
   button:active { transform: scale(.98); }
   button[disabled] { opacity: .6; cursor: progress; }
-  .remember { display: flex; align-items: center; gap: 10px; margin-top: 16px; color: var(--text-2); font-size: 15px; text-transform: none; letter-spacing: 0; font-family: "Figtree", sans-serif; }
+  .remember { display: flex; align-items: center; gap: 10px; margin-top: 16px; color: var(--text-2); font-size: 15px; text-transform: none; letter-spacing: 0; font-family: "Byrd", sans-serif; }
   .remember input { width: 18px; height: 18px; accent-color: var(--accent); margin: 0; }
   .msg { min-height: 24px; margin: 14px 0 0; font-size: 15px; color: var(--err); }
   .shake { animation: shake 360ms cubic-bezier(.36,.07,.19,.97); }
@@ -71,7 +72,7 @@
     const plain = await subtle.decrypt({ name: 'AES-GCM', iv }, key, data);
     return new TextDecoder().decode(plain);
   };
-  const show = html => { document.open(); document.write(html); document.close(); };
+  const show = html => { document.open(); document.write(html.replace('</head>', '<link rel="stylesheet" href="../v7/deck.css?v=1"></head>')); document.close(); };
   const store = (k, keep) => { try { (keep ? localStorage : sessionStorage).setItem(SLOT, k); } catch (e) {} };
   const stored = () => { try { return sessionStorage.getItem(SLOT) || localStorage.getItem(SLOT); } catch (e) { return null; } };
 

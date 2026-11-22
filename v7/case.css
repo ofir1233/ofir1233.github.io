@@ -1,0 +1,18 @@
+/* v7 - case-study pages (work/*.html). Loaded after work/case.css.
+   The pages are light only, on the same paper as the home page, in Byrd. The dark theme and its switch are gone. */
+:root, :root[data-theme]{
+  --ink:#f4f3f1; --ink-2:#ffffff; --ink-3:#e9e8e4; --line:#dcdad5;
+  --paper:#171b20; --cream:#ffffff; --cream-ink:#171b20; --ink-t:#171b20;
+  --mist:#e9e8e4;
+  color-scheme:light;
+}
+html, body{ background:#f4f3f1 !important; }
+.theme-tg{ display:none !important; }
+/* The old sage swirl behind product windows: the same quiet sky tint as the home page. */
+.ct-plain .ct-stage, .ct-fig .ct-band{ background:linear-gradient(180deg, #dbe9f6 0%, #eaf2f9 100%) !important; }
+.ct-plain .ct-stage::before, .ct-fig .ct-band::before{ display:none !important; }
+/* Filled controls are ink, as on the home page; blue stays for small text and thin lines. */
+a.pill.solid, .next .arrow, .cs-rail a[aria-current="true"]{ background:#171b20 !important; color:#fff !important; }
+a.pill.solid:hover{ background:#2a3038 !important; }
+.toc a[aria-current="true"]{ background:#171b20 !important; color:#fff !important; }
+.toc a[aria-current="true"] *{ color:inherit !important; }

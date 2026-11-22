@@ -16,7 +16,7 @@
     var p = (TOP - ol.getBoundingClientRect().top) / range();
     mark(Math.max(0, Math.min(steps.length - 1, Math.floor(p * steps.length))));
     /* the rail: filled down to the open step, and through it as that step is scrolled */
-    var q = Math.max(0, Math.min(.9999, p)) * steps.length, l = links[Math.floor(q)]; if (l) l.parentNode.style.setProperty('--hf', Math.round(l.offsetTop + (q - Math.floor(q)) * l.offsetHeight) + 'px');
+    var q = Math.max(0, Math.min(.9999, p)) * steps.length; links.forEach(function(l, k){ l.style.setProperty('--p', Math.max(0, Math.min(1, q - k)).toFixed(3)); });
   }
   links.forEach(function(a, i){ a.addEventListener('click', function(e){ if (!mq.matches) return; e.preventDefault();
     scrollTo({ top: ol.getBoundingClientRect().top + scrollY - TOP + range() * (i + .5) / steps.length, behavior: 'smooth' }); }); });
