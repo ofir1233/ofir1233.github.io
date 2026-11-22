@@ -162,3 +162,7 @@ html.hp-wait #about .me-photo.me-v7{ background: #eeede9 !important; }
 /* while the frame is bare paper the signature and its soft shade wait too, then come in with the paint */
 html.hp-wait #about .me-photo.me-v7 .hsig{ opacity: 0 !important; }
 html:not(.me-scroll) #about .me-photo.me-v7 .hsig{ transition: opacity .6s ease; }
+
+/* Between 900 and 999 wide the two sides of the bar asked for 170px each and the five links for 525: more than the bar has, so the
+   Contact pill ran past the right edge. The sides take what the name and the pill need. (found 23.11) */
+@media (min-width: 900px) and (max-width: 999px) { nav.nav .brand, nav.nav ul li:last-child{ flex-basis: 132px; } }
