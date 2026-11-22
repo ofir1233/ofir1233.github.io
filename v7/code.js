@@ -9,8 +9,8 @@
 
 /* the sign-in page in the Design step: drawn at 760 px and scaled to its frame; under the mouse its layers move in depth,
    followed closely and let go with weight (the same spring as the page it comes from). */
-(function(){
-  var fig = document.querySelector('#code .hw-live'), st = fig && fig.querySelector('.hl'); if (!st) return;
+[].forEach.call(document.querySelectorAll('#code .hw-live'), function(fig){
+  var st = fig.querySelector('.hl'); if (!st) return;
   function fit(){ st.style.setProperty('--k', (fig.clientWidth / 760).toFixed(5)); }
   if ('ResizeObserver' in window) new ResizeObserver(fit).observe(fig); addEventListener('resize', fit); fit();
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -25,4 +25,4 @@
   fig.addEventListener('pointermove', function(e){ if (e.pointerType !== 'mouse') return; over = true; var r = fig.getBoundingClientRect();
     tx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - .5) * 2)); ty = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height - .5) * 2)); go(); });
   fig.addEventListener('pointerleave', function(){ over = false; tx = 0; ty = 0; go(); });
-})();
+});
