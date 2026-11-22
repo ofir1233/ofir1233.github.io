@@ -171,7 +171,7 @@
   /* The screen is drawn at the size that fits the frame, not at 1440 and shrunk: 1120 in a wide frame, 860 without its sidebar in a
      medium one, and on a phone a tall 460 with the map alone. So the type stays near its real size everywhere. */
   function fit() {
-    var cw = stage.clientWidth, t = cw >= 900 ? [1120, 630, ''] : cw >= 560 ? [860, 484, 's'] : [460, 560, 'p'];
+    var cw = stage.clientWidth, t = cw >= 900 ? (cur === 'lo' ? [1440, 810, ''] : [1120, 630, '']) : /* the wireframe carries twice as much and its three notes: it needs the full width */ cw >= 560 ? [860, 484, 's'] : [460, 560, 'p'];
     frame.style.width = t[0] + 'px'; frame.style.height = t[1] + 'px'; stage.style.aspectRatio = (t[0] - 6) + ' / ' + (t[1] - 6);
     fig.style.setProperty('--s', cw / (t[0] - 6));
     try { var c = frame.contentDocument.documentElement.classList; c.toggle('px-small', t[2] !== ''); c.toggle('px-phone', t[2] === 'p'); frame.contentWindow.dispatchEvent(new Event('resize')); } catch (e) {}
@@ -183,6 +183,7 @@
     kEl.textContent = COPY[f][0]; tEl.textContent = COPY[f][1]; dEl.textContent = COPY[f][2];
     now.classList.remove('swap'); void now.offsetWidth; now.classList.add('swap');
     try { if (loaded) frame.contentWindow.hearTopics.fidelity(f); } catch (e) {}
+    fit();
   }
   seg.addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; chose = true; clearTimeout(timer); if (b.getAttribute('data-f') !== cur) set(b.getAttribute('data-f')); });
   frame.addEventListener('load', function () {

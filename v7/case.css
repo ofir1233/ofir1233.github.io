@@ -24,3 +24,13 @@ a.pill.solid:hover{ background:#2a3038 !important; }
   .cs-rail{ top:auto !important; bottom:calc(env(safe-area-inset-bottom, 0px) + 20px); transform:translate(-50%, 8px) !important; background:rgba(255,255,255,.86) !important; -webkit-backdrop-filter:blur(18px) saturate(1.4); backdrop-filter:blur(18px) saturate(1.4); box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 14px 34px -12px rgba(23,27,32,.28) !important; }
   .cs-rail.on{ transform:translate(-50%, 0) !important; }
 }
+
+/* The dock shows the chapter you are in, and opens to all of them under the pointer or the keyboard: a 600px bar sat on headings and buttons. */
+@media (min-width:1024px){
+  .cs-rail a{ max-width:260px; overflow:hidden; transition:max-width .45s cubic-bezier(.2,.7,.2,1), padding .45s cubic-bezier(.2,.7,.2,1), opacity .25s, color .25s, background-color .25s !important; }
+  .cs-rail:not(:hover):not(:focus-within) a:not([aria-current="true"]){ max-width:0; padding-inline:0; opacity:0; }
+  .cs-rail{ gap:0 !important; }
+}
+/* Next case: the picture is the next case's own screen, close enough to read, with no grey browser bar */
+.next-thumb .bar{ display:none !important; }
+.next-thumb{ padding-top:0 !important; border-radius:22px 0 0 0 !important; background:#fff !important; }
