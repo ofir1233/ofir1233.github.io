@@ -75,20 +75,6 @@
 
 /* System and Ship: the same square frame, a glass plate on a painting, in depth */
 #code .hw-sys .hl, #code .hw-ship .hl{ --w: 600px; --ws: 1; }
-#code .hw-sys .hl-card{ gap: 0; padding: 34px 36px 30px; }
-#code .hs-crumb{ font-size: 14px; color: #6A7078; } #code .hs-crumb i{ font-style: normal; margin: 0 4px; color: #B9C3CC; }
-#code .hs-t{ margin-top: 10px; font-size: 38px; font-weight: 500; letter-spacing: -.025em; line-height: 1.05; }
-#code .hs-sub{ margin-top: 8px; font-size: 17px; color: #4a5058; }
-#code .hs-grid{ display: grid; grid-template-columns: auto repeat(3, 1fr); align-items: center; gap: 14px 12px; margin-top: 26px; padding-top: 22px; border-top: 1px solid #D5DDE4; }
-#code .hs-c{ font-size: 13px; color: #6A7078; text-align: center; }
-#code .hs-l{ padding-right: 6px; font-size: 15px; font-weight: 500; color: #181818; }
-#code .hs-b{ display: flex; align-items: center; justify-content: center; height: 44px; border-radius: 22px; font-size: 14.5px; font-weight: 500; white-space: nowrap; }
-#code .hs-b.p{ background: #232323; color: #fff; } #code .hs-b.p.hov{ background: #3a3d42; box-shadow: 0 0 0 4px rgba(35,35,35,.12); }
-#code .hs-b.a{ background: #139FFD; color: #fff; } #code .hs-b.a.hov{ background: #0B6FCF; box-shadow: 0 0 0 4px rgba(19,159,253,.2); }
-#code .hs-b.s{ background: #fff; color: #181818; box-shadow: inset 0 0 0 1.5px #D5DDE4; } #code .hs-b.s.hov{ box-shadow: inset 0 0 0 1.5px #139FFD, 0 0 0 4px rgba(19,159,253,.16); }
-#code .hs-b.dis{ background: #E9EDF1; color: #A3A9B0; box-shadow: none; }
-#code .hs-tok{ display: flex; gap: 8px; margin-top: 26px; }
-#code .hs-tok code{ padding: 6px 10px; border-radius: 8px; font: 400 13px/1.2 ui-monospace, Menlo, Consolas, monospace; color: #0B6FCF; background: rgba(19,159,253,.1); }
 #code .hw-ship .hl-card{ gap: 0; padding: 0; overflow: hidden; background: #fff; }
 #code .hw-ship .hw-prh{ padding: 20px 22px; } #code .hw-ship .hw-prh b{ font-size: 18px; } #code .hw-ship .hw-prh em{ font-size: 13px; padding: 5px 12px; }
 #code .hw-ship .hw-prf{ padding: 12px 22px; font-size: 14px; }
@@ -109,3 +95,22 @@
   #code .hw-steps.hw-pin > li.on .hl-wrap{ scale: var(--ws, .93); }
 }
 @media (prefers-reduced-motion: reduce) { #code .hw-steps.hw-pin > li, #code .hw-steps.hw-pin > li .hw-cap, #code .hw-steps.hw-pin > li .hl-wrap{ transition: none !important; } }
+
+/* System plate: drawn from Hear's real design system - its three colours with their tints, and Button in four variants and three sizes */
+#code .hw-sys .hl-card{ gap: 0; padding: 30px 32px 30px; }
+#code .hs-h{ font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #6A7078; }
+#code .hs-h ~ .hs-h{ margin-top: 26px; padding-top: 24px; border-top: 1px solid #D5DDE4; }
+#code .hs-cols{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+#code .hs-col{ display: grid; grid-template-columns: 40px 1fr; gap: 10px 10px; align-items: center; padding: 12px; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px rgba(23,27,32,.07); }
+#code .hs-col.c{ --c: #FF7056; } #code .hs-col.k{ --c: #181818; } #code .hs-col.b{ --c: #1779F7; }
+#code .hs-sw{ width: 40px; height: 40px; border-radius: 10px; background: var(--c); }
+#code .hs-cn{ display: grid; min-width: 0; line-height: 1.2; } #code .hs-cn small{ font-size: 10.5px; color: #6A7078; } #code .hs-cn b{ font-size: 14.5px; font-weight: 600; white-space: nowrap; }
+#code .hs-cn code{ font: 400 10.5px/1.3 ui-monospace, Menlo, Consolas, monospace; color: #9AA1A8; background: none; padding: 0; }
+#code .hs-ramp{ grid-column: 1 / -1; display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+#code .hs-ramp i{ height: 16px; border-radius: 4px; background: color-mix(in srgb, var(--c) var(--m), #fff); }
+#code .hs-grid{ display: grid; grid-template-columns: 96px auto auto auto; justify-content: space-between; align-items: center; gap: 12px 16px; margin-top: 16px; }
+#code .hs-k{ font: 400 14px/1 ui-monospace, Menlo, Consolas, monospace; color: #8a9097; background: none; padding: 0; }
+#code .hs-b{ display: flex; align-items: center; justify-content: center; justify-self: start; border-radius: 10px; font-weight: 600; white-space: nowrap; color: #fff; }
+#code .hs-b.sm{ height: 34px; padding: 0 16px; font-size: 15px; } #code .hs-b.md{ height: 42px; padding: 0 22px; font-size: 17px; } #code .hs-b.lg{ height: 52px; padding: 0 28px; font-size: 19px; border-radius: 12px; }
+#code .hs-b.primary{ background: #1779F7; } #code .hs-b.danger{ background: #FF7056; }
+#code .hs-b.secondary{ background: #fff; color: #181818; box-shadow: inset 0 0 0 1.5px #D5DDE4; } #code .hs-b.ghost{ background: none; color: #3d444c; }
