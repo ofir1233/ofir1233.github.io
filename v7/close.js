@@ -20,6 +20,40 @@
   };
   clock(); setInterval(clock, 20000);
 
+  /* The harbour keeps Tel Aviv's hour. The card already tells the visitor what time it is where I am; the picture now shows it:
+     the same painting at the blue hour around sunset and sunrise, and under the moon at night. The sun's times are worked out for
+     Tel Aviv's place on the map and today's date (the standard sunrise equation), so "dusk" is the real dusk, in June as in December.
+     The other paintings are swapped in only once they have loaded, so the day picture is never replaced by an empty frame.
+     Live only when the section carries data-hours; ?hour=day|dusk|night shows one hour for review. */
+  var forced = /[?&]hour=(day|dusk|night)\b/.exec(location.search);
+  if (sec.hasAttribute('data-hours') || forced) {
+    var base = (function () { try { return document.currentScript.src.replace(/v7\/close\.js.*$/, 'img/'); } catch (e) { return 'img/'; } })();
+    var sunUTC = function (d) {   /* [sunrise, sunset] in minutes of the UTC day, for 32.08 N 34.78 E */
+      var rad = Math.PI / 180, lat = 32.08, lon = 34.78, N = Math.floor((d - Date.UTC(d.getUTCFullYear(), 0, 0)) / 864e5), g = 2 * Math.PI / 365 * (N - 1);
+      var eq = 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
+      var dec = 0.006918 - 0.399912 * Math.cos(g) + 0.070257 * Math.sin(g) - 0.006758 * Math.cos(2 * g) + 0.000907 * Math.sin(2 * g) - 0.002697 * Math.cos(3 * g) + 0.00148 * Math.sin(3 * g);
+      var ha = Math.acos(Math.cos(90.833 * rad) / (Math.cos(lat * rad) * Math.cos(dec)) - Math.tan(lat * rad) * Math.tan(dec)) / rad;
+      return [720 - 4 * (lon + ha) - eq, 720 - 4 * (lon - ha) - eq];
+    };
+    var hourOf = function (d) {
+      var s = sunUTC(d), m = d.getUTCHours() * 60 + d.getUTCMinutes();
+      if (m >= s[0] + 20 && m < s[1] - 25) return 'day';
+      if ((m >= s[1] - 25 && m < s[1] + 55) || (m >= s[0] - 55 && m < s[0] + 20)) return 'dusk';
+      return 'night';
+    };
+    var shown = 'day', asked = '', small = matchMedia('(max-width:960px)');
+    var sky = function () {
+      var want = forced ? forced[1] : hourOf(new Date());
+      if (want === shown || want === asked) return;
+      var put = function () { sec.classList.remove('cl-dusk', 'cl-night'); if (want !== 'day') sec.classList.add('cl-' + want); shown = want; asked = ''; };
+      if (want === 'day') return put();
+      asked = want;
+      var im = new Image(); im.onload = put; im.onerror = function () { asked = ''; };
+      im.src = base + 'end-harbour-' + want + (small.matches ? '-1152' : '') + '.webp';
+    };
+    sky(); setInterval(sky, 60000);
+  }
+
   /* arriving, once */
   var lines = sec.querySelectorAll('.cl-lines li'); for (var i = 0; i < lines.length; i++) lines[i].style.setProperty('--i', i);
   var parts = sec.querySelectorAll('.cl-eye, .cl-h, .cl-pitch, .cl-mail, .cl-slot'); for (i = 0; i < parts.length; i++) parts[i].style.setProperty('--i', i);
@@ -50,7 +84,7 @@
      never changes size in front of the reader) and lands after the postmark. Someone who came straight here gets no mark. */
   var via = $('.cl-via'), cardEl = $('.cl-card');
   if (via && cardEl && 'IntersectionObserver' in window) {
-    var NAMES = [['code', 'How I work'], ['design-lab', 'Design Lab'], ['product', 'Product'], ['system', 'Design system'], ['web', 'Brand'], ['fyi', 'FYI app'], ['ia', 'Architecture'], ['process', 'Process'], ['path', 'Experience']];
+    var NAMES = [['code', 'How I work'], ['design-lab', 'Design Lab'], ['product', 'Product'], ['system', 'Design system'], ['web', 'Brand'], ['fyi', 'FYI app'], ['ia', 'Architecture'], ['process', 'Process'], ['turns', 'Decisions'], ['path', 'Experience']];
     var secs = [], dwell = {}, total = 0, stamped = false;
     NAMES.forEach(function (n) { var e = document.getElementById(n[0]); if (e) { secs.push({ id: n[0], name: n[1], el: e }); dwell[n[0]] = 0; } });
     /* real time, not a count of ticks: a browser may slow a page's timers, and the seconds must still be true. One tick never counts

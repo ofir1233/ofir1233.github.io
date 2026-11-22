@@ -217,3 +217,19 @@ html body #contact#contact#contact{
 
 /* a narrow phone: the mark's two lines must fit the card with air at both sides */
 @media (max-width:420px){ #contact#contact.has-via .cl-via{ font-size:9px; letter-spacing:.09em; padding:9px 13px 7px; } }
+
+/* The harbour at Tel Aviv's hour (close.js puts cl-dusk or cl-night on the section once that painting has loaded).
+   Same composition in all three, so the card, the stamp's crop and the drift stay exactly where they are. */
+#contact#contact.cl-dusk .cl-pic{ background-image:url(../img/end-harbour-dusk.webp); }
+#contact#contact.cl-night .cl-pic{ background-image:url(../img/end-harbour-night.webp); }
+#contact#contact.cl-dusk .cl-stamp u{ background-image:url(../img/end-harbour-dusk-1152.webp); background-color:#3a5fae; }
+#contact#contact.cl-night .cl-stamp u{ background-image:url(../img/end-harbour-night-1152.webp); background-color:#17458a; }
+html body #contact#contact#contact.cl-dusk{ background-color:#3a5fae !important; }
+html body #contact#contact#contact.cl-night{ background-color:#17458a !important; }
+@media (max-width:960px){
+  #contact#contact.cl-dusk .cl-pic{ background-image:url(../img/end-harbour-dusk-1152.webp); }
+  #contact#contact.cl-night .cl-pic{ background-image:url(../img/end-harbour-night-1152.webp); }
+  /* the wash behind the stacked card takes the hour's sky, so the picture's top still melts into it */
+  html body #contact#contact#contact.cl-dusk{ background-color:#d8d2f4 !important; }
+  html body #contact#contact#contact.cl-night{ background-color:#2b5fae !important; }
+}
