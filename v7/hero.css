@@ -141,8 +141,9 @@ html.me-scroll #about .me-facts .me-k{ font-weight: 600; color: #fff; }
 
 /* The painter signs the canvas (owner, 22.11.2026 night: "I asked for my signature here too").
    The drawing is the footer's own signature, cloned by v7/hero.js, in white paint at the bottom right of the picture.
-   Plain layout (phones, reduced motion): the true corner. Pinned stage: right-aligned just above the four facts, and it is
-   there only while the facts are (opacity follows --pe from the page's pin script). Written once, in 1.4 s; never again. */
+   Plain layout (phones, reduced motion): the true corner. Pinned stage: right-aligned on the jacket, just above where the four
+   facts will land; it is written as soon as the picture has grown and stays while it is grown (opacity follows --g from the
+   page's pin script). Owner, 22.11.2026: a dark name on the sky "cannot be seen at all, better as it was": white, on the jacket. Written once, in 1.4 s; never again. */
 #about .me-photo.me-v7 .hsig{ position: absolute; z-index: 2; right: clamp(14px, 4.4%, 24px); bottom: clamp(14px, 3.8%, 24px); width: clamp(112px, 31%, 140px); pointer-events: none; opacity: .94; rotate: -3deg; transform-origin: 0 100%; filter: sepia(.6) drop-shadow(0 0 .5px rgba(255,255,255,.85)) drop-shadow(0 1px 1.5px rgba(6,16,40,.7)); }
 /* plain layout: the corner of the picture can be pale floor or bright jacket, so the corner is shaded a little under the name */
 #about .me-photo.me-v7 .hsig::before{ content: ""; position: absolute; inset: -70% -34% -80% -40%; z-index: -1; background: radial-gradient(closest-side, rgba(8,22,56,.5), rgba(8,22,56,.26) 55%, rgba(8,22,56,0)); }
@@ -151,5 +152,5 @@ html.me-scroll #about .me-photo.me-v7 .hsig::before{ content: none; }
 #about .hsig.js mask path{ stroke-dasharray: 1; stroke-dashoffset: 1; }
 #about .hsig.js.signed mask path{ animation: hsig-write calc(var(--t) * .476) cubic-bezier(.42,.1,.5,1) calc(var(--d) * .476) forwards; }
 @keyframes hsig-write{ to{ stroke-dashoffset: 0; } }
-html.me-scroll #about .me-photo.me-v7 .hsig{ right: clamp(26px, 3.2vw, 52px); bottom: calc(clamp(22px, 4vh, 40px) + var(--ch, 90px) + 64px + clamp(30px, 4.6cqh, 44px)); width: clamp(128px, 14cqw, 176px); opacity: calc(var(--pe, 0) * .94); }
+html.me-scroll #about .me-photo.me-v7 .hsig{ right: clamp(26px, 3.2vw, 52px); bottom: calc(clamp(22px, 4vh, 40px) + var(--ch, 90px) + 64px + clamp(30px, 4.6cqh, 44px)); width: clamp(128px, 14cqw, 176px); opacity: clamp(0, calc((var(--g, 0) - .8) * 4.7), .94); }
 @media (prefers-reduced-motion: reduce) { #about .hsig mask path{ stroke-dashoffset: 0 !important; animation: none !important; } }

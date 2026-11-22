@@ -145,7 +145,21 @@
     function target(full, rest) {
       var sh = shot(), o = (sh && sh[2]) || {};
       if (!sh || !sh[1]) return null;
-      try { return rectOf(full && o.grow ? sh[1] + ', ' + o.grow : sh[1], o.part, rest); } catch (e) { return null; }
+      try { var sel = full && o.grow ? sh[1] + ', ' + o.grow : sh[1]; P.rad = o.part ? 0 : radOf(sel); return rectOf(sel, o.part, rest); } catch (e) { return null; }
+    }
+    /* The corner of what a selector covers, in the screen's px: the corner of the thing itself, or, when it is a plain box, of what
+       sits in its corner (a map tile's face, the first card of a column). The lit area takes its corner from here, so its shape is
+       the shape of the part it marks (owner, 22.11.2026 night: "it is not about more or less, it must fit the part it marks"). */
+    function radOf(sel) {
+      var d = frame.contentDocument, w = frame.contentWindow, best = 0;
+      [].forEach.call(d.querySelectorAll(sel), function (el) {
+        var r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return;
+        var v = parseFloat(w.getComputedStyle(el).borderTopLeftRadius) || 0;
+        if (!v) { var kids = el.querySelectorAll('*'), n = Math.min(kids.length, 60);
+          for (var i = 0; i < n && !v; i++) { var b = kids[i].getBoundingClientRect(); if (b.width > 8 && Math.abs(b.left - r.left) < 6 && Math.abs(b.top - r.top) < 6) v = parseFloat(w.getComputedStyle(kids[i]).borderTopLeftRadius) || 0; } }
+        best = Math.max(best, Math.min(v, r.width / 2, r.height / 2));
+      });
+      return best;
     }
     /* Where the frame must be to show r. Returns the camera {x, y, z} in the screen's px. */
     function frameFor(r, o) {
@@ -195,13 +209,14 @@
       }
       var set = function (el, css) { for (var k in css) el.style[k] = css[k]; };
       if (lit) {
-        /* hairline and corner are set so that on the page they are 1px and 9px at any zoom (owner: "the corners are too round") */
+        /* the hairline is 1px on the page at any zoom; the corner is the marked part's own corner plus the air around it, so the
+           two curves are concentric. A part with square corners gets a nearly square frame. */
         var g = 6, x = r[0] - g, y = r[1] - g, w = r[2] + 2 * g, h = r[3] + 2 * g, k = P.s * c.z;
-        var T = was ? 'opacity .3s ease, left ' + geo + ', top ' + geo + ', width ' + geo + ', height ' + geo : 'opacity .46s ease ' + Math.round(ms * .5) + 'ms';
+        var T = was ? 'opacity .3s ease, left ' + geo + ', top ' + geo + ', width ' + geo + ', height ' + geo + ', border-radius ' + geo : 'opacity .46s ease ' + Math.round(ms * .5) + 'ms';
         var boxes = [[0, 0, P.w, Math.max(0, y)], [0, y + h, P.w, H()], [0, y, Math.max(0, x), h], [x + w, y, P.w, h]];
         if (!was) { rim.style.transition = 'none'; [].forEach.call(soft, function (el) { el.style.transition = 'none'; }); }
         var place = function () {
-          rim.style.setProperty('--r', (9 / k).toFixed(2) + 'px'); rim.style.setProperty('--h', (1 / k).toFixed(2) + 'px');
+          rim.style.setProperty('--r', (P.rad ? Math.min(P.rad + g, w / 2, h / 2) : 4).toFixed(2) + 'px'); rim.style.setProperty('--h', (1 / k).toFixed(2) + 'px');
           set(rim, { left: px(x), top: px(y), width: px(w), height: px(h) });
           [].forEach.call(soft, function (el, i) { set(el, { left: px(boxes[i][0]), top: px(boxes[i][1]), width: px(boxes[i][2]), height: px(boxes[i][3]) }); });
         };

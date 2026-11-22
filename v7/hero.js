@@ -49,8 +49,8 @@
 })();
 
 /* The painter signs the canvas. The drawing is the footer's signature (one source: footer .ft-sig), cloned into .hsig on the
-   hero picture. It is written once: in the pinned stage 400 ms after the fourth fact has landed (the page's pin script sets
-   .me-end on .me-pin); in the plain layout 400 ms after the picture's lower corner is in view and the opening has come in.
+   hero picture. It is written once: in the pinned stage as soon as the picture has grown to fill the stage (the page's pin script
+   sets .me-grown on .me-pin; owner, 22.11.2026: the signature is seen in the top section when the picture with the background grows, not only at the end); in the plain layout 400 ms after the picture's lower corner is in view and the opening has come in.
    It never replays. Reduced motion: shown complete. Styles in v7/hero.css. */
 (function () {
   var fig = document.querySelector('#about .me-photo.me-v7'), box = fig && fig.querySelector('.hsig'), src = document.querySelector('footer.ft .ft-sig');
@@ -63,7 +63,7 @@
   box.classList.add('js');
   var root = document.documentElement, pin = fig.closest('.me-pin'), signed = false, timer = 0, tick = false;
   function ready() {
-    if (root.classList.contains('me-scroll')) return !!pin && pin.classList.contains('me-end');
+    if (root.classList.contains('me-scroll')) return !!pin && pin.classList.contains('me-grown');
     var r = fig.getBoundingClientRect(); return r.bottom < innerHeight - 8 && r.bottom > 140;
   }
   function stop() { removeEventListener('scroll', ask); removeEventListener('resize', ask); if (mo) mo.disconnect(); }
@@ -71,7 +71,7 @@
     tick = false; if (signed) return;
     if (!ready()) { if (timer) { clearTimeout(timer); timer = 0; } return; }
     if (timer) return;
-    timer = setTimeout(function () { timer = 0; if (!ready()) return; signed = true; box.classList.add('signed'); stop(); }, Math.max(400, 1500 - performance.now()));
+    timer = setTimeout(function () { timer = 0; if (!ready()) return; signed = true; box.classList.add('signed'); stop(); }, Math.max(root.classList.contains('me-scroll') ? 180 : 400, 1500 - performance.now()));
   }
   function ask() { if (!tick) { tick = true; requestAnimationFrame(check); } }
   var mo = pin && 'MutationObserver' in window ? new MutationObserver(ask) : null;

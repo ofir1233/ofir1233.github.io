@@ -3905,22 +3905,22 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
   -webkit-backdrop-filter: blur(16px) saturate(1.3); backdrop-filter: blur(16px) saturate(1.3); box-shadow: 0 40px 80px -36px rgba(8,40,90,.6), inset 0 1px 0 rgba(255,255,255,.7); }
 .v7-glass > *{ border-radius: clamp(12px, 1.3vw, 18px); overflow: hidden; }
 </style>
-<link rel="stylesheet" href="v7/font.css?v=136">
-<link rel="stylesheet" href="v7/hero.css?v=136">
-<link rel="stylesheet" href="v7/code.css?v=136">
-<link rel="stylesheet" href="v7/design-lab.css?v=136">
-<link rel="stylesheet" href="v7/product.css?v=136">
-<link rel="stylesheet" href="v7/system.css?v=136">
-<link rel="stylesheet" href="v7/web-fyi.css?v=136">
-<link rel="stylesheet" href="v7/campaign.css?v=136">
-<link rel="stylesheet" href="v7/ia-process.css?v=136">
-<link rel="stylesheet" href="v7/path-contact.css?v=136">
-<link rel="stylesheet" href="v7/path.css?v=136">
-<link rel="stylesheet" href="v7/site.css?v=136">
-<link rel="stylesheet" href="v7/corners.css?v=136">
-<link rel="stylesheet" href="v7/close.css?v=136">
-<link rel="stylesheet" href="v7/foot.css?v=136">
-<link rel="stylesheet" href="v7/tokens.css?v=136">
+<link rel="stylesheet" href="v7/font.css?v=142">
+<link rel="stylesheet" href="v7/hero.css?v=142">
+<link rel="stylesheet" href="v7/code.css?v=142">
+<link rel="stylesheet" href="v7/design-lab.css?v=142">
+<link rel="stylesheet" href="v7/product.css?v=142">
+<link rel="stylesheet" href="v7/system.css?v=142">
+<link rel="stylesheet" href="v7/web-fyi.css?v=142">
+<link rel="stylesheet" href="v7/campaign.css?v=142">
+<link rel="stylesheet" href="v7/ia-process.css?v=142">
+<link rel="stylesheet" href="v7/path-contact.css?v=142">
+<link rel="stylesheet" href="v7/path.css?v=142">
+<link rel="stylesheet" href="v7/site.css?v=142">
+<link rel="stylesheet" href="v7/corners.css?v=142">
+<link rel="stylesheet" href="v7/close.css?v=142">
+<link rel="stylesheet" href="v7/foot.css?v=142">
+<link rel="stylesheet" href="v7/tokens.css?v=142">
 </head>
 <body>
 
@@ -4060,7 +4060,7 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
 
     <article class="spot">
       <div class="txt">
-        <div class="head"><span class="pg" aria-hidden="true"><svg viewBox="0 0 64 44" focusable="false"><rect x="0" y="0" width="30" height="26" rx="2.6" fill="#A9DAFE"/><rect x="0" y="28" width="30" height="16" rx="2.6" fill="#63BEFE"/><rect x="32" y="0" width="32" height="18" rx="1.8" fill="#139FFD"/><rect x="32" y="20" width="16" height="24" rx="2.6" fill="#DCEFFE"/><rect x="50" y="20" width="14" height="24" rx="2.6" fill="#D59BE0" class="hot"/></svg></span></div>
+        <div class="head"><span class="pg" aria-hidden="true"><svg viewBox="0 0 64 44" focusable="false"><rect x="0" y="0" width="30" height="26" rx="2.6" fill="#A9DAFE"/><rect x="0" y="28" width="30" height="16" rx="2.6" fill="#63BEFE"/><rect x="32" y="0" width="32" height="18" rx="1.8" fill="#139FFD"/><rect x="32" y="20" width="16" height="24" rx="2.6" fill="#DCEFFE"/><rect x="50" y="20" width="14" height="24" rx="2.6" fill="#0B4A94" class="hot"/></svg></span></div>
         <h3>Topics</h3>
         <p class="pf-prob"><b>The challenge</b>Calls spread across many topics. Which ones are both big and scoring low?</p>
         <p class="pf-sol">I sized topics by calls and colored them by score, so the weak ones stand out before anyone reads a number.</p>
@@ -6703,7 +6703,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function clamp(v){ return v<0?0:v>1?1:v } function io(t){ return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2 } function out(t){ return 1-Math.pow(1-t,4) }
   function measure(){ var pt=parseFloat(getComputedStyle(about).paddingTop)||118; pin.style.setProperty('--pt',pt+'px'); pin.style.setProperty('--t0',(intro.offsetHeight+Math.max(22,Math.min(40,innerWidth*.03)))+'px'); pin.style.setProperty('--ch',Math.max(60,list.offsetHeight-64)+'px'); }
   function target(){ var pt=parseFloat(pin.style.getPropertyValue('--pt'))||118, total=stage.offsetHeight-pin.offsetHeight; return clamp((pt-stage.getBoundingClientRect().top)/total); }
-  function draw(p){ var g=io(clamp(p/.3)); pin.style.setProperty('--g',g.toFixed(4)); pin.style.setProperty('--z',p.toFixed(4)); pin.style.setProperty('--io',clamp(1-g*3.2).toFixed(3)); pin.style.setProperty('--sh',clamp((p-.26)/.12).toFixed(3)); pin.style.setProperty('--pe',out(clamp((p-.82)/.13)).toFixed(3)); pin.classList.toggle('me-end',p>.86);
+  function draw(p){ var g=io(clamp(p/.3)); pin.style.setProperty('--g',g.toFixed(4)); pin.style.setProperty('--z',p.toFixed(4)); pin.style.setProperty('--io',clamp(1-g*3.2).toFixed(3)); pin.style.setProperty('--sh',clamp((p-.26)/.12).toFixed(3)); pin.style.setProperty('--pe',out(clamp((p-.82)/.13)).toFixed(3)); pin.classList.toggle('me-end',p>.86); pin.classList.toggle('me-grown',p>.285);
     cards.forEach(function(c,i){ var t=clamp((p-(.30+i*.125))/.13), a=out(t), y=(1-a)*80, sc=.93+a*.07, rx=(1-a)*12, bl=(1-a)*12;
       c.style.opacity=a.toFixed(3); c.style.transform='translateY('+y.toFixed(1)+'px) rotateX('+rx.toFixed(2)+'deg) scale('+sc.toFixed(4)+')'; c.style.filter=bl>.2?'blur('+bl.toFixed(1)+'px)':'none'; if(nums[i]){ var v=String(Math.round(+nums[i].getAttribute('data-n')*out(clamp(t*1.15)))); if(nums[i].textContent!==v) nums[i].textContent=v; } }); }
   function tick(){ var t=target(); cur+=(t-cur)*.16; if(Math.abs(t-cur)<.0004) cur=t; draw(cur); raf=Math.abs(t-cur)>0?requestAnimationFrame(tick):0; }
@@ -6727,19 +6727,19 @@ document.addEventListener('DOMContentLoaded', () => {
   window.v7Tilt=bind; [].forEach.call(document.querySelectorAll('[data-v7-tilt]'),bind);
 })();
 </script>
-<script src="v7/hero.js?v=136" defer></script>
-<script src="v7/code.js?v=136" defer></script>
-<script src="v7/depth.js?v=136" defer></script>
-<script src="v7/design-lab.js?v=136" defer></script>
-<script src="v7/product.js?v=136" defer></script>
-<script src="v7/system.js?v=136" defer></script>
-<script src="v7/web-fyi.js?v=136" defer></script>
-<script src="v7/campaign.js?v=136" defer></script>
-<script src="v7/ia-process.js?v=136" defer></script>
-<script src="v7/path-contact.js?v=136" defer></script>
-<script src="v7/close.js?v=136" defer></script>
-<script src="v7/foot.js?v=136" defer></script>
-<script src="v7/tokens.js?v=136" defer></script>
-<script src="v7/path.js?v=136" defer></script>
+<script src="v7/hero.js?v=142" defer></script>
+<script src="v7/code.js?v=142" defer></script>
+<script src="v7/depth.js?v=142" defer></script>
+<script src="v7/design-lab.js?v=142" defer></script>
+<script src="v7/product.js?v=142" defer></script>
+<script src="v7/system.js?v=142" defer></script>
+<script src="v7/web-fyi.js?v=142" defer></script>
+<script src="v7/campaign.js?v=142" defer></script>
+<script src="v7/ia-process.js?v=142" defer></script>
+<script src="v7/path-contact.js?v=142" defer></script>
+<script src="v7/close.js?v=142" defer></script>
+<script src="v7/foot.js?v=142" defer></script>
+<script src="v7/tokens.js?v=142" defer></script>
+<script src="v7/path.js?v=142" defer></script>
 </body>
 </html>
