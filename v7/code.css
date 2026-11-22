@@ -176,3 +176,19 @@
   #code .hw-steps.hw-pin > li.on .ht-r > span, #code .hw-steps.hw-pin > li.on .ht-r small{ opacity: 1; translate: 0 0; transition: opacity .6s ease calc(var(--i) * 110ms + 380ms), translate .8s cubic-bezier(.2,.7,.2,1) calc(var(--i) * 110ms + 380ms); }
   #code .hw-steps.hw-pin > li.on .ht-r small{ transition-delay: calc(var(--i) * 110ms + 520ms); }
 }
+
+/* the step index beside the pinned frame: step names at sub-heading size, and a rail on the left that fills as the section is scrolled,
+   ending inside the step that is open */
+@media (min-width: 900px) {
+  #code .hw-nav{ position: relative; gap: 6px; margin-top: 40px; padding: 2px 0 2px 26px; border-top: 0; max-width: 400px; }
+  #code .hw-nav::before, #code .hw-nav::after{ content: ""; position: absolute; left: 0; top: 0; width: 3px; border-radius: 2px; }
+  #code .hw-nav::before{ bottom: 0; background: #dddcd7; }
+  #code .hw-nav::after{ height: var(--hf, 0px); background: var(--v7-blue, #139ffd); transition: height .45s cubic-bezier(.2,.7,.2,1); }
+  #code .hw-nav a{ align-items: baseline; gap: 0 12px; padding: 9px 0; font-size: 30px !important; line-height: 1.15 !important; letter-spacing: -.02em; color: #a9acb1 !important; transition: color .45s; }
+  #code .hw-nav a i{ font-size: 13px; letter-spacing: 0; }
+  #code .hw-nav a.on{ translate: none; }
+  #code .hw-d > span{ letter-spacing: 0; font-size: 17px; line-height: 1.5; }
+  #code .hw-d > span::before{ height: 10px; }
+  #code .hw-d small{ display: table; margin: 14px 0 12px; padding: 5px 12px; border: 1px solid #d3d2cd; border-radius: 999px; font-size: 13px; line-height: 1.2; color: #4a5058; }
+}
+@media (prefers-reduced-motion: reduce) { #code .hw-nav::after{ transition: none; } }

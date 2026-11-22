@@ -15,9 +15,12 @@
     var top = Math.max(84, Math.round((innerHeight + 60 - steps[0].offsetHeight) / 2)); if (top !== TOP) { TOP = top; ol.parentNode.style.setProperty('--hw-top', TOP + 'px'); }
     var p = (TOP - ol.getBoundingClientRect().top) / range();
     mark(Math.max(0, Math.min(steps.length - 1, Math.floor(p * steps.length))));
+    /* the rail: filled down to the open step, and through it as that step is scrolled */
+    var q = Math.max(0, Math.min(.9999, p)) * steps.length, l = links[Math.floor(q)]; if (l) l.parentNode.style.setProperty('--hf', Math.round(l.offsetTop + (q - Math.floor(q)) * l.offsetHeight) + 'px');
   }
   links.forEach(function(a, i){ a.addEventListener('click', function(e){ if (!mq.matches) return; e.preventDefault();
     scrollTo({ top: ol.getBoundingClientRect().top + scrollY - TOP + range() * (i + .5) / steps.length, behavior: 'smooth' }); }); });
+  if (links[0]) links[0].parentNode.addEventListener('transitionend', function(e){ if (e.propertyName === 'grid-template-rows') set(); });
   addEventListener('scroll', set, { passive: true }); addEventListener('resize', set); set();
 })();
 
