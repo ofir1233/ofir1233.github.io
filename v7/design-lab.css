@@ -79,9 +79,10 @@
   #design-lab#design-lab .hs-pp{ width:48px; height:48px; }
   #design-lab#design-lab .hs-disc{ inset:5px; }
   #design-lab#design-lab .hs-t{ font-size:18px; }
-  #design-lab#design-lab .hs-segs{ gap:4px; }
-  #design-lab#design-lab .hs-segs button{ width:18px; }
-  #design-lab#design-lab .hs-segs li.on button{ width:34px; }
+  /* the bars stay short, the finger gets 32px each: the room between the bars is part of the button */
+  #design-lab#design-lab .hs-segs{ gap:0; margin-right:-6px; }
+  #design-lab#design-lab .hs-segs button{ width:30px; padding:0 6px; }
+  #design-lab#design-lab .hs-segs li.on button{ width:46px; }
   #design-lab#design-lab .hs-segs button::after{ display:none; }
 }
 @media (prefers-reduced-motion: reduce){ #design-lab#design-lab .hs-now.swap .hs-t, #design-lab#design-lab .hs-now.swap .hs-k{ animation:none; } }
@@ -135,3 +136,4 @@
 #design-lab#design-lab .hs-fig:not(.tp-fig) .hs-app{ transition:transform .9s cubic-bezier(.2,.7,.2,1), opacity .5s; }
 
 /* Owner, 22.11.2026: the product windows do not answer the mouse, playing or paused. A hover inside the app lit tiles and rows and spoiled the staged steps. */
+@media (max-width: 700px){ #design-lab#design-lab .meta > div:first-child::before{ display:none; } }

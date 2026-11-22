@@ -42,7 +42,7 @@
       [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.sx-tip.on .go' }], [3600, '.sx-side.on', { fit: 'w', part: [0, .16, 1, 1], keep: true, small: true, pad: 26, max: 2 }]]
     ],
     agents: [
-      [[0, null], [1700, '.ae-plot, .ae-dates', { pad: 30 }]],
+      [[0, null], [1700, '.ae-plot, .ae-dates', { pad: 30, ax: .62 }]],
       [[0, '[data-b="17"]', { pad: 130, pad2: 50, max: 1.85, grow: '.sx-tip.on' }]],
       [[0, '.ae-strip i:last-child', { pad: 170, pad2: 54, max: 1.85, grow: '.sx-tip.on' }]]
     ],
@@ -151,6 +151,12 @@
     function frameFor(r, o) {
       var W = P.w, h = H(), z = 1, cx = W / 2, cy = h / 2;
       if (r) {
+        /* a phone cannot read a block as wide or as high as the screen, the labels would be four pixels high: it looks at one part of it,
+           where reading starts, or where the step says (ax, 0..1 along the block). The Newsroom story is shown whole. */
+        if (P.small && o.fit !== 'w' && (r[2] > W * .5 || r[3] > h * .6) && !(key() === 'news' && P.k > 0)) {
+          var nw = Math.min(r[2], W * .34), nh = Math.min(r[3], h * .36);
+          r = [r[0] + (r[2] - nw) * (o.ax || 0), r[1] + (r[3] - nh) * (o.ay || 0), nw, nh];
+        }
         var pad = o.pad == null ? 28 : o.pad, max = (o.max || 2.2) * (P.small ? 1.3 : 1);
         z = o.fit === 'w' ? W / (r[2] + 2 * pad) : Math.min(W / (r[2] + 2 * pad), h / (r[3] + 2 * pad));
         z = Math.max(1, Math.min(max, z));

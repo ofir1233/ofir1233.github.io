@@ -119,7 +119,7 @@
   #system#system .tk-stage{ grid-template-columns:minmax(0, 1fr); gap:10px; }
   #system#system .tk-frame{ border-radius:12px; }
   #system#system .tk-ui .tk-frame{ aspect-ratio:auto; padding:40px 0 16px; }
-  #system#system .tk-card{ width:92%; margin-top:0; font-size:clamp(10.5px, 3.4cqw, 13px); }
+  #system#system .tk-card{ width:94%; margin-top:0; font-size:clamp(11.5px, 3.75cqw, 13px); }
   #system#system .tk-lab{ left:9px; top:9px; font-size:11.5px; padding:4px 9px; }
   #system#system .tk-foot{ display:flex; flex-direction:column; margin-top:14px; gap:14px; }
   #system#system .tk-pal{ order:-1; }
@@ -131,11 +131,13 @@
   #system#system .tk-pal{ display:grid; grid-template-columns:auto auto; justify-content:space-between; gap:12px 10px; }
   #system#system .tk-g > span{ font-size:12px; padding-left:5px; }
   #system#system .tk-pal{ margin-left:-5px; margin-right:-5px; }
-  #system#system .tk-g > div{ gap:2px; }
+  #system#system .tk-g > div{ gap:0; }
   #system#system .tk-g{ gap:5px; }
-  #system#system .tk-c{ width:54px; gap:5px; padding:0 0 8px; font-size:10.5px; }
+  /* a name of two words stands on two lines, so no two names touch and every name is large enough to read */
+  #system#system .tk-c{ width:58px; gap:5px; padding:0 0 8px; font-size:11.5px; line-height:1.18; }
+  #system#system .tk-c span{ width:min-content; min-height:2.36em; white-space:normal; text-align:center; }
   #system#system .tk-c i{ width:44px; height:44px; border-radius:10px; }
-  #system#system .tk-c::after{ left:8px; right:8px; }
+  #system#system .tk-c::after{ left:10px; right:10px; }
   #system#system .tk-re span{ display:none; }
   #system#system .tk-re{ padding:0 9px; }
 }

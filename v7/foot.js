@@ -14,7 +14,7 @@
     ft.classList.remove('signed'); void ft.offsetWidth; ft.classList.add('signed');
     setTimeout(function () { busy = false; done = true; }, all * 1000 + 300);
   }
-  new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { write(); io.disconnect(); } }, { threshold: .3 }).observe(ft);
+  new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { write(); io.disconnect(); } }, { threshold: .6 }).observe(sign);
   sign.addEventListener('pointerenter', function (e) { if (done && e.pointerType === 'mouse') write(); });
   var tick = false;
   function par() {
