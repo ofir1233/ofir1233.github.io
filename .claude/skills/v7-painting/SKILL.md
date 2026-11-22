@@ -1,0 +1,92 @@
+---
+name: v7-painting
+description: How to make a paid painted image for the portfolio (v7 look) without wasting the owner's money. Read before ANY image-generation call for this site.
+---
+
+# Painted images for the portfolio
+
+## THE PALETTE. Nothing outside it, ever.
+
+Taken from Hear's painting `hear-v7/media/hero-contact-center-1600.webp` and the opening picture `img/me-v7-studio-1536.webp`. Both go into every call as reference images.
+
+| what | colour |
+| --- | --- |
+| sky | cobalt-azure, about `#3b8ed3`; darker strokes `#1f6fc4`, lighter `#6cb4ec` |
+| trees, plants | COOL emerald / teal green, about `#43765d`; darker `#2c5a48`, lighter `#6aa98a` |
+| buildings | blue glass (cobalt, azure, pale sky blue) and cool white with pale blue shadows |
+| clouds | crisp white with pale blue and lilac shadows |
+| accents, small only | coral, lilac |
+
+FORBIDDEN, the owner rejected them in anger on 22.11.2026: yellow, yellow-green, olive, lime, golden or warm foliage; big pink or purple flower masses; orange or terracotta roofs; a pale washed-out sky; warm, sunset or beige tones.
+
+The palette and the forbidden list are written into EVERY prompt, with the hex values. Every result is measured (see "Colour is checked with numbers") before the owner sees it. A picture with a forbidden colour is never shown as a candidate and never placed.
+
+The reference for quality is the opening picture, `img/me-v7-studio-1536.webp`. Every new painting is judged against it, side by side.
+The owner pays for every call. A bad result is money thrown away, and an excuse afterwards is worth nothing to him.
+
+## What made the opening picture work
+
+- The prompt listed MANY concrete things to paint (plants, lamps, desks, monitors, chairs, bicycle, flowers, rug, sunlight, people far away). Detail in the prompt gives detail in the picture.
+- The sky was full of painted clouds and the city was dense, with glass towers, Bauhaus buildings, trees and sea.
+- The style paragraph, to be reused word for word:
+  "impasto oil painting ... thousands of small, crisp, confident palette-knife and flat-brush strokes; sharp edges, clean saturated colour, every object clearly readable, no blur, no muddy tones, no photo realism".
+- Model `gpt-image-1.5`, size `1536x1024`, quality `high`.
+
+## What failed (22.11.2026, background for How I work)
+
+The prompt asked for a sky "completely empty", "calm", with buildings that "stay low", to leave room for a UI card.
+The result was flat: a smooth striped sky, a small thin city, no thick paint. The owner called it garbage, rightly.
+
+## Before the prompt: know exactly what is wanted
+
+1. Look at the picture being replaced and write down what must STAY (layout, horizon height, where it is open, what sits on top of it in the page) and what must CHANGE. On 22.11.2026 I skipped this and lost three paid calls: the old background already had the right layout (sky on 75%, clouds low, city band), and only its style had to change.
+2. Say what the picture is FOR in one line. Here: a backdrop for UI; the UI is the subject, the painting must not compete with it.
+3. Write the acceptance list before paying, as things that can be measured or seen, and give it to the owner with the price. For this background:
+   - horizon between 72% and 80% of the height, inside the visible crop;
+   - upper and central sky open, clouds only low and at the sides;
+   - sky is visibly painted, same blue and same stroke as the windows of the opening picture; no weave, stripes or cracks;
+   - city band dense and detailed, same buildings as the opening picture;
+   - nothing painted where the Hear logo cloud sits on the Design step.
+
+## After every result: check before showing or placing
+
+1. Judge only the part the page shows. The background is drawn `object-fit: cover` in a square, `object-position: 50% 70%`, so only the middle ~62% of the width is seen. Crop to that first.
+2. Measure the horizon (share of blue per row) and compare with the acceptance list. Do not judge it by eye.
+3. Make a preview of the real page with the picture on it, in headless Chrome, swapping the image by script and without changing any site file: all three steps, with the logo cloud and the glass card on top. That preview, beside the opening picture, is what the owner gets.
+4. Go over the acceptance list line by line and report pass or fail for each. One failed line = the result failed; say so first.
+5. A low-quality draft shows layout, content and colour. It does NOT show stroke thickness; say that and do not claim it.
+6. Change one thing per draft, and write the prompt and what came out in the log at the bottom of this file.
+7. Two failed drafts in the same method: stop, change the method, and tell the owner why, before a third.
+
+## Log, background for How I work (22.11.2026)
+
+- high, text only, "empty calm sky, low city": flat striped sky, thin city. Failed.
+- low, text + style image, rich sky and city half and half: right style and detail, wrong layout (owner wants sky on 75%).
+- low, text "sky three quarters" + style image: city on 55%, cracked sky. Failed.
+- low, layout image (old background) + style image: good style, good sky, but the horizon again near the middle (44%). The model puts the horizon near the middle whatever it is told or shown.
+- What works: do not fight the model over the horizon. Take a picture with the right style and CROP the square the page shows so the horizon lands at 75% (script `pv.py crop`, preview `pv.mjs`). The preview of that crop on the real page passed layout, logo cloud and UI. For enough pixels in the crop, paint in portrait (1024x1536), where a middle horizon leaves a square of about 1000 px with the city in its bottom quarter.
+
+- Then the owner rejected that draft for its COLOURS, and showed Hear's own painting `hear-v7/media/hero-contact-center-1600.webp` as what he means. Measured: in both reference paintings the foliage is cool emerald (hue ~150, about #43765d) and the sky cobalt-azure (hue ~207, about #3b8ed3). The draft had yellow-olive trees (hue 65) on 18% of the picture, pink and purple flower masses and orange roofs. I had passed "style" by eye and never checked colour.
+
+- APPROVED and placed as `img/hw-sky-city.webp`: `images/edits`, `gpt-image-1.5`, `1024x1536`, `high`, two reference images (Hear's hero painting, the opening picture), then a 1024 square cropped from y=150. Measured: foliage hue 146, sky hue 204, warm colours 0%. The prompt that worked, in order: "paint the OUTSIDE VIEW seen through the windows of the references, sky and city only" → COLOURS with hex values and the forbidden list → TECHNIQUE (small crisp flat strokes, graphic, no weave / cracks / stripes) → SKY (open blue above and in the middle, white cumulus low and at the sides) → CITY (dense blue glass towers, white blocks with rounded balconies, emerald tree crowns along the bottom, strip of sea at the left).
+
+## Colour is checked with numbers, every time
+
+- The colour reference is `hear-v7/media/hero-contact-center-1600.webp` together with `img/me-v7-studio-1536.webp`. Send both as reference images.
+- Write the palette into the prompt as hex values sampled from the references, and name what is forbidden (yellow, olive, lime, warm foliage, pink or purple flower masses, orange roofs).
+- After every result, before showing it: measure mean hue / saturation / value of the sky pixels and of the green pixels, and put them next to the reference numbers. Foliage hue must be 140 to 165, sky hue 203 to 212 with saturation near 70. If not, it failed.
+- "Style matches" is never reported from a look alone. Report: layout, colour numbers, content, stroke, each on its own line.
+
+## Rules
+
+1. Never ask for an empty, calm, clean or plain area. Room for UI comes from cropping, positioning and the glass card on top, never from emptiness in the painting.
+   For the "How I work" background the owner wants the sky on about 75% of the picture, so the UI on top is what is seen, and the city only as a band at the bottom. Open sky is fine; flat sky is not: describe the blue as thick knife strokes in several blues, put clouds low and at the sides, and say "no canvas weave, no stripes".
+   The Hear logo cloud is NOT painted. It is a separate layer (`.hl-cloud`) shown only on the Design step; show the owner a preview with it on top.
+   COMPOSITION IS GIVEN AS AN IMAGE, NEVER AS WORDS. The model ignores proportions written in text ("sky on three quarters" gave a city on 55%). Use `images/edits` with image 1 = a picture that already has the wanted layout (for this background: the existing `img/hw-sky.webp`) and image 2 = `img/me-v7-studio-1536.webp` for style, and ask to repaint image 1 with the same layout in the technique of image 2. This is how the owner's portrait was made, and it worked.
+2. Every region of the picture gets named content and visible thick strokes: the sky has painted clouds and knife strokes in the blue itself, the city is dense and close.
+3. Before paying: write the prompt, then check it against the list above. If it has fewer concrete objects than the opening prompt, or any word like empty / calm / minimal / simple / low, rewrite it first.
+4. State the price and wait for a clear yes before every call, including every retry.
+5. First a draft at quality `low` (a few cents) to check composition and richness. Pay for `high` only when the draft passes.
+6. When a result comes back, compare it with `img/me-v7-studio-1536.webp` side by side BEFORE touching the site: stroke thickness, amount of detail, density, clouds, colour. If it is weaker, do not place it. Show it to the owner and say plainly that it failed.
+7. Never place a new painting in the page before the owner has seen the picture itself and approved it.
+8. Keep the working prompt of every approved painting in this file, so the next one starts from what worked.
