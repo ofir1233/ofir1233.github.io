@@ -27,10 +27,65 @@ a.pill.solid:hover{ background:#2a3038 !important; }
 
 /* The dock shows the chapter you are in, and opens to all of them under the pointer or the keyboard: a 600px bar sat on headings and buttons. */
 @media (min-width:1024px){
-  .cs-rail a{ max-width:260px; overflow:hidden; transition:max-width .45s cubic-bezier(.2,.7,.2,1), padding .45s cubic-bezier(.2,.7,.2,1), opacity .25s, color .25s, background-color .25s !important; }
+  .cs-rail a{ max-width:260px; overflow:hidden; }
   .cs-rail:not(:hover):not(:focus-within) a:not([aria-current="true"]){ max-width:0; padding-inline:0; opacity:0; }
   .cs-rail{ gap:0 !important; }
 }
 /* Next case: the picture is the next case's own screen, close enough to read, with no grey browser bar */
 .next-thumb .bar{ display:none !important; }
-.next-thumb{ padding-top:0 !important; border-radius:22px 0 0 0 !important; background:#fff !important; }
+.next-thumb{ padding-top:0 !important; border-radius:16px 0 0 0 !important; background:#fff !important; }
+
+/* ONE FRAME FOR EVERYTHING FROM THE LAB (22.11.2026).
+   The pages mixed four frames: grey browser windows with three dots, mono labels, grey mats and bare dark slabs.
+   Now a Lab artefact always sits in the same white frame with a soft sky mat, and its label is a small chip in the site's own type. */
+.shot{ border-radius:16px !important; background:#fff !important; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 26px 60px -34px rgba(23,40,70,.34) !important; }
+.shot.win{ padding-top:0 !important; }
+.shot.win > .bar{ display:none !important; }
+.shot.win > .zx-i{ top:12px !important; right:12px !important; width:34px !important; height:34px !important; border-radius:50% !important; background:rgba(255,255,255,.92) !important; color:#171b20 !important; box-shadow:0 0 0 1px rgba(23,27,32,.08), 0 6px 14px -8px rgba(23,27,32,.4) !important; opacity:1 !important; }
+.shot.pad, .actions-crop{ background:linear-gradient(180deg, #dbe9f6 0%, #eaf2f9 100%) !important; box-shadow:none !important; }
+.shot .live{ font:500 13px/1 var(--body) !important; color:#3a424c !important; background:rgba(255,255,255,.92) !important; box-shadow:0 0 0 1px rgba(23,27,32,.08) !important; -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
+.shot .live::before{ background:#139FFD !important; }
+/* the small windows that hold one crop */
+.ct-win{ background:#fff !important; border-radius:16px !important; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 26px 60px -34px rgba(23,40,70,.4) !important; }
+.ct-bar{ background:#fff !important; border-bottom:0 !important; }
+.ct-bar i{ display:none !important; }
+.ct-tag{ margin-left:0 !important; font:500 13px/1 var(--body) !important; letter-spacing:0 !important; color:#5a6470 !important; }
+.ct-tag::before{ content:""; display:inline-block; width:6px; height:6px; margin-right:7px; border-radius:50%; background:#139FFD; vertical-align:1px; }
+/* A dark screenshot from the Lab is evidence, not a section of the page: it sits in a white mat, at a modest size, and opens large on a click. */
+.shot.dark{ padding:10px !important; background:#fff !important; }
+.shot.dark > img{ border-radius:15px; }
+figure:has(> .shot.dark){ max-width:860px; }
+
+/* On a phone the whole board at 390px is unreadable, so it keeps a readable size and swipes sideways, like the filter bar under it. */
+@media (max-width:640px){
+  .actions-board{ overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:none; }
+  .actions-board::-webkit-scrollbar{ display:none; }
+  .actions-board .lx{ width:900px; max-width:none; }
+  .actions-board .live{ display:none; }
+}
+/* Contrast table: a pass is green and a fail is coral, as the caption under it says. */
+.ds-v:not(.no){ color:#226A45 !important; background:#DBEFE3 !important; }
+.ds-v.no{ color:#B5371D !important; background:#FFE3DB !important; }
+
+/* CRITIC ROUND, 22.11.2026 (UX, UI, product, motion).
+   The option that was chosen is the clear tile: white with a blue line. The ones that lost are quiet outlines. Before, the chosen one was the dull grey tile. */
+.opt{ background:transparent !important; box-shadow:inset 0 0 0 1px var(--line) !important; }
+.opt.chosen{ background:#fff !important; box-shadow:inset 0 0 0 1.5px #0b6fcf, 0 14px 30px -24px rgba(23,40,70,.4) !important; }
+.opt.chosen strong::after{ background:#0b6fcf !important; color:#fff !important; }
+/* Chapter heads: the heading and the lead share the row evenly, and the heading is one size smaller, so a chapter opens on its evidence sooner. */
+@media (min-width:861px){
+  .ch-head:not(.center){ grid-template-columns:minmax(0, 6fr) minmax(0, 6fr); }
+  .chapter.side:has(.ch-head .more:not([open])) > .wrap > .ch-head{ grid-template-columns:minmax(0, 1fr); }
+}
+.ch-head:not(.center) h2{ font-size:clamp(30px, 3.3vw, 44px); }
+/* On a phone a centred heading over left-aligned text reads as two pages. Everything starts at the left edge. */
+@media (max-width:860px){
+  .ch-head.center{ justify-items:start; text-align:left; }
+  .ch-head.center h2, .ch-head.center .prose, .ch-head.center .prose p, .ch-head.center .label{ margin-inline:0; }
+}
+/* The wall of components fades at both edges instead of being cut by the page. */
+/* the wall's rows carry their own fade (v7/system.css) */
+@media (min-width:1024px) and (prefers-reduced-motion:no-preference){
+  .cs-rail a{ transition:max-width .45s cubic-bezier(.2,.7,.2,1), padding .45s cubic-bezier(.2,.7,.2,1), opacity .25s, color .25s, background-color .25s !important; }
+}
+@media (prefers-reduced-motion:reduce){ .cs-rail, .cs-rail a{ transition:none !important; } }

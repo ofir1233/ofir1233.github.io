@@ -70,7 +70,7 @@
     var tiles = r[2].map(function (t) {
       return '<li class="dk-t' + (t[4] ? ' sky' : '') + '" data-k="' + t[0] + ' ' + t[1] + '" style="--w:' + t[2] + 'px"><div class="dk-c">' + t[3] + '</div><p class="dk-n"><b>' + t[0] + '</b>' + t[1] + '</p></li>';
     }).join('');
-    return '<div class="dk-row' + (n === 0 ? ' short' : n === 1 ? ' rev' : ' tall') + '" role="group" aria-label="' + r[0].replace('&', 'and') + ', ' + r[1] + ' stories"><p class="dk-lab"><b>' + r[0].replace('&', '&amp;') + '</b><span>' + r[1] + ' stories</span></p>' +
+    return '<div class="dk-row' + (n === 0 ? ' short' : n === 1 ? ' rev' : ' tall') + '" role="group" aria-label="' + r[0].replace('&', 'and') + ', ' + r[1] + ' stories"><p class="dk-lab"><b>' + r[0].replace('&', '&amp;') + '</b><span>' + r[1] + '</span></p>' +
       '<div class="dk-strip"><div class="dk-track"><ul class="dk-list">' + tiles + '</ul></div></div></div>';
   }).join('');
 
@@ -106,21 +106,23 @@
   }
   kit.addEventListener('submit', function (e) { var f = e.target.closest('.dk-cmp'); if (f) { e.preventDefault(); send(f); } });
 
-  /* Two tokens drive every tile: the accent and the corner. */
-  var head = kit.querySelector('.dk-head'), tok = document.createElement('div');
-  tok.className = 'dk-tok';
-  tok.innerHTML = '<span>Accent</span><button type="button" class="dk-acc" data-acc="#139FFD" style="--c:#139FFD" aria-pressed="true" aria-label="Accent: Hear Blue"></button><button type="button" class="dk-acc" data-acc="#0B6FCF" style="--c:#0B6FCF" aria-pressed="false" aria-label="Accent: Deep Blue"></button>' +
-    '<span>Corners</span><span class="dk-seg" role="group"><button type="button" data-corner="" aria-pressed="true">Pill</button><button type="button" data-corner="soft" aria-pressed="false">Soft</button></span>';
-  head.insertBefore(tok, head.querySelector('.dk-pause'));
+  /* The head is one quiet sentence. The two controls (the corner token, and the pause) sit under the wall, small, on one line
+     (owner, 22.11.2026: the head "looked like a war": a count, a sentence, swatches, a switch and a button side by side). */
+  var head = kit.querySelector('.dk-head'), pause = kit.querySelector('.dk-pause');
+  var foot = document.createElement('div'); foot.className = 'dk-foot';
+  var tok = document.createElement('div'); tok.className = 'dk-tok';
+  tok.innerHTML = '<span id="dk-corner-l">Corner token</span><span class="dk-seg" role="group" aria-labelledby="dk-corner-l"><button type="button" data-corner="" aria-pressed="true">Pill</button><button type="button" data-corner="soft" aria-pressed="false">Soft</button></span>';
+  /* owner, 22.11.2026 night: "not needed, it just loads the page": the row is not added; the pause stays out of sight. */
+  if (pause) pause.hidden = true;
+  if (head) head.innerHTML = '<p class="dk-line"><b>122</b> stories in <b>6</b> tiers. Real components, not pictures: press a chip, flip a switch, send a question.</p>';
   tok.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
-    if (b.hasAttribute('data-acc')) { kit.style.setProperty('--blue', b.getAttribute('data-acc')); [].forEach.call(tok.querySelectorAll('.dk-acc'), function (x) { x.setAttribute('aria-pressed', x === b); }); }
-    else kit.classList.toggle('soft', b.getAttribute('data-corner') === 'soft');
+    kit.classList.toggle('soft', b.getAttribute('data-corner') === 'soft');
   });
 
   /* Drift: with a mouse and motion allowed, each row loops; otherwise the rows are swiped by hand. */
   var can = window.matchMedia('(hover: hover) and (pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var btn = kit.querySelector('.dk-pause');
+  var btn = pause;
   if (can) {
     [].forEach.call(kit.querySelectorAll('.dk-track'), function (tr) {
       var list = tr.firstElementChild, copy = list.cloneNode(true);

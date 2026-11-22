@@ -1,0 +1,133 @@
+/* v7 - path: Experience. Loaded after path-contact.css.
+   Owner, 22.11.2026: "a lot of work still to do here, improve everything". Before: four equal boxes, letter tiles, three kinds of grey chip.
+   Now: the current job is the lead card, the three earlier jobs are one tighter card. Dates stand left of the rail in plain type.
+   The rail fills as the page scrolls, a dot lands when the line reaches it, and only "Now" is green and alive.
+   New class names (xp-*), so none of the page's older timeline rules apply. */
+
+#path#path .xp{ --when:176px; --gut:48px; --pad:44px; position:relative; margin-top:8px; }
+#path#path .xp-past{ list-style:none; margin:0; padding:0; }
+/* the section ends close to the last row: the closing picture follows with its own margin */
+#path#path{ padding-bottom:clamp(40px, 5vw, 72px); }
+
+/* the rail: a quiet track, and the filled part on top. path.js sets its place from the first and the last dot. */
+#path#path .xp-rail{ position:absolute; z-index:0; left:calc(var(--when) + var(--gut) / 2 - 1px); top:var(--rt, 60px); height:var(--rh, calc(100% - 120px)); width:2px; border-radius:2px; background:rgba(23,27,32,.1); pointer-events:none; }
+#path#path .xp-rail i{ position:absolute; left:0; top:0; width:100%; height:calc(100% * var(--p, 1)); border-radius:2px; background:linear-gradient(180deg, #4BA373 0, #139FFD 72px, #0b6fcf 100%); }
+
+/* one row: date, dot, body */
+#path#path .xp-job{ --y:56px; position:relative; display:grid; grid-template-columns:var(--when) var(--gut) minmax(0, 1fr); align-items:start; margin:0; padding:0; }
+#path#path .xp-when{ grid-column:1; margin:0; padding-top:calc(var(--y) - 11px); text-align:right; font:500 16px/22px var(--body); letter-spacing:-.005em; color:#171b20; font-variant-numeric:tabular-nums; white-space:nowrap; }
+#path#path .xp-when b{ font-weight:600; color:#226A45; }
+#path#path .xp-when small{ display:block; margin-top:2px; font:400 14px/20px var(--body); color:#868b91; }
+#path#path .xp-dot{ grid-column:2; justify-self:center; position:relative; z-index:1; width:12px; height:12px; margin-top:calc(var(--y) - 6px); border-radius:50%; background:#c3c7cb; box-shadow:0 0 0 5px #f4f3f1; transition:background-color .35s ease; }
+#path#path .xp-job.lit .xp-dot{ background:#139FFD; }
+/* the Now dot and its date stand at the middle of the Hear logo (card padding + half the logo) */
+#path#path .xp-now{ --y:71px; }
+#path#path .xp-now .xp-dot{ width:14px; height:14px; margin-top:calc(var(--y) - 7px); }
+#path#path .xp-now.lit .xp-dot{ background:#4BA373; }
+#path#path .xp-now .xp-dot::after{ content:""; position:absolute; inset:0; border-radius:50%; box-shadow:0 0 0 0 rgba(75,163,115,.5); opacity:0; }
+#path#path .xp-now.lit .xp-dot::after{ animation:xp-now 2.8s cubic-bezier(.3,.6,.3,1) .6s 3; }
+@keyframes xp-now{ 0%{ opacity:1; box-shadow:0 0 0 0 rgba(75,163,115,.42); } 60%, 100%{ opacity:1; box-shadow:0 0 0 11px rgba(75,163,115,0); } }
+#path#path .xp-body{ grid-column:3; position:relative; z-index:1; min-width:0; }
+
+/* the lead: where I work now */
+#path#path .xp-now .xp-body{ padding:var(--pad) var(--pad) 0; border-radius:20px; background:#fff; box-shadow:0 1px 2px rgba(23,27,32,.05), 0 10px 18px -12px rgba(23,27,32,.1), 0 26px 44px -34px rgba(23,27,32,.3); }
+#path#path .xp-top, #path#path .xp-past .xp-body{ display:grid; grid-template-columns:minmax(0, 4fr) minmax(0, 7fr); column-gap:40px; align-items:start; }
+#path#path .xp-now .xp-id{ display:flex; flex-direction:column; align-self:stretch; }
+#path#path .xp-now .xp-name{ margin:0; line-height:0; }
+#path#path .xp-now .xp-name img{ display:block; width:auto; height:54px; filter:brightness(.34); }
+#path#path .xp-now .xp-role{ margin:18px 0 0; font:500 17px/1.35 var(--body); color:#171b20; text-wrap:balance; }
+#path#path .xp-now .xp-id > .xp-tags{ margin-top:10px; padding-top:0; }
+#path#path .xp-now .xp-d{ margin:-5px 0 0; font:400 20px/1.5 var(--body); letter-spacing:-.011em; color:#171b20; text-wrap:pretty; }
+#path#path .xp-now .mr{ margin-top:22px; }
+/* the nouns of that sentence are the links to the work itself, higher on this page. Their underlines are drawn once, one after the other, when the card arrives. */
+#path#path .xp-d a{ color:inherit; text-decoration:none; padding-bottom:1px; background:linear-gradient(#139FFD, #139FFD) 0 100% / 100% 1.5px no-repeat; -webkit-box-decoration-break:clone; box-decoration-break:clone; transition:color .2s ease; }
+#path#path .xp-d a:hover{ color:#0b6fcf; }
+#path#path .xp-d a:focus-visible{ outline:2px solid #139FFD; outline-offset:3px; border-radius:4px; }
+
+/* small facts as a line of type: no boxes */
+/* the dot before each fact hangs left of it, and the row clips its own left edge: a fact that starts a line has no dot */
+#path#path .xp-tags{ display:flex; flex-wrap:wrap; gap:2px 21px; margin:0; overflow:hidden; font:400 14px/1.45 var(--body); color:#868b91; }
+#path#path .xp-tags span{ position:relative; white-space:nowrap; }
+#path#path .xp-tags span::before{ content:""; position:absolute; left:-12px; top:50%; width:3px; height:3px; margin-top:-1.5px; border-radius:50%; background:#b9bdc2; }
+#path#path .mr-in > div{ padding-top:14px; }
+#path#path .mr-in p:not(.xp-tags){ margin:0; max-width:56ch; font:400 16px/1.55 var(--body); color:#4a5058; }
+#path#path .mr-in .xp-tags{ margin-top:8px; }
+
+
+/* the earlier jobs: three rows in one card */
+#path#path .xp-past{ position:relative; margin-top:24px; }
+#path#path .xp-past::before{ content:""; position:absolute; z-index:0; inset:0 0 0 calc(var(--when) + var(--gut)); border-radius:20px; background:#fff; box-shadow:0 1px 2px rgba(23,27,32,.05), 0 12px 22px -14px rgba(23,27,32,.1), 0 34px 60px -40px rgba(23,27,32,.22); }
+#path#path .xp-past .xp-job{ --y:43px; }
+#path#path .xp-past .xp-body{ padding:28px var(--pad) 28px; }
+#path#path .xp-past .xp-job + .xp-job .xp-body::before{ content:""; position:absolute; left:var(--pad); right:var(--pad); top:0; height:1px; background:rgba(23,27,32,.09); }
+#path#path .xp-past .xp-name{ margin:0; font:600 25px/30px var(--body); letter-spacing:-.025em; color:#171b20; }
+#path#path .xp-past .xp-role{ margin:5px 0 0; font:400 15px/1.4 var(--body); color:#6a7078; }
+#path#path .xp-past .xp-d{ margin:3px 0 0; font:400 16.5px/1.55 var(--body); color:#333a42; text-wrap:pretty; }
+#path#path .xp-past .xp-txt > .xp-tags{ margin-top:8px; }
+#path#path .xp-past .mr{ margin-top:14px; }
+#path#path .xp-past .mr-btn{ min-height:34px; padding:0 14px 0 10px; font-size:13.5px; }
+
+/* arrival. Only when path.js is running (it sets .xp-js); without it everything is simply there.
+   A row comes in when its dot is in view: the dot lands, the date slides to the rail, the text rises line after line.
+   The dot takes its colour later, when the filled line reaches it. */
+@media (prefers-reduced-motion: no-preference){
+  #path#path .xp-js .xp-dot{ scale:0; transition:scale .3s cubic-bezier(.2,.7,.2,1) calc(var(--row, 0) * 120ms), background-color .35s ease; }
+  #path#path .xp-js .xp-job.on .xp-dot{ scale:1; }
+  #path#path .xp-js .xp-job.lit:not(.xp-now) .xp-dot{ animation:xp-land .7s cubic-bezier(.2,.7,.2,1) 1; }
+  #path#path .xp-js .xp-when{ opacity:0; translate:12px 0; transition:opacity .45s ease calc(.12s + var(--row, 0) * 120ms), translate .55s cubic-bezier(.2,.7,.2,1) calc(.12s + var(--row, 0) * 120ms); }
+  #path#path .xp-js .xp-job.on .xp-when{ opacity:1; translate:0 0; }
+  #path#path .xp-js .xp-s{ opacity:0; translate:0 14px; transition:opacity .5s ease calc(.2s + var(--i, 0) * 70ms + var(--row, 0) * 120ms), translate .62s cubic-bezier(.2,.7,.2,1) calc(.2s + var(--i, 0) * 70ms + var(--row, 0) * 120ms); }
+  #path#path .xp-js .xp-job.on .xp-s{ opacity:1; translate:0 0; }
+  #path#path .xp-js .xp-now .xp-body{ opacity:0; translate:0 22px; transition:opacity .5s ease, translate .7s cubic-bezier(.2,.7,.2,1); }
+  #path#path .xp-js .xp-now.on .xp-body{ opacity:1; translate:0 0; }
+  #path#path .xp-js .xp-past::before{ opacity:0; translate:0 22px; transition:opacity .5s ease, translate .7s cubic-bezier(.2,.7,.2,1); }
+  #path#path .xp-js .xp-past.on::before{ opacity:1; translate:0 0; }
+  #path#path .xp-js .xp-past .xp-job + .xp-job .xp-body::before{ opacity:0; transition:opacity .5s ease .1s; }
+  #path#path .xp-js .xp-past .xp-job.on + .xp-job .xp-body::before, #path#path .xp-js .xp-past .xp-job + .xp-job.on .xp-body::before{ opacity:1; }
+  #path#path .xp-js .xp-d a{ background-size:0 1.5px; transition:background-size .32s cubic-bezier(.3,.7,.2,1) calc(.85s + var(--n, 0) * 60ms), color .2s ease; }
+  #path#path .xp-js .xp-job.on .xp-d a{ background-size:100% 1.5px; }
+  #path#path .xp-d a:nth-of-type(2){ --n:1; } #path#path .xp-d a:nth-of-type(3){ --n:2; } #path#path .xp-d a:nth-of-type(4){ --n:3; } #path#path .xp-d a:nth-of-type(5){ --n:4; }
+  #path#path .xp-js .xp-rail{ opacity:0; transition:opacity .5s ease .2s; }
+  #path#path .xp-js.go .xp-rail{ opacity:1; }
+}
+@keyframes xp-land{ 0%{ box-shadow:0 0 0 5px #f4f3f1, 0 0 0 5px rgba(19,159,253,.45); } 100%{ box-shadow:0 0 0 5px #f4f3f1, 0 0 0 15px rgba(19,159,253,0); } }
+@media (prefers-reduced-motion: reduce){ #path#path .xp-now.lit .xp-dot::after{ animation:none; } }
+
+@media (max-width: 1040px){
+  #path#path .xp{ --when:132px; --gut:40px; --pad:32px; }
+  #path#path .xp-now{ --y:55px; }
+  #path#path .xp-when{ font-size:15px; }
+  #path#path .xp-now .xp-d{ font-size:18.5px; }
+  #path#path .xp-now .xp-name img{ height:46px; }
+}
+/* narrow: the date goes above the body, the rail keeps the left edge */
+@media (max-width: 760px){
+  #path#path .xp{ --when:0px; --gut:30px; --pad:22px; }
+  #path#path .xp-rail{ left:calc(var(--gut) / 2 - 8px); }
+  #path#path .xp-job, #path#path .xp-now{ --y:11px; }
+  #path#path .xp-job{ grid-template-columns:var(--gut) minmax(0, 1fr); }
+  #path#path .xp-past .mr-btn, #path#path .xp-now .mr-btn{ min-height:44px; }
+  #path#path .xp-when{ grid-column:2; grid-row:1; padding:0 0 12px; text-align:left; display:flex; align-items:baseline; gap:10px; }
+  #path#path .xp-when small{ margin:0; }
+  #path#path .xp-dot{ grid-column:1; grid-row:1; justify-self:start; margin-left:1px; }
+  #path#path .xp-now .xp-dot{ margin-left:0; }
+  #path#path .xp-body{ grid-column:2; grid-row:2; }
+  #path#path .xp-now .xp-body{ border-radius:18px; }
+  #path#path .xp-top, #path#path .xp-past .xp-body{ grid-template-columns:minmax(0, 1fr); row-gap:14px; }
+  #path#path .xp-now .xp-name img{ height:40px; }
+  #path#path .xp-now .xp-role{ margin-top:14px; font-size:16px; }
+  #path#path .xp-now .xp-id > .xp-tags{ margin-top:8px; }
+  #path#path .xp-now .xp-d{ margin-top:4px; font-size:17.5px; line-height:1.5; }
+  #path#path .xp-past{ margin-top:26px; }
+  #path#path .xp-past::before{ display:none; }
+  #path#path .xp-past .xp-job{ --y:11px; }
+  #path#path .xp-past .xp-job + .xp-job{ margin-top:22px; }
+  #path#path .xp-past .xp-body{ padding:20px var(--pad) 22px; border-radius:18px; background:#fff; box-shadow:0 1px 2px rgba(23,27,32,.05), 0 12px 22px -14px rgba(23,27,32,.1), 0 30px 50px -36px rgba(23,27,32,.2); }
+  #path#path .xp-past .xp-job + .xp-job .xp-body::before{ display:none; }
+  #path#path .xp-past .xp-name{ font-size:23px; line-height:28px; }
+  #path#path .xp-past .xp-d{ margin-top:0; font-size:16px; }
+  #path#path .xp-js .xp-when{ translate:0 8px; }
+  #path#path .xp-js .xp-past .xp-body{ opacity:0; translate:0 18px; transition:opacity .5s ease, translate .7s cubic-bezier(.2,.7,.2,1); }
+  #path#path .xp-js .xp-past .xp-job.on .xp-body{ opacity:1; translate:0 0; }
+}
+@media (max-width: 760px) and (prefers-reduced-motion: reduce){ #path#path .xp-js .xp-past .xp-body{ opacity:1; translate:none; transition:none; } }

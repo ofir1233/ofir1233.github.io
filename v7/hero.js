@@ -31,3 +31,50 @@
   new MutationObserver(place).observe(ul, { subtree: true, attributes: true, attributeFilter: ['aria-current'] });
   addEventListener('resize', place); if (document.fonts && document.fonts.ready) document.fonts.ready.then(place); place();
 })();
+
+/* On a phone the header pill floats over the text. It steps out of the way while the reader goes down, and is back the moment they turn up. */
+(function () {
+  var root = document.documentElement, nav = document.querySelector('nav.nav'); if (!nav) return;
+  var small = window.matchMedia('(max-width: 899px)'), last = window.scrollY, tick = false;
+  function run() {
+    tick = false;
+    var y = window.scrollY, d = y - last;
+    if (!small.matches || y < 160) root.classList.remove('hv-down');
+    else if (d > 8) root.classList.add('hv-down');
+    else if (d < -8) root.classList.remove('hv-down');
+    if (Math.abs(d) > 8) last = y;
+  }
+  window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(run); } }, { passive: true });
+  nav.addEventListener('focusin', function () { root.classList.remove('hv-down'); });
+})();
+
+/* The painter signs the canvas. The drawing is the footer's signature (one source: footer .ft-sig), cloned into .hsig on the
+   hero picture. It is written once: in the pinned stage 400 ms after the fourth fact has landed (the page's pin script sets
+   .me-end on .me-pin); in the plain layout 400 ms after the picture's lower corner is in view and the opening has come in.
+   It never replays. Reduced motion: shown complete. Styles in v7/hero.css. */
+(function () {
+  var fig = document.querySelector('#about .me-photo.me-v7'), box = fig && fig.querySelector('.hsig'), src = document.querySelector('footer.ft .ft-sig');
+  if (!box || !src) return;
+  var svg = src.cloneNode(true), mask = svg.querySelector('mask'), img = svg.querySelector('image');
+  if (!mask || !img) return;
+  svg.setAttribute('class', 'hsig-svg'); svg.removeAttribute('style'); mask.id = 'hsig-m'; img.setAttribute('mask', 'url(#hsig-m)');
+  box.appendChild(svg);
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  box.classList.add('js');
+  var root = document.documentElement, pin = fig.closest('.me-pin'), signed = false, timer = 0, tick = false;
+  function ready() {
+    if (root.classList.contains('me-scroll')) return !!pin && pin.classList.contains('me-end');
+    var r = fig.getBoundingClientRect(); return r.bottom < innerHeight - 8 && r.bottom > 140;
+  }
+  function stop() { removeEventListener('scroll', ask); removeEventListener('resize', ask); if (mo) mo.disconnect(); }
+  function check() {
+    tick = false; if (signed) return;
+    if (!ready()) { if (timer) { clearTimeout(timer); timer = 0; } return; }
+    if (timer) return;
+    timer = setTimeout(function () { timer = 0; if (!ready()) return; signed = true; box.classList.add('signed'); stop(); }, Math.max(400, 1500 - performance.now()));
+  }
+  function ask() { if (!tick) { tick = true; requestAnimationFrame(check); } }
+  var mo = pin && 'MutationObserver' in window ? new MutationObserver(ask) : null;
+  if (mo) mo.observe(pin, { attributes: true, attributeFilter: ['class'] });
+  addEventListener('scroll', ask, { passive: true }); addEventListener('resize', ask); ask();
+})();

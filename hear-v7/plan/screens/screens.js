@@ -16,7 +16,9 @@
   var later = function (fn, ms) { timers.push(setTimeout(fn, ms)); };
   var type = function (node, text, done) {
     node.textContent = ''; node.classList.add('typing');
-    text.split('').forEach(function (c, i) { later(function () { node.textContent = text.slice(0, i + 1); if (i === text.length - 1) { node.classList.remove('typing'); if (done) done(); } }, 28 * (i + 1)); });
+    /* typed by a hand: a steady key, and a breath after each word */
+    var t = 0;
+    text.split('').forEach(function (c, i) { t += 30 + (i && text[i - 1] === ' ' ? 80 : 0); later(function () { node.textContent = text.slice(0, i + 1); if (i === text.length - 1) { node.classList.remove('typing'); if (done) done(); } }, t); });
   };
   var lv = function (s) { return s < 60 ? 'l1' : s < 70 ? 'l2' : s < 75 ? 'l3' : s < 80 ? 'l4' : 'l5'; };
 
@@ -38,7 +40,7 @@
         kpis([['Sales without alerts', '72.6<small>%</small>', '▲ 2.1 pts against the 6 weeks before'], ['Valid sales', '93.8<small>%</small>', 'target 90%'], ['Agents above the success metric', '88.7<small>%</small>', '23 of 26 agents']]) +
         '<div class="sx-body"><div class="sx-h"><b>Criteria by agent</b><span>Only a failing score takes colour</span><span class="sx-seg r"><span class="on">Agents</span><span>Teams</span></span></div>' +
         '<div class="cm-grid">' + g + '</div>' +
-        '<div class="sx-note"><span>Score</span><i style="background:rgba(24,36,48,.07)"></i><span>70 and up</span><i style="background:#A9DAFE"></i><span>60–69</span><i style="background:var(--coral)"></i><span>under 60</span></div></div>';
+        '<div class="sx-note"><span>Score</span><i style="background:rgba(24,36,48,.07)"></i><span>70 and up</span><i style="background:#FFD0C4"></i><span>60–69</span><i style="background:var(--coral)"></i><span>under 60</span></div></div>';
     },
     show: function (el, i, ui) {
       var c = el.querySelector('[data-c="3-9"]');
@@ -56,7 +58,7 @@
   /* ---------- Agent evaluation ---------- */
   S.agents = {
     nav: 'Agent evaluation', icon: '<circle cx="9" cy="6" r="2.8"/><path d="M3.5 15c.6-3 2.7-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/>',
-    steps: ['Each day’s bar is the average score of every agent.', 'A low day turns coral, and opens onto the calls behind it.', 'The spread shows who needs coaching: 8 agents under 60.'],
+    steps: ['Each day’s bar is the average score of every agent.', 'A low day turns coral and shows how many calls it rests on.', 'The spread shows who needs coaching: 8 agents under 60.'],
     build: function () {
       var D = [76, 76, 75, 75, 74, 74, 76, 74, 74, 75, 75, 75, 76, 76, 77, 76, 77, 66, 68, 67, 67, 77, 77, 77, 77, 81, 80, 81, 76, 75];
       var bars = D.map(function (v, i) { return '<i class="ae-b ' + (v < 70 ? 'l1 low' : v < 76 ? 'l3' : v < 80 ? 'l4' : 'l5') + '" data-b="' + i + '" style="height:' + ((v - 50) / 36 * 100).toFixed(1) + '%"><em>' + v + '</em></i>'; }).join('');
@@ -96,7 +98,7 @@
         '<dl><dt>Source</dt><dd><span class="sx-tag blue">Alert</span>Refund refused</dd><dt>Priority</dt><dd>High</dd><dt>Assignee</dt><dd>' + av('Daniel Brooks') + 'Daniel Brooks</dd><dt>Call</dt><dd>Oct 13 · 6 min 12 sec</dd></dl>' +
         '<h4>Checklist</h4><div class="ac-check done"><i>✓</i>Listen to the call</div><div class="ac-check" data-late><i></i>Refund the customer</div><div class="ac-check"><i></i>Coach the agent on the refund policy</div>' +
         '<div class="ft">' + act('Reassign') + act('Close as Resolved', 'ink') + '</div>');
-      if (i === 2) { var late = el.querySelector('.sx-side [data-late]'), tick = function () { late.classList.add('done'); late.firstChild.textContent = '✓'; }; if (ui.jump) tick(); else later(tick, 1500); }
+      if (i === 2) { var late = el.querySelector('.sx-side [data-late]'), tick = function () { late.classList.add('done'); late.firstChild.textContent = '✓'; }; if (ui.jump) tick(); else later(tick, 4300); }
     }
   };
 
@@ -115,30 +117,94 @@
         '<div class="sl s1"><small>Calls analysed</small><h3>38,214</h3><p>9% more than June</p></div>' +
         '<div class="sl s2"><small>What changed most</small><h3>Cancellation intent rose 240% after the fare change.</h3><p>July 14 to July 19</p></div></div>';
     },
-    show: function (el, i) {
-      var st = el.querySelector('.nr-story');
+    show: function (el, i, ui) {
+      var st = el.querySelector('.nr-story'), num = st.querySelector('.s1 h3');
+      /* the slide says it counts the calls: so it counts */
+      if (i === 2 && ui && !ui.jump) { num.textContent = '0'; for (var n = 1; n <= 28; n++) (function (n) { later(function () { num.textContent = Math.round(38214 * (1 - Math.pow(1 - n / 28, 4))).toLocaleString('en-US'); }, 420 + n * 46); })(n); }
+      else num.textContent = '38,214';
       st.classList.toggle('on', i >= 1);
       if (i >= 1) { st.dataset.s = i - 1; [].forEach.call(st.querySelectorAll('.pr i'), function (x, n) { x.classList.toggle('on', n < i); }); }
     }
   };
 
   /* ---------- Data ---------- */
+  /* Owner, 22.11.2026: "too simple, important elements are missing; compare with the product". The page now carries what the product's
+     Data page carries: the project and its count, views with counts, a date range and filters, nine columns (a call with its summary,
+     its id, when, where it stands, priority, who has it, length, sentiment, score) and a foot with pages. The plain-words field is still
+     the subject: its answer lands in the ordinary filter bar as three chips anyone can read and remove. */
   S.data = {
     nav: 'Data', icon: '<ellipse cx="9" cy="4.8" rx="5.5" ry="2.3"/><path d="M3.5 4.8v8.4c0 1.3 2.5 2.3 5.5 2.3s5.5-1 5.5-2.3V4.8M3.5 9c0 1.3 2.5 2.3 5.5 2.3s5.5-1 5.5-2.3"/>',
-    steps: ['Every call is a row: who, what about, and how it scored.', 'A filter is asked for in plain words.', 'It becomes three conditions, and 86 calls remain.'],
+    steps: ['Every call is a row: what it was about, where it stands and how it scored.', 'A filter is asked for in plain words.', 'It becomes three conditions, and 86 calls remain.'],
     build: function () {
-      var R = [['Oct 13 · 14:02', 'Daniel Brooks', 'Refunds & Credits', '6:12', 'Negative', 38, 1], ['Oct 13 · 13:47', 'Maya Collins', 'Online Booking', '3:05', 'Positive', 82, 0], ['Oct 13 · 13:31', 'Ryan Cole', 'Trip Status', '2:40', 'Neutral', 71, 0], ['Oct 13 · 13:18', 'Paula Nunes', 'Refunds & Credits', '7:48', 'Negative', 41, 1],
-        ['Oct 13 · 12:56', 'Sofia Cruz', 'Seating & Extras', '1:52', 'Positive', 88, 0], ['Oct 13 · 12:40', 'Alex Ward', 'Refunds & Credits', '5:27', 'Negative', 35, 1], ['Oct 13 · 12:22', 'Daniel Brooks', 'Schedule Changes', '4:10', 'Neutral', 66, 0], ['Oct 13 · 12:05', 'Maya Collins', 'Refunds & Credits', '9:03', 'Negative', 29, 1], ['Oct 13 · 11:51', 'Ryan Cole', 'E-ticket Delivery', '2:15', 'Positive', 79, 0]];
-      return top('Data', 'Every call, with what was said and how it scored.', act('Columns' + chev) + act('Export')) +
-        '<div class="dt-ask"><svg class="i" viewBox="0 0 18 18"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="tx"></span><span class="n"><b>2,000</b> calls</span></div>' +
-        '<div class="dt-chips"><span class="sx-chip">Topic <b>Refunds & Credits</b></span><span class="sx-chip">Duration <b>over 5 min</b></span><span class="sx-chip">Sentiment <b>Negative</b></span></div>' +
-        '<div class="sx-body" style="margin-top:0"><div class="dt-tbl"><div class="dt-r hd"><span>Call</span><span>Agent</span><span>Topic</span><span>Duration</span><span>Sentiment</span><span style="text-align:right">Score</span></div>' +
-        R.map(function (r) { return '<div class="dt-r' + (r[6] ? ' hit' : '') + '"><b>' + r[0] + '</b><span class="ag">' + av(r[1]) + r[1] + '</span><span>' + r[2] + '</span><span>' + r[3] + '</span><span class="se"><i class="' + (r[4] === 'Negative' ? 'neg' : r[4] === 'Neutral' ? 'neu' : '') + '"></i>' + r[4] + '</span><span class="sc ' + lv(r[5]) + '">' + r[5] + '</span></div>'; }).join('') + '<div class="dt-sum"><span>Showing <b>4</b> of <b>86</b> calls</span><span>Average score <b>36</b></span><span>Average duration <b>7:07</b></span><span class="go">Save this filter as a signal →</span></div></div></div>';
+      var ic = function (d, c) { return '<svg class="i' + (c ? ' ' + c : '') + '" viewBox="0 0 18 18">' + d + '</svg>'; };
+      var SPARK = '<path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/>', X = '<path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/>',
+        COPY = '<rect x="6.5" y="6.5" width="8" height="8" rx="2"/><path d="M4 11.5h-.2a1.3 1.3 0 0 1-1.3-1.3V4.8a1.3 1.3 0 0 1 1.3-1.3h5.4a1.3 1.3 0 0 1 1.3 1.3V5"/>',
+        WARN = '<path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/>';
+      /* alert, call, summary, id, day, time, status, priority, who, length, sentiment, score, direction (0 in, 1 out) */
+      var A = [[1, 'Refunds & Credits', 'Charged twice for a cancelled flight, wants the money back', '00002000-r4k', 'Oct 13', '14:02', 'In progress', 3, 'Daniel Brooks', '6:12', 'Negative', 38, 0],
+        [0, 'Online Booking', 'Books two seats to Lisbon and adds a bag at checkout', '00001999-b7m', 'Oct 13', '13:47', 'Done', 1, 'Maya Collins', '3:05', 'Positive', 82, 0],
+        [0, 'Trip Status', 'Asks whether the 18:40 to Madrid is still on time', '00001998-t2x', 'Oct 13', '13:31', 'Done', 1, 'Ryan Cole', '2:40', 'Neutral', 71, 0],
+        [1, 'Refunds & Credits', 'A refund promised ten days ago has not arrived', '00001997-r9d', 'Oct 13', '13:18', 'In progress', 3, 'Paula Nunes', '7:48', 'Negative', 41, 0],
+        [0, 'Seating & Extras', 'Moves to an aisle seat and pays for extra legroom', '00001996-s5q', 'Oct 13', '12:56', 'Done', 1, 'Sofia Cruz', '1:52', 'Positive', 88, 0],
+        [0, 'Refunds & Credits', 'Offered a credit in place of the refund and refuses it', '00001995-r1h', 'Oct 13', '12:40', 'Pending', 3, 'Alex Ward', '5:27', 'Negative', 35, 1],
+        [0, 'Schedule Changes', 'Flight moved by four hours, asks for an earlier one', '00001994-c3v', 'Oct 13', '12:22', 'Pending', 2, '', '4:10', 'Neutral', 66, 0],
+        [1, 'Refunds & Credits', 'Third call about the same refund, asks for a manager', '00001993-r6w', 'Oct 13', '12:05', 'In progress', 3, 'Maya Collins', '9:03', 'Negative', 29, 0],
+        [0, 'E-ticket Delivery', 'The e-ticket never reached the inbox, sent again by email', '00001992-e8n', 'Oct 13', '11:51', 'Done', 1, 'Ryan Cole', '2:15', 'Positive', 79, 1]];
+      var F = [A[0], A[3], A[5], A[7],
+        [0, 'Refunds & Credits', 'The refund went to an old card, wants it sent again', '00001987-r3p', 'Oct 13', '10:52', 'Pending', 2, '', '6:40', 'Negative', 44, 0],
+        [0, 'Refunds & Credits', 'Cancelled within 24 hours and was still charged a fee', '00001962-r8z', 'Oct 12', '17:31', 'Done', 2, 'Ryan Cole', '8:15', 'Negative', 33, 0],
+        [0, 'Refunds & Credits', 'Only part of the refund came, the bag fee is missing', '00001955-r2j', 'Oct 12', '16:08', 'Pending', 2, 'Sofia Cruz', '5:48', 'Negative', 47, 1],
+        [0, 'Refunds & Credits', 'Refund for a delayed flight was turned down, asks why', '00001948-r5t', 'Oct 12', '14:47', 'Done', 2, 'Paula Nunes', '7:20', 'Negative', 39, 0],
+        [1, 'Refunds & Credits', 'Waited four weeks for the refund and will dispute the charge', '00001931-r7b', 'Oct 12', '11:15', 'In progress', 3, 'Alex Ward', '10:36', 'Negative', 27, 0]];
+      var PR = ['', 'Low', 'Medium', 'High'], STC = { 'In progress': 'ip', 'Done': 'dn', 'Pending': 'pd', 'Cancelled': 'pd' };
+      /* the four calls that match the filter are the same rows before and after: they stay and slide up to their new places
+         (cls 'stay', --up = how many rows up), and their copies in the filtered set (cls 'dup') are never drawn */
+      var UP = { 0: 0, 3: 2, 5: 3, 7: 4 };
+      var row = function (r, n, cls, up) {
+        return '<div class="dt-r' + (cls ? ' ' + cls : '') + '" style="--n:' + n + (up != null ? ';--up:' + up : '') + '"><i class="ck"></i>' +
+          '<span class="cl"><b>' + (r[0] ? ic(WARN, 'wn') : '') + r[1] + '</b><small>' + r[2] + '</small></span>' +
+          '<span class="id">' + r[3] + ic(COPY) + '</span>' +
+          '<span class="dc">' + r[4] + '<small>' + r[5] + '</small></span>' +
+          '<span><i class="dt-st ' + STC[r[6]] + '">' + r[6] + '</i></span>' +
+          '<span class="pr"><i class="p' + r[7] + '"><u></u><u></u><u></u></i>' + PR[r[7]] + '</span>' +
+          (r[8] ? '<span class="ag">' + av(r[8]) + '<em>' + r[8] + '</em></span>' : '<span class="ag none"><i class="sx-av"></i><em>Unassigned</em></span>') +
+          '<span class="dr">' + (r[12] ? 'Outbound' : 'Inbound') + '</span>' +
+          '<span class="du">' + r[9] + '</span>' +
+          '<span class="se"><i class="' + (r[10] === 'Negative' ? 'neg' : r[10] === 'Neutral' ? 'neu' : '') + '"></i>' + r[10] + '</span>' +
+          '<span class="sc ' + lv(r[11]) + '">' + r[11] + '</span></div>';
+      };
+      var tab = function (t, n, on) { return '<span' + (on ? ' class="on"' : '') + '>' + t + (n ? '<small>' + n + '</small>' : '') + '</span>'; };
+      var chip = function (k, v, n) { return '<span class="dt-f" style="--n:' + n + '">' + ic(SPARK) + k + ' <b>' + v + '</b>' + ic(X, 'x') + '</span>'; };
+      return '<div class="top dt-top"><h2>Data</h2><span class="dt-crumb">' + ic('<path d="M7 5l4 4-4 4"/>') + 'Northwind</span><span class="sx-tag nw dt-proc"><i></i>Processing 3</span><div class="sp"></div>' +
+        '<div class="dt-search">' + ic('<circle cx="8" cy="8" r="4.5"/><path d="M11.5 11.5l3.5 3.5"/>') + '<span>Search calls</span><kbd>/</kbd></div>' + act('Export') + act(ic('<path d="M9 12V4M5.5 7.3 9 3.8l3.5 3.5M3.5 14h11"/>') + 'Upload', 'ink') + '</div>' +
+        '<div class="dt-tabs">' + tab('All calls', '2,000', 1) + tab('Needs review', '148') + tab('High priority', '62') + tab('Alerts', '17') + tab('Done', '1,204') + tab('Agent evaluation', '') + '</div>' +
+        '<div class="dt-ask"><i class="dt-cam a"></i><i class="dt-cam c"></i>' + ic(SPARK) + '<span class="tx"></span><i class="dt-send">' + ic('<path d="M9 13.5v-9M5.2 8.3 9 4.5l3.8 3.8"/>') + '</i></div>' +
+        '<div class="dt-bar"><span class="dt-btn">' + ic('<rect x="3" y="4" width="12" height="11" rx="2.5"/><path d="M3 7.5h12M6.5 2.5v3M11.5 2.5v3"/>') + 'Last 90 days' + chev + '</span>' +
+        chip('Topic', 'Refunds & Credits', 0) + chip('Length', 'over 5 min', 1) + chip('Sentiment', 'Negative', 2) +
+        '<span class="dt-btn add">' + ic('<path d="M9 4v10M4 9h10"/>') + 'Filter</span><span class="dt-n"><b>2,000</b> calls</span><span class="sp"></span>' +
+        '<span class="dt-btn">' + ic('<rect x="3" y="3.5" width="12" height="11" rx="2.5"/><path d="M7.2 3.5v11M10.8 3.5v11"/>') + 'Columns<b>10</b></span></div>' +
+        '<div class="dt-tbl"><div class="dt-r hd"><i class="ck"></i><span>Call</span><span>ID</span><span class="srt">Call date' + ic('<path d="M9 4v10M5.5 10.5 9 14l3.5-3.5"/>') + '</span><span>Status</span><span>Priority</span><span>Assigned to</span><span>Direction</span><span class="du">Length</span><span>Sentiment</span><span style="text-align:right">Score</span></div>' +
+        '<div class="dt-body"><div class="dt-set all">' + A.map(function (r, n) { return UP[n] != null ? row(r, n, 'stay', UP[n]) : row(r, n); }).join('') + '</div><div class="dt-set hit">' + F.map(function (r, n) { return row(r, n, n < 4 ? 'dup' : ''); }).join('') + '</div></div>' +
+        '<div class="dt-foot"><span class="ct"><span class="rg"><b>1–9</b> of </span><span class="of">2,000</span> calls</span><span class="av"><i></i>Average score <b>36</b><i></i>Average length <b>7:07</b></span><span class="sp"></span>' +
+        '<span class="sx-tag nw sig">' + ic(SPARK) + 'Save as a signal</span><span class="pg"><i>' + ic('<path d="M11 5l-4 4 4 4"/>') + '</i><b>1</b><u>2</u><u>3</u><em>…</em><u class="last">223</u><i>' + ic('<path d="M7 5l4 4-4 4"/>') + '</i></span></div></div>';
     },
     show: function (el, i, ui) {
-      var tx = el.querySelector('.dt-ask .tx'), n = el.querySelector('.dt-ask .n'), text = 'refund calls over 5 minutes where the customer was unhappy';
-      n.innerHTML = i === 2 ? '<b>86</b> of 2,000 calls' : '<b>2,000</b> calls';
-      if (i === 0) tx.textContent = ''; else if (i === 1 && !ui.jump) type(tx, text); else tx.textContent = text;
+      var tx = el.querySelector('.dt-ask .tx'), n = el.querySelector('.dt-n'), text = 'refund calls over 5 minutes where the customer was unhappy';
+      var count = function (v) { n.innerHTML = v === 2000 ? '<b>2,000</b> calls' : '<b>' + v.toLocaleString('en-US') + '</b> of 2,000 calls'; };
+      /* shown finished, at once: a jump, a reader who asked for less motion, or a window the page holds paused (it marks its figure) */
+      var still = !!ui.jump;
+      try { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) still = true; } catch (e) {}
+      try { var fe = window.frameElement, fg = fe && fe.closest ? fe.closest('.px-fig') : null; if (fg && fg.classList.contains('is-paused')) still = true; } catch (e) {}
+      el.classList.toggle('jmp', still);
+      el.querySelector('.dt-foot .of').textContent = i === 2 ? '86' : '2,000';
+      el.querySelector('.dt-foot .last').textContent = i === 2 ? '10' : '223';
+      if (i === 0) tx.textContent = ''; else if (i === 1 && !still) type(tx, text); else { tx.classList.remove('typing'); tx.textContent = text; }
+      if (i === 2 && !still) {
+        /* the count waits for the third condition to land (0.96 s), then falls to its answer while the rows change under it:
+           fast at first, slowing as it lands */
+        count(2000);
+        for (var k = 1; k <= 18; k++) (function (k) { later(function () { var p = 1 - Math.pow(1 - k / 18, 3); count(Math.round(2000 - (2000 - 86) * p)); }, 960 + k * 34); })(k);
+      } else count(i === 2 ? 86 : 2000);
     }
   };
 
@@ -152,12 +218,12 @@
         ['Long silence', 'More than 20 seconds with nobody speaking', 131, 'Quiet', '', [10, 9, 11, 10, 9, 10, 11, 9, 10, 9, 10, 11, 10, 9]], ['Competitor mentioned', 'The customer names another airline', 47, 'Quiet', '', [5, 6, 5, 4, 6, 5, 5, 6, 4, 5, 6, 5, 4, 5]], ['Praise for the agent', 'The customer thanks the agent by name', 302, 'Paused', '', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]];
       return top('Signals', 'Rules that classify calls on their own. 7 signals · 3 firing now', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New signal', 'ink')) +
         '<div class="sg-new"><svg class="i" viewBox="0 0 18 18"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="tx"></span><span class="sx-tag blue">Classifying 2,000 calls…</span></div>' +
-        '<div class="sx-body"><div class="sg-list"><div class="sg-r new"><i class="tg"></i><span class="nm">Switching to a competitor<small>The customer says they will switch to a competitor</small></span><span class="sp">' + [2, 1, 2, 1, 3, 2, 1, 2, 3, 2, 1, 3, 2, 4].map(function (v) { return '<i style="height:' + v * 22 + '%"></i>'; }).join('') + '</span><span class="ct"><b>23</b>calls in 14 days</span><span class="sx-tag nw">New</span></div>' + G.map(function (g, k) {
+        '<div class="sx-body"><div class="sg-list"><div class="sg-r fresh"><i class="tg"></i><span class="nm">Switching to a competitor<small>The customer says they will switch to a competitor</small></span><span class="sp">' + [2, 1, 2, 1, 3, 2, 1, 2, 3, 2, 1, 3, 2, 4].map(function (v) { return '<i style="height:' + v * 22 + '%"></i>'; }).join('') + '</span><span class="ct"><b>23</b>calls in 14 days</span><span class="sx-tag nw">New</span></div>' + G.map(function (g, k) {
           return '<div class="sg-r" data-g="' + k + '"><i class="tg' + (g[3] === 'Paused' ? ' off' : '') + '"></i><span class="nm">' + g[0] + '<small>' + g[1] + '</small></span><span class="sp">' + g[5].map(function (v, d) { return '<i' + (g[4] && d > 9 ? ' class="pk"' : '') + ' style="height:' + Math.max(8, v / 28 * 100) + '%"></i>'; }).join('') + '</span><span class="ct"><b>' + g[2] + '</b>calls in 14 days</span><span class="sx-tag ' + g[4] + '">' + g[3] + '</span></div>';
         }).join('') + '</div></div>';
     },
     show: function (el, i, ui) {
-      var fresh = el.querySelector('.sg-r.new'), tag = el.querySelector('.sg-new .sx-tag');
+      var fresh = el.querySelector('.sg-r.fresh'), tag = el.querySelector('.sg-new .sx-tag');
       fresh.classList.remove('in'); tag.textContent = 'Classifying 2,000 calls…';
       if (i === 1) {
         el.querySelector('[data-g="0"]').classList.add('hot');
@@ -168,7 +234,9 @@
         var box = el.querySelector('.sg-new'), tx = box.querySelector('.tx'), text = 'The customer says they will switch to a competitor';
         box.classList.remove('done');
         var found = function () { tag.textContent = '23 calls found'; fresh.classList.add('in'); };
-        if (ui.jump) { tx.textContent = text; box.classList.add('done'); found(); } else type(tx, text, function () { box.classList.add('done'); later(found, 1300); });
+        if (ui.jump) { tx.textContent = text; box.classList.add('done'); found(); }
+        /* the field arrives empty and the frame arrives with it; only then is the sentence typed */
+        else { tx.textContent = ''; later(function () { type(tx, text, function () { box.classList.add('done'); later(found, 1100); }); }, 1250); }
       }
     }
   };
@@ -223,6 +291,8 @@
       var z = r.width / el.offsetWidth || 1; /* the stage is zoomed to fit: rects are in screen px, styles are not */
       x = x / z + w - w / z; y = where === 'below' ? (a.bottom - r.top) / z + 14 : where === 'left' ? y / z : (a.top - r.top) / z - h - 14;
       if (where !== 'below' && where !== 'topright' && where !== 'left') x = (a.left - r.left + a.width / 2) / z - w / 2; else if (where !== 'left') x = (a.right - r.left) / z - w;
+      /* no room under the thing it points at: it goes above it, never over it */
+      if (where === 'below' && y > el.offsetHeight - h - 20) y = (a.top - r.top) / z - h - 14;
       tip.style.left = Math.max(20, Math.min(el.offsetWidth - w - 20, x)) + 'px'; tip.style.top = Math.max(20, Math.min(el.offsetHeight - h - 20, y)) + 'px';
     }
   };

@@ -1,76 +1,311 @@
 /* v7 - product: this section's behaviour. Loaded deferred, after the page's own scripts. */
 /* Each product window is Hear Studio itself with one screen open (hear-v7/plan/screens, and Topics). The page only tells the
-   screen which step to show and draws the player under the frame. Paused, the screen takes the pointer. */
+   screen which step to show, where the camera looks, and draws the player under the frame. The screen never takes the pointer. */
 (function () {
   var figs = [].slice.call(document.querySelectorAll('.px-fig'));
   if (!figs.length) return;
   var TRIM = 3, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var ICON = '<svg class="pa" viewBox="0 0 18 18" aria-hidden="true"><rect x="4" y="3.5" width="3.4" height="11" rx="1"/><rect x="10.6" y="3.5" width="3.4" height="11" rx="1"/></svg><svg class="pl" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.2v11.6a.6.6 0 0 0 .9.5l9.4-5.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5z"/></svg>';
+  var ICON = '<svg class="pa" viewBox="0 0 18 18" aria-hidden="true"><rect x="4" y="3.5" width="3.4" height="11" rx="1"/><rect x="10.6" y="3.5" width="3.4" height="11" rx="1"/></svg><svg class="pl" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.2v11.6a.6.6 0 0 0 .9.5l9.4-5.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5z"/></svg><svg class="rp" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.6a5.6 5.6 0 1 0 5.4 7"/><path d="M8.6.9v5.4l4-2.7z"/></svg>';
   var TOPICS = {
     steps: ['Every topic is a box: its size is the calls, its colour is the score.', 'A topic opens into the three scores behind it.', 'Ask AI explains what drives a score, from the calls behind it.'],
-    dur: [5200, 5200, 9500],
     step: function (w, i) {
       var t = w.hearTopics;
       if (i < 2) t.close();
       if (i === 0) t.hot(-1, -1, 'force'); else if (i === 1) t.hot(0, -1, 'map'); else t.ask(0, 2);
     }
   };
-  /* The camera: on a step that is about one place, the frame moves in on it. [x, y, zoom], in the screen's own 1120 x 630. */
-  var CAMS = {
-    compliance: [null, [880, 440, 1.32], [770, 270, 1.16]],
-    agents: [null, [740, 330, 1.28], [860, 470, 1.34]],
-    actions: [null, [500, 300, 1.42], [720, 270, 1.14], [770, 300, 1.34]],
-    data: [null, [640, 190, 1.26], [640, 300, 1.14]],
-    signals: [null, [720, 270, 1.14], [640, 200, 1.26]]
+  /* THE CAMERA (owner, 22.11.2026: "a busy screen cannot be shown whole: the animation has to focus on one part at a time", and later
+     the same day: "more thought in the animation, more exact timings, a more calculated experience").
+     Every step is a list of shots: [after ms, selector in the screen, options]. The frame moves in on what the selector finds, measured
+     live in the screen, so it holds at any size and with the sidebar folded. null is the whole screen: only the opening shot uses it.
+     Options: pad (px of air), max (zoom limit), fit 'w' (fill the width and start at the top, for tall panels), part [x0,y0,x1,y1]
+     (a fraction of a wide block, for tables), tap (false: nothing is pressed on this step), now (the screen changes as the frame leaves), from (what is pressed to open a panel
+     that is not there yet), keep (the frame moves on, the light stays where it is: reading down a tall panel), small (a shot for the phone only), grow (what the step opens beside it) and
+     pad2 (the air once that has opened: the frame arrives a little wide and pushes in on the answer). A shot with no part (or with lit) is also lit: everything
+     around it is dimmed and out of focus.
+     One step is one sentence, in this order (BEAT below holds the numbers):
+       1. the frame travels to the place: longer for a longer way, and it always lands softly;
+       2. a short stillness, then a press is shown on the thing that opens;
+       3. the screen answers (a popover, a panel);
+       4. as it opens, the lit area grows around it and the frame pushes in on it, in one move.
+     When what the step is about does not exist yet (a side panel), the frame holds where it is, the screen opens it, and then the frame
+     goes to it. Nothing opens while the picture is still travelling. */
+  var SHOTS = {
+    topics: [
+      [[0, null], [1700, '.tp-col:first-child', { pad: 22 }]],
+      [[0, '#tp-map [data-k="0"]', { pad: 56, max: 2.1 }]],
+      [[0, '.ask-on .tp-ask', { fit: 'w', pad: 26, max: 2, from: '#tp-map [data-k="0"] .tp-p[data-p="2"]' }], [5200, '.ask-on .tp-ask', { fit: 'w', part: [0, .17, 1, 1], keep: true, pad: 26, max: 2 }]]
+    ],
+    compliance: [
+      [[0, null], [1700, '.cm-grid', { part: [0, 0, .6, 1], max: 1.7 }], [4000, '.cm-grid', { part: [.4, 0, 1, 1], max: 1.7 }]],
+      [[0, '[data-c="3-9"]', { pad: 180, pad2: 46, max: 1.85, grow: '.sx-tip.on' }]],
+      [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.sx-tip.on .go' }], [3600, '.sx-side.on', { fit: 'w', part: [0, .16, 1, 1], keep: true, small: true, pad: 26, max: 2 }]]
+    ],
+    agents: [
+      [[0, null], [1700, '.ae-plot, .ae-dates', { pad: 30 }]],
+      [[0, '[data-b="17"]', { pad: 130, pad2: 50, max: 1.85, grow: '.sx-tip.on' }]],
+      [[0, '.ae-strip i:last-child', { pad: 170, pad2: 54, max: 1.85, grow: '.sx-tip.on' }]]
+    ],
+    actions: [
+      [[0, null], [1700, '.ac-col:first-child', { pad: 24, max: 1.9 }]],
+      [[0, '.ac-card.src', { pad: 70, max: 1.8 }]],
+      [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.ac-card.src' }], [2900, '.sx-side.on', { fit: 'w', part: [0, .3, 1, 1], keep: true, pad: 26, max: 2 }]],
+      [[0, '.ac-col:nth-child(3), .ac-col:nth-child(4)', { part: [0, 0, 1, .64], lit: true, pad: 22, max: 1.9, tap: false }]]
+    ],
+    news: [
+      [[0, null], [1700, '.nr-col:last-child', { pad: 22, max: 1.7 }], [5000, '.nr-feat', { pad: 30, max: 1.9 }]],
+      [[0, '.nr-play', { pad: 120, max: 1.9 }], [700, '.nr-story', { part: [.15, .15, .85, .85], tap: false }]],
+      [[0, '.nr-story', { part: [.15, .15, .85, .85], tap: false, now: true }]],
+      [[0, '.nr-story', { part: [.15, .15, .85, .85], tap: false, now: true }]]
+    ],
+    data: [
+      [[0, null], [1700, '.dt-top, .dt-tabs, .dt-bar', { part: [0, 0, .6, 1], pad: 26, max: 1.7 }], [4400, '.dt-tbl', { part: [0, .05, .56, .65], max: 1.7 }]],
+      [[0, '.dt-ask', { part: [0, 0, .455, 1], pad: 14, max: 1.75 }]],
+      [[0, '.dt-cam.a', { part: [0, 0, 1, 1], pad: 14, max: 1.55, tap: false }], [800, '.dt-cam.c', { part: [0, 0, 1, 1], pad: 14, max: 1.6, small: true }], [3400, '.dt-tbl', { part: [.44, .07, 1, .67], max: 1.6 }], [6000, '.dt-cam.c', { part: [0, 0, 1, 1], pad: 14, max: 1.6 }]]
+    ],
+    signals: [
+      [[0, null], [1700, '.sg-list', { part: [0, 0, .6, .58], max: 1.7 }], [4300, '.sg-list', { part: [.42, 0, 1, .58], max: 1.7 }]],
+      [[0, '.sg-r[data-g="0"]', { part: [0, 0, .66, 1], pad: 70, max: 1.6 }], [1500, '.sx-side.on', { fit: 'w', pad: 26, max: 2 }]],
+      [[0, '.sg-new', { part: [0, 0, .66, 1], pad: 70, max: 1.7, tap: false }], [5200, '.sg-new, .sg-r.fresh', { part: [.38, 0, 1, 1], pad: 40, max: 1.7 }]]
+    ]
   };
+  /* How long each step lasts once the frame has landed on it (the way there is added: see P.off). */
+  var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 4400, 7600], agents: [5600, 4400, 4600], actions: [5600, 4200, 7400, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9400], signals: [7600, 6600, 9000] };
+  /* the beat, in ms */
+  var BEAT = {
+    still: 300,        /* the frame has landed; nothing moves: long enough for the eye to arrive too */
+    press: 150,        /* from the press showing to the screen answering */
+    opens: 70,         /* the popover is in the page (it is still fading in): the lit area opens around it as it appears, not after */
+    morph: 520,        /* the lit area grows around what opened, and the frame re-centres */
+    wait: 240,         /* before the screen opens something the frame is not yet on */
+    slide: 900,        /* a side panel has slid in and can be measured */
+    panel: 860         /* a side panel slides in, and the frame travels to it, in the same time and on the same curve */
+  };
+  var EASE = 'cubic-bezier(.62,.02,.2,1)', SETTLE = 'cubic-bezier(.3,.85,.25,1)';
+  /* Drawn inside the screen, over everything: a rim around the part the camera looks at, which also tints everything outside it,
+     four soft-focus panels around it (a clipped backdrop blur does not hold inside a scaled frame, so the blur is four plain boxes),
+     and the press. */
+  var VEIL =
+    '#px-rim{position:fixed;left:0;top:0;width:100px;height:100px;z-index:2147483001;pointer-events:none;opacity:0;border-radius:var(--r,8px);' +
+    'box-shadow:0 0 0 var(--h,1px) rgba(255,255,255,.9),0 24px 60px -24px rgba(12,38,78,.45),0 0 0 4000px rgba(228,238,249,.4)}' +
+    '.px-soft{position:fixed;z-index:2147483000;pointer-events:none;opacity:0;-webkit-backdrop-filter:blur(1.1px);backdrop-filter:blur(1.1px)}' +
+    '#px-rim.on,.px-soft.on{opacity:1}' +
+    '#px-tap{position:fixed;z-index:2147483002;pointer-events:none;border-radius:50%;opacity:0;background:rgba(19,159,253,.22);box-shadow:inset 0 0 0 var(--h,1px) rgba(255,255,255,.95),0 0 0 var(--h,1px) rgba(11,111,207,.55)}' +
+    '#px-tap.go{animation:px-tap .54s cubic-bezier(.3,.6,.2,1) both}' +
+    /* it closes in on the thing, then lets go: a press, not a ripple */
+    '@keyframes px-tap{0%{opacity:0;transform:scale(1.25)}28%{opacity:1;transform:scale(.8)}100%{opacity:0;transform:scale(1.5)}}';
   var two = function (n) { return (n < 10 ? '0' : '') + n; };
   var players = figs.map(function (fig) {
     var win = fig.querySelector('.px-win'), frame = fig.querySelector('.px-app');
     /* The steps sit under the frame as sentences: each one is a button, and its top line is the clock. */
     var box = document.createElement('div');
     box.className = 'px-steps';
-    box.innerHTML = '<ol aria-label="Steps in the demo"></ol><button type="button" class="px-pp">' + ICON + '<span></span></button><p class="px-free">Paused. The screen is yours: try it.</p>';
+    box.innerHTML = '<ol aria-label="Steps in the demo"></ol><button type="button" class="px-pp">' + ICON + '<span></span></button><p class="px-free">Paused. Pick a step, or press play.</p>';
     fig.insertAdjacentElement('afterend', box);
     var pp = box.querySelector('.px-pp'), beats = box.querySelector('ol');
     var tabs = fig.querySelector('.px-tabs');
-    var P = { fig: fig, inView: false, paused: reduce, live: false, k: 0, ms: 0, steps: [], dur: [], api: null, s: 1, w: 1120, small: false, loops: 0, rest: false, act: 0, win: win };
+    var P = { fig: fig, inView: false, paused: reduce, live: false, k: 0, ms: 0, steps: [], dur: [], api: null, s: 1, w: 1120, small: false, loops: 0, rest: false, win: win, si: 0, re: [], q: [], off: 0,
+      c: { x: 0, y: 0, z: 1 }, r: null, lit: false };
+    P.depth = window.v7Depth ? window.v7Depth(frame, win) : { drift: function () {} };
+    var key = function () { return fig.getAttribute('data-px'); };
+    var H = function () { return Math.round(P.w * 9 / 16); };
+    var px = function (n) { return n.toFixed(1) + 'px'; };
     /* On a phone the frame is too small for the whole app: the sidebar steps aside and the screen is drawn at 860 wide. */
     function fit() {
       var small = win.clientWidth < 520, w = small ? 860 : 1120;
       frame.style.width = w + 'px'; frame.style.height = Math.round(w * 9 / 16) + 'px';
       P.s = win.clientWidth / (w - 2 * TRIM); P.w = w; P.small = small;
-      fig.style.setProperty('--s', P.s); cam();
+      fig.style.setProperty('--s', P.s);
       try { frame.contentDocument.documentElement.classList.toggle('px-small', small); } catch (e) {}
+      look(0);
     }
-    function cam() {
-      var all = CAMS[fig.getAttribute('data-px')], c = (!reduce && P.live && all && all[P.k]) || null, W = P.w, H = Math.round(P.w * 9 / 16);
-      /* on a phone the screen is drawn without its sidebar, so the same place sits elsewhere, and the frame moves in closer */
-      if (c && P.small) c = c[2] < 1.2 ? [860, 170, 1.5] : [(c[0] - 204) * .94, c[1] * .77, c[2] * 1.5];
-      /* a phone never shows the whole screen at once, it would be too small to read: a step with no place of its own opens on the top left, where the title is */
-      if (!c && P.small && P.live && !reduce && !(fig.getAttribute('data-px') === 'news' && P.k > 0)) c = [0, 0, 1.45]; /* the Newsroom story fills the screen: it is shown whole */
-      var z = c ? c[2] : 1;
-      var tx = c ? Math.min(0, Math.max(W - W * z, W / 2 - c[0] * z)) : 0, ty = c ? Math.min(0, Math.max(H - H * z, H / 2 - c[1] * z)) : 0;
-      frame.style.transform = 'translate(' + (tx * P.s).toFixed(1) + 'px,' + (ty * P.s).toFixed(1) + 'px) scale(' + (P.s * z).toFixed(4) + ')';
+    /* what a selector covers, in the screen's own px: the box around every visible thing it finds */
+    function rectOf(sel, part, rest) {
+      var d = frame.contentDocument, els = d.querySelectorAll(sel), x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9, n = 0;
+      [].forEach.call(els, function (el) {
+        var r = el.getBoundingClientRect(), dx = 0, dy = 0; if (r.width < 2 || r.height < 2) return;
+        if (rest) {                              /* where it will be once it has slid in: its own slide is taken off */
+          try { var m = new frame.contentWindow.DOMMatrixReadOnly(frame.contentWindow.getComputedStyle(el).transform), k = r.width / (el.offsetWidth || r.width);
+            if (Math.abs(m.a - 1) < .01 && Math.abs(m.d - 1) < .01) { dx = m.e * k; dy = m.f * k; } } catch (e) {}
+        }
+        n++; x0 = Math.min(x0, r.left - dx); y0 = Math.min(y0, r.top - dy); x1 = Math.max(x1, r.right - dx); y1 = Math.max(y1, r.bottom - dy);
+      });
+      if (!n) return null;
+      x0 = Math.max(0, x0); y0 = Math.max(0, y0); x1 = Math.min(P.w, x1); y1 = Math.min(H(), y1);
+      if (x1 - x0 < 4 || y1 - y0 < 4) return null;
+      if (part) { var w = x1 - x0, h = y1 - y0; return [x0 + w * part[0], y0 + h * part[1], w * (part[2] - part[0]), h * (part[3] - part[1])]; }
+      return [x0, y0, x1 - x0, y1 - y0];
+    }
+    /* a step's shots; a shot marked small is for the phone only (its frame is shorter, so a panel needs reading down) */
+    function shotsOf(k) { var st = (SHOTS[key()] || [])[k]; return st && !P.small ? st.filter(function (x) { return !(x[2] && x[2].small); }) : st; }
+    /* the framing options once the step has opened what it opens */
+    function fin(o) { if (o.pad2 == null) return o; var n = {}; for (var k in o) n[k] = o[k]; n.pad = o.pad2; return n; }
+    function shot() { var st = P.live && !reduce && shotsOf(P.k); return (st && st[Math.min(P.si, st.length - 1)]) || null; }
+    /* the place the current shot is about; with full, what the step opened is counted in */
+    function target(full, rest) {
+      var sh = shot(), o = (sh && sh[2]) || {};
+      if (!sh || !sh[1]) return null;
+      try { return rectOf(full && o.grow ? sh[1] + ', ' + o.grow : sh[1], o.part, rest); } catch (e) { return null; }
+    }
+    /* Where the frame must be to show r. Returns the camera {x, y, z} in the screen's px. */
+    function frameFor(r, o) {
+      var W = P.w, h = H(), z = 1, cx = W / 2, cy = h / 2;
+      if (r) {
+        var pad = o.pad == null ? 28 : o.pad, max = (o.max || 2.2) * (P.small ? 1.3 : 1);
+        z = o.fit === 'w' ? W / (r[2] + 2 * pad) : Math.min(W / (r[2] + 2 * pad), h / (r[3] + 2 * pad));
+        z = Math.max(1, Math.min(max, z));
+        cx = r[0] + r[2] / 2; cy = r[1] + r[3] / 2;
+        /* taller or wider than the frame at this zoom: start at its top left, where it is read from */
+        if (r[3] * z > h - 24) cy = r[1] - 14 / z + h / z / 2;
+        if (r[2] * z > W - 24) cx = r[0] - 14 / z + W / z / 2;
+      } else if (P.small && P.live && !reduce) {
+        /* a phone never shows the whole screen at once, it would be too small to read: with no place of its own, the frame is on the
+           top left, where the title is. The Newsroom story fills the screen, so it is shown whole. */
+        if (!(key() === 'news' && P.k > 0)) { z = 1.45; cx = 0; cy = 0; }
+      }
+      return { x: Math.min(0, Math.max(W - W * z, W / 2 - cx * z)), y: Math.min(0, Math.max(h - h * z, h / 2 - cy * z)), z: z };
+    }
+    /* How long a move takes: a longer way takes longer, a change of zoom counts as way, and nothing is rushed or dragged out. */
+    function span(c) {
+      var d = Math.hypot(c.x - P.c.x, c.y - P.c.y) * P.s + Math.abs(Math.log(c.z / P.c.z)) * 620;
+      return d < 2 ? 0 : Math.round(Math.max(680, Math.min(1280, 560 + d * .6)));
+    }
+    /* Move the frame, and the lit area with it, to r in ms. With no r the whole screen is shown and nothing is lit. */
+    function move(r, o, ms, ease) {
+      var c = frameFor(r, o), d = null;
+      try { d = frame.contentDocument; } catch (e) {}
+      if (ms == null) ms = span(c);
+      ease = ease || EASE;
+      frame.style.transition = 'opacity .45s, transform ' + ms + 'ms ' + ease;
+      frame.style.transform = 'translate(' + (c.x * P.s).toFixed(1) + 'px,' + (c.y * P.s).toFixed(1) + 'px) scale(' + (P.s * c.z).toFixed(4) + ')';
+      P.c = c; P.r = r;
+      var rim = d && d.getElementById('px-rim'), soft = d ? d.querySelectorAll('.px-soft') : [];
+      if (!rim || (o.keep && P.lit)) return ms;
+      var lit = !!(r && (!o.part || o.lit) && !P.rest), geo = ms + 'ms ' + ease, was = P.lit;
+      if (lit) {                                 /* how much of the frame it fills: over three quarters, and dimming the rest is only haze at the edges */
+        var vw = P.w / c.z, vh = H() / c.z, vx = -c.x / c.z, vy = -c.y / c.z;
+        var iw = Math.max(0, Math.min(vx + vw, r[0] + r[2]) - Math.max(vx, r[0])), ih = Math.max(0, Math.min(vy + vh, r[1] + r[3]) - Math.max(vy, r[1]));
+        if (iw * ih > vw * vh * .74) lit = false;
+      }
+      var set = function (el, css) { for (var k in css) el.style[k] = css[k]; };
+      if (lit) {
+        /* hairline and corner are set so that on the page they are 1px and 9px at any zoom (owner: "the corners are too round") */
+        var g = 6, x = r[0] - g, y = r[1] - g, w = r[2] + 2 * g, h = r[3] + 2 * g, k = P.s * c.z;
+        var T = was ? 'opacity .3s ease, left ' + geo + ', top ' + geo + ', width ' + geo + ', height ' + geo : 'opacity .46s ease ' + Math.round(ms * .5) + 'ms';
+        var boxes = [[0, 0, P.w, Math.max(0, y)], [0, y + h, P.w, H()], [0, y, Math.max(0, x), h], [x + w, y, P.w, h]];
+        if (!was) { rim.style.transition = 'none'; [].forEach.call(soft, function (el) { el.style.transition = 'none'; }); }
+        var place = function () {
+          rim.style.setProperty('--r', (9 / k).toFixed(2) + 'px'); rim.style.setProperty('--h', (1 / k).toFixed(2) + 'px');
+          set(rim, { left: px(x), top: px(y), width: px(w), height: px(h) });
+          [].forEach.call(soft, function (el, i) { set(el, { left: px(boxes[i][0]), top: px(boxes[i][1]), width: px(boxes[i][2]), height: px(boxes[i][3]) }); });
+        };
+        if (!was) { place(); void rim.offsetWidth; }
+        rim.style.transition = T; [].forEach.call(soft, function (el) { el.style.transition = T; });
+        if (was) place();
+      } else {
+        rim.style.transition = 'opacity .26s ease'; [].forEach.call(soft, function (el) { el.style.transition = 'opacity .26s ease'; });
+      }
+      rim.classList.toggle('on', lit); [].forEach.call(soft, function (el) { el.classList.toggle('on', lit); });
+      P.lit = lit;
+      return ms;
+    }
+    function unlight() {
+      try {
+        var d = frame.contentDocument, all = [d.getElementById('px-rim')].concat([].slice.call(d.querySelectorAll('.px-soft')));
+        all.forEach(function (el) { if (el) { el.style.transition = 'opacity .22s ease'; el.classList.remove('on'); } });
+      } catch (e) {}
+      P.lit = false;
+    }
+    /* the frame as the current shot wants it, now (a resize, a pause, a jump) */
+    function look(ms) { var sh = shot(); return move(target(true), fin((sh && sh[2]) || {}), ms); }
+    /* a window that is not the one playing shows a clear screen: no haze, no rim (owner, 22.11 night: "everything feels smeared") */
+    P.clear = function () { if (P.lit) unlight(); };
+    P.relight = function () { if (P.live && !P.rest && !P.lit) { try { look(); } catch (e) {} } };
+    /* a press, shown on the thing that is about to open */
+    function tap(r) {
+      try {
+        var d = frame.contentDocument, el = d.getElementById('px-tap'), k = P.s * P.c.z, size = 34 / k;
+        el.style.setProperty('--h', (1 / k).toFixed(2) + 'px');
+        el.style.width = el.style.height = px(size); el.style.left = px(r[0] + r[2] / 2 - size / 2); el.style.top = px(r[1] + r[3] / 2 - size / 2);
+        el.classList.remove('go'); void el.offsetWidth; el.classList.add('go');
+      } catch (e) {}
     }
     new ResizeObserver(fit).observe(win); fit();
-    function button() { pp.setAttribute('aria-label', P.paused ? 'Play the demo' : 'Pause the demo'); pp.lastChild.textContent = P.paused ? 'Play' : 'Pause'; fig.classList.toggle('is-paused', P.paused); box.classList.toggle('is-paused', P.paused); cam(); }
+    function button() { pp.setAttribute('aria-label', P.rest ? 'Replay the demo' : P.paused ? 'Play the demo' : 'Pause the demo'); pp.lastChild.textContent = P.rest ? 'Replay' : P.paused ? 'Play' : 'Pause'; fig.classList.toggle('is-paused', P.paused); box.classList.toggle('is-paused', P.paused); box.classList.toggle('is-rest', !!P.rest && !P.paused); }
+    /* things that happen later in the step, on the step's own clock: a pause holds them too */
+    function at(ms, fn) { P.q.push({ t: P.ms + ms, fn: fn }); P.q.sort(function (a, b) { return a.t - b.t; }); }
+    var act = function () { try { P.api(P.k); } catch (e) {} };
+    /* after the screen has answered: take in what opened, in one move */
+    function settle() {
+      var sh = shot(), o = (sh && sh[2]) || {}, r = target(true), a = P.r;
+      if (!r) return;
+      if (a && Math.abs(a[0] - r[0]) < 4 && Math.abs(a[1] - r[1]) < 4 && Math.abs(a[2] - r[2]) < 4 && Math.abs(a[3] - r[3]) < 4) return;
+      move(r, fin(o), a ? BEAT.morph : null, a ? SETTLE : EASE);
+    }
+    /* One shot, played. first: this shot opens the step, so it is the one that makes the screen act. */
+    function beat(first) {
+      var sh = shot(), o = (sh && sh[2]) || {}, r = target(false);
+      if (!sh || !sh[1]) {                       /* the whole screen: the screen resets as the frame pulls back */
+        if (first) act();
+        /* a phone has no room for the opening view of the whole screen: it opens on the first part, and holds there */
+        var st0 = shotsOf(P.k);
+        if (first && P.small && P.live && !reduce && st0 && st0[1] && st0[1][1]) {
+          P.si = 1; var r1 = target(false);
+          if (r1) { P.off = move(r1, st0[1][2] || {}); at(P.off + 200, settle); return; }
+          P.si = 0;
+        }
+        P.off = move(null, o); return;
+      }
+      if (!first) { at(move(r, o) + 60, settle); return; }
+      if (!r) {                                  /* not there yet: hold, let the screen open it, then go to it */
+        P.r = null;
+        /* what opens it is pressed first, where the frame already is; then the light goes out (it never slides across the screen),
+           the screen opens the panel, and in the same instant the frame leaves for where the panel will stand: the two arrive together */
+        var fr = null, t0 = BEAT.wait;
+        try { fr = o.from ? rectOf(o.from) : null; } catch (e) {}
+        if (fr) { at(BEAT.still, function () { tap(fr); }); t0 = BEAT.still + BEAT.press; } else unlight();
+        at(t0, function () { unlight(); act(); var to = target(true, true); if (to) move(to, fin(o), BEAT.panel); });
+        at(t0 + BEAT.slide, settle);
+        at(t0 + BEAT.slide + 1400, settle);
+        return;
+      }
+      /* what the last step left open over the screen closes as the frame leaves it, not when the next thing opens */
+      try { [].forEach.call(frame.contentDocument.querySelectorAll('.sx-tip.on'), function (t) { t.classList.remove('on'); }); } catch (e) {}
+      if (o.now) act();                          /* a slide that fills the screen: it changes as the frame moves, not after */
+      var ms = move(r, o);
+      P.off = ms;                                /* the step's clock starts when the frame has landed */
+      if (o.now) return;
+      if (o.tap !== false) at(ms + BEAT.still, function () { tap(target(false) || r); });
+      at(ms + BEAT.still + (o.tap !== false ? BEAT.press : 0), act);
+      at(ms + BEAT.still + BEAT.press + BEAT.opens, settle);
+      at(ms + BEAT.still + BEAT.press + BEAT.opens + 1300, settle);
+    }
     function show(k) {
-      P.k = k; P.ms = 0;
-      [].forEach.call(beats.children, function (li, i) { li.classList.toggle('on', i === k); li.classList.toggle('done', i < k); li.style.setProperty('--p', 0); });
-      P.rest = false; clearTimeout(P.act);
-      /* the frame travels first, and the screen acts once it is nearly there, so nothing opens while the picture is still moving */
-      var moves = !reduce && (CAMS[fig.getAttribute('data-px')] || [])[k];
-      cam();
-      if (moves) P.act = setTimeout(function () { try { P.api(k); } catch (e) {} }, 620); else { try { P.api(k); } catch (e) {} }
+      P.k = k; P.ms = 0; P.si = 0; P.q = []; P.off = 0;
+      [].forEach.call(beats.children, function (li, i) { li.classList.toggle('on', i === k); li.classList.toggle('done', i < k); li.style.setProperty('--p', 0); if (li.firstChild) li.firstChild.setAttribute('aria-current', i === k ? 'step' : 'false'); });
+      if (P.rest) { P.rest = false; button(); } P.re.forEach(clearTimeout); P.re = [];
+      var st = shotsOf(k);
+      if (P.paused || reduce) {
+        /* paused, a step is shown finished, on its closest shot: no sequence to wait for */
+        if (st) P.si = st.length - 1;
+        act();
+        look(reduce ? 0 : 700);
+        [560, 1300].forEach(function (ms) { P.re.push(setTimeout(function () { look(reduce ? 0 : 640); }, ms)); });
+        return;
+      }
+      beat(true);
     }
     P.tick = function (dt) {
       if (!P.live || P.paused || P.rest || !P.inView || fig.closest('article.spot.r8-cov')) return;
       P.ms += dt;
-      var d = P.dur[P.k] || 5200, li = beats.children[P.k];
+      var d = (P.dur[P.k] || 5200) + P.off, li = beats.children[P.k];
+      var st = shotsOf(P.k);
+      if (st && P.si < st.length - 1 && P.ms >= st[P.si + 1][0] + P.off) { P.si++; beat(false); }
+      while (P.q.length && P.q[0].t <= P.ms) P.q.shift().fn();
       if (li) li.style.setProperty('--p', Math.min(1, P.ms / d));
       if (P.ms >= d) {
         /* two times through, then it rests on its last step: a window that loops for ever pulls the eye from the text beside it */
-        if (P.k === P.steps.length - 1 && ++P.loops >= 2) { P.rest = true; return; }
+        if (P.k === P.steps.length - 1 && ++P.loops >= 2) { P.rest = true; button(); return; }
         show((P.k + 1) % P.steps.length);
       }
       if (document.activeElement === frame) frame.blur();
@@ -78,16 +313,36 @@
     frame.addEventListener('load', function () {
       if (!frame.getAttribute('src')) return;
       var w = frame.contentWindow, d = frame.contentDocument;
-      try { var st = d.createElement('style'); st.textContent = '.side{box-sizing:border-box!important;padding:22px 14px 20px 18px!important}.tp-hint,.tp-tip,.ask-on .tp-foot{display:none!important}.px-small .side{display:none!important}.px-small .stage{--side:0px!important}@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}'; d.head.appendChild(st); fit(); st = d.createElement('style'); st.textContent = ''; d.head.appendChild(st); w.dispatchEvent(new Event('resize')); } catch (e) {}
-      if (w.hearScreens) { P.steps = w.hearScreens.steps; P.dur = w.hearScreens.dur || []; P.api = function (i) { w.hearScreens.step(i); }; }
-      else if (w.hearTopics) { P.steps = TOPICS.steps; P.dur = TOPICS.dur; P.api = function (i) { TOPICS.step(w, i); }; }
+      try {
+        var st = d.createElement('style'), HOLD = '.stage,.stage *{transition-property:none!important}';
+        st.textContent = '.tp-hint,.tp-tip,.ask-on .tp-foot{display:none!important}.px-small .side{display:none!important}.px-small .stage{--side:0px!important}' +
+          /* a phone shows Topics as the map alone: with the day list beside it the boxes are too small to open into their three scores */
+          '.px-small .tp-body{grid-template-columns:minmax(0,1fr)!important}.px-small .tp-col:last-child{display:none!important}' +
+          /* a side panel slides in on the camera's own curve and in the camera's time: the panel and the frame arrive together */
+          '.sx-side{transition:transform .86s cubic-bezier(.62,.02,.2,1),opacity .5s ease!important}.tp-ask{transition:transform .86s cubic-bezier(.62,.02,.2,1),opacity .45s ease!important}' +
+          '@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}' + VEIL + HOLD;
+        d.head.appendChild(st);
+        /* the sidebar is folded to its rail: the screen is the subject, and it gets the room */
+        var sg = d.querySelector('.stage'); if (sg) sg.classList.add('is-rail');
+        ['px-rim', 'px-tap'].forEach(function (id) { var el = d.createElement('div'); el.id = id; d.body.appendChild(el); });
+        for (var q = 0; q < 4; q++) { var sf = d.createElement('div'); sf.className = 'px-soft'; d.body.appendChild(sf); }
+        P.lit = false; P.r = null;
+        void d.body.offsetWidth; fit(); w.dispatchEvent(new Event('resize'));
+        /* the fold is in place: from here the screen's own transitions run again */
+        st.textContent = st.textContent.replace(HOLD, '');
+      } catch (e) {}
+      if (w.hearScreens) { P.steps = w.hearScreens.steps; P.dur = DUR[key()] || w.hearScreens.dur || []; P.api = function (i) { w.hearScreens.step(i); }; }
+      else if (w.hearTopics) { P.steps = TOPICS.steps; P.dur = DUR.topics; P.api = function (i) { TOPICS.step(w, i); }; }
       else return;
       beats.style.setProperty('--n', P.steps.length);
       beats.innerHTML = P.steps.map(function (s, i) { return '<li><button type="button"><span class="n">' + two(i + 1) + '</span><span class="l">' + s + '</span></button></li>'; }).join('');
       P.live = true; fig.classList.add('is-live', 'lx-ready'); box.classList.add('on'); box.classList.remove('is-loading');
       show(reduce ? P.steps.length - 1 : 0);
     });
-    pp.addEventListener('click', function () { P.paused = !P.paused; button(); });
+    pp.addEventListener('click', function () {
+      /* it played twice and came to rest: the button is then a replay, and starts it from the top */
+      if (P.rest && !P.paused) { P.loops = 0; show(0); return; }
+      P.paused = !P.paused; box.classList.toggle('by-user', P.paused); button(); });
     beats.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b || !P.live) return;
       P.loops = 0; show([].indexOf.call(beats.children, b.parentElement));
@@ -95,7 +350,7 @@
     if (tabs) tabs.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b || b.getAttribute('aria-pressed') === 'true') return;
       [].forEach.call(tabs.children, function (x) { x.setAttribute('aria-pressed', x === b); });
-      P.live = false; P.k = 0; fig.classList.remove('is-live'); box.classList.add('is-loading'); fig.setAttribute('data-px', b.getAttribute('data-k')); cam();
+      P.live = false; P.k = 0; P.si = 0; P.q = []; fig.classList.remove('is-live'); box.classList.add('is-loading'); fig.setAttribute('data-px', b.getAttribute('data-k')); look(0);
       var src = frame.getAttribute('data-src').replace(/\?.*$/, '?' + b.getAttribute('data-q'));
       frame.setAttribute('data-src', src);
       setTimeout(function () { frame.src = src; }, 180);
@@ -116,15 +371,25 @@
     if (reduce) go(); else { addEventListener('scrollend', go); setTimeout(go, 1600); }
   });
   var last = performance.now();
-  /* One window plays at a time: the one in view whose middle is nearest the middle of the screen. The others hold their place. */
+  /* One window plays at a time: the one in view whose middle is nearest the middle of the screen. The others hold their place.
+     A card that the next card has slid over is still in view and often nearer the middle: it does not count. */
   var lead = null, since = 0;
   (function tick(t) {
     var dt = Math.min(100, t - last); last = t;
     if (t - since > 180) {
       since = t; var best = 1e9; lead = null;
-      players.forEach(function (p) { if (!p.inView) return; var r = p.win.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - innerHeight / 2); if (d < best) { best = d; lead = p; } });
+      players.forEach(function (p) {
+        if (!p.inView || p.fig.closest('article.spot.r8-cov')) return;
+        /* how much of the window can be seen: the screen cuts it, and so does the next card as it slides over this one */
+        var r = p.win.getBoundingClientRect(), top = Math.max(0, r.top), bot = Math.min(innerHeight, r.bottom), sp = p.fig.closest('article.spot'), nx = sp && sp.nextElementSibling;
+        if (nx && nx.matches('article.spot')) bot = Math.min(bot, nx.getBoundingClientRect().top);
+        if (bot - top < r.height * .45) return;
+        var d = Math.abs(r.top + r.height / 2 - innerHeight / 2) - (bot - top); if (d < best) { best = d; lead = p; }
+      });
+      players.forEach(function (p) { var card = p.fig.closest('article.spot'); if (card) card.classList.toggle('lead', p === lead); p.depth.drift(p === lead && p.live && !p.paused); if (p !== lead) { p.clear(); p.led = false; } else if (!p.led) { p.led = true; p.relight(); } });
     }
-    if (lead) lead.tick(dt);
+    /* one bad frame must never stop every window on the page */
+    try { if (lead) lead.tick(dt); } catch (e) { if (window.console) console.error('px', e && e.stack || e); }
     requestAnimationFrame(tick);
   })(last);
 })();

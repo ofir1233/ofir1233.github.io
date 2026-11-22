@@ -19,17 +19,17 @@
 
 /* Frame: the real Hear Studio pages run in the whole rounded frame, drawn at 1440 and scaled to fit */
 #design-lab#design-lab .ct-fig{ margin:44px 0 0; width:100%; }
-#design-lab#design-lab .ct-stage{ position:relative; display:block; box-sizing:border-box; width:100%; aspect-ratio:auto; height:auto; min-height:0; padding:10px; border-radius:calc(var(--s, .8) * 42px + 10px); overflow:visible; background:#fff;
+#design-lab#design-lab .ct-stage{ position:relative; display:block; box-sizing:border-box; width:100%; aspect-ratio:auto; height:auto; min-height:0; padding:10px; border-radius:24px; overflow:visible; background:#fff;
   box-shadow:0 0 0 1px #dfdeda, 0 2px 4px rgba(23,27,32,.05), 0 10px 22px -10px rgba(23,27,32,.16), 0 26px 36px -26px rgba(12,50,100,.34); }
 #design-lab#design-lab .ct-stage::before{ display:none; }
 /* Chrome lets a blurred-backdrop child bleed one pixel along a rounded clip: a thin white ring on top covers that edge */
-#design-lab#design-lab .ct-stage::after{ content:""; display:block; position:absolute; inset:10px; z-index:5; border-radius:calc(var(--s, .8) * 42px); box-shadow:inset 0 0 0 4px #fff, 0 0 0 2px #fff; background:none; pointer-events:none; opacity:1; transform:none; }
+#design-lab#design-lab .ct-stage::after{ content:""; display:block; position:absolute; inset:10px; z-index:5; border-radius:14px; box-shadow:inset 0 0 0 4px #fff, 0 0 0 2px #fff; background:none; pointer-events:none; opacity:1; transform:none; }
 /* A white frame bounds the app and hides the corner bleed; the shadows under it give the depth */
-#design-lab#design-lab .hs-win{ position:relative; width:100%; aspect-ratio:16 / 9; border-radius:calc(var(--s, .8) * 42px); overflow:hidden; clip-path:inset(0 round calc(var(--s, .8) * 42px)); isolation:isolate; background:#eef4fa; }
+#design-lab#design-lab .hs-win{ position:relative; width:100%; aspect-ratio:16 / 9; border-radius:14px; overflow:hidden; clip-path:inset(0 round 14px); isolation:isolate; background:#eef4fa; }
 #design-lab#design-lab .hs-poster{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
 #design-lab#design-lab .hs-app{ position:absolute; left:calc(var(--s, 1) * -3px); top:calc(var(--s, 1) * -3px); width:1440px; height:810px; border:0; transform-origin:0 0; transform:scale(var(--s, 1)); opacity:0; pointer-events:none; background:#eef4fa; }
 #design-lab#design-lab .is-live .hs-app{ opacity:1; }
-#design-lab#design-lab .is-paused .hs-app{ pointer-events:auto; }
+#design-lab#design-lab .is-paused .hs-app{ pointer-events:none; }
 #design-lab#design-lab .hs-ptr{ position:absolute; left:-4px; top:-3px; width:26px; height:26px; pointer-events:none; translate:70% 70%; transition:translate .8s cubic-bezier(.3,.1,.2,1), opacity .25s; opacity:0; }
 #design-lab#design-lab .hs-ptr svg{ display:block; transform-origin:4px 3px; transition:scale .12s; }
 #design-lab#design-lab .hs-ptr.down svg{ scale:.84; }
@@ -92,29 +92,46 @@
 #design-lab#design-lab .tp-head .label{ display:inline-block; margin:0 0 18px; }
 #design-lab#design-lab .tp-head h3{ margin:0; font:600 clamp(28px, 3.2vw, 44px)/1.08 var(--body); letter-spacing:-.025em; color:#171b20; }
 #design-lab#design-lab .tp-head p{ max-width:600px; margin:16px auto 0; font:400 17px/1.55 var(--body); color:#4b5158; }
-#design-lab#design-lab .tp-fig .hs-app{ opacity:0; transition:opacity .5s; pointer-events:auto; }
+#design-lab#design-lab .tp-fig .hs-app{ opacity:0; transition:opacity .5s; pointer-events:none; }
 #design-lab#design-lab .tp-fig.is-live .hs-app{ opacity:1; }
-#design-lab#design-lab .tp-bar{ align-items:center; gap:28px; }
-#design-lab#design-lab .tp-now{ gap:6px; }
-#design-lab#design-lab .tp-d{ display:block; margin-top:3px; font:400 15.5px/1.45 var(--body); color:#5d636a; max-width:560px; }
+#design-lab#design-lab .tp-bar{ align-items:flex-start; gap:16px; }
+/* the ring sits on the two title rows (step + name, 45px), as it does in the tour bar above; the sentence hangs under them */
+#design-lab#design-lab .tp-bar .hs-pp{ margin-top:-5.5px; }
+#design-lab#design-lab .tp-now{ gap:7px; }
+#design-lab#design-lab .tp-d{ display:block; margin-top:5px; font:400 15.5px/1.45 var(--body); color:#5d636a; max-width:560px; }
 #design-lab#design-lab .tp-now.swap .tp-d{ animation:hs-rise .5s cubic-bezier(.2,.7,.2,1) .08s both; }
-#design-lab#design-lab .tp-seg{ position:relative; flex:none; display:grid; grid-template-columns:1fr 1fr; padding:5px; border-radius:999px; background:#e9e8e4; box-shadow:inset 0 0 0 1px rgba(23,27,32,.05); }
-#design-lab#design-lab .tp-seg button{ position:relative; z-index:1; height:44px; min-height:0; padding:0 24px; border:0; border-radius:999px; background:none; font:500 15px/1 var(--body); color:#5d636a; white-space:nowrap; cursor:pointer; transition:color .3s; -webkit-tap-highlight-color:transparent; }
-#design-lab#design-lab .tp-seg button:hover{ color:#171b20; }
-#design-lab#design-lab .tp-seg button[aria-pressed="true"]{ color:#fff; }
-#design-lab#design-lab .tp-seg button:focus-visible{ outline:2px solid #139ffd; outline-offset:2px; }
-#design-lab#design-lab .tp-seg i{ position:absolute; left:5px; top:5px; bottom:5px; width:calc(50% - 5px); border-radius:999px; background:#171b20; box-shadow:0 6px 14px -8px rgba(23,27,32,.6); transition:translate .5s cubic-bezier(.3,.8,.2,1); }
-#design-lab#design-lab .tp-seg[data-f="hi"] i{ translate:100% 0; }
+/* Two marks, the tour's own (30px, 60px when current, 4px high), each with its name under it: a button 44px high */
+#design-lab#design-lab .tp-segs{ gap:20px; align-items:flex-start; }
+#design-lab#design-lab .tp-segs button, #design-lab#design-lab .tp-segs li.on button{ display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:10px; width:auto; height:auto; min-height:44px; padding:0 2px; transition:none; }
+#design-lab#design-lab .tp-segs i{ width:30px; flex:none; transition:width .5s cubic-bezier(.2,.7,.2,1), background-color .35s, height .2s; }
+#design-lab#design-lab .tp-segs li.on i{ width:60px; }
+#design-lab#design-lab .tp-segs button:hover i{ height:4px; border-radius:2px; background:#b9b8b3; }
+#design-lab#design-lab .tp-segs li.done button:hover i{ background:#171b20; }
+#design-lab#design-lab .tp-segs span{ display:block; font:400 13px/1 var(--body); color:#5d636a; white-space:nowrap; transition:color .25s; }
+#design-lab#design-lab .tp-segs span::after{ content:attr(data-t); display:block; height:0; overflow:hidden; visibility:hidden; font-weight:500; }
+#design-lab#design-lab .tp-segs button:hover span{ color:#171b20; }
+#design-lab#design-lab .tp-segs li.on span{ color:#171b20; font-weight:500; }
+#design-lab#design-lab .tp-segs button::after, #design-lab#design-lab .tp-segs li:last-child button::after{ display:none; }
+#design-lab#design-lab .tp-segs button:focus-visible{ outline-offset:4px; }
+/* a mark chosen by hand, or at rest with motion reduced: it is the current one, with no clock running on it */
+#design-lab#design-lab .tp-fig.is-held .tp-segs li.on i{ background:#171b20; }
+#design-lab#design-lab .tp-fig.is-held .tp-segs li.on i::after{ opacity:0; }
 @media (max-width: 700px){
   #design-lab#design-lab .tp-block{ margin-top:72px; }
   #design-lab#design-lab .tp-head p{ font-size:16px; }
-  #design-lab#design-lab .tp-bar{ flex-direction:column; align-items:stretch; gap:18px; }
-  #design-lab#design-lab .tp-seg button{ padding:0 12px; }
+  #design-lab#design-lab .tp-bar{ flex-wrap:wrap; gap:12px; }
+  #design-lab#design-lab .tp-bar .hs-pp{ margin-top:-3.5px; }
+  #design-lab#design-lab .tp-d{ font-size:15px; }
+  #design-lab#design-lab .tp-segs{ flex:1 0 100%; gap:22px; margin-top:2px; padding-left:60px; }
+  #design-lab#design-lab .tp-segs button, #design-lab#design-lab .tp-segs li.on button{ width:auto; }
+  #design-lab#design-lab .tp-segs i{ width:18px; } #design-lab#design-lab .tp-segs li.on i{ width:34px; }
 }
-@media (prefers-reduced-motion: reduce){ #design-lab#design-lab .tp-seg i{ transition:none; } #design-lab#design-lab .tp-now.swap .tp-d{ animation:none; } }
+@media (prefers-reduced-motion: reduce){ #design-lab#design-lab .tp-now.swap .tp-d{ animation:none; } #design-lab#design-lab .tp-segs i{ transition:none; } }
 
 /* Topics frame: the app is drawn at the frame's own size (design-lab.js sets width, height and the frame's proportion) */
 #design-lab#design-lab .tp-fig .hs-app{ width:1120px; height:630px; }
 
 /* the tour's camera (design-lab.js shoot()): the move between steps is eased */
 #design-lab#design-lab .hs-fig:not(.tp-fig) .hs-app{ transition:transform .9s cubic-bezier(.2,.7,.2,1), opacity .5s; }
+
+/* Owner, 22.11.2026: the product windows do not answer the mouse, playing or paused. A hover inside the app lit tiles and rows and spoiled the staged steps. */

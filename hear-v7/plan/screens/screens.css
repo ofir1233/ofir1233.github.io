@@ -155,28 +155,6 @@
 .nr-story .s1 h3{font-size:120px}
 
 /* ---------- Data ---------- */
-.dt-ask{display:flex;align-items:center;gap:10px;height:46px;margin-top:20px;padding:0 8px 0 16px;border-radius:23px;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;font-size:14.5px;color:var(--mut);transition:box-shadow .25s}
-.dt-ask svg{flex:none;color:#7C858E}
-.dt-ask .tx{flex:1;min-width:0;white-space:nowrap;overflow:hidden;color:var(--ink)}
-.dt-ask .tx:empty::before{content:"Filter in plain words";color:var(--mut)}
-.dt-ask .tx.typing::after{content:"";display:inline-block;width:1.5px;height:1.1em;margin-left:1px;vertical-align:-.18em;background:#139FFD}
-.dt-ask .n{font-size:13px;white-space:nowrap}
-.dt-ask .n b{font-weight:600;color:var(--ink)}
-.sx[data-st="1"] .dt-ask,.sx[data-st="2"] .dt-ask{box-shadow:inset 0 0 0 2px #139FFD,0 0 0 4px rgba(19,159,253,.14)}
-.dt-chips{display:flex;gap:8px;height:0;overflow:hidden;opacity:0;transition:height .35s,opacity .35s,margin .35s}
-.sx[data-st="2"] .dt-chips{height:30px;margin-top:12px;opacity:1}
-.dt-tbl{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:14px}
-.dt-r{flex:1;min-height:0;max-height:54px;display:grid;grid-template-columns:150px 1.1fr 1.3fr 96px 130px 70px;align-items:center;gap:18px;padding:0 12px;margin:0 -12px;border-radius:12px;box-shadow:inset 0 1px 0 var(--line);font-size:14px;color:var(--ink2);transition:opacity .35s,max-height .45s,background-color .3s}
-.dt-r.hd{flex:none;height:36px;box-shadow:none;font-size:12.5px;color:var(--mut)}
-.dt-r b{font-weight:500;color:var(--ink)}
-.dt-r .ag{display:flex;align-items:center;gap:9px;white-space:nowrap;overflow:hidden}
-.dt-r .se{display:flex;align-items:center;gap:7px} .dt-r .se i{width:8px;height:8px;border-radius:50%;background:#63BEFE} .dt-r .se i.neg{background:#232323} .dt-r .se i.neu{background:#C9D3DB}
-.dt-r .sc{display:grid;place-items:center;width:44px;height:26px;border-radius:13px;font-weight:600;font-size:13.5px;justify-self:end}
-.sx[data-st="2"] .dt-r:not(.hd):not(.hit){max-height:0;opacity:0;overflow:hidden;box-shadow:none}
-.sx[data-st="2"] .dt-r.hit{background:rgba(255,255,255,.75)}
-.dt-sum{display:none;align-items:center;gap:28px;margin-top:18px;padding:16px 20px;border-radius:16px;background:rgba(24,36,48,.045);font-size:14px;color:var(--mut)}
-.dt-sum b{font-weight:600;color:var(--ink)}.dt-sum .go{margin-left:auto;font-weight:500;color:#0B6FCF}
-.sx[data-st="2"] .dt-sum{display:flex;animation:sx-in .5s .2s cubic-bezier(.2,.8,.2,1) both}
 
 /* ---------- Signals ---------- */
 .sg-list{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:4px}
@@ -238,8 +216,8 @@
 .nr-plot .pk::before{content:"";position:absolute;left:-17px;top:50%;width:8px;height:8px;margin-top:-5px;border-radius:50%;background:#139FFD;box-shadow:0 0 0 2px #fff}
 .sg-r .ct{white-space:nowrap}
 .sx.side-on .sg-r{grid-template-columns:38px minmax(0,1fr) 112px 84px}
-.sg-r.new{display:none}
-.sg-r.new.in{display:grid;background:#fff;box-shadow:0 0 0 2px #139FFD,0 6px 18px -8px rgba(16,34,60,.3);animation:sx-in .5s cubic-bezier(.2,.8,.2,1) both}
+.sg-r.fresh{display:none}
+.sg-r.fresh.in{display:grid;background:#fff;box-shadow:0 0 0 2px #139FFD,0 6px 18px -8px rgba(16,34,60,.3);animation:sx-in .5s cubic-bezier(.2,.8,.2,1) both}
 
 /* BRAND COLOURS WITH A MEANING (owner, 22.11.2026: "everything is one colour, use these as well where it makes sense").
    coral = failing, firing, needs attention.  green = good, done, improving.  lilac = new and AI.
@@ -250,9 +228,151 @@
 .sx-tag.ok{background:var(--green-tint);color:var(--green-ink)}
 .sx-tag.nw{background:var(--lilac-tint);color:var(--lilac-ink)}
 .ac-card small u.hi{background:var(--coral)}
-.dt-r .se i{background:var(--green)} .dt-r .se i.neg{background:var(--coral)}
 .sg-r .sp i.pk{background:var(--coral)}
 .sx-tip .m u{background:var(--coral)}
 .ae-b.low em{color:var(--coral-ink)}
 .ac-check.done i{background:var(--green)}
 /* avatars stay neutral: a coral face beside a coral score read as a failing person */
+
+/* Compliance: 60-69 is a failing band too (the Lab's legend: "Failing: coral"), so it takes a light coral, not blue.
+   The page says "only a failing score takes colour", and now that is what the grid shows. */
+.cm-grid .c.mid{background:#FFD0C4;color:#8E2A14}
+
+.nr-story .s1 h3{font-variant-numeric:tabular-nums}
+
+/* ---------- Data, rebuilt (owner, 22.11.2026: "too simple, important elements are missing; compare with the product") ----------
+   What the product's Data page carries, in the Studio's light look: project and count, views, date range and filters, nine columns,
+   pages. Coral is only a low score, an unhappy call and an alert; green is done; lilac is what the AI made; priority is charcoal bars. */
+#sx-data .card{padding:22px 30px 0}
+.dt-top{align-items:center;gap:9px}
+.dt-top h2{font-size:25px}
+.dt-top .sp,.dt-bar .sp,.dt-foot .sp{flex:1}
+.dt-top .act{height:34px;padding:0 14px;font-size:13.5px}
+.dt-top .act svg{width:15px;height:15px}
+.dt-crumb{display:inline-flex;align-items:center;gap:3px;margin-right:3px;font-size:15px;color:var(--mut);white-space:nowrap}
+.dt-crumb svg{width:15px;height:15px;opacity:.7}
+.dt-proc{gap:6px}
+.dt-proc i{width:6px;height:6px;border-radius:50%;background:var(--lilac-ink);animation:dt-pulse 1.6s ease-in-out infinite}
+@keyframes dt-pulse{50%{opacity:.25}}
+.dt-search{display:flex;align-items:center;gap:8px;width:186px;height:34px;padding:0 8px 0 12px;box-sizing:border-box;border-radius:17px;background:rgba(24,36,48,.055);font-size:13.5px;color:var(--mut)}
+.dt-search svg{width:15px;height:15px}
+.dt-search span{flex:1}
+.dt-search kbd{display:grid;place-items:center;width:18px;height:18px;border-radius:5px;background:#fff;box-shadow:0 0 0 1px var(--line);font:500 11px/1 inherit;color:var(--mut)}
+.dt-tabs{display:flex;gap:22px;margin-top:14px;box-shadow:inset 0 -1px 0 var(--line);font-size:13.5px;color:var(--mut);white-space:nowrap}
+.dt-tabs span{display:flex;align-items:baseline;gap:6px;padding:0 0 10px}
+.dt-tabs small{font-size:12px;font-variant-numeric:tabular-nums}
+.dt-tabs .on{font-weight:600;color:var(--ink);box-shadow:inset 0 -2px 0 var(--ink)}
+.dt-tabs .on small{font-weight:500;color:var(--ink2)}
+.dt-ask{display:flex;align-items:center;gap:10px;height:44px;margin-top:12px;padding:0 6px 0 15px;border-radius:22px;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;font-size:14.5px;color:var(--mut);transition:box-shadow .25s}
+.dt-ask>svg{flex:none;color:var(--lilac-ink)}
+.dt-ask .tx{flex:1;min-width:0;white-space:nowrap;overflow:hidden;color:var(--ink)}
+.dt-ask .tx:empty::before{content:"Filter in plain words";color:var(--mut)}
+.dt-ask .tx.typing::after{content:"";display:inline-block;width:1.5px;height:1.1em;margin-left:1px;vertical-align:-.18em;background:#139FFD}
+/* the count stands in the bar only once a filter is on: at rest the total is said by the tab and by the foot, not four times */
+.dt-n{margin-left:6px;font-size:13px;color:var(--mut);font-variant-numeric:tabular-nums;opacity:0}
+.sx[data-st="2"] .dt-n{opacity:1;transition:opacity .3s ease .1s}
+.dt-n b{font-weight:600;color:var(--ink)}
+.dt-send{display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:50%;background:#E6EBEF;color:#8D959D;transition:background-color .25s,color .25s}
+.dt-send svg{width:16px;height:16px;stroke-width:2}
+.sx[data-st="1"] .dt-send,.sx[data-st="2"] .dt-send{background:#232323;color:#fff}
+.sx[data-st="1"] .dt-ask{box-shadow:inset 0 0 0 2px #139FFD,0 0 0 4px rgba(19,159,253,.14)}
+.sx[data-st="2"] .dt-ask{box-shadow:inset 0 0 0 1.5px #AEB8C1}
+.dt-bar{display:flex;align-items:center;gap:8px;height:30px;margin-top:10px;white-space:nowrap}
+.dt-btn{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;box-sizing:border-box;border-radius:15px;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;font-size:13px;font-weight:500;color:var(--ink2)}
+.dt-btn svg{width:15px;height:15px;color:#7C858E}
+.dt-btn b{display:grid;place-items:center;min-width:18px;height:18px;margin-left:1px;border-radius:9px;background:var(--chip);font-size:11.5px;font-weight:600;color:var(--ink2)}
+.dt-btn.add{padding:0 11px 0 8px;background:none;box-shadow:none;border:1.5px dashed #BAC4CD;color:var(--mut)}
+/* a condition the AI wrote: lilac, with its sign, and a cross like any other filter */
+.dt-f{display:inline-flex;align-items:center;gap:6px;height:30px;max-width:0;margin-left:-8px;padding:0;box-sizing:border-box;overflow:hidden;border-radius:15px;background:var(--lilac-tint);font-size:13px;color:var(--lilac-ink);opacity:0;transform:scale(.9);transform-origin:0 50%}
+.dt-f b{font-weight:600;color:#4E2466}
+.dt-f svg{width:13px;height:13px;flex:none}
+.dt-f svg.x{width:12px;height:12px;opacity:.55}
+.sx[data-st="2"] .dt-f{max-width:250px;margin-left:0;padding:0 9px 0 10px;opacity:1;transform:none;transition:max-width .5s cubic-bezier(.2,.8,.2,1),margin .5s cubic-bezier(.2,.8,.2,1),padding .5s cubic-bezier(.2,.8,.2,1),opacity .3s ease,transform .45s cubic-bezier(.2,.9,.3,1.25);transition-delay:calc(.12s + var(--n)*.17s)}
+.dt-tbl{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:8px}
+.dt-r{display:grid;grid-template-columns:16px minmax(0,1fr) 108px 60px 92px 80px 134px 72px 46px 88px 42px;align-items:center;gap:14px;padding:0 12px;margin:0 -12px;font-size:13.5px;color:var(--ink2);white-space:nowrap}
+.dt-r.hd{flex:none;height:30px;box-shadow:inset 0 -1px 0 var(--line);font-size:11.5px;font-weight:500;color:var(--mut)}
+.dt-r .srt{display:flex;align-items:center;gap:3px;color:var(--ink2)}
+.dt-r .srt svg{width:12px;height:12px}
+.dt-body{position:relative;flex:1;min-height:0}
+.dt-set{position:absolute;inset:0;display:flex;flex-direction:column}
+.dt-set .dt-r{flex:1;min-height:0;max-height:56px;box-shadow:inset 0 -1px 0 var(--line)}
+.dt-set.hit{visibility:hidden}
+/* the swap (motion critic, 22.11: the table stood empty for a moment). At 1 s, when the third condition has landed: the five rows
+   that do not match let go in 160 ms, the four that match STAY and slide up to their new places on the camera's curve (420 ms),
+   and from 1.3 s five more matches rise from below. The table is never empty. */
+.sx[data-st="2"] .dt-set.all .dt-r{opacity:0;transition:opacity .16s ease 1s}
+.sx[data-st="2"] .dt-set.all .dt-r.stay{opacity:1;transform:translateY(calc(var(--up)*-100%));transition:transform .42s cubic-bezier(.62,.02,.2,1) 1s}
+.sx[data-st="2"] .dt-set.hit{visibility:visible}
+.sx[data-st="2"] .dt-set.hit .dt-r.dup{visibility:hidden}
+.sx[data-st="2"] .dt-set.hit .dt-r:not(.dup){animation:dt-in .36s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(1.3s + (var(--n) - 4)*.045s)}
+@keyframes dt-in{from{opacity:0;transform:translateY(7px)}}
+.dt-r .ck{width:15px;height:15px;border-radius:4.5px;background:#fff;box-shadow:inset 0 0 0 1.5px #C3CCD4}
+.dt-r .cl{min-width:0;display:flex;flex-direction:column;gap:1px}
+.dt-r .cl b{display:flex;align-items:center;gap:5px;font-size:14px;font-weight:600;line-height:1.25;color:var(--ink)}
+.dt-r .cl small{overflow:hidden;text-overflow:ellipsis;font-size:12px;line-height:1.3;color:var(--mut)}
+.dt-r .wn{width:13px;height:13px;stroke-width:1.9;color:var(--coral)}
+.dt-r .id{display:flex;align-items:center;gap:5px;font:400 11.5px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:-.01em;color:#7C858E}
+.dt-r .id svg{width:12px;height:12px;opacity:.6}
+.dt-r .dc{display:flex;flex-direction:column;gap:1px;line-height:1.25;font-variant-numeric:tabular-nums;color:var(--ink)}
+.dt-r .dc small{font-size:12px;color:var(--mut)}
+/* critic, 22.11: a row had four colour codes. Status is quiet now (a pale tint, ink-grey words, the colour only in a 6px dot),
+   so the score and the coral alert lead */
+.dt-st{display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px 0 7px;border-radius:10px;font-style:normal;font-size:11.5px;font-weight:500;color:var(--ink2)}
+.dt-st::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#B6C0C9}
+.dt-st.ip{background:#EEF4F9}
+.dt-st.ip::before{background:#139FFD}
+.dt-st.dn{background:#EEF5F0}
+.dt-st.dn::before{background:var(--green)}
+.dt-st.pd{padding:0 8px;box-shadow:inset 0 0 0 1.2px #C6CFD7}
+.dt-st.pd::before{display:none}
+.dt-r .pr{display:flex;align-items:center;gap:7px}
+.dt-r .pr i{display:flex;align-items:flex-end;gap:2px;height:11px}
+.dt-r .pr u{width:3px;border-radius:1px;background:#CDD5DC}
+.dt-r .pr u:nth-child(1){height:5px} .dt-r .pr u:nth-child(2){height:8px} .dt-r .pr u:nth-child(3){height:11px}
+.dt-r .pr .p1 u:nth-child(-n+1),.dt-r .pr .p2 u:nth-child(-n+2),.dt-r .pr .p3 u{background:#2B3238}
+.dt-r .ag{display:flex;align-items:center;gap:7px;min-width:0}
+.dt-r .ag em{overflow:hidden;text-overflow:ellipsis;font-style:normal}
+.dt-r .sx-av{width:22px;height:22px;font-size:9.5px}
+.dt-r .ag.none{color:var(--mut)}
+.dt-r .ag.none .sx-av{background:none;border:1.3px dashed #B9C3CC;box-sizing:border-box}
+.dt-r .du{text-align:right;font-variant-numeric:tabular-nums}
+.dt-r .dr{color:var(--mut)}
+.dt-r .se{display:flex;align-items:center;gap:6px}
+.dt-r .se i{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.dt-r .se i.neg{background:var(--coral)}
+.dt-r .se i.neu{background:#C9D3DB}
+.dt-r .sc{display:grid;place-items:center;justify-self:end;width:40px;height:24px;border-radius:12px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.dt-foot{flex:none;display:flex;align-items:center;gap:12px;height:42px;font-size:12.5px;color:var(--mut);white-space:nowrap}
+.dt-foot b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.dt-foot .av{display:none;align-items:center;gap:12px}
+.dt-foot .av i{width:3px;height:3px;border-radius:50%;background:#B6C0C9}
+.dt-foot .sig{display:none;gap:5px;height:24px;padding:0 10px 0 8px;margin-right:6px}
+.dt-foot .sig svg{width:12px;height:12px}
+.sx[data-st="2"] .dt-foot .av,.sx[data-st="2"] .dt-foot .sig{display:inline-flex;animation:sx-in .5s 1.9s cubic-bezier(.2,.8,.2,1) both}
+.dt-foot .pg{display:flex;align-items:center;gap:2px}
+.dt-foot .pg>*{display:grid;place-items:center;min-width:24px;height:24px;box-sizing:border-box;border-radius:8px;font-style:normal;font-weight:500;text-decoration:none;font-variant-numeric:tabular-nums}
+.dt-foot .pg b{background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA}
+.dt-foot .pg svg{width:14px;height:14px}
+.dt-foot .pg .last{padding:0 4px}
+/* shown finished (a jump, a pause): nothing waits and nothing plays */
+#sx-data.jmp .dt-f,#sx-data.jmp .dt-set .dt-r,#sx-data.jmp .dt-n{transition:none!important}
+#sx-data.jmp .dt-set.hit .dt-r,#sx-data.jmp .dt-foot .av,#sx-data.jmp .dt-foot .sig{animation:none!important}
+@media (prefers-reduced-motion: reduce){#sx-data .dt-f,#sx-data .dt-set .dt-r,#sx-data .dt-n{transition-delay:0s!important}#sx-data .dt-set.hit .dt-r,#sx-data .dt-foot .av,#sx-data .dt-foot .sig{animation-delay:0s!important}}
+/* the phone's frame is shorter and has no sidebar: six rows, and the id column gives its room to the call */
+.px-small #sx-data .card{padding:18px 24px 0}
+.px-small .dt-foot .rg{display:none}
+.px-small .dt-r{grid-template-columns:16px minmax(0,1fr) 60px 92px 80px 134px 72px 46px 88px 42px}
+.px-small .dt-r>:nth-child(3),.px-small .dt-set .dt-r:nth-child(n+7){display:none}
+/* with six rows the fourth match (the eighth row) was never on the phone's screen, so it cannot stay: its copy rises with the new ones */
+.px-small .sx[data-st="2"] .dt-set.hit .dt-r:nth-child(4){visibility:visible;animation:dt-in .36s cubic-bezier(.2,.8,.2,1) 1.26s both}
+/* where the camera looks in step 3 (v7/product.js, the data rows). Two boxes nobody sees, hung on the plain-words field, because the
+   desktop and the phone need different places: a = the opening (desktop: the field and the bar under it; phone: the field above the
+   three conditions, close enough to read them), c = the ending (desktop: the sentence, the three conditions and the count; phone: the
+   last two conditions and the count). Sizes are in parts of the field, so they hold at any scale. */
+.dt-ask{position:relative}
+.dt-cam{position:absolute;visibility:hidden;pointer-events:none}
+.dt-cam.a{left:-4.7%;top:-144%;width:81.4%;height:388%}
+.dt-cam.c{left:-2.06%;top:-62.5%;width:75.7%;height:312.5%}
+.px-small .dt-cam.a{left:16%;top:0;width:52.5%;height:100%}
+.px-small .dt-cam.c{left:34.2%;top:0;width:52.5%;height:190%}
+/* ---------- end Data ---------- */

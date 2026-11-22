@@ -37,9 +37,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-data.css">
 <link rel="stylesheet" href="lab-signals.css">
 <link rel="stylesheet" href="lab-stage.css">
-<link rel="stylesheet" href="../v7/font.css?v=1">
-<link rel="stylesheet" href="../v7/px.css?v=3">
-<link rel="stylesheet" href="../v7/case.css?v=4">
+<link rel="stylesheet" href="../v7/font.css?v=3">
+<link rel="stylesheet" href="../v7/px.css?v=12">
+<link rel="stylesheet" href="../v7/case.css?v=11">
 <style>
 /* data: toolbar anatomy (pins; on phones the two ends of the strip stack), plan-vs-build table, 3-column steps */
 .data-anat .live { top: 4px; bottom: auto; }
@@ -163,7 +163,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div class="prose"><p class="lead">I didn't redesign Data in place: I duplicated the page, changed the duplicate and kept both.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
       </div>
-      <ol class="steps data-steps rv xtra">
+      <ol class="steps data-steps rv">
         <li><strong>V1 · March</strong><span>My first version: a preset dropdown, filter chips, “Add columns” in the header and a filter popover with an explicit Apply.</span></li>
         <li><strong>V2 · May</strong><span>A duplicate of V1, “so the existing filter system is preserved.” Filters move into a collapsible strip with a describe-your-query box.</span></li>
         <li><strong>V3 · June</strong><span>Column-first: click a column and its filter editor opens, first floating beside the row, then inline under it. V1 was retired.</span></li>
@@ -185,7 +185,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The plan had three UI states, eight decisions and 12 edge cases. Each decision gave options, a recommendation and a reason, and each edge case carried a “Handle v1” or “Punt v2” mark.</p><p>Its core idea was a <b>View</b> that saves the filters, the visible columns and their order together.</p></div></details></div>
       </div>
 
-      <div class="rv xtra">
+      <div class="rv">
         <table class="data-plan">
           <caption>The plan's recommendations, and what got built</caption>
           <thead><tr><th scope="col">The plan recommended</th><th scope="col">What happened</th></tr></thead>
@@ -219,7 +219,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div class="prose"><p class="lead">Filters went back to an explicit Apply, and Reports and Signals to a grid like the other data pages.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Two habits run through my work on Data: reuse what exists, and build filters only from columns and values the table holds. I replaced Data's own filter strip with the one from the Alerts page, and the column-first presets “reference only real filterable columns + real values.”</p></div></details></div>
       </div>
-      <article class="decision rv xtra">
+      <article class="decision rv">
         <div class="label">Decision 2 · <b>When filters apply</b></div>
         <h3>Should a filter apply the moment you click, or wait for Apply?</h3>
         <ul class="opts">
@@ -275,8 +275,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script src="lab-live.js" defer></script>
 <script src="lab-data.js" defer></script>
 <script src="lab-signals.js" defer></script>
-<script src="case.js"></script>
+<script src="case.js?v=2"></script>
 <script src="lab-stage.js" defer></script>
-<script src="../v7/product.js?v=6" defer></script>
+<script src="../v7/depth.js?v=4" defer></script>
+<script src="../v7/product.js?v=16" defer></script>
 </body>
 </html>

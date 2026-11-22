@@ -29,3 +29,46 @@
   #web#web .wv-bar{ flex-direction:column; align-items:flex-start; gap:14px; margin-top:20px; padding:0 2px; }
 }
 @media (prefers-reduced-motion: reduce){ #web#web .wv-go span, #web#web .wv-app{ transition:none; } }
+
+/* ── The invitation (owner, 22.11.2026: "this button should be animated and more inviting").
+   The site itself gives the hint: every few seconds the page inside slides down a little and comes back, and the button answers in
+   the same beat: the mouse wheel turns twice, and the pill dips with the page. Three beats, then it rests. Hover lifts it and opens the arrows. ── */
+#web#web .wv-go span{ position:relative; height:54px; gap:12px; padding:0 22px 0 17px; border-radius:27px; font:500 16.5px/1 var(--body); letter-spacing:-.005em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16), 0 22px 40px -16px rgba(23,27,32,.75), 0 6px 14px -6px rgba(23,27,32,.45);
+  transition:transform .4s cubic-bezier(.2,.9,.25,1.25), opacity .25s, background-color .25s, box-shadow .3s; }
+#web#web .wv-go span b{ font-weight:500; }
+#web#web .wv-go svg{ width:22px; height:22px; flex:none; }
+#web#web .wv-go span > i{ display:grid; place-items:center; width:0; height:26px; margin-left:-12px; border-radius:50%; background:#139FFD; color:#fff; opacity:0; overflow:hidden; transition:width .4s cubic-bezier(.2,.9,.25,1.1), margin .4s cubic-bezier(.2,.9,.25,1.1), opacity .25s; }
+#web#web .wv-go span > i svg{ width:14px; height:14px; }
+#web#web .wv-go:hover span{ transform:translateY(-4px) scale(1.035); box-shadow:inset 0 1px 0 rgba(255,255,255,.2), 0 28px 46px -16px rgba(11,111,207,.6), 0 8px 16px -6px rgba(23,27,32,.45); }
+#web#web .wv-go:hover span > i{ width:26px; margin-left:0; opacity:1; }
+#web#web .wv-go:hover span > i svg{ animation:wv-drop 1s cubic-bezier(.4,0,.2,1) infinite; }
+#web#web .wv-go:active span{ transform:translateY(0) scale(.97); transition-duration:.12s; }
+/* arrives when the frame is first seen */
+#web#web .wv:not(.seen) .wv-go span{ opacity:0; transform:translateY(22px) scale(.92); }
+#web#web .wv.seen .wv-go span{ transition-delay:.35s; }
+#web#web .wv.seen.ready .wv-go span{ transition-delay:0s; }
+/* one beat */
+#web#web .wv-go.beat span{ animation:wv-dip 2.5s cubic-bezier(.65,0,.35,1) both; } /* the same ease as the page inside (v7/web-fyi.js, ease) */
+#web#web .wv-go.beat .wh{ animation:wv-wheel .62s cubic-bezier(.4,0,.2,1) 2 both; }
+@keyframes wv-wheel{ 0%{ transform:translateY(0); opacity:1; } 55%{ transform:translateY(6.5px); opacity:0; } 56%{ transform:translateY(-2.5px); opacity:0; } 100%{ transform:translateY(0); opacity:1; } }
+/* the pill and the page inside reach the bottom together: the page starts 120 ms in, lands at 880 ms, waits 520 ms and returns */
+@keyframes wv-dip{ 0%, 5%, 100%{ translate:0 0; } 35%, 56%{ translate:0 7px; } 88%{ translate:0 -2px; } }
+@keyframes wv-drop{ 0%{ transform:translateY(-12px); opacity:0; } 40%{ transform:translateY(0); opacity:1; } 60%{ transform:translateY(0); opacity:1; } 100%{ transform:translateY(12px); opacity:0; } }
+@media (max-width: 700px){
+  #web#web .wv-go span{ height:48px; font-size:15px; padding:0 20px 0 15px; }
+}
+@media (prefers-reduced-motion: reduce){
+  #web#web .wv-go.beat span, #web#web .wv-go.beat .wh, #web#web .wv-go:hover span > i svg{ animation:none; }
+  #web#web .wv:not(.seen) .wv-go span{ opacity:1; transform:none; }
+}
+
+/* Critic round, 22.11.2026 (evening). On touch the reader needs a visible way out of the frame: a Done chip where the invitation stood. */
+#web#web .wv-done{ display:none; }
+@media (hover: none){
+  #web#web .wv-done{ position:absolute; left:50%; bottom:16px; z-index:3; display:inline-flex; align-items:center; gap:7px; height:44px; padding:0 18px 0 14px; border:0; border-radius:22px; background:#171b20; color:#fff; font:500 15px/1 var(--body); box-shadow:0 14px 30px -12px rgba(23,27,32,.6); translate:-50% 10px; opacity:0; pointer-events:none; transition:opacity .25s ease, translate .35s cubic-bezier(.2,.7,.2,1); }
+  #web#web .wv-done svg{ width:16px; height:16px; }
+  #web#web .wv.is-on .wv-done{ opacity:1; translate:-50% 0; pointer-events:auto; transition-delay:.2s; }
+  #web#web .wv-done:focus-visible{ outline:2px solid #139FFD; outline-offset:3px; }
+}
+@media (prefers-reduced-motion: reduce){ #web#web .wv-done{ transition:none; } }

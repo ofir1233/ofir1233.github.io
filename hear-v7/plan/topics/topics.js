@@ -13,8 +13,8 @@
   /* topic: name, calls, change in 30 days, new?, then per parameter [score, value, change] */
   var T = [
     ['Online Booking', 4412, -9, 1, [44, '4.1 / 5', -3], [77, '3.4% of call time', -9], [9, '5.9 min', -14]],
-    ['Trip Status', 3968, -5, 0, [58, '4.3 / 5', -4], [74, '3.6% of call time', -5], [57, '3.7 min', -6]],
-    ['E-ticket Delivery', 2451, -1, 0, [59, '4.3 / 5', -1], [86, '2.7% of call time', 0], [71, '2.2 min', -2]],
+    ['Trip Status', 3968, 2, 0, [58, '4.3 / 5', 1], [74, '3.6% of call time', 3], [57, '3.7 min', 2]],
+    ['E-ticket Delivery', 2451, 4, 0, [59, '4.3 / 5', 3], [86, '2.7% of call time', 4], [71, '2.2 min', 5]],
     ['Itinerary Questions', 2377, -5, 0, [22, '3.8 / 5', -7], [71, '4.0% of call time', -3], [36, '4.3 min', -5]],
     ['Changes & Cancellations', 2206, -13, 1, [21, '3.7 / 5', -15], [52, '5.2% of call time', -10], [29, '4.9 min', -14]],
     ['Refunds & Credits', 1583, -9, 1, [26, '3.8 / 5', -11], [55, '5.0% of call time', -6], [27, '5.0 min', -10]],

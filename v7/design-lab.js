@@ -1,6 +1,6 @@
 /* v7 - design-lab: this section's behaviour. Loaded deferred, after the page's own scripts. */
 /* The frame runs the real Hear Studio pages (hear-v7/plan) in an iframe and plays them like a visitor would:
-   a pointer moves, clicks and types. Nothing is recorded. Pause it and the app is yours to use. */
+   a pointer moves, clicks and types. Nothing is recorded. Pausing holds the frame; the app inside never takes the pointer. */
 (function () {
   var fig = document.querySelector('#design-lab .hs-fig');
   if (!fig) return;
@@ -26,6 +26,9 @@
   new ResizeObserver(fit).observe(stage); fit();
 
   var going = function () { return inView && !paused; };
+  /* depth: the mouse over the frame is passed to the page inside as a position only; with no mouse, the picture drifts while it plays */
+  var depth = window.v7Depth ? window.v7Depth(frame, stage) : null;
+  if (depth) setInterval(function () { depth.drift(going()); }, 300);
   function button() {
     pp.setAttribute('aria-label', paused ? 'Play the demo' : 'Pause the demo');
     fig.classList.toggle('is-paused', paused);
@@ -156,7 +159,7 @@
   items.forEach(function (li, i) {
     li.querySelector('button').addEventListener('click', function () { paused = false; started = true; button(); setStep(i); play(i); });
   });
-  /* Paused, the pages take the pointer: once a visitor has used them, playing again starts the current step afresh. */
+  /* The frames never take the pointer (owner, 22.11.2026: a hover inside the app broke the staged steps). */
   /* Inside a rounded frame the app's sidebar sits too close to the corner: a little more room, here only. */
   frame.addEventListener('load', function () { try { var st = doc().createElement('style'); st.textContent = '.side{box-sizing:border-box!important;padding:26px 16px 24px 22px!important}'; doc().head.appendChild(st); } catch (e) {} });
   frame.addEventListener('load', function () { try { doc().addEventListener('pointerdown', function () { if (paused) touched = true; }); } catch (e) {} });
@@ -167,17 +170,21 @@
   button(); setStep(0);
 })();
 
-/* The Topics block: the same Studio pages with the Topics screen open. The switch under the frame sets its fidelity; the page is live. */
+/* The Topics block: the same Studio pages with the Topics screen open, at two fidelities. The bar under the frame is the tour's own:
+   a ring button, the step named beside it, and two marks on the right (owner, 22.11.2026 night: "I don't see this toggle"). */
 (function () {
   var fig = document.querySelector('#design-lab .tp-fig');
   if (!fig) return;
-  var stage = fig.querySelector('.hs-win'), frame = fig.querySelector('.tp-app'), seg = fig.querySelector('.tp-seg'), now = fig.querySelector('.tp-now');
+  var stage = fig.querySelector('.hs-win'), frame = fig.querySelector('.tp-app'), bar = fig.querySelector('.tp-bar'), pp = bar.querySelector('.hs-pp'), now = fig.querySelector('.tp-now');
   var kEl = now.querySelector('.hs-k'), tEl = now.querySelector('.hs-t'), dEl = now.querySelector('.tp-d');
   var COPY = {
     lo: ['Step 1 of 2', 'Structure first', 'Grey boxes and three notes: what the screen holds and why, before any colour.'],
     hi: ['Step 2 of 2', 'Then the Hear look', 'The same screen on glass and sky, with blue for the scores and coral for what needs attention.']
   };
-  var cur = 'lo', loaded = false, chose = false, shown = false, timer = 0;
+  var items = [].slice.call(bar.querySelectorAll('.tp-segs li'));
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DWELL = { lo: 5000, hi: 7000 }, LOOPS = 2;      // the wireframe is read in five seconds; the finished screen gets seven; two rounds, then it rests
+  var cur = 'lo', loaded = false, inView = false, paused = calm, ms = 0, loops = 0, rest = false;
   /* The screen is drawn at the size that fits the frame, not at 1440 and shrunk: 1120 in a wide frame, 860 without its sidebar in a
      medium one, and on a phone a tall 460 with the map alone. So the type stays near its real size everywhere. */
   function fit() {
@@ -187,15 +194,60 @@
     try { var c = frame.contentDocument.documentElement.classList; c.toggle('px-small', t[2] !== ''); c.toggle('px-phone', t[2] === 'p'); frame.contentWindow.dispatchEvent(new Event('resize')); } catch (e) {}
   }
   new ResizeObserver(fit).observe(stage); fit();
-  function set(f) {
-    cur = f; seg.setAttribute('data-f', f);
-    [].forEach.call(seg.querySelectorAll('button'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-f') === f); });
-    kEl.textContent = COPY[f][0]; tEl.textContent = COPY[f][1]; dEl.textContent = COPY[f][2];
-    now.classList.remove('swap'); void now.offsetWidth; now.classList.add('swap');
-    try { if (loaded) frame.contentWindow.hearTopics.fidelity(f); } catch (e) {}
-    fit();
+  /* the sentence under the name is one line or three, by width and by step: the block keeps the taller one, so the bar never changes height */
+  function room() {
+    var keep = dEl.textContent, h = 0;
+    dEl.style.minHeight = '';
+    ['lo', 'hi'].forEach(function (f) { dEl.textContent = COPY[f][2]; h = Math.max(h, dEl.offsetHeight); });
+    dEl.textContent = keep; dEl.style.minHeight = h + 'px';
   }
-  seg.addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; chose = true; clearTimeout(timer); if (b.getAttribute('data-f') !== cur) set(b.getAttribute('data-f')); });
+  new ResizeObserver(room).observe(bar); if (document.fonts && document.fonts.ready) document.fonts.ready.then(room);
+  function prog(p) { bar.style.setProperty('--p', p); items.forEach(function (li) { li.style.setProperty('--p', li.classList.contains('on') ? p : 0); }); }
+  function button() {
+    pp.setAttribute('aria-label', calm ? 'Show the other step' : rest ? 'Play again' : paused ? 'Play' : 'Pause');
+    fig.classList.toggle('is-paused', paused);
+  }
+  function set(f) {
+    var changed = f !== cur; cur = f; ms = 0;
+    items.forEach(function (li) {
+      var b = li.querySelector('button'), on = b.getAttribute('data-f') === f;
+      li.classList.toggle('on', on); li.classList.toggle('done', !on && f === 'hi'); b.setAttribute('aria-pressed', on);
+    });
+    prog(0);
+    if (changed) {
+      kEl.textContent = COPY[f][0]; tEl.textContent = COPY[f][1]; dEl.textContent = COPY[f][2];
+      now.classList.remove('swap'); void now.offsetWidth; now.classList.add('swap');
+      try { if (loaded) frame.contentWindow.hearTopics.fidelity(f); } catch (e) {}
+      fit();
+    }
+  }
+  /* Plays only while the bar is on screen and the page inside is up. Low for five seconds, high for seven, twice; then it rests on the finished screen. */
+  var last = performance.now();
+  (function tick(t) {
+    var dt = Math.min(100, t - last); last = t;
+    if (inView && loaded && !paused) {
+      ms += dt;
+      if (ms < DWELL[cur]) prog(ms / DWELL[cur]);
+      else if (cur === 'lo') set('hi');
+      else if (++loops >= LOOPS) { rest = true; paused = true; prog(1); button(); }
+      else set('lo');
+    }
+    requestAnimationFrame(tick);
+  })(last);
+  pp.addEventListener('click', function () {
+    if (calm) { set(cur === 'lo' ? 'hi' : 'lo'); return; }
+    fig.classList.remove('is-held');
+    if (rest) { rest = false; loops = 0; paused = false; set('lo'); }      // at rest the button plays it again from the wireframe
+    else paused = !paused;
+    button();
+  });
+  /* a mark is a choice: it shows that step and holds it; the button plays on from there */
+  items.forEach(function (li) {
+    li.querySelector('button').addEventListener('click', function () {
+      rest = false; loops = 0; paused = true; fig.classList.add('is-held');
+      set(this.getAttribute('data-f')); ms = 0; prog(0); button();
+    });
+  });
   frame.addEventListener('load', function () {
     if (!frame.getAttribute('src')) return;
     loaded = true;
@@ -208,14 +260,13 @@
       d.head.appendChild(st); fit();
       frame.contentWindow.hearTopics.fidelity(cur);
     } catch (e) {}
-    fig.classList.add('is-live'); first();
+    fig.classList.add('is-live');
   });
-  /* Seen for the first time, the wireframe stays long enough to be read, then the finished screen takes its place. Once only, and never after a choice. */
-  function first() {
-    if (!loaded || !shown || chose || timer) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    timer = setTimeout(function () { if (!chose) set('hi'); }, 3600);
-  }
   new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { frame.src = frame.getAttribute('data-src'); io.disconnect(); } }, { rootMargin: '700px 0px' }).observe(stage);
-  new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { shown = true; io.disconnect(); first(); } }, { threshold: 0.6 }).observe(stage);
+  /* the clock runs only while the bar itself is at least half on screen: the change is never out of sight */
+  new IntersectionObserver(function (es) { inView = es[0].isIntersecting; }, { threshold: 0.5 }).observe(bar);
+  if (calm) fig.classList.add('is-held');
+  button(); room();
+  var depth = window.v7Depth ? window.v7Depth(frame, stage) : null;
+  if (depth) new IntersectionObserver(function (es) { depth.drift(es[0].isIntersecting); }, { threshold: 0.3 }).observe(stage);
 })();

@@ -152,3 +152,35 @@
 #system#system .dk-tag.ink{ background:#FFE3DB; color:#B5371D; }
 #system#system .dk-tag.ok{ background:#DBEFE3; color:#226A45; }
 #system#system .dk-tag.new{ background:#F4E5F8; color:#7A3E98; }
+
+/* ── Calm pass (owner, 22.11.2026: "the top looks like a war, anything but elegant" and "the gaps between the rows are too big,
+   find another way to title each row"). The head is one sentence. Each row's name stands on its left edge, reading down, so the
+   three rows close up into one wall. The corner token and the pause sit under the wall, small. ── */
+#system#system .dk-head{ display:block !important; margin:0 !important; }
+#system#system .dk-line{ margin:0; max-width:none; font:400 16px/1.5 var(--body); letter-spacing:0; color:#6a7078; }
+#system#system .dk-line b{ font-weight:600; color:#171b20; }
+/* Owner, 22.11.2026 (evening): the names standing on the rows' left edge were "really bad; better as it was, only lose the titles".
+   The rows run edge to edge again with no title at all; each row keeps its name for screen readers (aria-label on the group). */
+#system#system .dk-rows{ gap:6px; margin-top:22px; }
+#system#system .dk-row{ display:block; }
+#system#system .dk-lab{ display:none !important; }
+#system#system .dk-lab{ writing-mode:vertical-rl; display:flex; align-items:center; gap:9px; margin:0; padding:8px 0 0; font:500 12.5px/1 var(--body); letter-spacing:.01em; color:#171b20; white-space:nowrap; justify-self:start; }
+#system#system .dk-lab b{ font-weight:500; }
+#system#system .dk-lab span{ font-size:12px; font-weight:400; color:#8a8e94; font-variant-numeric:tabular-nums; }
+#system#system .dk-strip{ padding-block:7px; }
+#system#system .dk-foot{ display:flex; align-items:center; justify-content:flex-end; gap:8px 14px; flex-wrap:wrap; margin-top:10px; min-height:34px; }
+#system#system .dk-tok{ margin:0; gap:10px; font-size:13px; color:#8a8e94; }
+#system#system .dk-tok span:not(.dk-seg){ margin:0; }
+#system#system .dk-tok .dk-seg{ padding:2px; background:rgba(24,36,48,.06); }
+#system#system .dk-tok .dk-seg button{ height:26px; padding:0 12px; font-size:12.5px; }
+#system#system .dk-foot .dk-pause{ margin:0; min-height:30px; padding:0 12px 0 11px; gap:8px; background:none; box-shadow:none; font:400 13px/1 var(--body); color:#6a7078; }
+#system#system .dk-foot .dk-pause:hover{ color:#171b20; }
+#system#system .dk-foot .dk-pi{ width:8px; height:9px; border-inline-width:2.5px; }
+#system#system .dk-foot .dk-pause[aria-pressed="true"] .dk-pi{ border-width:5px 0 5px 8px; }
+#system#system .ds-spec{ margin-top:34px; }
+@media (max-width:700px){
+  #system#system .dk-rows{ margin-top:16px; gap:4px; }
+  #system#system .dk-line{ font-size:15px; }
+  #system#system .dk-foot{ justify-content:flex-start; }
+  #system#system .dk-tok{ flex-basis:auto; }
+}

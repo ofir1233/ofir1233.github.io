@@ -1,0 +1,127 @@
+/* v7 - campaign: Hear's brand out in the world (LinkedIn posts, the company page, the mark as a cloud).
+   Owner, 22.11.2026: "this part needs a place of honour with the rest".
+   One object: a LinkedIn post drawn in HTML at a large size, with the six paintings as a list beside it. Under it, the company page header.
+   Scope is the block's own id, twice, so the home page's older #web rules cannot reach in. */
+#campaign#campaign{ margin:clamp(84px, 10vw, 136px) 0 0; }
+#campaign#campaign *{ box-sizing:border-box; }
+#campaign#campaign .cw-head{ display:grid; grid-template-columns:minmax(0, 6fr) minmax(0, 5fr); gap:20px clamp(32px, 5vw, 72px); align-items:end; margin:0 0 clamp(28px, 3.4vw, 44px); }
+#campaign#campaign .cw-head .label{ display:block; margin:0 0 16px; }
+#campaign#campaign .cw-head h3{ margin:0; font:600 clamp(30px, 3.5vw, 50px)/1.05 var(--body); letter-spacing:-.03em; color:#171b20; text-wrap:balance; }
+#campaign#campaign .cw-head p{ margin:0; max-width:520px; font:400 17px/1.55 var(--body); color:#4b5158; }
+
+#campaign#campaign .cw-stage{ display:grid; grid-template-columns:minmax(0, 1fr) clamp(260px, 26vw, 324px); gap:20px; align-items:stretch; }
+
+/* the post */
+#campaign#campaign .cw-post{ position:relative; margin:0; background:#fff; border-radius:30px; overflow:hidden; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 44px 80px -52px rgba(23,40,70,.5); }
+#campaign#campaign .cw-post-h{ display:flex; align-items:center; gap:14px; padding:20px 24px 0; }
+#campaign#campaign .cw-av{ flex:none; width:52px; height:52px; border-radius:9px; object-fit:cover; display:block; }
+#campaign#campaign .cw-who{ min-width:0; }
+#campaign#campaign .cw-who b{ display:block; font:600 16.5px/1.2 var(--body); color:#171b20; }
+#campaign#campaign .cw-who span{ display:block; margin-top:2px; font:400 13.5px/1.3 var(--body); color:#6a7078; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#campaign#campaign .cw-kind{ margin-left:auto; flex:none; display:inline-flex; align-items:center; gap:7px; height:30px; padding:0 12px; border-radius:15px; background:#f1f4f7; font:500 13px/1 var(--body); color:#4b5158; white-space:nowrap; }
+#campaign#campaign .cw-kind::before{ content:""; width:6px; height:6px; border-radius:50%; background:#139FFD; }
+#campaign#campaign .cw-post-t{ margin:0; max-width:none; padding:14px 24px 16px; min-height:calc(1.45em + 30px); font:400 16.5px/1.45 var(--body); color:#171b20; transition:opacity .28s; }
+#campaign#campaign .cw-post-t.out{ opacity:0; }
+#campaign#campaign .cw-art{ position:relative; display:block; width:100%; aspect-ratio:1200 / 628; padding:0; border:0; background:#dbe9f6; overflow:hidden; cursor:zoom-in; }
+#campaign#campaign .cw-art img{ position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:cover; opacity:0; transform:scale(1.04); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform 1.6s cubic-bezier(.2,.7,.2,1); filter:none; }
+#campaign#campaign .cw-art img.on{ opacity:1; transform:none; }
+#campaign#campaign .cw-art:focus-visible{ outline:2px solid #139FFD; outline-offset:-4px; }
+#campaign#campaign .cw-n{ position:absolute; left:16px; bottom:16px; z-index:2; display:inline-flex; align-items:center; height:30px; padding:0 12px; border-radius:15px; background:rgba(255,255,255,.9); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); font:600 13px/1 var(--body); font-variant-numeric:tabular-nums; color:#171b20; }
+#campaign#campaign .cw-zoom{ position:absolute; right:16px; bottom:16px; z-index:2; display:grid; place-items:center; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.9); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); color:#171b20; transition:transform .3s cubic-bezier(.2,.7,.2,1); }
+#campaign#campaign .cw-art:hover .cw-zoom{ transform:scale(1.1); }
+#campaign#campaign .cw-zoom svg{ width:16px; height:16px; }
+#campaign#campaign .cw-acts{ display:grid; grid-template-columns:repeat(4, 1fr); padding:4px 12px 6px; }
+#campaign#campaign .cw-acts span{ display:flex; align-items:center; justify-content:center; gap:9px; height:46px; font:600 14.5px/1 var(--body); color:#5d636a; }
+#campaign#campaign .cw-acts svg{ width:20px; height:20px; flex:none; }
+
+/* the six paintings */
+#campaign#campaign .cw-rail{ display:flex; flex-direction:column; gap:6px; margin:0; padding:0; list-style:none; }
+#campaign#campaign .cw-rail li{ flex:1; display:flex; margin:0; padding:0; }
+#campaign#campaign .cw-rail li::before{ display:none; }
+#campaign#campaign .cw-rail button{ position:relative; flex:1; display:grid; grid-template-columns:clamp(84px, 8.4vw, 108px) minmax(0, 1fr); gap:14px; align-items:center; width:100%; padding:9px; border:0; border-radius:20px; background:transparent; text-align:left; cursor:pointer; overflow:hidden; transition:background-color .3s, box-shadow .3s; }
+#campaign#campaign .cw-rail button:hover{ background:rgba(255,255,255,.6); }
+#campaign#campaign .cw-rail button[aria-pressed="true"]{ background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 18px 30px -24px rgba(23,40,70,.45); }
+#campaign#campaign .cw-rail button:focus-visible{ outline:2px solid #139FFD; outline-offset:2px; }
+#campaign#campaign .cw-rail img{ display:block; width:100%; height:auto; aspect-ratio:1200 / 628; border-radius:12px; object-fit:cover; filter:none; }
+#campaign#campaign .cw-rail b{ display:block; font:600 15px/1.2 var(--body); color:#171b20; }
+#campaign#campaign .cw-rail button > span{ display:block; min-width:0; }
+#campaign#campaign .cw-rail span span{ display:block; margin-top:4px; font:400 13.5px/1.35 var(--body); color:#5d636a; }
+/* while it plays by itself, the current row fills a thin line: the same sign the product windows use under their steps */
+#campaign#campaign .cw-rail button::after{ content:""; position:absolute; left:20px; right:20px; bottom:0; height:2px; border-radius:2px; background:#139FFD; transform:scaleX(0); transform-origin:0 50%; }
+#campaign#campaign.is-auto .cw-rail button[aria-pressed="true"]::after{ animation:cw-fill var(--cw-d, 5.2s) linear both; }
+@keyframes cw-fill{ to{ transform:scaleX(1); } }
+
+/* the company page */
+#campaign#campaign .cw-page{ margin:20px 0 0; background:#fff; border-radius:30px; overflow:hidden; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 44px 80px -56px rgba(23,40,70,.45); }
+#campaign#campaign .cw-cover{ display:block; overflow:hidden; background:#dbe9f6; }
+#campaign#campaign .cw-cover img{ display:block; width:100%; height:auto; max-width:none; filter:none; }
+#campaign#campaign .cw-pg{ display:flex; align-items:flex-end; gap:20px; padding:0 28px 24px; }
+#campaign#campaign .cw-pg-av{ flex:none; width:116px; height:116px; margin-top:-50px; border-radius:14px; border:5px solid #fff; object-fit:cover; display:block; background:#fff; position:relative; }
+#campaign#campaign .cw-pg-who{ min-width:0; padding-bottom:4px; }
+#campaign#campaign .cw-pg-who b{ display:block; font:600 22px/1.15 var(--body); letter-spacing:-.01em; color:#171b20; }
+#campaign#campaign .cw-pg-who span{ display:block; margin-top:4px; font:400 15px/1.35 var(--body); color:#5d636a; }
+#campaign#campaign .cw-pg-note{ margin:0 0 6px auto; max-width:340px; font:400 14.5px/1.45 var(--body); color:#5d636a; text-align:left; }
+#campaign#campaign .cw-pg-note b{ font-weight:600; color:#171b20; }
+#campaign#campaign .cw-open{ flex:none; display:inline-flex; align-items:center; gap:8px; height:44px; margin-bottom:2px; padding:0 18px; border:0; border-radius:22px; background:#171b20; color:#fff; font:500 15px/1 var(--body); cursor:pointer; transition:background-color .2s, transform .3s cubic-bezier(.2,.7,.2,1); }
+#campaign#campaign .cw-open:hover{ background:#2a3038; transform:translateY(-2px); }
+#campaign#campaign .cw-open:focus-visible{ outline:2px solid #139FFD; outline-offset:3px; }
+
+@media (max-width:980px){
+  #campaign#campaign .cw-head{ grid-template-columns:minmax(0, 1fr); }
+  #campaign#campaign .cw-stage{ grid-template-columns:minmax(0, 1fr); }
+  #campaign#campaign .cw-rail{ flex-direction:row; gap:8px; margin:0 -20px; padding:4px 20px 14px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x proximity; scrollbar-width:none; }
+  #campaign#campaign .cw-rail::-webkit-scrollbar{ display:none; }
+  #campaign#campaign .cw-rail li{ flex:none; width:168px; scroll-snap-align:start; }
+  #campaign#campaign .cw-rail button{ grid-template-columns:minmax(0, 1fr); gap:10px; align-content:start; padding:8px 8px 12px; }
+  #campaign#campaign .cw-rail span span{ display:none; }
+  #campaign#campaign .cw-rail b{ font-size:14px; padding:0 4px; }
+  #campaign#campaign .cw-rail button::after{ left:14px; right:14px; }
+  #campaign#campaign .cw-pg{ flex-wrap:wrap; }
+  #campaign#campaign .cw-pg-note{ order:3; flex:1 1 100%; margin:0; max-width:none; text-align:left; }
+  #campaign#campaign .cw-open{ margin-left:auto; }
+}
+@media (max-width:640px){
+  #campaign#campaign .cw-post, #campaign#campaign .cw-page{ border-radius:22px; }
+  #campaign#campaign .cw-post-h{ padding:16px 16px 0; gap:12px; }
+  #campaign#campaign .cw-av{ width:44px; height:44px; }
+  #campaign#campaign .cw-kind{ display:none; }
+  #campaign#campaign .cw-post-t{ padding:12px 16px 14px; font-size:15.5px; min-height:calc(2.9em + 26px); }
+  #campaign#campaign .cw-acts{ padding:2px 4px 4px; }
+  #campaign#campaign .cw-acts span{ gap:5px; font-size:12.5px; height:42px; }
+  #campaign#campaign .cw-acts svg{ width:17px; height:17px; }
+  #campaign#campaign .cw-n{ left:10px; bottom:10px; } #campaign#campaign .cw-zoom{ right:10px; bottom:10px; }
+  /* the cover is a strip 1128 x 191: on a phone it keeps a readable height and swipes sideways */
+  #campaign#campaign .cw-cover{ overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:none; }
+  #campaign#campaign .cw-cover::-webkit-scrollbar{ display:none; }
+  #campaign#campaign .cw-cover img{ width:auto; height:118px; }
+  #campaign#campaign .cw-pg{ padding:0 16px 18px; gap:14px; }
+  #campaign#campaign .cw-pg-av{ width:84px; height:84px; margin-top:-30px; border-width:4px; border-radius:12px; }
+  #campaign#campaign .cw-pg-who b{ font-size:19px; }
+  #campaign#campaign .cw-open{ margin-left:0; }
+}
+@media (prefers-reduced-motion: reduce){
+  #campaign#campaign .cw-art img{ transition:none; transform:none; }
+  #campaign#campaign .cw-post-t, #campaign#campaign .cw-zoom, #campaign#campaign .cw-open{ transition:none; }
+  #campaign#campaign.is-auto .cw-rail button[aria-pressed="true"]::after{ animation:none; }
+}
+
+/* the large view: a light sheet, never a dark one */
+dialog.cw-dlg{ max-width:none; max-height:none; width:100vw; height:100dvh; margin:0; padding:clamp(14px, 3vw, 40px); border:0; background:transparent; overflow:auto; }
+dialog.cw-dlg[open]{ display:grid; place-items:center; }
+dialog.cw-dlg::backdrop{ background:rgba(244,243,241,.9); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); }
+dialog.cw-dlg img{ display:block; max-width:min(100%, 1500px); max-height:calc(100dvh - 2 * clamp(14px, 3vw, 40px)); width:auto; height:auto; border-radius:20px; box-shadow:0 0 0 1px rgba(23,27,32,.08), 0 50px 100px -40px rgba(23,40,70,.55); cursor:zoom-out; }
+dialog.cw-dlg.tall{ place-items:start center; }
+dialog.cw-dlg.tall img{ max-height:none; max-width:min(100%, 900px); }
+dialog.cw-dlg button{ position:fixed; right:20px; top:20px; display:grid; place-items:center; width:44px; height:44px; border:0; border-radius:50%; background:#171b20; color:#fff; font:400 24px/1 var(--body, system-ui); cursor:pointer; }
+dialog.cw-dlg button:focus-visible{ outline:2px solid #139FFD; outline-offset:3px; }
+
+/* inside a case-study chapter the chapter head does the introducing */
+.chapter #campaign#campaign{ margin-top:0; }
+
+/* Critic round one: the Like / Comment row is a drawing, so it is greyer and lighter than anything that can be pressed;
+   and on a phone the "mockup" label stays, as a small line under the name, so the post is never taken for a real one. */
+#campaign#campaign .cw-acts span{ color:#9aa0a6; font-weight:500; }
+@media (max-width:640px){
+  #campaign#campaign .cw-post-h{ flex-wrap:wrap; }
+  #campaign#campaign .cw-kind{ display:block; flex:1 1 100%; order:5; margin:-4px 0 0 56px; padding:0; background:none; box-shadow:none; font-size:12px; color:#8a8e94; text-align:left; }
+}

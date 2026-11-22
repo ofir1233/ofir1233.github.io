@@ -1,0 +1,141 @@
+/* v7 - tokens: Foundations, colour. Owner, 22.11.2026: "do not look at this only as colours: see the world we built with them,
+   these are the building stones of the experience, a whole theory" and "on hover the section changes size and the screen moves".
+   So: one picture and one product screen stand side by side, and the nine colours build both, one after the other, each with its one job.
+   A colour chosen from the palette stays alone in the picture and in the screen. Every box here has a fixed size: nothing moves on hover.
+   The picture is cut into its colours in the browser (v7/tokens.js). */
+@property --tkp{ syntax:'<percentage>'; inherits:false; initial-value:130%; }
+#system#system .tk{ position:relative; margin-top:34px; padding:26px 28px 26px; background:#fff; border-radius:20px; box-shadow:0 0 0 1px #e6e5e1; color:#171b20; font:400 15px/1.5 var(--body); letter-spacing:0; }
+#system#system .tk-head{ display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:32px; margin:0 0 16px; }
+#system#system .tk-tag{ display:flex; align-items:center; gap:8px; margin:0; max-width:none; font:600 14px/1.3 var(--body); letter-spacing:0; text-transform:none; color:#70767d; }
+#system#system .tk-tag span{ padding:4px 10px; border-radius:99px; background:#e6e8ea; color:#333a42; }
+#system#system .tk-re{ display:inline-flex; align-items:center; gap:7px; height:32px; margin:0; padding:0 12px 0 10px; border:0; border-radius:99px; background:#f4f3f1; color:#333a42; font:500 13px/1 var(--body); letter-spacing:0; cursor:pointer; transition:background .2s, opacity .4s; }
+#system#system .tk-re[hidden]{ display:inline-flex; visibility:hidden; opacity:0; }
+#system#system .tk-re:hover{ background:#eceae6; }
+#system#system .tk-re svg{ width:14px; height:14px; transition:transform .5s cubic-bezier(.2,.8,.2,1); }
+#system#system .tk-stage{ display:grid; grid-template-columns:minmax(0, 1.5fr) minmax(0, 1fr); gap:16px; }
+#system#system .tk-stage figure{ position:relative; display:flex; margin:0; padding:0; min-width:0; }
+#system#system .tk-frame{ position:relative; flex:1; overflow:hidden; border-radius:14px; background:#f4f3f1; box-shadow:inset 0 0 0 1px rgba(23,27,32,.07); isolation:isolate; }
+#system#system .tk-pic .tk-frame{ aspect-ratio:3 / 2; }
+#system#system .tk-pic canvas, #system#system .tk-pic img{ position:absolute; inset:0; display:block; width:100%; height:100%; max-width:none; margin:0; border-radius:0; object-fit:cover; }
+#system#system .tk-under{ opacity:0; }
+#system#system .tk.ready .tk-under{ opacity:1; transition:opacity .26s ease; }
+#system#system .tk.ready[data-mode="one"] .tk-under{ opacity:.45; }
+#system#system .tk.ready:not([data-mode="build"]):not([data-mode="wait"]) .tk-pic .tk-frame{ cursor:crosshair; }
+#system#system .tk-ly{ opacity:0; transition:opacity .18s ease; }
+#system#system .tk-ly.on{ opacity:1; transition:opacity .26s cubic-bezier(.3,.1,.2,1); }
+#system#system .tk-full{ transition:opacity .42s cubic-bezier(.3,.1,.2,1); }
+#system#system .tk.ready:not([data-mode="all"]) .tk-full{ opacity:0; transition-duration:.2s; }
+/* while the world is being built, a colour arrives as one pass of the brush from the left */
+@supports (mask-image:linear-gradient(#000,#000)) or (-webkit-mask-image:linear-gradient(#000,#000)){
+  #system#system .tk[data-mode="build"] .tk-ly.on{ transition:none; -webkit-mask-image:linear-gradient(102deg, #000 calc(var(--tkp) - 16%), transparent var(--tkp)); mask-image:linear-gradient(102deg, #000 calc(var(--tkp) - 16%), transparent var(--tkp)); animation:tk-wash .52s cubic-bezier(.4,.1,.25,1) both; }
+}
+@keyframes tk-wash{ from{ --tkp:0%; } to{ --tkp:130%; } }
+#system#system .tk-lab{ position:absolute; left:12px; top:12px; z-index:3; padding:5px 10px; border-radius:99px; background:rgba(255,255,255,.92); color:#333a42; font:500 12px/1.2 var(--body); letter-spacing:0; box-shadow:0 1px 2px rgba(23,27,32,.08); }
+/* the product: one small call list, every part tagged with the colour that makes it */
+#system#system .tk-ui .tk-frame{ container-type:inline-size; display:grid; place-items:center; padding:0; }
+#system#system .tk-bg{ position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, #CFE4F6 0%, #DCE8F5 55%, #E9F0F9 100%); }
+#system#system .tk-card{ position:relative; isolation:isolate; width:86%; margin-top:5cqw; font-size:clamp(9.5px, 3.25cqw, 13.5px); line-height:1.3; color:#181818; border-radius:1.1em; outline:1px solid rgba(23,27,32,.09); outline-offset:-1px; padding:1.15em 1.2em 1.1em; }
+#system#system .tk-cardbg{ position:absolute; inset:0; z-index:-1; border-radius:inherit; background:#fff; box-shadow:0 1.4em 2.6em -1.6em rgba(11,79,138,.45), 0 0 0 1px rgba(255,255,255,.9); }
+#system#system .tk-ask{ display:flex; align-items:center; gap:.6em; height:2.7em; padding:0 .8em; border-radius:.75em; box-shadow:inset 0 0 0 1px rgba(23,27,32,.1); font-weight:500; white-space:nowrap; overflow:hidden; }
+#system#system .tk-ask svg{ flex:none; width:1.15em; height:1.15em; color:#C37AD0; }
+#system#system .tk-ask span{ overflow:hidden; text-overflow:ellipsis; }
+#system#system .tk-chips{ display:flex; align-items:center; gap:.45em; margin-top:.75em; white-space:nowrap; }
+#system#system .tk-chip{ display:inline-flex; align-items:center; gap:.35em; height:1.9em; padding:0 .7em; border-radius:99px; background:#F3E3F6; color:#5c2a66; font-size:.88em; font-weight:500; }
+#system#system .tk-chip b{ font-weight:600; }
+#system#system .tk-chip svg{ width:.9em; height:.9em; color:#C37AD0; }
+#system#system .tk-n{ margin-left:auto; font-size:.88em; font-weight:600; color:#181818; }
+#system#system .tk-hr{ display:block; height:1px; margin:.85em 0 0; background:#CBD3DA; }
+#system#system .tk-row{ display:flex; align-items:center; gap:.7em; padding:.72em 0 0; white-space:nowrap; }
+#system#system .tk-av{ flex:none; display:grid; place-items:center; width:2.1em; height:2.1em; border-radius:50%; background:#CBD3DA; color:#3D444C; font-size:.82em; font-weight:600; }
+#system#system .tk-rt{ flex:1; min-width:0; display:grid; gap:.1em; }
+#system#system .tk-tt{ display:flex; align-items:center; gap:.4em; min-width:0; }
+#system#system .tk-tt b{ font-weight:600; overflow:hidden; text-overflow:ellipsis; }
+#system#system .tk-tt svg{ flex:none; width:1em; height:1em; color:#FF6F52; }
+#system#system .tk-rt small{ font-size:.86em; color:#6A7078; overflow:hidden; text-overflow:ellipsis; }
+#system#system .tk-st{ flex:none; display:inline-flex; align-items:center; gap:.4em; height:1.8em; padding:0 .65em; border-radius:99px; font-size:.84em; font-weight:500; }
+#system#system .tk-st.dn{ background:#E2F1E9; color:#236B45; }
+#system#system .tk-st.dn i{ width:.5em; height:.5em; border-radius:50%; background:#4BA373; }
+#system#system .tk-st.pd{ box-shadow:inset 0 0 0 1px #CBD3DA; color:#6A7078; }
+#system#system .tk-up{ flex:none; font-size:.84em; font-weight:600; color:#2A8554; }
+#system#system .tk-sc{ flex:none; display:grid; place-items:center; min-width:2.5em; height:1.8em; border-radius:99px; color:#fff; font-size:.9em; font-weight:600; }
+#system#system .tk-sc.lo{ background:#FF6F52; }
+#system#system .tk-sc.hi{ background:#139FFD; }
+#system#system .tk-act{ display:flex; align-items:center; justify-content:space-between; gap:1em; margin-top:1em; white-space:nowrap; }
+#system#system .tk-lk{ color:#0B6FCF; font-weight:600; font-size:.92em; }
+#system#system .tk-btnw{ position:relative; flex:none; }
+#system#system .tk-btn{ display:grid; place-items:center; height:2.5em; padding:0 1.1em; border-radius:.75em; background:#181818; color:#fff; font-weight:600; font-size:.92em; }
+#system#system .tk-ring{ position:absolute; inset:-.28em; border-radius:.95em; box-shadow:0 0 0 .14em #139FFD; }
+/* a part whose colour has not arrived, or is not the chosen one, stays as a pale pencil ghost */
+#system#system .tk.js [data-t]{ transition:opacity .26s cubic-bezier(.3,.1,.2,1), filter .26s ease; }
+#system#system .tk.js [data-t].off{ opacity:.13; filter:grayscale(1); transition-duration:.18s; }
+#system#system .tk.js .tk-bg.off, #system#system .tk.js .tk-cardbg.off{ opacity:0; }
+/* the theory, in words; and the palette */
+#system#system .tk-foot{ display:grid; grid-template-columns:minmax(0, 1fr) auto; align-items:start; gap:20px 40px; margin-top:22px; }
+#system#system .tk-say{ min-width:0; height:132px; transition:opacity .16s ease; }
+#system#system .tk-say.sw{ opacity:0; }
+#system#system .tk-role{ display:flex; align-items:center; gap:10px; margin:0; max-width:none; height:20px; font:500 13px/20px var(--body); letter-spacing:0; color:#70767d; }
+#system#system .tk-role i{ font-style:normal; font-variant-numeric:tabular-nums; color:#a9acb1; }
+#system#system .tk-name{ display:flex; align-items:baseline; gap:12px; margin:2px 0 0; height:38px; font:700 28px/38px var(--display); letter-spacing:-.02em; color:#171b20; white-space:nowrap; }
+#system#system .tk-name code{ font:500 13px/1 var(--mono); letter-spacing:0; color:#70767d; background:none; padding:0; }
+#system#system .tk-line{ margin:2px 0 0; max-width:none; height:26px; font:500 17px/26px var(--body); letter-spacing:-.005em; color:#333a42; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#system#system .tk-ev{ display:grid; gap:0; margin:8px 0 0; padding:0; list-style:none; }
+#system#system .tk-ev li{ display:flex; gap:10px; height:18px; margin:0; padding:0; font:400 13px/18px var(--body); color:#555d64; white-space:nowrap; overflow:hidden; }
+#system#system .tk-ev li::before{ display:none; }
+#system#system .tk-ev b{ flex:none; width:58px; font-weight:500; color:#a0a4a9; }
+#system#system .tk-say.hint .tk-ev b{ display:none; }
+#system#system .tk-say.hint .tk-ev li{ color:#70767d; }
+#system#system .tk-ev span{ overflow:hidden; text-overflow:ellipsis; }
+#system#system .tk-pal{ display:flex; align-items:flex-start; gap:22px; padding-top:1px; }
+#system#system .tk-g{ display:grid; gap:9px; }
+#system#system .tk-g > span{ height:20px; font:500 13px/20px var(--body); color:#70767d; }
+#system#system .tk-g > div{ display:flex; gap:6px; }
+#system#system .tk-c{ position:relative; display:grid; justify-items:center; align-content:start; gap:7px; width:62px; margin:0; padding:0 0 9px; border:0; background:none; color:#555d64; font:500 11.5px/1.2 var(--body); letter-spacing:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+#system#system .tk-c i{ display:block; width:44px; height:44px; border-radius:11px; background:var(--c); box-shadow:inset 0 0 0 1px rgba(23,27,32,.1); transition:transform .35s cubic-bezier(.2,.8,.2,1.25), box-shadow .25s ease, background-color .28s ease; }
+#system#system .tk-c span{ white-space:nowrap; transition:color .2s; }
+#system#system .tk-c[aria-pressed="true"] i, #system#system .tk-c.cur i{ box-shadow:inset 0 0 0 1px rgba(23,27,32,.1), 0 0 0 2px #fff, 0 0 0 4px #171b20; }
+#system#system .tk-c[aria-pressed="true"] span, #system#system .tk-c.cur span{ color:#171b20; }
+#system#system .tk-c:focus-visible{ outline:none; }
+#system#system .tk-c:focus-visible i{ box-shadow:inset 0 0 0 1px rgba(23,27,32,.1), 0 0 0 2px #fff, 0 0 0 4px #139FFD; }
+/* building: a chip is hollow until its colour has arrived; the line under the current chip is the clock of the step */
+#system#system .tk[data-mode="build"] .tk-c:not(.in) i, #system#system .tk.js[data-mode="wait"] .tk-c i{ background:#fff; box-shadow:inset 0 0 0 1.5px #d9d8d4; }
+#system#system .tk-c::after{ content:""; position:absolute; left:9px; right:9px; bottom:0; height:2px; border-radius:2px; background:#171b20; transform:scaleX(0); transform-origin:0 50%; transition:transform .22s cubic-bezier(.2,.8,.2,1); }
+/* a colour that is kept (clicked) carries a line under it until it is let go */
+#system#system .tk-c[aria-pressed="true"]::after{ transform:scaleX(1); }
+@keyframes tk-clock{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
+@media (max-width: 1180px){
+  #system#system .tk-foot{ grid-template-columns:minmax(0, 1fr); }
+  #system#system .tk-pal{ justify-content:space-between; gap:14px; }
+}
+@media (max-width: 900px){
+  #system#system .tk-stage{ grid-template-columns:minmax(0, 1fr); gap:12px; }
+  #system#system .tk-ui .tk-frame{ aspect-ratio:16 / 9; }
+  #system#system .tk-card{ width:min(78%, 520px); margin-top:6cqw; font-size:clamp(9px, 2.2cqw, 14px); }
+}
+@media (max-width: 760px){
+  #system#system .tk{ margin-top:26px; padding:16px 14px 18px; border-radius:18px; }
+  #system#system .tk-head{ margin-bottom:12px; }
+  #system#system .tk-stage{ grid-template-columns:minmax(0, 1fr); gap:10px; }
+  #system#system .tk-frame{ border-radius:12px; }
+  #system#system .tk-ui .tk-frame{ aspect-ratio:16 / 10; }
+  #system#system .tk-card{ width:86%; margin-top:4.5cqw; font-size:clamp(9px, 2.9cqw, 13px); }
+  #system#system .tk-lab{ left:9px; top:9px; font-size:11.5px; padding:4px 9px; }
+  #system#system .tk-foot{ display:flex; flex-direction:column; margin-top:14px; gap:14px; }
+  #system#system .tk-pal{ order:-1; }
+  #system#system .tk-say.hint .tk-ev li{ height:auto; white-space:normal; }
+  #system#system .tk-say.hint .tk-ev{ min-height:36px; }
+  #system#system .tk-say{ height:auto; min-height:150px; }
+  #system#system .tk-name{ font-size:25px; }
+  #system#system .tk-line{ height:48px; line-height:24px; font-size:16px; white-space:normal; }
+  #system#system .tk-pal{ display:grid; grid-template-columns:auto auto; justify-content:space-between; gap:12px 10px; }
+  #system#system .tk-g > span{ font-size:12px; }
+  #system#system .tk-g > div{ gap:2px; }
+  #system#system .tk-g{ gap:5px; }
+  #system#system .tk-c{ width:54px; gap:5px; padding:0 0 8px; font-size:10.5px; }
+  #system#system .tk-c i{ width:44px; height:44px; border-radius:10px; }
+  #system#system .tk-c::after{ left:8px; right:8px; }
+  #system#system .tk-re span{ display:none; }
+  #system#system .tk-re{ padding:0 9px; }
+}
+@media (prefers-reduced-motion: reduce){
+  #system#system .tk *, #system#system .tk *::after{ transition:none !important; animation:none !important; }
+}

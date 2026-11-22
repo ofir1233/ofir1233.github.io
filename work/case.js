@@ -261,7 +261,7 @@
         secs.forEach((s, k) => { if (s.getBoundingClientRect().top <= line) i = k; });
         if (i !== cur) { cur = i; [links, rl].forEach(set => set.forEach((a, k) => { if (k === i) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); })); }
         const tb = toc.getBoundingClientRect().bottom, et = end ? end.getBoundingClientRect().top : Infinity;
-        const on = tb < 0 && i >= 0 && et > innerHeight * .5;
+        const on = tb < 0 && i >= 0 && et > innerHeight - 96;
         if (on !== shown) { shown = on; rail.classList.toggle('on', on); rail.setAttribute('aria-hidden', on ? 'false' : 'true'); rl.forEach(a => { a.tabIndex = on ? 0 : -1; }); }
       };
       addEventListener('scroll', () => { if (!raf2) raf2 = requestAnimationFrame(spy); }, { passive: true });
@@ -290,3 +290,13 @@
 
 // smooth scrolling switches on after load (html.ready), so a link to a #section opens right there, as on the homepage
 (() => { const ready = () => requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.add('ready'))); if (document.readyState === 'complete') ready(); else addEventListener('load', ready, { once: true }); })();
+
+/* Read more, on closing: the folded blocks leave the page at once, so the summary is brought back into view instead of the page jumping to somewhere else. */
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('details.more').forEach(d => d.addEventListener('toggle', () => {
+    if (d.open) return;
+    const r = d.getBoundingClientRect();
+    if (r.top < 90 || r.top > innerHeight - 60) d.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+  }));
+})();

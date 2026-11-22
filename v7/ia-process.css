@@ -1,1 +1,129 @@
 /* v7 - ia-process: this section's styles. Loaded after the page's own sheet. */
+
+/* The dial and the phase number carry the phase: the icon tile above the name added nothing and is gone (owner, 22.11.2026: "all the icons are ugly"). */
+#process#process .phase .ico{ display:none !important; }
+
+/* ── The eight-phase dial (owner, 22.11.2026: "the hand is stuck in place and it looks bad, improve everything here").
+   One arc carries all eight phases. The hand travels to a phase, the ticks rise under it, the chip fills when it lands, and
+   the text in the bowl reads what the hand points at. Built by v7/ia-process.js; without it the plain list stays. ── */
+#process#process.pz-on .phases{ position:absolute !important; width:1px !important; height:1px !important; margin:-1px !important; padding:0 !important; overflow:hidden !important; clip-path:inset(50%); border:0 !important; white-space:nowrap; }
+#process#process .pz{ position:relative; width:min(100%, 1120px); margin:clamp(22px, 3vw, 44px) auto 0; -webkit-tap-highlight-color:transparent; }
+#process#process .pz-face{ position:absolute; left:0; top:0; display:block; overflow:visible; pointer-events:none; }
+#process#process .pz-plate{ stroke-width:1; }
+#process#process .pz-shade{ fill:none; stroke-width:9; filter:blur(8px); translate:0 4px; }
+#process#process .pz[data-mode="small"] .pz-plate, #process#process .pz[data-mode="small"] .pz-shade{ display:none; }
+#process#process .pz-plate, #process#process .pz-shade{ opacity:0; transition:opacity .9s ease .3s; }
+#process#process .pz-live .pz-plate, #process#process .pz-live .pz-shade{ opacity:1; }
+#process#process .pz-track{ fill:none; stroke:rgba(23,27,32,.13); stroke-width:1; }
+#process#process .pz-done{ fill:none; stroke:#139FFD; stroke-width:1.5; stroke-linecap:round; }
+#process#process .pz-ticks line{ stroke-width:1.2; stroke-linecap:round; transition:opacity .4s ease; }
+#process#process .pz-ghost{ stroke:#139FFD; stroke-width:1.5; stroke-linecap:round; opacity:0; }
+#process#process .pz-hand{ opacity:0; transition:opacity .3s ease; filter:drop-shadow(0 3px 5px rgba(11,111,207,.3)); }
+#process#process .pz-live .pz-hand{ opacity:1; }
+#process#process .pz-hl{ fill:#0b6fcf; }
+#process#process .pz-hh{ fill:rgba(19,159,253,.15); }
+#process#process .pz-hd{ fill:#fff; stroke:#139FFD; stroke-width:2; }
+
+#process#process .pz-stops{ position:absolute; inset:0; pointer-events:none; }
+#process#process .pz-stop{ pointer-events:auto; position:absolute; width:var(--chip, 40px); height:var(--chip, 40px); min-width:0; min-height:0; margin:0; padding:0; border:0; border-radius:50%; background:none; box-shadow:none; translate:-50% -50%; cursor:pointer; font:inherit; color:inherit; opacity:0; scale:.4; -webkit-appearance:none; appearance:none; }
+#process#process .pz-stop::before{ content:""; position:absolute; inset:-6px; border-radius:50%; }
+#process#process .pz-stop.in{ opacity:1; scale:1; }
+#process#process .pz-num{ position:absolute; inset:0; display:grid; place-items:center; border-radius:50%; background:#fff; color:#8a8e94; font:600 13.5px/1 var(--body); font-variant-numeric:tabular-nums; letter-spacing:0; box-shadow:0 0 0 1px rgba(23,27,32,.08), 0 1px 2px rgba(23,27,32,.06), 0 8px 16px -10px rgba(23,27,32,.32); transition:background-color .18s ease, color .18s ease, box-shadow .25s ease, scale .2s cubic-bezier(.3,1.4,.4,1); }
+#process#process .pz-stop.is-past .pz-num{ color:#171b20; }
+#process#process .pz-stop:hover .pz-num{ color:#171b20; box-shadow:0 0 0 1px rgba(23,27,32,.22), 0 2px 3px rgba(23,27,32,.06), 0 12px 20px -10px rgba(23,27,32,.36); }
+#process#process .pz-stop:active .pz-num{ scale:.92; }
+#process#process .pz-stop.is-on .pz-num{ background:#171b20; color:#fff; box-shadow:0 1px 2px rgba(23,27,32,.2), 0 10px 18px -8px rgba(23,27,32,.5); }
+#process#process .pz-stop:focus-visible{ outline:none; }
+#process#process .pz-stop:focus-visible .pz-num{ outline:2px solid #139FFD; outline-offset:3px; }
+#process#process .pz-name{ position:absolute; display:none; white-space:nowrap; font:500 13.5px/1.2 var(--body); letter-spacing:0; color:#8a8e94; transition:color .25s ease; }
+#process#process .pz[data-mode="wide"] .pz-name{ display:block; }
+#process#process .pz-stop.is-past .pz-name{ color:#5d636a; }
+#process#process .pz-stop.is-on .pz-name, #process#process .pz-stop:hover .pz-name{ color:#171b20; }
+#process#process .pz-ring{ position:absolute; left:-7px; top:-7px; width:calc(var(--chip, 40px) + 14px); height:calc(var(--chip, 40px) + 14px); rotate:-90deg; overflow:visible; pointer-events:none; opacity:0; transition:opacity .2s ease; }
+#process#process .pz-ring.on{ opacity:1; }
+#process#process .pz-ring circle{ fill:none; stroke:#139FFD; stroke-width:1.8; stroke-linecap:round; stroke-dasharray:100; stroke-dashoffset:100; }
+
+#process#process .pz-core{ position:relative; display:flex; flex-direction:column; align-items:center; gap:26px; text-align:center; pointer-events:none; opacity:0; translate:0 10px; transition:opacity .6s ease .12s, translate .7s cubic-bezier(.2,.7,.2,1) .12s; }
+#process#process .pz-live .pz-core{ opacity:1; translate:0 0; }
+#process#process .pz-read{ display:grid; width:min(100%, 440px); pointer-events:auto; touch-action:pan-y; }
+#process#process .pz-item{ grid-area:1 / 1; display:flex; flex-direction:column; align-items:center; visibility:hidden; }
+#process#process .pz-item.on, #process#process .pz-item.scan, #process#process .pz-item.dim{ visibility:visible; }
+#process#process .pz-item h3{ margin:0; font:600 clamp(34px, 3.3vw, 46px)/1.06 var(--display); letter-spacing:-.035em; color:#171b20; opacity:0; translate:0 4px; }
+#process#process .pz-item.scan h3{ opacity:.2; }
+#process#process .pz-item.dim h3{ opacity:.2; transition:opacity .16s ease, translate .16s ease; }
+#process#process .pz-item.on h3{ opacity:1; translate:0 0; transition:opacity .3s cubic-bezier(.2,.7,.2,1), translate .46s cubic-bezier(.2,.8,.2,1); }
+#process#process .pz-item p{ margin:var(--pz-gap, 12px) 0 0; max-width:40ch; font:400 17px/1.5 var(--body); letter-spacing:0; color:#4b5158; text-wrap:balance; opacity:0; translate:0 8px; transition:opacity .14s ease, translate 0s .14s; }
+#process#process .pz-item.on p{ opacity:1; translate:0 0; transition:opacity .42s ease .09s, translate .52s cubic-bezier(.2,.7,.2,1) .09s; }
+
+#process#process .pz-ctl{ display:flex; align-items:center; gap:14px; pointer-events:auto; }
+#process#process .pz-ctl button{ width:44px; height:44px; min-width:0; display:grid; place-items:center; margin:0; padding:0; border:0; border-radius:50%; background:#fff; color:#171b20; cursor:pointer; box-shadow:inset 0 0 0 1px #d5d8db, 0 8px 16px -12px rgba(23,27,32,.34); transition:box-shadow .2s ease, scale .18s cubic-bezier(.3,1.4,.4,1); }
+#process#process .pz-ctl button svg{ display:block; transition:translate .25s cubic-bezier(.2,.7,.2,1); }
+#process#process .pz-ctl button:hover{ box-shadow:inset 0 0 0 1px #171b20, 0 10px 18px -12px rgba(23,27,32,.4); }
+#process#process .pz-ctl button[data-d="1"]:hover svg{ translate:2px 0; }
+#process#process .pz-ctl button[data-d="-1"]:hover svg{ translate:-2px 0; }
+#process#process .pz-ctl button:active{ scale:.92; }
+#process#process .pz-ctl button:focus-visible{ outline:2px solid #139FFD; outline-offset:3px; }
+#process#process .pz-count{ display:flex; align-items:baseline; justify-content:center; gap:7px; min-width:70px; font:600 14px/1 var(--body); font-variant-numeric:tabular-nums; letter-spacing:0; color:#8a8e94; }
+#process#process .pz-count b{ display:inline-block; font-weight:600; color:#0b6fcf; }
+#process#process .pz-count i{ font-style:normal; color:#b9bcc0; }
+#process#process .pz-sr{ position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+
+#process#process .pz[data-mode="small"] .pz-num{ font-size:12.5px; }
+#process#process .pz[data-mode="small"] .pz-item h3{ font-size:30px; }
+#process#process .pz[data-mode="small"] .pz-item p{ font-size:15.5px; max-width:34ch; }
+#process#process .pz[data-mode="small"] .pz-core{ gap:20px; }
+
+@media (prefers-reduced-motion:no-preference){
+  #process#process .pz-stop.in{ animation:pz-pop .5s cubic-bezier(.3,1.45,.45,1) backwards; }
+  #process#process .pz-stop.in .pz-name{ animation:pz-name .4s ease .12s backwards; }
+  #process#process .pz-stop.land .pz-num{ animation:pz-land .46s cubic-bezier(.3,1.5,.45,1); }
+  #process#process .pz-stop.land::after{ content:""; position:absolute; inset:0; border-radius:50%; box-shadow:0 0 0 1.5px rgba(19,159,253,.6); pointer-events:none; animation:pz-pulse .62s cubic-bezier(.2,.6,.3,1) forwards; }
+  #process#process .pz-stop.pass .pz-num{ animation:pz-pass .32s ease; }
+  #process#process .pz-count b.roll{ animation:pz-roll .34s cubic-bezier(.2,.7,.2,1); }
+}
+@media (prefers-reduced-motion:reduce){
+  #process#process .pz *, #process#process .pz-core{ transition:none !important; }
+}
+@keyframes pz-pop{ from{ opacity:0; scale:.4; } }
+@keyframes pz-name{ from{ opacity:0; } }
+@keyframes pz-land{ from{ scale:.8; } }
+@keyframes pz-pulse{ from{ scale:1; opacity:1; } to{ scale:1.22; opacity:0; } }
+@keyframes pz-pass{ 40%{ scale:.88; } }
+@keyframes pz-roll{ from{ opacity:0; translate:0 calc(var(--d, 1) * 7px); } }
+
+/* Critic round, 22.11.2026 (evening).
+   The phase the hand rests on was marked four times: on the wide dial the black chip, the blue arc and the hand are enough, so the counter goes. */
+#process#process .pz[data-mode="wide"] .pz-count{ display:none; }
+/* A phase whose work is on this page has one link to it. It comes in 200 ms after the hand lands and leaves with the text.
+   Every phase's text shares one cell, so the dial keeps its height whether the phase has a link or not. */
+#process#process .pz-link{ display:inline-flex; align-items:center; gap:7px; min-height:36px; margin-top:8px; padding:0 2px; font:500 14.5px/1 var(--body); letter-spacing:0; color:#0b6fcf; text-decoration:none; opacity:0; translate:0 6px; pointer-events:none; transition:opacity .14s ease, translate 0s .14s; }
+#process#process .pz-link span{ background:linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; padding-bottom:3px; transition:background-size .32s cubic-bezier(.3,.7,.2,1); }
+#process#process .pz-link svg{ width:13px; height:13px; transition:translate .32s cubic-bezier(.3,.7,.2,1); }
+#process#process .pz-item.on .pz-link{ opacity:1; translate:0 0; pointer-events:auto; transition:opacity .4s ease .2s, translate .5s cubic-bezier(.2,.7,.2,1) .2s; }
+#process#process .pz-link:hover span{ background-size:100% 1px; }
+#process#process .pz-link:hover svg{ translate:0 -3px; }
+#process#process .pz-link:focus-visible{ outline:2px solid #139FFD; outline-offset:4px; border-radius:6px; }
+#process#process .pz[data-mode="small"] .pz-link{ min-height:44px; margin-top:2px; }
+/* the same link in the plain list (no script, and for screen readers) */
+#process#process .phase .pz-see{ display:inline-block; margin-top:10px; font:500 14px/1.4 var(--body); color:#0b6fcf; }
+
+/* The closing sentence was the third large centred block in a row. It is now a quiet line of text, and Experience follows sooner. */
+#process#process .coda{ font-size:clamp(19px, 1.7vw, 23px); line-height:1.45; max-width:52ch; color:#4b5158; margin-top:56px; letter-spacing:-.008em; }
+/* the quote hands over to Experience: about 120px between its last line and the next heading, not 240 */
+@media (min-width: 761px){ #process#process{ padding-bottom:64px; } }
+
+/* Owner, 22.11.2026 (evening): "the title here is compressed and crowded, tidy it".
+   The phase name is looser and stands off its sentence; the sentence is regular weight in the page's text colour, in a narrower, balanced
+   measure; the arrows keep their place whether the sentence takes one line or two (every phase shares one grid cell, so the block has
+   the height of its tallest phase); the active stop's outer label rests, because the centre already says its name. */
+#process#process .pz-item h3{ font-weight:600; line-height:1.1; letter-spacing:-.02em; }
+#process#process .pz-item p{ margin-top:var(--pz-gap, 15px); max-width:34ch; font:400 16.5px/1.55 var(--body); font-synthesis:none; color:var(--text-2, #333a42); text-wrap:balance; }
+#process#process .pz[data-mode="small"] .pz-item p{ font-size:16px; max-width:32ch; }
+#process#process .pz-core{ gap:30px; }
+#process#process .pz[data-mode="small"] .pz-core{ gap:28px; }
+#process#process .pz-ctl{ align-self:center; justify-content:center; }
+#process#process .pz[data-mode="wide"] .pz-name{ transition:color .25s ease, opacity .25s ease; }
+#process#process .pz[data-mode="wide"] .pz-stop.is-on .pz-name{ opacity:0; }
+#process#process .sec-head p{ max-width:56ch; text-wrap:balance; }
+#process#process .pz{ margin-top:46px; } /* with the stops 10px in: 56px of air under the lead on a phone, more on a desktop */
+@media (max-width: 700px){ #process#process .pz{ margin-top:54px; } }
