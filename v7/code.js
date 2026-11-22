@@ -62,38 +62,48 @@
   else see(true);
 })();
 
-/* the Design plate: when its screen comes on, the sign-in page is drawn as on a design canvas - the cursor drags out the first field,
-   duplicates it, the gap is measured, the button's corners are rounded - then the finished screen rests and it starts over. */
+/* the Design plate: when its screen comes on, the sign-in page is drawn as on a design canvas - the cursor drags out the glass, then the card
+   on it, the first field, duplicates it, the gap is measured, the button's corners are rounded - then the finished screen rests and it starts over. */
 (function(){
   var card = document.querySelector('#hw-1 .hl-card'), li = card && card.closest('li'); if (!card || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var glass = card.parentNode;
   function q(s){ return card.querySelector(s); }
-  var email = q('.hl-in.on'), pass = q('.hl-in:not(.on)'), row = q('.hl-row'), btn = q('.hl-btn:not(.g)'), rest = [q('.hl-or'), q('.hl-btn.g'), q('.hl-foot')];
+  var title = q('.hl-t'), email = q('.hl-in.on'), pass = q('.hl-in:not(.on)'), row = q('.hl-row'), btn = q('.hl-btn:not(.g)'), rest = [q('.hl-or'), q('.hl-btn.g'), q('.hl-foot')];
   var hd = document.createElement('div'); hd.className = 'hd';
   hd.innerHTML = '<span class="hd-sel"><i></i><i></i><i></i><i></i><b></b></span><span class="hd-gap"><b></b></span><span class="hd-prop"><small>Radius</small><b>6</b></span><span class="hd-cur"><svg viewBox="0 0 24 24"><path d="M4 3l6.5 17 2.6-7.1L20 10.2z"/></svg><b>Ofir</b></span>';
-  card.appendChild(hd);
+  glass.appendChild(hd);
   var sel = hd.children[0], lab = sel.querySelector('b'), gap = hd.children[1], prop = hd.children[2], propN = prop.querySelector('b'), cur = hd.children[3];
-  var parts = [email, pass, row, btn].concat(rest), run = 0, timers = [], shown = false;
-  function box(el){ return { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight }; }
+  var parts = [title, email, pass, row, btn].concat(rest), run = 0, timers = [], shown = false;
+  function box(el){ var c = el === card || el === glass; return { x: el === glass ? 0 : c ? card.offsetLeft : card.offsetLeft + el.offsetLeft, y: el === glass ? 0 : c ? card.offsetTop : card.offsetTop + el.offsetTop, w: el.offsetWidth, h: el.offsetHeight }; }
   function setSel(b, zero){ sel.style.left = b.x + 'px'; sel.style.top = b.y + 'px'; sel.style.width = (zero ? 0 : b.w) + 'px'; sel.style.height = (zero ? 0 : b.h) + 'px'; lab.textContent = b.w + ' × ' + b.h; }
   function curTo(x, y){ cur.style.translate = x + 'px ' + y + 'px'; }
-  function clear(){ run++; timers.forEach(clearTimeout); timers = []; parts.forEach(function(e){ e.classList.remove('show'); }); btn.classList.remove('sq'); card.classList.remove('fin');
+  function end(b){ curTo(b.x + b.w - 3, b.y + b.h - 2); }
+  function clear(){ run++; timers.forEach(clearTimeout); timers = []; parts.forEach(function(e){ e.classList.remove('show'); }); btn.classList.remove('sq'); card.classList.remove('fin', 'c0'); glass.classList.remove('g0');
     [sel, gap, prop, cur].forEach(function(e){ e.classList.remove('show'); }); }
-  function play(){ clear(); card.classList.add('hd-run'); var me = run, e = box(email), p = box(pass), b = box(btn);
+  function play(){ clear(); card.classList.add('hd-run', 'c0'); glass.classList.add('g0'); var me = run, g = box(glass), k = box(card), e = box(email), p = box(pass), b = box(btn), W = g.w;
     function at(t, f){ timers.push(setTimeout(function(){ if (me === run) f(); }, t)); }
-    setSel(e, true); curTo(card.offsetWidth + 30, 30); propN.textContent = '6';
-    at(350, function(){ cur.classList.add('show'); curTo(e.x - 3, e.y - 2); });
-    at(1150, function(){ sel.classList.add('show'); setSel(e); curTo(e.x + e.w - 3, e.y + e.h - 2); });
-    at(1800, function(){ email.classList.add('show'); });
-    at(2500, function(){ pass.classList.add('show'); setSel(p); curTo(p.x + p.w * .6, p.y + p.h * .55); });
-    at(3150, function(){ gap.style.left = (e.x + e.w / 2) + 'px'; gap.style.top = (e.y + e.h) + 'px'; gap.style.height = (p.y - e.y - e.h) + 'px'; gap.querySelector('b').textContent = p.y - e.y - e.h; gap.classList.add('show'); });
-    at(4200, function(){ gap.classList.remove('show'); row.classList.add('show'); btn.classList.add('sq'); btn.classList.add('show'); setSel(b); curTo(b.x + b.w - 3, b.y + b.h - 2); });
-    at(4950, function(){ prop.style.left = (card.offsetWidth - 14) + 'px'; prop.style.top = (b.y - 8) + 'px'; prop.classList.add('show'); curTo(card.offsetWidth + 40, b.y + 34); });
-    at(5550, function(){ propN.textContent = '27'; btn.classList.remove('sq'); });
-    at(6500, function(){ prop.classList.remove('show'); rest.forEach(function(r, i){ at(i * 130, function(){ r.classList.add('show'); }); }); });
-    at(7100, function(){ sel.classList.remove('show'); card.classList.add('fin'); curTo(card.offsetWidth + 60, card.offsetHeight * .8); });
-    at(7600, function(){ cur.classList.remove('show'); });
-    at(10200, function(){ parts.forEach(function(x){ x.classList.remove('show'); }); card.classList.remove('fin'); });
-    at(10800, play); }
+    setSel(g, true); curTo(W + 30, 30); propN.textContent = '6';
+    at(350, function(){ cur.classList.add('show'); curTo(-3, -2); });
+    at(1100, function(){ sel.classList.add('show'); setSel(g); end(g); });
+    at(1750, function(){ glass.classList.remove('g0'); });
+    at(2450, function(){ setSel(k); end(k); });
+    at(2950, function(){ card.classList.remove('c0'); });
+    at(3300, function(){ title.classList.add('show'); });
+    at(3800, function(){ sel.classList.remove('show'); curTo(e.x - 3, e.y - 2); });
+    at(4450, function(){ setSel(e, true); });
+    at(4550, function(){ sel.classList.add('show'); setSel(e); end(e); });
+    at(5200, function(){ email.classList.add('show'); });
+    at(5900, function(){ pass.classList.add('show'); setSel(p); curTo(p.x + p.w * .6, p.y + p.h * .55); });
+    at(6550, function(){ gap.style.left = (e.x + e.w / 2) + 'px'; gap.style.top = (e.y + e.h) + 'px'; gap.style.height = (p.y - e.y - e.h) + 'px'; gap.querySelector('b').textContent = p.y - e.y - e.h; gap.classList.add('show'); });
+    at(7600, function(){ gap.classList.remove('show'); row.classList.add('show'); btn.classList.add('sq'); btn.classList.add('show'); setSel(b); end(b); });
+    at(8350, function(){ prop.style.left = (W - 30) + 'px'; prop.style.top = (b.y - 8) + 'px'; prop.classList.add('show'); curTo(W + 24, b.y + 34); });
+    at(8950, function(){ propN.textContent = '27'; btn.classList.remove('sq'); });
+    at(9900, function(){ prop.classList.remove('show'); rest.forEach(function(r, i){ at(i * 130, function(){ r.classList.add('show'); }); }); });
+    at(10500, function(){ sel.classList.remove('show'); card.classList.add('fin'); curTo(W + 60, g.h * .8); });
+    at(11000, function(){ cur.classList.remove('show'); });
+    at(13800, function(){ card.classList.add('c0'); });
+    at(14200, function(){ glass.classList.add('g0'); });
+    at(14900, play); }
   function see(on){ if (on === shown) return; shown = on; if (on) play(); else { clear(); card.classList.remove('hd-run'); } }
   var ol = li.parentNode;
   function check(){ if (ol.classList.contains('hw-pin')) see(li.classList.contains('on')); }
