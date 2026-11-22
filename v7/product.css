@@ -152,7 +152,7 @@
    The cards sit in a slightly deeper well, each card is an object with a hairline and a shadow,
    and the card underneath washes out to the well's tone so the one on top is the only one that reads. */
 html body section#product#product{ background:linear-gradient(180deg, rgba(232,231,227,0) 0, #e8e7e3 280px, #e8e7e3 calc(100% - 220px), rgba(232,231,227,0) 100%) !important; }
-html body section#product#product article.spot{ box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 -16px 34px -24px rgba(23,27,32,.22), 0 26px 50px -38px rgba(23,27,32,.24) !important; }
+html body section#product#product article.spot{ box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 -18px 36px -20px rgba(23,27,32,.26), 0 26px 50px -38px rgba(23,27,32,.24) !important; }
 html body section#product#product .spot .ep-veil{ background:#e8e7e3 !important; }
 
 /* ---------- Chapter row, light (owner: "the extra row is too loaded"): five numbers and one name, no capsule ---------- */
@@ -174,7 +174,7 @@ html body section#product#product .spot .ep-veil{ background:#e8e7e3 !important;
 @media (prefers-reduced-motion:reduce){ html body section#product#product .pf-idx button b, html body section#product#product .pf-idx button span{ transition:none; } }
 /* A card taller than the window pins by its bottom, so its top would pass under the bare numbers: only then the row gets a band of the well behind it. */
 @media (min-width:861px){
-  html body section#product#product:has(article.spot.tall) .pf-idx{ background:#e8e7e3 !important; box-shadow:0 0 0 100vmax #e8e7e3 !important; clip-path:inset(-40px -100vmax -12px); }
+  html body section#product#product:has(article.spot.tall) .pf-idx::before{ content:""; position:absolute; z-index:-1; left:-100vw; right:-100vw; top:-40px; bottom:-30px; background:linear-gradient(180deg, #e8e7e3 calc(100% - 18px), rgba(232,231,227,0)); pointer-events:none; }
 }
 /* touch laptops and tablets on their side: the numbers are full-size targets */
 @media (min-width:861px) and (pointer:coarse){
@@ -183,3 +183,9 @@ html body section#product#product .spot .ep-veil{ background:#e8e7e3 !important;
   html body section#product#product .pf-idx button{ min-height:44px !important; min-width:44px; }
   html body section#product#product .pf-idx button span{ height:44px; line-height:44px; }
 }
+/* The row above already says which chapter this is: the counter inside the card is for the phone, which has no row. */
+@media (min-width:861px){
+  html body section#product#product.r8-stack article.spot .head .spot-n{ display:none !important; }
+}
+/* The challenge is a quiet aside with a rule, not a third grey box inside the card: the designer's answer below it is the ink. */
+html body section#product#product .pf-prob{ background:none !important; border-radius:0 !important; padding:1px 0 1px 14px !important; box-shadow:inset 2px 0 0 #d9d8d4 !important; }

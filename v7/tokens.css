@@ -27,14 +27,14 @@
 #system#system .tk.ready:not([data-mode="all"]) .tk-full{ opacity:0; transition-duration:.2s; }
 /* while the world is being built, a colour arrives as one pass of the brush from the left */
 @supports (mask-image:linear-gradient(#000,#000)) or (-webkit-mask-image:linear-gradient(#000,#000)){
-  #system#system .tk[data-mode="build"] .tk-ly.on{ transition:none; -webkit-mask-image:linear-gradient(102deg, #000 calc(var(--tkp) - 16%), transparent var(--tkp)); mask-image:linear-gradient(102deg, #000 calc(var(--tkp) - 16%), transparent var(--tkp)); animation:tk-wash .52s cubic-bezier(.4,.1,.25,1) both; }
+  #system#system .tk[data-mode="build"] .tk-ly.on{ transition:none; -webkit-mask-image:linear-gradient(102deg, #000 calc(var(--tkp) - 16%), transparent var(--tkp)); mask-image:linear-gradient(102deg, #000 calc(var(--tkp) - 16%), transparent var(--tkp)); animation:tk-wash .46s cubic-bezier(.4,.1,.25,1) both; }
 }
 @keyframes tk-wash{ from{ --tkp:0%; } to{ --tkp:130%; } }
 #system#system .tk-lab{ position:absolute; left:12px; top:12px; z-index:3; padding:5px 10px; border-radius:99px; background:rgba(255,255,255,.92); color:#333a42; font:500 12px/1.2 var(--body); letter-spacing:0; box-shadow:0 1px 2px rgba(23,27,32,.08); }
 /* the product: one small call list, every part tagged with the colour that makes it */
 #system#system .tk-ui .tk-frame{ container-type:inline-size; display:grid; place-items:center; padding:0; }
 #system#system .tk-bg{ position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, #CFE4F6 0%, #DCE8F5 55%, #E9F0F9 100%); }
-#system#system .tk-card{ position:relative; isolation:isolate; width:86%; margin-top:5cqw; font-size:clamp(9.5px, 3.25cqw, 13.5px); line-height:1.3; color:#181818; border-radius:1.1em; outline:1px solid rgba(23,27,32,.09); outline-offset:-1px; padding:1.15em 1.2em 1.1em; }
+#system#system .tk-card{ position:relative; isolation:isolate; width:90%; margin-top:3.4cqw; font-size:clamp(9.5px, 3.33cqw, 14.5px); line-height:1.3; color:#181818; border-radius:1.1em; outline:1px solid rgba(23,27,32,.09); outline-offset:-1px; padding:1.15em 1.2em 1.1em; }
 #system#system .tk-cardbg{ position:absolute; inset:0; z-index:-1; border-radius:inherit; background:#fff; box-shadow:0 1.4em 2.6em -1.6em rgba(11,79,138,.45), 0 0 0 1px rgba(255,255,255,.9); }
 #system#system .tk-ask{ display:flex; align-items:center; gap:.6em; height:2.7em; padding:0 .8em; border-radius:.75em; box-shadow:inset 0 0 0 1px rgba(23,27,32,.1); font-weight:500; white-space:nowrap; overflow:hidden; }
 #system#system .tk-ask svg{ flex:none; width:1.15em; height:1.15em; color:#C37AD0; }
@@ -85,9 +85,12 @@
 #system#system .tk-say.hint .tk-ev b{ display:none; }
 #system#system .tk-say.hint .tk-ev li{ color:#70767d; }
 #system#system .tk-ev span{ overflow:hidden; text-overflow:ellipsis; }
-#system#system .tk-pal{ display:flex; align-items:flex-start; gap:22px; padding-top:1px; }
+#system#system .tk-pal{ display:flex; align-items:flex-start; gap:22px; padding-top:1px; margin-right:-9px; }
 #system#system .tk-g{ display:grid; gap:9px; }
-#system#system .tk-g > span{ height:20px; font:500 13px/20px var(--body); color:#70767d; }
+#system#system .tk-g > span{ height:20px; padding-left:9px; font:500 13px/20px var(--body); color:#70767d; transition:color .2s; }
+/* while a role's colours arrive, its name in the palette is lit; the evidence lines wait until there is time to read them */
+#system#system .tk-g.now > span{ color:#171b20; }
+#system#system .tk[data-mode="build"] .tk-ev{ visibility:hidden; }
 #system#system .tk-g > div{ display:flex; gap:6px; }
 #system#system .tk-c{ position:relative; display:grid; justify-items:center; align-content:start; gap:7px; width:62px; margin:0; padding:0 0 9px; border:0; background:none; color:#555d64; font:500 11.5px/1.2 var(--body); letter-spacing:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 #system#system .tk-c i{ display:block; width:44px; height:44px; border-radius:11px; background:var(--c); box-shadow:inset 0 0 0 1px rgba(23,27,32,.1); transition:transform .35s cubic-bezier(.2,.8,.2,1.25), box-shadow .25s ease, background-color .28s ease; }
@@ -101,10 +104,9 @@
 #system#system .tk-c::after{ content:""; position:absolute; left:9px; right:9px; bottom:0; height:2px; border-radius:2px; background:#171b20; transform:scaleX(0); transform-origin:0 50%; transition:transform .22s cubic-bezier(.2,.8,.2,1); }
 /* a colour that is kept (clicked) carries a line under it until it is let go */
 #system#system .tk-c[aria-pressed="true"]::after{ transform:scaleX(1); }
-@keyframes tk-clock{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
 @media (max-width: 1180px){
   #system#system .tk-foot{ grid-template-columns:minmax(0, 1fr); }
-  #system#system .tk-pal{ justify-content:space-between; gap:14px; }
+  #system#system .tk-pal{ justify-content:space-between; gap:14px; margin-left:-9px; }
 }
 @media (max-width: 900px){
   #system#system .tk-stage{ grid-template-columns:minmax(0, 1fr); gap:12px; }
@@ -116,8 +118,8 @@
   #system#system .tk-head{ margin-bottom:12px; }
   #system#system .tk-stage{ grid-template-columns:minmax(0, 1fr); gap:10px; }
   #system#system .tk-frame{ border-radius:12px; }
-  #system#system .tk-ui .tk-frame{ aspect-ratio:16 / 10; }
-  #system#system .tk-card{ width:86%; margin-top:4.5cqw; font-size:clamp(9px, 2.9cqw, 13px); }
+  #system#system .tk-ui .tk-frame{ aspect-ratio:auto; padding:40px 0 16px; }
+  #system#system .tk-card{ width:92%; margin-top:0; font-size:clamp(10.5px, 3.4cqw, 13px); }
   #system#system .tk-lab{ left:9px; top:9px; font-size:11.5px; padding:4px 9px; }
   #system#system .tk-foot{ display:flex; flex-direction:column; margin-top:14px; gap:14px; }
   #system#system .tk-pal{ order:-1; }
@@ -127,7 +129,8 @@
   #system#system .tk-name{ font-size:25px; }
   #system#system .tk-line{ height:48px; line-height:24px; font-size:16px; white-space:normal; }
   #system#system .tk-pal{ display:grid; grid-template-columns:auto auto; justify-content:space-between; gap:12px 10px; }
-  #system#system .tk-g > span{ font-size:12px; }
+  #system#system .tk-g > span{ font-size:12px; padding-left:5px; }
+  #system#system .tk-pal{ margin-left:-5px; margin-right:-5px; }
   #system#system .tk-g > div{ gap:2px; }
   #system#system .tk-g{ gap:5px; }
   #system#system .tk-c{ width:54px; gap:5px; padding:0 0 8px; font-size:10.5px; }

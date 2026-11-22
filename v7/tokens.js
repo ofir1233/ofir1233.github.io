@@ -2,7 +2,9 @@
    The picture is cut into its nine colours once, in the browser: every pixel is given to the colour it belongs to, and each colour
    becomes its own layer over a pencil underdrawing of the same picture. The product screen beside it is tagged the same way (data-t).
    - First view: the colours arrive in four beats, one per role (ground, structure, voice, meaning), and build the picture and the
-     screen together ("build"). The words change four times, not nine. It plays once, only while in view, never because of the mouse.
+     screen together ("build"). The words change four times, not nine, and the role's name in the palette is lit while it arrives.
+     The last beat ends on its own proof: for a moment only coral is left, the boat and the low score. It plays once, only while in
+     view, never because of the mouse.
    - After that: a colour under the mouse stays alone in both ("one"): a chip, a place in the picture, or a part of the product screen.
      Leaving brings everything back ("all"). A click keeps the colour; a second click lets it go.
    Nothing here changes a size. With reduced motion there is no build and the changes are immediate. */
@@ -30,18 +32,19 @@
     ['Voice', 'BD', 'The product speaking.', 'the sky, the water, the glass towers', 'scores, links, the focus ring'],
     ['Meaning', 'CEL', 'Small, and only with a reason.', 'a boat, the trees, the flowers', 'an alert, a finished call, an AI filter']
   ];
-  var GAP = 280, HOLD = 760;
+  var LEAD = 300, GAP = 220, HOLD = [360, 360, 560, 620], CODA = 900;
   var stage = root.querySelector('.tk-stage'), frame = root.querySelector('.tk-pic .tk-frame'), img = root.querySelector('.tk-full'),
     under = root.querySelector('.tk-under'), box = root.querySelector('.tk-layers'), pal = root.querySelector('.tk-pal'),
     say = root.querySelector('.tk-say'), re = root.querySelector('.tk-re');
-  var chips = [].slice.call(root.querySelectorAll('.tk-c')), parts = [].slice.call(root.querySelectorAll('[data-t]'));
+  var chips = [].slice.call(root.querySelectorAll('.tk-c')), parts = [].slice.call(root.querySelectorAll('[data-t]')), groups = [].slice.call(root.querySelectorAll('.tk-g'));
   var F = {}; [].forEach.call(root.querySelectorAll('[data-f]'), function (el) { F[el.getAttribute('data-f')] = el; });
   var idx = {}; T.forEach(function (t, i) { idx[t[0]] = i; });
   var layers = [], mode = 'all', locked = null, timer = 0, textT = 0, offT = 0, step = -1, inView = false, started = false, ready = false, paused = false;
   var beatT = [], top = null, tw = 0, th = 0, shown = '';
   root.classList.add('js');
 
-  function setMode(m) { mode = m; root.setAttribute('data-mode', m); }
+  function now(n) { groups.forEach(function (g, i) { g.classList.toggle('now', i === n); }); }
+  function setMode(m) { mode = m; root.setAttribute('data-mode', m); if (m !== 'build') now(-1); }
   /* keys: the letters that are lit; null means every colour */
   function lit(keys) {
     parts.forEach(function (el) { el.classList.toggle('off', keys !== null && keys.indexOf(el.getAttribute('data-t')) < 0); });
@@ -97,7 +100,10 @@
   function next() {
     if (mode !== 'build') return;
     step++;
-    if (!inView || step >= BEATS.length) { all(); re.hidden = false; say.setAttribute('aria-live', 'polite'); return; }
+    if (!inView || step > BEATS.length) { all(); re.hidden = false; say.setAttribute('aria-live', 'polite'); return; }
+    /* the coda: "small, and only with a reason" is shown, not said. Coral alone, in the picture and on the screen. */
+    if (step === BEATS.length) { lit('C'); mark('C'); timer = setTimeout(next, CODA); return; }
+    now(step);
     var bt = BEATS[step], before = ''; for (var i = 0; i < step; i++) before += BEATS[i][1];
     text(bt, step + 1);
     /* the words lead by a breath, then the role's colours arrive one after the other */
@@ -107,9 +113,9 @@
         var keys = before + bt[1].slice(0, j + 1);
         chips.forEach(function (c) { c.classList.toggle('in', keys.indexOf(c.getAttribute('data-k')) >= 0); });
         lit(keys);
-      }, 160 + j * GAP));
+      }, LEAD + j * GAP));
     });
-    timer = setTimeout(next, 160 + (bt[1].length - 1) * GAP + HOLD);
+    timer = setTimeout(next, LEAD + (bt[1].length - 1) * GAP + HOLD[step]);
   }
 
   chips.forEach(function (c) {
@@ -134,12 +140,17 @@
     var k = top[y * tw + x]; return k === 255 ? null : T[k][0];
   }
   function pick(k) { if (locked === k) { locked = null; all(); } else { locked = k; shown = ''; one(k); } }
-  var mv = 0, last = null;
+  /* the first colour answers at once; after that a new one must be rested on for a moment, so crossing the clouds does not flicker */
+  var mv = 0, last = null, hk = null, ht = 0;
   frame.addEventListener('pointermove', function (e) {
     if (e.pointerType !== 'mouse' || !free()) return; last = e;
-    if (!mv) mv = requestAnimationFrame(function () { mv = 0; var k = at(last); if (k) one(k); });
+    if (!mv) mv = requestAnimationFrame(function () {
+      mv = 0; var k = at(last); if (!k || k === hk) return; hk = k; clearTimeout(ht);
+      if (mode !== 'one') { one(k); return; }
+      ht = setTimeout(function () { if (hk === k && free()) one(k); }, 90);
+    });
   });
-  frame.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') rest(); });
+  frame.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { clearTimeout(ht); hk = null; rest(); } });
   frame.addEventListener('click', function (e) { if (!free()) return; var k = at(e); if (k) pick(k); });
   var ui = root.querySelector('.tk-ui .tk-frame');
   if (ui) {
@@ -187,7 +198,7 @@
       var ks = .9 * w / 600;
       for (var yy = 0, i = 0, p = 0; yy < h; yy++) for (var x = 0; x < w; x++, i++, p += 4) {
         var gx = x > 0 && x < w - 1 ? L[i + 1] - L[i - 1] : 0, gy = yy > 0 && yy < h - 1 ? L[i + w] - L[i - w] : 0;
-        var f = .86 + .12 * L[i] - Math.min(.26, Math.sqrt(gx * gx + gy * gy) * ks);
+        var f = .93 + .06 * L[i] - Math.min(.22, Math.max(0, Math.sqrt(gx * gx + gy * gy) * ks - .05));
         base[p] = 244 * f; base[p + 1] = 243 * f; base[p + 2] = 241 * f; base[p + 3] = 255;
       }
       under.width = w; under.height = h; under.getContext('2d').putImageData(new ImageData(base, w, h), 0, 0);
@@ -219,7 +230,8 @@
   if (calm) setMode('all'); else { setMode('wait'); lit(''); }
   new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '900px 0px' }).observe(root);
   var stIn = false, paIn = false;
-  function seen() { inView = stIn && (paIn || innerWidth <= 760); if (inView && !started) go(); }
-  new IntersectionObserver(function (es) { stIn = es[0].isIntersecting && es[0].intersectionRatio >= .6; seen(); }, { threshold: [0, .6, .8] }).observe(stage);
+  /* the palette must be on screen too, but only where the whole block can fit on one screen */
+  function seen() { inView = stIn && (paIn || root.offsetHeight > innerHeight - 70); if (inView && !started) go(); }
+  new IntersectionObserver(function (es) { var e = es[0]; stIn = e.isIntersecting && e.intersectionRect.height >= Math.min(.6 * e.boundingClientRect.height, .62 * innerHeight); seen(); }, { threshold: [0, .2, .3, .4, .5, .6, .7, .8] }).observe(stage);
   new IntersectionObserver(function (es) { paIn = es[0].isIntersecting && es[0].intersectionRatio >= .9; seen(); }, { threshold: [0, .9] }).observe(pal);
 })();
