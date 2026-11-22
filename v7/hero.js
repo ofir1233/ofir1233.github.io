@@ -1,13 +1,10 @@
 /* v7 - header.
    - once the page has moved the bar takes a paper ground (html.hv-stuck);
-   - the section links sit in a capsule, and a soft pill slides to the link under the pointer, then back to the section being read;
-   - a blue line under the bar shows how far down the page the reader is;
-   - beside Contact, the local time in Tel Aviv. */
+   - the section links sit in a capsule, and a soft pill slides to the link under the pointer, then back to the section being read. */
 (function(){
   var root = document.documentElement, on = null, nav = document.querySelector('nav.nav');
   function set(){
     var s = scrollY > 8; if (s !== on) { on = s; root.classList.toggle('hv-stuck', s); }
-    if (nav) { var max = document.documentElement.scrollHeight - innerHeight; nav.style.setProperty('--hp', max > 0 ? Math.min(1, scrollY / max).toFixed(4) : 0); }
   }
   addEventListener('scroll', set, { passive: true }); addEventListener('resize', set); set();
   if (!nav) return;
@@ -33,14 +30,4 @@
   ul.addEventListener('focusout', function(){ hover = null; place(); });
   new MutationObserver(place).observe(ul, { subtree: true, attributes: true, attributeFilter: ['aria-current'] });
   addEventListener('resize', place); if (document.fonts && document.fonts.ready) document.fonts.ready.then(place); place();
-
-  var last = ul.querySelector('li:last-of-type');
-  if (last && last.querySelector('a')) {
-    var st = document.createElement('span'); st.className = 'hv-time'; st.innerHTML = '<i aria-hidden="true"></i><span>Tel Aviv</span> <b></b>';
-    last.insertBefore(st, last.firstChild);
-    var out = st.querySelector('b'), fmt;
-    try { fmt = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jerusalem' }); } catch (e) {}
-    var clock = function(){ if (fmt) out.textContent = fmt.format(new Date()); };
-    clock(); setInterval(clock, 20000);
-  }
 })();
