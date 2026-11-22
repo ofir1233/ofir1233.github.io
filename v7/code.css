@@ -137,35 +137,39 @@
 }
 @media (prefers-reduced-motion: reduce) { #code .hw-d{ transition: none; } }
 
-/* Design plate: the sign-in screen is drawn in front of you, as on a design canvas - a cursor draws the field, duplicates it, measures the gap,
-   rounds the button. The script adds .hd-run and steps through it; without it the finished screen simply stands there. */
-#code #hw-1 .hl-card{ position: relative; }
-#code .hd{ position: absolute; inset: 0; pointer-events: none; }
-#code .hd-run > *{ opacity: 0; transition: opacity .26s, translate .34s cubic-bezier(.2,.7,.2,1), border-radius .36s cubic-bezier(.3,.7,.2,1), box-shadow .26s, border-color .26s; }
+/* Design plate: the sign-in screen is drawn in front of you, as on a design canvas. The script (code.js) runs it as a sequence of
+   gestures, each with its own length: --d is the length of the gesture in progress, shared by the cursor and whatever it is dragging,
+   so the corner of a shape stays under the cursor. Without the script the finished screen simply stands there. */
+#code #hw-1 .hl-card{ position: relative; transition: opacity .5s ease, scale .8s cubic-bezier(.2,.7,.2,1); }
+#code #hw-1 .hl-card.c0{ opacity: 0; scale: .975; }
+#code #hw-1 .hl-glass{ transition: background-color .9s ease, box-shadow .9s ease, -webkit-backdrop-filter .9s ease, backdrop-filter .9s ease; }
+#code #hw-1 .hl-glass.g0{ background-color: rgba(255,255,255,0); -webkit-backdrop-filter: blur(0) saturate(1); backdrop-filter: blur(0) saturate(1); box-shadow: inset 0 0 0 1px rgba(255,255,255,0), inset 0 1.5px 0 rgba(255,255,255,0), 0 24px 48px -16px rgba(10,40,80,0); }
+#code .hd-run > *{ opacity: 0; transition: opacity .45s ease, translate .7s cubic-bezier(.2,.7,.2,1), box-shadow .7s ease, border-color .7s ease; }
 #code .hd-run > .show{ opacity: 1; }
+#code .hd-run > :is(.hl-t, .hl-row, .hl-or, .hl-btn.g, .hl-foot):not(.show){ translate: 0 9px; }
 #code .hd-run:not(.fin) > .hl-in.on{ border-color: #D5DDE4; box-shadow: none; }
-#code .hd-run > .hl-in:not(.on):not(.show){ translate: 0 -66px; }
+#code .hd-run > .hl-in.on{ transition: opacity .3s ease, box-shadow .8s ease, border-color .8s ease; }
+#code .hd-run > .hl-in:not(.on){ transition: opacity .12s linear, translate var(--d, .5s) cubic-bezier(.5,0,.15,1); }
+#code .hd-run > .hl-in:not(.on):not(.show){ translate: 0 var(--dy, -66px); }
+#code .hd-run > .hl-btn:not(.g){ transition: opacity .3s ease, border-radius .85s cubic-bezier(.45,0,.25,1); }
 #code .hd-run > .hl-btn.sq{ border-radius: 6px; }
-#code .hd > *{ position: absolute; opacity: 0; transition: opacity .25s; }
+#code .hd{ position: absolute; inset: 0; pointer-events: none; }
+#code .hd > *{ position: absolute; opacity: 0; transition: opacity .22s ease; }
 #code .hd > .show{ opacity: 1; }
-#code .hd-sel{ box-sizing: border-box; border: 1.5px solid #139FFD; transition: opacity .25s, left .34s cubic-bezier(.2,.7,.2,1), top .34s cubic-bezier(.2,.7,.2,1), width .34s cubic-bezier(.2,.7,.2,1), height .34s cubic-bezier(.2,.7,.2,1) !important; }
+#code .hd-sel{ box-sizing: border-box; border: 1.5px solid #139FFD; transition: opacity .22s ease, left var(--d, .5s) cubic-bezier(.5,0,.15,1), top var(--d, .5s) cubic-bezier(.5,0,.15,1), width var(--d, .5s) cubic-bezier(.5,0,.15,1), height var(--d, .5s) cubic-bezier(.5,0,.15,1); }
 #code .hd-sel i{ position: absolute; width: 9px; height: 9px; background: #fff; border: 1.5px solid #139FFD; box-sizing: border-box; }
 #code .hd-sel i:nth-child(1){ left: -5px; top: -5px; } #code .hd-sel i:nth-child(2){ right: -5px; top: -5px; } #code .hd-sel i:nth-child(3){ left: -5px; bottom: -5px; } #code .hd-sel i:nth-child(4){ right: -5px; bottom: -5px; }
-#code .hd-sel b{ position: absolute; left: 50%; top: calc(100% + 8px); translate: -50% 0; padding: 3px 8px; border-radius: 5px; font: 500 12px/1.2 var(--body); white-space: nowrap; color: #fff; background: #139FFD; }
+#code .hd-sel b{ position: absolute; left: 50%; top: calc(100% + 8px); translate: -50% 0; padding: 3px 8px; border-radius: 5px; font: 500 12px/1.2 var(--body); font-variant-numeric: tabular-nums; white-space: nowrap; color: #fff; background: #139FFD; }
 #code .hd-gap{ width: 1.5px; background: #FF5A3C; }
 #code .hd-gap::before, #code .hd-gap::after{ content: ""; position: absolute; left: -5px; width: 11.5px; height: 1.5px; background: #FF5A3C; }
 #code .hd-gap::before{ top: 0; } #code .hd-gap::after{ bottom: 0; }
 #code .hd-gap b{ position: absolute; left: 12px; top: 50%; translate: 0 -50%; padding: 2px 6px; border-radius: 4px; font: 500 12px/1.2 var(--body); color: #fff; background: #FF5A3C; }
-#code .hd-prop{ display: grid; gap: 4px; width: 112px; padding: 11px 13px; border-radius: 12px; background: #fff; box-shadow: 0 10px 28px rgba(16,34,60,.2), 0 0 0 1px rgba(23,27,32,.06); translate: 8px 0; transition: opacity .25s, translate .35s cubic-bezier(.2,.7,.2,1) !important; }
-#code .hd-prop.show{ translate: 0 0; }
+#code .hd-prop{ display: grid; gap: 4px; width: 112px; padding: 11px 13px; border-radius: 12px; background: #fff; box-shadow: 0 10px 28px rgba(16,34,60,.2), 0 0 0 1px rgba(23,27,32,.06); translate: 10px 0; scale: .96; transform-origin: 0 50%; transition: opacity .3s ease, translate .5s cubic-bezier(.2,.7,.2,1), scale .5s cubic-bezier(.2,.7,.2,1); }
+#code .hd-prop.show{ translate: 0 0; scale: 1; }
 #code .hd-prop small{ font: 500 11px/1.2 var(--body); letter-spacing: .06em; text-transform: uppercase; color: #6A7078; }
-#code .hd-prop b{ display: flex; align-items: center; height: 30px; padding: 0 9px; border-radius: 7px; font: 500 15px/1 var(--body); color: #181818; background: #F1F3F5; box-shadow: inset 0 0 0 1.5px #139FFD; }
-#code .hd-cur{ left: 0; top: 0; display: flex; align-items: flex-start; transition: opacity .3s, translate .38s cubic-bezier(.3,.6,.2,1) !important; }
-#code .hd-cur svg{ width: 24px; height: 24px; fill: #139FFD; stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; filter: drop-shadow(0 2px 3px rgba(16,34,60,.3)); }
+#code .hd-prop b{ display: flex; align-items: center; height: 30px; padding: 0 9px; border-radius: 7px; font: 500 15px/1 var(--body); font-variant-numeric: tabular-nums; color: #181818; background: #F1F3F5; box-shadow: inset 0 0 0 1.5px transparent; transition: box-shadow .2s; }
+#code .hd-prop.edit b{ box-shadow: inset 0 0 0 1.5px #139FFD; }
+#code .hd-cur{ left: 0; top: 0; display: flex; align-items: flex-start; transition: opacity .35s ease, translate var(--d, .5s) cubic-bezier(.5,0,.15,1); }
+#code .hd-cur svg{ width: 24px; height: 24px; fill: #139FFD; stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; filter: drop-shadow(0 2px 3px rgba(16,34,60,.3)); transform-origin: 4px 3px; transition: scale .12s ease; }
+#code .hd-cur.down svg{ scale: .84; }
 #code .hd-cur b{ margin: 18px 0 0 -2px; padding: 4px 9px; border-radius: 4px 9px 9px 9px; font: 500 13px/1.2 var(--body); color: #fff; background: #139FFD; }
-
-/* the glass and the card are drawn too: the canvas marks sit on the glass, which starts clear, and the card starts hidden */
-#code #hw-1 .hl-glass{ transition: background-color .32s, box-shadow .32s, -webkit-backdrop-filter .32s, backdrop-filter .32s; }
-#code #hw-1 .hl-glass.g0{ background-color: rgba(255,255,255,0); -webkit-backdrop-filter: blur(0) saturate(1); backdrop-filter: blur(0) saturate(1); box-shadow: inset 0 0 0 1px rgba(255,255,255,0), inset 0 1.5px 0 rgba(255,255,255,0), 0 24px 48px -16px rgba(10,40,80,0); }
-#code #hw-1 .hl-card{ transition: opacity .3s, scale .36s cubic-bezier(.2,.7,.2,1); }
-#code #hw-1 .hl-card.c0{ opacity: 0; scale: .965; }
