@@ -168,7 +168,14 @@
     hi: ['Step 2 of 2', 'Then the Hear look', 'The same screen on glass and sky, with one blue for the scores and ink for what needs attention.']
   };
   var cur = 'lo', loaded = false, chose = false, shown = false, timer = 0;
-  function fit() { fig.style.setProperty('--s', stage.clientWidth / (1440 - 6)); }
+  /* The screen is drawn at the size that fits the frame, not at 1440 and shrunk: 1120 in a wide frame, 860 without its sidebar in a
+     medium one, and on a phone a tall 460 with the map alone. So the type stays near its real size everywhere. */
+  function fit() {
+    var cw = stage.clientWidth, t = cw >= 900 ? [1120, 630, ''] : cw >= 560 ? [860, 484, 's'] : [460, 560, 'p'];
+    frame.style.width = t[0] + 'px'; frame.style.height = t[1] + 'px'; stage.style.aspectRatio = (t[0] - 6) + ' / ' + (t[1] - 6);
+    fig.style.setProperty('--s', cw / (t[0] - 6));
+    try { var c = frame.contentDocument.documentElement.classList; c.toggle('px-small', t[2] !== ''); c.toggle('px-phone', t[2] === 'p'); frame.contentWindow.dispatchEvent(new Event('resize')); } catch (e) {}
+  }
   new ResizeObserver(fit).observe(stage); fit();
   function set(f) {
     cur = f; seg.setAttribute('data-f', f);
@@ -183,7 +190,11 @@
     loaded = true;
     try {
       var d = frame.contentDocument, st = d.createElement('style');
-      st.textContent = '.side{box-sizing:border-box!important;padding:26px 16px 24px 22px!important}.stage{--tpg:30px}.stage.lofi{--tpg:22px}'; d.head.appendChild(st); try { frame.contentWindow.dispatchEvent(new Event('resize')); } catch (e) {}
+      st.textContent = '.side{box-sizing:border-box!important;padding:22px 14px 20px 18px!important}.tp-tip{display:none!important}' +
+        '.px-small .side{display:none!important}.px-small .stage{--side:0px!important}' +
+        '.px-phone .tp-col:last-child,.px-phone .tp-def p,.px-phone .tp-def .tp-n,.px-phone .top .act,.px-phone .tp-kpis>div:nth-child(n+3),.px-phone .tp-h .tp-n,.px-phone .tp-h .sub,.px-phone .key .tp-n,.px-phone .tp-hint{display:none!important}' +
+        '.px-phone .tp-body{grid-template-columns:minmax(0,1fr)!important}.px-phone .tp .card{padding:20px 20px 14px!important}.px-phone .tp .top p{white-space:normal}';
+      d.head.appendChild(st); fit();
       frame.contentWindow.hearTopics.fidelity(cur);
     } catch (e) {}
     fig.classList.add('is-live'); first();

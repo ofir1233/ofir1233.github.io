@@ -24,6 +24,16 @@ The palette and the forbidden list are written into EVERY prompt, with the hex v
 The reference for quality is the opening picture, `img/me-v7-studio-1536.webp`. Every new painting is judged against it, side by side.
 The owner pays for every call. A bad result is money thrown away, and an excuse afterwards is worth nothing to him.
 
+## COLOURFULNESS, added by the owner on 22.11.2026 (evening)
+
+The owner showed Hear's hero painting and said my pictures lack its colourfulness: they came out as blue-only pictures. He adopts for the portfolio the COLOURS, the pull of the paint and the rich style of that painting: coral red-orange (about #e8604a) in large clear shapes, lilac, magenta-pink and white flowers, emerald, cobalt, cream. So coral, lilac and pink are NOT "tiny accents" any more: they are spread over the whole picture.
+
+He does NOT adopt its subject. People at desks, rows of chairs, headsets, laptops, an office: that is Hear's contact-centre brand, and it never goes into his pictures. I painted a row of seven people on coral chairs (a copy of the reference's subject) and paid for a max render before he saw the draft: about $0.34 wasted, and he answered "לא!!!!!!!".
+
+- Still forbidden: yellow, yellow-green, olive, lime, warm or golden foliage, orange roofs, sunset tones, beige.
+- The low draft goes to the owner BEFORE any max render, every time, even when the money is pre-approved.
+- Closing picture, draft that carries this colourfulness without people: `scratchpad/end3.py` (harbour city from the water: coral boat and awnings, lilac sail, flowering balconies, beach cabins, lighthouse with a coral band). Waiting for the owner's answer.
+
 ## What made the opening picture work
 
 - The prompt listed MANY concrete things to paint (plants, lamps, desks, monitors, chairs, bicycle, flowers, rug, sunlight, people far away). Detail in the prompt gives detail in the picture.

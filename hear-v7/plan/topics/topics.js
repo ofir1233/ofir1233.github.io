@@ -247,12 +247,21 @@
     hot(k, -1, 'force'); if (sel === k && tiles[k].classList.contains('can-open')) tiles[k].classList.add('open');
   });
   el.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('tp-tile')) { e.preventDefault(); e.target.click(); } });
+  var mode0 = 0;
+  function rowMax() { return stage.classList.contains('lofi') ? 10 : 6; }
   function sortRows(mode) {
+    mode0 = mode;
     var ids = T.map(function (t, k) { return k; });
     if (mode === 1) ids.sort(function (a, b) { return T[a].s - T[b].s; }); else if (mode === 2) ids.sort(function (a, b) { return T[a].d - T[b].d; });
-    rows.forEach(function (r, k) { var at = ids.indexOf(k); r.style.order = at; r.hidden = at >= 10; r.classList.toggle('first', at === 0); });
+    rows.forEach(function (r, k) { var at = ids.indexOf(k); r.style.order = at; r.hidden = at >= rowMax(); r.classList.toggle('first', at === 0); });
     list.classList.remove('is-new'); void list.offsetWidth; list.classList.add('is-new');
   }
+  /* High fidelity is shown small, in a frame: it carries half as much, so every part can be read. */
+  function setView(i) {
+    view = [5, 10, T.length][i]; [].forEach.call(el.querySelector('#tp-view').children, function (x, j) { x.classList.toggle('on', j === i); });
+    el.querySelector('#tp-mt').textContent = i === 2 ? 'All ' + T.length + ' topics' : view + ' highest-volume topics'; draw();
+  }
+  function density() { setView(stage.classList.contains('lofi') ? 1 : 0); sortRows(mode0); }
   sortRows(0);
 
   function open() {
@@ -262,7 +271,7 @@
   }
   function fidelity(f) {
     var lo = f === 'lo'; if (stage.classList.contains('lofi') === lo) return;
-    stage.classList.toggle('lofi', lo);
+    stage.classList.toggle('lofi', lo); density();
     el.classList.remove('is-swap'); void el.offsetWidth; el.classList.add('is-swap');
   }
   nav.addEventListener('click', open);
@@ -273,5 +282,5 @@
 
   window.hearTopics = { open: open, fidelity: fidelity, hot: hot, ask: askAbout, close: closeAsk };
   var q = new URLSearchParams(location.search).get('topics');
-  if (q) { if (q === 'lo') stage.classList.add('lofi'); open(); }
+  if (q) { if (q === 'lo') stage.classList.add('lofi'); density(); open(); }
 })();

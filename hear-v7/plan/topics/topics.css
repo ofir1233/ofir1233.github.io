@@ -218,3 +218,25 @@
 .stage:not(.lofi) .tp-row .sc b{min-width:26px;font-size:20px}
 .stage:not(.lofi).ask-on .tp-row{grid-template-columns:minmax(0,1fr) 110px 44px;gap:12px}
 .stage:not(.lofi).ask-on .tp-row .sc small{display:none}
+
+/* High fidelity, with air. It is seen small, inside a frame, so it shows fewer things and each one larger:
+   5 topics, 6 days rows (topics.js), no footnotes, one line under each number. Low fidelity is untouched. */
+.stage:not(.lofi) .tp .top p{font-size:15px}
+.stage:not(.lofi) .tp-def{margin-top:18px;font-size:14.5px}
+.stage:not(.lofi) .tp .tp-kpis{margin-top:18px}
+.stage:not(.lofi) .tp .tp-kpis>div{padding-top:18px;padding-bottom:18px}
+.stage:not(.lofi) .tp .tp-kpis small{font-size:14px}
+.stage:not(.lofi) .tp .tp-kpis b{font-size:40px}
+.stage:not(.lofi) .tp .tp-kpis i{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stage:not(.lofi) .tp-body{margin-top:22px;gap:36px}
+.stage:not(.lofi) .tp-h{height:36px;font-size:14.5px}
+.stage:not(.lofi) .tp-h>b{font-size:19px}
+.stage:not(.lofi) .tp-h .sub{display:none}
+.stage:not(.lofi) .tp-hint,.stage:not(.lofi) .tp-foot .mod{display:none}
+.stage:not(.lofi) .tp-row{grid-template-columns:minmax(0,1fr) 150px 92px;gap:16px}
+.stage:not(.lofi) .tp-row .nm{font-size:16.5px}
+.stage:not(.lofi) .tp-row .sc b{font-size:23px}
+.stage:not(.lofi) .tp-row .sc small{font-size:13px}
+.stage:not(.lofi) .tp-bars{height:34px}
+.stage:not(.lofi) .tp .key,.stage:not(.lofi) .tp-foot{font-size:13.5px;padding-top:13px}
+.stage:not(.lofi).ask-on .tp-row{grid-template-columns:minmax(0,1fr) 110px 44px}
