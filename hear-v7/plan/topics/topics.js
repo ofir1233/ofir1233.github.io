@@ -27,7 +27,7 @@
     ['Payment Issues', 160, -6, 1, [24, '3.8 / 5', -8], [50, '5.3% of call time', -4], [28, '4.9 min', -6]]
   ].map(function (r) { var p = r.slice(4); return { n: r[0], c: r[1], d: r[2], fresh: r[3], p: p, s: Math.round((p[0][0] + p[1][0] + p[2][0]) / 3) }; });
   var lvl = function (s) { return s < 40 ? 'b1' : s < 50 ? 'b2' : s < 60 ? 'b3' : s < 70 ? 'b4' : 'b5'; };
-  var onDark = function (s) { return s < 40 ? '#fff' : s < 50 ? '#DCEFFE' : s < 60 ? '#A9DAFE' : s < 70 ? '#63BEFE' : '#139FFD'; };
+  var onDark = function (s) { return s < 40 ? '#FF6F52' : s < 50 ? '#DCEFFE' : s < 60 ? '#A9DAFE' : s < 70 ? '#63BEFE' : '#139FFD'; };
   var status = function (s) { return s >= 60 ? 'Good' : s >= 40 ? 'Medium' : 'Poor'; };
   var num = function (n) { return n.toLocaleString('en-US'); };
   var chg = function (d) { return d ? (d > 0 ? '▲ ' : '▼ ') + Math.abs(d) + ' pts' : 'no change'; };
@@ -98,7 +98,7 @@
   list.innerHTML = T.map(function (t, k) {
     return '<button type="button" class="tp-row" data-k="' + k + '"><span class="nm">' + esc(t.n) + '<small>' + num(t.c) + ' calls</small></span>' +
       '<span class="tp-bars" aria-hidden="true">' + t.days.map(function (s) { return '<i class="' + lvl(s) + '" style="height:' + s + '%"></i>'; }).join('') + '<u class="ref" style="bottom:' + avg + '%"></u></span>' +
-      '<span class="sc"><b>' + t.s + '</b><small>' + chg(t.d) + '</small></span></button>';
+      '<span class="sc"><b>' + t.s + '</b><small class="' + (t.d < 0 ? 'dn' : t.d > 0 ? 'up' : '') + '">' + chg(t.d) + '</small></span></button>';
   }).join('');
   var rows = [].slice.call(list.children);
 
@@ -130,7 +130,7 @@
   function rowTo(k, p) {
     var t = T[k], row = rows[k], ds = p < 0 ? t.days : t.pd[p], s = p < 0 ? t.s : t.p[p][0], d = p < 0 ? t.d : t.p[p][2];
     row.querySelector('.nm small').innerHTML = p < 0 ? num(t.c) + ' calls' : '<b>' + M[p][1] + '</b> · ' + t.p[p][1];
-    row.querySelector('.sc b').textContent = s; row.querySelector('.sc small').textContent = chg(d);
+    row.querySelector('.sc b').textContent = s; var sm = row.querySelector('.sc small'); sm.textContent = chg(d); sm.className = d < 0 ? 'dn' : d > 0 ? 'up' : '';
     [].forEach.call(row.querySelectorAll('.tp-bars i'), function (b, i) { b.className = lvl(ds[i]); b.style.height = ds[i] + '%'; });
     row.querySelector('.ref').style.bottom = (p < 0 ? avg : M[p][3]) + '%';
   }

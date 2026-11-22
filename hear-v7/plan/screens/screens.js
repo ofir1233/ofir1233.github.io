@@ -8,7 +8,7 @@
   if (!stage || !key) return;
   var MK = typeof MARK === 'string' ? '<svg viewBox="0 0 69 60" aria-hidden="true"><path d="' + MARK + '"/></svg>' : '';
   var chev = '<svg class="i" viewBox="0 0 18 18"><path d="M5 7.5l4 4 4-4"/></svg>';
-  var av = function (n) { return '<i class="sx-av">' + n.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2) + '</i>'; };
+  var av = function (n) { var h = 0; for (var i = 0; i < n.length; i++) h += n.charCodeAt(i); return '<i class="sx-av a' + h % 5 + '">' + n.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2) + '</i>'; };
   var top = function (h, p, acts) { return '<div class="top"><div><h2>' + h + '</h2><p>' + p + '</p></div><div class="sp"></div>' + (acts || '') + '</div>'; };
   var act = function (t, cls) { return '<button class="act' + (cls ? ' ' + cls : '') + '" type="button">' + t + '</button>'; };
   var kpis = function (a) { return '<div class="kpis">' + a.map(function (k) { return '<div><small>' + k[0] + '</small><b>' + k[1] + '</b><i>' + k[2] + '</i></div>'; }).join('') + '</div>'; };
@@ -38,7 +38,7 @@
         kpis([['Sales without alerts', '72.6<small>%</small>', '▲ 2.1 pts against the 6 weeks before'], ['Valid sales', '93.8<small>%</small>', 'target 90%'], ['Agents above the success metric', '88.7<small>%</small>', '23 of 26 agents']]) +
         '<div class="sx-body"><div class="sx-h"><b>Criteria by agent</b><span>Only a failing score takes colour</span><span class="sx-seg r"><span class="on">Agents</span><span>Teams</span></span></div>' +
         '<div class="cm-grid">' + g + '</div>' +
-        '<div class="sx-note"><span>Score</span><i style="background:rgba(24,36,48,.07)"></i><span>70 and up</span><i style="background:#A9DAFE"></i><span>60–69</span><i style="background:#232323"></i><span>under 60</span></div></div>';
+        '<div class="sx-note"><span>Score</span><i style="background:rgba(24,36,48,.07)"></i><span>70 and up</span><i style="background:#A9DAFE"></i><span>60–69</span><i style="background:var(--coral)"></i><span>under 60</span></div></div>';
     },
     show: function (el, i, ui) {
       var c = el.querySelector('[data-c="3-9"]');
@@ -56,7 +56,7 @@
   /* ---------- Agent evaluation ---------- */
   S.agents = {
     nav: 'Agent evaluation', icon: '<circle cx="9" cy="6" r="2.8"/><path d="M3.5 15c.6-3 2.7-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/>',
-    steps: ['Each day’s bar is the average score of every agent.', 'A low day turns dark. Hovering shows the calls behind it.', 'The spread shows who needs coaching: 8 agents under 60.'],
+    steps: ['Each day’s bar is the average score of every agent.', 'A low day turns coral. Hovering shows the calls behind it.', 'The spread shows who needs coaching: 8 agents under 60.'],
     build: function () {
       var D = [76, 76, 75, 75, 74, 74, 76, 74, 74, 75, 75, 75, 76, 76, 77, 76, 77, 66, 68, 67, 67, 77, 77, 77, 77, 81, 80, 81, 76, 75];
       var bars = D.map(function (v, i) { return '<i class="ae-b ' + (v < 70 ? 'l1 low' : v < 76 ? 'l3' : v < 80 ? 'l4' : 'l5') + '" data-b="' + i + '" style="height:' + ((v - 50) / 36 * 100).toFixed(1) + '%"><em>' + v + '</em></i>'; }).join('');
@@ -79,7 +79,7 @@
     nav: 'Actions', icon: '<rect x="2.5" y="3" width="3.6" height="12" rx="1.2"/><rect x="7.2" y="3" width="3.6" height="8" rx="1.2"/><rect x="11.9" y="3" width="3.6" height="10" rx="1.2"/>',
     steps: ['Each finding is a task with its source and an owner.', 'Hovering a card shows what can be done with it.', 'The task opens with the call it came from.', 'Closed work keeps its reason.'],
     build: function () {
-      var card = function (src, hi, title, who, tag, cls) { return '<div class="ac-card' + (cls ? ' ' + cls : '') + '"><small><u' + (hi ? ' class="hi"' : '') + '></u>' + src + '</small><p>' + title + '</p><footer>' + (who ? av(who) + who : '<span style="color:var(--mut)">Not assigned</span>') + (tag ? '<span class="sx-tag">' + tag + '</span>' : '') + '</footer><div class="qa"><span>Assign</span><span>Start</span><span>Close</span></div></div>'; };
+      var card = function (src, hi, title, who, tag, cls) { return '<div class="ac-card' + (cls ? ' ' + cls : '') + '"><small><u' + (hi ? ' class="hi"' : '') + '></u>' + src + '</small><p>' + title + '</p><footer>' + (who ? av(who) + who : '<span style="color:var(--mut)">Not assigned</span>') + (tag ? '<span class="sx-tag' + (tag === 'Resolved' ? ' ok' : tag === 'Escalated' ? ' ink' : '') + '">' + tag + '</span>' : '') + '</footer><div class="qa"><span>Assign</span><span>Start</span><span>Close</span></div></div>'; };
       var col = function (n, c, cards, more) { return '<section class="ac-col"><h4>' + n + '<i>' + c + '</i></h4>' + cards + (more ? '<span class="ac-more">+' + more + ' more</span>' : '') + '</section>'; };
       return top('Actions', 'Findings from alerts, signals and evaluations, each one with an owner.', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New task', 'ink')) +
         '<div class="ac-bar"><span class="sx-chip on">Everyone</span><span class="sx-chip">Assigned to me</span><span class="sx-chip">Mentions me</span><i class="gap"></i><span class="sx-chip">High priority <b>4</b></span><span class="sx-chip">From alerts <b>5</b></span><span class="sx-chip">From agent evaluation <b>2</b></span></div>' +
@@ -105,7 +105,7 @@
     nav: 'Newsroom', icon: '<rect x="2.5" y="3.5" width="13" height="11" rx="2"/><path d="M5.5 7h4M5.5 10h7"/>',
     steps: ['Newsroom writes what changed in the calls as stories.', 'Play opens the month as a 75-second story.', 'It counts the 38,214 calls analysed in July.', 'Then it names the one thing that changed most.'],
     build: function () {
-      var N = [['“Cancellation intent” is surging past its 30-day baseline', 'Signal · 240% over baseline · 4:12 pm', 'Surging', 'ink'], ['Team B handle time is up 40% since Monday', 'Agent performance · 2:30 pm', 'Rising', 'blue'], ['Missed upgrade offers: 2 stories from 214 eligible calls', 'Daily alerts report', 'New', 'blue'], ['Most requested refund reason: schedule change', 'Weekly summary · 3 stories', 'Steady', ''], ['Silence on Trip Status calls is down a third', 'Signal · since the new script', 'Improving', 'blue'], ['Three agents moved above the success metric', 'Agent evaluation · this week', 'Steady', '']];
+      var N = [['“Cancellation intent” is surging past its 30-day baseline', 'Signal · 240% over baseline · 4:12 pm', 'Surging', 'ink'], ['Team B handle time is up 40% since Monday', 'Agent performance · 2:30 pm', 'Rising', 'blue'], ['Missed upgrade offers: 2 stories from 214 eligible calls', 'Daily alerts report', 'New', 'new'], ['Most requested refund reason: schedule change', 'Weekly summary · 3 stories', 'Steady', ''], ['Silence on Trip Status calls is down a third', 'Signal · since the new script', 'Improving', 'ok'], ['Three agents moved above the success metric', 'Agent evaluation · this week', 'Steady', '']];
       return top('Newsroom', 'What changed in your calls, written as stories you can read or play.', act('Last 7 days' + chev) + act('Share')) +
         '<div class="sx-body nr-body"><section class="nr-col"><div class="nr-feat"><small>Monthly recap · Story</small><h3>38,214 calls. One story.</h3><p>The day you never caught your breath, the topic that took over, and the agent who carried the floor.</p><span class="nr-play"><svg viewBox="0 0 12 12"><path d="M2.5 1.2v9.6L10.5 6z"/></svg>Play · 75 sec</span></div>' +
         '<div class="nr-chart"><div class="sx-h"><b>Call volume</b><span>July, by day</span></div><div class="nr-plot"><svg viewBox="0 0 600 150" preserveAspectRatio="none"><path d="M0 120C40 118 70 112 110 110S170 116 210 96 270 30 310 26 370 70 410 78 480 62 520 66 570 52 600 48V150H0z" fill="#DCEFFE"/><path d="M0 120C40 118 70 112 110 110S170 116 210 96 270 30 310 26 370 70 410 78 480 62 520 66 570 52 600 48" fill="none" stroke="#139FFD" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg><i class="g" style="top:33%"></i><i class="g" style="top:66%"></i><span class="pk"><b>1,912 calls</b> Jul 14</span></div><div class="ae-dates"><span>Jul 1</span><span>Jul 8</span><span>Jul 15</span><span>Jul 22</span><span>Jul 31</span></div></div></section>' +
@@ -152,7 +152,7 @@
         ['Long silence', 'More than 20 seconds with nobody speaking', 131, 'Quiet', '', [10, 9, 11, 10, 9, 10, 11, 9, 10, 9, 10, 11, 10, 9]], ['Competitor mentioned', 'The customer names another airline', 47, 'Quiet', '', [5, 6, 5, 4, 6, 5, 5, 6, 4, 5, 6, 5, 4, 5]], ['Praise for the agent', 'The customer thanks the agent by name', 302, 'Paused', '', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]];
       return top('Signals', 'Rules that classify calls on their own. 7 signals · 3 firing now', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New signal', 'ink')) +
         '<div class="sg-new"><svg class="i" viewBox="0 0 18 18"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="tx"></span><span class="sx-tag blue">Classifying 2,000 calls…</span></div>' +
-        '<div class="sx-body"><div class="sg-list"><div class="sg-r new"><i class="tg"></i><span class="nm">Switching to a competitor<small>The customer says they will switch to a competitor</small></span><span class="sp">' + [2, 1, 2, 1, 3, 2, 1, 2, 3, 2, 1, 3, 2, 4].map(function (v) { return '<i style="height:' + v * 22 + '%"></i>'; }).join('') + '</span><span class="ct"><b>23</b>calls in 14 days</span><span class="sx-tag blue">New</span></div>' + G.map(function (g, k) {
+        '<div class="sx-body"><div class="sg-list"><div class="sg-r new"><i class="tg"></i><span class="nm">Switching to a competitor<small>The customer says they will switch to a competitor</small></span><span class="sp">' + [2, 1, 2, 1, 3, 2, 1, 2, 3, 2, 1, 3, 2, 4].map(function (v) { return '<i style="height:' + v * 22 + '%"></i>'; }).join('') + '</span><span class="ct"><b>23</b>calls in 14 days</span><span class="sx-tag new">New</span></div>' + G.map(function (g, k) {
           return '<div class="sg-r" data-g="' + k + '"><i class="tg' + (g[3] === 'Paused' ? ' off' : '') + '"></i><span class="nm">' + g[0] + '<small>' + g[1] + '</small></span><span class="sp">' + g[5].map(function (v, d) { return '<i' + (g[4] && d > 9 ? ' class="pk"' : '') + ' style="height:' + Math.max(8, v / 28 * 100) + '%"></i>'; }).join('') + '</span><span class="ct"><b>' + g[2] + '</b>calls in 14 days</span><span class="sx-tag ' + g[4] + '">' + g[3] + '</span></div>';
         }).join('') + '</div></div>';
     },

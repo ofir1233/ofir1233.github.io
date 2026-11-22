@@ -240,3 +240,19 @@
 .sx.side-on .sg-r{grid-template-columns:38px minmax(0,1fr) 112px 84px}
 .sg-r.new{display:none}
 .sg-r.new.in{display:grid;background:#fff;box-shadow:0 0 0 2px #139FFD,0 6px 18px -8px rgba(16,34,60,.3);animation:sx-in .5s cubic-bezier(.2,.8,.2,1) both}
+
+/* BRAND COLOURS WITH A MEANING (owner, 22.11.2026: "everything is one colour, use these as well where it makes sense").
+   coral = failing, firing, needs attention.  green = good, done, improving.  lilac = new and AI.
+   Blue stays the colour of the data, charcoal the colour of the main action. From his palette: Pulse Coral, Growth Green, Lilac Purple. */
+:root{--coral:#FF6F52;--coral-ink:#B5371D;--coral-tint:#FFE3DB;--green:#4BA373;--green-ink:#226A45;--green-tint:#DBEFE3;--lilac:#D59BE0;--lilac-ink:#7A3E98;--lilac-tint:#F4E5F8}
+.sx .l1,.cm-grid .c.low{background:var(--coral);color:#fff}
+.sx-tag.ink{background:var(--coral-tint);color:var(--coral-ink)}
+.sx-tag.ok{background:var(--green-tint);color:var(--green-ink)}
+.sx-tag.new{background:var(--lilac-tint);color:var(--lilac-ink)}
+.ac-card small u.hi{background:var(--coral)}
+.dt-r .se i{background:var(--green)} .dt-r .se i.neg{background:var(--coral)}
+.sg-r .sp i.pk{background:var(--coral)}
+.sx-tip .m u{background:var(--coral)}
+.ae-b.low em{color:var(--coral-ink)}
+.ac-check.done i{background:var(--green)}
+.sx-av.a0{background:var(--coral-tint);color:var(--coral-ink)}.sx-av.a1{background:var(--green-tint);color:var(--green-ink)}.sx-av.a2{background:var(--lilac-tint);color:var(--lilac-ink)}.sx-av.a3{background:#DCEFFE;color:#0B4F8A}

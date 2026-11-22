@@ -165,7 +165,7 @@
   var kEl = now.querySelector('.hs-k'), tEl = now.querySelector('.hs-t'), dEl = now.querySelector('.tp-d');
   var COPY = {
     lo: ['Step 1 of 2', 'Structure first', 'Grey boxes and three notes: what the screen holds and why, before any colour.'],
-    hi: ['Step 2 of 2', 'Then the Hear look', 'The same screen on glass and sky, with one blue for the scores and ink for what needs attention.']
+    hi: ['Step 2 of 2', 'Then the Hear look', 'The same screen on glass and sky, with blue for the scores and coral for what needs attention.']
   };
   var cur = 'lo', loaded = false, chose = false, shown = false, timer = 0;
   /* The screen is drawn at the size that fits the frame, not at 1440 and shrunk: 1120 in a wide frame, 860 without its sidebar in a
