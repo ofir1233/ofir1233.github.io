@@ -82,6 +82,21 @@
     if ('ResizeObserver' in window) new ResizeObserver(again).observe(dev); else addEventListener('resize', again);
   });
 
+  // the closing catch-up: a line opens its chapter's folded text, then brings the decision to reading height and marks it for 1600ms
+  document.querySelectorAll('.fy-cu a[href^="#d-"]').forEach(a => a.addEventListener('click', e => {
+    const d = document.getElementById(a.getAttribute('href').slice(1)); if (!d) return;
+    e.preventDefault();
+    const ch = d.closest('.chapter'), more = ch && ch.querySelector('.ch-head details.more');
+    if (more && !more.open) more.open = true;
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    requestAnimationFrame(() => {
+      d.scrollIntoView({ block: 'center', behavior: calm ? 'auto' : 'smooth' });
+      d.classList.remove('cu-hit'); void d.offsetWidth; d.classList.add('cu-hit');
+      setTimeout(() => d.classList.remove('cu-hit'), 2600);
+      history.replaceState(null, '', '#' + d.id);
+    });
+  }));
+
   // 06: the formats row is a tab stop only where it scrolls
   const fm = document.querySelector('.fmts');
   if (fm) {

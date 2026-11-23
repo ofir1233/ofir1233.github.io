@@ -34,7 +34,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="fyi.css?v=4">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=31">
-<link rel="stylesheet" href="../v7/fyi-page.css?v=8">
+<link rel="stylesheet" href="../v7/fyi-page.css?v=9">
 </head>
 <body class="fyi-page">
 <a class="skip" href="#main">Skip to content</a>
@@ -173,7 +173,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
       <div class="xtra fold2">
-        <div class="decision">
+        <div class="decision" id="d-ai">
           <div class="label"><b>Decision</b></div>
           <h3>Is AI a contact or a layer?</h3>
           <ul class="opts">
@@ -230,7 +230,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
       <div class="xtra fold2">
-        <div class="decision">
+        <div class="decision" id="d-tasks">
           <div class="label"><b>Decision</b></div>
           <h3>Where does a task start?</h3>
           <ul class="opts">
@@ -286,7 +286,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
       <div class="xtra fold2">
-        <div class="decision">
+        <div class="decision" id="d-together">
           <div class="label"><b>Decision</b></div>
           <h3>When do call notes run?</h3>
           <ul class="opts">
@@ -351,7 +351,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
       <div class="xtra fold2">
-        <div class="decision">
+        <div class="decision" id="d-launch">
           <div class="label"><b>Decision</b></div>
           <h3>Are promo formats copies or views?</h3>
           <ul class="opts">
@@ -419,7 +419,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div class="strip-row" data-strip="event" role="region" aria-label="Event ticket states" tabindex="0"></div>
       </div>
       <div class="xtra fold2 sys-x">
-        <div class="decision">
+        <div class="decision" id="d-system">
           <div class="label"><b>Decision</b></div>
           <h3>What earns a tab?</h3>
           <ul class="opts">
@@ -449,6 +449,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </section>
 
   <div class="wrap">
+    <aside class="fy-cu" aria-labelledby="fy-cu-t">
+      <div class="cu-hd"><span class="cu-t" id="fy-cu-t">Catch up</span><span class="cu-vis">Only you see this</span></div>
+      <p class="cu-in">While you were reading, five decisions were made.</p>
+      <ol class="cu-list"><li><a href="#d-ai"><span class="cu-l">AI is a layer in the thread, not a contact.</span><span class="cu-s">03 · AI</span></a></li><li><a href="#d-tasks"><span class="cu-l">A task starts from the message that asked for it.</span><span class="cu-s">04 · Tasks</span></a></li><li><a href="#d-together"><span class="cu-l">Call notes are on for the whole call, visible to all.</span><span class="cu-s">05 · Together</span></a></li><li><a href="#d-launch"><span class="cu-l">Promo formats are views of the event, not copies.</span><span class="cu-s">06 · Launch night</span></a></li><li><a href="#d-system"><span class="cu-l">Five tabs: Chats, Projects, Events, Calls, AI.</span><span class="cu-s">07 · System</span></a></li></ol>
+    </aside>
     <div class="sources"><p>The live screens show the latest version of my design for FYI, running as live code. Every person, track, venue, date and message inside them is fictional demo content. FYI did not launch.</p></div>
     <a class="next" href="design-lab.html" aria-label="Next case study: Design Lab. A working replica of Hear, built to test designs"><span class="next-t"><span class="label">Next case study</span><span class="next-name">Design Lab</span><span class="next-line">A working replica of Hear, built to test designs</span><span class="next-go">Read next</span></span><span class="next-thumb" aria-hidden="true"><img src="../img/next-lab.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span></a>
   </div>
@@ -490,7 +495,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script src="case.js?v=5"></script>
 <script src="fyi-live.js"></script>
 <script src="fyi-scenes.js"></script>
-<script src="fyi-page.js"></script>
+<script src="fyi-page.js?v=2"></script>
 <script src="../v7/foot.js?v=200" defer></script>
 </body>
 </html>
