@@ -467,3 +467,16 @@ html body .more[open] > summary::before{ content:"\2212"; }
 html body .more > summary{ margin-top:6px; }
 /* Actions thumbnail: the cut edge dissolves instead of slicing a chip mid-word */
 @media (min-width:861px){ html body .next .next-thumb.whole:has(img[src*="v7s-actions-board"]){ -webkit-mask-image:linear-gradient(to right, #000 84%, transparent 100%); mask-image:linear-gradient(to right, #000 84%, transparent 100%); } }
+
+/* decisions open folded (work/case.js): the question and the chosen option; one outline button opens what was ruled out and why */
+html body .decision.dc-fold:not(.dc-open) .opt:not(.chosen), html body .decision.dc-fold:not(.dc-open) > .dc-why{ display:none !important; }
+html body .decision .opts > li.dc-t{ list-style:none; margin:0; padding:18px 0 0 !important; background:none !important; border:0 !important; box-shadow:none !important; }
+html body .decision .dc-btn{ display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 20px; border:0; border-radius:22px; background:none; box-shadow:inset 0 0 0 1.5px rgba(23,27,32,.22); color:#171b20; font:600 15px/1 var(--body); cursor:pointer; transition:box-shadow .2s, color .2s; }
+html body .decision .dc-btn::before{ content:"+"; font:500 18px/1 var(--body); margin-top:-1px; }
+html body .decision.dc-open .dc-btn::before{ content:"\2212"; }
+html body .decision .dc-btn:hover{ box-shadow:inset 0 0 0 1.5px #0b6fcf; color:#0b6fcf; }
+html body .decision .dc-btn:focus-visible{ outline:2px solid #0b6fcf; outline-offset:3px; }
+@media (prefers-reduced-motion: no-preference){
+  html body .decision.dc-fold.dc-open .opt:not(.chosen), html body .decision.dc-fold.dc-open > .dc-why{ animation:dcIn .28s cubic-bezier(.3,.1,.2,1) both; }
+}
+@keyframes dcIn{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }

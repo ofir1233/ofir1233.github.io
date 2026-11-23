@@ -346,3 +346,25 @@
     if (r.top < 90 || r.top > innerHeight - 60) d.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
   }));
 })();
+
+/* Decisions open folded: the question and the option that was chosen. One outline button under the chosen option opens what was
+   ruled out and the reasoning. Without this script everything is shown. A link that lands on a decision opens it. */
+(function () {
+  var all = [].slice.call(document.querySelectorAll('.decision'));
+  all.forEach(function (d) {
+    var opts = d.querySelector('.opts'); if (!opts || !opts.querySelector('.opt.chosen')) return;
+    var n = opts.querySelectorAll('.opt:not(.chosen)').length; if (!n) return;
+    var why = d.querySelector(':scope > .because') || d.querySelector(':scope > p'); if (why) why.classList.add('dc-why');
+    var li = document.createElement('li'), b = document.createElement('button');
+    li.className = 'dc-t'; b.type = 'button'; b.className = 'dc-btn';
+    var closed = n === 1 ? 'The option I ruled out' : 'The ' + n + ' options I ruled out';
+    var set = function (open) { d.classList.toggle('dc-open', open); b.setAttribute('aria-expanded', open ? 'true' : 'false'); b.textContent = open ? 'Show less' : closed; };
+    b.addEventListener('click', function () { set(!d.classList.contains('dc-open')); });
+    li.appendChild(b); opts.appendChild(li); d.classList.add('dc-fold'); set(false);
+    d.dcOpen = function () { set(true); };
+  });
+  var land = function () { var id = location.hash.slice(1), t = id && document.getElementById(id), d = t && t.closest && t.closest('.decision'); if (d && d.dcOpen) d.dcOpen(); };
+  addEventListener('hashchange', land); land();
+  document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return; var t = document.getElementById(a.getAttribute('href').slice(1)), d = t && t.closest('.decision'); if (d && d.dcOpen) d.dcOpen(); });
+  addEventListener('beforeprint', function () { all.forEach(function (d) { if (d.dcOpen) d.dcOpen(); }); });
+})();
