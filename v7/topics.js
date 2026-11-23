@@ -1074,7 +1074,7 @@
     if (playing || (inView && (worldOn || moving))) requestAnimationFrame(loop); else looping = false;
   }
   function kick() { if (!looping && G) { looping = true; last = performance.now(); requestAnimationFrame(loop); } }
-  if (false) {
+  if (fine && !calm) {
     fig.addEventListener('pointermove', function (e) {
       if (e.pointerType !== 'mouse') return;
       var r = stage.getBoundingClientRect();
