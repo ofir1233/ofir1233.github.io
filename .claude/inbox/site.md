@@ -23,3 +23,10 @@
 ## תשובות
 
 (אין)
+
+## 23.11 - home Product cards and inner pages (site session)
+- Home `#product` cards: title, one short lead (`.pf-lead`), dark case-study button, outline Read more. Challenge, full paragraph and "same call" show only when Read more is open. Rules at the end of `v7/product.css`. Under the frame only the active step is written; the others are numbers.
+- `v7/px.css`: tour step buttons are top-aligned columns.
+- `v7/case.css`: a decision with a figure is a two-column grid from 900px; phone decision options have no left padding except the chosen one.
+- `v7/fyi-page.css`: AI strip is an auto-fill grid (300px min); the field sheet stage text is capped at 540px.
+- `#campaign`, `work/brand-web.html`, feed and campaign files: not touched.

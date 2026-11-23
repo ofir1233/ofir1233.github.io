@@ -3918,7 +3918,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <script>/* the hero picture is painted in once per tab: v7/hero-paint.js */try{if(!sessionStorage.getItem('hp')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('hp-wait')}catch(e){}</script>
 <link rel="stylesheet" href="v7/code.css?v=222">
 <link rel="stylesheet" href="v7/design-lab.css?v=223">
-<link rel="stylesheet" href="v7/product.css?v=223">
+<link rel="stylesheet" href="v7/product.css?v=224">
 <link rel="stylesheet" href="v7/system.css?v=221">
 <link rel="stylesheet" href="v7/web-fyi.css?v=2240">
 <link rel="stylesheet" href="v7/campaign.css?v=221">
@@ -4075,7 +4075,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <div class="head"></div>
         <h3>Topics</h3>
         <p class="pf-prob"><b>The challenge</b>Calls spread across many topics. Which ones are both big and scoring low?</p>
-        <p class="pf-sol">I sized topics by calls and colored them by score, so the weak ones stand out before anyone reads a number.</p>
+        <p class="pf-sol pf-lead">I sized topics by calls and colored them by score, so the weak ones stand out before anyone reads a number.</p>
         <div class="pf-call"><p class="pf-call-k">One call, four screens <i>stop 1 of 4</i></p><p class="pf-call-t">A sample call from Oct 13: a customer asks twice for a refund and is offered a voucher. In Topics it sits in <b>Refunds&nbsp;&amp;&nbsp;Credits</b>, a topic that scores 36.</p><button type="button" class="pf-call-go" data-follow="Topics">Show it in Topics</button></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-topics"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Topics</span></button><div class="mr-body" id="mr-topics"><div class="mr-in"><div><ul class="mr-list"><li>The Topics screen has boxes, circles and flow views</li><li>Hovering a topic shows the parameters behind its score</li><li>The daily score panel shows each topic’s last 30 days, its change and its score</li></ul></div></div></div></div>
       </div>
@@ -4087,6 +4087,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <div class="head"></div>
         <h3>Compliance</h3>
         <p class="pf-prob"><b>The challenge</b>Compliance checks every contact-center agent against the center’s rules. Failures are easy to miss.</p>
+        <p class="pf-lead">Only failing cells in the heatmap get color, and Ask AI names the calls that pulled a score down.</p>
         <p class="pf-sol">Only failing cells in the heatmap get color. Each cell’s popover compares the agent with the team, and from there Ask AI names the calls that pulled the score down.</p>
         <div class="pf-call"><p class="pf-call-k">The same call <i>stop 2 of 4</i></p><p class="pf-call-t">Here the Oct 13 refund call explains <b>Selma&nbsp;K.</b>&rsquo;s low score on one rule. Ask AI lists it first among the calls that pulled it down.</p><button type="button" class="pf-call-go" data-follow="Compliance">Show it in Compliance</button></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-compliance"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Compliance</span></button><div class="mr-body" id="mr-compliance"><div class="mr-in"><div><p>Each cell also shows its score as a number, so the grid never relies on color alone. Before anyone presses <b>Ask AI which calls</b>, the popover says what the button will do.</p></div></div></div></div>
@@ -4100,6 +4101,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <div class="head"></div>
         <h3>Agent evaluation</h3>
         <p class="pf-prob"><b>The challenge</b>Agent evaluation gives each agent an AI score, useful only if people can check it.</p>
+        <p class="pf-lead">A day far under the average turns coral. Opening it shows the score, the calls behind it and what fell.</p>
         <p class="pf-sol">I designed every version of this screen. In the latest, shown here, a day far under the average turns coral, and opening it shows the score, the calls behind it and what fell.</p>
         <div class="pf-call pf-skip"><p class="pf-call-k">The same call <i>skips this screen</i></p><p class="pf-call-t">Agent evaluation scores a whole day, not single calls, and its chart ends on Oct 12, the day before the call.</p></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-eval"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Agent evaluation</span></button><div class="mr-body" id="mr-eval"><div class="mr-in"><div><p>I kept two ways into the chat. From the sidebar, Ask AI takes the page and the project as context, so its answer is general. From a Compliance cell, Ask AI takes the agent, the criterion and the score with the question.</p></div></div></div></div>
@@ -4113,7 +4115,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <div class="head"></div>
         <h3>Actions</h3>
         <p class="pf-prob"><b>The challenge</b>Alerts, signals and evaluations raise findings, but each one still needs an owner.</p>
-        <p class="pf-sol">Each finding becomes a task with its source, a priority and an assignee. Closed work keeps its reason, such as Duplicate or Escalated.</p>
+        <p class="pf-sol pf-lead">Each finding becomes a task with its source, a priority and an assignee. Closed work keeps its reason, such as Duplicate or Escalated.</p>
         <div class="pf-call"><p class="pf-call-k">The same call <i>stop 3 of 4</i></p><p class="pf-call-t">The Oct 13 refund call raised an alert. The alert is now a task, High priority, assigned to <b>Daniel&nbsp;Brooks</b>.</p><button type="button" class="pf-call-go" data-follow="Actions">Show it in Actions</button></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-actions"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Actions</span></button><div class="mr-body" id="mr-actions"><div class="mr-in"><div><p>In June 2026 I also designed AI Tasks, a coded prototype in the Lab. The AI proposes changes in groups, and a person decides on each group before anything is submitted.</p></div></div></div></div>
         <div class="cs-links"><a class="cs-link" href="work/actions.html">Actions case study <span aria-hidden="true">→</span></a></div>
@@ -4126,6 +4128,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <div class="head"></div>
         <h3>Newsroom, Data &amp; Signals</h3>
         <p class="pf-prob"><b>The challenge</b>One set of calls, three questions: what changed this month, which calls match, and what to flag without being asked.</p>
+        <p class="pf-lead">Three surfaces for the same calls: a 75-second story, a filter built from plain words, and signals that classify calls on their own.</p>
         <p class="pf-sol">I designed three surfaces for that data. Newsroom plays the month as a 75-second story. Data builds a filter from plain words and shows it as chips people can read and remove. Signals classify calls on their own.</p>
         <div class="pf-call"><p class="pf-call-k">The same call <i>stop 4 of 4</i></p><p class="pf-call-t">In Newsroom the Oct 13 refund call is one of six behind a story: <b>refund asked twice, voucher offered</b>.</p><button type="button" class="pf-call-go" data-follow="Newsroom">Show it in Newsroom</button></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-news"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Newsroom, Data and Signals</span></button><div class="mr-body" id="mr-news"><div class="mr-in"><div><ul class="mr-list"><li><b>Newsroom</b> stories show their source and end with a line such as “See N calls”</li><li><b>Signals</b> are AI or rule-based classifiers, and the form for a new one asks what to detect and which fields to pull from every call</li></ul></div></div></div></div>

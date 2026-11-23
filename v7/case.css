@@ -442,3 +442,18 @@ html body article.decision > h3{ margin-top:10px; }
 
 /* Newsroom as the next case: the headline and the whole rise of its chart, so the lower half of the frame is not blank */
 @media (min-width:861px){ html body .next .next-thumb.whole img[src*="v7s-news-feed"]{ width:141%; } }
+
+/* round 15 */
+/* phones: one text edge in a decision. The options start where the question starts; the chosen one keeps its blue rule, on the screen edge */
+@media (max-width:760px){
+  html body article.decision .opt{ padding-left:0 !important; }
+  html body article.decision .opt.chosen{ margin-left:-16px; padding-left:16px !important; }
+}
+/* a decision that carries a picture keeps the same two columns; the picture and what follows it run full width beneath */
+@media (min-width:900px){
+  html body article.decision:has(> figure){ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:0 clamp(32px,5vw,80px); align-items:start; }
+  html body article.decision:has(> figure) > *{ grid-column:1 / -1; }
+  html body article.decision:has(> figure) > .label{ grid-column:1; grid-row:1; }
+  html body article.decision:has(> figure) > h3{ grid-column:1; grid-row:2; margin-top:10px; }
+  html body article.decision:has(> figure) > .opts{ grid-column:2; grid-row:1 / span 3; margin-top:0; }
+}

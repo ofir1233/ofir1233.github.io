@@ -209,3 +209,20 @@ html body.fyi-page .fx-dots button{ justify-items:start; }
 html body.fyi-page .spec figcaption{ text-align:left; font-size:15px; }
 html body.fyi-page .sources{ margin-top:0; border-top:1px solid var(--line, rgba(23,27,32,.12)); padding-top:clamp(26px,2.6vw,34px); }
 html body.fyi-page .fy-cu{ margin-bottom:clamp(48px,5vw,72px); }
+
+/* round 15 */
+/* the step sentence: lighter and wider, so three lines do not stand as a narrow heavy column beside an empty half */
+@media (min-width:1024px){
+  html.js body.fyi-page .stage:not(.fx-rm):not(.st-all) .fx-beats button{ font-weight:500; font-size:clamp(21px,1.85vw,27px); line-height:1.26; letter-spacing:-.02em; }
+  html body.fyi-page .st-l:not(.st-anat) > .st-txt, html body.fyi-page .st-r:not(.st-anat) > .st-txt{ max-width:30ch; }
+  html body.fyi-page .st-anat > .st-txt .fx-beats{ max-width:34ch; }
+  /* the AI states fill the slab: four across, not three and an empty black quarter */
+  html body.fyi-page #system .strip-row[data-strip="ai"]{ display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:26px 28px; align-items:start; }
+  html body.fyi-page #system .strip-row[data-strip="ai"] > figure, html body.fyi-page #system .strip-row[data-strip="ai"] > figure > :first-child{ width:auto; max-width:100%; min-width:0; }
+}
+html body.fyi-page .fy-cu .cu-s{ font-size:15px; }
+@media (max-width:700px){ html body.fyi-page .fy-cu{ margin-top:32px; } }
+@media (min-width:1024px){
+  /* the field sheet keeps a readable width: its value column was breaking one word a line */
+  html body.fyi-page .stage.stage.st-anat > .st-txt{ max-width:min(100%, 540px); }
+}
