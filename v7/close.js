@@ -51,8 +51,23 @@
       var im = new Image(); im.onload = put; im.onerror = function () { asked = ''; };
       im.src = base + 'end-harbour-' + want + (small.matches ? '-1152' : '') + '.webp';
     };
-    sky(); setInterval(sky, 60000);
   }
+
+  /* The paintings are heavy and sit at the very end of the page, so nothing of them is fetched until the reader is within
+     about two screens of the postcard (html.cl-near lets the CSS backgrounds in). At dusk or at night that hour's painting
+     is fetched alone: the day one is never downloaded only to be replaced. */
+  var root = document.documentElement, begun = false;
+  var paint = function () { root.classList.add('cl-near'); };
+  var begin = function () {
+    if (begun) return; begun = true;
+    if (typeof sky !== 'function') return paint();
+    var w = forced ? forced[1] : hourOf(new Date());
+    if (w === 'day') paint();
+    else { var im = new Image(); im.onload = function () { sec.classList.add('cl-' + w); shown = w; paint(); }; im.onerror = paint; im.src = base + 'end-harbour-' + w + (small.matches ? '-1152' : '') + '.webp'; }
+    setInterval(sky, 60000);
+  };
+  if ('IntersectionObserver' in window) { var nio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { nio.disconnect(); begin(); } }, { rootMargin: '1800px 0px' }); nio.observe(sec); }
+  else begin();
 
   /* arriving, once */
   var lines = sec.querySelectorAll('.cl-lines li'); for (var i = 0; i < lines.length; i++) lines[i].style.setProperty('--i', i);

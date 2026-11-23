@@ -223,6 +223,7 @@
       });
     }
     img.loading = 'eager';
+    var ds = img.getAttribute('data-src'); if (ds) { img.removeAttribute('data-src'); img.src = ds; }   /* the painting is fetched only when the block is near */
     if (img.complete && img.naturalWidth) onImg(); else { img.addEventListener('load', onImg, { once: true }); img.addEventListener('error', function () { ready = true; go(); }, { once: true }); }
   }
 
