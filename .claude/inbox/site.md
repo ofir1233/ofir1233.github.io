@@ -55,3 +55,4 @@
 - 23.11 (site): the owner asked to remove the black tooltip card that opens over a topic in stage 5; `v7/topics.js` hides `.tp-tip` in both frames (same injected rule as the sky clamp). The tile still opens to its three scores and the click still asks AI.
 
 - 23.11 (site): owner request on the Topics block: the window leans in 3D with the mouse like the sign-in card, and stands on a second frame of glass. `v7/topics.css` (end of file): `perspective() rotateX/rotateY` on `.tp-fig .ct-stage` from `--rx/--ry`, glass on `.ct-stage::before` shown by `--glass`; `v7/topics.js` sets the three variables in `drawWorld`. Also fixed: three rules of yours that my scoping had left unscoped inside media blocks (one was a bare `.ct-stage{padding:5px}`).
+- 23.11 site: hero portrait cut-out is now img/me-v7-fig-b3.webp (the white collar had been keyed out with the ground, leaving a hole at the neck; filled from the source painting). index.html line of #about figure only.
