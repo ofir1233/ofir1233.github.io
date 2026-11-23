@@ -178,3 +178,12 @@ html body section#design-lab#design-lab .sec-head .cs-pair{ gap:8px 18px; }
 #design-lab#design-lab .tp-ends span:first-child{ transform:translateX(calc(-100% - 16px)); }
 #design-lab#design-lab .tp-ends span:last-child{ transform:translateX(16px); }
 @media (max-width:700px){ #design-lab#design-lab .tp-ends{ margin:12px 0 0; } #design-lab#design-lab .tp-ends span{ left:clamp(102px, var(--p), calc(100% - 102px)); } #design-lab#design-lab .tp-ends span:first-child{ transform:translateX(calc(-100% - 12px)); } #design-lab#design-lab .tp-ends span:last-child{ transform:translateX(12px); } }
+
+/* round 14: the section head stays centred as the lead; the Topics head under it takes the page's split pattern
+   (label and title on the left, the paragraph on the right, bottoms level), so the section does not read as two banners. */
+@media (min-width:900px){
+  #design-lab#design-lab .tp-head{ display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); column-gap:clamp(32px,5vw,80px); align-items:end; text-align:left; }
+  #design-lab#design-lab .tp-head .label{ grid-column:1; grid-row:1; justify-self:start; }
+  #design-lab#design-lab .tp-head h3{ grid-column:1; grid-row:2; }
+  #design-lab#design-lab .tp-head p{ grid-column:2; grid-row:1 / span 2; max-width:none; margin:0; }
+}

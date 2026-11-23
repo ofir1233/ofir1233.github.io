@@ -241,3 +241,10 @@ html body section#product#product .pf-prob{ background:none !important; border-r
 @media (prefers-reduced-motion:reduce){ #product#product .px-win::after{ transition:none !important; } }
 
 @media (max-width:860px){ #product#product .pf-call-t{ text-wrap:pretty; } }
+
+/* round 14: the screen tabs are plain words on a hairline, the one shown carries an ink underline. No capsule inside a capsule. */
+#product#product#product .px-tabs{ display:flex; gap:clamp(18px,2.4vw,30px); margin:0 0 18px; padding:0; border-radius:0; background:none; box-shadow:inset 0 -1px 0 rgba(23,27,32,.12); overflow:visible; }
+#product#product#product .px-tabs button{ flex:none; min-height:40px; padding:0; border-radius:0; background:none; box-shadow:none; font:500 15px/1 var(--body); color:#4b5158; }
+#product#product#product .px-tabs button[aria-pressed="true"]{ background:linear-gradient(#171b20,#171b20) 0 100% / 100% 2px no-repeat; color:#171b20; box-shadow:none; }
+@media (max-width:700px){ #product#product#product .px-tabs{ gap:0; justify-content:space-between; } #product#product#product .px-tabs button{ padding:0; font-size:14.5px; } }
+@media (hover:none){ #product#product#product .px-tabs button{ min-height:44px; } }

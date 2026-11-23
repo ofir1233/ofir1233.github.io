@@ -75,3 +75,10 @@
 
 /* the note shows only after the visitor pressed pause, never by itself on load. Under reduced motion nothing in the window animates. */
 @media (prefers-reduced-motion: reduce){ .px-host.px-host .px-app, .px-host.px-host .px-free, .px-host.px-host .px-steps li button, .px-host.px-host .px-steps li button::before{ transition:none !important; animation:none !important; } .px-host.px-host .px-steps.is-paused.by-user .px-free{ opacity:1; } }
+
+/* round 14: the screen tabs are plain words on a hairline, the one shown carries an ink underline. No capsule inside a capsule. */
+.px-host.px-host.px-host .px-tabs{ display:flex; gap:clamp(18px,2.4vw,30px); margin:0 0 18px; padding:0; border-radius:0; background:none; box-shadow:inset 0 -1px 0 rgba(23,27,32,.12); overflow:visible; }
+.px-host.px-host.px-host .px-tabs button{ flex:none; min-height:40px; padding:0; border-radius:0; background:none; box-shadow:none; font:500 15px/1 var(--body); color:#4b5158; }
+.px-host.px-host.px-host .px-tabs button[aria-pressed="true"]{ background:linear-gradient(#171b20,#171b20) 0 100% / 100% 2px no-repeat; color:#171b20; box-shadow:none; }
+@media (max-width:700px){ .px-host.px-host.px-host .px-tabs{ gap:0; justify-content:space-between; } .px-host.px-host.px-host .px-tabs button{ padding:0; font-size:14.5px; } }
+@media (hover:none){ .px-host.px-host.px-host .px-tabs button{ min-height:44px; } }
