@@ -226,3 +226,8 @@ html body.fyi-page .fy-cu .cu-s{ font-size:15px; }
   /* the field sheet keeps a readable width: its value column was breaking one word a line */
   html body.fyi-page .stage.stage.st-anat > .st-txt{ max-width:min(100%, 540px); }
 }
+/* the facts row stands on the same three columns as the brief above it */
+@media (min-width:1024px){
+  html body.fyi-page .fyi-hero > .meta{ grid-template-columns:repeat(3, minmax(0, 1fr)) !important; column-gap:56px !important; max-width:1100px; }
+  html body.fyi-page .fyi-hero > .meta div{ padding-right:0 !important; }
+}
