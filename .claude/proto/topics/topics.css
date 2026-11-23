@@ -14,95 +14,147 @@ body{ margin:0; background:var(--ground); color:#131a21; font:400 17px/1.55 var(
 .wrap{ max-width:1240px; margin:0 auto; padding:80px 40px; }
 button{ font:inherit; color:inherit; }
 
-.tp-block{ position:relative; padding-bottom:64px; }
-/* head: the title, then the five steps and their one line, all on clean ground at the upper left (the sky keeps to the right and below) */
-.tp-head{ position:relative; z-index:3; max-width:720px; }
-.tp-head .label{ display:inline-block; margin:0 0 18px; font:600 14px/1.6 var(--body); color:#555d64; }
+/* the front cloud and the flowers hang below the window: the block keeps that room for itself */
+.tp-block{ position:relative; padding-bottom:110px; }
+/* head: one left edge for the label, the title, the five steps and their one line, all on clean ground at the upper left
+   (the sky keeps to the right and below) */
+.tp-head{ position:relative; z-index:3; max-width:800px; }
+.tp-head .label{ display:inline-block; margin:0 0 12px; font:600 14px/1.6 var(--body); color:#555d64; }
 .tp-head .label b{ font-weight:600; color:var(--deep); }
 .tp-head h3{ margin:0; font:600 clamp(28px,3.2vw,44px)/1.08 var(--body); letter-spacing:-.025em; color:var(--ink); }
 
-/* ── the figure: the world behind, the sheet that becomes the window, the world in front ── */
-.tp-fig{ position:relative; margin:34px 0 0; width:100%; isolation:isolate; --sw:924px; --sh:527px; --L:220px; --stw:min(84%, 924px); }
+/* ── the figure: the world behind, the sheet that becomes the window, the world in front ──
+   The window is as large as one screen allows: the head takes about 280px, so the stage gets the rest of the viewport's height
+   (959px wide on a 860px tall screen, 802px on a 770px one), never wider than 1000px or 84% of the column. */
+.tp-fig{ position:relative; margin:24px 0 0; width:100%; isolation:isolate; transition:opacity .22s ease; --sw:959px; --sh:560px; --L:256px; --k:1;
+  --stw:min(84%, 1000px, max(800px, calc((100svh - 320px) * 1.7386 + 20px))); }
+/* a jump between two frames that do not follow each other (play again, a step out of order) goes through a short dip */
+.tp-fig.is-dip{ opacity:0; transition-duration:.18s; }
 .ct-stage{ position:relative; display:block; width:var(--stw); margin:0 0 0 calc((100% - var(--stw)) / 2 + 50px); padding:10px; touch-action:pan-y; --win:0; }
-/* the page is the paper: where the window will be, a sheet with a faint edge and tooth */
-.tp-sheet{ position:absolute; inset:0; border-radius:3px; background:#f9f7f2 var(--tooth); box-shadow:0 0 0 1px rgba(60,50,30,.07), 0 1px 2px rgba(60,50,30,.05), 0 14px 30px -22px rgba(60,50,30,.25); opacity:calc(1 - var(--win)); }
-.tp-frame{ position:absolute; inset:0; border-radius:24px; background:#fff; opacity:var(--win);
+/* the page is the paper: where the window will be, a sheet with a faint edge and tooth. The same element becomes the window's
+   white frame: topics.js moves its corners, colour and shadow there (the frame's own look is read from .tp-frame, never shown) */
+.tp-sheet{ position:absolute; inset:0; border-radius:3px; background:#f9f7f2; box-shadow:0 0 0 1px rgba(60,50,30,.07), 0 1px 2px rgba(60,50,30,.05), 0 14px 30px -22px rgba(60,50,30,.25); }
+.tp-sheet::before{ content:""; position:absolute; inset:0; border-radius:inherit; background:var(--tooth); opacity:calc(1 - var(--win)); }
+.tp-frame{ position:absolute; inset:0; border-radius:24px; visibility:hidden; pointer-events:none;
   box-shadow:0 0 0 1px #dfdeda, 0 2px 4px rgba(23,27,32,.05), 0 10px 22px -10px rgba(23,27,32,.16), 0 26px 36px -26px rgba(12,50,100,.34); }
-/* sunlight on the window's top edge (stage 4) */
-.tp-sun{ position:absolute; left:14%; top:-2px; width:32%; height:5px; border-radius:50%; opacity:0; background:radial-gradient(closest-side, rgba(255,226,160,.95), rgba(255,214,140,.55) 45%, rgba(255,214,140,0)); filter:blur(.6px); }
-.ct-stage::after{ content:""; position:absolute; inset:10px; z-index:5; border-radius:14px; box-shadow:inset 0 0 0 4px #fff, 0 0 0 2px #fff; pointer-events:none; opacity:var(--win); }
-.hs-win{ position:relative; width:100%; aspect-ratio:1434 / 804; border-radius:14px; overflow:hidden; clip-path:inset(0 round 14px); isolation:isolate; }
-.hs-app{ position:absolute; left:calc(var(--s,1) * -3px); top:calc(var(--s,1) * -3px); width:1440px; height:810px; border:0; transform-origin:0 0; transform:scale(var(--s,1)); visibility:hidden; pointer-events:none; background:#ececea; mask-repeat:no-repeat; -webkit-mask-repeat:no-repeat; }
+/* the bezel's inner lip: one white border over the window's edge (two shadows did not meet at the corners) */
+.ct-stage::after{ content:""; position:absolute; inset:8px; z-index:5; border:6px solid #fff; border-radius:16px; pointer-events:none; opacity:var(--win); }
+.hs-win{ position:relative; width:100%; aspect-ratio:1144 / 658; border-radius:14px; overflow:hidden; clip-path:inset(0 round 14px); isolation:isolate; }
+.hs-app{ position:absolute; left:calc(var(--s,1) * -3px); top:calc(var(--s,1) * -3px); width:1150px; height:664px; border:0; transform-origin:0 0; transform:scale(var(--s,1)); visibility:hidden; pointer-events:none; background:#ececea; mask-repeat:no-repeat; -webkit-mask-repeat:no-repeat; }
 .tp-hi{ background:#eef4fa; }
 .tp-fig.is-usable .tp-hi{ pointer-events:auto; }
-.tp-fig.is-dip .hs-app{ opacity:0; transition:opacity .14s ease; }
-.tp-fig:not(.is-dip) .hs-app{ transition:opacity .16s ease; }
 
-/* the pencil drawing: paths made from the wireframe's own boxes, with graphite grain */
-.tp-sketch{ position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible; opacity:0; -webkit-mask:var(--grain) 0 0 / 220px; mask:var(--grain) 0 0 / 220px; }
+/* the pencil drawing: one svg a region, strokes made from the wireframe's own boxes. Graphite has grain (the paper's tooth
+   shows through); as a region's strokes become structure the grain leaves it (--clean 0 to 1) */
+.tp-sketch{ position:absolute; inset:0; opacity:0; pointer-events:none; }
 .tp-fig.is-ready .tp-sketch{ opacity:1; }
-.tp-sketch path{ fill:none; stroke:#27282b; stroke-linecap:round; stroke-linejoin:round; }
-.tp-pencil{ position:absolute; z-index:7; left:0; top:0; overflow:visible; transform-origin:4px 12px; filter:drop-shadow(3px 5px 3px rgba(40,30,10,.28)); opacity:0; pointer-events:none; will-change:transform; }
+.tp-sk{ position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible; --clean:0;
+  -webkit-mask-image:linear-gradient(rgba(0,0,0,var(--clean)), rgba(0,0,0,var(--clean))), var(--grain); mask-image:linear-gradient(rgba(0,0,0,var(--clean)), rgba(0,0,0,var(--clean))), var(--grain);
+  -webkit-mask-size:auto, 220px; mask-size:auto, 220px; }
+.tp-sk path{ fill:none; stroke-linejoin:round; }      /* colour, weight and caps are set stroke by stroke: they change */
+/* the resting sheet's invitation */
+.tp-invite{ position:absolute; z-index:4; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; align-items:center; gap:14px; padding:10px 22px 10px 10px; border:0; border-radius:999px; background:#fff; color:var(--ink); cursor:pointer; text-align:left; white-space:nowrap;
+  box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 2px 4px rgba(23,27,32,.05), 0 14px 28px -12px rgba(12,50,100,.3); -webkit-tap-highlight-color:transparent; }
+.tp-invite:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+.tp-invite-go{ flex:none; display:grid; place-items:center; width:40px; height:40px; border-radius:50%; background:var(--blue); color:#fff; transition:background-color .2s; }
+.tp-invite-go svg{ margin-left:2px; }
+.tp-invite:hover .tp-invite-go{ background:var(--deep); }
+.tp-invite-say{ font:600 16px/1.25 var(--body); letter-spacing:-.01em; }
+.tp-invite-say small{ display:block; font:400 13.5px/1.3 var(--body); letter-spacing:0; color:var(--mute); }
+.tp-block.is-started .tp-invite{ cursor:default; }
+/* stage 5: the drawn cursor (a pointer that hovers) and the tap ring (a finger) */
 .tp-ptr{ position:absolute; z-index:6; left:-4px; top:-3px; width:26px; height:26px; pointer-events:none; opacity:0; will-change:transform; }
 .tp-ptr svg{ display:block; transform-origin:4px 3px; transition:scale .12s; }
 .tp-ptr.down svg{ scale:.82; }
+.tp-tap{ position:absolute; z-index:6; left:0; top:0; width:28px; height:28px; margin:-14px 0 0 -14px; border-radius:50%; border:2px solid #fff; background:rgba(255,255,255,.3); box-shadow:0 0 0 1.5px rgba(23,27,32,.5); pointer-events:none; opacity:0; will-change:transform, opacity; }
 
 /* ── Hear's world ── */
 .tp-world{ position:absolute; left:calc(50% - 50vw); top:0; width:100vw; height:var(--sh); pointer-events:none; will-change:transform; }
 .tp-far{ z-index:-3; } .tp-mid{ z-index:-2; } .tp-near{ z-index:2; }
 .tp-sky{ position:absolute; left:0; top:-340px; width:100%; height:calc(var(--sh) + 470px); overflow:visible; }
+/* the draft plate is a heavy cobalt; until it is repainted it is let through at 72%, so the sky is air and the screen stays the clearest thing */
+.tp-sky-img{ opacity:.72; }
 .tp-art{ position:absolute; display:block; height:auto; max-width:none; opacity:0; user-select:none; -webkit-user-drag:none; will-change:transform, opacity; }
-.a-city{ left:calc(var(--L) - 236px); top:calc(var(--sh) - 372px); width:304px; transform-origin:50% 100%; }
-.a-hyd{ left:calc(var(--L) - 198px); top:calc(var(--sh) - 146px); width:244px; transform-origin:50% 100%; }
+/* the city stands in haze, not in front of the product */
+.a-city{ left:calc(var(--L) - 212px * var(--k)); top:calc(var(--sh) - 348px * var(--k)); width:calc(284px * var(--k)); transform-origin:50% 100%; filter:saturate(.72) brightness(1.1) contrast(.9); -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; }
+.a-hyd{ left:calc(var(--L) - 188px * var(--k)); top:calc(var(--sh) - 138px * var(--k)); width:calc(236px * var(--k)); transform-origin:50% 100%; }
+/* a cloud on the sky's upper edge, where the brush would otherwise leave one straight line */
+.a-cloud-back{ left:calc(var(--L) + var(--sw) * .655); top:-172px; width:300px; }
 /* the wisteria's beam is cut by the plate's own edge, so it always hangs from the right edge of the viewport */
 .a-wisteria{ left:max(calc(var(--L) + var(--sw) - 285px), calc(100vw - 452px)); top:-196px; width:460px; transform-origin:96% 0; -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 12%); mask-image:linear-gradient(180deg, transparent 0, #000 12%); }
-.a-cloud-front{ left:calc(var(--L) + var(--sw) - 104px); top:calc(var(--sh) - 62px); width:340px; }
+/* the front cloud, mirrored (topics.js), so its mass lies over the window's lower right corner: the window is in the sky, not on it */
+.a-cloud-front{ left:calc(var(--L) + var(--sw) - 62px); top:calc(var(--sh) - 86px); width:340px; }
 .tp-glow{ position:absolute; z-index:-1; left:calc(var(--L) - (50vw - 50%) - 12px); width:calc(var(--sw) + 24px); top:-4px; height:calc(var(--sh) + 22px); border-radius:40px; opacity:0; pointer-events:none;
   background:linear-gradient(180deg, #1599f9 0%, #3aa9fb 36%, #6cbffd 64%, #b1dafc 100%); filter:blur(22px) saturate(1.1); }
 
 /* ── the steps, under the title ── */
-.tp-bar{ display:flex; align-items:center; gap:16px; margin:22px 0 0; }
-.tp-again{ flex:none; display:grid; place-items:center; width:44px; height:44px; padding:0; border:0; border-radius:50%; background:#fff; color:var(--ink); cursor:pointer; box-shadow:0 0 0 1px rgba(23,27,32,.06), 0 1px 2px rgba(23,27,32,.08), 0 6px 12px -6px rgba(23,27,32,.22); transition:scale .25s cubic-bezier(.2,.7,.2,1); -webkit-tap-highlight-color:transparent; }
-.tp-again:hover{ scale:1.06; } .tp-again:active{ scale:.95; }
-.tp-again:focus-visible{ outline:2px solid var(--blue); outline-offset:4px; }
-.tp-say{ display:grid; margin:10px 0 0 60px; font:400 16px/1.45 var(--body); color:var(--soft); min-height:24px; }
-.tp-say span{ grid-area:1 / 1; opacity:0; }
-.tp-say span:first-child{ opacity:1; }
-.tp-dot{ display:inline-block; width:8px; height:8px; margin:0 9px 1px 1px; border-radius:50%; background:var(--blue); box-shadow:0 0 0 4px rgba(19,159,253,.18); }
+.tp-bar{ display:flex; align-items:center; gap:14px; margin:16px 0 0; }
+/* play, then play again: quiet, at the end of the row it restarts */
+.tp-again{ flex:none; display:grid; place-items:center; width:32px; height:32px; padding:0; border:0; border-radius:50%; background:none; color:var(--mute); cursor:pointer; transition:color .2s, background-color .2s, scale .25s cubic-bezier(.2,.7,.2,1); -webkit-tap-highlight-color:transparent; }
+.tp-again:hover{ color:var(--ink); background:rgba(23,27,32,.06); } .tp-again:active{ scale:.92; }
+.tp-again:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+/* before anything has played it is a play button and says so with a hairline ring; afterwards only the arrow is left */
+.tp-block:not(.is-started) .tp-again{ color:var(--ink); box-shadow:inset 0 0 0 1.5px #cfcec9; }
+.tp-i-again{ display:none; }
+.tp-block.is-started .tp-i-again{ display:inline; } .tp-block.is-started .tp-i-play{ display:none; }
+.tp-say{ position:relative; display:grid; margin:10px 0 0; font:400 16px/1.45 var(--body); color:var(--soft); min-height:24px; }
+.tp-say > span{ grid-area:1 / 1; opacity:0; }
+.tp-say > span:first-child{ opacity:1; }
+.tp-say b{ font-weight:500; color:var(--ink); }
+.tp-say i{ font-style:normal; }
+/* the rest of a sentence: there on a held frame, away while the play runs (the last line is only ever shown held) */
+.tp-say > span > i:not(.tp-dot){ opacity:0; transition:opacity .28s ease; }
+.tp-say.is-held > span > i:not(.tp-dot), .tp-say > span:last-child > i:not(.tp-dot){ opacity:1; }
+.tp-touch, .tp-plain, .tp-narrow{ display:none; }
+.tp-block.is-touch .tp-touch{ display:inline; } .tp-block.is-touch .tp-mouse{ display:none; }
+.tp-block.is-plain .tp-plain{ display:inline; } .tp-block.is-plain .tp-mouse, .tp-block.is-plain .tp-touch{ display:none; }
+.tp-dot{ position:absolute; width:8px; height:8px; margin:8px 0 0 -19px; border-radius:50%; background:var(--blue); box-shadow:0 0 0 4px rgba(19,159,253,.18); }
 .tp-steps{ flex:none; display:flex; gap:10px; margin:0; padding:0; list-style:none; touch-action:pan-y; user-select:none; -webkit-user-select:none; }
-.tp-steps li{ flex:none; width:118px; }
+.tp-steps li{ flex:none; width:134px; }
 .tp-steps button{ display:block; width:100%; margin:0; padding:0 0 3px; border:0; background:none; text-align:left; cursor:pointer; -webkit-tap-highlight-color:transparent; border-radius:4px; white-space:nowrap; }
-.tp-steps button:focus-visible{ outline:2px solid var(--blue); outline-offset:6px; }
+.tp-steps button:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
 .tp-line{ display:block; position:relative; height:13px; }
-.tp-line::before, .tp-line i{ content:""; position:absolute; left:0; right:0; top:5px; height:2.5px; border-radius:2px; background:var(--track); }
-.tp-line i{ background:var(--ink); transform-origin:0 50%; transform:scaleX(0); }
+.tp-line::before, .tp-line i{ content:""; position:absolute; left:0; right:0; top:5px; height:2.5px; border-radius:2px; background:var(--track); transition:height .2s, top .2s; }
+/* a step that has played is a quiet gray line; the one on screen is blue */
+.tp-line i{ background:#9aa0a6; transform-origin:0 50%; transform:scaleX(0); }
 .tp-steps li.on .tp-line i{ background:var(--blue); }
-.tp-steps button:hover .tp-line::before{ background:#c6c5c0; }
-.tp-num{ display:inline-block; margin:6px 6px 0 0; font:500 15px/1.3 var(--body); font-variant-numeric:tabular-nums; color:#8a8e94; transition:color .25s; }
-.tp-name{ display:inline-block; margin-top:6px; font:600 15.5px/1.3 var(--body); letter-spacing:-.01em; color:var(--mute); transition:color .25s; }
+.tp-steps button:hover .tp-line::before, .tp-steps button:hover .tp-line i{ height:4px; top:4px; }
+.tp-num{ display:inline-block; margin:6px 6px 0 0; font:500 15px/1.3 var(--body); font-variant-numeric:tabular-nums; color:#8a8e94; transition:color .2s; }
+.tp-name{ display:inline-block; margin-top:6px; font:600 15.5px/1.3 var(--body); letter-spacing:-.01em; color:var(--mute); transition:color .2s; }
 .tp-steps li.on .tp-name, .tp-steps li.done .tp-name, .tp-steps button:hover .tp-name{ color:var(--ink); }
+.tp-steps button:hover .tp-num{ color:var(--ink); }
 .tp-steps li.on .tp-num{ color:var(--deep); }
 
+@media (prefers-reduced-motion:reduce){
+  .tp-again, .tp-invite{ display:none; }
+}
 @media (max-width:899px){
   .wrap{ padding:80px 24px; }
-  .tp-block{ padding-bottom:40px; }
+  /* a phone: the world is one painted band under the window, with the flowers and a cloud on it */
+  .tp-block{ padding-bottom:200px; }
+  .tp-head .label{ max-width:calc(100% - 52px); }
   .tp-fig{ margin-top:26px; --stw:100%; }
   .ct-stage{ margin-left:0; }
-  .tp-mid, .tp-near{ display:none; }
-  .tp-sky{ top:-90px; height:calc(var(--sh) + 170px); }
+  .tp-mid, .a-wisteria{ display:none; }
+  .tp-sky{ top:-90px; height:calc(var(--sh) + 360px); }
+  .a-hyd{ left:-18px; top:calc(var(--sh) - 22px); width:130px; }
+  .a-cloud-front{ left:calc(100vw - 215px); top:calc(var(--sh) + 6px); width:250px; }
   .tp-bar{ gap:12px; }
   .tp-steps{ flex:1 1 auto; gap:8px; }
   .tp-steps li{ flex:1 1 auto; width:auto; min-width:0; }
   .tp-steps button{ white-space:normal; }
+  .tp-steps li:last-child .tp-name{ white-space:nowrap; }
   .tp-num{ display:block; margin:6px 0 0; font-size:14px; }
   .tp-name{ margin-top:0; font-size:14px; line-height:1.25; }
-  .tp-again{ display:none; }
-  .tp-say{ margin-left:0; min-height:46px; font-size:15.5px; }
+  .tp-again{ position:absolute; right:0; top:-6px; width:40px; height:40px; }
+  .tp-say{ min-height:46px; font-size:15.5px; }
+  .tp-dot{ position:static; display:inline-block; margin:0 9px 1px 1px; }
+  .tp-wide{ display:none; } .tp-narrow{ display:inline; }
 }
 @media (max-width:700px){
   .ct-stage{ padding:5px; }
   .tp-frame{ border-radius:16px; }
-  .ct-stage::after{ inset:5px; border-radius:11px; box-shadow:inset 0 0 0 2.5px #fff, 0 0 0 2px #fff; }
+  .ct-stage::after{ inset:3px; border-width:4.5px; border-radius:13px; }
   .hs-win{ border-radius:11px; clip-path:inset(0 round 11px); }
   .tp-glow{ filter:blur(16px) saturate(1.1); }
 }

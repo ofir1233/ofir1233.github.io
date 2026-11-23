@@ -12,31 +12,35 @@
 <main class="wrap">
   <div class="tp-block">
     <div class="tp-head">
-      <div class="label">New screen · <b>Topics</b> · demo data</div>
+      <div class="label">A screen I added to Hear Studio · <b>Topics</b> · demo data</div>
       <h3>One screen, wireframe to finished</h3>
       <div class="tp-bar">
-        <button type="button" class="tp-again" aria-label="Play from the start"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M15.6 6.2A6.6 6.6 0 1 0 16.6 10M15.9 2.6v3.9H12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <ol class="tp-steps" aria-label="The build, in five steps. Press one to play it, or drag along the first four.">
+        <ol class="tp-steps" aria-label="The build, in five steps. Press one to play it.">
           <li><button type="button" data-b="0" aria-describedby="tp-say-0"><span class="tp-line"><i></i></span><span class="tp-num">1</span><span class="tp-name">Sketch</span></button></li>
           <li><button type="button" data-b="1" aria-describedby="tp-say-1"><span class="tp-line"><i></i></span><span class="tp-num">2</span><span class="tp-name">Wireframe</span></button></li>
-          <li><button type="button" data-b="2" aria-describedby="tp-say-2"><span class="tp-line"><i></i></span><span class="tp-num">3</span><span class="tp-name">Finished</span></button></li>
+          <li><button type="button" data-b="2" aria-describedby="tp-say-2"><span class="tp-line"><i></i></span><span class="tp-num">3</span><span class="tp-name">High fidelity</span></button></li>
           <li><button type="button" data-b="3" aria-describedby="tp-say-3"><span class="tp-line"><i></i></span><span class="tp-num">4</span><span class="tp-name">Hear’s world</span></button></li>
           <li><button type="button" data-b="4" aria-describedby="tp-say-4"><span class="tp-line"><i></i></span><span class="tp-num">5</span><span class="tp-name">In use</span></button></li>
         </ol>
+        <!-- a play triangle until the first frame has played, the "again" arrow from then on -->
+        <button type="button" class="tp-again" aria-label="Play"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path class="tp-i-play" d="M6.6 3.4v13.2l10.6-6.6z" fill="currentColor"/><path class="tp-i-again" d="M15.6 6.2A6.6 6.6 0 1 0 16.6 10M15.9 2.6v3.9H12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
+      <!-- one line a stage. While the play runs only the first words show (b); a held frame carries the whole sentence (b + i).
+           tp-mouse / tp-touch / tp-plain: the wording for a pointer that hovers, for a finger, and for the narrow window where a topic cannot open. tp-wide / tp-narrow: with and without the city. -->
       <p class="tp-say">
-        <span id="tp-say-0">It starts in pencil, on the page itself.</span>
-        <span id="tp-say-1">Part by part, the sketch settles into a gray wireframe.</span>
-        <span id="tp-say-2">Then the Hear look takes it, on the same code.</span>
-        <span id="tp-say-3">Hear’s painted world is brushed in around it.</span>
-        <span id="tp-say-4">And it works: one real question, asked live.</span>
-        <span id="tp-say-5"><i class="tp-dot"></i>It is live. Point at a topic, click a score.</span>
+        <span id="tp-say-0"><b>A pencil sketch</b><i> of the screen, drawn from its real layout.</i></span>
+        <span id="tp-say-1"><b>A gray wireframe</b><i> settles what the screen holds.</i></span>
+        <span id="tp-say-2"><b>The same code</b><i>, now in the Hear look.</i></span>
+        <span id="tp-say-3"><b>Then Hear’s painted sky</b><i class="tp-wide">, city and flowers.</i><i class="tp-narrow">, a cloud and flowers.</i></span>
+        <span id="tp-say-4"><b>And it works</b><i class="tp-mouse">: a topic opens to its three scores, and a click asks AI why.</i><i class="tp-touch">: a tap opens the three scores behind a topic.</i><i class="tp-plain">: pick a topic and its days light up beside it.</i></span>
+        <span id="tp-say-5"><i class="tp-dot"></i><i class="tp-mouse">Your turn: hover a topic, click a score. Press a step to see it again.</i><i class="tp-touch">Your turn: tap a topic. Press a step to see it again.</i><i class="tp-plain">Your turn: pick a topic. Press a step to see it again.</i></span>
       </p>
     </div>
 
     <figure class="tp-fig">
-      <!-- Stage 4, Hear's world, painted in behind and around the window. Far to near: the sky (brushed in), the city, the window,
-           then the front cloud, the hydrangeas and the wisteria. The art/ files are cut from DRAFT plates and will be repainted. -->
+      <!-- Stage 4, Hear's world, painted in behind and around the window. Far to near: the sky (brushed in), a cloud on the sky's
+           upper edge and the city, the window, then the front cloud, the hydrangeas and the wisteria.
+           The art/ files are cut from DRAFT plates (cut-art.py, cut-extra.py) and will be repainted. -->
       <div class="tp-world tp-far" aria-hidden="true">
         <svg class="tp-sky" focusable="false" preserveAspectRatio="none">
           <defs>
@@ -53,25 +57,23 @@
         </svg>
       </div>
       <div class="tp-world tp-mid" aria-hidden="true">
+        <img class="tp-art a-cloud-back" src="art/cloud-back.webp" alt="" draggable="false">
         <img class="tp-art a-city" src="art/city.webp" alt="" draggable="false">
       </div>
       <div class="tp-glow" aria-hidden="true"></div>
       <div class="ct-stage">
         <div class="tp-sheet" aria-hidden="true"></div>
-        <div class="tp-frame" aria-hidden="true"><i class="tp-sun"></i></div>
+        <div class="tp-frame" aria-hidden="true"></div>
         <div class="hs-win">
-          <iframe class="hs-app tp-lo" src="/hear-v7/plan/studio.html?topics=lo" title="Hear Studio, the Topics screen as a gray wireframe, running live" tabindex="-1" scrolling="no"></iframe>
+          <iframe class="hs-app tp-lo" src="/hear-v7/plan/studio.html?topics=lo" title="Hear Studio, the Topics screen as a gray wireframe" tabindex="-1" scrolling="no" aria-hidden="true" inert></iframe>
           <iframe class="hs-app tp-hi" src="/hear-v7/plan/studio.html?topics=hi" title="Hear Studio, the Topics screen in the finished Hear look, running live" tabindex="-1" scrolling="no"></iframe>
-          <svg class="tp-sketch" aria-hidden="true" focusable="false"></svg>
+          <!-- the pencil drawing: one svg a region, built by topics.js from the wireframe's own boxes -->
+          <div class="tp-sketch" aria-hidden="true"></div>
+          <!-- the resting sheet's invitation; it leaves as the first stroke is laid -->
+          <button type="button" class="tp-invite" aria-label="Play: watch this screen get built"><span class="tp-invite-go"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M6.6 3.4v13.2l10.6-6.6z" fill="currentColor"/></svg></span><span class="tp-invite-say">Watch it get built<small>from pencil to live screen, 11 seconds</small></span></button>
           <span class="tp-ptr" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 26 26"><path d="M4 3l15 8.2-6.6 1.7-2.9 6.4z" fill="#171b20" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+          <span class="tp-tap" aria-hidden="true"></span>
         </div>
-        <svg class="tp-pencil" aria-hidden="true" focusable="false" viewBox="-4 -12 170 24" width="170" height="24">
-          <path d="M0 0L9 -3.2L9 3.2Z" fill="#2c2d30"/>
-          <path d="M9 -3.2L24 -7L24 7L9 3.2Z" fill="#ecd0a4"/><path d="M9 3.2L24 7L24 2.4L9 1.1Z" fill="#d9b683"/>
-          <path d="M24 -7H132V-2.4H24Z" fill="#fbd25a"/><path d="M24 -2.4H132V2.4H24Z" fill="#f3bd34"/><path d="M24 2.4H132V7H24Z" fill="#dda01f"/>
-          <path d="M132 -7.4H146V7.4H132Z" fill="#c9ccd1"/><path d="M135 -7.4V7.4M139 -7.4V7.4M143 -7.4V7.4" stroke="#9da1a8" stroke-width="1"/>
-          <path d="M146 -7H156a5 5 0 0 1 5 5v4a5 5 0 0 1-5 5H146Z" fill="#f08a8a"/>
-        </svg>
       </div>
       <div class="tp-world tp-near" aria-hidden="true">
         <img class="tp-art a-cloud-front" src="art/cloud-front.webp" alt="" draggable="false">
