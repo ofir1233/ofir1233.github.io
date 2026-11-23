@@ -97,7 +97,7 @@
     try {
       for (;;) {
         if (k === 0) {
-          setStep(0); await load('login.html', my);
+          setStep(0); await load('login.html?v=2', my);
           await wait(900, my);
           var mail = await until(function () { return doc().querySelector('input[type="email"]'); }, my);
           var pass = doc().querySelector('input[type="password"]'), sign = doc().querySelector('button[type="submit"]');
