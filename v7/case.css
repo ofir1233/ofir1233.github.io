@@ -408,7 +408,7 @@ html body .shot .live{ display:none !important; }
 }
 /* the website's first screen is centred: its Next thumbnail is cropped around the middle, so the headline is not cut */
 @media (max-width:860px){
-  html body .next .next-thumb:not(.phones) img[src*="next-brand"]{ width:150%; margin-left:-25%; }
+  html body .next .next-thumb:not(.phones) img[src*="next-brand"]{ width:150%; margin-left:-22.4%; }
 }
 
 /* ---------- decisions on every case page: flat rows on a hairline, the question and its reason on the left, the options on the right.
@@ -439,3 +439,6 @@ html body .data-t.on{ background:none; color:#0b6fcf; }
 /* the Compliance thumbnail shows a readable corner, like the others */
 @media (min-width:861px){ html body .next .next-thumb:not(.phones) img[src*="next-compliance"]{ width:168%; max-width:none; height:auto; object-fit:fill; } }
 html body article.decision > h3{ margin-top:10px; }
+
+/* Newsroom as the next case: the headline and the whole rise of its chart, so the lower half of the frame is not blank */
+@media (min-width:861px){ html body .next .next-thumb.whole img[src*="v7s-news-feed"]{ width:141%; } }
