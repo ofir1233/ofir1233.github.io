@@ -36,7 +36,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=15">
 <link rel="stylesheet" href="../v7/system.css?v=4">
-<link rel="stylesheet" href="../v7/case.css?v=17">
+<link rel="stylesheet" href="../v7/case.css?v=21">
 <style>
 .ds-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .ds-code, .ds-ct code, .ds-list code, .ds-layer code { font: 500 .86em/1.4 var(--mono); overflow-wrap: anywhere; }
@@ -96,7 +96,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .ds-ct .ds-group { padding-block: 10px 8px; } .ds-ct .ds-group td { grid-column: 1 / -1; background: none; padding: 0; }
   .ds-ct td:last-child { align-self: end; }
 }
-.ds-ctwrap { max-width: 860px; margin-inline: auto; }
+.ds-ctwrap { max-width: 860px; margin-inline: 0; }
+div.ds-ctwrap:not(.prose) { max-width: none; }
 /* v7 specimens: components and colors drawn in code with the Lab's current values, so no picture on this page shows an earlier look */
 .shot.sx { background: #fff; padding: clamp(20px, 2.6vw, 30px) clamp(18px, 2.4vw, 28px) 54px; font-family: var(--body); color: #181818; }
 .shot.sx.sx-cv { background: #F4F3F1 !important; }
@@ -174,7 +175,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div><dt>Role</dt><dd>Built the system and its Storybook</dd></div>
       <div><dt>When</dt><dd>Since Mar 2026</dd></div>
       <div><dt>Scope</dt><dd>Tokens · components · Storybook</dd></div>
-      <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#structure"><span>02</span> Structure</a><a class="pill" href="#tokens"><span>03</span> Tokens</a><a class="pill" href="#contrast"><span>04</span> Contrast &amp; charts</a><a class="pill" href="#screens"><span>05</span> Across screens</a><a class="pill" href="#decisions"><span>06</span> Decisions</a></nav>
     <div id="system" class="px-host ds-wall"><div class="dk" id="ds-kit"><div class="dw-head dk-head"><p class="dw-stat"><span><b>122</b> stories</span> <i aria-hidden="true">·</i> <span><b>6</b> tiers</span></p><p class="dw-sub">Real components, not pictures: press a chip, flip a switch, send a question.</p><button type="button" class="dk-pause" aria-pressed="false" hidden><span class="dk-pi" aria-hidden="true"></span><span class="dk-pt">Pause motion</span></button></div><div class="dk-rows"></div></div></div>
@@ -311,7 +311,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 
   <section class="chapter sheet" id="contrast">
     <div class="wrap">
-      <div class="ch-head center">
+      <div class="ch-head">
         <div><div class="label">04 · <b>Contrast &amp; charts</b></div><h2>Contrast you can compute from the tokens</h2></div>
         <div class="prose"><p class="lead">Because text and surfaces are named tokens, each pair has one contrast ratio, worked out once instead of screen by screen.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The table shows one failure. Hear Blue with white reaches 2.8, under the minimum for body text, so links and small blue text use Deep Blue.</p></div></details></div>
@@ -346,10 +346,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <p>The same approach carried direction. I first built right to left for the News tab in July. A language hook follows the page's <code class="ds-code">lang</code>, UI strings sit in a dictionary, and logical CSS properties such as <code class="ds-code">borderInlineStart</code> let the layout flip with the text.</p></div></details></div>
       </div>
       <div class="ds-screens">
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-topics-panel.webp" data-zoom alt="The Topics screen: boxes sized by calls, in one blue that deepens as the score drops, with the daily score list beside them" width="2072" height="1339" loading="lazy"></div><figcaption><b>Topics.</b> The blue is the score scale.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-actions-board.webp" data-zoom alt="The Actions board in four columns, Pending, In progress, Done and Cancelled. Every card names its source, its date and its owner." width="2060" height="1327" loading="lazy"></div><figcaption><b>Actions.</b> White cards on a gray column, with gray tags.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-es-grid.webp" data-zoom alt="The Compliance screen: five criteria as rows and ten agents as columns. Passing scores are gray, failing scores are coral, and one failing cell has its popover open." width="2060" height="1327" loading="lazy"></div><figcaption><b>Compliance.</b> Coral marks only the failing scores.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-news-feed.webp?v=2" data-zoom alt="The Newsroom feed: the monthly recap with its Play button, the call volume chart with its peak marked, and this week’s developments, each with a source line and a one-word tag" width="2060" height="1327" loading="lazy"></div><figcaption><b>Newsroom.</b> The chart and the tags take the same blue and the same tints.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-topics-panel.webp?v=5" data-zoom alt="The Topics screen: boxes sized by calls, in one blue that deepens as the score drops, with the daily score list beside them" width="2072" height="1339" loading="lazy"></div><figcaption><b>Topics.</b> The blue is the score scale.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-actions-board.webp?v=5" data-zoom alt="The Actions board in four columns, Pending, In progress, Done and Cancelled. Every card names its source, its date and its owner." width="2060" height="1327" loading="lazy"></div><figcaption><b>Actions.</b> White cards on a gray column. Only high priority, Escalated and Resolved take color.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-es-grid.webp?v=3" data-zoom alt="The Compliance screen: five criteria as rows and ten agents as columns. Passing scores are gray, failing scores are coral, and one failing cell has its popover open." width="2060" height="1327" loading="lazy"></div><figcaption><b>Compliance.</b> Coral marks only the failing scores.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-news-feed.webp?v=5" data-zoom alt="The Newsroom front page: the lead story with its chart, a dashed line for a usual day and the peak marked, the monthly recap with its Play button, and the week’s other stories, each with a source line and a one-word tag" width="2060" height="1327" loading="lazy"></div><figcaption><b>Newsroom.</b> The chart takes the same blue. Each tag is a tint with its own text color.</figcaption></figure>
       </div>
       <p class="ds-screens-note">All four: Design Lab, demo data.</p>
     </div>

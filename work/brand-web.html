@@ -34,7 +34,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/case.css?v=17">
+<link rel="stylesheet" href="../v7/case.css?v=21">
 <link rel="stylesheet" href="../v7/campaign.css?v=93">
 <style>
 /* brand-web: page-only pieces */
@@ -121,6 +121,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .bw-pair { display: grid; gap: 16px; align-items: start; }
 .bw-pair figure { min-width: 0; }
 .bw-go { margin-top: clamp(18px, 2.4vw, 28px); }
+@media (max-width: 760px) { .bw-go .pill { min-height: 44px; } }
+@media (hover: none) { .brand-web-ext::before { inset: -13px -6px; } }
 .bw-tag { position: absolute; left: 10px; top: 10px; z-index: 2; padding: 5px 10px 6px; border-radius: 99px; background: #fff; font: 600 12.5px/1 var(--body); color: #171b20; box-shadow: 0 1px 2px rgba(23,40,70,.12), 0 6px 14px -8px rgba(23,40,70,.4); }
 .bw-tag::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: #FF6F52; vertical-align: 1px; }
 .bw-tag.ok::before { background: #4BA373; }
@@ -135,6 +137,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .bw-logos { grid-template-columns: 1fr; }
   .bw-pal { grid-template-columns: 1fr 1fr; row-gap: 22px; }
   .bw-g:last-child { grid-column: 1 / -1; }
+  /* the three Meaning swatches keep the size of the others: four tracks, three filled */
+  .bw-g:last-child > div { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .bw-three, .bw-rej { grid-template-columns: 1fr; }
   .bw-rej.two-up { grid-template-columns: 1fr 1fr; }
   .bw-rules { grid-template-columns: 1fr; }
@@ -161,8 +165,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <dl class="meta">
       <div><dt>Role</dt><dd>Brand design · site design &amp; build</dd></div>
       <div><dt>When</dt><dd>Since 2023 · site on staging</dd></div>
-      <div><dt>Scope</dt><dd>Identity, website, campaign, signage, merch, trade-show booth</dd></div>
-      <div><dt>Shown with</dt><dd>Brand work · the staging site · working sketches</dd></div>
+      <div><dt>Scope</dt><dd>Identity, website, LinkedIn campaign, station sign, tote · earlier: trade-show booth</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#social"><span>01</span> The campaign</a><a class="pill" href="#brand"><span>02</span> The brand</a><a class="pill" href="#site"><span>03</span> The site</a><a class="pill" href="#offscreen"><span>04</span> Off the screen</a><a class="pill" href="#process"><span>05</span> The process</a></nav>
     <figure class="hero-fig rv"><div class="shot v7s"><span class="live">Staging site</span><img src="../img/v7b-site-hero.webp" data-zoom alt="The Hear homepage: the line Run your contact center on what customers actually say, two buttons, and a painting of a contact center with a wall of windows onto a city" width="2160" height="1350" decoding="async"></div>
@@ -274,7 +277,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <!-- 04 · ink -->
   <section class="chapter ink" id="offscreen">
     <div class="wrap">
-      <div class="ch-head center">
+      <div class="ch-head">
         <div><div class="label">04 · <b>Off the screen</b></div><h2>The brand beyond the screen</h2></div>
         <div class="prose"><p class="lead">Before the painted city, a trade-show booth was built from my design. A station sign and a tote now carry the new brand off the screen, as mockups.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Both pieces come from one campaign, about the customers who were heard.</p></div></details></div>
@@ -303,7 +306,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="chapter sheet" id="process">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">05 · <b>The process</b></div><h2>Every picture starts as three gray sketches</h2></div>
+        <div><div class="label">05 · <b>The process</b></div><h2>Every picture starts as one sentence</h2></div>
         <div class="prose"><p class="lead">Each picture follows one order: the idea in words, three gray compositions, one painting, then a check at the size of a real post.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>No picture is made before its idea and its composition are chosen, and the work moves one picture at a time.</p><p>The brand came ahead of the website and the product in my plan for Hear's redesign. Its eight phases are Research, Branding, Designing, Website, Growth, Product, UI design and Process.</p></div></details></div>
       </div>
@@ -316,7 +319,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       </ol>
 
       <h3 class="brand-web-sub">From the sketch to the post</h3>
-      <figure class="rv"><div class="shot v7s"><img src="../img/v7b-lofi-parade.webp" data-zoom alt="Three gray composition sketches of the parade: from the crowd looking down the avenue, at the kerb as the parade passes, and looking up at the balloon between the towers. The place of the words is blue." width="1100" height="318" loading="lazy" decoding="async"></div><figcaption><b>Three gray compositions.</b> I chose the middle one, at more of an angle.</figcaption></figure>
+      <figure class="rv"><div class="shot v7s"><img src="../img/v7b-lofi-parade.webp" data-zoom alt="Three gray composition sketches of the parade: from the crowd looking down the avenue, at the curb as the parade passes, and looking up at the balloon between the towers. The place of the words is blue." width="1100" height="318" loading="lazy" decoding="async"></div><figcaption><b>Three gray compositions.</b> I chose the middle one, at more of an angle.</figcaption></figure>
       <div class="grid2 brand-web-gap">
         <figure class="rv"><div class="shot v7s"><img src="../img/cw-parade.webp" data-zoom alt="The finished painting of the parade, with coral balloon letters that spell Hear Studio" width="1200" height="628" loading="lazy" decoding="async"></div><figcaption><b>The painting.</b> After the fixes.</figcaption></figure>
         <figure class="rv"><div class="shot v7s"><img src="../img/v7b-feed.webp" data-zoom alt="The parade painting inside a mockup of a LinkedIn feed" width="1100" height="746" loading="lazy" decoding="async"></div><figcaption><b>At feed size.</b> Inside a mockup of the feed.</figcaption></figure>

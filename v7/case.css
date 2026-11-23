@@ -12,28 +12,24 @@ html, body{ background:#f4f3f1 !important; }
 .ct-plain .ct-stage, .ct-fig .ct-band{ background:linear-gradient(180deg, #dbe9f6 0%, #eaf2f9 100%) !important; }
 .ct-plain .ct-stage::before, .ct-fig .ct-band::before{ display:none !important; }
 /* Filled controls are ink, as on the home page; blue stays for small text and thin lines. */
-a.pill.solid, .next .arrow, .cs-rail a[aria-current="true"]{ background:#171b20 !important; color:#fff !important; }
+a.pill.solid, .next .arrow{ background:#171b20 !important; color:#fff !important; }
 a.pill.solid:hover{ background:#2a3038 !important; }
 .toc a[aria-current="true"]{ background:#171b20 !important; color:#fff !important; }
 .toc a[aria-current="true"] *{ color:inherit !important; }
 
-/* ONE BAR AT THE TOP. The chapter chips sat under the top pill and covered the heading and the first lines of every chapter.
-   They are a dock at the bottom of the window now, so a chapter opens with nothing on top of it. */
-@media (min-width:1024px){
-  html:has(.cs-rail){ scroll-padding-top:96px !important; }
-  .cs-rail{ top:auto !important; bottom:calc(env(safe-area-inset-bottom, 0px) + 20px); transform:translate(-50%, 8px) !important; background:rgba(255,255,255,.86) !important; -webkit-backdrop-filter:blur(18px) saturate(1.4); backdrop-filter:blur(18px) saturate(1.4); box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 14px 34px -12px rgba(23,27,32,.28) !important; }
-  .cs-rail.on{ transform:translate(-50%, 0) !important; }
-}
-
-/* The dock shows the chapter you are in, and opens to all of them under the pointer or the keyboard: a 600px bar sat on headings and buttons. */
-@media (min-width:1024px){
-  .cs-rail a{ max-width:260px; overflow:hidden; }
-  .cs-rail:not(:hover):not(:focus-within) a:not([aria-current="true"]){ max-width:0; padding-inline:0; opacity:0; }
-  .cs-rail{ gap:0 !important; }
-}
+/* ONE BAR AT THE TOP (23.11.2026). The chapter chips first sat under the top pill, then as a dock at the bottom of the window.
+   The dock lay on body text and on Read more buttons, and named the chapter above the heading beside it. It is gone.
+   The reader's place is the blue line under the top bar; each chapter opens with its own number and name. */
+.cs-rail{ display:none !important; }
+@media (min-width:1024px){ html:has(.cs-rail){ scroll-padding-top:96px !important; } }
 /* Next case: the picture is the next case's own screen, close enough to read, with no grey browser bar */
 .next-thumb .bar{ display:none !important; }
 .next-thumb{ padding-top:0 !important; border-radius:16px 0 0 0 !important; background:#fff !important; }
+/* A thumb must not open mid-word ("ctions", "ewsroom"). .whole shows the case's whole still, enlarged, from its own top-left corner,
+   so the crop starts on the screen's title with the screen's own margin. .fade-l is for the wall of components, which has no edge to start on. */
+.next-thumb.whole{ aspect-ratio:1440 / 900; -webkit-mask-image:linear-gradient(90deg, #000 calc(100% - 96px), transparent), linear-gradient(#000 calc(100% - 56px), transparent); mask-image:linear-gradient(90deg, #000 calc(100% - 96px), transparent), linear-gradient(#000 calc(100% - 56px), transparent); -webkit-mask-composite:source-in; mask-composite:intersect; }
+.next-thumb.whole img{ position:absolute; left:0; top:0; width:var(--zw, 150%); max-width:none; height:auto; aspect-ratio:auto; object-fit:fill; }
+.next-thumb.fade-l{ -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 72px, #000 calc(100% - 96px), transparent); mask-image:linear-gradient(90deg, transparent 0, #000 72px, #000 calc(100% - 96px), transparent); box-shadow:none !important; }
 
 /* ONE FRAME FOR EVERYTHING FROM THE LAB (22.11.2026).
    The pages mixed four frames: grey browser windows with three dots, mono labels, grey mats and bare dark slabs.
@@ -83,12 +79,7 @@ figure:has(> .shot.dark){ max-width:860px; }
   .ch-head.center{ justify-items:start; text-align:left; }
   .ch-head.center h2, .ch-head.center .prose, .ch-head.center .prose p, .ch-head.center .label{ margin-inline:0; }
 }
-/* The wall of components fades at both edges instead of being cut by the page. */
-/* the wall's rows carry their own fade (v7/system.css) */
-@media (min-width:1024px) and (prefers-reduced-motion:no-preference){
-  .cs-rail a{ transition:max-width .45s cubic-bezier(.2,.7,.2,1), padding .45s cubic-bezier(.2,.7,.2,1), opacity .25s, color .25s, background-color .25s !important; }
-}
-@media (prefers-reduced-motion:reduce){ .cs-rail, .cs-rail a{ transition:none !important; } }
+/* the wall of components: its rows carry their own fade (v7/system.css) */
 
 /* V7 STILLS (owner, 22.11.2026: "the inner pages still show old designs: everything up to date, on every page").
    Every picture of the product on a case page is now cut from Hear Studio itself (hear-v7/plan), the same screens the windows at
@@ -122,7 +113,7 @@ figure:has(> .shot.dark){ max-width:860px; }
 @media (max-width:860px){ .two, .grid2, .grid3{ grid-template-columns:minmax(0,1fr) !important; } }
 @media (max-width:760px){
   /* a picture wider than the phone says so, in the caption, where the reader is already looking */
-  figure:has(> .shot.v7s.wide) > figcaption::after, figure:has(> .shot.v7s.actions-bar) > figcaption::after, .data-anat > figcaption::after, .newsroom-anat > figcaption::after{ content:" Swipe the picture sideways."; color:#0B6FCF; }
+  figure:has(> .shot.v7s.wide) > figcaption::after, figure:has(> .shot.v7s.actions-bar) > figcaption::after, .data-anat > figcaption::after, .newsroom-anat > figcaption::after{ content:" Swipe the picture sideways."; }
   figure.nohint > figcaption::after{ content:none !important; }
   /* the compare handle on a phone shows the middle of the screen larger, and nothing sits on it but the handle */
   .compare.v7s > img, .compare.v7s .after img{ width:100%; height:auto; aspect-ratio:4 / 3; object-fit:cover; object-position:62% 0; }
@@ -184,3 +175,12 @@ dialog.cv .cv-h{ color:#7a8088 !important; }
 
 /* body text and captions never leave one word alone on the last line */
 .chapter p, .chapter li, .ch-head p, .hero p{ text-wrap:pretty; }
+
+/* SWEEP, 23.11.2026.
+   Case heroes: the three brief cells share one grid line with the heading. Only "The challenge" had a grey tile, which pushed its text 24px in. */
+.brief{ gap:clamp(20px, 4vw, 56px) !important; }
+.brief div{ padding:0 !important; border-radius:0 !important; background:none !important; }
+@media (max-width:760px){ .brief{ gap:20px !important; } }
+/* The meta card holds three cells on the Hear cases ("Shown with" repeated the label on every picture and the sources line). */
+@media (min-width:761px){ .meta:has(> div:nth-child(3):last-child){ grid-template-columns:repeat(3, minmax(0, 1fr)); } }
+@media (max-width:760px){ .meta div:last-child:nth-child(odd){ grid-column:1 / -1; } }

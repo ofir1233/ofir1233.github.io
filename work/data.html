@@ -39,7 +39,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=15">
-<link rel="stylesheet" href="../v7/case.css?v=17">
+<link rel="stylesheet" href="../v7/case.css?v=21">
 <style>
 /* data: toolbar anatomy (pins; on phones the two ends of the strip stack), plan-vs-build table, 3-column steps */
 .data-anat .live { top: 4px; bottom: auto; }
@@ -101,7 +101,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div><dt>Role</dt><dd>Design and build in the Lab, with Claude&nbsp;Code</dd></div>
       <div><dt>When</dt><dd>Mar–Oct 2026</dd></div>
       <div><dt>Scope</dt><dd>Call table · filters · columns · saved views · Reports and Signals</dd></div>
-      <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#table"><span>01</span> The table</a><a class="pill" href="#versions"><span>02</span> Three versions</a><a class="pill" href="#plan"><span>03</span> Plan vs. build</a><a class="pill" href="#decisions"><span>04</span> Decisions</a><a class="pill" href="#signals"><span>05</span> Signals</a></nav>
     <div class="px-host" id="demo"><figure class="px-fig" data-px="data"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=data" title="Data in Hear Studio: every call as a row, and a filter asked for in plain words." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
@@ -118,7 +117,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <figure class="rv data-anat">
         <div class="shot v7s data-bar">
           <div class="data-img">
-            <img src="../img/v7s-data-toolbar.webp" alt="The Data toolbar: breadcrumb and search on the first row, six tabs on the second, a filter box for plain words, then the date range, Filter and Columns" width="2543" height="366" loading="lazy">
+            <img src="../img/v7s-data-toolbar.webp?v=3" alt="The Data toolbar: breadcrumb and search on the first row, six tabs on the second, a filter box for plain words, then the date range, Filter and Columns" width="2543" height="366" loading="lazy">
             <span class="data-pin" style="left:24.0%;top:19%" aria-hidden="true">1</span>
             <span class="data-pin" style="left:52.3%;top:41%" aria-hidden="true">2</span>
             <span class="data-pin" style="left:20.5%;top:89%" aria-hidden="true">3</span>
@@ -139,7 +138,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       </ol>
 
       <div class="two solo data-gap">
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-data-table.webp?v=2" data-zoom alt="The Data page: the toolbar above the call table. Each row has the call’s topic, a one-line summary, its date, status, priority, owner, sentiment and score." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The call table.</b> Each row leads with the call's topic and a one-line summary.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-data-table.webp?v=3" data-zoom alt="The Data page: the toolbar above the call table. Each row has the call’s topic, a one-line summary, its date, status, priority, owner, sentiment and score." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The call table.</b> Each row leads with the call's topic and a one-line summary.</figcaption></figure>
         <div class="prose xtra">
           <h3 style="margin-top:0">Flagged calls</h3>
           <p>A small warning sign marks a call where an alert fired. Open the call and the side panel names the alert and whether it was marked a false positive.</p>
@@ -150,7 +149,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 
   <section class="chapter sheet" id="versions">
     <div class="wrap">
-      <div class="ch-head center">
+      <div class="ch-head">
         <div><div class="label">02 · <b>Three versions</b></div><h2>Each version put the filters somewhere new</h2></div>
         <div class="prose"><p class="lead">I didn't redesign Data in place: I duplicated the page, changed the duplicate and kept both.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
@@ -191,7 +190,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </table>
       </div>
 
-      <article class="decision rv data-gap xtra">
+      <article class="decision rv data-gap">
         <div class="label">Decision 1 · <b>Where columns go</b></div>
         <h3>Should columns sit inside the filter strip, or in their own modal?</h3>
         <ul class="opts">
@@ -236,7 +235,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">05 · <b>Signals</b></div><h2>Signals that fire on their own</h2></div>
-        <div class="prose"><p class="lead">I put an AI or System chip beside a signal's ID, so the list shows how that signal runs.</p>
+        <div class="prose"><p class="lead">Each signal has an on/off switch, its name and its rule in plain words. The ones triggered now lead the page, each with its last 14 days of calls.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>With its Auto switch on, a signal runs by itself, and its status says whether it is Active, Triggered, Paused or in Error. Signals feed the rest of Hear: on the Actions board, a task can come from a signal.</p></div></details></div>
       </div>
       <div class="px-host rv"><figure class="px-fig" data-px="signals"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=signals" title="Signals in Hear Studio: rules that classify calls, one opened, and a new one written in plain words." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
@@ -259,7 +258,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </section>
 
   <div class="wrap">
-    <a class="next" href="design-system.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Design system</h2></div><span class="next-thumb" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/next-system.webp?v=2" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
+    <a class="next" href="design-system.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Design system</h2></div><span class="next-thumb fade-l" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/next-system.webp?v=3" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
     <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy. Other quoted lines come from a saved-views planning page (March to July 2026).</p></div>
   </div>
 </main>
@@ -270,6 +269,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script src="case.js?v=4"></script>
 <script src="lab-stage.js" defer></script>
 <script src="../v7/depth.js?v=4" defer></script>
-<script src="../v7/product.js?v=18" defer></script>
+<script src="../v7/product.js?v=20" defer></script>
 </body>
 </html>

@@ -54,7 +54,7 @@
       [[0, '.ac-col:nth-child(3), .ac-col:nth-child(4)', { part: [0, 0, 1, .64], lit: true, pad: 22, max: 1.9, tap: false }]]
     ],
     news: [
-      [[0, null], [1700, '.nr-col:last-child', { pad: 22, max: 1.7 }], [5000, '.nr-feat', { pad: 30, max: 1.9 }]],
+      [[0, null], [1900, '.nr-lead', { part: [0, 0, 1, .62], pad: 22, max: 1.6 }], [5200, '.nr-side', { part: [0, 0, 1, .56], pad: 26, max: 1.9 }]],
       [[0, '.nr-play', { pad: 120, max: 1.9 }], [700, '.nr-story', { part: [.15, .15, .85, .85], tap: false }]],
       [[0, '.nr-story', { part: [.15, .15, .85, .85], tap: false, now: true }]],
       [[0, '.nr-story', { part: [.15, .15, .85, .85], tap: false, now: true }]]
@@ -65,8 +65,8 @@
       [[0, '.dt-cam.a', { part: [0, 0, 1, 1], pad: 14, max: 1.55, tap: false }], [800, '.dt-cam.c', { part: [0, 0, 1, 1], pad: 14, max: 1.6, small: true }], [3400, '.dt-tbl', { part: [.44, .07, 1, .67], max: 1.6 }], [6000, '.dt-cam.c', { part: [0, 0, 1, 1], pad: 14, max: 1.6 }]]
     ],
     signals: [
-      [[0, null], [1700, '.sg-list', { part: [0, 0, .6, .58], max: 1.7 }], [4300, '.sg-list', { part: [.42, 0, 1, .58], max: 1.7 }]],
-      [[0, '.sg-r[data-g="0"]', { part: [0, 0, .66, 1], pad: 70, max: 1.6 }], [1500, '.sx-side.on', { fit: 'w', pad: 26, max: 2 }]],
+      [[0, null], [1900, '.sg-card[data-g="0"]', { pad: 30, max: 1.7 }], [4900, '.sg-h2, .sg-list', { part: [0, 0, .42, 1], pad: 22, max: 1.7 }]],
+      [[0, '.sg-card[data-g="0"]', { pad: 60, max: 1.6 }], [1500, '.sx-side.on', { fit: 'w', pad: 26, max: 2 }]],
       [[0, '.sg-new', { part: [0, 0, .66, 1], pad: 70, max: 1.7, tap: false }], [5200, '.sg-new, .sg-r.fresh', { part: [.38, 0, 1, 1], pad: 40, max: 1.7 }]]
     ]
   };
@@ -87,10 +87,10 @@
     actions: { k: 2, sel: function (small) { return small ? '.sx-side.on header, .sx-side.on .a' : '.sx-side.on header, .sx-side.on .a, .sx-side.on dl'; },
       o: { pad: 40, max: 2, gx: 16, gy: 10 }, os: { pad: 20, max: 2, gx: 14, gy: 10 }, late: true,
       then: function (small) { return small ? { at: 2600, sel: '.sx-side.on dl', o: { pad: 22, max: 2, gx: 14, gy: 10 } } : null; } },
-    news: { k: 0, sel: '.nr-col:last-child .nr-item:nth-child(5)', o: { pad: 70, max: 1.9, gx: 14, gy: 0 }, os: { pad: 28, max: 2.2, gx: 10, gy: 0 } }
+    news: { k: 0, sel: '.nr-item.thread', o: { pad: 70, max: 1.9, gx: 14, gy: 0 }, os: { pad: 28, max: 2.2, gx: 10, gy: 0 } }
   };
   /* How long each step lasts once the frame has landed on it (the way there is added: see P.off). */
-  var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 4400, 7600], agents: [5600, 4400, 4600], actions: [5600, 4200, 7400, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9400], signals: [7600, 6600, 9000] };
+  var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 4400, 7600], agents: [5600, 4400, 4600], actions: [5600, 4200, 7400, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9400], signals: [8200, 6600, 9000] };
   /* the beat, in ms */
   var BEAT = {
     still: 300,        /* the frame has landed; nothing moves: long enough for the eye to arrive too */

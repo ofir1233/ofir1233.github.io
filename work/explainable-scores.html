@@ -39,7 +39,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=15">
-<link rel="stylesheet" href="../v7/case.css?v=17">
+<link rel="stylesheet" href="../v7/case.css?v=21">
 <style>
 /* explainable-scores: page-only pieces */
 .es-scale { background: var(--card); border-radius: 22px; padding: clamp(18px, 2.6vw, 28px); display: grid; gap: 10px; }
@@ -82,7 +82,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div><dt>Role</dt><dd>Design and build in the Lab, with Claude Code</dd></div>
       <div><dt>When</dt><dd>Mar–Oct 2026</dd></div>
       <div><dt>Scope</dt><dd>Compliance heatmap and popover · Agent evaluation chart · score answers in Ask AI</dd></div>
-      <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#grid"><span>02</span> Compliance</a><a class="pill" href="#cell"><span>03</span> The popover</a><a class="pill" href="#answers"><span>04</span> Ask AI</a><a class="pill" href="#decisions"><span>05</span> Decisions</a></nav>
     <div class="px-host" id="demo"><figure class="px-fig" data-px="compliance"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=compliance" title="Compliance in Hear Studio: five rules by agent, a failing score opened against the team, and Ask AI naming the calls." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
@@ -101,7 +100,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
       <ol class="steps rv">
-        <li><strong>Show what matters first</strong><span>A full grid of agents and criteria where only the failing scores get color.</span></li>
+        <li><strong>Show what matters first</strong><span>A grid of every agent and criterion, where a passing score stays gray.</span></li>
         <li><strong>Explain every number</strong><span>Any score opens into its place in the team, then into the evidence behind it.</span></li>
         <li><strong>Act from the same screen</strong><span>Ask AI which calls, from the cell itself, without losing the context.</span></li>
       </ol>
@@ -118,7 +117,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <p>The last row counts each agent's failing criteria, so the worst columns stand out.</p></div></details>
         </div>
       </div>
-      <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-es-grid.webp" data-zoom alt="The Compliance screen: five criteria as rows and ten agents as columns. Passing scores are grey, failing scores are coral, a Failing criteria row counts them, and one failing cell has its popover open." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div>
+      <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-es-grid.webp?v=3" data-zoom alt="The Compliance screen: five criteria as rows and ten agents as columns. Passing scores are gray, failing scores are coral, a Failing criteria row counts them, and one failing cell has its popover open." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div>
         <figcaption><b>Compliance, criteria by agent.</b> Only a failing score takes color. One cell's popover is open.</figcaption></figure>
       <div class="two solo es-gap">
         <figure class="rv">
@@ -145,7 +144,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
       </div>
       <div class="two">
-        <figure class="rv"><div class="shot v7s"><img src="../img/v7s-es-popover.webp" alt="The cell popover under a failing score of 54: Selma K., Vulnerable customer protocol, 12 of 26 calls failed this rule, a bar for Selma at 54 and a bar for the team at 81, and a link, Ask AI which calls." width="992" height="791" loading="lazy"><span class="live">Design Lab · demo data</span></div>
+        <figure class="rv"><div class="shot v7s"><img src="../img/v7s-es-popover.webp?v=3" alt="The cell popover under a failing score of 54: Selma K., Vulnerable customer protocol, 12 of 26 calls failed this rule, a bar for Selma at 54 and a bar for the team at 81, and a link, Ask AI which calls." width="992" height="791" loading="lazy"><span class="live">Design Lab · demo data</span></div>
           <figcaption><b>The cell popover.</b> Cropped from the Compliance screen.</figcaption></figure>
         <div class="prose xtra">
           <ul>
@@ -168,7 +167,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The question arrives already written, with the agent and the criterion in it, and the agent's name stays at the top of the panel.</p></div></details></div>
       </div>
       <div class="two">
-        <figure class="rv"><div class="shot pad v7s" style="--iw:400px;--ir:12px"><img src="../img/v7s-es-ask.webp?v=2" alt="An Ask AI answer for Selma K.: the question, Which calls pulled Selma’s Vulnerable customer protocol score down, then 12 calls failed and 9 of them share one cause, then three calls by date, each with what was missed." width="830" height="935" loading="lazy"><span class="live">Design Lab · demo data</span></div>
+        <figure class="rv"><div class="shot pad v7s" style="--iw:400px;--ir:22px"><img src="../img/v7s-es-ask.webp?v=3" alt="An Ask AI answer for Selma K.: the question, Which calls pulled Selma’s Vulnerable customer protocol score down, then 12 calls failed and 9 of them share one cause, then three calls by date, each with what was missed." width="830" height="935" loading="lazy"><span class="live">Design Lab · demo data</span></div>
           <figcaption><b>An answer about one score.</b> From the Compliance screen.</figcaption></figure>
         <div class="prose es-prose xtra">
           <p>An answer asked from a cell has three parts, and each points at something you can check:</p>
@@ -222,13 +221,13 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </section>
 
   <div class="wrap">
-    <a class="next" href="actions.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Actions</h2></div><span class="next-thumb" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/next-actions.webp?v=2" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
+    <a class="next" href="actions.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Actions</h2></div><span class="next-thumb whole" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/v7s-actions-board.webp?v=5" width="2060" height="1327" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
     <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy.</p></div>
   </div>
 </main>
 <footer><div class="wrap"><div class="cs-contact"><p class="cs-contact-t">Get in touch</p><ul class="cs-contact-links"><li><a href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a></li><li><a href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a></li><li><a href="../ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></li></ul></div>© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
 <script src="case.js?v=4"></script>
 <script src="../v7/depth.js?v=4" defer></script>
-<script src="../v7/product.js?v=18" defer></script>
+<script src="../v7/product.js?v=20" defer></script>
 </body>
 </html>

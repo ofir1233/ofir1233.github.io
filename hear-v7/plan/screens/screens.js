@@ -34,15 +34,19 @@
         ['Vulnerable customer protocol', [88, 70, 72, 61, 76, 87, 87, 89, 68, 54]], ['Risk warning disclosure', [69, 88, 83, 85, 85, 70, 86, 74, 92, 77]]];
       var cls = function (v) { return v < 60 ? ' low' : v < 70 ? ' mid' : ''; };
       var g = '<div class="rw"></div>' + A.map(function (a) { return '<div class="hd"><b>' + a + '</b></div>'; }).join('');
-      C.forEach(function (c, r) { g += '<div class="rw">' + c[0] + '</div>' + c[1].map(function (v, i) { return '<div class="c' + cls(v) + '" data-c="' + r + '-' + i + '">' + v + '</div>'; }).join(''); });
+      C.forEach(function (c, r) { g += '<div class="rw">' + c[0] + '</div>' + c[1].map(function (v, i) { return '<div class="c' + cls(v) + '" data-c="' + r + '-' + i + '" style="--i:' + i + '">' + v + '</div>'; }).join(''); });
       g += '<div class="rw ft">Failing criteria</div>' + A.map(function (a, i) { var n = C.filter(function (c) { return c[1][i] < 70; }).length; return '<div class="ft">' + (n ? '<b>' + n + '</b>' : '–') + '</div>'; }).join('');
       return top('Compliance', 'How every agent did against the center’s rules. 5 criteria · 26 agents · last 6 weeks', act('Last 6 weeks' + chev) + act('Share')) +
-        kpis([['Sales without alerts', '72.6<small>%</small>', '▲ 2.1 pts against the 6 weeks before'], ['Valid sales', '93.8<small>%</small>', 'target 90%'], ['Agents above the success metric', '88.7<small>%</small>', '23 of 26 agents']]) +
+        kpis([['Sales without alerts', '72.6<small>%</small>', '▲ 2.1 pts against the 6 weeks before'], ['Valid sales', '93.8<small>%</small>', 'target 90%'], ['Agents above the success metric', '88.5<small>%</small>', '23 of 26 agents']]) +
         '<div class="sx-body"><div class="sx-h"><b>Criteria by agent</b><span>Only a failing score takes color</span><span class="sx-seg r"><span class="on">Agents</span><span>Teams</span></span></div>' +
         '<div class="cm-grid">' + g + '</div>' +
         '<div class="sx-note"><span>Score</span><i style="background:rgba(24,36,48,.07)"></i><span>70 and up</span><i style="background:#FFD0C4"></i><span>60–69</span><i style="background:var(--coral)"></i><span>under 60</span></div></div>';
     },
     show: function (el, i, ui) {
+      /* the page arrives: the scores land agent by agent, all of them gray; then the failing ones take their color. The sentence above
+         the table says the same thing: only a failing score takes color */
+      var grid = el.querySelector('.cm-grid'); grid.classList.remove('draw');
+      if (i === 0 && ui && !ui.jump) { void grid.offsetWidth; grid.classList.add('draw'); }
       var c = el.querySelector('[data-c="3-9"]');
       if (i >= 1) c.classList.add('hot');
       if (i === 1) {
@@ -61,7 +65,7 @@
     steps: ['Each day’s bar is the average score of every agent.', 'A low day turns coral and shows how many calls it rests on.', 'The spread shows who needs coaching: 8 agents under 60.'],
     build: function () {
       var D = [76, 76, 75, 75, 74, 74, 76, 74, 74, 75, 75, 75, 76, 76, 77, 76, 77, 66, 68, 67, 67, 77, 77, 77, 77, 81, 80, 81, 76, 75];
-      var bars = D.map(function (v, i) { return '<i class="ae-b ' + (v < 70 ? 'l1 low' : v < 76 ? 'l3' : v < 80 ? 'l4' : 'l5') + '" data-b="' + i + '" style="height:' + ((v - 50) / 36 * 100).toFixed(1) + '%"><em>' + v + '</em></i>'; }).join('');
+      var bars = D.map(function (v, i) { return '<i class="ae-b ' + (v < 70 ? 'l1 low' : v < 76 ? 'l3' : v < 80 ? 'l4' : 'l5') + '" data-b="' + i + '" style="height:' + ((v - 50) / 36 * 100).toFixed(1) + '%;animation-delay:' + i * 22 + 'ms"><em>' + v + '</em></i>'; }).join('');
       var G = [['90–100', 27, 'l5'], ['80–89', 193, 'l4'], ['70–79', 349, 'l3'], ['60–69', 138, 'l2'], ['under 60', 8, 'l1']];
       return top('Agent evaluation', 'An AI score for every agent, with the calls it is based on. 715 agents · 8 criteria', act('Service quality' + chev) + act('Last 30 days' + chev)) +
         kpis([['Agents', '715', 'active in the last 30 days'], ['Average score', '76<small>/ 100</small>', '▲ 1 pt against the 30 days before'], ['Under 60', '8', 'agents to coach first']]) +
@@ -71,6 +75,9 @@
         '<div class="ae-leg">' + G.map(function (g) { return '<span data-g="' + g[0] + '"><i class="' + g[2] + '"></i>' + g[0] + ' <b>' + g[1] + '</b></span>'; }).join('') + '</div></div></div>';
     },
     show: function (el, i, ui) {
+      /* the page arrives: thirty days rise from left to right, so the dip in the fourth week is seen happening */
+      var plot = el.querySelector('.ae-plot'); plot.classList.remove('draw');
+      if (i === 0 && ui && !ui.jump) { void plot.offsetWidth; plot.classList.add('draw'); }
       if (i === 1) { var b = el.querySelector('[data-b="17"]'); b.classList.add('hot'); ui.tip(b, '<strong>Wed, Sep 30</strong><span class="big">66 <small>/ 100</small></span><span>Based on 3,104 calls · 10 pts under the week before</span>', 'top'); }
       if (i === 2) { [].forEach.call(el.querySelectorAll('[data-g="under 60"]'), function (x) { x.classList.add('hot'); }); ui.tip(el.querySelector('.ae-strip [data-g="under 60"]'), '<strong>8 agents under 60</strong><span>Average 54 · 1,212 calls in 30 days</span><b class="go">Open the list →</b>', 'topright'); }
     }
@@ -81,7 +88,7 @@
     nav: 'Actions', icon: '<rect x="2.5" y="3" width="3.6" height="12" rx="1.2"/><rect x="7.2" y="3" width="3.6" height="8" rx="1.2"/><rect x="11.9" y="3" width="3.6" height="10" rx="1.2"/>',
     steps: ['Each finding is a task with its source and an owner.', 'A card shows what can be done with it: assign, start or close.', 'The task opens with the call it came from.', 'Closed work keeps its reason.'],
     build: function () {
-      var card = function (src, hi, title, who, tag, cls) { return '<div class="ac-card' + (cls ? ' ' + cls : '') + '"><small><u' + (hi ? ' class="hi"' : '') + '></u>' + src + '</small><p>' + title + '</p><footer>' + (who ? av(who) + who : '<span style="color:var(--mut)">Not assigned</span>') + (tag ? '<span class="sx-tag' + (tag === 'Resolved' ? ' ok' : tag === 'Escalated' ? ' ink' : '') + '">' + tag + '</span>' : '') + '</footer><div class="qa"><span>Assign</span><span>Start</span><span>Close</span></div></div>'; };
+      var card = function (src, hi, title, who, tag, cls) { return '<div class="ac-card' + (cls ? ' ' + cls : '') + '"><small><u' + (hi ? ' class="hi"' : '') + '></u>' + src.replace(' · High', '<span class="hp"> · High</span>') + '</small><p>' + title + '</p><footer>' + (who ? av(who) + who : '<span style="color:var(--mut)">Not assigned</span>') + (tag ? '<span class="sx-tag' + (tag === 'Resolved' ? ' ok' : tag === 'Escalated' ? ' ink' : '') + '">' + tag + '</span>' : '') + '</footer><div class="qa"><span>Assign</span><span>Start</span><span>Close</span></div></div>'; };
       var col = function (n, c, cards, more) { return '<section class="ac-col"><h4>' + n + '<i>' + c + '</i></h4>' + cards + (more ? '<span class="ac-more">+' + more + ' more</span>' : '') + '</section>'; };
       return top('Actions', 'Findings from alerts, signals and evaluations, each one with an owner.', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New task', 'ink')) +
         '<div class="ac-bar"><span class="sx-chip on">Everyone</span><span class="sx-chip">Assigned to me</span><span class="sx-chip">Mentions me</span><i class="gap"></i><span class="sx-chip">High priority <b>4</b></span><span class="sx-chip">From alerts <b>5</b></span><span class="sx-chip">From agent evaluation <b>2</b></span></div>' +
@@ -103,26 +110,74 @@
   };
 
   /* ---------- Newsroom ---------- */
+  /* Owner, 23.11.2026: "looks really bad, not invested at all". Rebuilt as the front page the case study describes: the day and the
+     count of stories, sections by platform area, one lead story with its evidence on the page (its source and time, a usual day to
+     measure the spike against, why it is here, its calls), the month as a story you can play, and the week's other stories, each with
+     a source line and one word for where it is heading. Today is Oct 13, as in the other screens, so the recap is September's. */
   S.news = {
     nav: 'Newsroom', icon: '<rect x="2.5" y="3.5" width="13" height="11" rx="2"/><path d="M5.5 7h4M5.5 10h7"/>',
-    steps: ['Newsroom writes what changed in the calls as stories.', 'Play opens the month as a 75-second story.', 'It counts the 38,214 calls analyzed in July.', 'Then it names the one thing that changed most.'],
+    steps: ['Newsroom writes what changed in the calls as stories.', 'Play opens the month as a 75-second story.', 'It counts the 38,214 calls analyzed in September.', 'Then it names the one thing that changed most.'],
     build: function () {
-      var N = [['“Cancellation intent” is surging past its 30-day baseline', 'Signal · 240% over baseline · 4:12 pm', 'Surging', 'ink'], ['Team B handle time is up 40% since Monday', 'Agent performance · 2:30 pm', 'Rising', 'blue'], ['Missed upgrade offers: 2 stories from 214 eligible calls', 'Daily alerts report', 'New', 'nw'], ['Refund asked twice, voucher offered: 6 calls since Monday', 'Alert · Refund refused · Oct 13', 'Rising', 'blue'], ['Silence on Trip Status calls is down a third', 'Signal · since the new script', 'Improving', 'ok'], ['Three agents moved above the success metric', 'Agent evaluation · this week', 'Steady', '']];
+      /* the lead story's evidence: the signal's calls a day, Sep 13 to Oct 12. A usual day is 17; the last 14 days add up to the 412
+         the Signals screen shows; Oct 9 is the first day over twice the usual (Signals: "firing since Oct 9"); 58 is 240% over 17 */
+      var V = [17, 16, 17, 18, 17, 16, 17, 18, 17, 16, 17, 17, 18, 17, 16, 17, 16, 18, 17, 19, 16, 18, 17, 20, 26, 34, 44, 52, 57, 58];
+      var n = V.length - 1, X = function (i) { return i * 10; }, Y = function (v) { return 100 - v / 70 * 100; }, pc = function (v) { return (+v).toFixed(2) + '%'; };
+      var d = 'M0 ' + Y(V[0]).toFixed(2);
+      for (var i = 0; i < n; i++) {
+        var p0 = V[Math.max(0, i - 1)], p1 = V[i], p2 = V[i + 1], p3 = V[Math.min(n, i + 2)];
+        d += 'C' + (X(i) + 10 / 3).toFixed(2) + ' ' + Y(p1 + (p2 - p0) / 6).toFixed(2) + ' ' + (X(i + 1) - 10 / 3).toFixed(2) + ' ' + Y(p2 - (p3 - p1) / 6).toFixed(2) + ' ' + X(i + 1) + ' ' + Y(p2).toFixed(2);
+      }
+      var yb = Y(17), W = X(n);
+      var N = [['Team B handle time is up 40% since Monday', 'Agent evaluation · 2:30 pm', 'Rising', 'blue', ''],
+        ['Refund asked twice, voucher offered: 6 calls since Monday', 'Alert · Refund refused · Oct 13', 'New', 'nw', ' thread'],
+        ['Recording disclosure went missing on 58 calls in 14 days', 'Signal · Recording disclosure missing', 'Rising', 'blue', ''],
+        ['Silence on Trip Status calls is down a third', 'Signal · Long silence · since the new script', 'Improving', 'ok', ''],
+        ['Valid sales held above the 90% target for a sixth week', 'Compliance · weekly report', 'Steady', '', '']];
+      var tab = function (t, c, on) { return '<span class="tab' + (on ? ' on' : '') + '">' + t + (c ? '<small>' + c + '</small>' : '') + '</span>'; };
       return top('Newsroom', 'What changed in your calls, written as stories you can read or play.', act('Last 7 days' + chev) + act('Share')) +
-        '<div class="sx-body nr-body"><section class="nr-col"><div class="nr-feat"><small>Monthly recap · Story</small><h3>38,214 calls. One story.</h3><p>The day you never caught your breath, the topic that took over, and the agent who carried the floor.</p><span class="nr-play"><svg viewBox="0 0 12 12"><path d="M2.5 1.2v9.6L10.5 6z"/></svg>Play · 75 sec</span></div>' +
-        '<div class="nr-chart"><div class="sx-h"><b>Call volume</b><span>July, by day</span></div><div class="nr-plot"><svg viewBox="0 0 600 150" preserveAspectRatio="none"><path d="M0 120C40 118 70 112 110 110S170 116 210 96 270 30 310 26 370 70 410 78 480 62 520 66 570 52 600 48V150H0z" fill="#DCEFFE"/><path d="M0 120C40 118 70 112 110 110S170 116 210 96 270 30 310 26 370 70 410 78 480 62 520 66 570 52 600 48" fill="none" stroke="#139FFD" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg><i class="g" style="top:33%"></i><i class="g" style="top:66%"></i><span class="pk"><b>1,912 calls</b> Jul 14</span></div><div class="ae-dates"><span>Jul 1</span><span>Jul 8</span><span>Jul 15</span><span>Jul 22</span><span>Jul 31</span></div></div></section>' +
-        '<section class="nr-col"><div class="sx-h"><b>Developments</b><span>31 this week</span></div>' + N.map(function (n) { return '<div class="nr-item"><b>' + n[0] + '</b><span class="sx-tag ' + n[3] + '">' + n[2] + '</span><span>' + n[1] + '</span></div>'; }).join('') + '</section></div>' +
+        '<div class="nr-mast"><span class="day"><b>Tuesday, October 13</b>31 stories this week</span><span class="sp"></span>' + tab('Front page', '', 1) + tab('Signals', 9) + tab('Agent evaluation', 8) + tab('Compliance', 6) + tab('Alerts', 8) + '</div>' +
+        '<div class="sx-body nr-body"><section class="nr-lead">' +
+        '<div class="nr-kick"><span class="sx-tag ink">Surging</span>Signal · Cancellation intent · 4:12 pm</div>' +
+        '<h3>Cancellation intent is running 240% over its baseline</h3>' +
+        '<p>58 callers yesterday said they want to cancel or leave. A usual day has 17.</p>' +
+        '<div class="nr-plot"><svg viewBox="0 0 ' + W + ' 100" preserveAspectRatio="none"><clipPath id="nr-over"><rect x="0" y="-20" width="' + W + '" height="' + (yb + 20).toFixed(2) + '"/></clipPath>' +
+        '<path d="' + d + 'V' + yb.toFixed(2) + 'H0Z" fill="#DCEFFE" clip-path="url(#nr-over)"/><path d="' + d + '" fill="none" stroke="#139FFD" stroke-width="2.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>' +
+        '<i class="base" style="top:' + pc(yb) + '"></i><i class="ax"></i>' +
+        '<span class="lb late" style="right:0;top:' + pc(yb) + ';translate:0 7px">Usual day · <b>17 calls</b></span>' +
+        '<i class="dot o late" style="left:' + pc(26 / n * 100) + ';top:' + pc(Y(44)) + '"></i><span class="lb late" style="right:' + pc(100 - 26 / n * 100) + ';top:' + pc(Y(44)) + ';translate:-14px -50%">Twice the usual · <b>Oct 9</b></span>' +
+        '<i class="dot late" style="left:100%;top:' + pc(Y(58)) + '"></i><span class="lb late" style="right:0;top:' + pc(Y(58)) + ';translate:4px -30px"><b>58 calls</b> · Oct 12</span></div>' +
+        '<div class="nr-days">' + [[0, 'Sep 13'], [7, 'Sep 20'], [14, 'Sep 27'], [21, 'Oct 4'], [29, 'Oct 12']].map(function (a) { return '<span style="left:' + pc(a[0] / n * 100) + '">' + a[1] + '</span>'; }).join('') + '</div>' +
+        /* a story has voices: two of today's calls, the same ones the Signals screen lists under "Caught today" */
+        '<div class="nr-said"><blockquote>“If this isn’t refunded today I’m canceling everything.”<small>Call · 2:02 pm · 6 min 12 sec</small></blockquote>' +
+        '<blockquote>“Just cancel the whole trip, please.”<small>Call · 12:05 pm · 9 min 3 sec</small></blockquote></div>' +
+        '<div class="nr-why"><div><b>Why you’re seeing this</b><p>The signal passed twice its usual level on Oct 9 and has stayed above it for four days.</p></div>' +
+        '<span class="nr-str"><i><u></u><u></u><u></u></i>Strong</span><span class="nr-see">See 412 calls →</span></div></section>' +
+        '<section class="nr-side"><div class="nr-feat"><small>Monthly recap · September</small><h3>38,214 calls. One story.</h3><p>The busiest day, the topic that took over and the agent who carried the floor.</p>' +
+        '<span class="nr-play"><svg viewBox="0 0 12 12"><path d="M2.5 1.2v9.6L10.5 6z"/></svg>Play · 75 sec</span></div>' +
+        '<div class="nr-list">' + N.map(function (s) { return '<div class="nr-item' + s[4] + '"><b>' + s[0] + '</b><span class="sx-tag ' + s[3] + '">' + s[2] + '</span><span>' + s[1] + '</span></div>'; }).join('') + '</div></section></div>' +
         '<div class="nr-story" data-s="0"><div class="pr"><i class="on"></i><i></i><i></i><i></i><i></i></div>' +
-        '<div class="sl s0"><small>July 2026 · Your recap</small><h3>Chief, your month was loud.</h3><p>Let’s listen back.</p></div>' +
-        '<div class="sl s1"><small>Calls analyzed</small><h3>38,214</h3><p>9% more than June</p></div>' +
-        '<div class="sl s2"><small>What changed most</small><h3>Cancellation intent rose 240% after the fare change.</h3><p>July 14 to July 19</p></div></div>';
+        '<div class="sl s0"><small>September 2026 · Your recap</small><h3>Chief, your month was loud.</h3><p>Let’s listen back.</p></div>' +
+        '<div class="sl s1"><small>Calls analyzed</small><h3>38,214</h3><p>9% more than August</p></div>' +
+        '<div class="sl s2"><small>What changed most</small><h3>Refund calls doubled after the schedule change.</h3><p>September 21 to September 27</p></div></div>';
     },
     show: function (el, i, ui) {
-      var st = el.querySelector('.nr-story'), num = st.querySelector('.s1 h3');
+      var st = el.querySelector('.nr-story'), num = st.querySelector('.s1 h3'), plot = el.querySelector('.nr-plot'), live = !!ui && !ui.jump;
+      /* the front page arrives: the lead story's line is drawn from left to right, then its marks appear */
+      plot.classList.remove('draw');
+      if (i === 0 && live) { void plot.offsetWidth; plot.classList.add('draw'); }
       /* the slide says it counts the calls: so it counts */
-      if (i === 2 && ui && !ui.jump) { num.textContent = '0'; for (var n = 1; n <= 28; n++) (function (n) { later(function () { num.textContent = Math.round(38214 * (1 - Math.pow(1 - n / 28, 4))).toLocaleString('en-US'); }, 420 + n * 46); })(n); }
+      if (i === 2 && live) { num.textContent = '0'; for (var n = 1; n <= 28; n++) (function (n) { later(function () { num.textContent = Math.round(38214 * (1 - Math.pow(1 - n / 28, 4))).toLocaleString('en-US'); }, 420 + n * 46); })(n); }
       else num.textContent = '38,214';
+      /* Play: the story opens out of its own cover, the blue card it was started from */
+      if (i === 1 && live) {
+        var a = el.querySelector('.nr-feat').getBoundingClientRect(), r = st.getBoundingClientRect(), z = r.width / st.offsetWidth || 1;
+        st.style.transition = 'none';
+        st.style.clipPath = 'inset(' + ((a.top - r.top) / z).toFixed(1) + 'px ' + ((r.right - a.right) / z).toFixed(1) + 'px ' + ((r.bottom - a.bottom) / z).toFixed(1) + 'px ' + ((a.left - r.left) / z).toFixed(1) + 'px round 16px)';
+        void st.offsetWidth; st.style.transition = '';
+      }
+      st.style.clipPath = i >= 1 ? 'inset(0 round 20px)' : '';
       st.classList.toggle('on', i >= 1);
+      st.classList.toggle('opens', i === 1 && live);
       if (i >= 1) { st.dataset.s = i - 1; [].forEach.call(st.querySelectorAll('.pr i'), function (x, n) { x.classList.toggle('on', n < i); }); }
     }
   };
@@ -209,26 +264,51 @@
   };
 
   /* ---------- Signals ---------- */
+  /* Second build, 23.11.2026 (owner: go over every product screen, invest in each). The page was a flat list with its lower half empty.
+     Now the three signals that are firing lead as cards with their evidence, the same way Newsroom shows it: 14 days of calls, a dashed
+     line for a usual day, the days over twice the usual in coral. The quiet ones stay a list. Every bar adds up to the count beside it,
+     and Cancellation intent is the same series as Newsroom's lead story (412 calls, 58 yesterday, usual day 17, firing since Oct 9). */
   S.signals = {
     nav: 'Signals', icon: '<path d="M2.5 9h3l2-5 3 10 2-5h3"/>',
     steps: ['A signal is a rule that classifies calls on its own.', 'Opening one shows the calls it caught.', 'A new signal is written in plain words.'],
     build: function () {
-      var G = [['Cancellation intent', 'The customer says they want to cancel or leave', 412, 'Firing', 'ink', [4, 5, 4, 6, 5, 7, 6, 9, 12, 16, 21, 24, 26, 28]], ['Refund refused', 'A refund is asked for and not offered', 96, 'Firing', 'ink', [8, 7, 9, 8, 10, 9, 11, 10, 12, 14, 13, 16, 18, 19]],
-        ['Recording disclosure missing', 'No disclosure in the first 30 seconds', 58, 'Firing', 'ink', [6, 5, 6, 7, 6, 8, 7, 9, 8, 10, 12, 11, 13, 14]], ['Upgrade offer missed', 'An eligible customer is not offered an upgrade', 214, 'Quiet', '', [14, 15, 13, 14, 16, 15, 14, 13, 15, 14, 13, 14, 15, 14]],
-        ['Long silence', 'More than 20 seconds with nobody speaking', 131, 'Quiet', '', [10, 9, 11, 10, 9, 10, 11, 9, 10, 9, 10, 11, 10, 9]], ['Competitor mentioned', 'The customer names another airline', 47, 'Quiet', '', [5, 6, 5, 4, 6, 5, 5, 6, 4, 5, 6, 5, 4, 5]], ['Praise for the agent', 'The customer thanks the agent by name', 302, 'Paused', '', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]];
-      return top('Signals', 'Rules that classify calls on their own. 7 signals · 3 firing now', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New signal', 'ink')) +
-        '<div class="sg-new"><svg class="i" viewBox="0 0 18 18"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="tx"></span><span class="sx-tag blue">Classifying 2,000 calls…</span></div>' +
-        '<div class="sx-body"><div class="sg-list"><div class="sg-r fresh"><i class="tg"></i><span class="nm">Switching to a competitor<small>The customer says they will switch to a competitor</small></span><span class="sp">' + [2, 1, 2, 1, 3, 2, 1, 2, 3, 2, 1, 3, 2, 4].map(function (v) { return '<i style="height:' + v * 22 + '%"></i>'; }).join('') + '</span><span class="ct"><b>23</b>calls in 14 days</span><span class="sx-tag nw">New</span></div>' + G.map(function (g, k) {
-          return '<div class="sg-r" data-g="' + k + '"><i class="tg' + (g[3] === 'Paused' ? ' off' : '') + '"></i><span class="nm">' + g[0] + '<small>' + g[1] + '</small></span><span class="sp">' + g[5].map(function (v, d) { return '<i' + (g[4] && d > 9 ? ' class="pk"' : '') + ' style="height:' + Math.max(8, v / 28 * 100) + '%"></i>'; }).join('') + '</span><span class="ct"><b>' + g[2] + '</b>calls in 14 days</span><span class="sx-tag ' + g[4] + '">' + g[3] + '</span></div>';
-        }).join('') + '</div></div>';
+      var F = [['Cancellation intent', 'The customer says they want to cancel or leave', 17, 'Oct 9', [16, 18, 17, 19, 16, 18, 17, 20, 26, 34, 44, 52, 57, 58]],
+        ['Refund refused', 'A refund is asked for and not offered', 5, 'Oct 10', [4, 5, 4, 5, 4, 5, 5, 4, 5, 5, 6, 11, 16, 17]],
+        ['Recording disclosure missing', 'No disclosure in the first 30 seconds', 3, 'Oct 11', [2, 3, 2, 3, 3, 2, 3, 3, 2, 3, 3, 4, 11, 14]]];
+      var Q = [['Upgrade offer missed', 'An eligible customer is not offered an upgrade', 'Active', '', [15, 16, 14, 15, 17, 16, 15, 14, 16, 15, 15, 15, 16, 15]],
+        ['Long silence', 'More than 20 seconds with nobody speaking', 'Active', '', [12, 12, 11, 12, 11, 11, 10, 9, 8, 8, 7, 7, 7, 6]],
+        ['Competitor mentioned', 'The customer names another airline', 'Active', '', [3, 4, 3, 3, 4, 3, 4, 3, 3, 4, 3, 3, 4, 3]],
+        ['Praise for the agent', 'The customer thanks the agent by name', 'Paused', '', null]];
+      var sum = function (a) { return a.reduce(function (x, y) { return x + y; }, 0); };
+      var spark = function (a, mx) { return '<span class="sp">' + a.map(function (v) { return '<i style="height:' + Math.max(8, v / mx * 100).toFixed(0) + '%"></i>'; }).join('') + '</span>'; };
+      var card = function (f, k) {
+        var a = f[4], mx = Math.max.apply(0, a);
+        return '<div class="sg-card" data-g="' + k + '"><header><b>' + f[0] + '</b><i class="tg"></i></header><small>' + f[1] + '</small>' +
+          '<div class="fig"><b>' + sum(a) + '</b><span>calls in 14 days</span><span class="sx-tag ink">Triggered since ' + f[3] + '</span></div>' +
+          '<div class="sg-plot">' + a.map(function (v, d) { return '<i' + (v > f[2] * 2 ? ' class="pk"' : '') + ' style="height:' + (v / mx * 100).toFixed(1) + '%;animation-delay:' + (k * 90 + d * 34) + 'ms"></i>'; }).join('') +
+          '<u style="bottom:' + (f[2] / mx * 100).toFixed(1) + '%"></u><span class="lb" style="bottom:calc(' + (f[2] / mx * 100).toFixed(1) + '% + 7px)">Usual day · <b>' + f[2] + '</b></span>' +
+          '<span class="lb last"><b>' + a[13] + '</b> yesterday</span></div><div class="sg-ax"><span>Sep 29</span><span>Oct 12</span></div></div>';
+      };
+      var row = function (q, k) {
+        return '<div class="sg-r" data-g="' + k + '"><i class="tg' + (q[4] ? '' : ' off') + '"></i><span class="nm">' + q[0] + '<small>' + q[1] + '</small></span>' + (q[4] ? spark(q[4], 18) : '<span class="sp"></span>') +
+          '<span class="ct">' + (q[4] ? '<b>' + sum(q[4]) + '</b>calls in 14 days' : '<b>–</b>paused on Sep 28') + '</span><span class="sx-tag ' + q[3] + '">' + q[2] + '</span></div>';
+      };
+      return top('Signals', 'Rules that classify calls on their own. 7 signals · 3 triggered now', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New signal', 'ink')) +
+        '<div class="sg-new"><svg class="i" viewBox="0 0 18 18"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="tx"></span><span class="sx-tag blue">Reading the last 14 days…</span></div>' +
+        '<div class="sg-r fresh"><i class="tg"></i><span class="nm">Switching to a competitor<small>The customer says they will switch to a competitor</small></span>' + spark([2, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 2, 2], 4) + '<span class="ct"><b>23</b>calls in 14 days</span><span class="sx-tag nw">New</span></div>' +
+        '<div class="sx-body"><div class="sx-h"><b>Triggered now</b><span>3 signals over twice their usual day</span></div><div class="sg-fire">' + F.map(card).join('') + '</div>' +
+        '<div class="sx-h sg-h2"><b>The other four</b><span>3 active, inside their usual range · 1 paused</span></div><div class="sg-list">' + Q.map(function (q, k) { return row(q, k + 3); }).join('') + '</div></div>';
     },
     show: function (el, i, ui) {
-      var fresh = el.querySelector('.sg-r.fresh'), tag = el.querySelector('.sg-new .sx-tag');
-      fresh.classList.remove('in'); tag.textContent = 'Classifying 2,000 calls…';
+      var fresh = el.querySelector('.sg-r.fresh'), tag = el.querySelector('.sg-new .sx-tag'), fire = el.querySelector('.sg-fire'), live = !!ui && !ui.jump;
+      fresh.classList.remove('in'); tag.textContent = 'Reading the last 14 days…';
+      /* the page arrives: each firing signal's fourteen days rise from left to right, then the usual day is drawn across them */
+      fire.classList.remove('draw');
+      if (i === 0 && live) { void fire.offsetWidth; fire.classList.add('draw'); }
       if (i === 1) {
         el.querySelector('[data-g="0"]').classList.add('hot');
-        ui.side('<header>Cancellation intent<small>412 calls</small></header><div class="a" style="margin-top:14px"><p>The customer says they want to cancel or leave. Firing since Oct 9: <b>240% over its 30-day baseline.</b></p></div><h4>Caught today</h4>' +
-          '<ul><li><b>14:02</b>“If this isn’t refunded today I’m cancelling everything.”</li><li><b>13:18</b>“I’d rather book with someone else next time.”</li><li><b>12:05</b>“Just cancel the whole trip, please.”</li></ul><div class="ft">' + act('Edit rule') + act('Create a task', 'ink') + '</div>');
+        ui.side('<header>Cancellation intent<small>412 calls</small></header><div class="a" style="margin-top:14px"><p>The customer says they want to cancel or leave. Triggered since Oct 9: <b>240% over its 30-day baseline.</b></p></div><h4>Caught yesterday</h4>' +
+          '<ul class="sg-q"><li><b>2:02 pm</b>“If this isn’t refunded today I’m canceling everything.”</li><li><b>1:18 pm</b>“I’d rather book with someone else next time.”</li><li><b>12:05 pm</b>“Just cancel the whole trip, please.”</li></ul><div class="ft">' + act('Edit rule') + act('Create a task', 'ink') + '</div>');
       }
       if (i === 2) {
         var box = el.querySelector('.sg-new'), tx = box.querySelector('.tx'), text = 'The customer says they will switch to a competitor';
@@ -246,7 +326,7 @@
     nav: 'Demos', icon: '<rect x="2.5" y="3.5" width="13" height="11" rx="2.4"/><path d="M7.6 6.8v4.4L11.4 9z"/>',
     steps: ['A demo is a script that drives the product’s own screens.', 'Opening one shows its steps, line by line.', 'Play runs the steps on the working screens.', 'The same script plays in Hebrew.'],
     build: function () {
-      var D = [['Your July recap', 'The month as a story: volume, the topic that took over, the agent of the month.', '75 sec · 8 steps', ['Open Newsroom', 'Play the monthly recap', 'Count the calls']], ['The Monday loop', 'From an alert to a task to a closed loop, on one customer.', '40 sec · 6 steps', ['Open an alert', 'Create a task', 'Assign it']], ['The daily signal', 'A signal fires, the calls behind it open, a task is created.', '30 sec · 5 steps', ['Open Signals', 'Open the firing signal', 'Read a call']],
+      var D = [['Your September recap', 'The month as a story: volume, the topic that took over, the agent of the month.', '75 sec · 8 steps', ['Open Newsroom', 'Play the monthly recap', 'Count the calls']], ['The Monday loop', 'From an alert to a task to a closed loop, on one customer.', '40 sec · 6 steps', ['Open an alert', 'Create a task', 'Assign it']], ['The daily signal', 'A signal fires, the calls behind it open, a task is created.', '30 sec · 5 steps', ['Open Signals', 'Open the firing signal', 'Read a call']],
         ['Explain a score', 'A topic’s score opens into its three parameters and Ask AI.', '30 sec · 6 steps', ['Open Topics', 'Point at Online Booking', 'Open the score']], ['The morning scan', 'Compliance, then the agents who need coaching today.', '45 sec · 7 steps', ['Open Compliance', 'Find the failing score', 'Ask AI which calls']], ['Filter in plain words', 'A question typed into Data becomes a filter.', '20 sec · 4 steps', ['Open Data', 'Type the question', 'Read the result']]];
       return top('Demos', 'Scripts that drive the product’s own screens, in English or Hebrew. 6 sequences', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New sequence', 'ink')) +
         '<div class="sx-body"><div class="dm-grid">' + D.map(function (d, k) { return '<div class="dm-card" data-d="' + k + '"><b>' + d[0] + '</b><p>' + d[1] + '</p><ol>' + d[3].map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ol><footer><span>' + d[2] + '</span><span><svg viewBox="0 0 12 12"><path d="M2.5 1.2v9.6L10.5 6z"/></svg>Play</span></footer></div>'; }).join('') + '</div></div>';

@@ -126,56 +126,10 @@
 .ac-check.done{color:var(--mut)}
 
 /* ---------- Newsroom ---------- */
-.nr-body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:38px;flex-direction:initial}
-.nr-col{display:flex;flex-direction:column;min-width:0;min-height:0}
-.nr-feat{padding:26px 28px 24px;border-radius:22px;background:linear-gradient(140deg,#DCEFFE 0,#EDF6FE 60%,#fff 100%);box-shadow:inset 0 0 0 1px rgba(19,159,253,.14)}
-.nr-feat small{font-size:12.5px;font-weight:500;color:#0B6FCF}
-.nr-feat h3{margin:10px 0 0;font-size:34px;font-weight:500;letter-spacing:-.03em;line-height:1.08}
-.nr-feat p{margin:10px 0 0;max-width:440px;font-size:14.5px;line-height:1.5;color:var(--ink2)}
-.nr-play{display:inline-flex;align-items:center;gap:9px;height:40px;margin-top:18px;padding:0 18px 0 14px;border-radius:20px;background:#139FFD;color:#fff;font-size:14.5px;font-weight:500;transition:box-shadow .25s,transform .25s}
-.nr-play svg{width:14px;height:14px;fill:#fff}
-.sx[data-st="1"] .nr-play{box-shadow:0 0 0 4px rgba(19,159,253,.25)}
-.nr-chart{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:22px}
-.nr-chart svg{flex:1;min-height:0;width:100%;margin-top:8px}
-.nr-item{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:15px 0;border-top:1px solid var(--line)}
-.nr-item:first-of-type{border-top:0}
-.nr-item b{font-size:15px;font-weight:500;line-height:1.3;text-wrap:balance}
-.nr-item span{grid-column:1;font-size:13px;color:var(--mut)}
-.nr-item .sx-tag{grid-row:1;grid-column:2;align-self:start}
-.nr-story{position:absolute;z-index:7;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:20px;background:linear-gradient(180deg,#139FFD 0,#4BB5FE 55%,#A9DAFE 100%);color:#fff;text-align:center;opacity:0;pointer-events:none;transition:opacity .45s}
-.nr-story.on{opacity:1}
-.nr-story .pr{position:absolute;left:30px;right:30px;top:24px;display:flex;gap:6px}
-.nr-story .pr i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.35)}
-.nr-story .pr i.on{background:#fff}
-.nr-story small{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
-.nr-story h3{margin:16px 0 0;max-width:760px;font-size:68px;font-weight:500;letter-spacing:-.035em;line-height:1.02;text-wrap:balance}
-.nr-story p{margin:16px 0 0;font-size:18px;opacity:.9}
-.nr-story .sl{display:none;flex-direction:column;align-items:center}
-.nr-story[data-s="0"] .s0,.nr-story[data-s="1"] .s1,.nr-story[data-s="2"] .s2{display:flex;animation:sx-in .6s cubic-bezier(.2,.8,.2,1) both}
-.nr-story .s1 h3{font-size:120px}
 
 /* ---------- Data ---------- */
 
 /* ---------- Signals ---------- */
-.sg-list{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:4px}
-.sg-r{flex:1;min-height:0;max-height:74px;display:grid;grid-template-columns:38px minmax(0,1fr) 150px 110px 84px;align-items:center;gap:20px;margin:0 -14px;padding:0 14px;border-radius:14px;box-shadow:inset 0 1px 0 var(--line);transition:background-color .3s,box-shadow .3s,opacity .3s}
-.sg-r:first-child{box-shadow:none}
-.sg-r .tg{width:34px;height:20px;border-radius:10px;background:#139FFD;position:relative} .sg-r .tg::after{content:"";position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff}
-.sg-r .tg.off{background:#C9D3DB} .sg-r .tg.off::after{right:auto;left:2px}
-.sg-r .nm{min-width:0;font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sg-r .nm small{display:block;margin-top:3px;font-size:13px;font-weight:400;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sg-r .sp{display:flex;align-items:flex-end;gap:3px;height:28px} .sg-r .sp i{flex:1;border-radius:2px;background:#A9DAFE} .sg-r .sp i.pk{background:#232323}
-.sg-r .ct{font-size:13px;color:var(--mut);text-align:right} .sg-r .ct b{display:block;font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.02em}
-.sg-r .sx-tag{justify-self:end}
-.sg-r.hot{background:#fff;box-shadow:0 6px 18px -8px rgba(16,34,60,.3)}
-.sx[data-st="1"] .sg-r:not(.hot){opacity:.6}
-.sx.side-on .sg-r{grid-template-columns:38px minmax(0,1fr) 90px 84px}.sx.side-on .sg-r .sp{display:none}
-.sg-new{display:none;align-items:center;gap:12px;height:54px;margin:12px 0 2px;padding:0 10px 0 18px;border-radius:27px;background:#fff;box-shadow:inset 0 0 0 2px #139FFD,0 0 0 4px rgba(19,159,253,.14);font-size:14.5px}
-.sx[data-st="2"] .sg-new{display:flex;animation:sx-in .45s cubic-bezier(.2,.8,.2,1) both}
-.sg-new .tx{flex:1;min-width:0;white-space:nowrap;overflow:hidden}
-.sg-new .tx.typing::after{content:"";display:inline-block;width:1.5px;height:1.1em;margin-left:1px;vertical-align:-.18em;background:#139FFD}
-.sg-new .sx-tag{height:30px;padding:0 14px;font-size:13px;opacity:0;transition:opacity .4s}
-.sg-new.done .sx-tag{opacity:1}
 
 /* ---------- Demos ---------- */
 .dm-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:16px;margin-top:4px}
@@ -207,17 +161,6 @@
 .sx-tip .go{border-top-color:var(--line);color:#0B6FCF}
 .sx.side-on .cm-grid{grid-template-columns:214px repeat(10,minmax(0,1fr))}
 .ac-card .qa span{height:26px}
-.nr-story .pr{display:none}
-.nr-plot{position:relative;flex:1;min-height:0;margin-top:10px;border-bottom:1px solid var(--line)}
-.nr-chart .nr-plot svg{position:absolute;inset:0;width:100%;height:100%;margin:0}
-.nr-plot .g{position:absolute;left:0;right:0;height:1px;background:var(--line);opacity:.7}
-.nr-plot .pk{position:absolute;left:51.6%;top:17.3%;translate:12px -50%;font-size:12px;color:var(--mut);white-space:nowrap}
-.nr-plot .pk b{font-weight:600;color:var(--ink)}
-.nr-plot .pk::before{content:"";position:absolute;left:-17px;top:50%;width:8px;height:8px;margin-top:-5px;border-radius:50%;background:#139FFD;box-shadow:0 0 0 2px #fff}
-.sg-r .ct{white-space:nowrap}
-.sx.side-on .sg-r{grid-template-columns:38px minmax(0,1fr) 112px 84px}
-.sg-r.fresh{display:none}
-.sg-r.fresh.in{display:grid;background:#fff;box-shadow:0 0 0 2px #139FFD,0 6px 18px -8px rgba(16,34,60,.3);animation:sx-in .5s cubic-bezier(.2,.8,.2,1) both}
 
 /* BRAND COLOURS WITH A MEANING (owner, 22.11.2026: "everything is one colour, use these as well where it makes sense").
    coral = failing, firing, needs attention.  green = good, done, improving.  lilac = new and AI.
@@ -228,7 +171,6 @@
 .sx-tag.ok{background:var(--green-tint);color:var(--green-ink)}
 .sx-tag.nw{background:var(--lilac-tint);color:var(--lilac-ink)}
 .ac-card small u.hi{background:var(--coral)}
-.sg-r .sp i.pk{background:var(--coral)}
 .sx-tip .m u{background:var(--coral)}
 .ae-b.low em{color:var(--coral-ink)}
 .ac-check.done i{background:var(--green)}
@@ -238,7 +180,6 @@
    The page says "only a failing score takes colour", and now that is what the grid shows. */
 .cm-grid .c.mid{background:#FFD0C4;color:#8E2A14}
 
-.nr-story .s1 h3{font-variant-numeric:tabular-nums}
 
 /* ---------- Data, rebuilt (owner, 22.11.2026: "too simple, important elements are missing; compare with the product") ----------
    What the product's Data page carries, in the Studio's light look: project and count, views, date range and filters, nine columns,
@@ -376,3 +317,182 @@
 .px-small .dt-cam.a{left:16%;top:0;width:52.5%;height:100%}
 .px-small .dt-cam.c{left:34.2%;top:0;width:52.5%;height:190%}
 /* ---------- end Data ---------- */
+
+/* ---------- Newsroom, rebuilt as a front page (owner, 23.11.2026: "looks really bad, not invested at all") ----------
+   What the case study says Newsroom is: the day and the count of stories, sections by platform area, one lead story with its evidence
+   on the page (source and time, a usual day to measure the spike against, why it is here, its calls), the month as a story you can
+   play, and the week's other stories, each with a source line and one word for its direction.
+   Colour: only the product's blues (Deep Blue #0B6FCF, Hear Blue #139FFD, the tint #DCEFFE); coral, green and lilac only on the tags. */
+.nr-mast{display:flex;align-items:stretch;gap:24px;height:42px;margin-top:18px;box-shadow:inset 0 1px 0 var(--line),inset 0 -1px 0 var(--line);font-size:13.5px;color:var(--mut);white-space:nowrap}
+.nr-mast>span{display:flex;align-items:center;gap:7px}
+.nr-mast .sp{flex:1}
+.nr-mast .day{gap:12px}
+.nr-mast .day b{font-weight:500;color:var(--ink)}
+.nr-mast .tab small{font-size:12px;font-variant-numeric:tabular-nums}
+.nr-mast .tab.on{font-weight:600;color:var(--ink);box-shadow:inset 0 -2px 0 var(--ink)}
+.nr-body{display:grid;grid-template-columns:minmax(0,1fr) 352px;gap:0 32px;margin-top:22px;flex-direction:initial}
+.nr-lead,.nr-side{display:flex;flex-direction:column;min-width:0;min-height:0}
+.nr-lead{padding-right:32px;box-shadow:inset -1px 0 0 var(--line)}
+.nr-kick{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mut)}
+.nr-lead h3{margin:13px 0 0;max-width:540px;font-size:33px;font-weight:500;letter-spacing:-.032em;line-height:1.08;text-wrap:balance}
+.nr-lead>p{margin:11px 0 0;font-size:15px;line-height:1.45;color:var(--ink2)}
+.nr-plot{position:relative;flex:1;min-height:0;margin:20px 5px 0 0}
+.nr-plot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.nr-plot .base{position:absolute;left:0;right:0;border-top:1px dashed var(--mut);opacity:.45}
+.nr-plot .ax{position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line)}
+.nr-plot .lb{position:absolute;font-size:12px;line-height:16px;color:var(--mut);white-space:nowrap}
+.nr-plot .lb b{font-weight:600;color:var(--ink)}
+.nr-plot .dot{position:absolute;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:#139FFD;box-shadow:0 0 0 2.5px #fff}
+.nr-plot .dot.o{background:#fff;box-shadow:inset 0 0 0 2px #139FFD,0 0 0 2.5px #fff}
+.nr-plot.draw svg{animation:nr-wipe 1.1s cubic-bezier(.45,0,.2,1) both}
+.nr-plot.draw .late{animation:nr-mark .45s 1.05s ease-out both}
+@keyframes nr-wipe{from{clip-path:inset(-12% 100% -12% 0)}to{clip-path:inset(-12% -3% -12% 0)}}
+@keyframes nr-mark{from{opacity:0}}
+.nr-days{position:relative;height:16px;margin:8px 5px 0 0;font-size:12px;line-height:16px;color:var(--mut)}
+.nr-days span{position:absolute;top:0;translate:-50% 0;white-space:nowrap}
+.nr-days span:first-child{translate:0 0}
+.nr-days span:last-child{translate:-100% 0}
+.nr-said{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:18px 5px 0 0}
+.nr-said blockquote{margin:0;padding:1px 0 1px 13px;border:0;border-left:2px solid #139FFD;box-shadow:none;background:none;font-size:14.5px;font-weight:500;line-height:1.35;color:var(--ink);text-wrap:balance}
+.nr-said small{display:block;margin-top:5px;font-size:12.5px;font-weight:400;color:var(--mut)}
+.nr-why{display:flex;align-items:center;gap:18px;margin-top:16px;padding:14px 14px 14px 18px;border-radius:14px;background:rgba(24,36,48,.045)}
+.nr-why>div{flex:1;min-width:0}
+.nr-why b{font-size:12.5px;font-weight:600;color:var(--ink)}
+.nr-why p{margin:3px 0 0;font-size:13.5px;line-height:1.4;color:var(--ink2);text-wrap:pretty}
+.nr-see{display:flex;align-items:center;gap:6px;flex:none;margin-right:6px;font-size:13.5px;font-weight:500;color:#0B6FCF;white-space:nowrap}
+.nr-see svg{width:15px;height:15px}
+.nr-str{display:flex;align-items:center;gap:7px;flex:none;font-size:13px;font-weight:500;color:var(--ink2)}
+.nr-str i{display:flex;align-items:flex-end;gap:2px;height:11px}
+.nr-str u{width:3px;border-radius:1px;background:#2B3238}
+.nr-str u:nth-child(1){height:5px} .nr-str u:nth-child(2){height:8px} .nr-str u:nth-child(3){height:11px}
+.nr-feat{padding:20px 22px 22px;border-radius:16px;background:linear-gradient(150deg,#0B6FCF 0,#139FFD 82%);color:#fff}
+.nr-feat small{display:block;font-size:12.5px;font-weight:500;opacity:.86}
+.nr-feat h3{margin:9px 0 0;font-size:25px;font-weight:500;letter-spacing:-.03em;line-height:1.1}
+.nr-feat p{margin:8px 0 0;font-size:13.5px;line-height:1.4;opacity:.9;text-wrap:pretty}
+.nr-play{display:inline-flex;align-items:center;gap:8px;height:36px;margin-top:18px;padding:0 16px 0 13px;border-radius:18px;background:#fff;color:#0B6FCF;font-size:14px;font-weight:500;transition:box-shadow .25s}
+.nr-play svg{width:12px;height:12px;fill:#0B6FCF}
+.sx[data-st="1"] .nr-play{box-shadow:0 0 0 4px rgba(255,255,255,.35)}
+.nr-list{display:flex;flex-direction:column;flex:1;min-height:0;margin-top:6px}
+.nr-item{flex:1 1 auto;display:grid;grid-template-columns:minmax(0,1fr) auto;align-content:center;gap:5px 14px;padding:12px 0;border-top:1px solid var(--line)}
+.nr-item:first-child{border-top:0}
+.nr-item b{font-size:14.5px;font-weight:500;line-height:1.32;text-wrap:balance}
+.nr-item span{grid-column:1;font-size:12.5px;color:var(--mut)}
+.nr-item .sx-tag{grid-row:1;grid-column:2;align-self:start}
+/* the month as a story: it opens out of its cover (the blue card), then each slide lands */
+.nr-story{position:absolute;z-index:7;inset:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:20px;background:linear-gradient(180deg,#139FFD 0,#4BB5FE 55%,#A9DAFE 100%);color:#fff;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s,clip-path .8s cubic-bezier(.5,0,.15,1)}
+.nr-story.on{opacity:1}
+.nr-story .pr{display:none}
+.nr-story small{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.nr-story h3{margin:16px 0 0;max-width:760px;font-size:68px;font-weight:500;letter-spacing:-.035em;line-height:1.02;text-wrap:balance}
+.nr-story p{margin:16px 0 0;font-size:18px;opacity:.9}
+.nr-story .sl{display:none;flex-direction:column;align-items:center}
+.nr-story[data-s="0"] .s0,.nr-story[data-s="1"] .s1,.nr-story[data-s="2"] .s2{display:flex;animation:sx-in .6s cubic-bezier(.2,.8,.2,1) both}
+.nr-story.opens[data-s="0"] .s0{animation:nr-rise .6s .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes nr-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.nr-story .s1 h3{font-size:120px;font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:reduce){.nr-plot.draw svg,.nr-plot.draw .late{animation:none}.nr-story{transition:opacity .3s}}
+
+/* ---------- Signals, second build (23.11.2026: the page was a flat list with its lower half empty) ----------
+   The three firing signals lead as cards with their evidence: fourteen days of calls, a dashed line for a usual day, the days over
+   twice the usual in coral (the owner's palette: coral = firing). The quiet ones stay a list. Blues: #A9DAFE and #139FFD only. */
+.sg-fire{flex:1 1 auto;min-height:0;max-height:400px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:8px}
+.sg-card{display:flex;flex-direction:column;min-width:0;min-height:0;padding:18px 20px 15px;border-radius:16px;background:#fff;box-shadow:0 1px 2px rgba(16,34,60,.06),0 8px 18px -12px rgba(16,34,60,.3);transition:box-shadow .25s,opacity .3s}
+.sg-card header{display:flex;align-items:flex-start;gap:12px}
+.sg-card header b{flex:1;min-width:0;font-size:16.5px;font-weight:600;letter-spacing:-.01em;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sg-card>small{margin-top:3px;font-size:13px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sg-card .fig{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:10px;margin-top:16px}
+.sg-card .fig>b{font-size:34px;font-weight:500;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums}
+.sg-card .fig>span:not(.sx-tag){grid-column:1;margin-top:5px;font-size:13px;color:var(--mut)}
+.sg-card .fig .sx-tag{grid-row:1;grid-column:2}
+.sg-plot{position:relative;flex:1;min-height:44px;display:flex;align-items:flex-end;gap:5px;margin-top:30px}
+.sg-plot i{flex:1;min-width:0;border-radius:3px 3px 1px 1px;background:#A9DAFE;transform-origin:50% 100%}
+.sg-plot i.pk{background:var(--coral)}
+.sg-plot u{position:absolute;left:0;right:0;border-top:1px dashed var(--mut);opacity:.5;text-decoration:none}
+.sg-plot .lb{position:absolute;left:0;font-size:12px;line-height:14px;color:var(--mut);white-space:nowrap}
+.sg-plot .lb b{font-weight:600;color:var(--ink)}
+.sg-plot .lb.last{left:auto;right:0;bottom:100%;margin-bottom:7px}
+.sg-ax{display:flex;justify-content:space-between;margin-top:0;padding-top:7px;border-top:1px solid var(--line);font-size:12px;color:var(--mut)}
+.sg-card .tg,.sg-r .tg{flex:none;width:34px;height:20px;border-radius:10px;background:#139FFD;position:relative}
+.sg-card .tg::after,.sg-r .tg::after{content:"";position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.sg-r .tg.off{background:#C9D3DB} .sg-r .tg.off::after{right:auto;left:2px}
+.sg-card.hot{box-shadow:0 0 0 2px #139FFD,0 14px 26px -14px rgba(16,34,60,.45)}
+.sx[data-st="1"] .sg-card:not(.hot),.sx[data-st="1"] .sg-r,.sx[data-st="1"] .sg-h2{opacity:.6}
+.sg-fire.draw .sg-plot i{animation:sg-rise .55s cubic-bezier(.2,.8,.2,1) both}
+.sg-fire.draw .sg-plot u,.sg-fire.draw .sg-plot .lb{animation:sg-mark .45s .75s ease-out both}
+@keyframes sg-rise{from{transform:scaleY(0)}}
+@keyframes sg-mark{from{opacity:0}}
+.sg-h2{margin-top:20px;transition:opacity .3s}
+.sg-list{flex:none;display:flex;flex-direction:column;margin-top:2px}
+.sg-r{flex:none;height:66px;display:grid;grid-template-columns:38px minmax(0,1fr) 196px 124px 92px;align-items:center;gap:20px;box-shadow:inset 0 1px 0 var(--line);transition:opacity .3s}
+.sg-list .sg-r:first-child{box-shadow:none}
+.sg-r .nm{min-width:0;font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sg-r .nm small{display:block;margin-top:3px;font-size:13px;font-weight:400;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sg-r .sp{display:flex;align-items:flex-end;gap:3px;height:26px} .sg-r .sp i{flex:1;border-radius:2px;background:#A9DAFE}
+.sg-r .ct{font-size:13px;color:var(--mut);text-align:right;white-space:nowrap} .sg-r .ct b{display:block;font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+.sg-r .sx-tag{justify-self:end}
+/* with the side sheet open the page is narrower: the cards keep their numbers and bars, the names take two lines */
+.sx.side-on .sg-card{padding:16px 16px 14px}
+.sx.side-on .sg-card>small{display:none}
+.sx.side-on .sg-card header b{min-height:2.5em;white-space:normal}
+.sx.side-on .sg-card .fig{grid-template-columns:minmax(0,1fr)}
+.sx.side-on .sg-card .fig .sx-tag{grid-row:auto;grid-column:1;justify-self:start;margin-top:10px}
+.sx.side-on .sg-plot{gap:4px}
+.sx.side-on .sg-r{grid-template-columns:38px minmax(0,1fr) 124px 92px}.sx.side-on .sg-r .sp{display:none}
+.sx-side .sg-q li b{width:66px}
+/* a new signal: the field, then the row it makes, straight under it */
+.sg-new{display:none;align-items:center;gap:12px;height:54px;margin:14px 0 0;padding:0 10px 0 18px;border-radius:27px;background:#fff;box-shadow:inset 0 0 0 2px #139FFD,0 0 0 4px rgba(19,159,253,.14);font-size:14.5px}
+.sx[data-st="2"] .sg-new{display:flex;animation:sx-in .45s cubic-bezier(.2,.8,.2,1) both}
+.sg-new .tx{flex:1;min-width:0;white-space:nowrap;overflow:hidden}
+.sg-new .tx.typing::after{content:"";display:inline-block;width:1.5px;height:1.1em;margin-left:1px;vertical-align:-.18em;background:#139FFD}
+.sg-new .sx-tag{height:30px;padding:0 14px;font-size:13px;opacity:0;transition:opacity .4s}
+.sg-new.done .sx-tag{opacity:1}
+.sg-r.fresh{display:none}
+.sg-r.fresh.in{display:grid;height:66px;margin:12px 0 0;padding:0 16px;border-radius:14px;background:#fff;box-shadow:0 0 0 2px #139FFD,0 6px 18px -8px rgba(16,34,60,.3);animation:sx-in .5s cubic-bezier(.2,.8,.2,1) both}
+.sx[data-st="2"] .sg-fire{max-height:300px}
+@media (prefers-reduced-motion:reduce){.sg-fire.draw .sg-plot i,.sg-fire.draw .sg-plot u,.sg-fire.draw .sg-plot .lb{animation:none}}
+
+/* ---------- the short stage (a phone's frame, a small tablet): Newsroom and Signals keep one clear thing each ----------
+   The page embeds these screens at about 1120 x 630 (desktop) and 860 x 484 (phone, .is-tiny). Nothing may overlap or collapse there. */
+.nr-plot{min-height:64px}
+.is-short .nr-lead h3{font-size:28px;max-width:none}
+.is-short .nr-said,.is-short .nr-feat p,.is-short .nr-item:nth-child(n+4){display:none}
+.is-tiny .nr-mast{margin-top:12px}
+.sx[data-st="2"] .sg-h2{display:none}
+.sx[data-st="2"] .sg-list{margin-top:12px}
+.sx[data-st="2"] .sg-list .sg-r{height:56px}
+.is-short .sg-h2,.is-short .sg-card>small{display:none}
+.is-short .sg-list{margin-top:14px}
+.is-short .sg-list .sg-r{height:52px}
+.is-short .sg-card{padding:14px 18px 12px}
+.is-short .sg-card .fig{margin-top:10px}
+.is-short .sg-card .fig>b{font-size:28px}
+.is-short .sg-plot{margin-top:24px}
+.is-tiny .sg-list .sg-r{height:48px}
+.is-short .sx[data-st="2"] .sg-list{display:none}
+.is-short .sx[data-st="2"] .sg-fire{max-height:none}
+.sx[data-st="2"] .sg-card>small{display:none}
+.is-short .sg-card header b{font-size:15px}
+
+/* ---------- polish pass, 23.11.2026: every screen arrives with one considered move, and nothing is lost on the light card ---------- */
+/* Agent evaluation: the 60-69 band (#DCEFFE) was invisible on the card: it gets the next tint as a hairline. The days rise in order. */
+.ae-strip i.l2,.ae-leg i.l2{box-shadow:inset 0 0 0 1px #A9DAFE}
+.ae-plot.draw .ae-b{animation:ae-rise .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ae-rise{from{height:0}}
+/* Compliance: checked agent by agent (a sweep of columns), then only the failing scores take their color */
+.cm-grid.draw .c{animation:cm-in .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*45ms)}
+.cm-grid.draw .c.mid,.cm-grid.draw .c.low{animation:cm-in .45s cubic-bezier(.2,.8,.2,1) both,cm-fail .55s ease-out both;animation-delay:calc(var(--i)*45ms),calc(650ms + var(--i)*70ms)}
+@keyframes cm-in{from{opacity:0;transform:translateY(6px)}}
+@keyframes cm-fail{from{background:rgba(24,36,48,.045);color:var(--ink2)}}
+/* Actions: a name never breaks under its avatar and a source line never wraps a card taller */
+.ac-card small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ac-card small u{flex:none}
+.ac-card footer{white-space:nowrap}
+.is-tiny .ac-col{gap:8px;padding:12px 10px 10px}
+.is-tiny .ac-card{padding:11px 13px 10px}
+.is-tiny .ac-card p{margin-top:5px}
+.is-tiny .ac-card footer{margin-top:8px}
+.is-tiny .ac-card small{font-size:11.5px}
+@media (prefers-reduced-motion:reduce){.ae-plot.draw .ae-b,.cm-grid.draw .c,.cm-grid.draw .c.mid,.cm-grid.draw .c.low{animation:none}}
+.is-tiny .ac-card small .hp{display:none}
+/* Signals on a phone: the open sheet fills the frame, and the New signal button beside it would be cut in half at the frame's edge */
+.px-small .sx.side-on:has(.sg-fire) .top>.sp~*{visibility:hidden}

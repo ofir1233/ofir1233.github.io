@@ -38,10 +38,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=15">
-<link rel="stylesheet" href="../v7/case.css?v=17">
+<link rel="stylesheet" href="../v7/case.css?v=21">
 <style>
 /* annotated screen: numbered pins over the image, each beside the part it names and on no text */
 .newsroom-pins { position: relative; }
+/* the demo-data tag would sit on the last story of the list, so this figure says it in its caption */
+.newsroom-anat .shot > .live { display: none; }
 .newsroom-pin { position: absolute; left: var(--x); top: var(--y); z-index: 2; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: var(--on-accent); font: 700 13.5px/1 var(--body); box-shadow: 0 0 0 3px #fff, 0 6px 16px rgba(20,32,27,.3); pointer-events: none; }
 /* below 1024px a pin is larger against the screen than the gaps it sits in (between the heading and the Just detected strip, say),
    so the pins that need it move to their compact spots (--xs, --ys); on phones the pin is the smallest circle that holds a 13.5px numeral */
@@ -58,6 +60,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .newsroom-anat .shot > .live { right: 14px; bottom: 14px; top: auto; }
 /* the chat input is a short strip: its demo-data label and enlarge mark sit in a band under the field, not on it. The band carries on the screenshot's last row of grey (the field's shadow across the middle), so there is no seam */
 .newsroom-chatin .shot { max-width: 620px; }
+.newsroom-chatin .shot.v7s { padding-bottom: 30px !important; background: linear-gradient(90deg, #e5ecf7 26%, #dce8f3) !important; }
 .newsroom-chatin .shot > .live { top: auto; bottom: 10px; right: 12px; }
 .newsroom-chatin .shot > .zx-i { top: auto; bottom: 12px; }
 @media (hover: none) { .newsroom-chatin .shot > .live { right: 42px; } .newsroom-chatin .shot > .zx-i { bottom: 8px; } }
@@ -132,7 +135,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div><dt>Role</dt><dd>Design and build in the Lab, with Claude Code</dd></div>
       <div><dt>When</dt><dd>Jul 2026, updated since</dd></div>
       <div><dt>Scope</dt><dd>Feed · article · four directions · Hebrew</dd></div>
-      <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#history"><span>02</span> How it evolved</a><a class="pill" href="#evidence"><span>03</span> Showing evidence</a><a class="pill" href="#directions"><span>04</span> Directions &amp; Hebrew</a><a class="pill" href="#chat"><span>05</span> Where AI belongs</a></nav>
     <div class="px-host" id="demo"><figure class="px-fig" data-px="news"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=news" title="Newsroom in Hear Studio: developments as stories, and the month played as a short story." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
@@ -151,22 +153,24 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <figure class="rv newsroom-anat">
         <div class="shot v7s"><span class="live">Design Lab · demo data</span>
           <div class="newsroom-pins">
-            <img src="../img/v7s-news-feed.webp?v=2" data-zoom alt="The Newsroom feed, with five numbered markers that match the list below: the monthly recap with its Play button, the call volume chart with its peak marked, and this week’s developments, each with a source line and a one-word tag" width="2060" height="1327" loading="lazy">
-            <span class="newsroom-pin" style="--x:17.1%;--y:32.4%" aria-hidden="true">1</span>
-            <span class="newsroom-pin" style="--x:74.6%;--y:13.7%" aria-hidden="true">2</span>
-            <span class="newsroom-pin" style="--x:90.9%;--y:18.6%" aria-hidden="true">3</span>
-            <span class="newsroom-pin" style="--x:73.6%;--y:29.9%" aria-hidden="true">4</span>
-            <span class="newsroom-pin" style="--x:39.6%;--y:51.9%" aria-hidden="true">5</span>
+            <img src="../img/v7s-news-feed.webp?v=5" data-zoom alt="The Newsroom front page, with six numbered markers that match the list below: the day and the count of stories, the lead story about a signal with its source line, a chart with a dashed line for a usual day and its peak marked, the line Why you’re seeing this with a strength label and a link that reads See 412 calls, the monthly recap card with its Play button, and the week’s other stories, each with a one-word tag" width="2060" height="1327" loading="lazy">
+            <span class="newsroom-pin" style="--x:24.6%;--y:13.8%" aria-hidden="true">1</span>
+            <span class="newsroom-pin" style="--x:26.3%;--y:19.9%" aria-hidden="true">2</span>
+            <span class="newsroom-pin" style="--x:58.5%;--y:41.1%" aria-hidden="true">3</span>
+            <span class="newsroom-pin" style="--x:46.7%;--y:93.3%" aria-hidden="true">4</span>
+            <span class="newsroom-pin" style="--x:85.5%;--y:35.8%" aria-hidden="true">5</span>
+            <span class="newsroom-pin" style="--x:91.3%;--y:44.4%" aria-hidden="true">6</span>
           </div>
         </div>
-        <figcaption><b>Anatomy of the feed.</b> The current Newsroom in the Lab.</figcaption>
+        <figcaption><b>Anatomy of the front page.</b> The current Newsroom in the Lab, with demo data.</figcaption>
       </figure>
       <ol class="newsroom-legend rv">
-        <li data-n="1"><span><b>Monthly recap.</b> The month as a 75-second full-screen story, which starts when you press Play.</span></li>
-        <li data-n="2"><span><b>Time window.</b> The list is labeled “this week” and says how many stories it holds.</span></li>
-        <li data-n="3"><span><b>Direction.</b> Each story carries one word for where it is heading: Surging, Rising, New, Steady or Improving.</span></li>
-        <li data-n="4"><span><b>Source.</b> Under each headline: where the story came from, such as a signal or a report, and its time.</span></li>
-        <li data-n="5"><span><b>Peak.</b> The chart marks its highest day with the count and the date.</span></li>
+        <li data-n="1"><span><b>Time window.</b> The front page names the day and says how many stories the week holds.</span></li>
+        <li data-n="2"><span><b>Source.</b> Beside each headline: where the story came from, such as a signal or an alert, and its time.</span></li>
+        <li data-n="3"><span><b>Baseline and peak.</b> The chart draws a usual day as a dashed line, so the rise has something to be measured against, and marks its highest day with the count and the date.</span></li>
+        <li data-n="4"><span><b>Why you’re seeing this.</b> One sentence names the rule that put the story here, with a strength label and a link to its calls.</span></li>
+        <li data-n="5"><span><b>Monthly recap.</b> The month as a 75-second full-screen story, which starts when you press Play.</span></li>
+        <li data-n="6"><span><b>Direction.</b> Each story carries one word for where it is heading: Surging, Rising, New, Steady or Improving.</span></li>
       </ol>
       <p class="why rv xtra"><b>Design choice:</b> a story distilled from a report names that report and the dates it covers, so a reader can trace the claim to its source.</p>
     </div>
@@ -191,7 +195,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <li><strong>Jul 13 · Hebrew</strong><span>The News tab in Hebrew, right to left, described in chapter 04.</span></li>
       </ol>
 
-      <article class="decision rv xtra">
+      <article class="decision rv">
         <div class="label">Decision 1 · <b>What counts as a story</b></div>
         <h3>Should stories be editorial events, or things people can open in Hear?</h3>
         <ul class="opts">
@@ -201,7 +205,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <p class="because"><b>Why:</b> every story should point at something real in Hear, an event “tied to a real platform surface.”</p>
       </article>
 
-      <article class="decision rv xtra">
+      <article class="decision rv">
         <div class="label">Decision 2 · <b>Where actions sit</b></div>
         <h3>Should every card in the feed carry its own action buttons?</h3>
         <ul class="opts">
@@ -272,7 +276,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <!-- 04 · sheet -->
   <section class="chapter sheet" id="directions">
     <div class="wrap">
-      <div class="ch-head center">
+      <div class="ch-head">
         <div><div class="label">04 · <b>Directions &amp; Hebrew</b></div><h2>Four ways to frame the same news</h2></div>
         <div class="prose">
           <p class="lead">A week after the built feed, I sketched four low-fidelity directions, each with a different main metaphor.</p>
@@ -316,7 +320,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
       <figure class="rv newsroom-home nohint">
-        <div class="shot v7s wide"><span class="live">Design Lab · demo data</span><img src="../img/v7s-studio-home.webp" data-zoom alt="The home screen: the Hear mark above the line Describe it. Hear builds it., one field with an at button, a slash button and a microphone, on a painted sky, with the product in the sidebar" width="2560" height="1440" loading="lazy"></div>
+        <div class="shot v7s wide"><span class="live">Design Lab · demo data</span><img src="../img/v7s-studio-home.webp?v=3" data-zoom alt="The home screen: the Hear mark above the line Describe it. Hear builds it., one field with an at button, a slash button and a microphone, on a painted sky, with the product in the sidebar" width="2560" height="1440" loading="lazy"></div>
         <figcaption><b>Home today.</b> The Hear mark sits above the line, not in the field.</figcaption>
       </figure>
       <ol class="steps newsroom-fig-top rv xtra">
@@ -332,20 +336,20 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <li class="opt"><strong>Logo in the field</strong><span>A morphing logo and a dot ring, with the logo in the input reacting to each keystroke.</span></li>
           <li class="opt chosen"><strong>A plain field</strong><span>The logo leaves the input. The field holds what you type, two shortcut buttons and a mic.</span></li>
         </ul>
-        <figure class="newsroom-chatin"><div class="shot v7s"><span class="live">Design Lab · demo data</span><img src="../img/v7s-studio-composer.webp" alt="The field on the home screen: a line of text, an at button, a slash button and a microphone" width="1522" height="339" loading="lazy"></div><figcaption><b>The field today.</b> @ to bring someone in, / for commands, and a microphone.</figcaption></figure>
+        <figure class="newsroom-chatin"><div class="shot v7s"><span class="live">Design Lab · demo data</span><img src="../img/v7s-studio-composer.webp?v=3" alt="The field on the home screen: a line of text, an at button, a slash button and a microphone" width="1522" height="339" loading="lazy"></div><figcaption><b>The field today.</b> @ to bring someone in, / for commands, and a microphone.</figcaption></figure>
         <p class="because"><b>Result:</b> the Hear mark greets you above the field, and the field is left for the question.</p>
       </article>
     </div>
   </section>
 
   <div class="wrap">
-    <a class="next" href="data.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Data &amp; Signals</h2></div><span class="next-thumb" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/next-data.webp?v=3" width="1440" height="900" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
+    <a class="next" href="data.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Data &amp; Signals</h2></div><span class="next-thumb whole" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/v7s-data-table.webp?v=3" width="2060" height="1327" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
     <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy. Quoted rules come from the Lab's code and commit notes.</p></div>
   </div>
 </main>
 <footer><div class="wrap"><div class="cs-contact"><p class="cs-contact-t">Get in touch</p><ul class="cs-contact-links"><li><a href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a></li><li><a href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a></li><li><a href="../ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></li></ul></div>© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
 <script src="case.js?v=4"></script>
 <script src="../v7/depth.js?v=4" defer></script>
-<script src="../v7/product.js?v=18" defer></script>
+<script src="../v7/product.js?v=20" defer></script>
 </body>
 </html>

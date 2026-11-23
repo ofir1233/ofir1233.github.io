@@ -49,10 +49,14 @@ main > p:not(.label){ max-width:46ch; color:var(--text); }
 
 @media (max-width:760px){
   .nav .wrap{ height:64px; padding:0 16px; }
-  .nav ul li:not(:last-child){ display:none; }
+  .nav ul{ gap:18px; }
+  .nav ul li:last-child a{ padding:0 18px; }
   main{ padding:48px 16px 0; gap:18px; }
+  /* on a phone the picture is enlarged from its foot, so the harbour is the subject and not a strip under a tall sky */
   .sky{ height:38vh; }
+  .sky img{ inset:auto 0 0 0; height:168%; object-position:36% 100%; }
 }
+@media (max-width:359px){ .nav ul li:first-child{ display:none; } }
 @media (prefers-reduced-motion:reduce){ .nav ul a, .btn{ transition:none; } }
 </style>
 </head>

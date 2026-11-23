@@ -39,7 +39,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=15">
-<link rel="stylesheet" href="../v7/case.css?v=17">
+<link rel="stylesheet" href="../v7/case.css?v=21">
 <style>
 .design-lab-sub { margin: clamp(40px, 6vw, 72px) 0 18px; }
 .design-lab-sub + p { margin-bottom: 22px; }
@@ -60,7 +60,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .design-lab-more { margin-top: 22px; }
 .design-lab-more a { color: var(--coral); text-underline-offset: 3px; }
 .design-lab-close { margin-top: clamp(36px, 5vw, 64px); display: grid; gap: 14px; }
-.compare .tag { font-size: 13.5px; }
+/* the caption says which side is which; a pill here sat on the app's own header */
+.compare .tag { display: none; }
 .dl-tq .ct-rail .lx-beats li.on button::after { transform: scaleX(var(--p, 1)); }
 .design-lab-close cite { font: 600 14px/1.4 var(--body); color: var(--mute); font-style: normal; }
 </style>
@@ -85,7 +86,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div><dt>Role</dt><dd>Started it and built it alone, with Claude&nbsp;Code</dd></div>
       <div><dt>When</dt><dd>Since Feb 2026</dd></div>
       <div><dt>Scope</dt><dd>Working replica · version switches · demo environments</dd></div>
-      <div><dt>Shown with</dt><dd>Design Lab · demo data</dd></div>
     </dl>
     <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#versions"><span>02</span> One screen, many designs</a><a class="pill" href="#decisions"><span>03</span> Decisions</a><a class="pill" href="#demos"><span>04</span> Demo environments</a><a class="pill" href="#build"><span>05</span> How I build it</a></nav>
     <div class="px-host" id="demo"><figure class="px-fig" data-px="compliance"><div class="px-tabs" role="group" aria-label="Screen shown in the window"><button type="button" data-k="compliance" data-q="screen=compliance" aria-pressed="true">Compliance</button><button type="button" data-k="agents" data-q="screen=agents" aria-pressed="false">Agents</button><button type="button" data-k="actions" data-q="screen=actions" aria-pressed="false">Actions</button><button type="button" data-k="news" data-q="screen=news" aria-pressed="false">Newsroom</button></div><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=compliance" title="The Lab: Compliance, Agent evaluation, Actions and Newsroom, each played in the same working replica." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
@@ -102,7 +102,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
       <div class="two solo">
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-home.webp" data-zoom alt="The Lab home: the line Describe it. Hear builds it. above one field, on a painted sky, with the workspace, the apps and the product areas in the sidebar" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Home.</b> The whole product sits in the sidebar, around one field.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-home.webp?v=3" data-zoom alt="The Lab home: the line Describe it. Hear builds it. above one field, on a painted sky, with the workspace, the apps and the product areas in the sidebar" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Home.</b> The whole product sits in the sidebar, around one field.</figcaption></figure>
         <div class="prose xtra">
           <h3 style="margin-top:0">What's in the Lab</h3>
           <ul>
@@ -125,15 +125,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <!-- 02 -->
   <section class="chapter sheet" id="versions">
     <div class="wrap">
-      <div class="ch-head center">
+      <div class="ch-head">
         <div><div class="label">02 · <b>One screen, many designs</b></div><h2>Several designs of one screen, compared in place</h2></div>
         <div class="prose"><p class="lead">Some screens in the Lab hold more than one design. Topics holds two stages, the wireframe and the built screen, on the same data.</p>
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The design changes and the data doesn’t, so the two can be judged side by side. Earlier, five key screens carried a version switch in their own toolbar.</p></div></details></div>
       </div>
 
       <div class="compare shot v7s rv">
-        <img src="../img/v7s-topics-lo.webp" alt="Topics as a wireframe: gray boxes sized by calls, each with its average score, a daily score list, and four numbered notes in blue" width="2560" height="1440" loading="lazy">
-        <div class="after"><img src="../img/v7s-topics-hi.webp" alt="The same Topics screen, built: the boxes in one blue that deepens as the score drops, on a glass panel over a painted sky" width="2560" height="1440" loading="lazy"></div>
+        <img src="../img/v7s-topics-lo.webp?v=3" alt="Topics as a wireframe: gray boxes sized by calls, each with its average score, a daily score list, and four numbered notes in blue" width="2560" height="1440" loading="lazy">
+        <div class="after"><img src="../img/v7s-topics-hi.webp?v=5" alt="The same Topics screen, built: the boxes in one blue that deepens as the score drops, on a glass panel over a painted sky" width="2560" height="1440" loading="lazy"></div>
         <span class="tag l">Wireframe</span><span class="tag r">Built</span>
         <input type="range" min="0" max="100" value="50" aria-label="Drag to compare the wireframe and the built Topics screen">
         <span class="handle" aria-hidden="true"></span>
@@ -149,9 +149,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       </ol>
       <p class="design-lab-note" style="font-size:14px">The built screen keeps all four notes and adds one color: the deeper the blue, the lower the score.</p>
 
-      <div class="px-host rv design-lab-gap"><figure class="px-fig" data-px="topics"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?topics=hi" title="Topics in Hear Studio: every topic as a box sized by calls and coloured by score." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
+      <div class="px-host rv design-lab-gap"><figure class="px-fig" data-px="topics"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?topics=hi" title="Topics in Hear Studio: every topic as a box sized by calls and colored by score." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
 
-      <article class="decision rv design-lab-gap xtra">
+      <article class="decision rv design-lab-gap">
         <div class="label">Decision 1 · <b>Where an alternative design sits</b></div>
         <h3>Should a new design get its own page, or a switch on the screen?</h3>
         <ul class="opts">
@@ -196,8 +196,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       </div>
 
       <div class="grid2">
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-login.webp" data-zoom alt="The sign-in screen: a glass panel with work email, password and Continue with Google, under the Hear mark as a cloud, on a painted sky above a city" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Sign in.</b> One sign-in leads into every demo environment.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-apps.webp" data-zoom alt="All apps in the Northwind workspace: a card to describe a new app, then Evaluation by agent, Disclosure review, Handle time by team, Compliance review and Coaching queue" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>A demo environment.</b> The Northwind workspace, with the apps built in it.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-login.webp?v=3" data-zoom alt="The sign-in screen: a glass panel with work email, password and Continue with Google, under the Hear mark as a cloud, on a painted sky above a city" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Sign in.</b> One sign-in leads into every demo environment.</figcaption></figure>
+        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-apps.webp?v=3" data-zoom alt="All apps in the Northwind workspace: a card to describe a new app, then Evaluation by agent, Disclosure review, Handle time by team, Compliance review and Coaching queue" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>A demo environment.</b> The Northwind workspace, with the apps built in it.</figcaption></figure>
       </div>
 
       <article class="decision rv design-lab-gap xtra">
@@ -245,6 +245,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <footer><div class="wrap"><div class="cs-contact"><p class="cs-contact-t">Get in touch</p><ul class="cs-contact-links"><li><a href="mailto:ofirnona123@gmail.com">ofirnona123@gmail.com</a></li><li><a href="https://www.linkedin.com/in/ofir-nuna-548a431a0/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗︎</span></a></li><li><a href="../ofir-nona-cv.pdf" target="_blank" rel="noopener">CV (PDF) <span aria-hidden="true">↗︎</span></a></li></ul></div>© 2026 Ofir Nona · <a href="../index.html">Back to all work</a></div></footer>
 <script src="case.js?v=4"></script>
 <script src="../v7/depth.js?v=4" defer></script>
-<script src="../v7/product.js?v=18" defer></script>
+<script src="../v7/product.js?v=20" defer></script>
 </body>
 </html>

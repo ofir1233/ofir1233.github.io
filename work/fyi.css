@@ -1230,3 +1230,18 @@ html:not(.js) .st-launch .st-out { display: none; }
   :root[data-theme="dark"] .fmt figcaption { color: #495057; }
   :root[data-theme="dark"] .tokens i { box-shadow: inset 0 0 0 1px rgba(20,32,27,.12); }
 }
+
+/* SWEEP, 23.11.2026 */
+/* the step list beside or under each demo already lights the current step: no second caption line under the phone */
+.fyi-page .fx-now { display: none; }
+@media (min-width: 1024px) { .trio::before { bottom: calc(-26px - var(--barh) - 30px); } }
+/* the three format labels share one line */
+.fmts { align-items: flex-end; }
+@media (max-width: 760px) {
+  /* the long Scope cell gets the full row instead of five short lines */
+  .fyi-page .meta div:nth-child(3) { grid-column: 1 / -1; }
+  /* 44px tap targets on the phone */
+  .fx-pp, .fx-step { width: 44px; height: 44px; }
+  .fx-rp, .fx-allb, .trio-tabs button, .seg button, .tryit-c .pill, .fx-beats button { min-height: 44px; }
+  .fx-dots button { height: 44px; }
+}

@@ -64,7 +64,7 @@
       '<p>Equal-weight average of <b>Satisfaction</b>, <b>Silence time</b> and <b>Handle time</b> · 0–100, higher is better</p>' + note(1, 'The score is defined before any number is shown') + '</div>' +
     '<div class="kpis tp-kpis">' +
       '<div><small>Calls</small><b>' + num(total) + '</b><i>across ' + T.length + ' topics</i></div>' +
-      '<div><small>Average score</small><b>' + avg + '</b><i>out of 100, weighted by calls · \u25BC 7 pts in 30 days</i></div>' +
+      '<div><small>Average score, weighted by calls</small><b>' + avg + '</b><i>\u25BC 7 pts in 30 days</i></div>' +
       '<div class="tp-gain" tabindex="0"><small>Most to gain</small><b>+' + gain + '</b><i><u>' + esc(T[gainK].n) + '</u> · ' + num(T[gainK].c) + ' calls at ' + T[gainK].s + '</i></div>' +
       '<div><small>New topics</small><b>' + T.filter(function (t) { return t.fresh; }).length + '</b><i>first seen this month</i></div></div>' +
     '<div class="tp-body">' +
