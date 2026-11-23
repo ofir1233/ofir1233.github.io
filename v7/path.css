@@ -8,6 +8,9 @@
 #path#path .xp-past{ list-style:none; margin:0; padding:0; }
 /* the section ends close to the last row: the closing picture follows with its own margin */
 #path#path{ padding-bottom:clamp(40px, 5vw, 72px); }
+/* the head is not a centred banner: the title stands on the left edge of the cards, the years are in the column beside them */
+#path#path .sec-head{ display:block; justify-items:start; text-align:left; margin:0 0 30px; padding-left:calc(176px + 48px); }
+#path#path .sec-head h2{ margin:0; max-width:none; font-size:clamp(34px, 3.4vw, 46px); letter-spacing:-.035em; line-height:1.05; }
 
 /* the rail: a quiet track, and the filled part on top. path.js sets its place from the first and the last dot. */
 #path#path .xp-rail{ position:absolute; z-index:0; left:calc(var(--when) + var(--gut) / 2 - 1px); top:var(--rt, 60px); height:var(--rh, calc(100% - 120px)); width:2px; border-radius:2px; background:rgba(23,27,32,.1); pointer-events:none; }
@@ -34,7 +37,7 @@
 #path#path .xp-top, #path#path .xp-past .xp-body{ display:grid; grid-template-columns:minmax(0, 4fr) minmax(0, 7fr); column-gap:40px; align-items:start; }
 #path#path .xp-now .xp-id{ display:flex; flex-direction:column; align-self:stretch; }
 #path#path .xp-now .xp-name{ margin:0; line-height:0; }
-#path#path .xp-now .xp-name img{ display:block; width:auto; height:54px; filter:brightness(.34); }
+#path#path .xp-now .xp-name img{ display:block; width:auto; height:32px; filter:brightness(.34); }
 #path#path .xp-now .xp-role{ margin:18px 0 0; font:500 17px/1.35 var(--body); color:#171b20; text-wrap:balance; }
 #path#path .xp-now .xp-id > .xp-tags{ margin-top:10px; padding-top:0; }
 #path#path .xp-now .xp-d{ margin:-5px 0 0; font:400 20px/1.5 var(--body); letter-spacing:-.011em; color:#171b20; text-wrap:pretty; }
@@ -94,14 +97,16 @@
 @media (prefers-reduced-motion: reduce){ #path#path .xp-now.lit .xp-dot::after{ animation:none; } }
 
 @media (max-width: 1040px){
+  #path#path .sec-head{ padding-left:calc(132px + 40px); }
   #path#path .xp{ --when:132px; --gut:40px; --pad:32px; }
   #path#path .xp-now{ --y:55px; }
   #path#path .xp-when{ font-size:15px; }
   #path#path .xp-now .xp-d{ font-size:18.5px; }
-  #path#path .xp-now .xp-name img{ height:46px; }
+  #path#path .xp-now .xp-name img{ height:30px; }
 }
 /* narrow: the date goes above the body, the rail keeps the left edge */
 @media (max-width: 760px){
+  #path#path .sec-head{ padding-left:30px; margin-bottom:22px; }
   #path#path .xp{ --when:0px; --gut:30px; --pad:22px; }
   #path#path .xp-rail{ left:calc(var(--gut) / 2 - 8px); }
   #path#path .xp-job, #path#path .xp-now{ --y:11px; }
@@ -114,7 +119,7 @@
   #path#path .xp-body{ grid-column:2; grid-row:2; }
   #path#path .xp-now .xp-body{ border-radius:18px; }
   #path#path .xp-top, #path#path .xp-past .xp-body{ grid-template-columns:minmax(0, 1fr); row-gap:14px; }
-  #path#path .xp-now .xp-name img{ height:40px; }
+  #path#path .xp-now .xp-name img{ height:28px; }
   #path#path .xp-now .xp-role{ margin-top:14px; font-size:16px; }
   #path#path .xp-now .xp-id > .xp-tags{ margin-top:8px; }
   #path#path .xp-now .xp-d{ margin-top:4px; font-size:17.5px; line-height:1.5; }
@@ -137,3 +142,15 @@
 /* the Hear card ends below its Read more, at every width (owner: the button sat on the edge) */
 #path#path .xp-now .xp-body{ padding-bottom:calc(var(--pad) - 8px); }
 @media (max-width: 760px){ #path#path .xp-now .xp-body{ padding-bottom:22px; } }
+/* Intune becomes Hear. The card says "UX/UI designer at Intune, now Hear": the company changed its name while I was there. So the card arrives
+   under its first name, set in grey type, and 900ms later the Hear logo takes its place from left to right (620ms), one edge wiping both.
+   Once, when the card arrives. Without path.js or with reduced motion there is only the logo. */
+#path#path .xp-was{ display:none; }
+@property --xp-w{ syntax:"<length>"; inherits:true; initial-value:0px; }
+@media (prefers-reduced-motion: no-preference){
+  #path#path .xp-js .xp-now .xp-name{ position:relative; --xp-w:0px; transition:opacity .5s ease calc(.2s + var(--row, 0) * 120ms), translate .62s cubic-bezier(.2,.7,.2,1) calc(.2s + var(--row, 0) * 120ms), --xp-w .52s cubic-bezier(.5,0,.15,1) .5s; }
+  #path#path .xp-js .xp-now.told .xp-name{ --xp-w:var(--xp-to, 240px); }
+  #path#path .xp-js .xp-now .xp-was{ display:flex; align-items:center; position:absolute; left:0; top:0; height:32px; font:600 25px/1 var(--body); letter-spacing:-.025em; color:#6b7178; white-space:nowrap; clip-path:inset(-8px -8px -8px var(--xp-w)); }
+  #path#path .xp-js .xp-now .xp-name img{ clip-path:inset(-4px calc(100% - var(--xp-w)) -4px 0); }
+}
+@media (max-width: 1040px){ #path#path .xp-js .xp-now .xp-was{ height:30px; font-size:24px; } }

@@ -238,7 +238,7 @@ figcaption b { color: var(--paper); font-weight: 600; }
 .next .arrow { font-family: var(--display); font-size: clamp(36px, 5vw, 64px); color: var(--coral); line-height: 1; }
 .sources { padding-block: 28px 8px; font-size: 13.5px; color: var(--mute); }
 .sources p { color: var(--mute); max-width: 90ch; }
-footer { padding-block: 28px 36px; font-size: 13.5px; color: var(--mute); }
+footer:not(.ft) { padding-block: 28px 36px; font-size: 13.5px; color: var(--mute); }
 
 /* reveal */
 .rv { opacity: 1; }
@@ -439,7 +439,7 @@ html { scroll-padding-top: 84px; }
 /* ---------- 40px tap targets for the way back, the version tabs and the footer link; no layout change */
 .topbar .home { min-height: 40px; }
 .topbar .pill, .vtabs [role="tab"] { min-height: 40px; }
-footer a { display: inline-block; padding-block: 11px; margin-block: -11px; color: var(--coral); text-underline-offset: 3px; }
+footer:not(.ft) a { display: inline-block; padding-block: 11px; margin-block: -11px; color: var(--coral); text-underline-offset: 3px; }
 
 /* phones: a zoomed image opens at its own size (or the screen height) and pans sideways, instead of shrinking to the screen width */
 @media (max-width: 760px) {

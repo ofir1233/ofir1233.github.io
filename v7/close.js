@@ -84,8 +84,9 @@
      never changes size in front of the reader) and lands after the postmark. Someone who came straight here gets no mark. */
   var via = $('.cl-via'), cardEl = $('.cl-card');
   if (via && cardEl && 'IntersectionObserver' in window) {
-    var NAMES = [['code', 'How I work'], ['design-lab', 'Design Lab'], ['product', 'Product'], ['system', 'Design system'], ['web', 'Brand'], ['fyi', 'FYI app'], ['ia', 'Architecture'], ['process', 'Process'], ['turns', 'Decisions'], ['path', 'Experience']];
+    var NAMES = [['code', 'How I work'], ['design-lab', 'Design Lab'], ['product', 'Product'], ['system', 'Design system'], ['web', 'Brand'], ['ia', 'Architecture'], ['process', 'Process'], ['fyi', 'FYI app'], ['path', 'Experience']];
     var secs = [], dwell = {}, total = 0, stamped = false;
+    window.v7Read = dwell;   /* seconds spent on each part; ia-process.js reads it, nothing leaves the page */
     NAMES.forEach(function (n) { var e = document.getElementById(n[0]); if (e) { secs.push({ id: n[0], name: n[1], el: e }); dwell[n[0]] = 0; } });
     /* real time, not a count of ticks: a browser may slow a page's timers, and the seconds must still be true. One tick never counts
        for more than a second and a half, so a laptop that slept adds nothing. */

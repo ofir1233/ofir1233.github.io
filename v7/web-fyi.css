@@ -13,7 +13,7 @@
 #web#web .wv-go:focus-visible span{ outline:2px solid #139FFD; outline-offset:3px; }
 #web#web .wv.is-on .wv-go{ pointer-events:none; }
 #web#web .wv.is-on .wv-go span{ opacity:0; transform:translateY(8px); }
-#web#web .wv-bar{ display:flex; align-items:center; justify-content:space-between; gap:24px; margin:28px 0 0; padding:0 6px; }
+#web#web .wv-bar{ display:flex; align-items:center; justify-content:space-between; gap:24px; margin:28px 0 0; padding:0; }
 #web#web .wv-bar p{ margin:0; max-width:none; font:400 16px/1.45 var(--body); color:#5d636a; }
 #web#web .wv-bar b{ font-weight:600; color:#171b20; }
 #web#web .wv-bar a{ flex:none; display:inline-flex; align-items:center; gap:7px; height:44px; padding:0 18px; border-radius:22px; background:#fff; box-shadow:inset 0 0 0 1px rgba(23,27,32,.14); color:#171b20; font:500 15px/1 var(--body); text-decoration:none; transition:box-shadow .2s, color .2s; }
@@ -75,3 +75,22 @@
 
 /* a mouse drawn on a touch screen is the wrong picture: on touch the invitation is the words alone */
 @media (hover:none){ #web#web .wv-go span > svg{ display:none; } #web#web .wv-go span{ padding-left:20px; } }
+/* round 9: the strip began 34px left of the margin its label stands on. It starts on the margin now and fades out on the right only. */
+@media (min-width: 761px){
+  #web#web .br-strip{ margin-left:0; margin-right:0; -webkit-mask-image:linear-gradient(90deg, #000 calc(100% - 96px), transparent); mask-image:linear-gradient(90deg, #000 calc(100% - 96px), transparent); }
+}
+/* round 9, FYI: dealt from one stack, then a clock on the bar of the phone in front (script: index.html, fyi showcase). */
+@media (min-width:701px) and (prefers-reduced-motion:no-preference){
+  #fyi#fyi .fyi-show.wait{ --gap:0px; }
+  #fyi#fyi .fyi-show.deal .fyq{ transition-duration:.72s; transition-timing-function:cubic-bezier(.2,.7,.2,1); }
+  #fyi#fyi .fyi-show.deal .fyq:nth-child(1), #fyi#fyi .fyi-show.deal .fyq:nth-child(5){ transition-delay:90ms; }
+  #fyi#fyi .fyi-show .fyq-cap{ transition:opacity .24s ease, transform .3s; }
+  #fyi#fyi .fyi-show .fyq-dots{ transition:opacity .24s ease; }
+  #fyi#fyi .fyi-show.wait .fyq-cap, #fyi#fyi .fyi-show.wait .fyq-dots{ opacity:0; }
+  #fyi#fyi .fyi-show.deal:not(.wait) .fyq-cap, #fyi#fyi .fyi-show.deal:not(.wait) .fyq-dots{ transition-delay:.82s; }
+  html body section#fyi#fyi .fyi-show.clk .fyq-dot[aria-current]::before{ background:rgba(23,27,32,.2) !important; }
+  #fyi#fyi .fyi-show.clk .fyq-dot[aria-current]::after{ content:""; position:absolute; left:50%; top:50%; width:20px; height:6px; margin:-3px 0 0 -10px; border-radius:99px; background:#171b20; animation:fyq-clk 4.2s linear both; }
+}
+@keyframes fyq-clk{ from{ clip-path:inset(0 100% 0 0 round 99px); } to{ clip-path:inset(0 0 0 0 round 99px); } }
+/* round 10: the clock waits with the reader */
+#fyi#fyi .fyi-show.hold .fyq-dot[aria-current]::after{ animation-play-state:paused; }

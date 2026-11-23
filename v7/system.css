@@ -36,7 +36,7 @@
 #system#system .dk.moving .dk-track{ animation:dk-drift var(--dur, 90s) linear infinite; animation-play-state:paused; will-change:transform; }
 #system#system .dk.moving .rev .dk-track{ animation-direction:reverse; }
 #system#system .dk.moving.run:not(.stopped) .dk-track{ animation-play-state:running; }
-#system#system .dk.moving .dk-row:hover .dk-track, #system#system .dk.moving .dk-row:focus-within .dk-track{ animation-play-state:paused; }
+/* a row under the pointer slows to a stop (400ms) and picks up again (700ms): system.js ramps the playback rate, nothing freezes dead */
 @keyframes dk-drift{ to{ transform:translateX(-50%); } }
 
 /* A tile: the component in the middle, its name under it. */
@@ -110,7 +110,7 @@
 @media (prefers-reduced-motion: reduce){ #system#system .dk-track, #system#system .dk-think i, #system#system .dk-cmp u{ animation:none !important; } }
 
 /* The color tokens, in the Hear look: a white sheet on the paper. */
-#system#system .ds-spec{ margin-top:44px; background:#fff !important; box-shadow:0 0 0 1px #e6e5e1; }
+#system#system .ds-spec{ margin-top:96px; background:#fff !important; box-shadow:0 0 0 1px #e6e5e1; }
 #system#system .ds-sw{ grid-template-columns:repeat(3, minmax(0, 1fr)) !important; }
 #system#system .ds-insp{ background:#f4f3f1 !important; }
 @media (max-width:700px){ #system#system .ds-sw{ grid-template-columns:repeat(2, minmax(0, 1fr)) !important; } }
@@ -190,3 +190,9 @@
 /* Outside critic, 22.11.2026 night: the white name pills on the sky tiles sat 8px from the tile's corner while the names on the white
    tiles start 18px in. A pill now starts where every other name starts. */
 #system#system .dk-t.sky .dk-n{ margin:0; }
+/* round 10: the head was centred while the line under it stood on the left margin: two axes within 100px. Title left, sentence right. */
+@media (min-width:861px){
+  #system#system .sec-head{ grid-template-columns:minmax(0, 7fr) minmax(0, 5fr); justify-items:start; text-align:left; align-items:end; gap:32px clamp(24px, 5vw, 80px) !important; }
+  #system#system .sec-head h2{ margin-inline:0; max-width:none; font-size:clamp(36px, 4.45vw, 64px); }
+  #system#system .sec-head p{ margin-inline:0; max-width:none; }
+}

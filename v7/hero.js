@@ -13,22 +13,42 @@
   var cap = document.createElement('span'), ind = document.createElement('span');
   cap.className = 'hv-cap'; ind.className = 'hv-ind'; cap.setAttribute('aria-hidden', 'true'); ind.setAttribute('aria-hidden', 'true');
   ul.insertBefore(ind, ul.firstChild); ul.insertBefore(cap, ul.firstChild);
-  var hover = null;
+  var hover = null, wait = 0, arrived = false;
   function links(){ return [].filter.call(ul.querySelectorAll('li > a[href^="#"]'), function(a){ return a.offsetParent && a.parentNode !== ul.lastElementChild && !a.closest('li:last-of-type'); }); }
   function place(){
     var ls = links(); if (!ls.length) { cap.style.opacity = ind.style.opacity = 0; return; }
     var r = ul.getBoundingClientRect(), a = ls[0].getBoundingClientRect(), b = ls[ls.length - 1].getBoundingClientRect();
     cap.style.opacity = 1; cap.style.left = (a.left - r.left - 5) + 'px'; cap.style.width = (b.right - a.left + 10) + 'px';
-    var t = hover || ul.querySelector('li > a[aria-current]');
+    var now = ul.querySelector('li > a[aria-current]'), t = hover || now;
     ls.forEach(function(l){ l.classList.toggle('hv-on', l === t); });
-    if (!t || ls.indexOf(t) < 0) { ind.style.opacity = 0; return; }
-    var q = t.getBoundingClientRect(); ind.style.opacity = 1; ind.style.left = (q.left - r.left) + 'px'; ind.style.width = q.width + 'px';
+    /* the dot is where the reader is, not where the pointer is: it travels from link to link, and between two named parts
+       (the decisions, the plan, the postcard) it waits under the last one as a ring */
+    if (now && ls.indexOf(now) < 0) now = null;
+    var d = now;
+    if (!d) ls.forEach(function(l){ var sec = document.getElementById(l.getAttribute('href').slice(1)); if (sec && sec.getBoundingClientRect().top < innerHeight * .5) d = l; });   /* the last named part already passed, by its place on the page */
+    if (!d) { ind.style.opacity = 0; return; }
+    /* the journey ends at Contact: when the postcard is at reading height the dot travels to the Contact button (520ms) and goes into it; the button
+       answers in blue for 600ms, once. Scrolling back up puts the dot back under the last part. */
+    var ct = document.getElementById('contact'), cta = ul.querySelector('li:last-child > a[href="#contact"]');
+    if (ct && cta && cta.offsetParent && !hover && ct.getBoundingClientRect().top < innerHeight * .5) {
+      if (ind.style.opacity === '1' && !ind.classList.contains('gone')) { var c = cta.getBoundingClientRect(); ind.classList.add('gone'); ind.style.left = (c.left - r.left) + 'px'; ind.style.width = c.width + 'px';
+        if (!arrived) { arrived = true; setTimeout(function(){ cta.classList.add('hv-arrive'); setTimeout(function(){ cta.classList.remove('hv-arrive'); }, 600); }, 420); } }
+      else if (!ind.classList.contains('gone')) ind.style.opacity = 0;
+      return; }
+    if (ind.classList.contains('gone')) { ind.classList.remove('gone'); ind.style.opacity = 0; }
+    ind.classList.toggle('rest', !now);
+    var q = d.getBoundingClientRect(), fresh = ind.style.opacity !== '1';
+    if (fresh) ind.style.transition = 'none';
+    ind.style.left = (q.left - r.left) + 'px'; ind.style.width = q.width + 'px'; ind.style.top = (q.bottom - r.top - 6) + 'px';
+    if (fresh) { ind.offsetWidth; ind.style.transition = ''; }
+    ind.style.opacity = 1;
   }
   ul.addEventListener('pointerover', function(e){ var a = e.target.closest && e.target.closest('a'); if (a && links().indexOf(a) >= 0) { hover = a; place(); } });
   ul.addEventListener('pointerleave', function(){ hover = null; place(); });
   ul.addEventListener('focusin', function(e){ if (links().indexOf(e.target) >= 0) { hover = e.target; place(); } });
   ul.addEventListener('focusout', function(){ hover = null; place(); });
   new MutationObserver(place).observe(ul, { subtree: true, attributes: true, attributeFilter: ['aria-current'] });
+  addEventListener('scroll', function(){ if (wait) return; wait = setTimeout(function(){ wait = 0; if (!ul.querySelector('li > a[aria-current]')) place(); }, 160); }, { passive: true });
   addEventListener('resize', place); if (document.fonts && document.fonts.ready) document.fonts.ready.then(place); place();
 })();
 

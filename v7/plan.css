@@ -1,0 +1,58 @@
+/* v7 - plan: "An eight-phase plan". A plan is a line with stops, read left to right. One quiet rail, eight stops, and a single sentence
+   for the stop in hand. No dial, no hand, no ticks (owner, 23.11.2026: crowded, too much text, "like a racing car"). */
+#process#process .sec-head{ grid-template-columns:minmax(0, 7fr) minmax(0, 5fr); justify-items:start; text-align:left; align-items:end; gap:32px clamp(24px, 5vw, 80px) !important; margin-bottom:88px; }
+#process#process .sec-head h2{ margin-inline:0; max-width:none; font-size:clamp(36px, 4.45vw, 64px); }
+#process#process .sec-head p{ margin-inline:0; max-width:none; text-wrap:pretty; }
+#process#process .sec-head .label{ margin-inline:0; }
+
+#process#process .plan{ --p:0; list-style:none; margin:0; padding:0 0 132px; position:relative; display:grid; grid-template-columns:repeat(8, minmax(0, 1fr)); }
+#process#process .plan::before, #process#process .plan::after{ content:""; position:absolute; left:4px; top:38px; height:1px; width:87.5%; background:#d3d2cd; transform-origin:0 50%; }
+#process#process .plan::after{ height:2px; top:37.5px; width:calc(87.5% * var(--p)); background:#139FFD; transition:width .42s cubic-bezier(.5,0,.15,1); }
+#process#process .plan li{ margin:0; padding:0; }
+#process#process .pl-stop{ display:block; width:100%; margin:0; padding:0 12px 14px 0; border:0; background:none; text-align:left; font:inherit; color:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+#process#process .pl-n{ display:block; font:500 13px/18px var(--body); letter-spacing:.02em; color:#8a8f95; font-variant-numeric:tabular-nums; transition:color .2s ease; }
+#process#process .pl-dot{ display:block; position:relative; z-index:1; width:9px; height:9px; margin:16px 0 18px; border-radius:50%; background:#f3f2f0; box-shadow:inset 0 0 0 1.5px #b9b8b3; transition:background-color .2s ease, box-shadow .2s ease; }
+#process#process .pl-name{ display:block; font:600 17px/24px var(--body); letter-spacing:-.015em; color:#6b7178; transition:color .2s ease; }
+#process#process .plan li.past .pl-dot{ background:#139FFD; box-shadow:inset 0 0 0 1.5px #139FFD; }
+#process#process .plan li.on .pl-dot{ background:#139FFD; box-shadow:inset 0 0 0 1.5px #139FFD, 0 0 0 5px rgba(19,159,253,.16); transition-delay:.3s; }
+#process#process .plan li.on .pl-name, #process#process .plan li.on .pl-n{ color:#171b20; }
+#process#process .pl-stop:focus-visible{ outline:2px solid #139FFD; outline-offset:6px; border-radius:6px; }
+/* the one sentence, always in the same place under the line */
+#process#process .pl-t{ position:absolute; left:0; bottom:0; width:min(100%, 640px); min-height:72px; margin:0; font:400 19px/30px var(--body); letter-spacing:-.008em; color:#333a42; opacity:0; visibility:hidden; transition:opacity .2s ease, visibility 0s .2s; text-wrap:pretty; }
+#process#process .plan li.on .pl-t{ opacity:1; visibility:visible; transition:opacity .36s ease .12s, visibility 0s; }
+#process#process .pl-t a{ white-space:nowrap; margin-left:6px; font-weight:500; color:#171b20; text-decoration:underline; text-decoration-color:rgba(23,27,32,.28); text-decoration-thickness:1px; text-underline-offset:5px; transition:text-decoration-color .2s; }
+#process#process .pl-t a:hover, #process#process .pl-t a:focus-visible{ text-decoration-color:#171b20; }
+
+/* arrival, once: the line is drawn (720ms), the stops come up along it 70ms apart */
+@media (min-width:761px) and (prefers-reduced-motion:no-preference){
+  #process#process .plan.pl-js::before{ transform:scaleX(0); transition:transform .72s cubic-bezier(.5,0,.15,1); }
+  #process#process .plan.pl-js .pl-stop{ opacity:0; transform:translateY(8px); transition:opacity .36s ease calc(var(--i) * 70ms + 120ms), transform .36s cubic-bezier(.2,.7,.2,1) calc(var(--i) * 70ms + 120ms); }
+  #process#process .plan.pl-js.in::before{ transform:none; }
+  #process#process .plan.pl-js.in .pl-stop{ opacity:1; transform:none; }
+  #process#process .plan.pl-js:not(.in) li.on .pl-t{ opacity:0; }
+  #process#process .plan.pl-js.in li.on .pl-t{ transition-delay:.7s, 0s; }
+  #process#process .plan.pl-js.in.used li.on .pl-t{ transition-delay:.12s, 0s; }
+}
+
+#process#process .coda{ margin:120px 0 0; max-width:44ch; text-align:left; }
+
+@media (max-width:1040px){
+  #process#process .pl-name{ font-size:15px; line-height:21px; }
+  #process#process .pl-t{ font-size:17px; line-height:27px; }
+}
+/* phone: the line stands up, and every stop keeps its sentence beside it */
+@media (max-width:760px){
+  #process#process .sec-head{ grid-template-columns:1fr; margin-bottom:40px; }
+  #process#process .plan{ display:block; padding:0; }
+  #process#process .plan::before{ display:none; }
+  #process#process .plan li:not(:last-child)::before{ content:""; position:absolute; left:4px; top:12px; bottom:-12px; width:1px; background:#d3d2cd; }
+  #process#process .plan::after{ display:none; }
+  #process#process .plan li{ position:relative; padding:0 0 26px 30px; }
+  #process#process .pl-stop{ padding:0; cursor:default; display:flex; align-items:baseline; gap:10px; }
+  #process#process .pl-dot{ position:absolute; left:0; top:7px; margin:0; background:#139FFD; box-shadow:none !important; }
+  #process#process .pl-n{ order:2; }
+  #process#process .pl-name{ color:#171b20; font-size:17px; line-height:24px; }
+  #process#process .pl-t{ position:static; width:auto; min-height:0; margin-top:4px; opacity:1; visibility:visible; font-size:15px; line-height:23px; color:#5d636a; }
+  #process#process .pl-t a{ margin-left:2px; }
+  #process#process .coda{ margin-top:56px; }
+}

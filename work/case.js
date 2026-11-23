@@ -1,4 +1,4 @@
-// Case-study pages: reveal on scroll, videos that load and play only in view, version tabs, compare slider, figure viewer, reading progress.
+// Case-study pages: reveal on scroll, videos that load and play only in view, version tabs, compare slider, figure viewer, reading progress, the running head.
 (() => {
   const root = document.documentElement; root.classList.add('js');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -259,10 +259,11 @@
   const bar = document.querySelector('.progress');
   if (bar) {
     let raf = 0;
-    const upd = () => { raf = 0; const h = root.scrollHeight - innerHeight; bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, scrollY / h) : 0) + ')'; };
+    // the bar is clear at the very top of the page; once the page moves it takes the paper and a hairline (html.tb-stuck)
+    const upd = () => { raf = 0; const h = root.scrollHeight - innerHeight; bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, scrollY / h) : 0) + ')'; root.classList.toggle('tb-stuck', scrollY > 8); };
     addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true }); upd();
   }
-  // e-cs: hero window title, chapter scroll-spy (hero chips + a floating rail on wide screens)
+  // e-cs: hero window title, chapter scroll-spy (the chips in the hero and the running head in the top bar)
   const heroBar = document.querySelector('.hero-fig .shot.win > .bar');
   const caseName = document.querySelector('.cs-hero > .label b');
   if (heroBar && caseName && !heroBar.querySelector('.cs-t')) { const t = document.createElement('em'); t.className = 'cs-t'; t.textContent = caseName.textContent.trim(); heroBar.append(t); }
@@ -271,20 +272,34 @@
     const links = [...toc.querySelectorAll('a[href^="#"]')];
     const secs = links.map(a => document.getElementById(a.getAttribute('href').slice(1)));
     if (links.length && secs.every(Boolean)) {
-      const rail = document.createElement('nav'); rail.className = 'cs-rail'; rail.setAttribute('aria-label', 'Chapters');
-      links.forEach(a => { const c = a.cloneNode(true); c.className = ''; c.tabIndex = -1; rail.append(c); });
-      rail.setAttribute('aria-hidden', 'true');
-      document.body.append(rail);
-      const rl = [...rail.children], end = document.querySelector('.next');
-      let cur = -2, shown = null, raf2 = 0;
+      // the running head in the top bar, as in a book: the case's name, then the chapter being read ("Actions · 02 The board").
+      // On a chapter change the old line lifts 8px and fades (160ms) and the new one rises (220ms, after 60ms). The head is centred,
+      // so its left edge moves when the chapter's name is longer or shorter: the whole head slides to its new place in the same 220ms.
+      const run = document.querySelector('.tb-run'), runCh = run && run.querySelector('.tb-ch'), runCase = run && run.querySelector('.tb-case');
+      const setRun = k => {
+        if (!runCh || !runCase) return;
+        const txt = k >= 0 ? links[k].textContent.replace(/\s+/g, ' ').trim() : '';
+        const old = runCh.querySelector('.tb-l:not(.out)');
+        if ((old ? old.textContent : '') === txt) return;
+        const x0 = runCase.getBoundingClientRect().left;
+        runCh.querySelectorAll('.tb-l.out').forEach(n => n.remove());
+        let nu = null;
+        if (txt) { nu = document.createElement('span'); nu.className = 'tb-l pre'; nu.textContent = txt; }
+        if (reduce) { if (old) old.remove(); if (nu) { nu.classList.remove('pre'); runCh.append(nu); } return; }
+        if (old) { old.classList.add('out'); setTimeout(() => old.remove(), 220); }
+        if (nu) runCh.append(nu);
+        const dx = x0 - runCase.getBoundingClientRect().left;
+        run.classList.remove('flip'); run.style.translate = dx ? dx.toFixed(1) + 'px 0' : '';
+        void run.offsetWidth; // the start positions are read before the move begins
+        run.classList.add('flip'); run.style.translate = '';
+        if (nu) nu.classList.remove('pre');
+      };
+      let cur = -2, raf2 = 0;
       const spy = () => {
         raf2 = 0;
         const line = innerHeight * .38; let i = -1;
         secs.forEach((s, k) => { if (s.getBoundingClientRect().top <= line) i = k; });
-        if (i !== cur) { cur = i; [links, rl].forEach(set => set.forEach((a, k) => { if (k === i) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); })); }
-        const tb = toc.getBoundingClientRect().bottom, et = end ? end.getBoundingClientRect().top : Infinity;
-        const on = tb < 0 && i >= 0 && et > innerHeight - 96;
-        if (on !== shown) { shown = on; rail.classList.toggle('on', on); rail.setAttribute('aria-hidden', on ? 'false' : 'true'); rl.forEach(a => { a.tabIndex = on ? 0 : -1; }); }
+        if (i !== cur) { cur = i; links.forEach((a, k) => { if (k === i) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); setRun(i); }
       };
       addEventListener('scroll', () => { if (!raf2) raf2 = requestAnimationFrame(spy); }, { passive: true });
       addEventListener('resize', () => { if (!raf2) raf2 = requestAnimationFrame(spy); });
@@ -308,6 +323,15 @@
     apply(t);
     try { localStorage.setItem('ofir-theme', t); } catch (e) {}
   });
+})();
+
+// Turn the page: on the way to the next case its title, the big line of the Next card, is the thing that travels to the top of
+// the next page (v7/case.css names it for the browser's page transition). The mark is set only for that one press.
+(() => {
+  const root = document.documentElement, next = document.querySelector('a.next');
+  if (!next) return;
+  next.addEventListener('click', e => { if (e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) root.classList.add('to-next'); });
+  addEventListener('pageshow', () => root.classList.remove('to-next'));
 })();
 
 // smooth scrolling switches on after load (html.ready), so a link to a #section opens right there, as on the homepage

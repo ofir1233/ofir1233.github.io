@@ -6,7 +6,9 @@ html body section#fyi, html body section#process, html body section#contact, htm
 html body{ background:#f4f3f1; }
 
 /* 2. One label: a quiet neutral pill, ink text. */
-html body section .sec-head .label, html body section#fyi .label, html body section#contact .label{ display:inline-flex !important; align-items:center; width:auto !important; min-height:30px; padding:0 13px !important; border-radius:99px !important; background:#e6e8ea !important; color:#333a42 !important; font:600 14px/1 var(--body) !important; letter-spacing:0 !important; text-transform:none !important; }
+html body section#contact .label{ display:inline-flex !important; align-items:center; width:auto !important; min-height:30px; padding:0 13px !important; border-radius:99px !important; background:#e6e8ea !important; color:#333a42 !important; font:600 14px/1 var(--body) !important; letter-spacing:0 !important; text-transform:none !important; }
+/* round 10: a label over a title is a word. The grey capsule made five heads look like one template. */
+html body section .sec-head .label, html body section#fyi .label{ display:inline-flex !important; align-items:center; width:auto !important; min-height:0; padding:0 !important; border-radius:0 !important; background:none !important; color:#5d636a !important; font:600 15px/22px var(--body) !important; letter-spacing:0 !important; text-transform:none !important; }
 html body section#fyi .label b{ color:inherit !important; font-weight:inherit; }
 
 /* 3. Buttons: white pill, hairline, ink text, ink arrow. */
@@ -36,7 +38,7 @@ html body section#fyi .fyq-dot.on::before, html body section#fyi .fyq-dot[aria-c
 html body section#ia .ia-root > span{ background:#171b20 !important; color:#fff !important; }
 html body section#ia .ia-area.open{ background:#171b20 !important; color:#fff !important; }
 html body section#ia .ia-area.open *{ color:inherit !important; }
-html body section#ia .ia-global > span, html body section#ia .ia-sub-h{ background:#efeeeb !important; }
+html body section#ia .ia-global > span:not(.adm):not(.hit), html body section#ia .ia-sub-h{ background:#efeeeb !important; }   /* a highlighted chip keeps its blue: with the grey forced on it, its light text could not be read */
 html body section#ia .ia-tabs button[aria-selected="false"], html body section#ia .ia-lens{ background:#fff !important; box-shadow:inset 0 0 0 1px #d5d8db !important; }
 html body section#process .top .ico, html body section#path .co-mk{ background:#efeeeb !important; }
 html body section#process .pd-ctl > button{ background:#fff !important; box-shadow:inset 0 0 0 1px #d5d8db !important; color:#171b20 !important; }
@@ -60,7 +62,7 @@ html body section#fyi{ padding-bottom:96px !important; }
    and the small label a little more above. */
 @media (min-width:861px){
   html body :is(#process, #system, #path) .sec-head{ gap:32px !important; }
-  html body section .sec-head .label{ margin-bottom:22px !important; }
+  html body section .sec-head .label{ margin-bottom:14px !important; }
 }
 /* "Global" is a small label over its chips, not a grey bar with the word against its rim */
 html body section#ia .ia-global > span.ia-gl{ background:none !important; padding:0 0 2px 2px !important; }
@@ -69,3 +71,17 @@ html body .br-track{ animation-duration:46s; }
 
 /* body text and captions never leave one word alone on the last line (API critic, 22.11) */
 html body section p, html body section li, html body section figcaption, html body section dd{ text-wrap:pretty; }
+/* round 9: ten sections opened with the same rise (label, title, lede, 18px, 80ms apart) at the window's bottom edge. A head is read, not performed:
+   it stands still, and the section's own object keeps the motion. */
+html.en-on body .sec-head .en-x, html.en-on body .fyi-copy > .en-x{ opacity:1 !important; translate:none !important; scale:none !important; transition:none !important; }
+/* round 10, phone (mobile lead): one head pattern in the column, tabs on one row, the plan's title never orphans, cut words at a window's rim go to haze */
+@media (max-width:700px){
+  html body section#design-lab .sec-head, html body section#process .sec-head{ text-align:left !important; justify-items:start !important; }
+  html body section#design-lab .sec-head :is(h2, p), html body section#process .sec-head :is(h2, p, .label){ text-align:left !important; margin-inline:0 !important; }
+  html body section#design-lab .sec-head .cs-pair{ justify-content:flex-start !important; }
+  html body section#process .sec-head h2{ font-size:clamp(30px, 8.6vw, 68px) !important; }
+  html body section#ia .ia-tabs button{ padding:8px 9px !important; }
+  html body section#system .tk-ask{ height:auto !important; white-space:normal !important; padding-block:.6em !important; }
+  html body section#system .tk-ask span{ overflow:visible !important; }
+}
+@media (max-width:860px){ html body section#product .px-win::after{ opacity:1 !important; } }

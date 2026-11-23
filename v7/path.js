@@ -21,7 +21,7 @@
   if (reduce) { measure(); jobs.forEach(j => j.classList.add('on', 'lit')); if (past) past.classList.add('on'); addEventListener('resize', measure); if ('ResizeObserver' in window) new ResizeObserver(measure).observe(xp); return; }
 
   xp.classList.add('xp-js');
-  let raf = 0;
+  let raf = 0, told = false;
   const upd = () => {
     raf = 0;
     const r = xp.getBoundingClientRect(), vh = innerHeight;
@@ -35,6 +35,8 @@
       const y = centre(d)[1], j = jobs[i];
       if (!j.classList.contains('on') && y <= arrive) { j.style.setProperty('--row', row++); j.classList.add('on'); xp.classList.add('go'); if (past && past.contains(j)) past.classList.add('on'); }
       j.classList.toggle('lit', j.classList.contains('on') && y <= end + 1);
+      /* the first card's name changes when its dot reaches the reading line (60% of the window), not when the card first shows at the bottom edge */
+      if (i === 0 && !told && y <= line) { told = true; const im = j.querySelector('.xp-name img'); if (im && im.offsetWidth) j.style.setProperty('--xp-to', (im.offsetWidth + 6) + 'px'); j.classList.add('told'); }
     });
   };
   const req = () => { if (!raf) raf = requestAnimationFrame(upd); };

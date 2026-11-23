@@ -8,6 +8,11 @@
   const sec = document.getElementById('process');
   if (!sec || !sec.hasAttribute('data-pz')) return;
   const ol = sec.querySelector('.phases'); if (!ol) return;
+  /* The plan knows where you have been: a phase whose work the reader already stayed on (five seconds, the postcard's own record in close.js)
+     does not send them to see it, it says they did. Checked each time the plan comes into view; a link never changes while it is being read. */
+  const seen = [];
+  const markRead = () => { const r = window.v7Read; if (!r) return; seen.forEach(([a, id]) => { if (r[id] >= 5 && !a.dataset.read) { a.dataset.read = '1'; a.firstChild.textContent = 'You read this above'; } }); };
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => { if (es[0].isIntersecting) markRead(); }, { rootMargin: '200px 0px' }).observe(ol.closest('section') || ol);
   const src = [...ol.children].map(li => { const h = li.querySelector('h3'), p = li.querySelector('p'), a = li.querySelector('a.pz-see'); if (a) a.tabIndex = -1; return { n: h ? h.textContent.trim() : '', t: p ? p.textContent.trim() : '', href: a ? a.getAttribute('href') : '', see: a ? a.textContent.trim() : '' }; });
   const N = src.length; if (N < 2) return;
 
@@ -49,7 +54,7 @@
   // a phase whose work is on this page carries one link to it; it comes in a moment after the hand has landed
   const items = src.map(p => {
     const d = el('div', 'pz-item'); d.append(el('h3', '', p.n), el('p', '', p.t.replace(/(\w)-(?=\w)/g, '$1‑'))); // compound words never break at their hyphen
-    if (p.href) { const a = el('a', 'pz-link'); a.href = p.href; a.tabIndex = -1; a.innerHTML = '<span>See it on this page</span>' + arrow('M8 13V3M4 7l4-4 4 4'); a.addEventListener('click', () => stopAuto()); d.append(a); }
+    if (p.href) { const a = el('a', 'pz-link'); a.href = p.href; a.tabIndex = -1; a.innerHTML = '<span>See it on this page</span>' + arrow('M8 13V3M4 7l4-4 4 4'); seen.push([a, p.href === '#campaign' ? 'web' : p.href.slice(1)]); a.addEventListener('click', () => stopAuto()); d.append(a); }
     read.append(d); return d;
   });
   const links = items.map(d => d.querySelector('.pz-link'));

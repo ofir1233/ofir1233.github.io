@@ -143,3 +143,31 @@ html body section#ia#ia .ia-lens[aria-pressed="true"] i{ background:var(--coral)
 html body section#ia#ia .ia-lens[aria-pressed="true"] i::after{ transform:translateX(12px); }
 @media (max-width:700px){ html body section#ia#ia .ia-lens{ margin-left:0; padding-left:2px; } }
 @media (prefers-reduced-motion:reduce){ html body section#ia#ia .ia-lens i, html body section#ia#ia .ia-lens i::after{ transition:none; } }
+/* round 9. The map is read in its own order: the wires leave the root top to bottom, 40ms apart, 420ms each (they used to draw all at once,
+   before the map was in view), and the wire of the open area follows them. */
+@media (min-width:1060px) and (prefers-reduced-motion:no-preference){
+#ia#ia .ia-wires.draw path{ animation-duration:.42s; animation-timing-function:cubic-bezier(.5,0,.15,1); }
+#ia#ia .ia-wires.draw path:nth-of-type(2){ animation-delay:40ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(3){ animation-delay:80ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(4){ animation-delay:120ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(5){ animation-delay:160ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(6){ animation-delay:200ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(7){ animation-delay:240ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(8){ animation-delay:280ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(9){ animation-delay:320ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(10){ animation-delay:360ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(11){ animation-delay:400ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(12){ animation-delay:440ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(13){ animation-delay:480ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(14){ animation-delay:520ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(15){ animation-delay:560ms; }
+#ia#ia .ia-wires.draw path:nth-of-type(16){ animation-delay:600ms; }
+#ia#ia .ia-wires.draw path.on{ animation-delay:.68s; animation-duration:.48s; }
+}
+/* The sentence lights the map (script: index.html, e-ia). Each named thing takes its blue 420ms + k*260ms after the switch turns,
+   and its words in the paragraph are underlined at the same moment. */
+#ia#ia .sec-head .ia-say{ background:linear-gradient(#139FFD, #139FFD) 0 100% / 0 1.5px no-repeat; padding-bottom:1px; transition:background-size .32s cubic-bezier(.5,0,.15,1) calc(420ms + var(--k, 0) * 560ms), color .32s ease calc(420ms + var(--k, 0) * 560ms); }
+#ia#ia .sec-head .ia-say.on{ background-size:100% 1.5px; color:#171b20; }
+#ia#ia .ia-tell .ia-adm{ animation:ia-say .32s cubic-bezier(.2,.7,.2,1) calc(600ms + var(--k, 0) * 560ms) backwards; }
+#ia#ia .ia-tell .ia-global span.adm{ animation:ia-say .32s cubic-bezier(.2,.7,.2,1) calc(600ms + 4 * 560ms) backwards; }
+@keyframes ia-say{ from{ background-color:transparent; color:inherit; } }

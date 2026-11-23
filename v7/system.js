@@ -132,15 +132,28 @@
       tr.style.setProperty('--dur', Math.max(70, Math.round(list.scrollWidth / 34)) + 's');
     });
     kit.classList.add('moving');
+    /* the rate of one row's drift, eased: first arrival 0 to 1 over 1200ms, pointer or focus on a row 1 to 0 over 400ms, leaving 0 to 1 over 700ms */
+    var ramp = function (tr, to, ms) { var a = tr.getAnimations && tr.getAnimations()[0]; if (!a) return; var from = a.playbackRate, t0 = performance.now(); cancelAnimationFrame(tr._r);
+      (function step(t) { var u = Math.min(1, Math.max(0, (t - t0) / ms)), e = u * u * (3 - 2 * u); a.playbackRate = from + (to - from) * e; if (u < 1) tr._r = requestAnimationFrame(step); })(t0); };
+    [].forEach.call(kit.querySelectorAll('.dk-row'), function (row) { var tr = row.querySelector('.dk-track'); if (!tr) return; var held = false;
+      var hold = function (on) { if (on === held) return; held = on; ramp(tr, on ? 0 : 1, on ? 400 : 700); };
+      row.addEventListener('mouseenter', function () { hold(true); }); row.addEventListener('mouseleave', function () { if (!row.contains(document.activeElement)) hold(false); });
+      row.addEventListener('focusin', function () { hold(true); }); row.addEventListener('focusout', function () { if (!row.matches(':hover')) hold(false); }); });
     var hinted = false;
+    var inView = function (x) { var r = x.getBoundingClientRect(); return r.width && r.left >= 0 && r.right <= innerWidth && r.top >= 0 && r.bottom <= innerHeight; };
     new IntersectionObserver(function (es) {
+      if (es[0].target !== kit) { if (es[0].isIntersecting) seenWall(); return; }
       kit.classList.toggle('run', es[0].isIntersecting);
       /* once, on arrival, a switch and a chip move by themselves: the tiles are not pictures */
-      if (es[0].isIntersecting && !hinted) { hinted = true;
-        setTimeout(function () { [].forEach.call(kit.querySelectorAll('.dk-sw[aria-checked="false"]'), function (x) { x.setAttribute('aria-checked', 'true'); }); }, 1500);
-        setTimeout(function () { [].forEach.call(kit.querySelectorAll('.dk-row .dk-chip:nth-child(2)'), function (x) { x.click(); }); }, 2500);
-      }
     }, { rootMargin: '120px 0px' }).observe(kit);
+    /* once, when 40% of the wall is inside the window: the rows pick up speed, then the first switch and the first chip that are whole inside
+       the window move by themselves (1500ms, 2500ms). It used to fire 120px before the wall showed, on tiles that were off screen. */
+    var seenWall = function () { if (hinted) return; hinted = true; wallIO.disconnect();
+      [].forEach.call(kit.querySelectorAll('.dk-track'), function (tr) { var a = tr.getAnimations && tr.getAnimations()[0]; if (a) { a.playbackRate = 0; ramp(tr, 1, 1200); } });
+      setTimeout(function () { var x = [].filter.call(kit.querySelectorAll('.dk-sw[aria-checked="false"]'), inView)[0]; if (x) x.setAttribute('aria-checked', 'true'); }, 1500);
+      setTimeout(function () { var x = [].filter.call(kit.querySelectorAll('.dk-row .dk-chip:nth-child(2)'), inView)[0]; if (x) x.click(); }, 2500); };
+    var wallIO = new IntersectionObserver(function (es) { if (es[0].isIntersecting) seenWall(); }, { threshold: .4 });
+    wallIO.observe(kit.querySelector('.dk-rows') || kit);
     if (btn) {
       btn.hidden = false;
       btn.addEventListener('click', function () {

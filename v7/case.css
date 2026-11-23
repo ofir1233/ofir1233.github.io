@@ -184,3 +184,175 @@ dialog.cv .cv-h{ color:#7a8088 !important; }
 /* The meta card holds three cells on the Hear cases ("Shown with" repeated the label on every picture and the sources line). */
 @media (min-width:761px){ .meta:has(> div:nth-child(3):last-child){ grid-template-columns:repeat(3, minmax(0, 1fr)); } }
 @media (max-width:760px){ .meta div:last-child:nth-child(odd){ grid-column:1 / -1; } }
+
+/* =====================================================================================================================
+   ROUND 9, 23.11.2026: the case pages as designed pages (art director's review of the eight pages).
+   1. ONE TOP BAR, in the home page's language: a full-width bar that is clear at the top of the page and takes the paper,
+      a blur and a hairline once the page moves. The white floating capsule is gone (the owner rejected it on the home page).
+      Wordmark; a running head in the centre, as in a book ("Actions · 02 The board"); CV and the next case on the right.
+   ===================================================================================================================== */
+:root, :root[data-theme]{ --wrap:1240px; }
+html{ scroll-padding-top:88px !important; }
+html body header.topbar{ position:fixed !important; inset:0 0 auto 0 !important; z-index:30; margin:0 !important; padding-top:env(safe-area-inset-top, 0px); pointer-events:auto !important; background:transparent !important; transition:background-color .3s, box-shadow .3s; view-transition-name:case-bar; }
+html.tb-stuck body header.topbar{ background:color-mix(in srgb, #f4f3f1 92%, transparent) !important; -webkit-backdrop-filter:blur(16px) saturate(1.3); backdrop-filter:blur(16px) saturate(1.3); box-shadow:0 1px 0 #dcdbd7; }
+html body header.topbar .wrap{ position:static !important; display:grid !important; grid-template-columns:minmax(0, 1fr) auto minmax(0, 1fr); align-items:center; gap:0 20px !important; width:auto !important; max-width:var(--wrap) !important; height:72px; padding:0 clamp(16px, 4vw, 40px) !important; border-radius:0 !important; background:none !important; box-shadow:none !important; transition:height .3s; }
+html.tb-stuck body header.topbar .wrap{ height:60px; }
+html body header.topbar .home{ justify-self:start; display:inline-flex; align-items:center; gap:0 !important; min-height:44px; font-family:var(--display); font-weight:700; font-size:22px !important; letter-spacing:-.03em; color:#171b20 !important; text-decoration:none; white-space:nowrap; }
+html body header.topbar .home span{ margin-left:0 !important; color:var(--coral) !important; }
+/* the running head */
+.tb-run{ justify-self:center; display:flex; align-items:center; margin:0; max-width:none; white-space:nowrap; font:500 14.5px/1.2 var(--body); letter-spacing:-.005em; color:#171b20; }
+.tb-case{ font-weight:600; color:#171b20; }
+.tb-ch{ position:relative; display:block; min-height:1.2em; color:#6b7178; }
+.tb-l{ display:inline-block; transition:opacity .22s ease .06s, translate .22s cubic-bezier(.2,.7,.2,1) .06s; }
+.tb-l::before{ content:"\00B7"; margin:0 .55em; color:#a3a8ae; }
+.tb-l.pre{ opacity:0; translate:0 8px; transition:none; }
+.tb-l.out{ position:absolute; left:0; top:0; opacity:0; translate:0 -8px; transition:opacity .16s ease, translate .16s ease; }
+.tb-run.flip{ transition:translate .22s cubic-bezier(.2,.7,.2,1) .06s; }
+@media (max-width:1023px){ .tb-ch{ display:none; } }
+/* the right side: two quiet links and the one filled control */
+html body header.topbar nav{ justify-self:end; display:flex; align-items:center; gap:2px !important; }
+html body header.topbar .tb-link, html body header.topbar .pill.fx-all{ display:inline-flex !important; align-items:center; min-height:40px; padding:0 12px !important; border-radius:8px; background:none !important; font:500 15px/1 var(--body); color:#464b52 !important; text-decoration:none; white-space:nowrap; transition:color .2s; }
+html body header.topbar .tb-link:hover, html body header.topbar .pill.fx-all:hover{ color:#171b20 !important; background:none !important; }
+html body header.topbar .pill.solid{ display:inline-flex !important; align-items:center; min-height:42px; margin-left:10px; padding:0 20px !important; border-radius:99px; background:#171b20 !important; color:#fff !important; font:600 15px/1 var(--body); white-space:nowrap; text-decoration:none; transition:background-color .2s; }
+html body header.topbar .pill.solid:hover{ background:#0b6fcf !important; color:#fff !important; }
+.tb-nxs{ display:none; }
+/* reading progress: a line on the bar's lower edge, the full width of the window; nothing shows at rest */
+html body header.topbar > .progress{ position:absolute; left:0; right:0; bottom:-1px; width:auto; height:2px; border-radius:0; background:#0b6fcf; transform-origin:0 50%; transform:scaleX(0); }
+@media (max-width:860px){
+  html body header.topbar .wrap{ height:60px; gap:0 12px !important; grid-template-columns:auto minmax(0, 1fr) auto; }
+  html body header.topbar .home{ font-size:20px !important; }
+  html body header.topbar .tb-link{ display:none !important; }
+  html body header.topbar .pill.solid{ min-height:40px; margin-left:4px; padding:0 16px !important; font-size:14.5px; }
+  .tb-nx{ display:none; } .tb-nxs{ display:inline; }
+  .tb-run{ font-size:14px; }
+  html{ scroll-padding-top:76px !important; }
+}
+@media (max-width:379px){ .tb-run{ display:none; } }
+@media (prefers-reduced-motion:reduce){ html body header.topbar, html body header.topbar .wrap, .tb-l, .tb-l.out, .tb-run.flip{ transition:none !important; } }
+
+/* 2. THE FIRST SCREEN. The title and what was designed share one row; the product window comes straight after, well above the fold.
+      The challenge, where it stands and the project facts follow the window as one quiet row under a hairline. No white card.
+      The markup is unchanged: the three cells of .brief are placed by the hero's own grid. */
+html body .cs-hero{ padding-top:calc(72px + clamp(24px, 3.6vw, 48px)) !important; padding-bottom:clamp(40px, 5vw, 72px); }
+.cs-hero h1{ font-size:clamp(40px, 5vw, 72px); letter-spacing:-.035em; }
+.cs-hero > .label{ margin-bottom:18px; }
+.cs-hero .meta{ background:none !important; border-radius:0 !important; padding:22px 0 0 !important; border-top:1px solid var(--line); }
+.cs-hero .brief dt, .cs-hero .meta dt{ color:var(--mute) !important; }
+.cs-hero:not(.fyi-hero) > .brief{ display:contents; }
+.cs-hero:not(.fyi-hero) > .brief > div:nth-child(2) dd{ margin-top:6px; font-size:clamp(16.5px, 1.25vw, 18px); line-height:1.5; }
+.cs-hero:not(.fyi-hero) > .brief > div:nth-child(odd) dd{ font-size:15.5px; line-height:1.55; color:var(--text); }
+.cs-hero:not(.fyi-hero) > .meta{ display:grid; grid-template-columns:minmax(0, 1fr) !important; gap:8px; margin-top:0; }
+.cs-hero:not(.fyi-hero) > .meta div{ display:grid; grid-template-columns:60px minmax(0, 1fr); gap:0 12px; align-items:baseline; }
+.cs-hero:not(.fyi-hero) > .meta dd{ margin:0; font-size:15px; line-height:1.5; color:var(--text); }
+@media (min-width:861px){
+  .cs-hero:not(.fyi-hero){ display:grid; grid-template-columns:repeat(12, minmax(0, 1fr)); column-gap:0; align-items:end; }
+  .cs-hero:not(.fyi-hero) > *{ grid-column:1 / -1; }
+  .cs-hero:not(.fyi-hero) > .label{ order:1; }
+  .cs-hero:not(.fyi-hero) > h1{ order:2; grid-column:1 / 9; padding-right:32px; }
+  .cs-hero:not(.fyi-hero) > .brief > div:nth-child(2){ order:3; grid-column:9 / 13; align-self:end; padding-bottom:4px; }
+  .cs-hero:not(.fyi-hero) > .px-host, .cs-hero:not(.fyi-hero) > .hero-fig{ order:4; margin-top:clamp(32px, 3.6vw, 52px); }
+  .cs-hero:not(.fyi-hero) > .brief > div:nth-child(1){ order:5; grid-column:1 / 5; }
+  .cs-hero:not(.fyi-hero) > .brief > div:nth-child(3){ order:6; grid-column:5 / 9; }
+  .cs-hero:not(.fyi-hero) > .meta{ order:7; grid-column:9 / 13; }
+  .cs-hero:not(.fyi-hero) > .brief > div:nth-child(odd), .cs-hero:not(.fyi-hero) > .meta{ align-self:stretch; margin-top:clamp(32px, 3.6vw, 48px) !important; padding-top:22px !important; border-top:1px solid var(--line); }
+  .cs-hero:not(.fyi-hero) > .brief > div:nth-child(odd){ padding-right:clamp(24px, 3.4vw, 48px) !important; }
+  .cs-hero:not(.fyi-hero) > .toc{ order:8; }
+}
+@media (max-width:860px){
+  html body .cs-hero{ padding-top:calc(60px + 28px) !important; }
+  .cs-hero:not(.fyi-hero){ display:flex; flex-direction:column; align-items:stretch; }
+  .cs-hero:not(.fyi-hero) > .label{ order:1; } .cs-hero:not(.fyi-hero) > h1{ order:2; }
+  .cs-hero:not(.fyi-hero) > .brief > div:nth-child(2){ order:3; margin-top:18px; }
+  .cs-hero:not(.fyi-hero) > .px-host, .cs-hero:not(.fyi-hero) > .hero-fig{ order:4; }
+  .cs-hero:not(.fyi-hero) > .brief > div:nth-child(1){ order:5; margin-top:32px; padding-top:20px !important; border-top:1px solid var(--line); }
+  .cs-hero:not(.fyi-hero) > .brief > div:nth-child(3){ order:6; margin-top:18px; }
+  .cs-hero:not(.fyi-hero) > .meta{ order:7; margin-top:20px !important; padding-top:18px !important; }
+  .cs-hero:not(.fyi-hero) > .toc{ order:8; }
+}
+/* the chapter chips: the running head names the chapter on wide screens, so the chips stay for narrower ones only */
+@media (min-width:1024px){ .cs-hero .toc{ display:none !important; } }
+html body .toc{ scroll-margin-top:96px; }
+
+/* 5. LABELS AND "READ MORE": plain words, no grey capsules. A pill is kept for a real button. */
+html body .cs-hero > .label, html body .ch-head .label, html body .next .label{ display:block; width:auto; padding:0 !important; border-radius:0 !important; background:none !important; color:var(--mute) !important; font:600 14px/1.4 var(--body); }
+html body .more > summary{ display:inline-flex; align-items:center; gap:0; min-height:0; padding:0 !important; border-radius:0 !important; background:none !important; box-shadow:none !important; color:var(--paper) !important; font:600 15px/1.4 var(--body) !important; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:4px; text-decoration-color:color-mix(in srgb, var(--paper) 32%, transparent); transition:text-decoration-color .2s; }
+html body .more > summary:hover{ background:none !important; text-decoration-color:currentColor; }
+html body .more-dot{ display:none !important; }
+@media (hover:none){ html body .more > summary{ min-height:44px; } }
+
+/* 6. EDGES. The lead of a chapter and the right-hand figure of a pair start on the same line (x = 728 at 1440). */
+@media (min-width:861px){
+  .ch-head:not(.center){ column-gap:16px !important; }
+  .ch-head:not(.center) > :first-child{ padding-right:clamp(24px, 4vw, 56px); }
+  .two{ column-gap:16px !important; }
+  .two > :first-child:not(figure){ padding-right:clamp(24px, 3vw, 40px); }
+}
+
+/* 4. THE NEXT CASE: a reason to go on. The next case's name, its own title as the big line, one black button, and its screen whole
+      inside the card with air on every side. Nothing runs off the card's edge any more. */
+html body a.next{ position:relative; display:grid !important; grid-template-columns:minmax(0, 5fr) minmax(0, 6fr) !important; grid-template-areas:none !important; gap:0 clamp(32px, 4vw, 64px) !important; align-items:center !important; min-height:clamp(380px, 32vw, 460px) !important; margin-block:clamp(72px, 7vw, 96px) 40px !important; padding:clamp(40px, 4vw, 56px) !important; border-radius:20px !important; background:#fff !important; box-shadow:none !important; overflow:hidden; text-decoration:none; }
+html body .next > .next-t{ grid-area:auto; align-self:center; display:flex; flex-direction:column; align-items:flex-start; min-width:0; }
+html body .next .label{ margin:0 0 22px !important; }
+.next .next-name{ font:600 20px/1.3 var(--body); letter-spacing:-.01em; color:#171b20; }
+.next .next-line{ margin-top:10px; max-width:18ch; font-family:var(--display); font-weight:700; font-size:clamp(32px, 3.6vw, 52px); line-height:1.06; letter-spacing:-.035em; color:#171b20; text-wrap:balance; }
+.next .next-go{ display:inline-flex; align-items:center; min-height:44px; margin-top:28px; padding:0 22px; border-radius:99px; background:#171b20; color:#fff; font:600 15px/1 var(--body); transition:background-color .25s; }
+.next:hover .next-go, .next:focus-visible .next-go{ background:#0b6fcf; }
+html body .next .next-thumb{ grid-area:auto !important; align-self:center !important; position:relative; margin:0 !important; padding:0 !important; transform:none !important; overflow:hidden; aspect-ratio:1440 / 900; border-radius:12px !important; background:#fff !important; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 26px 60px -34px rgba(23,40,70,.34) !important; -webkit-mask-image:none !important; mask-image:none !important; transition:translate .5s cubic-bezier(.2,.7,.2,1); }
+html body .next .next-thumb img{ display:block; width:100%; height:100%; aspect-ratio:auto; object-fit:cover; object-position:left top; }
+html body .next .next-thumb.whole{ aspect-ratio:2060 / 1327; }
+html body .next .next-thumb.whole img{ position:static; width:100%; max-width:none; height:100%; object-fit:fill; }
+html body .next:hover .next-thumb, html body .next:focus-visible .next-thumb{ translate:0 -4px; }
+html body .next .next-thumb.phones{ display:flex; justify-content:center; align-items:center; gap:clamp(12px, 1.4vw, 18px); aspect-ratio:auto; overflow:visible; border-radius:0 !important; background:none !important; box-shadow:none !important; }
+html body .next .next-thumb.phones img{ width:29%; max-width:150px; height:auto; aspect-ratio:786 / 1704; object-fit:cover; object-position:top; border-radius:18px; box-shadow:0 0 0 5px #1c1c1f, 0 30px 60px -24px rgba(20,32,27,.6); }
+html body .next .next-thumb.phones img:nth-child(2){ transform:translateY(-14px); }
+html body .next:focus-visible{ outline:2px solid #0b6fcf; outline-offset:4px; border-radius:20px; }
+@media (max-width:860px){
+  html body a.next{ grid-template-columns:minmax(0, 1fr) !important; gap:32px 0 !important; min-height:0 !important; margin-block:64px 32px !important; padding:32px 28px !important; border-radius:18px !important; }
+  .next .next-line{ font-size:clamp(28px, 7.6vw, 36px); }
+  html body .next .next-thumb.phones img{ border-radius:14px; box-shadow:0 0 0 4px #1c1c1f, 0 20px 40px -20px rgba(20,32,27,.6); }
+}
+/* the last chapter hands over to the card with one measured gap, not two stacked ones */
+.chapter:not(.sheet):has(+ .wrap > .next){ padding-bottom:0 !important; }
+html body .sources{ padding-block:0 clamp(48px, 5vw, 72px) !important; }
+html body .sources p{ max-width:78ch; }
+
+/* TURN THE PAGE. Going on to the next case, its title travels from the card to its place at the top of the next page
+   (420ms), while the rest of the page changes over in 240ms. The top bar stays where it is. Browsers without
+   cross-document view transitions simply load the page. */
+@view-transition{ navigation:auto; }
+.cs-hero h1{ view-transition-name:case-title; }
+/* a page left from further down has its own title far above the window: it gives the name up, so the next title fades in instead of falling in */
+html.to-next .cs-hero h1, html.tb-stuck .cs-hero h1{ view-transition-name:none; }
+html.to-next .next .next-line{ view-transition-name:case-title; }
+::view-transition-group(case-title){ animation-duration:420ms; animation-timing-function:cubic-bezier(.2,.7,.2,1); }
+::view-transition-old(case-title), ::view-transition-new(case-title){ animation-duration:420ms; animation-timing-function:cubic-bezier(.2,.7,.2,1); }
+::view-transition-old(root), ::view-transition-new(root){ animation-duration:240ms; animation-timing-function:ease; }
+::view-transition-group(case-bar){ animation-duration:0s; }
+@media (prefers-reduced-motion:reduce){ @view-transition{ navigation:none; } }
+
+/* 3. THE FOOTER is the home page's: the painted sky and the name signed by hand (v7/foot.css, v7/foot.js). Here it names the
+      eight cases; the page you are on is quiet and cannot be pressed. */
+footer.ft .ft-nav a[aria-current]{ opacity:.62; pointer-events:none; }
+footer.ft .ft-base p a{ color:#fff; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px; }
+footer.ft .ft-base p a:hover{ text-decoration-thickness:2px; }
+
+/* ROUND 9, after the first shots */
+/* Brand: the pairs run the full measure, as every other figure on the page does */
+@media (min-width:861px){
+  html body .brand-web-row.bw-before, html body .bw-art, html body .bw-pair, html body .bw-rej.two-up{ max-width:none !important; }
+}
+/* FYI: the title shares its row with the phone, so it stays a size down */
+html body .fyi-hero h1{ font-size:clamp(40px, 4.4vw, 64px) !important; }
+/* the Design system picture is a cut of a longer wall: its left edge fades in, so no tile's words are cut by the frame */
+html body .next .next-thumb.fade-l::before{ content:""; position:absolute; inset:0 auto 0 0; z-index:1; width:88px; background:linear-gradient(90deg, #fff 36px, rgba(255,255,255,0)); pointer-events:none; }
+/* FYI facts row: the cells lose the old card's inner padding, so the rows sit a line apart */
+html body .fyi-hero > .meta{ row-gap:20px !important; }
+html body .fyi-hero > .meta div{ padding:0 16px 0 0 !important; }
+/* between the phone and the wide desktop the running head takes the free space between the name and the links, so the two can never meet; "All work" leaves first (the name is the way home) */
+@media (max-width:1279px){ html body header.topbar .wrap{ grid-template-columns:auto minmax(0, 1fr) auto; } }
+@media (max-width:1099px){ html body header.topbar .tb-all{ display:none !important; } }
+/* narrow desktop and tablet: beside the title the lede would be a thin tall column, so it goes under it */
+@media (min-width:861px) and (max-width:1099px){
+  .cs-hero:not(.fyi-hero) > h1{ grid-column:1 / -1; padding-right:0; }
+  .cs-hero:not(.fyi-hero) > .brief > div:nth-child(2){ grid-column:1 / 10; margin-top:18px; padding-bottom:0; }
+}

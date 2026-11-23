@@ -61,9 +61,10 @@
   function see(on){ if (on === shown) return; shown = on; if (on) setTimeout(play, 350); else reset(); }
   reset();
   var ol = li.parentNode;
-  function check(){ if (ol.classList.contains('hw-pin')) see(li.classList.contains('on')); }
+  var vis = !('IntersectionObserver' in window);   /* half of the plate has to be inside the window: it used to start at page load, below the fold */
+  function check(){ if (ol.classList.contains('hw-pin')) see(vis && li.classList.contains('on')); }
   new MutationObserver(check).observe(li, { attributes: true, attributeFilter: ['class'] }); check();
-  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ if (!ol.classList.contains('hw-pin')) see(es[0].isIntersecting); }, { threshold: .5 }).observe(li);
+  if (!vis) new IntersectionObserver(function(es){ vis = es[0].isIntersecting; if (ol.classList.contains('hw-pin')) check(); else see(vis); }, { threshold: .5 }).observe(li);
   else see(true);
 })();
 
@@ -99,19 +100,19 @@
     jump(function(){ curAt(W + 46, -34); selAt(0, 0, 0, 0); });
     (async function(){
       await wait(350); cur.classList.add('show');
-      await move(g.x, g.y, 760); await wait(150);
+      await move(g.x, g.y, 560); await wait(150);
       await press(); await draw(g, 720); await lift();
-      glass.classList.remove('g0'); await wait(620);                                        /* the glass comes up slowly, on its own time */
+      glass.classList.remove('g0'); await wait(440);                                        /* the glass comes up slowly, on its own time */
       len(460); selAt(k.x, k.y, k.w, k.h); curAt(k.x + k.w - 3, k.y + k.h - 2); await wait(460);   /* the selection steps in to the card */
       await wait(90); card.classList.remove('c0'); await wait(380);
-      title.classList.add('show'); await wait(480);
+      title.classList.add('show'); await wait(320);
       sel.classList.remove('show'); await move(e.x, e.y, 540); await wait(140);
       await press(); await draw(e, 580); await lift();
       email.classList.add('show'); await wait(420);
       await move(e.x + e.w * .62, e.y + e.h * .52, 380); await wait(130); await press();   /* take the field and pull a copy down */
       len(480); pass.classList.add('show'); selAt(p.x, p.y, p.w, p.h); curAt(p.x + p.w * .62 - 3, p.y + p.h * .52 - 2); await wait(480); await lift();
       await wait(180); gap.style.left = (e.x + e.w / 2) + 'px'; gap.style.top = (e.y + e.h) + 'px'; gap.style.height = (p.y - e.y - e.h) + 'px'; gap.querySelector('b').textContent = p.y - e.y - e.h; gap.classList.add('show');
-      await wait(820); gap.classList.remove('show'); sel.classList.remove('show'); await wait(160);
+      await wait(560); gap.classList.remove('show'); sel.classList.remove('show'); await wait(160);
       row.classList.add('show'); await move(b.x, b.y, 460); await wait(130);
       await press(); btn.classList.add('sq'); await draw(b, 560); await lift(); btn.classList.add('show'); await wait(300);
       prop.style.left = (W - 30) + 'px'; prop.style.top = (b.y - 8) + 'px'; prop.classList.add('show');
@@ -121,16 +122,19 @@
       await lift(); await wait(380); prop.classList.remove('show', 'edit'); sel.classList.remove('show');
       for (var i = 0; i < rest.length; i++) { rest[i].classList.add('show'); await wait(120); }
       await wait(160); card.classList.add('fin');
-      await move(W + 80, g.h * .78, 900); cur.classList.remove('show');
+      await move(W + 80, g.h * .78, 600); cur.classList.remove('show');
+      if (++laps >= 2) return;   /* second pass: stay finished */
       await wait(2700);
       card.classList.add('c0'); await wait(260); glass.classList.add('g0'); await wait(1050);
       play();
     })(); }
-  function see(on){ if (on === shown) return; shown = on; if (on) play(); else { clear(); card.classList.remove('hd-run'); } }
+  var laps = 0;
+  function see(on){ if (on === shown) return; shown = on; if (on) { laps = 0; play(); } else { clear(); card.classList.remove('hd-run'); } }
   var ol = li.parentNode;
-  function check(){ if (ol.classList.contains('hw-pin')) see(li.classList.contains('on')); }
+  var vis = !('IntersectionObserver' in window);   /* half of the plate has to be inside the window: it used to start at page load, below the fold */
+  function check(){ if (ol.classList.contains('hw-pin')) see(vis && li.classList.contains('on')); }
   new MutationObserver(check).observe(li, { attributes: true, attributeFilter: ['class'] }); check();
-  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ if (!ol.classList.contains('hw-pin')) see(es[0].isIntersecting); }, { threshold: .5 }).observe(li);
+  if (!vis) new IntersectionObserver(function(es){ vis = es[0].isIntersecting; if (ol.classList.contains('hw-pin')) check(); else see(vis); }, { threshold: .5 }).observe(li);
 })();
 
 /* the Ship plate: when its screen comes on, the pull request is made in front of you. Each beat has its own length: a hard-coded value
@@ -178,12 +182,15 @@
       btn.classList.add('busy'); btn.textContent = 'Merging…'; await wait(860);
       btn.classList.remove('busy'); btn.classList.add('done'); btn.textContent = 'Merged'; badge.textContent = 'Merged'; badge.classList.add('done'); stT.nodeValue = 'Merged into main';
       await wait(520); await curAt(glass.offsetWidth + 80, by - 40, 900); cur.classList.remove('show');
+      if (++laps >= 2) return;   /* second pass: stay merged */
       await wait(2800); card.classList.add('c0'); await wait(520);
       play();
     })(); }
-  function see(on){ if (on === shown) return; shown = on; if (on) play(); else { clear(); card.classList.remove('hs-run'); } }
+  var laps = 0;
+  function see(on){ if (on === shown) return; shown = on; if (on) { laps = 0; play(); } else { clear(); card.classList.remove('hs-run'); } }
   var ol = li.parentNode;
-  function check(){ if (ol.classList.contains('hw-pin')) see(li.classList.contains('on')); }
+  var vis = !('IntersectionObserver' in window);   /* half of the plate has to be inside the window: it used to start at page load, below the fold */
+  function check(){ if (ol.classList.contains('hw-pin')) see(vis && li.classList.contains('on')); }
   new MutationObserver(check).observe(li, { attributes: true, attributeFilter: ['class'] }); check();
-  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ if (!ol.classList.contains('hw-pin')) see(es[0].isIntersecting); }, { threshold: .5 }).observe(li);
+  if (!vis) new IntersectionObserver(function(es){ vis = es[0].isIntersecting; if (ol.classList.contains('hw-pin')) check(); else see(vis); }, { threshold: .5 }).observe(li);
 })();

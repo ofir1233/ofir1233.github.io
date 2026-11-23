@@ -3865,12 +3865,12 @@ html section#design-lab:where(:not(.lx-app, .lx-app *)){ padding-top: clamp(56px
    painting grows a little, into the place of the name, and stays a frame with paper around it; then the three cards come up one
    after another and stay, side by side in a row across the foot of the frame. After the third the page scrolls on.
    Phones and reduced motion keep the plain layout. */
-html.me-scroll #about .me-stage{ height: 330vh; }
+html.me-scroll #about .me-stage{ height: 215vh; }
 html.me-scroll #about .me-pin{ position: sticky; top: var(--pt, 118px); height: calc(100vh - var(--pt, 118px) - 24px); --h0: clamp(340px, calc(100vh - 402px), 660px); --w0: min(100%, 1180px); --wg: calc(var(--w0) + (100% - var(--w0)) * var(--g, 0)); --hf: 100%; }
 html.me-scroll #about .me-intro{ opacity: var(--io, 1) !important; transform: translateY(calc(var(--g, 0) * -46px)) scale(calc(1 - var(--g, 0) * .04)) !important; transform-origin: 50% 0; }
 html.me-scroll #about .me-photo.me-v7{ position: absolute; margin: 0; left: calc((100% - var(--wg)) / 2); width: var(--wg); top: calc(var(--t0, 250px) * (1 - var(--g, 0))); height: calc(var(--h0) + (var(--hf) - var(--h0)) * var(--g, 0)); }
 html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ transform: translate(calc(var(--tx,0) * -2.2%), calc(var(--ty,0) * -2%)) scale(calc(1.09 + var(--z, 0) * .06)); }
-html.me-scroll #about .me-photo.me-v7::before{ content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: var(--sh, 0); background: linear-gradient(to top, rgba(10,18,24,.86) 0, rgba(10,18,24,.62) 20%, rgba(10,18,24,.24) 38%, rgba(10,18,24,0) 54%); }
+html.me-scroll #about .me-photo.me-v7::before{ content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .32s ease; background: linear-gradient(to top, rgba(10,18,24,.86) 0, rgba(10,18,24,.62) 20%, rgba(10,18,24,.24) 38%, rgba(10,18,24,0) 54%); }
 html.me-scroll #about .me-pillars{ position: absolute; left: 0; right: 0; bottom: clamp(22px, 4vh, 40px); top: auto; z-index: 2; margin: 0; gap: 0; padding: 0 clamp(26px, 3.2vw, 52px); opacity: 1 !important; transform: none !important; animation: none !important; perspective: 1400px; }
 html.me-scroll #about .me-pillars li, html.me-scroll #about .me-pillars li + li{ opacity: 0; will-change: transform, opacity, filter; transform-origin: 50% 100%; background: none; box-shadow: none; border: 0; border-radius: 0; min-height: 0; gap: 14px; padding: 4px clamp(16px, 2vw, 30px) 4px 0; color: #fff; text-shadow: 0 1px 18px rgba(8,14,20,.45); }
 html.me-scroll #about .me-pillars li + li{ padding-left: clamp(16px, 2vw, 30px); border-left: 1px solid rgba(255,255,255,.3); }
@@ -3878,6 +3878,14 @@ html.me-scroll #about .me-facts .me-k{ color: rgba(255,255,255,.88); }
 html.me-scroll #about .me-facts .me-v{ color: #fff; }
 html.me-scroll #about .me-facts .me-v-a{ color: #fff !important; }
 html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
+/* The hand grows the picture, the page states the facts. The growth follows the scroll; once the picture is whole (.me-grown) the rest runs on a clock,
+   so a number can never rest half-counted: 0ms the shade (320ms); 180ms the signature (1400ms, hero.js); 640ms the four facts, each rising 20px over
+   520ms, 140ms apart, so the last one lands as the pen lifts. Scrolling back up takes them away in 200ms. .me-set: arrived past the hero, no entrance. */
+html.me-scroll #about .me-pin.me-grown .me-photo.me-v7::before{ opacity: 1; }
+html.me-scroll #about .me-pillars li, html.me-scroll #about .me-pillars li + li{ transform: translateY(20px); transition: opacity .2s ease, transform .2s ease; }
+html.me-scroll #about .me-pin.me-grown .me-pillars li{ opacity: 1; transform: none; transition: opacity .48s cubic-bezier(.2,.7,.2,1) calc(360ms + var(--fi, 0) * 110ms), transform .48s cubic-bezier(.2,.7,.2,1) calc(360ms + var(--fi, 0) * 110ms); }
+html.me-scroll #about .me-pin.me-set .me-pillars li{ transition: opacity .24s ease calc(var(--fi, 0) * 60ms), transform .24s cubic-bezier(.2,.7,.2,1) calc(var(--fi, 0) * 60ms); }
+html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; }
 
 /* about: the row under the opening is four facts, a small label over one large figure each */
 #about ol.me-pillars.me-facts{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -3905,25 +3913,25 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
   -webkit-backdrop-filter: blur(16px) saturate(1.3); backdrop-filter: blur(16px) saturate(1.3); box-shadow: 0 40px 80px -36px rgba(8,40,90,.6), inset 0 1px 0 rgba(255,255,255,.7); }
 .v7-glass > *{ border-radius: clamp(12px, 1.3vw, 18px); overflow: hidden; }
 </style>
-<link rel="stylesheet" href="v7/font.css?v=200">
-<link rel="stylesheet" href="v7/hero.css?v=200">
+<link rel="stylesheet" href="v7/font.css?v=212">
+<link rel="stylesheet" href="v7/hero.css?v=212">
 <script>/* the hero picture is painted in once per tab: v7/hero-paint.js */try{if(!sessionStorage.getItem('hp')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('hp-wait')}catch(e){}</script>
-<link rel="stylesheet" href="v7/code.css?v=200">
-<link rel="stylesheet" href="v7/design-lab.css?v=200">
-<link rel="stylesheet" href="v7/product.css?v=200">
-<link rel="stylesheet" href="v7/system.css?v=200">
-<link rel="stylesheet" href="v7/web-fyi.css?v=200">
-<link rel="stylesheet" href="v7/campaign.css?v=200">
-<link rel="stylesheet" href="v7/ia-process.css?v=200">
-<link rel="stylesheet" href="v7/path-contact.css?v=200">
-<link rel="stylesheet" href="v7/path.css?v=200">
-<link rel="stylesheet" href="v7/turns.css?v=200">
-<link rel="stylesheet" href="v7/site.css?v=200">
-<link rel="stylesheet" href="v7/corners.css?v=200">
-<link rel="stylesheet" href="v7/close.css?v=200">
-<link rel="stylesheet" href="v7/short.css?v=200">
-<link rel="stylesheet" href="v7/foot.css?v=200">
-<link rel="stylesheet" href="v7/tokens.css?v=200">
+<link rel="stylesheet" href="v7/code.css?v=212">
+<link rel="stylesheet" href="v7/design-lab.css?v=212">
+<link rel="stylesheet" href="v7/product.css?v=212">
+<link rel="stylesheet" href="v7/system.css?v=212">
+<link rel="stylesheet" href="v7/web-fyi.css?v=212">
+<link rel="stylesheet" href="v7/campaign.css?v=212">
+<link rel="stylesheet" href="v7/ia-process.css?v=212">
+<link rel="stylesheet" href="v7/path-contact.css?v=212">
+<link rel="stylesheet" href="v7/plan.css?v=212">
+<link rel="stylesheet" href="v7/path.css?v=212">
+<link rel="stylesheet" href="v7/site.css?v=212">
+<link rel="stylesheet" href="v7/corners.css?v=212">
+<link rel="stylesheet" href="v7/close.css?v=212">
+<link rel="stylesheet" href="v7/short.css?v=212">
+<link rel="stylesheet" href="v7/foot.css?v=212">
+<link rel="stylesheet" href="v7/tokens.css?v=212">
 </head>
 <body>
 
@@ -3987,8 +3995,8 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
     <ol class="me-pillars me-facts">
       <li><span class="me-k">Years in product design</span><strong class="me-v"><span data-n="6">6</span>+</strong></li>
       <li><span class="me-k">Years as Hear’s only designer, brand to code</span><strong class="me-v"><span data-n="3">3</span>+</strong></li>
-      <li><span class="me-k">Downloads of a Tap&nbsp;Mobile app I worked on</span><strong class="me-v"><span data-n="100">100</span><small> million</small></strong></li>
-      <li><span class="me-k">Storybook stories in Hear’s design system</span><strong class="me-v"><span data-n="122">122</span></strong></li>
+      <li><span class="me-k">Downloads of a Tap&nbsp;Mobile app I worked on</span><strong class="me-v"><span data-n="100" data-from="80">100</span><small> million</small></strong></li>
+      <li><span class="me-k">Storybook stories in Hear’s design system</span><strong class="me-v"><span data-n="122" data-from="100">122</span></strong></li>
     </ol>
     </div></div>
   </div>
@@ -4135,7 +4143,6 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
     <span class="bignum" aria-hidden="true">03</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study</div>
         <h2>Design system</h2>
       </div>
       <div><p>Documented in Storybook, from foundations to full pages, with every component state. One set of tokens covers dark and light, English and Hebrew, LTR and RTL.</p>
@@ -4152,7 +4159,7 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
     </div>
     <div class="tk rv" id="ds-colour" role="group" aria-labelledby="tk-t">
       <div class="tk-head">
-        <p class="tk-tag" id="tk-t"><span>Foundations</span> Colour</p>
+        <p class="tk-tag" id="tk-t"><span>Foundations</span> Color</p>
         <button type="button" class="tk-re" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 8a5.4 5.4 0 1 0 1.7-3.9"/><path d="M2.4 2.2v2.4h2.4"/></svg><span>Build it again</span></button>
       </div>
       <div class="tk-stage">
@@ -4200,7 +4207,6 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
     <span class="bignum" aria-hidden="true">04</span>
     <div class="sec-head">
       <div>
-        <div class="label">Case study</div>
         <h2>Brand &amp; website</h2>
       </div>
       <div><p>I designed Hear’s brand from zero, then designed and built its new marketing site.</p>
@@ -4248,18 +4254,6 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
 </section>
 
 
-<!-- ============================================================ FYI (bonus, before AI) -->
-<section id="fyi" aria-labelledby="fyi-h">
-  <div class="wrap fyi-wrap">
-    <div class="fyi-copy">
-      <div class="label">Case study · <b>Mobile app</b></div>
-      <h2 id="fyi-h">FYI, an iOS messenger</h2>
-      <p>FYI (Focus Your Ideas) is a messenger for creative crews, with AI inside the conversation, plus group work and events you promote from the chat. I designed it at Intune, before Hear.</p>
-      <a class="btn ghost cs-more" href="work/fyi.html">Read the case study <span aria-hidden="true">→</span></a>
-    </div>
-    <div class="fyi-fan fyi-show rv" role="region" aria-roledescription="carousel" aria-label="FYI screens, latest version with demo content"><div class="fyq-stage"><figure class="fyq" style="--i:0" data-cap="Chats: the Copper Hours crew and friends"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-1.webp" srcset="img/fyi-proto-1.webp 590w, img/fyi-proto-1-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="FYI chat list: the Copper Hours group with Theo typing, direct chats with Ines, Kofi and Theo, and a collective" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:1" data-cap="A voice note, transcribed under the bubble"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-2.webp" srcset="img/fyi-proto-2.webp 590w, img/fyi-proto-2-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="Copper Hours group chat: a 2.1 GB stems file at full size, a voice note with its transcript, and the crew's replies" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq on" style="--i:2" data-cap="A private AI catch-up of what you missed"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-3.webp" srcset="img/fyi-proto-3.webp 590w, img/fyi-proto-3-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="A private FYI AI catch-up card in the group chat: While you were away, with three updates and one open question" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:3" data-cap="A message in the chat becomes a task"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-4.webp" srcset="img/fyi-proto-4.webp 590w, img/fyi-proto-4-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="New task sheet filled from Theo's message: name, due date, assignee, and a waiting-on task with no date" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:4" data-cap="Launch night, promoted from the chat"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-5.webp" srcset="img/fyi-proto-5.webp 590w, img/fyi-proto-5-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="An event card for Copper Hours Launch Night, Fri, Nov 20 at Dock Hall 3, with Going, a story, a post and a link page, and RSVPs in the thread" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure></div><div class="fyq-bar"><p class="fyq-cap"><span class="fyq-n">03</span><span class="fyq-t">A private AI catch-up of what you missed</span></p><div class="fyq-dots"><button type="button" class="fyq-dot" aria-label="Screen 1 of 5: Chats: the Copper Hours crew and friends"></button><button type="button" class="fyq-dot" aria-label="Screen 2 of 5: A voice note, transcribed under the bubble"></button><button type="button" class="fyq-dot" aria-label="Screen 3 of 5: A private AI catch-up of what you missed" aria-current="true"></button><button type="button" class="fyq-dot" aria-label="Screen 4 of 5: A message in the chat becomes a task"></button><button type="button" class="fyq-dot" aria-label="Screen 5 of 5: Launch night, promoted from the chat"></button></div></div></div>
-  </div>
-</section>
 
 <!-- ============================================================ IA -->
 <section id="ia">
@@ -4297,7 +4291,7 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
 </section>
 
 <!-- ============================================================ PROCESS -->
-<section id="process" data-pz>
+<section id="process">
   <div class="wrap">
     <div class="sec-head">
       <div>
@@ -4306,68 +4300,31 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
       </div>
       <div><p>I planned Hear’s redesign and rebrand as one program, from market research to the workflows between design, development and marketing.</p></div>
     </div>
-    <ol class="phases">
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="research"></span><span class="n">01</span></div><h3>Research</h3><p>Market and competitors, Hear’s unique value proposition, audiences, users and personas.</p></li>
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="brand"></span><span class="n">02</span></div><h3>Branding</h3><p>Essence and personality, identity, messaging, voice and tone, UX writing.</p><a class="pz-see" href="#campaign">See the brand campaign on this page</a></li>
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="visual"></span><span class="n">03</span></div><h3>Designing</h3><p>Visual research, concepts and the visual identity.</p></li>
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="web"></span><span class="n">04</span></div><h3>Website</h3><p>Information architecture, wireframes, design, video, development.</p><a class="pz-see" href="#web">See the website on this page</a></li>
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="onboard"></span><span class="n">05</span></div><h3>Growth</h3><p>Sign-up, onboarding and setup, product walkthroughs.</p></li>
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="product"></span><span class="n">06</span></div><h3>Product</h3><p>Current-state map, user types and paths, MVP scope, AI and LLM capabilities.</p><a class="pz-see" href="#product">See the product on this page</a></li>
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="ui"></span><span class="n">07</span></div><h3>UI design</h3><p>Product design, redesign flows, handoff and the design system.</p><a class="pz-see" href="#system">See the design system on this page</a></li>
-      <li class="phase rv"><div class="top"><span class="ico lg anim" aria-hidden="true" data-icon="loop"></span><span class="n">08</span></div><h3>Process</h3><p>Principles, design-dev and marketing-design workflows, testing and iteration.</p></li>
+    <ol class="plan" aria-label="The eight phases">
+      <li><button type="button" class="pl-stop" aria-pressed="false"><span class="pl-n">01</span><span class="pl-dot" aria-hidden="true"></span><span class="pl-name">Research</span></button><p class="pl-t">Market and competitors, Hear’s unique value proposition, audiences, users and personas.</p></li>
+      <li><button type="button" class="pl-stop" aria-pressed="false"><span class="pl-n">02</span><span class="pl-dot" aria-hidden="true"></span><span class="pl-name">Branding</span></button><p class="pl-t">Essence and personality, identity, messaging, voice and tone, UX writing. <a href="#campaign" data-sec="web">See it above</a></p></li>
+      <li><button type="button" class="pl-stop" aria-pressed="false"><span class="pl-n">03</span><span class="pl-dot" aria-hidden="true"></span><span class="pl-name">Designing</span></button><p class="pl-t">Visual research, concepts and the visual identity.</p></li>
+      <li><button type="button" class="pl-stop" aria-pressed="false"><span class="pl-n">04</span><span class="pl-dot" aria-hidden="true"></span><span class="pl-name">Website</span></button><p class="pl-t">Information architecture, wireframes, design, video, development. <a href="#web" data-sec="web">See it above</a></p></li>
+      <li><button type="button" class="pl-stop" aria-pressed="false"><span class="pl-n">05</span><span class="pl-dot" aria-hidden="true"></span><span class="pl-name">Growth</span></button><p class="pl-t">Sign-up, onboarding and setup, product walkthroughs.</p></li>
+      <li><button type="button" class="pl-stop" aria-pressed="false"><span class="pl-n">06</span><span class="pl-dot" aria-hidden="true"></span><span class="pl-name">Product</span></button><p class="pl-t">Current-state map, user types and paths, MVP scope, AI and LLM capabilities. <a href="#product" data-sec="product">See it above</a></p></li>
+      <li><button type="button" class="pl-stop" aria-pressed="false"><span class="pl-n">07</span><span class="pl-dot" aria-hidden="true"></span><span class="pl-name">UI design</span></button><p class="pl-t">Product design, redesign flows, handoff and the design system. <a href="#system" data-sec="system">See it above</a></p></li>
+      <li><button type="button" class="pl-stop" aria-pressed="false"><span class="pl-n">08</span><span class="pl-dot" aria-hidden="true"></span><span class="pl-name">Process</span></button><p class="pl-t">Principles, design-dev and marketing-design workflows, testing and iteration.</p></li>
     </ol>
-    <p class="coda rv">My solutions start from a deep understanding of how customers use the product, so getting value worth paying for takes them minimal effort. <span>That’s part of why Hear keeps growing and winning customers.</span></p>
+    <p class="coda">My solutions start from a deep understanding of how customers use the product, so getting value worth paying for takes them minimal effort. <span>That’s part of why Hear keeps growing and winning customers.</span></p>
   </div>
 </section>
 
-<!-- ============================================================ TURNS: decisions I reversed (every fact is from work/data.html and work/actions.html) -->
-<section id="turns" aria-labelledby="turns-h">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <div class="label">Hear Design Lab</div>
-        <h2 id="turns-h">Three decisions I reversed</h2>
-      </div>
-      <div><p>I built each of these in the Lab, then took&nbsp;it&nbsp;back. This is what replaced it, and why.</p></div>
+
+<!-- ============================================================ FYI (bonus, before AI) -->
+<section id="fyi" aria-labelledby="fyi-h">
+  <div class="wrap fyi-wrap">
+    <div class="fyi-copy">
+      <div class="label">Case study · <b>Mobile app</b></div>
+      <h2 id="fyi-h">FYI, an iOS messenger</h2>
+      <p>FYI (Focus Your Ideas) is a messenger for creative crews, with AI inside the conversation, plus group work and events you promote from the chat. I designed it at Intune, before Hear.</p>
+      <a class="btn ghost cs-more" href="work/fyi.html">Read the case study <span aria-hidden="true">→</span></a>
     </div>
-    <ol class="tn">
-      <li class="tn-row">
-        <p class="tn-k"><b>Data</b>Where columns go</p>
-        <div class="tn-d">
-          <p class="tn-old"><span class="sr">First: </span><del>Columns inside the strip<svg class="tn-x" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2 12 C 44 6.5, 86 15, 134 10.5 S 232 6, 298 11.5"/></svg></del></p>
-          <h3 class="tn-new"><span class="sr">Now: </span>A columns modal</h3>
-        </div>
-        <div class="tn-y">
-          <p><b>Built first.</b> Columns stacked under the filters, collapsed to a count, with one Reset, Save and Apply for both.</p>
-          <p><b>Why I took it back.</b> The platform already had a columns modal. Reusing it beat building a second place to pick columns.</p>
-          <a href="work/data.html#plan">Decision 1 in the Data case study <span aria-hidden="true">→</span></a>
-        </div>
-      </li>
-      <li class="tn-row">
-        <p class="tn-k"><b>Data</b>When filters apply</p>
-        <div class="tn-d">
-          <p class="tn-old"><span class="sr">First: </span><del>Apply on every change<svg class="tn-x" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9.5 C 52 13.5, 98 6, 152 10 S 246 14, 298 8.5"/></svg></del></p>
-          <h3 class="tn-new"><span class="sr">Now: </span>An explicit Apply</h3>
-        </div>
-        <div class="tn-y">
-          <p><b>Tried in June.</b> Filters applied by themselves and the Apply button went away.</p>
-          <p><b>Why I took it back.</b> Every click re-ran the query. Better to set up the conditions, then run them once.</p>
-          <a href="work/data.html#decisions">Decision 2 in the Data case study <span aria-hidden="true">→</span></a>
-        </div>
-      </li>
-      <li class="tn-row">
-        <p class="tn-k"><b>AI Tasks</b>What a proposal shows</p>
-        <div class="tn-d">
-          <p class="tn-old"><span class="sr">First: </span><del>A risk rating<svg class="tn-x" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2 11 C 60 7, 120 13.5, 176 9.5 S 262 8, 298 12"/></svg></del></p>
-          <h3 class="tn-new"><span class="sr">Now: </span>The change itself</h3>
-        </div>
-        <div class="tn-y">
-          <p><b>Tried in an earlier version.</b> Each AI proposal carried a risk rating.</p>
-          <p><b>Why I took it back.</b> The Lab’s screens stay close to what Hear has. The person judges the change itself: the old and new values, and the AI’s reasoning.</p>
-          <a href="work/actions.html#ai-tasks">Decision 3 in the Actions case study <span aria-hidden="true">→</span></a>
-        </div>
-      </li>
-    </ol>
+    <div class="fyi-fan fyi-show rv" role="region" aria-roledescription="carousel" aria-label="FYI screens, latest version with demo content"><div class="fyq-stage"><figure class="fyq" style="--i:0" data-cap="Chats: the Copper Hours crew and friends"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-1.webp" srcset="img/fyi-proto-1.webp 590w, img/fyi-proto-1-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="FYI chat list: the Copper Hours group with Theo typing, direct chats with Ines, Kofi and Theo, and a collective" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:1" data-cap="A voice note, transcribed under the bubble"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-2.webp" srcset="img/fyi-proto-2.webp 590w, img/fyi-proto-2-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="Copper Hours group chat: a 2.1 GB stems file at full size, a voice note with its transcript, and the crew's replies" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq on" style="--i:2" data-cap="A private AI catch-up of what you missed"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-3.webp" srcset="img/fyi-proto-3.webp 590w, img/fyi-proto-3-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="A private FYI AI catch-up card in the group chat: While you were away, with three updates and one open question" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:3" data-cap="A message in the chat becomes a task"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-4.webp" srcset="img/fyi-proto-4.webp 590w, img/fyi-proto-4-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="New task sheet filled from Theo's message: name, due date, assignee, and a waiting-on task with no date" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:4" data-cap="Launch night, promoted from the chat"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-5.webp" srcset="img/fyi-proto-5.webp 590w, img/fyi-proto-5-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="An event card for Copper Hours Launch Night, Fri, Nov 20 at Dock Hall 3, with Going, a story, a post and a link page, and RSVPs in the thread" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure></div><div class="fyq-bar"><p class="fyq-cap"><span class="fyq-n">03</span><span class="fyq-t">A private AI catch-up of what you missed</span></p><div class="fyq-dots"><button type="button" class="fyq-dot" aria-label="Screen 1 of 5: Chats: the Copper Hours crew and friends"></button><button type="button" class="fyq-dot" aria-label="Screen 2 of 5: A voice note, transcribed under the bubble"></button><button type="button" class="fyq-dot" aria-label="Screen 3 of 5: A private AI catch-up of what you missed" aria-current="true"></button><button type="button" class="fyq-dot" aria-label="Screen 4 of 5: A message in the chat becomes a task"></button><button type="button" class="fyq-dot" aria-label="Screen 5 of 5: Launch night, promoted from the chat"></button></div></div></div>
   </div>
 </section>
 
@@ -4376,7 +4333,6 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <div class="label">2020–Now</div>
         <h2>Experience</h2>
       </div>
     </div>
@@ -4388,7 +4344,7 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
         <div class="xp-body">
           <div class="xp-top">
             <div class="xp-id">
-              <h3 class="xp-name xp-s" id="xp-hear" style="--i:0"><img src="hear-v7/hear-logo.svg" alt="Hear" width="126" height="34"></h3>
+              <h3 class="xp-name xp-s" id="xp-hear" style="--i:0"><span class="xp-was" aria-hidden="true">Intune</span><img src="hear-v7/hear-logo.svg" alt="Hear" width="126" height="34"></h3>
               <p class="xp-role xp-s" style="--i:1">UX/UI designer at&nbsp;Intune, now&nbsp;Hear</p>
               <p class="xp-tags xp-s" style="--i:4"><span>AI · SaaS</span><span>Only designer</span></p>
             </div>
@@ -4654,7 +4610,7 @@ html.me-scroll #about .me-path{ margin-top: clamp(28px, 4vw, 56px); }
   wide.addEventListener('change', sync);
   if ('ResizeObserver' in window) { let raf; new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(layout); }).observe(board); } else addEventListener('resize', layout);
   if (document.fonts) document.fonts.ready.then(layout);
-  if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); drawIn = true; layout(); } }, { threshold: .25 }); io.observe(board); }
+  if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); drawIn = true; layout(); } }, { threshold: .45 }); io.observe(board); }
   normalise(); render();
 })();
 // lightbox for stills
@@ -5428,7 +5384,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
 // arrow keys or a focused frame park it and set the spot by hand, and it carries on from there
 (() => {
   const strip = document.querySelector('#web .br-strip'), track = strip && strip.querySelector('.br-track'); if (!track) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches || typeof track.animate !== 'function') return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || matchMedia('(hover: none)').matches || typeof track.animate !== 'function') return;   /* on touch the strip is a plain swipe row that rests with its first picture on the margin */
   const items = [...track.children], first = items[0], dup = items.find(i => i.hasAttribute('aria-hidden')); if (!first || !dup) return;
   strip.classList.add('br-drift');
   const LAP = 90000;
@@ -5822,6 +5778,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     act = i; box.style.setProperty('--act', i);
     ph.forEach((p, k) => p.classList.toggle('on', k === i));
     dots.forEach((d, k) => k === i ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current'));
+    if (user) box.classList.remove('clk');
     clearTimeout(capT); cap.classList.add('sw');
     capT = setTimeout(() => { num.textContent = String(i + 1).padStart(2, '0'); txt.textContent = ph[i].dataset.cap || ''; cap.classList.remove('sw'); }, reduce ? 0 : 170);
   };
@@ -5855,12 +5812,26 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   box.addEventListener('pointerenter', () => { over = true; });
   box.addEventListener('pointerleave', () => { over = false; });
   box.addEventListener('focusin', () => { user = true; });
-  new IntersectionObserver(es => es.forEach(e => { seen = e.isIntersecting; }), { threshold: .55 }).observe(box);
-  const tick = setInterval(() => {
-    if (user || steps >= ph.length) { clearInterval(tick); return; }
-    if (!seen || over || document.hidden || mob.matches) return;
-    steps++; set((act + 1) % ph.length);
-  }, 4200);
+  /* The phones are dealt, and the change has a clock. They wait as one stack; at 55% in view the two beside the middle leave first, the outer
+     two 90ms later (720ms). 1060ms after that the bar of the phone in front starts to fill, 4200ms, and its end is the change (the script waits for the bar's own
+     animationend): nothing changes unannounced. The bar stops while the pointer is on the phones or they are out of view. One round, then it rests.
+     Any choice by the reader ends the clock. */
+  let dealt = false;
+  const hold = () => box.classList.toggle('hold', !seen || over || document.hidden);
+  const end = () => box.classList.remove('clk', 'hold');
+  dotRow.addEventListener('animationend', e => {
+    if (e.animationName !== 'fyq-clk' || !box.classList.contains('clk')) return;
+    if (user || mob.matches) { end(); return; }
+    if (++steps >= ph.length) end();
+    set((act + 1) % ph.length);
+  });
+  box.addEventListener('pointerenter', hold); box.addEventListener('pointerleave', hold); document.addEventListener('visibilitychange', hold);
+  if (!mob.matches) box.classList.add('wait', 'deal');
+  new IntersectionObserver(es => es.forEach(e => {
+    seen = e.isIntersecting; hold();
+    if (seen && !dealt) { dealt = true; box.classList.remove('wait');
+      setTimeout(() => { box.classList.remove('deal'); if (!user && !mob.matches) box.classList.add('clk'); }, 1060); }
+  }), { threshold: .55 }).observe(box);
 })();
 
 // e-end: the contact globe draws in once when the finale is reached, then stays still
@@ -5907,7 +5878,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
       const raw = d.dataset.raw, re = k.textContent === 'Teams' ? /(permissions)/g : /(retention|anonymizer|2FA)/g;
       const hit = on && raw.search(re) > -1;
       li.classList.toggle('adm', hit);
-      if (hit) d.innerHTML = esc(raw).replace(re, '<b class="ia-adm">$1</b>');
+      if (hit) d.innerHTML = esc(raw).replace(re, m => '<b class="ia-adm" style="--k:' + ({ retention: 0, anonymizer: 1, '2FA': 2, permissions: 3 })[m] + '">' + m + '</b>');
       else if (d.querySelector('.ia-adm')) d.textContent = raw;
     });
   }
@@ -5937,6 +5908,43 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   });
   q.addEventListener('input', () => { if (q.value.trim() && pressed()) { lens.setAttribute('aria-pressed', 'false'); apply(); } });
   tabs.forEach(t => t.addEventListener('click', refresh));
+
+  /* The sentence lights the map. The paragraph above the map names five things in the admin layer. When the map is at reading height
+     (its lowest highlighted part whole in view for 500ms) the switch turns itself on, once, and the five light up in the order the sentence names them, 560ms
+     apart, each 180ms after its own words in the paragraph. It stays on. Any use of the map before that cancels it; after it, the
+     words follow the switch. Wide screens only (on a phone the five are far below the sentence); reduced motion: nothing moves by itself. */
+  (() => {
+    const lede = document.querySelector('#ia .sec-head p');
+    if (!lede || !wide.matches || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+    const SAY = ['data retention', 'the anonymizer', '2FA', 'team permissions', 'impersonation'];
+    let html = lede.innerHTML; if (!SAY.every(w => html.split(w).length === 2)) return;
+    SAY.forEach((w, i) => { html = html.replace(w, '<span class="ia-say" style="--k:' + i + '">' + w + '</span>'); });
+    lede.innerHTML = html;
+    const says = [...lede.querySelectorAll('.ia-say')];
+    let used = false, telling = false;
+    /* the lowest of the five on the map is the Impersonate chip: the telling waits until it is whole inside the window, 24px clear of the edge */
+    const chip = [...app.querySelectorAll('.ia-global span')].find(s => /^impersonat/i.test(s.textContent.trim()));
+    ['pointerdown', 'keydown'].forEach(ev => app.addEventListener(ev, () => { used = true; }, { capture: true }));
+    lens.addEventListener('click', () => { if (!telling) says.forEach(s => { s.style.transitionDelay = '0ms'; s.classList.toggle('on', pressed()); }); });
+    if (!chip) return;
+    /* in place: the chip whole inside the window, 32px clear of its edge, and, where the window is tall enough for both, the sentence still under
+       the top bar. Held 500ms, checked again at the end; a jump past the map does not spend the one telling. */
+    const NAV = 76; let arm = 0, done = false;
+    const place = () => { const c = chip.getBoundingClientRect(), l = lede.getBoundingClientRect(); if (c.bottom > innerHeight - 32 || c.top < NAV) return false;
+      return (c.bottom - l.top + NAV + 32 > innerHeight) || l.top > NAV; };
+    const look = () => {
+      if (done) return;
+      if (!place()) { clearTimeout(arm); arm = 0; return; }
+      if (arm) return;
+      arm = setTimeout(() => { arm = 0; if (done || !place()) return; done = true; removeEventListener('scroll', look);
+        if (used || pressed() || lens.hidden || q.value.trim()) return;
+        telling = true; app.classList.add('ia-tell'); lens.click();
+        says.forEach(s => s.classList.add('on'));
+        setTimeout(() => { telling = false; app.classList.remove('ia-tell'); }, 420 + 5 * 560 + 500);
+      }, 500);
+    };
+    addEventListener('scroll', look, { passive: true }); look();
+  })();
 
   // path preview: hovering or focusing an area lights the wire from the root to it
   let last = null, lit = [];
@@ -6761,16 +6769,25 @@ document.addEventListener('DOMContentLoaded', () => {
   if(!stage||!pin||!intro||cards.length<2) return; var nums=cards.map(function(c){ return c.querySelector('[data-n]') });
   var ok=matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)'), root=document.documentElement, on=false, cur=0, raf=0;
   function clamp(v){ return v<0?0:v>1?1:v } function io(t){ return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2 } function out(t){ return 1-Math.pow(1-t,4) }
+  cards.forEach(function(c,i){ c.style.setProperty('--fi',i) });
   function measure(){ var pt=parseFloat(getComputedStyle(about).paddingTop)||118; pin.style.setProperty('--pt',pt+'px'); pin.style.setProperty('--t0',(intro.offsetHeight+Math.max(22,Math.min(40,innerWidth*.03)))+'px'); pin.style.setProperty('--ch',Math.max(60,list.offsetHeight-64)+'px'); }
   function target(){ var pt=parseFloat(pin.style.getPropertyValue('--pt'))||118, total=stage.offsetHeight-pin.offsetHeight; return clamp((pt-stage.getBoundingClientRect().top)/total); }
-  function draw(p){ var g=io(clamp(p/.3)); pin.style.setProperty('--g',g.toFixed(4)); pin.style.setProperty('--z',p.toFixed(4)); pin.style.setProperty('--io',clamp(1-g*3.2).toFixed(3)); pin.style.setProperty('--sh',clamp((p-.26)/.12).toFixed(3)); pin.style.setProperty('--pe',out(clamp((p-.82)/.13)).toFixed(3)); pin.classList.toggle('me-end',p>.86); pin.classList.toggle('me-grown',p>.285);
-    cards.forEach(function(c,i){ var t=clamp((p-(.30+i*.125))/.13), a=out(t), y=(1-a)*80, sc=.93+a*.07, rx=(1-a)*12, bl=(1-a)*12;
-      c.style.opacity=a.toFixed(3); c.style.transform='translateY('+y.toFixed(1)+'px) rotateX('+rx.toFixed(2)+'deg) scale('+sc.toFixed(4)+')'; c.style.filter=bl>.2?'blur('+bl.toFixed(1)+'px)':'none'; if(nums[i]){ var v=String(Math.round(+nums[i].getAttribute('data-n')*out(clamp(t*1.15)))); if(nums[i].textContent!==v) nums[i].textContent=v; } }); }
+  var said=false, first=true, cnt=[];
+  function fin(){ cnt.forEach(function(k){ clearTimeout(k.t); cancelAnimationFrame(k.r) }); cnt=[]; nums.forEach(function(n){ if(n) n.textContent=n.getAttribute('data-n') }); }
+  /* only the two large figures count, from close by and always to the end; a figure at rest is the true one */
+  function say(run){ fin(); if(!run) return; nums.forEach(function(n,i){ var from=n&&+n.getAttribute('data-from'); if(!from) return; var to=+n.getAttribute('data-n'), k={}; n.textContent=from;
+    k.t=setTimeout(function(){ var t0=performance.now(); (function step(now){ var u=clamp((now-t0)/900); n.textContent=Math.round(from+(to-from)*(1-Math.pow(1-u,3))); if(u<1) k.r=requestAnimationFrame(step); })(t0); },620+i*110); cnt.push(k); }); }
+  function draw(p){ var g=io(clamp(p/.57)); pin.style.setProperty('--g',g.toFixed(4)); pin.style.setProperty('--z',p.toFixed(4)); pin.style.setProperty('--io',clamp(1-g*3.2).toFixed(3)); pin.classList.toggle('me-end',p>.9);
+    var grown=p>.545, late=first||p>.97;
+    if(grown!==said){ said=grown; pin.classList.toggle('me-set',grown&&late); pin.classList.toggle('me-grown',grown); say(grown&&!late); }
+    else if(grown&&p>.97&&cnt.length){ pin.classList.add('me-set'); fin(); }
+    else if(grown&&p<.95&&!cnt.length&&pin.classList.contains('me-set')) pin.classList.remove('me-set');
+    first=false; }
   function tick(){ var t=target(); cur+=(t-cur)*.16; if(Math.abs(t-cur)<.0004) cur=t; draw(cur); raf=Math.abs(t-cur)>0?requestAnimationFrame(tick):0; }
   function go(){ if(on&&!raf) raf=requestAnimationFrame(tick); }
   function set(){ var want=ok.matches; if(want===on){ if(on){ measure(); go(); } return; } on=want; root.classList.toggle('me-scroll',on);
     if(on){ measure(); cur=target(); draw(cur); }
-    else { ['--g','--z','--io','--sh','--pe','--pt','--t0','--ch'].forEach(function(k){ pin.style.removeProperty(k) }); cards.forEach(function(c,i){ c.style.opacity=c.style.transform=c.style.filter=''; if(nums[i]) nums[i].textContent=nums[i].getAttribute('data-n'); }); } }
+    else { ['--g','--z','--io','--pt','--t0','--ch'].forEach(function(k){ pin.style.removeProperty(k) }); pin.classList.remove('me-grown','me-set','me-end'); said=false; first=true; fin(); } }
   set(); addEventListener('scroll',go,{passive:true}); addEventListener('resize',set); ok.addEventListener('change',set); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ if(on){ measure(); go(); } });
 })();
 </script>
@@ -6787,22 +6804,22 @@ document.addEventListener('DOMContentLoaded', () => {
   window.v7Tilt=bind; [].forEach.call(document.querySelectorAll('[data-v7-tilt]'),bind);
 })();
 </script>
-<script src="v7/hero.js?v=200" defer></script>
-<script src="v7/hero-paint.js?v=200" defer></script>
-<script src="v7/code.js?v=200" defer></script>
-<script src="v7/depth.js?v=200" defer></script>
-<script src="v7/design-lab.js?v=200" defer></script>
-<script src="v7/product.js?v=200" defer></script>
-<script src="v7/system.js?v=200" defer></script>
-<script src="v7/web-fyi.js?v=200" defer></script>
-<script src="v7/campaign.js?v=200" defer></script>
-<script src="v7/ia-process.js?v=200" defer></script>
-<script src="v7/path-contact.js?v=200" defer></script>
-<script src="v7/close.js?v=200" defer></script>
-<script src="v7/short.js?v=200" defer></script>
-<script src="v7/foot.js?v=200" defer></script>
-<script src="v7/tokens.js?v=200" defer></script>
-<script src="v7/path.js?v=200" defer></script>
-<script src="v7/turns.js?v=200" defer></script>
+<script src="v7/hero.js?v=212" defer></script>
+<script src="v7/hero-paint.js?v=212" defer></script>
+<script src="v7/code.js?v=212" defer></script>
+<script src="v7/depth.js?v=212" defer></script>
+<script src="v7/design-lab.js?v=212" defer></script>
+<script src="v7/product.js?v=212" defer></script>
+<script src="v7/system.js?v=212" defer></script>
+<script src="v7/web-fyi.js?v=212" defer></script>
+<script src="v7/campaign.js?v=212" defer></script>
+<script src="v7/ia-process.js?v=212" defer></script>
+<script src="v7/path-contact.js?v=212" defer></script>
+<script src="v7/close.js?v=212" defer></script>
+<script src="v7/short.js?v=212" defer></script>
+<script src="v7/foot.js?v=212" defer></script>
+<script src="v7/tokens.js?v=212" defer></script>
+<script src="v7/plan.js?v=212" defer></script>
+<script src="v7/path.js?v=212" defer></script>
 </body>
 </html>
