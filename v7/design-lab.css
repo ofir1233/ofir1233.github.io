@@ -156,3 +156,18 @@ html body section#design-lab#design-lab .sec-head .cs-pair{ gap:8px 18px; }
   #design-lab#design-lab .tp-head{ text-align:left; }
   #design-lab#design-lab .tp-head p{ margin:16px 0 0; }
 }
+
+/* the compare line: wireframe on its left, the finished screen on its right */
+#design-lab#design-lab .tp-fig .tp-bar{ display:none; }
+#design-lab#design-lab .tp-fig .hs-app{ will-change:clip-path; }
+#design-lab#design-lab .tp-cut{ position:absolute; z-index:4; top:0; bottom:0; left:50%; width:44px; margin-left:-22px; cursor:ew-resize; touch-action:pan-y; opacity:0; transition:opacity .4s ease .2s; -webkit-tap-highlight-color:transparent; outline:none; }
+#design-lab#design-lab .tp-fig.is-live .tp-cut{ opacity:1; }
+#design-lab#design-lab .tp-cut::before{ content:""; position:absolute; left:21px; top:0; bottom:0; width:2px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.10), 0 0 18px rgba(23,27,32,.16); }
+#design-lab#design-lab .tp-cut i{ position:absolute; left:50%; top:50%; width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.10), 0 8px 22px rgba(23,27,32,.20); transition:transform .2s cubic-bezier(.2,.7,.2,1); }
+#design-lab#design-lab .tp-cut i::before, #design-lab#design-lab .tp-cut i::after{ content:""; position:absolute; top:50%; width:7px; height:7px; margin-top:-4.5px; border:solid #171b20; border-width:0 0 2px 2px; }
+#design-lab#design-lab .tp-cut i::before{ left:11px; transform:rotate(45deg); } #design-lab#design-lab .tp-cut i::after{ right:11px; transform:rotate(-135deg); }
+#design-lab#design-lab .tp-cut:hover i, #design-lab#design-lab .tp-fig.is-drag .tp-cut i{ transform:scale(1.08); }
+#design-lab#design-lab .tp-cut:focus-visible i{ box-shadow:0 0 0 2px #139FFD, 0 8px 22px rgba(23,27,32,.20); }
+#design-lab#design-lab .tp-fig.is-drag{ user-select:none; -webkit-user-select:none; }
+#design-lab#design-lab .tp-ends{ display:flex; justify-content:space-between; margin:18px 12px 0; font:500 15px/22px var(--body); color:#5d636a; }
+@media (max-width:700px){ #design-lab#design-lab .tp-ends{ margin:12px 6px 0; font-size:14px; } #design-lab#design-lab .tp-cut i{ width:34px; height:34px; margin:-17px 0 0 -17px; } #design-lab#design-lab .tp-cut i::before{ left:9px; } #design-lab#design-lab .tp-cut i::after{ right:9px; } }

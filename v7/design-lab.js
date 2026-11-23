@@ -170,103 +170,66 @@
   button(); setStep(0);
 })();
 
-/* The Topics block: the same Studio pages with the Topics screen open, at two fidelities. The bar under the frame is the tour's own:
-   a ring button, the step named beside it, and two marks on the right (owner, 22.11.2026 night: "I don't see this toggle"). */
+/* The Topics block: one screen at two fidelities, side by side under one line the reader moves (owner, 23.11.2026: "a line you can move to
+   compare the two versions"). Two live pages, the wireframe underneath and the finished one above it, cut at the line. Nothing plays by itself:
+   the line arrives once from the right edge to the middle, then it is the reader's. */
 (function () {
   var fig = document.querySelector('#design-lab .tp-fig');
   if (!fig) return;
-  var stage = fig.querySelector('.hs-win'), frame = fig.querySelector('.tp-app'), bar = fig.querySelector('.tp-bar'), pp = bar.querySelector('.hs-pp'), now = fig.querySelector('.tp-now');
-  var kEl = now.querySelector('.hs-k'), tEl = now.querySelector('.hs-t'), dEl = now.querySelector('.tp-d');
-  var COPY = {
-    lo: ['Step 1 of 2', 'Structure first', 'Gray boxes and four notes: what the screen holds and why, before any color.'],
-    hi: ['Step 2 of 2', 'Then the Hear look', 'The same screen on glass and sky, with blue for the scores and coral for what needs attention.']
-  };
-  var items = [].slice.call(bar.querySelectorAll('.tp-segs li'));
+  var stage = fig.querySelector('.hs-win'), lo = fig.querySelector('.tp-app');
+  var hi = lo.cloneNode(false); hi.classList.add('tp-hi'); hi.setAttribute('data-src', lo.getAttribute('data-src').replace('topics=lo', 'topics=hi')); hi.setAttribute('title', 'Hear Studio, the Topics screen, finished'); hi.setAttribute('tabindex', '-1'); lo.setAttribute('tabindex', '-1');
+  stage.appendChild(hi);
+  var cut = document.createElement('div'); cut.className = 'tp-cut'; cut.setAttribute('role', 'slider'); cut.tabIndex = 0;
+  cut.setAttribute('aria-label', 'Compare the two versions: wireframe on the left, finished screen on the right'); cut.setAttribute('aria-valuemin', '0'); cut.setAttribute('aria-valuemax', '100');
+  cut.innerHTML = '<i></i>'; stage.appendChild(cut);
+  var ends = document.createElement('div'); ends.className = 'tp-ends'; ends.setAttribute('aria-hidden', 'true'); ends.innerHTML = '<span>Low fidelity</span><span>High fidelity</span>';
+  fig.querySelector('.ct-stage').insertAdjacentElement('afterend', ends);
   var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var DWELL = { lo: 5000, hi: 7000 }, LOOPS = 2;      // the wireframe is read in five seconds; the finished screen gets seven; two rounds, then it rests
-  var cur = 'lo', loaded = false, inView = false, paused = calm, ms = 0, loops = 0, rest = false;
-  /* The screen is drawn at the size that fits the frame, not at 1440 and shrunk: 1120 in a wide frame, 860 without its sidebar in a
-     medium one, and on a phone a tall 460 with the map alone. So the type stays near its real size everywhere. */
+  var W = 1440, p = calm ? 50 : 96, n = 0, seen = false, came = calm, used = false;
+  function draw() { hi.style.clipPath = 'inset(0 0 0 ' + (3 + p / 100 * (W - 6)).toFixed(1) + 'px)'; cut.style.left = p + '%'; cut.setAttribute('aria-valuenow', Math.round(p)); cut.setAttribute('aria-valuetext', Math.round(p) + '% wireframe'); }
+  /* both pages are drawn at the same size so they line up to the pixel: 1440 in a wide frame, 860 without the sidebar in a medium one, a tall 460 on a phone */
   function fit() {
-    var cw = stage.clientWidth, t = cw >= 900 ? (cur === 'lo' ? [1440, 810, ''] : [1120, 630, '']) : /* the wireframe carries twice as much and its three notes: it needs the full width */ cw >= 560 ? [860, 484, 's'] : [460, 560, 'p'];
-    frame.style.width = t[0] + 'px'; frame.style.height = t[1] + 'px'; stage.style.aspectRatio = (t[0] - 6) + ' / ' + (t[1] - 6);
-    fig.style.setProperty('--s', cw / (t[0] - 6));
-    try { var c = frame.contentDocument.documentElement.classList; c.toggle('px-small', t[2] !== ''); c.toggle('px-phone', t[2] === 'p'); frame.contentWindow.dispatchEvent(new Event('resize')); } catch (e) {}
+    var cw = stage.clientWidth, t = cw >= 900 ? [1440, 810, ''] : cw >= 560 ? [860, 484, 's'] : [460, 560, 'p']; W = t[0];
+    [lo, hi].forEach(function (f) {
+      f.style.width = t[0] + 'px'; f.style.height = t[1] + 'px';
+      try { var c = f.contentDocument.documentElement.classList; c.toggle('px-small', t[2] !== ''); c.toggle('px-phone', t[2] === 'p'); f.contentWindow.dispatchEvent(new Event('resize')); } catch (e) {}
+    });
+    stage.style.aspectRatio = (t[0] - 6) + ' / ' + (t[1] - 6); fig.style.setProperty('--s', cw / (t[0] - 6)); draw();
   }
   new ResizeObserver(fit).observe(stage); fit();
-  /* the sentence under the name is one line or three, by width and by step: the block keeps the taller one, so the bar never changes height */
-  function room() {
-    var keep = dEl.textContent, h = 0;
-    dEl.style.minHeight = '';
-    ['lo', 'hi'].forEach(function (f) { dEl.textContent = COPY[f][2]; h = Math.max(h, dEl.offsetHeight); });
-    dEl.textContent = keep; dEl.style.minHeight = h + 'px';
+  function arrive() {
+    if (came || !seen || n < 2) return; came = true;
+    var t0 = performance.now() + 500, from = p;
+    (function step(t) {
+      if (used) return;
+      var k = Math.max(0, Math.min(1, (t - t0) / 900)); k = 1 - Math.pow(1 - k, 3);
+      p = from + (50 - from) * k; draw(); if (k < 1) requestAnimationFrame(step);
+    })(performance.now());
   }
-  new ResizeObserver(room).observe(bar); if (document.fonts && document.fonts.ready) document.fonts.ready.then(room);
-  function prog(p) { bar.style.setProperty('--p', p); items.forEach(function (li) { li.style.setProperty('--p', li.classList.contains('on') ? p : 0); }); }
-  function button() {
-    pp.setAttribute('aria-label', calm ? 'Show the other step' : rest ? 'Play again' : paused ? 'Play' : 'Pause');
-    fig.classList.toggle('is-paused', paused);
-  }
-  function set(f) {
-    var changed = f !== cur; cur = f; ms = 0;
-    items.forEach(function (li) {
-      var b = li.querySelector('button'), on = b.getAttribute('data-f') === f;
-      li.classList.toggle('on', on); li.classList.toggle('done', !on && f === 'hi'); b.setAttribute('aria-pressed', on);
-    });
-    prog(0);
-    if (changed) {
-      kEl.textContent = COPY[f][0]; tEl.textContent = COPY[f][1]; dEl.textContent = COPY[f][2];
-      now.classList.remove('swap'); void now.offsetWidth; now.classList.add('swap');
-      try { if (loaded) frame.contentWindow.hearTopics.fidelity(f); } catch (e) {}
-      fit();
-    }
-  }
-  /* Plays only while the bar is on screen and the page inside is up. Low for five seconds, high for seven, twice; then it rests on the finished screen. */
-  var last = performance.now();
-  (function tick(t) {
-    var dt = Math.min(100, t - last); last = t;
-    if (inView && loaded && !paused) {
-      ms += dt;
-      if (ms < DWELL[cur]) prog(ms / DWELL[cur]);
-      else if (cur === 'lo') set('hi');
-      else if (++loops >= LOOPS) { rest = true; paused = true; prog(1); button(); }
-      else set('lo');
-    }
-    requestAnimationFrame(tick);
-  })(last);
-  pp.addEventListener('click', function () {
-    if (calm) { set(cur === 'lo' ? 'hi' : 'lo'); return; }
-    fig.classList.remove('is-held');
-    if (rest) { rest = false; loops = 0; paused = false; set('lo'); }      // at rest the button plays it again from the wireframe
-    else paused = !paused;
-    button();
-  });
-  /* a mark is a choice: it shows that step and holds it; the button plays on from there */
-  items.forEach(function (li) {
-    li.querySelector('button').addEventListener('click', function () {
-      rest = false; loops = 0; paused = true; fig.classList.add('is-held');
-      set(this.getAttribute('data-f')); ms = 0; prog(0); button();
+  [lo, hi].forEach(function (f, i) {
+    f.addEventListener('load', function () {
+      if (!f.getAttribute('src')) return;
+      try {
+        var d = f.contentDocument, st = d.createElement('style');
+        st.textContent = '.side{box-sizing:border-box!important;padding:22px 14px 20px 18px!important}.tp-tip{display:none!important}' +
+          '.px-small .side{display:none!important}.px-small .stage{--side:0px!important}' +
+          '.px-phone .tp-col:last-child,.px-phone .tp-def p,.px-phone .tp-def .tp-n,.px-phone .top .act,.px-phone .tp-kpis>div:nth-child(n+3),.px-phone .tp-h .tp-n,.px-phone .tp-h .sub,.px-phone .key .tp-n,.px-phone .tp-hint{display:none!important}' +
+          '.px-phone .tp-body{grid-template-columns:minmax(0,1fr)!important}.px-phone .tp .card{padding:20px 20px 14px!important}.px-phone .tp .top p{white-space:normal}';
+        d.head.appendChild(st); fit();
+        f.contentWindow.hearTopics.fidelity(i ? 'hi' : 'lo');
+      } catch (e) {}
+      n++; if (n === 2) { fig.classList.add('is-live'); arrive(); }
     });
   });
-  frame.addEventListener('load', function () {
-    if (!frame.getAttribute('src')) return;
-    loaded = true;
-    try {
-      var d = frame.contentDocument, st = d.createElement('style');
-      st.textContent = '.side{box-sizing:border-box!important;padding:22px 14px 20px 18px!important}.tp-tip{display:none!important}' +
-        '.px-small .side{display:none!important}.px-small .stage{--side:0px!important}' +
-        '.px-phone .tp-col:last-child,.px-phone .tp-def p,.px-phone .tp-def .tp-n,.px-phone .top .act,.px-phone .tp-kpis>div:nth-child(n+3),.px-phone .tp-h .tp-n,.px-phone .tp-h .sub,.px-phone .key .tp-n,.px-phone .tp-hint{display:none!important}' +
-        '.px-phone .tp-body{grid-template-columns:minmax(0,1fr)!important}.px-phone .tp .card{padding:20px 20px 14px!important}.px-phone .tp .top p{white-space:normal}';
-      d.head.appendChild(st); fit();
-      frame.contentWindow.hearTopics.fidelity(cur);
-    } catch (e) {}
-    fig.classList.add('is-live');
+  new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { lo.src = lo.getAttribute('data-src'); hi.src = hi.getAttribute('data-src'); io.disconnect(); } }, { rootMargin: '700px 0px' }).observe(stage);
+  new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { seen = true; io.disconnect(); arrive(); } }, { threshold: 0.5 }).observe(stage);
+  function to(x) { var r = stage.getBoundingClientRect(); p = Math.max(4, Math.min(96, (x - r.left) / r.width * 100)); used = came = true; draw(); }
+  cut.addEventListener('pointerdown', function (e) { cut.setPointerCapture(e.pointerId); fig.classList.add('is-drag'); to(e.clientX); e.preventDefault(); });
+  cut.addEventListener('pointermove', function (e) { if (cut.hasPointerCapture(e.pointerId)) to(e.clientX); });
+  ['pointerup', 'pointercancel'].forEach(function (ev) { cut.addEventListener(ev, function () { fig.classList.remove('is-drag'); }); });
+  cut.addEventListener('keydown', function (e) {
+    var d = e.key === 'ArrowRight' ? 4 : e.key === 'ArrowLeft' ? -4 : e.key === 'Home' ? -100 : e.key === 'End' ? 100 : 0; if (!d) return;
+    e.preventDefault(); p = Math.max(4, Math.min(96, p + d)); used = came = true; draw();
   });
-  new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { frame.src = frame.getAttribute('data-src'); io.disconnect(); } }, { rootMargin: '700px 0px' }).observe(stage);
-  /* the clock runs only while the bar itself is at least half on screen: the change is never out of sight */
-  new IntersectionObserver(function (es) { inView = es[0].isIntersecting; }, { threshold: 0.5 }).observe(bar);
-  if (calm) fig.classList.add('is-held');
-  button(); room();
-  var depth = window.v7Depth ? window.v7Depth(frame, stage) : null;
-  if (depth) new IntersectionObserver(function (es) { depth.drift(es[0].isIntersecting); }, { threshold: 0.3 }).observe(stage);
+  draw();
 })();
