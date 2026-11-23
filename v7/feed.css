@@ -1,0 +1,115 @@
+/* v7 - feed: the LinkedIn campaign on the home page (23.11.2026). The head of the block is still styled by v7/campaign.css.
+   One post from Hear in a feed of other people's posts. The others are skeletons: only the painting is alive.
+   The feed scrolls once and stops on the post; then the parade in the picture starts to move.
+   Beside it, the page the post comes from: the cover, the mark, all six paintings, and the way in (work/hear-page.html).
+   Scope is the block's own id, twice, so the home page's older rules cannot reach in.
+   Two states. Without the class .hp-js (no script, a script that never arrived, reduced motion) the block is simply at rest:
+   the post on top, the still picture, one skeleton under it. With .hp-js the feed starts two posts higher and v7/feed.js moves it. */
+@view-transition{ navigation:auto; }
+
+#campaign#campaign .hp-stage{ display:grid; grid-template-columns:minmax(0, 1fr) clamp(280px, 26vw, 336px); gap:clamp(20px, 2.4vw, 32px); align-items:start; font-family:var(--body); color:#171b20; }
+/* the page's older rules for pictures, paragraphs, links and lists stop here; :where keeps these resets weaker than the rules below */
+#campaign#campaign :where(.hp-stage img, .hp-stage video){ display:block; max-width:none; margin:0; border-radius:0; filter:none; box-shadow:none; }
+#campaign#campaign :where(.hp-stage p){ max-width:none; }
+#campaign#campaign :where(.hp-stage a){ color:inherit; text-decoration:none; }
+#campaign#campaign :where(.hp-stage ul, .hp-stage li){ margin:0; padding:0; list-style:none; }
+#campaign#campaign .hp-stage li::before{ display:none; }
+
+/* other people's posts */
+#campaign#campaign .sk{ display:block; background:#eceae6; border-radius:5px; }
+#campaign#campaign .sk-l{ height:9px; max-width:100%; margin:9px 0 0; }
+#campaign#campaign .sk-av{ flex:none; width:44px; height:44px; margin:0; border-radius:50%; }
+#campaign#campaign .sk-av.r{ border-radius:8px; }
+#campaign#campaign .sk-post{ padding:18px 20px 12px; background:#fff; border-radius:14px; box-shadow:0 0 0 1px rgba(23,27,32,.06); }
+#campaign#campaign .sk-h{ display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+#campaign#campaign .sk-h span{ flex:1; min-width:0; }
+#campaign#campaign .sk-h .sk-l:first-child{ margin-top:0; }
+#campaign#campaign .sk-acts{ display:grid; grid-template-columns:repeat(4, 1fr); justify-items:center; align-items:center; height:46px; margin-top:8px; }
+#campaign#campaign .sk-acts .sk{ width:54px; height:9px; }
+
+/* the picture: a 16:9 frame that holds the still, and over it the same scene as a 7 s loop.
+   The still is the loop's first frame and is there from the start. The loop is shown only once it is really drawing frames
+   (v7/feed.js adds .on), so the painting simply starts to move. */
+#campaign#campaign .pt{ position:relative; overflow:hidden; background:#e2e8ee; isolation:isolate; }
+#campaign#campaign .pt img, #campaign#campaign .pt video{ position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:cover; }
+#campaign#campaign .pt video{ opacity:0; pointer-events:none; transition:opacity .4s linear; }
+#campaign#campaign .pt.on video{ opacity:1; }
+
+/* the feed */
+#campaign#campaign .hp-feed{ position:relative; min-width:0; }
+#campaign#campaign .hp-kind{ position:absolute; left:14px; top:8px; z-index:3; display:inline-flex; align-items:center; gap:7px; height:28px; padding:0 11px; border-radius:14px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.07); font:500 12.5px/1 var(--body); color:#4b5158; white-space:nowrap; }
+#campaign#campaign .hp-kind::before{ content:""; width:6px; height:6px; border-radius:50%; background:#139FFD; }
+#campaign#campaign .hp-view{ position:relative; overflow:hidden; overflow:clip;
+  -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 40px, #000 calc(100% - 64px), transparent 100%);
+          mask-image:linear-gradient(180deg, transparent 0, #000 40px, #000 calc(100% - 64px), transparent 100%); }
+#campaign#campaign .hp-track{ display:grid; grid-template-columns:minmax(0, 1fr); gap:16px; padding-top:48px; }
+/* at rest: the two posts above Hear's are not there, and the one under it shows its first 48 px, as it does when the feed has stopped */
+#campaign#campaign:not(.hp-js) .hp-track > .sk-post:not(:last-child){ display:none; }
+#campaign#campaign:not(.hp-js) .hp-track > .sk-post:last-child{ height:48px; overflow:hidden; }
+/* moving: the height is set by the script as soon as it runs (the post + 48 above + 64 below) */
+#campaign#campaign.hp-js .hp-view{ height:620px; }
+#campaign#campaign.hp-js .hp-track{ will-change:transform; }
+#campaign#campaign.hp-js .hp-track.run{ transition:transform 1.5s cubic-bezier(.16,.8,.2,1); }
+
+/* Hear's post */
+#campaign#campaign .lp{ view-transition-name:hp-post; margin:0; background:#fff; border-radius:14px; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 40px 70px -48px rgba(23,40,70,.5); overflow:hidden; }
+#campaign#campaign .lp-h{ display:flex; align-items:center; gap:12px; padding:16px 20px 6px; }
+#campaign#campaign .lp-av{ flex:none; width:46px; height:46px; border-radius:8px; object-fit:cover; view-transition-name:hp-av; }
+#campaign#campaign .lp-who{ min-width:0; flex:1; }
+#campaign#campaign .lp-who b{ display:inline-block; font:600 15.5px/1.2 var(--body); color:#171b20; view-transition-name:hp-name; }
+#campaign#campaign .lp-who span{ display:block; margin-top:2px; font:400 13px/1.3 var(--body); color:#6a7078; }
+#campaign#campaign .lp-t{ margin:0; padding:6px 20px 14px; font:400 15.5px/1.45 var(--body); color:#171b20; }
+#campaign#campaign .hp-thumbs a:focus-visible, #campaign#campaign .hp-go:focus-visible{ outline:2px solid #139FFD; outline-offset:3px; }
+/* the header link runs to the clipped edge of the post, so its ring is drawn just inside it */
+#campaign#campaign .lp-h:focus-visible{ outline:2px solid #139FFD; outline-offset:-4px; border-radius:14px 14px 6px 6px; }
+
+/* LinkedIn's row under the post: drawn, grey, not pressable */
+#campaign#campaign .lp-dr{ display:grid; grid-template-columns:repeat(4, 1fr); padding:2px 8px 4px; color:#a3a8ad; user-select:none; }
+#campaign#campaign .lp-dr span{ display:flex; align-items:center; justify-content:center; gap:8px; height:44px; font:500 14px/1 var(--body); }
+#campaign#campaign .lp-dr svg{ width:19px; height:19px; flex:none; }
+
+/* the page card: the cover, the mark, all six paintings, and the way in */
+#campaign#campaign .hp-card{ margin:48px 0 0; background:#fff; border-radius:20px; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 40px 70px -52px rgba(23,40,70,.5); overflow:hidden; }
+#campaign#campaign .hp-card-cover{ width:100%; height:auto; }
+#campaign#campaign .hp-card-id{ display:flex; align-items:flex-start; gap:12px; padding:0 18px; margin-top:-18px; position:relative; }
+#campaign#campaign .hp-card-id img{ flex:none; width:58px; height:58px; border:3px solid #fff; border-radius:11px; object-fit:cover; background:#fff; }
+#campaign#campaign .hp-card-id div{ min-width:0; padding-top:26px; }
+#campaign#campaign .hp-card-id b{ display:block; font:600 17px/1.2 var(--body); color:#171b20; }
+#campaign#campaign .hp-card-id span{ display:block; margin-top:2px; font:400 13px/1.35 var(--body); color:#6a7078; }
+#campaign#campaign .hp-thumbs{ display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; margin:16px 0 0; padding:0 18px; }
+#campaign#campaign .hp-thumbs a{ display:block; border-radius:9px; background:#e3e9ee; overflow:hidden; }
+#campaign#campaign .hp-thumbs img{ width:100%; height:auto; aspect-ratio:1200/628; object-fit:cover; transition:transform .5s cubic-bezier(.2,.7,.2,1); }
+#campaign#campaign .hp-thumbs a:hover img{ transform:scale(1.05); }
+#campaign#campaign .hp-go{ display:flex; align-items:center; justify-content:center; gap:10px; height:48px; margin:16px 18px 18px; padding:0 20px; border-radius:24px; background:#171b20; color:#fff; font:500 15.5px/1 var(--body); white-space:nowrap; transition:background-color .2s, transform .3s cubic-bezier(.2,.7,.2,1); }
+#campaign#campaign .hp-go svg{ width:18px; height:18px; transition:transform .3s cubic-bezier(.2,.7,.2,1); }
+#campaign#campaign .hp-go:hover{ background:#2a3038; transform:translateY(-2px); }
+#campaign#campaign .hp-go:hover svg{ transform:translateX(3px); }
+
+/* from the feed to the page: the cloud and the name travel, the rest changes under them */
+::view-transition-group(hp-av), ::view-transition-group(hp-name), ::view-transition-group(hp-post){ animation-duration:.56s; animation-timing-function:cubic-bezier(.3,.1,.1,1); }
+
+@media (max-width:980px){
+  #campaign#campaign .hp-stage{ grid-template-columns:minmax(0, 1fr); }
+  #campaign#campaign .hp-card{ margin-top:0; }
+  #campaign#campaign .hp-thumbs{ grid-template-columns:repeat(3, 1fr); }
+}
+@media (max-width:640px){
+  #campaign#campaign .hp-kind{ left:10px; }
+  #campaign#campaign .lp-h{ padding:14px 16px 6px; }
+  #campaign#campaign .lp-t{ padding:4px 16px 12px; font-size:15px; }
+  #campaign#campaign .lp-av{ width:42px; height:42px; }
+  #campaign#campaign .hp-card{ border-radius:18px; }
+  /* four equal columns put Comment against Repost at this width: the four labels share the free space between them instead */
+  #campaign#campaign .lp-dr{ display:flex; justify-content:space-between; padding:2px 18px 4px; }
+  #campaign#campaign .lp-dr span{ font-size:13px; gap:6px; }
+  #campaign#campaign .lp-dr svg{ width:17px; height:17px; }
+}
+@media (max-width:359px){
+  #campaign#campaign .lp-dr{ padding:2px 12px 4px; }
+  #campaign#campaign .lp-dr span{ font-size:12px; gap:4px; }
+  #campaign#campaign .lp-dr svg{ width:15px; height:15px; }
+}
+@media (prefers-reduced-motion: reduce){
+  #campaign#campaign.hp-js .hp-track.run, #campaign#campaign .hp-go, #campaign#campaign .hp-go svg, #campaign#campaign .hp-thumbs img, #campaign#campaign .pt video{ transition:none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*){ animation:none !important; }
+}
