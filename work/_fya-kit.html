@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>/* a page opens at its top: a reload or a reopened tab never lands mid-page. A link to a #section still lands on it, then the address drops the #section so the next visit starts at the top. Back still returns to where the reader was */
+(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{},h=history,de=document.documentElement,moved=false,
+strip=function(){if(location.hash)h.replaceState(h.state,'',location.pathname+location.search);};
+if(n.type!=='back_forward'){
+if('scrollRestoration' in h)h.scrollRestoration='manual';
+if(location.hash&&n.type==='reload')strip();
+if(!location.hash){['wheel','touchstart','keydown','mousedown'].forEach(function(t){addEventListener(t,function(){moved=true;},{passive:true,once:true});});
+var top=function(){if(moved||!scrollY)return;var b=de.style.scrollBehavior;de.style.scrollBehavior='auto';scrollTo(0,0);de.style.scrollBehavior=b;};
+top();document.addEventListener('DOMContentLoaded',top);addEventListener('load',top);}
+addEventListener('load',function(){setTimeout(function(){if('scrollRestoration' in h)h.scrollRestoration='auto';strip();},700);});}
+addEventListener('hashchange',function(){setTimeout(strip,0);});
+addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
+}catch(e){}})();</script>
+<title>FYI layer harness</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="FYI (Focus Your Ideas) is a messenger for creators that Ofir Nona designed at Intune, before Hear. It did not launch. This case study follows one crew from a voice note to a full room, on a live, coded phone.">
+<meta name="theme-color" content="#f4f3f1">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ofir1233.github.io/work/fyi.html">
+<meta property="og:title" content="FYI · Ofir Nona">
+<meta property="og:description" content="FYI (Focus Your Ideas) is a messenger for creators that Ofir Nona designed at Intune, before Hear. It did not launch. This case study follows one crew from a voice note to a full room, on a live, coded phone.">
+<meta name="twitter:card" content="summary">
+<script>document.documentElement.classList.add('js');try{var t='light',m=document.querySelector('meta[name="theme-color"]');document.documentElement.dataset.theme=t;if(m)m.content=t==='dark'?'#101614':'#f3f4f2';}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>/* the 3D phone only where it can run well: a wide screen, WebGL, and motion allowed */
+(function(){try{var d=document.documentElement,ok=matchMedia('(min-width: 1000px) and (min-height: 600px)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!/[?&]flat\b/.test(location.search);
+if(ok){var c=document.createElement('canvas');ok=!!(window.WebGL2RenderingContext&&c.getContext('webgl2'));}
+if(ok)d.classList.add('ot-3d');}catch(e){}})();</script>
+<link rel="stylesheet" href="case.css?v=201">
+<link rel="stylesheet" href="../v7/foot.css?v=200">
+<link rel="stylesheet" href="fyi-live.css?v=9">
+<link rel="stylesheet" href="fyi.css?v=5">
+<link rel="stylesheet" href="../v7/font.css?v=3">
+<link rel="stylesheet" href="../v7/case.css?v=41">
+<link rel="stylesheet" href="../v7/fyi-take.css?v=9">
+<link rel="stylesheet" href="../v7/fyi-around.css?v=1">
+<link rel="stylesheet" href="../v7/fya-kit.css?v=9">
+</head>
+<body class="fyi-page ot-page">
+<main id="main" class="ot">
+<div class="fya" id="around">
+<!-- FRAG:START -->
+<section class="fya-sec" id="fya-kit">
+  <div class="wrap">
+    <div class="fya-head"><div><p class="fya-kick">The kit</p><h2>Real parts, each with its states.</h2></div><p class="fya-lede">The app is built from a small set of parts. Each one below is the component itself, so press it and it does its job.</p></div>
+    <div class="fyak-bar">
+      <p class="fyak-bar-l" id="fyakit-l">Set every part to</p>
+      <div class="fyak-seg" role="group" aria-labelledby="fyakit-l">
+        <button type="button" aria-pressed="true" data-s="0">Resting</button><button type="button" aria-pressed="false" data-s="1">In use</button><button type="button" aria-pressed="false" data-s="2">Done</button>
+      </div>
+    </div>
+    <div class="fyak-wall">
+      <figure class="fyak-t" data-k="voice"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Voice note</b><span class="fyak-s">Resting</span></figcaption></figure>
+      <figure class="fyak-t" data-k="task"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Task</b><span class="fyak-s">Approved</span></figcaption></figure>
+      <figure class="fyak-t fyak-tall" data-k="ticket"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Event ticket</b><span class="fyak-s">Invited</span></figcaption></figure>
+      <figure class="fyak-t" data-k="poll"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Poll</b><span class="fyak-s">Open</span></figcaption></figure>
+      <figure class="fyak-t" data-k="ai"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>AI card</b><span class="fyak-s">Ready</span></figcaption></figure>
+      <figure class="fyak-t" data-k="comp"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Composer</b><span class="fyak-s">Empty</span></figcaption></figure>
+      <figure class="fyak-t" data-k="file"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>File</b><span class="fyak-s">Ready</span></figcaption></figure>
+      <figure class="fyak-t fyak-wide" data-k="sw"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Switch</b><span class="fyak-s">Private</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+<!-- FRAG:END -->
+</div>
+</main>
+<script src="fyi-live.js?v=4"></script>
+<script src="fyi-scenes.js?v=7"></script>
+<script src="../v7/fya-kit.js?v=9"></script>
+</body>
+</html>

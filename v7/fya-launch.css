@@ -1,0 +1,138 @@
+/* FYI case study, layer: Going public. Shell in v7/fyi-around.css.
+   One event on the left (the app's own ticket on black), three printed formats on the right.
+   Register is truth: while a format says what the event says, its colour plates sit in register. */
+#fya-launch{ --fl-c:#22cdf0; --fl-v:#7a2cff; --fl-navy:#15183f; }
+#fya-launch .fl-grid{ display:grid; grid-template-columns:minmax(0,356px) minmax(0,1fr); gap:20px; align-items:stretch; }
+
+/* the source: the event as the app holds it */
+#fya-launch .fl-src{ display:flex; flex-direction:column; padding:28px; }
+#fya-launch .fl-cap{ margin:0 0 10px; font:500 12px/1 var(--fya-mono); letter-spacing:.05em; text-transform:uppercase; color:#b4b4bd; }
+#fya-launch .fl-name{ margin:0 0 22px; font:700 21px/1.15 var(--display); letter-spacing:-.035em; color:#fff; white-space:nowrap; }
+#fya-launch .fx-app.fya-kit{ display:flex; flex-direction:column; flex:1; }
+#fya-launch .fl-tk{ align-self:stretch; width:auto; background:var(--s1); box-shadow:0 0 0 1px rgba(255,255,255,.06); }
+#fya-launch .fl-tk .ps{ height:auto; aspect-ratio:284/176; background-position:50% 0; transition:filter .3s; }
+#fya-launch[data-ps="ink"] .fl-tk .ps{ filter:grayscale(1) contrast(1.2); }
+#fya-launch[data-ps="paper"] .fl-tk .ps{ filter:grayscale(1) sepia(.35) brightness(1.25) contrast(.92); }
+#fya-launch .fl-tk .tt{ min-height:20px; }
+#fya-launch .fl-tk .a-up{ display:inline-block; animation:fl-in .26s both; }
+@keyframes fl-in{ from{ opacity:0; transform:translateY(4px); } }
+#fya-launch .fl-lab{ margin:auto 0 8px; padding-top:24px; font:500 13px/16px var(--fxf); color:var(--t2); }
+#fya-launch .fl-seg{ display:flex; padding:2px; border-radius:10px; background:var(--s2); }
+#fya-launch .fl-seg button{ flex:1; min-height:44px; border:0; border-radius:8px; background:none; color:var(--t2); font:500 14px/1 var(--fxf); cursor:pointer; transition:background .2s, color .2s; }
+#fya-launch .fl-seg button[aria-pressed="true"]{ background:rgba(255,255,255,.92); color:#0b0b0c; font-weight:600; }
+#fya-launch .fl-move{ margin-top:12px; min-height:52px; padding:0 16px; border:0; border-radius:12px; background:var(--fya-pink); color:#fff; font:700 16.5px/1 var(--fxf); cursor:pointer; box-shadow:none; transition:background .25s, transform .2s var(--fya-ease), filter .2s; }
+/* out of date: the next step is Refresh, so going back turns quiet */
+#fya-launch .fl-move.is-quiet{ background:#23242f; }
+#fya-launch .fl-move:hover{ filter:brightness(1.07); } #fya-launch .fl-move:active{ transform:scale(.98); }
+#fya-launch .fl-src :focus-visible{ outline-color:#fff; }
+
+/* the press: a status line that reads the register, then the three sheets */
+#fya-launch .fl-press{ display:flex; flex-direction:column; padding:20px 28px 28px; min-width:0; }
+#fya-launch .fl-bar{ display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:44px; }
+#fya-launch .fl-status{ display:flex; align-items:center; flex-wrap:wrap; gap:4px 12px; margin:0; font:400 15.5px/1.3 var(--body); color:var(--mute); }
+#fya-launch .fl-status b{ font-weight:600; color:var(--head); }
+#fya-launch .fl-reg{ flex:none; width:26px; height:26px; overflow:visible; fill:none; stroke-width:1.5; }
+#fya-launch .fl-reg g{ transition:transform .42s cubic-bezier(.2,.9,.25,1.4); }
+#fya-launch .fl-reg .c{ stroke:var(--fl-c); } #fya-launch .fl-reg .v{ stroke:var(--fl-v); } #fya-launch .fl-reg .k{ stroke:var(--fl-navy); }
+#fya-launch .fl-press.is-out .fl-reg g{ transition:transform .7s cubic-bezier(.3,0,.2,1); }
+#fya-launch .fl-press.is-out .fl-reg .c{ transform:translate(-4px,3px); }
+#fya-launch .fl-press.is-out .fl-reg .v{ transform:translate(4px,-2.5px); }
+#fya-launch .fl-refresh{ flex:none; min-width:108px; background:var(--fya-pink); color:#fff; box-shadow:none; transition:opacity .2s, visibility 0s, transform .2s var(--fya-ease), filter .2s; }
+#fya-launch .fl-refresh:hover{ filter:brightness(1.07); }
+/* in register there is nothing to refresh, so the button is not there. It keeps its place */
+#fya-launch .fl-refresh[disabled]{ visibility:hidden; opacity:0; transition:opacity .2s, visibility 0s .2s; }
+
+#fya-launch .fl-table{ container-type:inline-size; margin-block:auto; display:flex; align-items:end; justify-content:space-between; padding:40px 4px 0; }
+#fya-launch .fl-sheet{ position:relative; flex:none; margin:0; width:calc(var(--w) + 20px); font-size:calc(var(--w) / 20);
+  --cx:-2px; --cy:2px; --vx:2px; --vy:-2px; --pr:0deg; --po:0; --ms:.42s; --me2:cubic-bezier(.2,.9,.25,1.4); }
+#fya-launch .fl-story{ --w:25cqw; --r:-1.5deg; }
+#fya-launch .fl-square{ --w:32cqw; --r:1.2deg; }
+#fya-launch .fl-link{ --w:26.5cqw; --r:-1deg; }
+/* out of date: the plates slip, each sheet its own way */
+#fya-launch .fl-sheet.is-out{ --po:.5; --ms:.7s; --me2:cubic-bezier(.3,0,.2,1); }
+#fya-launch .fl-story.is-out{ --cx:-8px; --cy:5px; --vx:7px; --vy:-6px; --pr:.9deg; }
+#fya-launch .fl-square.is-out{ --cx:-6px; --cy:-7px; --vx:9px; --vy:4px; --pr:-.8deg; }
+#fya-launch .fl-link.is-out{ --cx:8px; --cy:6px; --vx:-7px; --vy:-4px; --pr:.7deg; }
+
+#fya-launch .fl-paper{ padding:10px; background:var(--fya-paper); rotate:var(--r); border-radius:2px;
+  box-shadow:calc(var(--cx) * .7) calc(var(--cy) * .7) 0 var(--fl-c), calc(var(--vx) * .7) calc(var(--vy) * .7) 0 var(--fl-v), 0 1px 2px rgba(23,27,32,.3), 0 26px 34px -18px rgba(23,27,32,.45);
+  transition:box-shadow var(--ms) var(--me2); }
+#fya-launch .fl-face{ position:relative; isolation:isolate; overflow:hidden; display:flex; flex-direction:column; background:var(--g); color:var(--f); transition:background .3s, color .3s;
+  --g:#15183f; --f:#fff; --m:rgba(255,255,255,.74); }
+#fya-launch[data-ps="ink"] .fl-face{ --g:#0b0b0c; --f:#f6efe6; --m:rgba(246,239,230,.72); }
+#fya-launch[data-ps="paper"] .fl-face{ --g:#f6efe6; --f:#15183f; --m:rgba(21,24,63,.74); }
+#fya-launch .fl-story .fl-face{ aspect-ratio:9/16; }
+#fya-launch .fl-square .fl-face{ aspect-ratio:1; }
+#fya-launch .fl-link .fl-face{ aspect-ratio:9/15; }
+
+/* the picture: a key plate and two colour plates that only show when they slip */
+#fya-launch .fl-art{ position:relative; flex:none; overflow:hidden; --img:url(../img/fyi/launch-art.webp); }
+#fya-launch .fl-art i{ position:absolute; inset:0; background:var(--img) var(--bp,60% 0) / cover no-repeat; }
+#fya-launch .fl-art .c, #fya-launch .fl-art .v{ inset:-10px; mix-blend-mode:multiply; opacity:var(--po); background-blend-mode:screen; transition:transform var(--ms) var(--me2), opacity var(--ms); }
+#fya-launch .fl-art .c{ background-image:linear-gradient(var(--fl-c),var(--fl-c)), var(--img); transform:translate(calc(var(--cx) * 1.3), calc(var(--cy) * 1.3)) rotate(var(--pr)); }
+#fya-launch .fl-art .v{ background-image:linear-gradient(var(--fl-v),var(--fl-v)), var(--img); transform:translate(calc(var(--vx) * 1.3), calc(var(--vy) * 1.3)) rotate(calc(var(--pr) * -1)); }
+#fya-launch[data-ps="paper"] .fl-sheet.is-out{ --po:.38; }
+#fya-launch[data-ps="ink"] .fl-art .k{ filter:grayscale(1) contrast(1.25); }
+#fya-launch[data-ps="paper"] .fl-art .k{ background-image:linear-gradient(#15183f,#15183f), var(--img), linear-gradient(#fff,#fff); background-blend-mode:screen, luminosity, normal; mix-blend-mode:multiply; filter:contrast(1.15); }
+#fya-launch .fl-art::after{ content:""; position:absolute; z-index:2; left:0; right:0; bottom:-1px; height:46%; background:linear-gradient(to top, var(--g), transparent); transition:background .3s; }
+#fya-launch .fl-story .fl-art{ height:47%; }
+#fya-launch .fl-square .fl-art{ position:absolute; inset:0 0 34%; --img:url(../img/fyi-door/cover-b.webp); --bp:50% 0; }
+#fya-launch .fl-square .fl-art::after{ height:30%; }
+#fya-launch .fl-link .fl-art{ height:34%; --bp:60% 12%; }
+#fya-launch .fl-link .fl-art::after{ content:none; }
+
+/* the type. Only the big words carry plates, so the small lines stay sharp */
+#fya-launch .fl-ink{ position:relative; z-index:3; flex:1; display:flex; flex-direction:column; align-items:flex-start; padding:0 1.5em 1.5em; font-family:var(--display); text-transform:uppercase; }
+#fya-launch .fl-pl{ text-shadow:var(--cx) var(--cy) 0 var(--fl-c), var(--vx) var(--vy) 0 var(--fl-v); transition:text-shadow var(--ms) var(--me2), box-shadow var(--ms) var(--me2); }
+#fya-launch .fl-t{ margin-top:-1.05em; font:700 3.7em/.88 var(--display); letter-spacing:-.04em; }
+#fya-launch .fl-strip{ margin:.75em 0 0 -.2em; padding:.34em .6em .3em; background:var(--fya-pink); color:#15183f; font:700 1.5em/1 var(--display); letter-spacing:-.02em; rotate:-2.5deg; text-shadow:none; box-shadow:var(--cx) var(--cy) 0 var(--fl-c), var(--vx) var(--vy) 0 var(--fl-v); white-space:nowrap; }
+#fya-launch .fl-when{ display:flex; flex-direction:column; margin-top:auto; padding-top:1em; }
+#fya-launch .fl-when small{ font:700 1.15em/1 var(--display); letter-spacing:.08em; color:var(--fya-pink); }
+#fya-launch[data-ps="paper"] .fl-when small{ color:#d4136f; }
+#fya-launch .fl-when b{ margin-top:.12em; font:700 4em/.95 var(--display); letter-spacing:-.04em; white-space:nowrap; }
+#fya-launch .fl-meta{ margin-top:.75em; font:700 1.18em/1.2 var(--display); letter-spacing:.02em; color:var(--m); white-space:nowrap; transition:color .3s; }
+#fya-launch .fl-end{ margin-top:.3em; color:var(--f); }
+#fya-launch .fl-square .fl-ink{ justify-content:flex-end; padding:0 1.4em 1.4em; font-size:.82em; }
+#fya-launch .fl-square .fl-strip{ margin-top:0; }
+#fya-launch .fl-square .fl-when{ margin-top:.9em; padding-top:0; flex-direction:row; align-items:baseline; gap:.7em; }
+#fya-launch .fl-square .fl-when small{ font-size:1.5em; }
+#fya-launch .fl-square .fl-when b{ font-size:4.9em; line-height:.86; }
+#fya-launch .fl-url{ position:relative; z-index:3; display:flex; align-items:center; height:2.7em; padding:0 1.5em; background:rgba(128,128,140,.2); color:var(--m); font:500 1.08em/1 var(--fya-mono); }
+#fya-launch .fl-link .fl-ink{ padding-top:1.4em; text-transform:none; }
+#fya-launch .fl-lt{ font:700 1.95em/1.08 var(--display); letter-spacing:-.03em; }
+#fya-launch .fl-link .fl-when{ margin-top:auto; text-transform:uppercase; }
+#fya-launch .fl-link .fl-meta{ letter-spacing:0; font-weight:600; }
+#fya-launch .fl-go{ display:flex; align-items:center; gap:1em; margin-top:1.1em; align-self:stretch; }
+#fya-launch .fl-go i{ display:grid; place-items:center; height:2.9em; padding:0 1.5em; border-radius:.6em; background:var(--fya-pink); color:#15183f; font:700 1.2em/1 var(--display); font-style:normal; }
+#fya-launch .fl-go em{ font:600 1.15em/1 var(--display); font-style:normal; color:var(--m); white-space:nowrap; }
+
+/* the slip that marks a sheet, and its name under it */
+#fya-launch .fl-stale{ position:absolute; z-index:4; left:50%; top:-16px; display:grid; place-items:center; height:32px; padding:0 16px; border-radius:6px; background:#fff; color:#15183f; font:700 13.5px/1 var(--body); white-space:nowrap;
+  box-shadow:-2px 1.5px 0 var(--fl-c), 2px -1.5px 0 var(--fya-pink), 0 8px 14px -8px rgba(23,27,32,.5);
+  translate:-50% 0; rotate:-4deg; opacity:0; scale:.6; transition:opacity .16s, scale .16s; pointer-events:none; }
+#fya-launch .fl-sheet.is-out .fl-stale{ opacity:1; scale:1; transition:opacity .2s .3s, scale .34s .3s cubic-bezier(.2,.9,.25,1.5); }
+#fya-launch .fl-sheet figcaption{ margin-top:22px; text-align:center; font:500 12px/1 var(--fya-mono); letter-spacing:.05em; text-transform:uppercase; color:var(--mute); }
+
+@media (max-width:1099px){
+  #fya-launch .fl-grid{ grid-template-columns:minmax(0,300px) minmax(0,1fr); }
+  #fya-launch .fl-src{ padding:24px; } #fya-launch .fl-press{ padding:16px 20px 24px; }
+  #fya-launch .fl-name{ white-space:normal; }
+}
+@media (max-width:859px){
+  #fya-launch .fl-grid{ grid-template-columns:1fr; }
+  #fya-launch .fl-src{ padding:20px; } #fya-launch .fl-lab{ margin-top:0; padding-top:20px; }
+  #fya-launch .fl-tk .ps{ aspect-ratio:284/124; background-image:url(../img/fyi/launch-art.webp); background-position:50% 18%; }
+  #fya-launch .fl-name{ margin-bottom:18px; }
+  #fya-launch .fl-press{ padding:16px 16px 24px; }
+  #fya-launch .fl-table{ flex-wrap:wrap; justify-content:center; gap:0 4cqw; padding:44px 0 0; align-items:end; }
+  #fya-launch .fl-story{ --w:36cqw; } #fya-launch .fl-link{ --w:36cqw; order:2; }
+  #fya-launch .fl-link .fl-face{ aspect-ratio:9/16; }
+  #fya-launch .fl-square{ --w:56cqw; order:3; margin-top:34px; }
+  #fya-launch .fl-sheet figcaption{ margin-top:18px; }
+}
+@media (max-width:480px){
+  #fya-launch .fl-status{ flex:1; min-width:0; display:grid; grid-template-columns:auto minmax(0,1fr); gap:2px 12px; font-size:14.5px; }
+  #fya-launch .fl-reg{ grid-row:1 / span 2; align-self:center; }
+  #fya-launch .fl-refresh{ min-width:96px; }
+  #fya-launch .fl-stale{ height:30px; padding:0 16px; font-size:13px; }
+}

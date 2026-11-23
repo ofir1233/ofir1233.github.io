@@ -1,0 +1,62 @@
+/* FYI case study, the layers around the app (24.11.2026): the reason, the structure, the colour, the kit, the cast, the launch.
+   Normal-flow sections after the story. This sheet is the shared shell; each layer has its own sheet (v7/fya-*.css).
+   Every rule starts with .fya so nothing here reaches the story above. */
+.fya{ position:relative; z-index:3; background:var(--ground); color:var(--text);
+  --fya-pink:#ff2d8f; --fya-cyan:#22cdf0; --fya-violet:#7a2cff; --fya-navy:#15183f; --fya-lilac:#c9b8ff;
+  --fya-black:#05050a; --fya-s1:#15161f; --fya-card:#fff; --fya-rim:#e6e5e1; --fya-paper:#f7f3ea;
+  --fya-ease:cubic-bezier(.2,.8,.2,1); --fya-mono:"Geist Mono",ui-monospace,Menlo,monospace;
+  --fya-print:-2.5px 2px 0 rgba(34,205,240,.8), 2.5px -2px 0 rgba(255,45,143,.75), 0 1px 2px rgba(23,27,32,.3), 0 26px 34px -18px rgba(23,27,32,.45); }
+.fya, .fya *, .fya *::before, .fya *::after{ box-sizing:border-box; }
+.fya-sec{ position:relative; padding:clamp(80px,8.5vw,120px) 0 0; scroll-margin-top:40px; }
+.fya-sec:last-child{ padding-bottom:clamp(80px,8.5vw,120px); }
+.fya-sec > .wrap{ position:relative; }
+
+/* a layer's head: its name, the claim, and beside it two sentences */
+.fya-head{ display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:20px clamp(32px,6vw,96px); align-items:start; margin:0 0 clamp(36px,4.4vw,56px); }
+.fya-kick{ margin:0 0 18px; font:600 16px/1.2 var(--body); color:var(--ink); }
+.fya-kick span{ color:var(--mute); font-weight:500; }
+.fya-head h2{ margin:0; font:700 clamp(34px,3.9vw,52px)/1.04 var(--display); letter-spacing:-.04em; color:var(--head); text-wrap:balance; }
+.fya-lede{ margin:0; max-width:46ch; font:400 19px/1.5 var(--body); color:var(--text); text-wrap:pretty; }
+.fya-lede + .fya-lede{ margin-top:12px; }
+/* beside the heading, the lede starts on the heading's first line, under the kicker's height */
+.fya-head > .fya-lede, .fya-head > div:last-child:not(:first-child){ padding-top:45px; }
+
+/* surfaces: a white card for explanations, true black for anything that is the app, cream paper for anything printed */
+.fya-card{ background:var(--fya-card); border-radius:20px; box-shadow:0 0 0 1px var(--fya-rim); }
+.fya-black{ background:var(--fya-black); border-radius:20px; color:#fff; box-shadow:0 30px 50px -34px rgba(23,27,32,.5); }
+.fya-paper{ background:var(--fya-paper); color:var(--fya-navy); box-shadow:var(--fya-print); }
+
+/* small parts */
+.fya-tag{ display:inline-flex; align-items:center; min-height:26px; padding:0 9px; border-radius:6px; background:rgba(23,27,32,.06); color:var(--ink); font:500 12px/1 var(--fya-mono); letter-spacing:.05em; text-transform:uppercase; white-space:nowrap; }
+.fya-note{ margin:0; font:400 15.5px/1.5 var(--body); color:var(--mute); }
+.fya-h3{ margin:0; font:700 clamp(22px,2vw,27px)/1.12 var(--display); letter-spacing:-.03em; color:var(--head); }
+.fya-p{ margin:0; font:400 17px/1.5 var(--body); color:var(--text); }
+.fya-btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 18px; border:0; border-radius:10px; background:var(--ink); color:#fff; font:600 15.5px/1 var(--body); cursor:pointer; transition:background .2s, transform .2s var(--fya-ease); }
+.fya-btn:hover{ background:#2a3038; } .fya-btn:active{ transform:scale(.98); }
+.fya-btn.quiet{ background:rgba(23,27,32,.07); color:var(--ink); } .fya-btn.quiet:hover{ background:rgba(23,27,32,.12); }
+.fya-btn[disabled]{ background:none; color:var(--mute); box-shadow:inset 0 0 0 1px var(--fya-rim); cursor:default; }
+.fya :focus-visible{ outline:2px solid var(--fya-pink); outline-offset:3px; }
+
+/* the app's own parts shown outside the phone: the kit's tokens come from .fx-app, the tile supplies the black */
+.fya .fx-app.fya-kit{ position:relative; inset:auto; overflow:visible; background:none; user-select:none; }
+
+/* the six layers, named once under the story */
+.fya-open{ padding-top:clamp(72px,9vw,128px); }
+.fya-open .fya-head{ margin-bottom:40px; }
+.fya-idx{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:10px; margin:0; padding:0; list-style:none; }
+.fya-idx li{ display:flex; }
+.fya-idx a{ flex:1; display:flex; flex-direction:column; gap:26px; min-height:124px; padding:16px 16px 15px; border-radius:14px; background:#fff; box-shadow:0 0 0 1px var(--fya-rim); color:var(--head); text-decoration:none; transition:transform .35s var(--fya-ease), box-shadow .35s var(--fya-ease); }
+.fya-idx a i{ font:500 12px/1 var(--fya-mono); letter-spacing:.05em; color:var(--mute); font-style:normal; }
+.fya-idx a b{ font:700 19px/1.1 var(--display); letter-spacing:-.03em; }
+.fya-idx a span{ margin-top:auto; font:400 14.5px/1.35 var(--body); color:var(--text); }
+.fya-idx a b + span{ margin-top:-18px; }
+@media (hover:hover){ .fya-idx a:hover{ transform:translateY(-4px) rotate(-1deg); box-shadow:0 0 0 1px var(--fya-rim), var(--fya-print); } }
+
+@media (max-width:1099px){ .fya-idx{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media (max-width:899px){
+  .fya-head{ grid-template-columns:1fr; align-items:start; }
+  .fya-head > .fya-lede, .fya-head > div:last-child:not(:first-child){ padding-top:0; }
+  .fya-lede{ font-size:17.5px; }
+}
+@media (max-width:560px){ .fya-idx{ grid-template-columns:repeat(2,minmax(0,1fr)); } .fya-idx a{ min-height:112px; } }
+@media (prefers-reduced-motion:reduce){ .fya *, .fya *::before, .fya *::after{ transition-duration:.01ms !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; } }

@@ -1,0 +1,138 @@
+/* FYI case study, layer: The kit. Shell in v7/fyi-around.css.
+   A wall of black tiles on the light ground. Each tile holds one real component of the app (the a-* kit from
+   work/fyi-live.css, built by FX.k) at its true size, with its name and its state under it. One control above the wall
+   sets every part to the same state, tile after tile. */
+
+/* the master control: one row of three states. It stays in reach while the wall scrolls under it */
+#fya-kit .fyak-bar{ position:sticky; top:80px; z-index:4; display:flex; align-items:center; gap:16px; margin:-8px 0 12px; padding:8px 0; background:var(--ground); }
+#fya-kit .fyak-bar-l{ margin:0; font:500 15.5px/1.2 var(--body); color:var(--mute); }
+#fya-kit .fyak-seg{ display:inline-flex; gap:2px; padding:4px; border-radius:12px; background:rgba(23,27,32,.07); }
+#fya-kit .fyak-seg button{ min-width:92px; min-height:44px; padding:0 18px; border:0; border-radius:9px; background:none; color:var(--ink); font:600 15.5px/1 var(--body); cursor:pointer; transition:background .22s, color .22s; }
+#fya-kit .fyak-seg button[aria-pressed="true"]{ background:var(--ink); color:#fff; }
+@media (hover:hover){ #fya-kit .fyak-seg button[aria-pressed="false"]:hover{ background:rgba(23,27,32,.08); } }
+
+/* the wall: equal gutters, every label on the same line as its neighbours */
+#fya-kit .fyak-wall{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px 16px; }
+#fya-kit .fyak-t{ display:flex; flex-direction:column; gap:12px; min-width:0; margin:0; }
+#fya-kit .fyak-tall{ grid-column:3; grid-row:1 / span 2; }
+#fya-kit .fyak-tile{ flex:1; display:grid; place-items:center; min-height:208px; padding:24px 16px; box-shadow:none; }
+#fya-kit figcaption{ display:flex; align-items:baseline; gap:10px; padding:0; font:400 15.5px/1.3 var(--body); color:var(--mute); }
+#fya-kit figcaption b{ font-weight:600; color:var(--ink); }
+#fya-kit .fyak-s.fyak-in{ animation:fyak-word .32s var(--fya-ease) both; }
+@keyframes fyak-word{ from{ opacity:0; transform:translateY(4px); } }
+
+/* a part: built at the phone's size, then enlarged to fill its tile */
+#fya-kit .fyak-c{ width:290px; max-width:100%; zoom:1.25; }
+#fya-kit .fyak-tall .fyak-c{ width:280px; }
+#fya-kit .fyak-col{ position:relative; }
+#fya-kit .fyak-c > *, #fya-kit .fyak-col > *{ margin:0; max-width:none; }
+/* the parts wake one after another the first time the wall is seen */
+#fya-kit.fyak-pre .fyak-c{ opacity:0; transform:translateY(10px) scale(.985); }
+#fya-kit .fyak-c{ transition:opacity .5s linear, transform .7s var(--fya-ease); transition-delay:calc(var(--i,0) * 90ms); }
+
+/* real buttons wear the kit's classes: only the browser's own button look is removed (zero weight, so the kit still wins) */
+:where(#fya-kit .fyak-c) button{ -webkit-appearance:none; appearance:none; margin:0; padding:0; border:0; background:none; color:inherit; font:inherit; letter-spacing:inherit; text-align:inherit; cursor:pointer; }
+#fya-kit .fyak-c button{ position:relative; -webkit-tap-highlight-color:transparent; }
+#fya-kit .fyak-c button::before{ content:""; position:absolute; inset:-7px; }
+#fya-kit .fyak-c .a-segc button::before{ inset:-7px 0; }
+#fya-kit .fyak-c .a-poll .r::before, #fya-kit .fyak-c .a-file::before{ content:none; }
+#fya-kit .fyak-c :focus-visible{ outline:2px solid #fff; outline-offset:3px; }
+
+/* voice note and its transcript */
+#fya-kit .a-voice .pl{ transition:transform .2s var(--fya-ease); }
+#fya-kit .a-voice .pl:active{ transform:scale(.92); }
+#fya-kit .a-tr{ position:absolute; right:0; top:100%; margin-top:4px; transition:opacity .3s linear, transform .5s var(--fya-ease); }
+#fya-kit [data-s="0"] .a-tr, #fya-kit [data-s="1"] .a-tr{ opacity:0; transform:translateY(-6px); }
+
+/* poll */
+#fya-kit .a-poll{ width:100%; }
+#fya-kit .a-poll .r{ width:100%; }
+#fya-kit .a-poll .r .a-stack{ min-height:22px; }
+#fya-kit .a-poll .r .v{ min-width:10px; text-align:right; }
+
+/* ticket: Going is yours to press, the Public slip prints when the event is public */
+#fya-kit .a-tk{ align-self:auto; }
+#fya-kit .a-tk .ps{ height:316px; }
+#fya-kit .a-tk .cnt{ white-space:nowrap; }
+#fya-kit .a-tk .cnt .a-stack .a-av{ transition:none; }
+#fya-kit .a-go, #fya-kit .a-may{ padding:0 12px; transition:background .2s, color .2s, box-shadow .2s; }
+#fya-kit .a-go[aria-pressed="false"]{ background:none; box-shadow:inset 0 0 0 1px rgba(255,255,255,.22); }
+#fya-kit .a-go[aria-pressed="false"] .i{ display:none; }
+#fya-kit .a-may[aria-pressed="true"]{ background:rgba(255,255,255,.92); color:#0b0b0c; box-shadow:none; }
+#fya-kit .a-pub{ transition:opacity .2s linear, transform .45s cubic-bezier(.2,.8,.2,1.3); }
+#fya-kit .a-pub.off{ opacity:0; transform:translateY(-8px) scale(1.25); }
+#fya-kit .a-tk .tt{ min-height:20px; white-space:nowrap; }
+
+/* task: the chip and the status control that moves it */
+#fya-kit .fyak-task{ display:grid; justify-items:start; gap:22px; }
+#fya-kit .a-chip{ margin:0; height:32px; transition:box-shadow .3s; }
+#fya-kit .a-chip .ck{ transition:background .3s, box-shadow .3s; }
+#fya-kit .a-segc{ width:100%; }
+#fya-kit .a-segc button{ flex:1; display:flex; }
+#fya-kit .a-segc span{ transition:background .2s, color .2s; }
+
+/* AI card: one height in every state, so the tile never jumps */
+#fya-kit .a-ai{ width:100%; }
+#fya-kit .fyak-aib{ display:flex; flex-direction:column; height:142px; }
+#fya-kit .fyak-aib p{ margin:0; }
+#fya-kit .fyak-aib .acts{ margin-top:auto; }
+#fya-kit .st-think i{ animation:fx-dot 1.2s infinite ease-in-out; }
+#fya-kit .st-think i:nth-child(2){ animation-delay:.15s; } #fya-kit .st-think i:nth-child(3){ animation-delay:.3s; }
+#fya-kit .a-src{ transition:opacity .3s linear; }
+#fya-kit .a-src.wait{ opacity:0; }
+#fya-kit .is-streaming::after{ animation-iteration-count:3; }
+
+/* composer: out of the phone it is a bar of its own, with the sent message above it */
+#fya-kit .fyak-slot{ position:absolute; right:0; bottom:100%; display:flex; justify-content:flex-end; width:100%; margin-bottom:12px; }
+#fya-kit .fyak-slot .a-b{ max-width:100%; animation:fyak-up .4s var(--fya-ease) both; }
+#fya-kit .a-comp{ position:relative; inset:auto; z-index:auto; width:100%; height:auto; padding:8px 10px; align-items:center; border-radius:14px; box-shadow:inset 0 0 0 1px rgba(255,255,255,.07); }
+#fya-kit .a-comp .in:focus-within{ box-shadow:inset 0 0 0 1px rgba(255,255,255,.5); }
+#fya-kit .a-comp input.tx{ width:100%; padding:0; border:0; outline:0; background:none; color:inherit; font:inherit; letter-spacing:inherit; -webkit-user-select:text; user-select:text; }
+#fya-kit .a-comp input.tx::placeholder{ color:var(--t2); opacity:1; }
+#fya-kit .a-comp .mc{ transition:background .2s; }
+#fya-kit .a-comp .in:has(input:not(:placeholder-shown)) .i{ display:none; }
+#fya-kit .fyak-col{ transition:transform .4s var(--fya-ease); }
+#fya-kit .fyak-col:has(.fyak-slot > *){ transform:translateY(25px); }
+#fya-kit [data-k="voice"][data-s="2"] .fyak-col{ transform:translateY(-33px); }
+@keyframes fyak-up{ from{ opacity:0; transform:translateY(14px) scale(.96); } }
+
+/* file */
+#fya-kit .a-file{ width:100%; }
+#fya-kit .a-file .fyak-fb{ flex:1; min-width:0; }
+#fya-kit .a-file .fn, #fya-kit .a-file .fm{ display:block; }
+#fya-kit .a-file .ring circle{ transition:stroke-dashoffset var(--d,0s) cubic-bezier(.4,.1,.3,1), opacity .3s linear; }
+#fya-kit .a-file .tm{ position:absolute; float:none; top:auto; right:12px; bottom:9px; margin:0; transition:opacity .25s linear; }
+#fya-kit .a-file:not(.sent) .tm{ opacity:0; }
+#fya-kit .a-file.sent .ring circle, #fya-kit [data-s="0"] .a-file .ring circle{ opacity:0; }
+
+/* switches: the rows of an event's settings */
+#fya-kit .fyak-set{ display:grid; gap:8px; }
+#fya-kit .fyak-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:56px; padding:0 14px 0 16px; border-radius:10px; background:var(--s1); box-shadow:inset 0 0 0 1px rgba(255,255,255,.06); font:500 17px/22px var(--fxf); }
+
+@media (min-width:1280px){
+  #fya-kit .fyak-c{ width:272px; }
+  #fya-kit [data-k="voice"] .fyak-c{ width:290px; zoom:1.17; }
+  #fya-kit .fyak-tall .fyak-c{ width:280px; zoom:1.2; }
+}
+@media (max-width:1279px){
+  #fya-kit .fyak-wall{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #fya-kit .fyak-tall{ grid-column:2; grid-row:2 / span 2; }
+  #fya-kit .fyak-wide{ grid-column:1 / -1; }
+}
+@media (max-width:899px){
+  #fya-kit .fyak-wall{ grid-template-columns:minmax(0,1fr); gap:22px; }
+  #fya-kit .fyak-tall, #fya-kit .fyak-wide{ grid-column:auto; grid-row:auto; }
+}
+@media (max-width:699px){
+  #fya-kit .fyak-bar{ top:60px; flex-direction:column; align-items:stretch; gap:10px; }
+  #fya-kit .fyak-seg{ display:flex; }
+  #fya-kit .fyak-seg button{ flex:1; min-width:0; padding:0 8px; }
+  #fya-kit .fyak-tile{ padding:28px 16px; }
+  #fya-kit .fyak-c{ zoom:1.1; }
+}
+@media (max-width:379px){ #fya-kit .fyak-c{ zoom:1; } }
+@media (prefers-reduced-motion:reduce){
+  #fya-kit.fyak-pre .fyak-c{ opacity:1; transform:none; }
+  #fya-kit .st-think i, #fya-kit .knot.think .o1, #fya-kit .knot.think .o2, #fya-kit .is-streaming::after, #fya-kit .fyak-s.fyak-in{ animation:none; }
+  #fya-kit .fyak-col{ transition:none; }
+}

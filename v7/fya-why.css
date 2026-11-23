@@ -1,0 +1,93 @@
+/* FYI case study, layer: The reason. Shell in v7/fyi-around.css.
+   Nine things a crew needs lie loose on the ground. One button gathers them into a single thread on black, and can scatter them again.
+   Without script the thread is simply shown gathered. */
+/* two columns on the head's own grid: the stage under the h2, the button and the roles under the lede. Both start at the top */
+#fya-why .fyw{ display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); grid-template-rows:auto 1fr; grid-template-areas:"stage ctl" "stage who"; align-items:start; gap:32px clamp(32px,6vw,96px); }
+#fya-why .fyw-ctl{ grid-area:ctl; min-height:48px; justify-self:start; }
+#fya-why .fyw-stage{ grid-area:stage; position:relative; display:flex; justify-content:flex-start; padding:0 0 10px var(--fyw-in,104px); }
+#fya-why .fyw-who{ grid-area:who; }
+
+/* the one control. While it waits to play by itself, a line fills along its foot */
+#fya-why .fyw-go{ position:relative; overflow:hidden; min-height:48px; padding:0 22px; }
+#fya-why .fyw-go::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--fya-pink); transform:scaleX(0); transform-origin:0 50%; }
+#fya-why .fyw-go.arm::after{ transform:scaleX(1); transition:transform 1.6s linear; }
+
+/* the thread: a black tile whose black is a layer of its own, so the parts can leave it */
+#fya-why .fyw-tile{ position:relative; width:360px; max-width:100%; padding:14px 16px 20px; font-family:var(--fxf); }
+#fya-why .fyw-tile::before{ content:""; position:absolute; inset:0; border-radius:24px; background:var(--fya-black); box-shadow:0 30px 50px -34px rgba(23,27,32,.5); transition:opacity .45s ease, transform .7s var(--fya-ease); }
+#fya-why .fyw-hd{ position:relative; display:flex; align-items:center; gap:10px; margin:0 -16px 12px; padding:0 16px 12px; border-bottom:1px solid rgba(255,255,255,.09); transition:opacity .45s ease; }
+#fya-why .fyw-hd .a-pj{ width:30px; height:30px; font-size:12px; }
+#fya-why .fyw-hd div{ display:grid; gap:1px; }
+#fya-why .fyw-hd b{ font:600 13.5px/17px var(--fxf); color:#fff; }
+#fya-why .fyw-hd div span{ font:400 11px/14px var(--fxf); color:var(--t2); }
+#fya-why .fyw-thread{ position:relative; display:flex; flex-direction:column; gap:8px; }
+
+/* one part: the real component at 74%, with a loose black back that shows only while it lies alone */
+#fya-why .fyw-it{ --sx:0px; --sy:0px; --sr:0deg; --ss:1; position:relative; isolation:isolate; width:fit-content; max-width:100%; transition:transform .95s var(--fya-ease) var(--d,0ms); }
+#fya-why .fyw-it.r{ margin-left:auto; }
+#fya-why .fyw-it.w{ width:100%; }
+#fya-why .fyw-it::before{ content:""; position:absolute; z-index:-1; inset:-10px; border-radius:14px; background:var(--fya-black); box-shadow:var(--fya-print); opacity:0; transition:opacity .4s ease var(--d,0ms); }
+#fya-why .fyw-k{ zoom:.72; }
+#fya-why .fyw-k > *{ margin:0; }
+#fya-why .fyw-k .a-b{ max-width:none; }
+#fya-why .fyw-k .a-b[data-w]{ margin-left:36px; }
+#fya-why .fyw-k .a-tk .ps{ height:104px; }
+#fya-why .fyw-k .a-poll .r{ height:40px; }
+#fya-why .fyw-k .a-ai li{ font-size:15px; }
+#fya-why .fyw-k .a-tk .cnt{ white-space:nowrap; }
+
+/* its name: a callout beside the thread, or a caption under the loose part */
+#fya-why .fyw-lb{ position:absolute; top:50%; right:calc(100% + 16px); padding-right:42px; translate:0 -50%; font:500 12px/1 var(--fya-mono); letter-spacing:.05em; text-transform:uppercase; color:var(--ink); white-space:nowrap; transition:opacity .4s ease; }
+#fya-why .fyw-lb::after{ content:""; position:absolute; top:50%; right:8px; width:26px; height:1px; background:#b9b6ae; transform-origin:100% 50%; transition:transform .45s var(--fya-ease) .12s; }
+#fya-why .fyw-it.r .fyw-lb{ right:auto; left:calc(100% + 16px); padding:0 0 0 42px; }
+#fya-why .fyw-it.r .fyw-lb::after{ right:auto; left:8px; transform-origin:0 50%; }
+#fya-why .fyw.fly .fyw-lb{ opacity:0; transition-duration:.14s; }
+#fya-why .fyw.fly .fyw-lb::after{ transform:scaleX(0); transition:none; }
+
+#fya-why .fyw[data-state="scatter"] .fyw-tile::before{ opacity:0; transform:scale(.94); }
+#fya-why .fyw[data-state="scatter"] .fyw-hd{ opacity:0; }
+#fya-why .fyw[data-state="scatter"] .fyw-it{ transform:translate(var(--sx),var(--sy)) rotate(var(--sr)) scale(var(--ss)); }
+#fya-why .fyw[data-state="scatter"] .fyw-it::before{ opacity:1; }
+#fya-why .fyw[data-state="scatter"] .fyw-lb,
+#fya-why .fyw[data-state="scatter"] .fyw-it.r .fyw-lb{ top:calc(100% + 10px + 9px / var(--ss)); left:-10px; right:auto; padding:0; translate:none; font-size:calc(12px / var(--ss)); color:var(--mute); }
+#fya-why .fyw[data-state="scatter"] .fyw-lb::after{ content:none; }
+#fya-why .fyw.still .fyw-it, #fya-why .fyw.still .fyw-it::before, #fya-why .fyw.still .fyw-tile::before, #fya-why .fyw.still .fyw-hd, #fya-why .fyw.still .fyw-lb{ transition:none !important; }
+
+/* who it is for: the four roles, said quietly */
+#fya-why .fyw-wh{ margin:0 0 14px; font:600 16px/1.2 var(--body); color:var(--ink); }
+#fya-why .fyw-wh span{ display:block; margin-top:3px; text-wrap:balance; color:var(--mute); font-weight:500; }
+#fya-why .fyw-who ul{ margin:0; padding:0; list-style:none; }
+#fya-why .fyw-who li{ display:flex; gap:16px; align-items:flex-start; padding:24px 0; border-top:1px solid var(--line); }
+#fya-why .fyw-who li:first-child{ border-top:0; }
+#fya-why .fyw-who li:last-child{ padding-bottom:0; }
+#fya-why .fyw-who img{ flex:none; width:56px; height:56px; border-radius:50%; object-fit:cover; background:#e6e5e1; }
+#fya-why .fyw-who b{ font:600 16.5px/1.3 var(--body); color:var(--head); }
+#fya-why .fyw-who div span{ margin-left:8px; font:400 15.5px/1.3 var(--body); color:var(--mute); }
+#fya-why .fyw-who li p{ margin:4px 0 0; font:400 15.5px/1.45 var(--body); color:var(--text); }
+
+@media (max-width:1279px){
+  #fya-why .fyw-tile{ width:314px; }
+}
+@media (max-width:1139px){
+  #fya-why .fyw{ grid-template-columns:1fr; grid-template-rows:auto; grid-template-areas:"ctl" "stage" "who"; gap:24px; }
+  #fya-why .fyw-stage{ justify-content:center; padding-left:0; }
+  #fya-why .fyw-who{ margin-top:16px; }
+}
+@media (min-width:700px) and (max-width:1139px){
+  #fya-why .fyw-who ul{ display:grid; grid-template-columns:1fr 1fr; column-gap:clamp(32px,6vw,96px); }
+  #fya-why .fyw-who li:nth-child(2){ border-top:0; }
+  #fya-why .fyw-who li:last-child{ padding-bottom:24px; }
+}
+@media (max-width:699px){
+  #fya-why .fyw:not([data-state="scatter"]) .fyw-lb{ display:none; }
+}
+@media (max-width:559px){
+  #fya-why .fyw-ctl{ justify-self:stretch; }
+  #fya-why .fyw-go{ width:100%; }
+  #fya-why .fyw-tile{ width:100%; max-width:358px; padding:14px 14px 18px; }
+  #fya-why .fyw-hd{ margin:0 -14px 12px; padding:0 14px 12px; }
+  #fya-why .fyw-k{ zoom:.84; }
+  #fya-why .fyw-who li{ padding:18px 0; gap:14px; }
+  #fya-why .fyw-who img{ width:48px; height:48px; }
+  #fya-why .fyw-who div span{ display:block; margin:1px 0 0; }
+}

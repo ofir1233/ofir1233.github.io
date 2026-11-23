@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>/* a page opens at its top: a reload or a reopened tab never lands mid-page. A link to a #section still lands on it, then the address drops the #section so the next visit starts at the top. Back still returns to where the reader was */
+(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{},h=history,de=document.documentElement,moved=false,
+strip=function(){if(location.hash)h.replaceState(h.state,'',location.pathname+location.search);};
+if(n.type!=='back_forward'){
+if('scrollRestoration' in h)h.scrollRestoration='manual';
+if(location.hash&&n.type==='reload')strip();
+if(!location.hash){['wheel','touchstart','keydown','mousedown'].forEach(function(t){addEventListener(t,function(){moved=true;},{passive:true,once:true});});
+var top=function(){if(moved||!scrollY)return;var b=de.style.scrollBehavior;de.style.scrollBehavior='auto';scrollTo(0,0);de.style.scrollBehavior=b;};
+top();document.addEventListener('DOMContentLoaded',top);addEventListener('load',top);}
+addEventListener('load',function(){setTimeout(function(){if('scrollRestoration' in h)h.scrollRestoration='auto';strip();},700);});}
+addEventListener('hashchange',function(){setTimeout(strip,0);});
+addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
+}catch(e){}})();</script>
+<title>FYI layer harness</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="FYI (Focus Your Ideas) is a messenger for creators that Ofir Nona designed at Intune, before Hear. It did not launch. This case study follows one crew from a voice note to a full room, on a live, coded phone.">
+<meta name="theme-color" content="#f4f3f1">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ofir1233.github.io/work/fyi.html">
+<meta property="og:title" content="FYI · Ofir Nona">
+<meta property="og:description" content="FYI (Focus Your Ideas) is a messenger for creators that Ofir Nona designed at Intune, before Hear. It did not launch. This case study follows one crew from a voice note to a full room, on a live, coded phone.">
+<meta name="twitter:card" content="summary">
+<script>document.documentElement.classList.add('js');try{var t='light',m=document.querySelector('meta[name="theme-color"]');document.documentElement.dataset.theme=t;if(m)m.content=t==='dark'?'#101614':'#f3f4f2';}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>/* the 3D phone only where it can run well: a wide screen, WebGL, and motion allowed */
+(function(){try{var d=document.documentElement,ok=matchMedia('(min-width: 1000px) and (min-height: 600px)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!/[?&]flat\b/.test(location.search);
+if(ok){var c=document.createElement('canvas');ok=!!(window.WebGL2RenderingContext&&c.getContext('webgl2'));}
+if(ok)d.classList.add('ot-3d');}catch(e){}})();</script>
+<link rel="stylesheet" href="case.css?v=201">
+<link rel="stylesheet" href="../v7/foot.css?v=200">
+<link rel="stylesheet" href="fyi-live.css?v=9">
+<link rel="stylesheet" href="fyi.css?v=5">
+<link rel="stylesheet" href="../v7/font.css?v=3">
+<link rel="stylesheet" href="../v7/case.css?v=41">
+<link rel="stylesheet" href="../v7/fyi-take.css?v=9">
+<link rel="stylesheet" href="../v7/fyi-around.css?v=1">
+<link rel="stylesheet" href="../v7/fya-map.css?v=6">
+</head>
+<body class="fyi-page ot-page">
+<main id="main" class="ot">
+<div class="fya" id="around">
+<!-- FRAG:START -->
+<section class="fya-sec" id="fya-map">
+  <div class="wrap">
+    <div class="fya-head"><div><p class="fya-kick">The structure</p><h2>Everything points back to a message.</h2></div><p class="fya-lede">A task, a vote, an event and its poster all begin in the chat. Choose any piece and follow the line back.</p></div>
+    <div class="fym fya-card">
+      <div class="fym-say" aria-live="polite">
+        <span class="fya-tag fym-who">08 · Formats</span>
+        <p class="fym-rule">Formats are views of the event. A change to the event flags every one.</p>
+        <span class="fym-hops">Step 8 of 8</span>
+        <i class="fym-clock" aria-hidden="true"><b></b></i>
+      </div>
+      <div class="fym-map">
+        <div class="fym-crew fya-black">
+          <span class="fym-ring">The crew</span>
+          <div class="fym-row">
+            <button type="button" class="fym-n" data-i="0" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab"><i>01</i>Voice note</span><span class="fym-r">The idea starts as a voice note in the chat.</span><span class="fym-mini" data-m="voice" aria-hidden="true"></span></button>
+            <button type="button" class="fym-n" data-i="1" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab"><i>02</i>Transcript</span><span class="fym-r">A transcript arrives with the voice note. The audio stays the source.</span><span class="fym-mini" data-m="tr" aria-hidden="true"></span></button>
+            <button type="button" class="fym-n fym-you" data-i="2" aria-pressed="false"><span class="fym-ring">Only you</span><span class="fym-dot"></span><span class="fym-lab"><i>03</i>Private catch-up</span><span class="fym-r">Every line of a catch-up points to the message it came from.</span><span class="fym-mini" data-m="ai" aria-hidden="true"></span></button>
+          </div>
+          <div class="fym-row fym-rev">
+            <button type="button" class="fym-n" data-i="3" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab"><i>04</i>Task</span><span class="fym-r">A task starts from the message that asked for it.</span><span class="fym-mini" data-m="task" aria-hidden="true"></span></button>
+            <button type="button" class="fym-n" data-i="4" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab"><i>05</i>Vote on covers</span><span class="fym-r">The crew votes in the chat, and the winning cover goes into the event.</span><span class="fym-mini" data-m="poll" aria-hidden="true"></span></button>
+            <button type="button" class="fym-n" data-i="5" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab"><i>06</i>Event draft</span><span class="fym-r">The event is drafted from the chat, and a person checks it first.</span><span class="fym-mini" data-m="event" aria-hidden="true"></span></button>
+          </div>
+        </div>
+        <div class="fym-row fym-out">
+          <button type="button" class="fym-n" data-i="6" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab"><i>07</i>Public event page</span><span class="fym-r">The page goes public only when a host turns it on.</span>
+            <span class="fym-mini" aria-hidden="true"><span class="fym-page fya-paper"><span class="fym-ps"></span><span class="fym-pt"><b>Copper Hours: Launch Night</b><span>Fri, Nov 20 · Doors 9 PM</span><span>Dock Hall 3</span><code>fyi/e/copper-hours</code></span></span></span></button>
+          <button type="button" class="fym-n fym-wide" data-i="7" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab"><i>08</i>Formats</span><span class="fym-r">Formats are views of the event. A change to the event flags every one.</span>
+            <span class="fym-mini" aria-hidden="true"><span class="fym-fs"><span class="fym-f s9"><span class="fya-paper"><span class="fym-ps"></span></span><em>Story 9:16</em></span><span class="fym-f s1"><span class="fya-paper"><span class="fym-ps"></span></span><em>Square post 1:1</em></span><span class="fym-f lp"><span class="fya-paper"><span class="fym-ps"></span><u></u><u></u><s></s></span><em>Link page</em></span></span></span></button>
+          <span class="fym-ring">Public</span>
+        </div>
+        <svg class="fym-rail" aria-hidden="true" focusable="false"><path class="b"/><path class="p"/></svg>
+      </div>
+    </div>
+    <div class="fym-nav">
+      <figure class="fym-nv"><div class="fya-black"><div class="fx-app fx-static fya-kit" data-m="tabs"></div></div><figcaption><b>Five tabs.</b> Chats come first, and Settings sit behind your avatar.</figcaption></figure>
+      <figure class="fym-nv"><div class="fya-black"><div class="fx-app fx-static fya-kit" data-m="thread"></div></div><figcaption><b>Three tabs in a thread.</b> The chat, its tasks and the project.</figcaption></figure>
+    </div>
+  </div>
+</section>
+<!-- FRAG:END -->
+</div>
+</main>
+<script src="fyi-live.js?v=4"></script>
+<script src="fyi-scenes.js?v=7"></script>
+<script src="../v7/fya-map.js?v=5"></script>
+</body>
+</html>

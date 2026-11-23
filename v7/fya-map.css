@@ -1,0 +1,132 @@
+/* FYI case study, layer: The structure. Shell in v7/fyi-around.css.
+   One chain drawn as a line through eight true pieces, inside three rings of who can see: Public > The crew > Only you.
+   Choosing a piece runs the line back to the first stop in pink (v7/fya-map.js). */
+#fya-map .fym{ padding:20px; --z:.86; --rail:#8b8e98; }
+
+/* the rule of the chosen piece: fixed height, so nothing below moves when it changes */
+#fya-map .fym-say{ position:relative; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:20px; height:66px; padding:0 16px 18px; }
+#fya-map .fym-who{ background:var(--ink); color:#fff; }
+#fya-map .fym-rule{ margin:0; font:700 clamp(19px,1.6vw,22px)/1.15 var(--display); letter-spacing:-.03em; color:var(--head); transition:opacity .15s linear; }
+#fya-map .fym-hops{ font:500 12px/1 var(--fya-mono); letter-spacing:.05em; text-transform:uppercase; color:var(--mute); white-space:nowrap; transition:opacity .15s linear; }
+#fya-map .fym-say.swap .fym-rule, #fya-map .fym-say.swap .fym-hops{ opacity:0; }
+/* the walk's clock: it fills while a piece is held, so the next change is never a surprise */
+#fya-map .fym-clock{ position:absolute; left:16px; right:16px; bottom:8px; height:2px; border-radius:2px; background:rgba(23,27,32,.08); overflow:hidden; opacity:0; transition:opacity .3s; }
+#fya-map .fym-clock b{ display:block; height:100%; background:var(--fya-pink); transform-origin:0 50%; transform:scaleX(0); }
+#fya-map .fym.auto .fym-clock{ opacity:1; }
+#fya-map .fym.auto .fym-clock.go b{ animation:fym-clock 3.6s linear forwards; }
+@keyframes fym-clock{ to{ transform:scaleX(1); } }
+
+/* the rings */
+#fya-map .fym-map{ position:relative; padding:14px 14px 24px; border-radius:14px; background:var(--ground); box-shadow:inset 0 0 0 1px var(--fya-rim); }
+#fya-map .fym-crew{ position:relative; padding:60px 36px 24px; border-radius:14px; box-shadow:none; background:radial-gradient(120% 90% at 50% -20%, #1b1440 0, rgba(27,20,64,0) 60%), var(--fya-black); }
+#fya-map .fym-row{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:start; }
+#fya-map .fym-row + .fym-row{ margin-top:32px; }
+#fya-map .fym-rev > :nth-child(1){ grid-area:1/3; } #fya-map .fym-rev > :nth-child(2){ grid-area:1/2; } #fya-map .fym-rev > :nth-child(3){ grid-area:1/1; }
+#fya-map .fym-out{ position:relative; padding:38px 36px 0; }
+#fya-map .fym-wide{ grid-column:2 / span 2; }
+#fya-map .fym-ring{ position:absolute; display:inline-flex; align-items:center; gap:8px; min-height:26px; padding:0 10px; border-radius:6px; font:500 12px/1 var(--fya-mono); letter-spacing:.05em; text-transform:uppercase; white-space:nowrap; pointer-events:none; }
+#fya-map .fym-crew > .fym-ring{ left:16px; top:16px; background:rgba(255,255,255,.1); color:#fff; }
+#fya-map .fym-out > .fym-ring{ right:22px; top:32px; background:rgba(23,27,32,.06); color:var(--ink); }
+/* Only you: a ring inside the crew's, drawn behind the piece so the line keeps its level */
+#fya-map .fym-you::before{ content:""; position:absolute; inset:-24px 6px -14px; border-radius:16px; border:1px solid rgba(201,184,255,.42); background:rgba(122,44,255,.12); }
+#fya-map .fym-you > .fym-ring{ right:22px; top:-37px; background:#2a1d5c; color:var(--fya-lilac); }
+
+/* the line */
+#fya-map .fym-rail{ position:absolute; left:0; top:0; z-index:1; overflow:visible; pointer-events:none; }
+#fya-map .fym-rail path{ fill:none; stroke-linecap:round; stroke-linejoin:round; }
+#fya-map .fym-rail .b{ stroke:var(--rail); stroke-width:2; opacity:.55; }
+#fya-map .fym-rail .p{ stroke:var(--fya-pink); stroke-width:3; opacity:0; }
+#fya-map .fym.lit .fym-rail .p{ opacity:1; }
+
+/* a piece: a stop on the line, its name, and the thing itself */
+#fya-map .fym-n{ position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; min-width:0; margin:0; padding:0 8px 6px; border:0; border-radius:12px; background:none; color:#fff; font:inherit; text-align:center; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+#fya-map .fym-out .fym-n{ color:var(--head); }
+#fya-map .fym-n:focus-visible{ outline-offset:8px; }
+#fya-map .fym-dot{ position:relative; width:14px; height:14px; border-radius:50%; background:var(--fya-black); box-shadow:inset 0 0 0 2px var(--rail); transition:transform .3s var(--fya-ease), background .2s, box-shadow .2s; }
+#fya-map .fym-out .fym-dot{ background:var(--ground); }
+#fya-map .fym-n.hit .fym-dot{ background:var(--fya-pink); box-shadow:-1.5px 1px 0 var(--fya-cyan), 1.5px -1px 0 var(--fya-violet); }
+#fya-map .fym-n.sel .fym-dot{ transform:scale(1.3); }
+#fya-map .fym-lab{ position:relative; margin-top:13px; font:600 16px/1.2 var(--body); transition:opacity .3s; }
+#fya-map .fym-lab i{ margin-right:8px; font:500 12px/1 var(--fya-mono); letter-spacing:.05em; font-style:normal; opacity:.6; transition:color .2s, opacity .2s; }
+#fya-map .fym-n.sel .fym-lab i{ color:var(--fya-pink); opacity:1; }
+#fya-map .fym-r{ display:none; }
+#fya-map .fym-mini{ position:relative; display:flex; flex-direction:column; align-items:center; margin-top:14px; pointer-events:none; transition:opacity .3s, transform .45s var(--fya-ease); }
+#fya-map .fym-n.off .fym-mini{ opacity:.34; } #fya-map .fym-n.off .fym-lab{ opacity:.5; }
+@media (hover:hover){ #fya-map .fym-n:hover .fym-mini{ transform:translateY(-3px); } }
+#fya-map .fym-k{ zoom:var(--z); width:300px; display:flex; flex-direction:column; align-items:center; text-align:left; }
+#fya-map .fym-k > *{ align-self:center; margin:0; }
+#fya-map .fym-k .a-ai, #fya-map .fym-k .a-fld, #fya-map .fym-k .a-banner{ align-self:stretch; }
+#fya-map .fym-k .a-banner{ margin-bottom:8px; }
+#fya-map .fym-k .a-b[data-w]{ align-self:flex-start; max-width:none; margin:0 0 0 36px; }
+#fya-map .fym-k .t4-chip{ align-self:flex-start; margin:10px 0 0 36px; white-space:nowrap; }
+#fya-map .fym-k.pl{ zoom:calc(var(--z) * .84); }
+#fya-map .fym-k .a-poll{ width:300px; }
+#fya-map .fym-k .a-poll .r.mine .bar{ background:linear-gradient(90deg, rgba(255,45,143,.55), rgba(255,45,143,.26)); }
+#fya-map .fym-k .a-voice .a-wave i{ transition:opacity .12s; }
+
+/* what leaves the group is printed: the page and its three formats, on paper */
+#fya-map .fym-ps{ display:block; background:#15183f url(../img/fyi-door/poster.webp) 50% 0 / cover no-repeat; }
+#fya-map .fym-page{ display:grid; grid-template-columns:86px minmax(0,1fr); width:262px; height:100px; border-radius:6px; overflow:hidden; rotate:-1.5deg; text-align:left; }
+#fya-map .fym-pt{ display:flex; flex-direction:column; gap:3px; padding:12px 16px 11px; font:400 12.5px/1.3 var(--body); color:var(--fya-navy); min-width:0; }
+#fya-map .fym-pt b{ font:700 15px/1.1 var(--display); letter-spacing:-.02em; margin-bottom:3px; }
+#fya-map .fym-pt code{ margin-top:auto; font:500 11px/1 var(--fya-mono); color:#c2156b; }
+#fya-map .fym-fs{ display:flex; align-items:flex-start; justify-content:center; gap:34px; --fh:100px; }
+#fya-map .fym-f{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+#fya-map .fym-f .fya-paper{ display:block; height:var(--fh); border-radius:5px; overflow:hidden; }
+#fya-map .fym-f .fym-ps{ height:100%; }
+#fya-map .fym-f.s9 .fya-paper, #fya-map .fym-f.lp .fya-paper{ width:calc(var(--fh) * .5625); }
+#fya-map .fym-f.s1 .fya-paper{ width:var(--fh); rotate:1.5deg; }
+#fya-map .fym-f.s9 .fya-paper{ rotate:-2deg; }
+#fya-map .fym-f.lp .fym-ps{ height:52%; }
+#fya-map .fym-f.lp u, #fya-map .fym-f.lp s{ display:block; height:4px; margin:8px 9px 0; border-radius:2px; background:rgba(21,24,63,.22); }
+#fya-map .fym-f.lp u + u{ width:44%; margin-top:5px; }
+#fya-map .fym-f.lp s{ height:11px; margin-top:9px; border-radius:3px; background:var(--fya-pink); }
+#fya-map .fym-f em{ font:500 12px/1 var(--fya-mono); letter-spacing:.04em; font-style:normal; color:var(--text); white-space:nowrap; }
+
+/* the navigation, as the app's own bars */
+#fya-map .fym-nav{ display:grid; grid-template-columns:minmax(0,1.12fr) minmax(0,1fr); gap:16px; margin-top:16px; }
+#fya-map .fym-nv{ margin:0; display:flex; flex-direction:column; }
+#fya-map .fym-nv .fya-black{ flex:1; display:grid; place-items:center; padding:26px 16px; box-shadow:none; }
+#fya-map .fym-nv .fya-kit{ zoom:var(--nz,.9); display:flex; align-items:center; gap:14px; }
+#fya-map .fym-nv figcaption{ margin:14px 0 0; font:400 15.5px/1.45 var(--body); color:var(--text); }
+#fya-map .fym-nv figcaption b{ font-weight:600; color:var(--head); }
+#fya-map .fym-nv .a-tabbar, #fya-map .fym-nv .a-hd{ position:relative; inset:auto; width:390px; border-radius:14px; box-shadow:inset 0 0 0 1px rgba(255,255,255,.08); }
+#fya-map .fym-nv .a-tabbar{ height:66px; padding-top:9px; }
+#fya-map .fym-nv .a-tabbar .knot{ width:26px; height:26px; }
+#fya-map .fym-nv .a-hd{ padding-top:0; overflow:hidden; }
+#fya-map .fym-nv .a-tabbar > span, #fya-map .fym-nv .a-seg > span{ transition:color .25s; }
+#fya-map .fym-set{ display:flex; flex-direction:column; align-items:center; gap:5px; width:64px; font:500 13px/15px var(--fxf); color:var(--t2); }
+
+@media (max-width:1100px){ #fya-map .fym{ --z:.8; } #fya-map .fym-crew{ padding-inline:24px; } #fya-map .fym-out{ padding-inline:24px; } #fya-map .fym-fs{ gap:24px; } #fya-map .fym-nv .fya-kit{ --nz:.8; } }
+/* narrow: the same chain as one column, the line running down its left side */
+@media (max-width:980px){
+  #fya-map .fym{ padding:0; max-width:600px; background:none; box-shadow:none; }
+  /* the chosen stop stays in sight while the map is on screen: its rule sits under its own name below */
+  #fya-map .fym-say{ position:sticky; top:60px; z-index:5; display:flex; justify-content:space-between; gap:12px; height:44px; padding:0 16px; margin-bottom:10px; border-radius:12px; background:var(--fya-black); box-shadow:inset 0 0 0 1px rgba(255,255,255,.14), 0 12px 24px -10px rgba(10,8,30,.5); }
+  #fya-map .fym-rule, #fya-map .fym-clock{ display:none; }
+  #fya-map .fym-who{ min-width:0; min-height:0; padding:0; background:none; color:#fff; overflow:hidden; text-overflow:ellipsis; }
+  #fya-map .fym-who, #fya-map .fym-hops{ transition:opacity .15s linear; } #fya-map .fym-say.swap .fym-who{ opacity:0; }
+  #fya-map .fym-hops{ color:#b4b4bd; }
+  #fya-map .fym-map{ padding:10px 10px 56px; }
+  #fya-map .fym-crew{ padding:62px 16px 26px; }
+  #fya-map .fym-out{ padding:30px 16px 0; }
+  #fya-map .fym-row{ grid-template-columns:minmax(0,1fr); gap:30px; }
+  #fya-map .fym-row + .fym-row{ margin-top:30px; }
+  #fya-map .fym-rev > :nth-child(n), #fya-map .fym-wide{ grid-area:auto; }
+  #fya-map .fym-n{ display:grid; grid-template-columns:14px minmax(0,1fr); column-gap:16px; align-items:center; justify-items:start; padding:0; text-align:left; min-height:44px; }
+  #fya-map .fym-lab{ margin:0; }
+  #fya-map .fym-r{ display:block; grid-column:2; margin-top:6px; font:400 15px/1.4 var(--body); color:#b4b4bd; text-wrap:pretty; transition:color .25s, opacity .3s; }
+  #fya-map .fym-out .fym-r{ color:var(--mute); }
+  #fya-map .fym-n.sel .fym-r{ color:#fff; } #fya-map .fym-out .fym-n.sel .fym-r{ color:var(--head); }
+  #fya-map .fym-n.off .fym-r{ opacity:.5; }
+  #fya-map .fym-mini{ grid-column:2; margin-top:14px; align-items:flex-start; }
+  #fya-map .fym-k{ align-items:flex-start; width:290px; } #fya-map .fym-k > *{ align-self:flex-start; } #fya-map .fym-k .a-poll{ width:290px; }
+  #fya-map .fym-you::before{ inset:-18px -8px -16px 22px; }
+  #fya-map .fym-you{ margin:14px 0 10px; }
+  #fya-map .fym-you > .fym-ring{ right:4px; top:-31px; }
+  #fya-map .fym-out > .fym-ring{ right:6px; top:auto; bottom:-40px; }
+  #fya-map .fym-fs{ gap:16px; --fh:96px; justify-content:flex-start; }
+  #fya-map .fym-page{ width:258px; height:106px; grid-template-columns:76px minmax(0,1fr); } #fya-map .fym-pt{ padding:13px 12px 12px; font-size:12px; }
+  #fya-map .fym-nav{ grid-template-columns:1fr; max-width:600px; }
+}
+@media (max-width:480px){ #fya-map .fym-nv .fya-kit{ --nz:.7; gap:8px; } #fya-map .fym-nv .fya-black{ padding:20px 10px; } #fya-map .fym-f em{ font-size:11px; letter-spacing:0; } }
