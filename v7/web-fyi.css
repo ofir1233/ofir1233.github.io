@@ -94,3 +94,8 @@
 @keyframes fyq-clk{ from{ clip-path:inset(0 100% 0 0 round 99px); } to{ clip-path:inset(0 0 0 0 round 99px); } }
 /* round 10: the clock waits with the reader */
 #fyi#fyi .fyi-show.hold .fyq-dot[aria-current]::after{ animation-play-state:paused; }
+
+/* the line under the phones is the only sentence that changes: reading size and reading colour, not a grey footnote */
+#fyi#fyi .fyi-show .fyq-cap{ font-size:16px; line-height:1.5; color:#171b20; }
+#fyi#fyi .fyi-show .fyq-n{ font-size:14px; }
+@media (max-width:700px){ #fyi#fyi .fyi-show .fyq-cap{ font-size:15.5px; } }
