@@ -193,7 +193,7 @@
     steps: ['Newsroom writes what changed in the calls as stories.', 'Play opens the month as a 75-second story.', 'It counts the 38,214 calls analyzed in September.', 'Then it names the one thing that changed most.'],
     build: function () {
       /* the lead story's evidence: the signal's calls a day, Sep 13 to Oct 12. A usual day is 17; the last 14 days add up to the 412
-         the Signals screen shows; Oct 9 is the first day over twice the usual (Signals: "firing since Oct 9"); 58 is 240% over 17 */
+         the Signals screen shows; Oct 9 is the first day over twice the usual (Signals: "firing since Oct 9"); 58 is 3.4 times 17, the same figure the Signals card carries */
       var V = [17, 16, 17, 18, 17, 16, 17, 18, 17, 16, 17, 17, 18, 17, 16, 17, 16, 18, 17, 19, 16, 18, 17, 20, 26, 34, 44, 52, 57, 58];
       var n = V.length - 1, X = function (i) { return i * 10; }, Y = function (v) { return 100 - v / 70 * 100; }, pc = function (v) { return (+v).toFixed(2) + '%'; };
       var d = 'M0 ' + Y(V[0]).toFixed(2);
@@ -222,7 +222,7 @@
         '<div class="nr-mast"><span class="day"><b>Tuesday, October 13</b>31 stories in the last 7 days</span><span class="sp"></span>' + tab('Front page', '', 1) + tab('Signals', 9) + tab('Agent evaluation', 8) + tab('Compliance', 6) + tab('Alerts', 8) + '</div>' +
         '<div class="sx-body nr-body"><section class="nr-lead">' +
         '<div class="nr-kick"><span class="sx-tag ink">Surging</span>Signal · Cancellation intent · 4:12 pm</div>' +
-        '<h3>Cancellation intent is running 240% over its baseline</h3>' +
+        '<h3>Cancellation intent is running at 3.4 times its usual day</h3>' +
         '<p>In 58 calls yesterday the customer said they want to cancel or leave. A usual day has 17.</p>' +
         '<div class="nr-plot"><svg viewBox="0 0 ' + W + ' 100" preserveAspectRatio="none"><clipPath id="nr-over"><rect x="0" y="-20" width="' + W + '" height="' + (yb + 20).toFixed(2) + '"/></clipPath>' +
         '<path d="' + d + 'V' + yb.toFixed(2) + 'H0Z" fill="#DCEFFE" clip-path="url(#nr-over)"/><path d="' + d + '" fill="none" stroke="#139FFD" stroke-width="2.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>' +
@@ -232,22 +232,22 @@
         '<i class="dot late nq3" style="left:100%;top:' + pc(Y(58)) + '"></i><span class="lb late nq3" style="right:0;top:' + pc(Y(58)) + ';translate:4px -30px"><b>58 calls</b> · Oct 12</span></div>' +
         '<div class="nr-days">' + [[0, 'Sep 13'], [7, 'Sep 20'], [14, 'Sep 27'], [21, 'Oct 4'], [29, 'Oct 12']].map(function (a) { return '<span style="left:' + pc(a[0] / n * 100) + '">' + a[1] + '</span>'; }).join('') + '</div>' +
         /* a story has voices: two of today's calls, the same ones the Signals screen lists under "Caught today" */
-        '<div class="nr-said"><blockquote>“If this isn’t refunded today I’m canceling everything.”<small>Call · 2:02 pm · 6 min 12 sec</small></blockquote>' +
-        '<blockquote>“Just cancel the whole trip, please.”<small>Call · 12:05 pm · 9 min 3 sec</small></blockquote></div>' +
+        '<div class="nr-said"><blockquote>“If this isn’t refunded today I’m canceling everything.”<small>Call · Oct 12 · 2:02 pm · 6 min 12 sec</small></blockquote>' +
+        '<blockquote>“Just cancel the whole trip, please.”<small>Call · Oct 12 · 12:05 pm · 9 min 3 sec</small></blockquote></div>' +
         '<div class="nr-why"><div><b>Why you’re seeing this</b><p>The signal passed twice its usual level on Oct 9 and has stayed above it for four days.</p></div>' +
         '<span class="nr-str"><i><u></u><u></u><u></u></i>Strong</span><span class="nr-see">See the 211 calls →</span></div></section>' +
         '<section class="nr-side"><div class="nr-feat"><small>Monthly recap · September</small><h3>38,214 calls. One story.</h3><p>The busiest day, and the one thing that changed most.</p>' +
         '<div class="nr-pl"><span class="nr-play"><svg viewBox="0 0 12 12"><path d="M2.5 1.2v9.6L10.5 6z"/></svg>Play · 75 sec</span><span class="nr-wv">' + wv + '</span></div></div>' +
         '<div class="nr-list">' + N.map(function (s) { return '<div class="nr-item' + s[4] + '"><b>' + s[0] + '</b><span class="sx-tag ' + s[3] + '">' + s[2] + '</span><span>' + s[1] + '</span></div>'; }).join('') + '</div></section></div>' +
         '<div class="nr-story" data-s="0"><div class="pr"><i class="on"></i><i></i><i></i><i></i><i></i></div>' +
-        '<div class="sl s0"><small>September 2026 · Your recap</small><h3>Chief, your month was loud.</h3><p>Let’s listen back.</p></div>' +
+        '<div class="sl s0"><small>September 2026 · Your recap</small><h3>Chief,<br class="dk"> your month was loud.</h3><p>Let’s listen back.</p></div>' +
         '<div class="sl s1"><small>Calls analyzed</small><h3>38,214</h3><p>9% more than August</p></div>' +
         '<div class="nr-mon"><span class="tip" style="left:' + pc(20.5 / 30 * 100) + '">Busiest day · <b>Mon, Sep 21</b> · 1,921 calls</span><div class="b">' + bars + '</div><div class="x"><span>Sep 1</span><span>Sep 30</span></div></div>' +
         '<div class="sl s2"><small>What changed most</small><h3>Refund calls doubled in one week.</h3><p>The week of September 21, when the schedule changed.</p>' +
         /* the two weeks are two bands, each with its total above it */
         '<div class="nr-ref"><span class="wn" style="left:' + pc(160 / W * 100) + '"><b>963</b><i>Sep 14 to 20</i></span><span class="wn on" style="left:' + pc(230 / W * 100) + '"><b>2,014</b><i>Sep 21 to 27</i></span>' +
         '<svg viewBox="0 0 ' + W + ' 100" preserveAspectRatio="none"><clipPath id="nr-wk"><rect x="195" y="-30" width="70" height="160"/></clipPath><rect x="125" y="-12" width="70" height="112" fill="#fff" fill-opacity=".08"/><rect x="195" y="-12" width="70" height="112" fill="#fff" fill-opacity=".2"/>' +
-        '<path d="' + rd + '" fill="none" stroke="#A9DAFE" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>' +
+        '<path d="' + rd + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>' +
         '<path d="' + rd + '" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" clip-path="url(#nr-wk)"/></svg>' +
         '<div class="x"><span>Sep 1</span><span>Sep 30</span></div></div></div></div>';
     },
@@ -261,6 +261,10 @@
       st.querySelector('.s1').classList.toggle('cnt', i === 2 && live);
       if (i === 2 && live) { num.textContent = '35,059'; for (var n = 1; n <= 28; n++) (function (n) { later(function () { num.textContent = Math.round(35059 + 3155 * (1 - Math.pow(1 - n / 28, 4))).toLocaleString('en-US'); }, 520 + n * 44); })(n); }
       else num.textContent = '38,214';
+      /* the last slide performs its claim: the second week's total starts at the first week's 963 and counts up to 2,014 */
+      var wk = st.querySelector('.nr-ref .wn.on b');
+      if (i === 3 && live) { wk.textContent = '963'; for (var m = 1; m <= 22; m++) (function (m) { later(function () { wk.textContent = Math.round(963 + 1051 * (1 - Math.pow(1 - m / 22, 3))).toLocaleString('en-US'); }, 2150 + m * 38); })(m); }
+      else wk.textContent = '2,014';
       /* Play: the story opens out of its own cover, the blue card it was started from */
       if (i === 1 && live) {
         var a = el.querySelector('.nr-feat').getBoundingClientRect(), r = st.getBoundingClientRect(), z = r.width / st.offsetWidth || 1;
@@ -333,7 +337,7 @@
         '<span class="dt-btn">' + ic('<rect x="3" y="3.5" width="12" height="11" rx="2.5"/><path d="M7.2 3.5v11M10.8 3.5v11"/>') + 'Columns<b>10</b></span></div>' +
         '<div class="dt-tbl"><div class="dt-r hd"><i class="ck"></i><span>Call</span><span>ID</span><span class="srt">Call date' + ic('<path d="M9 4v10M5.5 10.5 9 14l3.5-3.5"/>') + '</span><span>Status</span><span>Priority</span><span>Assigned to</span><span>Direction</span><span class="du">Length</span><span>Sentiment</span><span style="text-align:right">Score</span></div>' +
         '<div class="dt-body"><div class="dt-set all">' + A.map(function (r, n) { return UP[n] != null ? row(r, n, 'stay', UP[n]) : row(r, n); }).join('') + '</div><div class="dt-set hit">' + F.map(function (r, n) { return row(r, n, n < 4 ? 'dup' : ''); }).join('') + '</div></div>' +
-        '<div class="dt-foot"><span class="ct"><span class="rg"><b>1–9</b> of </span><span class="of">2,000</span> calls</span><span class="av"><i></i><span>Average score <b class="p">36</b><small>against <b>76</b> for all calls</small></span><i></i><span class="ln">Average length <b>7:07</b><small>against <b>4:12</b></small></span></span><button class="act sig" type="button">Save as a signal</button><span class="sp"></span>' +
+        '<div class="dt-foot"><span class="ct"><span class="rg"><b>1–9</b> of </span><span class="of">2,000</span> calls</span><span class="av"><i></i><span>Average score <b class="p">36</b><small>against <b>76</b><em> for all calls</em></small></span><i></i><span class="ln">Average length <b>7:07</b><small>against <b>4:12</b></small></span></span><button class="act ink sig" type="button">Save as a signal</button><span class="sp"></span>' +
         '<span class="pg"><i>' + ic('<path d="M11 5l-4 4 4 4"/>') + '</i><b>1</b><u>2</u><u>3</u><em>…</em><u class="last">223</u><i>' + ic('<path d="M7 5l4 4-4 4"/>') + '</i></span></div></div>';
     },
     show: function (el, i, ui) {
@@ -393,7 +397,7 @@
       };
       return top('Signals', 'Rules that classify calls on their own. <span class="sg-nn">7</span> signals · 3 triggered now', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New signal', 'ink sg-nw') + act('Cancel', 'sg-cx')) +
         '<div class="sg-new"><span class="tx"></span><span class="sx-tag blue">Reading the last 14 days…</span></div>' +
-        '<div class="sg-r fresh"><span class="nm"><span>Supervisor requested<span class="sx-tag nw">Preview</span></span><small>The customer asks to speak to a supervisor</small></span>' + spark([1, 2, 1, 3, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1]) + '<span class="ct"><b>23</b>calls in 14 days</span>' + act('Save signal', 'ink') +
+        '<div class="sg-r fresh"><span class="nm"><span>Supervisor requested<span class="sx-tag nw">Preview</span></span><small>Also catches “a manager” and “someone in charge”</small></span>' + spark([1, 2, 1, 3, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1]) + '<span class="ct"><b>23</b>calls in 14 days</span>' + act('Save signal', 'ink') +
         /* a preview is checked before it is saved: two of the calls it found, the words that matched underlined */
         '<div class="mq"><small>2 of the 23</small><span>“Can I <u>speak to your supervisor</u>, please?”<small> · Oct 12</small></span><span>“I want <u>a manager</u> on the line.”<small> · Oct 11</small></span></div></div>' +
         '<div class="sx-body"><div class="sx-h"><b>Triggered now</b><span>3 signals over twice their usual day</span></div><div class="sg-fire">' + F.map(card).join('') + '</div>' +

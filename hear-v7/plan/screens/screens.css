@@ -983,3 +983,33 @@
 .sg-r.fresh.q .mq{max-height:66px}
 /* the preview's fourteen days rise once the frame has turned to them */
 .sg-r.fresh.in .sp i{animation-delay:calc(.9s + var(--d)*45ms)}
+/* ---------- Sixth pass ----------
+   Signals, a new rule at full size: the three firing cards keep their height, their bars and their dates; the quiet list runs on
+   under them and fades at the frame, as a page that continues. (It used to squeeze the cards until the dates fell out of them.) */
+.sx[data-st="2"] .sg-fire{flex:none;height:262px;max-height:none}
+.sx[data-st="2"] .sg-h2{display:flex;margin-top:16px}
+.sx[data-st="2"] .sg-list{flex:1;min-height:0;margin-top:4px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 calc(100% - 70px),transparent);mask-image:linear-gradient(#000 calc(100% - 70px),transparent)}
+.is-short .sx[data-st="2"] .sg-fire{flex:1 1 auto;height:auto}
+.is-short .sx[data-st="2"] .sg-h2{display:none}
+/* the plain-words field has the preview card's corners, not a full pill */
+.sg-new{border-radius:14px}
+.sg-new .sx-tag{border-radius:10px}
+.sx.side-on .sg-card>small{text-wrap:balance}
+/* Newsroom recap, slide 1: the busiest day stays the one full-white mark, as on the card before it and the bars after it */
+.nr-story[data-s="0"] .nr-mon .b i{background:rgba(255,255,255,.7)}
+.nr-story[data-s="0"] .nr-mon .b i.top{background:#fff}
+@keyframes nr-lit{from{background:rgba(255,255,255,.4)}}
+.is-short .nr-story br.dk{display:none}
+.nr-ref .wn i{opacity:1}
+/* Data: the closing line stands clear of the frame's bottom rim; the phone keeps both comparisons */
+#sx-data .card{padding-bottom:10px}
+.dt-foot{height:44px}
+.dt-foot .av small em{font-style:normal}
+.px-small .dt-foot .av small em{display:none}
+.px-small .dt-foot .av .ln small{display:inline}
+.dt-foot .act.sig{box-shadow:none}
+.px-small #sx-data .card{padding-bottom:10px}
+.dt-foot .av>span{align-items:center}
+/* on a phone the tour ends on the two comparisons, whole: the bar above already says 86 of 2,000, and the button stands clear of the frame's edge */
+.px-small .sx[data-st="2"] .dt-foot .ct,.px-small .sx[data-st="2"] .dt-foot .av>i:first-child{display:none}
+.px-small .dt-foot .act.sig{margin-left:60px}
