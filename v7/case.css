@@ -459,3 +459,9 @@ html body article.decision > h3{ margin-top:10px; }
 }
 /* Actions thumbnail: ends in the gap after the second column, not through the third column's words */
 @media (min-width:861px){ html body .next .next-thumb.whole img[src*="v7s-actions-board"]{ width:200%; } }
+/* the way deeper is a button, not an underlined word (owner, 23.11: "the button looks like a plain link") */
+html body .more > summary, html body.fyi-page .fx-allb{ display:inline-flex; align-items:center; gap:8px; min-height:44px; height:44px; padding:0 20px !important; border-radius:22px !important; background:none !important; box-shadow:inset 0 0 0 1.5px rgba(23,27,32,.22) !important; color:#171b20 !important; font:600 15px/1 var(--body) !important; text-decoration:none !important; cursor:pointer; transition:box-shadow .2s, background-color .2s; }
+html body .more > summary:hover, html body.fyi-page .fx-allb:hover{ box-shadow:inset 0 0 0 1.5px #171b20 !important; background:rgba(23,27,32,.04) !important; }
+html body .more > summary::before{ content:"+"; font:500 18px/1 var(--body); margin-top:-1px; }
+html body .more[open] > summary::before{ content:"\2212"; }
+html body .more > summary{ margin-top:6px; }

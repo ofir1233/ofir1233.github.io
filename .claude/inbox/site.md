@@ -30,3 +30,4 @@
 - `v7/case.css`: a decision with a figure is a two-column grid from 900px; phone decision options have no left padding except the chosen one.
 - `v7/fyi-page.css`: AI strip is an auto-fill grid (300px min); the field sheet stage text is capped at 540px.
 - `#campaign`, `work/brand-web.html`, feed and campaign files: not touched.
+- 23.11 (evening): `v7/case.css` now draws every `.more > summary` (Read more) on the inner pages as an outline button, 44px high, with a plus sign. This also reaches `work/brand-web.html` through the shared stylesheet; the file itself is untouched. FYI "All steps" has the same outline.
