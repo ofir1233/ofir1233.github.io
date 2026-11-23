@@ -270,3 +270,8 @@ html.js body.fyi-page .st-launch:not([data-out]) .fmt:not(.l6-in) figcaption{ op
   /* the dots stand under the thread, so the sentence in hand and its place in the run read as one unit */
   html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) > .st-txt > .fx-mini{ order:1; margin-top:22px; }
 }
+@media (min-width:1024px){
+  /* room under the sentence in hand, so its arrival from below is not cut by the column's edge */
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats{ padding-bottom:18px; box-sizing:content-box; }
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) > .st-txt > .fx-mini{ margin-top:6px; }
+}
