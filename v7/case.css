@@ -356,3 +356,11 @@ html body .fyi-hero > .meta div{ padding:0 16px 0 0 !important; }
   .cs-hero:not(.fyi-hero) > h1{ grid-column:1 / -1; padding-right:0; }
   .cs-hero:not(.fyi-hero) > .brief > div:nth-child(2){ grid-column:1 / 10; margin-top:18px; padding-bottom:0; }
 }
+
+/* round 11, inner pages: the last capsules go, the next card's title breaks like the hero it leads to, secondary buttons are the home's */
+html body.fyi-page .edges .label, html body.fyi-page .strips .label, html body.fyi-page .sys-scale .label, html body .fyi-page .edges .label, html body .fyi-page .strips .label, html body .fyi-page .sys-scale .label{ padding:0 !important; border-radius:0 !important; background:none !important; }
+.next .next-line{ max-width:22ch; font-size:clamp(30px, 3vw, 44px); }
+.opt.chosen strong::after{ background:none !important; color:#0b6fcf !important; padding:0 !important; border-radius:0 !important; }
+:root{ --sheet-r:20px !important; }
+:root .ct-jump{ background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.14); color:#171b20; min-height:44px; padding:0 20px 0 16px; font:600 15px/1 var(--body); }
+:root .ct-jump:hover{ box-shadow:0 0 0 1px rgba(23,27,32,.32); }
