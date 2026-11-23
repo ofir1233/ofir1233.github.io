@@ -36,11 +36,11 @@
       var g = '<div class="rw"></div>' + A.map(function (a) { return '<div class="hd"><b>' + a + '</b></div>'; }).join('');
       C.forEach(function (c, r) { g += '<div class="rw">' + c[0] + '</div>' + c[1].map(function (v, i) { return '<div class="c' + cls(v) + '" data-c="' + r + '-' + i + '" style="--i:' + i + '">' + v + '</div>'; }).join(''); });
       g += '<div class="rw ft">Failing criteria</div>' + A.map(function (a, i) { var n = C.filter(function (c) { return c[1][i] < 70; }).length; return '<div class="ft">' + (n ? '<b>' + n + '</b>' : '–') + '</div>'; }).join('');
-      return top('Compliance', 'How every agent did against the center’s rules. 5 criteria · 26 agents · last 6 weeks', act('Last 6 weeks' + chev) + act('Share')) +
-        kpis([['Sales without alerts', '72.6<small>%</small>', '▲ 2.1 pts against the 6 weeks before'], ['Valid sales', '93.8<small>%</small>', 'target 90%'], ['Agents above the success metric', '88.5<small>%</small>', '23 of 26 agents']]) +
-        '<div class="sx-body"><div class="sx-h"><b>Criteria by agent</b><span>Only a failing score takes color</span><span class="sx-seg r"><span class="on">Agents</span><span>Teams</span></span></div>' +
+      return top('Compliance', 'Every agent, checked against the center’s five rules.', act('Last 6 weeks' + chev) + act('Share')) +
+        kpis([['Sales without alerts', '72.6<small>%</small>', '▲ 2.1 pts against the 6 weeks before'], ['Valid sales', '93.8<small>%</small>', 'target 90%'], ['Above the success metric', '88.5<small>%</small>', '23 of 26 agents average 75 or more']]) +
+        '<div class="sx-body"><div class="sx-h"><b>Criteria by agent</b><span class="cm-sub">Team B · 10 of 26 agents · pass mark 70</span><span class="sx-seg r"><span class="on">Agents</span><span>Teams</span></span></div>' +
         '<div class="cm-grid">' + g + '</div>' +
-        '<div class="sx-note"><span>Score</span><i style="background:rgba(24,36,48,.07)"></i><span>70 and up</span><i style="background:#FFD0C4"></i><span>60–69</span><i style="background:var(--coral)"></i><span>under 60</span></div></div>';
+        '<div class="sx-note"><span>Only a score under the pass mark takes color</span><i style="background:rgba(24,36,48,.07)"></i><span>70 and up</span><i style="background:#FFD0C4"></i><span>60–69</span><i style="background:var(--coral)"></i><span>under 60</span></div></div>';
     },
     show: function (el, i, ui) {
       /* the page arrives: the scores land agent by agent, all of them gray; then the failing ones take their color. The sentence above
@@ -50,62 +50,109 @@
       var c = el.querySelector('[data-c="3-9"]');
       if (i >= 1) c.classList.add('hot');
       if (i === 1) {
-        ui.tip(c, '<strong>Selma K. · Vulnerable customer protocol</strong><span>12 of 26 calls failed this rule</span>' +
-          '<div class="m"><b>Selma</b><i><u style="width:54%"></u></i><em>54</em></div><div class="m t"><b>Team</b><i><u style="width:81%"></u></i><em>81</em></div><b class="go">Ask AI which calls →</b>', 'below');
+        var n = 3, w = 0; while (n < 6 && (w = c.offsetLeft + c.offsetWidth - el.querySelector('[data-c="3-' + (10 - n) + '"]').offsetLeft) < 216) n++;
+        ui.tip(c, '<strong>Selma K.</strong><span class="t2">Vulnerable customer protocol</span><span>12 of 26 calls failed this rule</span>' +
+          '<div class="m"><b>Selma</b><i><u style="width:54%"></u></i><em>54</em></div><div class="m t"><b>Team</b><i><u style="width:81%"></u></i><em>81</em></div><b class="go">Ask AI which calls →</b>', 'topright', w);
+        /* three whole rows above the score when the popover fits in them; in a shorter frame it starts at the top of the table */
+        var t = el.querySelector('.sx-tip'), R = el.getBoundingClientRect(), z = R.width / el.offsetWidth || 1, a0 = el.querySelector('[data-c="0-9"]').getBoundingClientRect(), a2 = el.querySelector('[data-c="2-9"]').getBoundingClientRect();
+        if ((a2.bottom - a0.top) / z >= t.offsetHeight) { t.classList.add('fill'); t.style.height = (a2.bottom - a0.top) / z + 'px'; t.style.top = (a0.top - R.top) / z + 'px'; }
+        else t.style.top = Math.max(parseFloat(t.style.top), (grid.getBoundingClientRect().top - R.top) / z) + 'px';
       }
       if (i === 2) ui.side('<header>' + MK + 'Ask AI<small>Selma K.</small></header><div class="q">Which calls pulled Selma’s Vulnerable customer protocol score down?</div>' +
         '<div class="a"><p><b>12 calls</b> failed, and 9 of them share one cause: the customer said they were struggling to pay and the protocol questions were skipped.</p>' +
-        '<ul><li><b>Oct 13</b>Cannot afford to rebook. Refund asked twice, voucher offered.</li><li><b>Oct 9</b>Customer mentions a missed payment at 02:14. No affordability check.</li><li><b>Oct 7</b>Bereavement mentioned. The sale continues without a pause.</li></ul></div>');
+        '<ul class="cm-calls">' + [['Oct 13', 'Cannot afford to rebook. Refund asked twice, voucher offered.', '01:48', '6 min 12 sec', 29], ['Oct 9', 'Customer mentions a missed payment. No affordability check.', '02:14', '8 min 40 sec', 26], ['Oct 7', 'Bereavement mentioned. The sale continues without a pause.', '03:05', '7 min 21 sec', 42]]
+          .map(function (q, n) { return '<li style="--i:' + n + '"><b>' + q[0] + '</b><span>' + q[1] + '<i class="cm-tl"><u style="left:' + q[4] + '%"></u></i><small>Protocol skipped at ' + q[2] + ' · ' + q[3] + '</small></span></li>'; }).join('') + '</ul></div>' +
+        '<span class="sg-all">Show all 12 calls →</span><div class="cm-ask">Ask a follow-up</div>');
     }
   };
 
   /* ---------- Agent evaluation ---------- */
   S.agents = {
     nav: 'Agent evaluation', icon: '<circle cx="9" cy="6" r="2.8"/><path d="M3.5 15c.6-3 2.7-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/>',
-    steps: ['Each day’s bar is the average score of every agent.', 'A low day turns coral and shows how many calls it rests on.', 'The spread shows who needs coaching: 8 agents under 60.'],
+    steps: ['Thirty days of the center’s score, against its average.', 'A day far under the average opens with what fell.', 'The 8 agents under 60, and the criterion five of them share.'],
     build: function () {
-      var D = [76, 76, 75, 75, 74, 74, 76, 74, 74, 75, 75, 75, 76, 76, 77, 76, 77, 66, 68, 67, 67, 77, 77, 77, 77, 81, 80, 81, 76, 75];
-      var bars = D.map(function (v, i) { return '<i class="ae-b ' + (v < 70 ? 'l1 low' : v < 76 ? 'l3' : v < 80 ? 'l4' : 'l5') + '" data-b="' + i + '" style="height:' + ((v - 50) / 36 * 100).toFixed(1) + '%;animation-delay:' + i * 22 + 'ms"><em>' + v + '</em></i>'; }).join('');
-      var G = [['90–100', 27, 'l5'], ['80–89', 193, 'l4'], ['70–79', 349, 'l3'], ['60–69', 138, 'l2'], ['under 60', 8, 'l1']];
+      /* Sep 13 to Oct 12. The thirty days average 76, the number in the KPI above and the dashed line on the chart. The axis runs from
+         50 to 90 and says so. A day is coral when it is 8 or more points under the average: Sep 30 to Oct 3 */
+      var D = [77, 77, 76, 76, 75, 75, 77, 75, 75, 76, 76, 76, 77, 77, 78, 77, 78, 66, 68, 67, 67, 79, 79, 79, 79, 82, 81, 82, 77, 76];
+      var F = function (v) { return 'calc(30px + (100% - 30px) * ' + ((v - 50) / 40).toFixed(3) + ')'; };
+      var bars = D.map(function (v, i) { return '<i class="ae-b' + (v <= 68 ? ' low' : '') + '" data-b="' + i + '" style="height:' + ((v - 50) / 40 * 100).toFixed(1) + '%;animation-delay:' + i * 22 + 'ms"><em>' + v + '</em></i>'; }).join('');
+      var axis = [50, 60, 70, 80].map(function (v) { return '<span class="ae-y" style="bottom:' + F(v) + '">' + v + '</span>'; }).join('');
+      var dates = [[0, 'Sep 13'], [7, 'Sep 20'], [14, 'Sep 27'], [21, 'Oct 4'], [29, 'Oct 12']].map(function (d) {
+        return '<span style="' + (d[0] === 0 ? 'left:0' : d[0] === 29 ? 'right:0' : 'left:' + ((d[0] + .5) / 30 * 100).toFixed(2) + '%;translate:-50% 0') + '">' + d[1] + '</span>'; }).join('');
+      var G = [['90–100', 27, 'g5'], ['80–89', 193, 'g4'], ['70–79', 349, 'g3'], ['60–69', 138, 'g2'], ['under 60', 8, 'g1']];
       return top('Agent evaluation', 'An AI score for every agent, with the calls it is based on. 715 agents · 8 criteria', act('Service quality' + chev) + act('Last 30 days' + chev)) +
         kpis([['Agents', '715', 'active in the last 30 days'], ['Average score', '76<small>/ 100</small>', '▲ 1 pt against the 30 days before'], ['Under 60', '8', 'agents to coach first']]) +
-        '<div class="sx-body"><div class="sx-h"><b>Average score over time</b><span>Height and color are that day’s score</span><span class="sx-seg r"><span class="on">Bars</span><span>Trend</span></span></div>' +
-        '<div class="ae-plot">' + bars + '</div><div class="ae-dates"><span>Sep 13</span><span>Sep 20</span><span>Sep 27</span><span>Oct 4</span><span>Oct 12</span></div>' +
+        '<div class="sx-body"><div class="sx-h"><b>Average score over time</b><span class="ae-sub">Coral: a day 8 or more points under the average</span><span class="sx-seg r"><span class="on">Bars</span><span>Trend</span></span></div>' +
+        '<div class="ae-plot">' + axis + bars + '<i class="ae-avg" style="bottom:' + F(76) + '"><b>Avg 76</b></i></div><div class="ae-dates">' + dates + '</div>' +
         '<div class="ae-dist"><div class="sx-h"><b>Agents by average score</b><span>715 agents</span></div><div class="ae-strip">' + G.map(function (g) { return '<i class="' + g[2] + '" data-g="' + g[0] + '" style="flex:' + Math.max(g[1], 14) + '"></i>'; }).join('') + '</div>' +
         '<div class="ae-leg">' + G.map(function (g) { return '<span data-g="' + g[0] + '"><i class="' + g[2] + '"></i>' + g[0] + ' <b>' + g[1] + '</b></span>'; }).join('') + '</div></div></div>';
     },
     show: function (el, i, ui) {
-      /* the page arrives: thirty days rise from left to right, so the dip in the fourth week is seen happening */
+      /* the page arrives in the order it is read: thirty days rise from left to right, the average is drawn across them, and only then
+         do the four days far under it turn coral */
       var plot = el.querySelector('.ae-plot'); plot.classList.remove('draw');
       if (i === 0 && ui && !ui.jump) { void plot.offsetWidth; plot.classList.add('draw'); }
-      if (i === 1) { var b = el.querySelector('[data-b="17"]'); b.classList.add('hot'); ui.tip(b, '<strong>Wed, Sep 30</strong><span class="big">66 <small>/ 100</small></span><span>Based on 3,104 calls · 10 pts under the week before</span>', 'top'); }
-      if (i === 2) { [].forEach.call(el.querySelectorAll('[data-g="under 60"]'), function (x) { x.classList.add('hot'); }); ui.tip(el.querySelector('.ae-strip [data-g="under 60"]'), '<strong>8 agents under 60</strong><span>Average 54 · 1,212 calls in 30 days</span><b class="go">Open the list →</b>', 'topright'); }
+      if (i === 1) { var b = el.querySelector('[data-b="17"]'); b.classList.add('hot'); ui.tip(b, '<strong>Wed, Sep 30</strong><span class="big">66 <small>/ 100</small></span><span>10 pts under the average · 3,104 calls</span><span class="why">Fell most: <b>Explains the refund policy</b>, 81 → 52</span>', 'lefttop'); }
+      if (i === 2) {
+        [].forEach.call(el.querySelectorAll('[data-g="under 60"]'), function (x) { x.classList.add('hot'); });
+        el.querySelectorAll('.kpis>div')[2].classList.add('hot');
+        /* the eight, lowest first (they average 54). Five of them are weakest on the criterion that fell for the whole center on Sep 30;
+           Selma K. is the agent the Compliance screen opens and the one the task in Actions asks to coach */
+        var AG = [['Selma K.', 48, 1], ['Jonas R.', 51, 1], ['Priya N.', 52, 'Verifies identity'], ['Tomas V.', 54, 1], ['Leah M.', 55, 1], ['Dario F.', 56, 'Sets a clear next step'], ['Noor A.', 57, 1], ['Kyle B.', 59, 'Shows empathy']];
+        ui.side('<header>Under 60<small>8 of 715 agents</small></header><div class="a" style="margin-top:14px"><p><span class="ae-xs">They average <b>54</b> across 1,212 calls. </span><b>Five of the eight are weakest on the same criterion</b>, the one that fell on Sep 30.</p></div><h4 class="ae-h4">Lowest first · weakest criterion</h4>' +
+          '<ul class="ae-ag">' + AG.map(function (a, n) { return '<li style="--i:' + n + '">' + av(a[0]) + '<span>' + a[0] + '<small>' + (a[2] === 1 ? '<u>Explains the refund policy</u>' : a[2]) + '</small></span><em>' + a[1] + '</em></li>'; }).join('') + '</ul>' +
+          '<div class="ft">' + act('Open the list') + act('Create coaching tasks', 'ink') + '</div>');
+      }
     }
   };
 
   /* ---------- Actions ---------- */
   S.actions = {
     nav: 'Actions', icon: '<rect x="2.5" y="3" width="3.6" height="12" rx="1.2"/><rect x="7.2" y="3" width="3.6" height="8" rx="1.2"/><rect x="11.9" y="3" width="3.6" height="10" rx="1.2"/>',
-    steps: ['Each finding is a task with its source and an owner.', 'A card shows what can be done with it: assign, start or close.', 'The task opens with the call it came from.', 'Closed work keeps its reason.'],
+    steps: ['Each finding is a task, with the line from the call that raised it.', 'A card carries its next moves: reassign, start or resolve.', 'The task opens with the call it came from, and is worked there.', 'Closed work keeps its reason.'],
     build: function () {
-      var card = function (src, hi, title, who, tag, cls) { return '<div class="ac-card' + (cls ? ' ' + cls : '') + '"><small><u' + (hi ? ' class="hi"' : '') + '></u>' + src.replace(' · High', '<span class="hp"> · High</span>') + '</small><p>' + title + '</p><footer>' + (who ? av(who) + who : '<span style="color:var(--mut)">Not assigned</span>') + (tag ? '<span class="sx-tag' + (tag === 'Resolved' ? ' ok' : tag === 'Escalated' ? ' ink' : '') + '">' + tag + '</span>' : '') + '</footer><div class="qa"><span>Assign</span><span>Start</span><span>Close</span></div></div>'; };
-      var col = function (n, c, cards, more) { return '<section class="ac-col"><h4>' + n + '<i>' + c + '</i></h4>' + cards + (more ? '<span class="ac-more">+' + more + ' more</span>' : '') + '</section>'; };
-      return top('Actions', 'Findings from alerts, signals and evaluations, each one with an owner.', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New task', 'ink')) +
+      /* a card: where it came from, what was found, the evidence (a line from the call with its time; once the task is closed, the
+         reason it was closed), and who has it */
+      var card = function (src, hi, title, ev, who, tag, cls) { return '<div class="ac-card' + (cls ? ' ' + cls : '') + '"><small><u' + (hi ? ' class="hi"' : '') + '></u>' + src.replace(' · High', '<span class="hp"> · High</span>') + '</small><p>' + title + '</p><span class="cev">' + ev + '</span><footer>' + (who ? av(who) + who : '<span style="color:var(--mut)">Not assigned</span>') + (tag ? '<span class="sx-tag' + (tag === 'Resolved' ? ' ok' : '') + '">' + tag + '</span>' : '') + '</footer><div class="qa"><span>Reassign</span><span class="go">Start</span><span>Resolve</span></div></div>'; };
+      /* c2: the count once the refund task has been carried to Done (step 4) */
+      var col = function (n, c, cards, more, c2) { return '<section class="ac-col"><h4>' + n + '<i>' + (c2 ? '<b class="n0">' + c + '</b><b class="n1">' + c2 + '</b>' : c) + '</i></h4>' + cards + (more ? '<span class="ac-more">+' + more + ' more</span>' : '') + '</section>'; };
+      return top('Actions', 'Every finding from a call, tracked to an owner and an outcome.', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New task', 'ink')) +
         '<div class="ac-bar"><span class="sx-chip on">Everyone</span><span class="sx-chip">Assigned to me</span><span class="sx-chip">Mentions me</span><i class="gap"></i><span class="sx-chip">High priority <b>4</b></span><span class="sx-chip">From alerts <b>5</b></span><span class="sx-chip">From agent evaluation <b>2</b></span></div>' +
         '<div class="ac-board">' +
-        col('Pending', 6, card('Alert · Today · High', 1, 'Customer asked twice for a refund, was offered only a voucher', 'Daniel Brooks', '', 'src') + card('Call · Yesterday', 0, 'Reason for call tagged as Billing, should be Service outage', 'Maya Collins') + card('Agent evaluation · Yesterday · High', 1, 'Recording disclosure missing in the first 30 seconds', ''), 3) +
-        col('In progress', 5, card('Alert · Oct 10 · High', 1, 'Technical failure blocked a booking at payment', 'Ryan Cole') + card('Agent evaluation · Oct 9', 0, 'Identity verification skipped before a ticket change', 'Paula Nunes'), 3) +
-        col('Done', 4, card('Alert · Today', 0, 'Customer asked twice for a refund, was offered only a voucher', 'Daniel Brooks', 'Resolved', 'moved') + card('Alert · Oct 5', 0, 'Lost baggage claim escalated to the ground team', 'Sofia Cruz', 'Escalated') + card('Call · Oct 4', 0, 'Sentiment re-analyzed on a VIP escalation', 'Maya Collins', 'Resolved'), 2) +
-        col('Cancelled', 2, card('Alert · Oct 10', 0, 'Duplicate: booking engine timeout', 'Ryan Cole', 'Duplicate') + card('Feedback · Sep 30', 0, 'Website search is slow', '', 'Not actionable')) + '</div>';
+        col('Pending', 6, card('Alert · Today · High', 1, 'Customer asked twice for a refund, was offered only a voucher', '“…a refund, not a voucher.” · 02:41', 'Daniel Brooks', '', 'src') +
+          card('Call · Yesterday', 0, 'Reason for call tagged as Billing, should be Flight change', '“I need to move my flight.” · 00:38', 'Maya Collins') +
+          card('Agent evaluation · Yesterday · High', 1, 'Recording disclosure missing in the first 30 seconds', 'No recording notice before 00:30', ''), 3, 5) +
+        col('In progress', 5, card('Alert · Oct 10 · High', 1, 'Technical failure blocked a booking at payment', '“It says payment failed.” · 03:12', 'Ryan Cole') +
+          card('Agent evaluation · Oct 9', 0, 'Identity verification skipped before a ticket change', 'No ID question before 01:55', 'Paula Nunes'), 3) +
+        col('Done', 4, card('Alert · Today', 0, 'Customer asked twice for a refund, was offered only a voucher', 'Refunded · coaching set for Oct 15', 'Daniel Brooks', 'Resolved', 'moved') +
+          card('Alert · Oct 5', 0, 'Lost baggage claim escalated to the ground team', 'Ground team found the bag, Oct 6', 'Sofia Cruz', 'Escalated') +
+          card('Call · Oct 4', 0, 'Sentiment re-analyzed on a VIP escalation', 'Sentiment corrected to Negative', 'Maya Collins', 'Resolved'), 2, 5) +
+        col('Cancelled', 2, card('Alert · Oct 10', 0, 'Duplicate: booking engine timeout', 'Same failure as the Oct 10 alert', 'Ryan Cole', 'Duplicate') +
+          card('Feedback · Sep 30', 0, 'Website search is slow', 'Not about a call', '', 'Not actionable')) + '</div>';
     },
     show: function (el, i, ui) {
-      var c = el.querySelector('.ac-card.src');
+      var c = el.querySelector('.ac-card.src'), m = el.querySelector('.ac-card.moved');
+      m.classList.remove('fly');
       if (i === 1 || i === 2) c.classList.add('hot');
       if (i === 2) ui.side('<header>Task<small>From an alert · Today</small></header><div class="a" style="margin-top:14px"><p style="font-size:19px;line-height:1.25;color:var(--ink);font-weight:500">Customer asked twice for a refund, was offered only a voucher</p><p>Cancelled JFK–LHR flight. The customer asked for a cash refund twice and the agent offered a voucher both times.</p></div>' +
         '<dl><dt>Source</dt><dd><span class="sx-tag blue">Alert</span>Refund refused</dd><dt>Priority</dt><dd>High</dd><dt>Assignee</dt><dd>' + av('Daniel Brooks') + 'Daniel Brooks</dd><dt>Call</dt><dd>Oct 13 · 6 min 12 sec</dd></dl>' +
-        '<h4>Checklist</h4><div class="ac-check done"><i>✓</i>Listen to the call</div><div class="ac-check" data-late><i></i>Refund the customer</div><div class="ac-check"><i></i>Coach Selma K. on the refund policy</div>' +
+        /* the call the task came from: its length as a line, the two moments the customer asked, and what was said */
+        '<div class="ac-ev"><h4>From the call · agent Selma K.</h4><i class="cm-tl"><u style="left:22%"></u><u style="left:43.3%"></u></i><p><b>01:22</b>“I’d like a refund for the cancelled flight.”</p><p><b>02:41</b>“I asked for a refund, not a voucher.”</p></div>' +
+        '<h4>Checklist</h4><div class="ac-check done"><i>✓</i>Listen to the call</div><div class="ac-check" data-late><i></i>Refund the customer</div><div class="ac-check" data-late><i></i>Coach Selma K. on the refund policy</div>' +
         '<div class="ft">' + act('Reassign') + act('Close as Resolved', 'ink') + '</div>');
-      if (i === 2) { var late = el.querySelector('.sx-side [data-late]'), tick = function () { late.classList.add('done'); late.firstChild.textContent = '✓'; }; if (ui.jump) tick(); else later(tick, 4300); }
+      /* the task is worked in front of the viewer: the refund, then the coaching, and only then is it closed as Resolved */
+      if (i === 2) {
+        var tick = function (x) { x.classList.add('done'); x.firstChild.textContent = '✓'; };
+        [].forEach.call(el.querySelectorAll('.sx-side [data-late]'), function (x, n) { if (ui.jump) tick(x); else later(function () { tick(x); }, 3700 + n * 1300); });
+        if (!ui.jump) later(function () { el.querySelector('.sx-side .ft .ink').classList.add('press'); }, 6400);
+      }
+      /* and it is carried to Done: the card leaves its place in Pending and lands at the top of Done, where its outcome is written */
+      if (i === 3 && ui && !ui.jump && m.animate && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+        c.style.display = 'block'; m.style.display = 'none'; var a = c.getBoundingClientRect();
+        c.style.display = m.style.display = ''; var b = m.getBoundingClientRect(), z = el.getBoundingClientRect().width / el.offsetWidth || 1, dx = (a.left - b.left) / z, dy = (a.top - b.top) / z;
+        m.classList.add('fly');
+        m.animate([{ transform: 'translate(' + dx + 'px,' + dy + 'px)' }, { transform: 'translate(' + dx + 'px,' + (dy - 7) + 'px)', offset: .2 }, { transform: 'none' }], { duration: 1000, delay: 350, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'backwards' });
+      }
     }
   };
 
@@ -128,9 +175,16 @@
         d += 'C' + (X(i) + 10 / 3).toFixed(2) + ' ' + Y(p1 + (p2 - p0) / 6).toFixed(2) + ' ' + (X(i + 1) - 10 / 3).toFixed(2) + ' ' + Y(p2 - (p3 - p1) / 6).toFixed(2) + ' ' + X(i + 1) + ' ' + Y(p2).toFixed(2);
       }
       var yb = Y(17), W = X(n);
-      var N = [['Team B handle time is up 40% since Monday', 'Agent evaluation · 2:30 pm', 'Rising', 'blue', ''],
+      /* the recap's month, day by day (Sep 1 is a Tuesday; the 30 days add up to the 38,214 on the slide). Monday Sep 21, the day of the
+         schedule change, is the busiest. Refund calls a day: 963 in the week before, 1,926 in the week of Sep 21, so "doubled" can be seen */
+      var M = [1404, 1313, 1315, 1250, 768, 677, 1441, 1460, 1313, 1289, 1275, 760, 677, 1455, 1362, 1354, 1302, 1226, 823, 650, 1921, 1912, 1822, 1668, 1667, 1055, 859, 1411, 1432, 1353];
+      var R = [166, 165, 147, 148, 94, 83, 176, 167, 150, 155, 158, 88, 83, 166, 155, 162, 161, 147, 95, 77, 343, 325, 309, 278, 318, 192, 161, 169, 175, 157];
+      var bars = M.map(function (v, k) { return '<i' + (k === 20 ? ' class="top"' : '') + ' style="height:' + (v / 1921 * 100).toFixed(1) + '%;--i:' + k + '"></i>'; }).join('');
+      var RY = function (v) { return 100 - v / 380 * 100; }, rd = 'M0 ' + RY(R[0]).toFixed(2);
+      for (var j = 1; j < R.length; j++) rd += 'L' + X(j) + ' ' + RY(R[j]).toFixed(2);
+      var N = [['Team B handle time is up 40% since Monday', 'Agent evaluation · 2:30 pm', 'Rising', 'ink', ''],
         ['Refund asked twice, voucher offered: 6 calls since Monday', 'Alert · Refund refused · Oct 13', 'New', 'nw', ' thread'],
-        ['Recording disclosure went missing on 58 calls in 14 days', 'Signal · Recording disclosure missing', 'Rising', 'blue', ''],
+        ['Recording disclosure went missing on 61 calls in 14 days', 'Signal · Recording disclosure missing', 'Rising', 'ink', ''],
         ['Silence on Trip Status calls is down a third', 'Signal · Long silence · since the new script', 'Improving', 'ok', ''],
         ['Valid sales held above the 90% target for a sixth week', 'Compliance · weekly report', 'Steady', '', '']];
       var tab = function (t, c, on) { return '<span class="tab' + (on ? ' on' : '') + '">' + t + (c ? '<small>' + c + '</small>' : '') + '</span>'; };
@@ -142,23 +196,27 @@
         '<p>58 callers yesterday said they want to cancel or leave. A usual day has 17.</p>' +
         '<div class="nr-plot"><svg viewBox="0 0 ' + W + ' 100" preserveAspectRatio="none"><clipPath id="nr-over"><rect x="0" y="-20" width="' + W + '" height="' + (yb + 20).toFixed(2) + '"/></clipPath>' +
         '<path d="' + d + 'V' + yb.toFixed(2) + 'H0Z" fill="#DCEFFE" clip-path="url(#nr-over)"/><path d="' + d + '" fill="none" stroke="#139FFD" stroke-width="2.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>' +
-        '<i class="base" style="top:' + pc(yb) + '"></i><i class="ax"></i>' +
-        '<span class="lb late" style="right:0;top:' + pc(yb) + ';translate:0 7px">Usual day · <b>17 calls</b></span>' +
-        '<i class="dot o late" style="left:' + pc(26 / n * 100) + ';top:' + pc(Y(44)) + '"></i><span class="lb late" style="right:' + pc(100 - 26 / n * 100) + ';top:' + pc(Y(44)) + ';translate:-14px -50%">Twice the usual · <b>Oct 9</b></span>' +
-        '<i class="dot late" style="left:100%;top:' + pc(Y(58)) + '"></i><span class="lb late" style="right:0;top:' + pc(Y(58)) + ';translate:4px -30px"><b>58 calls</b> · Oct 12</span></div>' +
+        '<i class="base" style="top:' + pc(yb) + '"></i><i class="ax"></i><span class="lb cap">Calls a day · last 30 days</span>' +
+        '<span class="lb late nq1" style="right:0;top:' + pc(yb) + ';translate:0 7px">Usual day · <b>17 calls</b></span>' +
+        '<i class="dot o late nq2" style="left:' + pc(26 / n * 100) + ';top:' + pc(Y(44)) + '"></i><span class="lb late nq2" style="right:' + pc(100 - 26 / n * 100) + ';top:' + pc(Y(44)) + ';translate:-14px -50%">Twice the usual · <b>Oct 9</b></span>' +
+        '<i class="dot late nq3" style="left:100%;top:' + pc(Y(58)) + '"></i><span class="lb late nq3" style="right:0;top:' + pc(Y(58)) + ';translate:4px -30px"><b>58 calls</b> · Oct 12</span></div>' +
         '<div class="nr-days">' + [[0, 'Sep 13'], [7, 'Sep 20'], [14, 'Sep 27'], [21, 'Oct 4'], [29, 'Oct 12']].map(function (a) { return '<span style="left:' + pc(a[0] / n * 100) + '">' + a[1] + '</span>'; }).join('') + '</div>' +
         /* a story has voices: two of today's calls, the same ones the Signals screen lists under "Caught today" */
         '<div class="nr-said"><blockquote>“If this isn’t refunded today I’m canceling everything.”<small>Call · 2:02 pm · 6 min 12 sec</small></blockquote>' +
         '<blockquote>“Just cancel the whole trip, please.”<small>Call · 12:05 pm · 9 min 3 sec</small></blockquote></div>' +
         '<div class="nr-why"><div><b>Why you’re seeing this</b><p>The signal passed twice its usual level on Oct 9 and has stayed above it for four days.</p></div>' +
-        '<span class="nr-str"><i><u></u><u></u><u></u></i>Strong</span><span class="nr-see">See 412 calls →</span></div></section>' +
+        '<span class="nr-str"><i><u></u><u></u><u></u></i>Strong</span><span class="nr-see">See the 211 calls →</span></div></section>' +
         '<section class="nr-side"><div class="nr-feat"><small>Monthly recap · September</small><h3>38,214 calls. One story.</h3><p>The busiest day, the topic that took over and the agent who carried the floor.</p>' +
         '<span class="nr-play"><svg viewBox="0 0 12 12"><path d="M2.5 1.2v9.6L10.5 6z"/></svg>Play · 75 sec</span></div>' +
         '<div class="nr-list">' + N.map(function (s) { return '<div class="nr-item' + s[4] + '"><b>' + s[0] + '</b><span class="sx-tag ' + s[3] + '">' + s[2] + '</span><span>' + s[1] + '</span></div>'; }).join('') + '</div></section></div>' +
         '<div class="nr-story" data-s="0"><div class="pr"><i class="on"></i><i></i><i></i><i></i><i></i></div>' +
         '<div class="sl s0"><small>September 2026 · Your recap</small><h3>Chief, your month was loud.</h3><p>Let’s listen back.</p></div>' +
-        '<div class="sl s1"><small>Calls analyzed</small><h3>38,214</h3><p>9% more than August</p></div>' +
-        '<div class="sl s2"><small>What changed most</small><h3>Refund calls doubled after the schedule change.</h3><p>September 21 to September 27</p></div></div>';
+        '<div class="sl s1"><small>Calls analyzed</small><h3>38,214</h3><p>9% more than August</p>' +
+        '<div class="nr-mon"><span class="tip" style="left:' + pc(20.5 / 30 * 100) + '">Busiest day · <b>Mon, Sep 21</b> · 1,921 calls</span><div class="b">' + bars + '</div><div class="x"><span>Sep 1</span><span>Sep 30</span></div></div></div>' +
+        '<div class="sl s2"><small>What changed most</small><h3>Refund calls doubled after the schedule change.</h3><p>963 the week before. 1,926 in the week of September 21.</p>' +
+        '<div class="nr-ref"><svg viewBox="0 0 ' + W + ' 100" preserveAspectRatio="none"><rect x="195" y="0" width="70" height="100" rx="0" fill="#fff" fill-opacity=".16"/>' +
+        '<path d="' + rd + '" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>' +
+        '<div class="x"><span>Sep 1</span><span class="wk" style="left:' + pc(230 / W * 100) + '">Sep 21 to 27</span><span>Sep 30</span></div></div></div></div>';
     },
     show: function (el, i, ui) {
       var st = el.querySelector('.nr-story'), num = st.querySelector('.s1 h3'), plot = el.querySelector('.nr-plot'), live = !!ui && !ui.jump;
@@ -166,7 +224,9 @@
       plot.classList.remove('draw');
       if (i === 0 && live) { void plot.offsetWidth; plot.classList.add('draw'); }
       /* the slide says it counts the calls: so it counts */
-      if (i === 2 && live) { num.textContent = '0'; for (var n = 1; n <= 28; n++) (function (n) { later(function () { num.textContent = Math.round(38214 * (1 - Math.pow(1 - n / 28, 4))).toLocaleString('en-US'); }, 420 + n * 46); })(n); }
+      /* the count is the comparison itself: it starts at August's total (38,214 is 9% more) and the line that says so lands after it */
+      st.querySelector('.s1').classList.toggle('cnt', i === 2 && live);
+      if (i === 2 && live) { num.textContent = '35,059'; for (var n = 1; n <= 28; n++) (function (n) { later(function () { num.textContent = Math.round(35059 + 3155 * (1 - Math.pow(1 - n / 28, 4))).toLocaleString('en-US'); }, 520 + n * 44); })(n); }
       else num.textContent = '38,214';
       /* Play: the story opens out of its own cover, the blue card it was started from */
       if (i === 1 && live) {
@@ -217,7 +277,7 @@
       var UP = { 0: 0, 3: 2, 5: 3, 7: 4 };
       var row = function (r, n, cls, up) {
         return '<div class="dt-r' + (cls ? ' ' + cls : '') + '" style="--n:' + n + (up != null ? ';--up:' + up : '') + '"><i class="ck"></i>' +
-          '<span class="cl"><b>' + (r[0] ? ic(WARN, 'wn') : '') + r[1] + '</b><small>' + r[2] + '</small></span>' +
+          '<span class="cl"><b>' + r[1] + (r[0] ? ic(WARN, 'wn') : '') + '</b><small>' + r[2] + '</small></span>' +
           '<span class="id">' + r[3] + ic(COPY) + '</span>' +
           '<span class="dc">' + r[4] + '<small>' + r[5] + '</small></span>' +
           '<span><i class="dt-st ' + STC[r[6]] + '">' + r[6] + '</i></span>' +
@@ -226,10 +286,10 @@
           '<span class="dr">' + (r[12] ? 'Outbound' : 'Inbound') + '</span>' +
           '<span class="du">' + r[9] + '</span>' +
           '<span class="se"><i class="' + (r[10] === 'Negative' ? 'neg' : r[10] === 'Neutral' ? 'neu' : '') + '"></i>' + r[10] + '</span>' +
-          '<span class="sc ' + lv(r[11]) + '">' + r[11] + '</span></div>';
+          '<span class="sc ' + (r[11] < 50 ? 'lo' : r[11] < 75 ? 'md' : 'hi') + '">' + r[11] + '</span></div>';
       };
       var tab = function (t, n, on) { return '<span' + (on ? ' class="on"' : '') + '>' + t + (n ? '<small>' + n + '</small>' : '') + '</span>'; };
-      var chip = function (k, v, n) { return '<span class="dt-f" style="--n:' + n + '">' + ic(SPARK) + k + ' <b>' + v + '</b>' + ic(X, 'x') + '</span>'; };
+      var chip = function (k, v, n) { return '<span class="dt-f" style="--n:' + n + '">' + k + ' <b>' + v + '</b>' + ic(X, 'x') + '</span>'; };
       return '<div class="top dt-top"><h2>Data</h2><span class="dt-crumb">' + ic('<path d="M7 5l4 4-4 4"/>') + 'Northwind</span><span class="sx-tag nw dt-proc"><i></i>Processing 3</span><div class="sp"></div>' +
         '<div class="dt-search">' + ic('<circle cx="8" cy="8" r="4.5"/><path d="M11.5 11.5l3.5 3.5"/>') + '<span>Search calls</span><kbd>/</kbd></div>' + act('Export') + act(ic('<path d="M9 12V4M5.5 7.3 9 3.8l3.5 3.5M3.5 14h11"/>') + 'Upload', 'ink') + '</div>' +
         '<div class="dt-tabs">' + tab('All calls', '2,000', 1) + tab('Needs review', '148') + tab('High priority', '62') + tab('Alerts', '17') + tab('Done', '1,204') + tab('Agent evaluation', '') + '</div>' +
@@ -240,8 +300,8 @@
         '<span class="dt-btn">' + ic('<rect x="3" y="3.5" width="12" height="11" rx="2.5"/><path d="M7.2 3.5v11M10.8 3.5v11"/>') + 'Columns<b>10</b></span></div>' +
         '<div class="dt-tbl"><div class="dt-r hd"><i class="ck"></i><span>Call</span><span>ID</span><span class="srt">Call date' + ic('<path d="M9 4v10M5.5 10.5 9 14l3.5-3.5"/>') + '</span><span>Status</span><span>Priority</span><span>Assigned to</span><span>Direction</span><span class="du">Length</span><span>Sentiment</span><span style="text-align:right">Score</span></div>' +
         '<div class="dt-body"><div class="dt-set all">' + A.map(function (r, n) { return UP[n] != null ? row(r, n, 'stay', UP[n]) : row(r, n); }).join('') + '</div><div class="dt-set hit">' + F.map(function (r, n) { return row(r, n, n < 4 ? 'dup' : ''); }).join('') + '</div></div>' +
-        '<div class="dt-foot"><span class="ct"><span class="rg"><b>1–9</b> of </span><span class="of">2,000</span> calls</span><span class="av"><i></i>Average score <b>36</b><i></i>Average length <b>7:07</b></span><span class="sp"></span>' +
-        '<span class="sx-tag nw sig">' + ic(SPARK) + 'Save as a signal</span><span class="pg"><i>' + ic('<path d="M11 5l-4 4 4 4"/>') + '</i><b>1</b><u>2</u><u>3</u><em>…</em><u class="last">223</u><i>' + ic('<path d="M7 5l4 4-4 4"/>') + '</i></span></div></div>';
+        '<div class="dt-foot"><span class="ct"><span class="rg"><b>1–9</b> of </span><span class="of">2,000</span> calls</span><span class="av"><i></i><span>Average score <b>36</b><small>against 76 for all calls</small></span><i></i><span class="ln">Average length <b>7:07</b><small>against 4:12</small></span></span><span class="sp"></span>' +
+        '<span class="sx-tag nw sig">Save as a signal</span><span class="pg"><i>' + ic('<path d="M11 5l-4 4 4 4"/>') + '</i><b>1</b><u>2</u><u>3</u><em>…</em><u class="last">223</u><i>' + ic('<path d="M7 5l4 4-4 4"/>') + '</i></span></div></div>';
     },
     show: function (el, i, ui) {
       var tx = el.querySelector('.dt-ask .tx'), n = el.querySelector('.dt-n'), text = 'refund calls over 5 minutes where the customer was unhappy';
@@ -253,12 +313,15 @@
       el.classList.toggle('jmp', still);
       el.querySelector('.dt-foot .of').textContent = i === 2 ? '86' : '2,000';
       el.querySelector('.dt-foot .last').textContent = i === 2 ? '10' : '223';
-      if (i === 0) tx.textContent = ''; else if (i === 1 && !still) type(tx, text); else { tx.classList.remove('typing'); tx.textContent = text; }
+      if (i === 0) tx.textContent = ''; else if (i === 1 && !still) type(tx, text); else if (i === 2) {
+        /* the sentence is read: each phrase takes a lilac line as the condition it became lands under it */
+        tx.classList.remove('typing'); tx.innerHTML = '<u style="--n:0">refund calls</u> <u style="--n:1">over 5 minutes</u> where the customer was <u style="--n:2">unhappy</u>';
+      } else { tx.classList.remove('typing'); tx.textContent = text; }
       if (i === 2 && !still) {
-        /* the count waits for the third condition to land (0.96 s), then falls to its answer while the rows change under it:
+        /* the count waits for the third condition to land (1.25 s), then falls to its answer while the rows change under it:
            fast at first, slowing as it lands */
         count(2000);
-        for (var k = 1; k <= 18; k++) (function (k) { later(function () { var p = 1 - Math.pow(1 - k / 18, 3); count(Math.round(2000 - (2000 - 86) * p)); }, 960 + k * 34); })(k);
+        for (var k = 1; k <= 18; k++) (function (k) { later(function () { var p = 1 - Math.pow(1 - k / 18, 3); count(Math.round(2000 - (2000 - 86) * p)); }, 1250 + k * 34); })(k);
       } else count(i === 2 ? 86 : 2000);
     }
   };
@@ -274,28 +337,28 @@
     build: function () {
       var F = [['Cancellation intent', 'The customer says they want to cancel or leave', 17, 'Oct 9', [16, 18, 17, 19, 16, 18, 17, 20, 26, 34, 44, 52, 57, 58]],
         ['Refund refused', 'A refund is asked for and not offered', 5, 'Oct 10', [4, 5, 4, 5, 4, 5, 5, 4, 5, 5, 6, 11, 16, 17]],
-        ['Recording disclosure missing', 'No disclosure in the first 30 seconds', 3, 'Oct 11', [2, 3, 2, 3, 3, 2, 3, 3, 2, 3, 3, 4, 11, 14]]];
+        ['Recording disclosure missing', 'No disclosure in the first 30 seconds', 3, 'Oct 11', [2, 3, 2, 3, 3, 2, 3, 3, 2, 3, 3, 5, 13, 14]]];
       var Q = [['Upgrade offer missed', 'An eligible customer is not offered an upgrade', 'Active', '', [15, 16, 14, 15, 17, 16, 15, 14, 16, 15, 15, 15, 16, 15]],
         ['Long silence', 'More than 20 seconds with nobody speaking', 'Active', '', [12, 12, 11, 12, 11, 11, 10, 9, 8, 8, 7, 7, 7, 6]],
         ['Competitor mentioned', 'The customer names another airline', 'Active', '', [3, 4, 3, 3, 4, 3, 4, 3, 3, 4, 3, 3, 4, 3]],
         ['Praise for the agent', 'The customer thanks the agent by name', 'Paused', '', null]];
       var sum = function (a) { return a.reduce(function (x, y) { return x + y; }, 0); };
-      var spark = function (a, mx) { return '<span class="sp">' + a.map(function (v) { return '<i style="height:' + Math.max(8, v / mx * 100).toFixed(0) + '%"></i>'; }).join('') + '</span>'; };
+      var spark = function (a) { var mx = Math.max.apply(0, a); return '<span class="sp">' + a.map(function (v) { return '<i style="height:' + Math.max(16, v / mx * 100).toFixed(0) + '%"></i>'; }).join('') + '</span>'; };
       var card = function (f, k) {
         var a = f[4], mx = Math.max.apply(0, a);
         return '<div class="sg-card" data-g="' + k + '"><header><b>' + f[0] + '</b><i class="tg"></i></header><small>' + f[1] + '</small>' +
-          '<div class="fig"><b>' + sum(a) + '</b><span>calls in 14 days</span><span class="sx-tag ink">Triggered since ' + f[3] + '</span></div>' +
-          '<div class="sg-plot">' + a.map(function (v, d) { return '<i' + (v > f[2] * 2 ? ' class="pk"' : '') + ' style="height:' + (v / mx * 100).toFixed(1) + '%;animation-delay:' + (k * 90 + d * 34) + 'ms"></i>'; }).join('') +
+          '<div class="fig"><b>' + sum(a) + '</b><span>calls in 14 days</span><span class="sx-tag ink" style="animation-delay:' + (1380 + k * 120) + 'ms">Triggered since ' + f[3] + '</span></div>' +
+          '<div class="sg-plot">' + a.map(function (v, d) { return '<i' + (v > f[2] * 2 ? ' class="pk"' : '') + ' style="height:' + (v / mx * 100).toFixed(1) + '%;animation-delay:' + (380 + k * 120 + d * 34) + 'ms"></i>'; }).join('') +
           '<u style="bottom:' + (f[2] / mx * 100).toFixed(1) + '%"></u><span class="lb" style="bottom:calc(' + (f[2] / mx * 100).toFixed(1) + '% + 7px)">Usual day · <b>' + f[2] + '</b></span>' +
           '<span class="lb last"><b>' + a[13] + '</b> yesterday</span></div><div class="sg-ax"><span>Sep 29</span><span>Oct 12</span></div></div>';
       };
       var row = function (q, k) {
-        return '<div class="sg-r" data-g="' + k + '"><i class="tg' + (q[4] ? '' : ' off') + '"></i><span class="nm">' + q[0] + '<small>' + q[1] + '</small></span>' + (q[4] ? spark(q[4], 18) : '<span class="sp"></span>') +
+        return '<div class="sg-r" data-g="' + k + '"><i class="tg' + (q[4] ? '' : ' off') + '"></i><span class="nm">' + q[0] + '<small>' + q[1] + '</small></span>' + (q[4] ? spark(q[4]) : '<span class="sp"></span>') +
           '<span class="ct">' + (q[4] ? '<b>' + sum(q[4]) + '</b>calls in 14 days' : '<b>–</b>paused on Sep 28') + '</span><span class="sx-tag ' + q[3] + '">' + q[2] + '</span></div>';
       };
       return top('Signals', 'Rules that classify calls on their own. 7 signals · 3 triggered now', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New signal', 'ink')) +
-        '<div class="sg-new"><svg class="i" viewBox="0 0 18 18"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="tx"></span><span class="sx-tag blue">Reading the last 14 days…</span></div>' +
-        '<div class="sg-r fresh"><i class="tg"></i><span class="nm">Switching to a competitor<small>The customer says they will switch to a competitor</small></span>' + spark([2, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 2, 2], 4) + '<span class="ct"><b>23</b>calls in 14 days</span><span class="sx-tag nw">New</span></div>' +
+        '<div class="sg-new"><span class="tx"></span><span class="sx-tag blue">Reading the last 14 days…</span></div>' +
+        '<div class="sg-r fresh"><span class="nm"><span>Switching to a competitor<span class="sx-tag nw">Preview</span></span><small>The customer says they will switch to a competitor</small></span>' + spark([2, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 2, 2]) + '<span class="ct"><b>23</b>calls in 14 days</span>' + act('Save signal', 'ink') + '</div>' +
         '<div class="sx-body"><div class="sx-h"><b>Triggered now</b><span>3 signals over twice their usual day</span></div><div class="sg-fire">' + F.map(card).join('') + '</div>' +
         '<div class="sx-h sg-h2"><b>The other four</b><span>3 active, inside their usual range · 1 paused</span></div><div class="sg-list">' + Q.map(function (q, k) { return row(q, k + 3); }).join('') + '</div></div>';
     },
@@ -307,8 +370,10 @@
       if (i === 0 && live) { void fire.offsetWidth; fire.classList.add('draw'); }
       if (i === 1) {
         el.querySelector('[data-g="0"]').classList.add('hot');
-        ui.side('<header>Cancellation intent<small>412 calls</small></header><div class="a" style="margin-top:14px"><p>The customer says they want to cancel or leave. Triggered since Oct 9: <b>240% over its 30-day baseline.</b></p></div><h4>Caught yesterday</h4>' +
-          '<ul class="sg-q"><li><b>2:02 pm</b>“If this isn’t refunded today I’m canceling everything.”</li><li><b>1:18 pm</b>“I’d rather book with someone else next time.”</li><li><b>12:05 pm</b>“Just cancel the whole trip, please.”</li></ul><div class="ft">' + act('Edit rule') + act('Create a task', 'ink') + '</div>');
+        ui.side('<header>Cancellation intent<small>412 calls</small></header><div class="a" style="margin-top:14px"><p>The customer says they want to cancel or leave. Triggered since Oct 9: <b>58 calls yesterday against a usual day of 17.</b></p></div><h4>Caught yesterday · 5 of 58</h4>' +
+          '<ul class="sg-q">' + [['2:02 pm', '“If this isn’t refunded today I’m <u>canceling everything</u>.”', 'Daniel Brooks · 6 min 12 sec'], ['1:18 pm', '“I’d rather <u>book with someone else</u> next time.”', 'Maya Collins · 4 min 40 sec'],
+            ['12:05 pm', '“Just <u>cancel the whole trip</u>, please.”', 'Ryan Cole · 9 min 3 sec'], ['11:40 am', '“<u>Close my account</u>, I’m done waiting.”', 'Sofia Cruz · 11 min 26 sec'], ['10:26 am', '“I want to <u>cancel</u> and get my money back.”', 'Paula Nunes · 5 min 8 sec']]
+            .map(function (q, n) { return '<li style="--i:' + n + '"><b>' + q[0] + '</b><span>' + q[1] + '<small>' + q[2] + '</small></span></li>'; }).join('') + '</ul><span class="sg-all">Open all 58 calls →</span><div class="ft">' + act('Edit rule') + act('Create a task', 'ink') + '</div>');
       }
       if (i === 2) {
         var box = el.querySelector('.sg-new'), tx = box.querySelector('.tx'), text = 'The customer says they will switch to a competitor';
@@ -361,8 +426,8 @@
   var ui = {
     jump: false,
     side: function (html) { side.innerHTML = html; side.classList.add('on'); el.classList.add('side-on'); },
-    tip: function (target, html, where) {
-      tip.innerHTML = html; tip.classList.add('on'); tip.style.left = tip.style.top = '0px';
+    tip: function (target, html, where, width) {
+      tip.style.width = width ? width + 'px' : ''; tip.style.height = ''; tip.classList.remove('fill'); tip.innerHTML = html; tip.classList.add('on'); tip.style.left = tip.style.top = '0px';
       var a = target.getBoundingClientRect(), r = el.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight, x, y;
       if (where === 'left') { x = a.left - r.left - w - 14; y = a.top - r.top + a.height / 2 - h / 2; }
       else if (where === 'below') { x = a.right - r.left - w; y = a.bottom - r.top + 14; }
@@ -373,6 +438,7 @@
       if (where !== 'below' && where !== 'topright' && where !== 'left') x = (a.left - r.left + a.width / 2) / z - w / 2; else if (where !== 'left') x = (a.right - r.left) / z - w;
       /* no room under the thing it points at: it goes above it, never over it */
       if (where === 'below' && y > el.offsetHeight - h - 20) y = (a.top - r.top) / z - h - 14;
+      if (where === 'lefttop') { var pr = target.parentNode.getBoundingClientRect(); x = (a.left - r.left) / z - w - 14; y = (pr.top - r.top) / z + 2; }
       tip.style.left = Math.max(20, Math.min(el.offsetWidth - w - 20, x)) + 'px'; tip.style.top = Math.max(20, Math.min(el.offsetHeight - h - 20, y)) + 'px';
     }
   };

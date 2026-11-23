@@ -225,6 +225,8 @@ html body section#product#product .pf-prob{ background:none !important; border-r
   /* on a phone the block sits right above its window, so the press and what it does are seen together */
   #product#product article.spot > .txt > .pf-call{ order:-3; margin:16px 0 18px; scroll-margin-top:84px; }
   #product#product .pf-call-go{ min-height:44px; padding:10px 2px; margin-top:2px; } }
+/* the screen the call does not pass through says so in one line, in the thread's own voice, so the count 1, 2, 3, 4 never looks broken */
+@media (max-width:860px){ #product#product article.spot > .txt > .pf-call.pf-skip{ order:0; margin:14px 0 4px; } }
 
 /* While a window holds the call, what the frame cuts at its edges (half a word, half a row) goes to haze over the last 22px, so the
    crop reads as chosen. Only in a hold: the playing demo keeps its clear edges. (API critic, round 3) */

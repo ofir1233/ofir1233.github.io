@@ -98,7 +98,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Alerts fire when a monitor trips. Signals classify calls, and agent evaluations score each contact-center agent. None of them names an owner.</p></div></details>
         </div>
       </div>
-      <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-actions-board.webp?v=5" data-zoom alt="The Actions board in four columns, Pending, In progress, Done and Cancelled. Every card names its source, its date and its owner." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div>
+      <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-actions-board.webp?v=6" data-zoom alt="The Actions board in four columns, Pending, In progress, Done and Cancelled. Every card names its source, its date, the line from the call that raised it and its owner." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div>
         <figcaption><b>The Actions board.</b> Four columns, Pending to Cancelled, under one filter bar.</figcaption></figure>
     </div>
   </section>
@@ -112,14 +112,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Cards sit in four columns, Pending, In progress, Done and Cancelled, under the filter bar.</p></div></details></div>
       </div>
       <figure class="v7-anat rv">
-        <div class="shot pad v7s" style="--iw:400px;--ir:4.6% / 11.1%"><span class="live">Design Lab · demo data</span><img src="../img/v7s-actions-card.webp?v=5" alt="One Actions card: a high-priority alert from today, “Customer asked twice for a refund, was offered only a voucher”, owned by Daniel Brooks." width="869" height="361" loading="lazy"></div>
-        <ol class="v7-parts" aria-label="The parts of a card, top to bottom"><li><span class="n">01</span><b>Source and age.</b> Alert, Call, Agent evaluation or Feedback, then Today, Yesterday or a date.</li><li><span class="n">02</span><b>Priority.</b> A high-priority task says so on the same line, with a coral dot.</li><li><span class="n">03</span><b>What happened.</b> One plain sentence, two lines at most.</li><li><span class="n">04</span><b>Owner.</b> The assignee, or “Not assigned” when nobody has it.</li></ol>
+        <div class="shot pad v7s" style="--iw:400px;--ir:4.6% / 11.1%"><span class="live">Design Lab · demo data</span><img src="../img/v7s-actions-card.webp?v=6" alt="One Actions card: a high-priority alert from today, “Customer asked twice for a refund, was offered only a voucher”, with the line from the call that raised it, and owned by Daniel Brooks." width="869" height="441" loading="lazy"></div>
+        <ol class="v7-parts" aria-label="The parts of a card, top to bottom"><li><span class="n">01</span><b>Source and age.</b> Alert, Call, Agent evaluation or Feedback, then Today, Yesterday or a date.</li><li><span class="n">02</span><b>Priority.</b> A high-priority task says so on the same line, with a coral dot.</li><li><span class="n">03</span><b>What happened.</b> One plain sentence, two lines at most. Under it, the line from the call that raised the task.</li><li><span class="n">04</span><b>Owner.</b> The assignee, or “Not assigned” when nobody has it.</li></ol>
         <div class="ct-foot"><figcaption><b>A card from the board.</b> The same task is opened in the demo at the top of the page.</figcaption><a class="ct-jump" href="#demo" data-beat="2">Watch it open</a></div>
       </figure>
       <p class="why xtra"><b>Design choice:</b> being mentioned gets its own filter, Mentions me, so you find where you're needed before you open anything.</p>
 
       <h3 class="actions-sub">Filters that ask whose, which and from where</h3>
-      <figure class="rv"><div class="shot v7s actions-bar"><img src="../img/v7s-actions-bar.webp?v=5" alt="The Actions filter bar: Everyone, Assigned to me and Mentions me, then High priority, From alerts and From agent evaluation. The last three each show a count." width="2017" height="151" loading="lazy"></div>
+      <figure class="rv"><div class="shot v7s actions-bar"><img src="../img/v7s-actions-bar.webp?v=6" alt="The Actions filter bar: Everyone, Assigned to me and Mentions me, then High priority, From alerts and From agent evaluation. The last three each show a count." width="2017" height="151" loading="lazy"></div>
         <figcaption><b>The filter bar.</b> Who the task belongs to on the left. On the right, three quick filters, each with the number of tasks that match. Design Lab · demo data.</figcaption></figure>
       <div class="two actions-two-top xtra">
         <div class="prose"><p>Left to right, the bar answers three questions. <b>Whose work?</b> Everyone, Assigned to me or Mentions me. <b>Which tasks?</b> High priority, with its count. <b>From where?</b> From alerts or From agent evaluation.</p></div>
@@ -152,9 +152,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
       <div class="two">
-        <figure class="rv"><div class="shot actions-crop v7s" style="--iw:330px"><span class="live">Design Lab · demo data</span><img src="../img/v7s-actions-done.webp?v=5" alt="The Done column: three closed tasks, tagged Resolved, Escalated and Resolved." width="706" height="988" loading="lazy"></div>
+        <figure class="rv"><div class="shot actions-crop v7s" style="--iw:330px"><span class="live">Design Lab · demo data</span><img src="../img/v7s-actions-done.webp?v=6" alt="The Done column: closed tasks, each with its outcome written under the title and a tag, Resolved or Escalated." width="706" height="988" loading="lazy"></div>
           <figcaption><b>The Done column.</b> A finished task says how it ended: Resolved or Escalated.</figcaption></figure>
-        <figure class="rv"><div class="shot actions-crop v7s" style="--iw:330px"><span class="live">Design Lab · demo data</span><img src="../img/v7s-actions-cancelled.webp?v=5" alt="The Cancelled column: a duplicate task and a not-actionable feedback task, each tagged with its close reason." width="706" height="988" loading="lazy"></div>
+        <figure class="rv"><div class="shot actions-crop v7s" style="--iw:330px"><span class="live">Design Lab · demo data</span><img src="../img/v7s-actions-cancelled.webp?v=6" alt="The Cancelled column: a duplicate task and a not-actionable feedback task, each tagged with its close reason." width="706" height="988" loading="lazy"></div>
           <figcaption><b>The Cancelled column.</b> Each closed card carries its reason as a tag.</figcaption></figure>
       </div>
 
@@ -242,7 +242,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </section>
 
   <div class="wrap">
-    <a class="next" href="newsroom.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Newsroom</h2></div><span class="next-thumb whole" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/v7s-news-feed.webp?v=5" width="2060" height="1327" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
+    <a class="next" href="newsroom.html"><div><div class="label" style="margin-bottom:12px">Next case study</div><h2>Newsroom</h2></div><span class="next-thumb whole" aria-hidden="true"><span class="bar"><i></i><i></i><i></i></span><img src="../img/v7s-news-feed.webp?v=6" width="2060" height="1327" alt="" loading="lazy" decoding="async"></span><span class="arrow" aria-hidden="true">→</span></a>
     <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy.</p></div>
   </div>
 </main>
@@ -252,6 +252,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script src="case.js?v=4"></script>
 <script src="lab-stage.js" defer></script>
 <script src="../v7/depth.js?v=4" defer></script>
-<script src="../v7/product.js?v=20" defer></script>
+<script src="../v7/product.js?v=23" defer></script>
 </body>
 </html>
