@@ -68,7 +68,7 @@
       }
       if (i === 2) ui.side('<header>' + MK + 'Ask AI<small>Selma K.</small></header><div class="q">Which calls pulled Selma’s Vulnerable customer protocol score down?</div>' +
         '<div class="a"><p><b>12 calls</b> failed, and 9 of them share one cause: the customer said they were struggling to pay and the protocol questions were skipped.</p>' +
-        '<ul class="cm-calls">' + [['Oct 13', 'Cannot afford to rebook. Refund asked twice, voucher offered.', '01:48', '6 min 12 sec', 29], ['Oct 9', 'Customer mentions a missed payment. No affordability check.', '02:14', '8 min 40 sec', 26], ['Oct 7', 'Says the rent is due tomorrow. The sale continues.', '03:05', '7 min 21 sec', 42]]
+        '<ul class="cm-calls">' + [['Oct 13', 'Cannot afford to rebook. Refund asked twice, voucher offered.', '01:48', '6 min 12 sec', 29], ['Oct 9', 'Customer mentions a missed payment. No affordability check.', '02:14', '8 min 40 sec', 26], ['Oct 7', 'Says the rent is due tomorrow. The sale continues.', '03:05', '7 min 21 sec', 42], ['Oct 5', 'Says money is tight this month. The upgrade is still offered.', '00:57', '5 min 30 sec', 17]]
           .map(function (q, n) { return '<li style="--i:' + n + '"><b>' + q[0] + '</b><span>' + q[1] + '<i class="cm-tl"><u style="left:' + q[4] + '%"></u></i><small>Protocol skipped at ' + q[2] + '<em> · ' + q[3] + '</em></small></span></li>'; }).join('') + '</ul></div>' +
         '<span class="sg-all">Show all 12 calls →</span><div class="cm-sug"><span>Which agents share this cause?</span><span>Draft a coaching note for Selma</span></div><div class="cm-ask">Ask a follow-up</div>');
     }
@@ -105,7 +105,7 @@
         hair = document.createElement('i'); hair.className = 'ae-x'; plot.appendChild(hair);
         var pb = plot.getBoundingClientRect(), bb = b.getBoundingClientRect(), pz = pb.width / plot.offsetWidth || 1;
         hair.style.left = ((bb.left + bb.width / 2 - pb.left) / pz - .5) + 'px'; hair.style.height = Math.max(0, (bb.top - pb.top) / pz - 4) + 'px';
-        ui.tip(b, '<strong>Wed, Sep 30</strong><span class="big">66 <small>/ 100</small></span><span>10 pts under the average · 3,104 calls</span><span class="why">Fell most: <b>Explains the refund policy</b>, 81 → 52</span>', 'lefttop'); }
+        ui.tip(b, '<strong>Wed, Sep 30</strong><span class="big">66 <small>/ 100</small></span><span>10 pts under the average · 1,353 calls</span><span class="why">Fell most: <b>Explains the refund policy</b>, 81 → 52</span>', 'lefttop'); }
       if (i === 2) {
         [].forEach.call(el.querySelectorAll('[data-g="under 60"]'), function (x) { x.classList.add('hot'); });
         el.querySelectorAll('.kpis>div')[2].classList.add('hot');
@@ -113,11 +113,12 @@
            Selma K. is the agent the Compliance screen opens and the one the task in Actions asks to coach */
         var AG = [['Selma K.', 48, 1], ['Jonas R.', 51, 1], ['Priya N.', 52, 'Verifies identity'], ['Tomas V.', 54, 1], ['Leah M.', 55, 1], ['Dario F.', 56, 'Sets a clear next step'], ['Noor A.', 57, 1], ['Kyle B.', 59, 'Shows empathy']];
         ui.side('<header>Under 60<small>8 of 715 agents</small></header><div class="a" style="margin-top:14px"><p><span class="ae-xs">They average <b>54</b> across 1,212 calls. </span><b>Five of the eight are weakest on the same criterion</b>, the one that fell on Sep 30.</p></div><h4 class="ae-h4">Lowest first · weakest criterion</h4>' +
-          '<ul class="ae-ag">' + AG.map(function (a, n) { return '<li style="--i:' + n + '">' + av(a[0]) + '<span>' + a[0] + '<small>' + (a[2] === 1 ? '<u>Explains the refund policy</u>' : a[2]) + '</small></span><em>' + a[1] + '</em></li>'; }).join('') + '</ul>' +
+          '<ul class="ae-ag">' + AG.map(function (a, n) { return '<li style="--i:' + n + '">' + av(a[0]) + '<span>' + a[0] + '<small>' + (a[2] === 1 ? '<u>Explains the refund policy</u><i class="ts"> · Task set</i>' : a[2]) + '</small></span><em>' + a[1] + '</em></li>'; }).join('') + '</ul>' +
+          '<p class="ae-nt"><b>5 agents</b> share Explains the refund policy. The other three are weakest elsewhere.</p>' +
           '<div class="ft">' + act('Open the list') + act('Create 5 coaching tasks', 'ink') + '</div>');
         /* the finding ends in the move it calls for: the five who share the criterion become five coaching tasks */
         if (ui && !ui.jump) { later(function () { var bt = el.querySelector('.sx-side .ft .ink'); if (!bt) return; bt.classList.add('press');
-          later(function () { bt.classList.add('made'); bt.textContent = '5 tasks created'; }, 320); }, 5900); }
+          later(function () { bt.classList.add('made'); bt.textContent = '5 tasks created'; var ul = el.querySelector('.sx-side .ae-ag'); if (ul) ul.classList.add('made'); }, 320); }, 5900); }
       }
     }
   };
@@ -135,12 +136,12 @@
       return top('Actions', 'Every finding from a call, tracked to an owner and an outcome.', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New task', 'ink')) +
         '<div class="ac-bar"><span class="sx-chip on">Everyone</span><span class="sx-chip">Assigned to me</span><span class="sx-chip">Mentions me</span><i class="gap"></i><span class="sx-chip">High priority <b>4</b></span><span class="sx-chip">From alerts <b>5</b></span><span class="sx-chip">From agent evaluation <b>2</b></span></div>' +
         '<div class="ac-board">' +
-        col('Pending', 6, card('Alert · Today · High', 1, 'Customer asked twice for a refund, was offered only a voucher', '“…a refund, not a voucher.” · 02:41', 'Daniel Brooks', '', 'src') +
-          card('Call · Yesterday', 0, 'Reason for call tagged as Billing, should be Flight change', '“I need to move my flight.” · 00:38', 'Maya Collins') +
+        col('Pending', 6, card('Alert · Today · High', 1, 'Customer asked twice for a refund, was offered only a voucher', '<b>02:41</b>“…a refund, not a voucher.”', 'Daniel Brooks', '', 'src') +
+          card('Call · Yesterday', 0, 'Reason for call tagged as Billing, should be Flight change', '<b>00:38</b>“I need to move my flight.”', 'Maya Collins') +
           card('Agent evaluation · Yesterday · High', 1, 'Recording disclosure missing in the first 30 seconds', 'No recording notice before 00:30', ''), 3, 5) +
-        col('In progress', 5, card('Alert · Oct 10 · High', 1, 'Technical failure blocked a booking at payment', '“It says payment failed.” · 03:12', 'Ryan Cole') +
+        col('In progress', 5, card('Alert · Oct 10 · High', 1, 'Technical failure blocked a booking at payment', '<b>03:12</b>“It says payment failed.”', 'Ryan Cole') +
           card('Agent evaluation · Oct 9', 0, 'Identity verification skipped before a ticket change', 'No ID question before 01:55', 'Paula Nunes') +
-          card('Call · Oct 9', 0, 'Promised callback was not made within 24 hours', '“Nobody called me back.” · 01:12', 'Sofia Cruz'), 2) +
+          card('Call · Oct 9', 0, 'Promised callback was not made within 24 hours', '<b>01:12</b>“Nobody called me back.”', 'Sofia Cruz'), 2) +
         col('Done', 4, card('Alert · Today', 0, 'Customer asked twice for a refund, was offered only a voucher', 'Refunded · coaching set for Oct 15', 'Daniel Brooks', 'Resolved', 'moved') +
           card('Alert · Oct 5', 0, 'Lost baggage claim escalated to the ground team', 'Ground team found the bag, Oct 6', 'Sofia Cruz', 'Escalated') +
           card('Call · Oct 4', 0, 'Sentiment re-analyzed on a VIP escalation', 'Sentiment corrected to Negative', 'Maya Collins', 'Resolved'), 2, 5) +
@@ -151,7 +152,7 @@
       var c = el.querySelector('.ac-card.src'), m = el.querySelector('.ac-card.moved'), ce = m.querySelector('.cev'), OUT = 'Refunded · coaching set for\u00a0Oct\u00a015';
       m.classList.remove('fly'); ce.classList.remove('ans'); ce.textContent = OUT;
       if (i === 1 || i === 2) c.classList.add('hot');
-      if (i === 2) ui.side('<header>Task<small>From an alert · Today</small></header><div class="a" style="margin-top:14px"><p style="font-size:19px;line-height:1.25;color:var(--ink);font-weight:500">Customer asked twice for a refund, was offered only a voucher</p><p>Cancelled JFK–LHR flight. The customer asked for a cash refund twice and the agent offered a voucher both times.</p></div>' +
+      if (i === 2) ui.side('<header>Task<small>From an alert · Today</small></header><div class="a" style="margin-top:14px"><p style="font-size:19px;line-height:1.25;color:var(--ink);font-weight:500;text-wrap:balance">Customer asked twice for a refund, was offered only a voucher</p><p>Cancelled JFK–LHR flight. The customer asked for a cash refund twice and the agent offered a voucher both times.</p></div>' +
         '<dl><dt>Source</dt><dd><span class="sx-tag blue">Alert</span>Refund refused</dd><dt>Priority</dt><dd>High</dd><dt>Assignee</dt><dd>' + av('Daniel Brooks') + 'Daniel Brooks</dd><dt>Call</dt><dd>Oct 13 · 6 min 12 sec</dd></dl>' +
         /* the call the task came from: its length as a line, the two moments the customer asked, and what was said */
         '<div class="ac-ev"><h4>From the call · agent Selma K.</h4><i class="cm-tl"><s></s><u style="left:22%"></u><u style="left:43.3%"></u></i><p><b>01:22</b>“I’d like a refund for the cancelled flight.”</p><p><b>02:41</b>“I asked for a refund, not a voucher.”</p></div>' +
@@ -214,7 +215,7 @@
       var wv = M.map(function (v, k) { return '<i' + (k === 20 ? ' class="top"' : '') + ' style="--h:' + (v / 1921).toFixed(3) + '"></i>'; }).join('');
       var N = [['Team B handle time is up 40% on last week', 'Agent evaluation · 2:30 pm', 'Rising', 'ink', ''],
         ['Refund asked twice, voucher offered: 6 calls in 7 days', 'Alert · Refund refused · Oct 13', 'New', 'nw', ' thread'],
-        ['Recording disclosure went missing on 61 calls in 14 days', 'Signal · Disclosure missing', 'Rising', 'ink', ''],
+        ['Recording disclosure went missing on 61 calls in 14 days', 'Signal · Disclosure missing · since Oct 11', 'Rising', 'ink', ''],
         ['Silence on Trip Status calls is down a third', 'Signal · Long silence · since the new script', 'Improving', 'ok', ''],
         ['Valid sales held above the 90% target for a sixth week', 'Compliance · weekly report', 'Steady', '', '']];
       var tab = function (t, c, on) { return '<span class="tab' + (on ? ' on' : '') + '">' + t + (c ? '<small>' + c + '</small>' : '') + '</span>'; };
@@ -243,7 +244,7 @@
         '<div class="sl s0"><small>September 2026 · Your recap</small><h3>Chief,<br class="dk"> your month was loud.</h3><p>Let’s listen back.</p></div>' +
         '<div class="sl s1"><small>Calls analyzed</small><h3>38,214</h3><p>9% more than August</p></div>' +
         '<div class="nr-mon"><span class="tip" style="left:' + pc(20.5 / 30 * 100) + '">Busiest day · <b>Mon, Sep 21</b> · 1,921 calls</span><div class="b">' + bars + '</div><div class="x"><span>Sep 1</span><span>Sep 30</span></div></div>' +
-        '<div class="sl s2"><small>What changed most</small><h3>Refund calls doubled in one week.</h3><p>The week of September 21, when the schedule changed.</p>' +
+        '<div class="sl s2"><small>What changed most</small><h3>Refund calls doubled in one week.</h3><p>It began on September 21, the month’s busiest day, when the schedule changed.</p>' +
         /* the two weeks are two bands, each with its total above it */
         '<div class="nr-ref"><span class="wn" style="left:' + pc(160 / W * 100) + '"><b>963</b><i>Sep 14 to 20</i></span><span class="wn on" style="left:' + pc(230 / W * 100) + '"><b>2,014</b><i>Sep 21 to 27</i></span>' +
         '<svg viewBox="0 0 ' + W + ' 100" preserveAspectRatio="none"><clipPath id="nr-wk"><rect x="195" y="-30" width="70" height="160"/></clipPath><rect x="125" y="-12" width="70" height="112" fill="#fff" fill-opacity=".08"/><rect x="195" y="-12" width="70" height="112" fill="#fff" fill-opacity=".2"/>' +
@@ -337,7 +338,7 @@
         '<span class="dt-btn">' + ic('<rect x="3" y="3.5" width="12" height="11" rx="2.5"/><path d="M7.2 3.5v11M10.8 3.5v11"/>') + 'Columns<b>10</b></span></div>' +
         '<div class="dt-tbl"><div class="dt-r hd"><i class="ck"></i><span>Call</span><span>ID</span><span class="srt">Call date' + ic('<path d="M9 4v10M5.5 10.5 9 14l3.5-3.5"/>') + '</span><span>Status</span><span>Priority</span><span>Assigned to</span><span>Direction</span><span class="du">Length</span><span>Sentiment</span><span style="text-align:right">Score</span></div>' +
         '<div class="dt-body"><div class="dt-set all">' + A.map(function (r, n) { return UP[n] != null ? row(r, n, 'stay', UP[n]) : row(r, n); }).join('') + '</div><div class="dt-set hit">' + F.map(function (r, n) { return row(r, n, n < 4 ? 'dup' : ''); }).join('') + '</div></div>' +
-        '<div class="dt-foot"><span class="ct"><span class="rg"><b>1–9</b> of </span><span class="of">2,000</span> calls</span><span class="av"><i></i><span>Average score <b class="p">36</b><small>against <b>76</b><em> for all calls</em></small></span><i></i><span class="ln">Average length <b>7:07</b><small>against <b>4:12</b></small></span></span><button class="act ink sig" type="button">Save as a signal</button><span class="sp"></span>' +
+        '<div class="dt-foot"><span class="ct"><span class="rg"><b>1–9</b> of </span><span class="of">2,000</span> calls</span><span class="av"><i></i><span>Average score <b class="p">36</b><small>against <b class="p hi">76</b><em> for all calls</em></small></span><i></i><span class="ln">Average length <b>7:07</b><small>against <b>4:12</b></small></span></span><button class="act ink sig" type="button">Save as a signal</button><span class="sp"></span>' +
         '<span class="pg"><i>' + ic('<path d="M11 5l-4 4 4 4"/>') + '</i><b>1</b><u>2</u><u>3</u><em>…</em><u class="last">223</u><i>' + ic('<path d="M7 5l4 4-4 4"/>') + '</i></span></div></div>';
     },
     show: function (el, i, ui) {
@@ -382,7 +383,10 @@
         ['Competitor mentioned', 'The customer names another airline', 'Active', '', [3, 4, 3, 3, 4, 3, 4, 3, 3, 4, 3, 3, 4, 3]],
         ['Praise for the agent', 'The customer thanks the agent by name', 'Paused', '', null]];
       var sum = function (a) { return a.reduce(function (x, y) { return x + y; }, 0); };
-      var spark = function (a) { var mx = Math.max.apply(0, a); return '<span class="sp">' + a.map(function (v, d) { return '<i style="height:' + Math.max(16, v / mx * 100).toFixed(0) + '%;--d:' + d + '"></i>'; }).join('') + '</span>'; };
+      var PV = [1, 2, 1, 3, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1];
+      /* a small chart of fourteen days on the scale the rule is judged by: the usual day (their average) is drawn at six tenths of the height
+         for every signal, so a quiet one stays around the line and any move away from it shows */
+      var spark = function (a) { var u = sum(a) / a.length; return '<span class="sp">' + a.map(function (v, d) { return '<i style="height:' + Math.min(100, Math.max(12, v / u * 60)).toFixed(0) + '%;--d:' + d + '"></i>'; }).join('') + '<u style="bottom:60%"></u></span>'; };
       var card = function (f, k) {
         var a = f[4], mx = Math.max.apply(0, a);
         return '<div class="sg-card" data-g="' + k + '"><header><b>' + f[0] + '</b><i class="tg"></i></header><small>' + f[1] + '</small>' +
@@ -392,12 +396,12 @@
           '<span class="lb last">Over twice the usual since <b>' + f[3] + '</b></span></div><div class="sg-ax"><span>Sep 29</span><span>Oct 12</span></div></div>';
       };
       var row = function (q, k) {
-        return '<div class="sg-r" data-g="' + k + '"><i class="tg' + (q[4] ? '' : ' off') + '"></i><span class="nm">' + q[0] + '<small>' + q[1] + '</small></span>' + (q[4] ? spark(q[4]) : '<span class="sp"></span>') +
-          '<span class="ct">' + (q[4] ? '<b>' + sum(q[4]) + '</b>calls in 14 days' : '<b>–</b>paused on Sep 28') + '</span><span class="sx-tag ' + q[3] + '">' + q[2] + '</span></div>';
+        return '<div class="sg-r" data-g="' + k + '"><i class="tg' + (q[4] ? '' : ' off') + '"></i><span class="nm">' + q[0] + '<small>' + q[1] + '</small></span>' + (q[4] ? spark(q[4]) : '<span class="sp off"></span>') +
+          '<span class="ct">' + (q[4] ? '<b>' + sum(q[4]) + '</b>calls in 14 days' : '<span class="off">Off since Sep 28</span>') + '</span><span class="sx-tag ' + q[3] + '">' + q[2] + '</span></div>';
       };
       return top('Signals', 'Rules that classify calls on their own. <span class="sg-nn">7</span> signals · 3 triggered now', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New signal', 'ink sg-nw') + act('Cancel', 'sg-cx')) +
         '<div class="sg-new"><span class="tx"></span><span class="sx-tag blue">Reading the last 14 days…</span></div>' +
-        '<div class="sg-r fresh"><span class="nm"><span>Supervisor requested<span class="sx-tag nw">Preview</span></span><small>Also catches “a manager” and “someone in charge”</small></span>' + spark([1, 2, 1, 3, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1]) + '<span class="ct"><b>23</b>calls in 14 days</span>' + act('Save signal', 'ink') +
+        '<div class="sg-r fresh"><span class="nm"><span>Supervisor requested<span class="sx-tag nw">Preview</span></span><small>Also catches “a manager” and “someone in charge”</small></span>' + spark(PV) + '<span class="ct"><b>23</b>calls in 14 days</span>' + act('Save signal', 'ink') +
         /* a preview is checked before it is saved: two of the calls it found, the words that matched underlined */
         '<div class="mq"><small>2 of the 23</small><span>“Can I <u>speak to your supervisor</u>, please?”<small> · Oct 12</small></span><span>“I want <u>a manager</u> on the line.”<small> · Oct 11</small></span></div></div>' +
         '<div class="sx-body"><div class="sx-h"><b>Triggered now</b><span>3 signals over twice their usual day</span></div><div class="sg-fire">' + F.map(card).join('') + '</div>' +
@@ -405,7 +409,9 @@
     },
     show: function (el, i, ui) {
       var fresh = el.querySelector('.sg-r.fresh'), tag = el.querySelector('.sg-new .sx-tag'), fire = el.querySelector('.sg-fire'), live = !!ui && !ui.jump;
-      var sv = fresh.querySelector('.act'), pt = fresh.querySelector('.nm .sx-tag'), nn = el.querySelector('.sg-nn');
+      var sv = fresh.querySelector('.act'), pt = fresh.querySelector('.nm .sx-tag'), nn = el.querySelector('.sg-nn'), h2 = el.querySelector('.sg-h2');
+      var PV = [1, 2, 1, 3, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1];
+      h2.firstChild.textContent = 'The other four'; h2.lastChild.textContent = '3 active, inside their usual range · 1 paused';
       fresh.classList.remove('in', 'q'); sv.classList.remove('press', 'saved'); sv.textContent = 'Save signal'; pt.className = 'sx-tag nw'; pt.textContent = 'Preview'; nn.textContent = '7';
       tag.textContent = 'Reading the last 14 days…';
       /* the page arrives: each firing signal's fourteen days rise from left to right, then the usual day is drawn across them */
@@ -429,12 +435,14 @@
         var nb = fresh.querySelector('.ct b'); nb.textContent = '23';
         var found = function () { box.classList.add('found'); fresh.classList.add('in');
           if (ui.jump) { fresh.classList.add('q'); return; }
-          nb.textContent = '0'; for (var k = 1; k <= 14; k++) (function (k) { later(function () { nb.textContent = Math.round(23 * k / 14); }, 900 + k * 45); })(k);
+          nb.textContent = '0'; for (var k = 1, cu = 0; k <= 14; k++) { cu += PV[k - 1]; (function (k, cu) { later(function () { nb.textContent = cu; }, 900 + k * 45); })(k, cu); }
           /* a preview is checked before it is saved: the row opens on two of the calls it caught. Only then is the button pressed;
              it says so, the page counts eight signals and the tag turns from Preview to Active */
           later(function () { fresh.classList.add('q'); }, 2300);
           later(function () { sv.classList.add('press'); }, 5000);
-          later(function () { sv.classList.add('saved'); sv.textContent = 'Saved'; nn.textContent = '8'; pt.className = 'sx-tag flip'; pt.textContent = 'Active'; }, 5350); };
+          later(function () { sv.classList.add('saved'); sv.textContent = 'Saved'; nn.textContent = '8'; pt.className = 'sx-tag flip'; pt.textContent = 'Active';
+            /* three triggered and five others make the eight the page now counts */
+            h2.firstChild.textContent = 'The other five'; h2.lastChild.textContent = '4 active, inside their usual range · 1 paused'; }, 5350); };
         if (ui.jump) { tx.textContent = text; box.classList.add('done'); found(); }
         /* the field arrives empty and the frame arrives with it; only then is the sentence typed */
         else { tx.textContent = ''; later(function () { type(tx, text, function () { box.classList.add('done'); later(found, 1100); }); }, 1250); }

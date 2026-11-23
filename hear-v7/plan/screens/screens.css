@@ -1013,3 +1013,48 @@
 /* on a phone the tour ends on the two comparisons, whole: the bar above already says 86 of 2,000, and the button stands clear of the frame's edge */
 .px-small .sx[data-st="2"] .dt-foot .ct,.px-small .sx[data-st="2"] .dt-foot .av>i:first-child{display:none}
 .px-small .dt-foot .act.sig{margin-left:60px}
+/* ---------- Seventh pass ----------
+   Actions: a quote on a card is written as in the sheet, time first, and the time never breaks off onto its own line.
+   What was done (the Done column) is told apart from what was said by a green rule and darker text. */
+.ac-card .cev b{margin-right:7px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ac-card p{text-wrap:balance}
+.ac-col:nth-child(3) .ac-card .cev{border-left-color:var(--green);color:var(--ink)}
+.ac-col:nth-child(3) .ac-card.moved.fly .cev:not(.ans){border-left-color:#A9DAFE;color:var(--ink2)}
+.is-short .ac-card.moved .cev{text-wrap:balance}
+/* the short frame's outcome field keeps its label once the outcome is written */
+.is-short .sx-side .ac-out .tx:empty:not(.typing)::before{content:none}
+.is-short .sx-side .ac-out .f::before{content:"Outcome";flex:none;margin-right:9px;color:var(--mut)}
+/* Agents: the sheet says who the five are before it offers the five tasks; when they are created, each of the five says so */
+.sx-side .ae-nt{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:13.5px;line-height:1.45;color:var(--ink2);text-wrap:balance}
+.sx-side .ae-nt b{font-weight:600;color:var(--ink)}
+.is-short .sx-side .ae-nt{margin-top:10px;padding-top:10px;font-size:12.5px;line-height:1.4}
+.sx-side .ae-ag .ts{display:none;font-style:normal;font-weight:500;color:var(--green-ink)}
+.sx-side .ae-ag.made .ts{display:inline;animation:sg-mark .35s ease-out both;animation-delay:calc(var(--i)*70ms)}
+.is-short .sx-side .ae-ag .ts{display:none!important}
+.kpis>div>i{text-wrap:balance}
+/* Compliance: a score under the popover is gone, in every step */
+.sx .cm-grid .c.cov{opacity:0!important}
+/* Ask AI in the short frame: two calls, then the two follow-ups it suggests */
+.is-short .sx-side .cm-calls li:nth-child(n+3){display:none}
+.is-short .sx-side .cm-sug{display:flex;margin-top:auto}
+.is-short .sx-side .cm-ask{display:flex;height:34px;margin-top:10px;padding:0 13px;border-radius:9px;font-size:12.5px}
+/* Data: the score all calls average is the table's own badge, beside the coral one */
+.dt-foot .av small b.p.hi{background:#0B6FCF;color:#fff;margin:0 1px}
+/* Signals. A new rule at full size: the firing cards say what they catch and since when, as in the first step */
+.sx[data-st="2"] .sg-card>small{display:block}
+.sx[data-st="2"] .sg-plot .lb.last{display:block}
+.is-short .sx[data-st="2"] .sg-card>small,.is-short .sx[data-st="2"] .sg-plot .lb.last{display:none}
+/* every small chart carries its usual day, and has the width to be read */
+.sg-r{grid-template-columns:38px minmax(0,1fr) 300px 124px 92px}
+.is-narrow .sg-r{grid-template-columns:38px minmax(0,1fr) 196px 124px 92px}
+.sx.side-on .sg-r{grid-template-columns:38px minmax(0,1fr) 124px 92px}
+.sg-r.fresh.in{grid-template-columns:minmax(0,1fr) 300px 124px auto}
+.is-narrow .sg-r.fresh.in{grid-template-columns:minmax(0,1fr) 196px 124px auto}
+.sg-r .sp{position:relative;height:32px}
+.is-short .sg-r .sp{height:26px}
+.sg-r .sp u{position:absolute;left:0;right:0;border-top:1px dashed var(--mut);opacity:.55;text-decoration:none}
+.sg-r.fresh.in .sp u{animation:nr-base .4s 1.75s ease-out both}
+/* a paused signal: a flat line where the chart would be, and one line that says since when */
+.sg-r .sp.off{box-shadow:inset 0 -2px 0 #DCEFFE}
+.sg-r .ct .off{color:var(--mut)}
+@media (prefers-reduced-motion:reduce){.sx-side .ae-ag.made .ts,.sg-r.fresh.in .sp u{animation:none}}
