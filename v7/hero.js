@@ -26,6 +26,8 @@
     if (now && ls.indexOf(now) < 0) now = null;
     var d = now;
     if (!d) ls.forEach(function(l){ var sec = document.getElementById(l.getAttribute('href').slice(1)); if (sec && sec.getBoundingClientRect().top < innerHeight * .5) d = l; });   /* the last named part already passed, by its place on the page */
+    /* the ring waits only while its part is still on screen; once that part has left the window, nothing is marked */
+    if (!now && d) { var ds = document.getElementById(d.getAttribute('href').slice(1)); if (ds && ds.getBoundingClientRect().bottom < innerHeight * .25) d = null; }
     if (!d) { ind.style.opacity = 0; return; }
     /* the journey ends at Contact: when the postcard is at reading height the dot travels to the Contact button (520ms) and goes into it; the button
        answers in blue for 600ms, once. Scrolling back up puts the dot back under the last part. */
