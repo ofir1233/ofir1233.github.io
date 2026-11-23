@@ -164,3 +164,9 @@ html body.fyi-page #system .strip-row .a-sug{ max-width:100%; white-space:normal
   html body.fyi-page #system .strip-row[data-strip="event"] .a-tk{ width:auto; }
 }
 html body.fyi-page .sources{ margin-top:0; border-top:0; }
+/* the stage with the anatomy sheet: the sheet takes the whole column, then the dots, then the step */
+@media (min-width:761px){
+  html body.fyi-page .st-anat > .st-txt{ max-width:none; }
+  html body.fyi-page .st-anat > .st-txt .fx-beats{ max-width:30ch; }
+}
+html.js body.fyi-page .stage.st-anat:not(.fx-rm) .st-txt > .anat{ order:-2; margin-bottom:22px; }
