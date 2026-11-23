@@ -1038,9 +1038,9 @@
       e.style.opacity = o.toFixed(3); e.style.pointerEvents = o > .5 ? '' : 'none';
     });
     sayEl.classList.toggle('is-held', held);
-    fig.classList.toggle('is-usable', live);
+    fig.classList.toggle('is-usable', false);      /* owner, 23.11: the screen only plays, the visitor does not drive it */
     /* the live screen can be entered with the keyboard once it is the visitor's; before stage 5 it cannot be reached at all */
-    if (hi.tabIndex !== (live ? 0 : -1)) hi.tabIndex = live ? 0 : -1;
+    if (hi.tabIndex !== -1) hi.tabIndex = -1;
     var off = t < S.u; if (hi.inert !== off) hi.inert = off;
   }
   function render() {
@@ -1074,7 +1074,7 @@
     if (playing || (inView && (worldOn || moving))) requestAnimationFrame(loop); else looping = false;
   }
   function kick() { if (!looping && G) { looping = true; last = performance.now(); requestAnimationFrame(loop); } }
-  if (fine && !calm) {
+  if (false) {
     fig.addEventListener('pointermove', function (e) {
       if (e.pointerType !== 'mouse') return;
       var r = stage.getBoundingClientRect();
