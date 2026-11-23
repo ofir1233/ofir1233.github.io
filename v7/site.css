@@ -91,3 +91,15 @@ html.en-on body .sec-head .en-x, html.en-on body .fyi-copy > .en-x{ opacity:1 !i
   html body section#web, html body section#ia{ padding-bottom:128px !important; }
   html body section#fyi{ padding-bottom:136px !important; }
 }
+
+/* round 16: the way to a case study is the same dark button in every part (it was an outline, the weight of Read more) */
+html body section a.btn.cs-more:not(.cs-private){ display:inline-flex; align-items:center; gap:8px; height:48px; min-height:48px; padding:0 22px !important; border-radius:24px !important; background:#171b20 !important; color:#fff !important; box-shadow:0 14px 26px -16px rgba(23,27,32,.7) !important; font:600 15.5px/1 var(--body) !important; text-decoration:none; transition:background-color .2s, transform .2s; }
+html body section a.btn.cs-more:not(.cs-private):hover{ background:#0b6fcf !important; transform:translateY(-2px); }
+html body section a.btn.cs-more:not(.cs-private)::after{ content:none !important; }
+html body section a.btn.cs-more:not(.cs-private) > span[aria-hidden]{ color:#fff !important; }
+/* the private version is a real second button, not grey words beside one */
+html body section#design-lab#design-lab .cs-pair a.cs-private{ display:inline-flex; align-items:center; gap:8px; height:48px; min-height:48px; padding:0 20px !important; border-radius:24px !important; background:none !important; color:#171b20 !important; box-shadow:inset 0 0 0 1.5px rgba(23,27,32,.22) !important; font:600 15.5px/1 var(--body) !important; }
+html body section#design-lab#design-lab .cs-pair a.cs-private:hover{ box-shadow:inset 0 0 0 1.5px #171b20 !important; }
+html body section#design-lab#design-lab .cs-pair a.cs-private .cs-lock{ color:#171b20; }
+html body section#design-lab#design-lab .cs-pair{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+html body section#ia .sec-head .mr-btn{ height:48px; min-height:48px; padding:0 20px; font-size:15.5px; border-radius:24px; }
