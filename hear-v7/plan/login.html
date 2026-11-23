@@ -18,7 +18,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:#0b2a55}
 .stage{position:relative;width:100vw;height:100vh;height:100dvh;overflow:hidden;overflow:clip;font-family:Byrd,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
-.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 70%}      /* the horizon is at 70% of the painting: pinning that line keeps it at 70% of the window, whatever the window's shape */
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 96%}      /* the horizon is at 70% of the painting: pinning that line keeps it at 70% of the window, whatever the window's shape */
 .wrap{position:absolute;left:50%;top:50%;width:min(492px,calc(100vw - 24px));translate:-50% -50%;scale:var(--s,1);display:flex;flex-direction:column;align-items:center;gap:24px}      /* the cloud and the plate, as one group: the script sizes it to the window */
 .glass{position:relative;width:100%;border-radius:30px;padding:18px;background:rgba(255,255,255,.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),inset 0 1.5px 0 rgba(255,255,255,.9),0 24px 48px -16px rgba(10,40,80,.4)}
@@ -64,7 +64,7 @@ a{color:var(--ink);text-underline-offset:3px}
 </style>
 
 <div class="stage">
-  <img class="bg" draggable="false" src="login/bg-sky.jpg" alt="">
+  <img class="bg" draggable="false" src="login/bg-city.webp" alt="">
   <div class="wrap" id="wrap">
   <img class="cloud" draggable="false" src="login/cloud-logo.png" alt="Hear">
   <main class="glass"><div class="card">
