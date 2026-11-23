@@ -31,3 +31,5 @@
 ## תשובות
 
 (אין)
+
+- 24.11 (FYI session): touched work/fyi.html only inside #together and the #around block, plus v7/fya-*.css|js, fyi-take.css, fyi-scenes.js, fyi-art.js. Details in site.md.

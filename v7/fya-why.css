@@ -47,17 +47,17 @@
 #fya-why .fyw-wh{ margin:0 0 6px; font:600 16px/1.2 var(--body); color:var(--ink); }
 #fya-why .fyw-wh span{ display:block; margin-top:3px; text-wrap:pretty; color:var(--mute); font-weight:500; }
 #fya-why .fyw-who ul{ flex:1; display:flex; flex-direction:column; margin:0; padding:0; list-style:none; }
-#fya-why .fyw-who li{ flex:1; display:flex; gap:16px; align-items:center; padding:16px 0; border-top:1px solid var(--line); }
-#fya-why .fyw-who li:first-child{ border-top:0; }
-#fya-why .fyw-who img{ flex:none; width:56px; height:56px; border-radius:50%; object-fit:cover; background:#e6e5e1; transition:box-shadow .2s ease; }
+#fya-why .fyw-who li{ flex:1; display:flex; gap:14px; align-items:center; padding:12px 0; border-top:1px solid var(--line); }
+#fya-why .fyw-who li:first-child{ border-top-color:transparent; }
+#fya-why .fyw-who img{ flex:none; width:40px; height:40px; border-radius:50%; object-fit:cover; background:#e6e5e1; transition:box-shadow .2s ease; }
 /* a role lights its own parts of the thread */
 #fya-why .fyw-who li[data-parts]{ outline:0; }
 #fya-why .fyw-who li.on img{ box-shadow:0 0 0 2px var(--ground,#f4f3f1), 0 0 0 4px var(--fya-pink); }
 #fya-why .fyw-who li:focus-visible img{ box-shadow:0 0 0 2px var(--ground,#f4f3f1), 0 0 0 4px var(--ink); }
 @media (min-width:1140px){ #fya-why .fyw.js .fyw-who li[data-parts]{ cursor:pointer; } }
-#fya-why .fyw-who b{ font:600 16.5px/1.3 var(--body); color:var(--head); }
-#fya-why .fyw-who div span{ margin-left:8px; font:400 15.5px/1.3 var(--body); color:var(--mute); }
-#fya-why .fyw-who li p{ margin:4px 0 0; font:400 15.5px/1.45 var(--body); color:var(--text); }
+#fya-why .fyw-who b{ font:500 16px/1.3 var(--body); color:var(--head); }
+#fya-why .fyw-who div span{ margin-left:8px; font:400 15px/1.3 var(--body); color:var(--mute); }
+#fya-why .fyw-who li p{ margin:2px 0 0; font:400 15px/1.4 var(--body); color:var(--mute); text-wrap:pretty; }
 
 @media (max-width:1139px){
   #fya-why .fyw{ grid-template-columns:1fr; gap:40px; }
@@ -65,9 +65,9 @@
   #fya-why .fyw-who{ margin-top:0; }
 }
 @media (min-width:700px) and (max-width:1139px){
-  #fya-why .fyw-who ul{ display:grid; grid-template-columns:1fr 1fr; column-gap:clamp(32px,6vw,96px); }
+  #fya-why .fyw-who ul{ display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:1fr; column-gap:clamp(32px,6vw,96px); }
   #fya-why .fyw-who li{ align-items:flex-start; }
-  #fya-why .fyw-who li:nth-child(2){ border-top:0; }
+  #fya-why .fyw-who li:nth-child(2){ border-top-color:transparent; }
 }
 /* phone width: the callouts become a four by two board under the phone, in thread order */
 @media (max-width:699px){
@@ -77,9 +77,7 @@
   #fya-why .fyw-lb, #fya-why .fyw-lb.r{ position:relative; inset:auto; translate:none; justify-content:center; height:48px; padding:0 4px; border-radius:0; box-shadow:inset 0 1px 0 var(--line); font-size:11.5px; letter-spacing:.03em; }
   #fya-why .fyw-lb::after{ position:absolute; left:0; right:0; top:auto; bottom:-1px; width:auto; height:2px; background:transparent; }
   #fya-why .fyw-lb.on::after{ box-shadow:none; }
-  #fya-why .fyw-who li{ padding:18px 0; gap:14px; }
-  #fya-why .fyw-who img{ width:48px; height:48px; }
-  #fya-why .fyw-who div span{ display:block; margin:1px 0 0; }
+  #fya-why .fyw-who li{ padding:18px 0; }
 }
 @media (prefers-reduced-motion:reduce){
   #fya-why .fyw-it, #fya-why .fyw.js .fyw-lbs, #fya-why .fyw-who img, #fya-why .fyw-lb::after{ transition:none; }
