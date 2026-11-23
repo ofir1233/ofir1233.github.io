@@ -957,3 +957,29 @@
 /* Agent evaluation: the coaching tasks are created; the button says so, in the colour of done */
 .sx-side .ft .act{transition:background-color .3s,color .3s}
 .sx .sx-side .ft .act.made{background:var(--green-tint);color:var(--green-ink)}
+/* ---------- Fifth pass ----------
+   Newsroom recap card: the busiest day is the one full-white mark of the thirty, the same day the story turns on */
+.nr-wv i{background:rgba(255,255,255,.55)}
+.nr-wv i.top{background:#fff}
+/* recap charts stand on their axis line; on the last slide the two week bands rise past the line's peak and the totals stand clear of them */
+.nr-mon .x,.nr-ref .x{margin-top:0}
+.nr-ref{margin-top:124px}
+.is-short .nr-ref{margin-top:98px}
+.nr-ref .wn,.nr-ref .wn.on{margin-bottom:30px}
+.is-short .nr-ref .wn,.is-short .nr-ref .wn.on{margin-bottom:22px}
+/* Data: the tour ends on this line, so its four figures are set to be read, and Save as a signal is a button */
+.dt-foot .av{font-size:13px}
+.dt-foot .av b,.dt-foot .av small b{font-size:14px;color:var(--ink)}
+.dt-foot .av small{font-size:13px}
+.dt-foot .av b.p{width:34px;height:22px;border-radius:11px;font-size:13px;color:#fff}
+.dt-foot .act.sig{height:30px;padding:0 14px;border-radius:15px;font-size:13px;margin:0 6px 0 18px}
+/* Signals: the empty field says what it is for; while a rule is being written, New signal gives way to Cancel */
+.sg-new .tx:empty::before{content:"Describe the calls to catch";color:var(--mut)}
+.sx:not([data-st="2"]) .sg-cx{display:none}
+.sx[data-st="2"] .sg-nw{display:none}
+/* the two calls a preview caught stand one under the other at every size, so neither is cut by the frame when it turns to Save */
+.sg-r.fresh .mq{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 18px;justify-content:start}
+.sg-r.fresh .mq span{grid-column:2}
+.sg-r.fresh.q .mq{max-height:66px}
+/* the preview's fourteen days rise once the frame has turned to them */
+.sg-r.fresh.in .sp i{animation-delay:calc(.9s + var(--d)*45ms)}

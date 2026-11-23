@@ -204,14 +204,14 @@
       var yb = Y(17), W = X(n);
       /* the recap's month, day by day (Sep 1 is a Tuesday; the 30 days add up to the 38,214 on the slide). Monday Sep 21, the day of the
          schedule change, is the busiest. Refund calls a day: 963 in the week before, 2,014 in the week of Sep 21, so "doubled" can be seen */
-      var M = [1404, 1313, 1315, 1250, 768, 677, 1441, 1460, 1313, 1289, 1275, 760, 677, 1455, 1362, 1354, 1302, 1226, 823, 650, 1921, 1912, 1822, 1668, 1667, 1055, 859, 1411, 1432, 1353];
+      var M = [1442, 1313, 1315, 1250, 768, 677, 1441, 1498, 1313, 1289, 1275, 760, 677, 1493, 1362, 1354, 1302, 1226, 823, 650, 1921, 1760, 1822, 1668, 1667, 1055, 859, 1449, 1432, 1353];
       var R = [166, 165, 147, 148, 94, 83, 176, 167, 150, 155, 158, 88, 83, 166, 155, 162, 161, 147, 95, 77, 363, 345, 329, 293, 322, 201, 161, 169, 175, 157];
       var bars = M.map(function (v, k) { return '<i' + (k === 20 ? ' class="top"' : '') + ' style="height:' + (v / 1921 * 100).toFixed(1) + '%;--h:' + (v / 1921).toFixed(3) + ';--i:' + k + '"></i>'; }).join('');
       var RY = function (v) { return 100 - v / 380 * 100; }, rd = 'M0 ' + RY(R[0]).toFixed(2);
       for (var j = 0; j < R.length - 1; j++) { var q0 = R[Math.max(0, j - 1)], q1 = R[j], q2 = R[j + 1], q3 = R[Math.min(R.length - 1, j + 2)];
         rd += 'C' + (X(j) + 10 / 3).toFixed(2) + ' ' + RY(q1 + (q2 - q0) / 6).toFixed(2) + ' ' + (X(j + 1) - 10 / 3).toFixed(2) + ' ' + RY(q2 - (q3 - q1) / 6).toFixed(2) + ' ' + X(j + 1) + ' ' + RY(q2).toFixed(2); }
       /* the same thirty days, at rest on the recap's cover: what Play will listen back to */
-      var wv = M.map(function (v) { return '<i style="--h:' + (v / 1921).toFixed(3) + '"></i>'; }).join('');
+      var wv = M.map(function (v, k) { return '<i' + (k === 20 ? ' class="top"' : '') + ' style="--h:' + (v / 1921).toFixed(3) + '"></i>'; }).join('');
       var N = [['Team B handle time is up 40% on last week', 'Agent evaluation · 2:30 pm', 'Rising', 'ink', ''],
         ['Refund asked twice, voucher offered: 6 calls in 7 days', 'Alert · Refund refused · Oct 13', 'New', 'nw', ' thread'],
         ['Recording disclosure went missing on 61 calls in 14 days', 'Signal · Disclosure missing', 'Rising', 'ink', ''],
@@ -246,7 +246,7 @@
         '<div class="sl s2"><small>What changed most</small><h3>Refund calls doubled in one week.</h3><p>The week of September 21, when the schedule changed.</p>' +
         /* the two weeks are two bands, each with its total above it */
         '<div class="nr-ref"><span class="wn" style="left:' + pc(160 / W * 100) + '"><b>963</b><i>Sep 14 to 20</i></span><span class="wn on" style="left:' + pc(230 / W * 100) + '"><b>2,014</b><i>Sep 21 to 27</i></span>' +
-        '<svg viewBox="0 0 ' + W + ' 100" preserveAspectRatio="none"><clipPath id="nr-wk"><rect x="195" y="-30" width="70" height="160"/></clipPath><rect x="125" y="0" width="70" height="100" fill="#fff" fill-opacity=".08"/><rect x="195" y="0" width="70" height="100" fill="#fff" fill-opacity=".2"/>' +
+        '<svg viewBox="0 0 ' + W + ' 100" preserveAspectRatio="none"><clipPath id="nr-wk"><rect x="195" y="-30" width="70" height="160"/></clipPath><rect x="125" y="-12" width="70" height="112" fill="#fff" fill-opacity=".08"/><rect x="195" y="-12" width="70" height="112" fill="#fff" fill-opacity=".2"/>' +
         '<path d="' + rd + '" fill="none" stroke="#A9DAFE" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>' +
         '<path d="' + rd + '" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" clip-path="url(#nr-wk)"/></svg>' +
         '<div class="x"><span>Sep 1</span><span>Sep 30</span></div></div></div></div>';
@@ -333,12 +333,12 @@
         '<span class="dt-btn">' + ic('<rect x="3" y="3.5" width="12" height="11" rx="2.5"/><path d="M7.2 3.5v11M10.8 3.5v11"/>') + 'Columns<b>10</b></span></div>' +
         '<div class="dt-tbl"><div class="dt-r hd"><i class="ck"></i><span>Call</span><span>ID</span><span class="srt">Call date' + ic('<path d="M9 4v10M5.5 10.5 9 14l3.5-3.5"/>') + '</span><span>Status</span><span>Priority</span><span>Assigned to</span><span>Direction</span><span class="du">Length</span><span>Sentiment</span><span style="text-align:right">Score</span></div>' +
         '<div class="dt-body"><div class="dt-set all">' + A.map(function (r, n) { return UP[n] != null ? row(r, n, 'stay', UP[n]) : row(r, n); }).join('') + '</div><div class="dt-set hit">' + F.map(function (r, n) { return row(r, n, n < 4 ? 'dup' : ''); }).join('') + '</div></div>' +
-        '<div class="dt-foot"><span class="ct"><span class="rg"><b>1–9</b> of </span><span class="of">2,000</span> calls</span><span class="av"><i></i><span>Average score <b class="p">36</b><small>against <b>76</b> for all calls</small></span><i></i><span class="ln">Average length <b>7:07</b><small>against <b>4:12</b></small></span></span><span class="sx-tag nw sig">Save as a signal</span><span class="sp"></span>' +
+        '<div class="dt-foot"><span class="ct"><span class="rg"><b>1–9</b> of </span><span class="of">2,000</span> calls</span><span class="av"><i></i><span>Average score <b class="p">36</b><small>against <b>76</b> for all calls</small></span><i></i><span class="ln">Average length <b>7:07</b><small>against <b>4:12</b></small></span></span><button class="act sig" type="button">Save as a signal</button><span class="sp"></span>' +
         '<span class="pg"><i>' + ic('<path d="M11 5l-4 4 4 4"/>') + '</i><b>1</b><u>2</u><u>3</u><em>…</em><u class="last">223</u><i>' + ic('<path d="M7 5l4 4-4 4"/>') + '</i></span></div></div>';
     },
     show: function (el, i, ui) {
       var tx = el.querySelector('.dt-ask .tx'), n = el.querySelector('.dt-n'), of = el.querySelector('.dt-foot .of'), last = el.querySelector('.dt-foot .last'), text = 'refund calls over 5 minutes where the customer was unhappy';
-      var count = function (v) { n.innerHTML = v === 2000 ? '<b>2,000</b> calls' : '<b>' + v.toLocaleString('en-US') + '</b> of 2,000 calls'; of.textContent = v.toLocaleString('en-US'); last.textContent = Math.ceil(v / 9); };
+      var count = function (v, bar) { n.innerHTML = v === 2000 ? '<b>2,000</b> calls' : '<b>' + v.toLocaleString('en-US') + '</b> of 2,000 calls'; if (bar) return; of.textContent = v.toLocaleString('en-US'); last.textContent = Math.ceil(v / 9); };
       /* shown finished, at once: a jump, a reader who asked for less motion, or a window the page holds paused (it marks its figure) */
       var still = !!ui.jump;
       try { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) still = true; } catch (e) {}
@@ -353,8 +353,10 @@
            minutes, 86 of those unhappy. Only then do the rows change under it */
         count(2000);
         [[2000, 318, 230], [318, 141, 780], [141, 86, 1330]].forEach(function (r) {
-          for (var k = 1; k <= 9; k++) (function (k) { later(function () { var q = 1 - Math.pow(1 - k / 9, 3); count(Math.round(r[0] - (r[0] - r[1]) * q)); }, r[2] + k * 26); })(k);
+          for (var k = 1; k <= 9; k++) (function (k) { later(function () { var q = 1 - Math.pow(1 - k / 9, 3); count(Math.round(r[0] - (r[0] - r[1]) * q), true); }, r[2] + k * 26); })(k);
         });
+        /* the footer counts rows, so it changes when the rows do */
+        later(function () { count(86); }, 2950);
       } else count(i === 2 ? 86 : 2000);
     }
   };
@@ -389,11 +391,11 @@
         return '<div class="sg-r" data-g="' + k + '"><i class="tg' + (q[4] ? '' : ' off') + '"></i><span class="nm">' + q[0] + '<small>' + q[1] + '</small></span>' + (q[4] ? spark(q[4]) : '<span class="sp"></span>') +
           '<span class="ct">' + (q[4] ? '<b>' + sum(q[4]) + '</b>calls in 14 days' : '<b>–</b>paused on Sep 28') + '</span><span class="sx-tag ' + q[3] + '">' + q[2] + '</span></div>';
       };
-      return top('Signals', 'Rules that classify calls on their own. <span class="sg-nn">7</span> signals · 3 triggered now', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New signal', 'ink')) +
+      return top('Signals', 'Rules that classify calls on their own. <span class="sg-nn">7</span> signals · 3 triggered now', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New signal', 'ink sg-nw') + act('Cancel', 'sg-cx')) +
         '<div class="sg-new"><span class="tx"></span><span class="sx-tag blue">Reading the last 14 days…</span></div>' +
-        '<div class="sg-r fresh"><span class="nm"><span>Switching to a competitor<span class="sx-tag nw">Preview</span></span><small>The customer says they will switch to a competitor</small></span>' + spark([2, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 2, 2]) + '<span class="ct"><b>23</b>calls in 14 days</span>' + act('Save signal', 'ink') +
+        '<div class="sg-r fresh"><span class="nm"><span>Supervisor requested<span class="sx-tag nw">Preview</span></span><small>The customer asks to speak to a supervisor</small></span>' + spark([1, 2, 1, 3, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1]) + '<span class="ct"><b>23</b>calls in 14 days</span>' + act('Save signal', 'ink') +
         /* a preview is checked before it is saved: two of the calls it found, the words that matched underlined */
-        '<div class="mq"><small>2 of the 23</small><span>“I’m <u>switching airlines</u> after this.”<small> · Oct 12</small></span><span>“I’ll <u>book with another airline</u> next time.”<small> · Oct 11</small></span></div></div>' +
+        '<div class="mq"><small>2 of the 23</small><span>“Can I <u>speak to your supervisor</u>, please?”<small> · Oct 12</small></span><span>“I want <u>a manager</u> on the line.”<small> · Oct 11</small></span></div></div>' +
         '<div class="sx-body"><div class="sx-h"><b>Triggered now</b><span>3 signals over twice their usual day</span></div><div class="sg-fire">' + F.map(card).join('') + '</div>' +
         '<div class="sx-h sg-h2"><b>The other four</b><span>3 active, inside their usual range · 1 paused</span></div><div class="sg-list">' + Q.map(function (q, k) { return row(q, k + 3); }).join('') + '</div></div>';
     },
@@ -416,20 +418,19 @@
             .map(function (q, n) { return '<li style="--i:' + n + '"><b>' + q[0] + '</b><span>' + q[1] + '<small>' + q[2] + '</small></span></li>'; }).join('') + '</ul><span class="sg-all">Open all 58 calls →</span><div class="ft">' + act('Edit rule') + act('Create a task', 'ink') + '</div>');
       }
       if (i === 2) {
-        var box = el.querySelector('.sg-new'), tx = box.querySelector('.tx'), text = 'The customer says they will switch to a competitor';
+        var box = el.querySelector('.sg-new'), tx = box.querySelector('.tx'), text = 'The customer asks to speak to a supervisor';
         box.classList.remove('done', 'found');
         /* the fourteen days are read: the preview's bars rise one day at a time and its count rises with them; the field's note has
            said its piece and leaves */
         var nb = fresh.querySelector('.ct b'); nb.textContent = '23';
         var found = function () { box.classList.add('found'); fresh.classList.add('in');
           if (ui.jump) { fresh.classList.add('q'); return; }
-          nb.textContent = '0'; for (var k = 1; k <= 14; k++) (function (k) { later(function () { nb.textContent = Math.round(23 * k / 14); }, 300 + k * 45); })(k);
-          /* and it is saved: the button is pressed and says so, the page counts eight signals; then the row opens on two of the
-             calls it caught and its tag turns from Preview to Active */
-          later(function () { sv.classList.add('press'); }, 2100);
-          later(function () { sv.classList.add('saved'); sv.textContent = 'Saved'; nn.textContent = '8'; }, 2450);
-          later(function () { fresh.classList.add('q'); }, 3600);
-          later(function () { pt.className = 'sx-tag flip'; pt.textContent = 'Active'; }, 3900); };
+          nb.textContent = '0'; for (var k = 1; k <= 14; k++) (function (k) { later(function () { nb.textContent = Math.round(23 * k / 14); }, 900 + k * 45); })(k);
+          /* a preview is checked before it is saved: the row opens on two of the calls it caught. Only then is the button pressed;
+             it says so, the page counts eight signals and the tag turns from Preview to Active */
+          later(function () { fresh.classList.add('q'); }, 2300);
+          later(function () { sv.classList.add('press'); }, 5000);
+          later(function () { sv.classList.add('saved'); sv.textContent = 'Saved'; nn.textContent = '8'; pt.className = 'sx-tag flip'; pt.textContent = 'Active'; }, 5350); };
         if (ui.jump) { tx.textContent = text; box.classList.add('done'); found(); }
         /* the field arrives empty and the frame arrives with it; only then is the sentence typed */
         else { tx.textContent = ''; later(function () { type(tx, text, function () { box.classList.add('done'); later(found, 1100); }); }, 1250); }
