@@ -31,15 +31,17 @@
 }
 .fx-app, .fx-vars {
   /* Dark_1000, surfaces, Light_1000 */
-  --bg: #000; --s0: #0e0e10; --s1: #1c1c1e; --s2: #2c2c2e; --hl: #38383a; --t1: #fff; --t2: #9a9aa0;
-  /* Chat_Blue is you; Green Active is live; Components Purple is AI only; teal is an event */
-  --blue: #0f67f0; --blue-t: #0a84ff; --green: #30d158;
-  --ai1: #6650f0; --ai2: #9638f0; --ai: linear-gradient(135deg, var(--ai1), var(--ai2)); --ai-s: #121218; --ai-t: #c9b8ff; --ai-soft: rgba(150,56,240,.16);
-  --teal: #34d1bf; --teal-ink: #04201c; --red: #ff453a; --over: #ff6961; --amber: #ffb547;
+  --bg: #05050a; --s0: #0b0b12; --s1: #15161f; --s2: #22232f; --hl: #31323f; --t1: #fff; --t2: #b4b4bd;
+  /* one loud colour: pink is you and what you send out. AI wears pink only as a line (its hairline runs pink to violet). Green is live. */
+  --blue: #ff2d8f; --blue-t: #ff6fb0; --green: #30d158;
+  --ai1: #ff2d8f; --ai2: #7a2cff; --ai: linear-gradient(135deg, var(--ai1), var(--ai2)); --ai-s: #120f1f; --ai-t: #c9b8ff; --ai-soft: rgba(122,44,255,.2);
+  --teal: #ff2d8f; --teal-ink: #fff; --red: #ff453a; --over: #ff6961; --amber: #ffb547; --cyan: #22cdf0;
   /* people (identity only) and cover art (content only) */
   --maya: #e8b45c; --theo: #c3dc6b; --ines: #f28db2; --kofi: #8ec8f2; --gray: #8e8e93;
   --cu: #e39a5b; --cu2: #a3532a; --cu-g: #160d08; --cream: #f6efe6; --ink: #0b0b0c;
-  --doodle: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22220%22 viewBox=%220 0 220 220%22 fill=%22none%22 stroke=%22%23ffffff%22 stroke-opacity=%22.05%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M20 30l4 9 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z%22/%3E%3Cpath d=%22M80 20c6-8 16-8 20 0s14 8 20 0%22/%3E%3Ccircle cx=%22170%22 cy=%2234%22 r=%2212%22/%3E%3Cpath d=%22M165 31v.5M175 31v.5M164 38c3 4 9 4 12 0%22/%3E%3Cpath d=%22M40 100v-22l18-4v22%22/%3E%3Ccircle cx=%2235%22 cy=%22100%22 r=%225%22/%3E%3Ccircle cx=%2253%22 cy=%2296%22 r=%225%22/%3E%3Cpath d=%22M110 86l-8 16h9l-6 14 16-20h-10l6-10z%22/%3E%3Cpath d=%22M160 100c0-10 18-10 18 0s-18 10-18 0%22 transform=%22rotate%28-20 169 100%29%22/%3E%3Cpath d=%22M24 160c10-14 20 14 30 0s20 14 30 0%22/%3E%3Crect x=%22112%22 y=%22146%22 width=%2226%22 height=%2220%22 rx=%225%22/%3E%3Cpath d=%22M118 166l-4 7 9-7%22/%3E%3Cpath d=%22M180 150a12 12 0 1 1-1 16%22/%3E%3Cpath d=%22M178 172l2-6 6 2%22/%3E%3Cpath d=%22M66 196l6 6 12-12%22/%3E%3Cpath d=%22M150 200h20M160 190v20%22/%3E%3Ccircle cx=%22104%22 cy=%22200%22 r=%223%22/%3E%3Ccircle cx=%2216%22 cy=%22210%22 r=%222%22/%3E%3C/svg%3E");
+  --doodle: none;
+  /* the redesign: your own bubbles and buttons, printed paper, and the offset print edge */
+  --me: linear-gradient(165deg, #ff3d98, #f01f84 55%, #d4136f); --paper: #f7f3ea; --navy: #15183f; --off: -2px 2px 0 #22cdf0, 2px -2px 0 #7a2cff;
 }
 .fx-app {
   position: absolute; inset: 0; overflow: hidden; background: var(--bg); color: var(--t1); font: 400 17px/22px var(--fxf); letter-spacing: -.01em; text-align: left;
@@ -58,7 +60,7 @@
 .fx-app .view { position: absolute; inset: 0; background: var(--bg); }
 
 /* wallpaper: the doodle ground, quieter, with a copper wash at the top for this project */
-.fx-wall { position: absolute; inset: 0; z-index: 0; background: radial-gradient(420px 340px at 50% -60px, rgba(227,154,91,.10), transparent 70%), var(--doodle) 0 0 / 180px 180px, #000; }
+.fx-wall { position: absolute; inset: 0; z-index: 0; background: radial-gradient(130% 46% at 50% 0, #1b1440, rgba(27,20,64,0)), var(--bg); }
 
 /* ---------- people and groups: monograms and abstract marks, never photos ---------- */
 .a-av { --c: var(--gray); position: relative; flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: color-mix(in srgb, var(--c) 22%, #000); color: var(--c); font: 600 13px/1 var(--fxf); letter-spacing: 0; }
@@ -68,6 +70,18 @@
 .a-av.xs { width: 18px; height: 18px; font-size: 11px; }
 .a-av.xl { width: 96px; height: 96px; font-size: 40px; }
 .p-m { --c: var(--maya); } .p-t { --c: var(--theo); } .p-i { --c: var(--ines); } .p-k { --c: var(--kofi); } .p-g { --c: var(--gray); }
+/* every person is the animal they picked at sign-up */
+.a-av[data-p] { background: #1c1c1e center / cover no-repeat; color: transparent; font-size: 0; }
+.a-av[data-p="m"] { background-image: url(../img/fyi-door/av-maya.webp); }
+.a-av[data-p="t"] { background-image: url(../img/fyi-door/av-theo.webp); }
+.a-av[data-p="i"] { background-image: url(../img/fyi-door/av-ines.webp); }
+.a-av[data-p="k"] { background-image: url(../img/fyi-door/av-kofi.webp); }
+.a-av[data-p="j"] { background-image: url(../img/fyi/f-cat.webp); }
+.a-av[data-p="s"] { background-image: url(../img/fyi/f-hamster.webp); }
+.a-av[data-p="a"] { background-image: url(../img/fyi/f-parrot.webp); }
+/* the crew's mark: its four faces */
+.a-av.g-cu { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0; place-items: stretch; overflow: hidden; border-radius: 50%; background: #1c1c1e; }
+.a-av.g-cu i { display: block; background: center / cover no-repeat; }
 .a-av.on::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 28%; height: 28%; min-width: 9px; min-height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 2.5px var(--bg); }
 .a-stack { display: flex; align-items: center; }
 .a-stack .a-av { box-shadow: 0 0 0 2px var(--s1); }
@@ -84,28 +98,14 @@
 /* ---------- covers (CSS only, reused in album, poll, call, ticket, sheet and formats) ---------- */
 .cov { position: relative; overflow: hidden; background: var(--cu-g); color: var(--cream); }
 .cov::before, .cov::after { content: ""; position: absolute; pointer-events: none; }
-/* A · Horizon: a copper half-sun behind six cream lines */
-.cov-a { background: linear-gradient(180deg, #2a140b, var(--cu-g) 62%); }
-.cov-a::before { left: 50%; bottom: 30%; width: 64%; aspect-ratio: 2 / 1; transform: translateX(-50%); border-radius: 999px 999px 0 0; background: linear-gradient(180deg, #f2b77a, var(--cu) 50%, var(--cu2)); }
-.cov-a::after { left: 0; right: 0; bottom: 6%; height: 30%; background: repeating-linear-gradient(180deg, var(--cream) 0 6%, transparent 6% 17%); opacity: .85; }
-/* B · Grooves: concentric copper arcs from the bottom left, like record grooves */
-.cov-b { background: repeating-radial-gradient(circle at 0% 100%, var(--cu) 0 4%, transparent 4% 9%, var(--cu2) 9% 11%, transparent 11% 16%), var(--cu-g); }
-.cov-b::after { inset: 0; background: radial-gradient(circle at 0% 100%, transparent 0 22%, rgba(22,13,8,.0) 22%, rgba(22,13,8,.55) 100%); }
-/* C · Stack: COPPER / HOURS in heavy uppercase, cream on deep copper */
-.cov-c { background: var(--cu2); }
-.cov-c::before { content: "COPPER HOURS"; left: 8%; right: 8%; top: 10%; font: 800 26px/.86 var(--fxd); letter-spacing: -.02em; color: var(--cream); white-space: normal; word-spacing: 100vw; }
-.cov-c::after { left: 8%; right: 8%; bottom: 10%; height: 3px; background: var(--cream); }
+/* the three painted covers: A Horizon, B Grooves, C Stack */
+.cov-a { background: #15183f url(../img/fyi-door/cover-a.webp) center / cover no-repeat; }
+.cov-b { background: #15183f url(../img/fyi-door/cover-b.webp) center / cover no-repeat; }
+.cov-c { background: #f4ede2 url(../img/fyi-door/cover-c.webp) center / cover no-repeat; }
 .cov .a-lb { position: absolute; z-index: 2; left: 6px; top: 6px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 7px; display: grid; place-items: center; background: rgba(0,0,0,.6); color: #fff; font: 700 12px/1 var(--fxf); }
-/* poster styles (ticket, sheet, formats): Splash from the splash light, Ink, Paper; cover B arcs in all three */
-.ps { position: relative; overflow: hidden; color: var(--cream); background: linear-gradient(160deg, #0c4842 0%, #06201d 55%, #3a1c26 100%); }
-.ps .arcs { position: absolute; inset: 0; background: repeating-radial-gradient(circle at 0% 100%, var(--cu) 0 3.4%, transparent 3.4% 8%, var(--cu2) 8% 9.4%, transparent 9.4% 14%); -webkit-mask: radial-gradient(circle at 0% 100%, #000 0 58%, transparent 58.5%); mask: radial-gradient(circle at 0% 100%, #000 0 58%, transparent 58.5%); }
-.ps .pt { position: absolute; right: 14px; top: 14px; left: 40%; text-align: right; font: 700 22px/.95 var(--fxd); letter-spacing: -.02em; text-transform: uppercase; }
-.ps .pd { position: absolute; right: 10px; bottom: 9px; padding: 3px 6px; border-radius: 5px; background: #06201d; font: 700 12px/1.2 var(--fxf); letter-spacing: .08em; text-transform: uppercase; }
-[data-ps="ink"] .ps .pd, .ps[data-ps="ink"] .pd { background: var(--ink); }
-[data-ps="paper"] .ps .pd, .ps[data-ps="paper"] .pd { background: var(--cream); }
-[data-ps="ink"] .ps, .ps[data-ps="ink"] { background: var(--ink); }
-[data-ps="paper"] .ps, .ps[data-ps="paper"] { background: var(--cream); color: var(--ink); }
-[data-ps="paper"] .ps .arcs, .ps[data-ps="paper"] .arcs { background: repeating-radial-gradient(circle at 0% 100%, var(--cu2) 0 3.4%, transparent 3.4% 8%, #6e3418 8% 9.4%, transparent 9.4% 14%); }
+/* the launch poster, painted (ticket, sheet, formats) */
+.ps { position: relative; overflow: hidden; color: #fff; background: #15183f url(../img/fyi-door/poster.webp) 50% 0 / cover no-repeat; }
+.ps .arcs, .ps .pt, .ps .pd { display: none; }
 
 /* ---------- top of screens ---------- */
 .a-hd { position: absolute; z-index: 20; left: 0; right: 0; top: 0; padding-top: 47px; background: var(--s0); box-shadow: 0 .5px 0 var(--hl); }
@@ -157,12 +157,19 @@
 .a-sys { align-self: center; max-width: 86%; margin: 6px 0; text-align: center; font: 500 13px/17px var(--fxf); color: var(--t2); }
 .a-sys b { color: var(--t1); font-weight: 600; }
 .a-div { align-self: stretch; display: flex; align-items: center; gap: 10px; margin: 8px 0; font: 600 13px/16px var(--fxf); color: var(--blue-t); }
-.a-div::before, .a-div::after { content: ""; flex: 1; height: 1px; background: rgba(10,132,255,.35); }
+.a-div::before, .a-div::after { content: ""; flex: 1; height: 1px; background: rgba(255,45,143,.4); }
 .a-b { position: relative; align-self: flex-start; max-width: 76%; padding: 7px 12px 8px; border-radius: 18px; background: var(--s1); font-size: 17px; line-height: 22px; overflow-wrap: anywhere; }
 .a-b.o { align-self: flex-end; background: var(--blue); color: #fff; }
 .a-b.tl { border-bottom-left-radius: 6px; }
 .a-b.o.tl { border-bottom-left-radius: 18px; border-bottom-right-radius: 6px; }
-.a-b .who { display: block; font: 600 13px/16px var(--fxf); margin-bottom: 1px; color: var(--c, var(--t2)); }
+.a-b .who { display: block; font: 600 13px/16px var(--fxf); margin-bottom: 1px; color: var(--t2); }
+/* a named bubble carries its sender's face at its foot, as in the thread on the home page */
+.a-b[data-w] { margin-left: 36px; }
+.a-b[data-w]::before { content: ""; position: absolute; left: -36px; bottom: 0; width: 28px; height: 28px; border-radius: 50%; background: #1c1c1e center / cover no-repeat; }
+.a-b[data-w="m"]::before { background-image: url(../img/fyi-door/av-maya.webp); }
+.a-b[data-w="t"]::before { background-image: url(../img/fyi-door/av-theo.webp); }
+.a-b[data-w="i"]::before { background-image: url(../img/fyi-door/av-ines.webp); }
+.a-b[data-w="k"]::before { background-image: url(../img/fyi-door/av-kofi.webp); }
 .a-b .tm { float: right; position: relative; top: 7px; margin-left: 10px; font: 500 12px/15px var(--fxf); color: var(--t2); display: inline-flex; align-items: center; gap: 2px; }
 .a-b.o .tm { color: rgba(255,255,255,.72); }
 .a-b .tm .i { width: 16px; height: 16px; stroke-width: 2; }
@@ -171,7 +178,7 @@
 .a-b.hl { box-shadow: 0 0 0 2px var(--ai2); }
 .a-b.lift { box-shadow: 0 16px 34px rgba(0,0,0,.7); }
 /* reactions: drawn glyphs on a pill, overlapping the bubble edge */
-.a-rx { position: absolute; bottom: -14px; right: 8px; display: flex; align-items: center; gap: 3px; height: 24px; padding: 0 7px 0 5px; border-radius: 12px; background: var(--s2); box-shadow: 0 0 0 1.5px #000; color: var(--t1); font: 600 12px/1 var(--fxf); }
+.a-rx { position: absolute; bottom: -14px; right: 8px; display: flex; align-items: center; gap: 3px; height: 24px; padding: 0 7px 0 5px; border-radius: 12px; background: var(--s2); box-shadow: 0 0 0 1.5px var(--bg); color: var(--t1); font: 600 12px/1 var(--fxf); }
 .a-b.o .a-rx { right: auto; left: 8px; }
 .a-rx .i { width: 15px; height: 15px; }
 .a-rx .fl { color: #ff9f43; } .a-rx .hr { color: #ff5f7e; }
@@ -189,7 +196,7 @@
 .a-tr small { display: block; font: 600 12px/15px var(--fxf); color: var(--t2); letter-spacing: .02em; margin-bottom: 1px; }
 .a-tr.l { align-self: flex-start; }
 .a-seen { align-self: flex-end; display: flex; align-items: center; gap: 6px; margin: 2px 2px 0; font: 500 12px/15px var(--fxf); color: var(--t2); }
-.a-seen .a-stack .a-av { box-shadow: 0 0 0 1.5px #000; }
+.a-seen .a-stack .a-av { box-shadow: 0 0 0 1.5px var(--bg); }
 /* file */
 .a-file { display: flex; align-items: center; gap: 10px; width: 262px; max-width: none; padding: 8px 12px 8px 8px; }
 .a-file .ft { position: relative; flex: none; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: rgba(255,255,255,.16); }
@@ -223,7 +230,7 @@
 .a-poll .q { font: 600 15px/20px var(--fxf); margin-bottom: 8px; display: flex; justify-content: space-between; }
 .a-poll .q span { font: 500 12px/20px var(--fxf); color: var(--t2); }
 .a-poll .r { position: relative; display: flex; align-items: center; gap: 8px; height: 40px; margin-top: 6px; padding: 0 8px 0 4px; border-radius: 10px; background: var(--s2); overflow: hidden; }
-.a-poll .r .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: rgba(15,103,240,.35); transition: width .45s cubic-bezier(.2,.7,.2,1); }
+.a-poll .r .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: rgba(255,45,143,.32); transition: width .45s cubic-bezier(.2,.7,.2,1); }
 .a-poll .r .cov { position: relative; width: 32px; height: 32px; border-radius: 7px; }
 .a-poll .r .t { position: relative; flex: 1; font: 500 15px/20px var(--fxf); }
 .a-poll .r .v { position: relative; font: 600 13px/16px var(--fxf); }
@@ -264,7 +271,7 @@
 .a-tk .ps { height: 180px; }
 .a-tk .perf { position: relative; height: 16px; background: var(--s1); }
 .a-tk .perf::before { content: ""; position: absolute; left: 12px; right: 12px; top: 7px; border-top: 1.5px dashed var(--hl); }
-.a-tk .perf::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 0 50%, #050505 0 7.5px, transparent 8px), radial-gradient(circle at 100% 50%, #050505 0 7.5px, transparent 8px); }
+.a-tk .perf::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 0 50%, var(--bg) 0 7.5px, transparent 8px), radial-gradient(circle at 100% 50%, var(--bg) 0 7.5px, transparent 8px); }
 .a-tk .stub { display: flex; gap: 11px; padding: 2px 12px 12px; }
 .a-tk .db { flex: none; width: 50px; height: 54px; border-radius: 10px; background: var(--s2); display: grid; align-content: center; justify-items: center; }
 .a-tk .db b { font: 700 13px/1 var(--fxd); color: var(--teal); letter-spacing: .02em; }
@@ -379,8 +386,8 @@
 .a-welcome .terms { margin-top: auto; font-size: 13px; line-height: 18px; color: var(--t2); text-align: center; }
 .a-welcome .terms u { color: var(--t1); text-underline-offset: 2px; }
 .a-welcome .a-btn { align-self: stretch; margin-top: 16px; }
-.a-story { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 22px 54px; background: var(--doodle) 0 0 / 180px 180px, #000; }
-.a-story::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, #000 72%); }
+.a-story { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 22px 54px; background: var(--bg); }
+.a-story::before { display: none; }
 .a-story > * { position: relative; }
 .a-story h3 { font: 700 30px/32px var(--fxd); letter-spacing: -.02em; text-transform: uppercase; }
 .a-story .sb { margin-top: 10px; font-size: 15px; line-height: 20px; color: var(--t2); }
@@ -388,7 +395,7 @@
 .a-story .dash i { width: 22px; height: 3px; border-radius: 2px; background: var(--hl); }
 .a-story .dash i.on { background: #fff; }
 .a-story .nx { position: absolute; right: 22px; bottom: 46px; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--s2); }
-.a-pg { position: absolute; inset: 0; padding: 60px 20px 34px; background: #000; display: flex; flex-direction: column; }
+.a-pg { position: absolute; inset: 0; padding: 60px 20px 34px; background: var(--bg); display: flex; flex-direction: column; }
 .a-pg h3 { font: 700 30px/34px var(--fxf); letter-spacing: -.02em; text-align: center; }
 .a-pg .sb { margin-top: 8px; font-size: 15px; line-height: 20px; color: var(--t2); text-align: center; }
 .a-pg .av { align-self: center; margin: 22px 0 20px; position: relative; }
@@ -413,11 +420,9 @@
 .a-notes { display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 9px; border-radius: 13px; border: 1px solid transparent; background: linear-gradient(var(--ai-s), var(--ai-s)) padding-box, var(--ai) border-box; font: 600 12px/1 var(--fxf); color: var(--ai-t); }
 .a-tiles { position: absolute; left: 10px; right: 10px; top: 112px; bottom: 132px; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 8px; transition: none; }
 .a-tile { position: relative; overflow: hidden; border-radius: 20px; display: grid; place-items: center; background: linear-gradient(170deg, color-mix(in srgb, var(--c) 34%, #000), #050506 90%); }
-.a-tile .a-av { width: 64px; height: 64px; font-size: 28px; background: color-mix(in srgb, var(--c) 30%, #000); }
+.a-tile .a-av { width: 104px; height: 104px; box-shadow: 0 0 0 4px #fff, 0 10px 18px -6px rgba(0,0,0,.6); }
 .a-tile .nm { position: absolute; left: 10px; bottom: 9px; padding: 3px 8px; border-radius: 8px; background: rgba(0,0,0,.6); font: 500 13px/16px var(--fxf); }
 .a-tile.talk { box-shadow: inset 0 0 0 3px var(--green); }
-.a-tile.talk .a-av { animation: fx-talk 1.1s ease-in-out infinite; }
-@keyframes fx-talk { 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--green) 30%, transparent); } }
 .a-pip { position: absolute; z-index: 6; right: 14px; top: 112px; width: 92px; height: 132px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(170deg, color-mix(in srgb, var(--c) 34%, #000), #050506); box-shadow: 0 10px 24px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08); }
 .a-pip .a-av { width: 44px; height: 44px; font-size: 19px; }
 .a-ctl { position: absolute; z-index: 6; left: 12px; right: 12px; bottom: 30px; padding: 10px 12px; border-radius: 26px; background: #1a1a1d; }
@@ -458,3 +463,277 @@
 .a-strip .a-tile .nm { display: none; }
 .a-circle { position: absolute; z-index: 4; pointer-events: none; overflow: visible; }
 .a-circle path { fill: none; stroke: var(--ines); stroke-width: 3; stroke-linecap: round; }
+
+/* ================= the redesign: one system =================
+   Later rules of equal weight win, so this block restates the kit. A rule written .fx-app.fx-app outranks the scene rules
+   in fyi.css. Static tilts use the rotate property, never transform (entrances animate transform). */
+
+/* ---------- every thread: nothing ends on a hard line under the header ---------- */
+.a-hd::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 26px; background: linear-gradient(180deg, #05050a, rgba(5,5,10,0)); pointer-events: none; }
+
+/* ---------- surfaces and type ---------- */
+.a-tasks { background: radial-gradient(130% 46% at 50% 0, #1b1440, rgba(27,20,64,0)), var(--bg); }
+.a-hd { background: linear-gradient(180deg, #14121f, var(--s0)); box-shadow: 0 1px 0 rgba(255,255,255,.07); }
+.a-nav .bk, .a-nav .acts, .a-lt .row { color: var(--t1); }
+.a-nav .nm { font: 700 18px/22px var(--fxd); }
+.a-seg > span { font-size: 14px; }
+.a-seg > span.on::after { background: #ff2d8f; }
+.a-seg .n { background: rgba(255,255,255,.12); }
+.a-lt h3 { font: 800 34px/40px var(--fxd); }
+.a-row .nm { font: 700 17px/22px var(--fxd); }
+
+/* one bubble */
+.a-b { border-radius: 16px; padding: 8px 13px 9px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+.a-b.tl { border-bottom-left-radius: 5px; }
+.a-b.o { background: var(--me); box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 6px 16px -8px rgba(255,45,143,.55); }
+.a-b.o.tl { border-bottom-left-radius: 16px; border-bottom-right-radius: 5px; }
+.a-b.hl { box-shadow: 0 0 0 2px var(--ai2); }
+.a-b.lift { box-shadow: 0 16px 34px rgba(0,0,0,.7); }
+.a-b .who { color: var(--c, var(--t2)); }
+.a-b.o .tm { color: rgba(255,255,255,.84); }
+.a-typing { border-radius: 16px; border-bottom-left-radius: 5px; }
+
+/* file, voice and transcript share one 290pt column */
+.a-voice { width: 290px; padding: 8px 13px 8px 8px; }
+.a-voice .pl { width: 36px; height: 36px; }
+.a-file { width: 290px; padding: 8px 13px 8px 8px; }
+.a-file .ft { width: 44px; height: 44px; border-radius: 9px; background: rgba(0,0,0,.22); }
+.a-file .ex { font: 700 11px/1 var(--fxm); letter-spacing: .04em; color: inherit; }
+.a-file .ring { width: 50px; height: 50px; }
+.a-album { padding: 3px; }
+.a-tr { width: 290px; max-width: none; margin: 2px 0; padding: 10px 13px 11px; border-left: 0; border-radius: 5px 5px 16px 16px; background: var(--s1); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); font-size: 15px; line-height: 21px; color: #ecebf3; }
+.a-tr small { font: 600 11px/14px var(--fxm); letter-spacing: .08em; text-transform: uppercase; color: var(--ai-t); margin-bottom: 4px; }
+/* the played part of your own voice note prints off-register */
+.a-voice.o .a-wave i.p { box-shadow: -1.5px 1px 0 var(--cyan), 1.5px -1px 0 var(--ai2); }
+
+/* composer */
+.a-comp { box-shadow: 0 -1px 0 rgba(255,255,255,.07); }
+.a-comp .in { background: transparent; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16); border-radius: 12px; }
+.a-comp .kb { border-radius: 12px; border: 1px solid transparent; background: linear-gradient(var(--s0), var(--s0)) padding-box, var(--ai) border-box; }
+.a-comp .mc.snd, .a-rec .mc { border-radius: 12px; background: var(--me); }
+.a-rec { border-radius: 12px; }
+
+/* stamps */
+.a-pill, .a-skip { padding: 4px 10px; border-radius: 6px; font: 500 12px/16px var(--fxm); letter-spacing: .06em; text-transform: uppercase; }
+.a-pill { background: rgba(255,255,255,.08); }
+.a-sys { font: 500 13px/18px var(--fxf); color: #b6b6c4; }
+.a-toast { border-radius: 12px; background: var(--s2); }
+
+/* one card: AI */
+.a-ai { padding: 13px 14px 14px; border-radius: 14px; background: linear-gradient(180deg, #17122b, #0f0e17 70%) padding-box, var(--ai) border-box; color: #f1f0f6; }
+.a-ai .hd { margin-bottom: 9px; font: 700 15px/18px var(--fxd); color: #fff; }
+.a-ai .hd .vis { border-radius: 6px; padding: 3px 8px; font-weight: 500; }
+.a-src { background: none; padding: 0; font: 500 12px/16px var(--fxm); }
+.a-ab { height: 34px; border-radius: 10px; }
+.a-ab.you { background: var(--me); }
+.a-aipill { height: 40px; border-radius: 12px; }
+.a-sug { outline: 0; border: 1px solid transparent; background: linear-gradient(#14111f, #14111f) padding-box, var(--ai) border-box; }
+.a-notes { border-radius: 8px; }
+.a-banner { border-radius: 10px; padding: 10px 12px; }
+
+/* one sheet, one button */
+.a-sheet { border-radius: 16px 16px 0 0; background: #14141c; box-shadow: 0 -1px 0 rgba(255,255,255,.08), 0 -24px 60px rgba(0,0,0,.6); }
+.a-sheet .sh h4 { font: 700 20px/24px var(--fxd); }
+.a-fld { padding: 12px 14px 13px; border-radius: 10px; }
+.a-fld .k { color: var(--t2); }
+.a-segc { border-radius: 8px; }
+.a-segc span { border-radius: 6px; }
+.a-segc span.on { background: rgba(255,255,255,.92); color: #0b0b0c; font-weight: 600; }
+.a-pchip { border-radius: 8px; }
+.a-btn { height: 52px; border-radius: 12px; background: var(--me); font: 700 17px/1 var(--fxf); box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 24px -10px rgba(255,45,143,.6); }
+.fx-app.fx-app .a-btn.off, .fx-app.fx-app .l6-pr:not(.on) .l6-make { box-shadow: none; }
+.fx-app.fx-app .l6-ic { display: none; }
+.fx-app.fx-app .l6-row { padding: 10px 14px; }
+.fx-app.fx-app .l6-card, .fx-app.fx-app .o1-cl { border-radius: 10px; }
+.fx-app.fx-app .o1-cl { padding: 12px 14px 14px; }
+
+/* tasks */
+.a-tasks h5 { font: 600 12px/16px var(--fxm); letter-spacing: .08em; text-transform: uppercase; color: #b6b6c4; }
+.a-trow { padding: 12px 14px; border-radius: 10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+.a-trow .tt { font-size: 16px; line-height: 21px; }
+.a-empty { height: 58px; display: grid; place-items: center; padding: 0 14px; border-radius: 10px; box-shadow: none; background: repeating-linear-gradient(-45deg, rgba(255,255,255,.04) 0 6px, transparent 6px 12px); font: 500 13px/16px var(--fxf); color: var(--t2); }
+
+/* poll and event card */
+.fx-app.fx-app .t5-poll .r.mine .bar { background: linear-gradient(90deg, rgba(255,45,143,.55), rgba(255,45,143,.26)); }
+.a-poll { border-radius: 14px; padding: 13px; }
+.a-poll .r { height: 44px; border-radius: 8px; }
+.a-tk { border-radius: 14px; }
+.a-tk .stub { padding: 2px 14px 13px; }
+.a-tk .db { border-radius: 6px; background: var(--cream); box-shadow: 2px 2px 0 var(--cyan); }
+.a-tk .db span { color: var(--ink); }
+.a-go { border-radius: 10px; background: var(--me); }
+.a-may { border-radius: 10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.22); }
+.a-fmts span { border-radius: 8px; }
+/* Public: a printed slip on the poster, no glyph */
+.a-pub { height: 28px; padding: 0 10px; border-radius: 6px; background: #fff; color: #15183f; rotate: -4deg; box-shadow: -2px 1.5px 0 var(--cyan), 2px -1.5px 0 #ff2d8f; }
+/* the task chip is a printed slip too */
+.fx-app.fx-app .t4-chip { height: 32px; padding: 0 12px 0 10px; border-radius: 8px; background: #fff; color: #15183f; box-shadow: -2px 1.5px 0 var(--cyan), 2px -1.5px 0 #ff2d8f; rotate: -1.5deg; }
+.fx-app.fx-app .t4-chip .ck { box-shadow: inset 0 0 0 1.5px #15183f; }
+
+/* ---------- the logo: FYI in pink paint, cyan and violet printed a little off ---------- */
+.fx-mark { overflow: visible; rotate: -4deg; }
+.fx-mark text { font-family: "Byrd", var(--fxd); font-weight: 700; letter-spacing: -.04em; }
+
+/* ---------- onboarding ---------- */
+.a-welcome { background: radial-gradient(420px 380px at 50% 32%, rgba(122,44,255,.20), transparent 70%), var(--bg); }
+.a-welcome::before { content: ""; position: absolute; left: 25px; top: 96px; width: 340px; height: 275px; background: url(../img/fyi-door/spray-cyan.webp) center / 100% 100% no-repeat; opacity: .4; }
+.a-welcome > * { position: relative; }
+.a-welcome .fx-mark { width: 264px; margin-top: 196px; }
+.a-welcome h3 { margin-top: 54px; }
+.a-welcome .sb { font-size: 17px; line-height: 23px; color: #d2d2da; }
+.a-welcome .terms { font-size: 13px; line-height: 18px; color: var(--t2); }
+/* the story: one printed shape per sentence */
+.fx-app.fx-app .o1-st { background: var(--bg); }
+.o1-art { display: block; position: relative; width: 220px; height: 220px; margin: 0 0 40px 6px; }
+.o1-art::before, .o1-art::after { content: ""; position: absolute; }
+.o1-art.a::before { left: 20px; top: 4px; width: 170px; height: 214px; border-radius: 4px; rotate: -5deg; box-shadow: var(--off); background: url(../img/fyi-door/paint-pink.webp) 30% 0 / auto 41% no-repeat, var(--paper); }
+.o1-art.b svg { position: absolute; left: 8px; top: 30px; width: 190px; height: auto; overflow: visible; rotate: -5deg; }
+.o1-art.c::after { left: 14px; top: 14px; width: 190px; height: 190px; border-radius: 50%; box-shadow: var(--off); background: url(../img/fyi-door/paint-pink.webp) 60% 50% / auto 100%; }
+.o1-art.c::before { left: -40px; top: -40px; width: 300px; height: 300px; background: radial-gradient(circle, #ff2d8f 1.6px, transparent 2.1px) 0 0 / 10px 10px; -webkit-mask: radial-gradient(circle, #000 30%, transparent 66%); mask: radial-gradient(circle, #000 30%, transparent 66%); }
+.fx-app.fx-app .o1-pg .sb { font-size: 16px; line-height: 22px; color: #d2d2da; }
+.fx-app.fx-app .o1-st .dash b { background: #ff2d8f; }
+.fx-app.fx-app .o1-nx { background: #fff; color: #0b0b0c; }
+/* profile */
+.a-pg h3 { font: 700 32px/34px var(--fxd); }
+.a-pg .sb { color: #d2d2da; }
+.a-pg .av .a-av { width: 112px; height: 112px; box-shadow: 0 0 0 5px #fff, 0 16px 22px -8px rgba(0,0,0,.7); rotate: -4deg; }
+.fx-app.fx-app .o1-avph { width: 112px; height: 112px; background: none; box-shadow: none; outline: 2px dashed #4a4b5a; outline-offset: -2px; }
+.a-tags { gap: 9px; }
+.a-tags span { height: 32px; padding: 0 13px; border-radius: 7px; background: var(--paper); color: var(--navy); box-shadow: -1.5px 1.5px 0 #22cdf0, 1.5px -1.5px 0 #ff2d8f; }
+.fx-app.fx-app .o1-use { font-size: 14px; line-height: 19px; color: var(--t2); }
+/* crew picker */
+.a-crew { gap: 4px; }
+.a-crew > div { height: 72px; border-radius: 12px; box-shadow: none; }
+.fx-app.fx-app .o1-cw .a-crew > div { padding: 0 14px 0 10px; }
+.a-crew .a-av { width: 48px; height: 48px; transition: rotate .3s, box-shadow .2s; }
+.a-crew .cr { color: var(--t2); }
+.a-crew .in { background: var(--s1); }
+.a-crew .in .a-av { box-shadow: 0 0 0 3px #fff; rotate: -5deg; }
+.a-chk.on { background: #ff2d8f; }
+.fx-app.fx-app .o1-srch { height: 44px; border-radius: 12px; }
+
+/* ---------- the project's mark: its initials on paint, in the colour picked for it ---------- */
+.a-av.a-pj { --c: var(--cu); border-radius: 26%; rotate: -4deg; background: url(../img/fyi-door/paint-pink.webp) 40% 50% / 300% auto, var(--c); background-blend-mode: luminosity; color: var(--navy); font-size: 12px; box-shadow: -1.5px 1.5px 0 #22cdf0, 1.5px -1.5px 0 #ff2d8f; }
+.a-av.a-pj b { font: 800 1em/1 var(--fxd); letter-spacing: -.02em; color: var(--navy); }
+.a-av.a-pj.m { font-size: 14px; } .a-av.a-pj.l { font-size: 19px; } .a-av.a-pj.xl { font-size: 36px; }
+.fx-app.fx-app .o1-pv .a-pj { font-size: 23px; }
+.fx-app.fx-app .a-colors i { width: 40px; height: 40px; border-radius: 26%; background: url(../img/fyi-door/paint-pink.webp) 40% 50% / 300% auto, var(--c); background-blend-mode: luminosity; }
+.fx-app.fx-app .o1-gph { border-radius: 26%; background: none; box-shadow: none; outline: 2px dashed #4a4b5a; outline-offset: -2px; }
+/* a new thread opens on the project's plate; it scrolls away with the messages */
+.a-plate { align-self: center; display: grid; justify-items: center; gap: 14px; padding-bottom: 28px; }
+.a-plate b { font: 800 26px/28px var(--fxd); letter-spacing: -.01em; }
+
+/* ---------- calls: faces, on their own picture held back ---------- */
+.a-tile.p-m, .a-pip.p-m { --ph: url(../img/fyi-door/av-maya.webp); }
+.a-tile.p-t, .a-pip.p-t { --ph: url(../img/fyi-door/av-theo.webp); }
+.a-tile.p-i, .a-pip.p-i { --ph: url(../img/fyi-door/av-ines.webp); }
+.a-tile.p-k, .a-pip.p-k { --ph: url(../img/fyi-door/av-kofi.webp); }
+.a-tile, .a-pip { background: linear-gradient(rgba(7,7,11,.6), rgba(7,7,11,.88)), var(--ph, none) 50% 50% / cover no-repeat, #101016; }
+.a-tile { border-radius: 16px; }
+.a-pip, .a-strip .a-tile { border-radius: 12px; }
+.a-pip .a-av { width: 56px; height: 56px; box-shadow: 0 0 0 3px #fff; }
+.a-strip .a-tile .a-av { box-shadow: 0 0 0 2px #fff; }
+.fx-app.fx-app .t5-rg { top: calc(50% + 66px); }
+.a-ctl { border-radius: 18px; background: #14141c; }
+.a-ctl .r2 > span { border-radius: 10px; }
+.a-ctl .r2 > span.on { background: var(--me); }
+.a-share .wf { background: repeating-linear-gradient(90deg, var(--cyan) 0 2px, transparent 2px 4px); }
+
+/* ---------- the closing frame: when Launch Night starts, the poster takes the top of the room ---------- */
+.l6-live { position: absolute; z-index: 19; left: 0; right: 0; top: 139px; height: 166px; box-shadow: 0 2px 0 #ff2d8f, 0 4px 0 #22cdf0; }
+.l6-live .ps { position: absolute; inset: 0; background-position: 50% -44px; background-size: 110% auto; }
+.l6-live::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 48%, rgba(5,5,10,.92)); }
+.l6-live::before { content: ""; position: absolute; left: 0; right: 0; top: calc(100% + 4px); height: 28px; background: linear-gradient(180deg, #05050a, rgba(5,5,10,0)); }
+.l6-lv { white-space: nowrap; }
+.fx-app.fx-app .t0-pro, .fx-app.fx-app .l6-pro { border-radius: 10px; background: var(--me); }
+/* fields sit one step above the sheet they are on */
+.a-sheet .a-fld, .fx-app.fx-app .l6-card, .fx-app.fx-app .o1-cl { background: #1f202c; }
+.a-b { max-width: 78%; }
+.a-voice, .a-file, .a-album { max-width: none; }
+.l6-lv, .l6-live .cnt { position: absolute; z-index: 1; bottom: 14px; }
+.l6-lv { left: 16px; font: 600 15px/20px var(--fxf); }
+.l6-lv > span { display: block; font-weight: 400; font-size: 13px; color: rgba(255,255,255,.84); }
+.l6-live .cnt { right: 16px; display: flex; align-items: center; gap: 6px; font: 500 13px/16px var(--fxf); }
+.l6-live .cnt .a-stack .a-av { box-shadow: 0 0 0 1.5px #05050a; }
+
+/* trailer: an ink line under the idea */
+.t0-tr { position: relative; }
+.t0-ink { position: absolute; overflow: visible; pointer-events: none; }
+.t0-ink path { fill: none; stroke: #ff2d8f; stroke-width: 2.5; stroke-linecap: round; }
+
+/* ================= second pass: after the critics ================= */
+/* a thread fades out under the header: a row that does not fit dissolves, it is never sliced */
+.a-hd::after { display: none; }
+.a-th { -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 46px); mask-image: linear-gradient(180deg, transparent 0, #000 46px); }
+/* catch up lets its card overflow the thread, so there the fade is a veil, not a mask */
+[data-scene="catchup"] .a-th { -webkit-mask-image: none; mask-image: none; }
+[data-scene="catchup"] .a-th::before { content: ""; position: absolute; z-index: 3; left: 0; right: 0; top: 0; height: 46px; background: linear-gradient(180deg, #08080f, rgba(8,8,15,0)); pointer-events: none; }
+/* the closing frame: the thread starts under the poster, and only whole rows show (the scene hides the rest) */
+.a-th.l6-on { -webkit-mask-image: linear-gradient(180deg, transparent 170px, #000 184px); mask-image: linear-gradient(180deg, transparent 170px, #000 184px); }
+.l6-live::before { display: none; }
+.fx-app.fx-app .l6-toast { top: 145px; background: #262735; box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 14px 30px rgba(0,0,0,.75); }
+
+/* the project's mark: copper stays copper under the paint, white letters as on the logo */
+.a-av.a-pj { background: linear-gradient(color-mix(in srgb, var(--c) 55%, transparent), color-mix(in srgb, var(--c) 55%, transparent)), url(../img/fyi-door/paint-pink.webp) 40% 50% / 300% auto, var(--c); background-blend-mode: normal, soft-light, normal; color: #fff; font-size: 13px; }
+.a-av.a-pj b { color: #fff; text-shadow: 1.5px 1.5px 0 var(--navy); }
+.a-av.a-pj.m { font-size: 15px; } .a-av.a-pj.l { font-size: 20px; }
+.fx-app.fx-app .a-colors i { background: linear-gradient(color-mix(in srgb, var(--c) 55%, transparent), color-mix(in srgb, var(--c) 55%, transparent)), url(../img/fyi-door/paint-pink.webp) 40% 50% / 300% auto, var(--c); background-blend-mode: normal, soft-light, normal; }
+/* the plate owns the empty top of a new thread: larger, on the same cyan spray as the logo */
+.a-plate { position: relative; gap: 18px; padding: 44px 0 40px; }
+.a-plate::before { content: ""; position: absolute; left: 50%; top: -34px; width: 330px; height: 268px; margin-left: -165px; background: url(../img/fyi-door/spray-cyan.webp) center / 100% 100% no-repeat; opacity: .5; pointer-events: none; }
+.a-plate > * { position: relative; }
+.a-plate .a-av.a-pj { width: 116px; height: 116px; font-size: 44px; }
+.a-plate .a-av.a-pj b { text-shadow: 3px 3px 0 var(--navy); }
+.a-plate > b { font: 800 30px/32px var(--fxd); letter-spacing: -.015em; }
+.a-welcome::before { opacity: .68; }
+
+/* your file is a document on the dark surface with a pink tab: in a run of your messages only the voice is pink */
+.a-file.o { background: var(--s1); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+.a-file.o .ft { background: var(--me); }
+.a-file.o .tm { color: #b6b6c4; }
+/* a collapsed AI card kept as history */
+.a-ai.shut .hd { margin-bottom: 0; }
+.a-ai .hd .mt { font: 500 14px/18px var(--fxf); color: var(--t2); white-space: nowrap; }
+
+/* nothing under 13pt: at the size the phone has on the page that is the smallest type that still reads */
+.fx-app .mono { font-size: 13px; line-height: 16px; }
+.a-pill, .a-skip { font-size: 13px; letter-spacing: .04em; }
+.a-tasks h5 { font-size: 13px; letter-spacing: .04em; }
+.a-tr small { font-size: 13px; line-height: 16px; letter-spacing: .04em; }
+.a-file .ex { font-size: 13px; letter-spacing: 0; }
+.a-file .fm, .a-voice .d, .a-share .pv .tc { font-size: 13px; }
+.a-src { font-size: 13px; line-height: 17px; }
+.a-b .tm { font-size: 13px; color: #b6b6c4; }
+.a-b.o .tm { color: rgba(255,255,255,.86); }
+.a-ai .hd .vis, .a-ai .ft, .a-seen, .a-rx, .a-draft, .a-notes, .a-fmts span, .a-pub, .cov .a-lb { font-size: 13px; }
+.a-poll .q span { font-size: 13px; color: #b6b6c4; }
+.a-seg .n { min-width: 20px; height: 20px; border-radius: 10px; font-size: 13px; }
+.a-tabbar > span { font-size: 13px; line-height: 15px; }
+.a-share .ru, .a-share .tr .k, .a-share .mk { font-size: 13px; }
+.fx-app.fx-app .t5-ru, .fx-app.fx-app .t5-mks .mk, .fx-app.fx-app .t5-sh .tr .k, .fx-app.fx-app .t5-at, .fx-app.fx-app .t5-clip { font-size: 13px; }
+.fx-app.fx-app .t4-sug small, .fx-app.fx-app .t4-new, .fx-app.fx-app .t4-why, .fx-app.fx-app .t4-none { font-size: 13px; }
+/* where a field's value came from: words in lilac, no glyph */
+.a-fld .k .sg { font-size: 13px; color: #c9bcff; }
+.a-fld .k .sg .i, .fx-app.fx-app .t4-why .i { display: none; }
+
+/* tasks: an empty column is a quiet dashed slot */
+.a-empty { background: none; outline: 1.5px dashed #3a3b48; outline-offset: -1.5px; color: #d2d2da; }
+
+/* the story: larger shapes, so the page is not empty above them; the third is the thing you promote, the poster */
+.o1-art { width: 270px; height: 292px; margin: 0 0 44px 4px; }
+.o1-art.a::before { left: 26px; top: 8px; width: 216px; height: 272px; }
+.o1-art.b svg { left: 6px; top: 34px; width: 246px; }
+.o1-art.c::before { display: none; }
+.o1-art.c::after { left: 30px; top: 6px; width: 200px; height: 280px; border-radius: 4px; rotate: 4deg; box-shadow: var(--off); background: #15183f url(../img/fyi-door/poster.webp) 50% 50% / 100% 100% no-repeat; }
+
+/* calls: the picture is the video. The round face is only for ringing and for the small strip */
+@property --dim { syntax: "<number>"; inherits: false; initial-value: 1; }
+.a-tile, .a-pip, .fx-app.fx-app .t5-call .t5-ring { --dim: 1; background: linear-gradient(rgba(7,7,11,calc(var(--dim) * .8)), rgba(7,7,11,calc(var(--dim) * .94))), var(--ph, none) 50% 30% / cover no-repeat, #101016; transition: --dim .22s linear; }
+.a-tiles .a-tile:not(.t5-mini):not(.t5-ring), .a-pip:not(.t5-mini) { --dim: 0; }
+.a-tile .a-av, .a-pip .a-av { transition: opacity .22s linear; }
+.a-tiles .a-tile:not(.t5-mini):not(.t5-ring) .a-av, .a-pip:not(.t5-mini) .a-av { opacity: 0; }
+.a-tile .nm { left: 12px; bottom: 12px; border-radius: 6px; }
+/* a toast over the thread: the rows behind it step back further */
+.fx-app:has(.l6-toast) .a-th { -webkit-mask-image: linear-gradient(180deg, transparent 52px, #000 92px); mask-image: linear-gradient(180deg, transparent 52px, #000 92px); }
+/* the task sheet: with history in the thread, the room behind the lifted message goes darker */
+.fx-app.fx-app .t4-dim { background: rgba(0,0,0,.84); }

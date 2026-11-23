@@ -122,7 +122,7 @@
     }
     live() { return this.visible && this.user && this.started && !this.done && (!FX.held || this.solo) && !FX.dialog && !document.hidden; }
     advance(dt) {
-      this.t += dt;
+      this.t += dt * (FX.speed || 1);   // a page may ask for a faster telling
       if (!this.waits.length) return;
       const due = [], keep = [];
       for (const w of this.waits) (w.at <= this.t ? due : keep).push(w);
@@ -156,6 +156,7 @@
       const opts = typeof o === 'number' ? { duration: o } : (o || {});
       const a = el.animate(kf, { duration: 420, easing: EASE, fill: 'none', ...opts });
       if (this.ff) { a.finish(); return a; }
+      if (FX.speed && FX.speed !== 1) a.playbackRate = FX.speed;
       this.anims.add(a);
       a.addEventListener('finish', () => this.anims.delete(a));
       if (!this.live()) a.pause();
@@ -180,12 +181,17 @@
         this.unff();
         if (this.stopHold) { this.stopHold = false; this.user = false; this.show(Math.max(0, i - 1)); this.sync(); return this.wait(0); }
       }
+      // a page that drives the scene by scroll sets "until": the scene plays up to that beat and waits at the door of the next
+      if (!this.ff && this.until != null && i > this.until) {
+        const tok = this.token; this.gated = i;
+        return new Promise((ok, no) => { this.open = () => { this.gated = -1; this.open = null; if (tok === this.token) { this.show(i); ok(); } else no(CANCEL); }; });
+      }
       this.show(i);
       return this.wait(0);
     }
     unff() { this.ff = false; this.app.offsetWidth; this.devs.forEach(d => d.classList.remove('fx-ff')); this.stage.classList.remove('fx-ff'); }
     reset() {
-      this.token++;
+      this.token++; this.gated = -1; this.open = null;
       const old = this.waits; this.waits = []; old.forEach(w => w.no(CANCEL));
       this.anims.forEach(a => { try { a.cancel(); } catch (e) {} }); this.anims.clear();
       this.t = 0;

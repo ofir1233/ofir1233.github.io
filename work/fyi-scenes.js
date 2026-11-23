@@ -3,8 +3,11 @@
 // All sizes are points in the 390 x 844 screen; the styles live in fyi-live.css.
 (() => {
   const FX = window.FX, ic = FX.ic;
+  // the logo: the three letters in pink paint, with cyan and violet copies printed a little off (the same FYI that opens the page)
+  const MK_B = 'M6 6h112v68H42L20 98V74H6z';
+  FX.mark = (cls = '') => `<svg class="fx-mark ${cls}" viewBox="0 0 240 104" role="img" aria-label="FYI"><g filter="url(#fx-mk-r)"><text class="c" x="117" y="90.7" text-anchor="middle" font-size="104" fill="#22cdf0">FYI</text><text class="v" x="122.7" y="85.6" text-anchor="middle" font-size="104" fill="#7a2cff">FYI</text><text class="p" x="120" y="88" text-anchor="middle" font-size="104" fill="url(#fx-mk-p)">FYI</text></g></svg>`;
   // one gradient for every AI mark on the page (violet appears only where AI acted)
-  if (!document.getElementById('fx-ai-g')) document.body.insertAdjacentHTML('afterbegin', '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="fx-ai-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6650F0"/><stop offset="1" stop-color="#9638F0"/></linearGradient></defs></svg>');
+  if (!document.getElementById('fx-ai-g')) document.body.insertAdjacentHTML('afterbegin', '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="fx-ai-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF2D8F"/><stop offset="1" stop-color="#7A2CFF"/></linearGradient><pattern id="fx-mk-p" patternUnits="userSpaceOnUse" width="240" height="120"><image href="../img/fyi-door/paint-pink.webp" width="240" height="120" preserveAspectRatio="none"/></pattern><filter id="fx-mk-r" x="-10%" y="-20%" width="120%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"/></filter></defs></svg>');
 
   const P = { m: ['M', 'Maya', 'maya'], t: ['T', 'Theo', 'theo'], i: ['I', 'Ines', 'ines'], k: ['K', 'Kofi', 'kofi'], j: ['J', 'June', 'gray'], s: ['S', 'Sol', 'gray'], a: ['A', 'Ari', 'gray'] };
   const K = FX.k = {
@@ -13,9 +16,12 @@
     knot: (cls = '') => `<svg class="knot ${cls}" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="url(#fx-ai-g)" stroke-width="1.9"><g class="o1"><ellipse cx="12" cy="12.5" rx="9" ry="3.9" transform="rotate(45 12 12.5)"/></g><g class="o2"><ellipse cx="12" cy="12.5" rx="9" ry="3.9" transform="rotate(-45 12 12.5)"/></g></g><path fill="url(#fx-ai-g)" d="M19.2 1.6l.85 2.35 2.35.85-2.35.85-.85 2.35-.85-2.35-2.35-.85 2.35-.85z"/></svg>`,
     spark: () => `<svg class="i f sp" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#fx-ai-g)" d="M11 2.5l2.1 6.4 6.4 2.1-6.4 2.1L11 19.5l-2.1-6.4-6.4-2.1 6.4-2.1z"/></svg>`,
     // a person: their initial in their tint, on the tint at 22% over black
-    av: (p, size = '', on = false) => `<span class="a-av ${size} p-${p}${on ? ' on' : ''}">${P[p][0]}</span>`,
+    av: (p, size = '', on = false) => `<span class="a-av ${size} p-${p}${on ? ' on' : ''}" data-p="${p}">${P[p][0]}</span>`,
     stack: (ps, size = 's') => `<span class="a-stack">${[...ps].map(p => K.av(p, size)).join('')}</span>`,
-    group: (size = 'm') => `<span class="a-av ${size} g-cu"></span>`,
+    // the project's mark: its initials on paint, in the colour picked for it
+    group: (size = 'm') => `<span class="a-av ${size} a-pj"><b>CH</b></span>`,
+    // a new thread opens on the project's plate
+    plate: () => `<div class="a-plate">${K.group('xl')}<b>Copper Hours</b></div>`,
     name: p => P[p][1],
     tint: p => `var(--${P[p][2]})`,
     cov: (x, lb = '', cls = '') => `<span class="cov cov-${x} ${cls}">${lb ? `<span class="a-lb">${lb}</span>` : ''}</span>`,
@@ -29,13 +35,13 @@
 
     // messages
     tm: (t, o = {}) => `<span class="tm">${t}${o.rd ? `<span class="rd">${ic(o.rd === 2 ? 'dcheck' : 'check')}</span>` : ''}</span>`,
-    b: (text, o = {}) => `<div class="a-b${o.o ? ' o' : ''}${o.tl === false ? '' : ' tl'}${o.cls ? ' ' + o.cls : ''}"${o.id ? ` data-id="${o.id}"` : ''}>${o.who ? `<span class="who" style="--c:${K.tint(o.who)}">${K.name(o.who)}</span>` : ''}${text}${o.t ? K.tm(o.t, o) : ''}</div>`,
+    b: (text, o = {}) => `<div class="a-b${o.o ? ' o' : ''}${o.tl === false ? '' : ' tl'}${o.cls ? ' ' + o.cls : ''}"${o.id ? ` data-id="${o.id}"` : ''}${o.who ? ` data-w="${o.who}"` : ''}>${o.who ? `<span class="who" style="--c:${K.tint(o.who)}">${K.name(o.who)}</span>` : ''}${text}${o.t ? K.tm(o.t, o) : ''}</div>`,
     sys: html => `<div class="a-sys">${html}</div>`,
     pill: t => `<div class="a-pill">${t}</div>`,
     wave: (n = 30, seed = 3) => { let h = ''; for (let i = 0; i < n; i++) { const v = .25 + .75 * Math.abs(Math.sin(i * 1.7 + seed) * Math.cos(i * .53 + seed * .3)); h += `<i style="height:${Math.round(v * 100)}%"></i>`; } return `<span class="a-wave">${h}</span>`; },
     voice: (o = {}) => `<div class="a-b a-voice${o.o ? ' o' : ''} tl"${o.id ? ` data-id="${o.id}"` : ''}><span class="pl">${ic('play')}</span>${K.wave(o.n || 30, o.seed || 3)}<span class="d">${o.d || '0:21'}</span></div>`,
     tr: (text, o = {}) => `<div class="a-tr${o.l ? ' l' : ''}"><small>Transcript</small>${text}</div>`,
-    file: (o = {}) => `<div class="a-b a-file${o.o ? ' o' : ''} tl"><span class="ft">${ic('file')}<svg class="ring" viewBox="0 0 46 46"><circle cx="23" cy="23" r="22"/></svg></span><div><div class="fn">${o.name || 'copper-hours_stems_v4.zip'}</div><div class="fm">${o.meta || '2.1 GB · full size'}</div></div>${o.t ? K.tm(o.t, o) : ''}</div>`,
+    file: (o = {}) => `<div class="a-b a-file${o.o ? ' o' : ''} tl"><span class="ft"><b class="ex">${(o.name || 'copper-hours_stems_v4.zip').split('.').pop().toUpperCase()}</b><svg class="ring" viewBox="0 0 46 46"><circle cx="23" cy="23" r="22"/></svg></span><div><div class="fn">${o.name || 'copper-hours_stems_v4.zip'}</div><div class="fm">${o.meta || '2.1 GB · full size'}</div></div>${o.t ? K.tm(o.t, o) : ''}</div>`,
     typing: () => '<div class="a-typing"><i></i><i></i><i></i></div>',
     seen: (ps, txt) => `<div class="a-seen">${K.stack(ps, 'xs')}${txt}</div>`,
     rx: (kind = 'fl', n = '', by = '') => `<span class="a-rx">${kind === 'fl' ? `<svg class="i f fl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.5 2.5c.4 3.2 4.8 5.4 4.8 10.6a5.3 5.3 0 0 1-10.6.2c0-2 1-3.6 2.3-4.6.2 1.4.9 2.4 2 2.8-.6-3.3.3-6.3 1.5-9z"/></svg>` : ic('heart', 'hr')}${by ? K.av(by, 'xs') : ''}${n}</span>`,
@@ -48,7 +54,7 @@
 
     // events
     poster: (o = {}) => `<div class="ps"${o.style ? ` data-ps="${o.style}"` : ''}><i class="arcs"></i><span class="pt">Copper Hours<br>Launch Night</span><span class="pd">Dock Hall 3</span></div>`,
-    ticket: (o = {}) => `<div class="a-tk${o.l ? ' l' : ''}">${o.pub ? `<span class="a-pub">${ic('globe')}Public</span>` : ''}${K.poster(o)}<div class="perf"></div><div class="stub"><span class="db"><b>NOV</b><span>20</span></span><div class="inf"><div class="tt">Fri · Doors <span data-bind="doors">${o.doors || '9 PM'}</span></div><div class="pl">Dock Hall 3</div></div></div><div class="a-rv"><span class="a-go">${ic('check')}Going</span><span class="a-may">Maybe</span><span class="cnt">${K.stack('mtik', 'xs')}<span>Going · <b class="gn">${o.going ?? 1}</b></span></span></div></div>`,
+    ticket: (o = {}) => `<div class="a-tk${o.l ? ' l' : ''}">${o.pub ? `<span class="a-pub">Public</span>` : ''}${K.poster(o)}<div class="perf"></div><div class="stub"><span class="db"><b>NOV</b><span>20</span></span><div class="inf"><div class="tt">Fri · Doors <span data-bind="doors">${o.doors || '9 PM'}</span></div><div class="pl">Dock Hall 3</div></div></div><div class="a-rv"><span class="a-go">${ic('check')}Going</span><span class="a-may">Maybe</span><span class="cnt">${K.stack('mtik', 'xs')}<span>Going · <b class="gn">${o.going ?? 1}</b></span></span></div></div>`,
   };
 })();
 
@@ -99,14 +105,14 @@ try {
       + row(K.av('i', 'l'), 'Ines', '10:52 PM', 'moodboard for the single')
       + row(K.av('k', 'l'), 'Kofi', '9:30 PM', `${ic('pin')}Sent a location`)
       + row(K.av('t', 'l'), 'Theo', 'Yesterday', `${ic('video')}Video call · 14 min`)
-      + row('<span class="a-av l g-ll"></span>', 'Late Light Collective', 'Sun', 'Open studio on Friday')
+      + row('<span class="a-av l a-pj" style="--c:var(--maya)"><b>LL</b></span>', 'Late Light Collective', 'Sun', 'Open studio on Friday')
       + row(K.av('a', 'l'), 'Ari', 'Sat', `${ic('image')}12 photos`)
       + row(K.av('j', 'l'), 'June', 'Fri', 'dinner at mine next week?')
       + `</div>${K.tabbar(0)}<i class="t0-dim"></i></div>`;
   };
   const threadView = () => {
     const K = FX.k;
-    return `<div class="view t0-th">${K.wall()}<div class="a-th"><div class="a-msgs">${K.pill('Day 1 · Tue, Oct 13')}${K.sys('<b>Maya</b> created Copper Hours')}${K.file({ o: 1, meta: '2.1 GB · full size' }).replace(/<svg class="ring".*?<\/svg>/, '')}${K.voice({ o: 1, seed: 5, n: 28, d: '0:21' })}</div></div>${K.hd()}${K.comp()}</div>`;
+    return `<div class="view t0-th">${K.wall()}<div class="a-th"><div class="a-msgs">${K.plate()}${K.pill('Day 1 · Tue, Oct 13')}${K.sys('<b>Maya</b> created Copper Hours')}${K.file({ o: 1, meta: '2.1 GB · full size' }).replace(/<svg class="ring".*?<\/svg>/, '')}${K.voice({ o: 1, seed: 5, n: 28, d: '0:21' })}</div></div>${K.hd()}${K.comp()}</div>`;
   };
   const transcript = () => `<div class="a-tr t0-tr"><small>Transcript</small>${words(VOICE)}</div>`;
   const aiCard = () => {
@@ -169,6 +175,14 @@ try {
         await c.wait(58);
       }
       pl.innerHTML = ic('play');
+      { // an ink line under the idea (the last five words), when they share a line
+        const a = ws[ws.length - 5], z = ws[ws.length - 1];
+        if (a && z && a.offsetTop === z.offsetTop) {
+          const x = a.offsetLeft, w = z.offsetLeft + z.offsetWidth - x, y = z.offsetTop + z.offsetHeight - 3;
+          const ink = c.add(tr, `<svg class="t0-ink" style="left:${x}px;top:${y}px" width="${w}" height="6" viewBox="0 0 ${w} 6" aria-hidden="true"><path pathLength="100" stroke-dasharray="100" d="M1 3.5C${(w * .25).toFixed(1)} 1 ${(w * .5).toFixed(1)} 5.5 ${(w * .72).toFixed(1)} 3S${(w - 6).toFixed(1)} 2 ${(w - 1).toFixed(1)} 3.5"/></svg>`, 'none');
+          c.anim(ink.firstElementChild, [{ strokeDashoffset: 100 }, { strokeDashoffset: 0 }], { duration: 520, easing: 'cubic-bezier(.3,.6,.2,1)' });
+        }
+      }
       release(c, 0, tr);
       await c.wait(760);
 
@@ -215,7 +229,7 @@ try {
       await c.beat(4); cur(c, -1);
       await c.wait(200);
       const sk = await c.push(list, K.pill('Day 24 · Thu, Nov 5'), 'none');
-      c.anim(sk, [{ opacity: 0, transform: 'perspective(320px) rotateX(-88deg)' }, { opacity: 1, transform: 'none' }], { duration: 460, easing: PUSH, fill: 'backwards' });
+      c.anim(sk, [{ opacity: 0, transform: 'translateY(-6px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: PUSH, fill: 'backwards' });
       c.time('6:10'); { const tn = c.q('.a-seg > span:nth-child(2) .n'); if (tn) tn.textContent = '4'; }
       sub.textContent = 'Theo, Ines, Kofi, You'; sub.classList.remove('live'); // weeks later: nobody is live right now
       await c.wait(420);
@@ -235,7 +249,7 @@ try {
         c.anim(s.querySelector('.i'), [{ opacity: 0, transform: 'scale(0)' }, { opacity: 1, transform: 'none' }], { duration: 380, delay: 260 + i * 150, easing: SPRING, fill: 'backwards' });
       });
       await c.wait(720);
-      c.add(tk, `<span class="a-pub">${ic('globe')}Public</span>`, 'pop');
+      c.add(tk, `<span class="a-pub">Public</span>`, 'pop');
       await c.wait(320);
       c.time('9:40'); // later that evening, the RSVPs are in
       const st = tk.querySelector('.t0-att .a-stack');
@@ -271,7 +285,9 @@ try {
     ['Collaborate through powerful messaging', 'Expressive tools, voice notes with transcripts, and no file size limits.'],
     ['Promote what you make', 'Turn a plan into an event and share it beyond the group.'],
   ];
-  const story = () => `<div class="a-story o1-v o1-st"><span class="o1-skip">Skip</span><div class="o1-pgs"><div class="o1-trk">${STORY.map(([h, s]) => `<div class="o1-pg"><h3>${h}</h3><p class="sb">${s}</p></div>`).join('')}</div></div><div class="o1-ft"><span class="dash">${'<i><b></b></i>'.repeat(3)}</span><span class="o1-nx">${FX.ic('fwd')}</span></div></div>`;
+  // the second story shape: the logo's bubble without its letters
+  const ART_B = '<svg viewBox="0 0 124 108" aria-hidden="true"><path fill="#22cdf0" transform="translate(-4 3)" d="M6 6h112v68H42L20 98V74H6z"/><path fill="#7a2cff" transform="translate(4 -3)" d="M6 6h112v68H42L20 98V74H6z"/><path fill="#ff2d8f" d="M6 6h112v68H42L20 98V74H6z"/><clipPath id="o1-bb"><path d="M6 6h112v68H42L20 98V74H6z"/></clipPath><image href="../img/fyi-door/paint-pink.webp" width="124" height="108" preserveAspectRatio="xMidYMid slice" clip-path="url(#o1-bb)"/></svg>';
+  const story = () => `<div class="a-story o1-v o1-st"><span class="o1-skip">Skip</span><div class="o1-pgs"><div class="o1-trk">${STORY.map(([h, s], i) => `<div class="o1-pg"><i class="o1-art ${'abc'[i]}">${i === 1 ? ART_B : ''}</i><h3>${h}</h3><p class="sb">${s}</p></div>`).join('')}</div></div><div class="o1-ft"><span class="dash">${'<i><b></b></i>'.repeat(3)}</span><span class="o1-nx">${FX.ic('fwd')}</span></div></div>`;
   const profile = () => `<div class="a-pg o1-v o1-pf"><h3>One last thing</h3><p class="sb">Your name and skills help the crew know what you do.</p><div class="av"><span class="o1-avph">${FX.ic('plus')}</span></div>`
     + `<div class="a-fld"><div class="k">Name</div><div class="v"><span class="o1-tx" data-ph="Your name"></span></div></div>`
     + `<div class="a-fld"><div class="k">Role &amp; skills</div><div class="v"><span class="a-tags o1-tags" data-ph="Your role and skills"></span></div></div>`
@@ -280,11 +296,11 @@ try {
   const crew = () => { const K = FX.k; return `<div class="a-pg o1-v o1-cw"><h3>Who do you make things with?</h3><p class="sb">Pick a crew from people already on FYI.</p><div class="a-srch o1-srch">${FX.ic('search')}Search names or crafts</div><div class="a-crew">${CREW.map(([p, cr]) => `<div data-p="${p}">${K.av(p, 'm')}<div><div class="nm">${K.name(p)}</div><div class="cr">${cr}</div></div><span class="a-chk">${FX.ic('check')}</span></div>`).join('')}</div><div class="a-btn o1-go off">Continue</div></div>`; };
   const COLORS = [['Copper', 'var(--cu)'], ['Sand', '#cbb68e'], ['Rose', '#c98a9a'], ['Moss', '#8c9c68']];
   const sheet = () => { const K = FX.k, ic = FX.ic; return `<div class="a-sheet o1-np"><div class="grab"></div><div class="sh"><span class="x">${ic('x')}</span><h4>New project</h4><span class="o1-sp"></span></div>`
-    + `<div class="o1-row"><span class="o1-pv"><span class="o1-gph">${ic('folder')}</span></span><div class="a-fld"><div class="k">Name</div><div class="v"><span class="o1-tx" data-ph="Project name"></span></div></div></div>`
+    + `<div class="o1-row"><span class="o1-pv"><span class="o1-gph"></span></span><div class="a-fld"><div class="k">Name</div><div class="v"><span class="o1-tx" data-ph="Project name"></span></div></div></div>`
     + `<div class="o1-cl"><div class="k">Color<span class="o1-cn"></span></div><div class="a-colors">${COLORS.map(([n, v]) => `<i data-c="${n}" style="--c:${v}"></i>`).join('')}</div></div>`
     + `<div class="a-fld"><div class="k">Crew</div><div class="v">${K.stack('mtik', 's')}<span class="o1-who">You, Theo, Ines and Kofi</span></div></div>`
     + `<div class="a-btn o1-mk">Create project</div></div>`; };
-  const thread = () => { const K = FX.k; return `<div class="o1-v o1-th">${K.wall()}<div class="a-th"><div class="a-msgs">${K.pill('Today')}${K.sys('<b>Maya</b> created Copper Hours')}${K.sys('<b>Maya</b> added Theo, Ines and Kofi')}</div></div>${K.hd({ sub: '4 members' })}${K.comp()}</div>`; };
+  const thread = () => { const K = FX.k; return `<div class="o1-v o1-th">${K.wall()}<div class="a-th"><div class="a-msgs">${K.plate()}${K.pill('Today')}${K.sys('<b>Maya</b> created Copper Hours')}${K.sys('<b>Maya</b> added Theo, Ines and Kofi')}</div></div>${K.hd({ sub: '4 members' })}${K.comp()}</div>`; };
 
   // ---------- motion helpers (in the phone) ----------
   // a push: the new view slides in from the right; the old one moves a third as far under a solid dim, then goes
@@ -305,7 +321,7 @@ try {
     fn();
     await t;
   }
-  const pop = (c, el) => c.anim(el, [{ transform: 'scale(.5)' }, { transform: 'scale(1.14)', offset: 0.6 }, { transform: 'none' }], { duration: 360, easing: 'ease-out' });
+  const pop = (c, el) => c.anim(el, [{ transform: 'scale(.5)' }, { transform: 'scale(1.06)', offset: 0.6 }, { transform: 'none' }], { duration: 360, easing: 'ease-out' });
 
   // ---------- page layer: rings, cast ----------
   // make=true adds a missing ring (the page's list may stop at 4); reset removes what was added
@@ -386,6 +402,8 @@ try {
       // B1: the welcome screen; the mark, the name and Continue are ringed on the page and explained in the rail
       await c.beat(0);
       const wl = nv.querySelector('.a-welcome');
+      // the two off-register copies settle under the pink
+      [['.c', 'translate(-13px, 10px)'], ['.v', 'translate(13px, -10px)']].forEach(([s, a]) => { const el = wl.querySelector('.fx-mark ' + s); if (el) c.anim(el, [{ transform: a }, { transform: 'none' }], { duration: 620, easing: 'cubic-bezier(.2,.8,.2,1)' }); });
       await c.wait(900);
       ringOn(c, 1, wl.querySelector('.fx-mark'), 'box', 0);
       ringOn(c, 2, wl.querySelector('h3'), 'text', 170);
@@ -442,7 +460,7 @@ try {
       const go = cw.querySelector('.o1-go');
       for (const p of ['t', 'i', 'k']) {
         const chk = cw.querySelector(`.a-crew [data-p="${p}"] .a-chk`);
-        await press(c, chk, () => { chk.classList.add('on'); pop(c, chk); lit(castLi(c.stage, p), true, c.ff); go.classList.remove('off'); }, { noPress: true });
+        await press(c, chk, () => { chk.classList.add('on'); chk.parentElement.classList.add('in'); pop(c, chk); lit(castLi(c.stage, p), true, c.ff); go.classList.remove('off'); }, { noPress: true });
         await c.wait(80);
       }
       await c.wait(560);
@@ -459,7 +477,7 @@ try {
       await press(c, sw, () => {
         sw.classList.add('on');
         sh.querySelector('.o1-cn').textContent = 'Copper';
-        pv.innerHTML = '<span class="a-av g-cu"></span>';
+        pv.innerHTML = FX.k.group('');
         c.enter(pv.firstElementChild, 'pop');
       }, { press: 0.88 });
       await c.wait(900);
@@ -486,7 +504,7 @@ try {
 // S2 · The spark (02 Messaging). Day 1, 11:14 PM. Rest = end = B6.
 FX.scene('spark', {
   time: '11:14', rest: 5,
-  html: () => { const K = FX.k; return `${K.wall()}<div class="a-th"><div class="a-msgs">${K.pill('Today')}${K.sys('<b>Maya</b> created Copper Hours · 11:12 PM')}</div></div>${K.hd()}${K.comp()}`; },
+  html: () => { const K = FX.k; return `${K.wall()}<div class="a-th"><div class="a-msgs">${K.plate()}${K.pill('Today')}${K.sys('<b>Maya</b> created Copper Hours · 11:12 PM')}</div></div>${K.hd()}${K.comp()}`; },
   async run(c) {
     const K = FX.k, ic = FX.ic, list = c.q('.a-msgs'), comp = c.q('.a-comp'), sub = c.q('.a-nav .sub');
 
@@ -664,6 +682,7 @@ try {
     async run(c) {
       const K = FX.k, ic = FX.ic;
       const list = c.q('.a-msgs'), th = c.q('.a-th'), comp = c.q('.a-comp'), sub = c.q('.a-nav .sub');
+      let back = []; // the messages that step back while the card is read
 
       // B1: 64 new messages since last night, and a way to catch up
       await c.beat(0);
@@ -681,6 +700,8 @@ try {
       let cu;
       // today's first message: the card arrives under a Thursday pill
       flip(c, list, () => { cu = c.make(card()); c.q('.s3-sp').replaceWith(c.make(K.pill('Today')), cu); }, { d: 400 });
+      back = [...list.children].filter(el => el !== cu && el !== cu.previousElementSibling);
+      back.forEach(el => { el.style.opacity = '.38'; c.anim(el, [{ opacity: 1 }, { opacity: .38 }], { duration: 400 }); });
       const cr = cu.getBoundingClientRect(), k = scale(c);
       pill.remove();
       const gh = cu.querySelector('.s3-ghost');
@@ -715,6 +736,7 @@ try {
 
       // B4: every line links to its source; Theo's chip jumps back to the message, then the thread returns
       await c.beat(3);
+      back.forEach(el => { el.style.opacity = ''; c.anim(el, [{ opacity: .38 }, { opacity: 1 }], { duration: 300 }); });
       const lis = [...cu.querySelectorAll('.s3-li')], chips = [];
       for (let i = 0; i < 3; i++) {
         const g = c.make(grower(K.src(LINES[i][1])));
@@ -939,7 +961,12 @@ try {
     html: () => {
       const K = FX.k;
       return `<div class="view t4-chat">${K.wall()}<div class="a-th"><div class="a-msgs">${K.pill('Today')}`
-        + K.b('perfect, sending to the DJ', { who: 'k', t: '8:04 AM' })
+        // true history: the last rows of the catch-up scene, as they ended there
+        + K.ai({ title: 'Catch up <span class="mt">64 messages</span>', cls: 'shut' })
+        + K.b('Who wants to run tickets? I can set up the link if no one does.', { o: 1, t: '8:03 AM', rd: 2, cls: 'gap' })
+        + K.b('<span class="at">@AI</span> what tempo and key is the single?', { who: 'k', t: '8:04 AM' })
+        + K.ai({ title: 'FYI AI', cls: 'gap', vis: `${FX.ic('users')}In group · asked by Kofi`, body: '<div>From <span class="mono">copper-hours_stems_v4.zip</span>: 104 BPM, A minor, 3:12.</div>' })
+        + K.b('perfect, sending to the DJ', { who: 'k', t: '8:04 AM', cls: 'gap' })
         + K.b('Theo, when can you have the visualizer cut?', { o: 1, t: '8:19 AM', rd: 2 })
         + `</div></div>${K.comp()}<i class="t4-shade"></i></div>`
         + K.hd({ tasks: '<span class="t4-num">2</span>' }).replace('<div class="a-seg">', '<div class="a-seg"><i class="t4-ind"></i>');
@@ -1066,7 +1093,7 @@ try {
       c.time('5:30');
       const skip = c.make('<div class="a-skip t4-skip">Day 9 · Wed, Oct 21</div>');
       flip(c, [...tv.children], () => tv.prepend(skip), { d: 420 });
-      if (!c.ff) c.anim(skip, [{ opacity: 0, transform: 'perspective(320px) rotateX(-88deg)' }, { opacity: 1, transform: 'none' }], { duration: 480, easing: PUSH, fill: 'backwards' });
+      if (!c.ff) c.anim(skip, [{ opacity: 0, transform: 'translateY(-6px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: PUSH, fill: 'backwards' });
       await c.wait(760);
       const ck = fs.querySelector('.a-chk');
       await c.tap(ck, { press: .84 });
@@ -1121,7 +1148,13 @@ try {
   const who = p => `<span class="who" style="--c:${FX.k.tint(p)}">${NAME[p]}</span>`;
 
   // ---- the pieces, each drawn for phone v ----
-  const thread = v => { const K = FX.k; return `<div class="view t5-th">${K.wall()}<div class="a-th"><div class="a-msgs">${K.pill('Today')}${K.b('need a cover for the posters by Nov 6', { who: 'k', t: '7:02 PM' })}</div></div>${K.hd({ sub: SUB[v], tasks: 4 })}${K.comp()}<i class="t5-dim"></i></div>`; };
+  // true history above "Today": the last rows of the task scene, as each phone saw them
+  const past = v => { const K = FX.k; return K.b('perfect, sending to the DJ', { who: 'k', t: '8:04 AM' })
+    + (v === 'm' ? K.b('Theo, when can you have the visualizer cut?', { o: 1, t: '8:19 AM', rd: 2 }) : K.b('Theo, when can you have the visualizer cut?', { who: 'm', t: '8:19 AM' }))
+    + K.b("I'll have the visualizer cut by Nov 12. need the final stems first though", { who: 't', t: '8:20 AM' })
+    + K.chip(`Visualizer cut · ${K.av('t', 's')}Theo · Nov 12`, 'appr').replace('class="a-chip', 'class="a-chip t4-chip')
+    + K.sys('<b>Maya</b> made this a task for Theo'); };
+  const thread = v => { const K = FX.k; return `<div class="view t5-th">${K.wall()}<div class="a-th"><div class="a-msgs">${past(v)}${K.pill('Today')}${K.b('need a cover for the posters by Nov 6', { who: 'k', t: '7:02 PM' })}</div></div>${K.hd({ sub: SUB[v], tasks: 4 })}${K.comp()}<i class="t5-dim"></i></div>`; };
   const stamp = own => `<span class="t5-at">7:05 PM${own ? `<span class="rd">${FX.ic('check')}</span>` : ''}</span>`;
   const album = (v, up) => {
     const own = v === 'i';
@@ -1257,7 +1290,7 @@ try {
         const cj = cs[j], tl = cj.q(`.t5-call .a-tile[data-p="${p}"]`); if (!tl) return;
         tl.classList.remove('t5-ring');
         const rg = tl.querySelector('.t5-rg'); if (rg) rg.remove();
-        cj.anim(tl.querySelector('.a-av'), [{ transform: 'scale(.82)', opacity: .55 }, { transform: 'none', opacity: 1 }], { duration: 480, easing: 'cubic-bezier(.34,1.4,.5,1)' });
+        cj.anim(tl.querySelector('.a-av'), [{ transform: 'scale(.82)', opacity: .55 }, { transform: 'scale(1.1)', opacity: 0 }], { duration: 480, easing: 'cubic-bezier(.3,.7,.3,1)' });
         const w = cj.q('.t5-tm.wait'); if (w) { w.classList.replace('wait', 'on'); w.textContent = clk(secs); }
       };
       const vote = (j, p) => {
@@ -1293,7 +1326,7 @@ try {
         const nm = el.querySelector('.nm') || (pip ? cj.add(el, '<span class="nm t5-you">You</span>', 'none') : null), dn = dst.querySelector('.nm');
         const N0 = nm && dn ? box(nm) : null, N1 = N0 ? box(dn) : null;
         const n0x = N0 && pip ? T.x + T.w + 2 + N0.w / 2 : N0 && N0.x + N0.w / 2, n0y = N0 && pip ? T.y + T.h / 2 : N0 && N0.y + N0.h / 2;
-        const r0 = pip ? 14 : 20, r1 = 14, fb = [], fa = [], fn = [];
+        const r0 = pip ? 12 : 16, r1 = 12, fb = [], fa = [], fn = [];
         // a child of the box: centered at (X, Y) in the call, w x h on screen, while the box is at b and scaled sx, sy
         const kid = (C, X, Y, w, h, b, sx, sy) => {
           const cx = C.x + C.w / 2 - T.x, cy = C.y + C.h / 2 - T.y;
@@ -1315,6 +1348,7 @@ try {
           if (N0) fn.push({ transform: kid(N0, L(n0x, N1.x - 8 + N0.w / 2, p), L(n0y, N1.y - 3 + N0.h / 2, p), N0.w, N0.h, b, sx, sy), backgroundColor: `rgba(0,0,0,${(.6 * (1 - p)).toFixed(3)})` });
         }
         el.style.transformOrigin = '0 0';
+        el.classList.add('t5-mini'); // the picture dims and the round face returns on the way to the strip
         const o = { duration: ms, easing: SH_EASE, fill: 'forwards' };
         if (N0) cj.anim(nm, fn, o);
         cj.anim(av, fa, o);
@@ -1355,7 +1389,6 @@ try {
       const land = () => cs.forEach((cj, j) => {
         const mk = cj.add(cj.q('.t5-mks'), `<span class="mk" style="left:${pct(PH1)}">Bridge</span>`, 'none');
         cj.anim(mk, [{ transform: 'translateX(-50%) translateY(5px) scale(.7)', opacity: 0 }, { transform: 'translateX(-50%)', opacity: 1 }], { duration: 460, easing: 'cubic-bezier(.34,1.4,.5,1)' });
-        cj.anim(cj.q('.t5-sh .pv .cov'), [{ transform: 'none' }, { transform: 'scale(1.06)', offset: .22 }, { transform: 'none', offset: .5 }, { transform: 'scale(1.035)', offset: .7 }, { transform: 'none' }], { duration: 1000, easing: 'ease-out' });
         cj.add(cj.q('.t5-sh .pv'), `<div class="a-cap"><b>${j === 2 ? 'You' : 'Theo'}:</b> watch the arcs hit the snare right here</div>`, 'up', { delay: 260, d: 380 });
       });
       // Ines circles the arcs; on Ines's phone a fingertip draws it
@@ -1572,7 +1605,7 @@ try {
   // a time-skip pill flips in at the top of the new stretch of thread
   async function flip(c, list, t) {
     const el = await c.push(list, skip(t), 'none');
-    c.anim(el, [{ opacity: 0, transform: 'perspective(320px) rotateX(-88deg)' }, { opacity: 1, transform: 'none' }], { duration: 460, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
+    c.anim(el, [{ opacity: 0, transform: 'translateY(-6px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
     return el;
   }
   async function openSheet(c, html) {
@@ -1731,7 +1764,7 @@ try {
       await c.tap(sh.querySelector('.l6-make'), { press: .98 });
       await closeSheet(c, pr);
       await breakout(c, tk);
-      c.add(tk, `<span class="a-pub">${ic('globe')}Public</span>`, 'pop');
+      c.add(tk, `<span class="a-pub">Public</span>`, 'pop');
       c.swap(evm.querySelector('.l6-host'), `<div class="a-fmts">${['Story', 'Post', 'Link page'].map(t => `<span>${ic('check')}${t}</span>`).join('')}</div>`, 'fade');
       const toast = c.add(c.app, '<div class="a-toast l6-toast"><span class="ps l6-tth"><i class="arcs"></i></span>3 formats ready</div>', 'none');
       c.anim(toast, [{ opacity: 0, transform: 'translate(-50%, -16px)' }, { opacity: 1, transform: 'translate(-50%, 0)' }], { duration: 380, fill: 'backwards' });
@@ -1755,19 +1788,39 @@ try {
       // B7: Day 39, two minutes to doors
       await c.beat(6);
       c.time(clock() + '8');
-      await flip(c, list, 'Day 39 · Fri, Nov 20');
+      // the event card leaves the thread and its poster pins under the header: both faces whole, the date, the place, the count
+      const live = c.add(c.app, `<div class="l6-live"><span class="ps"></span><div class="l6-lv"><b>Fri · Doors <span data-bind="doors">${nb(S.doors)}</span></b><span>Dock Hall 3</span></div><span class="cnt">${K.stack('mtik', 'xs')}<span>Going · <b>${gn.textContent}</b></span></span></div>`, 'none');
+      c.anim(live, [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: 560, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      // under the poster only whole rows show: a row the poster would cut is hidden (layout sizes, so a slide in progress
+      // does not confuse it; the card that is leaving is counted as gone)
+      const th = list.parentElement;
+      th.classList.add('l6-on');
+      const trim = () => {
+        const gone = evm.isConnected ? evm.offsetHeight : 0, at = evm.isConnected ? evm.offsetTop : -1;
+        for (const el of list.children) {
+          if (el === evm) continue;
+          const top = el.offsetTop + (el.offsetParent === list ? list.offsetTop : 0); // from the top of the thread
+          const y = top + (el.offsetTop < at ? gone : 0);
+          el.style.transition = c.ff ? '' : 'opacity .2s';
+          el.style.opacity = y < 184 ? '0' : '';
+        }
+      };
+      c.anim(evm, [{ height: evm.offsetHeight + 'px', opacity: 1, overflow: 'hidden' }, { height: '0px', marginTop: '0px', opacity: 0, overflow: 'hidden' }], { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' }).finished.then(() => evm.remove(), () => {});
+      await flip(c, list, 'Day 39 · Fri, Nov 20'); trim();
       sub.innerHTML = '<i class="l6-ln"></i>Live now'; sub.classList.add('live');
       c.enter(sub, 'fade', { d: 300 });
       await c.wait(420);
-      await c.push(list, K.b('visualizer is loaded', { who: 't', t: clock() + '6 PM' }));
+      await c.push(list, K.b('visualizer is loaded', { who: 't', t: clock() + '6 PM' })); trim();
       await c.wait(460);
-      await c.push(list, K.b('posters are up by the door', { who: 'i', t: clock() + '7 PM' }));
+      await c.push(list, K.b('posters are up by the door', { who: 'i', t: clock() + '7 PM' })); trim();
       await c.wait(460);
-      await c.push(list, K.b('doors.', { who: 'k', t: clock() + '8 PM' }));
+      await c.push(list, K.b('doors.', { who: 'k', t: clock() + '8 PM' })); trim();
       await c.wait(420);
       const go = await c.push(list, K.sys('<i class="l6-pulse"></i><b>Launch Night</b> has started'), 'up');
-      c.anim(go.querySelector('.l6-pulse'), [{ boxShadow: '0 0 0 0 rgba(52,209,191,.7)' }, { boxShadow: '0 0 0 9px rgba(52,209,191,0)' }], { duration: 1100, delay: 200, easing: 'ease-out' });
+      c.anim(go.querySelector('.l6-pulse'), [{ boxShadow: '0 0 0 0 rgba(255,45,143,.7)' }, { boxShadow: '0 0 0 9px rgba(52,209,191,0)' }], { duration: 1100, delay: 200, easing: 'ease-out' });
+      trim();
       await c.wait(1400);
+      trim();
     },
   });
 
@@ -1826,7 +1879,7 @@ try {
     ],
     event: [
       [`<div class="a-tk st-tk st-draft-tk"><span class="st-only">Only hosts see this</span>${K.poster()}<div class="perf"></div><div class="stub"><span class="db"><b>NOV</b><span>20</span></span><div class="inf"><div class="tt">Draft · Doors 9 PM</div><div class="pl">Dock Hall 3</div></div></div></div>`, 'Draft'],
-      [`<div class="a-tk st-tk"><span class="a-pub">${ic('globe')}Public</span>${K.poster()}<div class="perf"></div><div class="stub"><span class="db"><b>NOV</b><span>20</span></span><div class="inf"><div class="tt">Fri · Doors 9 PM</div><div class="pl">Dock Hall 3</div></div></div></div>`, 'Published'],
+      [`<div class="a-tk st-tk"><span class="a-pub">Public</span>${K.poster()}<div class="perf"></div><div class="stub"><span class="db"><b>NOV</b><span>20</span></span><div class="inf"><div class="tt">Fri · Doors 9 PM</div><div class="pl">Dock Hall 3</div></div></div></div>`, 'Published'],
       [`<div class="a-tk st-tk">${K.poster()}<div class="perf"></div><div class="stub"><span class="db"><b>NOV</b><span>20</span></span><div class="inf"><div class="tt"><span class="a-up">Updated · Doors <s>9&nbsp;PM</s> 10&nbsp;PM</span></div><div class="pl">Dock Hall 3</div></div></div></div>`, 'Updated'],
       [`<div class="a-tk st-tk">${K.poster()}<div class="perf"></div><div class="stub"><span class="db"><b>NOV</b><span>20</span></span><div class="inf"><div class="tt">Full · 200 going</div><div class="pl">Waitlist open</div></div></div></div>`, 'Full'],
       [`<div class="a-tk st-tk st-cx">${K.poster()}<div class="perf"></div><div class="stub"><span class="db"><b>NOV</b><span>20</span></span><div class="inf"><div class="tt">Canceled</div><div class="pl">The venue closed for repairs</div></div></div></div>`, 'Canceled'],
