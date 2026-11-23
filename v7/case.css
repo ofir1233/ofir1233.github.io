@@ -394,3 +394,8 @@ html body .shot .live{ display:none !important; }
 }
 :root .fyi-page .tryit .pill:not([data-on]){ background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.14); color:#171b20; }
 :root .fyi-page .tryit .pill:not([data-on]):hover{ background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.32); }
+
+/* the Next card shows one corner of the screen at reading size, not the whole screen at 5px type */
+@media (min-width:861px){
+  html body .next .next-thumb.whole img{ width:168%; max-width:none; height:auto; object-fit:fill; }
+}

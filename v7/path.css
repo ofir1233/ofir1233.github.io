@@ -9,8 +9,8 @@
 /* the section ends close to the last row: the closing picture follows with its own margin */
 #path#path{ padding-bottom:clamp(40px, 5vw, 72px); }
 /* the head is not a centred banner: the title stands on the left edge of the cards, the years are in the column beside them */
-#path#path .sec-head{ display:block; justify-items:start; text-align:left; margin:0 0 48px; padding-left:calc(176px + 48px); }
-#path#path .sec-head h2{ margin:0; max-width:none; font-size:clamp(34px, 3.4vw, 46px); letter-spacing:-.035em; line-height:1.05; }
+#path#path .sec-head{ display:block; justify-items:start; text-align:left; margin:0 0 56px; padding-left:0; }   /* the head stands on the page's left edge at the size of every other section head */
+#path#path .sec-head h2{ margin:0; max-width:none; font-size:clamp(36px, 4.45vw, 64px); letter-spacing:-.04em; line-height:1.05; }
 
 /* the rail: a quiet track, and the filled part on top. path.js sets its place from the first and the last dot. */
 #path#path .xp-rail{ position:absolute; z-index:0; left:calc(var(--when) + var(--gut) / 2 - 1px); top:var(--rt, 60px); height:var(--rh, calc(100% - 120px)); width:2px; border-radius:2px; background:rgba(23,27,32,.1); pointer-events:none; }
@@ -97,7 +97,7 @@
 @media (prefers-reduced-motion: reduce){ #path#path .xp-now.lit .xp-dot::after{ animation:none; } }
 
 @media (max-width: 1040px){
-  #path#path .sec-head{ padding-left:calc(132px + 40px); }
+  #path#path .sec-head{ padding-left:0; }
   #path#path .xp{ --when:132px; --gut:40px; --pad:32px; }
   #path#path .xp-now{ --y:47px; }
   #path#path .xp-when{ font-size:15px; }
