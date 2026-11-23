@@ -57,8 +57,19 @@ html:not(.ot-3d) .ot-fin-art .oa-tkt{ display:none; }
   .ot-part{ grid-template-columns:minmax(0, 1fr); gap:44px; min-height:0; padding:72px 20px; }
   .ot-part:first-of-type{ padding-top:112px; }
   .ot-copy{ max-width:560px; }
-  .ot-ph{ overflow-x:auto; justify-content:flex-start; margin:0 -20px; padding:0 20px 8px; scroll-snap-type:x mandatory; }
-  .ot-ph > .fx-dev{ margin:0 auto; }
+  .ot-ph{ justify-content:center; margin:0; padding:0; }
+  /* the rail under a stacked phone: the same left edge on every part, one line, 44px to press */
+  .ot-part > .ot-rail{ justify-content:flex-start; gap:12px; box-sizing:border-box; width:100%; max-width:430px; min-height:44px; margin-left:auto; margin-right:auto; }
+  .ot-part > .ot-rail .ot-segs{ flex:1; min-width:0; gap:4px; }
+  .ot-part > .ot-rail .ot-segs button{ flex:1 1 0; width:auto; height:44px; }
+  .ot-part > .ot-rail .ot-again{ flex:none; white-space:nowrap; min-height:44px; }
+}
+/* on a tablet the rail is exactly as wide as the phone above it */
+@media (min-width:480px) and (max-width:999px){ .ot-part > .ot-rail{ max-width:min(330px, 78vw); } }
+/* Play again holds its place from the first frame, so nothing moves when it appears; with reduced motion it never appears.
+   !important answers the page-wide .fyi-page [hidden] rule in work/fyi.css */
+@media (max-width:999px) and (prefers-reduced-motion: no-preference){
+  .ot-part > .ot-rail .ot-again[hidden]{ display:block !important; visibility:hidden; }
 }
 
 /* ---------- one 3D phone ---------- */
@@ -71,6 +82,8 @@ html.ot-3d .ot-part:first-of-type{ min-height:190vh; padding:0; }
 html.ot-3d .ot-ph{ display:none; }
 html.ot-3d .ot-copy{ position:fixed; z-index:2; left:max(40px, calc((100vw - 1240px) / 2 + 40px)); top:calc(50% + 26px); width:min(470px, 35vw); transform:translate3d(0, calc(-50% + var(--dy, 0px)), 0); opacity:var(--o, 0); visibility:hidden; }
 html.ot-3d .ot-copy.on{ visibility:visible; }
+/* a part that is off stays out of reach of the pointer, but its rail is still a tab stop: focus scrolls the page to it (work/fyi-art.js) */
+html.ot-3d .ot-copy:not(.on) .ot-rail{ visibility:visible; pointer-events:none; }
 /* a screen with no drawn body: the body is the 3D model */
 html.ot-3d .fx-dev.f3-flat{ width:390px; max-width:none; aspect-ratio:390 / 844; --pw:390px; backface-visibility:hidden; }
 html.ot-3d .fx-dev.f3-flat .fx-body{ width:390px; height:844px; padding:0; border-radius:56px; background:none; box-shadow:none; transform:none; }

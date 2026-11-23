@@ -1207,7 +1207,7 @@ try {
       await c.wait(1300);
       const ines = cv.querySelector('.a-tile[data-p="i"]');
       ines.classList.remove('t5-ring'); ines.querySelector('.t5-rg').remove();
-      await c.wait(2400);
+      await c.wait(1700);
 
       // B3 · the call folds into a bar under the header, and the poll lands in the thread
       await c.beat(2); c.time('7:09');
@@ -1228,7 +1228,9 @@ try {
 
       // B4 · the vote: Maya, then Theo, then Ines; B takes it
       await c.beat(3); c.time('7:12');
-      clock(364);
+      // the time passed between the beats: the clock rolls over the cut, then runs on
+      if (c.ff) clock(364);
+      else { tick++; c.count(lv.querySelector('.t5-tm'), secs, 364, 420, n => clk(Math.round(n))).then(() => clock(364), () => {}); }
       await c.wait(200);
       await c.tap(c.q('.t5-poll [data-r="b"]'), { press: .98 });
       vote('m');
@@ -1243,15 +1245,17 @@ try {
 
       // B5 · the call ends and its notes post to the thread
       await c.beat(4); c.time('7:15');
-      tick++; setClock(540);
+      tick++;
+      if (c.ff) setClock(540);
+      else c.count(lv.querySelector('.t5-tm'), secs, 540, 200, n => clk(Math.round(n))).catch(() => {});
       await c.wait(200);
       if (c.ff) { lv.remove(); th.classList.remove('t5-onair'); }
-      else c.leave(lv, 'fade', { d: 260 }).then(() => th.classList.remove('t5-onair'));
+      else { th.classList.add('t5-lift'); th.classList.remove('t5-onair'); c.leave(lv, 'fade', { d: 260 }); } // the mask edge moves while the bar fades
       c.push(list, K.sys(`${ic('video')}Video call ended · 9 min`));
       await c.wait(500);
       const card = await c.push(list, notes(), 'up', { d: 520 });
       [...card.querySelectorAll('.t5-meta, li, .acts')].forEach((x, k) => c.enter(x, 'up', { delay: 320 + k * 130, d: 380 }));
-      await c.wait(3450);
+      await c.wait(4150);
 
       // B6 · one tap: the notes go onto the crew's two open tasks, the ones the Tasks tab already counts
       await c.beat(5);
@@ -1259,10 +1263,11 @@ try {
       await c.tap(card.querySelector('.a-ab'));
       const acts = card.querySelector('.acts');
       const done = (t, p) => K.chip(`${t} · ${K.av(p, 's')}${NAME[p]}`, 'appr').replace('class="a-chip', 'class="a-chip t4-chip');
+      const h0 = card.offsetHeight;
       acts.innerHTML = done('Cover art', 'i') + done('Visualizer', 't');
+      const dh = card.offsetHeight - h0; // the chips are taller than the button: the bottom-anchored list slides by the difference
+      if (dh) c.anim(list, [{ transform: `translateY(${dh}px)` }, { transform: 'none' }], { duration: 380 });
       [...acts.children].forEach((x, k) => c.enter(x, 'pop', { delay: k * 120 }));
-      const n = c.q('.a-seg .n');
-      c.anim(n, [{ transform: 'none' }, { transform: 'scale(1.3)' }, { transform: 'none' }], { duration: 420 });
       await c.wait(2420);
     },
   });
@@ -1671,7 +1676,7 @@ try {
     spark: [1253, 1872, 2326, 1434, 1221, 1086],
     catchup: [890, 1267, 3853, 3188, 3800, 3349],
     task: [1393, 1230, 3014, 2726, 1715, 2842],
-    together: [2756, 3843, 2385, 3487, 2901, 2161],
+    together: [2756, 3360, 2385, 3487, 3384, 2161],
     launch: [1038, 2722, 1452, 1665, 1120, 1396, 1959],
   };
   document.querySelectorAll('.ot-part[data-part]').forEach(part => {

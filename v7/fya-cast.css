@@ -57,12 +57,20 @@
 .fyacast-me .a-b{ max-width:none; }
 .fyacast-re.a-b{ align-self:flex-start; }
 .fyacast-re{ margin-top:16px; max-width:84%; transform-origin:0 100%; }
+/* the time has its own line, so every reply is the same height and the thread stays still when the role changes */
+.fyacast-re.a-b .tm{ float:none; display:flex; justify-content:flex-end; top:0; margin:2px 0 0; }
 .fyacast-me, .fyacast-re{ transition:opacity .32s linear, transform .32s var(--fya-ease); }
 .fyacast-me.is-hid, .fyacast-re.is-hid{ opacity:0; transform:translateY(10px) scale(.96); transition-duration:.12s; }
 .fyacast-me.is-hid .a-av{ transform:scale(.5); }
 
 @media (min-width:1200px) and (max-width:1399px){ .fyacast-dev{ --n:286; } }
 @media (max-width:1199px){ .fyacast{ --fw:68px; } .fyacast-f{ font-size:14px; } .fyacast-line{ font-size:19px; } .fyacast-dev{ --n:262; } }
+/* the phone's rim on the grid edge, standing on the plate's baseline with a soft shadow at the cut */
+@media (min-width:900px){
+  #fya-cast .fya-head{ margin-bottom:36px; }
+  .fyacast-pick{ margin-bottom:16px; }
+  .fyacast-crop{ right:-4px; padding-right:4px; justify-content:flex-end; filter:drop-shadow(0 18px 14px rgba(23,27,32,.28)); }
+}
 @media (max-width:899px){
   .fyacast{ --pw:min(372px,100%); --pr:24px; --fw:60px; }
   .fyacast-pick{ margin-bottom:12px; }
@@ -79,14 +87,18 @@
   .fyacast-plate{ grid-row:1 / span 2; margin-top:60px; }
   .fyacast-say{ align-self:end; padding-top:60px; } .fyacast-phone{ margin-top:0; }
 }
+/* the phone fits its column, and the reply stays above the crop */
+@media (max-width:339px){ .fyacast-dev{ --n:284; } }
+@media (min-width:640px) and (max-width:699px){ .fyacast-dev{ --n:248; } .fyacast-crop{ height:370px; } }
+@media (min-width:900px) and (max-width:959px){ .fyacast-th{ height:412px; } }
 /* phone: one sticky row of faces, and the whole answer to a tap on one screen */
 @media (max-width:639px){
   .fyacast{ --pw:176px; --pr:18px; --fw:56px; --gut:16px; }
   .fyacast-pick{ position:sticky; top:60px; z-index:6; display:flex; justify-content:flex-start; gap:4px; margin:0 calc(var(--gut) * -1); padding:10px var(--gut) 8px; background:var(--ground); box-shadow:0 10px 12px -12px rgba(23,27,32,.22); overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x proximity; scroll-padding:0 var(--gut); scrollbar-width:none; }
   .fyacast-pick::-webkit-scrollbar{ display:none; }
   .fyacast-f{ flex:0 0 70px; gap:9px; padding:0 0 4px; font-size:13px; scroll-snap-align:start; }
-  .fyacast-f span{ visibility:hidden; }
-  .fyacast-f[aria-pressed="true"] span{ visibility:visible; }
+  .fyacast-f span{ opacity:0; }
+  .fyacast-f[aria-pressed="true"] span{ opacity:1; }
   .fyacast-f[aria-pressed="true"] img{ box-shadow:0 0 0 3px var(--ground), 0 0 0 5px var(--ink), 0 12px 14px -12px rgba(23,27,32,.55); }
   .fyacast-stage{ grid-template-columns:var(--pw) minmax(0,1fr); gap:0 16px; align-items:start; }
   .fyacast-plate{ grid-column:1; grid-row:1 / span 2; margin-top:32px; }
@@ -96,6 +108,7 @@
   .fyacast-role span{ font-size:15px; margin-bottom:5px; }
   .fyacast-line{ grid-column:1 / -1; margin-top:14px; max-width:none; min-height:2.84em; font-size:17px; }
   .fyacast-phone{ grid-column:1 / -1; max-width:none; margin-top:8px; }
+  .fyacast-crop{ height:404px; } .fyacast-th{ height:400px; }
   /* the row lets go over empty ground, not over the thread */
   .fyacast{ padding-bottom:64px; margin-bottom:-64px; }
 }

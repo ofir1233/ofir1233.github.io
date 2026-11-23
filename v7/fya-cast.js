@@ -76,6 +76,13 @@
     var c = CAST[id];
     if (!c || (id === now && !first)) return;
     now = id; mark(id); clear();
+    /* on a phone the first tap brings the row to its stuck place, so the face and the reply land on screen */
+    if (!first && row && matchMedia('(max-width:639px)').matches) {
+      /* the thread's own bottom is the reply's resting place, whether or not the reply is mid-animation */
+      var th = re && re.parentNode, vh = window.visualViewport ? visualViewport.height : innerHeight,
+        by = Math.max(row.getBoundingClientRect().top - 60, th ? th.getBoundingClientRect().bottom + 16 - vh : 0);
+      if (by > 0) window.scrollBy({ top: by, behavior: still ? 'auto' : 'smooth' });
+    }
     var my = ++run;
     if (still) { root.classList.remove('is-out', 'is-pre'); words(c, id); thread(c, id); if (me) me.classList.remove('is-hid'); if (re) re.classList.remove('is-hid'); return; }
     var ready = Promise.all(load(id));

@@ -64,3 +64,4 @@
 - 24.11 FYI page: colour, kit and going public tightened to one screen each (colour thread in the iPhone, kit 4x2, Poster style removed); a page paused before arrival shows layers finished; fyi-around.css?v=4, fya-*?v=4, fya-colour.css?v=5.
 - 23.11 FYI: Together is one phone (6 beats, about 17 s); six layers each fit one screen; kit Task tile presses again. Assets bumped (fyi-scenes v13, fyi.css v9, fya-* v6, fyi-around v5).
 - 23.11 FYI: cast chat now sits in the story's iPhone, cropped at the plate's baseline. New line in it: Kofi, 'One more and we're a crew.' fya-* assets at v7.
+- 24.11 FYI: critics' fixes in Together and cast (rail, keyboard, thread jumps, call timer, phone-width tap keeps the reply on screen). fyi.css v10, fyi-take v13, fyi-scenes v14, fyi-art v9, fya-cast css v10 js v9.

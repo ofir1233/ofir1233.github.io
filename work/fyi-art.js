@@ -75,9 +75,14 @@
     var rail = el.querySelector('.ot-rail'), stage = el.querySelector('[data-fx-stage]'), root = el.querySelector('[data-scene]'), copy = el.querySelector('.ot-copy');
     if (!rail || !stage || !root) return;
     var segs = [].slice.call(rail.querySelectorAll('.ot-segs button')), again = rail.querySelector('.ot-again');
+    // one tab stop for the rail, on the current moment; while focus is on a segment the stop stays there, so Tab leaves the rail
+    var rove = function (i) { segs.forEach(function (b, k) { b.tabIndex = k === i ? 0 : -1; }); };
+    rove(0);
     // state: 0 the moment is playing, 1 the scene is held on the end of this moment, 2 the scene is over
     var paint = function (i, state) {
       segs.forEach(function (b, k) { var on = !state && k === i; b.classList.toggle('done', state === 2 || k < i || (state === 1 && k === i)); b.classList.toggle('on', on); if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+      if (segs.indexOf(d.activeElement) < 0) rove(i);
+      if (state !== 2 && d.activeElement === again) { rove(i); segs[i].focus({ preventScroll: true }); }
       again.hidden = state !== 2 || reduce;
     };
     stage.addEventListener('fx:beat', function (e) {
@@ -97,8 +102,20 @@
       p.user = true; if (window.FX && FX.held) p.solo = true;
       if (k === 0 && p.done) p.restart(); else p.run(k);
     };
-    segs.forEach(function (b, k) { b.addEventListener('click', function () { from(k); }); });
-    again.addEventListener('click', function () { from(0); });
+    segs.forEach(function (b, k) {
+      b.addEventListener('click', function () { rove(k); from(k); });
+      b.addEventListener('keydown', function (e) {
+        var n = segs.length, t = e.key === 'ArrowRight' ? (k + 1) % n : e.key === 'ArrowLeft' ? (k - 1 + n) % n : e.key === 'Home' ? 0 : e.key === 'End' ? n - 1 : -1;
+        if (t < 0) return;
+        e.preventDefault(); rove(t); segs[t].focus(); from(t);
+      });
+    });
+    again.addEventListener('click', function () { from(0); rove(0); segs[0].focus({ preventScroll: true }); });
+    // on the 3D page the text of a part is fixed and shows only while its part is in view: a key landing on its rail brings the part there
+    rail.addEventListener('focusin', function (e) {
+      if (!d.documentElement.classList.contains('ot-3d') || !copy || !copy.contains(rail) || !e.target.matches(':focus-visible')) return;
+      if ((parseFloat(copy.style.getPropertyValue('--o')) || 0) < .9) scrollTo(0, el.getBoundingClientRect().top + scrollY + 80);
+    });
     // beside the text on a wide screen; under the phone where the two are stacked
     var place = function () { var ph = el.querySelector('.ot-ph'); if (narrow.matches && ph) ph.after(rail); else if (copy) copy.appendChild(rail); };
     place(); if (narrow.addEventListener) narrow.addEventListener('change', place);
