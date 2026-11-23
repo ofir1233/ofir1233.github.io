@@ -372,3 +372,12 @@ html body.fyi-page .edges .label, html body.fyi-page .strips .label, html body.f
   html body .next .next-thumb:not(.phones) img, html body .next .next-thumb.whole img{ width:210%; max-width:none; height:auto; object-fit:fill; }
 }
 @media (max-width:760px){ .opt.chosen strong::after{ display:block; margin:6px 0 0 !important; } }
+
+/* round 12, desktop: the source note closes the story and the Next card is the last thing before the footer; no double gap under the hero;
+   "Open the site" is the same white button as on the home; the four FYI state slabs share the row instead of the fourth being cut */
+html body .sources{ padding-bottom:0; }
+html body .cs-hero:not(.fyi-hero){ padding-bottom:0 !important; }
+:root .bw-go .pill{ background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.14); color:#171b20; }
+:root .bw-go .pill:hover{ box-shadow:0 0 0 1px rgba(23,27,32,.32); }
+.fyi-page .strip-row{ flex-wrap:wrap; row-gap:22px; overflow:visible; border-radius:20px; }
+.fyi-page .sources{ padding-top:28px; }
