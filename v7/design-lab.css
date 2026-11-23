@@ -150,3 +150,13 @@ html body section#design-lab#design-lab .cs-pair .cs-private{ background:transpa
 html body section#design-lab#design-lab .cs-pair .cs-private:hover{ color:#171b20 !important; transform:none; }
 html body section#design-lab#design-lab .cs-pair .cs-private .cs-lock{ color:#70767d; }
 html body section#design-lab#design-lab .sec-head .cs-pair{ gap:8px 18px; }
+
+@media (max-width:760px){
+  #design-lab#design-lab .dl-eyebrow{ justify-content:flex-start; }
+  #design-lab#design-lab .tp-head{ text-align:left; }
+  #design-lab#design-lab .tp-head p{ margin:16px 0 0; }
+}
+/* the fidelity switch and the step line sit above the window, next to the title, so the comparison is the first thing seen (owner, 23.11: "I do not understand the purpose of this part") */
+#design-lab#design-lab .tp-fig{ display:flex; flex-direction:column; }
+#design-lab#design-lab .tp-fig .tp-bar{ order:-1; margin:0 0 28px; }
+#design-lab#design-lab .tp-head{ margin-bottom:44px; }
