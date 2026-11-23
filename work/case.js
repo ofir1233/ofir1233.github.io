@@ -357,8 +357,8 @@
     var why = d.querySelector(':scope > .because') || d.querySelector(':scope > p'); if (why) why.classList.add('dc-why');
     var li = document.createElement('li'), b = document.createElement('button');
     li.className = 'dc-t'; b.type = 'button'; b.className = 'dc-btn';
-    var closed = n === 1 ? 'The option I ruled out' : 'The ' + n + ' options I ruled out';
-    var set = function (open) { d.classList.toggle('dc-open', open); b.setAttribute('aria-expanded', open ? 'true' : 'false'); b.textContent = open ? 'Show less' : closed; };
+    var closed = 'What I ruled out, and why';
+    var set = function (open) { d.classList.toggle('dc-open', open); b.setAttribute('aria-expanded', open ? 'true' : 'false'); b.textContent = open ? 'Hide what I ruled out' : closed; };
     b.addEventListener('click', function () { set(!d.classList.contains('dc-open')); });
     li.appendChild(b); opts.appendChild(li); d.classList.add('dc-fold'); set(false);
     d.dcOpen = function () { set(true); };

@@ -256,13 +256,13 @@ html.js body.fyi-page .st-launch:not([data-out]) .fmt:not(.l6-in) figcaption{ op
    played stay above it, small and quiet, and the oldest leaves under a 48px fade. A new step comes in from below in 320ms while
    the one before it shrinks in 240ms. Replay empties the column. Below 1024px the steps stay one at a time under the phone. */
 @media (min-width:1024px){
-  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats{ display:flex; flex-direction:column; justify-content:flex-end; height:clamp(230px, 31vh, 300px); overflow:hidden; -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 48px); mask-image:linear-gradient(180deg, transparent 0, #000 48px); }
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats{ display:flex; flex-direction:column; justify-content:flex-end; height:clamp(280px, 38vh, 360px); overflow:hidden; -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 48px); mask-image:linear-gradient(180deg, transparent 0, #000 48px); }
   html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li{ display:none; flex:0 0 auto; }
   html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li.done{ display:block; visibility:visible; opacity:1; margin-bottom:12px; transition:none; }
   html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li.on, html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats:not(:has(> li.on)) > li:first-child{ display:block; }
   html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li.on{ margin-top:6px; animation:fyThIn .32s cubic-bezier(.2,.7,.2,1) both; }
-  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats button{ transition:font-size .24s cubic-bezier(.3,.1,.2,1), opacity .24s ease; }
-  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li.done button{ font-size:16px; line-height:1.4; letter-spacing:0; font-weight:500; opacity:.56; }
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats button{ transition:opacity .24s ease; }
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li.done button{ font-size:17px; line-height:1.4; letter-spacing:0; font-weight:500; opacity:.72; }
   html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li.done .rki + .rki{ margin-top:2px; }
 }
 @keyframes fyThIn{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
@@ -274,4 +274,9 @@ html.js body.fyi-page .st-launch:not([data-out]) .fmt:not(.l6-in) figcaption{ op
   /* room under the sentence in hand, so its arrival from below is not cut by the column's edge */
   html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats{ padding-bottom:18px; box-sizing:content-box; }
   html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) > .st-txt > .fx-mini{ margin-top:6px; }
+}
+/* phones: FYI's decisions keep the same text edge as the other pages; the chosen option's blue rule stands on the screen edge */
+@media (max-width:760px){
+  html body.fyi-page .decision .opt{ padding-left:0 !important; }
+  html body.fyi-page .decision .opt.chosen{ margin-left:-16px; padding-left:16px !important; }
 }
