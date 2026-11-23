@@ -1134,7 +1134,9 @@
   function onLoad(f, isLo) {
     try {
       var d = f.contentDocument, st = d.createElement('style');
-      st.textContent = SHARED + (isLo ? LO_MATCH : ''); d.head.appendChild(st);
+      /* the app's own mouse follow reads the drawn cursor's events and can throw its painted sky hundreds of pixels off, baring the dark page under it:
+         the sky never moves further than its spare edge allows */
+      st.textContent = SHARED + (isLo ? LO_MATCH : '') + '.bg{translate:calc(clamp(-1,var(--tx,0),1)*-16px) calc(clamp(-1,var(--ty,0),1)*-9px)!important}'; d.head.appendChild(st);
       var c = d.documentElement.classList; c.toggle('px-small', tier !== ''); c.toggle('px-phone', tier === 'p'); f.contentWindow.dispatchEvent(new Event('resize'));
       if (isLo) d.getElementById('stage').classList.add('px-drive');
     } catch (e) {}
