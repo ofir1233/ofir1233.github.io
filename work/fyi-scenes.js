@@ -60,8 +60,8 @@
 
 // ===== s0-trailer =====
 try {
-// S0 · Hero trailer, "Idea to launch night". Six beats, no rail. It loops up to 3 times (the engine dips to black
-// between loops), then rests on B6 (index 5). One crew, one thread: a voice note becomes replies, an AI plan, three tasks
+// S0 · Hero trailer, "Idea to launch night". Six beats, no rail. It plays once and rests on B6 (index 5); the page's
+// "Play again" replays it (with loops above 1 the engine dips to black between loops). One crew, one thread: a voice note becomes replies, an AI plan, three tasks
 // and, on Day 24, a promoted launch night. The plan names owners only: no message gives a date, so none is guessed.
 // It makes the two tasks that 03 and 04 start from (Cover art, Venue); Theo's visualizer becomes a task on Day 3, in 04.
 // Page layer: at 1200px and up the constellation cards (.constel .cc) come in at their beats and stay in for the rest of
@@ -135,7 +135,7 @@ try {
   }
 
   FX.scene('trailer', {
-    time: '11:14', n: 6, loops: 3, rest: 5, hold: 2200,
+    time: '11:14', n: 6, loops: 1, rest: 5, hold: 2200,
     html: () => listView() + threadView(),
     // the cards stay in for the visit; only the outline is undone
     reset(stage) { unmark(stage); },
@@ -147,7 +147,7 @@ try {
       // B1: Chats. Copper Hours is busy; a tap opens it
       await c.beat(0); cur(c, -1);
       const cu = c.q('.t0-cu');
-      await c.wait(1150);
+      await c.wait(900);
       const tp = quiet(c.tap(cu, { noPress: true, x: .4 }));
       await c.wait(200);
       cu.classList.add('hi');
@@ -223,7 +223,7 @@ try {
       c.enter(acts.firstElementChild, 'fade', { d: 260 });
       const n = c.add(c.q('.a-seg > span:nth-child(2)'), '<i class="n">2</i>', 'pop');
       cur(c, 3); release(c, 3, n);
-      await c.wait(950);
+      await c.wait(800);
 
       // B5: Day 24. The launch night ticket lands, posted by Maya
       await c.beat(4); cur(c, -1);
@@ -237,7 +237,7 @@ try {
       c.anim(tk.querySelector('.arcs'), [{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'none' }], { duration: 900, delay: 180, easing: EASE, fill: 'backwards' });
       await c.wait(1050);
       const host = await c.push(list, promote(), 'fade', { d: 360 });
-      await c.wait(1050);
+      await c.wait(800);
 
       // B6: Promote. Three formats tick on, the event goes public, the crew and 23 more are going
       await c.beat(5); cur(c, 4);
@@ -257,7 +257,7 @@ try {
       await c.wait(300);
       quiet(c.count(tk.querySelector('.t0-more'), 1, 23, 640, x => '+' + Math.round(x)));
       release(c, 4, tk);
-      await c.wait(1400);
+      await c.wait(1100);
       // the scene ends after its last loop (or at once when it was jumped to): no card is current any more
       if (c.ff || c.loop >= c.P.loops) unmark(c.stage);
     },
@@ -408,7 +408,7 @@ try {
       ringOn(c, 1, wl.querySelector('.fx-mark'), 'box', 0);
       ringOn(c, 2, wl.querySelector('h3'), 'text', 170);
       ringOn(c, 3, wl.querySelector('.a-btn'), 'box', 340);
-      await c.wait(2700);
+      await c.wait(1900);
 
       // B2: Continue, then the story pages left as each dash fills; the first two pages hold long enough to read
       await c.beat(1);
@@ -438,7 +438,7 @@ try {
       await off4;
       const pf = c.add(app, profile(), 'none');
       await push(c, st, pf);
-      await c.wait(200);
+      await c.wait(120);
       const nm = pf.querySelector('.o1-tx'), avb = pf.querySelector('.av');
       await c.type(nm, 'M', { cps: 7, caret: true });
       avb.innerHTML = FX.k.av('m', 'xl');
@@ -456,14 +456,14 @@ try {
       await c.tap(go6);
       const cw = c.add(app, crew(), 'none');
       await push(c, pf, cw);
-      await c.wait(240);
+      await c.wait(160);
       const go = cw.querySelector('.o1-go');
       for (const p of ['t', 'i', 'k']) {
         const chk = cw.querySelector(`.a-crew [data-p="${p}"] .a-chk`);
         await press(c, chk, () => { chk.classList.add('on'); chk.parentElement.classList.add('in'); pop(c, chk); lit(castLi(c.stage, p), true, c.ff); go.classList.remove('off'); }, { noPress: true });
         await c.wait(80);
       }
-      await c.wait(560);
+      await c.wait(440);
 
       // B5: a new project: a name, a color, and the group's mark
       await c.beat(4);
@@ -480,7 +480,7 @@ try {
         pv.innerHTML = FX.k.group('');
         c.enter(pv.firstElementChild, 'pop');
       }, { press: 0.88 });
-      await c.wait(900);
+      await c.wait(750);
 
       // B6: the group opens and the story clock moves on; once the thread is in, ring 5 marks the
       // Chat, Tasks and Project tabs
@@ -493,7 +493,7 @@ try {
       await push(c, cw, th);
       await c.wait(700);
       ringOn(c, 5, th.querySelector('.a-seg'), 'tabs');
-      await c.wait(1400); // the end state holds after the run, so this only paces the rail
+      await c.wait(1000); // the end state holds after the run, so this only paces the rail
     },
   });
 })();
@@ -510,17 +510,17 @@ FX.scene('spark', {
 
     // B1: the stems go in at full size
     await c.beat(0);
-    await c.wait(500);
+    await c.wait(350);
     const f = await c.push(list, K.file({ o: 1, meta: 'Uploading · 2.1 GB' }));
     const ring = f.querySelector('.ring circle');
-    c.anim(ring, [{ strokeDashoffset: 138 }, { strokeDashoffset: 0 }], { duration: 1200, easing: 'cubic-bezier(.4,.1,.3,1)', fill: 'forwards' });
-    await c.wait(1250);
+    c.anim(ring, [{ strokeDashoffset: 138 }, { strokeDashoffset: 0 }], { duration: 1000, easing: 'cubic-bezier(.4,.1,.3,1)', fill: 'forwards' });
+    await c.wait(1050);
     f.querySelector('.ring').remove();
     f.querySelector('.fm').textContent = '2.1 GB · full size';
     const ftm = c.make(K.tm('11:14 PM', { rd: 1 }));
     f.querySelector('div').append(ftm);
     c.enter(ftm, 'fade', { d: 240 });
-    await c.wait(500);
+    await c.wait(400);
 
     // B2: a voice note, recorded in the composer
     await c.beat(1);
@@ -528,14 +528,14 @@ FX.scene('spark', {
     const rec = c.add(comp, `<div class="a-rec"><span class="dot"></span><span class="tmr">0:00</span>${K.wave(26, 8)}<span class="mc">${ic('up')}</span></div>`, 'fade', { d: 200 });
     rec.querySelectorAll('.a-wave i').forEach((b, i) => c.anim(b, [{ transform: 'scaleY(.08)' }, { transform: 'scaleY(1)' }], { duration: 260, delay: 80 + i * 52, fill: 'backwards' }));
     await c.count(rec.querySelector('.tmr'), 0, 21, 1200, n => '0:' + String(Math.round(n)).padStart(2, '0'));
-    await c.wait(400);
+    await c.wait(300);
 
     // B3: sent; it plays, and its transcript sits under it
     await c.beat(2);
     await c.tap(rec.querySelector('.mc'));
     c.leave(rec, 'fade', { d: 180 });
     const v = await c.push(list, K.voice({ o: 1, seed: 5, d: '0:21' }));
-    await c.wait(380);
+    await c.wait(300);
     const pl = v.querySelector('.pl');
     await c.tap(pl);
     pl.innerHTML = ic('pause');
@@ -560,19 +560,19 @@ FX.scene('spark', {
     await c.beat(4);
     v.classList.add('has-rx');
     c.add(v, K.rx('fl', '', 'i'), 'pop');
-    await c.wait(800);
+    await c.wait(650);
     await c.push(list, K.b('a night needs a poster. I\'m in', { who: 'i', t: '11:15 PM' }));
     await c.wait(1100);
 
     // B6: Kofi, and everyone has seen it
     await c.beat(5);
-    await c.wait(250);
+    await c.wait(150);
     c.time('11:16');
     await c.push(list, K.b('I know a room. Fridays in November are open', { who: 'k', t: '11:16 PM' }));
     await c.wait(500);
     c.insert(tr.nextElementSibling, K.seen('tik', 'Seen by Theo, Ines, Kofi'));
     const rd = f.querySelector('.rd'); if (rd) { rd.innerHTML = ic('dcheck'); rd.classList.add('all'); }
-    await c.wait(1200);
+    await c.wait(900);
   },
 });
 } catch (e) { console.error('FYI s2-spark', e); }
@@ -686,9 +686,9 @@ try {
 
       // B1: 64 new messages since last night, and a way to catch up
       await c.beat(0);
-      await c.wait(450);
+      await c.wait(320);
       c.add(c.app, `<div class="a-aipill s3-pill">${K.knot()}<span>Catch me up · 64</span></div>`, 'up', { d: 480 });
-      await c.wait(1150);
+      await c.wait(950);
 
       // B2: the pill becomes a private card (FLIP: label out, outline grows, content in), and the knot thinks
       await c.beat(1);
@@ -715,7 +715,7 @@ try {
       const hd = cu.querySelector('.hd');
       [hd.querySelector('.knot'), hd.querySelector('.s3-ti'), hd.querySelector('.vis'), hd.querySelector('.s3-chev'), cu.querySelector('.s3-bd')]
         .forEach((el, i) => c.anim(el, [{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'none' }], { duration: 260, delay: i * 45, fill: 'backwards' }));
-      await c.wait(950);
+      await c.wait(800);
 
       // B3: the summary streams in, one line at a time
       await c.beat(2);
@@ -732,7 +732,7 @@ try {
         await stream(c, tx); plain(tx);
         await c.wait(120);
       }
-      await c.wait(500);
+      await c.wait(380);
 
       // B4: every line links to its source; Theo's chip jumps back to the message, then the thread returns
       await c.beat(3);
@@ -745,7 +745,7 @@ try {
         c.enter(ch, 'fade', { d: 300, delay: 100 });
         await c.wait(150);
       }
-      await c.wait(750);
+      await c.wait(600);
       if (!c.ff) {
         await c.tap(chips[1], { press: .94 });
         const msg = c.q('[data-id="theo"]');
@@ -771,14 +771,14 @@ try {
         c.leave(ring, 'fade', { d: 240 });
         await c.wait(back);
       }
-      await c.wait(500);
+      await c.wait(380);
 
       // B5: AI drafts, Maya sends it as an ordinary message
       await c.beat(4);
       const acts = c.make(grower(`<div class="acts"><span class="a-ab s3-ask">${ic('compose')}Ask about tickets</span><span class="a-ab you">${ic('users')}Post to group</span></div>`));
       bdi.append(acts); grow(c, acts, 300);
       c.enter(acts.querySelector('.acts'), 'fade', { d: 280, delay: 120 });
-      await c.wait(850);
+      await c.wait(700);
       await c.tap(c.q('.s3-ask'));
       // the card has done its job: it folds to one private line
       const bd = cu.querySelector('.s3-bd');
@@ -806,7 +806,7 @@ try {
       await c.wait(380);
       const vis = tx.querySelector('.s3-vis'), rest = tx.querySelector('.s3-rest');
       if (c.ff) { vis.textContent = DRAFT; rest.textContent = ''; }
-      else for (let i = 1; i <= DRAFT.length; i++) { vis.textContent = DRAFT.slice(0, i); rest.textContent = DRAFT.slice(i); await c.wait(28); }
+      else for (let i = 1; i <= DRAFT.length; i++) { vis.textContent = DRAFT.slice(0, i); rest.textContent = DRAFT.slice(i); await c.wait(20); }
       tx.querySelector('.s3-car').remove();
       await c.wait(750);
       await c.tap(mc);
@@ -820,7 +820,7 @@ try {
       }, { d: 460 });
       c.enter(mine, 'up', { d: 460 });
       c.time('8:03');
-      await c.wait(950);
+      await c.wait(800);
 
       // B6: Kofi asks the AI in the group; everyone sees the answer and who asked
       await c.beat(5);
@@ -832,7 +832,7 @@ try {
       c.time('8:04');
       await c.wait(750);
       const gc = await c.push(list, groupCard());
-      await c.wait(650);
+      await c.wait(550);
       settle(c, gc.querySelector('.knot'));
       const ga = gc.querySelector('.s3-g');
       grow(c, ga, 260);
@@ -841,7 +841,7 @@ try {
       await c.wait(800);
       await c.push(list, K.b('perfect, sending to the DJ', { who: 'k', t: '8:04 AM', cls: 'gap' }));
       const rd = mine.querySelector('.rd'); if (rd) rd.innerHTML = ic('dcheck');
-      await c.wait(1600);
+      await c.wait(1100);
     },
   });
 })();
@@ -978,17 +978,17 @@ try {
       // B1: Theo makes a promise in the chat
       await c.beat(0);
       anat(stage, 0);
-      await c.wait(320);
+      await c.wait(200);
       sub.textContent = 'Theo is typing…'; sub.classList.add('live');
       const ty = await c.push(list, K.typing(), 'fade', { d: 300 });
-      await c.wait(900);
+      await c.wait(800);
       sub.textContent = 'Theo, Ines, Kofi, You'; sub.classList.remove('live');
       const tb = c.swap(ty, theo(), 'up');
       await c.wait(1000);
 
       // B2: FYI AI offers once, quietly: a strip unfolds under the message
       await c.beat(1);
-      await c.wait(420);
+      await c.wait(280);
       const sug = c.make(K.sug('<small>Looks like a task</small>Visualizer cut · Nov 12'));
       sug.classList.add('t4-sug');
       list.append(sug);
@@ -997,11 +997,11 @@ try {
         c.anim(sug, [{ height: '0px', marginTop: '0px', opacity: 0 }, { height: h + 'px', marginTop: '4px', opacity: 1, offset: .7 }, { height: h + 'px', marginTop: '4px', opacity: 1 }], { duration: 520, easing: EASE });
         const kn = sug.querySelector('.knot');
         kn.classList.add('think');
-        await c.wait(1000);
+        await c.wait(850);
         kn.classList.remove('think');
         c.anim(kn, [{ transform: 'scale(1.18)' }, { transform: 'none' }], { duration: 360, easing: SPRING });
       }
-      await c.wait(760);
+      await c.wait(620);
 
       // B3: Make task. The message lifts, the sheet rises under it, and four phrases become four fields
       await c.beat(2);
@@ -1031,7 +1031,7 @@ try {
       const ok = sh.querySelector('.t4-ok');
       ok.classList.add('on');
       if (!c.ff) c.anim(ok, [{ transform: 'scale(.8)' }, { transform: 'none' }], { duration: 420, easing: SPRING });
-      await c.wait(1000);
+      await c.wait(850);
       mark(c, cl, 4, 0); anat(stage, 4, 0);
 
       // B4: Maya taps the check. The sheet drops, the message settles, and the task attaches to it
@@ -1064,9 +1064,9 @@ try {
         c.anim(c.q('.a-seg .n'), [{ transform: 'none' }, { transform: 'scale(1.3)' }, { transform: 'none' }], { duration: 420, easing: SPRING });
       }
       await roll(c, c.q('.t4-num'), 4);
-      await c.wait(260);
+      await c.wait(180);
       await c.push(list, K.sys('<b>Maya</b> made this a task for Theo'));
-      await c.wait(1150);
+      await c.wait(1050);
 
       // B5: the Tasks tab pushes in: one list for every promise in the group
       await c.beat(4);
@@ -1085,7 +1085,7 @@ try {
       await c.wait(520);
       // the two tasks just made from Theo's message light up once, so the eye finds them
       if (!c.ff) ['.t4-fs', '.t4-vc'].forEach((s, i) => c.anim(c.q(s), [{ backgroundColor: '#2c2c2e' }, { backgroundColor: '#1c1c1e' }], { duration: 1000, delay: i * 140, easing: 'ease-out' }));
-      await c.wait(1800);
+      await c.wait(1500);
 
       // B6: Day 9. The stems are done, so Theo can start
       await c.beat(5);
@@ -1094,7 +1094,7 @@ try {
       const skip = c.make('<div class="a-skip t4-skip">Day 9 · Wed, Oct 21</div>');
       flip(c, [...tv.children], () => tv.prepend(skip), { d: 420 });
       if (!c.ff) c.anim(skip, [{ opacity: 0, transform: 'translateY(-6px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: PUSH, fill: 'backwards' });
-      await c.wait(760);
+      await c.wait(620);
       const ck = fs.querySelector('.a-chk');
       await c.tap(ck, { press: .84 });
       ck.classList.add('done');
@@ -1118,7 +1118,7 @@ try {
       const wt = vc.querySelector('.t4-wt');
       await outIn(c, wt, () => { wt.innerHTML = '<span class="ok">Ready to start</span>'; }, { out: 200, in: 300 });
       if (!c.ff) c.anim(vc, [{ backgroundColor: '#2c2c2e' }, { backgroundColor: '#1c1c1e' }], { duration: 900, easing: 'ease-out' });
-      await c.wait(1800);
+      await c.wait(1200);
     },
   });
 })();
@@ -1408,7 +1408,7 @@ try {
 
       // B1 · Ines posts three covers: an upload on Ines's phone, an album under "Ines" on the other two
       await c.beat(0); auto(1);
-      await c.wait(400);
+      await c.wait(280);
       const mine = await cs[1].push(list(1), album('i', true));
       mine.querySelectorAll('.ring circle').forEach((r, k) => cs[1].anim(r, [{ strokeDashoffset: 88 }, { strokeDashoffset: 0 }], { duration: 900, delay: k * 90, easing: 'cubic-bezier(.4,.1,.3,1)', fill: 'both' }));
       await c.wait(820);
@@ -1417,46 +1417,46 @@ try {
         mine.querySelectorAll('.ring').forEach(r => cj.leave(r, 'fade', { d: 220 }));
         cj.enter(cj.add(mine, stamp(true), 'none'), 'fade', { d: 260 });
       });
-      await c.wait(900);
+      await c.wait(720);
 
       // B2 · Ines asks; Maya votes B, then Theo; the same bar fills on every phone
       await c.beat(1); auto(0);
-      await c.wait(300);
+      await c.wait(200);
       await spread(1, (j, cj) => cj.push(list(j), poll(V[j])));
-      await c.wait(650);
+      await c.wait(520);
       // a vote is also a read: on Ines's phone the receipt under the poll names each voter as the vote lands
       await spread(0, j => { vote(j, 'm'); if (j === 1) { receipt('m', 'Read by Maya'); readTick(cs[1].q('.t5-alb .rd')); } }, { tap: cs[0].q('.t5-poll [data-r="b"]'), tapo: { press: .98 } });
-      await c.wait(420);
+      await c.wait(340);
       await spread(2, j => { vote(j, 't'); if (j === 1) receipt('mt', 'Read by Maya and Theo'); }, { tap: cs[2].q('.t5-poll [data-r="b"]'), tapo: { press: .98 } });
-      await c.wait(850);
+      await c.wait(700);
 
       // B3 · Theo answers and starts a call; Maya and Ines join. Theo's message lands at 7:06, and every clock moves with it
       await c.beat(2); auto(2);
-      await c.wait(300);
+      await c.wait(200);
       await spread(2, (j, cj, me) => { cj.push(list(j), K.b('B. I cut the bridge to it. call?', me ? { o: 1, t: '7:06 PM', rd: 1 } : { who: 't', t: '7:06 PM' })); cj.time('7:06'); });
       await c.wait(500);
       await spread(2, (j, cj, me) => { cj.push(list(j), callbar(V[j])); if (me) openCall(2, ['m', 'i']); }, { tap: cs[2].q('.a-nav .acts svg:last-child'), tapo: { press: .86 } });
-      await c.wait(500);
+      await c.wait(400);
       await spread(0, (j, cj, me) => {
         if (me) { setClock(0); openCall(0, ['i']); clock(0); }
         else if (j === 1) cj.add(cj.q('.t5-cb .a-stack'), K.av('m', 's'), 'pop');
         else { joined(2, 'm'); readTick(cj.q('.a-b.o .rd')); } // Maya answered right under Theo's message: it was read
       }, { tap: cs[0].q('.t5-cb .j') });
-      await c.wait(350);
+      await c.wait(280);
       await spread(1, (j, cj, me) => { if (me) openCall(1, []); else joined(j, 'i'); }, { tap: cs[1].q('.t5-cb .j') });
-      await c.wait(750);
+      await c.wait(600);
 
       // B4 · Theo shares the cut: the tiles shrink to a strip and the edit fills the call on every phone
       await c.beat(3); auto(1); clock(184); cs.forEach(cj => cj.time('7:09')); // 03:04 into the call
-      await c.wait(400);
+      await c.wait(280);
       await spread(2, (j, cj, me) => shareOn(j, me), { tap: cs[2].q('.t5-shr'), tapo: { press: .94 } });
-      await c.wait(1100);
+      await c.wait(900);
 
       // B5 · Sync on, then Theo jumps to the bridge: one playhead, every phone lands on 1:40 at once
       await c.beat(4); auto(0); clock(371); cs.forEach(cj => cj.time('7:12')); // 06:11
-      await c.wait(350);
+      await c.wait(250);
       await spread(2, (j, cj, me) => syncOn(j, me), { tap: cs[2].q('.t5-syn'), tapo: { press: .94 } });
-      await c.wait(550);
+      await c.wait(440);
       const jump = cs[2].tap(cs[2].q('.t5-v1 .t5-trk'), { x: PH1 / LEN, y: .5, noPress: true });
       jump.catch(() => {});
       if (!c.ff) await c.wait(160);
@@ -1469,19 +1469,19 @@ try {
 
       // B6 · Ines circles the arcs (the others see it 120 ms later); Maya clips the moment, on Maya's phone only
       await c.beat(5); auto(1); clock(512); cs.forEach(cj => cj.time('7:14')); // 08:32, so the 9-minute call ends at B7
-      await c.wait(350);
+      await c.wait(250);
       await spread(1, (j, cj, me) => circle(j, me), { pre: 0, lag: 120, pk: 420 });
       await c.wait(1000);
       await cs[0].tap(cs[0].q('.t5-clip'));
       const toast = cs[0].add(cs[0].q('.t5-call'), `<div class="a-toast t5-toast">${ic('check')}Clip saved · 1:40 Bridge</div>`, 'none');
       cs[0].anim(toast, [{ transform: 'translateX(-50%) translateY(-10px) scale(.96)', opacity: 0 }, { transform: 'translateX(-50%)', opacity: 1 }], { duration: 420, easing: 'cubic-bezier(.34,1.4,.5,1)' });
-      await c.wait(1100);
+      await c.wait(900);
 
       // B7 · Theo ends the call; every phone is back in the thread, where the notes post for everyone at once
       await c.beat(6); auto(0); stopClock();
-      await c.wait(300);
+      await c.wait(200);
       await spread(2, (j, cj) => { closeCall(j); cj.time('7:15'); }, { tap: cs[2].q('.a-ctl .end'), tapo: { press: .88 } });
-      await c.wait(500);
+      await c.wait(400);
       const cards = await Promise.all(cs.map((cj, j) => cj.push(list(j), notes(), 'up', { d: 520 })));
       cards.forEach((el, j) => {
         const kn = el.querySelector('.knot'); if (!c.ff) kn.classList.add('think');
@@ -1489,20 +1489,20 @@ try {
       });
       await c.wait(420);
       cards.forEach(el => el.querySelector('.knot').classList.remove('think'));
-      await c.wait(6 * 130 + 1100);
+      await c.wait(6 * 130 + 900);
 
       // B8 · Who is here and who has read it are two things: three are here now, and on Ines's phone the poll shows it has
       // now been read by everyone in the group, Kofi too, who asked for the cover and is not on the call
       await c.beat(7); auto(1);
-      await c.wait(400);
+      await c.wait(280);
       cs.forEach((cj, j) => {
         const sub = cj.q('.a-nav .sub'); sub.classList.add('live'); sub.innerHTML = here();
         cj.enter(sub.firstElementChild, 'fade', { d: 320 }); ping(j);
       });
-      await c.wait(1000);
+      await c.wait(850);
       receipt('mtk', 'Read by everyone');
       ping(1);
-      await c.wait(1300);
+      await c.wait(1000);
     },
   });
 })();
@@ -1698,14 +1698,14 @@ try {
 
       // B1: Day 24. Kofi signs the room; FYI AI offers an event, once
       await c.beat(0);
-      await c.wait(260);
+      await c.wait(160);
       await flip(c, list, 'Day 24 · Thu, Nov 5');
-      await c.wait(380);
+      await c.wait(300);
       await c.push(list, K.b('Dock Hall 3 signed. Fri Nov 20, doors at 9', { who: 'k', t: '6:10 PM' }));
       await c.wait(480);
       const sug = await c.push(list, K.sug('Make this an event?', 'Draft event'), 'up');
       sug.classList.add('l6-sug');
-      await c.wait(620);
+      await c.wait(520);
 
       // B2: the draft sheet; FYI AI fills it from the chat, a host checks it
       await c.beat(1);
@@ -1735,21 +1735,21 @@ try {
       await c.wait(160);
       const evm = c.swap(sug, `<div class="l6-evm">${ticket()}<div class="l6-host"><span class="l6-pro">${ic('mega')}Promote</span></div></div>`, 'up', { d: 460 });
       const tk = evm.querySelector('.l6-tk'), gn = tk.querySelector('.gn'), st = tk.querySelector('.cnt .a-stack');
-      await c.wait(520);
+      await c.wait(420);
       for (const [p, n] of [['t', 2], ['i', 3], ['k', 4]]) {
         c.add(st, K.av(p, 's'), 'pop');
         gn.textContent = n;
         c.anim(gn, [{ transform: 'translateY(6px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 260 });
         await c.wait(210);
       }
-      await c.wait(520);
+      await c.wait(420);
 
       // B4: Promote. One switch makes the event public
       await c.beat(3);
       await c.tap(evm.querySelector('.l6-pro'));
       const pr = await openSheet(c, prSheet());
       const sh = pr[1], sw = sh.querySelector('.l6-sw');
-      await c.wait(200);
+      await c.wait(140);
       await c.tap(sw, { noPress: true });
       sh.classList.add('on');
       c.anim(sw, [{ backgroundColor: '#2c2c2e' }, { backgroundColor: '#34d1bf' }], { duration: 260 });
@@ -1757,7 +1757,7 @@ try {
       sh.querySelector('.l6-pub .s').textContent = 'Anyone with the link can RSVP';
       await c.wait(160);
       for (const ck of sh.querySelectorAll('.l6-fm .a-chk')) { ck.classList.add('on'); c.enter(ck, 'pop', { d: 320 }); await c.wait(110); }
-      await c.wait(560);
+      await c.wait(460);
 
       // B5: three formats, made from the event, walk out of the phone onto the page
       await c.beat(4);
@@ -1768,7 +1768,7 @@ try {
       c.swap(evm.querySelector('.l6-host'), `<div class="a-fmts">${['Story', 'Post', 'Link page'].map(t => `<span>${ic('check')}${t}</span>`).join('')}</div>`, 'fade');
       const toast = c.add(c.app, '<div class="a-toast l6-toast"><span class="ps l6-tth"><i class="arcs"></i></span>3 formats ready</div>', 'none');
       c.anim(toast, [{ opacity: 0, transform: 'translate(-50%, -16px)' }, { opacity: 1, transform: 'translate(-50%, 0)' }], { duration: 380, fill: 'backwards' });
-      await c.wait(1000);
+      await c.wait(850);
 
       // B6: RSVPs come back into the same thread, later that evening
       await c.beat(5); c.time('9:40');
@@ -1783,7 +1783,7 @@ try {
       await c.wait(460);
       gn.textContent = '27';
       doorsInPhone(c, list);
-      await c.wait(800);
+      await c.wait(650);
 
       // B7: Day 39, two minutes to doors
       await c.beat(6);
@@ -1819,7 +1819,7 @@ try {
       const go = await c.push(list, K.sys('<i class="l6-pulse"></i><b>Launch Night</b> has started'), 'up');
       c.anim(go.querySelector('.l6-pulse'), [{ boxShadow: '0 0 0 0 rgba(255,45,143,.7)' }, { boxShadow: '0 0 0 9px rgba(52,209,191,0)' }], { duration: 1100, delay: 200, easing: 'ease-out' });
       trim();
-      await c.wait(1400);
+      await c.wait(1000);
       trim();
     },
   });
@@ -1897,3 +1897,25 @@ try {
   }
 })();
 } catch (e) { console.error('FYI statics', e); }
+
+// ===== story rails =====
+try {
+// The story page (fyi.html) draws a rail beside each part, one segment per beat, and each segment fills for as long as its
+// beat plays. These are those times in real milliseconds at the page's speed (FX.speed 1.45, set in fyi-art.js); they
+// replace the --t values written in the page, so a wait changed in a scene above is paid for here.
+(() => {
+  const MS = {
+    trailer: [1123, 2566, 2041, 2665, 1722, 2190],
+    origin: [1942, 4800, 2198, 2170, 2205, 1839],
+    spark: [1253, 1872, 2326, 1434, 1221, 1086],
+    catchup: [890, 1267, 3853, 3188, 3800, 3349],
+    task: [1393, 1230, 3014, 2726, 1715, 2842],
+    together: [1594, 2626, 3324, 1388, 2816, 1890, 2427, 1501],
+    launch: [1038, 2722, 1452, 1665, 1120, 1396, 1959],
+  };
+  document.querySelectorAll('.ot-part[data-part]').forEach(part => {
+    const ms = MS[part.dataset.part]; if (!ms) return;
+    part.querySelectorAll('.ot-segs button').forEach((b, i) => { if (ms[i]) b.style.setProperty('--t', ms[i] + 'ms'); });
+  });
+})();
+} catch (e) { console.error('FYI story rails', e); }

@@ -1,21 +1,23 @@
 /* FYI case study, layer: The cast. Shell in v7/fyi-around.css.
    One moment: pick a face, the animal comes forward on its own colour and the same face lands in a real chat thread. */
-.fyacast{ --pw:372px; --pr:24px; --fyc-spring:cubic-bezier(.2,.9,.25,1.12); }
+.fyacast{ --pw:100%; --pr:20px; --fw:76px; --gap:24px; --fyc-spring:cubic-bezier(.2,.9,.25,1.12); }
 
-/* the row of eight faces */
-.fyacast-pick{ display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:8px; margin:0 0 clamp(28px,3.4vw,44px); }
-.fyacast-f{ display:flex; flex-direction:column; align-items:center; gap:12px; min-height:44px; padding:8px 4px 10px; border:0; border-radius:16px; background:none; color:var(--mute); font:500 15px/1.2 var(--body); cursor:pointer; -webkit-tap-highlight-color:transparent; transition:color .2s; }
-.fyacast-f img{ display:block; width:84px; height:84px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 0 var(--ground), 0 0 0 0 var(--ink), 0 10px 16px -12px rgba(23,27,32,.5); transition:transform .35s var(--fya-ease), box-shadow .25s var(--fya-ease); }
+/* the row of eight faces: the first sits on the left edge of the page grid, the last on the right */
+#fya-cast .fya-head{ margin-bottom:50px; }
+.fyacast-pick{ display:flex; justify-content:space-between; margin:0 0 28px; }
+.fyacast-f{ display:flex; flex-direction:column; align-items:center; gap:12px; width:var(--fw); min-height:44px; padding:0 0 4px; border:0; border-radius:16px; background:none; color:var(--mute); font:500 15px/1.2 var(--body); cursor:pointer; -webkit-tap-highlight-color:transparent; transition:color .2s; }
+.fyacast-f span{ white-space:nowrap; }
+.fyacast-f img{ display:block; width:var(--fw); height:var(--fw); border-radius:50%; object-fit:cover; box-shadow:0 0 0 0 var(--ground), 0 0 0 0 var(--ink), 0 10px 16px -12px rgba(23,27,32,.5); transition:transform .35s var(--fya-ease), box-shadow .25s var(--fya-ease); }
 .fyacast-f[aria-pressed="true"]{ color:var(--ink); font-weight:600; }
 .fyacast-f[aria-pressed="true"] img{ box-shadow:0 0 0 4px var(--ground), 0 0 0 6.5px var(--ink), 0 14px 18px -12px rgba(23,27,32,.55); }
 .fyacast-f:active img{ transform:scale(.95); }
 @media (hover:hover){ .fyacast-f:hover{ color:var(--ink); } .fyacast-f:not([aria-pressed="true"]):hover img{ transform:translateY(-4px); } }
 
-/* the stage: the character, who it is, and where it lands */
-.fyacast-stage{ display:grid; grid-template-columns:var(--pw) minmax(0,1fr) 316px; gap:clamp(32px,4vw,56px); align-items:center; }
+/* the stage: three equal columns on the page grid. The padding is the room the cut-out needs above the plate (a fifth of a column) */
+.fyacast-stage{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap); padding-top:calc((100% - var(--gap) * 2) / 3 * .2); }
 
 /* the plate: a ground colour, a hard shadow, and the cut-out standing out of its top edge */
-.fyacast-plate{ position:relative; width:var(--pw); max-width:100%; aspect-ratio:372/400; margin:calc(var(--pw) * .2) 0 0; border-radius:var(--pr); background:var(--g,#e8336f); box-shadow:0 34px 44px -34px rgba(23,27,32,.6); transition:background-color .45s var(--fya-ease); }
+.fyacast-plate{ position:relative; width:var(--pw); max-width:100%; aspect-ratio:372/400; margin:0; border-radius:var(--pr); background:var(--g,#e8336f); box-shadow:0 34px 44px -34px rgba(23,27,32,.6); transition:background-color .45s var(--fya-ease); }
 .fyacast-plate::before{ content:""; position:absolute; inset:0; border-radius:inherit; background:linear-gradient(155deg,rgba(255,255,255,.2),rgba(255,255,255,0) 52%), linear-gradient(0deg,rgba(13,16,48,.2),rgba(13,16,48,0) 46%); }
 .fyacast-clip{ position:absolute; inset:0; display:block; clip-path:inset(-40% 0 0 0 round 0 0 var(--pr) var(--pr)); }
 .fyacast-clip.in{ clip-path:none; overflow:hidden; border-radius:var(--pr); }
@@ -32,53 +34,45 @@
 .fyacast.is-pre .fyacast-l img{ transform:translateY(14%) scale(.88); opacity:0; transition:none; }
 
 /* who it is */
-.fyacast-say{ container-type:inline-size; justify-self:stretch; min-width:0; padding-top:calc(var(--pw) * .2); }
+.fyacast-say{ container-type:inline-size; justify-self:stretch; align-self:center; min-width:0; }
 .fyacast-say > *{ transition:opacity .3s linear, transform .3s var(--fya-ease); }
 .fyacast.is-out .fyacast-say > *, .fyacast.is-pre .fyacast-say > *{ opacity:0; transform:translateY(8px); transition-duration:.14s; }
 .fyacast-role{ margin:18px 0 0; font:700 min(74px,17.6cqi)/.94 var(--display); letter-spacing:-.045em; color:var(--head); }
 .fyacast-role span{ display:block; margin-bottom:.14em; font-size:.42em; line-height:1; letter-spacing:-.03em; color:var(--mute); }
-.fyacast-role b{ display:block; font-weight:inherit; }
-.fyacast-line{ margin:22px 0 0; max-width:19em; min-height:3em; font:400 21px/1.42 var(--body); color:var(--text); text-wrap:balance; }
+.fyacast-role b{ display:block; margin-left:-.04em; font-weight:inherit; }
+.fyacast-line{ margin:22px 0 0; max-width:16.5em; min-height:3em; font:400 21px/1.42 var(--body); color:var(--text); text-wrap:balance; }
 
 /* where it lands: the thread as a crew mate sees it */
-/* the tile sizes to its thread, and its centre sits on the plate's centre (the caption is 24px) */
-.fyacast-phone{ min-width:0; padding-top:calc(var(--pw) * .2 - 24px); }
-.fyacast-cap{ margin:0 0 12px; font:500 12px/1 var(--fya-mono); letter-spacing:.05em; text-transform:uppercase; color:var(--mute); }
-.fyacast-tile{ padding:18px 18px 20px; }
+/* the tile is as tall as the plate: the crew on its top edge, the thread on its bottom edge. The caption stands above it */
+.fyacast-phone{ position:relative; display:flex; flex-direction:column; min-width:0; }
+.fyacast-cap{ position:absolute; left:0; bottom:100%; margin:0 0 12px; font:500 12px/1 var(--fya-mono); letter-spacing:.05em; text-transform:uppercase; color:var(--mute); }
+.fyacast-tile{ flex:1; display:flex; padding:20px; }
+.fyacast-tile .fx-app{ flex:1; display:flex; flex-direction:column; min-width:0; zoom:1.15; }
 .fyacast-hd{ display:flex; align-items:center; gap:11px; padding:0 0 15px; box-shadow:0 1px 0 rgba(255,255,255,.1); }
 .fyacast-hd > div{ min-width:0; display:flex; flex-direction:column; gap:1px; }
 .fyacast-hd b{ font:600 16px/20px var(--fxf); }
 .fyacast-hd span span, .fyacast-hd div > span{ font:400 13px/16px var(--fxf); color:var(--t2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.fyacast-th{ display:flex; flex-direction:column; padding-top:12px; }
+.fyacast-th{ display:flex; flex-direction:column; margin-top:auto; padding-top:12px; }
 .fyacast-th .a-pill{ margin:0 0 4px; }
-.fyacast-th .a-sys{ margin:4px 0 0; }
-.fyacast-me{ display:flex; justify-content:flex-end; align-items:flex-end; gap:8px; margin-top:24px; transform-origin:100% 100%; }
+.fyacast-th .a-sys{ margin:8px 0 0; }
+.fyacast-me{ display:flex; justify-content:flex-end; align-items:flex-end; gap:8px; margin-top:32px; transform-origin:100% 100%; }
 .fyacast-me .a-av{ width:40px; height:40px; margin-right:4px; box-shadow:0 0 0 2px #05050a, 0 0 0 3.5px var(--g,#e8336f); transition:transform .32s var(--fyc-spring), box-shadow .3s; }
 .fyacast-me .a-b{ max-width:none; }
-.fyacast-re{ margin-top:12px; max-width:84%; transform-origin:0 100%; }
+.fyacast-re{ margin-top:16px; max-width:84%; transform-origin:0 100%; }
 .fyacast-me, .fyacast-re{ transition:opacity .32s linear, transform .32s var(--fya-ease); }
 .fyacast-me.is-hid, .fyacast-re.is-hid{ opacity:0; transform:translateY(10px) scale(.96); transition-duration:.12s; }
 .fyacast-me.is-hid .a-av{ transform:scale(.5); }
 
-/* how the look was found: four sheets in order */
-.fyacast-proc{ margin-top:clamp(64px,7.5vw,104px); padding-top:28px; box-shadow:0 -1px 0 var(--line); }
-.fyacast-proc .fya-note{ margin-top:10px; max-width:44em; }
-.fyacast-proc ol{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px; margin:24px 0 0; padding:0; list-style:none; }
-.fyacast-fr{ display:block; padding:6px; border-radius:14px; background:#fff; box-shadow:0 0 0 1px var(--fya-rim), 0 18px 24px -20px rgba(23,27,32,.4); }
-.fyacast-fr img{ display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; border-radius:8px; }
-.fyacast-proc p{ display:flex; flex-direction:column; gap:7px; margin:16px 0 0; font:400 15.5px/1.35 var(--body); color:var(--text); }
-.fyacast-proc p b{ font:500 12px/1 var(--fya-mono); letter-spacing:.05em; text-transform:uppercase; color:var(--mute); }
-
-@media (max-width:1199px){ .fyacast{ --pw:320px; } .fyacast-stage{ grid-template-columns:var(--pw) minmax(0,1fr) 296px; gap:32px; } .fyacast-f img{ width:72px; height:72px; } .fyacast-line{ font-size:19px; } }
+@media (max-width:1199px){ .fyacast{ --fw:68px; } .fyacast-f{ font-size:14px; } .fyacast-line{ font-size:19px; } .fyacast-tile{ padding:18px; } .fyacast-tile .fx-app{ zoom:.94; } }
 @media (max-width:899px){
-  .fyacast{ --pw:min(372px,100%); }
-  .fyacast-pick{ grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px 4px; margin-bottom:12px; }
-  .fyacast-f{ gap:9px; font-size:14.5px; } .fyacast-f img{ width:64px; height:64px; }
-  .fyacast-stage{ grid-template-columns:minmax(0,1fr); gap:28px; justify-items:start; }
+  .fyacast{ --pw:min(372px,100%); --pr:24px; --fw:60px; }
+  .fyacast-pick{ margin-bottom:12px; }
+  .fyacast-f{ gap:9px; font-size:13px; }
+  .fyacast-stage{ grid-template-columns:minmax(0,1fr); gap:28px; padding-top:0; justify-items:start; align-items:center; }
+  .fyacast-phone{ display:block; } .fyacast-cap{ position:static; } .fyacast-tile{ display:block; padding:18px 18px 20px; } .fyacast-tile .fx-app{ display:block; zoom:1; }
   .fyacast-plate{ margin-top:74px; }
   .fyacast-say{ padding-top:0; align-self:start; } .fyacast-phone{ padding-top:0; } .fyacast-role{ margin-top:14px; font-size:min(56px,17.6cqi); } .fyacast-line{ margin-top:16px; min-height:2.84em; }
   .fyacast-phone{ width:100%; max-width:372px; margin-top:8px; }
-  .fyacast-proc ol{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 14px; }
 }
 @media (min-width:640px) and (max-width:899px){
   .fyacast{ --pw:300px; }
@@ -88,25 +82,24 @@
 }
 /* phone: one sticky row of faces, and the whole answer to a tap on one screen */
 @media (max-width:639px){
-  .fyacast{ --pw:200px; --pr:18px; --gut:16px; }
-  .fyacast-pick{ position:sticky; top:60px; z-index:6; display:flex; gap:4px; margin:0 calc(var(--gut) * -1); padding:10px var(--gut) 8px; background:var(--ground); overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x proximity; scroll-padding:0 var(--gut); scrollbar-width:none; }
+  .fyacast{ --pw:176px; --pr:18px; --fw:56px; --gut:16px; }
+  .fyacast-pick{ position:sticky; top:60px; z-index:6; display:flex; justify-content:flex-start; gap:4px; margin:0 calc(var(--gut) * -1); padding:10px var(--gut) 8px; background:var(--ground); box-shadow:0 10px 12px -12px rgba(23,27,32,.22); overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x proximity; scroll-padding:0 var(--gut); scrollbar-width:none; }
   .fyacast-pick::-webkit-scrollbar{ display:none; }
   .fyacast-f{ flex:0 0 70px; gap:9px; padding:0 0 4px; font-size:13px; scroll-snap-align:start; }
-  .fyacast-f img{ width:56px; height:56px; }
-  .fyacast-f span{ visibility:hidden; white-space:nowrap; }
+  .fyacast-f span{ visibility:hidden; }
   .fyacast-f[aria-pressed="true"] span{ visibility:visible; }
   .fyacast-f[aria-pressed="true"] img{ box-shadow:0 0 0 3px var(--ground), 0 0 0 5px var(--ink), 0 12px 14px -12px rgba(23,27,32,.55); }
   .fyacast-stage{ grid-template-columns:var(--pw) minmax(0,1fr); gap:0 16px; align-items:start; }
-  .fyacast-plate{ grid-column:1; grid-row:1 / span 2; margin-top:40px; }
+  .fyacast-plate{ grid-column:1; grid-row:1 / span 2; margin-top:32px; }
   .fyacast-say{ display:contents; }
   .fyacast-say .fya-tag{ grid-column:2; grid-row:1; align-self:end; margin-top:60px; }
-  .fyacast-role{ grid-column:2; grid-row:2; align-self:start; margin-top:12px; font-size:min(34px,calc((100vw - 256px) * .2)); }
+  .fyacast-role{ grid-column:2; grid-row:2; align-self:start; margin-top:12px; font-size:min(34px,calc((100vw - 232px) * .2)); }
   .fyacast-role span{ font-size:15px; margin-bottom:5px; }
-  .fyacast-line{ grid-column:1 / -1; margin-top:18px; max-width:none; min-height:2.84em; font-size:17px; }
-  .fyacast-phone{ grid-column:1 / -1; max-width:none; margin-top:14px; }
+  .fyacast-line{ grid-column:1 / -1; margin-top:14px; max-width:none; min-height:2.84em; font-size:17px; }
+  .fyacast-phone{ grid-column:1 / -1; max-width:none; margin-top:8px; }
   .fyacast-tile{ padding:16px; }
   /* the row lets go over empty ground, not over the thread */
-  .fyacast-top{ padding-bottom:64px; } .fyacast-proc{ margin-top:0; }
+  .fyacast{ padding-bottom:64px; margin-bottom:-64px; }
 }
 @media (prefers-reduced-motion:reduce){ .fyacast-l{ transform:none !important; } .fyacast-l.sh{ transform:translate3d(-5.5%,1.5%,0) !important; } }
 .fyacast-f:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }

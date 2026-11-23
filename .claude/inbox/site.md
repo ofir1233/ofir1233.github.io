@@ -60,3 +60,4 @@
 - 24.11 (site): tried the 3D phone as a pink sketch with marker fill; the owner did not like it. Removed, the titanium phone is back (`fyi-3d.js?v=6`, same code as before).
 - 24.11 (site): cast prototype `.claude/fyi/alternates/cast`: the empty "YOU" card is gone; a picked animal's card leaves the wall (owner: the frame was ugly).
 - 24.11 FYI page: the six layers around the app (why, map, colour, kit, cast, going public) went through four critics and a fix round; work/fyi.html reassembled from work/_fya-*.html, fyi-around.css?v=3, fya-*.css|js?v=2. Checked in real frames at 1440 and 390.
+- 24.11 FYI page, after the owner's review: index block removed, cast opens the block (process strip removed), the reason sits in the iPhone, the structure is one line of five stops; story scenes shortened about 29 percent (trailer plays once), fyi-scenes.js?v=8, fya-why|map|cast ?v=3.
