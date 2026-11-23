@@ -719,3 +719,241 @@
 @media (prefers-reduced-motion:reduce){#sx-data .dt-ask .tx u{animation:none}}
 .sx-side.on:has(.cm-calls) .sg-all,.sx-side.on .cm-ask{animation:sx-in .45s .75s cubic-bezier(.2,.8,.2,1) both}
 @media (prefers-reduced-motion:reduce){.sx-side.on:has(.cm-calls) .sg-all,.sx-side.on .cm-ask{animation:none}}
+/* the phone frame: the last line of a column keeps its distance from the column's rim */
+.is-tiny .ac-card{padding:10px 14px 9px}.is-tiny .ac-board{margin-top:12px}.is-tiny .ac-col{gap:6px;padding-bottom:14px}.is-tiny .ac-card footer{margin-top:7px}
+
+/* ---------- Third pass, 23.11.2026 ---------- */
+/* Agent evaluation, the day that is read: the other three low days step back with the rest, and a hairline runs from the top of
+   the plot to the bar, the way a chart marks the day under the cursor. The tooltip hangs beside that line */
+.sx[data-st="1"] .ae-b.low:not(.hot){opacity:.5}
+.ae-x{position:absolute;top:0;width:1px;background:rgba(6,54,92,.38);pointer-events:none;animation:ae-xin .35s ease-out both}
+.ae-x::after{content:"";position:absolute;left:-3px;bottom:-4px;width:7px;height:7px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 2px #fff}
+@keyframes ae-xin{from{opacity:0;transform:scaleY(.2)}}
+.ae-x{transform-origin:50% 100%}
+/* Compliance: the scores under the popover step out, so its edge can keep clear of the selected one */
+.cm-grid .c{transition:opacity .2s}
+.cm-grid .c.cov{opacity:0}
+@media (prefers-reduced-motion:reduce){.ae-x{animation:none}}
+
+/* Actions in the phone frame: the task the tour follows keeps the line from its call, and its outcome once it is in Done. To make
+   room Pending shows two cards and counts the rest ("+4 more"); the opened task leaves out its summary and keeps the call */
+.ac-more b{font-weight:inherit}.ac-more .t{display:none}
+.is-short .ac-card.src .cev,.is-short .ac-card.moved .cev{display:block}
+.is-short .sx:not([data-st="3"]) .ac-card.src~.ac-card~.ac-card{display:none}
+.is-short .sx:not([data-st="3"]) .ac-col:first-child .ac-more .w{display:none}
+.is-short .sx:not([data-st="3"]) .ac-col:first-child .ac-more .t{display:inline}
+.is-short .sx-side .ac-ev{display:block}
+.is-short .sx-side .a p+p{display:none}
+.is-short .sx-side:has(.ac-ev) dl{margin-top:10px;gap:7px 10px}
+.is-short .sx-side .ac-ev h4{margin-top:14px}
+.is-short .sx-side .ac-ev .cm-tl{margin:8px 0 6px}
+.is-short .sx-side .ac-ev p{padding:1px 0}
+.is-short .sx-side .ac-ev+h4{margin-top:12px}
+.is-short .sx-side .ac-check{padding:6px 0}
+.is-short .ac-card.src .cev,.is-short .ac-card.moved .cev{white-space:normal}
+.is-short .sx.side-on .ac-card.src .cev{white-space:nowrap}
+.is-short .sx[data-st="3"] .ac-card.moved~.ac-card~.ac-card{display:none}
+.is-short .sx[data-st="3"] .ac-col:nth-child(3) .ac-more .w{display:none}
+.is-short .sx[data-st="3"] .ac-col:nth-child(3) .ac-more .t{display:inline}
+
+/* Signals: a triggered signal leads with yesterday against its usual day, and the card keeps one anatomy when the sheet opens:
+   name on one line, rule, number and tag on one row, the fourteen days */
+.sg-card .fig em{font-style:normal}
+.sg-card .fig>span:not(.sx-tag){white-space:nowrap}
+.sx.side-on .sg-card>small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;white-space:normal;min-height:2.6em;line-height:1.3}
+.sx.side-on .sg-card header b{min-height:0;white-space:nowrap;font-size:15px}
+.sx.side-on .sg-card .fig{grid-template-columns:minmax(0,1fr) auto}
+.sx.side-on .sg-card .fig .sx-tag{grid-row:1;grid-column:2;justify-self:auto;margin-top:0}
+.sx.side-on .sg-card .fig em,.is-short .sg-card .fig em{display:none}
+.sx.side-on .sg-plot .lb.last{display:none}
+.is-short .sx.side-on .sg-card>small{display:none}
+.is-short .sx.side-on .sg-card header b{min-height:0;display:block;white-space:nowrap;font-size:14px}
+.is-short .sx.side-on .sg-card .fig .sx-tag{margin-top:0;height:20px;padding:0 7px;font-size:11.5px}
+/* the opened signal: what yesterday's calls were about, as three bars drawn one after the other */
+.sx-side .sg-why>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px;padding:6px 0;font-size:13.5px;color:var(--ink2)}
+.sx-side .sg-why b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.sx-side .sg-why i{grid-column:1/-1;height:6px;border-radius:3px;background:#DCEFFE;overflow:hidden}
+.sx-side .sg-why u{display:block;height:100%;border-radius:3px;background:#139FFD;text-decoration:none}
+.sx-side.on .sg-why u{animation:cm-bar .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.3s + var(--i)*.1s)}
+.sx-side.on .sg-why~.sg-q li{animation-delay:calc(620ms + var(--i)*70ms)}
+.is-short .sx-side .sg-why{display:none}
+/* a new signal: the preview carries two of the calls it found */
+.sg-r.fresh.in{height:auto;row-gap:0;padding:13px 12px 12px 20px}
+.sg-r.fresh .mq{grid-column:1/-1;display:flex;align-items:baseline;gap:22px;margin-top:11px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--ink2);white-space:nowrap;overflow:hidden;animation:sg-mark .4s .45s ease-out both}
+.sg-r.fresh .mq small{font-size:12.5px;color:var(--mut)}
+.sg-r.fresh .mq u{text-decoration:underline 2px #63BEFE;text-underline-offset:4px}
+.sx[data-st="2"] .sg-fire{max-height:262px}
+.is-short .sx[data-st="2"] .sg-fire{max-height:none}
+/* Newsroom: the story fills the pane, so the window has one rim around it and not three */
+.nr-story{inset:0;border-radius:22px}
+/* Data: the answer has weight. The count is the number the eye lands on; the average wears the score's own coral */
+.sx[data-st="2"] .dt-n{font-size:13.5px;color:var(--ink2)}
+.sx[data-st="2"] .dt-n b{font-size:16px;font-weight:700;color:#0B6FCF;letter-spacing:-.01em}
+.dt-foot .av b.p{display:inline-grid;place-items:center;align-self:center;width:32px;height:20px;border-radius:10px;background:var(--coral);color:#fff;font-size:12px;font-weight:600}
+@media (prefers-reduced-motion:reduce){.sx-side.on .sg-why u,.sg-r.fresh .mq{animation:none}}
+.sx[data-st="2"] .sg-plot .lb.last{display:none}
+.is-short .sx-side h4 .n{display:none}
+.is-short .sg-plot{margin-top:32px}
+
+/* ---------- Third pass, part D ---------- */
+/* Actions: the outcome is typed into the task before it is closed */
+.sx-side .ac-out h4{margin-top:16px}
+.sx-side .ac-out .f{display:flex;align-items:center;height:38px;margin-top:8px;padding:0 13px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;font-size:13.5px;color:var(--ink);white-space:nowrap;overflow:hidden}
+.sx-side .ac-out .tx.typing::after{content:"";display:inline-block;width:1.5px;height:1.1em;margin-left:1px;vertical-align:-.18em;background:#139FFD}
+.sx-side .ac-out .f:has(.typing){box-shadow:inset 0 0 0 2px #139FFD}
+.sx-side .ac-ev .cm-tl u{transition:background-color .3s}
+.sx-side .ac-ev.ok .cm-tl u{background:var(--green)}
+.sx-side .ac-ev.ok .cm-tl u+u{transition-delay:.16s}
+.is-short .sx-side .ac-out{display:none}
+/* the card lands with the customer's line; the outcome answers it in the same place */
+.ac-card.moved.fly .cev{animation:none}
+.ac-card.moved .cev.ans{animation:ac-ans .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ac-ans{from{opacity:0;transform:translateY(5px)}}
+.is-short .ac-col:nth-child(2) .ac-card:nth-of-type(3){display:none}
+.is-short .ac-col:nth-child(2) .ac-more .w{display:none}
+.is-short .ac-col:nth-child(2) .ac-more .t{display:inline}
+/* Agent evaluation: when the eight agents open, the day their shared criterion fell stays lit */
+.sx[data-st="2"] .ae-b[data-b="17"]{opacity:1}
+.sx.side-on .ae-b[data-b="17"] em{display:block}
+/* Compliance: the pass mark on the popover's two bars */
+.sx-tip .m i{position:relative}
+.sx-tip .m i::after{content:"";position:absolute;left:70%;top:0;bottom:0;width:2px;margin-left:-1px;background:#fff}
+.sx-tip .pm{position:relative;height:13px;margin:3px 35px 0 61px}
+.sx-tip .pm span{position:absolute;left:70%;top:0;translate:-50% 0;font-size:10.5px;line-height:13px;color:var(--mut);white-space:nowrap}
+.sx-tip.fill .pm+.go{margin-top:auto}
+/* Ask AI: two follow-ups it suggests, above the field */
+.sx-side .cm-sug{display:flex;flex-direction:column;align-items:flex-start;gap:7px;margin-top:auto}
+.sx-side .cm-sug span{display:flex;align-items:center;height:30px;padding:0 13px;border-radius:15px;background:var(--lilac-tint);color:var(--lilac-ink);font-size:13px;font-weight:500;white-space:nowrap}
+.sx-side .cm-sug+.cm-ask{margin-top:12px}
+.sx-side.on .cm-sug{animation:sx-in .45s .95s cubic-bezier(.2,.8,.2,1) both}
+.sx-side .cm-calls small em{font-style:normal}
+.is-short .sx-side .cm-sug{display:none}
+.is-short .sx-side .cm-calls small{display:block;margin-top:5px;font-size:11.5px}
+.is-short .sx-side .cm-calls small em{display:none}
+/* Signals: the note in the field leaves when the preview arrives; the preview's fourteen days rise one at a time */
+.sg-new.found .sx-tag{opacity:0}
+.sg-r .sp i{transform-origin:50% 100%}
+.sg-r.fresh.in .sp i{animation:sg-rise .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.3s + var(--d)*45ms)}
+.sg-r.fresh .mq{animation-delay:1.05s}
+/* Data: the count is there from the first condition; Save as a signal follows the finding it keeps */
+.sx[data-st="2"] .dt-n{transition-delay:.15s}
+.dt-foot .sig{margin-left:18px}
+@media (prefers-reduced-motion:reduce){.ac-card.moved .cev.ans,.sx-side.on .cm-sug,.sg-r.fresh.in .sp i{animation:none}}
+
+/* ---------- Third pass, part E ---------- */
+/* Newsroom recap: "Let's listen back" is drawn. The month's thirty days arrive under the opening line as a waveform, and on the
+   next slide the same thirty marks settle into the bars of the month. The two slides keep one height so the marks do not jump */
+.nr-story .s0,.nr-story .s1{height:204px;justify-content:flex-end}
+.is-short .nr-story .s0,.is-short .nr-story .s1{height:188px}
+.nr-story[data-s="2"] .nr-mon{display:none}
+.nr-mon{--wh:76px}
+.is-short .nr-mon{--wh:60px}
+.nr-mon .b i{transform-origin:50% 50%;transition:translate .7s cubic-bezier(.3,0,.2,1),scale .7s cubic-bezier(.3,0,.2,1),border-radius .5s,background-color .5s;transition-delay:calc(var(--i)*16ms)}
+.nr-story[data-s="0"] .nr-mon .b i{translate:0 calc((var(--h) - 1)*var(--wh)/2);scale:.4 1;border-radius:50%/4px;background:rgba(255,255,255,.9)}
+.nr-story[data-s="1"] .nr-mon .b i{animation:none}
+.nr-story.opens[data-s="0"] .nr-mon .b i{animation:nr-wave .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.95s + var(--i)*32ms)}
+@keyframes nr-wave{from{scale:.4 0;opacity:0}}
+.nr-mon .x{transition:opacity .4s .55s}
+.nr-story[data-s="0"] .nr-mon .x,.nr-story[data-s="0"] .nr-mon .tip{opacity:0;transition:none}
+/* the last slide: each week's total sits over its own band */
+.nr-ref{margin-top:54px}
+.is-short .nr-ref{margin-top:44px}
+.nr-ref .wn{position:absolute;bottom:100%;margin-bottom:9px;translate:-50% 0;font-size:15px;font-weight:500;opacity:.8;font-variant-numeric:tabular-nums}
+.nr-ref .wn.on{font-size:17px;font-weight:600;opacity:1}
+.nr-ref .x .wk.p{font-weight:400}
+.nr-story[data-s="2"] .nr-ref .wn{animation:nr-mark .4s 1.55s ease-out both}
+.nr-story[data-s="2"] .nr-ref .wn.on{animation-delay:1.8s}
+/* Actions: the call is listened to before the first item is ticked. A playhead crosses its line and stops at the two moments;
+   each line of what was said is lit as the playhead reaches it */
+.sx-side .ac-ev .cm-tl s{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:2px;background:#A9DAFE;text-decoration:none}
+.sx-side .ac-ev .cm-tl s::after{content:"";position:absolute;right:-1px;top:-5px;width:2px;height:14px;border-radius:1px;background:#0B6FCF;opacity:0}
+.sx-side .ac-ev.heard .cm-tl s{width:100%}
+.sx-side .ac-ev.wait p{opacity:.5}
+.sx-side .ac-ev.play .cm-tl s{animation:ac-ph 1.3s linear both}
+.sx-side .ac-ev.play .cm-tl s::after{animation:ac-phk 1.3s linear both}
+.sx-side .ac-ev.play p:nth-of-type(1){animation:ac-said 1.3s linear both}
+.sx-side .ac-ev.play p:nth-of-type(2){animation:ac-said2 1.3s linear both}
+@keyframes ac-ph{0%{width:0}22%{width:22%}37%{width:22%}52%{width:43.3%}67%{width:43.3%}100%{width:100%}}
+@keyframes ac-phk{0%{opacity:0}5%,92%{opacity:1}100%{opacity:0}}
+@keyframes ac-said{0%,20%{opacity:.5}27%,100%{opacity:1}}
+@keyframes ac-said2{0%,50%{opacity:.5}57%,100%{opacity:1}}
+/* the phone keeps the Outcome, as one field with its name inside it */
+.is-short .sx-side .ac-out{display:block}
+.is-short .sx-side .ac-out h4{display:none}
+.is-short .sx-side .ac-out .f{height:30px;margin-top:6px;padding:0 10px;border-radius:8px;font-size:12.5px}
+.is-short .sx-side .ac-out .tx:empty:not(.typing)::before{content:"Outcome";color:var(--mut)}
+/* Signals: the preview is saved. The button says so; the row then opens on two of the calls it caught and turns from Preview to Active */
+.sg-r.fresh .act{min-width:108px;transition:background-color .3s,color .3s}
+.sg-r.fresh .act.press{animation:ac-press .65s ease-out}
+.sx .sg-r.fresh .act.saved{background:var(--green-tint);color:var(--green-ink)}
+.sg-r.fresh .mq{animation:none;max-height:0;margin-top:0;padding-top:0;border-top-color:transparent;opacity:0;transition:max-height .5s cubic-bezier(.2,.8,.2,1),margin-top .5s cubic-bezier(.2,.8,.2,1),padding-top .5s cubic-bezier(.2,.8,.2,1),border-color .3s,opacity .4s .2s}
+.sg-r.fresh.q .mq{max-height:34px;margin-top:11px;padding-top:10px;border-top-color:var(--line);opacity:1}
+.sg-r.fresh .nm .sx-tag.flip{animation:sg-flip .4s cubic-bezier(.2,.9,.3,1.25) both}
+@keyframes sg-flip{from{opacity:0;transform:scale(.85)}}
+.sx-side h4 .n i{font-style:normal}
+.sx-side h4 .n .t{display:none}
+/* the phone's sheet keeps what the 58 calls are about (one line each) and shows two of them */
+.is-short .sx-side .sg-why{display:block}
+.is-short .sx-side .sg-why h4{margin:12px 0 2px}
+.is-short .sx-side .sg-why>div{grid-template-columns:126px minmax(0,1fr) 20px;align-items:center;gap:0 10px;padding:3px 0;font-size:12.5px}
+.is-short .sx-side .sg-why i{grid-column:2;grid-row:1}
+.is-short .sx-side .sg-why b{grid-column:3;grid-row:1;text-align:right}
+.is-short .sx-side .sg-q li:nth-child(n+3){display:none}
+.is-short .sx-side h4 .n{display:inline}
+.is-short .sx-side h4 .n .w{display:none}
+.is-short .sx-side h4 .n .t{display:inline}
+/* Data: the three conditions land 0.55 s apart, so each one is read with the count it leaves; the rows answer after the third */
+.dt-ask .tx u{animation-delay:calc(.15s + var(--n)*.55s)}
+.sx[data-st="2"] .dt-f{transition-delay:calc(.15s + var(--n)*.55s)}
+.sx[data-st="2"] .dt-set.all .dt-r,.sx[data-st="2"] .dt-set.all .dt-r.stay{transition-delay:1.95s}
+.sx[data-st="2"] .dt-set.hit .dt-r:not(.dup){animation-delay:calc(2.25s + (var(--n) - 4)*.045s)}
+.px-small .sx[data-st="2"] .dt-set.hit .dt-r:nth-child(4){animation-delay:2.21s}
+.sx[data-st="2"] .dt-foot .av,.sx[data-st="2"] .dt-foot .sig{animation-delay:2.95s}
+.dt-foot .av small b{font-weight:600;color:var(--ink2)}
+@media (prefers-reduced-motion:reduce){.nr-mon .b i,.nr-mon .x,.sg-r.fresh .mq{transition:none}.nr-story.opens[data-s="0"] .nr-mon .b i,.nr-story[data-s="2"] .nr-ref .wn,.sx-side .ac-ev.play .cm-tl s,.sx-side .ac-ev.play .cm-tl s::after,.sx-side .ac-ev.play p,.sg-r.fresh .act.press,.sg-r.fresh .nm .sx-tag.flip{animation:none!important}.sx-side .ac-ev.play .cm-tl s{width:100%}.sx-side .ac-ev.wait p{opacity:1}}
+/* the phone's frame shows about half of the row: the two calls sit one under the other, so neither is cut by the frame */
+.is-short .sg-r.fresh .mq{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 18px;justify-content:start}
+.is-short .sg-r.fresh .mq span{grid-column:2}
+.is-short .sg-r.fresh.q .mq{max-height:58px}
+/* ---------- Fourth pass ----------
+   Newsroom recap: the charts are what each slide is about, so they take the room */
+.nr-mon,.nr-ref{width:720px}
+.nr-mon{--wh:104px}
+.nr-mon .b{position:relative;height:104px;gap:6px}
+.nr-ref svg{height:150px}
+.is-short .nr-mon,.is-short .nr-ref{width:600px}
+.is-short .nr-mon{--wh:72px}
+.is-short .nr-mon .b{height:72px;gap:5px}
+.is-short .nr-ref svg{height:92px}
+/* "Let's listen back": once the thirty marks are drawn a playhead crosses them, and each mark lights as it is passed */
+.nr-story.opens[data-s="0"] .nr-mon .b i{animation:nr-wave .5s cubic-bezier(.2,.8,.2,1) both,nr-lit .3s ease-out both;animation-delay:calc(.95s + var(--i)*32ms),calc(2.5s + var(--i)*50ms)}
+@keyframes nr-lit{from{background:rgba(255,255,255,.48)}}
+.nr-story.opens[data-s="0"] .nr-mon .b::after{content:"";position:absolute;left:0;top:50%;width:2px;height:calc(var(--wh) + 24px);margin:calc(var(--wh)/-2 - 12px) 0 0 -1px;border-radius:1px;background:#fff;animation:nr-head 1.55s 2.5s linear both}
+@keyframes nr-head{0%{left:0;opacity:0}5%{opacity:1}95%{opacity:1}100%{left:100%;opacity:0}}
+/* the last slide: each week's total stands over its band with the week's dates under it; the week that doubled is the white part of the line */
+.nr-ref{margin-top:88px}
+.is-short .nr-ref{margin-top:70px}
+.nr-ref .wn,.nr-ref .wn.on{display:flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:13px;font-size:12.5px;opacity:1}
+.nr-ref .wn b{font-size:22px;font-weight:500;line-height:1;letter-spacing:-.01em;opacity:.84;font-variant-numeric:tabular-nums}
+.nr-ref .wn.on b{font-size:30px;font-weight:600;opacity:1}
+.nr-ref .wn i{font-style:normal;font-weight:500;white-space:nowrap;opacity:.86}
+.is-short .nr-ref .wn b{font-size:19px}
+.is-short .nr-ref .wn.on b{font-size:25px}
+/* the recap's cover: Play, and beside it the month it will play, as thirty marks */
+.nr-pl{display:flex;align-items:center;gap:18px;margin-top:18px}
+.nr-pl .nr-play{flex:none;margin-top:0}
+.nr-wv{flex:1;min-width:0;display:flex;align-items:center;justify-content:space-between;height:28px}
+.nr-wv i{flex:none;width:2px;height:calc(var(--h)*100%);min-height:3px;border-radius:1px;background:rgba(255,255,255,.72)}
+/* the lead story's line: the quiet weeks are drawn quickly, the four days of the surge slowly; each mark appears as the line reaches it */
+.nr-plot.draw svg{animation:nr-wipe 1.5s .45s cubic-bezier(.25,.7,.3,1) both}
+.nr-plot.draw .late.nq2{animation-delay:1.2s}
+.nr-plot.draw .late.nq3{animation-delay:1.9s}
+/* Signals: Save signal keeps its distance from the row's rim */
+.sg-r.fresh.in{padding:13px 18px 12px 20px}
+@media (prefers-reduced-motion:reduce){.nr-story.opens[data-s="0"] .nr-mon .b i,.nr-plot.draw svg,.nr-plot.draw .late{animation:none!important}.nr-story.opens[data-s="0"] .nr-mon .b::after{display:none}}
+/* the underlines under the matched words hang below the line: the open row leaves them room */
+.sg-r.fresh.q .mq{max-height:40px;padding-bottom:6px;margin-bottom:-5px}
+.is-short .sg-r.fresh.q .mq{max-height:66px}
+/* Agent evaluation: the coaching tasks are created; the button says so, in the colour of done */
+.sx-side .ft .act{transition:background-color .3s,color .3s}
+.sx .sx-side .ft .act.made{background:var(--green-tint);color:var(--green-ink)}

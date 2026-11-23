@@ -45,12 +45,12 @@
       /* the chart is nearly as wide as the screen: a small zoom only cut the screen's title in half at the top rim, so the screen stays whole and the chart is lit */
       [[0, null], [1700, '.ae-plot, .ae-dates', { pad: 80, ax: .62 }]],
       [[0, '[data-b="17"]', { pad: 130, pad2: 50, max: 1.85, grow: '.sx-tip.on' }]],
-      [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.ae-strip i:last-child' }], [3600, '.sx-side.on', { fit: 'w', part: [0, .26, 1, 1], keep: true, small: true, pad: 26, max: 2 }]]
+      [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.ae-strip i:last-child' }], [3000, '.sx-side.on', { fit: 'w', part: [0, .26, 1, 1], keep: true, small: true, pad: 26, max: 2 }], [4900, '.sx-side.on', { fit: 'w', part: [0, .62, 1, 1], keep: true, small: true, pad: 26, max: 2 }], [4700, '.sx-side.on', { fit: 'w', part: [0, .5, 1, 1], keep: true, big: true, pad: 26, max: 2 }]]
     ],
     actions: [
       [[0, null], [1700, '.ac-col:first-child', { pad: 24, max: 1.9 }]],
       [[0, '.ac-card.src', { pad: 70, max: 1.8 }]],
-      [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.ac-card.src' }], [2900, '.sx-side.on', { fit: 'w', part: [0, .3, 1, 1], keep: true, big: true, pad: 26, max: 2 }], [2900, '.sx-side.on', { fit: 'w', part: [0, .6, 1, 1], keep: true, small: true, pad: 26, max: 2 }]],
+      [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.ac-card.src' }], [1700, '.sx-side.on', { fit: 'w', part: [0, .45, 1, 1], keep: true, big: true, pad: 26, max: 2 }], [1700, '.sx-side.on', { fit: 'w', part: [0, .45, 1, 1], keep: true, small: true, pad: 26, max: 2 }]],
       [[0, '.ac-col:nth-child(3), .ac-col:nth-child(4)', { part: [0, 0, 1, .64], lit: true, pad: 22, max: 1.9, tap: false }]]
     ],
     news: [
@@ -62,12 +62,12 @@
     data: [
       [[0, null], [1700, '.dt-top, .dt-tabs, .dt-bar', { part: [0, 0, .6, 1], pad: 26, max: 1.7 }], [4400, '.dt-tbl', { part: [0, .05, .56, .65], max: 1.7 }]],
       [[0, '.dt-ask', { part: [0, 0, .455, 1], pad: 14, max: 1.75 }]],
-      [[0, '.dt-cam.a', { part: [0, 0, 1, 1], pad: 14, max: 1.55, tap: false }], [800, '.dt-cam.c', { part: [0, 0, 1, 1], pad: 14, max: 1.6, small: true }], [3400, '.dt-tbl', { part: [.44, .07, 1, .67], max: 1.6 }], [6000, '.dt-cam.c', { part: [0, 0, 1, 1], pad: 14, max: 1.6 }]]
+      [[0, '.dt-cam.a', { part: [0, 0, 1, 1], pad: 14, max: 1.55, tap: false }], [800, '.dt-cam.c', { part: [0, 0, 1, 1], pad: 14, max: 1.6, small: true }], [4000, '.dt-tbl', { part: [.44, .07, 1, .67], max: 1.6 }], [6700, '.dt-foot', { part: [0, 0, .66, 1], pad: 56, max: 1.6 }], [8300, '.dt-foot', { part: [0, 0, .8, 1], ax: .275, small: true, pad: 14, max: 1.23 }]]
     ],
     signals: [
       [[0, null], [1900, '.sg-card[data-g="0"]', { pad: 30, max: 1.7 }], [4900, '.sg-h2, .sg-list', { part: [0, 0, .42, 1], pad: 22, max: 1.7 }]],
       [[0, '.sg-card[data-g="0"]', { pad: 60, max: 1.6 }], [1500, '.sx-side.on', { fit: 'w', pad: 26, max: 2 }]],
-      [[0, '.sg-new', { part: [0, 0, .66, 1], pad: 70, max: 1.7, tap: false }], [5200, '.sg-new, .sg-r.fresh', { part: [.38, 0, 1, 1], big: true, pad: 40, max: 1.7 }], [5200, '.sg-r.fresh', { part: [.44, 0, 1, 1], small: true, pad: 20, max: 1.4 }]]
+      [[0, '.sg-new', { part: [0, 0, .66, 1], pad: 70, max: 1.7, tap: false }], [5200, '.sg-new, .sg-r.fresh', { part: [.38, 0, 1, 1], big: true, pad: 40, max: 1.7 }], [7500, '.sg-new, .sg-r.fresh', { part: [0, 0, .62, 1], keep: true, big: true, pad: 40, max: 1.7 }], [5200, '.sg-r.fresh', { part: [.44, 0, 1, 1], small: true, pad: 20, max: 1.4 }], [7500, '.sg-r.fresh', { part: [0, 0, .58, 1], keep: true, small: true, pad: 14, max: 1.4 }]]
     ]
   };
   /* ONE CALL, FOLLOWED. The same sample call (Oct 13: a refund asked twice, a voucher offered) is in four of the screens: a box on the
@@ -90,7 +90,7 @@
     news: { k: 0, sel: '.nr-item.thread', o: { pad: 70, max: 1.9, gx: 14, gy: 0 }, os: { pad: 28, max: 2.2, gx: 10, gy: 0 } }
   };
   /* How long each step lasts once the frame has landed on it (the way there is added: see P.off). */
-  var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 4400, 7600], agents: [6200, 4800, 7200], actions: [5600, 4200, 7400, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9400], signals: [8200, 6600, 9000] };
+  var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 4400, 7600], agents: [6200, 4800, 7800], actions: [5600, 4200, 8500, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9900], signals: [8200, 6600, 10200] };
   /* the beat, in ms */
   var BEAT = {
     still: 300,        /* the frame has landed; nothing moves: long enough for the eye to arrive too */
