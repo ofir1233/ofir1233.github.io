@@ -49,9 +49,6 @@ html body.fyi-page .stage.st-all .fx-beats li.on button{ background:none; box-sh
 @media (min-width:761px){
   html body.fyi-page .st-l > .st-txt, html body.fyi-page .st-r > .st-txt{ max-width:30ch; }
   html body.fyi-page .st-r > .st-txt{ justify-self:end; }
-  html body.fyi-page .st-trio .st-txt, html body.fyi-page .st-launch > .st-txt{ max-width:44ch; margin-inline:auto; text-align:center; }
-  html.js body.fyi-page :is(.st-trio, .st-launch):not(.fx-rm):not(.st-all) .fx-beats button{ text-align:center; }
-  html.js body.fyi-page :is(.st-trio, .st-launch):not(.fx-rm) .fx-mini{ justify-content:center; }
 }
 @media (max-width:760px){
   html body.fyi-page{ --pw:min(264px, calc(100vw - 96px)); }
@@ -133,3 +130,36 @@ html body.fyi-page details.sys-fold .sys-scale .label{ color:var(--mute); }
 html body.fyi-page details.sys-fold{ border-bottom:1px solid var(--line); }
 html body.fyi-page .sources{ padding-top:44px; }
 html body.fyi-page .fx-dots:not(:has([aria-current])) button:first-child::before{ width:18px; border-radius:4px; background:#0b6fcf; }
+
+/* ---------- after the first critic pass ---------- */
+/* the dots sit above the sentence and never move, whatever the sentence's length */
+html.js body.fyi-page .stage:not(.fx-rm) .st-txt{ display:flex; flex-direction:column; }
+html.js body.fyi-page .stage:not(.fx-rm) .st-txt > .fx-mini{ order:-1; margin:0 0 14px; }
+html.js body.fyi-page .stage:not(.fx-rm):not(.st-all) .fx-beats .n{ display:none; }
+/* a step that points at three parts of the screen: each part on a line of its own */
+html.js body.fyi-page .stage:not(.fx-rm):not(.st-all) .fx-beats .rki{ display:block; }
+html.js body.fyi-page .stage:not(.fx-rm):not(.st-all) .fx-beats .rki + .rki{ margin-top:10px; }
+/* the wide stages keep the page's left edge: no centred carousel */
+@media (min-width:1024px){
+  html body.fyi-page .st-trio .st-txt, html body.fyi-page .st-launch > .st-txt{ max-width:44ch; margin-top:40px; }
+}
+@media (max-width:760px){ html body.fyi-page .st-trio > .st-txt{ margin-top:72px; } }
+/* the reason sits under the question it answers */
+@media (min-width:900px){
+  html body.fyi-page .decision{ grid-template-rows:auto auto auto 1fr; }
+  html body.fyi-page .decision > p{ grid-column:1; grid-row:3; max-width:36ch; margin-top:20px; }
+  html body.fyi-page .decision > .opts{ grid-row:1 / span 4; }
+}
+/* no capsules, no box in a box */
+html body.fyi-page .seg{ border-radius:10px; }
+html body.fyi-page .seg button{ border-radius:8px; }
+html body.fyi-page .tryit .pill{ border-radius:10px !important; }
+html body.fyi-page .anat-f li{ background:none !important; border-radius:0; box-shadow:inset 0 -1px 0 var(--line); }
+html body.fyi-page .anat-f li:last-child{ box-shadow:none; }
+/* the states: nothing runs past the slab on a phone; the five tickets share one row on a desk */
+html body.fyi-page #system .strip-row > figure{ max-width:100%; min-width:0; }
+html body.fyi-page #system .strip-row .a-sug{ max-width:100%; white-space:normal; flex-wrap:wrap; height:auto; }
+@media (min-width:1100px){
+  html body.fyi-page #system .strip-row[data-strip="event"]{ display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:14px; align-items:start; }
+  html body.fyi-page #system .strip-row[data-strip="event"] .a-tk{ width:auto; }
+}
