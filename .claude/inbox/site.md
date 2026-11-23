@@ -63,3 +63,4 @@
 - 24.11 FYI page, after the owner's review: index block removed, cast opens the block (process strip removed), the reason sits in the iPhone, the structure is one line of five stops; story scenes shortened about 29 percent (trailer plays once), fyi-scenes.js?v=8, fya-why|map|cast ?v=3.
 - 24.11 FYI page: colour, kit and going public tightened to one screen each (colour thread in the iPhone, kit 4x2, Poster style removed); a page paused before arrival shows layers finished; fyi-around.css?v=4, fya-*?v=4, fya-colour.css?v=5.
 - 23.11 FYI: Together is one phone (6 beats, about 17 s); six layers each fit one screen; kit Task tile presses again. Assets bumped (fyi-scenes v13, fyi.css v9, fya-* v6, fyi-around v5).
+- 23.11 FYI: cast chat now sits in the story's iPhone, cropped at the plate's baseline. New line in it: Kofi, 'One more and we're a crew.' fya-* assets at v7.

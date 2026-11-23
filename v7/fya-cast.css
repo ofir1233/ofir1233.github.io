@@ -42,34 +42,33 @@
 .fyacast-role b{ display:block; margin-left:-.04em; font-weight:inherit; }
 .fyacast-line{ margin:22px 0 0; max-width:16.5em; min-height:3em; font:400 21px/1.42 var(--body); color:var(--text); text-wrap:balance; }
 
-/* where it lands: the thread as a crew mate sees it */
-/* the tile is as tall as the plate: the crew on its top edge, the thread on its bottom edge. The caption stands above it */
-.fyacast-phone{ position:relative; display:flex; flex-direction:column; min-width:0; }
-.fyacast-cap{ position:absolute; left:0; bottom:100%; margin:0 0 12px; font:500 12px/1 var(--fya-mono); letter-spacing:.05em; text-transform:uppercase; color:var(--mute); }
-.fyacast-tile{ flex:1; display:flex; padding:20px; }
-.fyacast-tile .fx-app{ flex:1; display:flex; flex-direction:column; min-width:0; zoom:1.15; }
-.fyacast-hd{ display:flex; align-items:center; gap:11px; padding:0 0 15px; box-shadow:0 1px 0 rgba(255,255,255,.1); }
-.fyacast-hd > div{ min-width:0; display:flex; flex-direction:column; gap:1px; }
-.fyacast-hd b{ font:600 16px/20px var(--fxf); }
-.fyacast-hd span span, .fyacast-hd div > span{ font:400 13px/16px var(--fxf); color:var(--t2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.fyacast-th{ display:flex; flex-direction:column; margin-top:auto; padding-top:12px; }
+/* where it lands: the crew chat on the story's own iPhone, rising from the plate's baseline to the height of the cut-out */
+.fyacast-phone{ position:relative; min-width:0; }
+.fyacast-crop{ position:absolute; left:0; right:0; top:-58px; bottom:0; display:flex; justify-content:center; overflow:hidden; }
+.fyacast-dev{ --n:318; --pw:calc(var(--n) * 1px); --k:calc(var(--n) / 418); display:block; }
+#fya-cast .fyacast-dev .fx-body{ box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.16), inset 0 0 0 6px #0a0a0b; }
+.fyacast-dev .a-nav{ padding-left:10px; }
+.fyacast-th{ position:absolute; left:0; right:0; top:103px; height:440px; display:flex; flex-direction:column; justify-content:flex-end; padding:0 18px; }
 .fyacast-th .a-pill{ margin:0 0 4px; }
-.fyacast-th .a-sys{ margin:8px 0 0; }
+.fyacast-th .a-sys{ margin:20px 0 0; }
+.fyacast-kofi.a-b{ align-self:flex-start; max-width:84%; margin-top:14px; }
 .fyacast-me{ display:flex; justify-content:flex-end; align-items:flex-end; gap:8px; margin-top:32px; transform-origin:100% 100%; }
 .fyacast-me .a-av{ width:40px; height:40px; margin-right:4px; box-shadow:0 0 0 2px #05050a, 0 0 0 3.5px var(--g,#e8336f); transition:transform .32s var(--fyc-spring), box-shadow .3s; }
 .fyacast-me .a-b{ max-width:none; }
+.fyacast-re.a-b{ align-self:flex-start; }
 .fyacast-re{ margin-top:16px; max-width:84%; transform-origin:0 100%; }
 .fyacast-me, .fyacast-re{ transition:opacity .32s linear, transform .32s var(--fya-ease); }
 .fyacast-me.is-hid, .fyacast-re.is-hid{ opacity:0; transform:translateY(10px) scale(.96); transition-duration:.12s; }
 .fyacast-me.is-hid .a-av{ transform:scale(.5); }
 
-@media (max-width:1199px){ .fyacast{ --fw:68px; } .fyacast-f{ font-size:14px; } .fyacast-line{ font-size:19px; } .fyacast-tile{ padding:18px; } .fyacast-tile .fx-app{ zoom:.94; } }
+@media (min-width:1200px) and (max-width:1399px){ .fyacast-dev{ --n:286; } }
+@media (max-width:1199px){ .fyacast{ --fw:68px; } .fyacast-f{ font-size:14px; } .fyacast-line{ font-size:19px; } .fyacast-dev{ --n:262; } }
 @media (max-width:899px){
   .fyacast{ --pw:min(372px,100%); --pr:24px; --fw:60px; }
   .fyacast-pick{ margin-bottom:12px; }
   .fyacast-f{ gap:9px; font-size:13px; }
   .fyacast-stage{ grid-template-columns:minmax(0,1fr); gap:28px; padding-top:0; justify-items:start; align-items:center; }
-  .fyacast-phone{ display:block; } .fyacast-cap{ position:static; } .fyacast-tile{ display:block; padding:18px 18px 20px; } .fyacast-tile .fx-app{ display:block; zoom:1; }
+  .fyacast-crop{ position:relative; top:auto; height:440px; } .fyacast-dev{ --n:300; }
   .fyacast-plate{ margin-top:74px; }
   .fyacast-say{ padding-top:0; align-self:start; } .fyacast-phone{ padding-top:0; } .fyacast-role{ margin-top:14px; font-size:min(56px,17.6cqi); } .fyacast-line{ margin-top:16px; min-height:2.84em; }
   .fyacast-phone{ width:100%; max-width:372px; margin-top:8px; }
@@ -97,7 +96,6 @@
   .fyacast-role span{ font-size:15px; margin-bottom:5px; }
   .fyacast-line{ grid-column:1 / -1; margin-top:14px; max-width:none; min-height:2.84em; font-size:17px; }
   .fyacast-phone{ grid-column:1 / -1; max-width:none; margin-top:8px; }
-  .fyacast-tile{ padding:16px; }
   /* the row lets go over empty ground, not over the thread */
   .fyacast{ padding-bottom:64px; margin-bottom:-64px; }
 }
