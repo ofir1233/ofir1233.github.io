@@ -840,22 +840,19 @@
       D3.put(el, '--pt', f2(yi - yo) + 'px'); D3.put(el, 'transform', 'translateY(' + f2(yi) + 'px)');
       D3.put(el, 'color', rgba([q.b[0], q.b[1], q.b[2], q.b[3] * ioS(seg(kk, .28, .62))])); D3.put(el, '--pc', rgba([q.a[0], q.a[1], q.a[2], q.a[3] * (1 - ioS(seg(kk, .04, .4)))]));
     });
-    /* the tiles: poured */
+    /* the tiles: each simply appears in its colour, one after another (owner, 23.11: no colour poured down the tile) */
     var nt = k3.tiles.length;
     k3.tiles.forEach(function (tl, j) {
-      var last = j === nt - 1, kk = seg(u, tl.t0, tl.t0 + tl.dur), el = tl.el, lv = lerp(-.04, 1.06, last ? Math.pow(kk, 1.7) : ioS(kk));
-      if (kk >= 1) { SKIN_P.forEach(function (pp) { D3.put(el, pp, null); }); D3.put(el, 'background-image', null); }
-      else {
-        D3.put(el, 'background-color', rgba(tl.a.bg)); D3.put(el, 'border-radius', f2(lerp(tl.a.rad, tl.b.rad, ioS(kk))) + 'px'); D3.put(el, 'box-shadow', shadowMix(tl.a.sh, tl.b.sh, 1 - seg(kk, .05, .75), seg(kk, .6, 1)));
-        if (kk > 0) { var lip = 300 / tl.r.h, c = tl.b.bg, hiC = rgb(c), lipC = rgb([lerp(c[0], 255, .4), lerp(c[1], 255, .4), lerp(c[2], 255, .4)]), pc = lv * 100;
-          D3.put(el, 'background-image', 'linear-gradient(0deg,' + hiC + ' 0,' + hiC + ' ' + f2(pc - lip) + '%,' + lipC + ' ' + f2(pc - .2) + '%,rgba(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ',0) ' + f2(pc) + '%)'); } else D3.put(el, 'background-image', null);
-      }
+      var kk = seg(u, tl.t0, tl.t0 + tl.dur), el = tl.el, e = ioS(kk);
+      D3.put(el, 'background-image', null);
+      if (kk >= 1) SKIN_P.forEach(function (pp) { D3.put(el, pp, null); });
+      else { D3.put(el, 'background-color', rgba(mixC(tl.a.bg, tl.b.bg, e))); D3.put(el, 'border-radius', f2(lerp(tl.a.rad, tl.b.rad, e)) + 'px'); D3.put(el, 'box-shadow', shadowMix(tl.a.sh, tl.b.sh, 1 - seg(kk, .05, .75), seg(kk, .6, 1))); }
       tl.kids.forEach(function (kd) {
-        var kc = kk >= 1 ? 1 : ioS(seg(lv, kd.yc - .09, kd.yc + .07));
+        var kc = kk >= 1 ? 1 : e;
         if (kd.skin) skinAt(kd.el, kd.a, kd.b, kc, kc); else D3.put(kd.el, 'color', kc >= 1 ? null : rgba(mixC(kd.a.c, kd.b.c, kc)));
-        if (kd.pop) { var xq = clamp((kd.yc + .04) / 1.1), pp = pls((u - tl.t0 - tl.dur * (last ? Math.pow(xq, 1 / 1.7) : Math.acos(1 - 2 * xq) / Math.PI)) / .34); D3.put(kd.el, 'transform-origin', pp ? '0 90%' : null); D3.put(kd.el, 'transform', pp ? 'scale(' + (1 + (last ? .1 : .07) * pp).toFixed(4) + ')' : null); }
+        if (kd.pop) { D3.put(kd.el, 'transform-origin', null); D3.put(kd.el, 'transform', null); }
       });
-      var ld = pls((u - (tl.t0 + tl.dur - .05)) / S3.LAND); D3.put(tl.tile, 'transform', ld ? 'scale(' + (1 + (last ? .032 : .012) * ld).toFixed(4) + ')' : null); D3.put(tl.tile, 'z-index', ld && last ? '3' : null);
+      D3.put(tl.tile, 'transform', null); D3.put(tl.tile, 'z-index', null);
     });
     /* the legend slides out to its finished measure and takes its colours */
     k3.key.forEach(function (e, j) {

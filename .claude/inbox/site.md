@@ -45,3 +45,5 @@
 - 23.11 (site, later still): two owner requests on the home Topics block. "There are flowers that float and look bad, delete them": wisteria and hydrangeas are hidden (two lines at the end of `v7/topics.css`), stage 4 caption now says "city and clouds". "Also delete the interactive ability with the screen": in `v7/topics.js` `is-usable` is never set, the hi frame keeps tabindex -1, the mouse tilt listener is off; the last caption is only "Press a step to see it again." So `v7/topics.js` now differs from your prototype in those three lines. Please do not bring the flowers or the "Your turn" state back.
 
 - 23.11 (site, correction): the owner wants the window, clouds and city to keep moving with the mouse, so the tilt listener in `v7/topics.js` is back on. Only hover and click inside the screen stay off (`is-usable` never set, `.tp-hi` pointer-events none).
+
+- 23.11 (site): the owner does not like the tiles filling with colour from the edge ("I want them to simply appear"). In `v7/topics.js` the stage 3 tile block is now a plain whole-tile change of colour, staggered as before, with no gradient line, no score pop and no landing bump. Please keep the pour out.
