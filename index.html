@@ -3918,7 +3918,8 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <script>/* the hero picture is painted in once per tab: v7/hero-paint.js */try{if(!sessionStorage.getItem('hp')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('hp-wait')}catch(e){}</script>
 <script>/* the pinned opening (html.me-scroll) is decided here, before the first paint; the pin script at the foot of the page then takes over. Decided only there, the page was first painted in the plain layout, and the four facts were seen on the picture for a moment and gone */try{(function(m,c){function s(){c.toggle('me-scroll',m.matches)}s();if(m.addEventListener)m.addEventListener('change',s)})(matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)'),document.documentElement.classList)}catch(e){}</script>
 <link rel="stylesheet" href="v7/code.css?v=222">
-<link rel="stylesheet" href="v7/design-lab.css?v=223">
+<link rel="stylesheet" href="v7/design-lab.css?v=224">
+<link rel="stylesheet" href="v7/topics.css?v=2">
 <link rel="stylesheet" href="v7/product.css?v=230">
 <link rel="stylesheet" href="v7/system.css?v=222">
 <link rel="stylesheet" href="v7/web-fyi.css?v=2240">
@@ -4054,10 +4055,77 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
     <figure class="ct-fig hs-fig"><div class="ct-stage"><div class="hs-win"><img class="hs-poster" src="img/hear-studio-poster.webp" alt="" width="1440" height="810" loading="lazy" decoding="async"><iframe class="hs-app" data-base="hear-v7/plan/" title="Hear Studio, running live: sign in, the welcome card, a request typed in plain words, and the app Hear builds from it" tabindex="-1" scrolling="no"></iframe><span class="hs-ptr" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 26 26"><path d="M4 3l15 8.2-6.6 1.7-2.9 6.4z" fill="#171b20" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></span></div></div><div class="hs-bar"><button type="button" class="hs-pp" aria-label="Pause the demo"><svg class="hs-ring" viewBox="0 0 56 56" aria-hidden="true"><circle class="hs-ring-t" cx="28" cy="28" r="26"/><circle class="hs-ring-p" cx="28" cy="28" r="26"/></svg><span class="hs-disc"><svg class="hs-i-pause" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.2" y="1.5" width="3.2" height="11" rx="1.1"/><rect x="8.6" y="1.5" width="3.2" height="11" rx="1.1"/></svg><svg class="hs-i-play" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.6 1.6v10.8a.6.6 0 0 0 .92.5l8.3-5.4a.6.6 0 0 0 0-1L4.52 1.1a.6.6 0 0 0-.92.5z"/></svg></span></button><p class="hs-now" aria-hidden="true"><span class="hs-k">Step 1 of 4</span><span class="hs-t">Sign in</span></p><ol class="hs-segs" aria-label="Steps in the demo"><li><button type="button" aria-label="Step 1: Sign in" data-l="Sign in"><i></i></button></li><li><button type="button" aria-label="Step 2: Meet Hear Studio" data-l="Meet Hear Studio"><i></i></button></li><li><button type="button" aria-label="Step 3: Describe it" data-l="Describe it"><i></i></button></li><li><button type="button" aria-label="Step 4: Hear builds it" data-l="Hear builds it"><i></i></button></li></ol></div></figure>
 
     <div class="tp-block">
-      <div class="tp-head rv"><div class="label">New screen · <b>Topics</b> · demo data</div><h3>One screen, wireframe to finished</h3><p>I added a Topics screen to the system itself. First as a gray wireframe that settles what the screen holds, then in the Hear look. Both run here, on the same code.</p></div>
-      <figure class="ct-fig tp-fig"><div class="ct-stage"><div class="hs-win"><iframe class="hs-app tp-app" data-src="hear-v7/plan/studio.html?topics=lo&v=200" title="Hear Studio, the Topics screen, running live at two fidelities" scrolling="no"></iframe></div></div>
-        <div class="hs-bar tp-bar"><button type="button" class="hs-pp" aria-label="Pause"><svg class="hs-ring" viewBox="0 0 56 56" aria-hidden="true"><circle class="hs-ring-t" cx="28" cy="28" r="26"/><circle class="hs-ring-p" cx="28" cy="28" r="26"/></svg><span class="hs-disc"><svg class="hs-i-pause" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.2" y="1.5" width="3.2" height="11" rx="1.1"/><rect x="8.6" y="1.5" width="3.2" height="11" rx="1.1"/></svg><svg class="hs-i-play" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.6 1.6v10.8a.6.6 0 0 0 .92.5l8.3-5.4a.6.6 0 0 0 0-1L4.52 1.1a.6.6 0 0 0-.92.5z"/></svg></span></button><p class="hs-now tp-now" aria-live="off"><span class="hs-k">Step 1 of 2</span><span class="hs-t">Structure first</span><span class="tp-d">Gray boxes and four notes: what the screen holds and why, before any color.</span></p><ol class="hs-segs tp-segs" aria-label="Fidelity"><li class="on"><button type="button" data-f="lo" aria-pressed="true"><i></i><span data-t="Low fidelity">Low fidelity</span></button></li><li><button type="button" data-f="hi" aria-pressed="false"><i></i><span data-t="High fidelity">High fidelity</span></button></li></ol></div></figure>
-    </div>
+        <div class="tp-head">
+          <div class="label">A screen I added to Hear Studio · <b>Topics</b> · demo data</div>
+          <h3>One screen, wireframe to finished</h3>
+          <div class="tp-bar">
+            <ol class="tp-steps" aria-label="The build, in five steps. Press one to play it.">
+              <li><button type="button" data-b="0" aria-describedby="tp-say-0"><span class="tp-line"><i></i></span><span class="tp-num">1</span><span class="tp-name">Sketch</span></button></li>
+              <li><button type="button" data-b="1" aria-describedby="tp-say-1"><span class="tp-line"><i></i></span><span class="tp-num">2</span><span class="tp-name">Wireframe</span></button></li>
+              <li><button type="button" data-b="2" aria-describedby="tp-say-2"><span class="tp-line"><i></i></span><span class="tp-num">3</span><span class="tp-name">High fidelity</span></button></li>
+              <li><button type="button" data-b="3" aria-describedby="tp-say-3"><span class="tp-line"><i></i></span><span class="tp-num">4</span><span class="tp-name">Hear’s world</span></button></li>
+              <li><button type="button" data-b="4" aria-describedby="tp-say-4"><span class="tp-line"><i></i></span><span class="tp-num">5</span><span class="tp-name">In use</span></button></li>
+            </ol>
+            <!-- a play triangle until the first frame has played, the "again" arrow from then on -->
+            <button type="button" class="tp-again" aria-label="Play"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path class="tp-i-play" d="M6.6 3.4v13.2l10.6-6.6z" fill="currentColor"/><path class="tp-i-again" d="M15.6 6.2A6.6 6.6 0 1 0 16.6 10M15.9 2.6v3.9H12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <!-- one line a stage. While the play runs only the first words show (b); a held frame carries the whole sentence (b + i).
+               tp-mouse / tp-touch / tp-plain: the wording for a pointer that hovers, for a finger, and for the narrow window where a topic cannot open. tp-wide / tp-narrow: with and without the city. -->
+          <p class="tp-say">
+            <span id="tp-say-0"><b>A pencil sketch</b><i> of the screen, drawn from its real layout.</i></span>
+            <span id="tp-say-1"><b>A gray wireframe</b><i> settles what the screen holds.</i></span>
+            <span id="tp-say-2"><b>The same code</b><i>, now in the Hear look.</i></span>
+            <span id="tp-say-3"><b>Then Hear’s painted sky</b><i class="tp-wide">, city and flowers.</i><i class="tp-narrow">, a cloud and flowers.</i></span>
+            <span id="tp-say-4"><b>And it works</b><i class="tp-mouse">: a topic opens to its three scores, and a click asks AI why.</i><i class="tp-touch">: a tap opens the three scores behind a topic.</i><i class="tp-plain">: pick a topic and its days light up beside it.</i></span>
+            <span id="tp-say-5"><i class="tp-dot"></i><i class="tp-mouse">Your turn: hover a topic, click a score. Press a step to see it again.</i><i class="tp-touch">Your turn: tap a topic. Press a step to see it again.</i><i class="tp-plain">Your turn: pick a topic. Press a step to see it again.</i></span>
+          </p>
+        </div>
+
+        <figure class="tp-fig">
+          <!-- Stage 4, Hear's world, painted in behind and around the window. Far to near: the sky (brushed in), a cloud on the sky's
+               upper edge and the city, the window, then the front cloud, the hydrangeas and the wisteria.
+               The art/ files are cut from DRAFT plates (cut-art.py, cut-extra.py) and will be repainted. -->
+          <div class="tp-world tp-far" aria-hidden="true">
+            <svg class="tp-sky" focusable="false" preserveAspectRatio="none">
+              <defs>
+                <!-- a brush, not a shape: the strokes are blurred, then cut by streaky noise that runs along them, so every edge breaks up -->
+                <filter id="tp-rough" filterUnits="userSpaceOnUse">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="b"/>
+                  <feTurbulence type="fractalNoise" baseFrequency="0.006 0.05" numOctaves="3" seed="5" result="n"/>
+                  <feComposite in="b" in2="n" operator="arithmetic" k1="0" k2="1.75" k3="1.15" k4="-1.02" result="c"/>
+                  <feGaussianBlur in="c" stdDeviation="1.4"/>
+                </filter>
+                <mask id="tp-brush" maskUnits="userSpaceOnUse" style="mask-type:alpha"><g class="tp-strokes" filter="url(#tp-rough)" fill="none" stroke="#000" stroke-linecap="butt"></g></mask>
+              </defs>
+              <image class="tp-sky-img" href="img/topics/sky.webp" preserveAspectRatio="xMidYMid slice" mask="url(#tp-brush)"/>
+            </svg>
+          </div>
+          <div class="tp-world tp-mid" aria-hidden="true">
+            <img class="tp-art a-cloud-back" src="img/topics/cloud-back.webp" alt="" draggable="false">
+            <img class="tp-art a-city" src="img/topics/city.webp" alt="" draggable="false">
+          </div>
+          <div class="tp-glow" aria-hidden="true"></div>
+          <div class="ct-stage">
+            <div class="tp-sheet" aria-hidden="true"></div>
+            <div class="tp-frame" aria-hidden="true"></div>
+            <div class="hs-win">
+              <iframe class="hs-app tp-lo" src="hear-v7/plan/studio.html?topics=lo&v=201" loading="lazy" title="Hear Studio, the Topics screen as a gray wireframe" tabindex="-1" scrolling="no" aria-hidden="true" inert></iframe>
+              <iframe class="hs-app tp-hi" src="hear-v7/plan/studio.html?topics=hi&v=201" loading="lazy" title="Hear Studio, the Topics screen in the finished Hear look, running live" tabindex="-1" scrolling="no"></iframe>
+              <!-- the pencil drawing: one svg a region, built by topics.js from the wireframe's own boxes -->
+              <div class="tp-sketch" aria-hidden="true"></div>
+              <!-- the resting sheet's invitation; it leaves as the first stroke is laid -->
+              <button type="button" class="tp-invite" aria-label="Play: watch this screen get built"><span class="tp-invite-go"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M6.6 3.4v13.2l10.6-6.6z" fill="currentColor"/></svg></span><span class="tp-invite-say">Watch it get built<small>from pencil to live screen, 11 seconds</small></span></button>
+              <span class="tp-ptr" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 26 26"><path d="M4 3l15 8.2-6.6 1.7-2.9 6.4z" fill="#171b20" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+              <span class="tp-tap" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="tp-world tp-near" aria-hidden="true">
+            <img class="tp-art a-cloud-front" src="img/topics/cloud-front.webp" alt="" draggable="false">
+            <img class="tp-art a-hyd" src="img/topics/hydrangeas.webp" alt="" draggable="false">
+            <img class="tp-art a-wisteria" src="img/topics/wisteria.webp" alt="" draggable="false">
+          </div>
+        </figure>
+      </div>
   </div>
 </section>
 
@@ -6974,7 +7042,8 @@ document.addEventListener('DOMContentLoaded', () => {
 <script src="v7/hero-paint.js?v=221" defer></script>
 <script src="v7/code.js?v=221" defer></script>
 <script src="v7/depth.js?v=221" defer></script>
-<script src="v7/design-lab.js?v=221" defer></script>
+<script src="v7/design-lab.js?v=222" defer></script>
+<script src="v7/topics.js?v=1" defer></script>
 <script src="v7/product.js?v=221" defer></script>
 <script src="v7/system.js?v=222" defer></script>
 <script src="v7/web-fyi.js?v=221" defer></script>

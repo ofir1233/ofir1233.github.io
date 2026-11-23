@@ -88,49 +88,13 @@
 @media (prefers-reduced-motion: reduce){ #design-lab#design-lab .hs-now.swap .hs-t, #design-lab#design-lab .hs-now.swap .hs-k{ animation:none; } }
 
 /* The Topics block: the screen added to Studio, at two fidelities, in the same white frame as the demo above */
-#design-lab#design-lab .tp-block{ margin:120px 0 0; }
-#design-lab#design-lab .tp-head{ text-align:center; }
-#design-lab#design-lab .tp-head .label{ display:inline-block; margin:0 0 18px; }
-#design-lab#design-lab .tp-head h3{ margin:0; font:600 clamp(28px, 3.2vw, 44px)/1.08 var(--body); letter-spacing:-.025em; color:#171b20; }
-#design-lab#design-lab .tp-head p{ max-width:600px; margin:24px auto 0; font:400 17px/1.55 var(--body); color:#4b5158; }
-#design-lab#design-lab .tp-fig .hs-app{ opacity:0; transition:opacity .5s; pointer-events:none; }
-#design-lab#design-lab .tp-fig.is-live .hs-app{ opacity:1; }
-#design-lab#design-lab .tp-bar{ align-items:flex-start; gap:16px; }
 /* the ring sits on the two title rows (step + name, 45px), as it does in the tour bar above; the sentence hangs under them */
-#design-lab#design-lab .tp-bar .hs-pp{ margin-top:-5.5px; }
-#design-lab#design-lab .tp-now{ gap:7px; }
-#design-lab#design-lab .tp-d{ display:block; margin-top:5px; font:400 15.5px/1.45 var(--body); color:#5d636a; max-width:560px; }
-#design-lab#design-lab .tp-now.swap .tp-d{ animation:hs-rise .5s cubic-bezier(.2,.7,.2,1) .08s both; }
 /* Two marks, the tour's own (30px, 60px when current, 4px high), each with its name under it: a button 44px high */
-#design-lab#design-lab .tp-segs{ gap:20px; align-items:flex-start; }
-#design-lab#design-lab .tp-segs button, #design-lab#design-lab .tp-segs li.on button{ display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:10px; width:auto; height:auto; min-height:44px; padding:0 2px; transition:none; }
-#design-lab#design-lab .tp-segs i{ width:30px; flex:none; transition:width .5s cubic-bezier(.2,.7,.2,1), background-color .35s, height .2s; }
-#design-lab#design-lab .tp-segs li.on i{ width:60px; }
-#design-lab#design-lab .tp-segs button:hover i{ height:4px; border-radius:2px; background:#b9b8b3; }
-#design-lab#design-lab .tp-segs li.done button:hover i{ background:#171b20; }
-#design-lab#design-lab .tp-segs span{ display:block; font:400 13px/1 var(--body); color:#5d636a; white-space:nowrap; transition:color .25s; }
-#design-lab#design-lab .tp-segs span::after{ content:attr(data-t); display:block; height:0; overflow:hidden; visibility:hidden; font-weight:500; }
-#design-lab#design-lab .tp-segs button:hover span{ color:#171b20; }
-#design-lab#design-lab .tp-segs li.on span{ color:#171b20; font-weight:500; }
-#design-lab#design-lab .tp-segs button::after, #design-lab#design-lab .tp-segs li:last-child button::after{ display:none; }
-#design-lab#design-lab .tp-segs button:focus-visible{ outline-offset:4px; }
 /* a mark chosen by hand, or at rest with motion reduced: it is the current one, with no clock running on it */
-#design-lab#design-lab .tp-fig.is-held .tp-segs li.on i{ background:#171b20; }
-#design-lab#design-lab .tp-fig.is-held .tp-segs li.on i::after{ opacity:0; }
 @media (max-width: 700px){
-  #design-lab#design-lab .tp-block{ margin-top:72px; }
-  #design-lab#design-lab .tp-head p{ font-size:16px; }
-  #design-lab#design-lab .tp-bar{ flex-wrap:wrap; gap:12px; }
-  #design-lab#design-lab .tp-bar .hs-pp{ margin-top:-3.5px; }
-  #design-lab#design-lab .tp-d{ font-size:15px; }
-  #design-lab#design-lab .tp-segs{ flex:1 0 100%; gap:22px; margin-top:2px; padding-left:60px; }
-  #design-lab#design-lab .tp-segs button, #design-lab#design-lab .tp-segs li.on button{ width:auto; }
-  #design-lab#design-lab .tp-segs i{ width:18px; } #design-lab#design-lab .tp-segs li.on i{ width:34px; }
 }
-@media (prefers-reduced-motion: reduce){ #design-lab#design-lab .tp-now.swap .tp-d{ animation:none; } #design-lab#design-lab .tp-segs i{ transition:none; } }
 
 /* Topics frame: the app is drawn at the frame's own size (design-lab.js sets width, height and the frame's proportion) */
-#design-lab#design-lab .tp-fig .hs-app{ width:1120px; height:630px; }
 
 /* the tour's camera (design-lab.js shoot()): the move between steps is eased */
 #design-lab#design-lab .hs-fig:not(.tp-fig) .hs-app{ transition:transform .9s cubic-bezier(.2,.7,.2,1), opacity .5s; }
@@ -153,39 +117,15 @@ html body section#design-lab#design-lab .sec-head .cs-pair{ gap:8px 18px; }
 
 @media (max-width:760px){
   #design-lab#design-lab .dl-eyebrow{ justify-content:flex-start; }
-  #design-lab#design-lab .tp-head{ text-align:left; }
-  #design-lab#design-lab .tp-head p{ margin:16px 0 0; }
 }
 
 /* the compare line: wireframe on its left, the finished screen on its right */
-#design-lab#design-lab .tp-fig .tp-bar{ display:none; }
-#design-lab#design-lab .tp-fig .hs-app{ will-change:clip-path; }
-#design-lab#design-lab .tp-cut{ position:absolute; z-index:4; top:0; bottom:0; left:50%; width:44px; margin-left:-22px; cursor:ew-resize; touch-action:pan-y; opacity:0; transition:opacity .4s ease .2s; -webkit-tap-highlight-color:transparent; outline:none; }
-#design-lab#design-lab .tp-fig.is-live .tp-cut{ opacity:1; }
-#design-lab#design-lab .tp-cut::before{ content:""; position:absolute; left:21px; top:0; bottom:0; width:2px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.10), 0 0 18px rgba(23,27,32,.16); }
-#design-lab#design-lab .tp-cut i{ position:absolute; left:50%; top:50%; width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.10), 0 8px 22px rgba(23,27,32,.20); transition:transform .2s cubic-bezier(.2,.7,.2,1); }
-#design-lab#design-lab .tp-cut i::before, #design-lab#design-lab .tp-cut i::after{ content:""; position:absolute; top:50%; width:7px; height:7px; margin-top:-4.5px; border:solid #171b20; border-width:0 0 2px 2px; }
-#design-lab#design-lab .tp-cut i::before{ left:11px; transform:rotate(45deg); } #design-lab#design-lab .tp-cut i::after{ right:11px; transform:rotate(-135deg); }
-#design-lab#design-lab .tp-cut:hover i, #design-lab#design-lab .tp-fig.is-drag .tp-cut i{ transform:scale(1.08); }
-#design-lab#design-lab .tp-cut:focus-visible i{ box-shadow:0 0 0 2px #139FFD, 0 8px 22px rgba(23,27,32,.20); }
-#design-lab#design-lab .tp-fig.is-drag{ user-select:none; -webkit-user-select:none; }
-#design-lab#design-lab .tp-ends{ display:flex; justify-content:space-between; margin:18px 12px 0; font:500 15px/22px var(--body); color:#5d636a; }
-@media (max-width:700px){ #design-lab#design-lab .tp-ends{ margin:12px 6px 0; font-size:14px; } #design-lab#design-lab .tp-cut i{ width:34px; height:34px; margin:-17px 0 0 -17px; } #design-lab#design-lab .tp-cut i::before{ left:9px; } #design-lab#design-lab .tp-cut i::after{ right:9px; } }
 
 /* the two names ride the line, one on each side of it, so the reader sees which side is which where the eye already is */
-#design-lab#design-lab .tp-ends{ --p:50%; display:block; position:relative; height:22px; margin:18px 0 0; color:#171b20; }
-#design-lab#design-lab .tp-ends span{ position:absolute; top:0; left:clamp(118px, var(--p), calc(100% - 118px)); white-space:nowrap; }
-#design-lab#design-lab .tp-ends span:first-child{ transform:translateX(calc(-100% - 16px)); }
-#design-lab#design-lab .tp-ends span:last-child{ transform:translateX(16px); }
-@media (max-width:700px){ #design-lab#design-lab .tp-ends{ margin:12px 0 0; } #design-lab#design-lab .tp-ends span{ left:clamp(102px, var(--p), calc(100% - 102px)); } #design-lab#design-lab .tp-ends span:first-child{ transform:translateX(calc(-100% - 12px)); } #design-lab#design-lab .tp-ends span:last-child{ transform:translateX(12px); } }
 
 /* round 14: the section head stays centred as the lead; the Topics head under it takes the page's split pattern
    (label and title on the left, the paragraph on the right, bottoms level), so the section does not read as two banners. */
 @media (min-width:900px){
-  #design-lab#design-lab .tp-head{ display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); column-gap:clamp(32px,5vw,80px); align-items:end; text-align:left; }
-  #design-lab#design-lab .tp-head .label{ grid-column:1; grid-row:1; justify-self:start; }
-  #design-lab#design-lab .tp-head h3{ grid-column:1; grid-row:2; }
-  #design-lab#design-lab .tp-head p{ grid-column:2; grid-row:1 / span 2; max-width:none; margin:0; }
 }
 
 /* the label and the facts beside it stand on one baseline */
