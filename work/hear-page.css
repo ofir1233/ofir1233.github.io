@@ -36,7 +36,7 @@ button{ font:inherit; color:inherit; }
 /* ── small things shared by both parts ── */
 .hp-kind{ display:inline-flex; align-items:center; gap:7px; height:28px; padding:0 11px; border-radius:14px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.07); font:500 12.5px/1 var(--body); color:#4b5158; white-space:nowrap; }
 .hp-kind::before{ content:""; width:6px; height:6px; border-radius:50%; background:#139FFD; }
-:is(.hp-go, .lk-btn, .lk-back, .lp-act, .lp-at, .lk-sheet-x, .vd-snd, .vd-play, .lk-chips button, .hp-thumbs button, .lk-rail button, .lp-link, .lp-out a):focus-visible{ outline:2px solid #139FFD; outline-offset:3px; }
+:is(.hp-go, .lk-btn, .lk-back, .lp-act, .vd-snd, .vd-play, .lk-chips button, .hp-thumbs button, .lk-rail button, .lp-link, .lp-out a):focus-visible{ outline:2px solid #139FFD; outline-offset:3px; }
 
 /* a post */
 .lp{ background:#fff; border-radius:14px; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 30px 50px -40px rgba(23,40,70,.4); overflow:hidden; scroll-margin-top:78px; }
@@ -91,14 +91,15 @@ button{ font:inherit; color:inherit; }
 .lk-feed{ display:grid; gap:18px; margin-top:14px; }
 
 /* the right column: the posts on this page, the one on screen marked. A press goes to it */
-.lk-rail{ position:sticky; top:82px; }
+.lk-rail{ position:sticky; top:78px; max-height:calc(100vh - 92px); overflow-y:auto; overscroll-behavior:contain; scrollbar-width:none; }
+.lk-rail::-webkit-scrollbar{ display:none; }
 .lk-rail ol{ display:grid; gap:2px; margin:0; padding:0; list-style:none; }
-.lk-rail button{ display:grid; grid-template-columns:84px minmax(0, 1fr); gap:12px; align-items:center; width:100%; padding:7px; border:0; border-radius:12px; background:transparent; text-align:left; cursor:pointer; transition:background-color .25s, box-shadow .25s; }
+.lk-rail button{ display:grid; grid-template-columns:72px minmax(0, 1fr); gap:11px; align-items:center; width:100%; padding:5px 7px; border:0; border-radius:12px; background:transparent; text-align:left; cursor:pointer; transition:background-color .25s, box-shadow .25s; }
 .lk-rail button:hover{ background:rgba(255,255,255,.6); }
 .lk-rail button[aria-current="true"]{ background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 16px 26px -22px rgba(23,40,70,.45); }
-.lk-rail img{ width:84px; height:47px; border-radius:7px; object-fit:cover; background:#e3e9ee; }
+.lk-rail img{ width:72px; height:40px; border-radius:7px; object-fit:cover; background:#e3e9ee; }
 .lk-rail b{ display:block; font:600 13.5px/1.25 var(--body); }
-.lk-rail span span{ display:block; margin-top:2px; font:400 12.5px/1.3 var(--body); color:#6a7078; }
+.lk-rail span span{ display:block; margin-top:1px; font:400 12.5px/1.3 var(--body); color:#6a7078; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
 /* what was made arrives a moment after the frame it stands in: name, buttons, filter, all there within about 0.7 s.
    An animation, not a class from the script, so nothing stays unseen if the script does not run */
@@ -117,34 +118,8 @@ button{ font:inherit; color:inherit; }
 .lp-act[aria-pressed="true"] svg{ fill:rgba(19,159,253,.18); transform:scale(1.12) rotate(-6deg); }
 .lp-dr{ color:#a3a8ad; user-select:none; }
 
-/* the only comment is the designer's */
-.lp-cm{ display:grid; grid-template-columns:36px minmax(0, 1fr); gap:12px; padding:14px 20px 18px; border-top:1px solid #f1f0ed; }
-.lp-cm > img{ width:36px; height:36px; border-radius:50%; object-fit:cover; }
-.lp-cm-b{ padding:11px 14px 13px; border-radius:4px 14px 14px 14px; background:#f4f3f1; }
-.lp-cm-b b{ font:600 14px/1.3 var(--body); }
-.lp-cm-b b span{ margin-left:8px; font-weight:400; color:#6a7078; }
-.lp-cm-b p{ margin:4px 0 0; max-width:60ch; font:400 14.5px/1.5 var(--body); color:#333a42; }
-/* a picture in a comment is an attachment: a small card that opens the picture in a light sheet */
-.lp-cm-pics{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-.lp-at{ flex:1 1 220px; display:grid; grid-template-columns:72px minmax(0, 1fr) 16px; align-items:center; gap:12px; min-width:0; max-width:300px; padding:6px 12px 6px 6px; border:0; border-radius:10px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.1); text-align:left; cursor:pointer; transition:box-shadow .2s; }
-.lp-at:hover{ box-shadow:0 0 0 1px rgba(23,27,32,.26); }
-.lp-at img{ width:72px; height:54px; border-radius:6px; object-fit:cover; background:#e3e9ee; }
-.lp-at b{ display:block; font:600 13.5px/1.25 var(--body); color:#171b20; }
-.lp-at i{ display:block; margin-top:2px; font:400 12.5px/1.3 var(--body); color:#6a7078; }
-.lp-at svg{ width:16px; height:16px; color:#8a8e94; }
 
 /* the sheet: light, never dark. A pair stands side by side; a press outside the pictures closes it */
-dialog.lk-sheet{ --pad:clamp(16px, 3vw, 40px); position:fixed; inset:0; width:100vw; height:100dvh; max-width:none; max-height:none; margin:0; padding:max(var(--pad), 68px) var(--pad) var(--pad); border:0; background:transparent; color:#171b20; overflow:auto; overscroll-behavior:contain; }
-dialog.lk-sheet[open]{ display:flex; animation:sheet-in .2s ease; }
-dialog.lk-sheet::backdrop{ background:rgba(244,243,241,.9); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); }
-@keyframes sheet-in{ from{ opacity:0; } }
-.lk-sheet-in{ display:flex; gap:clamp(12px, 2vw, 24px); max-width:100%; margin:auto; }
-.lk-sheet figure{ flex:0 1 auto; min-width:0; max-width:100%; margin:0; width:min(var(--w) * 1px, (100dvh - 68px - var(--pad) - 60px) * var(--r)); }
-.lk-sheet img{ width:100%; height:auto; border-radius:10px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.08), 0 40px 80px -44px rgba(23,40,70,.5); }
-.lk-sheet figcaption{ margin-top:10px; font:400 13px/1.35 var(--body); color:#6a7078; }
-.lk-sheet figcaption b{ display:block; font:600 14px/1.35 var(--body); color:#171b20; }
-.lk-sheet-x{ position:fixed; right:20px; top:14px; display:grid; place-items:center; width:40px; height:40px; padding:0; border:0; border-radius:50%; background:#171b20; color:#fff; cursor:pointer; }
-.lk-sheet-x svg{ width:18px; height:18px; }
 
 /* films */
 /* a film is over its own first frame until it is really drawing (.on, from the script), then it is let through.
@@ -221,19 +196,14 @@ dialog.lk-sheet::backdrop{ background:rgba(244,243,241,.9); -webkit-backdrop-fil
   .lk-av{ width:76px; height:76px; margin-top:-20px; border-width:4px; border-radius:12px; }
   .lk-who h1{ font-size:22px; }
   .lk-tabs{ padding:0 16px; gap:22px; }
-  .lp-cm{ padding:12px 16px 16px; gap:10px; }
   .lp-act, .lp-dr{ font-size:13px; gap:6px; }
   .lp-act svg, .lp-dr svg{ width:17px; height:17px; }
   .lp-link{ margin:0 16px; }
   .lp-out{ padding:14px 16px 16px; }
   .vd-play{ width:56px; height:56px; margin:-28px 0 0 -28px; }
-  .lp-at{ flex-basis:100%; max-width:none; }
-  .lk-sheet-in.two{ flex-direction:column; align-items:center; gap:12px; }
-  .lk-sheet-in.two figure{ width:min(var(--w) * 1px, ((100dvh - 68px - var(--pad) - 12px) / 2 - 56px) * var(--r)); } /* both on one screen, to compare */
-  .lk-sheet-x{ right:12px; top:12px; }
 }
 @media (prefers-reduced-motion: reduce){
   .hp-track.run, .hp-go, .hp-go svg, .lp-act svg, .pt-f, .vd video, .vd.lo video, .hp-thumbs img, .vd-bar b{ transition:none; }
-  .hp-page .seq, dialog.lk-sheet[open]{ animation:none; }
+  .hp-page .seq{ animation:none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*){ animation:none !important; }
 }

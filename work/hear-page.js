@@ -31,36 +31,33 @@
     play: '<svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5L7 4.5Z"/></svg>',
     again: '<svg class="i-again" ' + S + ' stroke-width="2"><path d="M5.2 12a6.8 6.8 0 1 0 2.2-5"/><path d="M5 4.2v4.300h4.300"/></svg>',
     pause: '<svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.500z"/></svg>',
-    open: '<svg ' + S + '><path d="M14 5h5v5M19 5l-6 6M10 19H5v-5M5 19l6-6"/></svg>',
-    close: '<svg ' + S + ' stroke-width="1.9"><path d="M6 6l12 12M18 6 6 18"/></svg>'
   };
   var POSTS = [
     { kind: 'painting', pin: true, t: 'New feature release: Hear Studio is here.', name: 'Hear Studio launch', sub: 'Balloon letters over the parade',
       video: '../hear-v7/plan/login/welcome-parade-loop.mp4', loop: true, ratio: '16/9',
-      small: '../img/cw-loop-s.webp', full: '../img/cw-loop.webp', alt: 'A moving painting of a city parade. Coral balloon letters over the street spell Hear Studio.',
-      note: { p: 'Three gray compositions. I chose the middle one, at more of an angle.', pics: [['../img/v7b-lofi-parade.webp', 'The three sketches', 'Sketch', '../img/v7b-lofi-parade.webp', 1100, 318]] } },
+      small: '../img/cw-loop-s.webp', full: '../img/cw-loop.webp', alt: 'A moving painting of a city parade. Coral balloon letters over the street spell Hear Studio.' },
+    { kind: 'painting', t: 'AI agents get reviewed too. Every conversation, as soon as it ends.', name: 'Who checks the bot?', sub: 'A robot waiter, sure of itself', ratio: '1600/832',
+      small: '../img/cw-robot-s.webp', full: '../img/cw-robot.webp', alt: 'Painting of a café terrace. A robot waiter in a bow tie pours coffee with great pride, past the cup and onto a plate of macarons, while the guests stare. The bill on the table reads Who checks the bot?' },
+    { kind: 'painting', t: 'Zero blind spots. 100% interaction coverage.', name: 'A sample sees 2%', sub: 'The harbour watchman and one sailboat', ratio: '1600/832',
+      small: '../img/cw-lookout-s.webp', full: '../img/cw-lookout.webp', alt: 'Painting of a harbour. A watchman on a lookout tower studies one distant sailboat through a telescope while, beneath him, a boat fills with water, gulls steal fish and a dog swims off with a baguette. The board on the tower reads A sample sees 2%.' },
+    { kind: 'painting', t: 'They say it on the call, before they cancel.', name: 'They said it before they left', sub: 'A ferry, and letters nobody opened', ratio: '1600/832',
+      small: '../img/cw-ferry-s.webp', full: '../img/cw-ferry.webp', alt: 'Painting of a ferry pier. A shopkeeper with a bunch of flowers watches a ferry full of people leave; beside him a letterbox overflows with unopened envelopes. The steam of the ferry writes They said it before they left.' },
     { kind: 'film', t: 'Said out loud. A 42-second film.', name: 'Said out loud', sub: 'Film · 42 seconds', dur: 42,
       video: '../hear-v7/media/film.mp4', ratio: '16/9',
       small: '../img/cw-film-1.webp', full: '../img/cw-film-1.webp', alt: 'The opening frame of the film Said out loud.' },
     { kind: 'painting', t: 'A sample hears 2%. Hear hears 100%.', name: 'A sample against everything', sub: 'A cloud of balloons beside one small cart',
-      small: '../img/cw-balloons-s.webp', full: '../img/cw-balloons.webp', alt: 'Painting of a promenade. A huge bunch of balloons carries the figure 100%, next to a small cart marked 2%.',
-      note: { p: 'The balloons. I chose C, with two carts.', pics: [['../img/v7b-lofi-balloons.webp', 'The sketches', 'Sketch', '../img/v7b-lofi-balloons.webp', 1100, 248]] } },
+      small: '../img/cw-balloons-s.webp', full: '../img/cw-balloons.webp', alt: 'Painting of a promenade. A huge bunch of balloons carries the figure 100%, next to a small cart marked 2%.' },
     { kind: 'painting', t: 'Every conversation. Not a sample.', name: '100% coverage', sub: 'Written in the sky by a plane',
-      small: '../img/cw-plane-s.webp', full: '../img/cw-plane.webp', alt: 'Painting of a woman on a terrace looking at the city. A plane has written 100% coverage in the sky.',
-      note: { p: 'The words are part of the scene. A plane writes them in the sky.' } },
+      small: '../img/cw-plane-s.webp', full: '../img/cw-plane.webp', alt: 'Painting of a woman on a terrace looking at the city. A plane has written 100% coverage in the sky.' },
     { kind: 'painting', t: 'Front-page news: what your customers actually said.', name: 'The morning paper', sub: 'The front page, held at a café',
-      small: '../img/cw-paper-s.webp', full: '../img/cw-paper.webp', alt: 'Painting of two hands holding a Hear newspaper at a café. The headline reads What your customers actually said.',
-      note: { p: 'Smooth type on a painted page reads as a sticker. So the page was repainted: the ink is painted with the knife, and the lines bend with the paper.',
-        pics: [['../img/v7b-no-print.webp', 'Rejected', 'Print that looked pasted', '../img/v7b-no-print.webp', 640, 641], ['../img/v7b-ok-print.webp', 'Kept', 'The same page, repainted', '../img/v7b-ok-print.webp', 640, 641]] } },
+      small: '../img/cw-paper-s.webp', full: '../img/cw-paper.webp', alt: 'Painting of two hands holding a Hear newspaper at a café. The headline reads What your customers actually said.' },
     { kind: 'film', t: 'One sentence. A 49-second film.', name: 'One sentence', sub: 'Film · 49 seconds', dur: 49,
       video: '../hear-v7/media/film-one-sentence.mp4', ratio: '16/9',
       small: '../img/cw-film-2.webp', full: '../img/cw-film-2.webp', alt: 'The opening frame of the film One sentence: a painted contact center.' },
     { kind: 'painting', t: 'Your bill, please.', name: 'Your bill, please', sub: 'A café receipt on the table',
-      small: '../img/cw-receipt-s.webp', full: '../img/cw-receipt.webp', alt: 'Painting of a café table with a coffee, a croissant and a Hear receipt that ends with Just growth delivered.',
-      note: { p: 'The café. I chose A, and the painting ended up seen from the seat at the table.', pics: [['../img/v7b-lofi-receipt.webp', 'The sketches', 'Sketch', '../img/v7b-lofi-receipt.webp', 1100, 245]] } },
+      small: '../img/cw-receipt-s.webp', full: '../img/cw-receipt.webp', alt: 'Painting of a café table with a coffee, a croissant and a Hear receipt that ends with Just growth delivered.' },
     { kind: 'painting', t: 'We hear every call. Even in Rome. Hall 7, Booth 7062 at FX World, Fiera Roma.', name: 'FX World, Rome', sub: 'A street sign and a banner by the Colosseum',
-      small: '../img/cw-rome-s.webp', full: '../img/cw-rome.webp', alt: 'Painting of a street in Rome. A telephone handset rests on the Colosseum, and a banner reads We hear every call. Even here.',
-      note: { p: 'Another city, the same hand. Rome.' } }
+      small: '../img/cw-rome-s.webp', full: '../img/cw-rome.webp', alt: 'Painting of a street in Rome. A telephone handset rests on the Colosseum, and a banner reads We hear every call. Even here.' }
   ];
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
   function clock(s) { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60); }
@@ -79,16 +76,13 @@
           '<button type="button" class="vd-snd" aria-pressed="false">' + ICON.sound + '<span>Sound off</span></button>' +
           '<i class="vd-bar" aria-hidden="true"><b></b></i>' : '') +
         '</div>';
-      var note = p.note ? '<div class="lp-cm" id="cm' + i + '"><img src="../img/cw-me.webp" alt="" width="144" height="144" loading="lazy" decoding="async"><div class="lp-cm-b"><b>Ofir Nona<span>Designer</span></b><p>' + esc(p.note.p) + '</p>' +
-        (p.note.pics ? '<div class="lp-cm-pics">' + p.note.pics.map(function (x) { return '<button type="button" class="lp-at" aria-haspopup="dialog" data-p="' + i + '"><img src="' + x[0] + '" alt="" width="72" height="54" loading="lazy" decoding="async"><span><b>' + esc(x[1]) + '</b><i>' + esc(x[2]) + '</i></span>' + ICON.open + '</button>'; }).join('') + '</div>' : '') +
-        '</div></div>' : '';
       return '<article class="lp" data-kind="' + p.kind + '" id="post' + i + '">' +
         '<header class="lp-h"><img class="lp-av" src="../img/cw-cloud.webp" alt="" width="320" height="320" decoding="async"><div class="lp-who"><b>Hear</b><span>AI contact center intelligence platform</span></div>' +
         (p.pin ? '<span class="lp-pin">' + ICON.pin + 'Pinned</span>' : '') + '</header>' +
         '<p class="lp-t">' + esc(p.t) + '</p>' + media +
         '<div class="lp-row"><button type="button" class="lp-act lk-like" aria-pressed="false">' + ICON.like + '<span>Like</span></button>' +
-        (p.note ? '<button type="button" class="lp-act lk-cm" aria-expanded="true" aria-controls="cm' + i + '">' + ICON.comment + '<span>Comment</span></button>' : '<span class="lp-dr" aria-hidden="true">' + ICON.comment + 'Comment</span>') +
-        '<span class="lp-dr" aria-hidden="true">' + ICON.repost + 'Repost</span><span class="lp-dr" aria-hidden="true">' + ICON.send + 'Send</span></div>' + note + '</article>';
+        '<span class="lp-dr" aria-hidden="true">' + ICON.comment + 'Comment</span>' +
+        '<span class="lp-dr" aria-hidden="true">' + ICON.repost + 'Repost</span><span class="lp-dr" aria-hidden="true">' + ICON.send + 'Send</span></div></article>';
     }).join('');
     posts = [].slice.call(feed.querySelectorAll('.lp'));
 
@@ -153,10 +147,8 @@
     }
 
     feed.addEventListener('click', function (e) {
-      var like = e.target.closest('.lk-like'), cm = e.target.closest('.lk-cm'), att = e.target.closest('.lp-at');
-      if (att) openSheet(att);
+      var like = e.target.closest('.lk-like');
       if (like) { var on = like.getAttribute('aria-pressed') !== 'true'; like.setAttribute('aria-pressed', on ? 'true' : 'false'); like.lastChild.textContent = on ? 'Liked' : 'Like'; }
-      if (cm) { var el = document.getElementById(cm.getAttribute('aria-controls')), open = cm.getAttribute('aria-expanded') !== 'true'; cm.setAttribute('aria-expanded', open ? 'true' : 'false'); el.hidden = !open; }
     });
 
     /* All / Paintings / Films */
@@ -174,31 +166,8 @@
     scrollTo({ top: a.getBoundingClientRect().top + scrollY - 78, behavior: smooth && !reduce ? 'smooth' : 'auto' });
   }
 
-  /* ── an attachment opens in a light sheet. The rejected and the kept print open together, side by side ── */
-  var sheet, opener, html = document.documentElement;
-  function shut() { if (sheet.close) sheet.close(); else { sheet.removeAttribute('open'); freed(); } }
-  function freed() { html.style.overflow = ''; html.style.paddingRight = ''; if (opener) opener.focus(); opener = null; }
-  function openSheet(btn) {
-    var pics = POSTS[+btn.getAttribute('data-p')].note.pics;
-    if (!sheet) {
-      sheet = document.createElement('dialog'); sheet.className = 'lk-sheet';
-      sheet.addEventListener('click', function (e) { if (!e.target.closest('figure')) shut(); }); /* a press anywhere but on a picture closes */
-      sheet.addEventListener('close', freed);
-      document.body.appendChild(sheet);
-    }
-    sheet.setAttribute('aria-label', pics.map(function (x) { return x[1]; }).join(', '));
-    sheet.innerHTML = '<div class="lk-sheet-in' + (pics.length > 1 ? ' two' : '') + '">' + pics.map(function (x) {
-      return '<figure style="--w:' + x[4] + ';--r:' + (x[4] / x[5]).toFixed(4) + '"><img src="' + x[3] + '" alt="' + esc(x[1]) + '" width="' + x[4] + '" height="' + x[5] + '" decoding="async"><figcaption><b>' + esc(x[1]) + '</b>' + esc(x[2]) + '</figcaption></figure>';
-    }).join('') + '</div><button type="button" class="lk-sheet-x" aria-label="Close">' + ICON.close + '</button>';
-    opener = btn;
-    var bar = innerWidth - html.clientWidth; /* the page behind stays where it is, and does not move sideways when its scrollbar goes */
-    html.style.overflow = 'hidden'; if (bar > 0) html.style.paddingRight = bar + 'px';
-    if (sheet.showModal) sheet.showModal(); else sheet.setAttribute('open', '');
-    sheet.scrollTop = 0;
-  }
-
   /* ── arriving. A link to one post (#post3) goes straight to it ── */
-  var at = /^#post(\d)$/.exec(location.hash);
+  var at = /^#post(\d+)$/.exec(location.hash);
   build();
   wait(document.querySelector('#cover .pt-f'));
   if (at) { var land = function () { jump(+at[1], false); }; land(); addEventListener('load', land); }
