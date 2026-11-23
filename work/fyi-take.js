@@ -30,16 +30,15 @@
     var st = new F.Stage(host, { pxPerMm: scale(), fov: 24, maxDpr: 2, floorZ: -38 });
     st.onresize = function () { st.setScale(scale()); };
 
-    // three phones: the first carries the story, the other two only join it for "Three phones show the same moment"
-    var phones = [0, 1, 2].map(function (k) { var p = F.makePhone(); p.visible = k === 0; st.scene.add(p); p.userData.hole.visible = true; p.userData.hole.material.opacity = 1; return p; });
-    var rigs = phones.map(function (p) { return new F.Rig(p, {}, 60, 15.5); });
-    var screen = function (phone, el) { var o = new F.CSS3DObject(el); o.scale.setScalar(F.PT); o.position.z = F.D / 2 + .08; o.visible = false; el.classList.add('f3-flat'); phone.add(o); return o; };
+    var phone = F.makePhone(); st.scene.add(phone); phone.userData.hole.visible = true; phone.userData.hole.material.opacity = 1;
+    var rig = new F.Rig(phone, {}, 60, 15.5);
+    var screen = function (el) { var o = new F.CSS3DObject(el); o.scale.setScalar(F.PT); o.position.z = F.D / 2 + .08; o.visible = false; el.classList.add('f3-flat'); phone.add(o); return o; };
 
     var parts = els.map(function (el, i) {
       var root = el.querySelector('[data-scene]'), p = root && root._fx;
-      var devs = !root ? [] : root.matches('.fx-dev') ? [root] : [].slice.call(root.querySelectorAll('.fx-dev'));
-      var pt = { el: el, i: i, copy: el.querySelector('.ot-copy'), player: p, trio: devs.length > 1, played: false, o: -1 };
-      pt.objs = devs.map(function (dv, k) { return screen(phones[k], dv); });
+      var devs = root ? [root] : [];
+      var pt = { el: el, i: i, copy: el.querySelector('.ot-copy'), player: p, played: false, o: -1 };
+      pt.objs = devs.map(screen);
       if (p) {
         // this page decides when a scene is in view, not the scene engine's own observer
         var vis = false;
@@ -49,22 +48,19 @@
       }
       return pt;
     });
-    var TRIO = parts.findIndex(function (p) { return p.trio; });
 
     // where the phone rests in each part (millimetres and degrees). Whole turns are kept in the numbers, so the way from
     // one part to the next is itself the move: a turn about its own axis, a flip onto its face while the night passes.
     // the phone stands left of the middle of the free region, so what leaves the glass has room on its right
     var midX = function (pt) { var r = gb.call(pt.copy), w = st.w; return ((Math.max(r.right, w * .36) + w) / 2 - w / 2) / st.pxPerMm; };
     var freeX = function (pt) { var r = gb.call(pt.copy), w = st.w, pw = F.W * st.pxPerMm, edge = Math.max(r.right, w * .36), lo = edge + 62 + pw / 2, mid = (edge + w) / 2, want = w - 428 * (pw / 340) - pw / 2; return (Math.max(lo, Math.min(mid, want)) - w / 2) / st.pxPerMm; };
-    var S3 = .7, G3 = F.W * S3 + 9;
-    var trio = function (pt) { var r = gb.call(pt.copy), w = st.w, edge = Math.max(r.right, w * .36), room = (w - edge - 88) / st.pxPerMm; S3 = Math.max(.5, Math.min(.7, (room - 18) / (3 * F.W))); G3 = F.W * S3 + 9; return ((edge + 48 + w - 40) / 2 - w / 2) / st.pxPerMm; };
     var REST = [
       function (pt) { return { x: freeX(pt), y: -3, z: 0, rx: 7, ry: -22, rz: 5, s: 1 }; },
       function (pt) { return { x: freeX(pt), y: -3, z: 0, rx: 3, ry: -9 - 360, rz: 0, s: 1 }; },
       function (pt) { return { x: freeX(pt), y: -3, z: 0, rx: 4, ry: 10 - 360, rz: -2, s: 1 }; },
       function (pt) { return { x: freeX(pt), y: -3, z: 0, rx: 5 + 360, ry: -12 - 360, rz: 1.5, s: 1 }; },
       function (pt) { return { x: freeX(pt), y: -3, z: 0, rx: 3 + 360, ry: 9 - 360, rz: 0, s: 1 }; },
-      function (pt) { var c = trio(pt); return { x: c - G3, y: -5, z: 0, rx: 2 + 360, ry: 0 - 360, rz: 0, s: S3 }; },
+      function (pt) { return { x: freeX(pt), y: -3, z: 0, rx: 2 + 360, ry: 8 - 360, rz: -1, s: 1 }; },
       function (pt) { return { x: freeX(pt), y: -3, z: 0, rx: 4 + 360, ry: -10 - 360, rz: 1, s: 1 }; }
     ];
     var rest = function (i) { return (REST[i] || REST[REST.length - 1])(parts[i]); };
@@ -81,9 +77,9 @@
       geo = parts.map(function (pt) { return { top: top0 + pt.el.offsetTop, len: pt.el.offsetHeight }; });
       // where the phone rests on the screen in each part: the art of that part is placed around this point
       parts.forEach(function (pt, i) { var r = rest(i), k = st.pxPerMm, es = pt.el.style;
-        es.setProperty('--px', (st.w / 2 + (r.x + (pt.trio ? G3 : 0)) * k).toFixed(1) + 'px'); es.setProperty('--py', (st.h / 2 - r.y * k).toFixed(1) + 'px');
-        var u0 = F.W * k / 340, px = st.w / 2 + (r.x + (pt.trio ? G3 : 0)) * k, ua = pt.trio ? u0 : Math.min(u0, (st.w - px - 22) / 590);
-        es.setProperty('--u', ua.toFixed(4)); es.setProperty('--g3', (G3 * k / u0).toFixed(1)); es.setProperty('--s3', S3.toFixed(3)); });
+        es.setProperty('--px', (st.w / 2 + r.x * k).toFixed(1) + 'px'); es.setProperty('--py', (st.h / 2 - r.y * k).toFixed(1) + 'px');
+        var u0 = F.W * k / 340, px = st.w / 2 + r.x * k, ua = Math.min(u0, (st.w - px - 22) / 590);
+        es.setProperty('--u', ua.toFixed(4)); });
     };
     measure();
 
@@ -125,7 +121,7 @@
       if (travelling) pose.z += Math.sin(Math.PI * e) * 34;            // it comes toward you on the way
       // while a part holds, the phone keeps turning a little with the scroll, and leans a little toward the pointer
       var h = clamp((y - geo[i].top) / Math.max(1, geo[i].len - T));
-      pose.ry += (h - .5) * (parts[i].trio ? 0 : 7) + (mx - .5) * 6; pose.rx += (my - .5) * -4;
+      pose.ry += (h - .5) * 7 + (mx - .5) * 6; pose.rx += (my - .5) * -4;
 
       var x = FIN ? clamp((y - (yEnd - E)) / E) : 0;
       if (x > 0) pose = F.mix(pose, FIN, ease(x));
@@ -142,22 +138,8 @@
       if (awake < .5 && parts[owner].view) parts[owner].view(false);
       lastAwake = awake;
 
-      // the other two phones come in from the right edge of the screen, already facing forward, and leave the same way
-      rigs[0].to(pose); if (first || snap) rigs[0].snap(pose);
-      phones[0].userData.hole.material.opacity = 1 - awake;
-      if (TRIO >= 0) {
-        var R = rest(TRIO);
-        for (var j = 1; j < 3; j++) {
-          var in3 = i === TRIO ? (travelling ? ease((u - .46 - (j - 1) * .12) / .4) : 1) : (i === TRIO + 1 && travelling ? 1 - smooth((u - (2 - j) * .07) / .3) : 0);
-          var tx = R.x + j * G3, off = st.mmW / 2 + F.W - tx;
-          var pj = { x: tx + (1 - in3) * off, y: R.y, z: 0, rx: i === TRIO && !travelling ? pose.rx : R.rx, ry: (i === TRIO && !travelling ? pose.ry : R.ry) - j * 2, rz: 0, s: R.s };
-          var vis = in3 > .001;
-          if (vis && !phones[j].visible || snap) rigs[j].snap(pj);
-          phones[j].visible = vis; rigs[j].to(pj);
-          phones[j].userData.hole.material.opacity = owner === TRIO ? 1 - awake * smooth((in3 - .85) / .15) : 1;
-          parts[TRIO].objs[j].visible = vis && owner === TRIO;
-        }
-      }
+      rig.to(pose); if (first || snap) rig.snap(pose);
+      phone.userData.hole.material.opacity = 1 - awake;
       snap = false;
 
       // the text of each part: it leaves upward as the phone sets off and the next one arrives from below
@@ -176,11 +158,11 @@
       }
       if (DBG) window.__ot.dbg = { y: Math.round(y), i: i, u: +u.toFixed(3), x: +x.toFixed(3), awake: +awake.toFixed(2), owner: owner, geo: geo.map(function (g) { return [Math.round(g.top), Math.round(g.len)]; }).concat([[Math.round(yEnd - E), Math.round(E)]]), T: Math.round(T) };
       var moving = false;
-      for (var r = 0; r < 3; r++) if (phones[r].visible && rigs[r].step(dt)) moving = true;
+      if (rig.step(dt)) moving = true;
       if (first) { first = false; requestAnimationFrame(function () { host.classList.add('on'); }); }
       return moving;
     });
-    window.__ot = { st: st, parts: parts, phones: phones };
+    window.__ot = { st: st, parts: parts, phone: phone };
     DBG = /[?&]dbg(&|$)/.test(location.search);   // ?dbg: the state of the page for a test script
     // ?at=2.3 opens on part 2, 30% of the way through it; with &still the page itself stays at the top (for a headless still)
     var m = /[?&]at=([\d.]+)/.exec(location.search);

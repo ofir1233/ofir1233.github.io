@@ -102,6 +102,7 @@
   box-shadow:-2px 1.5px 0 var(--fl-c), 2px -1.5px 0 var(--fya-pink), 0 8px 14px -8px rgba(23,27,32,.5);
   translate:-50% 0; rotate:-4deg; opacity:0; scale:.6; transition:opacity .16s, scale .16s; pointer-events:none; }
 #fya-launch .fl-sheet.is-out .fl-stale{ opacity:1; scale:1; transition:opacity .16s .12s, scale .24s .12s cubic-bezier(.2,.9,.25,1.5); }
+#fya-launch .fl-link .fl-stale{ display:none; }
 #fya-launch .fl-sheet figcaption{ color:var(--mute); }
 
 @media (max-width:1099px){
@@ -133,3 +134,5 @@
   #fya-launch .fl-bar{ min-height:44px; }
   #fya-launch .fl-stale{ height:30px; padding:0 16px; font-size:13px; }
 }
+/* each layer fits one screen under the 60px bar */
+#fya-launch.fya-sec{ padding-top:clamp(64px,5vw,72px); scroll-margin-top:60px; }

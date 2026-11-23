@@ -1126,383 +1126,144 @@ try {
 
 // ===== s5-together =====
 try {
-// S5 · Three phones, one playhead (05 Together). Day 19, Sat Oct 31, 7:05 PM. Rest = end = B8.
-// One moment on Maya's (0), Ines's (1) and Theo's (2) phones, each drawn from its owner's view: your own messages are
-// blue and on the right, everyone else's are gray under a name. A change shows first on the phone that made it, then on
-// the next phone 150 ms later and on the far phone 300 ms later; on wide screens a coral packet runs along the sync line
-// between them. Sync is the exception: the shared playhead lands on every phone at the same instant.
+// S5 · The crew, together (05 Together). Day 19, Sat Oct 31, 7:05 PM. Rest = end = B6. One phone, Maya's: the covers land, the
+// crew meets on a call, the call folds into a bar so the vote happens in the thread, and the call's notes go onto the crew's tasks.
 (() => {
-  const V = ['m', 'i', 't'];
   const NAME = { m: 'Maya', i: 'Ines', t: 'Theo' };
-  const OTHERS = { m: ['t', 'i'], i: ['t', 'm'], t: ['m', 'i'] };
-  const SUB = { m: 'Theo, Ines, Kofi, You', i: 'Maya, Theo, Kofi, You', t: 'Maya, Ines, Kofi, You' };
-  const LEN = 120, PH0 = 52, PH1 = 100; // a 2:00 ruler; the playhead goes from 0:52 to the bridge at 1:40
-  const pct = s => (s / LEN * 100).toFixed(3) + '%';
-  const mmss = s => { const r = Math.round(s); return Math.floor(r / 60) + ':' + String(r % 60).padStart(2, '0'); };
   const clk = s => String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
   const svg = d => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
   const FLIP = svg('M3.5 8a2 2 0 0 1 2-2h2l1.5-2h6l1.5 2h2a2 2 0 0 1 2 2v9.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2zM8.7 12.4a3.3 3.3 0 0 1 5.8-2M15.3 13.1a3.3 3.3 0 0 1-5.8 2M14.8 8.6v1.9h-1.9M9.2 17.5v-1.9h1.9');
-  const CUT = svg('M6.5 9.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6.5 20.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM8.8 7.7L20 17.5M8.8 16.3L20 6.5');
-  const LOOP = 'M150 40C112 16 44 24 20 60C-2 94 28 140 92 146C150 152 194 122 188 86C183 58 158 38 118 33';
-  const wide = () => matchMedia('(min-width: 1024px)').matches;
   const who = p => `<span class="who" style="--c:${FX.k.tint(p)}">${NAME[p]}</span>`;
 
-  // ---- the pieces, each drawn for phone v ----
-  // true history above "Today": the last rows of the task scene, as each phone saw them
-  const past = v => { const K = FX.k; return K.b('perfect, sending to the DJ', { who: 'k', t: '8:04 AM' })
-    + (v === 'm' ? K.b('Theo, when can you have the visualizer cut?', { o: 1, t: '8:19 AM', rd: 2 }) : K.b('Theo, when can you have the visualizer cut?', { who: 'm', t: '8:19 AM' }))
+  // ---- the pieces, as Maya sees them ----
+  // true history above "Today": the last rows of the task scene
+  const past = () => { const K = FX.k; return K.b('perfect, sending to the DJ', { who: 'k', t: '8:04 AM' })
+    + K.b('Theo, when can you have the visualizer cut?', { o: 1, t: '8:19 AM', rd: 2 })
     + K.b("I'll have the visualizer cut by Nov 12. need the final stems first though", { who: 't', t: '8:20 AM' })
     + K.chip(`Visualizer cut · ${K.av('t', 's')}Theo · Nov 12`, 'appr').replace('class="a-chip', 'class="a-chip t4-chip')
     + K.sys('<b>Maya</b> made this a task for Theo'); };
-  const thread = v => { const K = FX.k; return `<div class="view t5-th">${K.wall()}<div class="a-th"><div class="a-msgs">${past(v)}${K.pill('Today')}${K.b('need a cover for the posters by Nov 6', { who: 'k', t: '7:02 PM' })}</div></div>${K.hd({ sub: SUB[v], tasks: 4 })}${K.comp()}<i class="t5-dim"></i></div>`; };
-  const stamp = own => `<span class="t5-at">7:05 PM${own ? `<span class="rd">${FX.ic('check')}</span>` : ''}</span>`;
-  const album = (v, up) => {
-    const own = v === 'i';
-    const covs = ['a', 'b', 'c'].map(x => `<span class="cov cov-${x}"><span class="a-lb">${x.toUpperCase()}</span>${up ? '<span class="ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="14"/></svg></span>' : ''}</span>`).join('');
-    return `<div class="a-b a-album t5-alb${own ? ' o' : ''} tl">${own ? '' : who('i')}<div class="t5-covs">${covs}</div>${up ? '' : stamp(own)}</div>`;
-  };
+  const thread = () => { const K = FX.k; return `<div class="view t5-th">${K.wall()}<div class="a-th"><div class="a-msgs">${past()}${K.pill('Today')}${K.b('need a cover for the posters by Nov 6', { who: 'k', t: '7:02 PM' })}</div></div>${K.hd({ sub: 'Theo, Ines, Kofi, You', tasks: 4 })}${K.comp()}<i class="t5-dim"></i></div>`; };
+  const album = () => `<div class="a-b a-album t5-alb tl">${who('i')}<div class="t5-covs">${['a', 'b', 'c'].map(x => `<span class="t5-cv"><span class="cov cov-${x}"></span><span class="t5-l">${x.toUpperCase()}</span></span>`).join('')}</div><span class="t5-at">7:05 PM</span></div>`;
   const ROWS = [['a', 'Horizon'], ['b', 'Grooves'], ['c', 'Stack']];
-  const poll = v => {
-    const K = FX.k, own = v === 'i';
-    return `<div class="t5-pw${own ? ' o' : ''}"><div class="a-poll t5-poll${own ? ' o' : ''}">${own ? '' : who('i')}<div class="q">Which cover?<span class="pn">Poll · 0 votes</span></div>${ROWS.map(([x, n]) => `<div class="r" data-r="${x}"><i class="bar"></i>${K.cov(x)}<span class="t">${x.toUpperCase()} · ${n}</span><span class="a-stack"></span><span class="v">0</span></div>`).join('')}</div>${own ? '<div class="a-seen t5-rcpt">Delivered</div>' : ''}</div>`;
-  };
-  const callbar = v => { const K = FX.k, ic = FX.ic; return `<div class="a-callbar t5-cb">${ic('video')}<span class="tx">${v === 't' ? 'You started a video call' : 'Theo started a video call'}</span><span class="a-stack">${K.av('t', 's')}</span>${v === 't' ? '' : '<span class="j">Join</span>'}</div>`; };
-  const tile = (p, ring) => `<div class="a-tile p-${p}${p === 't' ? ' talk' : ''}${ring ? ' t5-ring' : ''}" data-p="${p}">${FX.k.av(p)}<span class="nm">${NAME[p]}</span>${ring ? '<span class="t5-rg">Ringing</span>' : ''}</div>`;
-  const call = (v, ring, tm) => {
+  const poll = () => { const K = FX.k; return `<div class="t5-pw"><div class="a-poll t5-poll">${who('i')}<div class="q">Which cover?<span class="pn">Poll · 0 votes</span></div>${ROWS.map(([x, n]) => `<div class="r" data-r="${x}"><i class="bar"></i>${K.cov(x)}<span class="t">${x.toUpperCase()} · ${n}</span><span class="a-stack"></span><span class="v">0</span></div>`).join('')}</div></div>`; };
+  const callbar = () => { const K = FX.k, ic = FX.ic; return `<div class="a-callbar t5-cb">${ic('video')}<span class="tx">Theo started a video call</span><span class="a-stack">${K.av('t', 's')}</span><span class="j">Join</span></div>`; };
+  const tile = (p, ring, nm) => `<div class="a-tile p-${p}${p === 't' ? ' talk' : ''}${ring ? ' t5-ring' : ''}" data-p="${p}">${FX.k.av(p)}<span class="nm">${nm || NAME[p]}</span>${ring ? `<span class="t5-rg">${ring}</span>` : ''}</div>`;
+  const call = () => {
     const K = FX.k, ic = FX.ic;
-    return `<div class="view a-call t5-call"><div class="top"><div><div class="t">Copper Hours</div><div class="s t5-tm ${tm ? 'on' : 'wait'}">${tm || 'Calling'}</div></div><span class="a-notes">${K.knot()}Notes on · everyone can see</span></div>`
-      + `<div class="a-tiles">${OTHERS[v].map(p => tile(p, ring.includes(p))).join('')}</div><div class="a-pip p-${v}${v === 't' ? ' talk' : ''}">${K.av(v)}</div>`
-      + `<div class="a-ctl"><div class="r1"><span>${ic('cam')}</span><span>${ic('mic')}</span><span class="end">${ic('hang')}</span><span>${ic('speaker')}</span><span>${FLIP}</span></div><div class="r2"><span class="t5-shr">${ic('screen')}Sharing</span><span class="t5-syn">${ic('sync')}Sync</span></div></div></div>`;
+    return `<div class="view a-call t5-call"><div class="top"><div><div class="t">Copper Hours</div><div class="s t5-tm on">00:00</div></div><span class="a-notes">${K.knot()}Notes on · everyone can see</span></div>`
+      + `<div class="a-tiles">${tile('t')}${tile('i', 'Ringing')}${tile('m', '', 'You')}${tile('k', 'Not on the call', 'Kofi')}</div>`
+      + `<div class="a-ctl"><div class="r1"><span>${ic('cam')}</span><span>${ic('mic')}</span><span class="end">${ic('hang')}</span><span>${ic('speaker')}</span><span>${FLIP}</span></div></div></div>`;
   };
-  const strip = v => `<div class="a-strip">${[...OTHERS[v], v].map(p => `<div class="a-tile p-${p}${p === 't' ? ' talk' : ''}">${FX.k.av(p)}<span class="nm">${p === v ? 'You' : NAME[p]}</span></div>`).join('')}</div>`;
-  const CLIPS = [[0, 24], [25, 51], [52, 77], [78, 99], [100, 120]];
-  const share = v => {
-    const K = FX.k, ic = FX.ic, me = v === 't';
-    return `<div class="a-share t5-sh"><div class="who">${ic('screen')}<span>${me ? 'You\'re sharing' : 'Theo is sharing'}</span><i class="t5-sp"></i><span class="sy">${me ? 'Everyone in sync' : 'Synced to Theo'}</span><span class="t5-clip">${CUT}Clip</span></div>`
-      + `<div class="pv">${K.cov('b')}<span class="tc">${mmss(PH0)}</span></div>`
-      + `<div class="tl"><div class="t5-mks"></div><div class="t5-ru">${[0, 30, 60, 90, 120].map(s => `<span style="left:${pct(s)}">${mmss(s)}</span>`).join('')}</div>`
-      + `<div class="tr t5-v1"><span class="k">V1</span><div class="t5-trk">${CLIPS.map(([a, b]) => `<i class="cl" style="left:${pct(a)};width:calc(${pct(b - a)} - 2px)"></i>`).join('')}</div></div>`
-      + `<div class="tr t5-a1"><span class="k">A1</span><i class="wf"></i></div><div class="t5-phw" style="transform:translateX(${pct(PH0)})"><i class="ph"></i></div></div></div>`;
-  };
+  const live = s => { const K = FX.k, ic = FX.ic; return `<div class="t5-live">${ic('video')}<span>On call</span><span class="t5-tm on">${clk(s)}</span>${K.stack('tim', 's')}</div>`; };
   const notes = () => {
     const K = FX.k, ic = FX.ic;
-    return K.ai({ title: 'Call notes', vis: `${ic('users')}Notes were on for everyone`, cls: 't5-notes', body: `<div class="t5-meta">${ic('video')}Video call · 9 min · Maya, Ines, Theo</div><ul><li><b>Decided:</b> cover B. The arcs pulse on the snare from 1:40.</li><li><b>Next:</b> Cover art, Ines, Fri,&nbsp;Nov&nbsp;6.</li><li><b>Next:</b> Visualizer cut, Theo, Thu,&nbsp;Nov&nbsp;12.</li></ul><div class="t5-clipr"><span class="th">${K.cov('b')}${ic('play')}</span>Clip: 1:40 Bridge</div><div class="acts"><span class="a-ab">${ic('tasks')}Add to 2 tasks</span></div>` });
+    return K.ai({ title: 'Call notes', vis: `${ic('users')}Notes were on for everyone`, cls: 't5-notes', body: `<div class="t5-meta">${ic('video')}Video call · 9 min · Maya, Ines, Theo</div><ul><li><b>Decided:</b> cover B, Grooves.</li><li><b>Next:</b> Cover art, Ines, Fri,&nbsp;Nov&nbsp;6.</li><li><b>Next:</b> Visualizer cut, Theo, Thu,&nbsp;Nov&nbsp;12.</li></ul><div class="acts"><span class="a-ab">${ic('tasks')}Add to 2 tasks</span></div>` });
   };
-  const here = () => `<span class="t5-here">${V.map(p => `<span class="a-av p-${p}">${NAME[p][0]}</span>`).join('')}<span>3 here now</span></span>`;
 
   FX.scene('together', {
-    time: '7:05', rest: 7,
-    html: () => V.map(thread),
-    reset(stage) {
-      delete stage.dataset.auto;
-      stage.querySelectorAll('.trio .pk').forEach(p => p.remove());
-      stage.querySelectorAll('.presence i.ping, .trio-tabs button.ping').forEach(i => i.classList.remove('ping'));
-    },
+    n: 6, time: '7:05', rest: 5,
+    html: thread,
     async run(c) {
-      const K = FX.k, ic = FX.ic, st = c.stage, P = c.P;
-      const cs = [0, 1, 2].map(j => c.on(j));
-      const list = j => cs[j].q('.a-msgs');
+      const K = FX.k, ic = FX.ic, list = c.q('.a-msgs'), th = c.q('.t5-th');
 
-      // page layer: Auto (below 1024px) cuts to the phone that matters; when a phone gets news, its presence glyph blinks
-      // (400 ms) and its name tab shows a dot (900 ms), both on the scene clock
-      const auto = j => { st.dataset.auto = String(j); st.dispatchEvent(new Event('fx:auto')); };
-      const pinged = {};
-      const flag = (el, key, ms) => {
-        if (!el) return;
-        const n = pinged[key] = (pinged[key] || 0) + 1; el.classList.add('ping');
-        c.wait(ms).then(() => { if (pinged[key] === n) el.classList.remove('ping'); }, () => {});
-      };
-      const ping = j => {
-        if (c.ff) return;
-        flag(st.querySelector(`.presence i[data-p="${j}"]`), 'p' + j, 400);
-        // the tab of the phone already on screen has nothing new to say
-        if (String(j) !== st.dataset.show) flag(st.querySelector(`.trio-tabs button[data-v="${j}"]`), 't' + j, 900);
-      };
-      // a coral packet from phone a to phone j along the sync line, behind the phones, arriving after ms
-      const packet = (a, j, ms) => {
-        if (c.ff || !wide()) return;
-        const trio = st.querySelector('.trio'), line = trio && trio.querySelector('.sync-line'); if (!line) return;
-        const tr = trio.getBoundingClientRect(), lr = line.getBoundingClientRect(), A = P.devs[a].getBoundingClientRect(), B = P.devs[j].getBoundingClientRect();
-        if (!A.width || !B.width) return;
-        const y = lr.top + lr.height / 2 - tr.top, r = j > a;
-        const x0 = (r ? A.right - 12 : A.left + 12) - tr.left, x1 = (r ? B.left + 12 : B.right - 12) - tr.left;
-        const pk = document.createElement('i'); pk.className = 'pk'; pk.setAttribute('aria-hidden', 'true'); line.after(pk);
-        const at = x => ({ transform: `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)` });
-        c.anim(pk, [at(x0), at(x1)], { duration: ms, easing: 'cubic-bezier(.45,0,.35,1)', fill: 'both' }).finished.then(() => pk.remove(), () => pk.remove());
-      };
-      // the playhead lands on every phone at once: the whole sync line lights for a moment
-      const flash = () => {
-        if (c.ff || !wide()) return;
-        const line = st.querySelector('.trio .sync-line'); if (!line) return;
-        c.anim(line, [{ transform: 'scaleY(1)' }, { transform: 'scaleY(3)', offset: .18 }, { transform: 'scaleY(1)' }], { duration: 900, easing: 'ease-out' });
-      };
-      // a change made on phone a: packets leave, a sees it, the next phone 150 ms later, the far phone 300 ms later
-      const lagOf = (a, j) => (Math.abs(a - j) === 1 ? 150 : 300);
-      const spread = async (a, fn, o = {}) => {
-        const lag = j => o.lag ?? lagOf(a, j);
-        const rest = [0, 1, 2].filter(j => j !== a).sort((x, y) => lag(x) - lag(y));
-        let tp = null;
-        // the tap runs alongside; mark it handled now, so a jump that cancels the wait below leaves no stray rejection
-        if (o.tap) { tp = cs[a].tap(o.tap, o.tapo); tp.catch(() => {}); if (!c.ff) await c.wait(140); }
-        const pre = o.pre ?? 300;
-        rest.forEach(j => packet(a, j, o.pk ?? pre + lag(j)));
-        if (pre && !c.ff) await c.wait(pre);
-        fn(a, cs[a], true);
-        let t = 0;
-        for (const j of rest) { if (!c.ff && lag(j) > t) await c.wait(lag(j) - t); t = lag(j); fn(j, cs[j], false); ping(j); }
-        if (tp) await tp;
-      };
-
-      // the call clock ticks on the scene clock, so it holds while paused. Each later beat is later in the 9-minute call:
-      // while playing, the timer rolls forward to that beat's time and ticks on; a jump sets it there at once
-      let tick = 0, ticking = false, secs = 0;
-      const setClock = s => { secs = s; cs.forEach(cj => cj.qa('.t5-tm.on').forEach(e => { e.textContent = clk(s); })); };
-      const tickOn = my => (async () => { try { for (;;) { await c.wait(1000); if (my !== tick) return; setClock(secs + 1); } } catch (e) { /* the scene was reset */ } })();
+      // the call clock runs on the scene clock, so it holds while paused; a jump just sets it
+      let tick = 0, secs = 0;
+      const setClock = s => { secs = s; c.qa('.t5-tm.on').forEach(e => { e.textContent = clk(s); }); };
       const clock = s => {
-        const my = ++tick;
-        if (c.ff || !ticking || s <= secs) { setClock(s); ticking = !c.ff; if (ticking) tickOn(my); return; }
-        const a = secs;
-        (async () => { try {
-          for (let i = 1; i <= 12; i++) { await c.wait(40); if (my !== tick) return; setClock(Math.round(a + (s - a) * (1 - Math.pow(1 - i / 12, 3)))); }
-          tickOn(my);
-        } catch (e) { /* the scene was reset */ } })();
+        const my = ++tick; setClock(s);
+        if (c.ff) return;
+        (async () => { try { for (;;) { await c.wait(1000); if (my !== tick) return; setClock(secs + 1); } } catch (e) { /* the scene was reset */ } })();
       };
-      const stopClock = () => { tick++; ticking = false; };
-
-      // views: the call pushes in over the thread, and slides away again when it ends
-      const openCall = (j, ring) => {
-        const cj = cs[j], th = cj.q('.t5-th');
-        const cv = cj.add(cj.app, call(V[j], ring, ring.length === 2 ? '' : clk(secs)), 'none');
-        cj.anim(cv, [{ transform: 'translateX(100%)' }, { transform: 'none' }], { duration: 420 });
-        cj.anim(th, [{ transform: 'none' }, { transform: 'translateX(-30%)' }], { duration: 420 });
-        cj.anim(cj.q('.t5-dim'), [{ opacity: 0 }, { opacity: .4 }], { duration: 420 });
-      };
-      const closeCall = j => {
-        const cj = cs[j], th = cj.q('.t5-th'), cv = cj.q('.t5-call'); if (!cv) return;
-        const bar = cj.q('.t5-cb'); if (bar) bar.replaceWith(c.make(K.sys(`${ic('video')}Video call ended · 9 min`)));
-        if (c.ff) { cv.remove(); return; }
-        cj.anim(cv, [{ transform: 'none' }, { transform: 'translateX(100%)' }], { duration: 420, fill: 'forwards' }).finished.then(() => cv.remove(), () => {});
-        cj.anim(th, [{ transform: 'translateX(-30%)' }, { transform: 'none' }], { duration: 420 });
-        cj.anim(cj.q('.t5-dim'), [{ opacity: .4 }, { opacity: 0 }], { duration: 420 });
-      };
-      // someone answers: their tile wakes up on this phone (and the clock starts on Theo's when Maya joins)
-      const joined = (j, p) => {
-        const cj = cs[j], tl = cj.q(`.t5-call .a-tile[data-p="${p}"]`); if (!tl) return;
-        tl.classList.remove('t5-ring');
-        const rg = tl.querySelector('.t5-rg'); if (rg) rg.remove();
-        cj.anim(tl.querySelector('.a-av'), [{ transform: 'scale(.82)', opacity: .55 }, { transform: 'scale(1.1)', opacity: 0 }], { duration: 480, easing: 'cubic-bezier(.3,.7,.3,1)' });
-        const w = cj.q('.t5-tm.wait'); if (w) { w.classList.replace('wait', 'on'); w.textContent = clk(secs); }
-      };
-      const vote = (j, p) => {
-        const cj = cs[j], pl = cj.q('.t5-poll'), r = pl.querySelector('[data-r="b"]'), bar = r.querySelector('.bar'), stk = r.querySelector('.a-stack');
+      const vote = p => {
+        const pl = c.q('.t5-poll'), r = pl.querySelector('[data-r="b"]'), bar = r.querySelector('.bar'), stk = r.querySelector('.a-stack');
         const n = stk.children.length + 1;
-        if (p === V[j]) r.classList.add('mine');
+        if (p === 'm') r.classList.add('mine');
         bar.style.transform = `scaleX(${n / 4})`;
-        cj.anim(bar, [{ transform: `scaleX(${(n - 1) / 4})` }, { transform: `scaleX(${n / 4})` }], { duration: 520 });
-        cj.add(stk, K.av(p, 's'), 'pop');
-        const v = r.querySelector('.v'); v.textContent = n;
-        cj.anim(v, [{ transform: 'translateY(6px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 300 });
+        c.anim(bar, [{ transform: `scaleX(${(n - 1) / 4})` }, { transform: `scaleX(${n / 4})` }], { duration: 520 });
+        c.add(stk, K.av(p, 's'), 'pop');
+        r.querySelector('.v').textContent = n;
         pl.querySelector('.pn').textContent = `Poll · ${n} vote${n > 1 ? 's' : ''}`;
-        if (p === V[j]) cj.add(r, `<span class="t5-ck">${ic('check')}</span>`, 'pop');
-      };
-      // read receipts on Ines's phone: the line under the poll names who has read it (one line height, so nothing shifts)
-      const receipt = (ps, txt) => {
-        const rc = cs[1].q('.t5-rcpt'); if (!rc) return;
-        const rd = c.make(K.seen(ps, txt)); rd.classList.add('t5-rcpt'); rc.replaceWith(rd);
-        cs[1].enter(rd, 'fade', { d: 300 });
-      };
-      const readTick = el => { if (el) { el.innerHTML = ic('dcheck'); el.classList.add('all'); } };
-
-      // sharing: each person's tile flies to its slot in the strip (transform only; nothing fades), the strip takes over in
-      // the same place by a cut, and the edit rises from below into the room the tiles leave
-      const SH_EASE = 'cubic-bezier(.4,0,.2,1)', GREEN = '#30d158';
-      const L = (a, b, p) => a + (b - a) * p;
-      // a non-uniform FLIP of the tile's box, with the monogram and the name label counter-scaled so they stay round and
-      // readable, and the corners and the green talk ring kept at their drawn size the whole way
-      const fly = (cj, el, dst, box, ms) => {
-        const T = box(el), S = box(dst), pip = el.classList.contains('a-pip'), talk = el.classList.contains('talk');
-        const av = el.querySelector('.a-av'), A0 = box(av), A1 = box(dst.querySelector('.a-av'));
-        // the picture-in-picture has no name yet: "You" slides in from its right edge, clipped by the box as it widens
-        const nm = el.querySelector('.nm') || (pip ? cj.add(el, '<span class="nm t5-you">You</span>', 'none') : null), dn = dst.querySelector('.nm');
-        const N0 = nm && dn ? box(nm) : null, N1 = N0 ? box(dn) : null;
-        const n0x = N0 && pip ? T.x + T.w + 2 + N0.w / 2 : N0 && N0.x + N0.w / 2, n0y = N0 && pip ? T.y + T.h / 2 : N0 && N0.y + N0.h / 2;
-        const r0 = pip ? 12 : 16, r1 = 12, fb = [], fa = [], fn = [];
-        // a child of the box: centered at (X, Y) in the call, w x h on screen, while the box is at b and scaled sx, sy
-        const kid = (C, X, Y, w, h, b, sx, sy) => {
-          const cx = C.x + C.w / 2 - T.x, cy = C.y + C.h / 2 - T.y;
-          return `translate(${((X - b.x) / sx - cx).toFixed(2)}px, ${((Y - b.y) / sy - cy).toFixed(2)}px) scale(${(w / (C.w * sx)).toFixed(4)}, ${(h / (C.h * sy)).toFixed(4)})`;
-        };
-        for (let i = 0; i <= 10; i++) {
-          const p = i / 10, b = { x: L(T.x, S.x, p), y: L(T.y, S.y, p), w: L(T.w, S.w, p), h: L(T.h, S.h, p) };
-          const sx = b.w / T.w, sy = b.h / T.h, r = L(r0, r1, p), rw = L(3, 2.5, p);
-          const f = { transform: `translate(${(b.x - T.x).toFixed(2)}px, ${(b.y - T.y).toFixed(2)}px) scale(${sx.toFixed(4)}, ${sy.toFixed(4)})`, borderRadius: `${(r / sx).toFixed(2)}px / ${(r / sy).toFixed(2)}px` };
-          // the talk ring as four inset bands, each as thick on screen as the ring is drawn
-          const lx = (rw / sx).toFixed(2), ly = (rw / sy).toFixed(2);
-          const ring = talk ? [`inset ${lx}px 0 0 0 ${GREEN}`, `inset -${lx}px 0 0 0 ${GREEN}`, `inset 0 ${ly}px 0 0 ${GREEN}`, `inset 0 -${ly}px 0 0 ${GREEN}`] : [];
-          if (pip) f.boxShadow = [...ring, `0 10px 24px rgba(0,0,0,${(.6 * (1 - p)).toFixed(3)})`, ...(talk ? [] : [`0 0 0 1px rgba(255,255,255,${(.08 * (1 - p)).toFixed(3)})`])].join(', ');
-          else if (talk) f.boxShadow = ring.join(', ');
-          fb.push(f);
-          const aw = L(A0.w, A1.w, p);
-          fa.push({ transform: kid(A0, L(A0.x + A0.w / 2, A1.x + A1.w / 2, p), L(A0.y + A0.h / 2, A1.y + A1.h / 2, p), aw, aw, b, sx, sy) });
-          // the name keeps its size and lands where the strip prints it (the label's padding is 8 by 3)
-          if (N0) fn.push({ transform: kid(N0, L(n0x, N1.x - 8 + N0.w / 2, p), L(n0y, N1.y - 3 + N0.h / 2, p), N0.w, N0.h, b, sx, sy), backgroundColor: `rgba(0,0,0,${(.6 * (1 - p)).toFixed(3)})` });
-        }
-        el.style.transformOrigin = '0 0';
-        el.classList.add('t5-mini'); // the picture dims and the round face returns on the way to the strip
-        const o = { duration: ms, easing: SH_EASE, fill: 'forwards' };
-        if (N0) cj.anim(nm, fn, o);
-        cj.anim(av, fa, o);
-        return cj.anim(el, fb, o);
-      };
-      const shareOn = (j, me) => {
-        const cj = cs[j], cv = cj.q('.t5-call'), tiles = cv.querySelector('.a-tiles'), pip = cv.querySelector('.a-pip');
-        if (me) cv.querySelector('.t5-shr').classList.add('on');
-        const s1 = c.make(strip(V[j])), s2 = c.make(share(V[j]));
-        const o = cv.getBoundingClientRect();
-        // a jump, or a phone not on screen (below 1024px only one shows): the strip and the edit are simply there
-        if (c.ff || !o.width) { tiles.remove(); pip.remove(); cv.append(s1, s2); return; }
-        s1.style.visibility = 'hidden'; cv.append(s1, s2); // laid out now, so each tile knows where it lands
-        const k = o.width / 390;
-        const box = el => { const r = el.getBoundingClientRect(); return { x: (r.left - o.left) / k, y: (r.top - o.top) / k, w: r.width / k, h: r.height / k }; };
-        const slots = [...s1.children], tl = [...tiles.children];
-        tiles.style.zIndex = 5; // above the rising edit
-        // the upper tile clears the way a little sooner, so the lower one never runs over it
-        fly(cj, tl[0], slots[0], box, 240); fly(cj, pip, slots[2], box, 300);
-        const last = fly(cj, tl[1], slots[1], box, 300);
-        // the edit's top edge follows the lower tile up; it is revealed from its own bottom edge as it climbs
-        const H = box(s2).h;
-        cj.anim(s2, [{ transform: `translateY(${H.toFixed(1)}px)`, clipPath: `inset(0px 0px ${H.toFixed(1)}px 0px)` }, { transform: 'translateY(0px)', clipPath: 'inset(0px 0px 0px 0px)' }], { duration: 300, easing: SH_EASE, fill: 'backwards' });
-        last.finished.then(() => { tiles.remove(); pip.remove(); s1.style.visibility = ''; }, () => {});
-      };
-      const syncOn = (j, me) => {
-        const cj = cs[j], sh = cj.q('.t5-sh');
-        if (me) cj.q('.t5-syn').classList.add('on');
-        sh.classList.add('synced');
-        cj.enter(sh.querySelector('.sy'), 'left', { d: 320 });
-      };
-      // Sync: every playhead moves together, and the timecode counts with it
-      const scrub = () => {
-        const ease = 'cubic-bezier(.33,1,.68,1)'; // the same curve as the counter
-        cs.forEach(cj => { const p = cj.q('.t5-phw'); p.style.transform = `translateX(${pct(PH1)})`; cj.anim(p, [{ transform: `translateX(${pct(PH0)})` }, { transform: `translateX(${pct(PH1)})` }], { duration: 760, easing: ease }); });
-        return Promise.all(cs.map(cj => cj.count(cj.q('.t5-sh .tc'), PH0, PH1, 760, mmss)));
-      };
-      const land = () => cs.forEach((cj, j) => {
-        const mk = cj.add(cj.q('.t5-mks'), `<span class="mk" style="left:${pct(PH1)}">Bridge</span>`, 'none');
-        cj.anim(mk, [{ transform: 'translateX(-50%) translateY(5px) scale(.7)', opacity: 0 }, { transform: 'translateX(-50%)', opacity: 1 }], { duration: 460, easing: 'cubic-bezier(.34,1.4,.5,1)' });
-        cj.add(cj.q('.t5-sh .pv'), `<div class="a-cap"><b>${j === 2 ? 'You' : 'Theo'}:</b> watch the arcs hit the snare right here</div>`, 'up', { delay: 260, d: 380 });
-      });
-      // Ines circles the arcs; on Ines's phone a fingertip draws it
-      const circle = (j, me) => {
-        const cj = cs[j], pv = cj.q('.t5-sh .pv');
-        const el = cj.add(pv, `<svg class="a-circle t5-circ" viewBox="0 0 200 160" aria-hidden="true"><path pathLength="1" d="${LOOP}"/></svg>`, 'none');
-        const path = el.querySelector('path'), o = { duration: 900, easing: 'cubic-bezier(.45,.05,.45,1)' };
-        cj.anim(path, [{ strokeDashoffset: 1.1 }, { strokeDashoffset: 0 }], { ...o, fill: 'backwards' });
-        if (!me || c.ff) return;
-        const t = P.touches[j], s = P.screens[j].getBoundingClientRect(), r = el.getBoundingClientRect(), k = s.width / 390;
-        if (!k) return;
-        const L = path.getTotalLength(), pts = Array.from({ length: 21 }, (_, i) => path.getPointAtLength(L * i / 20));
-        const ox = (r.left - s.left) / k, oy = (r.top - s.top) / k;
-        t.style.left = (ox + pts[0].x) + 'px'; t.style.top = (oy + pts[0].y) + 'px';
-        cj.anim(t, pts.map((p, i) => ({ transform: `translate(calc(-50% + ${(p.x - pts[0].x).toFixed(1)}px), calc(-50% + ${(p.y - pts[0].y).toFixed(1)}px)) scale(.8)`, opacity: i === 0 || i === 20 ? 0 : 1 })), o);
       };
 
-      // B1 · Ines posts three covers: an upload on Ines's phone, an album under "Ines" on the other two
-      await c.beat(0); auto(1);
+      // B1 · Ines posts three covers, and Theo answers with a call
+      await c.beat(0);
       await c.wait(280);
-      const mine = await cs[1].push(list(1), album('i', true));
-      mine.querySelectorAll('.ring circle').forEach((r, k) => cs[1].anim(r, [{ strokeDashoffset: 88 }, { strokeDashoffset: 0 }], { duration: 900, delay: k * 90, easing: 'cubic-bezier(.4,.1,.3,1)', fill: 'both' }));
-      await c.wait(820);
-      await spread(1, (j, cj, me) => {
-        if (!me) { cj.push(list(j), album(V[j])); return; }
-        mine.querySelectorAll('.ring').forEach(r => cj.leave(r, 'fade', { d: 220 }));
-        cj.enter(cj.add(mine, stamp(true), 'none'), 'fade', { d: 260 });
-      });
-      await c.wait(720);
+      c.push(list, album());
+      await c.wait(1500);
+      c.push(list, K.b('B. I cut the bridge to it. call?', { who: 't', t: '7:06 PM' })); c.time('7:06');
+      await c.wait(1800);
 
-      // B2 · Ines asks; Maya votes B, then Theo; the same bar fills on every phone
-      await c.beat(1); auto(0);
+      // B2 · Maya joins; the call pushes in over the thread and Ines picks up
+      await c.beat(1);
       await c.wait(200);
-      await spread(1, (j, cj) => cj.push(list(j), poll(V[j])));
-      await c.wait(520);
-      // a vote is also a read: on Ines's phone the receipt under the poll names each voter as the vote lands
-      await spread(0, j => { vote(j, 'm'); if (j === 1) { receipt('m', 'Read by Maya'); readTick(cs[1].q('.t5-alb .rd')); } }, { tap: cs[0].q('.t5-poll [data-r="b"]'), tapo: { press: .98 } });
-      await c.wait(340);
-      await spread(2, j => { vote(j, 't'); if (j === 1) receipt('mt', 'Read by Maya and Theo'); }, { tap: cs[2].q('.t5-poll [data-r="b"]'), tapo: { press: .98 } });
+      const bar = await c.push(list, callbar());
+      await c.wait(900);
+      await c.tap(bar.querySelector('.j'));
+      const cv = c.add(c.app, call(), 'none');
+      c.anim(cv, [{ transform: 'translateX(100%)' }, { transform: 'none' }], { duration: 420 });
+      c.anim(th, [{ transform: 'none' }, { transform: 'translateX(-30%)' }], { duration: 420 });
+      c.anim(c.q('.t5-dim'), [{ opacity: 0 }, { opacity: .4 }], { duration: 420 });
+      clock(0);
+      await c.wait(1300);
+      const ines = cv.querySelector('.a-tile[data-p="i"]');
+      ines.classList.remove('t5-ring'); ines.querySelector('.t5-rg').remove();
+      await c.wait(2400);
+
+      // B3 · the call folds into a bar under the header, and the poll lands in the thread
+      await c.beat(2); c.time('7:09');
+      await c.wait(200);
+      th.classList.add('t5-onair');
+      const lv = c.add(th, live(184), 'fade', { d: 320 });
+      bar.replaceWith(c.make(K.sys(`${ic('video')}Video call started`)));
+      clock(184);
+      if (c.ff) cv.remove();
+      else {
+        c.anim(cv, [{ transform: 'none' }, { transform: 'translateX(100%)' }], { duration: 420, fill: 'forwards' }).finished.then(() => cv.remove(), () => {});
+        c.anim(th, [{ transform: 'translateX(-30%)' }, { transform: 'none' }], { duration: 420 });
+        c.anim(c.q('.t5-dim'), [{ opacity: .4 }, { opacity: 0 }], { duration: 420 });
+      }
+      await c.wait(620);
+      c.push(list, poll());
+      await c.wait(2560);
+
+      // B4 · the vote: Maya, then Theo, then Ines; B takes it
+      await c.beat(3); c.time('7:12');
+      clock(364);
+      await c.wait(200);
+      await c.tap(c.q('.t5-poll [data-r="b"]'), { press: .98 });
+      vote('m');
+      c.add(c.q('.t5-poll [data-r="b"]'), `<span class="t5-ck">${ic('check')}</span>`, 'pop');
+      await c.wait(800);
+      vote('t');
       await c.wait(700);
+      vote('i');
+      await c.wait(900);
+      c.push(list, K.sys('<b>Cover B</b> chosen · 3 of 4 votes'));
+      await c.wait(1900);
 
-      // B3 · Theo answers and starts a call; Maya and Ines join. Theo's message lands at 7:06, and every clock moves with it
-      await c.beat(2); auto(2);
+      // B5 · the call ends and its notes post to the thread
+      await c.beat(4); c.time('7:15');
+      tick++; setClock(540);
       await c.wait(200);
-      await spread(2, (j, cj, me) => { cj.push(list(j), K.b('B. I cut the bridge to it. call?', me ? { o: 1, t: '7:06 PM', rd: 1 } : { who: 't', t: '7:06 PM' })); cj.time('7:06'); });
+      if (c.ff) { lv.remove(); th.classList.remove('t5-onair'); }
+      else c.leave(lv, 'fade', { d: 260 }).then(() => th.classList.remove('t5-onair'));
+      c.push(list, K.sys(`${ic('video')}Video call ended · 9 min`));
       await c.wait(500);
-      await spread(2, (j, cj, me) => { cj.push(list(j), callbar(V[j])); if (me) openCall(2, ['m', 'i']); }, { tap: cs[2].q('.a-nav .acts svg:last-child'), tapo: { press: .86 } });
-      await c.wait(400);
-      await spread(0, (j, cj, me) => {
-        if (me) { setClock(0); openCall(0, ['i']); clock(0); }
-        else if (j === 1) cj.add(cj.q('.t5-cb .a-stack'), K.av('m', 's'), 'pop');
-        else { joined(2, 'm'); readTick(cj.q('.a-b.o .rd')); } // Maya answered right under Theo's message: it was read
-      }, { tap: cs[0].q('.t5-cb .j') });
-      await c.wait(280);
-      await spread(1, (j, cj, me) => { if (me) openCall(1, []); else joined(j, 'i'); }, { tap: cs[1].q('.t5-cb .j') });
-      await c.wait(600);
+      const card = await c.push(list, notes(), 'up', { d: 520 });
+      [...card.querySelectorAll('.t5-meta, li, .acts')].forEach((x, k) => c.enter(x, 'up', { delay: 320 + k * 130, d: 380 }));
+      await c.wait(3450);
 
-      // B4 · Theo shares the cut: the tiles shrink to a strip and the edit fills the call on every phone
-      await c.beat(3); auto(1); clock(184); cs.forEach(cj => cj.time('7:09')); // 03:04 into the call
-      await c.wait(280);
-      await spread(2, (j, cj, me) => shareOn(j, me), { tap: cs[2].q('.t5-shr'), tapo: { press: .94 } });
-      await c.wait(900);
-
-      // B5 · Sync on, then Theo jumps to the bridge: one playhead, every phone lands on 1:40 at once
-      await c.beat(4); auto(0); clock(371); cs.forEach(cj => cj.time('7:12')); // 06:11
-      await c.wait(250);
-      await spread(2, (j, cj, me) => syncOn(j, me), { tap: cs[2].q('.t5-syn'), tapo: { press: .94 } });
-      await c.wait(440);
-      const jump = cs[2].tap(cs[2].q('.t5-v1 .t5-trk'), { x: PH1 / LEN, y: .5, noPress: true });
-      jump.catch(() => {});
-      if (!c.ff) await c.wait(160);
-      packet(2, 1, 420); packet(2, 0, 420);
-      if (!c.ff) await c.wait(420);
-      [0, 1].forEach(ping); flash();
-      await Promise.all([scrub(), jump]);
-      land();
-      await c.wait(1200);
-
-      // B6 · Ines circles the arcs (the others see it 120 ms later); Maya clips the moment, on Maya's phone only
-      await c.beat(5); auto(1); clock(512); cs.forEach(cj => cj.time('7:14')); // 08:32, so the 9-minute call ends at B7
-      await c.wait(250);
-      await spread(1, (j, cj, me) => circle(j, me), { pre: 0, lag: 120, pk: 420 });
-      await c.wait(1000);
-      await cs[0].tap(cs[0].q('.t5-clip'));
-      const toast = cs[0].add(cs[0].q('.t5-call'), `<div class="a-toast t5-toast">${ic('check')}Clip saved · 1:40 Bridge</div>`, 'none');
-      cs[0].anim(toast, [{ transform: 'translateX(-50%) translateY(-10px) scale(.96)', opacity: 0 }, { transform: 'translateX(-50%)', opacity: 1 }], { duration: 420, easing: 'cubic-bezier(.34,1.4,.5,1)' });
-      await c.wait(900);
-
-      // B7 · Theo ends the call; every phone is back in the thread, where the notes post for everyone at once
-      await c.beat(6); auto(0); stopClock();
+      // B6 · one tap: the notes go onto the crew's two open tasks, the ones the Tasks tab already counts
+      await c.beat(5);
       await c.wait(200);
-      await spread(2, (j, cj) => { closeCall(j); cj.time('7:15'); }, { tap: cs[2].q('.a-ctl .end'), tapo: { press: .88 } });
-      await c.wait(400);
-      const cards = await Promise.all(cs.map((cj, j) => cj.push(list(j), notes(), 'up', { d: 520 })));
-      cards.forEach((el, j) => {
-        const kn = el.querySelector('.knot'); if (!c.ff) kn.classList.add('think');
-        [...el.querySelectorAll('.t5-meta, li, .t5-clipr, .acts')].forEach((x, k) => cs[j].enter(x, 'up', { delay: 420 + k * 130, d: 380 }));
-      });
-      await c.wait(420);
-      cards.forEach(el => el.querySelector('.knot').classList.remove('think'));
-      await c.wait(6 * 130 + 900);
-
-      // B8 · Who is here and who has read it are two things: three are here now, and on Ines's phone the poll shows it has
-      // now been read by everyone in the group, Kofi too, who asked for the cover and is not on the call
-      await c.beat(7); auto(1);
-      await c.wait(280);
-      cs.forEach((cj, j) => {
-        const sub = cj.q('.a-nav .sub'); sub.classList.add('live'); sub.innerHTML = here();
-        cj.enter(sub.firstElementChild, 'fade', { d: 320 }); ping(j);
-      });
-      await c.wait(850);
-      receipt('mtk', 'Read by everyone');
-      ping(1);
-      await c.wait(1000);
+      await c.tap(card.querySelector('.a-ab'));
+      const acts = card.querySelector('.acts');
+      const done = (t, p) => K.chip(`${t} · ${K.av(p, 's')}${NAME[p]}`, 'appr').replace('class="a-chip', 'class="a-chip t4-chip');
+      acts.innerHTML = done('Cover art', 'i') + done('Visualizer', 't');
+      [...acts.children].forEach((x, k) => c.enter(x, 'pop', { delay: k * 120 }));
+      const n = c.q('.a-seg .n');
+      c.anim(n, [{ transform: 'none' }, { transform: 'scale(1.3)' }, { transform: 'none' }], { duration: 420 });
+      await c.wait(2420);
     },
   });
 })();
@@ -1910,7 +1671,7 @@ try {
     spark: [1253, 1872, 2326, 1434, 1221, 1086],
     catchup: [890, 1267, 3853, 3188, 3800, 3349],
     task: [1393, 1230, 3014, 2726, 1715, 2842],
-    together: [1594, 2626, 3324, 1388, 2816, 1890, 2427, 1501],
+    together: [2756, 3843, 2385, 3487, 2901, 2161],
     launch: [1038, 2722, 1452, 1665, 1120, 1396, 1959],
   };
   document.querySelectorAll('.ot-part[data-part]').forEach(part => {

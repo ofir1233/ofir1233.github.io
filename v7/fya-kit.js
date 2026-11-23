@@ -114,14 +114,13 @@
   // task: approved, in progress, finished
   part('task', ['Approved', 'In progress', 'Finished'], function (c, k) {
     var st = ['appr', 'prog', 'done'];
-    c.innerHTML = '<div class="fyak-task">' + K.chip('Visualizer cut · ' + K.av('t', 'xs') + ' Theo · Nov 12') + '<div class="a-segc" role="group" aria-label="Status">' +
-      ['Approved', 'In progress', 'Finished'].map(function (t, i) { return '<button type="button" data-i="' + i + '" aria-pressed="false"><span>' + t + '</span></button>'; }).join('') + '</div></div>';
-    var chip = c.querySelector('.a-chip'), ck = chip.querySelector('.ck'), bs = [].slice.call(c.querySelectorAll('.a-segc button'));
+    c.innerHTML = '<button type="button" class="fyak-task">' + K.chip('Visualizer cut · ' + K.av('t', 'xs') + ' Theo · Nov 12') + '</button>';
+    var press = c.querySelector('.fyak-task'), chip = c.querySelector('.a-chip'), ck = chip.querySelector('.ck');
     var set = function (s) {
       put(k, s); chip.className = 'a-chip st-' + st[s]; ck.innerHTML = s === 2 ? ic('check') : '';
-      bs.forEach(function (b, i) { b.setAttribute('aria-pressed', String(i === s)); b.firstChild.classList.toggle('on', i === s); });
+      press.setAttribute('aria-label', 'Visualizer cut, Theo, Nov 12: ' + st[s].replace('appr', 'approved').replace('prog', 'in progress').replace('done', 'finished') + '. Press to move it on.');
     };
-    bs.forEach(function (b) { b.addEventListener('click', function () { set(+b.dataset.i); }); });
+    press.addEventListener('click', function () { set((state[k] + 1) % 3); });
     return set;
   });
 

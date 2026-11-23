@@ -62,3 +62,4 @@
 - 24.11 FYI page: the six layers around the app (why, map, colour, kit, cast, going public) went through four critics and a fix round; work/fyi.html reassembled from work/_fya-*.html, fyi-around.css?v=3, fya-*.css|js?v=2. Checked in real frames at 1440 and 390.
 - 24.11 FYI page, after the owner's review: index block removed, cast opens the block (process strip removed), the reason sits in the iPhone, the structure is one line of five stops; story scenes shortened about 29 percent (trailer plays once), fyi-scenes.js?v=8, fya-why|map|cast ?v=3.
 - 24.11 FYI page: colour, kit and going public tightened to one screen each (colour thread in the iPhone, kit 4x2, Poster style removed); a page paused before arrival shows layers finished; fyi-around.css?v=4, fya-*?v=4, fya-colour.css?v=5.
+- 23.11 FYI: Together is one phone (6 beats, about 17 s); six layers each fit one screen; kit Task tile presses again. Assets bumped (fyi-scenes v13, fyi.css v9, fya-* v6, fyi-around v5).

@@ -963,6 +963,12 @@ html:not(.js) .st-launch .st-out { display: none; }
 
 /* ---------- the album: three covers in one bubble, with upload rings on the sender's phone ---------- */
 [data-scene="together"] .t5-alb { display: block; }
+/* Ines's album and poll keep the thread's left edge; each letter sits under its cover and the time beside her name, so nothing lies on the art */
+[data-scene="together"] .t5-alb, [data-scene="together"] .t5-pw .t5-poll { margin-left: 36px; }
+[data-scene="together"] .t5-cv { display: block; min-width: 0; }
+[data-scene="together"] .t5-cv .cov { display: block; width: 100%; }
+[data-scene="together"] .t5-l { display: block; padding: 3px 0 2px; text-align: center; font: 600 12px/16px var(--fxf); color: #fff; }
+[data-scene="together"] .t5-alb .t5-at { top: 4px; right: 9px; bottom: auto; height: 18px; padding: 0; background: none; opacity: .62; }
 [data-scene="together"] .t5-alb .who { padding: 3px 9px 4px; margin: 0; }
 [data-scene="together"] .t5-covs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; }
 [data-scene="together"] .t5-alb .ring { border-radius: inherit; }
@@ -1004,7 +1010,8 @@ html:not(.js) .st-launch .st-out { display: none; }
 [data-scene="together"] .t5-call .s.wait::before { background: var(--t2); }
 [data-scene="together"] .t5-call .a-notes { margin-top: 2px; }
 [data-scene="together"] .t5-call .a-notes .knot { width: 13px; height: 13px; }
-[data-scene="together"] .t5-call .a-tiles { top: 110px; bottom: 150px; grid-template-columns: 1fr; }
+[data-scene="together"] .t5-call .a-tiles { top: 110px; bottom: 124px; grid-template-columns: 1fr 1fr; }
+[data-scene="together"] .t5-call .a-tile .a-av { width: 84px; height: 84px; }
 [data-scene="together"] .t5-call .a-pip { top: auto; bottom: 162px; right: 20px; }
 [data-scene="together"] .t5-call .a-pip.talk { box-shadow: inset 0 0 0 3px var(--green), 0 10px 24px rgba(0,0,0,.6); }
 /* the picture-in-picture clips its own name, which slides in when the tiles fly to the strip */
@@ -1012,7 +1019,7 @@ html:not(.js) .st-launch .st-out { display: none; }
 [data-scene="together"] .t5-you { position: absolute; left: 0; top: 0; padding: 3px 8px; border-radius: 8px; background: rgba(0,0,0,.6); font: 500 13px/16px var(--fxf); white-space: nowrap; }
 [data-scene="together"] .t5-call .t5-ring { background: linear-gradient(170deg, #18181b, #050506 90%); }
 [data-scene="together"] .t5-call .t5-ring .a-av { opacity: .55; }
-[data-scene="together"] .t5-rg { position: absolute; left: 0; right: 0; top: calc(50% + 42px); text-align: center; font: 500 13px/16px var(--fxf); color: var(--t2); }
+[data-scene="together"] .t5-rg { position: absolute; left: 0; right: 0; top: calc(50% + 52px); text-align: center; font: 500 13px/16px var(--fxf); color: var(--t2); }
 /* sharing: the people shrink to a strip, the edit takes the screen */
 [data-scene="together"] .t5-call .a-strip { top: 110px; height: 60px; }
 [data-scene="together"] .t5-call .a-strip .a-tile { display: flex; align-items: center; justify-content: center; gap: 7px; }
@@ -1058,6 +1065,14 @@ html:not(.js) .st-launch .st-out { display: none; }
 [data-scene="together"] .t5-clipr .th .cov { position: absolute; inset: 0; }
 [data-scene="together"] .t5-clipr .th .i { position: relative; z-index: 2; width: 14px; height: 14px; color: #fff; }
 [data-scene="together"] .t5-notes .acts { margin-top: 10px; }
+
+/* ---------- the call, folded into a bar under the header while the crew votes in the thread ---------- */
+[data-scene="together"] .t5-live { position: absolute; z-index: 15; left: 12px; right: 12px; top: 145px; height: 36px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 12px; border-radius: 12px; background: linear-gradient(rgba(48,209,88,.16), rgba(48,209,88,.16)), var(--s0); font: 600 13px/16px var(--fxf); }
+[data-scene="together"] .t5-live .i { width: 17px; height: 17px; color: var(--green); }
+[data-scene="together"] .t5-live .t5-tm { color: var(--green); font-variant-numeric: tabular-nums; }
+[data-scene="together"] .t5-live .a-stack { margin-left: auto; }
+[data-scene="together"] .t5-onair .a-th { top: 187px; }
+[data-scene="together"] .t5-notes .acts .a-chip { margin: 0; }
 
 /* ---------- presence in the header: three people here now ---------- */
 [data-scene="together"] .t5-here { display: inline-flex; align-items: center; gap: 4px; vertical-align: top; }

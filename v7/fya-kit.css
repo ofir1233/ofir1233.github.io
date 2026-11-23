@@ -63,7 +63,10 @@
 #fya-kit .a-tk .tt{ min-height:20px; white-space:nowrap; }
 
 /* task: the chip and the status control that moves it */
-#fya-kit .fyak-task{ display:grid; justify-items:start; gap:16px; }
+#fya-kit .fyak-task{ display:grid; justify-items:start; align-items:center; gap:16px; min-height:44px; margin:0; padding:0; border:0; border-radius:8px; background:none; font:inherit; color:inherit; text-align:left; cursor:pointer; }
+#fya-kit .fyak-task{ position:relative; }
+#fya-kit .fyak-task::after{ content:""; position:absolute; inset:-4px; }
+#fya-kit .fyak-task:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
 #fya-kit .a-chip{ margin:0; height:32px; transition:box-shadow .3s; }
 #fya-kit .a-chip .ck{ transition:background .3s, box-shadow .3s; }
 #fya-kit .a-segc{ width:100%; }
@@ -123,3 +126,5 @@
   #fya-kit .st-think i, #fya-kit .knot.think .o1, #fya-kit .knot.think .o2, #fya-kit .is-streaming::after, #fya-kit .fyak-s.fyak-in{ animation:none; }
   #fya-kit .fyak-col{ transition:none; }
 }
+/* each layer fits one screen under the 60px bar */
+#fya-kit.fya-sec{ padding-top:clamp(64px,5vw,72px); scroll-margin-top:60px; }

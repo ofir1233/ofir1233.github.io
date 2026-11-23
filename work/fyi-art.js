@@ -104,7 +104,7 @@
     place(); if (narrow.addEventListener) narrow.addEventListener('change', place);
   });
   // the scenes were written for a page with a beat rail and count their beats from it; this page has none, so say how many each has
-  var N = { origin: 6, spark: 6, catchup: 6, task: 6, together: 8, launch: 7 };
+  var N = { origin: 6, spark: 6, catchup: 6, task: 6, together: 6, launch: 7 };
   d.addEventListener('DOMContentLoaded', function () { setTimeout(function () { parts.forEach(function (el) { var r = el.querySelector('[data-scene]'), p = r && r._fx; if (p && !p.n && N[el.dataset.part]) p.n = N[el.dataset.part]; }); }, 0); });
   window.OTArt = { set: function (el, on) { var s = el._art; if (!s) return; var st = el.querySelector('[data-fx-stage]'); if (on && st && +st.dataset.beat > s.beat) s.beat = +st.dataset.beat; s.on = on; apply(el); } };
 })();

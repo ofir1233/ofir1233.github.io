@@ -26,7 +26,7 @@
   function status() {
     var out = S.event !== S.printed;
     press.classList.toggle('is-out', out);
-    if (st) st.textContent = out ? 'Out of date' : 'In register';
+    if (st) st.textContent = out ? 'Out of date' : 'Up to date';
     if (sub) sub.textContent = out ? 'The event says ' + S.event : 'Doors ' + S.printed + ' on all three';
     refresh.disabled = !out;
     move.classList.toggle('is-quiet', out);
