@@ -1009,6 +1009,7 @@
     far.style.transform = 'translate(' + f1(sp.x * -6) + 'px,' + f1(sp.y * -4) + 'px)';
     mid.style.transform = 'translate(' + f1(sp.x * -13) + 'px,' + f1(sp.y * -8) + 'px)';
     near.style.transform = 'translate(' + f1(sp.x * -26) + 'px,' + f1(sp.y * -14) + 'px)';
+    stage.style.setProperty('--rx', sp.x.toFixed(4)); stage.style.setProperty('--ry', sp.y.toFixed(4)); stage.style.setProperty('--glass', ioS(seg(u, .2, 1.2)).toFixed(3));      /* the window leans with the mouse and its glass frame comes with the sky */
     try { var st = hiDoc().getElementById('stage'); st.style.setProperty('--tx', sp.x.toFixed(4)); st.style.setProperty('--ty', sp.y.toFixed(4)); } catch (e) {}
   }
 

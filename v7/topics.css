@@ -100,10 +100,10 @@
 #design-lab#design-lab .tp-steps button:hover .tp-num{ color:var(--ink); }
 #design-lab#design-lab .tp-steps li.on .tp-num{ color:var(--deep); }
 @media (prefers-reduced-motion:reduce){
-  .tp-again, .tp-invite{ display:none; }
+#design-lab#design-lab .tp-again, #design-lab#design-lab .tp-invite{ display:none; }
 }
 @media (max-width:899px){
-  .tp-block{ padding-bottom:200px; }
+#design-lab#design-lab .tp-block{ padding-bottom:200px; }
 #design-lab#design-lab .tp-head .label{ max-width:calc(100% - 52px); }
 #design-lab#design-lab .tp-fig{ margin-top:26px; --stw:100%; }
 #design-lab#design-lab .tp-fig .ct-stage{ margin-left:0; }
@@ -125,7 +125,7 @@
 #design-lab#design-lab .tp-narrow{ display:inline; }
 }
 @media (max-width:700px){
-  .ct-stage{ padding:5px; }
+#design-lab#design-lab .tp-fig .ct-stage{ padding:5px; }
 #design-lab#design-lab .tp-frame{ border-radius:16px; }
 #design-lab#design-lab .tp-fig .ct-stage::after{ inset:3px; border-width:4.5px; border-radius:13px; }
 #design-lab#design-lab .tp-fig .hs-win{ border-radius:11px; clip-path:inset(0 round 11px); }
@@ -137,3 +137,11 @@
 /* owner, 23.11: no driving the screen by hand */
 #design-lab#design-lab .tp-fig .tp-hi{ pointer-events:none !important; }
 @media (max-width:899px){ #design-lab#design-lab .tp-block{ padding-bottom:120px; } }
+/* owner, 23.11: the window leans in depth with the mouse, like the sign-in card, and stands on a second frame of glass.
+   --rx / --ry are the same spring that moves the clouds (topics.js); --glass arrives with the sky. */
+#design-lab#design-lab .tp-fig .ct-stage{ transform:perspective(1700px) rotateX(calc(var(--ry,0) * -2.4deg)) rotateY(calc(var(--rx,0) * 3.2deg)); will-change:transform; }
+#design-lab#design-lab .tp-fig .ct-stage::before{ content:""; display:block; position:absolute; inset:-15px; z-index:-1; border-radius:38px; pointer-events:none; opacity:var(--glass,0);
+  background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(18px) saturate(1.2); backdrop-filter:blur(18px) saturate(1.2);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.6), inset 0 1px 0 1px rgba(255,255,255,.5), 0 34px 54px -34px rgba(12,50,100,.4); }
+@media (max-width:899px){ #design-lab#design-lab .tp-fig .ct-stage::before{ inset:-8px; border-radius:24px; } }
+@media (prefers-reduced-motion:reduce){ #design-lab#design-lab .tp-fig .ct-stage{ transform:none; } }
