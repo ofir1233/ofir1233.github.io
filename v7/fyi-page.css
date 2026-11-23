@@ -251,3 +251,22 @@ html.js body.fyi-page .st-launch:not([data-out]) .fmt:not(.l6-in) figcaption{ op
   html.js body.fyi-page .st-launch .tryit{ transition:opacity .4s ease .3s, transform .4s cubic-bezier(.2,.7,.2,1) .3s; }
   html.js body.fyi-page .st-launch:not([data-out]) .tryit{ opacity:0; transform:translateY(8px); pointer-events:none; transition:none; }
 }
+
+/* round 17: the thread beside the phone. The step in hand is the large sentence at the foot of the column; the steps already
+   played stay above it, small and quiet, and the oldest leaves under a 48px fade. A new step comes in from below in 320ms while
+   the one before it shrinks in 240ms. Replay empties the column. Below 1024px the steps stay one at a time under the phone. */
+@media (min-width:1024px){
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats{ display:flex; flex-direction:column; justify-content:flex-end; height:clamp(230px, 31vh, 300px); overflow:hidden; -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 48px); mask-image:linear-gradient(180deg, transparent 0, #000 48px); }
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li{ display:none; flex:0 0 auto; }
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li.done{ display:block; visibility:visible; opacity:1; margin-bottom:12px; transition:none; }
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li.on, html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats:not(:has(> li.on)) > li:first-child{ display:block; }
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li.on{ margin-top:6px; animation:fyThIn .32s cubic-bezier(.2,.7,.2,1) both; }
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats button{ transition:font-size .24s cubic-bezier(.3,.1,.2,1), opacity .24s ease; }
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li.done button{ font-size:16px; line-height:1.4; letter-spacing:0; font-weight:500; opacity:.56; }
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) .fx-beats > li.done .rki + .rki{ margin-top:2px; }
+}
+@keyframes fyThIn{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
+@media (min-width:1024px){
+  /* the dots stand under the thread, so the sentence in hand and its place in the run read as one unit */
+  html.js body.fyi-page .stage:is(.st-l, .st-r):not(.st-anat):not(.fx-rm):not(.st-all) > .st-txt > .fx-mini{ order:1; margin-top:22px; }
+}
