@@ -399,3 +399,14 @@ html body .shot .live{ display:none !important; }
 @media (min-width:861px){
   html body .next .next-thumb.whole img{ width:168%; max-width:none; height:auto; object-fit:fill; }
 }
+
+/* the sign-in picture has its subject in the middle: on a phone it is cropped to the panel under the cloud, not swiped from its empty left side */
+@media (max-width:760px){
+  .shot.v7s.wide:has(> img[src*="v7s-studio-login"]){ overflow:hidden; }
+  .shot.v7s.wide > img[src*="v7s-studio-login"]{ width:100%; height:auto; aspect-ratio:1 / 1; object-fit:cover; object-position:center; }
+  figure:has(> .shot.v7s.wide > img[src*="v7s-studio-login"]) > figcaption::after{ content:none; }
+}
+/* the website's first screen is centred: its Next thumbnail is cropped around the middle, so the headline is not cut */
+@media (max-width:860px){
+  html body .next .next-thumb:not(.phones) img[src*="next-brand"]{ width:150%; margin-left:-25%; }
+}
