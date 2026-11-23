@@ -465,3 +465,5 @@ html body .more > summary:hover, html body.fyi-page .fx-allb:hover{ box-shadow:i
 html body .more > summary::before{ content:"+"; font:500 18px/1 var(--body); margin-top:-1px; }
 html body .more[open] > summary::before{ content:"\2212"; }
 html body .more > summary{ margin-top:6px; }
+/* Actions thumbnail: the cut edge dissolves instead of slicing a chip mid-word */
+@media (min-width:861px){ html body .next .next-thumb.whole:has(img[src*="v7s-actions-board"]){ -webkit-mask-image:linear-gradient(to right, #000 84%, transparent 100%); mask-image:linear-gradient(to right, #000 84%, transparent 100%); } }
