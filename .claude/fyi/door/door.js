@@ -237,10 +237,11 @@
   }
 
   /* ---- playing */
+  const SPEED = 1.6;                                              // owner, 23.11.2026: "the animation should run faster". The timeline keeps its own seconds; the clock runs faster.
   let raf = 0, stopAt = END, last = 0, playing = false;
   function tick(now) {
     const dt = Math.min(.05, (now - last) / 1000); last = now;
-    let t = T + dt;
+    let t = T + dt * SPEED;
     if (t >= stopAt) { t = stopAt; playing = false; }
     render(t);
     if (playing) raf = requestAnimationFrame(tick);
@@ -317,7 +318,7 @@
     if (RM) { started = true; render(END); return; }
     render(0);
     if (q.get('auto') === '0') return;
-    const obs = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting) && !started) { started = true; obs.disconnect(); setTimeout(() => play(0, END), 700); } }, { threshold: .55 });
+    const obs = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting) && !started) { started = true; obs.disconnect(); setTimeout(() => play(0, END), 350); } }, { threshold: .55 });
     obs.observe(stage);
   };
   let rz = 0;

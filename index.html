@@ -3922,6 +3922,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <link rel="stylesheet" href="v7/product.css?v=230">
 <link rel="stylesheet" href="v7/system.css?v=222">
 <link rel="stylesheet" href="v7/web-fyi.css?v=2240">
+<link rel="stylesheet" href="v7/fyi-door.css?v=1">
 <link rel="stylesheet" href="v7/campaign.css?v=221">
 <link rel="stylesheet" href="v7/feed.css?v=13">
 <link rel="stylesheet" href="v7/ia-process.css?v=221">
@@ -4331,15 +4332,160 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 
 
 <!-- ============================================================ FYI (bonus, before AI) -->
-<section id="fyi" aria-labelledby="fyi-h">
-  <div class="wrap fyi-wrap">
-    <div class="fyi-copy">
+<section id="fyi" aria-labelledby="fyi-h" data-fd-beat="0">
+  <div class="wrap fd-door-grid">
+    <div class="fd-d-copy">
       <div class="label">Case study · <b>Mobile app</b></div>
-      <h2 id="fyi-h">FYI, an iOS messenger</h2>
-      <p>A messenger for creative crews, with AI inside the conversation. I designed it at Intune, before Hear.</p>
-      <a class="btn ghost cs-more" href="work/fyi.html">FYI case study <span aria-hidden="true">→</span></a>
+      <h2 id="fyi-h">From a voice note to a full room.</h2>
+      <p>FYI is a social platform for creators. A crew makes the work together, shares it and announces the night, with AI working inside the conversation. I designed it at Intune, before Hear.</p>
     </div>
-    <div class="fyi-fan fyi-show rv" role="region" aria-roledescription="carousel" aria-label="FYI screens, latest version with demo content"><div class="fyq-stage"><figure class="fyq" style="--i:0" data-cap="Chats: the Copper Hours crew and friends"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-1.webp" srcset="img/fyi-proto-1.webp 590w, img/fyi-proto-1-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="FYI chat list: the Copper Hours group with Theo typing, direct chats with Ines, Kofi and Theo, and a collective" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:1" data-cap="A voice note, transcribed under the bubble"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-2.webp" srcset="img/fyi-proto-2.webp 590w, img/fyi-proto-2-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="Copper Hours group chat: a 2.1 GB stems file at full size, a voice note with its transcript, and the crew's replies" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq on" style="--i:2" data-cap="A private AI catch-up of what you missed"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-3.webp" srcset="img/fyi-proto-3.webp 590w, img/fyi-proto-3-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="A private FYI AI catch-up card in the group chat: While you were away, with three updates and one open question" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:3" data-cap="A message in the chat becomes a task"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-4.webp" srcset="img/fyi-proto-4.webp 590w, img/fyi-proto-4-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="New task sheet filled from Theo's message: name, due date, assignee, and a waiting-on task with no date" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure><figure class="fyq" style="--i:4" data-cap="Launch night, promoted from the chat"><div class="fyq-ph"><div class="fyq-scr"><img src="img/fyi-proto-5.webp" srcset="img/fyi-proto-5.webp 590w, img/fyi-proto-5-l.webp 786w" sizes="(max-width: 700px) 62vw, 240px" width="590" height="1279" alt="An event card for Copper Hours Launch Night, Fri, Nov 20 at Dock Hall 3, with Going, a story, a post and a link page, and RSVPs in the thread" loading="lazy" decoding="async"><i class="fyq-isl" aria-hidden="true"></i></div></div></figure></div><div class="fyq-bar"><p class="fyq-cap"><span class="fyq-n">03</span><span class="fyq-t">A private AI catch-up of what you missed</span></p><div class="fyq-dots"><button type="button" class="fyq-dot" aria-label="Screen 1 of 5: Chats: the Copper Hours crew and friends"></button><button type="button" class="fyq-dot" aria-label="Screen 2 of 5: A voice note, transcribed under the bubble"></button><button type="button" class="fyq-dot" aria-label="Screen 3 of 5: A private AI catch-up of what you missed" aria-current="true"></button><button type="button" class="fyq-dot" aria-label="Screen 4 of 5: A message in the chat becomes a task"></button><button type="button" class="fyq-dot" aria-label="Screen 5 of 5: Launch night, promoted from the chat"></button></div></div></div>
+
+    <div class="fd-d-ctl">
+      <div class="fd-trk" role="group" aria-label="Play the story in three parts">
+        <button type="button" class="fd-trk-b" data-step="1"><i class="fd-trk-l"><i></i></i><span class="fd-trk-n">01</span><span class="fd-trk-t">Collaborate</span></button>
+        <button type="button" class="fd-trk-b" data-step="2"><i class="fd-trk-l"><i></i></i><span class="fd-trk-n">02</span><span class="fd-trk-t">Share the work</span></button>
+        <button type="button" class="fd-trk-b" data-step="3"><i class="fd-trk-l"><i></i></i><span class="fd-trk-n">03</span><span class="fd-trk-t">Announce</span></button>
+      </div>
+      <div class="fd-cap" aria-live="polite">
+        <p class="fd-cap-i" data-cap="1">Maya sends a voice note. AI transcribes it, and the crew picks the idea up.</p>
+        <p class="fd-cap-i" data-cap="2">Kofi asks for a cover and AI makes the task from his words. The crew votes, and cover B becomes the sleeve.</p>
+        <p class="fd-cap-i" data-cap="3">Kofi books the room. AI drafts the event from his message, Maya publishes it, and the room fills.</p>
+      </div>
+    </div>
+
+    <a class="btn ghost cs-more fd-d-cta" href="work/fyi.html">FYI case study <span aria-hidden="true">→</span></a>
+
+    <div class="fd-d-stage" id="fd-stage">
+      <div class="fd-st-in" id="fd-stin">
+
+        <!-- far wall: spray and halftone -->
+        <div class="fd-dp fd-bg-cyan" data-depth="5"></div>
+        <div class="fd-dp fd-bg-dots" data-depth="9"></div>
+
+        <!-- the plan, in ink: where each thing will land -->
+        <svg class="fd-dp fd-sk" id="fd-sk" data-depth="10" aria-hidden="true"></svg>
+
+        <!-- the wave, painted on the page -->
+        <svg class="fd-dp fd-wv fd-wv-back" id="fd-wvBack" data-depth="11" aria-hidden="true"></svg>
+
+        <!-- the poster (pastes itself on the page) -->
+        <div class="fd-dp fd-pst" id="fd-pst" data-depth="13" aria-hidden="true">
+          <div class="fd-pst-sh"></div>
+          <div class="fd-pst-in"><img src="img/fyi-door/poster.webp" alt="" width="250" height="350"><i class="fd-pst-curl"></i></div>
+        </div>
+
+        <!-- the phone: a window -->
+        <div class="fd-dp fd-ph" id="fd-ph" data-depth="18">
+          <div class="fd-ph-tilt" id="fd-phTilt">
+          <div class="fd-ph-scr" role="img" aria-label="The Copper Hours thread in FYI: a voice note with its AI transcript, a cover poll, and the launch night event at Dock Hall 3">
+            <div class="fd-ph-sb" aria-hidden="true"><b>9:41</b><i class="fd-isl"></i>
+              <svg class="fd-sig" viewBox="0 0 46 12" width="46" height="12"><g fill="#fff"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="5" width="3" height="7" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/><path d="M26 2.2c2 0 3.8.8 5.200 2.100l-.9 1c-1.200-1.100-2.700-1.700-4.300-1.700s-3.100.6-4.300 1.700l-.9-1C22.200 3 24 2.200 26 2.200zm0 3c1.200 0 2.300.5 3.100 1.300l-.9 1c-.6-.6-1.400-.9-2.200-.9s-1.600.3-2.200.9l-.9-1c.8-.8 1.900-1.300 3.100-1.300zm0 3c.5 0 .9.200 1.200.5L26 10l-1.200-1.300c.3-.3.7-.5 1.200-.5z"/><rect x="34.500" y=".5" width="10" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="36" y="2" width="7" height="8" rx="1.600"/></g></svg>
+            </div>
+            <div class="fd-th-hd" aria-hidden="true">
+              <svg class="fd-chev" viewBox="0 0 10 16" width="9" height="15"><path d="M8 1.500 1.800 8 8 14.500" fill="none" stroke="#ff2d8f" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="fd-stack"><img src="img/fyi-door/av-maya.webp" alt=""><img src="img/fyi-door/av-theo.webp" alt=""><img src="img/fyi-door/av-ines.webp" alt=""><img src="img/fyi-door/av-kofi.webp" alt=""></span>
+              <span class="fd-th-ti"><b>Copper Hours</b><small>Maya, Theo, Ines, Kofi</small></span>
+            </div>
+
+            <div class="fd-th-view" id="fd-view" aria-hidden="true"><div class="fd-th-roll" id="fd-roll">
+
+              <!-- page 1 : collaborate -->
+              <div class="fd-pg">
+                <div class="fd-pill">Day 1 · Maya started Copper Hours</div>
+                <div class="fd-row fd-out">
+                  <div class="fd-vn" id="fd-vn">
+                    <button type="button" class="fd-vn-play" id="fd-vnPlay" aria-label="Play the story" tabindex="-1"><svg viewBox="0 0 12 12" width="11" height="11"><path class="fd-ic-play" d="M3 1.300v9.400a.6.6 0 0 0 .9.500l7.300-4.700a.6.6 0 0 0 0-1L3.900.8a.6.6 0 0 0-.9.500z" fill="#ff2d8f"/><path class="fd-ic-pause" d="M2.500 1.500h2.400v9H2.500zM7.100 1.500h2.400v9H7.100z" fill="#ff2d8f"/></svg></button>
+                    <span class="fd-vn-bars" id="fd-vnBars"></span>
+                    <span class="fd-vn-time" id="fd-vnTime">0:21</span>
+                  </div>
+                </div>
+                <div class="fd-tr fd-rv" data-at="1.5">
+                  <span class="fd-ai-tag"><b>AI</b> transcript</span>
+                  <p id="fd-trText">Hear the bridge at 1:40? What if the drop isn't a post. What if it's a night.</p>
+                </div>
+                <div class="fd-row fd-in fd-rv" data-at="2.6"><img class="fd-av" src="img/fyi-door/av-theo.webp" alt=""><div class="fd-bub"><em>Theo</em>the bridge is the video. I can see it already</div></div>
+                <div class="fd-row fd-in fd-rv" data-at="2.95"><img class="fd-av" src="img/fyi-door/av-ines.webp" alt=""><div class="fd-bub"><em>Ines</em>a night needs a poster. I'm in</div></div>
+                <div class="fd-row fd-in fd-rv" data-at="3.3"><img class="fd-av" src="img/fyi-door/av-kofi.webp" alt=""><div class="fd-bub"><em>Kofi</em>I know a room. Fridays in November are open</div></div>
+              </div>
+
+              <!-- page 2 : share the work -->
+              <div class="fd-pg">
+                <div class="fd-pill">Day 19 · Sat, Oct 31</div>
+                <div class="fd-row fd-in fd-rv" data-at="4.35"><img class="fd-av" src="img/fyi-door/av-kofi.webp" alt=""><div class="fd-bub"><em>Kofi</em>need a cover for the posters by Nov 6</div></div>
+                <div class="fd-task fd-rv" data-at="4.85">
+                  <span class="fd-ai-tag"><b>AI</b> made a task from Kofi's words</span>
+                  <div class="fd-task-c"><i class="fd-ck"></i><span><b>Cover art</b><small><img src="img/fyi-door/av-ines.webp" alt="">Ines · Fri, Nov 6</small></span></div>
+                </div>
+                <div class="fd-row fd-in fd-rv" data-at="5.35"><img class="fd-av" src="img/fyi-door/av-ines.webp" alt="">
+                  <div class="fd-poll" id="fd-poll">
+                    <div class="fd-poll-q"><em>Ines</em><b>Which cover?</b><small id="fd-pollN">Poll · 0 votes</small></div>
+                    <div class="fd-poll-g">
+                      <div class="fd-cov" data-c="a"><span class="fd-cov-i"><img src="img/fyi-door/cover-a.webp" alt=""></span><span class="fd-cov-t">A · Horizon</span><span class="fd-cov-v"><img class="fd-vt" data-at="6.2" src="img/fyi-door/av-maya.webp" alt=""></span></div>
+                      <div class="fd-cov" data-c="b" id="fd-covB"><span class="fd-cov-i" id="fd-thumbB"><img src="img/fyi-door/cover-b.webp" alt=""></span><span class="fd-cov-t">B · Grooves</span><span class="fd-cov-v"><img class="fd-vt" data-at="5.85" src="img/fyi-door/av-theo.webp" alt=""><img class="fd-vt" data-at="6.02" src="img/fyi-door/av-kofi.webp" alt=""><img class="fd-vt" data-at="6.4" src="img/fyi-door/av-ines.webp" alt=""></span></div>
+                      <div class="fd-cov" data-c="c"><span class="fd-cov-i"><img src="img/fyi-door/cover-c.webp" alt=""></span><span class="fd-cov-t">C · Stack</span><span class="fd-cov-v"></span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="fd-row fd-in fd-rv" data-at="7.25"><img class="fd-av" src="img/fyi-door/av-theo.webp" alt=""><div class="fd-bub"><em>Theo</em>B. I cut the bridge to it.</div></div>
+              </div>
+
+              <!-- page 3 : announce -->
+              <div class="fd-pg">
+                <div class="fd-pill">Day 24 · Thu, Nov 5</div>
+                <div class="fd-row fd-in fd-rv" data-at="8.5"><img class="fd-av" src="img/fyi-door/av-kofi.webp" alt=""><div class="fd-bub"><em>Kofi</em>Dock Hall 3 signed. Fri Nov 20, doors at 9</div></div>
+                <div class="fd-ev fd-rv" data-at="9.1" id="fd-ev">
+                  <span class="fd-ai-tag"><b>AI</b> drafted the event from Kofi's message</span>
+                  <div class="fd-ev-c">
+                    <div class="fd-ev-top">
+                      <span class="fd-ev-art" id="fd-evArt"><img src="img/fyi-door/poster.webp" alt=""></span>
+                      <span class="fd-ev-tx"><i class="fd-ev-st" id="fd-evSt">Draft</i><b>Copper Hours Launch Night</b><small>Fri, Nov 20 · Doors 9 PM</small><small>Dock Hall 3</small></span>
+                    </div>
+                    <div class="fd-ev-bot">
+                      <div class="fd-ev-draft" id="fd-evDraft"><span class="fd-ev-btn" id="fd-evPub">Publish</span><small>Check before you publish</small></div>
+                      <div class="fd-ev-live" id="fd-evLive"><span class="fd-ev-go"><svg viewBox="0 0 12 10" width="10" height="9"><path d="M1.500 5.200 4.500 8l6-6.500" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Going</span><span class="fd-stack fd-sm"><img src="img/fyi-door/av-maya.webp" alt=""><img src="img/fyi-door/av-theo.webp" alt=""><img src="img/fyi-door/av-ines.webp" alt=""><img src="img/fyi-door/av-kofi.webp" alt=""></span><span class="fd-ev-n">Going · <b id="fd-evN">4</b></span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="fd-rsvp fd-rv" data-at="11.5"><i>J</i><span><b>June</b> is going</span></div>
+                <div class="fd-rsvp fd-rv" data-at="11.8"><i>S</i><span><b>Sol</b> is going</span></div>
+                <div class="fd-rsvp fd-rv" data-at="12.1"><i>A</i><span><b>Ari</b> and 20 others are going</span></div>
+              </div>
+
+            </div></div>
+
+            <div class="fd-th-cmp" aria-hidden="true"><span class="fd-cmp-p">+</span><span class="fd-cmp-f">Message</span><svg viewBox="0 0 12 16" width="11" height="15"><rect x="3.500" y=".8" width="5" height="9" rx="2.500" fill="#8e8e93"/><path d="M1.200 7.500a4.800 4.800 0 0 0 9.600 0M6 12.300V15" fill="none" stroke="#8e8e93" stroke-width="1.400" stroke-linecap="round"/></svg></div>
+            <i class="fd-ph-home" aria-hidden="true"></i>
+          </div>
+          </div>
+        </div>
+
+        <!-- the wave where it crosses the glass -->
+        <svg class="fd-dp fd-wv fd-wv-front" id="fd-wvFront" data-depth="18" aria-hidden="true"></svg>
+
+        <!-- the record -->
+        <div class="fd-dp fd-rec" id="fd-rec" data-depth="30" aria-hidden="true">
+          <div class="fd-rec-sh" id="fd-recSh"></div>
+          <div class="fd-rec-in" id="fd-recIn">
+            <div class="fd-rec-disc" id="fd-recDisc"><i class="fd-rec-lbl"></i></div>
+            <div class="fd-rec-slv"><img src="img/fyi-door/cover-b.webp" alt="" width="232" height="232"></div>
+            <svg class="fd-rec-ink" viewBox="0 0 260 260" aria-hidden="true"><path id="fd-recInk" pathLength="1" d="M10 22c60-9 150-12 236-6c5 70 7 150 2 232c-80 6-160 5-234-2C8 170 6 90 12 16" fill="none"/></svg>
+            <div class="fd-rec-av" id="fd-recAv"><img src="img/fyi-door/av-theo.webp" alt=""><img src="img/fyi-door/av-kofi.webp" alt=""><img src="img/fyi-door/av-ines.webp" alt=""></div>
+          </div>
+        </div>
+
+        <!-- the ticket: going -->
+        <div class="fd-dp fd-tkt" id="fd-tkt" data-depth="24" aria-hidden="true">
+          <div class="fd-tkt-in" id="fd-tktIn"><img src="img/fyi-door/st-ticket.webp" alt="" width="382" height="229"><span class="fd-tkt-tx"><b id="fd-tktN">27</b><em>going</em></span></div>
+        </div>
+
+        <!-- hand-inked ties -->
+        <svg class="fd-dp fd-ink" id="fd-ink" data-depth="20" aria-hidden="true"></svg>
+
+        <!-- the invitation at rest -->
+        <button type="button" class="fd-dp fd-hint" id="fd-hint" data-depth="20"><span>Play Maya's voice note</span></button>
+
+      </div>
+    </div>
   </div>
 </section>
 
@@ -6831,6 +6977,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <script src="v7/product.js?v=221" defer></script>
 <script src="v7/system.js?v=222" defer></script>
 <script src="v7/web-fyi.js?v=221" defer></script>
+<script src="v7/fyi-door.js?v=1" defer></script>
 <script src="v7/feed.js?v=5" defer></script>
 <script src="v7/ia-process.js?v=221" defer></script>
 <script src="v7/path-contact.js?v=221" defer></script>
