@@ -171,3 +171,10 @@ html body section#design-lab#design-lab .sec-head .cs-pair{ gap:8px 18px; }
 #design-lab#design-lab .tp-fig.is-drag{ user-select:none; -webkit-user-select:none; }
 #design-lab#design-lab .tp-ends{ display:flex; justify-content:space-between; margin:18px 12px 0; font:500 15px/22px var(--body); color:#5d636a; }
 @media (max-width:700px){ #design-lab#design-lab .tp-ends{ margin:12px 6px 0; font-size:14px; } #design-lab#design-lab .tp-cut i{ width:34px; height:34px; margin:-17px 0 0 -17px; } #design-lab#design-lab .tp-cut i::before{ left:9px; } #design-lab#design-lab .tp-cut i::after{ right:9px; } }
+
+/* the two names ride the line, one on each side of it, so the reader sees which side is which where the eye already is */
+#design-lab#design-lab .tp-ends{ --p:50%; display:block; position:relative; height:22px; margin:18px 0 0; color:#171b20; }
+#design-lab#design-lab .tp-ends span{ position:absolute; top:0; left:clamp(118px, var(--p), calc(100% - 118px)); white-space:nowrap; }
+#design-lab#design-lab .tp-ends span:first-child{ transform:translateX(calc(-100% - 16px)); }
+#design-lab#design-lab .tp-ends span:last-child{ transform:translateX(16px); }
+@media (max-width:700px){ #design-lab#design-lab .tp-ends{ margin:12px 0 0; } #design-lab#design-lab .tp-ends span{ left:clamp(102px, var(--p), calc(100% - 102px)); } #design-lab#design-lab .tp-ends span:first-child{ transform:translateX(calc(-100% - 12px)); } #design-lab#design-lab .tp-ends span:last-child{ transform:translateX(12px); } }

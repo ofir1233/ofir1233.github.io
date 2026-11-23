@@ -186,7 +186,7 @@
   fig.querySelector('.ct-stage').insertAdjacentElement('afterend', ends);
   var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var W = 1440, p = calm ? 50 : 96, n = 0, seen = false, came = calm, used = false;
-  function draw() { hi.style.clipPath = 'inset(0 0 0 ' + (3 + p / 100 * (W - 6)).toFixed(1) + 'px)'; cut.style.left = p + '%'; cut.setAttribute('aria-valuenow', Math.round(p)); cut.setAttribute('aria-valuetext', Math.round(p) + '% wireframe'); }
+  function draw() { hi.style.clipPath = 'inset(0 0 0 ' + (3 + p / 100 * (W - 6)).toFixed(1) + 'px)'; cut.style.left = p + '%'; ends.style.setProperty('--p', p + '%'); cut.setAttribute('aria-valuenow', Math.round(p)); cut.setAttribute('aria-valuetext', Math.round(p) + '% wireframe'); }
   /* both pages are drawn at the same size so they line up to the pixel: 1440 in a wide frame, 860 without the sidebar in a medium one, a tall 460 on a phone */
   function fit() {
     var cw = stage.clientWidth, t = cw >= 900 ? [1440, 810, ''] : cw >= 560 ? [860, 484, 's'] : [460, 560, 'p']; W = t[0];

@@ -20,7 +20,7 @@
   });
   pick(0);
   var read = function () { var r = window.v7Read; if (!r) return; [].forEach.call(ol.querySelectorAll('.pl-t a[data-sec]'), function (a) { if (r[a.getAttribute('data-sec')] >= 5) a.textContent = 'You read this above'; }); };
-  /* one guided pass, once: 700ms after the line is drawn the blue runs 01 to 08 at 90ms a stop, holds 200ms and comes back. Skipped once the reader has touched it. */
+  /* one guided pass, once: 1800ms after the line is drawn the blue runs 01 to 08 at 140ms a stop, holds 200ms and comes back; the first sentence stays in place throughout. Skipped once the reader has touched it. */
   function tour() {
     if (!wide.matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     setTimeout(function () {
@@ -32,8 +32,8 @@
         k++; if (k < n) { pick(k); return; }
         clearInterval(id);
         setTimeout(function () { if (ol.classList.contains('used')) { stop(); return; } ol.classList.add('back'); pick(0); setTimeout(stop, 440); }, 200);
-      }, 90);
-    }, 1400);
+      }, 140);
+    }, 1800);
   }
   /* phone: the stop at 45% of the window is the one in hand */
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
