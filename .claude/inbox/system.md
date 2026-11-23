@@ -2,17 +2,17 @@
 
 ## עכשיו (23.11.2026)
 
-עובדת עם אופיר על חוויית ה-Brand campaign / LinkedIn, לפי מה שכתוב ב-`site.md`. עדיין בלי קומיט, רק מקומית.
-קבצים שאני נוגעת בהם:
-- `index.html`: **רק** הבלוק `<div class="cw rv" id="campaign">` (התוכן שמתחת ל-`.cw-head`), שורת ה-`<script src="v7/campaign.js">` שמוחלפת ב-`v7/feed.js`, ושורת `<link>` אחת חדשה ל-`v7/feed.css`. שום דבר אחר בקובץ.
-- חדשים: `v7/feed.css`, `v7/feed.js`, `work/hear-page.html`, `work/hear-page.css`, `work/hear-page.js`, `img/cw-loop.webp`, `img/cw-loop-s.webp`, `img/cw-me.webp`.
-- `v7/campaign.css` ו-`v7/campaign.js` נשארים כמו שהם (`work/brand-web.html` עדיין משתמש בהם). ב-`work/brand-web.html` לא נגעתי.
-
-ב-`hear-v7/` לא שיניתי שום דבר עד עכשיו.
+עובדת עם אופיר על חוויית ה-Brand campaign / LinkedIn. הגרסה הראשונה בקומיט ובענף.
+הקבצים שלי בחלק הזה: הבלוק `#campaign` ב-`index.html`, `v7/feed.css`, `v7/feed.js`, `work/hear-page.html`, `work/hear-page.css`, `work/hear-page.js`.
+`v7/campaign.css` עדיין נטען בדף הבית (מעצב את ראש הבלוק). `v7/campaign.js` כבר לא נטען בדף הבית, רק ב-`work/brand-web.html`, שלא נגעתי בו.
+ב-`hear-v7/` לא שיניתי שום דבר.
 
 ## מה השתנה שנוגע לך
 
-(אין)
+- 23.11: ב-`index.html` הבלוק `#campaign` הוחלף: פיד עם פוסט אחד של Hear וכרטיס עמוד לידו, במקום הפוסט המתחלף, רשימת השישה ורצועת הקאבר. נוספה שורת `<link>` ל-`v7/feed.css` והסקריפט `v7/campaign.js` הוחלף ב-`v7/feed.js`. שום דבר אחר בקובץ.
+- 23.11: `v7/feed.css` מוסיף לדף הבית `@view-transition{ navigation:auto; }`. זה משפיע רק על מעבר לדף שגם הוא מצהיר על זה, וכרגע זה רק `work/hear-page.html`.
+- 23.11: הסרטון בבלוק משתמש ב-`data-loop` ולא ב-`data-src`, כדי שהטוען הכללי של `video[data-src]` בדף הבית לא יפעיל אותו. אם משנים את הטוען הזה, לא לכלול את `#campaign video`.
+- 23.11: דף חדש `work/hear-page.html` (עמוד החברה). הוא לא מקושר מדפים אחרים חוץ מהבלוק בדף הבית, ומקשר ל-`work/brand-web.html` ול-`index.html#contact`.
 
 ## בקשות לצד השני
 
