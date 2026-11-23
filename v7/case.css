@@ -381,3 +381,15 @@ html body .cs-hero:not(.fyi-hero){ padding-bottom:0 !important; }
 :root .bw-go .pill:hover{ box-shadow:0 0 0 1px rgba(23,27,32,.32); }
 .fyi-page .strip-row{ flex-wrap:wrap; row-gap:22px; overflow:visible; border-radius:20px; }
 .fyi-page .sources{ padding-top:28px; }
+
+/* round 12, continued. The provenance pill on every figure read as a template stamp and covered content on phones; the source note at the
+   end of each page says it once. FYI: the edge cases use the full width in two columns, the seven launch steps break 4 + 3. */
+html body .shot .live{ display:none !important; }
+@media (min-width:1000px){
+  .fyi-page .chapter > .wrap > .edges{ max-width:none; }
+  .fyi-page .chapter > .wrap > .edges ul{ display:block; columns:2; column-gap:64px; }
+  .fyi-page .chapter > .wrap > .edges li{ break-inside:avoid; margin-bottom:10px; }
+  .fyi-page .st-launch .fx-beats.wide{ grid-template-columns:repeat(4, minmax(0, 1fr)); }
+}
+:root .fyi-page .tryit .pill:not([data-on]){ background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.14); color:#171b20; }
+:root .fyi-page .tryit .pill:not([data-on]):hover{ background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.32); }
