@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FYI door: what the phone sees</title>
+<link rel="preload" href="/fonts/Byrd-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="lens.css">
+</head>
+<body>
+
+<!-- shared shapes and inks -->
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- the window: a rectangle seen through a wide lens, every edge bowed outward -->
+    <clipPath id="barrel" clipPathUnits="objectBoundingBox">
+      <path d="M.11 .014 Q.5 -.014 .89 .014 C.955 .019 .978 .036 .982 .082 Q1.018 .5 .982 .918 C.978 .964 .955 .981 .89 .986 Q.5 1.014 .11 .986 C.045 .981 .022 .964 .018 .918 Q-.018 .5 .018 .082 C.022 .036 .045 .019 .11 .014Z"/>
+    </clipPath>
+    <!-- rough spray paint: solid in the middle, speckled at the edge -->
+    <filter id="spray" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="b"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.35" numOctaves="2" seed="11" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.4 0 0 0 -.2" result="na"/>
+      <feComposite in="b" in2="na" operator="arithmetic" k1="0" k2="1.25" k3=".85" k4="-.78" result="m"/>
+      <feComponentTransfer in="m" result="mask"><feFuncA type="discrete" tableValues="0 0 1 1"/></feComponentTransfer>
+      <feFlood flood-color="#ff2d8f"/>
+      <feComposite in2="mask" operator="in"/>
+    </filter>
+    <!-- a hand that is not a ruler -->
+    <filter id="ink" x="-5%" y="-20%" width="110%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6"/>
+    </filter>
+  </defs>
+</svg>
+
+<main>
+<section id="fyi" class="door" aria-labelledby="fyi-h">
+  <div class="wrap">
+
+    <div class="copy">
+      <div class="label">Case study · Mobile app</div>
+      <h2 id="fyi-h">FYI, from a voice note to <span class="mark">a full room<svg viewBox="0 0 300 22" preserveAspectRatio="none" aria-hidden="true"><path d="M4 12 C52 5 118 15 176 9 S268 6 296 10 M22 18 C96 13 190 19 282 15" filter="url(#ink)"/></svg></span></h2>
+      <p class="lede">An iOS app where artists make work together, share it with their audience and announce the night. AI runs underneath all of it. I designed it at Intune, before Hear.</p>
+      <a class="btn" id="plain" href="/work/fyi.html">FYI case study <span aria-hidden="true">→</span></a>
+      <p class="note" id="note">
+        <b>You are the phone on the desk.</b>
+        <span class="note-d">Hold record to send the crew a note and walk in.</span>
+        <span class="note-m">Hold record with your thumb to send the crew a note and walk in.</span>
+      </p>
+    </div>
+
+    <div class="stage">
+      <div class="lens" id="lens">
+
+        <!-- on the page, behind the window -->
+        <i class="dots" aria-hidden="true"></i>
+        <svg class="spray" viewBox="0 0 240 150" aria-hidden="true"><path d="M26 112 C70 86 128 62 214 34" stroke="#000" stroke-width="34" stroke-linecap="round" fill="none" filter="url(#spray)"/></svg>
+        <i class="fringe c" aria-hidden="true"></i>
+        <i class="fringe m" aria-hidden="true"></i>
+        <div class="rim-shadow" aria-hidden="true"><i class="rim"></i></div>
+
+        <!-- the window -->
+        <div class="glass" id="glass">
+          <div class="room" aria-hidden="true">
+            <img class="pl far"   src="img/far.webp"   alt="" draggable="false">
+            <img class="pl woman" src="img/woman.webp" alt="" draggable="false">
+            <img class="pl man"   src="img/man.webp"   alt="" draggable="false">
+            <i class="scrim"></i>
+            <img class="pl hand"  src="img/near.webp"  alt="" draggable="false">
+          </div>
+          <i class="glow" aria-hidden="true"></i>
+          <i class="vig" aria-hidden="true"></i>
+          <i class="sheen" aria-hidden="true"></i>
+          <canvas class="wave" id="wave" aria-hidden="true"></canvas>
+
+          <!-- the product, drawn on the glass -->
+          <div class="ui">
+            <div class="thread">
+              <span class="faces" aria-hidden="true"><i style="--c:#ff2d8f">M</i><i style="--c:#19c8f0">T</i><i style="--c:#8f5bff">I</i><i style="--c:#ffb23e">K</i></span>
+              <b>Copper Hours</b>
+            </div>
+
+            <div class="rec" id="rec">
+              <span class="rec-t" id="timer"><i></i><span id="time">0:00.0</span></span>
+              <span class="rec-n" id="sent" aria-hidden="true"><span class="play"></span><span class="mini" id="mini"></span><span class="dur" id="dur">0:02</span></span>
+            </div>
+
+            <div class="hint" id="hint" aria-hidden="true"><span id="hint-t">Hold to record</span></div>
+
+            <button class="puck" id="puck" type="button" aria-describedby="note" aria-label="Hold to record a voice note to Copper Hours and open the FYI case study">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="ripple" id="ripple" cx="50" cy="50" r="45"/>
+                <circle class="disc" cx="50" cy="50" r="45"/>
+                <circle class="track" cx="50" cy="50" r="45"/>
+                <circle class="ring" id="ring" cx="50" cy="50" r="45" pathLength="100" transform="rotate(-90 50 50)"/>
+                <circle class="dot" id="dot" cx="50" cy="50" r="19"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- on the page, in front of the window -->
+        <div class="st sleeve" data-z=".026" data-r="-9" aria-hidden="true">
+          <img src="img/st-sleeve.webp" alt="" draggable="false"><span class="tape">The single</span>
+        </div>
+        <div class="st bubble" data-z=".036" data-r="6" aria-hidden="true">
+          <img src="img/st-bubble.webp" alt="" draggable="false"><span class="say">The crew</span>
+        </div>
+        <div class="st ticket" data-z=".03" data-r="-13" aria-hidden="true">
+          <img src="img/st-ticket.webp" alt="" draggable="false"><span class="tape">Launch night</span>
+        </div>
+
+        <svg class="arrow" viewBox="0 0 470 150" aria-hidden="true">
+          <g filter="url(#ink)">
+            <path class="a-i" d="M-12 50 C26 108 176 147 318 140 C392 136 430 128 441 104"/>
+            <path class="a-i" d="M425 121 L442 102 L455 124"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+  <p class="sr" aria-live="polite" id="live"></p>
+</section>
+</main>
+
+<script src="lens.js"></script>
+</body>
+</html>

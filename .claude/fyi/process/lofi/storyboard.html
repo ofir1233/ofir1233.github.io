@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FYI page · three structures, low fidelity</title>
+<style>
+@font-face{ font-family:"Byrd"; src:url("/fonts/Byrd-Regular.woff2") format("woff2"); font-weight:400; }
+@font-face{ font-family:"Byrd"; src:url("/fonts/Byrd-Medium.woff2") format("woff2"); font-weight:500; }
+@font-face{ font-family:"Byrd"; src:url("/fonts/Byrd-SemiBold.woff2") format("woff2"); font-weight:600; }
+*{ box-sizing:border-box; }
+body{ margin:0; padding:40px 44px 36px; width:2260px; background:#efeeeb; color:#171b20; font:400 16px/1.4 "Byrd", Helvetica, Arial, sans-serif; }
+h1{ margin:0 0 6px; font:600 30px/1.2 "Byrd"; letter-spacing:-.01em; }
+.sub{ margin:0 0 26px; color:#5d636a; font-size:18px; }
+.row{ margin:0 0 30px; }
+.row h2{ margin:0 0 2px; font:600 21px/1.3 "Byrd"; }
+.row h2 b{ display:inline-block; width:28px; }
+.row > p{ margin:0 0 12px; max-width:1500px; color:#333a42; font-size:16.5px; }
+.frames{ display:grid; grid-template-columns:repeat(6, 1fr); gap:14px; }
+.f svg{ display:block; width:100%; height:auto; border-radius:6px; background:#fff; }
+.f b{ display:block; margin:8px 0 1px; font:600 14.5px/1.3 "Byrd"; }
+.f span{ display:block; font-size:14px; line-height:1.35; color:#4b5158; }
+.legend{ margin:8px 0 0; color:#5d636a; font-size:15px; }
+</style>
+</head>
+<body>
+<h1>FYI page: three ways to build it, in low fidelity</h1>
+<p class="sub">Grey boxes stand for pictures of the crew's world, dark shapes for phones, lines for text, blue for the one moment of each part. Nothing here is a finished layout.</p>
+<div id="rows"></div>
+<p class="legend">The same material in all three: the Copper Hours crew, the thread, the AI catch-up, the task, the three phones, the event and its three formats, the colour system. What changes is what leads: the work (A), the people (B) or the thread (C).</p>
+<script>
+var W = 356, H = 230, INK = '#3a3d42', PIC = '#dfe3e6', LINE = '#c9ccd0', BLUE = '#1d9bf0', PAPER = '#f4f3f1';
+function R(x, y, w, h, f, r, e) { return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" fill="' + f + '"' + (r ? ' rx="' + r + '"' : '') + (e || '') + '/>'; }
+function pic(x, y, w, h) { return R(x, y, w, h, PIC, 4) + '<path d="M' + x + ' ' + (y + h) + ' L' + (x + w * .36) + ' ' + (y + h * .45) + ' L' + (x + w * .58) + ' ' + (y + h * .72) + ' L' + (x + w * .76) + ' ' + (y + h * .5) + ' L' + (x + w) + ' ' + (y + h) + ' Z" fill="#cdd2d6"/><circle cx="' + (x + w * .8) + '" cy="' + (y + h * .26) + '" r="' + Math.min(w, h) * .08 + '" fill="#cdd2d6"/>'; }
+function phone(x, y, h, on) { var w = h * .49; return R(x, y, w, h, INK, h * .09) + R(x + w * .07, y + h * .035, w * .86, h * .93, on || '#55595f', h * .06); }
+function lines(x, y, w, n, big) { var s = ''; for (var i = 0; i < n; i++) s += R(x, y + i * (big ? 15 : 9), w * (i === n - 1 ? .6 : 1), big ? 9 : 4, big && i < 2 ? '#8f9499' : LINE, 2); return s; }
+function bub(x, y, w, f) { return R(x, y, w, 12, f || '#8a8e94', 6); }
+function person(x, y, h) { var r = h * .2; return '<circle cx="' + x + '" cy="' + (y - h + r) + '" r="' + r + '" fill="' + INK + '"/><path d="M' + (x - h * .3) + ' ' + y + ' Q' + (x - h * .3) + ' ' + (y - h * .62) + ' ' + x + ' ' + (y - h * .62) + ' Q' + (x + h * .3) + ' ' + (y - h * .62) + ' ' + (x + h * .3) + ' ' + y + ' Z" fill="' + INK + '"/>'; }
+function wave(x, y, w, f) { var s = '', n = Math.floor(w / 6); for (var i = 0; i < n; i++) { var h = 6 + ((i * 37) % 23); s += R(x + i * 6, y - h / 2, 3, h, f || BLUE, 1.5); } return s; }
+var BG = R(0, 0, W, H, PAPER);
+var ROWS = [
+ { k: 'A', name: 'One work, from a voice note to a full room', say: 'The page follows one piece of work, Copper Hours, from the first idea to the night the audience comes. Each part is one moment in that story, and in each the content leaves the phone and becomes the real thing. The phone is a window, never the subject. Design decisions sit beside the moment they belong to.',
+   f: [
+    ['Opening', 'The launch night, large. The phone holds the event the room came for.', BG + pic(0, 0, W, H) + phone(238, 34, 168, BLUE) + lines(24, 150, 150, 3, true)],
+    ['It started as a voice note', 'One bubble at page width. Its sound wave runs out of the phone across the page.', BG + phone(20, 40, 150) + wave(60, 115, 276) + lines(210, 170, 120, 2)],
+    ['The crew', 'Four people, their places, one thread between them.', BG + pic(14, 20, 100, 84) + pic(124, 20, 100, 84) + pic(234, 20, 108, 84) + phone(150, 96, 120) + bub(100, 130, 50) + bub(214, 150, 60, BLUE)],
+    ['You were away', 'The catch-up card lifts off the glass and is read at full size.', BG + phone(34, 34, 162) + R(120, 70, 200, 110, '#fff', 8, ' stroke="' + BLUE + '" stroke-width="2"') + lines(136, 88, 168, 5)],
+    ['A promise becomes a task', 'A sentence in the chat, and the task that grows from its words.', BG + bub(24, 60, 190) + '<path d="M120 76 C120 110 210 96 210 128" fill="none" stroke="' + BLUE + '" stroke-width="2"/>' + R(150, 128, 180, 70, '#fff', 8, ' stroke="' + BLUE + '" stroke-width="2"') + lines(164, 142, 150, 4)],
+    ['A message becomes a public night', 'The poster grows out of the chat into its three real formats, then the room.', BG + phone(16, 50, 130) + R(98, 40, 70, 124, BLUE, 4) + R(180, 62, 80, 80, BLUE, 4) + R(272, 76, 68, 52, BLUE, 4) + pic(98, 176, 242, 40)]
+   ] },
+ { k: 'B', name: 'Four people, one thread', say: 'The page is organised by the people. The reader meets Maya, Theo, Ines and Kofi, and sees the same days through each of their phones: what each one sends, what each one misses, what the AI does for each. Strong on collaboration, weaker on the audience side.',
+   f: [
+    ['Opening', 'Four portraits in their own places, four phones.', BG + [0, 1, 2, 3].map(function (i) { return pic(14 + i * 84, 24, 76, 120) + phone(34 + i * 84, 110, 96); }).join('')],
+    ['Maya, who starts it', 'Her studio, her voice note.', BG + pic(14, 18, 180, 194) + phone(214, 36, 158) + wave(226, 110, 60, BLUE)],
+    ['Theo, who was away', 'His catch-up, written for him alone.', BG + phone(24, 36, 158) + R(110, 64, 120, 80, '#fff', 8, ' stroke="' + BLUE + '" stroke-width="2"') + pic(244, 18, 98, 194)],
+    ['Ines, who makes the picture', 'Three covers, a vote, a poster.', BG + pic(14, 18, 150, 194) + R(180, 40, 48, 48, BLUE, 3) + R(236, 40, 48, 48, '#8f9499', 3) + R(292, 40, 48, 48, '#8f9499', 3) + phone(230, 100, 112)],
+    ['Kofi, who opens the door', 'The venue, the event, the public page.', BG + phone(24, 36, 158) + R(112, 50, 90, 130, BLUE, 4) + pic(214, 18, 128, 194)],
+    ['The same minute, four screens', 'One moment seen on every phone at once.', BG + [0, 1, 2, 3].map(function (i) { return phone(22 + i * 82, 30 + (i % 2) * 14, 150, i === 2 ? BLUE : null); }).join('')]
+   ] },
+ { k: 'C', name: 'The thread is the page', say: 'One phone stays in the middle of the screen and the page scrolls the thread itself through its 39 days. Pictures of the world and the design decisions stand in the margins, tied by a thin line to the message they belong to. On a real phone the bezel drops and the thread is the page. The most unusual of the three, and the hardest to keep from feeling like a long demo.',
+   f: [
+    ['Opening', 'A phone, alone, with the first message.', BG + phone(134, 22, 190) + bub(150, 150, 50, BLUE) + lines(20, 80, 90, 3, true)],
+    ['Day 1', 'The voice note; the studio it came from.', BG + phone(134, 22, 190) + wave(150, 100, 56) + pic(14, 40, 104, 130) + '<path d="M118 100 L148 100" stroke="' + BLUE + '" stroke-width="2"/>'],
+    ['Day 3', 'The catch-up; why AI is a layer, not a contact.', BG + phone(134, 22, 190) + R(146, 80, 64, 50, '#fff', 4, ' stroke="' + BLUE + '" stroke-width="2"') + lines(240, 60, 100, 5) + '<path d="M212 104 L238 84" stroke="' + BLUE + '" stroke-width="2"/>'],
+    ['Day 19', 'The covers; the wall they hang on.', BG + phone(134, 22, 190) + pic(14, 30, 104, 150) + R(150, 70, 22, 22, BLUE, 2) + R(176, 70, 22, 22, '#8f9499', 2) + '<path d="M118 90 L148 82" stroke="' + BLUE + '" stroke-width="2"/>'],
+    ['Day 24', 'The event; its three formats in the margin.', BG + phone(134, 22, 190) + R(148, 60, 60, 80, BLUE, 3) + R(244, 30, 44, 78, BLUE, 3) + R(296, 30, 46, 46, BLUE, 3) + R(244, 118, 98, 40, BLUE, 3)],
+    ['Day 39', 'The thread ends; the room is full.', BG + pic(0, 0, W, H) + phone(134, 22, 190) + person(60, 220, 60) + person(300, 224, 70)]
+   ] }
+];
+document.getElementById('rows').innerHTML = ROWS.map(function (r) {
+  return '<section class="row"><h2><b>' + r.k + '</b>' + r.name + '</h2><p>' + r.say + '</p><div class="frames">' + r.f.map(function (f) {
+    return '<div class="f"><svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">' + f[2] + '</svg><b>' + f[0] + '</b><span>' + f[1] + '</span></div>'; }).join('') + '</div></section>';
+}).join('');
+</script>
+</body>
+</html>

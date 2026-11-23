@@ -1,0 +1,85 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{ font-family:"Byrd"; src:url("/fonts/Byrd-Bold.woff2") format("woff2"); font-weight:700; }
+@font-face{ font-family:"Byrd"; src:url("/fonts/Byrd-SemiBold.woff2") format("woff2"); font-weight:600; }
+@font-face{ font-family:"Byrd"; src:url("/fonts/Byrd-Medium.woff2") format("woff2"); font-weight:500; }
+body{ margin:0; background:#888; font-family:"Byrd",sans-serif; }
+.c{ width:600px; height:600px; position:relative; overflow:hidden; margin:20px; display:inline-block; }
+.c svg{ position:absolute; inset:0; }
+.c .tx{ position:absolute; inset:0; background:url(../a/paint-grey.jpg) center/cover; mix-blend-mode:overlay; opacity:.85; }
+.c .ht{ position:absolute; inset:0; mix-blend-mode:screen; }
+.ttl{ position:absolute; font-weight:700; color:#fff; font-size:50px; line-height:.92; letter-spacing:-.03em; text-transform:uppercase; }
+.sm{ position:absolute; font-weight:600; font-size:17px; letter-spacing:.14em; text-transform:uppercase; color:#fff; }
+/* poster */
+#poster{ width:750px; height:1050px; position:relative; margin:20px; background:#f7f3ea; display:inline-block; overflow:hidden; }
+#poster .art{ position:absolute; left:27px; top:27px; right:27px; bottom:27px; overflow:hidden; background:#15183f; }
+#poster .art img{ position:absolute; left:-8%; top:0; width:116%; height:auto; }
+#poster .art .dots{ position:absolute; inset:0; background:radial-gradient(circle,#ff2d8f 2.2px,transparent 2.7px) 0 0/11px 11px; mix-blend-mode:screen; opacity:.5; -webkit-mask-image:linear-gradient(200deg,#000 0,transparent 34%); mask-image:linear-gradient(200deg,#000 0,transparent 34%); }
+#poster .shade{ position:absolute; left:0; right:0; bottom:0; height:62%; background:linear-gradient(180deg,rgba(21,24,63,0) 0,rgba(21,24,63,.86) 44%,#15183f 70%); }
+#poster h1{ position:absolute; left:34px; right:20px; bottom:292px; margin:0; font-size:124px; line-height:.86; letter-spacing:-.045em; font-weight:700; color:#fff; text-transform:uppercase; text-shadow:-5px 4px 0 #22cdf0, 5px -3px 0 #ff2d8f; }
+#poster .ln{ position:absolute; left:34px; bottom:200px; background:#ff2d8f; color:#15183f; font-weight:700; font-size:54px; line-height:1; letter-spacing:-.02em; padding:13px 20px 9px; text-transform:uppercase; transform:rotate(-2.5deg); transform-origin:left bottom; }
+#poster .meta{ position:absolute; left:34px; right:230px; bottom:40px; display:grid; grid-template-columns:1.25fr 1fr; border-top:4px solid #fff; padding-top:18px; color:#fff; }
+#poster .meta div{ font-weight:700; font-size:34px; line-height:1.05; letter-spacing:-.02em; text-transform:uppercase; }
+#poster .meta small{ display:block; font-weight:600; font-size:17px; letter-spacing:.12em; color:#ff8fc4; margin-bottom:8px; }
+#poster .tx2{ position:absolute; inset:0; background:url(../a/paint-grey.jpg) center/cover; mix-blend-mode:soft-light; opacity:.35; }
+</style>
+<svg width="0" height="0" style="position:absolute"><defs>
+  <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="16"/></filter>
+  <filter id="rough2" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="9"/></filter>
+</defs></svg>
+
+<div class="c" id="cover-b">
+  <svg viewBox="0 0 600 600">
+    <rect width="600" height="600" fill="#15183f"/>
+    <g filter="url(#rough)" fill="none" stroke-linecap="round">
+      <g transform="translate(-9 7)" stroke="#22cdf0" opacity=".9">
+        <circle cx="640" cy="650" r="110" stroke-width="40"/><circle cx="640" cy="650" r="186" stroke-width="30"/><circle cx="640" cy="650" r="262" stroke-width="42"/><circle cx="640" cy="650" r="338" stroke-width="24"/><circle cx="640" cy="650" r="410" stroke-width="40"/><circle cx="640" cy="650" r="490" stroke-width="30"/>
+      </g>
+      <circle cx="640" cy="650" r="110" stroke="#f7b267" stroke-width="40"/>
+      <circle cx="640" cy="650" r="186" stroke="#e9742b" stroke-width="30"/>
+      <circle cx="640" cy="650" r="262" stroke="#ff2d8f" stroke-width="42"/>
+      <circle cx="640" cy="650" r="338" stroke="#f7b267" stroke-width="24"/>
+      <circle cx="640" cy="650" r="410" stroke="#e9742b" stroke-width="40"/>
+      <circle cx="640" cy="650" r="490" stroke="#8a4dff" stroke-width="30"/>
+    </g>
+  </svg>
+  <div class="ht" style="background:radial-gradient(circle,#ff2d8f 2.4px,transparent 3px) 0 0/12px 12px; -webkit-mask-image:radial-gradient(circle at 0 0,#000 0,transparent 46%); opacity:.9"></div>
+  <div class="tx"></div>
+  <div class="ttl" style="left:34px; top:34px">Copper<br>Hours</div>
+</div>
+
+<div class="c" id="cover-a">
+  <svg viewBox="0 0 600 600">
+    <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a2bd8"/><stop offset=".55" stop-color="#ff2d8f"/><stop offset="1" stop-color="#ffa24d"/></linearGradient></defs>
+    <rect width="600" height="390" fill="url(#sky)"/>
+    <g filter="url(#rough)"><circle cx="300" cy="392" r="150" fill="#fff0c9"/><circle cx="291" cy="398" r="150" fill="none" stroke="#22cdf0" stroke-width="5"/></g>
+    <rect y="386" width="600" height="220" fill="#15183f"/>
+    <g filter="url(#rough2)" stroke-linecap="round" stroke="#ff2d8f" stroke-width="14"><path d="M190 430h220M230 470h140M150 512h300M250 552h100"/></g>
+    <g filter="url(#rough2)" stroke-linecap="round" stroke="#f7b267" stroke-width="8"><path d="M60 450h70M470 492h90M80 540h50"/></g>
+  </svg>
+  <div class="tx"></div>
+  <div class="sm" style="left:30px; top:30px">Copper Hours</div>
+</div>
+
+<div class="c" id="cover-c">
+  <svg viewBox="0 0 600 600">
+    <rect width="600" height="600" fill="#f1e6d6"/>
+    <g filter="url(#rough2)">
+      <rect x="150" y="96" width="300" height="62" rx="31" fill="#22cdf0"/>
+      <rect x="96" y="176" width="408" height="62" rx="31" fill="#8a4dff"/>
+      <rect x="186" y="256" width="228" height="62" rx="31" fill="#ff2d8f"/>
+      <rect x="120" y="336" width="360" height="62" rx="31" fill="#15183f"/>
+      <rect x="210" y="416" width="180" height="62" rx="31" fill="#e9742b"/>
+    </g>
+  </svg>
+  <div class="tx"></div>
+  <div class="sm" style="left:0; right:0; text-align:center; bottom:44px; color:#15183f">Copper Hours</div>
+</div>
+
+<div id="poster">
+  <div class="art"><img src="../a/poster-art.jpg" alt=""><div class="dots"></div><div class="shade"></div></div>
+  <h1>Copper<br>Hours</h1>
+  <div class="ln">Launch night</div>
+  <div class="meta"><div><small>Doors 9 PM</small>Fri<br>Nov 20</div><div><small>Where</small>Dock<br>Hall 3</div></div>
+  <div class="tx2"></div>
+</div>

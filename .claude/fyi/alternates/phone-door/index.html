@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FYI door, prototype</title>
+<link rel="preload" href="/fonts/Byrd-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="door.css">
+</head>
+<body>
+<main>
+<section id="fyi" class="dr" aria-labelledby="fyi-h">
+
+  <!-- light that leaves the room: halftone on the page -->
+  <svg class="dr-beam" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="dr-dot" cx="50%" cy="50%" r="72%">
+        <stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#000"/>
+      </radialGradient>
+      <pattern id="dr-dots" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(24)">
+        <rect width="9" height="9" fill="url(#dr-dot)"/>
+      </pattern>
+      <pattern id="dr-dots2" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="translate(3.5 2) rotate(24)">
+        <rect width="9" height="9" fill="url(#dr-dot)"/>
+      </pattern>
+      <radialGradient id="dr-fall" gradientUnits="userSpaceOnUse" cx="800" cy="380" r="400">
+        <stop offset="0" stop-color="#c4c4c4"/><stop offset=".16" stop-color="#9a9a9a"/><stop offset=".42" stop-color="#5e5e5e"/><stop offset=".75" stop-color="#262626"/><stop offset="1" stop-color="#000"/>
+      </radialGradient>
+      <radialGradient id="dr-fall2" gradientUnits="userSpaceOnUse" cx="800" cy="380" r="400">
+        <stop offset="0" stop-color="#8a8a8a"/><stop offset=".2" stop-color="#6c6c6c"/><stop offset=".5" stop-color="#444"/><stop offset=".8" stop-color="#1e1e1e"/><stop offset="1" stop-color="#000"/>
+      </radialGradient>
+      <filter id="dr-thr" x="0" y="0" width="100%" height="100%" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+        <feComponentTransfer>
+          <feFuncR type="linear" slope="14" intercept="-6.5"/><feFuncG type="linear" slope="14" intercept="-6.5"/><feFuncB type="linear" slope="14" intercept="-6.5"/>
+        </feComponentTransfer>
+      </filter>
+      <mask id="dr-m1" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
+        <g filter="url(#dr-thr)"><rect width="100%" height="100%" fill="#000"/><rect width="100%" height="100%" fill="url(#dr-dots)"/><rect width="100%" height="100%" fill="url(#dr-fall)" opacity=".5"/></g>
+      </mask>
+      <mask id="dr-m2" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
+        <g filter="url(#dr-thr)"><rect width="100%" height="100%" fill="#000"/><rect width="100%" height="100%" fill="url(#dr-dots2)"/><rect width="100%" height="100%" fill="url(#dr-fall2)" opacity=".5"/></g>
+      </mask>
+    </defs>
+    <polygon class="c" mask="url(#dr-m2)"/>
+    <polygon class="p" mask="url(#dr-m1)"/>
+  </svg>
+
+  <div class="wrap dr-wrap">
+    <div class="dr-copy">
+      <div class="label">Case study · iOS app</div>
+      <h2 id="fyi-h">FYI, where creators make it together and let the audience in</h2>
+      <p>A collaborative social platform for creators, with AI at its base. Artists collaborate, share their work with an audience and announce events, all in one app.</p>
+      <p class="dr-truth">I designed it at Intune, before Hear.</p>
+      <a class="dr-btn" href="/work/fyi.html">FYI case study <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="dr-stage"><div class="dr-slot"></div></div>
+  </div>
+
+  <!-- the same light, where it lands on ink -->
+  <svg class="dr-lit" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="dr-litg" gradientUnits="userSpaceOnUse" x1="800" y1="0" x2="300" y2="0">
+        <stop offset="0" stop-color="#f42d8f" stop-opacity="1"/><stop offset=".5" stop-color="#f42d8f" stop-opacity=".96"/><stop offset=".82" stop-color="#8a3df0" stop-opacity=".8"/><stop offset="1" stop-color="#8a3df0" stop-opacity="0"/>
+      </linearGradient>
+    <clipPath id="dr-litc"><rect/></clipPath>
+    </defs>
+    <polygon fill="url(#dr-litg)" clip-path="url(#dr-litc)"/>
+  </svg>
+
+  <svg class="dr-shadow" aria-hidden="true" focusable="false">
+    <defs><filter id="dr-blur" x="-40%" y="-20%" width="180%" height="140%"><feGaussianBlur stdDeviation="10"/></filter></defs>
+    <polygon filter="url(#dr-blur)"/>
+  </svg>
+
+  <!-- the room, seen through the doorway -->
+  <div class="dr-room" aria-hidden="true">
+    <img class="pl far" src="art/room-far.webp" alt="" width="1024" height="1536" decoding="async">
+    <img class="pl her" src="art/room-her.webp" alt="" width="1024" height="1536" decoding="async">
+    <img class="pl him" src="art/room-him.webp" alt="" width="1024" height="1536" decoding="async">
+    <i class="dr-haze"></i>
+  </div>
+  <div class="dr-jamb" aria-hidden="true"></div>
+  <div class="dr-room out" aria-hidden="true">
+    <img class="pl hand" src="art/room-hand.webp" alt="" width="1024" height="1536" decoding="async">
+  </div>
+
+  <i class="dr-hinge a" aria-hidden="true"></i><i class="dr-hinge b" aria-hidden="true"></i>
+
+  <!-- the door: an iPhone on hinges -->
+  <div class="dr-scene">
+    <a class="dr-door" href="/work/fyi.html" aria-label="Open the FYI case study">
+      <span class="dr-face front">
+        <span class="fy" aria-hidden="true">
+          <span class="fy-sb"><b>9:40</b><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".7"/><rect x="5" y="5.5" width="3" height="6.5" rx=".7"/><rect x="10" y="3" width="3" height="9" rx=".7"/><rect x="15" y="0" width="3" height="12" rx=".7"/></svg><svg viewBox="0 0 17 12"><path d="M8.5 2.6c2.4 0 4.6.9 6.2 2.5l1.1-1.2A10.3 10.3 0 0 0 8.5.9C5.700.9 3.100 2 1.200 3.900l1.100 1.200a8.700 8.700 0 0 1 6.200-2.500Zm0 3.500c1.400 0 2.700.5 3.700 1.500l1.100-1.200a6.900 6.900 0 0 0-9.600 0l1.100 1.200c1-1 2.300-1.500 3.700-1.500Zm0 3.400c-.7 0-1.300.3-1.800.8l1.800 1.700 1.800-1.700c-.5-.5-1.100-.8-1.800-.8Z"/></svg><svg viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.500v4c.8-.300 1.500-1.100 1.500-2s-.7-1.700-1.500-2Z" opacity=".45"/></svg></span></span>
+          <i class="fy-isl"></i>
+          <span class="fy-nav">
+            <span class="fy-rb"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></span>
+            <span class="fy-pub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.200 3 14.800 0 18M12 3c-3 3.200-3 14.800 0 18"/></svg>Public event</span>
+            <span class="fy-rb"><svg viewBox="0 0 24 24"><path d="M12 15V4M8 7.500L12 3.500l4 4M6 11.500v7.500h12v-7.500"/></svg></span>
+          </span>
+          <span class="fy-by"><i class="fy-crew"></i><span><b>Copper Hours</b><em>Maya, Theo, Ines and Kofi</em></span></span>
+          <span class="fy-t">Launch<br>night</span>
+          <i class="fy-perf"></i>
+          <span class="fy-d">Fri, Nov 20</span>
+          <span class="fy-doors">Doors 9 PM</span>
+          <span class="fy-loc"><svg viewBox="0 0 24 24"><path d="M12 21s-6.500-5.700-6.500-10.500a6.500 6.500 0 0 1 13 0C18.500 15.300 12 21 12 21Z"/><circle cx="12" cy="10.500" r="2.300"/></svg>Dock Hall 3</span>
+          <span class="fy-who"><span class="fy-stack"><i>M</i><i>T</i><i>I</i><i>K</i></span><span><b>27 going</b><em>June, Sol, Ari and 20 more</em></span></span>
+          <span class="fy-rsvp"><span class="fy-go"><svg viewBox="0 0 24 24"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Going</span><span class="fy-mb">Maybe</span></span>
+          <span class="fy-acts"><span><svg viewBox="0 0 24 24"><rect x="4" y="5.500" width="16" height="14.500" rx="3"/><path d="M4 10h16M8.500 3.500v4M15.500 3.500v4"/></svg>Add to calendar</span><span><svg viewBox="0 0 24 24"><path d="M10 14l4-4M8.500 11.500l-2 2a3.500 3.500 0 0 0 5 5l2-2M15.500 12.500l2-2a3.500 3.500 0 0 0-5-5l-2 2"/></svg>Copy link</span></span>
+          <i class="fy-home"></i>
+        </span>
+        <i class="dr-sheen"></i>
+      </span>
+      <span class="dr-face back" aria-hidden="true">
+        <i class="bk-cam"><i></i><i></i><i></i><b></b></i>
+        <i class="bk-st s1"></i><i class="bk-st s2"></i><i class="bk-st s3">Copper Hours</i>
+      </span>
+    </a>
+  </div>
+
+</section>
+</main>
+<script src="door.js"></script>
+</body>
+</html>

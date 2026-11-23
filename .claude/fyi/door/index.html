@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FYI door · Out of the glass</title>
+<link rel="preload" href="/fonts/Byrd-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="door.css">
+</head>
+<body>
+
+<section id="fyi" class="door" aria-labelledby="fyi-h" data-beat="0">
+  <div class="wrap door-grid">
+
+    <div class="d-copy">
+      <div class="label">Case study · FYI, iOS app</div>
+      <h2 id="fyi-h">From a voice note to a full room.</h2>
+      <p>FYI is a social platform for creators. A crew makes the work together, shares it and announces the night, with AI working inside the conversation. I designed it at Intune, before Hear.</p>
+    </div>
+
+    <div class="d-ctl">
+      <div class="trk" role="group" aria-label="Play the story in three parts">
+        <button type="button" class="trk-b" data-step="1"><i class="trk-l"><i></i></i><span class="trk-n">01</span><span class="trk-t">Collaborate</span></button>
+        <button type="button" class="trk-b" data-step="2"><i class="trk-l"><i></i></i><span class="trk-n">02</span><span class="trk-t">Share the work</span></button>
+        <button type="button" class="trk-b" data-step="3"><i class="trk-l"><i></i></i><span class="trk-n">03</span><span class="trk-t">Announce</span></button>
+      </div>
+      <div class="cap" aria-live="polite">
+        <p class="cap-i" data-cap="1">Maya sends a voice note. AI transcribes it, and the crew picks the idea up.</p>
+        <p class="cap-i" data-cap="2">Kofi asks for a cover and AI makes the task from his words. The crew votes, and cover B becomes the sleeve.</p>
+        <p class="cap-i" data-cap="3">Kofi books the room. AI drafts the event from his message, Maya publishes it, and the room fills.</p>
+      </div>
+    </div>
+
+    <a class="d-cta" href="/work/fyi.html">FYI case study <span aria-hidden="true">→</span></a>
+
+    <div class="d-stage" id="stage">
+      <div class="st-in" id="stin">
+
+        <!-- far wall: spray and halftone -->
+        <div class="dp bg-cyan" data-depth="5"></div>
+        <div class="dp bg-dots" data-depth="9"></div>
+
+        <!-- the plan, in ink: where each thing will land -->
+        <svg class="dp sk" id="sk" data-depth="10" aria-hidden="true"></svg>
+
+        <!-- the wave, painted on the page -->
+        <svg class="dp wv wv-back" id="wvBack" data-depth="11" aria-hidden="true"></svg>
+
+        <!-- the poster (pastes itself on the page) -->
+        <div class="dp pst" id="pst" data-depth="13" aria-hidden="true">
+          <div class="pst-sh"></div>
+          <div class="pst-in"><img src="a/poster.png" alt="" width="250" height="350"><i class="pst-curl"></i></div>
+        </div>
+
+        <!-- the phone: a window -->
+        <div class="dp ph" id="ph" data-depth="18">
+          <div class="ph-tilt" id="phTilt">
+          <div class="ph-scr" role="img" aria-label="The Copper Hours thread in FYI: a voice note with its AI transcript, a cover poll, and the launch night event at Dock Hall 3">
+            <div class="ph-sb" aria-hidden="true"><b>9:41</b><i class="isl"></i>
+              <svg class="sig" viewBox="0 0 46 12" width="46" height="12"><g fill="#fff"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="5" width="3" height="7" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/><path d="M26 2.2c2 0 3.8.8 5.200 2.100l-.9 1c-1.200-1.100-2.700-1.700-4.300-1.700s-3.100.6-4.300 1.700l-.9-1C22.200 3 24 2.200 26 2.200zm0 3c1.200 0 2.300.5 3.100 1.300l-.9 1c-.6-.6-1.400-.9-2.200-.9s-1.600.3-2.200.9l-.9-1c.8-.8 1.900-1.300 3.100-1.300zm0 3c.5 0 .9.200 1.200.5L26 10l-1.200-1.300c.3-.3.7-.5 1.200-.5z"/><rect x="34.500" y=".5" width="10" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="36" y="2" width="7" height="8" rx="1.600"/></g></svg>
+            </div>
+            <header class="th-hd" aria-hidden="true">
+              <svg class="chev" viewBox="0 0 10 16" width="9" height="15"><path d="M8 1.500 1.800 8 8 14.500" fill="none" stroke="#ff2d8f" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="stack"><img src="a/av-maya.jpg" alt=""><img src="a/av-theo.jpg" alt=""><img src="a/av-ines.jpg" alt=""><img src="a/av-kofi.jpg" alt=""></span>
+              <span class="th-ti"><b>Copper Hours</b><small>Maya, Theo, Ines, Kofi</small></span>
+            </header>
+
+            <div class="th-view" id="view" aria-hidden="true"><div class="th-roll" id="roll">
+
+              <!-- page 1 : collaborate -->
+              <section class="pg">
+                <div class="pill">Day 1 · Maya started Copper Hours</div>
+                <div class="row out">
+                  <div class="vn" id="vn">
+                    <button type="button" class="vn-play" id="vnPlay" aria-label="Play the story" tabindex="-1"><svg viewBox="0 0 12 12" width="11" height="11"><path class="ic-play" d="M3 1.300v9.400a.6.6 0 0 0 .9.500l7.300-4.700a.6.6 0 0 0 0-1L3.900.8a.6.6 0 0 0-.9.500z" fill="#ff2d8f"/><path class="ic-pause" d="M2.500 1.500h2.400v9H2.500zM7.100 1.500h2.400v9H7.100z" fill="#ff2d8f"/></svg></button>
+                    <span class="vn-bars" id="vnBars"></span>
+                    <span class="vn-time" id="vnTime">0:21</span>
+                  </div>
+                </div>
+                <div class="tr rv" data-at="1.5">
+                  <span class="ai-tag"><b>AI</b> transcript</span>
+                  <p id="trText">Hear the bridge at 1:40? What if the drop isn't a post. What if it's a night.</p>
+                </div>
+                <div class="row in rv" data-at="2.6"><img class="av" src="a/av-theo.jpg" alt=""><div class="bub"><em>Theo</em>the bridge is the video. I can see it already</div></div>
+                <div class="row in rv" data-at="2.95"><img class="av" src="a/av-ines.jpg" alt=""><div class="bub"><em>Ines</em>a night needs a poster. I'm in</div></div>
+                <div class="row in rv" data-at="3.3"><img class="av" src="a/av-kofi.jpg" alt=""><div class="bub"><em>Kofi</em>I know a room. Fridays in November are open</div></div>
+              </section>
+
+              <!-- page 2 : share the work -->
+              <section class="pg">
+                <div class="pill">Day 19 · Sat, Oct 31</div>
+                <div class="row in rv" data-at="4.35"><img class="av" src="a/av-kofi.jpg" alt=""><div class="bub"><em>Kofi</em>need a cover for the posters by Nov 6</div></div>
+                <div class="task rv" data-at="4.85">
+                  <span class="ai-tag"><b>AI</b> made a task from Kofi's words</span>
+                  <div class="task-c"><i class="ck"></i><span><b>Cover art</b><small><img src="a/av-ines.jpg" alt="">Ines · Fri, Nov 6</small></span></div>
+                </div>
+                <div class="row in rv" data-at="5.35"><img class="av" src="a/av-ines.jpg" alt="">
+                  <div class="poll" id="poll">
+                    <div class="poll-q"><em>Ines</em><b>Which cover?</b><small id="pollN">Poll · 0 votes</small></div>
+                    <div class="poll-g">
+                      <div class="cov" data-c="a"><span class="cov-i"><img src="a/cover-a.png" alt=""></span><span class="cov-t">A · Horizon</span><span class="cov-v"><img class="vt" data-at="6.2" src="a/av-maya.jpg" alt=""></span></div>
+                      <div class="cov" data-c="b" id="covB"><span class="cov-i" id="thumbB"><img src="a/cover-b.png" alt=""></span><span class="cov-t">B · Grooves</span><span class="cov-v"><img class="vt" data-at="5.85" src="a/av-theo.jpg" alt=""><img class="vt" data-at="6.02" src="a/av-kofi.jpg" alt=""><img class="vt" data-at="6.4" src="a/av-ines.jpg" alt=""></span></div>
+                      <div class="cov" data-c="c"><span class="cov-i"><img src="a/cover-c.png" alt=""></span><span class="cov-t">C · Stack</span><span class="cov-v"></span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row in rv" data-at="7.25"><img class="av" src="a/av-theo.jpg" alt=""><div class="bub"><em>Theo</em>B. I cut the bridge to it.</div></div>
+              </section>
+
+              <!-- page 3 : announce -->
+              <section class="pg">
+                <div class="pill">Day 24 · Thu, Nov 5</div>
+                <div class="row in rv" data-at="8.5"><img class="av" src="a/av-kofi.jpg" alt=""><div class="bub"><em>Kofi</em>Dock Hall 3 signed. Fri Nov 20, doors at 9</div></div>
+                <div class="ev rv" data-at="9.1" id="ev">
+                  <span class="ai-tag"><b>AI</b> drafted the event from Kofi's message</span>
+                  <div class="ev-c">
+                    <div class="ev-top">
+                      <span class="ev-art" id="evArt"><img src="a/poster.png" alt=""></span>
+                      <span class="ev-tx"><i class="ev-st" id="evSt">Draft</i><b>Copper Hours Launch Night</b><small>Fri, Nov 20 · Doors 9 PM</small><small>Dock Hall 3</small></span>
+                    </div>
+                    <div class="ev-bot">
+                      <div class="ev-draft" id="evDraft"><span class="ev-btn" id="evPub">Publish</span><small>Check before you publish</small></div>
+                      <div class="ev-live" id="evLive"><span class="ev-go"><svg viewBox="0 0 12 10" width="10" height="9"><path d="M1.500 5.200 4.500 8l6-6.500" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Going</span><span class="stack sm"><img src="a/av-maya.jpg" alt=""><img src="a/av-theo.jpg" alt=""><img src="a/av-ines.jpg" alt=""><img src="a/av-kofi.jpg" alt=""></span><span class="ev-n">Going · <b id="evN">4</b></span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="rsvp rv" data-at="11.5"><i>J</i><span><b>June</b> is going</span></div>
+                <div class="rsvp rv" data-at="11.8"><i>S</i><span><b>Sol</b> is going</span></div>
+                <div class="rsvp rv" data-at="12.1"><i>A</i><span><b>Ari</b> and 20 others are going</span></div>
+              </section>
+
+            </div></div>
+
+            <footer class="th-cmp" aria-hidden="true"><span class="cmp-p">+</span><span class="cmp-f">Message</span><svg viewBox="0 0 12 16" width="11" height="15"><rect x="3.500" y=".8" width="5" height="9" rx="2.500" fill="#8e8e93"/><path d="M1.200 7.500a4.800 4.800 0 0 0 9.600 0M6 12.300V15" fill="none" stroke="#8e8e93" stroke-width="1.400" stroke-linecap="round"/></svg></footer>
+            <i class="ph-home" aria-hidden="true"></i>
+          </div>
+          </div>
+        </div>
+
+        <!-- the wave where it crosses the glass -->
+        <svg class="dp wv wv-front" id="wvFront" data-depth="18" aria-hidden="true"></svg>
+
+        <!-- the record -->
+        <div class="dp rec" id="rec" data-depth="30" aria-hidden="true">
+          <div class="rec-sh" id="recSh"></div>
+          <div class="rec-in" id="recIn">
+            <div class="rec-disc" id="recDisc"><i class="rec-lbl"></i></div>
+            <div class="rec-slv"><img src="a/cover-b.png" alt="" width="232" height="232"></div>
+            <svg class="rec-ink" viewBox="0 0 260 260" aria-hidden="true"><path id="recInk" pathLength="1" d="M10 22c60-9 150-12 236-6c5 70 7 150 2 232c-80 6-160 5-234-2C8 170 6 90 12 16" fill="none"/></svg>
+            <div class="rec-av" id="recAv"><img src="a/av-theo.jpg" alt=""><img src="a/av-kofi.jpg" alt=""><img src="a/av-ines.jpg" alt=""></div>
+          </div>
+        </div>
+
+        <!-- the ticket: going -->
+        <div class="dp tkt" id="tkt" data-depth="24" aria-hidden="true">
+          <div class="tkt-in" id="tktIn"><img src="a/st-ticket.png" alt="" width="382" height="229"><span class="tkt-tx"><b id="tktN">27</b><em>going</em></span></div>
+        </div>
+
+        <!-- hand-inked ties -->
+        <svg class="dp ink" id="ink" data-depth="20" aria-hidden="true"></svg>
+
+        <!-- the invitation at rest -->
+        <button type="button" class="dp hint" id="hint" data-depth="20"><span>Play Maya's voice note</span></button>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="door.js"></script>
+</body>
+</html>

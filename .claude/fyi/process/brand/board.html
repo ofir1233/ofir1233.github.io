@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FYI · brand foundations, draft 1</title>
+<style>
+@font-face{ font-family:"Byrd"; src:url("/fonts/Byrd-Regular.woff2") format("woff2"); font-weight:400; }
+@font-face{ font-family:"Byrd"; src:url("/fonts/Byrd-Medium.woff2") format("woff2"); font-weight:500; }
+@font-face{ font-family:"Byrd"; src:url("/fonts/Byrd-SemiBold.woff2") format("woff2"); font-weight:600; }
+*{ box-sizing:border-box; }
+body{ margin:0; padding:52px 56px 48px; width:1900px; background:#f4f3f1; color:#171b20; font:400 19px/1.45 "Byrd", Helvetica, Arial, sans-serif; }
+h1{ margin:0; font:600 46px/1.1 "Byrd"; letter-spacing:-.025em; }
+.kick{ margin:0 0 10px; font:500 16px/1 "Byrd"; color:#6a7078; }
+.idea{ margin:14px 0 0; max-width:1300px; font:500 30px/1.3 "Byrd"; letter-spacing:-.012em; }
+.idea b{ font-weight:600; color:#d1106f; }
+section{ margin-top:46px; }
+h2{ margin:0 0 4px; font:600 26px/1.2 "Byrd"; letter-spacing:-.012em; }
+h2 i{ font-style:normal; color:#a3a8ad; margin-right:12px; font-variant-numeric:tabular-nums; }
+.lead{ margin:0 0 18px; max-width:1200px; color:#4b5158; }
+.g3{ display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; }
+.g4{ display:grid; grid-template-columns:repeat(4, 1fr); gap:18px; }
+.g2{ display:grid; grid-template-columns:1fr 1fr; gap:30px; align-items:start; }
+.card{ background:#fff; border-radius:14px; box-shadow:0 0 0 1px rgba(23,27,32,.07); padding:20px 22px 22px; }
+.card b{ display:block; font:600 20px/1.25 "Byrd"; margin-bottom:6px; }
+.card p{ margin:0; color:#333a42; font-size:17.5px; }
+.card small{ display:block; margin-top:10px; font-size:15.5px; color:#6a7078; }
+.pic{ display:block; width:100%; border-radius:12px; }
+figure{ margin:0; } figcaption{ margin-top:8px; font-size:16px; color:#4b5158; } figcaption b{ color:#171b20; font-weight:600; }
+/* ladder */
+.ladder{ display:grid; grid-template-columns:repeat(5, 1fr); gap:6px; align-items:end; }
+.rung{ border-radius:12px; padding:16px 16px 18px; color:#fff; display:flex; flex-direction:column; justify-content:flex-end; }
+.rung b{ font:600 19px/1.2 "Byrd"; } .rung span{ margin-top:6px; font-size:15.5px; line-height:1.35; opacity:.92; }
+.r0{ height:150px; background:#0b0b0d; } .r1{ height:190px; background:#1c1c1e; } .r2{ height:240px; background:#2a2140; }
+.r3{ height:300px; background:#7a1a52; } .r4{ height:370px; background:#ff2e93; color:#1a000d; }
+/* swatches */
+.sw{ display:grid; grid-template-columns:repeat(10, 1fr); gap:8px; }
+.sw div{ border-radius:10px; height:108px; padding:10px; font:500 13.5px/1.25 "Byrd"; color:#fff; display:flex; flex-direction:column; justify-content:flex-end; }
+.sw div i{ font-style:normal; opacity:.8; font-size:12.5px; }
+table{ width:100%; border-collapse:collapse; font-size:17px; }
+th{ text-align:left; font:500 15px/1.3 "Byrd"; color:#6a7078; padding:0 12px 8px 0; }
+td{ padding:9px 12px 9px 0; border-top:1px solid #e6e5e1; vertical-align:top; }
+td b{ font-weight:600; }
+.ok{ color:#236b45; font-weight:600; } .no{ color:#c4472d; font-weight:600; }
+ol.rules{ margin:0; padding:0; list-style:none; counter-reset:r; display:grid; gap:9px; }
+ol.rules li{ counter-increment:r; padding-left:34px; position:relative; font-size:17.5px; }
+ol.rules li::before{ content:counter(r); position:absolute; left:0; top:1px; width:23px; height:23px; border-radius:50%; background:#171b20; color:#fff; font:600 13px/23px "Byrd"; text-align:center; }
+.q{ display:grid; grid-template-columns:1fr 1fr; gap:10px 34px; }
+.q div{ padding:14px 0 0; border-top:1px solid #dcdad5; font-size:17.5px; } .q b{ font-weight:600; } .q span{ display:block; margin-top:3px; color:#4b5158; }
+.note{ margin-top:14px; font-size:15.5px; color:#6a7078; }
+</style>
+</head>
+<body>
+<p class="kick">FYI · brand foundations · draft 1 · 23.11.2026 · for Ofir's decisions, nothing here is built yet</p>
+<h1>The glass between a rough idea and an audience</h1>
+<p class="idea">FYI is silent while the crew works and loud when the work meets the world. The art is always <b>the world outside the phone</b>. The interface is what is inside it.</p>
+
+<section>
+  <h2><i>1</i>What the art is for</h2>
+  <p class="lead">Three jobs, and one occasional spice. Each has places where it lives and places where it never goes.</p>
+  <div class="g4">
+    <div class="card"><b>The room</b><p>Serious creators at work, seen through a wide lens from where the phone was put down.</p><small>Lives in: first run, empty states, public pages, the case page. Never behind text.</small></div>
+    <div class="card"><b>The press</b><p>Halftone, two plates slightly off, a paper edge. The finish of things that get published.</p><small>Lives on: the event ticket, the poster, the formats, the mark. Never on controls.</small></div>
+    <div class="card"><b>The hand</b><p>Stickers and marker lines, only as something a person did: a vote on a cover, a note on the cut.</p><small>Lives in: what people send. The product itself never decorates.</small></div>
+    <div class="card"><b>The spice: animals</b><p>A real animal with one or two real accessories, deadpan, behaving like a serious listener. A different one each time.</p><small>About one picture in six. No mascot, no name, never beside the AI.</small></div>
+  </div>
+</section>
+
+<section>
+  <h2><i>2</i>How loud, and when</h2>
+  <p class="lead">The art gets louder as the audience gets bigger. The working tool stays calm, so the one loud moment means something.</p>
+  <div class="ladder">
+    <div class="rung r0"><b>0 · Silent</b><span>The thread, the AI catch-up, tasks, calls. True black, role colours only.</span></div>
+    <div class="rung r1"><b>1 · Whisper</b><span>Chat list, a vote on a cover. The crew's own things carry the colour.</span></div>
+    <div class="rung r2"><b>2 · Quiet</b><span>Welcome and empty states. One picture, one line, one button.</span></div>
+    <div class="rung r3"><b>3 · Clear</b><span>The event card in the thread, the formats. Print finish, framed as an object.</span></div>
+    <div class="rung r4"><b>4 · Loud</b><span>The Public switch, launch night, the case page's opening. Full colour.</span></div>
+  </div>
+</section>
+
+<section>
+  <h2><i>3</i>The lens is the constant</h2>
+  <p class="lead">The depth comes from size, overlap and bending, never from blur. Sharp from front to back, so the picture can later be cut into planes for the site's depth effect.</p>
+  <div class="g2">
+    <div class="g3">
+      <figure><img class="pic" src="../styles/q1-phone-eye.jpg" alt=""><figcaption><b>What the phone sees.</b> The camera has a place in the room.</figcaption></figure>
+      <figure><img class="pic" src="../styles/q3-dog.jpg" alt=""><figcaption><b>The spice.</b> A serious listener.</figcaption></figure>
+      <figure><img class="pic" src="../styles/q2-cat.jpg" alt=""><figcaption><b>Too cartoon.</b> The eyes are larger than a real cat's.</figcaption></figure>
+    </div>
+    <ol class="rules">
+      <li>Say where the camera is: lying on the desk looking up, leaning on a speaker, on the lid of a flight case.</li>
+      <li>One near subject fills about half the picture, a few centimetres from the lens.</li>
+      <li>Three size steps: near, a quarter of that, small at the far wall.</li>
+      <li>Things overlap in a named order, and straight lines bend round the centre.</li>
+      <li>A ground plane runs from the bottom edge to the far wall.</li>
+      <li>Pink and bright near the phone, cyan in the middle, navy far away.</li>
+      <li>Flat and frontal for stickers, covers, posters and avatars. The lens is for scenes only.</li>
+    </ol>
+  </div>
+  <p class="note">Measured on today's drafts: they are warm pictures with pink on them, not yet neon. Dark tone is only 8 to 16% and no bare paper shows, so nothing glows and nothing reads as print. The next round fixes the light (pink comes from the phone screen) and adds a real print finish.</p>
+</section>
+
+<section>
+  <h2><i>4</i>Colour</h2>
+  <p class="lead">The art's palette, and the one change to the product's own colours.</p>
+  <div class="sw">
+    <div style="background:#FF2E93;color:#1a000d">Hot pink<i>#FF2E93 · the phone's light</i></div>
+    <div style="background:#C4126B">Deep pink<i>#C4126B</i></div>
+    <div style="background:#19D3F3;color:#06222a">Cyan<i>#19D3F3 · second light</i></div>
+    <div style="background:#0B67F8">Cobalt<i>#0B67F8 · cool masses</i></div>
+    <div style="background:#7A3CFF">Violet<i>#7A3CFF · pink meets blue</i></div>
+    <div style="background:#0D1030">Navy<i>#0D1030 · replaces black</i></div>
+    <div style="background:#C98A4B;color:#2a1808">Honey wood<i>#C98A4B · the one warm</i></div>
+    <div style="background:#7A4A2B">Dark wood<i>#7A4A2B</i></div>
+    <div style="background:#F4EDE2;color:#171b20;box-shadow:inset 0 0 0 1px rgba(23,27,32,.1)">Paper<i>#F4EDE2 · highest light</i></div>
+    <div style="background:#F2A93B;color:#2a1808">Amber<i>#F2A93B · glints only</i></div>
+  </div>
+  <div class="g2" style="margin-top:22px">
+    <div class="card"><b>In the product: pink has one role, "this goes out"</b><p>It takes the event role from teal. Blue stays "you", violet stays AI, green stays live. Four of the art's five colours are already in the app; pink is the only new one.</p><small>The other option, pink replacing blue as "you", fails: white bubble text does not pass contrast, the thread becomes a wall of pink, and pink can no longer mark the public moment.</small></div>
+    <table>
+      <tr><th>Pink #FF2E93</th><th>Contrast</th><th></th></tr>
+      <tr><td>on true black</td><td>6.06</td><td class="ok">passes</td></tr>
+      <tr><td>on the dark surface #1C1C1E</td><td>4.91</td><td class="ok">passes</td></tr>
+      <tr><td>white text on pink</td><td>3.46</td><td class="no">fails for body text: use dark ink #1A000D (5.78)</td></tr>
+      <tr><td>beside the recording red #FF453A</td><td>1.02</td><td class="no">cannot be told apart: never side by side</td></tr>
+    </table>
+  </div>
+  <p class="note">A crew's poster prints in the crew's own colour. "Copper Hours" is copper. The brand lends its technique, not its pink.</p>
+</section>
+
+<section>
+  <h2><i>5</i>What needs to stay the same from picture to picture</h2>
+  <p class="lead">Not an animal. The four people of the story and the room they work in.</p>
+  <div class="g2">
+    <table>
+      <tr><th>Who</th><th>Silhouette</th><th>Garment</th><th>Object</th></tr>
+      <tr><td><b>Maya</b>, artist and producer</td><td>dark curls in a high bun</td><td>cobalt overshirt</td><td>headphones round her neck</td></tr>
+      <tr><td><b>Theo</b>, video director</td><td>shaved head, short beard</td><td>navy work jacket</td><td>round clear glasses, camera strap</td></tr>
+      <tr><td><b>Ines</b>, designer</td><td>black bob, blunt fringe</td><td>cream oversized T-shirt</td><td>a marker behind her ear</td></tr>
+      <tr><td><b>Kofi</b>, shows and venues</td><td>short locs tied back</td><td>grey hoodie under a dark coat</td><td>keys at the belt, phone in hand</td></tr>
+    </table>
+    <figure><img class="pic" src="../styles/p1-session.jpg" alt=""><figcaption><b>The room.</b> A professional studio: wooden diffusers, a studio microphone, plants. A proposal in words; the faces are yours to judge on a first cast sheet.</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <h2><i>6</i>Where we start</h2>
+  <p class="lead">About sixty parts exist in the product today; only six carry any brand. The audience has no screen at all. Three screens prove the system before anything else is touched.</p>
+  <div class="g3">
+    <div class="card"><b>Welcome</b><p>The room behind real interface: one picture, one line, one button.</p><small>Proves level 2, and the lens.</small></div>
+    <div class="card"><b>The event card and Promote, in the thread</b><p>One loud object inside a calm tool. Print finish, pink, the moment it goes out.</p><small>Proves levels 0 and 3 side by side.</small></div>
+    <div class="card"><b>The public event page (new)</b><p>The audience's end of the story. Today it is a thumbnail of 200 by 300 pixels.</p><small>Proves level 4, and the social side.</small></div>
+  </div>
+  <p class="note">Before them, free: the new colour tokens, the texture kit as four CSS classes, and replacing the doodle wallpaper (the one thing in today's product that reads childish). After them: the rest of first run, the rest of events, the public side, then the case page.</p>
+</section>
+
+<section>
+  <h2><i>7</i>Yours to decide</h2>
+  <div class="q">
+    <div><b>Does pink enter the product's colours as "this goes out", replacing teal for events?</b><span>Recommended: yes.</span></div>
+    <div><b>Does the thread stay true black with no wallpaper?</b><span>Recommended: yes.</span></div>
+    <div><b>The mark: keep the speech bubble, reprinted as two plates?</b><span>Recommended: yes. No animal in the icon.</span></div>
+    <div><b>May an animal hold things (drumsticks, a phone), as in two of your references?</b><span>The draft rules say paws, not hands. Your call.</span></div>
+    <div><b>Do we design the missing public screens (event page, a finished work, a crew page)?</b><span>Recommended: yes, the event page first.</span></div>
+    <div><b>Budget for the proof batch.</b><span>About $4 to $5.50 (18 drafts, 11 finals). About $1.43 is left.</span></div>
+  </div>
+</section>
+</body>
+</html>
