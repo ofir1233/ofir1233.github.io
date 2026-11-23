@@ -45,7 +45,7 @@
       /* the chart is nearly as wide as the screen: a small zoom only cut the screen's title in half at the top rim, so the screen stays whole and the chart is lit */
       [[0, null], [1700, '.ae-plot, .ae-dates', { pad: 80, ax: .62 }]],
       [[0, '[data-b="17"]', { pad: 130, pad2: 50, max: 1.85, grow: '.sx-tip.on' }]],
-      [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.ae-strip i:last-child' }], [3000, '.sx-side.on', { fit: 'w', part: [0, .26, 1, 1], keep: true, small: true, pad: 26, max: 2 }], [4900, '.sx-side.on', { fit: 'w', part: [0, .62, 1, 1], keep: true, small: true, pad: 26, max: 2 }], [4700, '.sx-side.on', { fit: 'w', part: [0, .5, 1, 1], keep: true, big: true, pad: 26, max: 2 }]]
+      [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.ae-strip i:last-child' }], [3000, '.sx-side.on', { fit: 'w', part: [0, .26, 1, 1], keep: true, small: true, pad: 26, max: 2 }], [4900, '.sx-side.on', { fit: 'w', part: [0, .62, 1, 1], keep: true, small: true, pad: 26, max: 2 }], [4700, '.sx-side.on .ae-ag, .sx-side.on .ae-nt, .sx-side.on .ft', { keep: true, big: true, pad: 16, max: 2 }]]
     ],
     actions: [
       [[0, null], [1700, '.ac-col:first-child', { pad: 24, max: 1.9 }]],
@@ -67,7 +67,7 @@
     signals: [
       [[0, null], [1900, '.sg-card[data-g="0"]', { pad: 30, max: 1.7 }], [4900, '.sg-h2, .sg-list', { part: [0, 0, .42, 1], pad: 22, max: 1.7 }]],
       [[0, '.sg-card[data-g="0"]', { pad: 60, max: 1.6 }], [1500, '.sx-side.on', { fit: 'w', pad: 26, max: 2 }]],
-      [[0, '.sg-new', { part: [0, 0, .66, 1], pad: 70, max: 1.7, tap: false }], [4650, '.sg-new, .sg-r.fresh', { part: [.38, 0, 1, 1], big: true, pad: 40, max: 1.7 }], [6200, '.sg-new, .sg-r.fresh', { part: [0, 0, .62, 1], keep: true, big: true, pad: 40, max: 1.7 }], [8300, '.sg-new, .sg-r.fresh', { part: [.38, 0, 1, 1], keep: true, big: true, pad: 40, max: 1.7 }], [4650, '.sg-r.fresh', { part: [.44, 0, 1, 1], small: true, pad: 20, max: 1.4 }], [6200, '.sg-r.fresh', { part: [0, 0, .58, 1], keep: true, small: true, pad: 14, max: 1.4 }], [8300, '.sg-r.fresh', { part: [.44, 0, 1, 1], keep: true, small: true, pad: 20, max: 1.4 }]]
+      [[0, '.sg-new', { part: [0, 0, .66, 1], pad: 70, max: 1.7, tap: false }], [4650, '.sg-new, .sg-r.fresh', { part: [.38, 0, 1, 1], big: true, pad: 40, max: 1.7 }], [6200, '.sg-new, .sg-r.fresh', { part: [0, 0, .62, 1], keep: true, big: true, pad: 40, max: 1.7 }], [8300, '.sg-new, .sg-r.fresh', { part: [.38, 0, 1, 1], keep: true, big: true, pad: 40, max: 1.7 }], [10600, null, { big: true }], [4650, '.sg-r.fresh', { part: [.44, 0, 1, 1], small: true, pad: 20, max: 1.4 }], [6200, '.sg-r.fresh', { part: [0, 0, .58, 1], keep: true, small: true, pad: 14, max: 1.4 }], [8300, '.sg-r.fresh', { part: [.44, 0, 1, 1], keep: true, small: true, pad: 20, max: 1.4 }], [10900, '.sg-nn', { part: [0, 0, 1, 1], keep: true, small: true, pad: 120, max: 1.25 }]]
     ]
   };
   /* ONE CALL, FOLLOWED. The same sample call (Oct 13: a refund asked twice, a voucher offered) is in four of the screens: a box on the
@@ -90,7 +90,7 @@
     news: { k: 0, sel: '.nr-item.thread', o: { pad: 70, max: 1.9, gx: 14, gy: 0 }, os: { pad: 28, max: 2.2, gx: 10, gy: 0 } }
   };
   /* How long each step lasts once the frame has landed on it (the way there is added: see P.off). */
-  var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 4400, 7600], agents: [6200, 4800, 7800], actions: [5600, 4200, 8500, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9900], signals: [8200, 6600, 11400] };
+  var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 4400, 7600], agents: [6200, 4800, 8600], actions: [5600, 4200, 8500, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9900], signals: [8200, 6600, 14000] };
   /* the beat, in ms */
   var BEAT = {
     still: 300,        /* the frame has landed; nothing moves: long enough for the eye to arrive too */
@@ -305,7 +305,7 @@
           if (r1) { P.off = move(r1, st0[1][2] || {}); at(P.off + 200, settle); return; }
           P.si = 0;
         }
-        P.off = move(null, o); return;
+        var m0 = move(null, o); if (first) P.off = m0; return;
       }
       if (!first) { at(move(r, o) + 60, settle); return; }
       if (!r) {                                  /* not there yet: hold, let the screen open it, then go to it */

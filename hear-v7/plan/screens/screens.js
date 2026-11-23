@@ -48,7 +48,7 @@
       var grid = el.querySelector('.cm-grid'); grid.classList.remove('draw');
       if (i === 0 && ui && !ui.jump) { void grid.offsetWidth; grid.classList.add('draw'); }
       var c = el.querySelector('[data-c="3-9"]');
-      [].forEach.call(el.querySelectorAll('.c.cov'), function (x) { x.classList.remove('cov'); });
+      [].forEach.call(el.querySelectorAll('.cov'), function (x) { x.classList.remove('cov'); });
       var cover = function (r0, r1, c0, c1) { for (var r = r0; r <= r1; r++) for (var k = c0; k <= c1; k++) { var x = el.querySelector('[data-c="' + r + '-' + k + '"]'); if (x) x.classList.add('cov'); } };
       if (i >= 1) c.classList.add('hot');
       if (i === 1) {
@@ -59,6 +59,16 @@
         var t = el.querySelector('.sx-tip'), R = el.getBoundingClientRect(), z = R.width / el.offsetWidth || 1, a0 = el.querySelector('[data-c="0-9"]').getBoundingClientRect(), a2 = el.querySelector('[data-c="2-9"]').getBoundingClientRect();
         if ((a2.bottom - a0.top) / z >= t.offsetHeight) { t.classList.add('fill'); t.style.height = (a2.bottom - a0.top) / z - 6 + 'px'; t.style.top = (a0.top - R.top) / z + 'px'; cover(0, 2, 10 - n, 9); }
         else {
+          /* a shorter frame: the popover says less (the rule's count and the pass-mark label are in the heading above the table)
+             and stands above the score, over the agents' names, so the rule's own row stays whole */
+          var hd = el.querySelectorAll('.cm-grid .hd'), h9 = hd[9].getBoundingClientRect(), cb = c.getBoundingClientRect();
+          t.classList.add('cmp');
+          if ((cb.top - h9.top) / z - 6 >= t.offsetHeight) {
+            t.style.top = (cb.top - R.top) / z - 7 - t.offsetHeight + 'px'; cover(0, 2, 10 - n, 9);
+            [].forEach.call(hd, function (x, k) { if (k >= 10 - n) x.classList.add('cov'); });
+            return;
+          }
+          t.classList.remove('cmp');
           var m = 3, w2 = 0, f; do { f = el.querySelector('[data-c="3-' + (9 - m) + '"]'); w2 = c.offsetLeft - f.offsetLeft - 14; m++; } while (m < 7 && w2 < 216);
           m--; var a4 = el.querySelector('[data-c="4-9"]').getBoundingClientRect(), fr = f.getBoundingClientRect();
           t.style.width = w2 + 'px'; t.style.left = (fr.left - R.left) / z + 'px'; t.style.top = (a0.top - R.top) / z + 'px';
@@ -114,11 +124,12 @@
         var AG = [['Selma K.', 48, 1], ['Jonas R.', 51, 1], ['Priya N.', 52, 'Verifies identity'], ['Tomas V.', 54, 1], ['Leah M.', 55, 1], ['Dario F.', 56, 'Sets a clear next step'], ['Noor A.', 57, 1], ['Kyle B.', 59, 'Shows empathy']];
         ui.side('<header>Under 60<small>8 of 715 agents</small></header><div class="a" style="margin-top:14px"><p><span class="ae-xs">They average <b>54</b> across 1,212 calls. </span><b>Five of the eight are weakest on the same criterion</b>, the one that fell on Sep 30.</p></div><h4 class="ae-h4">Lowest first · weakest criterion</h4>' +
           '<ul class="ae-ag">' + AG.map(function (a, n) { return '<li style="--i:' + n + '">' + av(a[0]) + '<span>' + a[0] + '<small>' + (a[2] === 1 ? '<u>Explains the refund policy</u><i class="ts"> · Task set</i>' : a[2]) + '</small></span><em>' + a[1] + '</em></li>'; }).join('') + '</ul>' +
-          '<p class="ae-nt"><b>5 agents</b> share Explains the refund policy. The other three are weakest elsewhere.</p>' +
+          '<p class="ae-nt">Selma, Jonas, Tomas, Leah and Noor share <b>Explains the refund policy</b>. The other three are weakest elsewhere.</p>' +
           '<div class="ft">' + act('Open the list') + act('Create 5 coaching tasks', 'ink') + '</div>');
         /* the finding ends in the move it calls for: the five who share the criterion become five coaching tasks */
         if (ui && !ui.jump) { later(function () { var bt = el.querySelector('.sx-side .ft .ink'); if (!bt) return; bt.classList.add('press');
-          later(function () { bt.classList.add('made'); bt.textContent = '5 tasks created'; var ul = el.querySelector('.sx-side .ae-ag'); if (ul) ul.classList.add('made'); }, 320); }, 5900); }
+          later(function () { var ul = el.querySelector('.sx-side .ae-ag'); if (ul) ul.classList.add('made'); }, 150);
+          later(function () { bt.classList.add('made'); bt.textContent = '5 tasks created'; }, 800); }, 5900); }
       }
     }
   };
@@ -132,13 +143,14 @@
          reason it was closed), and who has it */
       var card = function (src, hi, title, ev, who, tag, cls) { return '<div class="ac-card' + (cls ? ' ' + cls : '') + '"><small><u' + (hi ? ' class="hi"' : '') + '></u>' + src.replace(' · High', '<span class="hp"> · High</span>') + '</small><p>' + title + '</p><span class="cev">' + ev + '</span><footer>' + (who ? av(who) + who : '<span style="color:var(--mut)">Not assigned</span>') + (tag ? '<span class="sx-tag' + (tag === 'Resolved' ? ' ok' : '') + '">' + tag + '</span>' : '') + '</footer><div class="qa"><span>Reassign</span><span class="go">Start</span><span>Resolve</span></div></div>'; };
       /* c2: the count once the refund task has been carried to Done (step 4) */
-      var col = function (n, c, cards, more, c2) { return '<section class="ac-col"><h4>' + n + '<i>' + (c2 ? '<b class="n0">' + c + '</b><b class="n1">' + c2 + '</b>' : c) + '</i></h4>' + cards + (more ? '<span class="ac-more"><b class="w">+' + more + ' more</b><b class="t">+' + (more + 1) + ' more</b></span>' : '') + '</section>'; };
+      var col = function (n, c, cards, more, c2) { return '<section class="ac-col"><h4>' + n + '<i>' + (c2 ? '<b class="n0">' + c + '</b><b class="n1">' + c2 + '</b>' : c) + '</i></h4>' + cards + (more ? '<span class="ac-more"><b class="w">+' + more + ' more</b><b class="t">+' + (more + 1) + ' more</b><b class="x">+' + (more - 1) + ' more</b></span>' : '') + '</section>'; };
       return top('Actions', 'Every finding from a call, tracked to an owner and an outcome.', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New task', 'ink')) +
         '<div class="ac-bar"><span class="sx-chip on">Everyone</span><span class="sx-chip">Assigned to me</span><span class="sx-chip">Mentions me</span><i class="gap"></i><span class="sx-chip">High priority <b>4</b></span><span class="sx-chip">From alerts <b>5</b></span><span class="sx-chip">From agent evaluation <b>2</b></span></div>' +
         '<div class="ac-board">' +
         col('Pending', 6, card('Alert · Today · High', 1, 'Customer asked twice for a refund, was offered only a voucher', '<b>02:41</b>“…a refund, not a voucher.”', 'Daniel Brooks', '', 'src') +
           card('Call · Yesterday', 0, 'Reason for call tagged as Billing, should be Flight change', '<b>00:38</b>“I need to move my flight.”', 'Maya Collins') +
-          card('Agent evaluation · Yesterday · High', 1, 'Recording disclosure missing in the first 30 seconds', 'No recording notice before 00:30', ''), 3, 5) +
+          card('Agent evaluation · Yesterday · High', 1, 'Recording disclosure missing in the first 30 seconds', 'No recording notice before 00:30', '') +
+          card('Call · Oct 11', 0, 'Seat upgrade charged twice on one booking', '<b>04:05</b>“You charged me twice.”', 'Paula Nunes', '', 'nx'), 3, 5) +
         col('In progress', 5, card('Alert · Oct 10 · High', 1, 'Technical failure blocked a booking at payment', '<b>03:12</b>“It says payment failed.”', 'Ryan Cole') +
           card('Agent evaluation · Oct 9', 0, 'Identity verification skipped before a ticket change', 'No ID question before 01:55', 'Paula Nunes') +
           card('Call · Oct 9', 0, 'Promised callback was not made within 24 hours', '<b>01:12</b>“Nobody called me back.”', 'Sofia Cruz'), 2) +
@@ -215,7 +227,7 @@
       var wv = M.map(function (v, k) { return '<i' + (k === 20 ? ' class="top"' : '') + ' style="--h:' + (v / 1921).toFixed(3) + '"></i>'; }).join('');
       var N = [['Team B handle time is up 40% on last week', 'Agent evaluation · 2:30 pm', 'Rising', 'ink', ''],
         ['Refund asked twice, voucher offered: 6 calls in 7 days', 'Alert · Refund refused · Oct 13', 'New', 'nw', ' thread'],
-        ['Recording disclosure went missing on 61 calls in 14 days', 'Signal · Disclosure missing · since Oct 11', 'Rising', 'ink', ''],
+        ['Recording disclosure went missing on 27 calls in two days', 'Signal · Disclosure missing · since Oct 11', 'Rising', 'ink', ''],
         ['Silence on Trip Status calls is down a third', 'Signal · Long silence · since the new script', 'Improving', 'ok', ''],
         ['Valid sales held above the 90% target for a sixth week', 'Compliance · weekly report', 'Steady', '', '']];
       var tab = function (t, c, on) { return '<span class="tab' + (on ? ' on' : '') + '">' + t + (c ? '<small>' + c + '</small>' : '') + '</span>'; };
@@ -236,7 +248,7 @@
         '<div class="nr-said"><blockquote>“If this isn’t refunded today I’m canceling everything.”<small>Call · Oct 12 · 2:02 pm · 6 min 12 sec</small></blockquote>' +
         '<blockquote>“Just cancel the whole trip, please.”<small>Call · Oct 12 · 12:05 pm · 9 min 3 sec</small></blockquote></div>' +
         '<div class="nr-why"><div><b>Why you’re seeing this</b><p>The signal passed twice its usual level on Oct 9 and has stayed above it for four days.</p></div>' +
-        '<span class="nr-str"><i><u></u><u></u><u></u></i>Strong</span><span class="nr-see">See the 211 calls →</span></div></section>' +
+        '<span class="nr-str"><i><u></u><u></u><u></u></i>Strong</span><span class="nr-see">See the 211 calls since Oct 9 →</span></div></section>' +
         '<section class="nr-side"><div class="nr-feat"><small>Monthly recap · September</small><h3>38,214 calls. One story.</h3><p>The busiest day, and the one thing that changed most.</p>' +
         '<div class="nr-pl"><span class="nr-play"><svg viewBox="0 0 12 12"><path d="M2.5 1.2v9.6L10.5 6z"/></svg>Play · 75 sec</span><span class="nr-wv">' + wv + '</span></div></div>' +
         '<div class="nr-list">' + N.map(function (s) { return '<div class="nr-item' + s[4] + '"><b>' + s[0] + '</b><span class="sx-tag ' + s[3] + '">' + s[2] + '</span><span>' + s[1] + '</span></div>'; }).join('') + '</div></section></div>' +
@@ -244,7 +256,7 @@
         '<div class="sl s0"><small>September 2026 · Your recap</small><h3>Chief,<br class="dk"> your month was loud.</h3><p>Let’s listen back.</p></div>' +
         '<div class="sl s1"><small>Calls analyzed</small><h3>38,214</h3><p>9% more than August</p></div>' +
         '<div class="nr-mon"><span class="tip" style="left:' + pc(20.5 / 30 * 100) + '">Busiest day · <b>Mon, Sep 21</b> · 1,921 calls</span><div class="b">' + bars + '</div><div class="x"><span>Sep 1</span><span>Sep 30</span></div></div>' +
-        '<div class="sl s2"><small>What changed most</small><h3>Refund calls doubled in one week.</h3><p>It began on September 21, the month’s busiest day, when the schedule changed.</p>' +
+        '<div class="sl s2"><small>What changed most</small><h3>Refund calls doubled for one week.</h3><p>From September 21, the month’s busiest day, when the schedule changed.<br>Back to usual by the 28th.</p>' +
         /* the two weeks are two bands, each with its total above it */
         '<div class="nr-ref"><span class="wn" style="left:' + pc(160 / W * 100) + '"><b>963</b><i>Sep 14 to 20</i></span><span class="wn on" style="left:' + pc(230 / W * 100) + '"><b>2,014</b><i>Sep 21 to 27</i></span>' +
         '<svg viewBox="0 0 ' + W + ' 100" preserveAspectRatio="none"><clipPath id="nr-wk"><rect x="195" y="-30" width="70" height="160"/></clipPath><rect x="125" y="-12" width="70" height="112" fill="#fff" fill-opacity=".08"/><rect x="195" y="-12" width="70" height="112" fill="#fff" fill-opacity=".2"/>' +
@@ -384,9 +396,9 @@
         ['Praise for the agent', 'The customer thanks the agent by name', 'Paused', '', null]];
       var sum = function (a) { return a.reduce(function (x, y) { return x + y; }, 0); };
       var PV = [1, 2, 1, 3, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1];
-      /* a small chart of fourteen days on the scale the rule is judged by: the usual day (their average) is drawn at six tenths of the height
+      /* a small chart of fourteen days on the scale the rule is judged by: the usual day (their average) is drawn at half the height
          for every signal, so a quiet one stays around the line and any move away from it shows */
-      var spark = function (a) { var u = sum(a) / a.length; return '<span class="sp">' + a.map(function (v, d) { return '<i style="height:' + Math.min(100, Math.max(12, v / u * 60)).toFixed(0) + '%;--d:' + d + '"></i>'; }).join('') + '<u style="bottom:60%"></u></span>'; };
+      var spark = function (a) { var u = sum(a) / a.length; return '<span class="sp">' + a.map(function (v, d) { return '<i style="height:' + Math.min(100, Math.max(12, v / u * 50)).toFixed(0) + '%;--d:' + d + '"></i>'; }).join('') + '<u style="bottom:50%"></u></span>'; };
       var card = function (f, k) {
         var a = f[4], mx = Math.max.apply(0, a);
         return '<div class="sg-card" data-g="' + k + '"><header><b>' + f[0] + '</b><i class="tg"></i></header><small>' + f[1] + '</small>' +
@@ -405,13 +417,17 @@
         /* a preview is checked before it is saved: two of the calls it found, the words that matched underlined */
         '<div class="mq"><small>2 of the 23</small><span>“Can I <u>speak to your supervisor</u>, please?”<small> · Oct 12</small></span><span>“I want <u>a manager</u> on the line.”<small> · Oct 11</small></span></div></div>' +
         '<div class="sx-body"><div class="sx-h"><b>Triggered now</b><span>3 signals over twice their usual day</span></div><div class="sg-fire">' + F.map(card).join('') + '</div>' +
-        '<div class="sx-h sg-h2"><b>The other four</b><span>3 active, inside their usual range · 1 paused</span></div><div class="sg-list">' + Q.map(function (q, k) { return row(q, k + 3); }).join('') + '</div></div>';
+        '<div class="sx-h sg-h2"><b>The other four</b><span>3 active, inside their usual range · 1 paused</span></div><div class="sg-list">' +
+        /* the rule written in step 3, as the row it becomes once it is saved */
+        '<div class="sg-r add" data-g="7"><i class="tg"></i><span class="nm"><span>Supervisor requested<span class="sx-tag nw">New</span></span><small>The customer asks to speak to a supervisor</small></span>' + spark(PV) + '<span class="ct"><b>23</b>calls in 14 days</span><span class="sx-tag">Active</span></div>' +
+        Q.map(function (q, k) { return row(q, k + 3); }).join('') + '</div></div>';
     },
     show: function (el, i, ui) {
       var fresh = el.querySelector('.sg-r.fresh'), tag = el.querySelector('.sg-new .sx-tag'), fire = el.querySelector('.sg-fire'), live = !!ui && !ui.jump;
       var sv = fresh.querySelector('.act'), pt = fresh.querySelector('.nm .sx-tag'), nn = el.querySelector('.sg-nn'), h2 = el.querySelector('.sg-h2');
       var PV = [1, 2, 1, 3, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1];
       h2.firstChild.textContent = 'The other four'; h2.lastChild.textContent = '3 active, inside their usual range · 1 paused';
+      el.classList.remove('sd', 'sv'); nn.classList.remove('up');
       fresh.classList.remove('in', 'q'); sv.classList.remove('press', 'saved'); sv.textContent = 'Save signal'; pt.className = 'sx-tag nw'; pt.textContent = 'Preview'; nn.textContent = '7';
       tag.textContent = 'Reading the last 14 days…';
       /* the page arrives: each firing signal's fourteen days rise from left to right, then the usual day is drawn across them */
@@ -440,9 +456,14 @@
              it says so, the page counts eight signals and the tag turns from Preview to Active */
           later(function () { fresh.classList.add('q'); }, 2300);
           later(function () { sv.classList.add('press'); }, 5000);
-          later(function () { sv.classList.add('saved'); sv.textContent = 'Saved'; nn.textContent = '8'; pt.className = 'sx-tag flip'; pt.textContent = 'Active';
-            /* three triggered and five others make the eight the page now counts */
-            h2.firstChild.textContent = 'The other five'; h2.lastChild.textContent = '4 active, inside their usual range · 1 paused'; }, 5350); };
+          later(function () { sv.classList.add('saved'); sv.textContent = 'Saved'; pt.className = 'sx-tag flip'; pt.textContent = 'Active'; el.classList.add('sd'); }, 5350);
+          /* saved, the rule leaves the field it was written in and lands where it now lives: the field and the preview fold away and
+             the rule is the first row of the quiet list (at full size; a short frame has no room for the list in this step).
+             Then the heading and the page count it: three triggered and five others make eight */
+          var full = !el.closest('.is-short');
+          if (full) later(function () { el.classList.add('sv'); }, 7100);
+          if (full) later(function () { h2.firstChild.textContent = 'The other five'; h2.lastChild.textContent = '4 active, inside their usual range · 1 paused'; }, 7400);
+          later(function () { nn.textContent = '8'; nn.classList.add('up'); }, 7750); };
         if (ui.jump) { tx.textContent = text; box.classList.add('done'); found(); }
         /* the field arrives empty and the frame arrives with it; only then is the sentence typed */
         else { tx.textContent = ''; later(function () { type(tx, text, function () { box.classList.add('done'); later(found, 1100); }); }, 1250); }
@@ -491,7 +512,7 @@
     jump: false,
     side: function (html) { side.innerHTML = html; side.classList.add('on'); el.classList.add('side-on'); },
     tip: function (target, html, where, width) {
-      tip.style.width = width ? width + 'px' : ''; tip.style.height = ''; tip.classList.remove('fill'); tip.innerHTML = html; tip.classList.add('on'); tip.style.left = tip.style.top = '0px';
+      tip.style.width = width ? width + 'px' : ''; tip.style.height = ''; tip.classList.remove('fill', 'cmp'); tip.innerHTML = html; tip.classList.add('on'); tip.style.left = tip.style.top = '0px';
       var a = target.getBoundingClientRect(), r = el.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight, x, y;
       if (where === 'left') { x = a.left - r.left - w - 14; y = a.top - r.top + a.height / 2 - h / 2; }
       else if (where === 'below') { x = a.right - r.left - w; y = a.bottom - r.top + 14; }

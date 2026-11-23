@@ -1058,3 +1058,71 @@
 .sg-r .sp.off{box-shadow:inset 0 -2px 0 #DCEFFE}
 .sg-r .ct .off{color:var(--mut)}
 @media (prefers-reduced-motion:reduce){.sx-side .ae-ag.made .ts,.sg-r.fresh.in .sp u{animation:none}}
+/* ---------- Eighth pass ----------
+   Signals. A small chart is fourteen thin marks around the usual day, drawn at half the height: the top of the chart is twice the
+   usual day, the level at which a signal fires. (As wide bars they read as a strip of tiles.) */
+.sg-r,.is-narrow .sg-r{grid-template-columns:38px minmax(0,1fr) 196px 124px 92px}
+.sx.side-on .sg-r{grid-template-columns:38px minmax(0,1fr) 124px 92px}
+.sg-r.fresh.in,.is-narrow .sg-r.fresh.in{grid-template-columns:minmax(0,1fr) 196px 124px auto}
+.sg-r .sp{width:134px;justify-self:end;gap:6px}
+.sg-r .sp i{flex:none;width:4px;border-radius:2px 2px 0 0}
+.sg-r .sp.off{box-shadow:inset 0 -1.5px 0 #A9DAFE}
+/* the caught calls: the time has a column of its own */
+.sx-side .sg-q li b{flex:none;width:70px;white-space:nowrap;font-variant-numeric:tabular-nums}
+/* a short frame keeps the heading of the quiet list; the rows give it the room */
+.is-short .sx:not([data-st="2"]) .sg-h2{display:flex;min-height:26px;margin-top:10px}
+.is-short .sg-list{margin-top:0}
+.is-tiny .sg-list .sg-r{height:45px}
+/* while a rule is being written the page behind it steps back, and comes forward again when it is saved */
+#sx-signals[data-st="2"] .sx-body{transition:opacity .45s}
+#sx-signals[data-st="2"]:not(.sd) .sx-body{opacity:.55}
+/* saved: the field and the preview fold away, the rule is the first row of the quiet list, and the list is shown to its end */
+.sg-r.add{display:none;overflow:hidden}
+.sg-r.add .nm>span{display:flex;align-items:center;gap:10px}
+.sx:not(.sv) .sg-list .sg-r.add+.sg-r{box-shadow:none}
+.sx.sv .sg-new{overflow:hidden;animation:sg-fold .55s cubic-bezier(.4,0,.2,1) both}
+.sx.sv .sg-r.fresh.in{overflow:hidden;animation:sg-fold2 .55s cubic-bezier(.4,0,.2,1) both}
+.sx.sv .sg-r.add{display:grid;animation:sg-add .6s .15s cubic-bezier(.2,.8,.2,1) both}
+.sx.sv .sg-r.add .sp i{animation:sg-rise .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.5s + var(--d)*30ms)}
+.sx[data-st="2"].sv .sg-cx{display:none}
+.sx[data-st="2"].sv .sg-nw{display:flex;animation:sg-mark .4s .2s ease-out both}
+@keyframes sg-fold{35%{opacity:0}to{height:0;margin-top:0;opacity:0}}
+@keyframes sg-fold2{from{max-height:160px}35%{opacity:0}to{max-height:0;margin-top:0;padding-top:0;padding-bottom:0;opacity:0}}
+@keyframes sg-add{from{height:0;opacity:0}}
+@property --sgm{syntax:'<length>';inherits:false;initial-value:70px}
+.sx[data-st="2"] .sg-list{--sgm:70px;transition:--sgm .5s;-webkit-mask-image:linear-gradient(#000 calc(100% - var(--sgm)),transparent);mask-image:linear-gradient(#000 calc(100% - var(--sgm)),transparent)}
+.sx.sv .sg-list{--sgm:0px}
+.sg-nn{display:inline-block}
+.sg-nn.up{animation:sg-flip .45s cubic-bezier(.2,.9,.3,1.25) both}
+/* Agents: the chosen band is told by the dimming of the others, not by a ring that reads as a slider's thumb */
+.sx[data-st="2"] .ae-strip i.hot{box-shadow:none}
+.is-short .sx.side-on .ae-leg{justify-content:flex-end}
+/* a task set on an agent: the criterion's coral rule turns green, row by row, before the button says five were created */
+.sx-side .ae-ag u{transition:text-decoration-color .3s;transition-delay:calc(var(--i)*70ms)}
+.sx-side.on .ae-ag.made u{animation:none;text-decoration-color:var(--green)}
+/* Compliance: the count of failing criteria is a number in the table's own type, not a white box */
+.cm-grid .ft b{min-width:0;height:auto;border-radius:0;background:none;box-shadow:none;font-size:13.5px;font-weight:600;color:var(--coral-ink)}
+.cm-grid .hd{transition:opacity .2s}
+.sx .cm-grid .hd.cov{opacity:0}
+.sx-tip.cmp{padding:10px 14px}
+.sx-tip.cmp .t2+span,.sx-tip.cmp .pm{display:none}
+.sx-tip.cmp .go{margin-top:8px;padding-top:7px}
+/* a call's length as a line: the line itself is seen on the white sheet, and the part that was played is a step darker */
+.sx-side .cm-tl{background:#A9DAFE}
+.sx-side .ac-ev .cm-tl s{background:#63BEFE}
+/* Actions, a short frame: every card keeps its line from the call (beside an open task only the task's own card does) */
+.is-short .ac-card .cev{display:block;white-space:normal}
+.is-short .ac-card .cev:has(b){display:grid;grid-template-columns:auto minmax(0,1fr)}
+.is-short .sx.side-on .ac-card:not(.src) .cev{display:none}
+.is-short .ac-card.src .cev{display:grid;grid-template-columns:auto minmax(0,1fr)}
+.is-short .sx.side-on .ac-card.src .cev{display:block;white-space:nowrap}
+/* once the refund task has gone to Done, the next task in Pending takes its place */
+.ac-card.nx{display:none}
+.sx[data-st="3"] .ac-card.nx{display:block;animation:sg-mark .45s .9s ease-out both}
+.is-short .sx[data-st="3"] .ac-card.nx{display:none}
+.ac-more .x{display:none}
+.sx[data-st="3"] .ac-col:first-child .ac-more .w{display:none}
+.sx[data-st="3"] .ac-col:first-child .ac-more .x{display:inline}
+.is-short .sx[data-st="3"] .ac-col:first-child .ac-more .w{display:inline}
+.is-short .sx[data-st="3"] .ac-col:first-child .ac-more .x{display:none}
+@media (prefers-reduced-motion:reduce){.sx.sv .sg-new,.sx.sv .sg-r.fresh.in,.sx.sv .sg-r.add,.sx.sv .sg-r.add .sp i,.sg-nn.up,.sx[data-st="3"] .ac-card.nx{animation-duration:.01s;animation-delay:0s}}
