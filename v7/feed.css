@@ -86,7 +86,42 @@
 #campaign#campaign .hp-go:hover svg{ transform:translateX(3px); }
 
 /* from the feed to the page: the cloud and the name travel, the rest changes under them */
-::view-transition-group(hp-av), ::view-transition-group(hp-name), ::view-transition-group(hp-post){ animation-duration:.56s; animation-timing-function:cubic-bezier(.3,.1,.1,1); }
+/* The way back, staged the same way in reverse: the index, the filter and the head leave, the post goes back into the feed with its two
+   lines drawn once, the cloud and the name return above it, and the home page is built around it last. */
+/* the same two lines of the post, named on this side too; and the same header measures as the post on the page,
+   so the line of text lands exactly where the page's line was (now 16/20/6 and 6/20/14: the lines sit 2 and 4 px lower) */
+#campaign#campaign .lp-who span{ view-transition-name:hp-sub; }
+#campaign#campaign .lp-t{ view-transition-name:hp-cap; padding:10px 20px 12px; }
+#campaign#campaign .lp-h{ padding:14px 20px 0; }
+
+::view-transition{ background:#f4f3f1; }
+/* while a page transition is running the feed does not replay its two-post scroll: the post has one place to land */
+html:active-view-transition #campaign#campaign.hp-js .hp-track.run{ transition:none; }
+
+/* 1 · 0–200 ms: the index and the filter leave; 100–400 ms: the head; 0–250 ms: the rest of the page */
+::view-transition-old(hp-rail), ::view-transition-old(hp-chips){ animation:hp-out .2s ease both; }
+::view-transition-group(hp-head){ z-index:1; }
+::view-transition-old(hp-head){ animation:hp-out .3s ease .1s both; }
+::view-transition-old(root){ animation:hp-out .25s ease both; mix-blend-mode:normal; }
+
+/* 2 · 150–870 ms: the post goes back into the feed; one short dissolve of the card (150–400 ms, before the cloud and the name arrive, so the page post's own small cloud and name are gone by then), its two lines drawn once */
+::view-transition-group(hp-post), ::view-transition-group(hp-sub), ::view-transition-group(hp-cap){ animation-duration:.72s; animation-delay:.15s; animation-timing-function:cubic-bezier(.3,.1,.1,1); }
+::view-transition-group(hp-post){ z-index:3; }
+::view-transition-group(hp-sub), ::view-transition-group(hp-cap){ z-index:4; }
+::view-transition-old(hp-post), ::view-transition-new(hp-post){ height:100%; object-fit:cover; object-position:50% 0; }
+::view-transition-old(hp-post){ animation:hp-out .25s linear .15s both; }
+::view-transition-new(hp-post){ animation:hp-in .25s linear .15s both; }
+::view-transition-old(hp-sub), ::view-transition-old(hp-cap){ display:none; }
+::view-transition-new(hp-sub), ::view-transition-new(hp-cap){ animation:none; opacity:1; mix-blend-mode:normal; width:100%; height:100%; object-fit:none; object-position:0 0; }
+
+/* 3 · 150–950 ms: the cloud and the name come back to the post, ABOVE it (the page lists the name under the post, so without this it slides behind the card and is gone) */
+::view-transition-group(hp-av), ::view-transition-group(hp-name){ z-index:5; animation-duration:.8s; animation-delay:.15s; animation-timing-function:cubic-bezier(.3,.1,.1,1); }
+
+/* 4 · 350–1100 ms: the home page is built around the post last */
+::view-transition-new(root){ animation:hp-in .75s ease .35s both; mix-blend-mode:normal; }
+
+@keyframes hp-in{ from{ opacity:0; } }
+@keyframes hp-out{ to{ opacity:0; } }
 
 @media (max-width:980px){
   #campaign#campaign .hp-stage{ grid-template-columns:minmax(0, 1fr); }

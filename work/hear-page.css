@@ -26,6 +26,8 @@ button{ font:inherit; color:inherit; }
 .sk-acts .sk{ width:54px; height:9px; }
 
 @view-transition{ navigation:auto; }
+@property --r{ syntax:'<percentage>'; inherits:false; initial-value:0%; }
+@property --d{ syntax:'<number>'; inherits:true; initial-value:0; }
 /* a picture is a plain image on a pale ground. One that has not arrived yet (.w, set by the script) waits unseen
    and fades in when it has: opacity only, a quarter of a second */
 .pt{ position:relative; overflow:hidden; background:#e2e8ee; isolation:isolate; }
@@ -40,7 +42,7 @@ button{ font:inherit; color:inherit; }
 
 /* a post */
 .lp{ background:#fff; border-radius:14px; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 30px 50px -40px rgba(23,40,70,.4); overflow:hidden; scroll-margin-top:78px; }
-.lp-h{ display:flex; align-items:center; gap:12px; padding:16px 20px 0; }
+.lp-h{ display:flex; align-items:center; gap:12px; padding:14px 20px 0; }
 .lp-av{ flex:none; width:46px; height:46px; border-radius:8px; object-fit:cover; }
 .lp-av.me{ border-radius:50%; }
 .lp-who{ min-width:0; flex:1; }
@@ -48,50 +50,63 @@ button{ font:inherit; color:inherit; }
 .lp-who span{ display:block; margin-top:2px; font:400 13px/1.3 var(--body); color:#6a7078; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .lp-pin{ flex:none; align-self:flex-start; display:inline-flex; align-items:center; gap:6px; margin-top:2px; font:500 12.5px/1 var(--body); color:#6a7078; }
 .lp-pin svg{ width:14px; height:14px; }
-.lp-t{ margin:0; padding:12px 20px 14px; font:400 15.5px/1.45 var(--body); color:#171b20; }
+.lp-t{ margin:0; padding:10px 20px 12px; font:400 15.5px/1.45 var(--body); color:#171b20; }
 
 /* ══ PART TWO · the company page ══ */
 .hp-page{ min-height:100vh; padding-bottom:clamp(60px, 8vw, 110px); }
 .lk-nav{ position:sticky; top:0; z-index:5; background:rgba(255,255,255,.95); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); box-shadow:0 1px 0 rgba(23,27,32,.08); }
-.lk-nav-in{ display:flex; align-items:center; gap:20px; width:min(100% - 2 * clamp(16px, 3vw, 32px), 1100px); height:60px; margin:0 auto; }
+.lk-nav-in{ display:flex; align-items:center; gap:20px; width:min(100% - 2 * clamp(16px, 3vw, 32px), 1100px); height:52px; margin:0 auto; }
 .lk-back{ display:inline-flex; align-items:center; gap:8px; height:36px; margin-left:-10px; padding:0 12px 0 10px; border-radius:18px; font:500 14.5px/1 var(--body); text-decoration:none; white-space:nowrap; color:#171b20; transition:background-color .2s; }
 .lk-back:hover{ background:#f1f0ed; }
 .lk-back svg{ width:17px; height:17px; }
 .lk-back b{ font-weight:inherit; }
-.lk-chrome{ flex:1; display:flex; align-items:center; gap:12px; min-width:0; color:#a3a8ad; user-select:none; }
+.lk-chrome{ flex:1; display:flex; align-items:center; gap:20px; min-width:0; color:#a3a8ad; user-select:none; }
 .lk-search{ flex:0 1 210px; display:flex; align-items:center; gap:8px; height:34px; padding:0 12px; border-radius:8px; background:#f3f2ef; font:400 14px/1 var(--body); }
 .lk-search svg{ width:16px; height:16px; flex:none; }
 .lk-nav-ic{ display:flex; gap:clamp(14px, 2vw, 26px); margin-left:auto; }
 .lk-nav-ic span{ display:grid; justify-items:center; gap:4px; font:400 11.5px/1 var(--body); white-space:nowrap; }
 .lk-nav-ic svg{ width:21px; height:21px; }
 
-.lk-wrap{ display:grid; grid-template-columns:minmax(0, 1fr) 300px; gap:24px; align-items:start; width:min(100% - 2 * clamp(16px, 3vw, 32px), 1100px); margin:22px auto 0; }
-.lk-top{ view-transition-name:hp-post; background:#fff; border-radius:14px; box-shadow:0 0 0 1px rgba(23,27,32,.07); overflow:hidden; }
-.lk-id{ position:relative; display:grid; grid-template-columns:minmax(0, 1fr) auto; align-items:end; gap:14px 20px; padding:0 24px 20px; }
-.lk-av{ grid-column:1 / -1; width:112px; height:112px; margin-top:-54px; border:5px solid #fff; border-radius:14px; background:#fff; object-fit:cover; position:relative; z-index:1; }
-.lk-who h1{ width:fit-content; margin:0; font:600 25px/1.15 var(--body); letter-spacing:-.015em; }
-.lk-who p{ margin:4px 0 0; font:400 15.5px/1.35 var(--body); color:#4b5158; }
-.lk-btns{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-.lk-btn{ display:inline-flex; align-items:center; gap:7px; height:38px; padding:0 16px; border-radius:19px; background:#171b20; color:#fff; font:500 14.5px/1 var(--body); text-decoration:none; white-space:nowrap; transition:background-color .2s; }
+.lk-wrap{ display:grid; grid-template-columns:minmax(0, 1fr) 300px; gap:24px; align-items:start; width:min(100% - 2 * clamp(16px, 3vw, 32px), 1100px); margin:14px auto 0; }
+.lk-top{ background:#fff; border-radius:14px; box-shadow:0 0 0 1px rgba(23,27,32,.07); overflow:hidden; }
+/* the cover is a strip, 2256 by 382, and is always shown whole: at the width of the column, or (on a phone) taller and scrolled sideways */
+.lk-cover{ aspect-ratio:2256 / 382; }
+/* the head is one row: the mark, the name and the line beside it, the two buttons at the right */
+.lk-id{ position:relative; display:grid; grid-template-columns:auto minmax(0, 1fr) auto; align-items:center; gap:14px; padding:14px 24px; }
+.lk-av{ width:64px; height:64px; border-radius:10px; background:#fff; object-fit:cover; }
+.lk-who h1{ width:fit-content; margin:0; font:600 24px/1.15 var(--body); letter-spacing:-.015em; }
+.lk-who p{ margin:3px 0 0; font:400 15px/1.35 var(--body); color:#4b5158; text-wrap:balance; }
+.lk-btns{ align-self:center; display:flex; align-items:center; gap:8px; }
+.lk-btn{ display:inline-flex; align-items:center; gap:7px; height:36px; padding:0 14px; border-radius:18px; background:#171b20; color:#fff; font:500 14px/1 var(--body); text-decoration:none; white-space:nowrap; transition:background-color .2s; }
 .lk-btn svg{ width:15px; height:15px; }
 .lk-btn:hover{ background:#2a3038; }
 .lk-btn.ghost{ background:transparent; color:#171b20; box-shadow:inset 0 0 0 1.5px #171b20; }
 .lk-btn.ghost:hover{ background:#f1f0ed; }
-.lk-tabs{ display:flex; gap:28px; padding:0 24px; border-top:1px solid #eeede9; user-select:none; }
-.lk-tabs span{ padding:14px 0 13px; font:500 14.5px/1 var(--body); color:#a3a8ad; }
+.lk-tabs{ display:flex; gap:28px; height:45px; padding:0 24px; border-top:1px solid #eeede9; user-select:none; }
+.lk-tabs span{ display:flex; align-items:center; font:500 14.5px/1 var(--body); color:#a3a8ad; }
 .lk-tabs .on{ color:#171b20; box-shadow:inset 0 -2px 0 #171b20; }
 
-.lk-chips{ display:flex; gap:8px; margin-top:18px; }
+.lk-chips{ display:flex; gap:8px; margin-top:14px; }
 .lk-chips button{ display:inline-flex; align-items:center; gap:7px; height:34px; padding:0 14px; border:0; border-radius:17px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.1); font:500 14px/1 var(--body); color:#171b20; cursor:pointer; transition:background-color .2s, color .2s; }
 .lk-chips button i{ font-style:normal; font-weight:400; color:#8a8e94; font-variant-numeric:tabular-nums; }
 .lk-chips button:hover{ background:#f7f6f4; }
 .lk-chips button[aria-pressed="true"]{ background:#171b20; color:#fff; box-shadow:none; }
 .lk-chips button[aria-pressed="true"] i{ color:rgba(255,255,255,.62); }
 
-.lk-feed{ display:grid; gap:18px; margin-top:14px; }
+.lk-feed{ display:grid; gap:16px; margin-top:12px; }
+/* where the column is wide enough (about 715px and up) the line beside the name fits in one row. There the mark is larger and stands a little
+   on the cover, its picture (inside the white edge) on the same line as the tabs under it; the filter stands in the row of the tabs,
+   at its right end, and the first post comes straight after the head */
+@media (min-width:1104px), (min-width:760px) and (max-width:980px){
+  .lk-id{ align-items:end; column-gap:16px; padding:10px 24px 12px; }
+  .lk-av{ position:relative; z-index:1; width:84px; height:84px; margin:-34px 0 0 -4px; border:4px solid #fff; border-radius:12px; }
+  .lk-chips{ position:relative; z-index:1; align-items:center; width:fit-content; height:44px; margin:-44px 24px 0 auto; }
+  .lk-chips button{ height:30px; padding:0 12px; border-radius:15px; font-size:13.5px; }
+  .lk-feed{ margin-top:16px; }
+}
 
 /* the right column: the posts on this page, the one on screen marked. A press goes to it */
-.lk-rail{ position:sticky; top:78px; max-height:calc(100vh - 92px); overflow-y:auto; overscroll-behavior:contain; scrollbar-width:none; }
+.lk-rail{ position:sticky; top:66px; max-height:calc(100vh - 80px); overflow-y:auto; overscroll-behavior:contain; scrollbar-width:none; }
 .lk-rail::-webkit-scrollbar{ display:none; }
 .lk-rail ol{ display:grid; gap:2px; margin:0; padding:0; list-style:none; }
 .lk-rail button{ display:grid; grid-template-columns:72px minmax(0, 1fr); gap:11px; align-items:center; width:100%; padding:5px 7px; border:0; border-radius:12px; background:transparent; text-align:left; cursor:pointer; transition:background-color .25s, box-shadow .25s; }
@@ -107,7 +122,7 @@ button{ font:inherit; color:inherit; }
 @keyframes seq-in{ from{ opacity:0; transform:translateY(6px); } }
 
 /* a post on the page: the row of actions. Like and Comment are real; Repost and Send are LinkedIn's, drawn */
-.lp-row{ display:grid; grid-template-columns:repeat(4, 1fr); align-items:center; padding:2px 8px 4px; border-top:1px solid #f1f0ed; }
+.lp-row{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); align-items:center; padding:2px 8px 4px; border-top:1px solid #f1f0ed; }
 .lp-act, .lp-dr{ display:flex; align-items:center; justify-content:center; gap:8px; height:44px; font:500 14px/1 var(--body); }
 .lp-act{ padding:0; border:0; border-radius:8px; background:transparent; color:#333a42; cursor:pointer; transition:background-color .2s, color .2s; }
 .lp-act:hover{ background:#f4f3f1; }
@@ -120,6 +135,44 @@ button{ font:inherit; color:inherit; }
 
 
 /* the sheet: light, never dark. A pair stands side by side; a press outside the pictures closes it */
+
+/* ── one post is heard at a time (hear-page.js: pick, open) ──
+   Waiting: the whole painting as a pale grey print, and on it the thing that carries the words, in full ink.
+   Opening: the print opens from the words outward (0.9 s) onto the painting's own planes.
+   Heard and on screen: the planes part (0.8 s) and answer the pointer: far against it, near with it, the words' plane hardly at all. */
+.dp{ --tx:0; --ty:0; --d:0; }
+.dp img{ -webkit-user-drag:none; user-select:none; }
+.dp-scene{ position:absolute; inset:0; overflow:hidden; transition:--d .8s cubic-bezier(.2,.7,.2,1); }
+.dp.live .dp-scene{ --d:1; }
+/* how far the far plane travels is set per picture: where the words stand near an edge of it, it travels less, so no letter is ever cut */
+.dp-far{ transform-origin:var(--fo, 50% 50%); transform:translate(calc(var(--tx) * var(--d) * var(--fx, -3.5%)), calc(var(--ty) * var(--d) * var(--fy, -2.5%))) scale(calc(1 + var(--fs, .1) * var(--d))); }
+.dp-mid{ transform:translate(calc(var(--tx) * var(--d) * 5px), calc(var(--ty) * var(--d) * 3px)) scale(calc(1 + .02 * var(--d))); }
+.dp-near{ transform-origin:50% 62%; transform:translate(calc(var(--tx) * var(--d) * var(--nx, 14px)), calc(var(--ty) * var(--d) * var(--ny, 9px))) scale(calc(1 + .05 * var(--d))); }
+.dp.live .dp-far, .dp.live .dp-mid, .dp.live .dp-near{ will-change:transform; }
+.dp-light{ position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen; opacity:var(--d);
+  background:radial-gradient(95% 75% at calc(22% - var(--tx) * 40%) calc(8% - var(--ty) * 36%), rgba(255,255,255,.22) 0, rgba(255,255,255,.08) 36%, rgba(255,255,255,0) 68%); }
+.dp-grey{ filter:grayscale(1) contrast(.62) brightness(1.2); --r:0%;
+  -webkit-mask-image:radial-gradient(circle farthest-corner at var(--cx) var(--cy), transparent calc(var(--r) - 16%), #000 var(--r));
+          mask-image:radial-gradient(circle farthest-corner at var(--cx) var(--cy), transparent calc(var(--r) - 16%), #000 var(--r)); }
+.dp.open .dp-grey{ --r:118%; transition:--r .9s cubic-bezier(.4,0,.2,1), opacity .25s linear; }
+.dp-words{ -webkit-mask-size:100% 100%; mask-size:100% 100%; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; }
+.dp.open .dp-words{ opacity:0; transition:opacity .2s linear .9s; }
+.dp.done .dp-grey, .dp.done .dp-words{ visibility:hidden; }
+/* a film waits in grey too, and takes its colour when it is heard; the index follows */
+.lp:not(.heard) .vd:not(.lo){ filter:grayscale(1) contrast(.62) brightness(1.2); }
+.vd:not(.lo){ transition:filter .9s cubic-bezier(.4,0,.2,1); }
+.lk-rail li img{ transition:filter .9s cubic-bezier(.4,0,.2,1); }
+.lk-rail li:not(.heard) img{ filter:grayscale(1) contrast(.7) brightness(1.15); }
+
+/* the cover in depth: the people and the window frames in front of the sky. The sky and its words stay put */
+.cv{ display:none; }
+@media (hover:hover) and (pointer:fine) and (min-width:641px){
+  .lk-cover{ --tx:0; --ty:0; --d:0; transition:--d .6s cubic-bezier(.2,.7,.2,1); }
+  .lk-cover.live{ --d:1; }
+  .lk-cover.cv-on .cv{ display:block; position:absolute; inset:0; overflow:hidden; }
+  .cv-mid{ transform:translate(calc(var(--tx) * var(--d) * 5px), calc(var(--ty) * var(--d) * 1px)); }
+  .cv-near{ transform-origin:50% 100%; transform:translate(calc(var(--tx) * var(--d) * 13px), calc(var(--ty) * var(--d) * 3px)) scale(calc(1 + .035 * var(--d))); }
+}
 
 /* films */
 /* a film is over its own first frame until it is really drawing (.on, from the script), then it is let through.
@@ -147,19 +200,23 @@ button{ font:inherit; color:inherit; }
 .vd.idle .vd-time, .vd.idle .vd-snd, .vd.idle .vd-bar{ visibility:visible; }
 
 /* the close: a link, the way a feed shows one */
-.lp-me{ margin-top:18px; }
+.lp-me{ margin-top:16px; }
 /* until the posts are in place the closing post waits unseen, so it is never seen right under the head and then thrown down the page.
    If the script never arrives it shows after 3 s; with no script at all it is there at once (noscript, in the page) */
 .lk-feed:empty + .lp-me{ animation:lp-hold 3s; }
 @keyframes lp-hold{ from, to{ visibility:hidden; } }
 .lp-link{ display:grid; grid-template-columns:minmax(0, 1fr) auto; align-items:center; gap:0 16px; margin:0 20px; border-radius:12px; background:#f4f3f1; text-decoration:none; overflow:hidden; transition:background-color .2s; }
 .lp-link:hover{ background:#eeedea; }
-.lp-pair{ grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+.lp-pair{ grid-column:1 / -1; display:grid; grid-template-columns:minmax(0, 5fr) minmax(0, 7fr); }
 .lp-pair img{ width:100%; height:auto; }
+/* the sentence the picture started from, in ink on paper */
+.lp-link .lp-line{ display:flex; flex-direction:column; justify-content:center; padding:20px 26px; background:#fbfaf7; box-shadow:inset -1px 0 0 rgba(23,27,32,.07); }
+.lp-line small{ font:500 12.5px/1.3 var(--body); color:#6a7078; }
+.lp-line q{ margin-top:8px; quotes:none; font:600 clamp(19px, 2vw, 25px)/1.22 var(--body); letter-spacing:-.015em; color:#171b20; text-wrap:balance; }
 .lp-link span{ padding:13px 0 15px 16px; min-width:0; }
 .lp-link .lp-pair{ padding:0; } /* the two pictures are a span too: they run edge to edge, the padding is for the words */
-.lp-link b{ display:block; font:600 16px/1.25 var(--body); }
-.lp-link i{ display:block; margin-top:3px; font:400 13.5px/1.3 var(--body); font-style:normal; color:#6a7078; }
+.lp-link b{ display:block; font:600 16px/1.25 var(--body); text-wrap:balance; }
+.lp-link i{ display:block; margin-top:3px; font:400 13.5px/1.3 var(--body); font-style:normal; color:#6a7078; text-wrap:balance; }
 .lp-link svg{ width:20px; height:20px; margin-right:16px; transition:transform .3s cubic-bezier(.2,.7,.2,1); }
 .lp-link:hover svg{ transform:translateX(3px); }
 .lp-out{ display:flex; gap:22px; padding:16px 20px 18px; }
@@ -169,9 +226,50 @@ button{ font:inherit; color:inherit; }
 /* ── from the feed to the page: the cloud and the name travel, the rest changes under them ── */
 .vt-av{ view-transition-name:hp-av; }
 .vt-name{ view-transition-name:hp-name; }
-::view-transition-group(hp-av), ::view-transition-group(hp-name), ::view-transition-group(hp-post){ animation-duration:.56s; animation-timing-function:cubic-bezier(.3,.1,.1,1); }
-/* the post card on the home page grows into the head of this page; the rest cross-fades with no blank moment */
+/* arriving from the home page: the post that was open there becomes the pinned post here, and the page is built around it.
+   The cloud leaves the post and becomes the mark of the page. One parade on screen at every moment. */
+#post0{ view-transition-name:hp-post; }
+/* The arrival, staged over about 1.15 s (filmed frame by frame on 23.11.2026): the home page leaves, the post travels with its two lines
+   drawn once, the cloud and the name settle as the page's mark, the head is built behind the post, then the filter, then the index. */
+/* names: the parts of the page that arrive in turn, and the two lines of the post that must never be drawn twice */
+.lk-top{ view-transition-name:hp-head; }
+.lk-chips{ view-transition-name:hp-chips; }
+.lk-rail{ view-transition-name:hp-rail; }
+#post0 .lp-who span{ view-transition-name:hp-sub; }
+#post0 .lp-t{ view-transition-name:hp-cap; }
+
+::view-transition{ background:#f4f3f1; }
+
+/* 1 · 0–200 ms: the home page leaves; 100–450 ms: the page's ground and its top bar arrive. Never both readable at once */
+::view-transition-old(root){ animation:hp-out .2s ease both; mix-blend-mode:normal; }
+::view-transition-new(root){ animation:hp-in .35s ease .1s both; mix-blend-mode:normal; }
+
+/* 2 · 0–720 ms: the post travels. The card is the home page's own picture until the page's picture has loaded,
+      then one short dissolve (250–550 ms). Its two lines of text ride with it as their own groups, drawn once */
+::view-transition-group(hp-post), ::view-transition-group(hp-sub), ::view-transition-group(hp-cap){ animation-duration:.72s; animation-delay:0s; animation-timing-function:cubic-bezier(.3,.1,.1,1); }
+::view-transition-group(hp-post){ z-index:3; }
+::view-transition-group(hp-sub), ::view-transition-group(hp-cap){ z-index:4; }
 ::view-transition-old(hp-post), ::view-transition-new(hp-post){ height:100%; object-fit:cover; object-position:50% 0; }
+::view-transition-old(hp-post){ animation:hp-out .3s linear .25s both; }
+::view-transition-new(hp-post){ animation:hp-in .3s linear .25s both; }
+::view-transition-old(hp-sub), ::view-transition-old(hp-cap){ display:none; }
+::view-transition-new(hp-sub), ::view-transition-new(hp-cap){ animation:none; opacity:1; mix-blend-mode:normal; width:100%; height:100%; object-fit:none; object-position:0 0; }
+
+/* 3 · 100–900 ms: the cloud and the name leave the post and settle as the page's mark, above everything */
+::view-transition-group(hp-av), ::view-transition-group(hp-name){ z-index:5; animation-duration:.8s; animation-delay:.1s; animation-timing-function:cubic-bezier(.3,.1,.1,1); }
+
+/* 4 · 120–570 ms: the cover and the head are built behind the post as it clears them; 550–850 ms: the filter */
+::view-transition-group(hp-head){ z-index:1; }
+::view-transition-new(hp-head){ animation:hp-rise .45s cubic-bezier(.2,.7,.2,1) .12s both; }
+::view-transition-group(hp-chips){ z-index:2; }
+::view-transition-new(hp-chips){ animation:hp-in .3s ease .55s both; }
+
+/* 5 · 700–1150 ms: the index comes last */
+::view-transition-new(hp-rail){ animation:hp-rise .45s cubic-bezier(.2,.7,.2,1) .7s both; }
+
+@keyframes hp-in{ from{ opacity:0; } }
+@keyframes hp-out{ to{ opacity:0; } }
+@keyframes hp-rise{ from{ opacity:0; transform:translateY(10px); } }
 
 @media (max-width:980px){
   .lk-wrap{ grid-template-columns:minmax(0, 1fr); }
@@ -189,20 +287,41 @@ button{ font:inherit; color:inherit; }
   .lp-h{ padding:14px 16px 0; }
   .lp-t{ padding:10px 16px 12px; font-size:15px; }
   .lp-av{ width:42px; height:42px; }
+  .lp-who span{ white-space:normal; text-wrap:balance; } /* beside Pinned the line does not fit: it takes two lines, it is never cut */
+  .lp-h:has(.lp-pin){ align-items:flex-start; }
   .lk-nav-in{ gap:10px; }
   .lk-wrap{ margin-top:12px; }
   .lk-feed{ gap:12px; }
-  .lk-id{ grid-template-columns:minmax(0, 1fr); padding:0 16px 16px; }
-  .lk-av{ width:76px; height:76px; margin-top:-20px; border-width:4px; border-radius:12px; }
+  .lp-me{ margin-top:12px; }
+  /* the cover at a height where its lettering can be read; it scrolls sideways in its frame (no bar), and opens where the sentence begins (a line of script in the page) */
+  .lk-cover{ aspect-ratio:auto; height:116px; overflow:auto hidden; overscroll-behavior-x:contain; scrollbar-width:none; }
+  .lk-cover::-webkit-scrollbar{ display:none; }
+  .lk-cover img{ position:static; width:auto; height:116px; aspect-ratio:2256 / 382; }
+  .lk-id{ grid-template-columns:auto minmax(0, 1fr); gap:14px 12px; padding:14px 16px 16px; }
   .lk-who h1{ font-size:22px; }
+  .lk-btns{ grid-column:1 / -1; flex-wrap:wrap; }
+  .lk-btn{ height:38px; padding:0 16px; border-radius:19px; font-size:14.5px; }
   .lk-tabs{ padding:0 16px; gap:22px; }
   .lp-act, .lp-dr{ font-size:13px; gap:6px; }
   .lp-act svg, .lp-dr svg{ width:17px; height:17px; }
   .lp-link{ margin:0 16px; }
+  .lp-pair{ grid-template-columns:minmax(0, 1fr); }
+  .lp-link .lp-line{ padding:16px 16px 18px; box-shadow:inset 0 -1px 0 rgba(23,27,32,.07); }
   .lp-out{ padding:14px 16px 16px; }
   .vd-play{ width:56px; height:56px; margin:-28px 0 0 -28px; }
 }
+@media (max-width:350px){
+  .lk-tabs{ gap:14px; }
+  .lk-tabs span{ font-size:13.5px; }
+}
+/* a narrow phone: the four actions stand as LinkedIn's own app has them, the sign over the word, in four equal columns */
+@media (max-width:480px){
+  .lp-row{ padding:3px 8px 5px; }
+  .lp-act, .lp-dr{ flex-direction:column; gap:5px; height:50px; font-size:12px; }
+  .lp-act svg, .lp-dr svg{ width:18px; height:18px; }
+}
 @media (prefers-reduced-motion: reduce){
+  .dp-scene, .dp.open .dp-grey, .dp.open .dp-words, .vd:not(.lo), .lk-rail li img, .lk-cover{ transition:none; }
   .hp-track.run, .hp-go, .hp-go svg, .lp-act svg, .pt-f, .vd video, .vd.lo video, .hp-thumbs img, .vd-bar b{ transition:none; }
   .hp-page .seq{ animation:none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*){ animation:none !important; }

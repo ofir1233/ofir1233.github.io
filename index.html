@@ -3916,13 +3916,14 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <link rel="stylesheet" href="v7/font.css?v=221">
 <link rel="stylesheet" href="v7/hero.css?v=221">
 <script>/* the hero picture is painted in once per tab: v7/hero-paint.js */try{if(!sessionStorage.getItem('hp')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('hp-wait')}catch(e){}</script>
+<script>/* the pinned opening (html.me-scroll) is decided here, before the first paint; the pin script at the foot of the page then takes over. Decided only there, the page was first painted in the plain layout, and the four facts were seen on the picture for a moment and gone */try{(function(m,c){function s(){c.toggle('me-scroll',m.matches)}s();if(m.addEventListener)m.addEventListener('change',s)})(matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)'),document.documentElement.classList)}catch(e){}</script>
 <link rel="stylesheet" href="v7/code.css?v=222">
 <link rel="stylesheet" href="v7/design-lab.css?v=223">
-<link rel="stylesheet" href="v7/product.css?v=228">
+<link rel="stylesheet" href="v7/product.css?v=230">
 <link rel="stylesheet" href="v7/system.css?v=222">
 <link rel="stylesheet" href="v7/web-fyi.css?v=2240">
 <link rel="stylesheet" href="v7/campaign.css?v=221">
-<link rel="stylesheet" href="v7/feed.css?v=11">
+<link rel="stylesheet" href="v7/feed.css?v=13">
 <link rel="stylesheet" href="v7/ia-process.css?v=221">
 <link rel="stylesheet" href="v7/path-contact.css?v=221">
 <link rel="stylesheet" href="v7/plan.css?v=224">
@@ -4002,6 +4003,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
     </ol>
     </div></div>
   </div>
+  <script>/* the pinned stage gets its three measures before the first paint (the same sums as the pin script at the foot of the page, which measures again) */(function(d){var a=d.getElementById('about'),p=a&&a.querySelector('.me-pin'),i=p&&p.querySelector('.me-intro'),l=p&&p.querySelector('.me-pillars');if(!i||!l||!d.documentElement.classList.contains('me-scroll'))return;p.style.setProperty('--pt',(parseFloat(getComputedStyle(a).paddingTop)||118)+'px');p.style.setProperty('--t0',(i.offsetHeight+Math.max(22,Math.min(40,innerWidth*.03)))+'px');p.style.setProperty('--ch',Math.max(60,l.offsetHeight-64)+'px')})(document)</script>
 </section>
 
 
@@ -4092,7 +4094,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <p class="pf-sol">Only failing cells in the heatmap get color. Each cell’s popover compares the agent with the team, and from there Ask AI names the calls that pulled the score down.</p>
         <div class="pf-call"><p class="pf-call-k">The same call <i>stop 2 of 4</i></p><p class="pf-call-t">Here the Oct 13 refund call explains <b>Selma&nbsp;K.</b>&rsquo;s low score on one rule. Ask AI lists it first among the calls that pulled it down.</p><button type="button" class="pf-call-go" data-follow="Compliance">Show it in Compliance</button></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-compliance"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Compliance</span></button><div class="mr-body" id="mr-compliance"><div class="mr-in"><div><p>Each cell also shows its score as a number, so the grid never relies on color alone. Before anyone presses <b>Ask AI which calls</b>, the popover says what the button will do.</p></div></div></div></div>
-        <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Explainable scores case study <span aria-hidden="true">→</span></a></div>
+        <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html" aria-label="Explainable scores case study">Case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="ct-fig px-fig rv" data-px="compliance"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=compliance&v=200" title="Compliance in Hear Studio: five rules by agent, a failing score opened beside the team, and Ask AI naming the calls." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
@@ -4106,7 +4108,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <p class="pf-sol">I designed every version of this screen. In the latest, shown here, a day far under the average turns coral, and opening it shows the score, the calls behind it and what fell.</p>
         <div class="pf-call pf-skip"><p class="pf-call-k">The same call <i>skips this screen</i></p><p class="pf-call-t">Agent evaluation scores a whole day, not single calls, and its chart ends on Oct 12, the day before the call.</p></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-eval"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Agent evaluation</span></button><div class="mr-body" id="mr-eval"><div class="mr-in"><div><p>I kept two ways into the chat. From the sidebar, Ask AI takes the page and the project as context, so its answer is general. From a Compliance cell, Ask AI takes the agent, the criterion and the score with the question.</p></div></div></div></div>
-        <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html">Explainable scores case study <span aria-hidden="true">→</span></a></div>
+        <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html" aria-label="Explainable scores case study">Case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="ct-fig px-fig rv" data-px="agents"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=agents&v=200" title="Agent evaluation in Hear Studio: the average score of each day, one low day opened, and the spread of agents by score." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
@@ -4119,7 +4121,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <p class="pf-sol pf-lead">Each finding becomes a task with its source, a priority and an assignee. Closed work keeps its reason, such as Duplicate or Escalated.</p>
         <div class="pf-call"><p class="pf-call-k">The same call <i>stop 3 of 4</i></p><p class="pf-call-t">The Oct 13 refund call raised an alert. The alert is now a task, High priority, assigned to <b>Daniel&nbsp;Brooks</b>.</p><button type="button" class="pf-call-go" data-follow="Actions">Show it in Actions</button></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-actions"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Actions</span></button><div class="mr-body" id="mr-actions"><div class="mr-in"><div><p>In June 2026 I also designed AI Tasks, a coded prototype in the Lab. The AI proposes changes in groups, and a person decides on each group before anything is submitted.</p></div></div></div></div>
-        <div class="cs-links"><a class="cs-link" href="work/actions.html">Actions case study <span aria-hidden="true">→</span></a></div>
+        <div class="cs-links"><a class="cs-link" href="work/actions.html" aria-label="Actions case study">Case study <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media"><figure class="ct-fig px-fig rv" data-px="actions"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=actions&v=200" title="Actions in Hear Studio: a finding becomes a task, gets an owner and moves across the board." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
@@ -4133,7 +4135,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <p class="pf-sol">I designed three surfaces for that data. Newsroom plays the month as a 75-second story. Data builds a filter from plain words and shows it as chips people can read and remove. Signals classify calls on their own.</p>
         <div class="pf-call"><p class="pf-call-k">The same call <i>stop 4 of 4</i></p><p class="pf-call-t">In Newsroom the Oct 13 refund call is one of six behind a story: <b>refund asked twice, voucher offered</b>.</p><button type="button" class="pf-call-go" data-follow="Newsroom">Show it in Newsroom</button></div>
         <div class="mr"><button type="button" class="mr-btn" aria-expanded="false" aria-controls="mr-news"><span class="mr-dot" aria-hidden="true"></span><span class="mr-t">Read more</span><span class="mr-sr"> about Newsroom, Data and Signals</span></button><div class="mr-body" id="mr-news"><div class="mr-in"><div><ul class="mr-list"><li><b>Newsroom</b> stories show their source and end with a line such as “See N calls”</li><li><b>Signals</b> are AI or rule-based classifiers, and the form for a new one asks what to detect and which fields to pull from every call</li></ul></div></div></div></div>
-        <div class="cs-links"><a class="cs-link" href="work/newsroom.html">Newsroom case study <span aria-hidden="true">→</span></a><a class="cs-link" href="work/data.html">Data &amp; Signals case study <span aria-hidden="true">→</span></a></div>
+        <div class="cs-links"><a class="cs-link" href="work/newsroom.html" aria-label="Newsroom case study">Newsroom <span aria-hidden="true">→</span></a><a class="cs-link" href="work/data.html" aria-label="Data &amp; Signals case study">Data &amp; Signals <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
         <figure class="ct-fig px-fig rv" data-px="news"><div class="px-tabs" role="group" aria-label="Screen shown in the window"><button type="button" data-k="news" data-q="screen=news" aria-pressed="true">Newsroom</button><button type="button" data-k="data" data-q="screen=data" aria-pressed="false">Data</button><button type="button" data-k="signals" data-q="screen=signals" aria-pressed="false">Signals</button></div><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=news&v=200" title="Newsroom in Hear Studio: the week as stories, the monthly recap played, and the calls behind a story." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure>

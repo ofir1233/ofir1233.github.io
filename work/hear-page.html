@@ -8,7 +8,8 @@
 <meta name="theme-color" content="#f4f3f1">
 <link rel="preload" href="../fonts/Byrd-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../v7/font.css">
-<link rel="stylesheet" href="hear-page.css?v=23">
+<link rel="stylesheet" href="hear-page.css?v=30">
+<script src="hear-page.js?v=25" defer blocking="render"></script>
 <noscript><style>.lk-chips, .lk-rail{ display:none; } .lk-feed:empty + .lp-me{ animation:none; }</style></noscript>
 </head>
 <body>
@@ -41,7 +42,9 @@
     <div class="lk-wrap">
       <div class="lk-main">
         <article class="lk-top">
-          <div class="pt lk-cover" id="cover" style="aspect-ratio:2256/382"><img class="pt-f" src="../img/cw-cover.webp" alt="The cover: a painted strip of the city with the line Every customer call, heard." width="2256" height="382" decoding="async"></div>
+          <div class="pt lk-cover" id="cover"><img class="pt-f" src="../img/cw-cover.webp" alt="The cover: a painted strip of the city with the line Every customer call, heard." width="2256" height="382" decoding="async"><span class="cv" aria-hidden="true"><img class="cv-far" data-src="../img/dp-cover-far.webp" alt=""><img class="cv-mid" data-src="../img/dp-cover-mid.webp" alt=""><img class="cv-near" data-src="../img/dp-cover-near.webp" alt=""></span></div>
+          <!-- on a phone the cover is taller than its frame and scrolls sideways: it opens where the sentence begins -->
+          <script>(function (c) { function at() { if (!c.scrollLeft && c.scrollWidth > c.clientWidth + 1) c.scrollLeft = Math.round(c.scrollWidth * .16) - 16; } at(); matchMedia('(max-width:640px)').addEventListener('change', at); })(document.getElementById('cover'));</script>
           <div class="lk-id">
             <img class="lk-av vt-av" src="../img/cw-cloud.webp" alt="The Hear mark painted as a cloud" width="320" height="320" decoding="async">
             <div class="lk-who seq" style="--d:100ms"><h1 class="vt-name">Hear</h1><p>AI contact center intelligence platform</p></div>
@@ -66,7 +69,7 @@
           <header class="lp-h"><img class="lp-av me" src="../img/cw-me.webp" alt="" width="144" height="144" loading="lazy" decoding="async"><div class="lp-who"><b>Ofir Nona</b><span>Designed this page for Hear</span></div></header>
           <p class="lp-t">That is the whole page. Every picture here started as one sentence.</p>
           <a class="lp-link" href="brand-web.html">
-            <span class="lp-pair"><img src="../img/cw-sketch-parade.webp" alt="The gray sketch of the parade" width="680" height="426" loading="lazy" decoding="async"><img src="../img/cw-parade-pair.webp" alt="The finished parade painting" width="680" height="426" loading="lazy" decoding="async"></span>
+            <span class="lp-pair"><span class="lp-line"><small>The sentence</small><q>New feature release: Hear Studio is here.</q></span><img src="../img/cw-parade.webp" alt="The finished painting: a city parade under coral balloon letters that spell Hear Studio" width="1200" height="628" loading="lazy" decoding="async"></span>
             <span><b>I designed Hear’s brand from zero</b><i>Case study · from the sketch to the post</i></span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6.5 18 12l-5.5 5.5"/></svg>
           </a>
@@ -78,6 +81,5 @@
     </div>
   </section>
 </main>
-<script src="hear-page.js?v=21" defer></script>
 </body>
 </html>

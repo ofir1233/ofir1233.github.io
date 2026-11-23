@@ -1,13 +1,18 @@
 # המערכת → האתר
 
-## עכשיו (23.11.2026)
+## עכשיו (23.11.2026, ערב)
 
-עובדת עם אופיר על חוויית ה-Brand campaign / LinkedIn. הגרסה הראשונה בקומיט ובענף.
-הקבצים שלי בחלק הזה: הבלוק `#campaign` ב-`index.html`, `v7/feed.css`, `v7/feed.js`, `work/hear-page.html`, `work/hear-page.css`, `work/hear-page.js`.
+אופיר העביר לסשן הזה שני חלקים: חוויית ה-Brand campaign / LinkedIn, ו-FYI (הדלת בדף הבית ואחריה הדף הפנימי).
+הקבצים שלי בקמפיין: הבלוק `#campaign` ב-`index.html`, `v7/feed.css`, `v7/feed.js`, `work/hear-page.html`, `work/hear-page.css`, `work/hear-page.js`, והתמונות `img/cw-*` ו-`img/dp-*`.
 `v7/campaign.css` עדיין נטען בדף הבית (מעצב את ראש הבלוק). `v7/campaign.js` כבר לא נטען בדף הבית, רק ב-`work/brand-web.html`, שלא נגעתי בו.
 ב-`hear-v7/` לא שיניתי שום דבר.
+כל מה שנוגע ל-FYI, כולל התהליך וההחלטות של אופיר, כתוב ב-`.claude/fyi/HANDOFF.md`.
 
 ## מה השתנה שנוגע לך
+
+- 23.11 (ערב) FYI: אופיר בחר כיוון לבלוק `#fyi` בדף הבית ("יוצא מהזכוכית"). האב-טיפוס נמצא ב-`.claude/fyi/door/` ועוד **לא** הוכנס ל-`index.html`. השלב הבא שלי הוא להחליף את התוכן של `<section id="fyi">` ואת הכללים של `.fyi-*` / `.fyq-*`, ואחר כך לבנות מחדש את `work/fyi.html`. אכתוב כאן לפני שאני דוחפת את זה. אם את באמצע עבודה על `work/fyi.html`, `work/fyi-*.js|css` או `v7/fyi-page.css`, כתבי לי ב-`site.md` מה לא לדרוס.
+- 23.11 (ערב): נגעתי בשני מקומות שלך ב-`index.html`, לבקשת אופיר. (1) כרטיסי `#product`: הקישורים קוצרו ל-"Case study →", "Newsroom →", "Data & Signals →" (עם `aria-label` מלא), ובסוף `v7/product.css` נוספו כללים שמקטינים את `.cs-link` ואת `.mr-btn` בכרטיסים לגובה 42px; הגרסה עלתה ל-`product.css?v=230`. זה סותר את "X case study" שכתבת; אופיר עוד לא הכריע בין השניים. (2) הבהוב הטקסט בכניסה לדף הבית: שני סקריפטים קטנים בתוך הדף, אחד ב-`<head>` שמציב `html.me-scroll` לפני הציור הראשון, ואחד בסוף `#about` שמציב `--pt`, `--t0`, `--ch`. אם את משנה את מנגנון הגלילה של `#about`, לבדוק שהם עדיין נכונים.
+- 23.11 (ערב): `work/hear-page.*` קיבל עומק אינטראקטיבי בציורים (שכבות `img/dp-*-far|mid|near.webp` ומסכת `-words.png`), מצב המתנה אפור עד שפוסט "נשמע", ומעבר כניסה מדורג מדף הבית (שמות `hp-*` ב-view transition). `img/cw-parade-pair.webp` ו-`img/cw-sketch-parade.webp` נמחקו.
 
 - 23.11 (אחר הצהריים): עוד שינוי ב-`index.html`, שוב רק בתוך הבלוק `#campaign`: רשימת התמונות הקטנות בכרטיס (עכשיו תשעה ציורים בשלוש עמודות), הכיתוב "Nine paintings · two films", והמילה הראשונה בפסקת הפתיחה של הבלוק ("Nine painted posts…"). עלה גם ה-`?v=` של `v7/feed.css`.
 - 23.11 (אחר הצהריים): `work/hear-page.html` קיבל שלושה פוסטים חדשים (ציורים `img/cw-robot.webp`, `img/cw-lookout.webp`, `img/cw-ferry.webp`), והתגובות של המעצב הוסרו ממנו.

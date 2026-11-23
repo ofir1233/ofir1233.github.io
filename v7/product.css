@@ -301,3 +301,9 @@ html body section#product#product article.spot .txt:not(:has(> .cs-links)) > .mr
   #product#product .px-steps li:not(.on) button::before{ top:5px; bottom:5px; }
   #product#product .px-steps li.on button{ min-height:58px; }
 }
+
+/* Owner, 23.11.2026: "the button here is too big, too much text". The way to the case study says only "Case study" (the card's
+   heading already names it), on one line, and both buttons of a card are a size smaller: 42 high. */
+html body section#product#product article.spot .cs-link{ height:42px; padding:0 18px !important; border-radius:21px; font:600 15px/1 var(--body) !important; white-space:nowrap; }
+html body section#product#product article.spot .txt > .mr > .mr-btn{ height:42px; min-height:42px; padding:0 18px 0 14px !important; border-radius:21px; font:600 15px/1 var(--body) !important; white-space:nowrap; }
+html body section#product#product article.spot .txt > .cs-links, html body section#product#product article.spot .txt > .mr > .mr-btn{ margin-top:24px !important; }
