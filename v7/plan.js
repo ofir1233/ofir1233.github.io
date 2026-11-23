@@ -5,8 +5,14 @@
   var ol = document.querySelector('#process .plan'); if (!ol) return;
   var lis = [].slice.call(ol.children), n = lis.length, cur = -1;
   var wide = matchMedia('(min-width: 761px)');
+  /* a phase whose work is shown above points at it: after 300ms in hand, the dot in the top bar stands under that part's name; it goes back when the plan is left */
+  var pt = 0;
+  function point(sec) { clearTimeout(pt); pt = setTimeout(function () { if (window.v7NavPoint) window.v7NavPoint(sec); }, sec ? 300 : 0); }
+  ol.addEventListener('pointerleave', function () { point(null); });
+  ol.addEventListener('focusout', function (e) { if (!ol.contains(e.relatedTarget)) point(null); });
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { if (!es[0].isIntersecting) point(null); }).observe(ol);
   function pick(i, by) {
-    if (by) ol.classList.add('used');
+    if (by) { ol.classList.add('used'); var s = wide.matches && lis[i].querySelector('.pl-t a[data-sec]'); point(s ? s.getAttribute('data-sec') : null); }
     if (i === cur) return; cur = i;
     lis.forEach(function (li, k) { li.classList.toggle('on', k === i); li.classList.toggle('past', k < i); var b = li.querySelector('.pl-stop'); if (b) b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
     ol.style.setProperty('--p', (i / (n - 1)).toFixed(4));

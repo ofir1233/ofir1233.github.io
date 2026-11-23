@@ -13,13 +13,13 @@
   var cap = document.createElement('span'), ind = document.createElement('span');
   cap.className = 'hv-cap'; ind.className = 'hv-ind'; cap.setAttribute('aria-hidden', 'true'); ind.setAttribute('aria-hidden', 'true');
   ul.insertBefore(ind, ul.firstChild); ul.insertBefore(cap, ul.firstChild);
-  var hover = null, wait = 0, arrived = false;
+  var hover = null, point = null, wait = 0, arrived = false;
   function links(){ return [].filter.call(ul.querySelectorAll('li > a[href^="#"]'), function(a){ return a.offsetParent && a.parentNode !== ul.lastElementChild && !a.closest('li:last-of-type'); }); }
   function place(){
     var ls = links(); if (!ls.length) { cap.style.opacity = ind.style.opacity = 0; return; }
     var r = ul.getBoundingClientRect(), a = ls[0].getBoundingClientRect(), b = ls[ls.length - 1].getBoundingClientRect();
     cap.style.opacity = 1; cap.style.left = (a.left - r.left - 5) + 'px'; cap.style.width = (b.right - a.left + 10) + 'px';
-    var now = ul.querySelector('li > a[aria-current]'), t = hover || now;
+    var now = point || ul.querySelector('li > a[aria-current]'), t = hover || now;
     ls.forEach(function(l){ l.classList.toggle('hv-on', l === t); });
     /* the dot is where the reader is, not where the pointer is: it travels from link to link, and between two named parts
        (the decisions, the plan, the postcard) it waits under the last one as a ring */
@@ -43,6 +43,8 @@
     if (fresh) { ind.offsetWidth; ind.style.transition = ''; }
     ind.style.opacity = 1;
   }
+  /* the eight-phase plan points back up the page: while a phase whose work is shown above is in hand, the dot stands under that part's name (plan.js) */
+  window.v7NavPoint = function (sec) { var a = sec ? ul.querySelector('li > a[href="#' + sec + '"]') : null; if (a === point) return; point = a; place(); };
   ul.addEventListener('pointerover', function(e){ var a = e.target.closest && e.target.closest('a'); if (a && links().indexOf(a) >= 0) { hover = a; place(); } });
   ul.addEventListener('pointerleave', function(){ hover = null; place(); });
   ul.addEventListener('focusin', function(e){ if (links().indexOf(e.target) >= 0) { hover = e.target; place(); } });
