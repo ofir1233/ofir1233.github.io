@@ -34,6 +34,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="fyi.css?v=4">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=27">
+<link rel="stylesheet" href="../v7/fyi-page.css?v=3">
 </head>
 <body class="fyi-page">
 <a class="skip" href="#main">Skip to content</a>
@@ -137,14 +138,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           </ol>
         </div>
       </div>
-      <div class="xtra edges">
-        <div class="label">Edge cases</div>
+      <details class="xtra edges">
+        <summary><span class="label">Edge cases</span><span class="ed-n" aria-hidden="true"></span></summary>
         <ul>
           <li>A large file sends in the background, and the thread stays usable.</li>
           <li>A transcript folds away with one tap. The audio stays the source.</li>
           <li>Message info shows Read by and Delivered to, per person.</li>
         </ul>
-      </div>
+      </details>
     </div>
   </section>
 
@@ -181,15 +182,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           </ul>
           <p><b>Why:</b> in a group, nobody should have to guess whether a person or a model said something.</p>
         </div>
-        <div class="edges">
-          <div class="label">Edge cases</div>
+        <details class="edges">
+          <summary><span class="label">Edge cases</span><span class="ed-n" aria-hidden="true"></span></summary>
           <ul>
             <li>The Catch me up pill appears only past 30 unread messages, because below that, reading is faster.</li>
             <li>A summary that leaves something out says so: “Couldn't read 1 voice note.”</li>
             <li>A deleted source shows “Message deleted” and its line is marked.</li>
             <li>An AI draft carries “Drafted with AI” until it is sent. After that it is the person's own message.</li>
           </ul>
-        </div>
+        </details>
       </div>
     </div>
   </section>
@@ -238,15 +239,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           </ul>
           <p><b>Why:</b> the reason for a task is in the conversation, so the task should carry it.</p>
         </div>
-        <div class="edges">
-          <div class="label">Edge cases</div>
+        <details class="edges">
+          <summary><span class="label">Edge cases</span><span class="ed-n" aria-hidden="true"></span></summary>
           <ul>
             <li>With no date in the message, the date stays empty and marked. AI doesn't guess.</li>
             <li>If two people make the same message a task, the second sees “Maya already made this a task” and opens it.</li>
             <li>An edited message shows “Source edited” on its task.</li>
             <li>Dismissing the suggestion hides it for that message.</li>
           </ul>
-        </div>
+        </details>
       </div>
     </div>
   </section>
@@ -295,15 +296,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           </ul>
           <p><b>Why:</b> notes about a group should never be a secret from the group.</p>
         </div>
-        <div class="edges">
-          <div class="label">Edge cases</div>
+        <details class="edges">
+          <summary><span class="label">Edge cases</span><span class="ed-n" aria-hidden="true"></span></summary>
           <ul>
             <li>A phone that falls behind shows “Sync paused” instead of a stale frame.</li>
             <li>Late joiners see notes from the moment they joined.</li>
             <li>Anyone on the call can switch notes off for everyone.</li>
             <li>A vote stays open until the person who asked closes it.</li>
           </ul>
-        </div>
+        </details>
       </div>
     </div>
   </section>
@@ -359,15 +360,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           </ul>
           <p><b>Why:</b> a launch needs one source of truth, and the chat already holds it.</p>
         </div>
-        <div class="edges">
-          <div class="label">Edge cases</div>
+        <details class="edges">
+          <summary><span class="label">Edge cases</span><span class="ed-n" aria-hidden="true"></span></summary>
           <ul>
             <li>A change to the date, time or place notifies each RSVP once, with the old value struck through.</li>
             <li>Formats stay “Out of date” until a host refreshes them. Nothing republishes on its own.</li>
             <li>AI drafts never go public without a host's tap.</li>
             <li>A full event opens a waitlist.</li>
           </ul>
-        </div>
+        </details>
       </div>
     </div>
   </section>
@@ -378,6 +379,19 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div class="ch-head">
         <div><div class="label">07 · <b>System</b></div><h2>Each color has one role</h2></div>
         <div class="prose"><p class="lead">On true black, Chat_Blue is for you, violet only for AI, teal for events and green for what is live.</p></div>
+      </div>
+      <div class="tokens xtra" role="table" aria-label="Color roles in the app">
+        <div class="tk-h" role="row"><span role="columnheader">Token</span><span role="columnheader">Hex</span><span role="columnheader">Role</span><span role="columnheader">Check</span></div>
+        <div role="row"><span role="cell"><i style="--s:#000000"></i><b>Dark_1000</b></span><span role="cell">#000000</span><span role="cell">Canvas</span><span role="cell">white 21:1</span></div>
+        <div role="row"><span role="cell"><i style="--s:#1C1C1E"></i><b>Surface_1</b></span><span role="cell">#1C1C1E</span><span role="cell">Others' bubbles, cells, cards</span><span role="cell">white 17:1</span></div>
+        <div role="row"><span role="cell"><i style="--s:#FFFFFF"></i><b>Light_1000</b></span><span role="cell">#FFFFFF</span><span role="cell">Primary text</span><span role="cell">21:1</span></div>
+        <div role="row"><span role="cell"><i style="--s:#9A9AA0"></i><b>Text_2</b></span><span role="cell">#9A9AA0</span><span role="cell">Previews, meta, transcripts</span><span role="cell">7.5:1 on black</span></div>
+        <div role="row"><span role="cell"><i style="--s:#0F67F0"></i><b>Chat_Blue</b></span><span role="cell">#0F67F0</span><span role="cell">You: own bubbles, primary buttons, unread badges</span><span role="cell">white 4.98:1</span></div>
+        <div role="row"><span role="cell"><i style="--s:#30D158"></i><b>Green Active</b></span><span role="cell">#30D158</span><span role="cell">Live: presence, typing, speaking, Live now, Finished</span><span role="cell">10.4:1 on black</span></div>
+        <div role="row"><span role="cell"><i style="--s:linear-gradient(135deg,#6650F0,#9638F0)"></i><b>Components Purple</b></span><span role="cell">#6650F0 to #9638F0</span><span role="cell">AI only: knot, hairlines, caret, sparkles, suggestions</span><span role="cell">reserved for AI</span></div>
+        <div role="row"><span role="cell"><i style="--s:#C9B8FF"></i><b>AI_Text</b></span><span role="cell">#C9B8FF</span><span role="cell">AI labels, chips, outline actions</span><span role="cell">10.5:1 on #121218</span></div>
+        <div role="row"><span role="cell"><i style="--s:#34D1BF"></i><b>Event_Teal</b></span><span role="cell">#34D1BF</span><span role="cell">Events: date blocks, Going, Public</span><span role="cell">11:1 on black</span></div>
+        <div role="row"><span role="cell"><i style="--s:#FFB547"></i><b>Needs input</b></span><span role="cell">#FFB547</span><span role="cell">A missing required field</span><span role="cell">12:1 on black</span></div>
       </div>
       <div class="spec">
         <figure class="spec-ph">
@@ -398,18 +412,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <li data-m="8"><button type="button"><span class="n">8</span><span><b>composer</b> · AI knot 36 · field r18 · mic or send 36 · hit areas 44</span></button></li>
         </ol>
       </div>
-      <div class="tokens xtra" role="table" aria-label="Color roles in the app">
-        <div class="tk-h" role="row"><span role="columnheader">Token</span><span role="columnheader">Hex</span><span role="columnheader">Role</span><span role="columnheader">Check</span></div>
-        <div role="row"><span role="cell"><i style="--s:#000000"></i><b>Dark_1000</b></span><span role="cell">#000000</span><span role="cell">Canvas</span><span role="cell">white 21:1</span></div>
-        <div role="row"><span role="cell"><i style="--s:#1C1C1E"></i><b>Surface_1</b></span><span role="cell">#1C1C1E</span><span role="cell">Others' bubbles, cells, cards</span><span role="cell">white 17:1</span></div>
-        <div role="row"><span role="cell"><i style="--s:#FFFFFF"></i><b>Light_1000</b></span><span role="cell">#FFFFFF</span><span role="cell">Primary text</span><span role="cell">21:1</span></div>
-        <div role="row"><span role="cell"><i style="--s:#9A9AA0"></i><b>Text_2</b></span><span role="cell">#9A9AA0</span><span role="cell">Previews, meta, transcripts</span><span role="cell">7.5:1 on black</span></div>
-        <div role="row"><span role="cell"><i style="--s:#0F67F0"></i><b>Chat_Blue</b></span><span role="cell">#0F67F0</span><span role="cell">You: own bubbles, primary buttons, unread badges</span><span role="cell">white 4.98:1</span></div>
-        <div role="row"><span role="cell"><i style="--s:#30D158"></i><b>Green Active</b></span><span role="cell">#30D158</span><span role="cell">Live: presence, typing, speaking, Live now, Finished</span><span role="cell">10.4:1 on black</span></div>
-        <div role="row"><span role="cell"><i style="--s:linear-gradient(135deg,#6650F0,#9638F0)"></i><b>Components Purple</b></span><span role="cell">#6650F0 to #9638F0</span><span role="cell">AI only: knot, hairlines, caret, sparkles, suggestions</span><span role="cell">reserved for AI</span></div>
-        <div role="row"><span role="cell"><i style="--s:#C9B8FF"></i><b>AI_Text</b></span><span role="cell">#C9B8FF</span><span role="cell">AI labels, chips, outline actions</span><span role="cell">10.5:1 on #121218</span></div>
-        <div role="row"><span role="cell"><i style="--s:#34D1BF"></i><b>Event_Teal</b></span><span role="cell">#34D1BF</span><span role="cell">Events: date blocks, Going, Public</span><span role="cell">11:1 on black</span></div>
-        <div role="row"><span role="cell"><i style="--s:#FFB547"></i><b>Needs input</b></span><span role="cell">#FFB547</span><span role="cell">A missing required field</span><span role="cell">12:1 on black</span></div>
+      <div class="strips">
+        <div class="label">States</div>
+        <div class="strip-row" data-strip="ai" role="region" aria-label="AI card states" tabindex="0"></div>
+        <div class="strip-row" data-strip="task" role="region" aria-label="Task chip states" tabindex="0"></div>
+        <div class="strip-row" data-strip="event" role="region" aria-label="Event ticket states" tabindex="0"></div>
       </div>
       <div class="xtra fold2 sys-x">
         <div class="decision">
@@ -421,26 +428,22 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           </ul>
           <p><b>Why:</b> chats are home, so they come first. Events needed a place of their own, and since AI works in every thread, its tab holds the private assistant.</p>
         </div>
-        <div class="sys-scale">
-          <div class="label">Type, in the 390 × 844 pt screen</div>
-          <dl class="scale">
-            <div><dt>Large title</dt><dd>34/41 · 700 · Geist</dd></div>
-            <div><dt>Body, bubbles, fields</dt><dd>17/22 · 400 · Geist</dd></div>
-            <div><dt>AI card body</dt><dd>16/22 · 400 · Geist</dd></div>
-            <div><dt>Secondary, transcripts</dt><dd>15/20 · 400 · Geist</dd></div>
-            <div><dt>Names, chips, tabs</dt><dd>13/16 · 600 · Geist</dd></div>
-            <div><dt>Meta and data</dt><dd>12/15 · Geist and Geist Mono</dd></div>
-            <div><dt>Posters and story lines</dt><dd>22 to 34 · 700 · Bricolage Grotesque, uppercase</dd></div>
-          </dl>
-          <div class="label">Motion</div>
-          <p class="motion">An object grows from the message it came from (pill to card, bubble to task sheet, ticket to formats) and shrinks back into it. Messages enter in 320 ms, sheets in 340 ms, and only live states loop: typing, recording, speaking, streaming and the AI knot while it works. Screens change with a push or a cut, never a crossfade.</p>
-        </div>
-        <div class="strips">
-          <div class="label">States</div>
-          <div class="strip-row" data-strip="ai" role="region" aria-label="AI card states" tabindex="0"></div>
-          <div class="strip-row" data-strip="task" role="region" aria-label="Task chip states" tabindex="0"></div>
-          <div class="strip-row" data-strip="event" role="region" aria-label="Event ticket states" tabindex="0"></div>
-        </div>
+        <details class="edges sys-fold"><summary><span class="label">Type and motion</span><span class="ed-n" aria-hidden="true"></span></summary>
+          <div class="sys-scale">
+            <div class="label">Type, in the 390 × 844 pt screen</div>
+            <dl class="scale">
+              <div><dt>Large title</dt><dd>34/41 · 700 · Geist</dd></div>
+              <div><dt>Body, bubbles, fields</dt><dd>17/22 · 400 · Geist</dd></div>
+              <div><dt>AI card body</dt><dd>16/22 · 400 · Geist</dd></div>
+              <div><dt>Secondary, transcripts</dt><dd>15/20 · 400 · Geist</dd></div>
+              <div><dt>Names, chips, tabs</dt><dd>13/16 · 600 · Geist</dd></div>
+              <div><dt>Meta and data</dt><dd>12/15 · Geist and Geist Mono</dd></div>
+              <div><dt>Posters and story lines</dt><dd>22 to 34 · 700 · Bricolage Grotesque, uppercase</dd></div>
+            </dl>
+            <div class="label">Motion</div>
+            <p class="motion">An object grows from the message it came from (pill to card, bubble to task sheet, ticket to formats) and shrinks back into it. Messages enter in 320 ms, sheets in 340 ms, and only live states loop: typing, recording, speaking, streaming and the AI knot while it works. Screens change with a push or a cut, never a crossfade.</p>
+          </div>
+        </details>
       </div>
     </div>
   </section>
