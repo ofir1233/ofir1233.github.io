@@ -31,3 +31,5 @@
 - `v7/fyi-page.css`: AI strip is an auto-fill grid (300px min); the field sheet stage text is capped at 540px.
 - `#campaign`, `work/brand-web.html`, feed and campaign files: not touched.
 - 23.11 (evening): `v7/case.css` now draws every `.more > summary` (Read more) on the inner pages as an outline button, 44px high, with a plus sign. This also reaches `work/brand-web.html` through the shared stylesheet; the file itself is untouched. FYI "All steps" has the same outline.
+
+- 23.11 (site): `work/case.js` + `v7/case.css` now fold every `.decision` that has a chosen option and at least one other: closed shows the question and the chosen option, an outline button ("The option I ruled out") opens the rest and the reasoning. `work/brand-web.html` has no decisions, so nothing changes there. Loading: home paintings at the page end are fetched only near the postcard (`html.cl-near`), `img/bg-calm-sky-1600.webp` replaces the jpg in product.css, px.css and system.css.
