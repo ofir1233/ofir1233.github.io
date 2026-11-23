@@ -180,6 +180,60 @@
 /* ---------- transitions on a jump */
 #fyi#fyi .fd-st-in.fd-cut .fd-rec, #fyi#fyi .fd-st-in.fd-cut .fd-pst, #fyi#fyi .fd-st-in.fd-cut .fd-tkt, #fyi#fyi .fd-st-in.fd-cut .fd-wv, #fyi#fyi .fd-st-in.fd-cut .fd-ink, #fyi#fyi .fd-st-in.fd-cut .fd-th-roll{ opacity:0; transition:opacity .16s; }
 #fyi#fyi .fd-rec, #fyi#fyi .fd-pst, #fyi#fyi .fd-tkt, #fyi#fyi .fd-wv, #fyi#fyi .fd-ink, #fyi#fyi .fd-th-roll{ transition:opacity .3s; }
+/* ---------- the app as it looks on the FYI page now (23.11.2026): one dark surface with a violet glow, pink for what you send,
+   a pink-to-violet edge only on what AI made, stamps in mono. Sizes stay as they were, so the thread still fits its three pages. */
+#fyi#fyi{ --fd-me:linear-gradient(165deg,#ff3d98,#f01f84 55%,#d4136f); --fd-ai:linear-gradient(135deg,#ff2d8f,#7a2cff); --fd-s1:#15161f; --fd-lilac:#c9b8ff; }
+#fyi#fyi .fd-ph-tilt{ background:linear-gradient(145deg,#56505c,#1b1a1f 20%,#0c0c0e 62%,#433e49); box-shadow:inset 0 0 0 1px rgba(255,255,255,.2), inset 0 0 0 3.5px #09090b, 0 44px 60px -34px rgba(23,27,32,.5), 0 16px 26px -14px rgba(23,27,32,.3), 0 0 0 .5px rgba(23,27,32,.5); }
+#fyi#fyi .fd-ph-scr{ background:radial-gradient(130% 46% at 50% 0,#1b1440,rgba(27,20,64,0)) #05050a; font-family:"Geist","Helvetica Neue",Arial,sans-serif; }
+#fyi#fyi .fd-ph-sb{ background:#14121f; }
+#fyi#fyi .fd-th-hd{ background:linear-gradient(180deg,#14121f,#0b0b12); border-bottom-color:rgba(255,255,255,.07); }
+#fyi#fyi .fd-chev path{ stroke:#fff; }
+#fyi#fyi .fd-ch{ flex:none; width:28px; height:28px; border-radius:8px; display:grid; place-items:center; rotate:-4deg; background:linear-gradient(150deg,#f8a76e,#de6c36); color:#fff; font:700 11px/1 "Bricolage Grotesque","Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em; text-shadow:0 1px 0 rgba(90,30,0,.55); box-shadow:-1.5px 1.5px 0 var(--fd-cyan), inset 0 1px 0 rgba(255,255,255,.35); }
+#fyi#fyi .fd-th-ti b{ font:700 13.5px/1.15 "Bricolage Grotesque","Helvetica Neue",Arial,sans-serif; }
+#fyi#fyi .fd-th-ti small{ color:#b4b4bd; }
+#fyi#fyi .fd-th-ic{ margin-left:auto; display:flex; gap:13px; }
+#fyi#fyi .fd-pill{ padding:3px 8px; border-radius:6px; background:rgba(255,255,255,.08); color:#d5d5dd; font:500 9px/1.45 "Geist Mono",ui-monospace,Menlo,monospace; letter-spacing:.06em; text-transform:uppercase; }
+#fyi#fyi .fd-bub{ border-radius:14px 14px 14px 5px; background:var(--fd-s1); box-shadow:inset 0 0 0 1px rgba(255,255,255,.06); }
+#fyi#fyi .fd-row:has(.fd-av[src*="theo"]) em{ color:#d9e56f; }
+#fyi#fyi .fd-row:has(.fd-av[src*="ines"]) em{ color:#ff8fc3; }
+#fyi#fyi .fd-row:has(.fd-av[src*="kofi"]) em{ color:#73d8ff; }
+#fyi#fyi .fd-vn{ border-radius:14px 14px 5px 14px; background:var(--fd-me); box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 6px 16px -8px rgba(255,45,143,.55); }
+#fyi#fyi .fd-ai-tag{ color:var(--fd-lilac); }
+#fyi#fyi .fd-ai-tag b{ color:#fff; background:var(--fd-ai); box-shadow:none; }
+#fyi#fyi .fd-tr{ padding:7px 10px 8px; margin:0 0 5px; border-left:0; border-radius:5px 5px 14px 14px; background:var(--fd-s1); box-shadow:inset 0 0 0 1px rgba(255,255,255,.06); }
+#fyi#fyi .fd-tr .fd-ai-tag{ font:600 9px/1.3 "Geist Mono",ui-monospace,Menlo,monospace; letter-spacing:.08em; text-transform:uppercase; }
+#fyi#fyi .fd-tr p{ color:#ecebf3; }
+#fyi#fyi .fd-task-c{ border:1px solid transparent; background:linear-gradient(180deg,#17122b,#0f0e17 70%) padding-box, var(--fd-ai) border-box; box-shadow:none; }
+#fyi#fyi .fd-poll{ border-radius:14px 14px 14px 5px; background:var(--fd-s1); box-shadow:inset 0 0 0 1px rgba(255,255,255,.06); }
+#fyi#fyi .fd-ev-c{ border:1px solid transparent; border-radius:14px 14px 5px 14px; background:linear-gradient(180deg,#17122b,#0f0e17 70%) padding-box, var(--fd-ai) border-box; }
+#fyi#fyi .fd-ev-st{ border-radius:4px; background:rgba(255,255,255,.1); font-family:"Geist Mono",ui-monospace,Menlo,monospace; letter-spacing:.06em; text-transform:uppercase; }
+#fyi#fyi .fd-ev-bot{ border-top:1px solid rgba(255,255,255,.08); }
+#fyi#fyi .fd-ev-btn, #fyi#fyi .fd-ev-go{ border-radius:9px; background:var(--fd-me); box-shadow:inset 0 1px 0 rgba(255,255,255,.22); }
+#fyi#fyi .fd-th-cmp{ box-shadow:0 -1px 0 rgba(255,255,255,.07); }
+#fyi#fyi .fd-cmp-p{ border-radius:9px; border:1px solid transparent; background:linear-gradient(#0b0b12,#0b0b12) padding-box, var(--fd-ai) border-box; color:var(--fd-lilac); }
+#fyi#fyi .fd-cmp-f{ border-radius:10px; background:transparent; box-shadow:inset 0 0 0 1px rgba(255,255,255,.16); color:#8b8b96; }
+
+/* ---------- the way in: a pink slip, printed like everything FYI makes. The cyan and violet plates sit a little off;
+   every few seconds they slip out and settle, and under the pointer they come right out while the slip straightens and lifts. */
+#fyi#fyi a.fd-d-cta{ height:50px; min-height:50px; padding:0 22px 0 24px !important; gap:10px; border-radius:12px !important; rotate:-1.5deg;
+  background:var(--fd-me) !important; color:#fff !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25), 0 16px 22px -16px rgba(255,45,143,.75) !important;
+  transition:transform .28s cubic-bezier(.2,.8,.2,1), rotate .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s cubic-bezier(.2,.8,.2,1); }
+#fyi#fyi a.fd-d-cta::after{ content:none !important; }
+#fyi#fyi a.fd-d-cta > span[aria-hidden]{ color:#fff !important; display:inline-block; opacity:1; transform:none; transition:transform .28s cubic-bezier(.2,.8,.2,1); animation:fd-cta-arrow 4.2s cubic-bezier(.2,.8,.2,1) 1.2s infinite; }
+/* the plates are drawn as two extra layers so they can move without fighting the !important shadow above */
+#fyi#fyi a.fd-d-cta::before{ content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; box-shadow:-2.5px 2.5px 0 var(--fd-cyan), 2.5px -2.5px 0 var(--fd-violet); animation:fd-cta-print 4.2s cubic-bezier(.2,.8,.2,1) 1.2s infinite; transition:box-shadow .28s cubic-bezier(.2,.8,.2,1); }
+#fyi#fyi a.fd-d-cta:hover, #fyi#fyi a.fd-d-cta:focus-visible{ rotate:0deg; transform:translateY(-3px); }
+#fyi#fyi a.fd-d-cta:hover::before, #fyi#fyi a.fd-d-cta:focus-visible::before{ animation:none; box-shadow:-6px 6px 0 var(--fd-cyan), 6px -6px 0 var(--fd-violet); }
+#fyi#fyi a.fd-d-cta:hover > span[aria-hidden], #fyi#fyi a.fd-d-cta:focus-visible > span[aria-hidden]{ animation:none; transform:translateX(5px); }
+#fyi#fyi a.fd-d-cta:active{ transform:translateY(0); transition-duration:.08s; }
+#fyi#fyi a.fd-d-cta:active::before{ box-shadow:0 0 0 var(--fd-cyan), 0 0 0 var(--fd-violet); transition-duration:.08s; }
+@keyframes fd-cta-print{ 0%,62%,100%{ box-shadow:-2.5px 2.5px 0 var(--fd-cyan), 2.5px -2.5px 0 var(--fd-violet); }
+  74%{ box-shadow:-7px 6px 0 var(--fd-cyan), 7px -6px 0 var(--fd-violet); }
+  86%{ box-shadow:-1px 1px 0 var(--fd-cyan), 1px -1px 0 var(--fd-violet); } }
+@keyframes fd-cta-arrow{ 0%,62%,100%{ transform:none; } 74%{ transform:translateX(6px); } 86%{ transform:translateX(-1px); } }
+@media (prefers-reduced-motion:reduce){ #fyi#fyi a.fd-d-cta, #fyi#fyi a.fd-d-cta::before, #fyi#fyi a.fd-d-cta > span[aria-hidden]{ animation:none; transition:none; } }
+
 /* ---------- narrower desktops */
 @media (max-width:1180px){
   #fyi#fyi .fd-door-grid{ grid-template-columns:minmax(0,360px) minmax(0,1fr); column-gap:40px; }
