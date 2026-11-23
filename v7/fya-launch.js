@@ -12,12 +12,11 @@
     refresh = root.querySelector('[data-fl-refresh]'),
     tt = root.querySelector('[data-fl-tt]'),
     st = root.querySelector('[data-fl-st]'),
-    sub = root.querySelector('[data-fl-sub]'),
-    segs = [].slice.call(root.querySelectorAll('.fl-seg button'));
+    sub = root.querySelector('[data-fl-sub]');
   if (!press || !sheets.length || !move || !refresh) return;
 
   var still = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var SLIP_LEAD = 250, SLIP_GAP = 140, SNAP_GAP = 110, REFRESH_GAP = 220;
+  var SLIP_LEAD = 40, SLIP_GAP = 90, SNAP_GAP = 90, REFRESH_GAP = 110; /* the last sheet lands inside 800 ms */
   var S = { event: '9 PM', printed: '9 PM' }, timers = [];
 
   function later(fn, ms) { if (still || !ms) { fn(); return; } timers.push(setTimeout(fn, ms)); }
@@ -61,7 +60,7 @@
   move.addEventListener('click', function () {
     var old = S.event;
     S.event = old === '9 PM' ? '10 PM' : '9 PM';
-    if (tt) tt.innerHTML = '<span class="a-up">Updated · Doors <s>' + nb(old) + '</s> ' + nb(S.event) + '</span>';
+    if (tt) tt.innerHTML = '<span class="a-up"><span class="fl-upd">Updated · </span>Doors <s>' + nb(old) + '</s> ' + nb(S.event) + '</span>';
     settle(SLIP_LEAD, S.event !== S.printed ? SLIP_GAP : SNAP_GAP);
     reveal();
   });
@@ -70,15 +69,6 @@
     refresh.disabled = true;
     settle(0, REFRESH_GAP, true);
     move.focus({ preventScroll: true });
-  });
-
-  /* poster style: one choice on the event restyles the ticket and all three sheets */
-  segs.forEach(function (b) {
-    b.addEventListener('click', function () {
-      root.dataset.ps = b.dataset.ps;
-      segs.forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
-      reveal();
-    });
   });
 
   status();

@@ -6,7 +6,7 @@
   var root = document.getElementById('fya-kit'), FX = window.FX, K = FX && FX.k;
   if (!root || !K || !FX.ic) return;
   var ic = FX.ic, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var STEP = 90, LAG = 60, seen = false, wave = 0, lag = 0;
+  var STEP = 50, LAG = 40, seen = false, wave = 0, lag = 0, held = false;   // held: the control above is setting the part, so it lands on its frame at once
   var parts = {}, order = [], state = {}, timers = {};
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var btn = function (html, cls, attrs) { return html.replace(new RegExp('<span class="' + cls + '">([\\s\\S]*?)</span>'), '<button type="button" class="' + cls + '" ' + attrs + '>$1</button>'); };
@@ -41,7 +41,7 @@
   var all = function (s) {
     var n = ++wave;
     segs.forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.s === s)); });
-    order.forEach(function (k, i) { setTimeout(function () { if (wave !== n) return; lag = reduce ? 0 : LAG; parts[k].set(s); lag = 0; }, reduce ? 0 : i * STEP); });
+    order.forEach(function (k, i) { setTimeout(function () { if (wave !== n) return; lag = reduce ? 0 : LAG; held = true; parts[k].set(s); held = false; lag = 0; }, reduce ? 0 : i * STEP); });
     setTimeout(function () { if (wave === n) { wave = 0; sync(); } }, reduce ? 0 : order.length * STEP + 20);
   };
   segs.forEach(function (b) { b.addEventListener('click', function () { all(+b.dataset.s); }); });
@@ -55,15 +55,15 @@
     var set = function (s, flow) {
       clear(k); put(k, s); face(s === 1 && !reduce);
       if (s === 0) { fill(0); d.textContent = '0:21'; return; }
-      if (s === 2 || reduce) { fill(s === 2 ? bars.length : 13); return; }
+      if (s === 2 || reduce || held) { fill(s === 2 ? bars.length : 13); return; }
       var i = 0, run = function () {
         fill(++i);
-        if (i < bars.length) return later(k, run, 70);
-        if (flow) return later(k, function () { set(2); }, 260);
+        if (i < bars.length) return later(k, run, 22);
+        if (flow) return later(k, function () { set(2); }, 160);
         // held "in use": it plays once and rests on the played frame
-        later(k, function () { face(false); put(k, 1, 'Played'); }, 260);
+        later(k, function () { face(false); put(k, 1, 'Played'); }, 160);
       };
-      fill(0); later(k, run, 120);
+      fill(0); later(k, run, 40);
     };
     pl.addEventListener('click', function () { on ? set(0) : set(1, true); });
     return set;
@@ -136,7 +136,7 @@
       clear(k); put(k, s); knot.classList.remove('think');
       if (s === 0) { body.innerHTML = '<p>64 new messages since you left.</p>' + act('Summarize'); return; }
       if (s === 2) { body.innerHTML = list(2) + act('Summarize again'); return; }
-      if (reduce) { body.innerHTML = list(2, true); return; }
+      if (reduce || held) { body.innerHTML = list(2, true); return; }
       put(k, 1, 'Thinking'); knot.classList.add('think'); body.innerHTML = '<div class="st-think"><i></i><i></i><i></i></div>';
       later(k, function () {
         put(k, 1); knot.classList.remove('think');
@@ -145,15 +145,15 @@
           var tx = body.querySelectorAll('.tx')[n], src = body.querySelectorAll('.a-src')[n], full = L[n][0], i = 0;
           tx.textContent = ''; src.classList.add('wait');
           (function type() {
-            i = Math.min(full.length, i + 2); tx.textContent = full.slice(0, i);
-            if (i < full.length) return later(k, type, 26);
+            i = Math.min(full.length, i + 4); tx.textContent = full.slice(0, i);
+            if (i < full.length) return later(k, type, 16);
             if (n === L.length - 1 && !flow) { src.classList.remove('wait'); return; }   // held "in use": the caret stays at the end
             tx.classList.remove('is-streaming'); src.classList.remove('wait');
-            later(k, ++n < L.length ? line : function () { set(2); }, 320);
+            later(k, ++n < L.length ? line : function () { set(2); }, 90);
           })();
         };
         line();
-      }, 950);
+      }, 280);
     };
     c.addEventListener('click', function (e) { if (!e.target.closest('.a-ab')) return; set(1, true); var b = c.querySelector('.a-ab'); if (b) b.focus(); });
     return set;
@@ -169,7 +169,7 @@
     var set = function (s) {
       clear(k); put(k, s); inp.value = '';
       if (s === 2) bubble(LINE, true); else slot.innerHTML = '';
-      if (s === 1) { if (reduce) inp.value = LINE; else (function type(i) { inp.value = LINE.slice(0, i); lit(); if (i < LINE.length) later(k, function () { type(i + 1); }, 34); })(1); }
+      if (s === 1) { if (reduce || held) inp.value = LINE; else (function type(i) { inp.value = LINE.slice(0, i); lit(); if (i < LINE.length) later(k, function () { type(i + 1); }, 34); })(1); }
       lit();
     };
     inp.addEventListener('input', function () { clear(k); lit(); put(k, inp.value.trim() ? 1 : (slot.firstChild ? 2 : 0)); });
@@ -193,8 +193,8 @@
       fm.textContent = s === 1 ? 'Sending' : '2.1 GB · full size';
       if (s !== 1) return arc(s === 2 ? 1 : 0, 0);
       arc(0, 0); ring.getBoundingClientRect();
-      if (!flow || reduce) return arc(.62, 1.3);
-      arc(1, 2.2); later(k, function () { set(2); }, 2350);
+      if (!flow || reduce) return arc(.62, .5);
+      arc(1, .75); later(k, function () { set(2); }, 820);
     };
     b.addEventListener('click', function () { state[k] === 0 ? set(1, true) : set(0); });
     return set;

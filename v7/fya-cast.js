@@ -110,7 +110,12 @@
   function arrive() {
     if (arrived) return; arrived = true;
     btns.forEach(function (b) { load(b.getAttribute('data-id')); });
-    if (still || held()) { root.classList.remove('is-pre'); if (me) me.classList.remove('is-hid'); if (re) re.classList.remove('is-hid'); return; }
+    if (still || held()) { // reduced motion or a paused page: the stage is simply there
+      var f = root.closest('.fya'); if (f) f.classList.add('now');
+      root.classList.remove('is-pre'); if (me) me.classList.remove('is-hid'); if (re) re.classList.remove('is-hid');
+      if (f) { void f.offsetWidth; f.classList.remove('now'); }
+      return;
+    }
     pick(now, true);
   }
   if (!still && 'IntersectionObserver' in window && !held()) {

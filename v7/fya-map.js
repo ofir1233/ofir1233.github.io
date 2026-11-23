@@ -80,6 +80,12 @@
     if (!es[0].isIntersecting) return;
     io.disconnect();
     if (cur !== -2) return; // the reader got here first
+    if (held()) { // paused after load: the line is simply there
+      var f = box.closest('.fya'); if (f) f.classList.add('now');
+      show(-1);
+      if (f) { void f.offsetWidth; f.classList.remove('now'); }
+      return;
+    }
     box.classList.add('draw'); void box.offsetWidth;
     show(-1);
     setTimeout(function () { box.classList.remove('draw'); }, 800);

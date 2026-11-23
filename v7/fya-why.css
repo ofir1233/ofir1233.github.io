@@ -16,6 +16,7 @@
 #fya-why .fyw-it > *{ margin:0; }
 #fya-why .fyw-it .a-b{ max-width:none; }
 #fya-why .fyw-it .a-b[data-w]{ margin-left:0; }
+#fya-why .fyw-it .a-b[data-w]::before{ content:none; }
 #fya-why .fyw-it .a-tk .ps{ height:72px; }
 #fya-why .fyw-it .a-tk .cnt{ white-space:nowrap; }
 #fya-why .fyw-it .a-poll .r{ height:34px; }
@@ -65,6 +66,7 @@
 }
 @media (min-width:700px) and (max-width:1139px){
   #fya-why .fyw-who ul{ display:grid; grid-template-columns:1fr 1fr; column-gap:clamp(32px,6vw,96px); }
+  #fya-why .fyw-who li{ align-items:flex-start; }
   #fya-why .fyw-who li:nth-child(2){ border-top:0; }
 }
 /* phone width: the callouts become a four by two board under the phone, in thread order */

@@ -1,63 +1,24 @@
 /* FYI case study, layer: The colour. Shell in v7/fyi-around.css.
-   Left: the colours grouped by the job each one does. Right: a piece of the thread, built from the app's own parts (work/fyi-live.css).
-   The moment: choose a job and every part of the tile that does not wear its colour steps back, so you see where the colour lives and how little of it there is.
-   Every box has a fixed size: nothing moves when a colour is chosen. */
-#fya-colour .fyac{ display:grid; grid-template-columns:minmax(0,.56fr) minmax(0,1fr); gap:24px; align-items:stretch; }
+   One message: pink is you, every other colour has one job.
+   Left, a thread on the story's own iPhone. Right, the colours as one printer's strip, pink the biggest block, each with its name and its job; the jobs start on the lede's line.
+   The moment: everything in the phone that does not wear the chosen colour steps back. Every box has a fixed size, so nothing moves when a colour is chosen. */
+#fya-colour .fyac{ --n:264; --g:clamp(32px,6vw,96px); container-type:inline-size; display:grid; grid-template-columns:calc(var(--n) * 1px) minmax(0,1fr); grid-template-rows:auto minmax(0,1fr); column-gap:56px; align-items:stretch; }
 
-/* the roles */
-#fya-colour .fyac-roles{ display:flex; flex-direction:column; justify-content:space-between; gap:2px; padding:8px; }
-#fya-colour .fyac-r{ position:relative; display:grid; grid-template-columns:48px minmax(0,1fr); gap:16px; align-items:center; width:100%; min-height:44px; margin:0; padding:13px 16px; border:0; border-radius:13px; background:none; color:var(--text); font:400 15px/1.35 var(--body); letter-spacing:0; text-align:left; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:background-color .2s ease; }
-#fya-colour .fyac-sw{ display:flex; width:48px; height:48px; border-radius:11px; overflow:hidden; box-shadow:0 0 0 1px rgba(23,27,32,.12); transition:transform .35s cubic-bezier(.2,.8,.2,1.25), box-shadow .25s ease; }
-#fya-colour .fyac-sw i{ flex:1; display:block; }
-#fya-colour .fyac-tx{ display:grid; gap:1px; min-width:0; }
-#fya-colour .fyac-tx b{ font:700 18px/1.25 var(--display); letter-spacing:-.025em; color:var(--head); }
-#fya-colour .fyac-job{ color:var(--text); }
-#fya-colour .fyac-hex{ display:flex; flex-wrap:wrap; gap:1px 12px; margin-top:4px; font:500 11.5px/1.5 var(--fya-mono); letter-spacing:.01em; color:var(--mute); }
-#fya-colour .fyac-hex span{ white-space:nowrap; }
-#fya-colour .fyac-hex code{ font:inherit; color:inherit; background:none; padding:0; }
-/* the line under a role is the clock of its step while the roles walk by; a kept role carries it whole */
-#fya-colour .fyac-r::after{ content:""; position:absolute; left:16px; right:16px; bottom:4px; height:2px; border-radius:2px; background:var(--ink); transform:scaleX(0); transform-origin:0 50%; }
-#fya-colour .fyac-r.cur{ background:var(--ground); }
-#fya-colour .fyac-r.cur .fyac-sw{ box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--ink); transform:scale(1.04); }
-#fya-colour .fyac-r[aria-pressed="true"]::after{ transform:scaleX(1); transition:transform .22s var(--fya-ease); }
-#fya-colour .fyac.walk .fyac-r.cur::after{ animation:fyac-clock var(--fyac-hold,1300ms) linear both; }
-@keyframes fyac-clock{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
-@media (hover:hover){ #fya-colour .fyac-r:hover{ background:var(--ground); } }
-#fya-colour .fyac-r:focus-visible{ outline-offset:-2px; }
-/* All lets go of a kept colour. On a desk a second click on the row does that */
-#fya-colour .fyac-all{ display:none; }
-
-/* the tile: what is chosen and its rule; under them the thread */
-#fya-colour .fyac-tile{ display:flex; flex-direction:column; min-width:0; padding:0 24px 24px; }
-#fya-colour .fyac-say{ height:116px; padding-top:22px; }
-#fya-colour .fyac-says{ min-width:0; transition:opacity .15s ease; }
-#fya-colour .fyac-says.sw{ opacity:0; }
-#fya-colour .fyac-name{ margin:0; max-width:none; font:700 23px/1.2 var(--display); letter-spacing:-.03em; color:#fff; }
-#fya-colour .fyac-rule{ margin:5px 0 0; max-width:none; font:400 15.5px/1.4 var(--body); color:#b4b4bd; text-wrap:pretty; }
-#fya-colour .fyac-hx{ display:none; margin:8px 0 0; max-width:none; font:500 11.5px/1.5 var(--fya-mono); color:#8e8e99; }
-#fya-colour .fyac-hx span{ white-space:nowrap; margin-right:12px; }
-#fya-colour .fyac-hx code{ font:inherit; color:inherit; background:none; padding:0; }
-/* the line under the words is the tile itself, by area: each job's share, measured */
-#fya-colour .fyac-bar{ display:flex; gap:2px; height:4px; border-radius:2px; background:rgba(255,255,255,.1); }
-#fya-colour .fyac-bar i{ flex:0 0 auto; min-width:3px; border-radius:2px; transition:opacity .26s ease, filter .26s ease; }
-#fya-colour .fyac-bar:not(:empty){ background:none; }
-#fya-colour .fyac[data-one] .fyac-bar i{ opacity:.22; filter:grayscale(1); }
-#fya-colour .fyac[data-one="you"] .fyac-bar [data-k="you"], #fya-colour .fyac[data-one="ai"] .fyac-bar [data-k="ai"], #fya-colour .fyac[data-one="live"] .fyac-bar [data-k="live"], #fya-colour .fyac[data-one="people"] .fyac-bar [data-k="people"],
-#fya-colour .fyac[data-one="print"] .fyac-bar [data-k="print"], #fya-colour .fyac[data-one="signal"] .fyac-bar [data-k="signal"], #fya-colour .fyac[data-one="ground"] .fyac-bar [data-k="ground"]{ opacity:1; filter:none; }
-#fya-colour .fyac-stage{ flex:1; display:grid; grid-template-columns:minmax(0,1fr); align-items:center; padding-top:24px; }
-#fya-colour .fyac-fit{ position:relative; width:100%; min-width:0; }
-#fya-colour .fyac-kit{ display:grid; grid-template-columns:372px 372px; gap:16px 28px; align-items:start; width:772px; transform-origin:0 0; font:400 17px/22px var(--fxf); }
-#fya-colour .fyac-col{ display:flex; flex-direction:column; gap:10px; min-width:0; }
+/* the phone: the frame is drawn at 418 x 872 and scaled by --k, as on the story above */
+#fya-colour .fyac-stage{ grid-column:1; grid-row:1 / span 2; }
+#fya-colour .fyac-dev{ --pw:calc(var(--n) * 1px); --k:calc(var(--n) / 418); display:block; }
+#fya-colour .fyac-dev .fx-body{ box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.16), inset 0 0 0 6px #0a0a0b, 0 1px 2px rgba(0,0,0,.5), 0 40px 60px -34px rgba(23,27,32,.6); }
+#fya-colour .fyac-th{ position:absolute; left:0; right:0; top:103px; bottom:86px; display:flex; flex-direction:column; gap:8px; padding:12px; }
+#fya-colour .fyac-th > *{ flex:none; margin:0; }
+#fya-colour .fyac-th .a-b{ max-width:82%; }
+#fya-colour .fyac-th .a-b.o{ align-self:flex-end; }
+#fya-colour .fyac-th .a-b[data-w]{ align-self:flex-start; margin-left:36px; }
+#fya-colour .fyac-th .a-callbar{ align-self:stretch; }
+#fya-colour .fyac-th .a-tk{ align-self:stretch; width:auto; }
+#fya-colour .fyac-th .a-tk .ps{ height:150px; background-position:50% 24%; }
+#fya-colour .fyac-th .a-tk .cnt{ white-space:nowrap; }
 #fya-colour .fyac-kit [data-c], #fya-colour .fyac-kit [data-s]{ cursor:pointer; }
-
-/* the kit's parts, set for a tile and not for a phone */
-#fya-colour .fyac-kit .a-callbar, #fya-colour .fyac-kit .a-pill{ margin:0; }
-#fya-colour .fyac-kit .a-tk{ align-self:stretch; width:auto; }
-#fya-colour .fyac-kit .a-tk .ps{ height:256px; background-position:50% 0; }
-#fya-colour .fyac-kit .a-fmts{ margin:0; }
-#fya-colour .fyac-kit .a-fmts em{ font:inherit; }
-#fya-colour .fyac-kit .a-fld{ margin:0; background:var(--s1); }
-#fya-colour .fyac-kit .a-comp{ grid-column:1 / -1; position:relative; z-index:0; height:auto; padding:10px; border-radius:14px; align-items:center; box-shadow:inset 0 0 0 1px rgba(255,255,255,.07); }
+#fya-colour .fyac-kit .a-comp{ z-index:20; align-items:flex-start; }
 #fya-colour .fyac-kit .a-rec{ position:relative; inset:auto; flex:1; min-width:0; }
 #fya-colour .fyac-kit .a-rec .dot{ animation:none; }
 /* the AI card's fill and its hairline are two layers here, so each can step back on its own */
@@ -72,50 +33,56 @@
 #fya-colour .fyac[data-one]:not([data-one="people"]) .fyac-kit .a-b[data-w]::before,
 #fya-colour .fyac[data-one]:not([data-one="ai"]) .fyac-kit .a-ai::before,
 #fya-colour .fyac[data-one]:not([data-one="ai"]) .fyac-kit .a-ai::after,
-#fya-colour .fyac[data-one]:not([data-one="ai"]) .fyac-kit .a-ai li::before{ opacity:.13; filter:grayscale(1); transition-duration:.18s; }
+#fya-colour .fyac[data-one]:not([data-one="ai"]) .fyac-kit .a-ai li::before{ opacity:.2; filter:grayscale(1); transition-duration:.18s; }
 #fya-colour .fyac[data-one="you"] .fyac-kit [data-c~="you"], #fya-colour .fyac[data-one="ai"] .fyac-kit [data-c~="ai"], #fya-colour .fyac[data-one="live"] .fyac-kit [data-c~="live"],
-#fya-colour .fyac[data-one="people"] .fyac-kit [data-c~="people"], #fya-colour .fyac[data-one="print"] .fyac-kit [data-c~="print"], #fya-colour .fyac[data-one="signal"] .fyac-kit [data-c~="signal"],
-#fya-colour .fyac[data-one="ground"] .fyac-kit [data-c~="ground"]{ opacity:1; filter:none; transition-duration:.26s; }
-#fya-colour .fyac[data-one]:not([data-one="ground"]) .fyac-kit [data-s="ground"],
+#fya-colour .fyac[data-one="people"] .fyac-kit [data-c~="people"], #fya-colour .fyac[data-one="print"] .fyac-kit [data-c~="print"], #fya-colour .fyac[data-one="signal"] .fyac-kit [data-c~="signal"]{ opacity:1; filter:none; transition-duration:.26s; }
+#fya-colour .fyac[data-one] .fyac-kit [data-s="ground"]{ background-color:rgba(255,255,255,.035) !important; }
 #fya-colour .fyac[data-one]:not([data-one="live"]) .fyac-kit [data-s="live"]{ background-color:rgba(255,255,255,.035) !important; }
-#fya-colour .fyac[data-one]:not([data-one="signal"]) .fyac-kit .a-fld.need{ box-shadow:inset 0 0 0 1px rgba(255,255,255,.07); }
-#fya-colour .fyac[data-one]:not([data-one="ground"]) .fyac-kit .a-tk .perf::before{ opacity:.3; }
+#fya-colour .fyac[data-one]:not([data-one="signal"]) .fyac-kit .a-chip{ --st:rgba(255,255,255,.1); }
+#fya-colour .fyac[data-one] .fyac-kit .a-tk .perf::before{ opacity:.3; }
 
-/* narrower than a desk: the roles become one row of swatches over the tile, and the tile says the rest */
+/* the colours: one strip, pink twice the size of any other */
+#fya-colour .fyac-pick{ grid-column:2; margin:0 0 14px; font:400 15.5px/1.3 var(--body); color:var(--mute); }
+#fya-colour .fyac-roles{ grid-column:2; display:grid; grid-template-rows:2fr repeat(5,minmax(0,1fr)); min-height:0; }
+#fya-colour .fyac-r{ position:relative; display:grid; grid-template-columns:96px minmax(0,1fr) calc((100cqw - var(--g)) * .425); align-items:center; width:100%; min-height:44px; margin:0; padding:0; border:0; border-radius:0; background:none; color:var(--text); font:inherit; letter-spacing:0; text-align:left; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+#fya-colour .fyac-r + .fyac-r::before{ content:""; position:absolute; left:96px; right:0; top:0; height:1px; background:var(--line); }
+#fya-colour .fyac-sw{ position:relative; align-self:stretch; display:flex; width:64px; overflow:hidden; transition:width .22s var(--fya-ease); }
+#fya-colour .fyac-sw::after{ content:""; position:absolute; inset:0; border-radius:inherit; box-shadow:inset 0 0 0 1px rgba(23,27,32,.1); }
+#fya-colour .fyac-sw i{ flex:1; display:block; }
+#fya-colour .fyac-r:first-child .fyac-sw{ border-radius:12px 12px 0 0; }
+#fya-colour .fyac-r:last-child .fyac-sw{ border-radius:0 0 12px 12px; }
+#fya-colour .fyac-r.cur .fyac-sw{ width:76px; }
+#fya-colour .fyac-r b{ font:700 22px/1.1 var(--display); letter-spacing:-.03em; color:var(--head); transition:color .2s ease; }
+#fya-colour .fyac-r:first-child b{ font-size:40px; letter-spacing:-.04em; }
+#fya-colour .fyac-job{ font:400 17px/1.35 var(--body); color:var(--text); transition:color .2s ease; }
+#fya-colour .fyac[data-one] .fyac-r:not(.cur) b, #fya-colour .fyac[data-one] .fyac-r:not(.cur) .fyac-job{ color:var(--mute); }
+#fya-colour .fyac-r:focus-visible{ outline-offset:-2px; border-radius:8px; }
+#fya-colour .fyac-say{ display:none; }
+
 @media (max-width:1099px){
-  #fya-colour .fyac{ grid-template-columns:minmax(0,1fr); gap:16px; }
-  /* the tile is taller than a phone, so the row of swatches stays under the page's bar while the tile is on screen */
-  #fya-colour .fyac-roles{ position:sticky; top:60px; z-index:4; flex-direction:row; justify-content:flex-start; gap:12px; margin:-10px -16px; padding:10px 16px; background:var(--ground); box-shadow:none; border-radius:0; }
-  #fya-colour .fyac-all{ display:grid; }
-  #fya-colour .fyac-r{ display:grid; grid-template-columns:auto; justify-items:center; gap:7px; width:60px; min-height:0; padding:0 0 10px; border-radius:0; }
-  #fya-colour .fyac-r.cur, #fya-colour .fyac-r:hover{ background:none; }
-  #fya-colour .fyac-sw{ width:52px; height:52px; border-radius:12px; }
-  #fya-colour .fyac-tx{ display:block; }
-  #fya-colour .fyac-tx b{ display:block; font:500 12.5px/1.2 var(--body); letter-spacing:0; color:var(--mute); text-align:center; white-space:nowrap; }
-  #fya-colour .fyac-r.cur .fyac-tx b{ color:var(--ink); }
-  #fya-colour .fyac-job, #fya-colour .fyac-hex{ display:none; }
-  #fya-colour .fyac-r::after{ left:8px; right:8px; bottom:0; }
-  #fya-colour .fyac-say{ height:138px; }
-  #fya-colour .fyac-hx{ display:block; }
+  #fya-colour .fyac{ --n:246; column-gap:40px; }
+  #fya-colour .fyac-r{ grid-template-columns:80px minmax(0,1fr) calc((100cqw - var(--g)) * .425); }
+  #fya-colour .fyac-r + .fyac-r::before{ left:80px; }
+  #fya-colour .fyac-sw{ width:52px; }
+  #fya-colour .fyac-r.cur .fyac-sw{ width:62px; }
+  #fya-colour .fyac-r:first-child b{ font-size:34px; }
+  #fya-colour .fyac-job{ font-size:16px; }
 }
-@media (max-width:760px){
-  #fya-colour .fyac-roles{ justify-content:space-between; gap:0; }
-  #fya-colour .fyac-r{ width:44px; min-height:44px; }
-  #fya-colour .fyac-sw{ width:38px; height:38px; border-radius:9px; }
-  #fya-colour .fyac-tx b{ font-size:10.5px; }
-  #fya-colour .fyac-tile{ padding:0 16px 16px; }
-  #fya-colour .fyac-say{ height:128px; padding-top:17px; }
-  #fya-colour .fyac-name{ font-size:21px; }
-  #fya-colour .fyac-rule{ font-size:15px; }
-  #fya-colour .fyac-hx{ margin-top:6px; font-size:0; white-space:nowrap; }
-  #fya-colour .fyac-hx code{ font-size:11.5px; margin-right:10px; }
-  #fya-colour .fyac-hx span{ margin:0; }
-  #fya-colour .fyac-stage{ padding-top:16px; }
-  #fya-colour .fyac-kit{ display:flex; flex-direction:column; align-items:stretch; width:372px; gap:10px; }
-  #fya-colour .fyac-col{ display:contents; }
-  #fya-colour .fyac-kit .a-callbar{ order:1; } #fya-colour .fyac-kit .a-b{ order:2; } #fya-colour .fyac-kit .a-ai{ order:4; } #fya-colour .fyac-kit .a-fld{ order:5; }
-  #fya-colour .fyac-kit .a-tk{ order:6; } #fya-colour .fyac-kit .a-poll{ order:7; } #fya-colour .fyac-kit .a-comp{ order:8; }
-  #fya-colour .fyac-kit .a-tk .ps{ height:104px; background-position:50% 20%; }
-  #fya-colour .fyac-kit .a-fmts, #fya-colour .fyac-kit .a-ai .acts{ display:none; }
+/* one column: the strip lies down over the phone, and the line under it names the chosen colour */
+@media (max-width:899px){
+  #fya-colour .fyac{ --n:244; grid-template-columns:minmax(0,1fr); grid-template-rows:none; }
+  #fya-colour .fyac-pick, #fya-colour .fyac-roles{ grid-column:1; }
+  #fya-colour .fyac-pick{ margin-bottom:10px; }
+  #fya-colour .fyac-roles{ grid-template-rows:none; grid-template-columns:2fr repeat(5,minmax(0,1fr)); height:56px; }
+  #fya-colour .fyac-r{ display:block; height:56px; }
+  #fya-colour .fyac-r + .fyac-r::before{ display:none; }
+  #fya-colour .fyac-sw, #fya-colour .fyac-r.cur .fyac-sw{ width:100%; height:100%; transition:none; }
+  #fya-colour .fyac-r:first-child .fyac-sw{ border-radius:12px 0 0 12px; }
+  #fya-colour .fyac-r:last-child .fyac-sw{ border-radius:0 12px 12px 0; }
+  #fya-colour .fyac-r.cur::after{ content:""; position:absolute; left:0; right:0; bottom:-7px; height:2px; background:var(--ink); }
+  #fya-colour .fyac-r b, #fya-colour .fyac-job{ position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  #fya-colour .fyac-say{ display:flex; align-items:baseline; gap:10px; height:30px; margin:20px 0 0; white-space:nowrap; overflow:hidden; }
+  #fya-colour .fyac-say b{ font:700 21px/30px var(--display); letter-spacing:-.03em; color:var(--head); }
+  #fya-colour .fyac-say span{ min-width:0; font:400 16px/30px var(--body); color:var(--text); overflow:hidden; text-overflow:ellipsis; }
+  #fya-colour .fyac-stage{ grid-column:1; grid-row:auto; justify-self:center; margin-top:20px; }
 }
-@media (prefers-reduced-motion:reduce){ #fya-colour .fyac.walk .fyac-r.cur::after{ animation:none; } }

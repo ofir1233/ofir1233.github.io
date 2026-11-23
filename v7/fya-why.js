@@ -44,6 +44,10 @@
     var ps = li.dataset.parts.split(',').map(Number).filter(function (n) { return n >= 0 && n < its.length; });
     if (ps.length) wire(li, { key: 'r' + r, parts: ps }, true, true);
   });
+  // below 1140px the roles do not act, so they are not tab stops either
+  function tabs() { roles.forEach(function (li) { if (beside()) li.tabIndex = 0; else li.removeAttribute('tabindex'); }); }
+  tabs();
+  if (window.matchMedia) matchMedia('(min-width: 1140px)').addEventListener('change', tabs);
   root.addEventListener('keydown', function (e) { if (e.key === 'Escape' && lock) { lock = null; show(); } });
 
   root.classList.add('js');
@@ -58,6 +62,12 @@
     var io = new IntersectionObserver(function (es) {
       if (!es[es.length - 1].isIntersecting) return;
       io.disconnect();
+      if (window.FX && FX.held) {   // paused after load: the thread is simply there
+        var f = root.closest('.fya'); if (f) f.classList.add('now');
+        root.classList.remove('pre');
+        if (f) { void f.offsetWidth; f.classList.remove('now'); }
+        return;
+      }
       root.classList.add('in'); void root.offsetWidth; root.classList.remove('pre');
       setTimeout(function () { root.classList.remove('in'); }, 760);
     }, { threshold: .3 });
