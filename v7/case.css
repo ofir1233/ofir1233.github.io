@@ -364,3 +364,11 @@ html body.fyi-page .edges .label, html body.fyi-page .strips .label, html body.f
 :root{ --sheet-r:20px !important; }
 :root .ct-jump{ background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.14); color:#171b20; min-height:44px; padding:0 20px 0 16px; font:600 15px/1 var(--body); }
 :root .ct-jump:hover{ box-shadow:0 0 0 1px rgba(23,27,32,.32); }
+
+/* round 12, phones: the next card shows the top-left of the next page at twice the size, not a whole desktop screen as a stamp;
+   "Chosen" always sits on its own line under the option's title */
+@media (max-width:860px){
+  html body .next .next-thumb:not(.phones){ aspect-ratio:4 / 3; }
+  html body .next .next-thumb:not(.phones) img, html body .next .next-thumb.whole img{ width:210%; max-width:none; height:auto; object-fit:fill; }
+}
+@media (max-width:760px){ .opt.chosen strong::after{ display:block; margin:6px 0 0 !important; } }
