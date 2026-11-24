@@ -296,6 +296,16 @@ html body section#product#product article.spot .txt:not(:has(> .cs-links)) > .mr
   #product#product .px-steps li{ flex:0 0 56px; transition:flex-grow .5s cubic-bezier(.2,.7,.2,1); }
   #product#product .px-steps li.on{ flex:1 1 0; }
   #product#product .px-steps li.on button{ font-size:16px; line-height:1.4; min-height:76px; }
+  /* Owner, 24.11.2026: "the picture jumps for a moment". The step being played opened from 56px wide, and its sentence wrapped one word
+     to a line on the way: the row stood 263px high for a few frames and the whole card grew under the reader. The sentence is laid
+     out once at the width it ends at, and the opening step only uncovers it; the row keeps its height. */
+  #product#product .px-steps ol{ container-type:inline-size; }
+  #product#product .px-steps li{ min-width:0; }
+  #product#product .px-steps li.on{ clip-path:inset(-6px); }
+  #product#product .px-steps li.on .l{ display:block; width:calc(100cqw - (var(--n, 3) - 1) * 66px - 12px); }
+}
+@media (min-width:761px) and (max-width:860px){
+  #product#product .px-steps li.on .l{ width:calc(100cqw - (var(--n, 3) - 1) * 66px - 46px); }
 }
 @media (max-width:860px){
   #product#product .px-steps li:not(.on) button{ padding-top:5px; padding-bottom:5px; min-height:0; }

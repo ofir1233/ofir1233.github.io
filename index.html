@@ -1758,7 +1758,7 @@ html.en-on .en-go:where(:not(.lx-app, .lx-app *)){ transition: opacity .6s cubic
 @media (min-width: 861px) {
   #product.r8-stack .spot:where(:not(.lx-app, .lx-app *)), #product.r8-stack .spot:first-of-type:where(:not(.lx-app, .lx-app *)), #product.r8-stack .spot:nth-of-type(even):where(:not(.lx-app, .lx-app *)){ position: sticky; top: var(--pin, 128px); min-height: 0; padding: clamp(26px, 2.4vw, 36px); align-items: start; align-content: start; box-shadow: inset 0 1px 0 color-mix(in srgb, var(--paper) 5%, transparent), 0 -30px 60px -26px rgba(0,0,0,.8); }
   #product.r8-stack .spot .media:where(:not(.lx-app, .lx-app *)){ position: static; }
-  #product.r8-stack .spot + .spot:where(:not(.lx-app, .lx-app *)){ margin-top: 28px; }
+  #product.r8-stack .spot + .spot:where(:not(.lx-app, .lx-app *)){ margin-top: var(--dwell, 28px); }
 }
 
 /* separate "How I work" from the Design Lab: the Lab rises as its own lighter ink sheet with a rounded top and a hairline */
@@ -3925,7 +3925,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <link rel="stylesheet" href="v7/code.css?v=223">
 <link rel="stylesheet" href="v7/design-lab.css?v=224">
 <link rel="stylesheet" href="v7/topics.css?v=20">
-<link rel="stylesheet" href="v7/product.css?v=232">
+<link rel="stylesheet" href="v7/product.css?v=233">
 <link rel="stylesheet" href="v7/system.css?v=222">
 <link rel="stylesheet" href="v7/web-fyi.css?v=2240">
 <link rel="stylesheet" href="v7/fyi-door.css?v=3">
@@ -3937,7 +3937,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <link rel="stylesheet" href="v7/path.css?v=223">
 <link rel="stylesheet" href="v7/site.css?v=224">
 <link rel="stylesheet" href="v7/corners.css?v=221">
-<link rel="stylesheet" href="v7/spot-art.css?v=19">
+<link rel="stylesheet" href="v7/spot-art.css?v=21">
 <link rel="stylesheet" href="v7/close.css?v=222">
 <noscript><style>html #contact#contact .cl-pic{background-image:url(img/end-harbour.webp) !important}html #contact#contact .cl-stamp u{background-image:url(img/end-harbour-1152.webp) !important}</style></noscript>
 <link rel="stylesheet" href="v7/short.css?v=221">
@@ -5041,7 +5041,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   const mq = matchMedia('(min-width: 861px)'), covered = new Set(), vids = c => c.querySelectorAll('video');
   const fit = keep => {
     keep = keep instanceof Element ? keep : null; const y0 = keep ? keep.getBoundingClientRect().top : 0;
-    cards.forEach(c => { c.classList.remove('tall'); c.style.removeProperty('--pin'); c.style.removeProperty('--fill'); });
+    cards.forEach(c => { c.classList.remove('tall'); c.style.removeProperty('--pin'); c.style.removeProperty('--fill'); c.style.removeProperty('--dwell'); });
     if (!mq.matches) { sec.classList.remove('r8-stack'); return; }
     sec.classList.add('r8-stack');
     const vh = innerHeight;
@@ -5051,6 +5051,15 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
       c.classList.toggle('tall', tall);
       c.style.setProperty('--pin', (tall ? Math.round(vh - 24 - h) : top) + 'px');
       if (!tall) c.style.setProperty('--fill', Math.min(H, room) + 'px');
+    });
+    // owner, 24.11.2026: "when I have scrolled to the end of a card and still scroll, the card stays where it is for a little scrolling, so it does
+    // not go straight on to the next one". When a card reaches its pin, the next one waits just under the screen's bottom edge, and the
+    // reader scrolls a further 30% of a screen with nothing moving before it rises
+    const D = Math.round(vh * .3);
+    m.forEach(({ c, top, tall }, i) => {
+      if (!i) return;
+      const p = m[i - 1], h = p.c.offsetHeight, at = p.tall ? vh - 24 - h : p.top;
+      c.style.setProperty('--dwell', Math.max(28, Math.round(vh + D - at - h)) + 'px');
     });
     // a re-pinned card stays where it was on screen: scroll so its own flow position sits there (unless its new pin is lower)
     if (keep && Math.abs(keep.getBoundingClientRect().top - y0) > 1 && y0 >= (parseFloat(getComputedStyle(keep).top) || 0) - 1) { const p = keep.style.position; keep.style.position = 'static'; const f = keep.getBoundingClientRect().top; keep.style.position = p; scrollBy({ top: f - y0, behavior: 'instant' }); }
