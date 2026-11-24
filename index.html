@@ -3934,13 +3934,13 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <link rel="stylesheet" href="v7/campaign.css?v=221">
 <link rel="stylesheet" href="v7/feed.css?v=13">
 <link rel="stylesheet" href="v7/ia-process.css?v=221">
-<link rel="stylesheet" href="v7/path-contact.css?v=221">
+<link rel="stylesheet" href="v7/path-contact.css?v=222">
 <link rel="stylesheet" href="v7/plan.css?v=224">
 <link rel="stylesheet" href="v7/path.css?v=224">
 <link rel="stylesheet" href="v7/site.css?v=224">
 <link rel="stylesheet" href="v7/corners.css?v=221">
 <link rel="stylesheet" href="v7/spot-art.css?v=24">
-<link rel="stylesheet" href="v7/close.css?v=222">
+<link rel="stylesheet" href="v7/close.css?v=223">
 <noscript><style>html #contact#contact .cl-pic{background-image:url(img/end-harbour.webp) !important}html #contact#contact .cl-stamp u{background-image:url(img/end-harbour-1152.webp) !important}</style></noscript>
 <link rel="stylesheet" href="v7/short.css?v=221">
 <link rel="stylesheet" href="v7/foot.css?v=221">
@@ -4084,8 +4084,8 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
               <!-- the pencil keeps below the window's top edge, so the head above stays clear (y set by topics.js) -->
               <linearGradient id="tp-pfade" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient>
               <mask id="tp-pmask" maskUnits="userSpaceOnUse"><rect class="tp-pmask-r" fill="url(#tp-pfade)"/></mask>
-              <image class="tp-pencil-img" data-late="img/topics/pencil.webp?v=2" preserveAspectRatio="xMidYMid slice" opacity="0" mask="url(#tp-pmask)"/>
-              <image class="tp-sky-img" data-late="img/topics/sky.webp" preserveAspectRatio="xMidYMid slice" mask="url(#tp-brush)"/>
+              <image class="tp-pencil-img" data-late="img/topics/pencil.webp?v=2" data-late-avif="img/topics/pencil.avif?v=1" preserveAspectRatio="xMidYMid slice" opacity="0" mask="url(#tp-pmask)"/>
+              <image class="tp-sky-img" data-late="img/topics/sky.webp" data-late-avif="img/topics/sky.avif?v=1" preserveAspectRatio="xMidYMid slice" mask="url(#tp-brush)"/>
             </svg>
           </div>
           <div class="tp-world tp-mid" aria-hidden="true">
@@ -4642,7 +4642,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 </main>
 
 <footer class="ft" id="foot">
-  <div class="ft-sky" aria-hidden="true"><img src="img/foot-sky.webp?v=2" srcset="img/foot-sky-s.webp?v=2 1536w, img/foot-sky-2048.webp?v=1 2048w, img/foot-sky.webp?v=2 3072w" sizes="(max-width: 560px) 600px, 104vw" alt="" width="3072" height="1536" loading="lazy" decoding="async"></div>
+  <div class="ft-sky" aria-hidden="true"><picture><source type="image/avif" srcset="img/foot-sky-s.avif?v=1 1536w, img/foot-sky-2048.avif?v=1 2048w, img/foot-sky.avif?v=1 3072w" sizes="(max-width: 560px) 600px, 104vw"><img src="img/foot-sky.webp?v=2" srcset="img/foot-sky-s.webp?v=2 1536w, img/foot-sky-2048.webp?v=1 2048w, img/foot-sky.webp?v=2 3072w" sizes="(max-width: 560px) 600px, 104vw" alt="" width="3072" height="1536" loading="lazy" decoding="async"></picture></div>
   <div class="wrap ft-in">
     <div class="ft-top">
       <div class="ft-id">
@@ -7118,7 +7118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <script src="v7/plan.js?v=223" defer></script>
 <script src="v7/path.js?v=222" defer></script>
 <script>/* the paintings of the parts further down (Topics) wait until the opening has loaded, so they never compete with it, and then until
-   they are about two screens away, so a visitor who never scrolls that far never downloads them */(function(){var set=function(e){var v=e.getAttribute('data-late');if(!v)return;e.removeAttribute('data-late');if(e.tagName.toLowerCase()==='img')e.src=v;else e.setAttribute('href',v)};var go=function(){var els=[].slice.call(document.querySelectorAll('[data-late]'));if(!('IntersectionObserver' in window)){els.forEach(set);return}var io=new IntersectionObserver(function(es){es.forEach(function(x){if(!x.isIntersecting)return;io.unobserve(x.target);els.forEach(function(e){if((e.ownerSVGElement||e)===x.target)set(e)})})},{rootMargin:'200% 0px'});els.forEach(function(e){io.observe(e.ownerSVGElement||e)})};if(document.readyState==='complete')go();else{addEventListener('load',go);setTimeout(go,6000)}})()</script>
+   they are about two screens away, so a visitor who never scrolls that far never downloads them */(function(){var av=false,t=new Image();t.onload=function(){av=t.width>0};t.src='data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADrbWV0YQAAAAAAAAAhaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAAAAAAAOcGl0bQAAAAAAAQAAAB5pbG9jAAAAAEQAAAEAAQAAAAEAAAETAAAAKAAAAChpaW5mAAAAAAABAAAAGmluZmUCAAAAAAEAAGF2MDFDb2xvcgAAAABqaXBycAAAAEtpcGNvAAAAFGlzcGUAAAAAAAAAAQAAAAEAAAAQcGl4aQAAAAADCAgIAAAADGF2MUOBAAwAAAAAE2NvbHJuY2x4AAEADQAGgAAAABdpcG1hAAAAAAAAAAEAAQQBAoMEAAAAMG1kYXQSAAoIGAAGiAhoNCAyGhlHh4Yhh5555oAAAJBAyRxhSytNj1FFTqSg';var set=function(e){var v=e.getAttribute('data-late');if(!v)return;if(av&&e.getAttribute('data-late-avif'))v=e.getAttribute('data-late-avif');e.removeAttribute('data-late');if(e.tagName.toLowerCase()==='img')e.src=v;else e.setAttribute('href',v)};var go=function(){var els=[].slice.call(document.querySelectorAll('[data-late]'));if(!('IntersectionObserver' in window)){els.forEach(set);return}var io=new IntersectionObserver(function(es){es.forEach(function(x){if(!x.isIntersecting)return;io.unobserve(x.target);els.forEach(function(e){if((e.ownerSVGElement||e)===x.target)set(e)})})},{rootMargin:'200% 0px'});els.forEach(function(e){io.observe(e.ownerSVGElement||e)})};if(document.readyState==='complete')go();else{addEventListener('load',go);setTimeout(go,6000)}})()</script>
 <script>
 /* A part of the page that is off screen holds its animations still (24.11.2026, speed pass): eleven loops (the Code cloud, the
    Design system's thinking dots, the FYI buttons, the Contact ping) ran on below and above the reader, and two of them animate a
