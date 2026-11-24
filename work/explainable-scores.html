@@ -38,6 +38,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/case.css?v=43">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
 <link rel="stylesheet" href="../v7/cs2.css?v=6">
+<link rel="stylesheet" href="../v7/hear-ui.css?v=1">
 <style>
 /* this page only: the bare score of Before, the coach's questions as links into the thread, and "Pull the thread" (the key band):
    one low score and the three layers under it, opened one click at a time, the layers above staying in view */
@@ -135,13 +136,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .c2-scale-e[style*="0%"]{ transform:none; }
 .c2 .c2-scale-e[style*="100%"]{ transform:translateX(-100%); }
 
-/* layer 2: the popover's content */
-.c2 .c2-pop{ padding:20px 22px; border-radius:14px; background:#f6f8fa; }
-.c2 .c2-of{ display:grid; height:auto; padding:12px 14px; gap:4px; line-height:1; }
-.c2 .c2-of small{ font:600 12.5px/1 var(--body); opacity:.92; }
-.c2 .c2-pop .c2-bars i::before{ content:""; position:absolute; left:70%; top:0; bottom:0; width:2px; background:#fff; z-index:1; }
-.c2 .c2-pm{ font-size:13.5px !important; color:var(--mute) !important; }
-
 @media (max-width: 900px){
   .c2 .c2-th-b, .c2 .c2-th-b.is-calls{ grid-template-columns:1fr; }
   .c2 .c2-th-b .c2-shot{ margin:0; }
@@ -197,6 +191,70 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .c2-mk{ top:22px; left:20px; }
 }
 @media (max-width: 560px){ .c2 .c2-rule{ align-items:flex-start; } .c2 .c2-rule svg{ width:60px; height:20px; margin-top:3px; } }
+
+/* round 9, one product look (.claude/case-review/PRODUCT-LOOK.md). "Pull the thread" demonstrates a principle, so it is a black-and-white
+   schematic in the kit's .hui-bw greys (#181818 ink, #F2F2F2 #E4E4E4 #C9C9C9 #8A8A8A, 1px #D0D0D0, modest radius): no band, no ring,
+   no blue. Colour stays only on the 54 and the under-70 slice of the scale, the point of layer 1. What the product shows inside a
+   layer is the product itself: layer 2 is the studio's own popover (its CSS copied below, under .c2 .hui), layer 3 the studio's still. */
+.c2 .c2-sec.is-key#thread{ background:none; }
+.c2 .c2-schem{ display:inline-block; margin-top:22px; padding:3px 8px; border-radius:4px; background:#fff; box-shadow:inset 0 0 0 1px #D0D0D0; font:600 11px/1.4 var(--body); letter-spacing:.08em; text-transform:uppercase; color:#8A8A8A; }
+.c2 .c2-schem + .c2-thread{ margin-top:18px; }
+.c2 .c2-th-score{ border-radius:8px; box-shadow:none; }
+.c2 .c2-th-reset{ border-radius:6px; box-shadow:inset 0 0 0 1px #D0D0D0; }
+.c2 .c2-th-reset:hover{ background:#F2F2F2; }
+.c2 .c2-th-l::before, .c2 .c2-th-l::after{ background:repeating-linear-gradient(180deg, #C9C9C9 0 6px, transparent 6px 12px); }
+.c2 .c2-th-l.is-open::before, .c2 .c2-th-l.is-next::before, .c2 .c2-th-l.is-open::after{ background:#8A8A8A; }
+.c2 .c2-th-n{ border-radius:6px; background:#F2F2F2; color:#8A8A8A; box-shadow:inset 0 0 0 1px #D0D0D0; }
+.c2 .c2-th-l.is-next .c2-th-n{ background:#fff; color:#181818; box-shadow:inset 0 0 0 1.5px #181818; }
+.c2 .c2-th-l.is-open .c2-th-n{ background:#181818; color:#fff; box-shadow:none; }
+.c2 .c2-th-go{ border-radius:8px; }
+.c2 .c2-th-l.is-next .c2-th-go{ background:#fff; box-shadow:0 0 0 1px #181818; }
+.c2 .c2-th-l.is-next .c2-th-v{ min-height:40px; padding:0 16px; border-radius:6px; background:#fff; color:#181818; box-shadow:inset 0 0 0 1px #181818; font:600 14.5px/1 var(--body); }
+.c2 .c2-th-l.is-next .c2-th-go:hover .c2-th-v{ background:#F2F2F2; }
+.c2 .c2-th-go:focus-visible, .c2 .c2-th-reset:focus-visible{ outline-color:#181818; }
+.c2 .c2-th-b{ border-radius:8px; box-shadow:0 0 0 1px #D0D0D0; }
+.c2 .c2-th-l.is-folded .c2-th-a::before{ color:#181818; }
+.c2 .c2-th-l.is-shut .c2-th-a::before{ color:#C9C9C9; }
+.c2 .c2-th-b .c2-quote{ border-left-color:#181818; }
+@media (max-width: 900px){ .c2 .c2-th-ctl::before{ background:#8A8A8A; } }
+/* layer 1: the scale keeps the product's two corals under 70 (under 60, 60 to 69); the rest is grey and ink */
+.c2 .c2-scale-t{ border-radius:4px; background:linear-gradient(90deg, var(--coral) 0 60%, #FFD0C4 60% 70%, #E4E4E4 70% 100%); }
+.c2 .c2-scale-t::before{ background:#181818; }
+.c2 .c2-scale-t::after{ background:#181818; box-shadow:0 0 0 4px #fff; }
+.c2 .c2-scale-me, .c2 .c2-scale-pm{ color:#181818; }
+.c2 .c2-scale-e{ color:#8A8A8A; }
+
+/* layer 2: the studio's own score popover over Selma's 54 (hear-v7/plan/screens/screens.css .sx-tip, as it finally cascades in the
+   studio at full size, and the grid cells of the kit), on the card's paper, on glass, on the sky */
+.c2 .hui.es-pop{ justify-self:end; aspect-ratio:auto; padding:18px; border-radius:16px; }
+.c2 .hui .es-glass{ padding:12px; border-radius:26px; background:rgba(255,255,255,.2); -webkit-backdrop-filter:blur(18px) saturate(1.2); backdrop-filter:blur(18px) saturate(1.2);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.7), inset 0 1.5px 0 rgba(255,255,255,.9), 0 24px 48px -16px rgba(10,40,80,.4); }
+.c2 .hui .es-paper{ padding:22px 22px 24px; border-radius:20px; background:radial-gradient(135% 110% at 16% 2%,#fff 0,#fff 26%,#F6F9FD 48%,#E9F0F9 74%,#DCE8F5 100%); box-shadow:0 8px 22px rgba(16,34,60,.14); }
+.c2 .hui .sx-tip{ position:relative; display:flex; flex-direction:column; width:318px; height:206px; padding:14px 16px; border-radius:15px; background:#fff; color:var(--ink); font-size:12.5px; line-height:1.35; white-space:nowrap;
+  box-shadow:0 0 0 1px rgba(16,34,60,.07), 0 18px 40px -16px rgba(8,20,40,.38); }
+.c2 .hui .sx-tip strong{ display:block; font-size:14px; font-weight:600; }
+.c2 .hui .sx-tip .t2{ display:block; margin-top:1px; font-size:13px; font-weight:500; color:var(--ink); }
+.c2 .hui .sx-tip .t2 + span{ display:block; margin-top:2px; color:var(--mut); }
+.c2 .hui .sx-tip .m{ display:grid; grid-template-columns:52px 1fr 26px; align-items:center; gap:9px; margin-top:9px; color:var(--ink); }
+.c2 .hui .sx-tip .t2 + span + .m{ margin-top:auto; }
+.c2 .hui .sx-tip .m i{ position:relative; display:block; height:6px; border-radius:3px; background:rgba(24,36,48,.09); overflow:hidden; }
+.c2 .hui .sx-tip .m i::after{ content:""; position:absolute; left:70%; top:0; bottom:0; width:2px; margin-left:-1px; background:#fff; }
+.c2 .hui .sx-tip .m u{ display:block; height:100%; border-radius:3px; background:var(--coral); }
+.c2 .hui .sx-tip .m.t u{ background:#139FFD; }
+.c2 .hui .sx-tip .m em{ font-style:normal; font-weight:600; text-align:right; }
+.c2 .hui .sx-tip .pm{ position:relative; height:13px; margin:3px 35px 0 61px; }
+.c2 .hui .sx-tip .pm span{ position:absolute; left:70%; top:0; translate:-50% 0; font-size:10.5px; line-height:13px; color:var(--mut); white-space:nowrap; }
+.c2 .hui .sx-tip .go{ display:block; margin-top:auto; padding-top:10px; border-top:1px solid var(--line); font-weight:500; color:#0B6FCF; }
+.c2 .hui .es-cells{ display:grid; grid-template-columns:repeat(3, 101px); gap:7px; margin-top:12px; }
+.c2 .hui .es-cells span{ display:grid; place-items:center; height:66px; border-radius:12px; background:rgba(24,36,48,.045); font-size:15.5px; font-weight:500; color:var(--ink2); font-variant-numeric:tabular-nums; }
+.c2 .hui .es-cells .mid{ background:#FFD0C4; color:#8E2A14; }
+.c2 .hui .es-cells .low{ background:var(--coral); color:#fff; }
+.c2 .hui .es-cells .hot{ box-shadow:0 0 0 3px #fff, 0 0 0 5px #139FFD; transform:scale(1.04); }
+/* layer 3: pins 1 and 3 stand on the still's left edge, beside the lines they point at, never on the answer's text */
+.c2 #th-b3 .c2-shot{ overflow:visible; }
+.c2 #th-b3 .c2-shot img{ border-radius:16px; }
+@media (max-width: 900px){ .c2 .hui.es-pop{ justify-self:start; } }
+@media (max-width: 560px){ .c2 .hui.es-pop{ zoom:.78; padding:16px; } }
 </style>
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
@@ -224,8 +282,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><dt>Where it stands</dt><dd>The heatmap shipped: I built it into Hear's product in May 2026. The rest is in Hear Design Lab, my working copy of Hear.</dd></div>
       </dl>
       <figure class="c2-fig">
-        <div class="c2-shot"><img src="../img/v7s-es-grid.webp?v=6" width="2060" height="1327" alt="The Compliance screen: five rules as rows and ten agents as columns. Passing scores are gray, failing scores are coral, and the failing cell of Selma K., 54, has its popover open: 12 of 26 calls failed this rule, Selma 54 against a team of 81, and a link, Ask AI which calls." fetchpriority="high">
-          <span class="c2-pin" style="--x:89.6%;--y:61.8%" aria-hidden="true">1</span><span class="c2-pin" style="--x:74.4%;--y:37%" aria-hidden="true">2</span><span class="c2-pin" style="--x:86.4%;--y:57%" aria-hidden="true">3</span></div>
+        <div class="c2-shot"><img src="../img/v7s-es-grid-r9.webp?v=1" width="2169" height="1236" alt="The Compliance screen in Hear Studio: five rules as rows and ten agents as columns, with a row of failing counts under them. Passing scores are gray, 60 to 69 is pale coral and under 60 is coral. Selma K.'s 54 on the vulnerable customer protocol has its popover open: 12 of 26 calls failed this rule, Selma 54 and the team 81 on two bars with the pass mark of 70, and a link, Ask AI which calls." fetchpriority="high">
+          <span class="c2-pin" style="--x:36%;--y:43.2%" aria-hidden="true">1</span><span class="c2-pin" style="--x:92.3%;--y:43.9%" aria-hidden="true">2</span><span class="c2-pin" style="--x:85.7%;--y:61.9%" aria-hidden="true">3</span></div>
         <figcaption><ol class="c2-key">
           <li><i aria-hidden="true">1</i><span><b>Only a failing score takes color.</b> Everything that passes stays gray.</span></li>
           <li><i aria-hidden="true">2</i><span><b>Its popover says why:</b> 12 of 26 calls failed this rule, and the team is at 81.</span></li>
@@ -271,6 +329,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <p class="c2-n">After · pull the thread</p>
       <h2>Three clicks under one low score are the calls themselves</h2>
       <p class="c2-lede">This is Selma's 54 from the grid. Each layer's answer is already here; a click opens its evidence, the layer the screens open next, and the layer above folds back to its answer.</p>
+      <p class="c2-schem">Schematic</p>
       <div class="c2-thread" data-depth="3">
         <div class="c2-th-top">
           <span class="c2-th-score" aria-hidden="true">54</span>
@@ -296,10 +355,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             <div class="c2-th-b" id="th-b2">
               <div><p class="c2-th-a">It is Selma, not the team.</p>
                 <p>Clicking the score opens its popover. It says what the 54 rests on, 12 of 26 calls failed, and puts it beside the team's 81 on the same rule, against the same pass mark.</p></div>
-              <div class="c2-why c2-pop"><span class="c2-score c2-of">12<small>of 26</small></span>
-                <div><b>12 of 26 calls failed this rule</b><br>Selma K. · Vulnerable customer protocol</div>
-                <div class="c2-bars"><span>Selma</span><i style="--v:54%;--c:var(--coral)"></i><span>54</span><span>Team</span><i style="--v:81%;--c:var(--blue)"></i><span>81</span></div>
-                <div class="c2-pm">The white tick on each bar is the pass mark of 70.</div></div>
+              <div class="hui hui-frame es-pop" role="img" aria-label="The popover in Hear Studio, open over Selma's 54: Selma K., Vulnerable customer protocol, 12 of 26 calls failed this rule. Two bars, Selma 54 and Team 81, each with a white tick at the pass mark of 70, labeled pass mark 70. Under a line, a link: Ask AI which calls. Below it the row's last three scores, 89, 68 and 54, the 54 selected.">
+                <div class="es-glass"><div class="es-paper">
+                  <div class="sx-tip"><strong>Selma K.</strong><span class="t2">Vulnerable customer protocol</span><span>12 of 26 calls failed this rule</span><div class="m"><b>Selma</b><i><u style="width:54%"></u></i><em>54</em></div><div class="m t"><b>Team</b><i><u style="width:81%"></u></i><em>81</em></div><div class="pm"><span>pass mark 70</span></div><b class="go">Ask AI which calls →</b></div>
+                  <div class="es-cells"><span>89</span><span class="mid">68</span><span class="low hot">54</span></div>
+                </div></div></div>
             </div>
           </li>
           <li class="c2-th-l" id="layer-3"><i class="c2-th-n" aria-hidden="true">3</i>
@@ -313,8 +373,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
                   <li><i aria-hidden="true">3</i><span><b>Each call:</b> what happened and when the protocol was skipped, such as 01:48 into a 6 min 12 sec call on Oct 13.</span></li>
                 </ol>
                 <p class="c2-quote">The answer names the cause before it names the person.</p></div>
-              <figure><div class="c2-shot"><img src="../img/v7s-es-ask.webp?v=5" width="830" height="935" alt="The Ask AI answer for Selma K. The question: Which calls pulled Selma's Vulnerable customer protocol score down? The answer: 12 calls failed, and 9 of them share one cause: the customer said they were struggling to pay and the protocol questions were skipped. Then the calls by date: Oct 13, cannot afford to rebook, refund asked twice, voucher offered, protocol skipped at 01:48 of 6 min 12 sec; Oct 9, customer mentions a missed payment, no affordability check, protocol skipped at 02:14 of 8 min 40 sec." loading="lazy">
-                <span class="c2-pin" style="--x:5%;--y:31.5%" aria-hidden="true">1</span><span class="c2-pin" style="--x:92.5%;--y:31.5%" aria-hidden="true">2</span><span class="c2-pin" style="--x:5%;--y:51.5%" aria-hidden="true">3</span></div></figure>
+              <figure><div class="c2-shot"><img src="../img/v7s-es-ask-r9.webp?v=1" width="834" height="1360" alt="The Ask AI side sheet in Hear Studio, on its glass over the sky, for Selma K. The question: Which calls pulled Selma's Vulnerable customer protocol score down? The answer: 12 calls failed, and 9 of them share one cause: the customer said they were struggling to pay and the protocol questions were skipped. Then four calls by date, each with a timeline marking where the protocol was skipped: Oct 13, cannot afford to rebook, refund asked twice, voucher offered, skipped at 01:48 of 6 min 12 sec; Oct 9, customer mentions a missed payment, no affordability check, 02:14 of 8 min 40 sec; Oct 7, says the rent is due tomorrow, the sale continues, 03:05 of 7 min 21 sec; Oct 5, says money is tight this month, the upgrade is still offered, 00:57 of 5 min 30 sec. Then a link, Show all 12 calls." loading="lazy">
+                <span class="c2-pin" style="--x:0%;--y:26.25%" aria-hidden="true">1</span><span class="c2-pin" style="--x:96%;--y:26.25%" aria-hidden="true">2</span><span class="c2-pin" style="--x:0%;--y:38.5%" aria-hidden="true">3</span></div></figure>
             </div>
           </li>
         </ol>
@@ -334,7 +394,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       </div>
       <p class="c2-result"><b>Why:</b> the card answers the first two questions for free. When the AI question comes, it already carries the agent and the rule, so the answer can name the calls.</p>
       <p class="c2-note"><b>The spec, 5 Oct 2026:</b> my card gave the score against the team average, a rank, the spread of all agents in 12 ranges, and Explore in Chat. Three days later the product shipped a popover with the same contents, without the chat button.</p>
-      <p class="c2-rule"><svg viewBox="0 0 84 28" aria-hidden="true"><g fill="#cfd4d9"><rect x="0" y="22" width="5" height="6" rx="1"/><rect x="7" y="18" width="5" height="10" rx="1"/><rect x="14" y="20" width="5" height="8" rx="1"/><rect x="21" y="14" width="5" height="14" rx="1"/><rect x="35" y="8" width="5" height="20" rx="1"/><rect x="42" y="4" width="5" height="24" rx="1"/><rect x="49" y="0" width="5" height="28" rx="1"/><rect x="56" y="6" width="5" height="22" rx="1"/><rect x="63" y="12" width="5" height="16" rx="1"/><rect x="70" y="18" width="5" height="10" rx="1"/><rect x="77" y="23" width="5" height="5" rx="1"/></g><rect x="28" y="16" width="5" height="12" rx="1" fill="#0B6FCF"/></svg><span>The spread's rule: “One bar per score range, never one mark per agent. That keeps it readable with 1,000 agents.”</span></p>
+      <p class="c2-rule"><svg viewBox="0 0 84 28" aria-hidden="true"><g fill="#cfd4d9"><rect x="0" y="22" width="5" height="6" rx="1"/><rect x="7" y="18" width="5" height="10" rx="1"/><rect x="14" y="20" width="5" height="8" rx="1"/><rect x="21" y="14" width="5" height="14" rx="1"/><rect x="35" y="8" width="5" height="20" rx="1"/><rect x="42" y="4" width="5" height="24" rx="1"/><rect x="49" y="0" width="5" height="28" rx="1"/><rect x="56" y="6" width="5" height="22" rx="1"/><rect x="63" y="12" width="5" height="16" rx="1"/><rect x="70" y="18" width="5" height="10" rx="1"/><rect x="77" y="23" width="5" height="5" rx="1"/></g><rect x="28" y="16" width="5" height="12" rx="1" fill="#181818"/></svg><span>The spread's rule: “One bar per score range, never one mark per agent. That keeps it readable with 1,000 agents.”</span></p>
     </div>
   </section>
 
@@ -437,6 +497,18 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   });
   set(0, 0);
 })();</script>
+<script>/* phones: the hero still opens at its left edge, so the screen's title and the first pin are in view (cs2.js aims a pan at the
+   pins' mean, which here is mid-grid). Registered after cs2.js's own listeners, so it has the last word; a resize that keeps the
+   width (a phone's address bar) keeps where the reader dragged to */
+document.addEventListener('DOMContentLoaded', function () {
+  var shot = document.querySelector('.c2-hero .c2-shot'); if (!shot) return;
+  var img = shot.querySelector('img'), w = innerWidth, x = 0;
+  function put() { if (shot.classList.contains('is-pan')) shot.scrollLeft = x; }
+  shot.addEventListener('scroll', function () { x = shot.scrollLeft; }, { passive: true });
+  if (img && !img.complete) img.addEventListener('load', put, { once: true });
+  put(); addEventListener('load', put);
+  addEventListener('resize', function () { if (innerWidth !== w) { w = innerWidth; x = 0; } put(); });
+});</script>
 <script src="../v7/cs2.js?v=3" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
