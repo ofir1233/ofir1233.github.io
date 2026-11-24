@@ -45,27 +45,33 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .nr-claim{ display:grid; grid-template-columns:minmax(0, 1fr) auto minmax(0, 1fr); align-items:center; gap:0 clamp(16px, 2.4vw, 32px); margin-top:clamp(28px, 3.5vw, 44px);
   padding:clamp(22px, 3vw, 36px); border-radius:20px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.06), 0 24px 48px -30px rgba(11,79,138,.35); }
 .c2 .nr-k{ margin:0 0 12px; font:600 13.5px/1.3 var(--body); color:var(--deep); }
-.c2 .nr-band{ position:relative; height:60px; margin:40px 0 4px; border-bottom:2px solid #cfd4d9; }
+.c2 .nr-band{ position:relative; height:60px; margin:56px 0 4px; border-bottom:2px solid #cfd4d9; }
 .c2 .nr-band-r{ position:absolute; left:18%; width:40%; bottom:0; height:44px; border-radius:8px 8px 0 0; background:repeating-linear-gradient(135deg, #fde4dc 0 7px, #fbd3c6 7px 14px); box-shadow:inset 0 0 0 1.5px #e8836a; }
 .c2 .nr-band-r b{ position:absolute; left:50%; bottom:calc(100% + 8px); transform:translateX(-50%); font:700 20px/1 var(--body); letter-spacing:-.01em; color:#b8391c; white-space:nowrap; }
-.c2 .nr-band-d{ position:absolute; left:76%; bottom:52px; width:14px; height:14px; margin-left:-7px; border-radius:50%; background:#b8391c; box-shadow:0 0 0 3px #fff; }
-.c2 .nr-band-d b{ position:absolute; left:50%; bottom:calc(100% + 8px); transform:translateX(-50%); font:600 14px/1 var(--body); color:#b8391c; white-space:nowrap; }
+.c2 .nr-band-d{ position:absolute; left:80%; bottom:66px; width:14px; height:14px; margin-left:-7px; border-radius:50%; background:#b8391c; box-shadow:0 0 0 3px #fff; }
+.c2 .nr-band-d b{ position:absolute; right:-7px; bottom:calc(100% + 8px); font:600 14px/1 var(--body); color:#b8391c; white-space:nowrap; }
 .c2 .nr-claim-x{ display:grid; place-items:center; width:44px; height:44px; border-radius:50%; background:#f1f4f8; font:600 20px/1 var(--body); color:var(--ink2); }
 .c2 .nr-claim-b ul{ display:grid; gap:0; }
 .c2 .nr-claim-b li{ display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-top:1px solid var(--line); font:400 15.5px/1.4 var(--body); color:var(--ink); }
 .c2 .nr-claim-b li.is-none{ color:var(--mute); }
 .c2 .nr-claim-b li em{ flex:none; font:600 13px/1.4 var(--body); font-style:normal; color:#b8391c; }
+.c2 .nr-red{ margin-top:12px; font:500 14px/1.4 var(--body); color:#b8391c; }
+/* each evidence panel: is the claim stored today, and what Hear must store for it to be real */
+.c2 .nr-p .nr-st{ display:grid; grid-template-columns:auto auto minmax(0, 1fr); gap:6px 10px; align-items:baseline; justify-items:start; margin-top:20px; padding-top:14px; border-top:1px solid var(--line); font:400 14.5px/1.45 var(--body); color:var(--ink2); }
+.c2 .nr-st span{ font:600 13px/1.3 var(--body); color:var(--ink); }
+.c2 .nr-st b{ padding:3px 9px; border-radius:6px; background:#fde4dc; color:#b8391c; font:700 13px/1.2 var(--body); }
+.c2 .nr-st b.is-part{ background:#fdf0d3; color:#8a5a00; }
+.c2 .nr-st em{ grid-column:1 / -1; font-style:normal; color:var(--ink2); }
 .c2 .nr-k small{ display:block; margin-top:3px; font:400 13px/1.3 var(--body); color:var(--mute); }
-/* the chart bake-off: the axis from the data next to the axis from zero */
-.c2 .nr-bake{ display:grid; grid-template-columns:minmax(0, 1fr) 150px 150px; gap:clamp(18px, 2.6vw, 36px); align-items:end; margin-top:clamp(28px, 3.5vw, 40px); }
-.c2 .nr-bake figcaption{ align-self:start; max-width:62ch; font:400 16.5px/1.55 var(--body); color:var(--ink2); }
-.c2 .nr-bake figcaption b{ color:var(--ink); }
-.c2 .nr-bars p{ margin:0 0 10px; font:600 13.5px/1.3 var(--body); color:var(--ink); }
-.c2 .nr-bars.is-lie p{ color:#b8391c; }
-.c2 .nr-cols{ position:relative; display:flex; align-items:flex-end; gap:14px; height:120px; padding:0 8px; border-bottom:2px solid var(--ink); }
-.c2 .nr-cols span{ position:relative; flex:1; height:var(--h); border-radius:6px 6px 0 0; background:var(--blue); }
+/* the axis pair, beside the 3.4 times bars: an axis from the data next to an axis from zero */
+.c2 .nr-ax{ display:grid; grid-template-columns:92px 92px minmax(0, 1fr); gap:16px; align-items:end; margin-top:10px; padding-top:16px; border-top:1px solid var(--line); }
+.c2 .nr-ax figcaption{ align-self:center; font:400 14px/1.45 var(--body); color:var(--ink2); }
+.c2 .nr-ax .nr-bars p{ margin:0 0 6px; white-space:nowrap; font:600 12px/1.3 var(--body); color:var(--ink); }
+.c2 .nr-ax .nr-bars.is-lie p{ color:#b8391c; }
+.c2 .nr-cols{ position:relative; display:flex; align-items:flex-end; gap:6px; height:64px; padding:0 4px; border-bottom:2px solid var(--ink); }
+.c2 .nr-cols span{ position:relative; flex:1; height:var(--h); border-radius:4px 4px 0 0; background:var(--blue); }
 .c2 .nr-cols span:first-child{ background:#a9d4f8; }
-.c2 .nr-cols b{ position:absolute; left:0; right:0; top:6px; text-align:center; font:700 14px/1 var(--body); font-variant-numeric:tabular-nums; color:#fff; }
+.c2 .nr-cols b{ position:absolute; left:0; right:0; top:4px; text-align:center; font:700 11px/1 var(--body); font-variant-numeric:tabular-nums; color:#fff; }
 .c2 .nr-cols span:first-child b{ color:var(--deep); }
 .c2 .nr-bars.is-lie .nr-cols span{ background:#f2a48f; }
 .c2 .nr-bars.is-lie .nr-cols span:first-child{ background:#fbd3c6; }
@@ -144,22 +150,16 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .nr-rule dd{ font:400 15.5px/1.5 var(--body); color:var(--ink2); }
 .c2 .nr-ex{ font-weight:600; color:var(--ink); }
 .c2 #rule .c2-dec{ align-items:start; }
-/* the reason and its honest catch, side by side on a wide screen */
-.c2 .nr-why2{ display:grid; grid-template-columns:minmax(0, 1.15fr) minmax(0, 1fr); gap:clamp(24px, 3.5vw, 48px); align-items:start; }
-.c2 .nr-why2 .c2-note{ margin-top:22px; }
-@media (max-width: 900px){ .c2 .nr-why2{ grid-template-columns:1fr; gap:0; } }
 
 @media (max-width: 900px){
   .c2 .nr-p{ grid-template-columns:1fr; align-items:start; align-content:start; }
   .c2 .nr-claim{ grid-template-columns:1fr; justify-items:stretch; }
   .c2 .nr-claim-x{ justify-self:center; margin:14px 0; transform:rotate(90deg); }
-  .c2 .nr-bake{ grid-template-columns:1fr 1fr; }
-  .c2 .nr-bake figcaption{ grid-column:1 / -1; }
 }
 @media (max-width: 560px){
-  .c2 .nr-cols{ height:96px; }
-  .c2 .nr-bake{ gap:16px 20px; }
-  .c2 .nr-bake figcaption, .c2 .nr-why2 .c2-note{ font-size:15.5px; }
+  .c2 .nr-ax{ grid-template-columns:104px 104px; gap:12px 20px; }
+  .c2 .nr-ax figcaption{ grid-column:1 / -1; }
+  .c2 .nr-ax figcaption{ font-size:13.5px; }
   .c2 .nr-claim-x{ width:32px; height:32px; margin:4px 0 2px; font-size:16px; }
   .c2 .nr-claim{ padding:20px 18px; }
   .c2 .nr-claim-b li{ font-size:15px; }
@@ -237,9 +237,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <figure class="nr-claim">
         <div class="nr-claim-a">
           <p class="nr-k">What the report's chart claims <small>Redrawn; the customer is left out</small></p>
-          <div class="nr-band" role="img" aria-label="A range drawn on the chart, 12.7% to 13.9%, with a point past it marked past band.">
-            <span class="nr-band-r"><b>12.7%–13.9%</b></span><span class="nr-band-d"><b>past band</b></span>
+          <div class="nr-band" role="img" aria-label="A range drawn on the chart, 12.7% to 13.9%, with a point above it marked a value above the range. Every red mark is a number the AI wrote into the page.">
+            <span class="nr-band-r"><b>12.7%–13.9%</b></span><span class="nr-band-d"><b>a value above the range</b></span>
           </div>
+          <p class="nr-red">Every red mark is a number the AI wrote into the page.</p>
         </div>
         <span class="nr-claim-x" aria-hidden="true">↔</span>
         <div class="nr-claim-b">
@@ -258,8 +259,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="c2-sec is-key" id="check" data-ch="Check the headline">
     <div class="c2-w">
       <p class="c2-n">Check the headline yourself</p>
-      <h2>Every claim in the headline opens the evidence behind it</h2>
-      <p class="c2-lede">An AI wrote this headline. Each underlined phrase is a claim: tap one to see what backs it, taken from the story itself.</p>
+      <h2>Every claim opens its evidence, and whether Hear stores it yet</h2>
+      <p class="c2-lede">An AI wrote this headline. Tap a claim: what backs it, and what Hear must store for it to be real.</p>
       <div class="nr-check">
         <p class="nr-src"><span class="nr-tag">Surging</span>Signal · Cancellation intent · 4:12 pm</p>
         <p class="nr-line">Cancellation intent is <button type="button" class="nr-ph" id="ph-run" aria-expanded="false" aria-controls="ck-run">running</button> at<span class="nr-br"></span> <button type="button" class="nr-ph" id="ph-x" aria-expanded="true" aria-controls="ck-x">3.4&nbsp;times</button> its <button type="button" class="nr-ph" id="ph-base" aria-expanded="false" aria-controls="ck-base">usual&nbsp;day</button></p>
@@ -270,6 +271,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
               <p class="nr-q">What backs “running”</p>
               <h3>Still above its usual level, four days on</h3>
               <p><b>Strong</b> is the story's strength label, one of three: strong, moderate or for watch. The story's last line says why it is on the front page, and ends where a reader can check it: the calls.</p>
+              <p class="nr-st"><span>Stored today</span><b class="is-part">Partly</b><em>Hear keeps a yes-or-no “drastic change” and the date of each run. To be real, it must also store the daily counts and the strength, and link the story to its 211 calls.</em></p>
             </div>
             <div>
               <ol class="nr-when">
@@ -286,11 +288,17 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
               <p class="nr-q">What backs “3.4 times”</p>
               <h3>58 calls yesterday, against 17 on a usual day</h3>
               <p>In 58 calls yesterday the customer said they want to cancel or leave. A usual day has 17. <b>58 is 3.4 times 17.</b></p>
+              <p class="nr-st"><span>Stored today</span><b>No</b><em>Hear keeps a sentence comparing two periods. To be real, it must store each day's count and a comparable day.</em></p>
             </div>
             <div class="nr-cmp">
               <div class="is-hi"><span>Yesterday, Oct 12</span><i style="--v:100%"><b>58</b></i></div>
               <div class="is-base"><span>A usual day</span><i style="--v:29.3%"><b>17</b></i></div>
               <small>Calls in which the customer said they want to cancel or leave</small>
+              <figure class="nr-ax">
+                <div class="nr-bars is-lie" role="img" aria-label="Axis from the data: bars for 109 and 216 drawn almost the same height."><p>From the data</p><div class="nr-cols"><span style="--h:86%"><b>109</b></span><span style="--h:100%"><b>216</b></span></div></div>
+                <div class="nr-bars" role="img" aria-label="Axis from zero: the bar for 109 is about half the height of the bar for 216."><p>From zero</p><div class="nr-cols"><span style="--h:50.5%"><b>109</b></span><span style="--h:100%"><b>216</b></span></div></div>
+                <figcaption>Bars start at zero; an axis from the data drew 109 next to 216 as near-equal.</figcaption>
+              </figure>
             </div>
           </div>
 
@@ -299,6 +307,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
               <p class="nr-q">What backs “usual day”</p>
               <h3>A usual day is 17 calls, drawn as a dashed line</h3>
               <p>A spike is drawn against a usual day, never alone. The chart counts cancellation-intent calls a day over the <b>last 30 days</b>, Sep 13 to Oct 12.</p>
+              <p class="nr-st"><span>Stored today</span><b>No</b><em>Hear keeps no range, low or high. To be real, it must store each day's count over the last 30 days.</em></p>
             </div>
             <div class="nr-chart"><div class="nr-plot">
               <svg viewBox="0 0 600 236" role="img" aria-label="Cancellation-intent calls a day over the last 30 days: flat at the usual day, 17 calls, drawn dashed, until early October, then rising to 58 calls on Oct 12.">
@@ -320,26 +329,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="c2-sec" id="rule" data-ch="The key decision">
     <div class="c2-w">
       <p class="c2-n">The key decision</p>
-      <h2>No invented numbers: a story sounds only as exact as its data</h2>
-      <p class="c2-lede">Alerts, compliance checks and agent evaluations have a threshold someone set, so their stories name it. A trend has none, so its story says what changed in words, against its usual day.</p>
+      <h2>A trend says it in words until its numbers are stored</h2>
+      <p class="c2-lede">Alerts, compliance checks and agent evaluations have a threshold someone set, so their stories name it. A trend has none, and today Hear keeps its change only in words, so its story says it in words. The headline above is the version for when its numbers are stored.</p>
       <div class="c2-dec">
         <div class="c2-opt"><h3>A number on every trigger <em>Set aside</em></h3><p>Every story names a threshold it crossed, even a trend that has none: a made-up figure no reader could check.</p></div>
         <div class="c2-opt is-chosen"><h3>As exact as the data <em>Chosen</em></h3>
-          <dl class="nr-rule"><div><dt>Trends</dt><dd>The trigger in words, against a usual day; time as a window, such as “this week”</dd></div><div><dt>Alerts, compliance, evaluations</dt><dd>The real threshold that was set; a clock time for a real moment, such as an alert</dd></div></dl></div>
+          <dl class="nr-rule"><div><dt>Trends</dt><dd>The change in words until its numbers are stored, then against a usual day; time as a window, such as “this week”</dd></div><div><dt>Alerts, compliance, evaluations</dt><dd>The real threshold that was set; a clock time for a real moment, such as an alert</dd></div></dl></div>
       </div>
-      <div class="nr-why2"><p class="c2-result"><b>Why:</b> Hear stores a trend's change only in words, a yes-or-no “drastic change” and a sentence, so a number there would be made up. I wrote the rule into the News tab's code in July 2026.</p>
-      <p class="c2-note"><b>The honest catch:</b> the headline's <span class="nr-ex">3.4 times</span>, its usual day and its 211 calls need numbers the production check found missing, and its strength label is illustrative. The design names the pipeline it needs.</p></div>
-      <figure class="nr-bake">
-        <figcaption><b>The same rule chose the charts.</b> Side by side, a chart library started the axis at the data, drawing 109 next to 216 as near-equal bars; it could not read the design's color tokens, and needed nine charts for nine cards. Hand-built HTML and SVG won: about six components, 300 lines, no dependencies. Bars from zero are a code-review rule.</figcaption>
-        <div class="nr-bars is-lie" role="img" aria-label="Axis from the data: bars for 109 and 216 drawn almost the same height.">
-          <p>Axis from the data</p>
-          <div class="nr-cols"><span style="--h:86%"><b>109</b></span><span style="--h:100%"><b>216</b></span></div>
-        </div>
-        <div class="nr-bars" role="img" aria-label="Axis from zero: the bar for 109 is about half the height of the bar for 216.">
-          <p>Axis from zero</p>
-          <div class="nr-cols"><span style="--h:50.5%"><b>109</b></span><span style="--h:100%"><b>216</b></span></div>
-        </div>
-      </figure>
+      <p class="c2-result"><b>Why:</b> Hear stores a trend's change only in words, a yes-or-no “drastic change” and a sentence, so a number there today would be made up. I wrote the rule into the News tab's code in July 2026.</p>
     </div>
   </section>
 
