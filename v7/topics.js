@@ -1094,6 +1094,7 @@
     });
     fig.addEventListener('pointerleave', function () { sp.held = false; sp.tx = sp.ty = 0; kick(); });
   }
+  if (!fine && !calm && window.v7Gyro) window.v7Gyro.watch(fig, function (a, b, off) { sp.tx = a; sp.ty = b; sp.held = !off; kick(); });   /* a phone: its tilt (v7/gyro.js) */
 
   /* ── playing, scrubbing ── */
   var dipping = false, pending = false, dipT = 0;

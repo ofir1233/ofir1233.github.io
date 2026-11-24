@@ -141,7 +141,10 @@
       if (fine) {
         fr.addEventListener('pointermove', function (e) { if (e.pointerType !== 'mouse' || fr !== live || !fr.classList.contains('live')) return; fr._over = true; near(e, fr); });
         fr.addEventListener('pointerleave', function () { fr._over = false; byScroll(); });
-      }
+      } else if (window.v7Gyro) window.v7Gyro.watch(fr, function (a, b, off) {   /* a phone: the open post follows its tilt (v7/gyro.js) */
+        if (fr !== live || !fr.classList.contains('live')) return;
+        if (off) { fr._over = false; byScroll(); } else { fr._over = true; fr._to(a, b); }
+      });
     });
     function whenThere(fr, go) { /* the planes must have arrived before the grey print opens onto them */
       var w = [].filter.call(fr.querySelectorAll('.dp-scene img'), function (m) { return !m.complete; });

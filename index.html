@@ -3914,8 +3914,9 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 .v7-glass > *{ border-radius: clamp(12px, 1.3vw, 18px); overflow: hidden; }
 </style>
 <link rel="stylesheet" href="v7/font.css?v=221">
-<link rel="stylesheet" href="v7/hero.css?v=231">
-<script>/* the hero picture is painted in once per tab: v7/hero-paint.js */try{if(!sessionStorage.getItem('hp')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('hp-wait')}catch(e){}</script>
+<link rel="stylesheet" href="v7/hero.css?v=232">
+<script>/* the phone's tilt (v7/gyro.js): depths that start before it has loaded wait in this queue */window.v7Gyro={q:[],watch:function(e,f){this.q.push([e,f])}};
+/* the hero picture is painted in once per tab: v7/hero-paint.js */try{if(!sessionStorage.getItem('hp')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('hp-wait')}catch(e){}</script>
 <script>/* the pinned opening (html.me-scroll) is decided here, before the first paint; the pin script at the foot of the page then takes over. Decided only there, the page was first painted in the plain layout, and the four facts were seen on the picture for a moment and gone */try{(function(m,c){function s(){c.toggle('me-scroll',m.matches)}s();if(m.addEventListener)m.addEventListener('change',s)})(matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)'),document.documentElement.classList)}catch(e){}</script>
 <link rel="stylesheet" href="v7/code.css?v=223">
 <link rel="stylesheet" href="v7/design-lab.css?v=224">
@@ -6987,8 +6988,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <script>
-/* about portrait v7: the pointer tilts the frame and moves the two layers against each other; let go, it swings back once and settles (same spring as the Hear site's plates) */
-(function(){ var fr=document.querySelector('#about .me-v7'), zone=fr; if(!fr||matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+/* about portrait v7: the pointer (on a phone, its tilt) tilts the frame and moves the two layers against each other; let go, it swings back once and settles (same spring as the Hear site's plates) */
+(function(){ var fr=document.querySelector('#about .me-v7'), zone=fr; if(!fr||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var tx=0,ty=0,x=0,y=0,vx=0,vy=0,raf=0,last=0,over=false;
   function tick(t){ var dt=Math.min(.034,(t-last)/1000||.016); last=t; var k=over?110:15,c=over?21:4.6;
     vx+=((tx-x)*k-vx*c)*dt; vy+=((ty-y)*k-vy*c)*dt; x+=vx*dt; y+=vy*dt;
@@ -6999,6 +7000,8 @@ document.addEventListener('DOMContentLoaded', () => {
   zone.addEventListener('pointermove',function(e){ if(e.pointerType!=='mouse') return; over=true; var r=zone.getBoundingClientRect();
     tx=Math.max(-1,Math.min(1,((e.clientX-r.left)/r.width-.5)*2)); ty=Math.max(-1,Math.min(1,((e.clientY-r.top)/r.height-.5)*2)); go(); });
   zone.addEventListener('pointerleave',function(){ over=false; tx=0; ty=0; go(); });
+  /* on a phone the way it is held tilts the picture instead (v7/gyro.js) */
+  window.v7Gyro.watch(fr,function(a,b,off){ over=!off; tx=a; ty=b; go(); });
 })();
 </script>
 <script>
@@ -7040,25 +7043,27 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <script>
 /* v7 tilt: any element with data-v7-tilt gets --tx / --ty (-1..1) from the pointer over it, on a spring; let go and it swings back once and settles */
-(function(){ if(matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(hover:hover) and (pointer:fine)').matches){ window.v7Tilt=function(){}; return; }
+(function(){ if(matchMedia('(prefers-reduced-motion: reduce)').matches){ window.v7Tilt=function(){}; return; }
   function bind(fr){ if(fr.__v7t) return; fr.__v7t=1; var tx=0,ty=0,x=0,y=0,vx=0,vy=0,raf=0,last=0,over=false;
     function tick(t){ var dt=Math.min(.034,(t-last)/1000||.016); last=t; var k=over?110:15,c=over?21:4.6;
       vx+=((tx-x)*k-vx*c)*dt; vy+=((ty-y)*k-vy*c)*dt; x+=vx*dt; y+=vy*dt; fr.style.setProperty('--tx',x.toFixed(4)); fr.style.setProperty('--ty',y.toFixed(4));
       if(Math.abs(tx-x)>.0008||Math.abs(ty-y)>.0008||Math.abs(vx)>.002||Math.abs(vy)>.002) raf=requestAnimationFrame(tick); else { raf=0; x=tx; y=ty; vx=vy=0; } }
     function go(){ if(!raf){ last=performance.now(); raf=requestAnimationFrame(tick); } }
     fr.addEventListener('pointermove',function(e){ if(e.pointerType!=='mouse') return; over=true; var r=fr.getBoundingClientRect(); tx=Math.max(-1,Math.min(1,((e.clientX-r.left)/r.width-.5)*2)); ty=Math.max(-1,Math.min(1,((e.clientY-r.top)/r.height-.5)*2)); go(); });
-    fr.addEventListener('pointerleave',function(){ over=false; tx=0; ty=0; go(); }); }
+    fr.addEventListener('pointerleave',function(){ over=false; tx=0; ty=0; go(); });
+    window.v7Gyro.watch(fr,function(a,b,off){ over=!off; tx=a; ty=b; go(); }); }
   window.v7Tilt=bind; [].forEach.call(document.querySelectorAll('[data-v7-tilt]'),bind);
 })();
 </script>
+<script src="v7/gyro.js?v=1" defer></script>
 <script src="v7/hero.js?v=231" defer></script>
-<script src="v7/code.js?v=222" defer></script>
-<script src="v7/depth.js?v=221" defer></script>
-<script src="v7/topics.js?v=18" defer></script>
+<script src="v7/code.js?v=223" defer></script>
+<script src="v7/depth.js?v=222" defer></script>
+<script src="v7/topics.js?v=19" defer></script>
 <script src="v7/product.js?v=222" defer></script>
 <script src="v7/system.js?v=222" defer></script>
 <script src="v7/web-fyi.js?v=221" defer></script>
-<script src="v7/fyi-door.js?v=1" defer></script>
+<script src="v7/fyi-door.js?v=2" defer></script>
 <script src="v7/feed.js?v=5" defer></script>
 <script src="v7/ia-process.js?v=221" defer></script>
 <script src="v7/path-contact.js?v=221" defer></script>

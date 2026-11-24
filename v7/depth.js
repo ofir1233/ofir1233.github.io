@@ -4,12 +4,13 @@
    while it plays, so the depth is always there. Mouse devices only; nothing under reduced motion. */
 window.v7Depth = function (frame, host) {
   var none = { drift: function () {} };
-  if (!frame || !host || matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover:hover) and (pointer:fine)').matches) return none;
+  var fine = matchMedia('(hover:hover) and (pointer:fine)').matches;   /* without a mouse, the phone's tilt (v7/gyro.js) does what it does */
+  if (!frame || !host || matchMedia('(prefers-reduced-motion: reduce)').matches || (!fine && !window.v7Gyro)) return none;
   var over = false, on = false, raf = 0;
   /* Once an app is open, Studio itself only moves the sky a little. Inside a frame on this page the screen is a picture, not a tool:
      the sky travels further, and under the mouse the glass leans toward it. */
-  var CSS = '@media (hover:hover) and (pointer:fine){.bg{scale:1.1!important;translate:calc(var(--tx,0)*-26px) calc(var(--ty,0)*-15px)!important}' +
-    '.v7-over .glass.sx,.v7-over .glass.tp{transform:perspective(1900px) rotateX(calc(var(--ty,0)*-1.5deg)) rotateY(calc(var(--tx,0)*2deg))}}';
+  var CSS = '.bg{scale:1.1!important;translate:calc(var(--tx,0)*-26px) calc(var(--ty,0)*-15px)!important}' +
+    '.v7-over .glass.sx,.v7-over .glass.tp{transform:perspective(1900px) rotateX(calc(var(--ty,0)*-1.5deg)) rotateY(calc(var(--tx,0)*2deg))}';
   function doc() { try { return frame.contentDocument; } catch (e) { return null; } }
   frame.addEventListener('load', function () {
     var d = doc(); if (!d || !d.head) return;
@@ -30,6 +31,10 @@ window.v7Depth = function (frame, host) {
     var r = host.getBoundingClientRect(); send('pointermove', (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
   });
   host.addEventListener('pointerleave', function () { over = false; mark(false); if (!on) send('pointerleave', .5, .5); });
+  if (!fine) window.v7Gyro.watch(host, function (a, b, off) {
+    if (off) { if (over) { over = false; mark(false); if (!on) send('pointerleave', .5, .5); } return; }
+    if (!over) { over = true; mark(true); } send('pointermove', .5 + a * .5, .5 + b * .5);
+  });
   function loop(t) {
     raf = 0; if (!on) return;
     if (!over) { var a = t / 1000; send('pointermove', .5 + Math.sin(a * .5) * .3, .5 + Math.cos(a * .37) * .26); }

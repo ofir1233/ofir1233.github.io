@@ -42,6 +42,7 @@
   fig.addEventListener('pointermove', function(e){ if (e.pointerType !== 'mouse') return; over = true; var r = fig.getBoundingClientRect();
     tx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - .5) * 2)); ty = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height - .5) * 2)); go(); });
   fig.addEventListener('pointerleave', function(){ over = false; tx = 0; ty = 0; go(); });
+  if (window.v7Gyro) window.v7Gyro.watch(fig, function(a, b, off){ over = !off; tx = a; ty = b; go(); });   /* a phone: its tilt */
 });
 
 /* the chat on the System plate: when its screen comes on, the question is typed into the field and sent, then the answer is written

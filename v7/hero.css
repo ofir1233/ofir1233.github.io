@@ -220,3 +220,9 @@ html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-street{ transform: transla
    clouds in a layer over the signature, without hiding too much"). While the picture grows they drift in from the right (7% of the
    picture at the start, home when it fills the stage), and only then is the name written behind them. */
 html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-front{ transform: translate(calc(var(--tx,0) * -2.9% - min(var(--z,0), .5) * 4% + (1 - var(--g,0)) * 7%), calc(var(--ty,0) * -2.6% + min(var(--z,0), .5) * 1.4%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .012)); }
+
+/* Without the pinned stage (phones, where the tilt of the phone moves --tx/--ty: v7/gyro.js) the layers part by distance too: the sky,
+   its name, clouds and gulls travel furthest, the far city a little less, the street hardly at all, and he comes forward (his own rule). */
+html:not(.me-scroll) #about .me-photo.me-v7 .me-v7-bg.me-v7-sky, html:not(.me-scroll) #about .me-photo.me-v7 .me-v7-bg.me-v7-clouds, html:not(.me-scroll) #about .me-photo.me-v7 .me-v7-bg.me-v7-front, html:not(.me-scroll) #about .me-photo.me-v7 .me-v7-sig{ transform: translate(calc(var(--tx,0) * -3%), calc(var(--ty,0) * -2.6%)) scale(1.09); }
+html:not(.me-scroll) #about .me-photo.me-v7 .me-v7-bg.me-v7-city{ transform: translate(calc(var(--tx,0) * -1.8%), calc(var(--ty,0) * -1.6%)) scale(1.09); }
+html:not(.me-scroll) #about .me-photo.me-v7 .me-v7-bg.me-v7-street{ transform: translate(calc(var(--tx,0) * -.5%), calc(var(--ty,0) * -.4%)) scale(1.09); }

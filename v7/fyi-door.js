@@ -309,6 +309,7 @@
     });
     root.addEventListener('pointerleave', () => { sp.on = false; sp.tx = sp.ty = 0; kick(); });
   }
+  if (!RM && window.v7Gyro) window.v7Gyro.watch(root, (a, b, off) => { sp.tx = a; sp.ty = b; sp.on = !off; kick(); });   // a phone: its tilt (v7/gyro.js)
 
   /* ---- start */
   const q = new URLSearchParams(location.search);

@@ -139,7 +139,8 @@
   /* depth: the cut-out and its shadow part a little under the pointer. Mouse only. */
   var fine = false;
   try { fine = matchMedia('(hover: hover) and (pointer: fine)').matches; } catch (e) {}
-  if (fine && !still) {
+  var tilt = !fine && window.v7Gyro;   /* a phone: its tilt does what the mouse does (v7/gyro.js) */
+  if ((fine || tilt) && !still) {
     var tx = 0, ty = 0, x = 0, y = 0, raf = 0, stage = q('.fyacast-stage') || root;
     var step = function () {
       x += (tx - x) * 0.12; y += (ty - y) * 0.12;
@@ -156,5 +157,6 @@
       go();
     });
     stage.addEventListener('pointerleave', function () { tx = 0; ty = 0; go(); });
+    if (tilt) window.v7Gyro.watch(stage, function (a, b) { tx = a; ty = b; go(); });
   }
 })();
