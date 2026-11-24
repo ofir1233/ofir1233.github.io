@@ -100,23 +100,29 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ac-pr.is-m{ font-weight:500; color:var(--ink2); } .c2 .ac-pr.is-l{ font-weight:500; color:var(--mute); }
 .c2 .ac-leg{ display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; margin-top:16px; }
 .c2 .ac-wt-p{ margin-top:12px; max-width:48ch; font:400 17px/1.5 var(--body); color:var(--ink2); }
-.c2 .ac-greys{ display:inline-flex; gap:4px; vertical-align:-3px; margin-left:2px; }
-.c2 .ac-greys i{ width:17px; height:17px; border-radius:4px; background:var(--g); }
+.c2 .ac-greys{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
 
 /* the key decision: each option carries its own filter bar, drawn in HTML */
 .c2 .c2-opt h3 em{ white-space:nowrap; }
 .c2 .ac-fb{ display:flex; flex-wrap:wrap; align-items:flex-start; gap:10px; margin:16px 0 14px; padding:14px; border-radius:12px; background:#fff; box-shadow:0 0 0 1px var(--line); }
-.c2 .ac-fb.is-prod{ min-height:148px; background:#fbfbfa; }
+.c2 .ac-fb.is-prod{ display:grid; grid-template-columns:auto auto auto; justify-content:start; gap:6px 10px; background:#fbfbfa; }
 .c2 .ac-dd small{ font:500 14px/1 var(--body); color:var(--mute); }
 .c2 .ac-dd{ position:relative; display:inline-flex; align-items:center; gap:6px; height:34px; padding:0 10px 0 12px; border-radius:8px; box-shadow:inset 0 0 0 1px #c9ced3; background:#fff; font:600 14px/1 var(--body); color:var(--ink); white-space:nowrap; }
 .c2 .ac-dd svg{ width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
-.c2 .ac-menu{ position:absolute; top:calc(100% + 6px); left:0; display:grid; gap:2px; min-width:150px; padding:6px; border-radius:10px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.1), 0 12px 24px -10px rgba(10,20,30,.25); z-index:1; }
+.c2 .ac-menu{ grid-column:1 / -1; grid-row:2; justify-self:start; display:grid; gap:2px; min-width:150px; padding:6px; border-radius:10px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.1), 0 12px 24px -10px rgba(10,20,30,.25); z-index:1; }
 .c2 .ac-menu span{ padding:8px 10px 8px 28px; border-radius:6px; font:500 14px/1 var(--body); color:var(--ink2); position:relative; }
 .c2 .ac-menu span.on::before{ content:"\2713"; position:absolute; left:10px; color:var(--ink); }
 .c2 .ac-menu span:last-child{ box-shadow:inset 0 0 0 1.5px var(--deep); color:var(--ink); }
 .c2 .ac-avs{ display:inline-flex; align-items:center; height:34px; padding-left:6px; }
 .c2 .ac-avs i{ display:grid; place-items:center; width:30px; height:30px; margin-left:-3px; border-radius:50%; background:#e6e8eb; box-shadow:0 0 0 2px #fbfbfa; font:600 10.5px/1 var(--body); font-style:normal; color:var(--ink2); }
 .c2 .ac-avs i.na svg{ width:16px; height:16px; fill:none; stroke:#7b838b; stroke-width:1.5; stroke-linecap:round; }
+.c2 .ac-mt{ flex:1 0 100%; display:grid; gap:7px; margin-top:4px; padding:13px 15px; border-radius:11px; background:#fff; box-shadow:0 0 0 1px var(--line), 0 6px 16px -10px rgba(10,20,30,.25); }
+.c2 .ac-mt-m{ display:flex; align-items:center; gap:7px; font:400 13.5px/1.2 var(--body); color:var(--mute); }
+.c2 .ac-mt-m b{ font-weight:600; color:var(--ink2); }
+.c2 .ac-mt-m i{ display:grid; place-items:center; width:22px; height:22px; border-radius:50%; background:#e6e8eb; font:600 9.5px/1 var(--body); font-style:normal; color:var(--ink2); }
+.c2 .ac-mt-t{ font:600 16px/1.3 var(--body); color:var(--ink); }
+.c2 .ac-mt-q{ font:400 14px/1.45 var(--body); color:var(--ink2); }
+.c2 .ac-mt-q em{ font-style:normal; font-weight:600; color:var(--blue); }
 .c2 .ac-seg{ display:inline-flex; flex-wrap:wrap; gap:2px; padding:3px; border-radius:10px; background:#f1f2f3; }
 .c2 .ac-seg span{ padding:9px 13px; border-radius:8px; font:500 14.5px/1 var(--body); color:var(--mute); white-space:nowrap; }
 .c2 .ac-seg span.on{ background:#fff; box-shadow:inset 0 0 0 1px #aeb4ba; color:var(--ink); font-weight:600; }
@@ -140,8 +146,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .ac-lane{ padding:12px; gap:10px; }
   .c2 .ac-wc{ padding:15px 16px; }
   .c2 .ac-wt-p{ font-size:16px; }
-  .c2 .ac-fb.is-prod{ min-height:0; padding-bottom:96px; }
-  .c2 .ac-fb.is-prod > .ac-dd:last-child{ display:none; }
+  .c2 .ac-fb.is-prod > .ac-dd:not(.is-open){ display:none; }
   .c2 .ac-seg span{ padding:8px 10px; font-size:14px; }
 }
 @media (prefers-reduced-motion: reduce){
@@ -257,7 +262,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             <div class="ac-wc"><p class="ac-wc-t"><span class="v1-p">HIGH</span><span class="v1-s">PENDING</span></p><b>Customer asked twice for a refund, was offered only a voucher</b><span class="ac-wc-o"><i>DB</i>Daniel Brooks</span></div>
             <div class="ac-wc"><p class="ac-wc-t"><span class="v1-p is-m">MEDIUM</span><span class="v1-s">PENDING</span></p><b>Reason for call tagged as Billing, should be Flight change</b><span class="ac-wc-o"><i>MC</i>Maya Collins</span></div></div>
           <p class="ac-leg"><span class="v1-p">HIGH</span><span class="v1-p is-m">MEDIUM</span><span class="v1-p is-l">LOW</span><span class="v1-s">PENDING</span></p>
-          <p class="ac-wt-p">Coral on every card in Pending, urgent or not. That afternoon, four tries gave Pending a grey: <span class="ac-greys" aria-hidden="true"><i style="--g:#a3a3a3"></i><i style="--g:#747474"></i><i style="--g:#6b7280"></i><i style="--g:#4b5563"></i></span></p>
+          <p class="ac-wt-p">Coral on every card in Pending, urgent or not. That afternoon I tried Pending in four greys:</p>
+          <p class="ac-greys" aria-label="Four PENDING badges in four greys, from light to dark; they look almost the same"><span class="v1-s" style="color:#a3a3a3">PENDING</span><span class="v1-s" style="color:#747474">PENDING</span><span class="v1-s" style="color:#6b7280">PENDING</span><span class="v1-s" style="color:#4b5563">PENDING</span></p>
         </figure>
         <figure>
           <figcaption class="ac-wt-h">After · Flow, October 2026</figcaption>
@@ -277,11 +283,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <h2>Being mentioned gets its own filter, so you find where you're needed first</h2>
       <div class="c2-dec">
         <div class="c2-opt"><h3>A mode of the people filter, as in the product today <em>Set aside</em></h3>
-          <div class="ac-fb is-prod" role="img" aria-label="The product's filter bar: an Assignee dropdown, opened to show its two options, Assignee (ticked) and Mentioned, then people avatars and Status."><span class="ac-dd is-open">Assignee<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg><span class="ac-menu"><span class="on">Assignee</span><span>Mentioned</span></span></span><span class="ac-avs"><i class="na"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M4.2 11.8 11.8 4.2"/></svg></i><i>DB</i><i>MC</i><i>RC</i></span><span class="ac-dd">Status<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span></div>
-          <p>Mentioned is the other option inside the Assignee menu. My first board, on 30 March, copied it.</p></div>
+          <div class="ac-fb is-prod" role="img" aria-label="The product's filter bar: an Assignee dropdown, opened to show its two options, Assignee (ticked) and Mentioned, then people avatars and Status."><span class="ac-dd is-open">Assignee<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span></span><span class="ac-avs"><i class="na"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M4.2 11.8 11.8 4.2"/></svg></i><i>DB</i><i>MC</i><i>RC</i></span><span class="ac-dd">Status<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span><span class="ac-menu"><span class="on">Assignee</span><span>Mentioned</span></div>
+          <p>Mentioned hides inside the Assignee menu: switch it, then pick yourself among the faces. My first board, on 30 March, copied it.</p></div>
         <div class="c2-opt is-chosen"><h3>Its own place in the row, beside Assigned to me <em>Chosen</em></h3>
-          <div class="ac-fb is-flow" role="img" aria-label="Flow's filter row: Everyone, Assigned to me, Mentioned me (selected), Not assigned, then Status and Priority menus."><span class="ac-seg"><span>Everyone</span><span>Assigned to me</span><span class="on">Mentioned me</span><span>Not assigned</span></span><span class="ac-dd">Status <small>All</small><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span><span class="ac-dd">Priority <small>All</small><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span></div>
-          <p>One row says whose tasks you see, and Mentioned me is one tap.</p></div>
+          <div class="ac-fb is-flow" role="img" aria-label="Flow's filter row: Everyone, Assigned to me, Mentioned me (selected), Not assigned, then Status and Priority menus. Below it, the one task that mentions Alex Ward: the refund task, where Maya Collins wrote at 10:05, “@Alex Ward second refund complaint on this route this week, worth a look.”"><span class="ac-seg"><span>Everyone</span><span>Assigned to me</span><span class="on">Mentioned me</span><span>Not assigned</span></span><span class="ac-dd">Status <small>All</small><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span><span class="ac-dd">Priority <small>All</small><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span><span class="ac-mt"><span class="ac-mt-m"><i>MC</i><span><b>Maya Collins</b> mentioned you · 10:05</span></span><b class="ac-mt-t">Customer asked twice for a refund, was offered only a voucher</b><span class="ac-mt-q"><em>@Alex Ward</em> second refund complaint on this route this week, worth a look.</span></span></div>
+          <p>One tap leaves the task where you're needed.</p></div>
       </div>
       <p class="c2-result"><b>Why:</b> a mention means someone needs you, as Alex Ward is needed in the refund thread. Mentioned me shows those tasks first.</p>
       <p class="c2-note"><b>Close reasons are the product's own:</b> Resolved, Duplicate, Not actionable, Escalated, Other. Hear already asks for one when a task closes, and reports on them. My part is the reason on every closed card, and in Flow a tally at the top of Done.</p>
@@ -290,7 +296,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
-      <p class="c2-coda">Priority in ink, and <em>every closed card says why</em>.</p>
+      <p class="c2-coda">Priority in ink, and you see first <em>where you're needed</em>.</p>
       <p class="c2-status"><b>Where it stands:</b> Hear already has an Actions board; this redesign runs in the Lab on demo data and is not built. <b>My part:</b> I designed and built it with Claude Code, from a first board on 30 March 2026 to five directions on 6 October.</p>
     </div>
   </section>
