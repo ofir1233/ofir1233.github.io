@@ -1,0 +1,28 @@
+/* v7 - the Product cards get the brand's paint (owner, 24.11.2026: "a heading, text and a screen, no brand atmosphere at all";
+   then "make something made for it, so it sits as well as it can"; then "not at the level of the opening picture, cut at the top,
+   paint again with the depth effect"). Each card has its own painted scene in the empty corner under its words, built like the
+   opening boulevard from two painted layers: the backdrop (sky, far city, middle ground) and the near plane in front of it.
+   Its top and inner side end in the last strokes of a dry brush, as if painted onto the card. It runs on under the app's
+   window, which hides part of it (owner, 24.11: "too little of the picture shows; fine if the screen hides some"); never over a sentence. The mouse (or, on a phone, the way it is held, see v7/gyro.js) moves the backdrop more than the
+   near plane, as in the opening. Each scene tells its card's one finding with its one coral thing: Topics, one coral block among
+   buildings of every size; Compliance, the lifeguard's flag; Agent evaluation, the coral boat last in the race; Actions, the one
+   crate the crane lifts; Newsroom, the kiosk. */
+#product .spot.has-art{ overflow: clip; isolation: isolate; }
+#product .spot.has-art > .txt, #product .spot.has-art > .media{ position: relative; z-index: 1; }
+#product .spot .spot-art{ display: none; }
+@media (min-width: 861px){
+  #product .spot .spot-art{ display: block; position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit; overflow: clip; }
+  /* the edge is the last strokes of a dry flat brush (owner, 24.11: "instead of faded, cut by a brush stroke"): img/spot-brush-l.png,
+     mirrored for the cards whose words sit on the right */
+  /* each scene is cut so its one coral thing shows and no stroke reaches the buttons: a wide strip on the cards whose buttons sit
+     over the scene's high corner; the whole height, sunk a little into the card's bottom, where the story is high in the picture */
+  #product .spot:has(img[src*="spot-compliance"]){ --sa-ar: 3 / 2; --sa-dy: 18%; --sa-sink: 44px; }
+  #product .spot:has(img[src*="spot-actions"]){ --sa-w: 46%; --sa-ar: 3 / 2; --sa-dy: 8%; --sa-sink: 48px; }
+  #product .spot .sa-stage{ position: absolute; left: 0; bottom: calc(var(--sa-sink, 0px) * -1); width: var(--sa-w, 50%); aspect-ratio: var(--sa-ar, 2.2 / 1); overflow: clip;
+    -webkit-mask: url(../img/spot-brush-l.png?v=2) 0 0 / 100% 100% no-repeat; mask: url(../img/spot-brush-l.png?v=2) 0 0 / 100% 100% no-repeat; }
+  #product .spot:nth-of-type(even) .sa-stage{ left: auto; right: 0;
+    -webkit-mask: url(../img/spot-brush-r.png?v=2) 0 0 / 100% 100% no-repeat; mask: url(../img/spot-brush-r.png?v=2) 0 0 / 100% 100% no-repeat; }
+  #product .spot .sa-stage img{ position: absolute; left: -4%; top: calc(var(--sa-dy, 0%) - 4%); width: 108%; height: 108%; max-width: none; object-fit: cover; object-position: 50% 78%; will-change: transform; }
+  #product .spot .sa-back{ transform: translate(calc(var(--tx, 0) * -2.4%), calc(var(--ty, 0) * -2%)); }
+  #product .spot .sa-near{ transform: translate(calc(var(--tx, 0) * -.6%), calc(var(--ty, 0) * -.5%)) scale(1.01); }
+}
