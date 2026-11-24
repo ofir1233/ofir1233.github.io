@@ -80,6 +80,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .d-hui .dt-f:focus-visible, .c2 .d-reset:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
 .c2 .d-reset{ min-height:40px; margin-left:4px; padding:0 12px; border:0; border-radius:99px; background:none; font:600 14.5px/1 var(--body); color:var(--deep); cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
 .c2 .d-reset:disabled{ color:var(--mute); opacity:.5; text-decoration:none; cursor:default; }
+/* the readout beside the product's parts is an explanation, not the product: a .hui-bw schematic (greys and ink, the kit's type) */
+.c2 .d-try > div.hui{ display:flex; padding:0; border-radius:0; background:none; box-shadow:none; }
+.c2 .d-read{ flex:1; padding:34px 28px 28px; --body:"Hear Byrd", Byrd, system-ui, sans-serif; --mute:#8A8A8A; --ink2:#181818; }
+.c2 .d-read .d-count{ color:#181818; }
+.c2 .d-read .d-foot{ border-top-color:#E4E4E4; }
 .c2 .d-try .d-total{ display:grid; justify-items:start; gap:6px; margin-top:0; }
 .c2 .d-num{ font:700 clamp(44px, 4.6vw, 60px)/1 var(--body); letter-spacing:-.03em; color:var(--ink); font-variant-numeric:tabular-nums; }
 .c2 .d-total span{ font:600 13px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); }
@@ -116,12 +121,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .d-pick button[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:#fff; }
 .c2 .d-pick button:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
 @media (max-width: 560px){ .c2 .d-pick > span{ flex-basis:100%; } .c2 .d-pick button{ padding:0 14px; font-size:14.5px; } }
-.c2 .d-who b{ min-width:54px; font-size:14px; background:#e9ecef; }
-.c2 .d-who .is-now b{ background:#e9ecef; color:var(--ink); }
+.c2 .d-who b{ min-width:54px; font-size:14px; border-radius:4px; background:#E4E4E4; }
+.c2 .d-who .is-now b{ background:#E4E4E4; color:#181818; }
 .c2 .c2-status + .c2-status{ margin-top:8px; padding-top:0; border-top:0; }
 .c2 .d-say{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
 @media (max-width: 900px){ .c2 .d-try{ grid-template-columns:1fr; } .c2 .d-sf{ grid-template-columns:1fr 1fr; gap:22px 30px; } .c2 .d-sf li:nth-child(3)::before{ display:none; } }
-@media (max-width: 560px){ .c2 .c2-hero .c2-pin.d-p4{ top:25.9%; } .c2 .d-foot > div{ grid-template-columns:1fr; } .c2 .d-try > div{ padding:20px 18px 22px; } .c2 .d-try h3.d-then{ margin-top:24px; } .c2 .d-rules .card.d-sch{ padding:34px 16px 18px; } .c2 .d-sf{ grid-template-columns:1fr; gap:22px; } .c2 .d-sf li + li::before{ display:block; left:50%; top:-15px; margin:0 0 0 -5px; transform:rotate(135deg); } .c2 .d-sf li:nth-child(3)::before{ display:block; } }
+@media (max-width: 560px){ .c2 .d-foot > div{ grid-template-columns:1fr; } .c2 .d-read{ padding:34px 18px 22px; } .c2 .d-try > div{ padding:20px 18px 22px; } .c2 .d-try h3.d-then{ margin-top:24px; } .c2 .d-rules .card.d-sch{ padding:34px 16px 18px; } .c2 .d-sf{ grid-template-columns:1fr; gap:22px; } .c2 .d-sf li + li::before{ display:block; left:50%; top:-15px; margin:0 0 0 -5px; transform:rotate(135deg); } .c2 .d-sf li:nth-child(3)::before{ display:block; } }
 </style>
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
@@ -149,8 +154,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><dt>Where it stands</dt><dd>A redesign of how the product's filters are read and applied, in Hear Design Lab, my working copy of Hear, built in code; not built yet.</dd></div>
       </dl>
       <figure class="c2-fig">
-        <div class="c2-shot"><img src="../img/v7s-data-table.webp?v=6" width="2060" height="1327" alt="The Data screen: tabs with counts (All calls 2,000, Needs review 148, High priority 62, Alerts 17, Done 1,204), a box that says Filter in plain words, then the date range, Filter and Columns, and the call table. Each row has the call's topic and a one-line summary, its date, status, priority, who has it, direction, length, sentiment and score; three refund calls carry a small warning sign." fetchpriority="high">
-          <span class="c2-pin" style="--x:33%;--y:3.9%" aria-hidden="true">1</span><span class="c2-pin" style="--x:17.2%;--y:14.5%" aria-hidden="true">2</span><span class="c2-pin" style="--x:32.4%;--y:35.6%" aria-hidden="true">3</span><span class="c2-pin d-p4" style="--x:17%;--y:27.2%" aria-hidden="true">4</span></div>
+        <div class="c2-shot"><img id="d-hero" src="../img/v7s-data-table.webp?v=6" width="2060" height="1327" alt="The Data screen: tabs with counts (All calls 2,000, Needs review 148, High priority 62, Alerts 17, Done 1,204), a box that says Filter in plain words, then the date range, Filter and Columns, and the call table. Each row has the call's topic and a one-line summary, its date, status, priority, who has it, direction, length, sentiment and score; three refund calls carry a small warning sign." fetchpriority="high">
+          <span class="c2-pin" style="--x:33%;--y:3.9%" data-m="56.7,6.2" aria-hidden="true">1</span><span class="c2-pin" style="--x:17.2%;--y:14.5%" data-m="29.5,22.8" aria-hidden="true">2</span><span class="c2-pin" style="--x:32.4%;--y:35.6%" data-m="55.6,55.9" aria-hidden="true">3</span><span class="c2-pin" style="--x:17%;--y:26.4%" data-m="29.2,41.4" aria-hidden="true">4</span></div>
         <figcaption><ol class="c2-key" style="--n:4">
           <li><i aria-hidden="true">1</i><span><b>Tabs slice the same table:</b> 148 calls need review, 62 are high priority, 17 have alerts.</span></li>
           <li><i aria-hidden="true">2</i><span><b>Filter in plain words.</b> Type the question; it becomes filters.</span></li>
@@ -158,6 +163,21 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <li><i aria-hidden="true">4</i><span><b>A warning sign:</b> an alert went off. Alerts are checks the team sets, which fire on a call.</span></li>
         </ol></figcaption>
       </figure>
+      <script>/* data, page only: on a phone the hero is a tighter crop of the same still (the left two thirds, the first six rows), so its
+         words read at about 11px in the pan instead of 5px; the pins move to the same spots on the crop. Runs before cs2.js wraps the pan. */
+      (function () {
+        var img = document.getElementById('d-hero'); if (!img || !window.matchMedia) return;
+        var mq = matchMedia('(max-width: 560px)'), pins = [].slice.call(img.parentNode.querySelectorAll('.c2-pin')),
+          full = pins.map(function (p) { return [p.style.getPropertyValue('--x'), p.style.getPropertyValue('--y')]; });
+        function set() {
+          var m = mq.matches;
+          img.setAttribute('width', m ? 1200 : 2060); img.setAttribute('height', m ? 845 : 1327);
+          img.src = m ? '../img/v7s-data-table-m.webp?v=1' : '../img/v7s-data-table.webp?v=6';
+          pins.forEach(function (p, k) { var xy = m ? p.getAttribute('data-m').split(',').map(function (v) { return v + '%'; }) : full[k];
+            p.style.setProperty('--x', xy[0]); p.style.setProperty('--y', xy[1]); });
+        }
+        set(); if (mq.addEventListener) mq.addEventListener('change', function () { set(); dispatchEvent(new Event('resize')); });
+      })();</script>
       <div class="c2-live"><button type="button" class="c2-btn" data-live="../hear-v7/plan/studio.html?screen=data&amp;v=202" data-title="Data, the live screen in Hear Design Lab" data-open="Try the live screen" data-close="Close the live screen" aria-expanded="false" aria-controls="live-d"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .5.6.8 1 .5l8-5.2a.6.6 0 0 0 0-1L5.5 2.3c-.4-.3-1 0-1 .5z"/></svg><span class="c2-bt">Try the live screen</span></button><small>The real screen, with demo data.</small></div>
       <div class="c2-frame" id="live-d" hidden></div>
     </div>
@@ -211,7 +231,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
               <span class="sx-chip" role="listitem"><sup aria-hidden="true">2</sup>Call date <b>on <span class="d-yday">yesterday's date</span></b><span class="sx-tag">rule</span></span>
             </div>
             <p class="d-how">The chips the Lab's rules produce for this sentence, word for word. No counts: the demo numbers belong to the first sentence.</p></div></div>
-        <div><div class="s-a">
+        <div class="hui hui-bw d-readw"><div class="card is-flow d-read"><span class="hui-schem">Schematic</span><div class="s-a">
           <p class="d-total"><span>Calls that match</span><b class="d-num">86</b></p>
           <ol class="d-count" aria-label="How the count narrows">
             <li class="is-past"><b>2,000</b><i>every call in the last 90 days</i></li>
@@ -231,7 +251,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
               <li class="is-now"><b>rule</b><i>“yesterday” became Call date: on <span class="d-yday">yesterday's date</span></i></li>
               <li class="is-off"><b>AI</b><i>not asked: a rule fired, so the model is skipped</i></li>
             </ol></div>
-          <p class="d-say" aria-live="polite"></p></div>
+          <p class="d-say" aria-live="polite"></p></div></div>
       </div>
       <div class="d-rules">
         <h3>How this sentence was read</h3>
