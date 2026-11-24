@@ -3945,6 +3945,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <link rel="stylesheet" href="v7/short.css?v=221">
 <link rel="stylesheet" href="v7/foot.css?v=221">
 <link rel="stylesheet" href="v7/tokens.css?v=222">
+<link rel="stylesheet" href="v7/sme.css?v=1">
 </head>
 <body>
 
@@ -4238,13 +4239,14 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <div class="mr"><a class="btn ghost cs-more cs-head" href="work/design-system.html">Design system case study <span aria-hidden="true">→</span></a></div></div>
     </div>
     
-    <div class="dk" id="ds-kit">
-      <div class="dw-head dk-head rv">
-        <p class="dw-stat"><span><b>122</b> stories</span> <i aria-hidden="true">·</i> <span><b>6</b> tiers</span></p>
-        <p class="dw-sub">Real components, not pictures: press a chip, flip a switch, send a question.</p>
-        <button type="button" class="dk-pause" aria-pressed="false" hidden><span class="dk-pi" aria-hidden="true"></span><span class="dk-pt">Pause motion</span></button>
+    <div class="sm" id="ds-sme">
+      <div class="sm-head">
+        <h3 class="sm-h"><span class="sm-vh">Structure Meets Expression</span><span class="sm-art" aria-hidden="true"><span class="sm-g"><i class="sm-ru"><b>8pt grid</b></i><i class="sm-v a"></i><i class="sm-v b"></i><i class="sm-l cap"><b>Cap height</b></i><i class="sm-l x"></i><i class="sm-l base"><b>Baseline</b></i></span><span class="sm-s">STRUCTURE</span><span class="sm-m">Meets</span><img class="sm-e" alt="" data-src="img/sme/expression-900.webp" data-srcset="img/sme/expression-900.webp 900w, img/sme/expression-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 800px" width="1600" height="308" decoding="async"></span></h3>
+        <div class="sm-say">
+          <p class="sm-lead">I like things to make sense, but I don’t think they should feel too perfect.</p>
+          <p>My approach to design combines structured systems with creative expression. Even the artwork in this portfolio follows that thinking: its colors inform the UI palette, while its textures bring warmth and character. It’s how I build products — with clarity, intention, and room for humanity.</p>
+        </div>
       </div>
-      <div class="dk-rows"></div>
     </div>
     <div class="tk rv" id="ds-colour" role="group" aria-labelledby="tk-t">
       <div class="tk-head">
@@ -4253,7 +4255,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
       </div>
       <div class="tk-stage">
         <figure class="tk-pic"><div class="tk-frame">
-          <canvas class="tk-under" aria-hidden="true"></canvas><div class="tk-layers" aria-hidden="true"></div>
+          <canvas class="tk-under" aria-hidden="true"></canvas><i class="tk-guide" aria-hidden="true"></i><div class="tk-layers" aria-hidden="true"></div>
           <img class="tk-full" data-src="img/end-harbour-1152.webp" alt="A painted harbour city: blue sky and water, glass towers, white houses, a coral boat, green trees and lilac flowers." width="1152" height="768" loading="lazy" decoding="async">
           <span class="tk-lab">The picture</span>
         </div></figure>
@@ -4286,6 +4288,14 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
           <div class="tk-g"><span>Meaning</span><div><button type="button" class="tk-c" data-k="C" aria-pressed="false" style="--c:#FF6F52"><i></i><span>Coral</span></button><button type="button" class="tk-c" data-k="E" aria-pressed="false" style="--c:#4BA373"><i></i><span>Green</span></button><button type="button" class="tk-c" data-k="L" aria-pressed="false" style="--c:#D59BE0"><i></i><span>Lilac</span></button></div></div>
         </div>
       </div>
+    </div>
+    <div class="dk" id="ds-kit">
+      <div class="dw-head dk-head rv">
+        <p class="dw-stat"><span><b>122</b> stories</span> <i aria-hidden="true">·</i> <span><b>6</b> tiers</span></p>
+        <p class="dw-sub">Real components, not pictures: press a chip, flip a switch, send a question.</p>
+        <button type="button" class="dk-pause" aria-pressed="false" hidden><span class="dk-pi" aria-hidden="true"></span><span class="dk-pt">Pause motion</span></button>
+      </div>
+      <div class="dk-rows"></div>
     </div>
   </div>
 </section>
@@ -7110,6 +7120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <script src="v7/short.js?v=221" defer></script>
 <script src="v7/foot.js?v=222" defer></script>
 <script src="v7/tokens.js?v=223" defer></script>
+<script src="v7/sme.js?v=1" defer></script>
 <script src="v7/plan.js?v=223" defer></script>
 <script src="v7/path.js?v=222" defer></script>
 <script>/* the paintings of the parts further down (How I work, Topics) wait until the opening has loaded, so they never compete with it */(function(){var go=function(){[].forEach.call(document.querySelectorAll('[data-late]'),function(e){var v=e.getAttribute('data-late');e.removeAttribute('data-late');if(e.tagName.toLowerCase()==='img')e.src=v;else e.setAttribute('href',v)})};if(document.readyState==='complete')go();else{addEventListener('load',go);setTimeout(go,6000)}})()</script>

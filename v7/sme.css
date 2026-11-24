@@ -1,0 +1,84 @@
+/* v7 - sme: "Structure Meets Expression", the designer's line, at the head of Foundations · Color (owner, 24.11.2026:
+   "a place of honour, much thought and investment", experiential but light on the page).
+   The heading says it twice: STRUCTURE is set in the page's own type on a measured grid (cap height, baseline, an 8pt ruler),
+   EXPRESSION is one custom oil painting of the word, in the palette's blues (img/sme/expression-*.webp, lazy, one file).
+   Below it the colour card builds its picture over the same blue guides, so the paragraph is proven at once.
+   No canvas, no WebGL: lines, letters and one image. Script: v7/sme.js (adds .js, then .in when seen). */
+@property --smw{ syntax:'<percentage>'; inherits:false; initial-value:130%; }
+#system#system .sm{ --gl:rgba(19,159,253,.55); --gl2:rgba(19,159,253,.28); --gt:#0B6FCF; position:relative; margin-top:44px; color:#181818; }
+#system#system .sm-head{ display:grid; grid-template-columns:minmax(0, 1.5fr) minmax(0, 1fr); gap:28px 64px; align-items:end; }
+#system#system .sm-h{ margin:0; padding:0; font:inherit; letter-spacing:0; max-width:none; }
+#system#system .sm-vh{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
+#system#system .sm-art{ --fs:15.6cqi; position:relative; display:block; container-type:inline-size; padding:0; }
+
+/* STRUCTURE on its grid. Sizes are in cqi so the word, the lines and the painting keep one proportion at every width. */
+#system#system .sm-s{ position:relative; display:block; margin-top:5.2cqi; font:600 var(--fs)/1 "Byrd", var(--body); letter-spacing:.012em; text-transform:none; white-space:nowrap; color:#181818; }
+#system#system .sm-s i{ display:inline-block; font-style:normal; }
+#system#system .sm-g{ position:absolute; left:-2.2cqi; right:-2.2cqi; top:5.2cqi; height:var(--fs); pointer-events:none; }
+#system#system .sm-l{ position:absolute; left:0; right:0; height:1px; background:var(--gl2); transform-origin:0 50%; }
+#system#system .sm-l.cap{ top:calc(var(--fs) * .184); }
+#system#system .sm-l.x{ top:calc(var(--fs) * .36); background:none; border-top:1px dashed var(--gl2); height:0; }
+#system#system .sm-l.base{ top:calc(var(--fs) * .90); background:var(--gl); }
+#system#system .sm-l b{ position:absolute; right:0; bottom:3px; font:500 max(10px, 1.25cqi)/1 var(--body); letter-spacing:.02em; color:var(--gt); opacity:.8; white-space:nowrap; }
+#system#system .sm-ru{ position:absolute; left:0; right:0; top:-3.4cqi; height:1.6cqi; border-top:1px solid var(--gl2);
+  background:repeating-linear-gradient(90deg, var(--gl2) 0 1px, transparent 1px 1.6cqi) 0 0 / 100% 45% no-repeat,
+             repeating-linear-gradient(90deg, var(--gl) 0 1px, transparent 1px 8cqi) 0 0 / 100% 100% no-repeat; transform-origin:0 50%; }
+#system#system .sm-ru b{ position:absolute; left:0; bottom:calc(100% + 4px); font:500 max(10px, 1.25cqi)/1 var(--body); letter-spacing:.02em; color:var(--gt); opacity:.8; }
+#system#system .sm-v{ position:absolute; top:-3.4cqi; height:calc(3.4cqi + var(--fs) * .90 + 1.4cqi); width:1px; background:var(--gl2); transform-origin:50% 0; }
+#system#system .sm-v.a{ left:2.2cqi; }
+#system#system .sm-v.b{ left:calc(2.2cqi + var(--fs) * 6.42); }
+#system#system .sm-l.base b{ bottom:auto; top:5px; }
+
+/* Meets: the hinge between the two readings */
+#system#system .sm-m{ display:flex; align-items:center; gap:2.2cqi; margin:2.4cqi 0 0; font:500 max(13px, 2.3cqi)/1 var(--body); letter-spacing:.06em; color:#6A7078; }
+#system#system .sm-m::before, #system#system .sm-m::after{ content:""; flex:1; height:1px; background:var(--gl2); }
+#system#system .sm-m::before{ flex:0 0 7cqi; }
+
+/* EXPRESSION, painted */
+#system#system .sm-e{ display:block; width:106%; max-width:none; height:auto; margin:-.6cqi 0 0 -3%; border-radius:0; transform:rotate(-1.6deg); transform-origin:10% 50%; }
+
+/* the words, unchanged */
+#system#system .sm-say{ padding-bottom:1.2cqi; }
+#system#system .sm-say p{ margin:0; max-width:34em; font:400 17px/1.6 var(--body); letter-spacing:0; color:#4d555c; }
+#system#system .sm-say p.sm-lead{ margin-bottom:16px; font:500 clamp(21px, 1.9vw, 26px)/1.32 var(--body); letter-spacing:-.008em; color:#181818; }
+
+/* the colour card follows the line it proves; the component wall comes after it */
+#system#system .sm + .tk{ margin-top:40px; }
+#system#system .tk + .dk{ margin-top:64px; }
+
+/* the same guides lie over the picture while it is still a drawing, and lift when the paint takes over */
+#system#system .tk-guide{ position:absolute; inset:0; z-index:2; pointer-events:none; opacity:0; transition:opacity .9s cubic-bezier(.3,.1,.2,1);
+  background:
+    linear-gradient(var(--gl, rgba(19,159,253,.55)), var(--gl, rgba(19,159,253,.55))) 0 62% / 100% 1px no-repeat,
+    linear-gradient(rgba(19,159,253,.28), rgba(19,159,253,.28)) 0 38% / 100% 1px no-repeat,
+    repeating-linear-gradient(90deg, rgba(19,159,253,.2) 0 1px, transparent 1px calc(100% / 12)),
+    repeating-linear-gradient(0deg, rgba(19,159,253,.14) 0 1px, transparent 1px calc(100% / 8)); }
+#system#system .tk[data-mode="wait"] .tk-guide,
+#system#system .tk[data-mode="build"]:has(.tk-g:nth-child(-n+2).now) .tk-guide{ opacity:1; }
+
+/* motion: the grid is drawn, the letters settle on the baseline, then the word is painted in one pass of the brush */
+@media (prefers-reduced-motion: no-preference){
+  #system#system .sm.js .sm-l, #system#system .sm.js .sm-ru{ transform:scaleX(0); }
+  #system#system .sm.js .sm-v{ transform:scaleY(0); }
+  #system#system .sm.js .sm-l b, #system#system .sm.js .sm-ru b, #system#system .sm.js .sm-m, #system#system .sm.js .sm-say > *{ opacity:0; }
+  #system#system .sm.js .sm-say > *{ transform:translateY(14px); }
+  #system#system .sm.js .sm-s i{ opacity:0; transform:translateY(-.16em); }
+  #system#system .sm.in .sm-ru{ transform:none; transition:transform 1s cubic-bezier(.6,0,.2,1); }
+  #system#system .sm.in .sm-l{ transform:none; transition:transform 1s cubic-bezier(.6,0,.2,1) calc(.1s + var(--d, 0s)); }
+  #system#system .sm.in .sm-l.cap{ --d:.08s; } #system#system .sm.in .sm-l.x{ --d:.16s; } #system#system .sm.in .sm-l.base{ --d:.24s; }
+  #system#system .sm.in .sm-v{ transform:none; transition:transform .8s cubic-bezier(.6,0,.2,1) .3s; }
+  #system#system .sm.in .sm-l b, #system#system .sm.in .sm-ru b{ opacity:.8; transition:opacity .5s ease 1s; }
+  #system#system .sm.in .sm-s i{ opacity:1; transform:none; transition:opacity .35s ease calc(.55s + var(--i) * 45ms), transform .55s cubic-bezier(.2,.9,.25,1) calc(.55s + var(--i) * 45ms); }
+  #system#system .sm.in .sm-m{ opacity:1; transition:opacity .6s ease 1.15s; }
+  #system#system .sm.js .sm-e{ -webkit-mask-image:linear-gradient(98deg, #000 calc(var(--smw) - 14%), transparent var(--smw)); mask-image:linear-gradient(98deg, #000 calc(var(--smw) - 14%), transparent var(--smw)); --smw:0%; }
+  #system#system .sm.in .sm-e{ animation:sm-paint 1.25s cubic-bezier(.45,.05,.25,1) 1.3s both; }
+  #system#system .sm.in .sm-say > *{ opacity:1; transform:none; transition:opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); transition-delay:1.9s; }
+  #system#system .sm.in .sm-say > * + *{ transition-delay:2.05s; }
+}
+@keyframes sm-paint{ from{ --smw:0%; } to{ --smw:130%; } }
+
+@media (max-width: 900px){
+  #system#system .sm{ margin-top:32px; }
+  #system#system .sm-head{ grid-template-columns:minmax(0, 1fr); }
+  #system#system .sm-say p{ font-size:16px; }
+}
