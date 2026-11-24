@@ -171,3 +171,24 @@ html body section#ia#ia .ia-lens[aria-pressed="true"] i::after{ transform:transl
 #ia#ia .ia-tell .ia-adm{ animation:ia-say .32s cubic-bezier(.2,.7,.2,1) calc(600ms + var(--k, 0) * 560ms) backwards; }
 #ia#ia .ia-tell .ia-global span.adm{ animation:ia-say .32s cubic-bezier(.2,.7,.2,1) calc(600ms + 4 * 560ms) backwards; }
 @keyframes ia-say{ from{ background-color:transparent; color:inherit; } }
+
+/* ── Owner, 24.11.2026: "this part needs a renovation: too much space between the texts and the component, and it feels dry and a little boring
+   next to the rest of the page". The head is one sentence beside the heading, 36px over the map (it was three paragraphs and ~216px).
+   The map is an object on the page: a hairline and the product cards' soft shadow. Inside it the map sits on a paper well and every screen
+   is a white card with a hairline, so the tree reads as screens laid out on a table, not grey text pills. ── */
+html body section#ia#ia .sec-head{ align-items:end; margin-bottom:36px; }
+html body section#ia#ia .sec-head p{ max-width:42ch; margin:0 0 8px; text-wrap:pretty; }
+@media (max-width:860px){ html body section#ia#ia .sec-head{ gap:18px; margin-bottom:28px; } html body section#ia#ia .sec-head p{ margin:0; } }
+html body section#ia#ia .ia{ box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 2px 4px rgba(23,27,32,.04), 0 26px 50px -38px rgba(23,27,32,.24) !important; }
+@media (min-width:1060px){
+  html body section#ia#ia .ia-board{ margin:4px 0 0; padding:26px 22px 22px; border-radius:14px; background:#f4f3f1 !important; }
+}
+html body section#ia#ia .ia-area:not(.open){ background:#fff !important; box-shadow:0 0 0 1px rgba(23,27,32,.08), 0 1px 2px rgba(23,27,32,.05) !important; }
+html body section#ia#ia .ia-area:not(.open):hover{ box-shadow:0 0 0 1px rgba(23,27,32,.16), 0 6px 14px -8px rgba(23,27,32,.22) !important; }
+html body section#ia#ia .ia-global > span:not(.adm):not(.hit):not(.ia-gl){ background:#fff !important; box-shadow:0 0 0 1px rgba(23,27,32,.08); }
+html body section#ia#ia .ia-cl{ background:#fff !important; border-color:transparent !important; box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 1px 2px rgba(23,27,32,.04); }
+html body section#ia#ia .ia-sub-h{ background:#fff !important; box-shadow:0 0 0 1px rgba(23,27,32,.08); }
+/* the word "Global" is a label over its chips, not a chip: no grey band behind it */
+html body section#ia#ia .ia-global > span.ia-gl{ background:none !important; box-shadow:none !important; }
+/* the level names stand over their columns inside the well */
+@media (min-width:1060px){ html body section#ia#ia .ia-lv{ padding:0 22px; } }

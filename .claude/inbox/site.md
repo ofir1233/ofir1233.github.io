@@ -104,3 +104,4 @@
 - 24.11 Header logo smaller (owner: a little too big): 34px at the top, 28px once the page moves (phone 30 / 26), in the bar's own .3s. hero.css v236.
 - 24.11 Case pages: header logo as on the home, 34px at the top and 28px once the page moves (phone 30 / 26). case.css v43 on the 14 pages that had v42.
 - 24.11 Product deck: the shadow above the stacked cards was the four cards underneath adding up; a card under the next keeps only its hairline, and the top card's upward shadow is lighter. product.css v237.
+- 24.11 Information architecture: one sentence beside the heading, 36px over the map (was three paragraphs, ~216px); the sentence now lights the map (its five admin words were in another paragraph, so the telling never ran); the map has the product cards' shadow, a paper well inside, white screen cards with hairlines; 'Global' lost its grey band. ia-process.css v223.
