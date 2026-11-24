@@ -145,3 +145,12 @@
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.6), inset 0 1px 0 1px rgba(255,255,255,.5), 0 34px 54px -34px rgba(12,50,100,.4); }
 @media (max-width:899px){ #design-lab#design-lab .tp-fig .ct-stage::before{ inset:-8px; border-radius:24px; } }
 @media (prefers-reduced-motion:reduce){ #design-lab#design-lab .tp-fig .ct-stage{ transform:none; } }
+/* owner, 24.11: with the Hear Studio demo gone, the Topics block stands on the section head's centre line:
+   the label, the heading, the five steps and the line under them centred, the window centred under them */
+@media (min-width:900px){
+#design-lab#design-lab .tp-head{ margin-inline:auto; text-align:center; }
+#design-lab#design-lab .tp-say{ justify-items:center; text-align:center; }
+#design-lab#design-lab .tp-block{ margin-top:96px; }
+#design-lab#design-lab .tp-bar{ justify-content:center; padding-left:46px; }      /* the replay button's width and gap, so the five steps themselves sit on the centre */
+#design-lab#design-lab .tp-fig .ct-stage{ margin-left:auto; margin-right:auto; }
+}
