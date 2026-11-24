@@ -37,33 +37,67 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=41">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<link rel="stylesheet" href="../v7/cs2.css?v=4">
+<link rel="stylesheet" href="../v7/cs2.css?v=5">
 <style>
 /* data, page only: the plain-words filter drawn in HTML from the screen's own example (the sentence, its three chips, the count as
-   each one lands), and a three-step timeline for the three designs. Everything scoped under .c2. */
+   each one lands), live: the reader removes a chip and the count widens. And a three-step timeline for the three designs.
+   Everything scoped under .c2. */
 .c2 .d-ask{ display:flex; align-items:flex-start; gap:12px; padding:16px 18px; border-radius:14px; background:#f6f8fb; box-shadow:inset 0 0 0 1px var(--line); font:500 18px/1.6 var(--body); color:var(--ink); }
 .c2 .d-ask svg{ flex:none; width:18px; height:18px; margin-top:5px; color:#7b4fd6; }
 .c2 .d-ask u{ text-decoration:none; border-bottom:2px solid #a98be6; padding-bottom:1px; }
 .c2 .d-ask sup, .c2 .d-chip sup{ display:inline-grid; place-items:center; width:17px; height:17px; margin:0 1px 0 3px; border-radius:50%; background:var(--ink); color:#fff; font:600 10.5px/1 var(--body); vertical-align:3px; }
-.c2 .d-chips{ display:flex; flex-wrap:wrap; gap:8px; }
-.c2 .d-chip{ display:inline-flex; align-items:center; gap:6px; min-height:36px; padding:0 10px 0 8px; border-radius:99px; background:#f1ecfc; box-shadow:inset 0 0 0 1px #d9cdf5; font:400 15px/1 var(--body); color:var(--ink2); }
-.c2 .d-chip sup{ margin:0; vertical-align:0; }
-.c2 .d-chip b{ color:var(--ink); }
-.c2 .d-chip .x{ width:14px; height:14px; color:var(--mute); }
-.c2 .d-count{ display:grid; grid-template-columns:auto 1fr; gap:8px 14px; margin-top:20px; align-items:center; font:400 15px/1.35 var(--body); color:var(--ink2); }
-.c2 .d-count b{ font:600 20px/1 var(--body); color:var(--ink); font-variant-numeric:tabular-nums; text-align:right; }
-.c2 .d-count .is-end b{ display:inline-grid; place-items:center; min-width:56px; height:36px; padding:0 10px; border-radius:9px; background:var(--ink); color:#fff; }
-.c2 .d-count > span{ display:contents; }
-.c2 .d-count i{ font-style:normal; color:var(--mute); }
-.c2 .d-foot{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px; padding-top:16px; border-top:1px solid var(--line); font:400 14.5px/1.4 var(--body); color:var(--ink2); }
+.c2 .d-ask u.is-off{ color:var(--mute); border-bottom-color:transparent; text-decoration:line-through; text-decoration-color:#a98be6; text-decoration-thickness:2px; }
+.c2 .d-ask u{ transition:color .2s, border-color .2s; }
+.c2 .c2-ba .d-ask + p{ margin-top:16px; }
+/* the moment: the chips are toggle buttons. They come off last first (and go back on in order), because the page holds the count
+   for exactly those steps: 2,000, 318, 141, 86. No other mix is ever shown, so no number here is computed. */
+.c2 .d-try .d-how{ margin:0 0 14px; font:400 15px/1.45 var(--body); color:var(--ink2); }
+.c2 .d-how b{ color:var(--deep); }
+.c2 .d-chips{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.c2 .d-chip{ display:inline-flex; align-items:center; gap:6px; min-height:40px; padding:0 12px 0 9px; border:1px solid #d9cdf5; border-radius:99px; background:#f1ecfc; font:400 15px/1 var(--body); color:var(--ink2); cursor:pointer;
+  transition:background .2s, border-color .2s, color .2s, opacity .2s; }
+.c2 .d-chip sup{ margin:0; vertical-align:0; transition:background .2s; }
+.c2 .d-chip b{ color:var(--ink); font-weight:600; transition:color .2s; }
+.c2 .d-chip svg{ display:none; width:15px; height:15px; flex:none; }
+.c2 .d-chip.is-last{ background:#e7ddfb; border-color:#b9a2ee; }
+.c2 .d-chip.is-last .x{ display:block; color:var(--ink); }
+.c2 .d-chip.is-last:hover{ background:#dccdfa; }
+.c2 .d-chip[aria-pressed="false"]{ background:transparent; border-style:dashed; border-color:#b9a2ee; color:var(--mute); }
+.c2 .d-chip[aria-pressed="false"] b{ color:var(--mute); font-weight:500; }
+.c2 .d-chip[aria-pressed="false"] sup{ background:#a59fb3; }
+.c2 .d-chip[aria-pressed="false"]:not(:disabled) .plus{ display:block; color:var(--deep); }
+.c2 .d-chip[aria-pressed="false"]:not(:disabled):hover{ background:#f6f2fd; }
+.c2 .d-chip[aria-pressed="false"]:disabled{ opacity:.45; }
+.c2 .d-chip:disabled{ cursor:default; }
+.c2 .d-chip:focus-visible, .c2 .d-reset:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+.c2 .d-reset{ min-height:40px; margin-left:4px; padding:0 12px; border:0; border-radius:99px; background:none; font:600 14.5px/1 var(--body); color:var(--deep); cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
+.c2 .d-reset:disabled{ color:var(--mute); opacity:.5; text-decoration:none; cursor:default; }
+.c2 .d-try .d-total{ display:grid; justify-items:start; gap:6px; margin-top:24px; }
+.c2 .d-num{ font:700 clamp(44px, 4.6vw, 60px)/1 var(--body); letter-spacing:-.03em; color:var(--ink); font-variant-numeric:tabular-nums; }
+.c2 .d-total span{ font:600 13px/1.3 var(--body); letter-spacing:.02em; color:var(--mute); }
+.c2 .d-try > div:first-child{ align-self:start; }
+.c2 .d-count{ display:grid; grid-template-columns:auto 1fr; gap:6px 14px; margin-top:16px; align-items:center; font:400 15px/1.35 var(--body); color:var(--ink2); }
+.c2 .d-count > li{ display:contents; }
+.c2 .d-count b{ display:inline-grid; place-items:center; justify-self:end; min-width:62px; height:32px; padding:0 10px; border-radius:8px; font:600 17px/1 var(--body); color:var(--ink); font-variant-numeric:tabular-nums; transition:background .2s, color .2s, opacity .2s; }
+.c2 .d-count i{ font-style:normal; color:var(--ink2); transition:opacity .2s; }
+.c2 .d-count .is-now b{ background:var(--ink); color:#fff; }
+.c2 .d-count .is-now i{ color:var(--ink); font-weight:500; }
+.c2 .d-count .is-off b, .c2 .d-count .is-off i{ opacity:.32; }
+.c2 .d-foot{ margin-top:20px; padding-top:14px; border-top:1px solid var(--line); transition:opacity .2s; }
+.c2 .d-foot.is-dim{ opacity:.32; }
+.c2 .d-try .d-foot > p{ margin:0 0 10px; font:600 13px/1.3 var(--body); letter-spacing:.02em; color:var(--mute); }
+.c2 .d-foot > div{ display:grid; grid-template-columns:1fr 1fr; gap:12px; font:400 14.5px/1.4 var(--body); color:var(--ink2); }
 .c2 .d-foot b{ display:block; font:600 20px/1.1 var(--body); color:var(--ink); }
 .c2 .d-foot b small{ font:400 14.5px/1 var(--body); color:var(--mute); }
-.c2 .c2-ba .d-ask + p{ margin-top:16px; }
+.c2 .d-say{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
+.c2 .d-try > div:last-child{ padding:26px 28px 28px; }
 .c2 .d-ver{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
 .c2 .d-ver em{ display:inline-block; margin-top:12px; padding:4px 9px; border-radius:99px; background:#e9ecef; font:600 12px/1 var(--body); font-style:normal; color:var(--ink2); }
 .c2 .d-ver li.on em{ background:#e3f1fe; color:var(--deep); }
+
+.c2 .d-ver + .c2-result{ margin-top:36px; }
 @media (max-width: 900px){ .c2 .d-ver{ grid-template-columns:1fr; } .c2 .d-ver li::before{ display:none; } }
-@media (max-width: 560px){ .c2 .d-ask{ font-size:16.5px; } .c2 .d-foot{ grid-template-columns:1fr; } }
+@media (max-width: 560px){ .c2 .c2-hero .c2-pin.d-p4{ top:25.9%; } .c2 .d-ask{ font-size:16.5px; } .c2 .d-foot > div{ grid-template-columns:1fr; } .c2 .d-try > div:last-child{ padding:20px 18px 22px; } .c2 .d-chip{ font-size:14.5px; } }
 </style>
 </head>
 <body>
@@ -87,11 +121,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><dt>For</dt><dd>People who go through a contact center's calls to see which need review, which are urgent and what happened on each.</dd></div>
         <div><dt>The problem</dt><dd>Thousands of calls, and only a handful that answer the question in hand.</dd></div>
         <div><dt>What I did</dt><dd>Designed and built the call table in three designs, and a filter that turns a sentence into chips you can read and remove.</dd></div>
-        <div><dt>Where it stands</dt><dd>Mar–Oct 2026, in Hear Design Lab, my working replica of Hear, with demo data.</dd></div>
+        <div><dt>Where it stands</dt><dd>Designed and built Mar–Oct 2026 in Hear Design Lab, my working copy of Hear, on demo data.</dd></div>
       </dl>
       <figure class="c2-fig">
         <div class="c2-shot"><img src="../img/v7s-data-table.webp?v=6" width="2060" height="1327" alt="The Data screen: tabs with counts (All calls 2,000, Needs review 148, High priority 62, Alerts 17, Done 1,204), a box that says Filter in plain words, then the date range, Filter and Columns, and the call table. Each row has the call's topic and a one-line summary, its date, status, priority, who has it, direction, length, sentiment and score; three refund calls carry a small warning sign." fetchpriority="high">
-          <span class="c2-pin" style="--x:52.4%;--y:8.7%" aria-hidden="true">1</span><span class="c2-pin" style="--x:17.2%;--y:14.5%" aria-hidden="true">2</span><span class="c2-pin" style="--x:35.8%;--y:29.8%" aria-hidden="true">3</span><span class="c2-pin" style="--x:16.4%;--y:27.9%" aria-hidden="true">4</span></div>
+          <span class="c2-pin" style="--x:33%;--y:3.9%" aria-hidden="true">1</span><span class="c2-pin" style="--x:17.2%;--y:14.5%" aria-hidden="true">2</span><span class="c2-pin" style="--x:32.4%;--y:35.6%" aria-hidden="true">3</span><span class="c2-pin d-p4" style="--x:17%;--y:27.2%" aria-hidden="true">4</span></div>
         <figcaption><ol class="c2-key" style="--n:4">
           <li><i aria-hidden="true">1</i><span><b>Tabs slice the same table:</b> 148 calls need review, 62 are high priority, 17 have alerts.</span></li>
           <li><i aria-hidden="true">2</i><span><b>Filter in plain words.</b> Type the question; it becomes filters.</span></li>
@@ -115,6 +149,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <li class="is-me"><em>My screens</em><b>One table of every call</b><span>Tabs, filters and columns to find the right ones.</span></li>
         <li><b>A person opens a call</b><span>It opens in a side panel next to the table, to read what happened.</span></li>
       </ol>
+      <p class="c2-result">Beside the table I also designed <b>Signals</b>: classifiers, AI or rule-based, that keep running on the calls when no one is filtering, with the ones triggered now at the top.</p>
     </div>
   </section>
 
@@ -122,7 +157,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The problem</p>
       <h2>Two thousand calls, and the question fits none of the tabs</h2>
-      <p class="c2-lede">In the demo project, the last 90 days hold 2,000 calls: 223 pages of nine rows. The tabs cut that down, but a question like "long refund calls where the customer was unhappy" is not a tab.</p>
+      <p class="c2-lede">In Northwind, the demo workspace in the picture above, the last 90 days hold 2,000 calls: 223 pages of nine rows. The tabs cut that down, but a question like "long refund calls where the customer was unhappy" is not a tab.</p>
       <h3 class="c2-sub">Three questions someone brings to the table</h3>
       <ol class="c2-qs">
         <li><q>Which calls need someone now?</q><span>The tabs slice the same table, each with its count: Needs review, High priority, Alerts, Done.</span><small><i>1</i>Tabs, in the picture above</small></li>
@@ -132,32 +167,35 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </section>
 
-  <section class="c2-sec" id="ask" data-ch="Asking in plain words">
+  <section class="c2-sec is-key" id="ask" data-ch="Asking in plain words">
     <div class="c2-w">
       <p class="c2-n">Asking in plain words</p>
       <h2>A sentence becomes filters you can read, check and remove</h2>
       <p class="c2-lede">The AI's reading never hides. Each phrase turns into an ordinary chip in the filter bar, built only from columns and values the table really holds, so a wrong guess is one click to remove.</p>
-      <div class="c2-ba">
+      <div class="c2-ba d-try" data-try>
         <div><h3>You type</h3>
           <p class="d-ask"><svg viewBox="0 0 18 18" fill="currentColor" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span><u>refund calls</u><sup>1</sup> <u>over 5 minutes</u><sup>2</sup> where the customer was <u>unhappy</u><sup>3</sup></span></p>
-          <p>Into the one box above the table, Filter in plain words.</p>
-          <div class="d-count"><span><b>2,000</b><i>calls in the last 90 days: 223 pages of nine rows</i></span></div></div>
+          <p>Into the one box above the table, Filter in plain words. A phrase whose chip is removed is struck through here.</p></div>
         <div><h3>It becomes</h3>
-          <div class="d-chips" role="list" aria-label="The three filters">
-            <span class="d-chip" role="listitem"><sup>1</sup>Topic <b>Refunds &amp; Credits</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span>
-            <span class="d-chip" role="listitem"><sup>2</sup>Length <b>over 5 min</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span>
-            <span class="d-chip" role="listitem"><sup>3</sup>Sentiment <b>Negative</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span>
+          <p class="d-how" id="d-how"><b>Try it:</b> remove a chip, then add it back. Here they come off last first, so every count shown is the screen's own.</p>
+          <div class="d-chips" role="group" aria-label="The three filters" aria-describedby="d-how">
+            <button type="button" class="d-chip" aria-pressed="true" aria-label="Topic: Refunds &amp; Credits"><sup aria-hidden="true">1</sup>Topic <b>Refunds &amp; Credits</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
+            <button type="button" class="d-chip" aria-pressed="true" aria-label="Length: over 5 minutes"><sup aria-hidden="true">2</sup>Length <b>over 5 min</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
+            <button type="button" class="d-chip is-last" aria-pressed="true" aria-label="Sentiment: Negative"><sup aria-hidden="true">3</sup>Sentiment <b>Negative</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
+            <button type="button" class="d-reset" disabled>Reset</button>
           </div>
-          <div class="d-count" aria-label="How the count narrows">
-            <span><b>318</b><i>of the 2,000 are about refunds</i></span>
-            <span><b>141</b><i>of them over five minutes</i></span>
-            <span class="is-end"><b>86</b><i>of those with an unhappy customer</i></span>
-          </div>
-          <div class="d-foot">
+          <p class="d-total"><span>Calls that match</span><b class="d-num">86</b></p>
+          <ol class="d-count" aria-label="How the count narrows">
+            <li class="is-past"><b>2,000</b><i>every call in the last 90 days</i></li>
+            <li class="is-past"><b>318</b><i>of them about refunds</i></li>
+            <li class="is-past"><b>141</b><i>of those over five minutes</i></li>
+            <li class="is-now"><b>86</b><i>of those with an unhappy customer</i></li>
+          </ol>
+          <div class="d-foot"><p>The table's foot, for the 86</p><div>
             <span>Average score<b>36 <small>against 76 for all calls</small></b></span>
             <span>Average length<b>7:07 <small>against 4:12</small></b></span>
-          </div>
-          <p>The count narrows as each chip lands, and the table's foot compares the 86 with every call.</p></div>
+          </div></div>
+          <p class="d-say" aria-live="polite"></p></div>
       </div>
     </div>
   </section>
@@ -165,8 +203,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="c2-sec" id="versions" data-ch="Where filters live">
     <div class="c2-w">
       <p class="c2-n">Where filters live</p>
-      <h2>I tried three places for the filters, and kept two side by side</h2>
-      <p class="c2-lede">I never redesigned Data in place. Each new design was a copy beside the last, and a switch on the screen shows either one on the same calls.</p>
+      <h2>I retired the filter popover; two newer designs run on the same calls</h2>
+      <p class="c2-lede">I never redesigned Data in place. Each new design was a copy beside the last, so a switch on the screen shows the strip or the column filter on the same calls.</p>
       <ol class="c2-flow d-ver">
         <li><b>March · A filter popover</b><span>Ready-made sets in a dropdown, filters as chips, and a popover to build one, with an explicit Apply.</span><em>Retired</em></li>
         <li class="on"><b>May · A filter strip</b><span>Filters move into one strip that can fold away, with a box to describe what you want.</span><em>Still runs</em></li>
@@ -181,32 +219,23 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <p class="c2-n">The key decision</p>
       <h2>Filters wait for Apply, so the table changes once, not on every click</h2>
       <div class="c2-dec">
-        <div class="c2-opt"><h3>Apply on every change <em>Set aside</em></h3><p>Tried on the March design in June: each click ran the filter at once, and the Apply button went away.</p></div>
+        <div class="c2-opt"><h3>Filter on every change <em>Set aside</em></h3><p>Tried on the March design in June, without the Apply button: every click ran the filter at once, while the filter was still being built.</p></div>
         <div class="c2-opt is-chosen"><h3>An explicit Apply <em>Chosen</em></h3><p>Set up the conditions, then run them once. The shared filter from the Alerts page, which Data now uses, works the same way.</p></div>
       </div>
-      <p class="c2-result"><b>Why:</b> building a filter takes several clicks. Ticking one option shouldn't re-run the query before the filter is finished.</p>
-    </div>
-  </section>
-
-  <section class="c2-sec" id="signals" data-ch="Signals">
-    <div class="c2-w">
-      <p class="c2-n">A second page: Signals</p>
-      <h2>Signals keep looking at the calls when no one is filtering</h2>
-      <p class="c2-lede">Signals are classifiers, AI or rule-based, that run on calls; with Auto on, a signal runs by itself. Each has an on/off switch, a name and its rule in plain words. The ones triggered now lead the page, each with its last 14 days of calls, and a task on the Actions board can come from one.</p>
-      <div class="c2-live"><button type="button" class="c2-btn" data-live="../hear-v7/plan/studio.html?screen=signals&amp;v=202" data-title="Signals, the live screen in Hear Design Lab" data-open="Open Signals" data-close="Close Signals" aria-expanded="false" aria-controls="live-s"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .5.6.8 1 .5l8-5.2a.6.6 0 0 0 0-1L5.5 2.3c-.4-.3-1 0-1 .5z"/></svg><span class="c2-bt">Open Signals</span></button><small>The real screen, with demo data.</small></div>
-      <div class="c2-frame" id="live-s" hidden></div>
+      <p class="c2-result"><b>Why:</b> building a filter takes several clicks. With Apply, the table changes once, when the filter is finished, not after every tick.</p>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
+      <p class="c2-n">Where it stands</p>
+      <h2 class="c2-stand-h">Designed and built in the Lab, on demo data</h2>
       <div class="c2-stand">
-        <div><h3>Where it stands</h3><p>Data lives in Hear Design Lab, my working replica of Hear, rebuilt in code with demo data. The May and June designs both still run there; the March one is retired.</p></div>
-        <div><h3>My part</h3><p>I designed and built Data and Signals in the Lab, from March to October 2026, with Claude Code.</p></div>
+        <div><h3>Status</h3><p>The strip and the column filter both still run in the Lab, side by side on the same calls; the March popover is retired.</p></div>
+        <div><h3>My part</h3><p>I designed and built Data and Signals, from March to October 2026, with Claude Code.</p></div>
       </div>
     </div>
   </section>
-
   <div class="c2-w c2-next">
     <a class="next" href="design-system.html" aria-label="Next case study: Design system. One token set behind every screen in the Lab"><span class="next-t"><span class="label">Next case study</span><span class="next-name">Design system</span><span class="next-line">One token set behind every screen in the Lab</span><span class="next-go">Read next</span></span><span class="next-thumb fade-l" aria-hidden="true"><img src="../img/next-system.webp?v=3" width="1440" height="900" alt="" loading="lazy" decoding="async"></span></a>
   </div>
@@ -246,7 +275,51 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </div>
 </footer>
 <script src="case.js?v=8"></script>
-<script src="../v7/cs2.js?v=1" defer></script>
+<script src="../v7/cs2.js?v=2" defer></script>
+<script>/* data, page only: remove a chip. The chips come off last first and go back on in order, so the count is always one the page gives
+   (2,000, 318, 141, 86); no other mix exists here and nothing is computed. The number changes in 320 ms, at once with reduced motion. */
+(function () {
+  var box = document.querySelector('[data-try]'); if (!box) return;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches,
+    chips = [].slice.call(box.querySelectorAll('.d-chip')), words = [].slice.call(box.querySelectorAll('.d-ask u')),
+    rows = [].slice.call(box.querySelectorAll('.d-count li')), num = box.querySelector('.d-num'), foot = box.querySelector('.d-foot'),
+    reset = box.querySelector('.d-reset'), say = box.querySelector('.d-say'),
+    COUNT = [2000, 318, 141, 86], NAME = ['Refunds & Credits', 'Over 5 minutes', 'Negative'], n = 3, shown = 86, raf = 0;
+  function fmt(v) { return v.toLocaleString('en-US'); }
+  function tick(to) {
+    cancelAnimationFrame(raf);
+    if (reduce) { shown = to; num.textContent = fmt(to); return; }
+    var from = shown, t0 = performance.now();
+    raf = requestAnimationFrame(function step(t) {
+      var p = Math.min(1, (t - t0) / 320), e = 1 - Math.pow(1 - p, 3);
+      shown = Math.round(from + (to - from) * e); num.textContent = fmt(shown);
+      if (p < 1) raf = requestAnimationFrame(step);
+    });
+  }
+  function render() {
+    chips.forEach(function (c, k) {
+      var on = k < n;
+      c.setAttribute('aria-pressed', on); c.disabled = !(k === n - 1 || k === n);
+      c.classList.toggle('is-last', k === n - 1); words[k].classList.toggle('is-off', !on);
+    });
+    rows.forEach(function (r, k) { r.classList.toggle('is-now', k === n); r.classList.toggle('is-off', k > n); });
+    foot.classList.toggle('is-dim', n !== 3);
+    reset.disabled = n === 3;
+  }
+  chips.forEach(function (c, k) {
+    c.addEventListener('click', function () {
+      if (c.disabled) return;
+      var off = k === n - 1; n = off ? k : k + 1;
+      render(); tick(COUNT[n]);
+      say.textContent = NAME[k] + (off ? ' removed. ' : ' added back. ') + fmt(COUNT[n]) + ' calls match.';
+    });
+  });
+  reset.addEventListener('click', function () {
+    n = 3; render(); tick(COUNT[3]); chips[2].focus();
+    say.textContent = 'All three filters are back. 86 calls match.';
+  });
+  render();
+})();</script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>
