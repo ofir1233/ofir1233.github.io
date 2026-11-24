@@ -4095,6 +4095,11 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
                 </filter>
                 <mask id="tp-brush" maskUnits="userSpaceOnUse" style="mask-type:alpha"><g class="tp-strokes" filter="url(#tp-rough)" fill="none" stroke="#000" stroke-linecap="butt"></g></mask>
               </defs>
+              <!-- the same sky as a graphite underdrawing: it comes up with the pencil at Sketch, and the brush paints over it -->
+              <!-- the pencil keeps below the window's top edge, so the head above stays clear (y set by topics.js) -->
+              <linearGradient id="tp-pfade" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient>
+              <mask id="tp-pmask" maskUnits="userSpaceOnUse"><rect class="tp-pmask-r" fill="url(#tp-pfade)"/></mask>
+              <image class="tp-pencil-img" href="img/topics/pencil.webp?v=2" preserveAspectRatio="xMidYMid slice" opacity="0" mask="url(#tp-pmask)"/>
               <image class="tp-sky-img" href="img/topics/sky.webp" preserveAspectRatio="xMidYMid slice" mask="url(#tp-brush)"/>
             </svg>
           </div>
