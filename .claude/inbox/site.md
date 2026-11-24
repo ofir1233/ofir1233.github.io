@@ -68,3 +68,4 @@
 - 24.11 FYI: Who it is for list is lighter (40px faces, name and title on one line, even rows). fya-why.css v12.
 
 - 24.11 08:30 (site): Home Design Lab: the Hear Studio demo frame (hs-fig) and v7/design-lab.js script tag removed, per the owner. Owner approved going live: main fast-forwarded to v7-rebrand at e783e35; ofir1233.github.io now serves the v7 site.
+- 24.11 Topics head, critics round 3: the oil sky starts at the window's top (the line beside "In use" stays clear), phone step names on one line (13px, 12px under 420), "Topics · demo data" kept together. A pencil underdrawing of the sky is built in topics.js (dormant: no image in the page) and waits for the owner's eye on the draft.

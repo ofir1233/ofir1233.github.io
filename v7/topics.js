@@ -32,7 +32,7 @@
   var $ = function (s) { return fig.querySelector(s); };
   var stage = $('.ct-stage'), win = $('.hs-win'), lo = $('.tp-lo'), hi = $('.tp-hi'), sk = $('.tp-sketch'), ptr = $('.tp-ptr'), tap = $('.tp-tap');
   var sheet = $('.tp-sheet'), frameEl = $('.tp-frame'), invite = $('.tp-invite');
-  var glow = $('.tp-glow'), far = $('.tp-far'), mid = $('.tp-mid'), near = $('.tp-near'), sky = $('.tp-sky'), skyImg = $('.tp-sky-img'), strokesG = $('.tp-strokes');
+  var glow = $('.tp-glow'), far = $('.tp-far'), mid = $('.tp-mid'), near = $('.tp-near'), sky = $('.tp-sky'), skyImg = $('.tp-sky-img'), pencilImg = $('.tp-pencil-img'), strokesG = $('.tp-strokes');
   var art = { city: $('.a-city'), back: $('.a-cloud-back'), front: $('.a-cloud-front'), hyd: $('.a-hyd'), wist: $('.a-wisteria') };
   var block = fig.closest('.tp-block'), stepsEl = block.querySelector('.tp-steps'), stepLis = [].slice.call(stepsEl.children), sayEl = block.querySelector('.tp-say'), says = [].slice.call(sayEl.children), again = block.querySelector('.tp-again');
   var qs = new URLSearchParams(location.search);
@@ -884,7 +884,7 @@
         at a 924px stage: [across the strokes, start, end, width, bow]. No two neighbours start at the same place, so the sky's
         upper edge is a row of stroke ends, not one ruled line; the heading's corner and the bottom left stay clean ── */
   var BR = [[-15, -840, 900, 140, -30], [-120, -840, 900, 140, -40], [90, -640, 900, 140, -22], [-205, 290, 900, 132, -14], [195, -330, 900, 140, -28], [-310, 350, 900, 140, -20], [285, 0, 900, 110, -16], [360, 270, 900, 100, -34]];
-  var brush = [], TOP = 340, cloudIn = 300;
+  var brush = [], TOP = 340, cloudIn = 300, PENCIL = .32, pencilOn = false;
   function buildWorld() {
     var sw = stage.offsetWidth, sh = stage.offsetHeight, vw = document.documentElement.clientWidth, sr = stage.getBoundingClientRect(), Lx = sr.left, small = narrow.matches;
     fig.style.setProperty('--sw', sw + 'px'); fig.style.setProperty('--sh', sh + 'px'); fig.style.setProperty('--L', Lx + 'px');
@@ -897,6 +897,13 @@
     if (small) { fl.setAttribute('x', f1(cx - 1000)); fl.setAttribute('y', f1(cy - 200)); fl.setAttribute('width', 2000); fl.setAttribute('height', f1(sh + 700)); }
     else { fl.setAttribute('x', f1(cx - 1210 * k)); fl.setAttribute('y', f1(cy - 620 * k)); fl.setAttribute('width', f1(2360 * k)); fl.setAttribute('height', f1(1240 * k)); }
     skyImg.setAttribute('x', -bleed); skyImg.setAttribute('y', 0); skyImg.setAttribute('width', vw + 2 * bleed); skyImg.setAttribute('height', hgt);
+    if (pencilImg) {      /* the pencil sky sits a little lower than the oil one, and fades in from just above the window's top edge */
+      var pd = 0, pm = sky.querySelector('#tp-pmask'), pr = sky.querySelector('.tp-pmask-r'), pg = sky.querySelector('#tp-pfade');
+      pencilImg.setAttribute('x', -bleed); pencilImg.setAttribute('y', pd); pencilImg.setAttribute('width', vw + 2 * bleed); pencilImg.setAttribute('height', hgt - pd);
+      [pm, pr].forEach(function (e) { e.setAttribute('x', -bleed); e.setAttribute('y', 0); e.setAttribute('width', vw + 2 * bleed); e.setAttribute('height', hgt + pd); });
+      pg.setAttribute('y1', TOP); pg.setAttribute('y2', TOP + 70);
+      pencilOn = !small && (vw - sw) / 2 >= 180;      /* critics, round 3: in a narrow gutter it shows only as cut-off grey, so it is drawn only where a cloud fits */
+    }
     strokesG.setAttribute('transform', 'rotate(-15 ' + f1(cx) + ' ' + f1(cy) + ')');
     strokesG.innerHTML = ''; brush = [];
     /* a phone: nothing above or beside the window; two strokes make one painted band under it */
@@ -995,7 +1002,12 @@
   function drawWorld(t) {
     var u = t - S.w, i;
     for (i = 0; i < brush.length; i++) { var k = ioS(seg(u, .1 * i, .1 * i + .8)); if (k !== brush[i].k) { brush[i].k = k; brush[i].el.style.strokeDashoffset = (1.01 * (1 - k)).toFixed(4); } }
-    far.style.visibility = u > 0 ? 'visible' : 'hidden';
+    /* the sky drawn first in pencil, in the same place as the oil one: it comes in once the hand has finished the screen (the
+       window moves alone first), stays through the wireframe and the finished screen, and the brush paints over it; what the
+       brush did not reach leaves after the last stroke */
+    var pk = pencilImg && pencilOn ? ioS(seg(t, 1.35, 2.1)) * (1 - ioS(seg(u, 1.5, 2.0))) : 0;
+    if (pencilImg) { var po = (PENCIL * pk).toFixed(3); if (pencilImg.getAttribute('opacity') !== po) pencilImg.setAttribute('opacity', po); }
+    far.style.visibility = u > 0 || pk > 0 ? 'visible' : 'hidden';
     var part = sp.p * 9;
     var put = function (e, o, x, y, extra) { e.style.opacity = clamp(o).toFixed(3); e.style.transform = 'translate(' + f1(x) + 'px,' + f1(y) + 'px)' + (extra || ''); };
     var a = outC(seg(u, .45, 1.0)), cut = a >= 1 ? 'none' : 'linear-gradient(0deg,#000 ' + f1(a * 115 - 15) + '%,transparent ' + f1(a * 115) + '%)';      /* the city rises: shown from the ground up, never see-through */

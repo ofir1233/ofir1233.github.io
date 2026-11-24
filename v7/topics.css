@@ -188,3 +188,19 @@
 #design-lab#design-lab .tp-steps li{ flex:1 1 0; }
 #design-lab#design-lab .tp-fig{ margin-top:40px; }
 }
+/* a phone: five equal steps left "Wireframe" no room and it ran into "High fidelity". Each step takes the room its name needs */
+@media (max-width:560px){
+#design-lab#design-lab .tp-steps{ gap:10px; }
+#design-lab#design-lab .tp-steps li{ flex:1 1 auto; }
+#design-lab#design-lab .tp-name{ font-size:13px; letter-spacing:-.015em; }
+}
+/* critics, round 3 (24.11): the oil sky starts at the window's top too, so the line beside "In use" stays clear when the paint lands;
+   on the narrowest phones the five names stay on one line, a size smaller */
+@media (min-width:900px){
+#design-lab#design-lab .tp-sky{ -webkit-mask-image:linear-gradient(180deg, transparent 0 300px, #000 400px); mask-image:linear-gradient(180deg, transparent 0 300px, #000 400px); }
+}
+@media (max-width:420px){
+#design-lab#design-lab .tp-steps{ gap:6px; }
+#design-lab#design-lab .tp-name{ font-size:12px; white-space:nowrap; }
+}
+#design-lab#design-lab .tp-say .tp-keep{ white-space:nowrap; }
