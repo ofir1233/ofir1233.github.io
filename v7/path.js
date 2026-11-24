@@ -42,7 +42,7 @@
   const req = () => { if (!raf) raf = requestAnimationFrame(upd); };
   const all = () => { measure(); req(); };
   measure();
-  addEventListener('scroll', req, { passive: true });
+  addEventListener('scroll', (window.v7Near || function (e, f) { return f; })(xp, req), { passive: true });
   addEventListener('resize', all);
   if ('ResizeObserver' in window) new ResizeObserver(all).observe(xp);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(all);

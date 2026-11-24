@@ -7,12 +7,15 @@
   /* the text of each step moves into the index beside the heading: it opens under the step on show */
   links.forEach(function(l, i){ var c = steps[i] && steps[i].querySelector('.hw-cap'); if (!c) return; var d = document.createElement('span'); d.className = 'hw-d';
     var t = c.querySelector('p'), g = c.querySelector('.hw-tag'); d.innerHTML = '<span>' + (t ? t.innerHTML : '') + (g ? '<small>' + g.innerHTML + '</small>' : '') + '</span>'; l.appendChild(d); });
-  function range(){ return Math.max(1, ol.offsetHeight - steps[0].offsetHeight); }
+  /* the sizes are read when they change (a ResizeObserver), not on every scroll */
+  var H0 = 0, RG = 1;
+  function sizes(){ H0 = steps[0].offsetHeight; RG = Math.max(1, ol.offsetHeight - H0); }
+  function range(){ return RG; }
   function mark(i){ if (i === cur) return; cur = i; steps.forEach(function(s, k){ s.classList.toggle('on', k === i); }); links.forEach(function(a, k){ a.classList.toggle('on', k === i); }); }
   function set(){
     var pin = mq.matches; ol.classList.toggle('hw-pin', pin); if (!pin) { cur = -1; return; }
     /* the frame is held in the middle of the window, under the header, and the heading beside it starts level with it */
-    var top = Math.max(84, Math.round((innerHeight + 60 - steps[0].offsetHeight) / 2)); if (top !== TOP) { TOP = top; ol.parentNode.style.setProperty('--hw-top', TOP + 'px'); }
+    var top = Math.max(84, Math.round((innerHeight + 60 - H0) / 2)); if (top !== TOP) { TOP = top; ol.parentNode.style.setProperty('--hw-top', TOP + 'px'); }
     var p = (TOP - ol.getBoundingClientRect().top) / range();
     mark(Math.max(0, Math.min(steps.length - 1, Math.floor(p * steps.length))));
     /* the rail: filled down to the open step, and through it as that step is scrolled */
@@ -21,7 +24,10 @@
   links.forEach(function(a, i){ a.addEventListener('click', function(e){ if (!mq.matches) return; e.preventDefault();
     scrollTo({ top: ol.getBoundingClientRect().top + scrollY - TOP + range() * (i + .5) / steps.length, behavior: 'smooth' }); }); });
   if (links[0]) links[0].parentNode.addEventListener('transitionend', function(e){ if (e.propertyName === 'grid-template-rows') set(); });
-  addEventListener('scroll', set, { passive: true }); addEventListener('resize', set); set();
+  var raf = 0; function ask(){ if (!raf) raf = requestAnimationFrame(function(){ raf = 0; set(); }); }
+  function again(){ sizes(); set(); }
+  addEventListener('scroll', (window.v7Near || function (e, f) { return f; })(document.getElementById('code'), ask), { passive: true }); addEventListener('resize', again); sizes(); set();
+  if ('ResizeObserver' in window) { var ro = new ResizeObserver(function(){ sizes(); ask(); }); ro.observe(ol); ro.observe(steps[0]); }
 })();
 
 /* the sign-in page in the Design step: drawn at 760 px and scaled to its frame; under the mouse its layers move in depth,

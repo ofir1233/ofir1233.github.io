@@ -6,7 +6,14 @@
   function set(){
     var s = scrollY > 8; if (s !== on) { on = s; root.classList.toggle('hv-stuck', s); }
   }
-  addEventListener('scroll', set, { passive: true }); addEventListener('resize', set); set();
+  /* a 9px mark at the top of the page says when the page has moved, so a scroll never has to measure the page for it */
+  if ('IntersectionObserver' in window && document.body) {
+    var mark = document.createElement('div'); mark.setAttribute('aria-hidden', 'true');
+    mark.style.cssText = 'position:absolute;left:0;top:0;width:1px;height:9px;pointer-events:none;visibility:hidden';
+    document.body.appendChild(mark);
+    new IntersectionObserver(function(es){ var s = !es[es.length - 1].isIntersecting; if (s !== on) { on = s; root.classList.toggle('hv-stuck', s); } }).observe(mark);
+  } else { addEventListener('scroll', set, { passive: true }); addEventListener('resize', set); }
+  set();
   if (!nav) return;
   var ul = nav.querySelector('ul'); if (!ul) return;
 

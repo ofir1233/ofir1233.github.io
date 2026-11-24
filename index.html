@@ -25,6 +25,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <!-- link previews and icons for the hosted copy at ofir1233.github.io (the artifact viewer ignores them) -->
 <meta name="theme-color" content="#f4f3f1">
 <script>(function(){try{var t='light',m=document.querySelector('meta[name="theme-color"]');document.documentElement.dataset.theme=t;if(m)m.content=t==='dark'?'#101316':'#f4f3f1';}catch(e){}})();</script>
+<script>/* a scroll handler that belongs to one part of the page runs only while that part is within a screen of the reader (each one measures the page, so elsewhere it would only cost frames); when the part comes near again it runs once to catch up */
+window.v7Near=function(el,fn,m){if(!el||!('IntersectionObserver' in window))return fn;var on=true;new IntersectionObserver(function(es){var w=es[es.length-1].isIntersecting;if(w&&!on){on=true;fn();}on=w;},{rootMargin:(m||'100%')+' 0px'}).observe(el);return function(){if(on)return fn.apply(this,arguments);};};</script>
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ofir1233.github.io/">
 <meta property="og:title" content="Ofir Nona · Senior product designer">
@@ -5070,7 +5072,9 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     });
   };
   cards.forEach(c => vids(c).forEach(v => { const play = v.play; v.play = () => { if (covered.has(c)) { v.dataset.r8wait = '1'; return Promise.resolve(); } return play.call(v); }; }));
-  let raf = 0; addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; check(); }); }, { passive: true });
+  // the deck is checked only while it is within a screen of the reader: elsewhere on the page a scroll costs it nothing
+  let near = true; new IntersectionObserver(es => { near = es[0].isIntersecting; if (near) check(); }, { rootMargin: '100% 0px' }).observe(sec);
+  let raf = 0; addEventListener('scroll', () => { if (near && !raf) raf = requestAnimationFrame(() => { raf = 0; check(); }); }, { passive: true });
   let rt = 0; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit, 150); });
   // keyboard focus and opened "Read more" text never stay under the next card: scroll back just enough to uncover them
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -5160,7 +5164,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     dots.forEach((d, i) => { const b = d.getBoundingClientRect(); jobs[i].classList.toggle('lit', b.top + b.height / 2 <= line); });
   };
   const req = () => { if (!raf) raf = requestAnimationFrame(upd); };
-  addEventListener('scroll', req, { passive: true });
+  addEventListener('scroll', window.v7Near(tl, req), { passive: true });
   addEventListener('resize', req);
   upd();
 })();
@@ -5464,7 +5468,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     fan.style.setProperty('--k', ((c - 0.5) * 2).toFixed(3));
   };
   const req = () => { if (!raf) raf = requestAnimationFrame(upd); };
-  addEventListener('scroll', req, { passive: true });
+  addEventListener('scroll', window.v7Near(sec, req), { passive: true });
   addEventListener('resize', req);
   upd();
 })();
@@ -5772,7 +5776,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     if (k === cur) return; cur = k;
     btns.forEach((b, i) => { b.classList.toggle('on', i === k); b.toggleAttribute('aria-current', i === k); });
   };
-  addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
+  addEventListener('scroll', window.v7Near(sec, () => { if (!raf) raf = requestAnimationFrame(sync); }), { passive: true });
   addEventListener('resize', () => { cur = -1; sync(); });
   sync();
 })();
@@ -5939,7 +5943,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     }
     if (moving) raf = requestAnimationFrame(tick);
   }
-  function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+  function kick() { if (!raf && sheets.some(function (s) { return s.near; })) raf = requestAnimationFrame(tick); }
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) {
       for (var i = 0; i < sheets.length; i++) if (sheets[i].el === e.target) {
@@ -6724,7 +6728,9 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     }
   };
   const req = () => { if (!raf) raf = requestAnimationFrame(frame); };
-  addEventListener('scroll', req, { passive: true });
+  // only while the deck is within a screen of the reader (the cards and the index are not drawn elsewhere)
+  let near = true; new IntersectionObserver(es => { near = es[0].isIntersecting; if (near) req(); }, { rootMargin: '100% 0px' }).observe(sec);
+  addEventListener('scroll', () => { if (near) req(); }, { passive: true });
   addEventListener('resize', req);
   addEventListener('load', req);
   req();
@@ -7040,12 +7046,12 @@ document.addEventListener('DOMContentLoaded', () => {
       else { c.classList.remove('in'); c.style.setProperty('--fd','0ms'); } });
     if(first) requestAnimationFrame(function(){ requestAnimationFrame(function(){ pin.classList.remove('me-set'); }); });
     first=false; }
-  function tick(now){ var t=target(), dt=last?Math.min(64,now-last):16.7; last=now; cur+=(t-cur)*(1-Math.exp(-dt/95)); if(Math.abs(t-cur)<.0004) cur=t; draw(cur); if(Math.abs(t-cur)>0) raf=requestAnimationFrame(tick); else { raf=0; last=0; } }
+  function tick(now){ var t=target(), dt=last?Math.min(64,now-last):16.7, was=cur; last=now; cur+=(t-cur)*(1-Math.exp(-dt/95)); if(Math.abs(t-cur)<.0004) cur=t; if(cur!==was||first) draw(cur); if(Math.abs(t-cur)>0) raf=requestAnimationFrame(tick); else { raf=0; last=0; } }
   function go(){ if(on&&!raf) raf=requestAnimationFrame(tick); }
   function set(){ var want=ok.matches; if(want===on){ if(on){ measure(); go(); } return; } on=want; root.classList.toggle('me-scroll',on);
     if(on){ measure(); cur=target(); first=true; draw(cur); }
     else { ['--g','--z','--dp','--io','--pt','--t0','--ch'].forEach(function(k){ pin.style.removeProperty(k) }); pin.classList.remove('me-grown','me-set','me-end'); cards.forEach(function(c,i){ c.classList.remove('in'); st[i]=false; }); said=false; first=true; } }
-  set(); addEventListener('scroll',go,{passive:true}); addEventListener('resize',set); ok.addEventListener('change',set); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ if(on){ measure(); go(); } });
+  set(); addEventListener('scroll',window.v7Near(about,go),{passive:true}); addEventListener('resize',set); ok.addEventListener('change',set); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ if(on){ measure(); go(); } });
 })();
 </script>
 <script>
@@ -7064,23 +7070,49 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <script src="v7/gyro.js?v=1" defer></script>
 <script src="v7/spot-art.js?v=2" defer></script>
-<script src="v7/hero.js?v=231" defer></script>
-<script src="v7/code.js?v=223" defer></script>
+<script src="v7/hero.js?v=232" defer></script>
+<script src="v7/code.js?v=224" defer></script>
 <script src="v7/depth.js?v=224" defer></script>
-<script src="v7/topics.js?v=19" defer></script>
-<script src="v7/product.js?v=224" defer></script>
+<script src="v7/topics.js?v=20" defer></script>
+<script src="v7/product.js?v=226" defer></script>
 <script src="v7/system.js?v=222" defer></script>
 <script src="v7/web-fyi.js?v=221" defer></script>
 <script src="v7/fyi-door.js?v=3" defer></script>
 <script src="v7/feed.js?v=5" defer></script>
 <script src="v7/ia-process.js?v=221" defer></script>
 <script src="v7/path-contact.js?v=221" defer></script>
-<script src="v7/close.js?v=223" defer></script>
+<script src="v7/close.js?v=224" defer></script>
 <script src="v7/short.js?v=221" defer></script>
-<script src="v7/foot.js?v=221" defer></script>
-<script src="v7/tokens.js?v=222" defer></script>
-<script src="v7/plan.js?v=222" defer></script>
-<script src="v7/path.js?v=221" defer></script>
+<script src="v7/foot.js?v=222" defer></script>
+<script src="v7/tokens.js?v=223" defer></script>
+<script src="v7/plan.js?v=223" defer></script>
+<script src="v7/path.js?v=222" defer></script>
 <script>/* the paintings of the parts further down (How I work, Topics) wait until the opening has loaded, so they never compete with it */(function(){var go=function(){[].forEach.call(document.querySelectorAll('[data-late]'),function(e){var v=e.getAttribute('data-late');e.removeAttribute('data-late');if(e.tagName.toLowerCase()==='img')e.src=v;else e.setAttribute('href',v)})};if(document.readyState==='complete')go();else{addEventListener('load',go);setTimeout(go,6000)}})()</script>
+<script>
+/* A part of the page that is off screen holds its animations still (24.11.2026, speed pass): eleven loops (the Code cloud, the
+   Design system's thinking dots, the FYI buttons, the Contact ping) ran on below and above the reader, and two of them animate a
+   shadow, so the whole page was restyled on every frame wherever the reader was. Each picks up where it was when it comes back.
+   Only the endless loops are held, and through the animations themselves: a class on the part would restyle every element in it. */
+(function () {
+  if (!('IntersectionObserver' in window) || !document.getAnimations) return;
+  var held = new Map();
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var s = e.target, mine = held.get(s);
+      if (e.isIntersecting) { if (mine) { held.delete(s); mine.forEach(function (a) { try { if (a.playState === 'paused') a.play(); } catch (x) {} }); } return; }
+      if (!mine) held.set(s, mine = []);
+      hold(s, mine);
+    });
+  }, { rootMargin: '15% 0px' });
+  function hold(s, mine) {
+    s.getAnimations({ subtree: true }).forEach(function (a) {
+      try { if (a.playState === 'running' && a.effect && a.effect.getComputedTiming().iterations === Infinity) { a.pause(); mine.push(a); } } catch (x) {}
+    });
+  }
+  /* a loop that starts later in a part that is away (its class arrives with a script) is held at the next look */
+  setInterval(function () { if (!document.hidden) held.forEach(function (mine, s) { hold(s, mine); }); }, 2000);
+  [].forEach.call(document.querySelectorAll('section[id], footer.ft'), function (s) { io.observe(s); });
+})();
+</script>
 </body>
 </html>

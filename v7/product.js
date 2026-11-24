@@ -119,8 +119,32 @@
     /* it closes in on the thing, then lets go: a press, not a ripple */
     '@keyframes px-tap{0%{opacity:0;transform:scale(1.25)}28%{opacity:1;transform:scale(.8)}100%{opacity:0;transform:scale(1.5)}}';
   var two = function (n) { return (n < 10 ? '0' : '') + n; };
+  /* LOADING (owner, 24.11.2026: "serious bugs in loading, everything breaks, sometimes it loads slowly"). Each window is a whole app:
+     they load one at a time, the nearest first, and only within a screen's height of the reader. A window the reader has left far
+     behind is emptied, and loads again when the reader comes back. Until a window has drawn, it shows a still of its first view
+     (img/px-poster-*.webp, the whole screen as step 1 opens on it), never an empty blue box. */
+  var LOAD = { busy: null, t: 0 }, FAR = 4000, UNDER = 2500;
+  function pump() {
+    if (LOAD.busy && performance.now() - LOAD.t < 6000) return;
+    LOAD.busy = null;
+    var best = null, bd = 1e9;
+    players.forEach(function (p) {
+      if (p.state || !p.want()) return;
+      var r = p.win.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - innerHeight / 2);
+      if (d < bd) { bd = d; best = p; }
+    });
+    if (best) { LOAD.busy = best; LOAD.t = performance.now(); best.load(); }
+  }
+  /* each window reports on its own: wait until all have, so the nearest one, not the first to report, loads first */
+  var soonT = 0;
+  function soon() { if (!soonT) soonT = setTimeout(function () { soonT = 0; pump(); }, 60); }
   var players = figs.map(function (fig) {
     var win = fig.querySelector('.px-win'), frame = fig.querySelector('.px-app');
+    var base = (frame.getAttribute('data-src') || '').split('hear-v7/')[0], poster = document.createElement('img');
+    poster.alt = ''; poster.setAttribute('aria-hidden', 'true'); poster.decoding = 'async'; poster.loading = 'lazy'; poster.className = 'px-poster';
+    poster.sizes = '(max-width: 860px) 94vw, 56vw';
+    poster.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;pointer-events:none';
+    win.insertBefore(poster, frame);
     /* The steps sit under the frame as sentences: each one is a button, and its top line is the clock. */
     var box = document.createElement('div');
     box.className = 'px-steps';
@@ -132,6 +156,28 @@
       c: { x: 0, y: 0, z: 1 }, r: null, lit: false, thr: null, undo: null, onfree: null };
     P.depth = window.v7Depth ? window.v7Depth(frame, win, true) : { drift: function () {} };
     var key = function () { return fig.getAttribute('data-px'); };
+    /* the still of the screen the window holds; it is drawn only while the app is not (a still under a live app is wasted memory) */
+    function still() {
+      var f = base + 'img/px-poster-' + key();
+      poster.srcset = f + '-s.webp?v=1 800w, ' + f + '.webp?v=1 1600w'; poster.src = f + '.webp?v=1';
+    }
+    function cover(on) { clearTimeout(P.pv); if (on) poster.style.visibility = ''; else P.pv = setTimeout(function () { poster.style.visibility = 'hidden'; }, 700); }
+    still();
+    /* state: '' empty, 'loading', 'on' */
+    P.state = ''; P.near = false; P.uSince = 0; P.fSince = 0;
+    var card = fig.closest('article.spot');
+    P.under = function () { return !!(card && card.classList.contains('r8-under')); };
+    P.want = function () { return P.near && !(P.uSince && performance.now() - P.uSince > UNDER); };
+    P.load = function () { P.state = 'loading'; frame.src = frame.getAttribute('data-src'); };
+    P.empty = function () {
+      if (!P.state) return;
+      if (P.held()) P.release();
+      P.clear(); P.re.forEach(clearTimeout); P.re = []; P.q = [];
+      P.live = false; P.state = ''; P.lit = false; P.r = null;
+      fig.classList.remove('is-live'); box.classList.add('is-loading'); cover(true);
+      if (LOAD.busy === P) LOAD.busy = null;
+      frame.src = 'about:blank';
+    };
     var H = function () { return Math.round(P.w * 9 / 16); };
     var px = function (n) { return n.toFixed(1) + 'px'; };
     /* On a phone the frame is too small for the whole app: the sidebar steps aside and the screen is drawn at 860 wide. */
@@ -369,7 +415,11 @@
       if (document.activeElement === frame) frame.blur();
     };
     frame.addEventListener('load', function () {
-      if (!frame.getAttribute('src')) return;
+      var src = frame.getAttribute('src');
+      if (!src || src === 'about:blank') return;
+      P.state = 'on'; if (LOAD.busy === P) LOAD.busy = null;
+      /* the next window starts loading once this one has drawn its first frame, so two apps never build at once */
+      requestAnimationFrame(function () { requestAnimationFrame(pump); });
       var w = frame.contentWindow, d = frame.contentDocument;
       try {
         var st = d.createElement('style'), HOLD = '.stage,.stage *{transition-property:none!important}';
@@ -394,8 +444,10 @@
       else return;
       beats.style.setProperty('--n', P.steps.length);
       beats.innerHTML = P.steps.map(function (s, i) { return '<li><button type="button"><span class="n">' + two(i + 1) + '</span><span class="l">' + s + '</span></button></li>'; }).join('');
-      P.live = true; fig.classList.add('is-live', 'lx-ready'); box.classList.add('on'); box.classList.remove('is-loading');
+      P.live = true; box.classList.add('on'); box.classList.remove('is-loading');
       show(reduce ? P.steps.length - 1 : 0);
+      /* the app fades in over its still only once it has been drawn: no blank frame between the two */
+      requestAnimationFrame(function () { requestAnimationFrame(function () { if (!P.live) return; fig.classList.add('is-live', 'lx-ready'); cover(false); }); });
     });
     /* Show the call: the window stops on its step, shown finished, and the frame goes to the call in ONE move. Where the call is in
        a panel that slides in, the light goes out, the panel leaves, and the frame leaves in the same instant for where the call will
@@ -432,11 +484,13 @@
       var b = e.target.closest('button'); if (!b || b.getAttribute('aria-pressed') === 'true') return;
       [].forEach.call(tabs.children, function (x) { x.setAttribute('aria-pressed', x === b); });
       P.live = false; P.k = 0; P.si = 0; P.q = []; fig.classList.remove('is-live'); box.classList.add('is-loading'); fig.setAttribute('data-px', b.getAttribute('data-k')); look(0);
+      still(); cover(true);
       var src = frame.getAttribute('data-src').replace(/\?.*$/, '?' + b.getAttribute('data-q'));
       frame.setAttribute('data-src', src);
+      P.state = 'loading';
       setTimeout(function () { frame.src = src; }, 180);
     });
-    new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { frame.src = frame.getAttribute('data-src'); io.disconnect(); } }, { rootMargin: '900px 0px' }).observe(win);
+    new IntersectionObserver(function (es) { P.near = es[0].isIntersecting; P.fSince = P.near ? 0 : performance.now(); soon(); }, { rootMargin: '100% 0px' }).observe(win);
     new IntersectionObserver(function (es) { var v = es[0].isIntersecting; if (v && !P.inView && P.rest && P.live) { P.loops = 0; show(0); } P.inView = v; }, { threshold: 0.3 }).observe(win);
     button();
     return P;
@@ -484,7 +538,7 @@
     };
     var go = function () {
       var ms = p.follow();
-      if (!ms) { if (++tries < 30) setTimeout(go, 150); return; }
+      if (!ms) { if (++tries < 60) setTimeout(go, 150); return; }
       p.onfree = free;
       (window.v7Thread = window.v7Thread || {})[name] = 1;      /* the postcard at the end of the page may say so */
       setTimeout(hand, reduce ? 0 : ms - 1 + BEAT.still);       /* when the frame has landed and the eye has arrived */
@@ -499,8 +553,29 @@
   var last = performance.now();
   /* One window plays at a time: the one in view whose middle is nearest the middle of the screen. The others hold their place.
      A card that the next card has slid over is still in view and often nearer the middle: it does not count. */
-  var lead = null, since = 0;
-  (function tick(t) {
+  var lead = null, since = 0, running = false, near = 0;
+  /* a window two cards or more behind the one playing, under the deck for a while, or far off screen for a while, is emptied */
+  setInterval(function () {
+    var now = performance.now(), li = players.indexOf(lead);
+    players.forEach(function (p, i) {
+      if (p.under() && li >= 0 && li - i >= 2) { if (!p.uSince) p.uSince = now; } else p.uSince = 0;
+      if (p.state && ((p.uSince && now - p.uSince > UNDER) || (!p.near && p.fSince && now - p.fSince > FAR))) p.empty();
+    });
+    pump();
+  }, 1000);
+  /* the loop runs only while a window is near the screen: off screen it would wake the page sixty times a second for nothing */
+  function rest() {
+    lead = null;
+    players.forEach(function (p) { var card = p.fig.closest('article.spot'); if (card) card.classList.remove('lead'); p.depth.drift(false); if (p.held()) p.release(); p.clear(); p.led = false; });
+  }
+  var nio = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { e.target._near = e.isIntersecting; });
+    near = players.filter(function (p) { return p.win._near; }).length;
+    if (near && !running) { running = true; last = performance.now(); requestAnimationFrame(tick); }
+  }, { rootMargin: '25% 0px' });
+  players.forEach(function (p) { nio.observe(p.win); });
+  function tick(t) {
+    if (!near) { running = false; rest(); return; }
     var dt = Math.min(100, t - last); last = t;
     if (t - since > 180) {
       since = t; var best = 1e9; lead = null;
@@ -519,7 +594,7 @@
     /* one bad frame must never stop every window on the page */
     try { if (lead) lead.tick(dt); } catch (e) { if (window.console) console.error('px', e && e.stack || e); }
     requestAnimationFrame(tick);
-  })(last);
+  }
 })();
 
 /* The chapter row (01 to 05) is pinned under the header. When the section ends, the page carries the row up and the header cut its
@@ -535,5 +610,5 @@
     if (o !== was) { idx.style.opacity = was = o; idx.style.pointerEvents = o && +o < .5 ? 'none' : ''; }
   }
   function ask() { if (!raf) raf = requestAnimationFrame(set); }
-  addEventListener('scroll', ask, { passive: true }); addEventListener('resize', ask); ask();
+  addEventListener('scroll', window.v7Near ? window.v7Near(document.getElementById('product'), ask) : ask, { passive: true }); addEventListener('resize', ask); ask();
 })();

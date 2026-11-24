@@ -23,6 +23,6 @@
     var p = Math.min(1, Math.max(0, (vh - r.top) / Math.min(r.height, vh)));
     sky.style.setProperty('--py', ((1 - p) * -46).toFixed(1) + 'px');
   }
-  addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(par); } }, { passive: true });
+  addEventListener('scroll', (window.v7Near || function (e, f) { return f; })(ft, function () { if (!tick) { tick = true; requestAnimationFrame(par); } }), { passive: true });
   addEventListener('resize', par); par();
 })();

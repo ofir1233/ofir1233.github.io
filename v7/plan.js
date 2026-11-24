@@ -49,7 +49,7 @@
       lis.forEach(function (li, i) { if (li.getBoundingClientRect().top < y) k = i; });
       pick(k);
     };
-    addEventListener('scroll', function () { if (!tick) tick = requestAnimationFrame(walk); }, { passive: true });
+    addEventListener('scroll', (window.v7Near || function (e, f) { return f; })(ol, function () { if (!tick) tick = requestAnimationFrame(walk); }), { passive: true });
     addEventListener('resize', walk); walk();
   }
   if (!('IntersectionObserver' in window)) return;

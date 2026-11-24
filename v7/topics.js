@@ -635,6 +635,11 @@
     D2.put(p.el, 'transform', k > 0 && k < 1 ? 'scale(' + (.5 + .5 * back(k, 2.6)).toFixed(3) + ')' : null);
   }
 
+  /* the sketch is drawn from hundreds of measures inside the two pages, and every measure in a page made the whole portfolio around
+     it work out its styles again while a stroke had just been added to it; so the strokes are drawn off the page and go in once */
+  var buildSketch0 = buildSketch;
+  buildSketch = function () { var at = sk.parentNode, nx = sk.nextSibling; if (at) at.removeChild(sk); try { return buildSketch0.apply(this, arguments); } finally { if (at && !sk.parentNode) at.insertBefore(sk, nx); } };
+
   /* ── stage 3, the material: the finished page in the wireframe's skin. For every element that changes, both looks are read
         once from the two pages' computed styles (a: the wireframe's, b: the finished one's); stage 3 moves each from a to b ── */
   var K3 = null;
@@ -1160,13 +1165,20 @@
     if (loaded === 2) {
       Promise.all([lo.contentDocument.fonts.ready, hi.contentDocument.fonts.ready, document.fonts.ready]).then(function () {
         matchWire();
-        requestAnimationFrame(function () { requestAnimationFrame(function () { setTimeout(function () {
+        requestAnimationFrame(function () { requestAnimationFrame(function () { quiet(function () {
           remeasure();
           if (wantEnd) { time = T; begun(); } else if (wantT !== null) { time = Math.max(REST, Math.min(T, +wantT || 0)); begun(); }
           render(); readyDone(); watch(); kick();
-        }, 160); }); });
+        }); }); });
       });
     }
+  }
+  /* the sketch is a long piece of work (a quarter of a second on a slow laptop); it waits for the reader to stop scrolling for a
+     moment, so it never lands in the middle of a scroll, and for at most 2.5 seconds */
+  function quiet(fn) {
+    var t0 = performance.now(), last = t0, on = function () { last = performance.now(); };
+    addEventListener('scroll', on, { passive: true });
+    (function wait() { var now = performance.now(), d = now - last; if (d < 220 && now - t0 < 2500) { setTimeout(wait, 230 - d); return; } removeEventListener('scroll', on); fn(); })();
   }
   [lo, hi].forEach(function (f, i) {
     var done = false, go1 = function () { if (done) return; try { if (!f.contentWindow.hearTopics) return; } catch (e) { return; } done = true; onLoad(f, i === 0); };

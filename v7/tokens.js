@@ -172,8 +172,9 @@
     var L = new Float32Array(n), out = T.map(function () { return new Uint8ClampedArray(n * 4); }), base = new Uint8ClampedArray(n * 4);
     var W = new Float32Array(9), y = 0, rows = 72, tp = new Uint8Array(n);
     function slice() {
-      var end = Math.min(h, y + rows);
-      for (; y < end; y++) for (var x = 0, i = y * w, p = i * 4; x < w; x++, i++, p += 4) {
+      /* a few rows at a time, never more than 10 ms of work, so a scroll is never held up by it */
+      var t0 = performance.now();
+      for (; y < h && performance.now() - t0 < 10; y++) for (var x = 0, i = y * w, p = i * 4; x < w; x++, i++, p += 4) {
         var r = src[p], g = src[p + 1], b = src[p + 2], mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn, v = mx / 255, s = mx ? d / mx : 0, hh = 0;
         L[i] = (.299 * r + .587 * g + .114 * b) / 255;
         if (d) { hh = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; hh *= 60; if (hh < 0) hh += 360; }

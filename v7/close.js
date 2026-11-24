@@ -89,7 +89,7 @@
       var p = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2);
       pic.style.setProperty('--p', Math.max(-1, Math.min(1, p)).toFixed(3));
     };
-    addEventListener('scroll', function () { if (!tick) tick = requestAnimationFrame(drift); }, { passive: true });
+    addEventListener('scroll', (window.v7Near || function (e, f) { return f; })(sec, function () { if (!tick) tick = requestAnimationFrame(drift); }), { passive: true });
     addEventListener('resize', drift); drift();
   }
 
