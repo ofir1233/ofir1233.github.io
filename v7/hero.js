@@ -72,24 +72,34 @@
   nav.addEventListener('focusin', function () { root.classList.remove('hv-down'); });
 })();
 
-/* The painter signs the sky. The drawing is the footer's signature (one source: footer .ft-sig): its strokes are cloned into .me-v7-sig,
-   a layer between the plain sky and its clouds (styles in v7/hero.css), and they uncover the signature painted in the clouds' white paint.
-   It is laid on the painting's own pixels (viewBox = the 1920x1280 picture): over the open sky between the trees, left of his head.
-   It is written once: in the pinned stage as soon as the picture has grown to fill the stage (the page's pin script sets .me-grown on
-   .me-pin); in the plain layout 400 ms after the sky is in view. Never during the paint-in, and it never replays. Reduced motion: complete. */
+/* The painter signs the sky (owner, 24.11.2026: bigger, on a slant, and blended in: "you can see the sky's brush strokes through the
+   signature"). The writing is the footer's signature (one source: footer .ft-sig): its centre-line strokes are cloned into a mask
+   that uncovers the name stroke by stroke. The name is not a white image laid on the sky: it is the sky's own paint, lightened toward
+   white (feColorMatrix on the same sky picture), so every stroke of the blue runs on through the letters; the dark strokes let more blue
+   through and the white catches on the light ridges, as a dry brush dragged over thick paint. A thin ridge of light and shade
+   (img/me-v7-sky-sig-ridge.webp) gives the paint its body; the brush shape (thick on the downstrokes) is img/me-v7-sky-sig-shape.webp.
+   Everything is laid on the painting's own pixels (viewBox = the 1920x1280 picture), rising to the right over the open sky between the
+   trees; the front gulls and a wisp of cloud (.me-v7-front) cross it a little. It is written once: in the pinned stage as soon as the
+   picture has grown to fill the stage (.me-grown, set by the page's pin script); in the plain layout 400 ms after the sky is in view.
+   Never during the paint-in, and it never replays. Reduced motion: complete. */
 (function () {
   var fig = document.querySelector('#about .me-photo.me-v7'), box = fig && fig.querySelector('.me-v7-sig'), src = document.querySelector('footer.ft .ft-sig');
-  if (!box || !src) return;
-  var NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg'), g = document.createElementNS(NS, 'g');
-  svg.setAttribute('viewBox', '0 0 1920 1280'); svg.setAttribute('focusable', 'false');
-  g.setAttribute('transform', 'translate(566 188) scale(' + (636 / 1203).toFixed(5) + ')');
-  [].forEach.call(src.childNodes, function (n) { g.appendChild(n.cloneNode(true)); });
-  var mask = g.querySelector('mask'), img = g.querySelector('image');
-  if (!mask || !img) return;
-  mask.id = 'hsig-m'; img.setAttribute('mask', 'url(#hsig-m)');
-  img.removeAttributeNS('http://www.w3.org/1999/xlink', 'href'); img.setAttribute('href', 'img/me-v7-sky-sig.webp?v=1');
-  var pen = mask.querySelector('g'); if (pen) pen.setAttribute('stroke-width', '36');
-  svg.appendChild(g); box.appendChild(svg);
+  var pen = src && src.querySelector('mask > g');
+  if (!box || !pen) return;
+  var NS = 'http://www.w3.org/2000/svg', T = 'translate(500 205) rotate(-8) scale(' + (720 / 1203).toFixed(5) + ')';
+  function el(name, at, kids) { var e = document.createElementNS(NS, name); for (var k in at) e.setAttribute(k, at[k]); (kids || []).forEach(function (c) { e.appendChild(c); }); return e; }
+  var all = { maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: 1920, height: 1280 };
+  var strokes = pen.cloneNode(true); strokes.setAttribute('transform', T); strokes.setAttribute('stroke-width', '36');
+  var write = el('mask', Object.assign({ id: 'hsig-m' }, all), [strokes]);
+  var shape = el('mask', Object.assign({ id: 'hsig-s' }, all), [el('image', { href: 'img/me-v7-sky-sig-shape.webp?v=1', width: 1203, height: 306, transform: T })]);
+  var paint = el('filter', { id: 'hsig-f', filterUnits: 'userSpaceOnUse', x: 466, y: 92, width: 820, height: 332, 'color-interpolation-filters': 'sRGB' },
+    [el('feColorMatrix', { type: 'matrix', values: '0 .55 0 0 .58  0 .55 0 0 .64  0 0 .3 0 .72  0 2.4 0 0 -.36' })]);
+  var sky = el('image', { href: 'img/me-v7-blvd-sky-1920.webp?v=2', width: 1920, height: 1280, preserveAspectRatio: 'none', filter: 'url(#hsig-f)' });
+  var svg = el('svg', { viewBox: '0 0 1920 1280', focusable: 'false' }, [
+    el('defs', {}, [write, shape, paint]),
+    el('g', { mask: 'url(#hsig-m)' }, [el('g', { mask: 'url(#hsig-s)' }, [sky]), el('image', { href: 'img/me-v7-sky-sig-ridge.webp?v=1', width: 1203, height: 306, transform: T })])
+  ]);
+  box.appendChild(svg);
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   box.classList.add('js');
   var root = document.documentElement, pin = fig.closest('.me-pin'), signed = false, timer = 0, tick = false;

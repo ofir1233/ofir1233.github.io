@@ -99,7 +99,7 @@ html.me-scroll #about .me-facts .me-k{ font-weight: 600; color: #fff; }
     html.me-scroll #about .hv-cta{ justify-content: center; }
     html.me-scroll #about .me-pin > *{ --rest: min(100cqh - var(--t0, 330px) - var(--sb), 130cqw); }
     html.me-scroll #about .me-photo.me-v7{ left: 0; width: 100%; top: calc(var(--t0, 330px) * (1 - var(--g, 0))); height: calc(var(--rest) + (100cqh - var(--rest)) * var(--g, 0)); }
-    html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ left: 54%; height: min(92%, 62cqw); }
+    html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ left: 57%; height: min(92%, 62cqw); } /* 57%, not 54: room for the name in the sky */
     html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ object-position: 46% 58%; }
   }
   /* no pin (reduced motion): the same two columns, still */
@@ -150,7 +150,7 @@ html.me-scroll #about .me-facts .me-k{ font-weight: 600; color: #fff; }
 #about .me-photo.me-v7 .me-v7-sig{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; container-type: size; pointer-events: none; will-change: transform; transform: translate(calc(var(--tx,0) * -2.2%), calc(var(--ty,0) * -2%)) scale(1.09); }
 #about .me-v7-sig svg{ position: absolute; display: block; width: max(100cqw, 150cqh); height: auto; aspect-ratio: 3 / 2; left: calc((100cqw - max(100cqw, 150cqh)) * var(--opx)); top: calc((100cqh - max(100cqw, 150cqh) / 1.5) * var(--opy)); overflow: visible; }
 #about .me-v7-sig.js mask path{ stroke-dasharray: 1; stroke-dashoffset: 1; }
-#about .me-v7-sig.js.signed mask path{ animation: hsig-write calc(var(--t) * .8) cubic-bezier(.42,.1,.5,1) calc(var(--d) * .8) forwards; }
+#about .me-v7-sig.js.signed mask path{ animation: hsig-write calc(var(--t) * .9) cubic-bezier(.42,.1,.5,1) calc(var(--d) * .9) forwards; }
 @keyframes hsig-write{ to{ stroke-dashoffset: 0; } }
 @media (prefers-reduced-motion: reduce) { #about .me-v7-sig mask path{ stroke-dashoffset: 0 !important; animation: none !important; } }
 @media (max-width: 860px) { #about .me-photo.me-v7{ --opx: .3; --opy: .5; } }
@@ -216,3 +216,7 @@ html.me-scroll #about .me-photo.me-v7 .me-v7-bg, html.me-scroll #about .me-photo
 html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-sky, html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-clouds, html.me-scroll #about .me-photo.me-v7 .me-v7-sig{ transform: translate(calc(var(--tx,0) * -2.6% - min(var(--z,0), .5) * 4%), calc(var(--ty,0) * -2.4% + min(var(--z,0), .5) * 1.4%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .01)); }
 html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-city{ transform: translate(calc(var(--tx,0) * -2.2%), calc(var(--ty,0) * -2%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .022)); }
 html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-street{ transform: translate(calc(var(--tx,0) * -.4%), calc(var(--ty,0) * -.3%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .036)); }
+/* The front of the sky: two gulls, a third far off and one wisp of cloud, in front of the name (owner, 24.11.2026: "birds and some of the
+   clouds in a layer over the signature, without hiding too much"). While the picture grows they drift in from the right (7% of the
+   picture at the start, home when it fills the stage), and only then is the name written behind them. */
+html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-front{ transform: translate(calc(var(--tx,0) * -2.9% - min(var(--z,0), .5) * 4% + (1 - var(--g,0)) * 7%), calc(var(--ty,0) * -2.6% + min(var(--z,0), .5) * 1.4%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .012)); }
