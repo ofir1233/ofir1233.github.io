@@ -66,3 +66,5 @@
 - 23.11 FYI: cast chat now sits in the story's iPhone, cropped at the plate's baseline. New line in it: Kofi, 'One more and we're a crew.' fya-* assets at v7.
 - 24.11 FYI: critics' fixes in Together and cast (rail, keyboard, thread jumps, call timer, phone-width tap keeps the reply on screen). fyi.css v10, fyi-take v13, fyi-scenes v14, fyi-art v9, fya-cast css v10 js v9.
 - 24.11 FYI: Who it is for list is lighter (40px faces, name and title on one line, even rows). fya-why.css v12.
+
+- 24.11 08:30 (site): Home Design Lab: the Hear Studio demo frame (hs-fig) and v7/design-lab.js script tag removed, per the owner. Owner approved going live: main fast-forwarded to v7-rebrand at e783e35; ofir1233.github.io now serves the v7 site.
