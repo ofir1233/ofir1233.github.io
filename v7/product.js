@@ -91,6 +91,10 @@
   };
   /* How long each step lasts once the frame has landed on it (the way there is added: see P.off). */
   var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 4400, 7600], agents: [6200, 4800, 8600], actions: [5600, 4200, 8500, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9900], signals: [8200, 6600, 14000] };
+  /* owner, 24.11: "the demos run too slowly, at least at the start". The step lengths and the shots' start times above are played
+     at this pace: the first step (which only shows the screen) at 55%, the rest at 80%. The camera's travel and the press, open and
+     settle beats below are not scaled, so nothing still opens while the picture is moving. */
+  var PACE = function (k) { return k === 0 ? .55 : .8; };
   /* the beat, in ms */
   var BEAT = {
     still: 300,        /* the frame has landed; nothing moves: long enough for the eye to arrive too */
@@ -352,9 +356,9 @@
     P.tick = function (dt) {
       if (!P.live || P.paused || P.rest || !P.inView || fig.closest('article.spot.r8-cov')) return;
       P.ms += dt;
-      var d = (P.dur[P.k] || 5200) + P.off, li = beats.children[P.k];
+      var pc = P.thr ? 1 : PACE(P.k), d = (P.dur[P.k] || 5200) * pc + P.off, li = beats.children[P.k];
       var st = shotsOf(P.k);
-      if (st && P.si < st.length - 1 && P.ms >= st[P.si + 1][0] + P.off) { P.si++; beat(false); }
+      if (st && P.si < st.length - 1 && P.ms >= st[P.si + 1][0] * pc + P.off) { P.si++; beat(false); }
       while (P.q.length && P.q[0].t <= P.ms) P.q.shift().fn();
       if (li) li.style.setProperty('--p', Math.min(1, P.ms / d));
       if (P.ms >= d) {
