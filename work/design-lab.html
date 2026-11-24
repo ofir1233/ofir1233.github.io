@@ -16,13 +16,13 @@ addEventListener('load',function(){setTimeout(function(){if('scrollRestoration' 
 addEventListener('hashchange',function(){setTimeout(strip,0);});
 addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
 }catch(e){}})();</script>
-<title>Hear Design Lab · Ofir Nona</title>
-<meta name="description" content="I rebuilt Hear, an AI platform for contact centers, in code, so every fix of mine had to beat a faithful copy of the live screen. The test removed my own ideas first.">
+<title>Introduction · Ofir Nona</title>
+<meta name="description" content="Why Hear has a Design Lab: an AI product for contact centers, one designer from brand to code, and why a picture in Figma is no longer enough.">
 <meta name="theme-color" content="#f4f3f1">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/design-lab.html">
-<meta property="og:title" content="Hear Design Lab · Ofir Nona">
-<meta property="og:description" content="I rebuilt Hear, an AI platform for contact centers, in code, so every fix of mine had to beat a faithful copy of the live screen. The test removed my own ideas first.">
+<meta property="og:title" content="Introduction · Ofir Nona">
+<meta property="og:description" content="Why Hear has a Design Lab: an AI product for contact centers, one designer from brand to code, and why a picture in Figma is no longer enough.">
 <meta property="og:image" content="https://ofir1233.github.io/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -36,304 +36,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/foot.css?v=200">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=44">
-<link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<link rel="stylesheet" href="../v7/cs2.css?v=6">
-<link rel="stylesheet" href="../v7/hear-ui.css?v=1">
-<style>
-/* page-only rules for the Design Lab case, scoped under .c2 (the shared sheet is v7/cs2.css; the product kit is v7/hear-ui.css).
-   The owner's rule (PRODUCT-LOOK.md): a drawing that demonstrates a principle (Platform | Tabs | Fixed, before and after) is a black-and-white
-   schematic built from the kit's parts (.hui.hui-bw); colour stays only where it is the point (the chart's nine segment colours and the
-   Fixed rows' chips that match them); the Ask AI states show the product itself (.hui, the kit's .sx-side sheet on the sky).
-   Each schematic is laid out at a fixed design width (data-dw) and zoomed to its column by the script at the end. On a phone the hero
-   reflows; the Alerts schematic keeps its true 1440x900 proportions and turns small text into grey bars, with the pins and key carrying the words. */
-.c2 .dl-scr{ position:relative; overflow:hidden; }
-.c2 .dl-z{ transform-origin:0 0; }
-.c2 .dl-pin{ z-index:5; pointer-events:none; }
-
-/* THE MOMENT: Alerts as shipped (Platform), the deleted direction (Tabs) and the kept fix (Fixed), one schematic at 1440 wide with the
-   fold of a 1440x900 window. The reader switches the version with the page control above it; in Fixed the rows are buttons. */
-.c2 .dl-ctl{ display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px; margin:32px 0 18px; }
-.c2 .dl-views{ display:inline-flex; padding:4px; border-radius:99px; background:#fff; box-shadow:inset 0 0 0 1px #cfd8e2; }
-.c2 .dl-views button{ min-height:44px; padding:0 18px; border:0; border-radius:99px; background:transparent; color:var(--ink2); font:600 15px/1 var(--body); cursor:pointer; }
-.c2 .dl-views button:hover{ color:var(--ink); }
-.c2 .dl-views button[aria-pressed="true"]{ background:var(--ink); color:#fff; }
-.c2 .dl-views button:focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
-.c2 .dl-views small{ font-weight:500; opacity:.75; }
-.c2 .dl-views button[data-view="tabs"] small{ color:#E0482B; opacity:1; }
-.c2 .dl-views button[data-view="tabs"][aria-pressed="true"] small{ color:#FFB4A3; }
-.c2 .dl-drag{ max-width:46ch; font:400 15px/1.5 var(--body); color:var(--ink2); }
-.c2 .dl-drag b{ color:var(--ink); }
-.c2 .dl-moshot{ background:#E8F0FA; }
-.c2 .dl-stack{ display:grid; width:1440px; position:relative; }
-.c2 .dl-moshot{ background:#F2F2F2; }
-.c2 .dl-stack{ display:grid; width:1440px; position:relative; }
-.c2 .al.hui-frame{ grid-area:1 / 1; width:1440px; height:1180px; aspect-ratio:auto; border-radius:0; border:0; transition:opacity .25s, visibility 0s; }
-.c2 .dl-mo .al-v{ opacity:0; visibility:hidden; transition:opacity .25s, visibility 0s .25s; }
-.c2 .dl-mo[data-view="platform"] .al-pf, .c2 .dl-mo[data-view="tabs"] .al-tb, .c2 .dl-mo[data-view="fixed"] .al-fx{ opacity:1; visibility:visible; transition:opacity .25s, visibility 0s; }
-.c2 .dl-mo .dl-pin[data-for]{ display:none; }
-.c2 .dl-mo[data-view="platform"] .dl-pin[data-for="platform"], .c2 .dl-mo[data-view="tabs"] .dl-pin[data-for="tabs"], .c2 .dl-mo[data-view="fixed"] .dl-pin[data-for="fixed"]{ display:grid; }
-.c2 .dl-mo:not([data-view="platform"]) .al-below{ display:none; }
-/* the schematic's own parts, on top of the kit */
-.c2 .al .card{ padding:28px 34px 0; }
-.c2 .al .dt-bar{ margin-top:14px; }
-.c2 .al .al-dim{ opacity:.45; }
-.c2 .al .al-lnk{ font-size:13px; color:#8A8A8A; text-decoration:underline; text-underline-offset:3px; }
-.c2 .al .kpis{ margin-top:18px; }
-.c2 .al .kpis>div{ padding-top:13px; padding-bottom:13px; }
-.c2 .al .kpis b{ font-size:34px; }
-.c2 .al .kpis b .sx-tag{ height:28px; padding:0 11px; font-size:15px; vertical-align:middle; }
-.c2 .al-ch{ flex:none; height:404px; margin-top:16px; }
-.c2 .al-ch .ch{ margin:22px 0 0 40px; }
-.c2 .al-tbl{ flex:none; }
-.c2 .al-tbh{ height:48px; border-top:1px solid var(--line); }
-.c2 .al .dt-r{ margin:0; padding:0 4px; height:56px; }
-.c2 .al .dt-r.hd{ height:38px; }
-.c2 .al .al-pr{ --dt-cols:44px 128px 170px minmax(0, 1fr) 96px 150px 16px; }
-.c2 .al .al-fr{ --dt-cols:minmax(0, 1fr) 70px 60px 70px 100px 50px 64px; }
-.c2 .al .al-nm{ overflow:hidden; text-overflow:ellipsis; }
-.c2 .al .al-n{ font-weight:600; color:#181818; font-variant-numeric:tabular-nums; }
-.c2 .al-tg{ position:relative; display:inline-block; width:30px; height:17px; border-radius:99px; background:#E4E4E4; }
-.c2 .al-tg::after{ content:""; position:absolute; top:2px; left:2px; width:13px; height:13px; border-radius:50%; background:#fff; box-shadow:0 0 0 1px #C9C9C9; }
-.c2 .al-tg.on{ background:#181818; }
-.c2 .al-tg.on::after{ left:15px; box-shadow:none; }
-.c2 .al-pf .al-tg{ width:36px; height:20px; }
-.c2 .al-pf .al-tg::after{ width:16px; height:16px; }
-.c2 .al-pf .al-tg.on::after{ left:18px; }
-.c2 .al .fx-n{ display:flex; align-items:center; gap:10px; min-width:0; font-weight:500; color:#181818; }
-.c2 .al .fx-n .t{ overflow:hidden; text-overflow:ellipsis; }
-.c2 .al .fx-n i{ flex:none; width:12px; height:12px; border-radius:3px; transition:opacity .2s; }
-.c2 .al .fx-go{ justify-self:end; font-weight:600; color:#181818; opacity:0; transition:opacity .15s; }
-.c2 .al button.fx-r{ width:100%; text-align:left; cursor:pointer; background:#fff; }
-.c2 .al button.fx-r:hover{ background:#F7F7F7; }
-.c2 .al button.fx-r:hover .fx-go, .c2 .al button.fx-r[aria-pressed="true"] .fx-go, .c2 .al #fx-row1 .fx-go{ opacity:1; }
-.c2 .al button.fx-r[aria-pressed="true"]{ background:#F2F2F2; box-shadow:inset 4px 0 0 #181818, inset 0 -1px 0 var(--line); }
-.c2 .al button.fx-r:focus-visible{ outline:4px solid #139FFD; outline-offset:-4px; }
-.c2 .al-fx.is-sel .seg{ opacity:.14; }
-.c2 .al-fx.is-sel .seg.on{ opacity:1; }
-.c2 .al-fx.is-sel button.fx-r:not([aria-pressed="true"]) .fx-n i{ opacity:.3; }
-.c2 .al-tb .dt-tabs{ position:relative; margin-top:16px; }
-.c2 .al-tb .dt-tabs em{ position:absolute; right:0; bottom:8px; padding:5px 12px; border-radius:99px; box-shadow:inset 0 0 0 2px #FF6F52; color:#E0482B; font-style:normal; font-weight:600; font-size:14px; }
-.c2 .al.al-tb .fx-go{ display:none; }
-/* chart, shared */
-.c2 .ch{ position:relative; }
-.c2 .ch-y{ position:absolute; top:0; bottom:0; left:-40px; right:0; }
-.c2 .ch-y span{ position:absolute; left:40px; right:0; border-top:1px dashed #E4E4E4; }
-.c2 .ch-y b{ position:absolute; left:-40px; width:30px; text-align:right; top:-8px; font-size:11px; font-weight:400; color:#8A8A8A; }
-.c2 .ch-b{ position:absolute; inset:0; display:flex; justify-content:space-around; align-items:flex-end; }
-.c2 .bar{ position:relative; width:84px; height:100%; display:flex; flex-direction:column; justify-content:flex-end; }
-.c2 .stk{ display:flex; flex-direction:column-reverse; }
-.c2 .seg{ display:block; width:100%; transition:opacity .2s; }
-.c2 .bar > span{ position:absolute; top:100%; left:50%; transform:translateX(-50%); margin-top:9px; white-space:nowrap; font-size:11.5px; color:#8A8A8A; }
-/* the fold of a 1440x900 window */
-.c2 .al-below{ position:absolute; left:0; right:0; top:902px; bottom:0; z-index:2; pointer-events:none; background:linear-gradient(180deg, rgba(242,242,242,.55), rgba(242,242,242,.85) 70%, #F2F2F2); }
-.c2 .al-fold{ position:absolute; left:0; right:0; top:900px; z-index:3; border-top:3px dashed #FF6F52; pointer-events:none; }
-.c2 .al-fold b{ position:absolute; padding:7px 14px; background:#FF6F52; color:#fff; font:600 18px/1 "Byrd", sans-serif; }
-/* phone: the true proportions, with the small text turned into bars */
-.c2 .is-small .al, .c2 .is-small .al *{ color:transparent !important; }
-.c2 .is-small .al .t{ background:#E4E4E4; border-radius:6px; }
-.c2 .is-small .al .dt-btn, .c2 .is-small .al .sx-seg span, .c2 .is-small .al .dt-search{ box-shadow:none; }
-.c2 .is-small .al-fold{ border-top-width:calc(2px / var(--z)); }
-.c2 .is-small .al-fold b{ color:#fff !important; }
-.c2 .is-small .al-fx .fx-rows .fx-r:nth-child(-n+3) .fx-n .t{ background:none; color:#181818 !important; font-size:calc(10px / var(--z)); font-weight:500; white-space:nowrap; }
-.c2 .is-small .al-fx .fx-rows .fx-r:nth-child(-n+3) .fx-n i{ width:calc(8px / var(--z)); height:calc(8px / var(--z)); border-radius:calc(2px / var(--z)); }
-.c2 .is-small .al-fx .fx-rows .fx-r:nth-child(-n+3) .fx-n{ gap:calc(5px / var(--z)); }
-.c2 .is-small .al-tb .dt-tabs em{ color:#E0482B !important; font-size:calc(11px / var(--z)); padding:calc(2px / var(--z)) calc(7px / var(--z)); box-shadow:inset 0 0 0 calc(1.5px / var(--z)) #FF6F52; }
-.c2 .is-key .c2-key{ margin-top:24px; }
-.c2 .dl-mo .c2-key[hidden]{ display:none; }
-.c2 .dl-sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
-@media (prefers-reduced-motion: reduce){ .c2 .al.hui-frame, .c2 .seg, .c2 .fx-n i, .c2 .fx-go{ transition:none !important; } }
-
-/* the hero: one compliance report as a schematic, Platform | Fixed */
-.c2 .hs-frame{ width:1200px; height:650px; aspect-ratio:auto; }
-.c2 .hs-frame .card.hs{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); padding:0; overflow:hidden; }
-.c2 .hs-p{ padding:24px 28px; }
-.c2 .hs-pf{ background:#F7F7F7; }
-.c2 .hs-tag{ display:inline-block; margin-bottom:14px; padding:5px 10px; border-radius:4px; background:#E4E4E4; font-size:12.5px; font-weight:600; }
-.c2 .hs-fx .hs-tag{ background:#181818; color:#fff; }
-.c2 .hs-cr{ font-size:13px; color:#8A8A8A; }
-.c2 .hs-p h4{ margin-top:4px; font-size:21px; font-weight:500; letter-spacing:-.01em; }
-.c2 .hs-chip{ margin-top:12px; }
-.c2 .hs-pf .hs-chip b{ font-weight:600; }
-.c2 .hs-fs{ display:grid; grid-template-columns:1fr 1fr; gap:16px 18px; margin-top:20px; }
-.c2 .hs-f{ display:grid; gap:4px; align-content:start; }
-.c2 .hs-f span{ font-size:13px; color:#8A8A8A; }
-.c2 .hs-pf .hs-f span{ font-size:11.5px; font-weight:600; letter-spacing:.03em; }
-.c2 .hs-f b{ justify-self:start; font-size:20px; font-weight:500; line-height:1.25; }
-.c2 .hs-f b small{ font-size:13.5px; font-weight:400; color:#8A8A8A; }
-.c2 .hs-f.hit b{ margin:-4px 0 0 -8px; padding:3px 8px; border-radius:6px; box-shadow:0 0 0 2px #181818; }
-.c2 .hs-f.dim b{ color:#C9C9C9; }
-.c2 .hs-pf .hs-f.dim b{ color:#181818; }
-.c2 .hs-tb{ margin-top:22px; }
-.c2 .hs-tb .dt-r{ --dt-cols:minmax(0, 1.6fr) 1fr 1fr; margin:0; padding:0 4px; height:44px; }
-.c2 .hs-tb .dt-r.hd{ height:30px; }
-.c2 .hs-d{ position:absolute; top:0; bottom:0; left:50%; width:1px; background:#181818; }
-.c2 .is-phone .hs-frame{ width:auto; height:auto; }
-.c2 .is-phone .hs-frame .side, .c2 .is-phone .hs-frame .hui-schem, .c2 .is-phone .hs-d, .c2 .is-phone .hs-tb, .c2 .is-phone .hs-f.dim{ display:none; }
-.c2 .is-phone .hs-frame .glass{ position:relative; inset:auto; }
-.c2 .is-phone .hs-frame .card.hs{ position:relative; inset:auto; grid-template-columns:1fr; }
-.c2 .is-phone .hs-p{ padding:18px 16px; }
-.c2 .is-phone .hs-pf{ border-bottom:1px solid #181818; }
-.c2 .is-phone .hs-fs{ grid-template-columns:1fr; gap:12px; margin-top:14px; }
-.c2 .is-phone .hs-p h4{ font-size:19px; }
-.c2 .is-phone .hs-chip{ white-space:normal; height:auto; min-height:30px; padding-top:4px; padding-bottom:4px; }
-.c2 .dl-hkey{ --n:2; }
-
-/* the board of fixes the test removed */
-/* the board of fixes the test removed */
-.c2 .dl-tally{ display:flex; flex-wrap:wrap; gap:14px 48px; margin-top:36px; padding:18px 0 20px; border-top:2px solid var(--ink); border-bottom:1px solid var(--line); }
-.c2 .dl-tally div{ display:grid; gap:6px; }
-.c2 .dl-tally b{ font:700 clamp(32px, 3.6vw, 48px)/1 var(--body); letter-spacing:-.02em; color:var(--ink); }
-.c2 .dl-tally .is-x b{ color:var(--coral); }
-.c2 .dl-tally span{ font:400 15px/1.35 var(--body); color:var(--mute); }
-.c2 .k-pills{ display:flex; flex-wrap:wrap; gap:8px; }
-.c2 .k-pills span{ display:inline-flex; align-items:center; gap:7px; padding:7px 12px; border-radius:6px; background:#fff; box-shadow:inset 0 0 0 1px #D0D0D0; font:500 13.5px/1 var(--body); color:var(--ink2); }
-.c2 .k-pills b{ font-weight:600; color:var(--ink); }
-.c2 .k-pills u{ text-decoration:underline wavy var(--coral) 1.5px; text-underline-offset:4px; color:var(--ink); }
-.c2 .k-pills em{ padding:4px 8px; border-radius:4px; background:#F2F2F2; color:#181818; font-style:normal; font-weight:600; }
-.c2 .k-mini{ position:relative; margin:4px 0 2px; padding:14px 14px 10px; border-radius:12px; background:#F6F8FA; box-shadow:inset 0 0 0 1px #E6EAEE; }
-.c2 .k-mini .km-b{ display:flex; align-items:flex-end; justify-content:space-around; height:120px; }
-.c2 .k-mini .km-b > div{ display:flex; flex-direction:column; align-items:center; gap:4px; width:16%; }
-.c2 .k-mini .km-b s{ font:600 11px/1 var(--body); color:var(--coral); text-decoration-thickness:1.5px; }
-.c2 .k-mini .km-b span{ display:flex; flex-direction:column-reverse; width:100%; border-radius:4px 4px 0 0; overflow:hidden; }
-.c2 .k-mini .km-b i{ display:block; }
-.c2 .k-mini .km-l{ display:flex; flex-wrap:wrap; gap:4px 12px; margin-top:10px; font:400 11.5px/1.3 var(--body); color:var(--mute); }
-.c2 .k-mini .km-l s{ display:inline-flex; align-items:center; gap:5px; text-decoration-color:var(--coral); text-decoration-thickness:1.5px; }
-.c2 .k-mini .km-l s::before{ content:""; width:8px; height:8px; border-radius:2px; background:var(--c); }
-
-/* what copying found: two cards, Platform above Fixed, as schematics */
-.c2 .dl-found{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; margin-top:36px; }
-.c2 .dl-fc{ display:flex; flex-direction:column; gap:14px; padding:22px 24px 24px; border-radius:16px; background:#fff; box-shadow:0 0 0 1px var(--line); }
-.c2 .dl-fc > .fc-h{ font:600 13px/1.2 var(--body); color:var(--deep); }
-.c2 .dl-fc h3{ margin-top:-6px; font:600 19px/1.3 var(--body); }
-.c2 .fc-ba{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:10px; }
-.c2 .fc-v{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; min-height:118px; padding:12px 14px 14px; border-radius:8px; background:#fff; box-shadow:inset 0 0 0 1px #D0D0D0; font-size:14px; }
-.c2 .fc-v.fc-pf{ background:#F7F7F7; }
-.c2 .fc-l{ font-size:11px; font-weight:600; letter-spacing:.08em; color:#8A8A8A; }
-.c2 .fc-v .dt-btn b{ font-weight:600; }
-.c2 .fc-pop{ padding:4px 8px; border-radius:4px; background:#181818; color:#fff; font-size:12px; }
-.c2 .fc-sm{ font-size:12px; color:#8A8A8A; }
-.c2 .fc-he{ display:grid; gap:6px; width:100%; direction:rtl; text-align:right; }
-.c2 .fc-he span{ display:flex; justify-content:space-between; gap:10px; padding:6px 10px; border-radius:6px; background:#fff; box-shadow:inset 0 0 0 1px #D0D0D0; font-size:13.5px; }
-.c2 .fc-he bdo{ font-variant-numeric:tabular-nums; }
-.c2 .dl-fc > p{ font:400 15.5px/1.5 var(--body); color:var(--ink2); }
-.c2 .dl-fc > p b{ color:var(--ink); }
-
-/* Ask AI: the product's own sheet (the kit's .sx-side) on the product sky; the states are picked with the shared stepper */
-.c2 .dl-ai .c2-panel .c2-shot{ padding:0; background:none; box-shadow:none; border-radius:16px; }
-.c2 .ai-fr.hui-frame{ aspect-ratio:auto; display:flex; justify-content:center; padding:28px 24px; border-radius:16px; }
-.c2 .ai-fr .sx-side{ position:relative; inset:auto; width:min(100%, 440px); }
-.c2 .ai-fr .sx-side .a{ margin-top:14px; }
-.c2 .ai-fr .sx-side .a p{ margin:0; }
-.c2 .ai-src{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:12px; font-size:12.5px; color:var(--mut); }
-.c2 .ai-act{ display:flex; gap:6px; margin-top:10px; color:#8A929A; }
-.c2 .ai-act svg{ width:16px; height:16px; }
-.c2 .ai-sec{ margin-top:12px; font-size:13px; font-weight:600; color:var(--ink); }
-.c2 .ai-tbl{ margin-top:6px; }
-.c2 .ai-tbl div{ display:grid; grid-template-columns:minmax(0, 1fr) 52px 48px; gap:10px; padding:9px 0; border-top:1px solid var(--line); font-size:13.5px; color:var(--ink2); font-variant-numeric:tabular-nums; }
-.c2 .ai-tbl div:first-child{ border-top:0; font-size:12px; color:var(--mut); }
-.c2 .ai-tbl div span:not(:first-child){ text-align:right; }
-.c2 .ai-empty{ display:grid; justify-items:center; gap:8px; margin-top:18px; text-align:center; }
-.c2 .ai-empty b{ font-size:15px; font-weight:600; }
-.c2 .ai-empty p{ font-size:13.5px; color:var(--mut); }
-.c2 .ai-row{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:4px; }
-.c2 .ai-err{ display:grid; gap:10px; justify-items:start; margin-top:16px; padding:13px 14px; border-radius:14px; background:var(--coral-tint); font-size:14px; line-height:1.45; color:var(--coral-ink); }
-.c2 .ai-fr .sx-side .cm-ask{ margin-top:18px; }
-@media (max-width:560px){ .c2 .ai-fr.hui-frame{ padding:16px 12px; } }
-
-@media (max-width:900px){
-  .c2 .dl-found{ grid-template-columns:1fr; }
-  .c2 .dl-hkey{ --n:1; }
-}
-@media (max-width:560px){
-  .c2 .dl-views{ display:flex; width:100%; }
-  .c2 .dl-views button{ flex:1; display:grid; place-content:center; gap:2px; min-height:52px; padding:0 6px; font-size:14.5px; }
-  .c2 .dl-views small{ font-size:11.5px; }
-  .c2 .dl-tally{ gap:14px 28px; }
-  .c2 .fc-ba{ grid-template-columns:1fr; }
-  .c2 .fc-v{ min-height:0; }
-}
-.c2 .c2-coda{ max-width:none; }
-.c2 .c2-coda em{ white-space:nowrap; }
-/* round 6. The hero's proof sits above the fold at 1440x900: a two-line title and a two-line lead */
-.c2 .c2-hero h1{ max-width:none; font-size:clamp(36px, 4.3vw, 58px); }
-.c2 .c2-hero .c2-ctx{ max-width:960px; margin-top:16px; }
-.c2 .c2-hero .c2-sum{ margin-top:28px; }
-.c2 .c2-hero .c2-fig{ margin-top:26px; }
-/* the board is a ledger: paper, hairline rules, a line per removed fix */
-.c2 .dl-src{ margin-top:8px; font:400 13.5px/1.4 var(--body); color:var(--mute); }
-.c2 .dl-led{ margin-top:22px; padding:6px 30px; border-radius:6px; background:#FBFAF6; box-shadow:0 0 0 1px #E4DFD3; }
-.c2 .dl-led > li{ display:grid; grid-template-columns:minmax(0, .8fr) minmax(0, 1fr) minmax(0, 1.1fr); gap:12px 32px; padding:26px 0; border-top:1px solid #E4DFD3; }
-.c2 .dl-led > li:first-child{ border-top:0; }
-.c2 .led-s{ font:600 12.5px/1.2 var(--body); letter-spacing:.02em; color:var(--mute); }
-.c2 .dl-led h3{ margin-top:6px; font:600 22px/1.25 var(--body); color:var(--ink2); text-decoration:line-through; text-decoration-color:var(--coral); text-decoration-thickness:2px; }
-.c2 .led-d p, .c2 .led-w p{ font:400 16px/1.5 var(--body); color:var(--ink2); }
-.c2 .led-d .k-pills{ margin-bottom:10px; }
-.c2 .led-w small{ display:block; margin-bottom:4px; font:600 12.5px/1.2 var(--body); color:var(--deep); }
-.c2 .led-w p{ color:var(--ink); }
-.c2 .led-q{ margin:14px 0 0; padding-left:14px; border-left:2px solid var(--coral); font:600 19px/1.35 var(--body); color:var(--ink); }
-.c2 .led-q cite{ display:block; margin-top:4px; font:400 13px/1.3 var(--body); font-style:normal; color:var(--mute); }
-.c2 .k-sums{ margin-top:12px; padding:12px 14px 10px; border-radius:8px; background:#fff; box-shadow:inset 0 0 0 1px #E4DFD3; }
-.c2 .k-sums .ks-n{ display:grid; grid-template-columns:repeat(5, 1fr); text-align:center; }
-.c2 .k-sums .ks-n s{ display:block; font:600 20px/1.1 var(--body); color:var(--ink2); text-decoration-color:var(--coral); text-decoration-thickness:2px; }
-.c2 .k-sums .ks-n span{ font:400 11.5px/1.3 var(--body); color:var(--mute); }
-.c2 .k-sums .km-l{ display:flex; flex-wrap:wrap; gap:4px 12px; margin-top:10px; padding-top:8px; border-top:1px dashed #E4DFD3; font:400 11.5px/1.3 var(--body); color:var(--mute); }
-.c2 .k-sums .km-l s{ display:inline-flex; align-items:center; gap:5px; text-decoration-color:var(--coral); text-decoration-thickness:1.5px; }
-.c2 .k-sums .km-l s::before{ content:""; width:8px; height:8px; border-radius:2px; background:var(--c); }
-.c2 .dl-led > li.led-low{ padding:14px 0; align-items:baseline; }
-.c2 .led-low p{ font:400 15px/1.45 var(--body); color:var(--mute); }
-.c2 .led-low s{ font-weight:600; color:var(--ink2); text-decoration-color:var(--coral); text-decoration-thickness:1.5px; }
-@media (max-width:900px){
-  .c2 .dl-led{ padding:4px 20px; }
-  .c2 .dl-led > li{ grid-template-columns:1fr; gap:8px; }
-  .c2 .dl-led > li.led-low{ gap:2px; }
-}
-.c2 .dl-mo[data-view="tabs"] .al-fold b{ bottom:auto; top:10px; }
-/* round 8 */
-.c2 .dl-mo:not([data-view="fixed"]) .fl-f{ display:none; }
-.c2 .dl-mo .is-small .al-fold b{ right:calc(12px / var(--z)); left:auto; }
-/* the board: the reader judges each removed change before the review's verdict shows */
-.c2 .dl-led h3{ text-decoration:none; }
-.c2 .dl-led .lt{ padding-bottom:1px; background:linear-gradient(var(--coral), var(--coral)) 0 55% / 0% 2px no-repeat; -webkit-box-decoration-break:clone; box-decoration-break:clone; transition:background-size .32s ease-out; }
-.c2 .dl-led .is-cut .lt{ background-size:100% 2px; }
-.c2 .led-b{ display:inline-flex; gap:6px; margin-top:14px; }
-.c2 .led-b button{ min-height:36px; padding:0 14px; border:0; border-radius:99px; background:#fff; box-shadow:inset 0 0 0 1px #D6D0C3; color:var(--ink2); font:600 14px/1 var(--body); cursor:pointer; }
-.c2 .led-b button:hover{ color:var(--ink); box-shadow:inset 0 0 0 1px #A9A294; }
-.c2 .led-b button[aria-pressed="true"]{ background:var(--ink); color:#fff; box-shadow:none; }
-.c2 .led-b button:focus-visible, .c2 .dl-all:focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
-.c2 .led-w{ transition:opacity .2s .12s, visibility 0s .12s; }
-.c2 .dl-led.is-live > li:not(.is-cut) .led-w{ opacity:0; visibility:hidden; transition:none; }
-.c2 .dl-led.is-live > li:not(.is-cut) .k-sums s, .c2 .dl-led.is-live > li:not(.is-cut) .km-l s{ text-decoration:none; }
-.c2 .dl-led > li{ align-items:start; }
-.c2 .dl-you{ display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin-top:18px; }
-.c2 .dl-you p{ font:600 clamp(20px, 2vw, 26px)/1.25 var(--body); letter-spacing:-.01em; color:var(--ink); }
-.c2 .dl-all{ min-height:40px; padding:0 16px; border:0; border-radius:99px; background:transparent; box-shadow:inset 0 0 0 1px #cfd4d9; color:var(--ink2); font:600 14px/1 var(--body); cursor:pointer; }
-.c2 .dl-all[hidden]{ display:none; }
-@media (prefers-reduced-motion: reduce){ .c2 .dl-led .lt, .c2 .led-w{ transition:none !important; } }
-.c2 .al-fold .fl-s{ display:none; }
-.c2 .dl-mo .is-small .al-fold .fl-w{ display:none; }
-.c2 .dl-mo .is-small .al-fold .fl-s{ display:inline; }
-.c2 .dl-mo .is-small .al-fold b, .c2 .dl-mo[data-view] .is-small .al-fold b{ right:calc(12px / var(--z)); left:auto; top:calc(6px / var(--z)); bottom:auto; font-size:calc(11px / var(--z)); }
-@media (max-width:900px){ .c2 .dl-led.is-live > li:not(.is-cut) .led-w{ display:none; } }
-/* the fold's label sits in the empty sidebar strip above the line, clear of every row */
-.c2 .al-fold b, .c2 .dl-mo[data-view="tabs"] .al-fold b{ left:14px; right:auto; top:auto; bottom:9px; max-width:206px; white-space:normal; line-height:1.25; border-radius:12px; padding:8px 12px; }
-.c2 .dl-led:not(.is-live) .led-b{ display:none; }
-.c2 .dl-mo .is-small .al-fold b, .c2 .dl-mo[data-view] .is-small .al-fold b{ max-width:none; white-space:nowrap; line-height:1; border-radius:99px; padding:calc(4px / var(--z)) calc(8px / var(--z)); }
-
-.c2 .al-pf .al-ch{ height:480px; }
-.c2 .al-fx .al-ch{ height:441px; }
-.c2 .dl-ai .c2-panel .c2-shot{ display:block; }
-.c2 .ai-fr .sx-side{ width:min(100%, 480px); }
-.c2 .fc-k{ font-weight:600; color:#181818; }
-.c2 .fc-v .fc-cr{ height:auto; min-height:30px; flex-wrap:wrap; white-space:normal; padding:5px 10px; line-height:1.3; }
-/* round 10: the outline around the hero's 50 / 76 keeps clear of its label; the Ask AI stage keeps one size for all four states */
-.c2 .hs-f.hit b{ margin:6px 0 0; padding:2px 8px; }
-.c2 .dl-ai .c2-stage{ display:grid; grid-template-columns:minmax(0, 1fr); }
-.c2 .dl-ai .c2-panel{ grid-area:1 / 1; width:100%; }
-.c2 .dl-ai .c2-panel[hidden]{ display:block; visibility:hidden; }
-.c2 .dl-ai .c2-nav{ grid-row:2; }
-.c2 .dl-ai .c2-panel .c2-shot, .c2 .dl-ai .ai-fr.hui-frame{ width:100%; height:100%; }
-.c2 .dl-ai .ai-fr .sx-side{ align-self:flex-start; }
-</style>
+<link rel="stylesheet" href="../v7/intro.css?v=1">
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
 <body>
@@ -341,243 +44,94 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <header class="topbar">
   <div class="wrap">
     <a class="home" href="../index.html#design-lab" aria-label="Ofir Nona. Back to all work"><img class="nona-logo" src="../img/logo-nona.svg" alt="" width="217" height="100"></a>
-    <p class="tb-run" aria-hidden="true"><b class="tb-case">Hear Design Lab</b><span class="tb-ch"></span></p>
+    <p class="tb-run" aria-hidden="true"><b class="tb-case">Introduction</b><span class="tb-ch"></span></p>
     <nav aria-label="Case studies"><a class="tb-link tb-all" href="../index.html#design-lab">All work</a><a class="tb-link pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill solid" href="explainable-scores.html" aria-label="Next case: Explainable scores"><span class="tb-nx">Next: Explainable scores</span><span class="tb-nxs" aria-hidden="true">Next</span></a></nav>
   </div>
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main" class="c2">
-  <header class="c2-hero">
-    <div class="c2-w">
-      <p class="c2-kick">Case study · <b>Hear Design Lab</b></p>
-      <h1>I rebuilt Hear&rsquo;s live product in code, so every fix had to beat the real screen</h1>
-      <p class="c2-ctx">Hear is an AI platform for contact centers. I copied its screens faithfully, then made my redesigns compete with the copies, on the same data.</p>
-      <dl class="c2-sum">
-        <div><dt>For</dt><dd>Hear&rsquo;s product team and developers, who decide what gets built.</dd></div>
-        <div><dt>The problem</dt><dd>A redesign judged against a picture of the old screen always wins.</dd></div>
-        <div><dt>What I did</dt><dd>Hear Design Lab, my working copy of Hear, built in code: each screen as shipped, beside my fix.</dd></div>
-        <div><dt>Where it stands</dt><dd>In Hear&rsquo;s repository since 16 Mar 2026. Topics, its colours and icons shipped; most fixes wait.</dd></div>
-      </dl>
-      <figure class="c2-fig">
-        <div class="c2-shot dl-hshot" role="img" aria-label="A schematic of one compliance report in the Lab, for the demo company Northwind, shown as Platform and Fixed side by side. Platform gives Total calls reviewed 50 and a date chip reading 2026-09-27 - 2026-10-28; Fixed gives 76, first 50 below, and Sep 28 to Oct 28, 2026.">
-          <div class="dl-scr" data-dw="1200" data-phone="reflow"><div class="hui hui-bw hui-frame hs-frame dl-z"><aside class="side" data-on="compliance">
-    <div class="side__top"><span class="ws"><b class="ws__mark">N</b><span class="ws__name t">Northwind</span><svg class="i ws__chev" viewBox="0 0 18 18"><path d="M6 7.5l3-3 3 3M6 10.5l3 3 3-3"/></svg></span><span class="tgl"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="3" width="13" height="12" rx="3"/><path d="M7 3v12"/></svg></span></div>
-    <span class="new"><svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg><span class="lbl t">New app</span></span>
-    <span class="nv nv--all"><svg class="i" viewBox="0 0 18 18"><path d="M3 6.2 9 3l6 3.2L9 9.4zM3 9.4l6 3.2 6-3.2M3 12.6l6 3.2 6-3.2"/></svg><b class="cnt">See all <span>5</span><svg class="i" viewBox="0 0 18 18"><path d="M7 4.5l4.5 4.5L7 13.5"/></svg></b><span class="lbl t">Apps</span></span>
-    <span class="nv" data-nv="eval"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="2.5" y="10.1" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="10.1" width="5.4" height="5.4" rx="1.2"/></svg><span class="lbl t">Evaluation by agent</span></span>
-    <span class="nv" data-nv="disclosure"><svg class="i" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h8"/></svg><span class="lbl t">Disclosure review</span></span>
-    <span class="nv" data-nv="handle"><svg class="i" viewBox="0 0 18 18"><path d="M3.5 15V9M9 15V3.5M14.5 15V7"/></svg><span class="lbl t">Handle time by team</span></span>
-    <span class="nv" data-nv="review"><svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.2"/><path d="M6.3 9.2l1.9 1.9 3.6-4"/></svg><span class="lbl t">Compliance review</span></span>
-    <hr>
-    <span class="nv" data-nv="conversations"><svg class="i" viewBox="0 0 18 18"><path d="M3 7.5v3M6 5v8M9 7v4M12 3.5v11M15 7.5v3"/></svg><span class="lbl t">Conversations</span></span>
-    <span class="nv" data-nv="knowledge"><svg class="i" viewBox="0 0 18 18"><path d="M3.5 3.5h8a2 2 0 0 1 2 2v9h-8a2 2 0 0 1-2-2zM3.5 12.5a2 2 0 0 1 2-2h8"/></svg><span class="lbl t">Knowledge</span></span>
-    <span class="nv" data-nv="workflows"><svg class="i" viewBox="0 0 18 18"><path d="M10 2.5 4 10h4.5L8 15.5 14 8H9.5z"/></svg><span class="lbl t">Workflows</span></span>
-    <span class="nv" data-nv="topics"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="13" height="13" rx="2.2"/><path d="M9.8 2.5v13M9.8 9.6h5.7"/></svg><span class="lbl t">Topics</span></span>
-    <span class="nv on" data-nv="compliance"><svg class="i" viewBox="0 0 18 18"><path d="M9 2.5 3.5 4.6v4.2c0 3.2 2.2 5.6 5.5 6.7 3.3-1.1 5.5-3.5 5.5-6.7V4.6z"/><path d="M6.5 9l1.8 1.8 3.3-3.6"/></svg><span class="lbl t">Compliance</span></span>
-    <div class="sp"></div>
-    <span class="nv nv--bell"><svg class="i" viewBox="0 0 18 18"><path d="M4.5 12.5V8.2a4.5 4.5 0 0 1 9 0v4.3l1.2 1.5H3.3zM7.3 15.5a1.8 1.8 0 0 0 3.4 0"/></svg><b class="badge">3</b><span class="lbl t">Notifications</span></span>
-    <span class="nv"><svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.5"/><path d="M7.2 7.2a1.9 1.9 0 1 1 2.6 1.8c-.5.3-.8.7-.8 1.3M9 12.7v.1"/></svg><span class="lbl t">Help</span></span>
-    <span class="nv"><svg class="i" viewBox="0 0 18 18"><path d="M3 5.5h6.5M12.5 5.5H15M3 12.5h2.5M8.5 12.5H15"/><circle cx="11" cy="5.5" r="1.5"/><circle cx="7" cy="12.5" r="1.5"/></svg><span class="lbl t">Settings</span></span>
-    <div class="me"><b>MC</b><span>Maya Chen<small>QA lead</small></span></div>
-    <div class="powered"><svg viewBox="0 0 69 60" aria-hidden="true"><path d="M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z"/></svg><span>Powered by Hear</span></div>
-  </aside><div class="glass"><div class="card hs"><div class="hs-p hs-pf"><p class="hs-tag">Platform &middot; as shipped</p><p class="hs-cr">Compliance &rsaquo; Reports</p><h4>Disclosure review, Team North</h4><p class="dt-btn hs-chip"><span class="fc-k">Created At</span>&nbsp;2026-09-27 - 2026-10-28</p><div class="hs-fs"><div class="hs-f hit"><span>TOTAL CALLS REVIEWED</span><b>50</b></div><div class="hs-f"><span>TOTAL OFFENCES</span><b>33</b></div><div class="hs-f dim"><span>TOTAL SCORING</span><b>&mdash;</b></div><div class="hs-f dim"><span>TOTAL APPLICABLE FINE</span><b>&mdash;</b></div></div><div class="hs-tb"><div class="dt-r hd"><span>Call</span><span>Length</span><span>Offences</span></div><div class="dt-r"><span>Oct 27, 09:14</span><span>4:12</span><span>2</span></div><div class="dt-r"><span>Oct 27, 08:40</span><span>2:48</span><span>0</span></div><div class="dt-r"><span>Oct 26, 16:05</span><span>6:31</span><span>1</span></div></div></div><div class="hs-d" aria-hidden="true"></div><div class="hs-p hs-fx"><p class="hs-tag">Fixed &middot; my version</p><p class="hs-cr">Compliance &rsaquo; Reports</p><h4>Disclosure review, Team North</h4><p class="sx-chip hs-chip">Sep 28 &ndash; Oct 28, 2026</p><div class="hs-fs"><div class="hs-f hit" id="hp-76"><span>Total calls reviewed</span><b>76 <small>(first 50 below)</small></b></div><div class="hs-f"><span>Total offences</span><b>33 <small>in the first 50</small></b></div><div class="hs-f dim"><span>Total scoring</span><b>&mdash;</b></div><div class="hs-f dim"><span>Total applicable fine</span><b>&mdash;</b></div></div><div class="hs-tb"><div class="dt-r hd"><span>Call</span><span>Length</span><span>Offences</span></div><div class="dt-r"><span>Oct 27, 09:14</span><span>4:12</span><span>2</span></div><div class="dt-r"><span>Oct 27, 08:40</span><span>2:48</span><span>0</span></div><div class="dt-r"><span>Oct 26, 16:05</span><span>6:31</span><span>1</span></div></div></div></div></div><span class="hui-schem">Schematic</span></div></div>
-          <span class="c2-pin dl-pin" data-at=".hs-pf .hs-tag" data-ax="1" data-ay="0.5" data-ox="20" aria-hidden="true">1</span><span class="c2-pin dl-pin" data-at="#hp-76 b" data-ax="1" data-ay="0.5" data-ox="26" aria-hidden="true">2</span>
-        </div>
-        <figcaption><ol class="c2-key dl-hkey" style="--n:2">
-          <li><i aria-hidden="true">1</i><span><b>The same report, twice:</b> as Hear ships it (Platform) and as I fixed it (Fixed), drawn as a schematic, on the same demo data.</span></li>
-          <li><i aria-hidden="true">2</i><span><b>Same report, same data.</b> Platform quietly totals the 50 calls it loaded; Fixed says 76, first 50 below. Only a real volume shows that.</span></li>
-        </ol></figcaption>
-      </figure>
-    </div>
+<main id="main" class="in-page">
+  <header class="in-hero">
+    <p class="in-tag">Introduction <b>Wireframe · low fidelity</b></p>
+    <h1>Why Hear has a Design Lab</h1>
+    <p>Before the product stories: what Hear is, who designs it, and the way of working every story comes from.</p>
   </header>
 
-  <section class="c2-sec is-key" id="alerts" data-ch="Alerts, side by side">
-    <div class="c2-w">
-      <p class="c2-n">Alerts, side by side</p>
-      <h2>Moving Alerts&rsquo; list above the fold lost. Making its table the chart&rsquo;s key won.</h2>
-      <p class="c2-lede">Alerts are checks a team sets on calls; each is a monitor. My first fix pulled the list above the fold and put the four numbers and the chart behind a tab. Beside the real screen, losing them cost more than one scroll. The fix that won leaves the fold and makes the table the chart&rsquo;s key.</p>
-      <figure class="dl-mo" data-view="platform">
-        <div class="dl-ctl">
-          <div class="dl-views" role="group" aria-label="Show the Alerts screen as">
-            <button type="button" data-view="platform" aria-pressed="true">Platform <small>as shipped</small></button><button type="button" data-view="tabs" aria-pressed="false">Tabs <small>removed</small></button><button type="button" data-view="fixed" aria-pressed="false">Fixed <small>kept</small></button>
+  <section class="in-sl" aria-label="Introduction, seven steps">
+    <div class="in-stw">
+      <div class="in-stage">
+        <div class="in-sv" id="in-sv" data-s="0" aria-hidden="true">
+          <div class="in-w" id="w1">
+            <div class="bar"></div>
+            <div class="kpi"><span>Calls 50</span><span>Offences 33</span></div>
+            <div class="r"><i></i><i></i><i></i></div><div class="r"><i></i><i></i><i></i></div><div class="r"><i></i><i></i><i></i></div>
+            <div class="r"><i></i><i></i><i></i></div><div class="r"><i></i><i></i><i></i></div><div class="r"><i></i><i></i><i></i></div>
+            <div class="r"><i></i><i></i><i></i></div><div class="r"><i></i><i></i><i></i></div><div class="r"><i></i><i></i><i></i></div>
+            <div class="sc"><i></i><i></i></div>
           </div>
-          <p class="dl-drag"><b>Switch the version.</b> The fold stays put. In Fixed, pick a row of the table.</p>
+          <div class="in-w" id="w2">
+            <div class="bar"><em class="x">Sep 28 – Oct 28</em></div>
+            <div class="kpi"><span>Calls 50<em class="x">76 · first 50</em></span><span>Offences 33</span></div>
+            <div class="r"><i></i><i></i><i></i></div><div class="r"><i></i><i></i><i></i></div><div class="r rtl"><i></i><i></i><i></i></div>
+            <div class="r"><i></i><i></i><i></i></div><div class="r"><i></i><i></i><i></i></div><div class="r"><i></i><i></i><i></i></div>
+            <div class="r"><i></i><i></i><i></i></div><div class="r"><i></i><i></i><i></i></div><div class="r"><i></i><i></i><i></i></div>
+            <div class="ai x"><span>AI · its own words</span></div>
+            <span class="pin x" style="left:104px;top:26px">1</span>
+            <span class="pin x" style="right:4px;top:118px">2</span>
+            <span class="pin x" style="left:126px;top:2px">3</span>
+            <span class="pin x" style="left:4px;bottom:66px">4</span>
+            <div class="cm"><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="in-w" id="w3">
+            <div class="bar"></div>
+            <div class="sw"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
         </div>
-        <div class="c2-shot dl-moshot">
-          <div class="dl-scr" data-dw="1440" data-phone="zoom"><div class="dl-z dl-stack">
-            <div class="hui hui-bw hui-frame al al-pf al-v dl-cv" data-v="platform" aria-hidden="true"><aside class="side" data-on="alerts">
-    <div class="side__top"><span class="ws"><b class="ws__mark">N</b><span class="ws__name t">Northwind</span><svg class="i ws__chev" viewBox="0 0 18 18"><path d="M6 7.5l3-3 3 3M6 10.5l3 3 3-3"/></svg></span><span class="tgl"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="3" width="13" height="12" rx="3"/><path d="M7 3v12"/></svg></span></div>
-    <span class="new"><svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg><span class="lbl t">New app</span></span>
-    <span class="nv nv--all"><svg class="i" viewBox="0 0 18 18"><path d="M3 6.2 9 3l6 3.2L9 9.4zM3 9.4l6 3.2 6-3.2M3 12.6l6 3.2 6-3.2"/></svg><b class="cnt">See all <span>5</span><svg class="i" viewBox="0 0 18 18"><path d="M7 4.5l4.5 4.5L7 13.5"/></svg></b><span class="lbl t">Apps</span></span>
-    <span class="nv" data-nv="eval"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="2.5" y="10.1" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="10.1" width="5.4" height="5.4" rx="1.2"/></svg><span class="lbl t">Evaluation by agent</span></span>
-    <span class="nv" data-nv="disclosure"><svg class="i" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h8"/></svg><span class="lbl t">Disclosure review</span></span>
-    <span class="nv" data-nv="handle"><svg class="i" viewBox="0 0 18 18"><path d="M3.5 15V9M9 15V3.5M14.5 15V7"/></svg><span class="lbl t">Handle time by team</span></span>
-    <span class="nv" data-nv="review"><svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.2"/><path d="M6.3 9.2l1.9 1.9 3.6-4"/></svg><span class="lbl t">Compliance review</span></span>
-    <hr>
-    <span class="nv" data-nv="conversations"><svg class="i" viewBox="0 0 18 18"><path d="M3 7.5v3M6 5v8M9 7v4M12 3.5v11M15 7.5v3"/></svg><span class="lbl t">Conversations</span></span>
-    <span class="nv" data-nv="knowledge"><svg class="i" viewBox="0 0 18 18"><path d="M3.5 3.5h8a2 2 0 0 1 2 2v9h-8a2 2 0 0 1-2-2zM3.5 12.5a2 2 0 0 1 2-2h8"/></svg><span class="lbl t">Knowledge</span></span>
-    <span class="nv" data-nv="workflows"><svg class="i" viewBox="0 0 18 18"><path d="M10 2.5 4 10h4.5L8 15.5 14 8H9.5z"/></svg><span class="lbl t">Workflows</span></span>
-    <span class="nv" data-nv="topics"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="13" height="13" rx="2.2"/><path d="M9.8 2.5v13M9.8 9.6h5.7"/></svg><span class="lbl t">Topics</span></span>
-    <span class="nv on" data-nv="alerts"><svg class="i" viewBox="0 0 18 18"><path d="M4.5 12.5V8.2a4.5 4.5 0 0 1 9 0v4.3l1.2 1.5H3.3zM7.3 15.5a1.8 1.8 0 0 0 3.4 0"/></svg><span class="lbl t">Alerts</span></span>
-    <div class="sp"></div>
-    <span class="nv nv--bell"><svg class="i" viewBox="0 0 18 18"><path d="M4.5 12.5V8.2a4.5 4.5 0 0 1 9 0v4.3l1.2 1.5H3.3zM7.3 15.5a1.8 1.8 0 0 0 3.4 0"/></svg><b class="badge">3</b><span class="lbl t">Notifications</span></span>
-    <span class="nv"><svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.5"/><path d="M7.2 7.2a1.9 1.9 0 1 1 2.6 1.8c-.5.3-.8.7-.8 1.3M9 12.7v.1"/></svg><span class="lbl t">Help</span></span>
-    <span class="nv"><svg class="i" viewBox="0 0 18 18"><path d="M3 5.5h6.5M12.5 5.5H15M3 12.5h2.5M8.5 12.5H15"/><circle cx="11" cy="5.5" r="1.5"/><circle cx="7" cy="12.5" r="1.5"/></svg><span class="lbl t">Settings</span></span>
-    <div class="me"><b>MC</b><span>Maya Chen<small>QA lead</small></span></div>
-    <div class="powered"><svg viewBox="0 0 69 60" aria-hidden="true"><path d="M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z"/></svg><span>Powered by Hear</span></div>
-  </aside><div class="glass"><div class="card"><div class="top"><div><h2 class="t">Alerts</h2></div><div class="sp"></div><span class="act ink t">Create Monitor</span></div><div class="dt-bar"><span class="dt-btn t">Last 30 days</span><span class="dt-btn al-dim t">+ Filter</span><span class="dt-btn t">+1</span><span class="dt-btn t">Preset: Default</span><span class="al-lnk t">Clear preset</span></div><div class="kpis"><div><small class="t">Configuration &middot; Total Monitors</small><b class="t">9</b></div><div><small class="t">Configuration &middot; Active Monitors</small><b class="t"><span class="sx-tag">8 / 10</span></b></div><div><small class="t">Activity &middot; Alert Triggers</small><b class="t">403</b></div><div><small class="t">Activity &middot; Interactions with Alerts</small><b class="t">212</b></div></div><div class="al-ch" id="pf-chart"><div class="sx-h"><b class="t">Alert Triggers</b><span class="sx-seg r"><span class="on t">Stacked total</span><span class="t">Compare monitors</span></span></div><div class="ch" style="height:300px"><div class="ch-y"><span style="bottom:0px"><b class="t">0</b></span><span style="bottom:95px"><b class="t">50</b></span><span style="bottom:190px"><b class="t">100</b></span><span style="bottom:285px"><b class="t">150</b></span></div><div class="ch-b"><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:85.5px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:11.4px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:7.6px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.7px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.8px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:1.9px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:1.9px;background:#9C7A5B"></i></div><span class="t">Week 39, 2026</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:79.8px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:11.4px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:5.7px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.7px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.8px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:1.9px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:1.9px;background:#9C7A5B"></i></div><span class="t">Week 40, 2026</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:93.1px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:11.4px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:7.6px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.7px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.8px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:1.9px;background:#00B3BF"></i><i class="seg" data-m="wp" style="height:1.9px;background:#8FA3B8"></i></div><span class="t">Week 41, 2026</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:98.8px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:13.3px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:7.6px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.7px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.8px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:3.8px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:1.9px;background:#9C7A5B"></i></div><span class="t">Week 42, 2026</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:222.3px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:17.1px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:11.4px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.7px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:5.7px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:5.7px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:3.8px;background:#9C7A5B"></i><i class="seg" data-m="wp" style="height:5.7px;background:#8FA3B8"></i></div><span class="t">Week 43, 2026</span></div></div></div></div><div class="al-tbl" id="pf-table"><div class="sx-h al-tbh"><b class="t">Monitors</b><span class="r dt-search t">Search</span><span class="dt-btn t">All folders</span></div><div class="dt-r hd al-pr"><span class="t">Active</span><span class="t">ID</span><span class="t">Name</span><span class="t">Folder</span><span class="t">Alert Trigg&hellip;</span><span class="t">Last Triggered</span><span></span></div><div class="dt-r al-pr" id="pf-row1"><span><i class="al-tg on"></i></span><span class="id t">66f2a1c9e4b0&hellip;</span><span class="al-nm t">Missing recording notice</span><span class="t">Compliance</span><span class="t">15</span><span class="t">2026-10-27 14:10</span><span class="t">&#8942;</span></div><div class="dt-r al-pr"><span><i class="al-tg on"></i></span><span class="id t">66f2a1d03b7e&hellip;</span><span class="al-nm t">Third-party disclosure</span><span class="t">Compliance</span><span class="t">305</span><span class="t">2026-10-26 14:14</span><span class="t">&#8942;</span></div><div class="dt-r al-pr"><span><i class="al-tg on"></i></span><span class="id t">66f2a1d7c8e2&hellip;</span><span class="al-nm t">Account details without ID check</span><span class="t">Compliance</span><span class="t">34</span><span class="t">2026-10-25 14:18</span><span class="t">&#8942;</span></div><div class="dt-r al-pr"><span><i class="al-tg on"></i></span><span class="id t">66f2a1e29a4d&hellip;</span><span class="al-nm t">Callback promised</span><span class="t">Compliance</span><span class="t">11</span><span class="t">2026-10-24 14:22</span><span class="t">&#8942;</span></div><div class="dt-r al-pr"><span><i class="al-tg on"></i></span><span class="id t">66f2a1ea71c0&hellip;</span><span class="al-nm t">Pressure to buy</span><span class="t">Compliance</span><span class="t">21</span><span class="t">2026-10-23 14:26</span><span class="t">&#8942;</span></div><div class="dt-r al-pr"><span><i class="al-tg on"></i></span><span class="id t">66f2a1f4e6b3&hellip;</span><span class="al-nm t">Rude language</span><span class="t">Compliance</span><span class="t">8</span><span class="t">2026-10-22 14:30</span><span class="t">&#8942;</span></div><div class="dt-r al-pr"><span><i class="al-tg on"></i></span><span class="id t">66f2a20158d3&hellip;</span><span class="al-nm t">Wrong product named</span><span class="t">Compliance</span><span class="t">4</span><span class="t">2026-10-21 14:34</span><span class="t">&#8942;</span></div><div class="dt-r al-pr"><span><i class="al-tg on"></i></span><span class="id t">66f2a20bc4f1&hellip;</span><span class="al-nm t">Refund refused</span><span class="t">Compliance</span><span class="t">5</span><span class="t">2026-10-20 14:38</span><span class="t">&#8942;</span></div><div class="dt-r al-pr"><span><i class="al-tg"></i></span><span class="id t">66f2a2163e9b&hellip;</span><span class="al-nm t">Competitor mentioned</span><span class="t">Compliance</span><span class="t">0</span><span class="t">&mdash;</span><span class="t">&#8942;</span></div></div></div></div></div>
-            <div class="hui hui-bw hui-frame al al-tb al-v dl-cv" data-v="tabs" aria-hidden="true"><aside class="side" data-on="alerts">
-    <div class="side__top"><span class="ws"><b class="ws__mark">N</b><span class="ws__name t">Northwind</span><svg class="i ws__chev" viewBox="0 0 18 18"><path d="M6 7.5l3-3 3 3M6 10.5l3 3 3-3"/></svg></span><span class="tgl"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="3" width="13" height="12" rx="3"/><path d="M7 3v12"/></svg></span></div>
-    <span class="new"><svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg><span class="lbl t">New app</span></span>
-    <span class="nv nv--all"><svg class="i" viewBox="0 0 18 18"><path d="M3 6.2 9 3l6 3.2L9 9.4zM3 9.4l6 3.2 6-3.2M3 12.6l6 3.2 6-3.2"/></svg><b class="cnt">See all <span>5</span><svg class="i" viewBox="0 0 18 18"><path d="M7 4.5l4.5 4.5L7 13.5"/></svg></b><span class="lbl t">Apps</span></span>
-    <span class="nv" data-nv="eval"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="2.5" y="10.1" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="10.1" width="5.4" height="5.4" rx="1.2"/></svg><span class="lbl t">Evaluation by agent</span></span>
-    <span class="nv" data-nv="disclosure"><svg class="i" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h8"/></svg><span class="lbl t">Disclosure review</span></span>
-    <span class="nv" data-nv="handle"><svg class="i" viewBox="0 0 18 18"><path d="M3.5 15V9M9 15V3.5M14.5 15V7"/></svg><span class="lbl t">Handle time by team</span></span>
-    <span class="nv" data-nv="review"><svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.2"/><path d="M6.3 9.2l1.9 1.9 3.6-4"/></svg><span class="lbl t">Compliance review</span></span>
-    <hr>
-    <span class="nv" data-nv="conversations"><svg class="i" viewBox="0 0 18 18"><path d="M3 7.5v3M6 5v8M9 7v4M12 3.5v11M15 7.5v3"/></svg><span class="lbl t">Conversations</span></span>
-    <span class="nv" data-nv="knowledge"><svg class="i" viewBox="0 0 18 18"><path d="M3.5 3.5h8a2 2 0 0 1 2 2v9h-8a2 2 0 0 1-2-2zM3.5 12.5a2 2 0 0 1 2-2h8"/></svg><span class="lbl t">Knowledge</span></span>
-    <span class="nv" data-nv="workflows"><svg class="i" viewBox="0 0 18 18"><path d="M10 2.5 4 10h4.5L8 15.5 14 8H9.5z"/></svg><span class="lbl t">Workflows</span></span>
-    <span class="nv" data-nv="topics"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="13" height="13" rx="2.2"/><path d="M9.8 2.5v13M9.8 9.6h5.7"/></svg><span class="lbl t">Topics</span></span>
-    <span class="nv on" data-nv="alerts"><svg class="i" viewBox="0 0 18 18"><path d="M4.5 12.5V8.2a4.5 4.5 0 0 1 9 0v4.3l1.2 1.5H3.3zM7.3 15.5a1.8 1.8 0 0 0 3.4 0"/></svg><span class="lbl t">Alerts</span></span>
-    <div class="sp"></div>
-    <span class="nv nv--bell"><svg class="i" viewBox="0 0 18 18"><path d="M4.5 12.5V8.2a4.5 4.5 0 0 1 9 0v4.3l1.2 1.5H3.3zM7.3 15.5a1.8 1.8 0 0 0 3.4 0"/></svg><b class="badge">3</b><span class="lbl t">Notifications</span></span>
-    <span class="nv"><svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.5"/><path d="M7.2 7.2a1.9 1.9 0 1 1 2.6 1.8c-.5.3-.8.7-.8 1.3M9 12.7v.1"/></svg><span class="lbl t">Help</span></span>
-    <span class="nv"><svg class="i" viewBox="0 0 18 18"><path d="M3 5.5h6.5M12.5 5.5H15M3 12.5h2.5M8.5 12.5H15"/><circle cx="11" cy="5.5" r="1.5"/><circle cx="7" cy="12.5" r="1.5"/></svg><span class="lbl t">Settings</span></span>
-    <div class="me"><b>MC</b><span>Maya Chen<small>QA lead</small></span></div>
-    <div class="powered"><svg viewBox="0 0 69 60" aria-hidden="true"><path d="M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z"/></svg><span>Powered by Hear</span></div>
-  </aside><div class="glass"><div class="card"><div class="top"><div><h2 class="t">Alerts</h2><p class="t">Checks your team sets, which fire on a call.</p></div><div class="sp"></div><span class="act ink t">New monitor</span></div><div class="dt-tabs"><span class="on" id="tb-mon"><span class="t">Monitors</span><small class="t">9</small></span><span id="tb-act"><span class="t">Activity</span></span><em id="tb-x">Removed</em></div><div class="dt-bar"><span class="dt-btn t">Last 30 days</span><span class="dt-btn t">+ Filter</span><span class="dt-btn t">+1</span><span class="dt-btn t">Presets</span></div><div class="al-tbl" id="tb-table"><div class="sx-h al-tbh fx-tbh"><b class="t">Monitors</b><span class="t">9</span><span class="r dt-search t">Search monitors</span><span class="dt-btn t">All folders</span></div><div class="dt-r hd al-fr"><span class="fx-n t">Monitor</span><span class="t">Alerts</span><span class="t">Share</span><span class="t">Change</span><span class="t">Last fired</span><span class="t">Active</span><span></span></div><div class="dt-r al-fr"><span class="fx-n"><i style="background:#2DBE7E"></i><span class="t">Third-party disclosure</span></span><span class="al-n t">305</span><span class="t">76%</span><span class="t">+58</span><span class="t">Yesterday</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></div><div class="dt-r al-fr"><span class="fx-n"><i style="background:#7B61FF"></i><span class="t">Account details without ID check</span></span><span class="al-n t">34</span><span class="t">8%</span><span class="t">&minus;8</span><span class="t">2 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></div><div class="dt-r al-fr"><span class="fx-n"><i style="background:#F5A524"></i><span class="t">Pressure to buy</span></span><span class="al-n t">21</span><span class="t">5%</span><span class="t">+6</span><span class="t">4 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></div><div class="dt-r al-fr"><span class="fx-n"><i style="background:#139FFD"></i><span class="t">Missing recording notice</span></span><span class="al-n t">15</span><span class="t">4%</span><span class="t">+3</span><span class="t">2 h ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></div><div class="dt-r al-fr"><span class="fx-n"><i style="background:#E85D9A"></i><span class="t">Callback promised</span></span><span class="al-n t">11</span><span class="t">3%</span><span class="t">+2</span><span class="t">3 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></div><div class="dt-r al-fr"><span class="fx-n"><i style="background:#00B3BF"></i><span class="t">Rude language</span></span><span class="al-n t">8</span><span class="t">2%</span><span class="t">+1</span><span class="t">5 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></div><div class="dt-r al-fr"><span class="fx-n"><i style="background:#9C7A5B"></i><span class="t">Refund refused</span></span><span class="al-n t">5</span><span class="t">1%</span><span class="t">0</span><span class="t">7 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></div><div class="dt-r al-fr"><span class="fx-n"><i style="background:#8FA3B8"></i><span class="t">Wrong product named</span></span><span class="al-n t">4</span><span class="t">1%</span><span class="t">+1</span><span class="t">6 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></div><div class="dt-r al-fr"><span class="fx-n"><i style="background:#C7B3F5"></i><span class="t">Competitor mentioned</span></span><span class="al-n t">0</span><span class="t">0%</span><span class="t">0</span><span class="t">&mdash;</span><span><i class="al-tg"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></div></div></div></div></div>
-            <div class="hui hui-bw hui-frame al al-fx al-v dl-cv" data-v="fixed"><aside class="side" data-on="alerts">
-    <div class="side__top"><span class="ws"><b class="ws__mark">N</b><span class="ws__name t">Northwind</span><svg class="i ws__chev" viewBox="0 0 18 18"><path d="M6 7.5l3-3 3 3M6 10.5l3 3 3-3"/></svg></span><span class="tgl"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="3" width="13" height="12" rx="3"/><path d="M7 3v12"/></svg></span></div>
-    <span class="new"><svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg><span class="lbl t">New app</span></span>
-    <span class="nv nv--all"><svg class="i" viewBox="0 0 18 18"><path d="M3 6.2 9 3l6 3.2L9 9.4zM3 9.4l6 3.2 6-3.2M3 12.6l6 3.2 6-3.2"/></svg><b class="cnt">See all <span>5</span><svg class="i" viewBox="0 0 18 18"><path d="M7 4.5l4.5 4.5L7 13.5"/></svg></b><span class="lbl t">Apps</span></span>
-    <span class="nv" data-nv="eval"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="2.5" width="5.4" height="5.4" rx="1.2"/><rect x="2.5" y="10.1" width="5.4" height="5.4" rx="1.2"/><rect x="10.1" y="10.1" width="5.4" height="5.4" rx="1.2"/></svg><span class="lbl t">Evaluation by agent</span></span>
-    <span class="nv" data-nv="disclosure"><svg class="i" viewBox="0 0 18 18"><path d="M3 5h12M3 9h12M3 13h8"/></svg><span class="lbl t">Disclosure review</span></span>
-    <span class="nv" data-nv="handle"><svg class="i" viewBox="0 0 18 18"><path d="M3.5 15V9M9 15V3.5M14.5 15V7"/></svg><span class="lbl t">Handle time by team</span></span>
-    <span class="nv" data-nv="review"><svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.2"/><path d="M6.3 9.2l1.9 1.9 3.6-4"/></svg><span class="lbl t">Compliance review</span></span>
-    <hr>
-    <span class="nv" data-nv="conversations"><svg class="i" viewBox="0 0 18 18"><path d="M3 7.5v3M6 5v8M9 7v4M12 3.5v11M15 7.5v3"/></svg><span class="lbl t">Conversations</span></span>
-    <span class="nv" data-nv="knowledge"><svg class="i" viewBox="0 0 18 18"><path d="M3.5 3.5h8a2 2 0 0 1 2 2v9h-8a2 2 0 0 1-2-2zM3.5 12.5a2 2 0 0 1 2-2h8"/></svg><span class="lbl t">Knowledge</span></span>
-    <span class="nv" data-nv="workflows"><svg class="i" viewBox="0 0 18 18"><path d="M10 2.5 4 10h4.5L8 15.5 14 8H9.5z"/></svg><span class="lbl t">Workflows</span></span>
-    <span class="nv" data-nv="topics"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="13" height="13" rx="2.2"/><path d="M9.8 2.5v13M9.8 9.6h5.7"/></svg><span class="lbl t">Topics</span></span>
-    <span class="nv on" data-nv="alerts"><svg class="i" viewBox="0 0 18 18"><path d="M4.5 12.5V8.2a4.5 4.5 0 0 1 9 0v4.3l1.2 1.5H3.3zM7.3 15.5a1.8 1.8 0 0 0 3.4 0"/></svg><span class="lbl t">Alerts</span></span>
-    <div class="sp"></div>
-    <span class="nv nv--bell"><svg class="i" viewBox="0 0 18 18"><path d="M4.5 12.5V8.2a4.5 4.5 0 0 1 9 0v4.3l1.2 1.5H3.3zM7.3 15.5a1.8 1.8 0 0 0 3.4 0"/></svg><b class="badge">3</b><span class="lbl t">Notifications</span></span>
-    <span class="nv"><svg class="i" viewBox="0 0 18 18"><circle cx="9" cy="9" r="6.5"/><path d="M7.2 7.2a1.9 1.9 0 1 1 2.6 1.8c-.5.3-.8.7-.8 1.3M9 12.7v.1"/></svg><span class="lbl t">Help</span></span>
-    <span class="nv"><svg class="i" viewBox="0 0 18 18"><path d="M3 5.5h6.5M12.5 5.5H15M3 12.5h2.5M8.5 12.5H15"/><circle cx="11" cy="5.5" r="1.5"/><circle cx="7" cy="12.5" r="1.5"/></svg><span class="lbl t">Settings</span></span>
-    <div class="me"><b>MC</b><span>Maya Chen<small>QA lead</small></span></div>
-    <div class="powered"><svg viewBox="0 0 69 60" aria-hidden="true"><path d="M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z"/></svg><span>Powered by Hear</span></div>
-  </aside><div class="glass"><div class="card"><div aria-hidden="true"><div class="top"><div><h2 class="t">Alerts</h2><p class="t">Checks your team sets, which fire on a call.</p></div><div class="sp"></div><span class="act ink t">New monitor</span></div><div class="dt-bar"><span class="dt-btn t">Last 30 days</span><span class="dt-btn t">+ Filter</span><span class="dt-btn t">+1</span><span class="dt-btn t">Presets</span></div><div class="kpis"><div><small class="t">Total monitors</small><b class="t">9</b></div><div><small class="t">Active monitors</small><b class="t"><span class="sx-tag">8 / 10</span></b></div><div><small class="t">Alert triggers</small><b class="t">403</b><i class="t">+63 vs the period before</i></div><div><small class="t">Interactions with alerts</small><b class="t">212</b></div></div><div class="al-ch" id="fx-chart"><div class="sx-h"><b class="t">Alert triggers by week</b><span class="sx-seg r"><span class="on t">Stacked total</span><span class="t">Compare monitors</span></span></div><div class="ch" style="height:300px"><div class="ch-y"><span style="bottom:0px"><b class="t">0</b></span><span style="bottom:95px"><b class="t">50</b></span><span style="bottom:190px"><b class="t">100</b></span><span style="bottom:285px"><b class="t">150</b></span></div><div class="ch-b"><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:85.5px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:11.4px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:7.6px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.7px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.8px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:1.9px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:1.9px;background:#9C7A5B"></i></div><span class="t">Week 39</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:79.8px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:11.4px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:5.7px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.7px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.8px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:1.9px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:1.9px;background:#9C7A5B"></i></div><span class="t">Week 40</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:93.1px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:11.4px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:7.6px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.7px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.8px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:1.9px;background:#00B3BF"></i><i class="seg" data-m="wp" style="height:1.9px;background:#8FA3B8"></i></div><span class="t">Week 41</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:98.8px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:13.3px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:7.6px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.7px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.8px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:3.8px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:1.9px;background:#9C7A5B"></i></div><span class="t">Week 42</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:222.3px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:17.1px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:11.4px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.7px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:5.7px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:5.7px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:3.8px;background:#9C7A5B"></i><i class="seg" data-m="wp" style="height:5.7px;background:#8FA3B8"></i></div><span class="t">Week 43</span></div></div></div></div></div><div class="al-tbl" id="fx-table"><div class="sx-h al-tbh" aria-hidden="true"><b class="t">Monitors</b><span class="t">9</span><span class="r dt-search t">Search monitors</span><span class="dt-btn t">All folders</span></div><div aria-hidden="true" class="dt-r hd al-fr fx-hd"><span class="fx-n t">Monitor</span><span class="t">Alerts</span><span class="t">Share</span><span class="t">Change</span><span class="t">Last fired</span><span class="t">Active</span><span></span></div><div class="fx-rows"><button class="dt-r al-fr fx-r" type="button" data-m="tp" id="fx-row1" aria-pressed="false" aria-label="Third-party disclosure: 305 alerts, 76% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#2DBE7E"></i><span class="t">Third-party disclosure</span></span><span class="al-n t">305</span><span class="t">76%</span><span class="t">+58</span><span class="t">Yesterday</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button class="dt-r al-fr fx-r" type="button" data-m="id" aria-pressed="false" aria-label="Account details without ID check: 34 alerts, 8% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#7B61FF"></i><span class="t">Account details without ID check</span></span><span class="al-n t">34</span><span class="t">8%</span><span class="t">&minus;8</span><span class="t">2 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button class="dt-r al-fr fx-r" type="button" data-m="pb" aria-pressed="false" aria-label="Pressure to buy: 21 alerts, 5% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#F5A524"></i><span class="t">Pressure to buy</span></span><span class="al-n t">21</span><span class="t">5%</span><span class="t">+6</span><span class="t">4 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button class="dt-r al-fr fx-r" type="button" data-m="rn" aria-pressed="false" aria-label="Missing recording notice: 15 alerts, 4% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#139FFD"></i><span class="t">Missing recording notice</span></span><span class="al-n t">15</span><span class="t">4%</span><span class="t">+3</span><span class="t">2 h ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button class="dt-r al-fr fx-r" type="button" data-m="cb" aria-pressed="false" aria-label="Callback promised: 11 alerts, 3% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#E85D9A"></i><span class="t">Callback promised</span></span><span class="al-n t">11</span><span class="t">3%</span><span class="t">+2</span><span class="t">3 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button class="dt-r al-fr fx-r" type="button" data-m="rl" aria-pressed="false" aria-label="Rude language: 8 alerts, 2% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#00B3BF"></i><span class="t">Rude language</span></span><span class="al-n t">8</span><span class="t">2%</span><span class="t">+1</span><span class="t">5 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button class="dt-r al-fr fx-r" type="button" data-m="rr" aria-pressed="false" aria-label="Refund refused: 5 alerts, 1% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#9C7A5B"></i><span class="t">Refund refused</span></span><span class="al-n t">5</span><span class="t">1%</span><span class="t">0</span><span class="t">7 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button class="dt-r al-fr fx-r" type="button" data-m="wp" aria-pressed="false" aria-label="Wrong product named: 4 alerts, 1% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#8FA3B8"></i><span class="t">Wrong product named</span></span><span class="al-n t">4</span><span class="t">1%</span><span class="t">+1</span><span class="t">6 days ago</span><span><i class="al-tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button class="dt-r al-fr fx-r" type="button" data-m="cm" aria-pressed="false" aria-label="Competitor mentioned: 0 alerts, 0% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#C7B3F5"></i><span class="t">Competitor mentioned</span></span><span class="al-n t">0</span><span class="t">0%</span><span class="t">0</span><span class="t">&mdash;</span><span><i class="al-tg"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button></div></div></div></div></div>
-            <div class="al-below" aria-hidden="true"></div>
-            <div class="al-fold" aria-hidden="true"><b><span class="fl-w">A 1440&times;900 window ends here</span><span class="fl-s">1440&times;900 ends here</span><span class="fl-f fl-w">: one scroll to the rest</span></b></div>
-          </div></div>
-          <span class="c2-pin dl-pin" data-at="#pf-chart" data-ax="0.5" data-ay="0.3" data-ox="0" data-for="platform" aria-hidden="true">1</span><span class="c2-pin dl-pin" data-at="#pf-table" data-ax="0.5" data-ay="0" data-ox="0" data-for="platform" aria-hidden="true">2</span><span class="c2-pin dl-pin" data-at="#tb-table .fx-tbh" data-ax="0.5" data-ay="0.5" data-ox="0" data-for="tabs" aria-hidden="true">1</span><span class="c2-pin dl-pin" data-at="#tb-x" data-ax="0" data-ay="0.5" data-ox="-24" data-for="tabs" aria-hidden="true">2</span><span class="c2-pin dl-pin" data-at=".al-fx .fx-hd" data-ax="0.3" data-ay="0.5" data-ox="0" data-pat="#fx-row1 .fx-n i" data-pm="0.5,0.5,0" data-for="fixed" aria-hidden="true">1</span><span class="c2-pin dl-pin" data-at="#fx-chart" data-ax="0.5" data-ay="0.3" data-ox="0" data-for="fixed" aria-hidden="true">2</span><span class="c2-pin dl-pin" data-at="#fx-row1 .fx-go" data-ax="1" data-ay="0.5" data-ox="14" data-pm="0.4,0.5,0" data-for="fixed" aria-hidden="true">3</span>
-        </div>
-        <p class="dl-sr" aria-live="polite"></p>
-        <figcaption>
-          <ol class="c2-key" data-key="platform" style="--n:2">
-            <li><i aria-hidden="true">1</i><span><b>Nine colours, no key.</b> Which colour is which monitor shows only on hover.</span></li>
-            <li><i aria-hidden="true">2</i><span><b>The list starts about 730 px down,</b> under four numbers and the chart. In a 1440&times;900 window one row shows above the fold.</span></li>
-          </ol>
-          <ol class="c2-key" data-key="tabs" style="--n:2" hidden>
-            <li><i aria-hidden="true">1</i><span><b>Monitors first:</b> the list starts under the filter, and all nine rows sit above the fold.</span></li>
-            <li><i aria-hidden="true">2</i><span><b>Removed:</b> it took the four numbers and the chart off the page, behind a second tab. It was my own recommendation after the research.</span></li>
-          </ol>
-          <ol class="c2-key" data-key="fixed" style="--n:3" hidden>
-            <li><i aria-hidden="true">1</i><span><b>The table is the chart&rsquo;s key:</b> each row carries its monitor&rsquo;s colour and share, sorted by alerts.</span></li>
-            <li><i aria-hidden="true">2</i><span><b>Pick a row</b> and the chart keeps only that monitor&rsquo;s weeks.</span></li>
-            <li><i aria-hidden="true">3</i><span><b>A row opens the monitor&rsquo;s own page,</b> with the calls it flagged. That page is a new screen, so it is a proposal.</span></li>
-          </ol>
-        </figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="c2-sec" id="removed" data-ch="What the test removed">
-    <div class="c2-w">
-      <p class="c2-n">What the test removed</p>
-      <h2>The side-by-side test killed my own fixes first</h2>
-      <p class="c2-lede">On 28 Oct 2026 every change was checked again against the live screen, side by side at the same height. An item not clearly better was removed, and production&rsquo;s version came back. Five of my own changes went: would you have kept them?</p>
-      <div class="dl-tally">
-        <div><b>52</b><span>changes on seven screens</span></div>
-        <div><b>47</b><span>kept</span></div>
-        <div class="is-x"><b>5</b><span>removed</span></div>
-      </div>
-      <p class="dl-src">From the review page as of 1 Nov 2026; every change re-checked side by side on 28 Oct. Plus two whole Alerts directions: tabs (above) and list-only.</p>
-      <ol class="dl-led" id="dl-led">
-        <li class="is-cut"><div class="led-t"><p class="led-s">Alerts</p><h3><span class="lt">A chart you can read</span></h3>
-            <div class="led-b" role="group" aria-label="Your call on A chart you can read"><button type="button" data-c="keep" aria-pressed="false">Keep</button><button type="button" data-c="remove" aria-pressed="false">Remove</button></div></div>
-          <div class="led-d"><p>A key with each monitor&rsquo;s count, and a sum over every week, added to production&rsquo;s chart.</p><div class="k-sums" aria-hidden="true"><div class="ks-n"><div><s>62</s><span>Week 39</span></div><div><s>58</s><span>Week 40</span></div><div><s>66</s><span>Week 41</span></div><div><s>71</s><span>Week 42</span></div><div><s>146</s><span>Week 43</span></div></div><div class="km-l"><s style="--c:#2DBE7E">Third-party 305</s><s style="--c:#7B61FF">Account 34</s><s style="--c:#F5A524">Pressure 21</s><s style="--c:#139FFD">Missing 15</s><s style="--c:#E85D9A">Callback 11</s></div></div></div>
-          <div class="led-w"><small>Why the review removed it</small><p>Production&rsquo;s tooltip already shows each week&rsquo;s monitors, colours, counts and sum, and the table under it became the key instead (Fixed, above).</p><blockquote class="led-q">&ldquo;The key and the sums duplicated that, so the chart stays production&rsquo;s.&rdquo;<cite>My review note, 28 Oct 2026 (translated from Hebrew)</cite></blockquote></div></li>
-        <li class="is-cut"><div class="led-t"><p class="led-s">Alerts</p><h3><span class="lt">What fired, first</span></h3>
-            <div class="led-b" role="group" aria-label="Your call on What fired, first"><button type="button" data-c="keep" aria-pressed="false">Keep</button><button type="button" data-c="remove" aria-pressed="false">Remove</button></div></div>
-          <div class="led-d"><p>Activity numbers before setup numbers, with the monitors folded into &ldquo;8 of 9 active&rdquo;.</p></div>
-          <div class="led-w"><small>Why the review removed it</small><p>A monitor count is setup, not activity. Production&rsquo;s split was right.</p></div></li>
-        <li class="is-cut"><div class="led-t"><p class="led-s">Alerts</p><h3><span class="lt">Say what the cap counts</span></h3>
-            <div class="led-b" role="group" aria-label="Your call on Say what the cap counts"><button type="button" data-c="keep" aria-pressed="false">Keep</button><button type="button" data-c="remove" aria-pressed="false">Remove</button></div></div>
-          <div class="led-d"><p class="k-pills" aria-hidden="true"><span>Total monitors <b>9</b></span><span><u>Active monitors</u> <em>8 / 10</em></span></p><p>Production shows &ldquo;8 / 10&rdquo;, eight active of a cap of ten, beside nine monitors in all. I labelled the pill.</p></div>
-          <div class="led-w"><small>Why the review removed it</small><p>It didn&rsquo;t solve the confusion: two totals, 9 and 10, under the same words.</p></div></li>
-        <li class="is-cut"><div class="led-t"><p class="led-s">Alerts</p><h3><span class="lt">Every applied filter in sight</span></h3>
-            <div class="led-b" role="group" aria-label="Your call on Every applied filter in sight"><button type="button" data-c="keep" aria-pressed="false">Keep</button><button type="button" data-c="remove" aria-pressed="false">Remove</button></div></div>
-          <div class="led-d"><p>The default filter as its own chip, not hidden behind &ldquo;+1&rdquo;.</p></div>
-          <div class="led-w"><small>Why the review removed it</small><p>Not clearly better in review; production&rsquo;s own filter came back.</p></div></li>
-        <li class="is-cut"><div class="led-t"><p class="led-s">Knowledge</p><h3><span class="lt">A panel as tall as its content</span></h3>
-            <div class="led-b" role="group" aria-label="Your call on A panel as tall as its content"><button type="button" data-c="keep" aria-pressed="false">Keep</button><button type="button" data-c="remove" aria-pressed="false">Remove</button></div></div>
-          <div class="led-d"><p>The document tree&rsquo;s panel ends where its list ends.</p></div>
-          <div class="led-w"><small>Why the review removed it</small><p>A matter of taste, not a visible improvement.</p></div></li>
-      </ol>
-      <div class="dl-you"><p aria-live="polite" id="dl-you">The review kept none of the five.</p><button type="button" class="dl-all" id="dl-all" hidden>Show the review&rsquo;s verdicts</button></div>
-    </div>
-  </section>
-
-  <section class="c2-sec" id="found" data-ch="What copying found">
-    <div class="c2-w">
-      <p class="c2-n">What copying found</p>
-      <h2>Copying the real screen found what no mockup shows</h2>
-      <p class="c2-lede">Real widths and Hebrew turned up more, and each got a fix in the Lab.</p>
-      <div class="dl-found">
-        <article class="dl-fc"><p class="fc-h">Compliance · the period</p><h3>East of UTC, the date chip is a day early</h3>
-          <div class="fc-ba hui hui-bw">
-            <div class="fc-v fc-pf"><span class="fc-l">PLATFORM</span><span class="dt-btn fc-cr"><span class="fc-k">Created At</span>&nbsp;2026-09-27 - 2026-10-28</span><span class="fc-pop">The table&rsquo;s first day: Sep 28</span><span class="fc-sm">Below 1280 px the chip hides under its clip.</span></div>
-            <div class="fc-v fc-fx"><span class="fc-l">FIXED</span><span class="sx-chip">Sep 28 &ndash; Oct 28, 2026</span><span class="fc-sm">Always on screen, in the reader&rsquo;s own day.</span></div>
-          </div>
-          <p>The chip printed each end of the range in UTC, so <b>east of UTC the range started the day before.</b></p></article>
-        <article class="dl-fc"><p class="fc-h">Hebrew · every page</p><h3>In Hebrew, numbers turn around</h3>
-          <div class="fc-ba hui hui-bw">
-            <div class="fc-v fc-pf"><span class="fc-l">PLATFORM</span><div class="fc-he" lang="he"><span>טלפון <bdo dir="ltr">6137 555 415 1+</bdo></span><span>ציות <bdo dir="ltr">%89</bdo></span></div></div>
-            <div class="fc-v fc-fx"><span class="fc-l">FIXED</span><div class="fc-he" lang="he"><span>טלפון <bdo dir="ltr">+1 415 555 6137</bdo></span><span>ציות <bdo dir="ltr">89%</bdo></span></div></div>
-          </div>
-          <p>Each value now keeps its own direction. The strings showed more: <b>&ldquo;monitor&rdquo; was translated five ways.</b></p></article>
+        <div class="in-meter" aria-label="Steps"></div>
       </div>
     </div>
-  </section>
 
-  <section class="c2-sec" id="ai" data-ch="Ask AI">
-    <div class="c2-w">
-      <p class="c2-n">Ask AI</p>
-      <h2>With AI, I can&rsquo;t design the answer&rsquo;s words, only its shape</h2>
-      <p class="c2-lede">The Lab&rsquo;s Ask AI panel calls a real model, so no two answers are worded alike. I designed the shape every answer takes and the states around it. Suggested questions, shown before you ask, never quote a figure.</p>
-      <div class="c2-steps dl-ai">
-        <div class="c2-tabs" role="tablist" aria-label="Ask AI answer states" aria-orientation="vertical"><button type="button" class="c2-tab" role="tab" id="ai-t0" aria-controls="ai-p0"><i>1</i><div><b>The result comes first</b><span>One result sentence, then what was searched: the shape of production&rsquo;s own answers, which I asked the model for.</span></div></button><button type="button" class="c2-tab" role="tab" id="ai-t1" aria-controls="ai-p1"><i>2</i><div><b>Sections and a table</b><span>A longer answer keeps the order: the result, the numbers in a quiet table, what was searched.</span></div></button><button type="button" class="c2-tab" role="tab" id="ai-t2" aria-controls="ai-p2"><i>3</i><div><b>Nothing found, said plainly</b><span>The panel adds nothing of its own: no starter figure, no filler. If the answer finds nothing, it says so, and offers a wider search.</span></div></button><button type="button" class="c2-tab" role="tab" id="ai-t3" aria-controls="ai-p3"><i>4</i><div><b>A stop at 30 seconds</b><span>The thinking bubble could spin forever. Now a request stops after 30 seconds and says so, and Retry asks the same question again.</span></div></button></div>
-        <div class="c2-stage"><figure class="c2-panel" role="tabpanel" id="ai-p0" aria-labelledby="ai-t0"><div class="c2-shot"><div class="hui hui-frame hui-bare ai-fr" role="img" aria-label="Ask AI, short state. A short answer: one result sentence, then what was searched as tags."><div class="sx-side"><header><svg viewBox="0 0 69 60" aria-hidden="true"><path d="M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z"/></svg>Ask AI<small>Alerts</small></header><div class="q">Which monitor fired most this month?</div><div class="a"><p><b>Third-party disclosure fired most: 305 of 403 alerts (76%).</b></p></div><p class="ai-src">Searched <span class="sx-tag">Alerts</span><span class="sx-tag">Last 30 days</span><span class="sx-tag">All teams</span></p><p class="ai-act"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M5 7.5V13H3V7.5zM5 7.5l2.5-5c1 0 1.6.7 1.4 1.7L8.5 6.5h3.6c.8 0 1.3.7 1.1 1.4l-1.2 4.2c-.2.6-.7.9-1.3.9H5"/></svg><svg style="transform:rotate(180deg)" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M5 7.5V13H3V7.5zM5 7.5l2.5-5c1 0 1.6.7 1.4 1.7L8.5 6.5h3.6c.8 0 1.3.7 1.1 1.4l-1.2 4.2c-.2.6-.7.9-1.3.9H5"/></svg></p><div class="cm-ask">Ask a follow-up</div></div></div></div></figure><figure class="c2-panel" role="tabpanel" id="ai-p1" aria-labelledby="ai-t1" hidden><div class="c2-shot"><div class="hui hui-frame hui-bare ai-fr" role="img" aria-label="Ask AI, structured state. A structured answer: a result sentence, a small table of monitors, and the search scope."><div class="sx-side"><header><svg viewBox="0 0 69 60" aria-hidden="true"><path d="M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z"/></svg>Ask AI<small>Alerts</small></header><div class="q">Group this month&rsquo;s alerts by cause</div><div class="a"><p><b>Three monitors account for 89% of this month&rsquo;s 403 alerts.</b></p></div><p class="ai-sec">Result</p><div class="ai-tbl"><div><span>Monitor</span><span>Alerts</span><span>Share</span></div><div><span>Third-party disclosure</span><span>305</span><span>76%</span></div><div><span>Account details without ID check</span><span>34</span><span>8%</span></div><div><span>Pressure to buy</span><span>21</span><span>5%</span></div><div><span>Six other monitors</span><span>43</span><span>11%</span></div></div><p class="ai-src">Searched <span class="sx-tag">Alerts</span><span class="sx-tag">Last 30 days</span></p><div class="cm-ask">Ask a follow-up</div></div></div></div></figure><figure class="c2-panel" role="tabpanel" id="ai-p2" aria-labelledby="ai-t2" hidden><div class="c2-shot"><div class="hui hui-frame hui-bare ai-fr" role="img" aria-label="Ask AI, nothing found state. A no-data answer: no calls matched, with a button to search the last 30 days and one to include short calls."><div class="sx-side"><header><svg viewBox="0 0 69 60" aria-hidden="true"><path d="M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z"/></svg>Ask AI<small>Alerts</small></header><div class="q">Which calls mentioned a refund this week?</div><div class="ai-empty"><b>No calls mentioned a refund this week</b><p>Searched answered calls over 1 minute, this week, all teams.</p><div class="ai-row"><span class="act ink">Try the last 30 days</span><span class="act">Include calls under 1 minute</span></div></div><div class="cm-ask">Ask a follow-up</div></div></div></div></figure><figure class="c2-panel" role="tabpanel" id="ai-p3" aria-labelledby="ai-t3" hidden><div class="c2-shot"><div class="hui hui-frame hui-bare ai-fr" role="img" aria-label="Ask AI, timed out state. A timed-out answer: the question stays, a message says the request stopped after 30 seconds, and a Retry button."><div class="sx-side"><header><svg viewBox="0 0 69 60" aria-hidden="true"><path d="M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z"/></svg>Ask AI<small>Alerts</small></header><div class="q">Which agents trigger the most alerts?</div><div class="ai-err"><span>That took too long. The request stopped after 30 seconds; your question is kept.</span><span class="act">Retry</span></div><div class="cm-ask">Ask a follow-up</div></div></div></div></figure>
-          <div class="c2-nav"><button type="button" data-go="-1" aria-label="Previous state"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button><button type="button" data-go="1" aria-label="Next state"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button><span>1 of 4</span></div>
-        </div>
-      </div>
-    </div>
+    <ol class="in-steps">
+      <li class="in-st on">
+        <span class="in-n">01</span>
+        <h2>Every call, read by AI</h2>
+        <p>Hear is an AI platform for contact centers. It reads every call and turns it into scores, alerts and answers that a team acts on. Its screens are full of numbers, and every one of them has to be right.</p>
+        <div class="in-slot"><b>To fill from the private talk</b>Why Hear exists: the problem it was founded on.</div>
+      </li>
+      <li class="in-st">
+        <span class="in-n">02</span>
+        <h2>One designer, from brand to code</h2>
+        <p>I am Hear’s only designer. The brand, the product, the design system, the website, the research and front-end code all sit with one person. With no design team around the work, nothing between the design and the shipped screen can be left to interpretation.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">03</span>
+        <h2>Figma alone is no longer enough</h2>
+        <p>A mockup has tidy data, one language and one width. The product does not. In Hear a report holds 76 calls where the mockup drew 50, Hebrew turns numbers around, a date depends on the reader’s time zone, and an AI writes answers no one can draw in advance.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">04</span>
+        <h2>One source of truth</h2>
+        <p>For the shipped screen to come as close as possible to the design, the design has to live where the product lives: one source of truth at the highest level, with no room for doubt or mistakes and as little friction as possible. At Hear that source is the design system in code, 122 Storybook stories, every component with all its states.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">05</span>
+        <h2>So I built the Lab</h2>
+        <p>On my own initiative I rebuilt Hear in code with Claude Code: a working copy of the live product, wired to a real AI model. Each screen sits as shipped, beside my fix, on the same data.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">06</span>
+        <h2>A fix has to beat the real screen</h2>
+        <p>A redesign judged against a picture of the old screen always wins. In the Lab it has to win against the screen itself. On 28 Oct 2026 every change was checked again beside the live screen: of 52 changes on seven screens, 47 were kept and 5 removed.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">07</span>
+        <h2>What came out of it</h2>
+        <p>The Lab has been in Hear’s repository since 16 Mar 2026. The Topics canvas, its colour spec and the icons have shipped. The four product stories that follow start from here: <a href="explainable-scores.html">Explainable scores</a>, <a href="actions.html">Actions</a>, <a href="newsroom.html">Newsroom</a> and <a href="data.html">Data &amp; Signals</a>.</p>
+      </li>
+    </ol>
   </section>
-
-  <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
-    <div class="c2-w">
-      <p class="c2-coda">Not clearly better? <em>Removed.</em></p>
-      <p class="c2-status">In Hear&rsquo;s repository since 16 Mar 2026. Shipped: the Topics canvas (Jul), its colour spec (Sep), the icons. The 47 kept fixes await tickets.</p>
-    </div>
-  </section>
-
-  <div class="c2-w c2-next">
-    <a class="next" href="explainable-scores.html" aria-label="Next case study: Explainable scores. Every AI score should lead back to the calls behind it"><span class="next-t"><span class="label">Next case study</span><span class="next-name">Explainable scores</span><span class="next-line">Every AI score should lead back to the calls behind it</span><span class="next-go">Read next</span></span><span class="next-thumb" aria-hidden="true"><img src="../img/next-compliance.webp?v=2" width="1440" height="900" alt="" loading="lazy" decoding="async"></span></a>
-  </div>
 </main>
+
 <footer class="ft" id="foot">
   <div class="ft-sky" aria-hidden="true"><picture><source type="image/avif" srcset="../img/foot-sky-s.avif?v=2 1536w, ../img/foot-sky-2048.avif?v=2 2048w, ../img/foot-sky.avif?v=2 3072w" sizes="(max-width: 560px) 600px, 104vw"><img src="../img/foot-sky.webp?v=2" srcset="../img/foot-sky-s.webp?v=2 1536w, ../img/foot-sky-2048.webp?v=1 2048w, ../img/foot-sky.webp?v=2 3072w" sizes="(max-width: 560px) 600px, 104vw" alt="" width="3072" height="1536" loading="lazy" decoding="async"></picture></div>
   <div class="wrap ft-in">
@@ -594,7 +148,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <li><a href="data.html">Data &amp; Signals</a></li>
         </ul></div>
         <div><h3>More cases</h3><ul>
-          <li><a href="design-lab.html" aria-current="page">Hear Design Lab</a></li>
+          <li><a href="design-lab.html" aria-current="page">Introduction</a></li>
           <li><a href="design-system.html">Design system</a></li>
           <li><a href="brand-web.html">Brand &amp; website</a></li>
           <li><a href="fyi.html">FYI</a></li>
@@ -613,91 +167,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </div>
 </footer>
 <script src="case.js?v=8"></script>
-<script>/* the designed screens: each is laid out at its design width (data-dw) and zoomed to its column, so it stays crisp at any size.
-   Under 600 px the hero reflows into its phone layout (data-phone="reflow"); the Alerts screens keep their 1440x900 proportions
-   and show bars for text (data-phone="zoom"). Pins follow the element they name. The Alerts view moves only when the reader asks. */
-(function () {
-  var hasZoom = window.CSS && CSS.supports && CSS.supports('zoom', '2');
-  function place(shot) {
-    if (!shot) return; var r = shot.getBoundingClientRect();
-    [].forEach.call(shot.querySelectorAll('.dl-pin'), function (p) {
-      var small = !!shot.querySelector('.is-phone, .is-small'), at = (small && p.getAttribute('data-pat')) || p.getAttribute('data-at');
-      var t = shot.querySelector(at); if (!t) return; var q = t.getBoundingClientRect();
-      var ax = +p.getAttribute('data-ax') || 0, ox = +p.getAttribute('data-ox') || 0, pm = p.getAttribute('data-pm');
-      var oy = +p.getAttribute('data-oy') || 0;
-      if (pm && small) { pm = pm.split(','); ax = +pm[0]; ox = +pm[2]; oy = +(pm[3] || 0); } /* the phone layout moves this pin */
-      p.style.setProperty('--x', Math.round(q.left - r.left + q.width * ax + ox) + 'px');
-      p.style.setProperty('--y', Math.round(q.top - r.top + q.height * (+p.getAttribute('data-ay') || 0) + oy) + 'px');
-    });
-  }
-  function fit(s) {
-    var z0 = s.querySelector('.dl-z'), dw = +s.getAttribute('data-dw'), w = s.clientWidth; if (!w || !z0) return;
-    var phone = w < 600, reflow = phone && s.getAttribute('data-phone') === 'reflow', z = reflow ? 1 : w / dw;
-    s.classList.toggle('is-phone', reflow); s.classList.toggle('is-small', phone && !reflow);
-    s.style.setProperty('--z', z);
-    if (hasZoom) z0.style.zoom = z;
-    else { z0.style.transform = z === 1 ? '' : 'scale(' + z + ')'; s.style.height = z === 1 ? '' : (z0.offsetHeight * z) + 'px'; }
-    place(s.closest('.c2-shot'));
-  }
-  var scrs = [].slice.call(document.querySelectorAll('.c2 .dl-scr'));
-  function all() { scrs.forEach(fit); }
-  if ('ResizeObserver' in window) { var ro = new ResizeObserver(function (es) { es.forEach(function (e) { fit(e.target); }); }); scrs.forEach(function (s) { ro.observe(s); }); }
-  else addEventListener('resize', all);
-  all(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(all); addEventListener('load', all);
-
-  (function () {
-    var led = document.getElementById('dl-led'); if (!led) return;
-    var rows = [].slice.call(led.children), out = document.getElementById('dl-you'), all = document.getElementById('dl-all');
-    led.classList.add('is-live'); rows.forEach(function (r) { r.classList.remove('is-cut'); }); all.hidden = false;
-    function tally() {
-      var made = rows.filter(function (r) { return r.getAttribute('data-c'); }), kept = made.filter(function (r) { return r.getAttribute('data-c') === 'keep'; }).length;
-      out.textContent = !made.length ? 'Keep or remove each one. The review kept none of the five.'
-        : made.length < rows.length ? 'You kept ' + kept + ' of ' + made.length + ' so far. The review kept none.'
-        : 'You kept ' + kept + ' of 5. The review kept 0.';
-      if (rows.every(function (r) { return r.classList.contains('is-cut'); })) all.hidden = true;
-    }
-    rows.forEach(function (r) {
-      [].forEach.call(r.querySelectorAll('.led-b button'), function (b) {
-        b.addEventListener('click', function () {
-          r.setAttribute('data-c', b.getAttribute('data-c'));
-          [].forEach.call(r.querySelectorAll('.led-b button'), function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-          r.classList.add('is-cut'); tally();
-        });
-      });
-    });
-    all.addEventListener('click', function () { rows.forEach(function (r) { r.classList.add('is-cut'); }); tally(); out.focus && out.setAttribute('tabindex', '-1'); });
-    tally();
-  })();
-
-  var mo = document.querySelector('.c2 .dl-mo'); if (!mo) return;
-  var shot = mo.querySelector('.c2-shot'), say = mo.querySelector('.dl-sr'), fx = mo.querySelector('.al-fx'),
-    btns = [].slice.call(mo.querySelectorAll('.dl-views button')), keys = [].slice.call(mo.querySelectorAll('[data-key]')),
-    rows = [].slice.call(mo.querySelectorAll('button.fx-r'));
-  function view(v, focus) {
-    mo.setAttribute('data-view', v);
-    btns.forEach(function (b) { var on = b.getAttribute('data-view') === v; b.setAttribute('aria-pressed', on); if (on && focus) b.focus(); });
-    keys.forEach(function (k) { k.hidden = k.getAttribute('data-key') !== v; });
-    say.textContent = v === 'fixed' ? 'Fixed, kept: the table is the chart’s key. Pick a row to show only that monitor in the chart.' : v === 'tabs' ? 'Tabs, removed: the list moves above the fold, but the numbers and the chart leave the page.' : 'Platform, as shipped: the list starts about 730 pixels down; none of its rows show above the fold.';
-    place(shot);
-  }
-  btns.forEach(function (b, i) {
-    b.addEventListener('click', function () { view(b.getAttribute('data-view')); });
-    b.addEventListener('keydown', function (e) {
-      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d) { e.preventDefault(); view(btns[(i + d + btns.length) % btns.length].getAttribute('data-view'), true); }
-    });
-  });
-  rows.forEach(function (r) {
-    r.addEventListener('click', function () {
-      var on = r.getAttribute('aria-pressed') !== 'true', m = r.getAttribute('data-m');
-      rows.forEach(function (x) { x.setAttribute('aria-pressed', String(x === r && on)); });
-      fx.classList.toggle('is-sel', on);
-      [].forEach.call(fx.querySelectorAll('.seg'), function (s) { s.classList.toggle('on', on && s.getAttribute('data-m') === m); });
-      say.textContent = on ? 'The chart now shows only ' + r.querySelector('.fx-n .t').textContent + '.' : 'The chart shows every monitor again.';
-    });
-  });
-})();
-</script>
-<script src="../v7/cs2.js?v=2" defer></script>
 <script src="../v7/foot.js?v=202" defer></script>
+<script src="../v7/intro.js?v=1" defer></script>
 </body>
 </html>

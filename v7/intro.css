@@ -1,0 +1,119 @@
+/* v7 - Introduction (work/design-lab.html): a low-fidelity wireframe, owner 24.11. Slides: a title and text on the left,
+   one sticky stage on the right whose shapes rearrange themselves as the reader moves between the steps (v7/intro.js). */
+
+.in-page{ --ink:#171b20; --mute:#5f656d; --soft:#8a8f96; --line:#d9d6d0; --wf:#e6e3de; --wf2:#cfcbc4; --edge:#9c978f; --acc:#139FFD;
+  max-width:var(--wrap, 1240px); margin:0 auto; padding:132px clamp(16px, 4vw, 40px) 40px; color:var(--ink); }
+
+/* the opening */
+.in-hero{ max-width:760px; padding-bottom:56px; }
+.in-tag{ display:inline-flex; gap:10px; align-items:center; font:500 12.5px/1 "Geist Mono", ui-monospace, monospace; letter-spacing:.04em; text-transform:uppercase; color:var(--soft); }
+.in-tag b{ font-weight:500; padding:5px 8px; border:1px dashed var(--edge); border-radius:6px; color:var(--mute); }
+.in-hero h1{ margin:18px 0 0; font-size:clamp(40px, 5.4vw, 68px); line-height:1.02; letter-spacing:-.035em; font-weight:600; }
+.in-hero p{ margin:22px 0 0; font-size:21px; line-height:1.45; color:var(--mute); max-width:40ch; text-wrap:pretty; }
+
+/* the slides */
+.in-sl{ display:grid; grid-template-columns:minmax(0, 5fr) minmax(0, 6fr); column-gap:clamp(32px, 5vw, 72px); }
+.in-steps{ grid-column:1; grid-row:1; list-style:none; margin:0; padding:0; }
+.in-stw{ grid-column:2; grid-row:1; }
+.in-st{ min-height:86vh; display:flex; flex-direction:column; justify-content:center; padding:40px 0; opacity:.28; transition:opacity .45s ease; }
+.in-st.on{ opacity:1; }
+.in-st:first-child{ min-height:70vh; justify-content:flex-start; padding-top:12vh; }
+.in-st:last-child{ min-height:92vh; }
+.in-n{ font:500 13px/1 "Geist Mono", ui-monospace, monospace; color:var(--soft); letter-spacing:.04em; }
+.in-st h2{ margin:14px 0 0; font-size:clamp(28px, 3vw, 38px); line-height:1.1; letter-spacing:-.025em; font-weight:600; text-wrap:balance; }
+.in-st p{ margin:16px 0 0; font-size:18px; line-height:1.55; color:var(--mute); max-width:42ch; text-wrap:pretty; }
+.in-st p a{ color:inherit; text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:4px; }
+.in-w em{ font-style:normal; }
+.in-slot{ margin-top:20px; max-width:42ch; padding:12px 14px; border:1.5px dashed var(--wf2); border-radius:8px; font:500 13px/1.45 "Geist Mono", ui-monospace, monospace; color:var(--soft); }
+.in-slot b{ display:block; font-weight:500; color:var(--mute); }
+
+/* the stage: sticky, one coordinate system 600 x 520 scaled to fit */
+.in-stage{ position:sticky; top:96px; height:calc(100vh - 136px); max-height:720px; border:1px solid var(--line); border-radius:12px; background:#fff; overflow:hidden; }
+.in-sv{ position:absolute; left:0; top:0; width:600px; height:520px; transform-origin:0 0; }
+.in-meter{ position:absolute; left:16px; right:16px; bottom:14px; display:flex; gap:6px; z-index:3; }
+.in-meter button{ all:unset; cursor:pointer; flex:1; height:22px; display:flex; align-items:center; }
+.in-meter button::before{ content:""; display:block; width:100%; height:3px; border-radius:2px; background:var(--wf); transition:background .3s; }
+.in-meter button[aria-current="step"]::before{ background:var(--ink); }
+.in-meter button:focus-visible{ outline:2px solid var(--acc); outline-offset:2px; border-radius:3px; }
+
+/* every shape moves the same way: position, size and fade, staggered by --dl */
+.in-sv > *{ position:absolute; left:0; top:0; box-sizing:border-box; --dl:0ms;
+  transition:transform .75s cubic-bezier(.3,.7,.2,1) var(--dl), width .75s cubic-bezier(.3,.7,.2,1) var(--dl), height .75s cubic-bezier(.3,.7,.2,1) var(--dl), opacity .45s ease var(--dl), background-color .4s ease, border-color .4s ease; }
+
+.in-sv > .in-lb{ transition:opacity .3s ease; }
+.in-sv.still > *{ transition:none !important; }
+
+/* windows */
+.in-w{ border:1.5px solid var(--edge); border-radius:8px; background:#fff; overflow:hidden; }
+.in-w .bar{ height:20px; border-bottom:1.5px solid var(--wf2); position:relative; }
+.in-w .bar::before{ content:""; position:absolute; left:9px; top:7px; width:5px; height:5px; border-radius:50%; background:var(--wf2); box-shadow:9px 0 var(--wf2), 18px 0 var(--wf2); }
+.in-w .bar em{ position:absolute; right:10px; top:4px; font:500 10px/1 "Geist Mono", monospace; font-style:normal; color:var(--soft); }
+.in-w .kpi{ display:flex; gap:8px; padding:12px 12px 4px; }
+.in-w .kpi span{ flex:1; height:34px; border-radius:5px; background:var(--wf); position:relative; font:500 10px/34px "Geist Mono", monospace; color:var(--mute); padding-left:8px; white-space:nowrap; overflow:hidden; }
+.in-w .r{ display:flex; gap:8px; align-items:center; height:14px; margin:9px 12px 0; }
+.in-w .r i{ display:block; height:8px; border-radius:3px; background:var(--wf); flex:0 0 auto; }
+.in-w .r i:nth-child(1){ width:34%; } .in-w .r i:nth-child(2){ width:18%; } .in-w .r i:nth-child(3){ width:12%; margin-left:auto; }
+.in-w .r:nth-child(odd) i:nth-child(1){ width:46%; }
+.in-w .x{ opacity:0; transition:opacity .4s ease .25s; }
+
+/* calls, changes: one set of small squares */
+.in-d{ width:8px; height:8px; border-radius:2px; background:var(--edge); }
+.in-d.me{ border-radius:50%; background:var(--ink); }
+.in-d.out{ background:transparent; border:1.5px dashed var(--edge); }
+.in-d.kept{ background:var(--ink); }
+
+/* areas of the job */
+.in-ch{ display:flex; align-items:center; justify-content:center; border:1.5px solid var(--edge); border-radius:6px; background:#fff; font:500 12px/1 "Geist Mono", monospace; color:var(--mute); white-space:nowrap; }
+.in-ln{ height:1.5px; background:var(--wf2); transform-origin:0 50%; }
+
+/* labels and the next stories */
+.in-lb{ font:500 11.5px/1.35 "Geist Mono", monospace; color:var(--mute); white-space:nowrap; padding:2px 4px; margin:-2px -4px; background:#fff; }
+.in-lb b{ display:inline-grid; place-items:center; width:16px; height:16px; margin-right:6px; border-radius:50%; background:var(--ink); color:#fff; font-size:9.5px; font-weight:500; vertical-align:-3px; }
+.in-cd{ display:flex; flex-direction:column; justify-content:flex-end; padding:14px; border:1.5px solid var(--edge); border-radius:8px; background:#fff; color:var(--ink); text-decoration:none; font:600 17px/1.15 var(--body, sans-serif); letter-spacing:-.01em; }
+.in-cd::before{ content:""; position:absolute; left:12px; right:12px; top:12px; bottom:52px; border-radius:5px; background:var(--wf); }
+.in-cd small{ font:500 10.5px/1 "Geist Mono", monospace; color:var(--soft); margin-bottom:6px; letter-spacing:.02em; }
+.in-cd:hover{ border-color:var(--ink); }
+.in-cd:focus-visible{ outline:2px solid var(--acc); outline-offset:3px; }
+
+/* step 3: the product is not the picture. The product window carries what a mockup never draws */
+.in-sv[data-s="2"] #w2 .x, .in-sv[data-s="2"] #w1 .xc{ opacity:1; }
+.in-w .pin{ position:absolute; display:grid; place-items:center; width:16px; height:16px; border-radius:50%; background:var(--ink); color:#fff; font:500 9.5px/1 "Geist Mono", monospace; }
+.in-w .ai{ position:absolute; left:12px; right:12px; bottom:12px; height:62px; border:1.5px dashed var(--edge); border-radius:7px; background:#fff; }
+.in-w .ai::before, .in-w .ai::after{ content:""; position:absolute; left:10px; height:6px; border-radius:3px; background:var(--wf2); }
+.in-w .ai::before{ top:14px; width:70%; } .in-w .ai::after{ top:28px; width:48%; }
+.in-w .ai span{ position:absolute; left:10px; bottom:9px; font:500 10px/1 "Geist Mono", monospace; color:var(--soft); }
+#w2 .kpi .x{ position:absolute; inset:0; padding-left:8px; background:var(--wf); color:var(--ink); letter-spacing:-.02em; }
+.in-sv[data-s="2"] #w2 .r.rtl{ flex-direction:row-reverse; }
+.in-sv[data-s="2"] #w2 .r.rtl i:nth-child(3){ margin-left:0; margin-right:auto; background:var(--ink); }
+
+/* step 4: three plates, one source */
+.in-sv[data-s="3"] .in-w .kpi, .in-sv[data-s="3"] .in-w .r, .in-sv[data-s="3"] .in-w .ai{ opacity:0; transition:opacity .25s; }
+.in-w .kpi, .in-w .r{ transition:opacity .35s ease .3s; }
+.in-w .sw{ position:absolute; left:14px; right:14px; top:34px; display:flex; gap:8px; opacity:0; transition:opacity .35s ease .3s; }
+.in-w .sw i{ flex:1; height:30px; border-radius:5px; background:var(--wf); }
+.in-w .sw i:nth-child(1){ background:var(--ink); } .in-w .sw i:nth-child(2){ background:var(--edge); } .in-w .sw i:nth-child(3){ background:var(--wf2); }
+.in-w .cm{ position:absolute; left:14px; right:14px; top:34px; display:flex; gap:10px; align-items:center; opacity:0; transition:opacity .35s ease .3s; }
+.in-w .cm i{ height:28px; border-radius:6px; border:1.5px solid var(--edge); flex:0 0 auto; }
+.in-w .cm i:nth-child(1){ width:88px; background:var(--ink); border-color:var(--ink); } .in-w .cm i:nth-child(2){ width:130px; } .in-w .cm i:nth-child(3){ width:28px; border-radius:50%; }
+.in-w .cm i:nth-child(4){ width:56px; height:16px; border-radius:9px; background:var(--wf); border:0; }
+.in-w .sc{ position:absolute; left:14px; right:14px; top:32px; bottom:12px; display:grid; grid-template-columns:22% 1fr; gap:8px; opacity:0; transition:opacity .35s ease .3s; }
+.in-w .sc i{ border-radius:4px; background:var(--wf); } .in-w .sc i + i{ background:none; border:1.5px solid var(--wf2); }
+.in-sv[data-s="3"] #w3 .sw, .in-sv[data-s="3"] #w2 .cm, .in-sv[data-s="3"] #w1 .sc{ opacity:1; }
+
+/* step 5: as shipped, beside my fix; the fix's first row is the one that changed */
+.in-sv[data-s="4"] #w2 .kpi .x, .in-sv[data-s="5"] #w2 .kpi .x, .in-sv[data-s="4"] #w2 .bar .x, .in-sv[data-s="5"] #w2 .bar .x{ opacity:1; }
+.in-sv[data-s="4"] #w2 .kpi + .r i:nth-child(1), .in-sv[data-s="5"] #w2 .kpi + .r i:nth-child(1){ background:var(--ink); }
+
+@media (prefers-reduced-motion: reduce){ .in-sv > *, .in-st, .in-w .x{ transition:none !important; } }
+
+/* phone and narrow tablet: the stage stays at the top, the steps pass under it */
+@media (max-width: 860px){
+  .in-page{ padding-top:104px; }
+  .in-hero{ padding-bottom:28px; } .in-hero p{ font-size:18px; }
+  .in-sl{ display:block; }
+  .in-stw{ position:sticky; top:64px; z-index:4; padding-bottom:10px; background:#f4f3f1; }
+  .in-stage{ position:relative; top:0; height:min(44vh, 380px); }
+  .in-st, .in-st:first-child{ min-height:46vh; padding:24px 0; justify-content:flex-start; }
+  .in-st:last-child{ min-height:60vh; }
+  .in-st p{ font-size:17px; }
+}
