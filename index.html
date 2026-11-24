@@ -3897,7 +3897,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 #about ol.me-pillars.me-facts{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
 #about .me-facts li{ display: flex; flex-direction: column; justify-content: space-between; gap: 18px; min-height: clamp(132px, 12vw, 168px); }
 #about .me-facts .me-k{ font-size: 15px; line-height: 1.35; color: var(--text-2, #545a61); text-wrap: balance; }
-#about .me-facts .me-v{ font-size: clamp(34px, 3.7vw, 54px); line-height: 1; font-weight: 700; letter-spacing: -.035em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#about .me-facts .me-v{ font-size: clamp(40px, 4.5vw, 66px); line-height: 1; font-weight: 700; letter-spacing: -.035em; font-variant-numeric: tabular-nums; white-space: nowrap; }
 #about .me-facts .me-v small{ font-size: .5em; letter-spacing: -.01em; font-weight: 600; }
 #about .me-facts .me-v-a{ font-size: clamp(28px, 3vw, 44px); }
 @media (max-width: 860px) { #about ol.me-pillars.me-facts{ grid-template-columns: repeat(2, minmax(0, 1fr)); } #about .me-facts li{ min-height: 120px; } }
@@ -7052,7 +7052,9 @@ document.addEventListener('DOMContentLoaded', () => {
    Owner, 24.11: depth, and four facts that mean something on the scroll. The growth takes the same distance as before. Then, before
    any fact, the depth: the room dims a little around him and he comes a little closer, finished by 50% of the stage so the facts land
    on a still picture. Then each fact lands at its own point (55, 63.5, 72, 80.5%): its rule draws up, its label comes, its figure rises
-   (hero.css). The figures are stated, not counted. On a fast scroll the facts still come one after another, at least 110ms apart. */
+   (hero.css). Owner, 24.11: the figures count up with the scroll, a little larger: each one runs from 0 to its value over the next 8%
+   of the stage after it lands, and runs back on the way up. On a phone (no pinned stage) each counts once when the facts come into view.
+   On a fast scroll the facts still come one after another, at least 110ms apart. */
 (function(){ var about=document.getElementById('about'); if(!about) return; var stage=about.querySelector('.me-stage'), pin=about.querySelector('.me-pin'), intro=about.querySelector('.me-intro'), list=about.querySelector('.me-pillars'), cards=[].slice.call(about.querySelectorAll('.me-pillars li'));
   if(!stage||!pin||!intro||cards.length<2) return;
   var ok=matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)'), root=document.documentElement, on=false, cur=0, raf=0, last=0;
@@ -7060,6 +7062,10 @@ document.addEventListener('DOMContentLoaded', () => {
   var GROW=.41, DEPTH=.50, BEAT=[.55,.635,.72,.805];
   function clamp(v){ return v<0?0:v>1?1:v } function io(t){ return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2 } function io2(t){ return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2 }
   cards.forEach(function(c,i){ c.style.setProperty('--fi',i) });
+  /* the figures: the real value stays in an aria-label, the counting digits are only seen */
+  var nums=cards.map(function(c){ var n=c.querySelector('[data-n]'), v=c.querySelector('.me-v'); if(v&&n) v.setAttribute('aria-label',v.textContent.replace(/\s+/g,' ').trim()); return { n:n||document.createElement('i'), to:n?+n.getAttribute('data-n'):0 }; });
+  function full(){ nums.forEach(function(e){ e.n.textContent=e.to; }); }
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window){ var ph=new IntersectionObserver(function(es){ if(on||!es[0].isIntersecting) return; ph.disconnect(); var t0=performance.now(); nums.forEach(function(e){ e.n.textContent='0'; }); (function run(now){ var u=Math.min(1,(now-t0-200)/1100); if(u<0) u=0; nums.forEach(function(e){ e.n.textContent=Math.round(e.to*(1-Math.pow(1-u,3))); }); if(u<1) requestAnimationFrame(run); })(t0); }, { threshold:.5 }); if(!ok.matches) ph.observe(list); }
   /* the room's shadow: one layer between the room and him, so only the room dims */
   var bgs=about.querySelectorAll('.me-v7-bg'), bg=bgs[bgs.length-1]; if(bg&&!about.querySelector('.me-v7-air')){ var air=document.createElement('span'); air.className='me-v7-air'; air.setAttribute('aria-hidden','true'); bg.parentNode.insertBefore(air,bg.nextSibling); }
   function measure(){ var pt=parseFloat(getComputedStyle(about).paddingTop)||118; pin.style.setProperty('--pt',pt+'px'); pin.style.setProperty('--t0',(intro.offsetHeight+Math.max(22,Math.min(40,innerWidth*.03)))+'px'); pin.style.setProperty('--ch',Math.max(60,list.offsetHeight-64)+'px'); }
@@ -7070,6 +7076,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var grown=p>GROW*.956;
     if(grown!==said){ said=grown; pin.classList.toggle('me-grown',grown); }
     if(first) pin.classList.add('me-set');
+    nums.forEach(function(e,i){ var t=clamp((p-BEAT[i]+.01)/.08); e.n.textContent=Math.round(e.to*(1-Math.pow(1-t,3))); });
     var now=performance.now(); cards.forEach(function(c,i){ var want=p>=BEAT[i]; if(want===st[i]) return; st[i]=want;
       if(want){ var w=first?0:Math.max(0,Math.round(lastIn+110-now)); lastIn=now+w; c.style.setProperty('--fd',w+'ms'); c.classList.add('in'); }
       else { c.classList.remove('in'); c.style.setProperty('--fd','0ms'); } });
@@ -7079,7 +7086,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function go(){ if(on&&!raf) raf=requestAnimationFrame(tick); }
   function set(){ var want=ok.matches; if(want===on){ if(on){ measure(); go(); } return; } on=want; root.classList.toggle('me-scroll',on);
     if(on){ measure(); cur=target(); first=true; draw(cur); }
-    else { ['--g','--z','--dp','--io','--pt','--t0','--ch'].forEach(function(k){ pin.style.removeProperty(k) }); pin.classList.remove('me-grown','me-set','me-end'); cards.forEach(function(c,i){ c.classList.remove('in'); st[i]=false; }); said=false; first=true; } }
+    else { ['--g','--z','--dp','--io','--pt','--t0','--ch'].forEach(function(k){ pin.style.removeProperty(k) }); pin.classList.remove('me-grown','me-set','me-end'); cards.forEach(function(c,i){ c.classList.remove('in'); st[i]=false; }); full(); said=false; first=true; } }
   set(); addEventListener('scroll',window.v7Near(about,go),{passive:true}); addEventListener('resize',set); ok.addEventListener('change',set); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ if(on){ measure(); go(); } });
 })();
 </script>
