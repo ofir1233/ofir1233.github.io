@@ -82,7 +82,7 @@
   if (!box || !src) return;
   var NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg'), g = document.createElementNS(NS, 'g');
   svg.setAttribute('viewBox', '0 0 1920 1280'); svg.setAttribute('focusable', 'false');
-  g.setAttribute('transform', 'translate(566 204) scale(' + (636 / 1203).toFixed(5) + ')');
+  g.setAttribute('transform', 'translate(566 188) scale(' + (636 / 1203).toFixed(5) + ')');
   [].forEach.call(src.childNodes, function (n) { g.appendChild(n.cloneNode(true)); });
   var mask = g.querySelector('mask'), img = g.querySelector('image');
   if (!mask || !img) return;
