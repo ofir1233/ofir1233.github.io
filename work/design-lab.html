@@ -325,6 +325,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ai-fr .sx-side{ width:min(100%, 480px); }
 .c2 .fc-k{ font-weight:600; color:#181818; }
 .c2 .fc-v .fc-cr{ height:auto; min-height:30px; flex-wrap:wrap; white-space:normal; padding:5px 10px; line-height:1.3; }
+/* round 10: the outline around the hero's 50 / 76 keeps clear of its label; the Ask AI stage keeps one size for all four states */
+.c2 .hs-f.hit b{ margin:6px 0 0; padding:2px 8px; }
+.c2 .dl-ai .c2-stage{ display:grid; grid-template-columns:minmax(0, 1fr); }
+.c2 .dl-ai .c2-panel{ grid-area:1 / 1; width:100%; }
+.c2 .dl-ai .c2-panel[hidden]{ display:block; visibility:hidden; }
+.c2 .dl-ai .c2-nav{ grid-row:2; }
+.c2 .dl-ai .c2-panel .c2-shot, .c2 .dl-ai .ai-fr.hui-frame{ width:100%; height:100%; }
+.c2 .dl-ai .ai-fr .sx-side{ align-self:flex-start; }
 </style>
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
