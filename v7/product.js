@@ -78,7 +78,7 @@
   var THREAD = {
     /* Refunds & Credits is the sixth topic and the map opens on five boxes: the map is asked for ten, and the frame goes to its box,
        with its neighbours in view so its size and colour mean something (undo puts five back). os: the same on a phone, closer. */
-    topics: { k: 0, sel: '#tp-map [data-k="5"]', o: { pad: 120, max: 1.7, gx: 1, gy: 1 }, os: { pad: 34, max: 2.6, gx: 1, gy: 1 },
+    topics: { k: 0, sel: '#tp-map [data-k="5"]', o: { pad: 120, max: 1.7, gx: 2, gy: 2 }, os: { pad: 34, max: 2.6, gx: 2, gy: 2 },
       act: function (w) { var t = w.hearTopics, b = w.document.querySelector('#tp-view button[data-i="1"]'); t.close(); if (b && !b.classList.contains('on')) b.click(); t.hot(5, -1, 'map'); },
       undo: function (w) { var b = w.document.querySelector('#tp-view button[data-i="0"]'); if (b && !b.classList.contains('on')) b.click(); } },
     compliance: { k: 2, sel: '.sx-side.on li:first-child', o: { pad: 54, max: 2, gx: 10, gy: 0 }, os: { pad: 38, max: 2.4, gx: 10, gy: 0 }, late: true },
@@ -111,8 +111,11 @@
      and the press. */
   var VEIL =
     '#px-rim{position:fixed;left:0;top:0;width:100px;height:100px;z-index:2147483001;pointer-events:none;opacity:0;border-radius:var(--r,8px);' +
-    'box-shadow:0 0 0 var(--h,1px) rgba(255,255,255,.9),0 24px 60px -24px rgba(12,38,78,.45)}' +
-    '.px-soft{position:fixed;z-index:2147483000;pointer-events:none;opacity:0;background:rgba(228,238,249,.4)}' +
+    /* owner, 24.11: "the mark is ugly, it does not fit what it marks and nearly touches it, and the two parts differ in colour". The mark
+       is now Hear's own focus ring (the field in focus in the app: a blue line and a soft blue halo), 10px clear of the part with the
+       part's corner plus that air, and nothing outside it is washed: the screen keeps one colour. */
+    'box-shadow:0 0 0 calc(var(--h,1px)*1.5) #139FFD,0 0 0 calc(var(--h,1px)*5) rgba(19,159,253,.16)}' +
+    '.px-soft{position:fixed;z-index:2147483000;pointer-events:none;opacity:0;background:none}' +
     '#px-rim.on,.px-soft.on{opacity:1}' +
     '#px-tap{position:fixed;z-index:2147483002;pointer-events:none;border-radius:50%;opacity:0;background:rgba(19,159,253,.22);box-shadow:inset 0 0 0 var(--h,1px) rgba(255,255,255,.95),0 0 0 var(--h,1px) rgba(11,111,207,.55)}' +
     '#px-tap.go{animation:px-tap .54s cubic-bezier(.3,.6,.2,1) both}' +
@@ -310,15 +313,15 @@
       if (lit) {
         /* the hairline is 1px on the page at any zoom; the corner is the marked part's own corner plus the air around it, so the
            two curves are concentric. A part with square corners gets a nearly square frame. */
-        /* the air between the part and its rim: 6 all round, unless the shot says otherwise (text that starts at the part's own edge
+        /* the air between the part and its rim: 10 all round, unless the shot says otherwise (text that starts at the part's own edge
            needs more at the sides; rows ruled by hairlines need none above and below, or the rules show inside the rim) */
-        var gx = o.gx == null ? 6 : o.gx, gy = o.gy == null ? 6 : o.gy, g = Math.max(0, Math.min(gx, gy));
+        var gx = o.gx == null ? 10 : o.gx, gy = o.gy == null ? 10 : o.gy, g = Math.max(0, Math.min(gx, gy));
         var x = r[0] - gx, y = r[1] - gy, w = r[2] + 2 * gx, h = r[3] + 2 * gy, k = P.s * c.z;
         var T = was ? 'opacity .3s ease, left ' + geo + ', top ' + geo + ', width ' + geo + ', height ' + geo + ', border-radius ' + geo : 'opacity .46s ease ' + Math.round(ms * .5) + 'ms';
         var boxes = [[0, 0, P.w, Math.max(0, y)], [0, y + h, P.w, H()], [0, y, Math.max(0, x), h], [x + w, y, P.w, h]];
         if (!was) { rim.style.transition = 'none'; [].forEach.call(soft, function (el) { el.style.transition = 'none'; }); }
         var place = function () {
-          rim.style.setProperty('--r', (P.rad ? Math.min(P.rad + g, w / 2, h / 2) : 4).toFixed(2) + 'px'); rim.style.setProperty('--h', (1 / k).toFixed(2) + 'px');
+          rim.style.setProperty('--r', (P.rad ? Math.min(P.rad + g, w / 2, h / 2) : 4 + g).toFixed(2) + 'px'); rim.style.setProperty('--h', (1 / k).toFixed(2) + 'px');
           set(rim, { left: px(x), top: px(y), width: px(w), height: px(h) });
           [].forEach.call(soft, function (el, i) { set(el, { left: px(boxes[i][0]), top: px(boxes[i][1]), width: px(boxes[i][2]), height: px(boxes[i][3]) }); });
         };

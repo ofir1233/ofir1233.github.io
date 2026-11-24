@@ -108,3 +108,4 @@
 - 24.11 IA round 2 (critic): the paper well runs to the card's edges and holds the level names; the open pane starts at the top of its column; quieter L2 cards; admin words get a padded mark; the Impersonate chip keeps its white face while it waits (ia-process.css v224)
 - 24.11 How I work: the cloud mark over the sign-in card is a clean cut (img/hw-cloud-mark, no stray specks or empty canvas) and is centred: its <picture> takes the 40% width (it used to take the image's natural width, leaving the cloud at its left edge). code.css v225
 - 24.11 IA: the search field is hidden (owner: no need for it). ia-process.css v225
+- 24.11 Product windows: the focus mark is Hear's own focus ring (1.5px #139FFD + soft halo), 10px clear of the part with concentric corners (map tiles 2px, in the gutter); the pale wash outside it is gone, so the screen keeps one colour. product.js v229
