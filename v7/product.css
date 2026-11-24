@@ -159,7 +159,10 @@
    The cards sit in a slightly deeper well, each card is an object with a hairline and a shadow,
    and the card underneath washes out to the well's tone so the one on top is the only one that reads. */
 html body section#product#product{ background:linear-gradient(180deg, rgba(232,231,227,0) 0, #e8e7e3 280px, #e8e7e3 calc(100% - 220px), rgba(232,231,227,0) 100%) !important; }
-html body section#product#product article.spot{ box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 -18px 36px -20px rgba(23,27,32,.26), 0 26px 50px -38px rgba(23,27,32,.24) !important; }
+html body section#product#product article.spot{ box-shadow:0 0 0 1px rgba(23,27,32,.07), 0 -14px 30px -20px rgba(23,27,32,.16), 0 26px 50px -38px rgba(23,27,32,.24) !important; transition:box-shadow .3s; }
+/* owner, 24.11: "after all the cards stack, the shadow at the top is too strong". Every card pins on the same line, so the upward
+   shadows of the four cards underneath added up into a dark band. A card under the next one keeps only its hairline. */
+html body section#product#product.r8-stack article.spot.r8-under{ box-shadow:0 0 0 1px rgba(23,27,32,.07) !important; }
 html body section#product#product .spot .ep-veil{ background:#e8e7e3 !important; }
 
 /* ---------- Chapter row, light (owner: "the extra row is too loaded"): five numbers and one name, no capsule ---------- */

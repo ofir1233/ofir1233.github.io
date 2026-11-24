@@ -103,3 +103,4 @@
 - 24.11 Product cards on a phone (≤760): heading first, then a 4:3 window, story-style step bars with the current step under them at a fixed height, then the lead and the Case study button; the camera keeps the app's white card filling the window (no sky or glass strips). product.css v236, product.js v228.
 - 24.11 Header logo smaller (owner: a little too big): 34px at the top, 28px once the page moves (phone 30 / 26), in the bar's own .3s. hero.css v236.
 - 24.11 Case pages: header logo as on the home, 34px at the top and 28px once the page moves (phone 30 / 26). case.css v43 on the 14 pages that had v42.
+- 24.11 Product deck: the shadow above the stacked cards was the four cards underneath adding up; a card under the next keeps only its hairline, and the top card's upward shadow is lighter. product.css v237.
