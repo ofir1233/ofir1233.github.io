@@ -1,0 +1,161 @@
+/* v7 - cs2: the case-study page, rebuilt from the reader's side (owner, 24.11.2026: "the information is hard to understand and take in,
+   and every attempt to explain it with animations adds load").
+   What the audit and the research found, and what this sheet does about it:
+   - A stranger must know, on the first screen, what the product is, who uses it, the problem, my part and where it stands:
+     a plain title, one context sentence, and a four-cell summary. Headings are whole claims, so the headings alone tell the story.
+   - Stills by default, annotated with numbered pins whose meaning sits right under the picture. Nothing multi-step plays by itself.
+     A sequence is a stepper the reader moves (buttons, arrow keys); the live product opens only when asked for.
+   - One idea per section, one visual per idea, short lines. No folded text, no internal names.
+   Every rule is scoped under .c2 so the old case sheets loaded on the page (top bar, footer) cannot leak in, and nothing here leaks out. */
+.c2{ --ink:#171b20; --ink2:#3d444c; --mute:#6A7078; --line:#dfe2e5; --card:#fff; --blue:#139FFD; --deep:#0B6FCF; --coral:#FF6F52;
+  --body: "Byrd", "Figtree", system-ui, sans-serif; color:var(--ink); font:400 17px/1.6 var(--body); letter-spacing:0; }
+.c2 *{ box-sizing:border-box; }
+.c2 .c2-w{ width:min(100% - 2*clamp(16px, 4vw, 40px), 1160px); margin-inline:auto; }
+.c2 h1, .c2 h2, .c2 h3, .c2 p, .c2 figure, .c2 figcaption, .c2 ol, .c2 ul, .c2 dl, .c2 dd{ margin:0; padding:0; max-width:none; }
+.c2 h1, .c2 h2, .c2 h3{ color:var(--ink); font-family:var(--body); -webkit-text-fill-color:currentColor; }
+.c2 ol, .c2 ul{ list-style:none; }
+.c2 img{ display:block; max-width:100%; height:auto; border-radius:0; }
+.c2 b{ font-weight:600; }
+
+/* ── the opening: title, the one sentence of context, the summary ── */
+.c2 .c2-hero{ padding:clamp(108px, 13vw, 150px) 0 0; }
+.c2 .c2-kick{ font:500 14px/1.3 var(--body); color:var(--mute); margin-bottom:18px; }
+.c2 .c2-kick b{ color:var(--deep); font-weight:600; }
+.c2 h1{ max-width:17ch; font:700 clamp(38px, 5.2vw, 66px)/1.03 var(--body); letter-spacing:-.03em; text-wrap:balance; }
+.c2 .c2-ctx{ max-width:44ch; margin-top:22px; font:400 clamp(18px, 1.55vw, 21px)/1.5 var(--body); color:var(--ink2); text-wrap:pretty; }
+.c2 .c2-sum{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); margin-top:clamp(32px, 4vw, 48px); border-top:1px solid var(--ink); }
+.c2 .c2-sum > div{ padding:16px 22px 0 0; }
+.c2 .c2-sum > div + div{ padding-left:22px; border-left:1px solid var(--line); }
+.c2 .c2-sum dt{ font:600 13px/1.3 var(--body); letter-spacing:.02em; color:var(--mute); margin-bottom:6px; }
+.c2 .c2-sum dd{ font:400 15.5px/1.5 var(--body); color:var(--ink); }
+
+/* ── a still with numbered pins; the key sits under it ── */
+.c2 .c2-fig{ margin-top:clamp(28px, 4vw, 44px); }
+.c2 .c2-shot{ position:relative; border-radius:16px; overflow:hidden; background:#eef3f8; box-shadow:0 0 0 1px rgba(23,27,32,.08), 0 24px 48px -28px rgba(11,79,138,.35); }
+.c2 .c2-shot img{ width:100%; }
+.c2 .c2-pin{ position:absolute; left:var(--x); top:var(--y); width:30px; height:30px; margin:-15px 0 0 -15px; display:grid; place-items:center; border-radius:50%;
+  background:var(--ink); color:#fff; font:600 14px/1 var(--body); box-shadow:0 0 0 3px #fff, 0 4px 10px rgba(10,20,30,.25); }
+.c2 .c2-key{ display:grid; grid-template-columns:repeat(var(--n, 3), minmax(0, 1fr)); gap:18px 28px; margin-top:18px; }
+.c2 .c2-key li{ display:grid; grid-template-columns:30px 1fr; gap:12px; align-items:start; font:400 15.5px/1.45 var(--body); color:var(--ink2); }
+.c2 .c2-key li > i{ width:26px; height:26px; margin-top:-1px; display:grid; place-items:center; border-radius:50%; background:var(--ink); color:#fff; font:600 13px/1 var(--body); font-style:normal; }
+.c2 .c2-key b{ color:var(--ink); }
+
+/* the live product, only when asked for */
+.c2 .c2-live{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; margin-top:22px; }
+.c2 .c2-btn{ display:inline-flex; align-items:center; gap:10px; min-height:46px; padding:0 20px 0 16px; border:0; border-radius:99px; background:var(--ink); color:#fff;
+  font:600 15px/1 var(--body); cursor:pointer; text-decoration:none; }
+.c2 .c2-btn svg{ width:16px; height:16px; }
+.c2 .c2-btn:hover{ background:#000; }
+.c2 .c2-btn:focus-visible, .c2 .c2-tab:focus-visible, .c2 .c2-nav button:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+.c2 .c2-live small{ font:400 14px/1.4 var(--body); color:var(--mute); }
+.c2 .c2-frame{ position:relative; margin-top:18px; border-radius:16px; overflow:hidden; aspect-ratio:16 / 10; background:#eef3f8; box-shadow:0 0 0 1px rgba(23,27,32,.1); }
+.c2 .c2-frame iframe{ position:absolute; left:0; top:0; width:1440px; height:900px; border:0; transform-origin:0 0; }
+.c2 .c2-frame[hidden]{ display:none; }
+
+/* ── a section: the heading is the claim, the lede says it plainly ── */
+.c2 .c2-sec{ padding:clamp(72px, 9vw, 120px) 0 0; }
+.c2 .c2-sec > .c2-w > .c2-n{ font:600 13px/1 var(--body); letter-spacing:.04em; color:var(--deep); margin-bottom:14px; }
+.c2 h2{ max-width:20ch; font:700 clamp(28px, 3.3vw, 42px)/1.1 var(--body); letter-spacing:-.022em; text-wrap:balance; }
+.c2 .c2-lede{ max-width:52ch; margin-top:16px; font:400 clamp(17px, 1.35vw, 19px)/1.55 var(--body); color:var(--ink2); text-wrap:pretty; }
+
+/* the domain in four boxes */
+.c2 .c2-flow{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:14px; margin-top:32px; counter-reset:f; }
+.c2 .c2-flow li{ position:relative; padding:18px 18px 20px; border-radius:14px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
+.c2 .c2-flow li + li::before{ content:""; position:absolute; left:-12px; top:50%; width:10px; height:10px; margin-top:-5px; border-top:2px solid var(--mute); border-right:2px solid var(--mute); transform:rotate(45deg) scale(.7); }
+.c2 .c2-flow b{ display:block; font:600 16px/1.3 var(--body); margin-bottom:6px; }
+.c2 .c2-flow span{ display:block; font:400 14.5px/1.45 var(--body); color:var(--ink2); }
+.c2 .c2-flow li.is-me{ box-shadow:0 0 0 2px var(--blue); }
+.c2 .c2-flow li.is-me em{ display:inline-block; margin-bottom:8px; padding:4px 8px; border-radius:99px; background:#e3f1fe; font:600 11.5px/1 var(--body); font-style:normal; letter-spacing:.02em; color:var(--deep); }
+
+/* before and after, drawn with the screen's own numbers */
+.c2 .c2-ba{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.35fr); gap:16px; margin-top:32px; }
+.c2 .c2-ba > div{ padding:22px 24px 24px; border-radius:16px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
+.c2 .c2-ba h3{ font:600 13px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); margin-bottom:16px; }
+.c2 .c2-ba p{ margin-top:16px; font:400 15.5px/1.5 var(--body); color:var(--ink2); }
+.c2 .c2-score{ display:inline-grid; place-items:center; min-width:76px; height:56px; padding:0 14px; border-radius:10px; background:var(--coral); color:#fff; font:600 26px/1 var(--body); font-variant-numeric:tabular-nums; }
+.c2 .c2-why{ display:grid; grid-template-columns:auto 1fr; gap:14px 18px; align-items:center; }
+.c2 .c2-why .c2-score{ grid-row:span 3; align-self:start; }
+.c2 .c2-why div{ font:400 15px/1.35 var(--body); color:var(--ink2); }
+.c2 .c2-why div b{ color:var(--ink); }
+.c2 .c2-bars{ display:grid; grid-template-columns:44px 1fr 28px; gap:6px 10px; align-items:center; font:500 13.5px/1 var(--body); color:var(--ink2); }
+.c2 .c2-bars i{ height:6px; border-radius:3px; background:#e7e9ec; position:relative; overflow:hidden; }
+.c2 .c2-bars i::after{ content:""; position:absolute; inset:0 auto 0 0; width:var(--v); background:var(--c); border-radius:3px; }
+.c2 .c2-ask{ color:var(--deep); font-weight:600; }
+
+/* the stepper: the reader moves through the stills; nothing advances by itself */
+.c2 .c2-steps{ display:grid; grid-template-columns:minmax(0, .8fr) minmax(0, 1.2fr); gap:clamp(24px, 4vw, 56px); margin-top:36px; align-items:start; }
+.c2 .c2-tabs{ display:grid; gap:10px; }
+.c2 .c2-tab{ display:grid; grid-template-columns:34px 1fr; gap:12px; width:100%; padding:18px 18px 18px 16px; border:0; border-radius:14px; background:transparent; text-align:left; color:inherit; font:inherit; cursor:pointer;
+  box-shadow:inset 0 0 0 1px var(--line); transition:background .2s, box-shadow .2s; }
+.c2 .c2-tab:hover{ background:rgba(255,255,255,.6); }
+.c2 .c2-tab[aria-selected="true"]{ background:var(--card); box-shadow:inset 0 0 0 2px var(--ink); }
+.c2 .c2-tab i{ width:28px; height:28px; display:grid; place-items:center; border-radius:50%; background:#e3e6e9; color:var(--ink); font:600 13.5px/1 var(--body); font-style:normal; }
+.c2 .c2-tab[aria-selected="true"] i{ background:var(--ink); color:#fff; }
+.c2 .c2-tab b{ display:block; font:600 17px/1.3 var(--body); }
+.c2 .c2-tab span{ display:block; margin-top:6px; font:400 15px/1.5 var(--body); color:var(--ink2); }
+.c2 .c2-tab:not([aria-selected="true"]) span{ display:none; }
+.c2 .c2-stage{ position:relative; }
+.c2 .c2-panel[hidden]{ display:none; }
+.c2 .c2-panel .c2-shot{ display:grid; place-items:center; padding:clamp(18px, 3vw, 36px); background:linear-gradient(180deg, #dcebf8, #eef4fa); }
+.c2 .c2-panel .c2-shot img{ width:auto; max-width:100%; max-height:560px; border-radius:12px; box-shadow:0 18px 40px -22px rgba(11,79,138,.45); }
+.c2 .c2-panel .c2-shot.wide{ padding:0; display:block; }
+.c2 .c2-panel .c2-shot.wide img{ width:100%; max-height:none; border-radius:0; box-shadow:none; }
+.c2 .c2-panel figcaption{ margin-top:14px; font:400 15px/1.5 var(--body); color:var(--ink2); }
+.c2 .c2-panel figcaption b{ color:var(--ink); }
+.c2 .c2-nav{ display:flex; align-items:center; gap:10px; margin-top:14px; }
+.c2 .c2-nav button{ display:inline-grid; place-items:center; width:42px; height:42px; border:0; border-radius:50%; background:var(--card); box-shadow:inset 0 0 0 1px var(--line); color:var(--ink); cursor:pointer; }
+.c2 .c2-nav button:disabled{ opacity:.35; cursor:default; }
+.c2 .c2-nav button svg{ width:16px; height:16px; }
+.c2 .c2-nav span{ font:500 14px/1 var(--body); color:var(--mute); font-variant-numeric:tabular-nums; }
+.c2 .c2-quote{ margin-top:18px; padding-left:16px; border-left:3px solid var(--blue); font:500 17px/1.45 var(--body); color:var(--ink); }
+
+/* a decision: the question, what I chose, what I set aside and why */
+.c2 .c2-dec{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:16px; margin-top:32px; }
+.c2 .c2-opt{ padding:22px 24px; border-radius:16px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
+.c2 .c2-opt.is-chosen{ box-shadow:0 0 0 2px var(--ink); }
+.c2 .c2-opt h3{ display:flex; align-items:center; gap:10px; font:600 17px/1.3 var(--body); }
+.c2 .c2-opt h3 em{ padding:4px 9px; border-radius:99px; background:#e9ecef; font:600 12px/1 var(--body); font-style:normal; color:var(--ink2); }
+.c2 .c2-opt.is-chosen h3 em{ background:var(--ink); color:#fff; }
+.c2 .c2-opt p{ margin-top:10px; font:400 15.5px/1.5 var(--body); color:var(--ink2); }
+.c2 .c2-result{ max-width:62ch; margin-top:18px; font:400 16px/1.55 var(--body); color:var(--ink2); }
+.c2 .c2-result b{ color:var(--ink); }
+
+/* where it stands, said plainly */
+.c2 .c2-stand{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:16px 48px; margin-top:28px; padding-top:20px; border-top:1px solid var(--ink); }
+.c2 .c2-stand h3{ font:600 13px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); margin-bottom:8px; }
+.c2 .c2-stand p{ font:400 16px/1.55 var(--body); color:var(--ink2); }
+.c2 .c2-end{ padding-bottom:clamp(64px, 8vw, 110px); }
+
+
+/* the questions a reader of the screen brings, and where the design answers each */
+.c2 .c2-qs{ display:grid; grid-template-columns:repeat(var(--n, 3), minmax(0, 1fr)); gap:14px; margin-top:32px; }
+.c2 .c2-qs li{ display:grid; align-content:start; gap:10px; padding:20px 22px 22px; border-radius:16px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
+.c2 .c2-qs q{ font:600 19px/1.3 var(--body); color:var(--ink); quotes:"\201C" "\201D"; }
+.c2 .c2-qs span{ font:400 15px/1.5 var(--body); color:var(--ink2); }
+.c2 .c2-qs small{ display:inline-flex; align-items:center; gap:8px; margin-top:4px; font:600 13px/1.2 var(--body); color:var(--deep); }
+.c2 .c2-qs small i{ width:22px; height:22px; display:grid; place-items:center; border-radius:50%; background:var(--ink); color:#fff; font:600 12px/1 var(--body); font-style:normal; }
+.c2 .c2-sub{ margin-top:clamp(40px, 5vw, 64px); font:600 20px/1.3 var(--body); color:var(--ink); letter-spacing:-.01em; }
+@media (max-width: 900px){ .c2 .c2-qs{ grid-template-columns:1fr; } }
+
+@media (max-width: 900px){
+  .c2 .c2-sum{ grid-template-columns:1fr 1fr; }
+  .c2 .c2-sum > div:nth-child(3){ padding-left:0; border-left:0; }
+  .c2 .c2-sum > div:nth-child(n+3){ margin-top:14px; border-top:1px solid var(--line); }
+  .c2 .c2-flow{ grid-template-columns:1fr 1fr; }
+  .c2 .c2-flow li:nth-child(3)::before{ display:none; }
+  .c2 .c2-ba, .c2 .c2-dec, .c2 .c2-stand{ grid-template-columns:1fr; }
+  .c2 .c2-steps{ grid-template-columns:1fr; }
+  .c2 .c2-tabs{ grid-template-columns:repeat(3, minmax(0, 1fr)); gap:8px; }
+  .c2 .c2-tab{ grid-template-columns:1fr; padding:12px; gap:8px; }
+  .c2 .c2-tab span{ display:none !important; }
+  .c2 .c2-tab b{ font-size:14.5px; }
+  .c2 .c2-key{ grid-template-columns:1fr; }
+}
+@media (max-width: 560px){
+  .c2 .c2-sum{ grid-template-columns:1fr; }
+  .c2 .c2-sum > div + div{ padding-left:0; border-left:0; margin-top:14px; border-top:1px solid var(--line); }
+  .c2 .c2-flow{ grid-template-columns:1fr; }
+  .c2 .c2-flow li::before{ display:none; }
+  .c2 .c2-pin{ width:24px; height:24px; margin:-12px 0 0 -12px; font-size:12px; }
+}
+@media (prefers-reduced-motion: reduce){ .c2 *{ transition:none !important; } }

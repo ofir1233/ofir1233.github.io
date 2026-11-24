@@ -34,37 +34,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css?v=201">
 <link rel="stylesheet" href="../v7/foot.css?v=200">
-<link rel="stylesheet" href="lab-live.css">
-<link rel="stylesheet" href="lab-compliance.css">
-<link rel="stylesheet" href="lab-agent-eval.css">
-<link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/px.css?v=20">
 <link rel="stylesheet" href="../v7/case.css?v=41">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<style>
-/* explainable-scores: page-only pieces */
-.es-scale { background: var(--card); border-radius: 22px; padding: clamp(18px, 2.6vw, 28px); display: grid; gap: 10px; }
-.es-scale .es-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
-.es-scale .es-cell { height: 46px; border-radius: 8px; display: grid; place-items: center; font: 600 14px/1 var(--body); font-variant-numeric: tabular-nums; color: #1b1b1b; }
-.es-scale .es-band { display: grid; grid-template-columns: 1fr 2fr; gap: 6px; font: 600 14px/1.3 var(--body); color: var(--mute); }
-.es-scale .es-band span { border-top: 2px solid #8b9599; padding-top: 8px; }
-.es-scale .es-band span + span { border-color: #ff6b59; color: var(--paper); }
-.es-narrow { display: grid; place-items: center; }
-.es-narrow img { width: auto; max-width: 100%; border-radius: 10px; }
-@media (min-width: 761px) { .shot.pad.es-narrow { padding-bottom: 56px; } }
-.shot.pad.es-light { background: #fff; }
-/* light theme: that white pad sits on the white sheet, so a hairline and the window shadow frame it as a product screen */
-:root:not([data-theme="dark"]) .sheet .shot.pad.es-light { box-shadow: 0 0 0 1px rgba(20,32,27,.08), var(--win-shadow); }
-/* print and PDF take the light look (see case.css) */
-@media print { :root[data-theme="dark"] .sheet .shot.pad.es-light { box-shadow: 0 0 0 1px rgba(20,32,27,.08), var(--win-shadow); } }
-.es-prose ol + p { margin-top: 1em; }
-.es-gap { margin-top: clamp(36px, 5vw, 64px); }
-/* the popover crop ends just under the opened cell (round 16) */
-#cell .shot.v7s > img { aspect-ratio: 1010 / 850; height: auto; object-fit: cover; object-position: 50% 0; }
-@media (max-width: 1239px) { .ct-hero.es-stage .ct-stage { --ct-band: 55cqw; --ct-top: 45cqw; } }
-@media (max-width: 719px) { .ct-hero.es-stage .ct-stage { --ct-band: 80cqw; --ct-top: 65cqw; } }
-</style>
+<link rel="stylesheet" href="../v7/cs2.css?v=3">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -77,153 +50,124 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main">
-  <header class="cs-hero wrap">
-    <div class="label">Case study · <b>Explainable scores</b></div>
-    <h1>Every AI score should lead back to the calls behind it</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>Hear is an AI platform for contact centers. People coach agents and check compliance from AI scores, so they need to audit them.</dd></div><div><dt>What I designed</dt><dd>I designed Compliance, which checks agents against the contact center's rules. I also designed Agent evaluation, which scores each agent. I took it from my first version to V4 + Filter.</dd></div><div><dt>Where it stands</dt><dd>Screens from Oct 2026 in Hear Design Lab, a working replica of Hear. Not every version in the Lab is finished.</dd></div></dl>
-    <dl class="meta">
-      <div><dt>Role</dt><dd>Design and build in the Lab, with Claude Code</dd></div>
-      <div><dt>When</dt><dd>Mar–Oct 2026</dd></div>
-      <div><dt>Scope</dt><dd>Compliance heatmap and popover · Agent evaluation chart · score answers in Ask AI</dd></div>
-    </dl>
-    <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#grid"><span>02</span> Compliance</a><a class="pill" href="#cell"><span>03</span> The popover</a><a class="pill" href="#answers"><span>04</span> Ask AI</a><a class="pill" href="#chart"><span>05</span> Agent evaluation</a><a class="pill" href="#decisions"><span>06</span> Decisions</a></nav>
-    <div class="px-host" id="demo"><figure class="px-fig" data-px="compliance"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=compliance&v=202" title="Compliance in Hear Studio: five rules by agent, a failing score opened against the team, and Ask AI naming the calls." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
+<main id="main" class="c2">
+  <header class="c2-hero">
+    <div class="c2-w">
+      <p class="c2-kick">Case study · <b>Explainable scores</b></p>
+      <h1>Every AI score leads back to the calls behind it</h1>
+      <p class="c2-ctx">Hear's AI reads every call in a contact center and scores each agent against the center's rules. People coach agents from those scores, so I made every score open into its evidence.</p>
+      <dl class="c2-sum">
+        <div><dt>For</dt><dd>The people who coach agents and check compliance in a contact center.</dd></div>
+        <div><dt>The problem</dt><dd>A score with nothing behind it can only be trusted blindly or ignored.</dd></div>
+        <div><dt>What I did</dt><dd>Designed and built Compliance and Agent evaluation: the grid, the score popover and score answers in Ask AI.</dd></div>
+        <div><dt>Where it stands</dt><dd>Mar–Oct 2026, in Hear Design Lab, my working replica of Hear, with demo data.</dd></div>
+      </dl>
+      <figure class="c2-fig">
+        <div class="c2-shot"><img src="../img/v7s-es-grid.webp?v=6" width="2060" height="1327" alt="The Compliance screen: five rules as rows and ten agents as columns. Passing scores are gray, failing scores are coral, and the failing cell of Selma K., 54, has its popover open: 12 of 26 calls failed this rule, Selma 54 against a team of 81, and a link, Ask AI which calls." fetchpriority="high">
+          <span class="c2-pin" style="--x:89.6%;--y:61.8%" aria-hidden="true">1</span><span class="c2-pin" style="--x:74.4%;--y:37%" aria-hidden="true">2</span><span class="c2-pin" style="--x:86.4%;--y:57%" aria-hidden="true">3</span></div>
+        <figcaption><ol class="c2-key">
+          <li><i aria-hidden="true">1</i><span><b>Only a failing score takes color.</b> Everything that passes stays gray.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>Its popover says why:</b> 12 of 26 calls failed this rule, and the team is at 81.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>One step to the evidence:</b> ask which calls, from the score itself.</span></li>
+        </ol></figcaption>
+      </figure>
+      <div class="c2-live"><button type="button" class="c2-btn" data-live="../hear-v7/plan/studio.html?screen=compliance&amp;v=202" data-title="Compliance, the live screen in Hear Design Lab" data-open="Try the live screen" data-close="Close the live screen" aria-expanded="false" aria-controls="live-c"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .5.6.8 1 .5l8-5.2a.6.6 0 0 0 0-1L5.5 2.3c-.4-.3-1 0-1 .5z"/></svg><span class="c2-bt">Try the live screen</span></button><small>The real screen, with demo data. Click any score.</small></div>
+      <div class="c2-frame" id="live-c" hidden></div>
+    </div>
   </header>
 
-  <section class="chapter" id="problem">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">01 · <b>The problem</b></div><h2>An unexplained score leaves two bad options</h2></div>
-        <div class="prose">
-          <p class="lead">These scores are about people, and when nothing explains one, the person reading it can only trust the number blindly or ignore it.</p>
-          <p>Agent evaluation started as my first version in the Lab. In the Lab's July 2026 build, it showed scores over time and per skill, with tables of teams and agents. Nothing said why a score was what it was, and Compliance wasn't built yet.</p>
-          
-          <p>Both screens follow three principles.</p>
-        </div>
-      </div>
-      <ol class="steps rv">
-        <li><strong>Show what matters first</strong><span>A grid of every agent and criterion, where a passing score stays gray.</span></li>
-        <li><strong>Explain every number</strong><span>Any score opens into its place in the team, then into the evidence behind it.</span></li>
-        <li><strong>Act from the same screen</strong><span>Ask AI which calls, from the cell itself, without losing the context.</span></li>
+  <section class="c2-sec" id="context" data-ch="The setting">
+    <div class="c2-w">
+      <p class="c2-n">The setting</p>
+      <h2>A score here is about a person, not a machine</h2>
+      <p class="c2-lede">In a contact center, "agents" are the people who answer customer calls. Their scores decide who gets coached, and on what.</p>
+      <ol class="c2-flow">
+        <li><b>Calls</b><span>Agents take customer calls all day.</span></li>
+        <li><b>Hear's AI reads every call</b><span>It checks each call against the center's rules, such as fee disclosure or the vulnerable customer protocol.</span></li>
+        <li class="is-me"><em>My screens</em><b>A score per agent, per rule</b><span>Over a date range, with the calls it rests on.</span></li>
+        <li><b>A person acts</b><span>Someone decides whom to coach, and on which rule.</span></li>
       </ol>
     </div>
   </section>
 
-  <section class="chapter sheet" id="grid">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">02 · <b>Compliance</b></div><h2>A grid that stays quiet until something fails</h2></div>
-        <div class="prose">
-          <p class="lead">Only failing cells get color, so a row of grays looks fine before anyone reads a number.</p>
-          <p>The grid has agents across and criteria down. Each cell is one agent's score on one rule over the selected date range.</p>
-          <p>The last row counts each agent's failing criteria, so the worst columns stand out.</p>
-        </div>
+  <section class="c2-sec" id="problem" data-ch="The problem">
+    <div class="c2-w">
+      <p class="c2-n">The problem</p>
+      <h2>A bare number leaves two bad options: trust it blindly, or ignore it</h2>
+      <div class="c2-ba">
+        <div><h3>Before · a score alone</h3><span class="c2-score">54</span>
+          <p>In my first version, scores came over time and per skill, in tables of teams and agents. Nothing said why a score was what it was.</p></div>
+        <div><h3>After · the same score, with its reasons</h3>
+          <div class="c2-why"><span class="c2-score">54</span>
+            <div><b>Selma K. · Vulnerable customer protocol</b><br>12 of 26 calls failed this rule</div>
+            <div class="c2-bars"><span>Selma</span><i style="--v:54%;--c:var(--coral)"></i><span>54</span><span>Team</span><i style="--v:81%;--c:var(--blue)"></i><span>81</span></div>
+            <div class="c2-ask">Ask AI which calls →</div></div>
+          <p>The number never stands alone: it carries who and what it is about, what it rests on, the team beside it and one way forward.</p></div>
       </div>
-      <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-es-grid.webp?v=6" data-zoom alt="The Compliance screen: five criteria as rows and ten agents as columns. Passing scores are gray, failing scores are coral, a Failing criteria row counts them, and one failing cell has its popover open." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div>
-        <figcaption><b>Compliance, criteria by agent.</b> Only a failing score takes color. One cell's popover is open.</figcaption></figure>
-      <div class="two solo es-gap">
-        <figure class="rv">
-          <div class="es-scale" role="img" aria-label="The three legend steps: 70 and up in a quiet gray, passing; 60 to 69 in pale coral and under 60 in coral, both failing">
-            <div class="es-row" aria-hidden="true"><span class="es-cell" style="background:#eef0f2;color:#3a424c">70 and up</span><span class="es-cell" style="background:#FFD0C4;color:#8E2A14">60–69</span><span class="es-cell" style="background:#FF6F52;color:#fff">under 60</span></div>
-            <div class="es-band" aria-hidden="true"><span>Passing · gray</span><span>Failing · coral</span></div>
+      <h3 class="c2-sub">Three questions a coach brings to a low score</h3>
+      <ol class="c2-qs">
+        <li><q>Is this score really bad?</q><span>Only a score under the pass mark of 70 takes color, so a low one stands out before anyone reads a number.</span><small><i>1</i>Spot what fails</small></li>
+        <li><q>Is it the agent, or the whole team?</q><span>The popover puts the agent's score beside the team's, against the same pass mark.</span><small><i>2</i>See it beside the team</small></li>
+        <li><q>What actually happened on the calls?</q><span>Ask AI names the calls, what most of them share, and the step that was missed on each.</span><small><i>3</i>Check the calls</small></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="c2-sec" id="how" data-ch="How it works">
+    <div class="c2-w">
+      <p class="c2-n">How it works</p>
+      <h2>Three steps from a number to the calls behind it</h2>
+      <div class="c2-steps">
+        <div class="c2-side">
+          <div class="c2-tabs" role="tablist" aria-label="Three steps">
+            <button type="button" class="c2-tab" role="tab" id="t1" aria-controls="p1" aria-selected="true"><i>1</i><div><b>Spot what fails</b><span>A grid of every agent against every rule. Passing scores stay gray, so a row of grays reads fine before anyone reads a number. The last row counts each agent's failing rules.</span></div></button>
+            <button type="button" class="c2-tab" role="tab" id="t2" aria-controls="p2" aria-selected="false"><i>2</i><div><b>See it beside the team</b><span>Clicking a score opens its popover: the agent and the rule, what the score rests on (12 of 26 calls failed), and the agent's 54 beside the team's 81, both against the pass mark of 70.</span></div></button>
+            <button type="button" class="c2-tab" role="tab" id="t3" aria-controls="p3" aria-selected="false"><i>3</i><div><b>Check the calls</b><span>One button sends the agent and the rule to Ask AI, with the question already written. The answer gives how many calls failed, what most of them share, and each call with the step that was missed.</span></div></button>
           </div>
-          <figcaption><b>The scale.</b> The three steps of the Compliance legend.</figcaption>
-        </figure>
-        <div class="prose xtra">
-          <p>Every passing score, 70 and up, is the same quiet gray. Only the two failing steps take color, pale coral from 60 to 69 and coral under 60, and they are exactly the cells the bottom row counts.</p>
-          <p>Every cell still prints its score, so color is never the only cue.</p>
-          
+          <p class="c2-quote">The answer names the cause before it names the person.</p>
+        </div>
+        <div class="c2-stage">
+          <figure class="c2-panel" role="tabpanel" id="p1" aria-labelledby="t1"><div class="c2-shot wide"><img src="../img/v7s-es-grid.webp?v=6" width="2060" height="1327" alt="The Compliance grid: passing scores gray, failing scores coral, a Failing criteria row at the bottom." loading="lazy"></div><figcaption><b>Compliance.</b> Five rules down, ten agents across.</figcaption></figure>
+          <figure class="c2-panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden><div class="c2-shot"><img src="../img/v7s-es-popover.webp?v=6" width="1010" height="928" alt="The score popover: Selma K., Vulnerable customer protocol, 12 of 26 calls failed this rule; a bar for Selma at 54 and for the team at 81, the pass mark of 70 marked on both; a link, Ask AI which calls." loading="lazy"></div><figcaption><b>The popover.</b> The score is never read without its scope.</figcaption></figure>
+          <figure class="c2-panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden><div class="c2-shot"><img src="../img/v7s-es-ask.webp?v=5" width="830" height="935" alt="An Ask AI answer for Selma K.: 12 calls failed and 9 of them share one cause, then the calls by date, each with what was missed and the moment the protocol was skipped." loading="lazy"></div><figcaption><b>The answer.</b> Each part points at something you can check.</figcaption></figure>
+          <div class="c2-nav"><button type="button" data-go="-1" aria-label="Previous step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button><button type="button" data-go="1" aria-label="Next step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button><span aria-live="polite">1 of 3</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="chapter ink side" id="cell">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">03 · <b>The popover</b></div><h2>One agent, placed against the whole team</h2></div>
-        <div class="prose"><p class="lead">Clicking a cell opens a popover that puts the score beside the team's and offers the next question.</p></div>
+  <section class="c2-sec" id="decision" data-ch="The key decision">
+    <div class="c2-w">
+      <p class="c2-n">The key decision</p>
+      <h2>A question about a score starts from the score, not from a blank chat</h2>
+      <div class="c2-dec">
+        <div class="c2-opt"><h3>A blank chat <em>Set aside</em></h3><p>Ask AI from the top of the sidebar, which keeps the page as context. You still write the question, and say which number you mean.</p></div>
+        <div class="c2-opt is-chosen"><h3>The score itself <em>Chosen</em></h3><p>Ask AI which calls, the popover's one button, sends the agent and the rule with the question.</p></div>
       </div>
-      <div class="two">
-        <figure class="rv"><div class="shot v7s"><img src="../img/v7s-es-popover.webp?v=6" alt="The cell popover above a failing score of 54: Selma K., Vulnerable customer protocol, 12 of 26 calls failed this rule, a bar for Selma at 54 and a bar for the team at 81, the pass mark of 70 notched on both, and a link, Ask AI which calls." width="1010" height="928" loading="lazy"><span class="live">Design Lab · demo data</span></div>
-          <figcaption><b>The cell popover.</b> Cropped from the Compliance screen.</figcaption></figure>
-        <div class="prose xtra">
-          <ul>
-            <li>The header names the agent and the criterion, so the number is never read without its scope.</li>
-            <li>One line says what the score rests on: 12 of 26 calls failed this rule.</li>
-            <li>Two bars put the agent beside the team average, 54 against 81.</li>
-            <li>One way forward: <b>Ask AI which calls</b>, a question already written for this cell.</li>
-          </ul>
-          
-        </div>
+      <p class="c2-result"><b>Why:</b> because it carries the agent and the rule, the answer can name the calls. The sidebar stays for open questions about the page.</p>
+    </div>
+  </section>
+
+  <section class="c2-sec" id="chart" data-ch="Same rule, another screen">
+    <div class="c2-w">
+      <p class="c2-n">Same rule, another screen</p>
+      <h2>The score chart says what its colors mean</h2>
+      <p class="c2-lede">In Agent evaluation, the chart's subtitle states its own encoding: coral is a day 8 or more points under the average, and a dashed line marks that average. A low day reads the way a failing score does in Compliance.</p>
+      <div class="c2-live"><button type="button" class="c2-btn" data-live="../hear-v7/plan/studio.html?screen=agents&amp;v=202" data-title="Agent evaluation, the live screen in Hear Design Lab" data-open="Open Agent evaluation" data-close="Close Agent evaluation" aria-expanded="false" aria-controls="live-a"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .5.6.8 1 .5l8-5.2a.6.6 0 0 0 0-1L5.5 2.3c-.4-.3-1 0-1 .5z"/></svg><span class="c2-bt">Open Agent evaluation</span></button><small>The real screen, with demo data.</small></div>
+      <div class="c2-frame" id="live-a" hidden></div>
+    </div>
+  </section>
+
+  <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
+    <div class="c2-w">
+      <div class="c2-stand">
+        <div><h3>Where it stands</h3><p>These screens live in Hear Design Lab, my working replica of Hear, rebuilt in code with demo data, as of October 2026. Not every version in the Lab is finished.</p></div>
+        <div><h3>My part</h3><p>I designed and built both screens, from my first version in March 2026 to the current one, with Claude Code.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="chapter sheet side" id="answers">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">04 · <b>Ask AI</b></div><h2>An answer that shows its evidence</h2></div>
-        <div class="prose"><p class="lead"><b>Ask AI which calls</b> sends the cell to Ask AI, and its answer names the calls that lowered the score.</p>
-          <p>The question arrives already written, with the agent and the criterion in it, and the agent's name stays at the top of the panel.</p></div>
-      </div>
-      <div class="two">
-        <figure class="rv"><div class="shot pad v7s" style="--iw:400px;--ir:22px"><img src="../img/v7s-es-ask.webp?v=5" alt="An Ask AI answer for Selma K.: the question, Which calls pulled Selma’s Vulnerable customer protocol score down, then 12 calls failed and 9 of them share one cause, then the calls by date, each with what was missed and the moment the protocol was skipped, marked on the length of the call." width="830" height="935" loading="lazy"><span class="live">Design Lab · demo data</span></div>
-          <figcaption><b>An answer about one score.</b> From the Compliance screen.</figcaption></figure>
-        <div class="prose es-prose xtra">
-          <p>An answer asked from a cell has three parts, and each points at something you can check:</p>
-          <ol>
-            <li><b>How many calls failed.</b> A stated number, out of the calls the score rests on.</li>
-            <li><b>What they share.</b> The cause most of them have in common, in one sentence.</li>
-            <li><b>The calls.</b> Each with its date and the step that was missed.</li>
-          </ol>
-          <p>The answer names the cause before it names the person.</p>
-          
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="chapter" id="chart">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">05 · <b>Agent evaluation</b></div><h2>The chart explains itself too</h2></div>
-        <div class="prose"><p class="lead">In Agent evaluation, the score chart's subtitle states its own encoding: coral is a day 8 or more points under the average.</p>
-          <p>A dashed line marks that average, so a low day reads the way a failing cell does in Compliance.</p></div>
-      </div>
-      <div class="px-host rv"><figure class="px-fig" data-px="agents"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=agents&v=202" title="Agent evaluation in Hear Studio: the average score by day, a low day opened, and the spread of agents." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
-    </div>
-  </section>
-
-  <section class="chapter ink" id="decisions">
-    <div class="wrap">
-      <div class="ch-head"><div><div class="label">06 · <b>Decisions</b></div><h2>Where the design forked</h2></div><div class="prose"><p class="lead">I kept both ways into Ask AI, the cell and the sidebar, and rebuilt the score chart to control its hover.</p></div></div>
-
-      <article class="decision rv">
-        <div class="label">Decision 1 · <b>Starting point</b></div>
-        <h3>Where should a question about a score start?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>A blank chat</strong><span>Ask AI from the top of the sidebar, which says “Ask about what you're looking at” and keeps the page as context. You still write the question and say which number you mean.</span></li>
-          <li class="opt chosen"><strong>The cell itself</strong><span>Ask AI which calls, the popover's one button, sends the cell's agent and criterion with the question.</span></li>
-        </ul>
-        <p class="because"><b>Result:</b> the cell leads. It sends the agent and the criterion, so the answer can name the calls. The sidebar stays for open questions about the page.</p>
-      </article>
-
-      <article class="decision rv xtra">
-        <div class="label">Decision 2 · <b>The score chart's hover</b></div>
-        <h3>Keep the first chart, or rebuild it to control what hover shows?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>Keep the first chart</strong><span>The area chart from my first version (Recharts). It already drew the score over time.</span></li>
-          <li class="opt chosen"><strong>Rebuild it for the hover</strong><span>In March 2026 I swapped it for a new chart (ApexCharts), for finer control over the tooltip and markers.</span></li>
-        </ul>
-        <p class="because"><b>Result:</b> in V4 + Filter, hovering a bar shows the day, the score out of 100 and how many calls it rests on.</p>
-      </article>
-    </div>
-  </section>
-
-  <div class="wrap">
-    <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy.</p></div>
+  <div class="c2-w c2-next">
     <a class="next" href="actions.html" aria-label="Next case study: Actions. Findings become work a person owns"><span class="next-t"><span class="label">Next case study</span><span class="next-name">Actions</span><span class="next-line">Findings become work a person owns</span><span class="next-go">Read next</span></span><span class="next-thumb whole" aria-hidden="true"><img src="../img/v7s-actions-board.webp?v=8" width="2060" height="1327" alt="" loading="lazy" decoding="async"></span></a>
   </div>
 </main>
@@ -262,8 +206,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </div>
 </footer>
 <script src="case.js?v=8"></script>
-<script src="../v7/depth.js?v=6" defer></script>
-<script src="../v7/product.js?v=39" defer></script>
+<script src="../v7/cs2.js?v=1" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>
