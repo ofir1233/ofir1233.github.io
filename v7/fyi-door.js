@@ -320,14 +320,19 @@
     if (RM) { started = true; render(END); return; }
     render(0);
     if (q.get('fdauto') === '0') return;
-    const obs = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting) && !started) { started = true; obs.disconnect(); setTimeout(() => play(0, END), 350); } }, { threshold: .55 });
+    /* it plays once its pictures are there (they load lazily, as the section comes near), at most 2.5 s after it is in view */
+    const obs = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting) && !started) { started = true; obs.disconnect();
+      Promise.race([pics, new Promise(r => setTimeout(r, 2500))]).then(() => { measure(); if (!playing && T === 0) setTimeout(() => play(0, END), 350); }); } }, { threshold: .55 });
     obs.observe(stage);
   };
   let rz = 0;
   addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(measure, 120); });
   MQ.addEventListener('change', () => measure());
-  const imgs = $$('img').filter(i => !i.complete).map(i => new Promise(r => { i.addEventListener('load', r, { once: true }); i.addEventListener('error', r, { once: true }); }));
-  Promise.all([document.fonts ? document.fonts.ready : 0, ...imgs]).then(ready);
+  /* the door is set to its first moment as soon as the fonts are there, never left showing its end until the pictures arrive
+     (owner, 24.11: "sometimes the animation is already finished when I get there, then it goes back and starts") */
+  const pics = Promise.all($$('img').filter(i => !i.complete).map(i => new Promise(r => { i.addEventListener('load', r, { once: true }); i.addEventListener('error', r, { once: true }); })));
+  pics.then(() => measure());
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(ready);
 
   window.__fyiDoor = { seek: t => { cancelAnimationFrame(raf); playing = false; started = true; render(t); }, play: (a = 0, b = END) => { started = true; play(a, b); }, measure, END, BEATS, point: (x, y, on = true) => { sp.tx = x; sp.ty = y; sp.on = on; kick(); } };
 })();
