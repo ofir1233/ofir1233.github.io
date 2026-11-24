@@ -212,3 +212,34 @@
 #design-lab#design-lab .tp-sky{ -webkit-mask-image:linear-gradient(180deg, transparent 0 318px, #000 408px); mask-image:linear-gradient(180deg, transparent 0 318px, #000 408px); }
 }
 @media (max-width:899px){ #design-lab#design-lab .tp-fig{ margin-top:32px; } }
+/* owner, 24.11 (2): one head for the section. "Hear Design Lab" above is the heading, the screen follows straight under it, and
+   the five steps sit under the screen they drive. The step heading stays for screen readers only */
+#design-lab#design-lab .tp-head h3{ position:absolute; width:1px; height:1px; margin:0; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
+#design-lab#design-lab .tp-fig{ margin-top:0; }
+#design-lab#design-lab .tp-head{ margin-top:30px; }
+#design-lab#design-lab .tp-bar{ margin-top:0; }
+@media (min-width:900px){
+#design-lab#design-lab .tp-block{ margin-top:72px; padding-bottom:96px; }
+#design-lab#design-lab .tp-fig{ margin-top:0; }
+}
+@media (max-width:899px){
+#design-lab#design-lab .tp-block{ margin-top:40px; padding-bottom:72px; }
+#design-lab#design-lab .tp-fig{ margin-top:0; }
+#design-lab#design-lab .tp-head{ margin-top:26px; }
+}
+/* the paint fades out at the window's bottom edge as it fades in at its top, so the step names sit on the paper (desktop) */
+@media (min-width:900px){
+#design-lab#design-lab .tp-sky{ -webkit-mask-image:linear-gradient(180deg, transparent 0 318px, #000 408px, #000 calc(100% - 175px), transparent calc(100% - 108px)); mask-image:linear-gradient(180deg, transparent 0 318px, #000 408px, #000 calc(100% - 175px), transparent calc(100% - 108px)); }
+#design-lab#design-lab .tp-head{ margin-top:44px; }
+}
+/* critics, round 4 (24.11): on a phone or tablet a painted band under the steps was a third thing in the frame; Hear's world is
+   the glow and the glass frame there, nothing below. Air from the glass rim to the steps; the step that starts the build reads first
+   at rest; a finger gets a full 44px row */
+@media (max-width:899px){
+#design-lab#design-lab .a-cloud-front{ display:none; }
+#design-lab#design-lab .tp-head{ margin-top:34px; }
+}
+#design-lab#design-lab .tp-block:not(.is-started) .tp-steps li:first-child .tp-name{ color:var(--ink); }
+@media (max-width:560px){
+#design-lab#design-lab .tp-steps button{ padding-bottom:10px; }
+}

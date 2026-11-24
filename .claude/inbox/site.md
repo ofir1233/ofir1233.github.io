@@ -72,3 +72,4 @@
 - 24.11 Topics head: the line under the steps is gone (owner: this section brings the visitor into Hear's product, the screen's details belong to the case study). The sentences stay for screen readers only.
 - 24.11 Product design demos faster (owner: too slow, at least at the start): v7/product.js PACE plays the first step at 55% and the rest at 80% of DUR and shot times; camera travel and press/open beats unchanged.
 - 24.11 Topics head: the owner approved the full pencil underdrawing; it comes up behind the Sketch step in the side margins (desktop, wide windows only) and the oil brush paints over it at Hear's world. img/topics/pencil.webp?v=2
+- 24.11 Design Lab: one head for the section (owner). The screen follows the hero buttons, the five steps sit under it, the old 'One screen' heading is for screen readers only; desktop paint fades at the window's bottom; phones/tablets have no painted band (critics round 4). topics.css?v=20, topics.js?v=16

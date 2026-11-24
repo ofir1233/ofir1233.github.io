@@ -907,10 +907,11 @@
     strokesG.setAttribute('transform', 'rotate(-15 ' + f1(cx) + ' ' + f1(cy) + ')');
     strokesG.innerHTML = ''; brush = [];
     /* a phone: nothing above or beside the window; two strokes make one painted band under it */
-    var list = small ? [[(sh / 2 + 52) / k, -700 / k, 700 / k, 120 / k, -14], [(sh / 2 + 122) / k, -700 / k, 700 / k, 100 / k, -22]] : BR;
+    /* owner, 24.11: the steps now sit under the window; on a phone nothing is painted outside it (critics, round 4) */
+    var list = small ? [] : BR;
     /* the two strokes above the window start clear of the head, wherever the head ends on this screen (its last thing is the play
        button); the back cloud sits on their ends */
-    var headR = stepsEl.getBoundingClientRect().right,      /* owner, 24.11: the replay button is gone, the rail's end is the head's edge */
+    var headR = stepsEl.getBoundingClientRect().right,      /* the steps now sit under the window; their right end still sets where the back cloud and the wisteria start */
          clear = function (v, wd, gap) { return ((headR + gap - cx) / k - (v - wd / 2) * .2588) / .9659; };
     art.back.style.left = f1(Math.max(Lx + sw * .655, headR + 30)) + 'px';
     art.wist.style.left = small ? '' : f1(Math.max(Lx + sw - 285, vw - 452, headR + 6)) + 'px';      /* the wisteria too hangs clear of the head */
