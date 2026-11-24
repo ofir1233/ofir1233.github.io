@@ -178,6 +178,25 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .c2-th-a{ font-size:18px !important; }
 }
 @media (prefers-reduced-motion: reduce){ .c2 .c2-th-l.is-fresh .c2-th-b{ animation:none; } }
+
+/* round 5: the key decision as three ways in (✕ ✕ ✓), each with its reason; the chosen one leads */
+.c2 .c2-dec.is-three{ grid-template-columns:minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.25fr); }
+.c2 .c2-dec.is-three .c2-opt{ position:relative; padding-top:62px; }
+.c2 .c2-mk{ position:absolute; left:24px; top:20px; width:30px; height:30px; display:grid; place-items:center; border-radius:50%; font:700 15px/1 var(--body);
+  background:#eceef1; color:var(--mute); }
+.c2 .c2-opt.is-chosen .c2-mk{ background:var(--deep); color:#fff; }
+.c2 .c2-dec.is-three .c2-opt h3{ display:block; }
+.c2 .c2-dec.is-three .c2-opt h3 em{ display:inline-block; margin-left:6px; vertical-align:2px; }
+.c2 .c2-dec.is-three .c2-opt p{ font-size:16px; }
+.c2 .c2-dec.is-three .c2-opt:not(.is-chosen) p{ color:var(--ink2); }
+.c2 .c2-rule{ display:flex; align-items:center; gap:14px; max-width:62ch; margin-top:16px; font:400 15px/1.5 var(--body); color:var(--mute); }
+.c2 .c2-rule svg{ flex:none; width:84px; height:28px; }
+@media (max-width: 900px){
+  .c2 .c2-dec.is-three{ grid-template-columns:1fr; }
+  .c2 .c2-dec.is-three .c2-opt{ padding-top:22px; padding-left:66px; }
+  .c2 .c2-mk{ top:22px; left:20px; }
+}
+@media (max-width: 560px){ .c2 .c2-rule{ align-items:flex-start; } .c2 .c2-rule svg{ width:60px; height:20px; margin-top:3px; } }
 </style>
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
@@ -306,19 +325,23 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="c2-sec" id="decision" data-ch="The key decision">
     <div class="c2-w">
       <p class="c2-n">The key decision</p>
-      <h2>A question about a score starts from the score, not from a blank chat</h2>
-      <div class="c2-dec">
-        <div class="c2-opt"><h3>A blank chat <em>Set aside</em></h3><p>Ask AI from the top of the sidebar, which keeps the page as context. You still write the question, and say which number you mean.</p></div>
-        <div class="c2-opt is-chosen"><h3>The score itself <em>Chosen</em></h3><p>Ask AI which calls, the popover's one button, sends the agent and the rule with the question.</p></div>
+      <h2>A click shows a card; only a second, deliberate click asks the AI</h2>
+      <p class="c2-lede">Three ways from a score to its AI answer. My spec set two of them aside, each for a reason the user would feel.</p>
+      <div class="c2-dec is-three">
+        <div class="c2-opt"><span class="c2-mk" aria-hidden="true">✕</span><h3>A tooltip on hover, with a button inside <em>Set aside</em></h3><p>It disappears as you move toward the button, and a touch screen has no hover.</p></div>
+        <div class="c2-opt"><span class="c2-mk" aria-hidden="true">✕</span><h3>The click opens the chat <em>Set aside</em></h3><p>Every accidental click would start an AI conversation, with nothing to preview first.</p></div>
+        <div class="c2-opt is-chosen"><span class="c2-mk" aria-hidden="true">✓</span><h3>A card first, then one click <em>Chosen</em></h3><p>The card says why at once: 12 of 26 calls failed, the team is at 81. Nothing extra loads until you click Ask AI, so a page view costs no AI.</p></div>
       </div>
-      <p class="c2-result"><b>Why:</b> because it carries the agent and the rule, the answer can name the calls. The sidebar stays for open questions about the page.</p>
+      <p class="c2-result"><b>Why:</b> the card answers the first two questions for free. When the AI question comes, it already carries the agent and the rule, so the answer can name the calls.</p>
+      <p class="c2-note"><b>The spec, 5 Oct 2026:</b> my card gave the score against the team average, a rank, the spread of all agents in 12 ranges, and Explore in Chat. Three days later the product shipped a popover with the same contents, without the chat button.</p>
+      <p class="c2-rule"><svg viewBox="0 0 84 28" aria-hidden="true"><g fill="#cfd4d9"><rect x="0" y="22" width="5" height="6" rx="1"/><rect x="7" y="18" width="5" height="10" rx="1"/><rect x="14" y="20" width="5" height="8" rx="1"/><rect x="21" y="14" width="5" height="14" rx="1"/><rect x="35" y="8" width="5" height="20" rx="1"/><rect x="42" y="4" width="5" height="24" rx="1"/><rect x="49" y="0" width="5" height="28" rx="1"/><rect x="56" y="6" width="5" height="22" rx="1"/><rect x="63" y="12" width="5" height="16" rx="1"/><rect x="70" y="18" width="5" height="10" rx="1"/><rect x="77" y="23" width="5" height="5" rx="1"/></g><rect x="28" y="16" width="5" height="12" rx="1" fill="#0B6FCF"/></svg><span>The spread's rule: “One bar per score range, never one mark per agent. That keeps it readable with 1,000 agents.”</span></p>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
       <p class="c2-coda">One low score, twelve failed calls, <em>one cause behind nine of them.</em></p>
-      <p class="c2-status"><b>Shipped:</b> I built the compliance heatmap into Hear's product myself (May 2026); it is now Hear's only Compliance page, and developers later added a popover to its cells and reused the heatmap on Agent evaluation. <b>Still a proposal:</b> asking AI from a score, which the product does not have yet. <b>My part:</b> design, and the front-end code of the heatmap; the Lab screens with Claude Code, March to October 2026.</p>
+      <p class="c2-status"><b>Shipped:</b> I built the compliance heatmap into Hear's product myself (May 2026); it is now Hear's only Compliance page, and developers later added its cell popover (8 Oct 2026) and reused the heatmap on Agent evaluation. <b>Still a proposal:</b> asking AI from a score, which the product does not have yet. <b>My part:</b> design, and the front-end code of the heatmap; the Lab screens with Claude Code, March to October 2026.</p>
     </div>
   </section>
 
