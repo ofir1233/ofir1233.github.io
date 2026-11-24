@@ -37,7 +37,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=41">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<link rel="stylesheet" href="../v7/cs2.css?v=5">
+<link rel="stylesheet" href="../v7/cs2.css?v=6">
 <style>
 /* page-only parts of the design-system case, scoped under .c2 (the shared sheet is v7/cs2.css) */
 /* the three layers, in words, beside the one card that shows them */
@@ -79,35 +79,34 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ds-prob .c2-key{ grid-template-columns:1fr; gap:20px; margin-top:0; }
 .c2 .ds-prob .c2-key li{ font-size:17px; }
 /* the moment (round 2): the same product text in Hear Blue or Deep Blue, with the measured ratio */
-.c2 .ds-try{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:clamp(24px, 4vw, 56px); margin-top:40px; align-items:center; }
+.c2 .ds-try{ display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(0, 1fr); gap:clamp(24px, 4vw, 56px); margin-top:40px; align-items:center; }
 .c2 .ds-stage{ display:grid; place-items:center; padding:clamp(28px, 4vw, 48px) clamp(18px, 3vw, 36px); border-radius:18px; background:#F4F3F1; box-shadow:0 0 0 1px rgba(23,27,32,.08); }
-.c2 .ds-pop{ --t:#0B6FCF; width:min(100%, 410px); padding:22px 24px 20px; border-radius:15px; background:#fff; box-shadow:0 0 0 1px rgba(24,36,48,.07), 0 18px 36px -20px rgba(16,34,60,.45); color:#181818; }
+.c2 .ds-pop{ --t:#0B6FCF; width:min(100%, 575px); padding:30px 34px 28px; border-radius:20px; background:#fff; box-shadow:0 0 0 1px rgba(24,36,48,.07), 0 18px 36px -20px rgba(16,34,60,.45); color:#181818; }
 .c2 .ds-try[data-c="hear"] .ds-pop{ --t:#139FFD; }
-.c2 .ds-pop > b{ display:block; font:600 18px/1.3 var(--body); }
-.c2 .ds-pop > span{ display:block; margin-top:2px; font:500 17px/1.35 var(--body); }
-.c2 .ds-pop > small{ display:block; margin-top:3px; font:400 15.5px/1.35 var(--body); color:#6A7078; }
-.c2 .ds-pop-bar{ display:grid; grid-template-columns:48px 1fr 26px; gap:12px; align-items:center; margin-top:18px; font:600 15.5px/1 var(--body); }
-.c2 .ds-pop-bar i{ height:6px; border-radius:3px; background:#e7e9ec; position:relative; overflow:hidden; }
+.c2 .ds-pop > b{ display:block; font:600 25px/1.25 var(--body); }
+.c2 .ds-pop > span{ display:block; margin-top:3px; font:500 23px/1.3 var(--body); }
+.c2 .ds-pop > small{ display:block; margin-top:4px; font:400 21px/1.35 var(--body); color:#6A7078; }
+.c2 .ds-pop-bar{ display:grid; grid-template-columns:66px 1fr 34px; gap:16px; align-items:center; margin-top:24px; font:600 21px/1 var(--body); }
+.c2 .ds-pop-bar i{ height:8px; border-radius:4px; background:#e7e9ec; position:relative; overflow:hidden; }
 .c2 .ds-pop-bar i::after{ content:""; position:absolute; inset:0 auto 0 0; width:81%; border-radius:3px; background:#139FFD; }
 .c2 .ds-pop-bar b{ text-align:right; font-weight:600; }
-.c2 .ds-pop-lab{ display:block; margin:8px 0 0 60px; font:500 14.5px/1.3 var(--body); }
-.c2 .ds-pop-link{ display:block; margin-top:16px; padding-top:16px; border-top:1px solid #e3e6e9; font:600 18px/1.3 var(--body); }
+.c2 .ds-pop > .ds-pop-lab{ display:block; margin:10px 50px 0 82px; text-align:right; font:500 18px/1.3 var(--body); }
+.c2 .ds-pop > .ds-pop-link{ display:block; margin-top:22px; padding-top:22px; border-top:1px solid #e3e6e9; font:600 26px/1.25 var(--body); letter-spacing:-.005em; }
 .c2 .ds-blue{ color:var(--t); transition:color .3s ease; }
-.c2 .ds-stage figcaption{ max-width:410px; margin-top:18px; font:400 14.5px/1.5 var(--body); color:var(--ink2); }
+.c2 .ds-stage figcaption{ max-width:575px; margin-top:18px; font:400 14.5px/1.5 var(--body); color:var(--ink2); }
 .c2 .ds-stage figcaption b{ color:var(--ink); }
 .c2 .ds-panel h3{ font:600 20px/1.3 var(--body); letter-spacing:-.01em; }
 .c2 .ds-panel > p{ margin-top:6px; font:400 15.5px/1.5 var(--body); color:var(--ink2); }
 .c2 .ds-tg{ display:grid; gap:10px; margin-top:18px; }
-.c2 .ds-tg button{ display:grid; grid-template-columns:26px 1fr auto; gap:4px 14px; align-items:center; width:100%; padding:16px 18px; border:0; border-radius:14px; background:rgba(255,255,255,.55); color:var(--ink); text-align:left; font:inherit; cursor:pointer;
+.c2 .ds-tg button{ display:grid; grid-template-columns:26px 1fr auto; gap:4px 14px; min-height:72px; align-items:center; width:100%; padding:16px 18px; border:0; border-radius:14px; background:rgba(255,255,255,.55); color:var(--ink); text-align:left; font:inherit; cursor:pointer;
   box-shadow:inset 0 0 0 1px #c9d3dd; transition:background .2s, box-shadow .2s; }
 .c2 .ds-tg button:hover{ background:#fff; }
 .c2 .ds-tg button[aria-pressed="true"]{ background:#fff; box-shadow:inset 0 0 0 2px var(--ink), 0 14px 30px -22px rgba(11,79,138,.5); }
 .c2 .ds-tg button:focus-visible{ outline:2px solid var(--deep); outline-offset:3px; }
-.c2 .ds-tg .sw{ grid-row:span 2; width:26px; height:26px; border-radius:8px; }
+.c2 .ds-tg .sw{ width:26px; height:26px; border-radius:8px; }
 .c2 .ds-tg .nm{ font:600 17px/1.25 var(--body); }
 .c2 .ds-tg .nm small{ margin-left:6px; font:400 14px/1 var(--body); color:var(--mute); }
-.c2 .ds-tg .sub{ grid-column:2; font:400 14px/1.35 var(--body); color:var(--ink2); }
-.c2 .ds-tg .rt{ grid-row:span 2; grid-column:3; display:grid; justify-items:end; gap:6px; }
+.c2 .ds-tg .rt{ grid-column:3; display:flex; align-items:center; gap:12px; }
 .c2 .ds-tg .rt > b{ font:700 24px/1 var(--body); font-variant-numeric:tabular-nums; letter-spacing:-.01em; }
 .c2 .ds-meter{ position:relative; height:10px; margin:34px 0 0; border-radius:5px; background:#d9e2ea; }
 .c2 .ds-meter > i{ position:absolute; inset:0 auto 0 0; width:var(--w, 66.7%); border-radius:5px; background:var(--t, #0B6FCF); transition:width .35s ease, background-color .3s ease; }
@@ -146,11 +145,16 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .ds-tg .sw{ grid-row:auto; width:18px; height:18px; border-radius:5px; }
   .c2 .ds-tg .nm{ font-size:15.5px; }
   .c2 .ds-tg .nm small{ display:block; margin:3px 0 0; font-size:12.5px; }
-  .c2 .ds-tg .sub{ grid-column:1 / -1; font-size:12.5px; }
   .c2 .ds-tg .rt{ grid-row:auto; grid-column:1 / -1; display:flex; align-items:center; justify-content:space-between; gap:6px; }
   .c2 .ds-tg .rt > b{ font-size:20px; }
   .c2 .ds-tg .ds-v{ padding:4px 8px; font-size:12.5px; }
-  .c2 .ds-pop{ padding:18px; }
+  .c2 .ds-pop{ padding:20px 18px; border-radius:16px; }
+  .c2 .ds-pop > b{ font-size:19px; }
+  .c2 .ds-pop > span{ font-size:17.5px; }
+  .c2 .ds-pop > small{ font-size:15.5px; }
+  .c2 .ds-pop-bar{ grid-template-columns:50px 1fr 28px; gap:12px; margin-top:18px; font-size:16px; }
+  .c2 .ds-pop > .ds-pop-lab{ margin:8px 40px 0 62px; font-size:14.5px; }
+  .c2 .ds-pop > .ds-pop-link{ margin-top:16px; padding-top:16px; font-size:21px; }
   .c2 .ds-stage figcaption{ margin-top:14px; font-size:14px; }
 }
 </style>
@@ -171,21 +175,21 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-kick">Case study · <b>Design system</b></p>
       <h1>One set of tokens lets a dense AI product read as one product</h1>
-      <p class="c2-ctx">Hear is an AI platform for contact centers, and its screens are dense: call tables, score charts, filters and chat side by side. I built the design system behind the Lab, my working copy of Hear, so all of it speaks one visual language.</p>
+      <p class="c2-ctx">Hear is an AI platform for contact centers, with dense screens: call tables, scores, filters and chat side by side. I built the design system that makes them speak one visual language.</p>
       <dl class="c2-sum">
-        <div><dt>For</dt><dd>Whoever builds a screen of the Lab, so far me with Claude Code: score maps, boards, feeds and chat.</dd></div>
-        <div><dt>The problem</dt><dd>Screens that mix many kinds of content need one set of names for color, surface and state.</dd></div>
-        <div><dt>What I did</dt><dd>Built the tokens, the shared components and their documentation in Storybook, with Claude Code.</dd></div>
-        <div><dt>Where it stands</dt><dd>Since Mar 2026, in the Lab, with demo data. Every screen there draws its color, surface and type from the same tokens.</dd></div>
+        <div><dt>For</dt><dd>Whoever builds a screen of Hear. So far, that is me, with Claude Code.</dd></div>
+        <div><dt>The problem</dt><dd>Dense screens need one set of names for color, surface and state.</dd></div>
+        <div><dt>What I did</dt><dd>Built the tokens, the shared components and their docs, with Claude Code.</dd></div>
+        <div><dt>Where it stands</dt><dd>Since March 2026, in Hear Design Lab, my working copy of Hear, built in code.</dd></div>
       </dl>
       <figure class="c2-fig">
-        <div class="c2-shot"><img src="../img/v7s-topics-panel.webp?v=5" width="2072" height="1339" alt="The Topics screen: four headline figures, five topics drawn as boxes sized by calls in one blue that deepens as the score drops, and a daily score list beside them." fetchpriority="high">
-          <span class="c2-pin" style="--x:10.25%;--y:4.8%" aria-hidden="true">1</span><span class="c2-pin" style="--x:44.25%;--y:19.66%" aria-hidden="true">2</span><span class="c2-pin" style="--x:79.7%;--y:5.19%" aria-hidden="true">3</span><span class="c2-pin" style="--x:16%;--y:53.4%" aria-hidden="true">4</span></div>
+        <div class="c2-shot"><img src="../img/v7s-design-system-hero.webp?v=1" width="2264" height="928" alt="Part of the Actions screen: two columns of task cards, the first card selected with a blue outline, and beside them the open task's panel with its source, priority, owner, the call's timeline, a checklist and the outcome in an outlined field." fetchpriority="high">
+          <span class="c2-pin" style="--x:63.6%;--y:18.5%" aria-hidden="true">1</span><span class="c2-pin" style="--x:50%;--y:39.6%" aria-hidden="true">2</span><span class="c2-pin" style="--x:94%;--y:91.2%" aria-hidden="true">3</span><span class="c2-pin" style="--x:33.1%;--y:23.2%" aria-hidden="true">4</span></div>
         <figcaption><ol class="c2-key" style="--n:4">
-          <li><i aria-hidden="true">1</i><span><b>Body text:</b> near-black, for titles and figures.</span></li>
+          <li><i aria-hidden="true">1</i><span><b>Body text:</b> near-black Ink, for every title.</span></li>
           <li><i aria-hidden="true">2</i><span><b>Labels:</b> one gray that still passes contrast.</span></li>
           <li><i aria-hidden="true">3</i><span><b>Outlines and dividers:</b> one light gray, everywhere.</span></li>
-          <li><i aria-hidden="true">4</i><span><b>Score scale:</b> one blue, deeper as the score drops.</span></li>
+          <li><i aria-hidden="true">4</i><span><b>Selection:</b> Hear Blue, the brand's blue.</span></li>
         </ol></figcaption>
       </figure>
     </div>
@@ -195,15 +199,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The problem</p>
       <h2>One screen mixes figures, tables, charts and chat, and must still read as one</h2>
-      <p class="c2-lede">Compliance checks every agent (the people who answer calls) against the center's rules. This one screen holds four kinds of content at once, and the Lab also has data grids, alerts, a kanban board and settings. Without shared names for color, surface and state, each part would answer the same questions its own way.</p>
+      <p class="c2-lede">Compliance checks every agent, the people who answer the calls, against the center's rules. Its top alone holds headline figures, a table header and a grid of scores; further down sit a popover with its own chart and a way into chat. Without shared names for color, surface and state, each part would answer the same questions its own way.</p>
       <figure class="c2-fig ds-prob">
-        <div class="c2-shot"><img src="../img/v7s-design-system-problem.webp?v=1" width="698" height="875" alt="Part of the Compliance screen: a headline figure, 88.5 percent above the success metric; a grid of scores where only failing ones are coral; and one failing score's popover, with a small bar chart and a link, Ask AI which calls." loading="lazy">
-          <span class="c2-pin" style="--x:31%;--y:10.3%" aria-hidden="true">1</span><span class="c2-pin" style="--x:6%;--y:51.5%" aria-hidden="true">2</span><span class="c2-pin" style="--x:92.5%;--y:37.6%" aria-hidden="true">3</span><span class="c2-pin" style="--x:64%;--y:68.7%" aria-hidden="true">4</span></div>
+        <div class="c2-shot"><img src="../img/v7s-design-system-compliance.webp?v=1" width="852" height="666" alt="The top of the Compliance screen: the title and its purpose; two headline figures, 72.6 percent sales without alerts, up 2.1 points against the 6 weeks before, and 93.8 percent valid sales against a target of 90; the table header, Criteria by agent, Team B, 10 of 26 agents, pass mark 70; and the first scores, where only 67 is coral." loading="lazy">
+          <span class="c2-pin" style="--x:27%;--y:30.8%" aria-hidden="true">1</span><span class="c2-pin" style="--x:89%;--y:18.5%" aria-hidden="true">2</span><span class="c2-pin" style="--x:80.2%;--y:53.3%" aria-hidden="true">3</span><span class="c2-pin" style="--x:82.7%;--y:69.1%" aria-hidden="true">4</span></div>
         <figcaption><ol class="c2-key" style="--n:1">
           <li><i aria-hidden="true">1</i><span><b>A headline figure,</b> with its comparison.</span></li>
-          <li><i aria-hidden="true">2</i><span><b>A table of scores,</b> where only failing ones take coral.</span></li>
-          <li><i aria-hidden="true">3</i><span><b>A popover</b> with its own small bar chart.</span></li>
-          <li><i aria-hidden="true">4</i><span><b>A way into chat:</b> Ask AI, from the score.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>A second figure,</b> with its target.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>A table header,</b> with its team, count and pass mark.</span></li>
+          <li><i aria-hidden="true">4</i><span><b>A grid of scores,</b> where only one under the pass mark takes coral.</span></li>
         </ol></figcaption>
       </figure>
     </div>
@@ -262,21 +266,21 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </figure>
         <div class="ds-panel">
           <h3>Try Hear Blue as text</h3>
-          <p>Switch the color of the label and the link.</p>
+          <p>Switch the color of the label and the link. Ratios on white, the popover's card.</p>
           <!-- Ratios: WCAG 2 contrast from the token hex values, as stated on this page (2.8, 5.0 / 4.5).
                The one number not stated elsewhere on the page, Hear Blue on Paper (2.6), is computed exactly the same way:
                relative luminance L = 0.2126 R + 0.7152 G + 0.0722 B of the linearised sRGB channels, ratio = (L1 + 0.05) / (L2 + 0.05);
                #139FFD on #F4F3F1 = 2.557, shown as 2.6. -->
           <div class="ds-tg" role="group" aria-label="Color of the label and the link">
-            <button type="button" data-c="deep" aria-pressed="true"><i class="sw" style="background:#0B6FCF" aria-hidden="true"></i><span class="nm">Deep Blue <small>#0B6FCF</small></span><span class="sub">4.5:1 on Paper, the canvas</span><span class="rt"><b>5.0:1</b><span class="ds-v"><span aria-hidden="true">✓</span> Passes</span></span></button>
-            <button type="button" data-c="hear" aria-pressed="false"><i class="sw" style="background:#139FFD" aria-hidden="true"></i><span class="nm">Hear Blue <small>#139FFD</small></span><span class="sub">2.6:1 on Paper, the canvas</span><span class="rt"><b>2.8:1</b><span class="ds-v no"><span aria-hidden="true">✕</span> Fails</span></span></button>
+            <button type="button" data-c="deep" aria-pressed="true"><i class="sw" style="background:#0B6FCF" aria-hidden="true"></i><span class="nm">Deep Blue <small>#0B6FCF</small></span><span class="rt"><b>5.0:1</b><span class="ds-v"><span aria-hidden="true">✓</span> Passes</span></span></button>
+            <button type="button" data-c="hear" aria-pressed="false"><i class="sw" style="background:#139FFD" aria-hidden="true"></i><span class="nm">Hear Blue <small>#139FFD</small></span><span class="rt"><b>2.8:1</b><span class="ds-v no"><span aria-hidden="true">✕</span> Fails</span></span></button>
           </div>
           <div class="ds-meter" aria-hidden="true"><i></i><span></span></div>
           <p class="ds-scl" aria-hidden="true"><span>1:1</span><span>7:1</span></p>
           <p class="ds-say" aria-live="polite">Deep Blue on white: 5.0:1, above the 4.5:1 that text needs. This is what the Lab uses.</p>
         </div>
       </div>
-      <p class="ds-note">Ratios on a white card. WCAG 2 ratios, computed from the token hex values; body text needs at least 4.5:1. For comparison, body text in Ink is 17.8:1 on white.</p>
+      <p class="ds-note">WCAG 2 ratios, computed from the token hex values; text needs at least 4.5:1. On Paper, the canvas behind the cards, Deep Blue is 4.5:1 and Hear Blue 2.6:1. Body text in Ink is 17.8:1 on white.</p>
     </div>
   </section>
 
@@ -306,7 +310,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The key decision</p>
       <h2>Scores run in one blue, so a dense map stays readable</h2>
-      <p class="c2-lede">The Topics map at the top shows many scores at once. The question was how a score scale should look there.</p>
+      <p class="c2-lede">The Topics screen draws each topic as a box sized by its calls, so many scores show at once. The question was how a score scale should look there.</p>
       <div class="c2-dec">
         <div class="c2-opt"><h3>Red to green <em>Set aside</em></h3><p>A different color for each score band. On a dense map the colors compete, and the screen is hard to read.</p></div>
         <div class="c2-opt is-chosen"><h3>One blue, in steps <em>Chosen</em></h3><p>The deeper the blue, the lower the score.</p>
@@ -318,11 +322,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
-      <h2 class="c2-stand-h">Built with the Lab since March 2026, on demo data</h2>
-      <div class="c2-stand">
-        <div><h3>Where it stands</h3><p>The system lives in the Lab, rebuilt in code with demo data, and every screen there draws on it.</p></div>
-        <div><h3>My part</h3><p>I built the tokens, the shared components and the Storybook that documents them, with Claude Code.</p></div>
-      </div>
+      <p class="c2-coda">One blue to mark, <em>one blue to read.</em></p>
+      <p class="c2-status"><b>Where it stands:</b> every screen in the Lab draws on these tokens, on demo data, since March 2026. <b>My part:</b> I built the tokens, the shared components and the Storybook that documents them, with Claude Code.</p>
     </div>
   </section>
   <div class="c2-w c2-next">
