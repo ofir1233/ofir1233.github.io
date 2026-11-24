@@ -1758,7 +1758,9 @@ html.en-on .en-go:where(:not(.lx-app, .lx-app *)){ transition: opacity .6s cubic
 @media (min-width: 861px) {
   #product.r8-stack .spot:where(:not(.lx-app, .lx-app *)), #product.r8-stack .spot:first-of-type:where(:not(.lx-app, .lx-app *)), #product.r8-stack .spot:nth-of-type(even):where(:not(.lx-app, .lx-app *)){ position: sticky; top: var(--pin, 128px); min-height: 0; padding: clamp(26px, 2.4vw, 36px); align-items: start; align-content: start; box-shadow: inset 0 1px 0 color-mix(in srgb, var(--paper) 5%, transparent), 0 -30px 60px -26px rgba(0,0,0,.8); }
   #product.r8-stack .spot .media:where(:not(.lx-app, .lx-app *)){ position: static; }
-  #product.r8-stack .spot + .spot:where(:not(.lx-app, .lx-app *)){ margin-top: var(--dwell, 28px); }
+  #product.r8-stack .spot + .spot:where(:not(.lx-app, .lx-app *)), #product.r8-stack .r8-mark + .spot:where(:not(.lx-app, .lx-app *)){ margin-top: var(--dwell, 28px); }
+  #product .r8-mark:where(:not(.lx-app, .lx-app *)){ display: flow-root; height: 0; margin: 0; scroll-snap-align: start; pointer-events: none; }
+  html.r8-snap:where(:not(.lx-app, .lx-app *)){ scroll-snap-type: y proximity; }
 }
 
 /* separate "How I work" from the Design Lab: the Lab rises as its own lighter ink sheet with a rounded top and a hairline */
@@ -5039,9 +5041,24 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
   const cards = [...sec.querySelectorAll('article.spot')], n = cards.length, pad = k => String(k).padStart(2, '0');
   cards.forEach((c, i) => { const s = document.createElement('span'); s.className = 'spot-n'; s.setAttribute('aria-hidden', 'true'); s.innerHTML = `<b>${pad(i + 1)}</b>  /  ${pad(n)}`; c.prepend(s); });
   const mq = matchMedia('(min-width: 861px)'), covered = new Set(), vids = c => c.querySelectorAll('video');
+  // the still stretch after each card and the place a scroll settles on, from the cards' heights as they are now (a window that
+  // loads its demo makes its card taller after fit() ran, so a card that changes height places them again)
+  let seen = [];
+  const place = () => {
+    if (!sec.classList.contains('r8-stack')) return;
+    const vh = innerHeight, D = Math.round(vh * .5), pad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    seen = cards.map(c => c.offsetHeight);
+    cards.forEach((c, i) => {
+      const h = seen[i], at = parseFloat(c.style.getPropertyValue('--pin')) || 128, nx = cards[i + 1], k = c.nextElementSibling;
+      if (nx) nx.style.setProperty('--dwell', Math.max(28, Math.round(vh + D - at - h)) + 'px');
+      if (k && k.classList.contains('r8-mark')) k.style.scrollMarginTop = Math.round(h + at - (nx ? D / 2 : 0) - pad) + 'px';
+    });
+  };
+  if ('ResizeObserver' in window) { let pt = 0; const ro = new ResizeObserver(() => { if (cards.some((c, i) => Math.abs(c.offsetHeight - (seen[i] || 0)) > 1)) { clearTimeout(pt); pt = setTimeout(place, 120); } }); cards.forEach(c => ro.observe(c)); }
   const fit = keep => {
     keep = keep instanceof Element ? keep : null; const y0 = keep ? keep.getBoundingClientRect().top : 0;
     cards.forEach(c => { c.classList.remove('tall'); c.style.removeProperty('--pin'); c.style.removeProperty('--fill'); c.style.removeProperty('--dwell'); });
+    sec.querySelectorAll('.r8-mark').forEach(x => x.remove()); document.documentElement.classList.remove('r8-snap');
     if (!mq.matches) { sec.classList.remove('r8-stack'); return; }
     sec.classList.add('r8-stack');
     const vh = innerHeight;
@@ -5054,13 +5071,12 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     });
     // owner, 24.11.2026: "when I have scrolled to the end of a card and still scroll, the card stays where it is for a little scrolling, so it does
     // not go straight on to the next one". When a card reaches its pin, the next one waits just under the screen's bottom edge, and the
-    // reader scrolls a further 30% of a screen with nothing moving before it rises
-    const D = Math.round(vh * .3);
-    m.forEach(({ c, top, tall }, i) => {
-      if (!i) return;
-      const p = m[i - 1], h = p.c.offsetHeight, at = p.tall ? vh - 24 - h : p.top;
-      c.style.setProperty('--dwell', Math.max(28, Math.round(vh + D - at - h)) + 'px');
-    });
+    // reader scrolls a further half a screen with nothing moving before it rises (30% was swallowed by one flick of a trackpad).
+    // Then "I scroll too far every time": a scroll that ends near a card's still stretch settles in its middle, with the whole card
+    // in view. A zero-high mark after each card carries the place (CSS scroll snap, proximity: only a scroll that stops near it)
+    cards.forEach(c => { const k = document.createElement('div'); k.className = 'r8-mark'; k.setAttribute('aria-hidden', 'true'); c.after(k); });
+    document.documentElement.classList.add('r8-snap');
+    place();
     // a re-pinned card stays where it was on screen: scroll so its own flow position sits there (unless its new pin is lower)
     if (keep && Math.abs(keep.getBoundingClientRect().top - y0) > 1 && y0 >= (parseFloat(getComputedStyle(keep).top) || 0) - 1) { const p = keep.style.position; keep.style.position = 'static'; const f = keep.getBoundingClientRect().top; keep.style.position = p; scrollBy({ top: f - y0, behavior: 'instant' }); }
     check();
