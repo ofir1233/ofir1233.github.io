@@ -130,7 +130,7 @@
     var tabs = fig.querySelector('.px-tabs');
     var P = { fig: fig, inView: false, paused: reduce, live: false, k: 0, ms: 0, steps: [], dur: [], api: null, s: 1, w: 1120, small: false, loops: 0, rest: false, win: win, si: 0, re: [], q: [], off: 0,
       c: { x: 0, y: 0, z: 1 }, r: null, lit: false, thr: null, undo: null, onfree: null };
-    P.depth = window.v7Depth ? window.v7Depth(frame, win) : { drift: function () {} };
+    P.depth = window.v7Depth ? window.v7Depth(frame, win, true) : { drift: function () {} };
     var key = function () { return fig.getAttribute('data-px'); };
     var H = function () { return Math.round(P.w * 9 / 16); };
     var px = function (n) { return n.toFixed(1) + 'px'; };

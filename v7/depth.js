@@ -2,7 +2,9 @@
    listener is on the page's .stage). The frames never take the pointer, so the page outside passes the mouse on: only the position,
    never a hover or a click, so nothing inside lights up or opens. With no mouse over the frame, the picture drifts slowly by itself
    while it plays, so the depth is always there. Mouse devices only; nothing under reduced motion. */
-window.v7Depth = function (frame, host) {
+/* still: the frame keeps its slow drift but never follows the mouse or the phone's tilt (owner, 24.11.2026, of the Product
+   frames: "the mockups react to the mouse, cancel that") */
+window.v7Depth = function (frame, host, still) {
   var none = { drift: function () {} };
   var fine = matchMedia('(hover:hover) and (pointer:fine)').matches;   /* without a mouse, the phone's tilt (v7/gyro.js) does what it does */
   if (!frame || !host || matchMedia('(prefers-reduced-motion: reduce)').matches || (!fine && !window.v7Gyro)) return none;
@@ -25,13 +27,13 @@ window.v7Depth = function (frame, host) {
     } catch (e) {}
   }
   function mark(v) { var d = doc(); if (d && d.documentElement) d.documentElement.classList.toggle('v7-over', v); }
-  host.addEventListener('pointermove', function (e) {
+  if (!still) host.addEventListener('pointermove', function (e) {
     if (e.pointerType !== 'mouse') return;
     if (!over) { over = true; mark(true); }
     var r = host.getBoundingClientRect(); send('pointermove', (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
   });
-  host.addEventListener('pointerleave', function () { over = false; mark(false); if (!on) send('pointerleave', .5, .5); });
-  if (!fine) window.v7Gyro.watch(host, function (a, b, off) {
+  if (!still) host.addEventListener('pointerleave', function () { over = false; mark(false); if (!on) send('pointerleave', .5, .5); });
+  if (!fine && !still) window.v7Gyro.watch(host, function (a, b, off) {
     if (off) { if (over) { over = false; mark(false); if (!on) send('pointerleave', .5, .5); } return; }
     if (!over) { over = true; mark(true); } send('pointermove', .5 + a * .5, .5 + b * .5);
   });
