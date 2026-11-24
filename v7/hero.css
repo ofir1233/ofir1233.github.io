@@ -205,3 +205,12 @@ html.me-scroll #about#about .me-pillars li.in::before{ transform: scaleY(1); tra
 html.me-scroll #about#about .me-pillars li.in .me-k{ opacity: 1; transition: opacity .36s ease calc(var(--fd, 0ms) + 80ms); }
 html.me-scroll #about#about .me-pillars li.in .me-v{ opacity: 1; translate: 0 0; clip-path: inset(-20% -10% -20% -10%); transition: opacity .28s ease calc(var(--fd, 0ms) + 140ms), translate .56s cubic-bezier(.2,.8,.2,1) calc(var(--fd, 0ms) + 140ms), clip-path .56s cubic-bezier(.2,.8,.2,1) calc(var(--fd, 0ms) + 140ms); }
 html.me-scroll #about#about .me-pin.me-set .me-pillars li::before, html.me-scroll #about#about .me-pin.me-set .me-pillars li *{ transition: none !important; }
+
+/* The boulevard in three painted layers (owner, 24.11.2026: "the layers are the street with the people, the far city, the sky and
+   what is in it, and me"). The three images share .me-v7-bg (place, crop, the growth), so at rest they are one painting.
+   On the scroll each takes its own distance: the sky drifts a little to the left across the whole stage, as if the plane carried it;
+   the far city hardly moves; the street, with every person standing on it, comes closest, from the vanishing point, during the depth.
+   The mouse moves the far layers more than the near one. Without the scroll (phones, reduced motion) they simply lie on top of each other. */
+html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-sky{ transform: translate(calc(var(--tx,0) * -2.6% - var(--z,0) * 3%), calc(var(--ty,0) * -2.4% + var(--z,0) * 1%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .01)); }
+html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-city{ transform: translate(calc(var(--tx,0) * -2.2%), calc(var(--ty,0) * -2%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .025)); transform-origin: 52% 50%; }
+html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-street{ transform: translate(calc(var(--tx,0) * -1%), calc(var(--ty,0) * -.8%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .08)); transform-origin: 52% 52%; }

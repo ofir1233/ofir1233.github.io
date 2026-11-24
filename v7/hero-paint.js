@@ -1,9 +1,9 @@
 /* v7 - the hero picture is painted in front of the visitor. Loaded deferred. Styles: v7/hero.css (hp-).
    The page opens on the painter's underdrawing of the hero picture, pencil on paper, and the paint arrives in the four roles of
    the colour system, in the order Foundations teaches them further down the page: ground (paper and light), structure (greys and
-   the dark strokes), voice (the blues: sky, sea, the jacket), meaning (the warm colours: the chairs, the plants, the face).
+   the dark strokes), voice (the blues: sky, sea, the jacket), meaning (the warm colours: the coral, the flowers, the trees, the face).
    So the designer is the last thing to be painted, and the whole takes about a second and a half.
-   How: the two layers of the picture are drawn into one canvas exactly as they stand on the page, every pixel is given its share
+   How: the layers of the picture (the boulevard's sky, far city and street, then him) are drawn into one canvas exactly as they stand on the page, every pixel is given its share
    in each of the four roles, and one canvas of pencil lies over the picture; each frame only its transparency changes. The paint
    of a role does not arrive as a fade: it moves from left to right with a broken front, like a wide brush.
    Once per tab (sessionStorage), never with reduced motion, never if the page opens scrolled. The inline script in <head> sets
@@ -11,7 +11,7 @@
 (function () {
   var root = document.documentElement; if (!root.classList.contains('hp-wait')) return;
   var fig = document.querySelector('#about .me-photo.me-v7'), inn = fig && fig.querySelector('.me-v7-in');
-  var bg = inn && inn.querySelector('.me-v7-bg'), fg = inn && inn.querySelector('.me-v7-fg');
+  var bgs = inn ? [].slice.call(inn.querySelectorAll('.me-v7-bg')) : [], fg = inn && inn.querySelector('.me-v7-fg');
   var over = false, cv = null, guard = setTimeout(end, Math.max(400, 2400 - performance.now()));
   function end() {
     if (over) return; over = true; clearTimeout(guard); root.classList.remove('hp-wait', 'hp-on');
@@ -21,12 +21,12 @@
   /* the visitor moved on, or the window changed: the paint is simply finished */
   function leave() { if (over) return; var c = cv; end(); if (c) { c.style.opacity = '0'; setTimeout(function () { c.remove(); }, 280); } }
   function away() { if (scrollY > 90) leave(); }
-  if (!bg || !fg || scrollY > 40) { end(); return; }
+  if (!bgs.length || !fg || scrollY > 40) { end(); return; }
   function ready(im) {
     if (im.complete && im.naturalWidth) return im.decode ? im.decode().catch(function () {}) : Promise.resolve();
     return new Promise(function (res) { im.addEventListener('load', res, { once: true }); im.addEventListener('error', res, { once: true }); });
   }
-  Promise.all([ready(bg), ready(fg)]).then(function () { if (over) return; if (scrollY > 40) { end(); return; } try { paint(); } catch (e) { end(); } });
+  Promise.all(bgs.concat([fg]).map(ready)).then(function () { if (over) return; if (scrollY > 40) { end(); return; } try { paint(); } catch (e) { end(); } });
 
   function ss(x, a, b) { var t = (x - a) / (b - a); t = t < 0 ? 0 : t > 1 ? 1 : t; return t * t * (3 - 2 * t); }
   function band(x, a, b, f) { return ss(x, a - f, a + f) * (1 - ss(x, b - f, b + f)); }
@@ -48,7 +48,7 @@
     var w = Math.round(f.width * k), h = Math.round(f.height * k), n = w * h;
     var c = document.createElement('canvas'); c.width = w; c.height = h;
     var cx = c.getContext('2d', { willReadFrequently: true });
-    put(cx, bg, f, k); put(cx, fg, f, k);
+    bgs.forEach(function (im) { put(cx, im, f, k); }); put(cx, fg, f, k);
     var src = cx.getImageData(0, 0, w, h).data;
     var L = new Float32Array(n), B = new Uint8Array(n * 4), D = new Uint8Array(n), i, p, x, y;
     /* a slow, broken field for the front of the brush: value noise on a coarse grid, wider than it is high (a stroke) */

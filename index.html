@@ -3914,7 +3914,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 .v7-glass > *{ border-radius: clamp(12px, 1.3vw, 18px); overflow: hidden; }
 </style>
 <link rel="stylesheet" href="v7/font.css?v=221">
-<link rel="stylesheet" href="v7/hero.css?v=226">
+<link rel="stylesheet" href="v7/hero.css?v=227">
 <script>/* the hero picture is painted in once per tab: v7/hero-paint.js */try{if(!sessionStorage.getItem('hp')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('hp-wait')}catch(e){}</script>
 <script>/* the pinned opening (html.me-scroll) is decided here, before the first paint; the pin script at the foot of the page then takes over. Decided only there, the page was first painted in the plain layout, and the four facts were seen on the picture for a moment and gone */try{(function(m,c){function s(){c.toggle('me-scroll',m.matches)}s();if(m.addEventListener)m.addEventListener('change',s)})(matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)'),document.documentElement.classList)}catch(e){}</script>
 <link rel="stylesheet" href="v7/code.css?v=223">
@@ -3995,7 +3995,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <h1 class="hv-h" id="about-h"><span class="hv-sr">Ofir Nona. </span>I design<br class="hv-b3"> <em>experiences</em><br class="hv-b2"> for AI<br class="hv-b3"> products.</h1>
         <p class="me-lead">The only designer at Hear, where AI reads every call in a contact center. From first research to front-end code.</p>
       </div>
-      <figure class="me-photo me-v7"><span class="me-v7-in"><img class="me-v7-bg" src="img/me-v7-studio-b-1920.webp" srcset="img/me-v7-studio-b-960.webp 960w, img/me-v7-studio-b-1920.webp 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 140vw" width="1920" height="1280" alt="" fetchpriority="high" decoding="async"><img class="me-v7-fg" src="img/me-v7-fig-b3.webp" width="1168" height="1598" alt="Painted portrait of Ofir Nona in a bright design studio in Tel Aviv, with the city and the sea in the windows behind him" fetchpriority="high" decoding="async"></span><span class="hsig" aria-hidden="true"></span></figure>
+      <figure class="me-photo me-v7"><span class="me-v7-in"><img class="me-v7-bg me-v7-sky" src="img/me-v7-blvd-sky-1920.webp?v=1" srcset="img/me-v7-blvd-sky-960.webp?v=1 960w, img/me-v7-blvd-sky-1920.webp?v=1 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 140vw" width="1920" height="1280" alt="" fetchpriority="high" decoding="async"><img class="me-v7-bg me-v7-city" src="img/me-v7-blvd-city-1920.webp?v=1" srcset="img/me-v7-blvd-city-960.webp?v=1 960w, img/me-v7-blvd-city-1920.webp?v=1 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 140vw" width="1920" height="1280" alt="" fetchpriority="high" decoding="async"><img class="me-v7-bg me-v7-street" src="img/me-v7-blvd-street-1920.webp?v=1" srcset="img/me-v7-blvd-street-960.webp?v=1 960w, img/me-v7-blvd-street-1920.webp?v=1 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 140vw" width="1920" height="1280" alt="" fetchpriority="high" decoding="async"><img class="me-v7-fg" src="img/me-v7-fig-b3.webp" width="1168" height="1598" alt="Painted portrait of Ofir Nona on a Tel Aviv boulevard: behind him people walk, cycle and sit, a young man taps a bus stop's app screen, and a plane and gulls cross the sky over the city" fetchpriority="high" decoding="async"></span><span class="hsig" aria-hidden="true"></span></figure>
     </div>
     <ol class="me-pillars me-facts">
       <li><span class="me-k">Years in product design</span><strong class="me-v"><span data-n="6">6</span>+</strong></li>
@@ -7015,7 +7015,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function clamp(v){ return v<0?0:v>1?1:v } function io(t){ return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2 } function io2(t){ return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2 }
   cards.forEach(function(c,i){ c.style.setProperty('--fi',i) });
   /* the room's shadow: one layer between the room and him, so only the room dims */
-  var bg=about.querySelector('.me-v7-bg'); if(bg&&!about.querySelector('.me-v7-air')){ var air=document.createElement('span'); air.className='me-v7-air'; air.setAttribute('aria-hidden','true'); bg.parentNode.insertBefore(air,bg.nextSibling); }
+  var bgs=about.querySelectorAll('.me-v7-bg'), bg=bgs[bgs.length-1]; if(bg&&!about.querySelector('.me-v7-air')){ var air=document.createElement('span'); air.className='me-v7-air'; air.setAttribute('aria-hidden','true'); bg.parentNode.insertBefore(air,bg.nextSibling); }
   function measure(){ var pt=parseFloat(getComputedStyle(about).paddingTop)||118; pin.style.setProperty('--pt',pt+'px'); pin.style.setProperty('--t0',(intro.offsetHeight+Math.max(22,Math.min(40,innerWidth*.03)))+'px'); pin.style.setProperty('--ch',Math.max(60,list.offsetHeight-64)+'px'); }
   function target(){ var pt=parseFloat(pin.style.getPropertyValue('--pt'))||118, total=stage.offsetHeight-pin.offsetHeight; return clamp((pt-stage.getBoundingClientRect().top)/total); }
   var said=false, first=true, lastIn=-1e9, st=cards.map(function(){ return false });
@@ -7051,7 +7051,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 <script src="v7/hero.js?v=223" defer></script>
-<script src="v7/hero-paint.js?v=221" defer></script>
+<script src="v7/hero-paint.js?v=222" defer></script>
 <script src="v7/code.js?v=222" defer></script>
 <script src="v7/depth.js?v=221" defer></script>
 <script src="v7/topics.js?v=18" defer></script>
