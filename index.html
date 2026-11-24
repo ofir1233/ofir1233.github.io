@@ -3914,7 +3914,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 .v7-glass > *{ border-radius: clamp(12px, 1.3vw, 18px); overflow: hidden; }
 </style>
 <link rel="stylesheet" href="v7/font.css?v=221">
-<link rel="stylesheet" href="v7/hero.css?v=221">
+<link rel="stylesheet" href="v7/hero.css?v=226">
 <script>/* the hero picture is painted in once per tab: v7/hero-paint.js */try{if(!sessionStorage.getItem('hp')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('hp-wait')}catch(e){}</script>
 <script>/* the pinned opening (html.me-scroll) is decided here, before the first paint; the pin script at the foot of the page then takes over. Decided only there, the page was first painted in the plain layout, and the four facts were seen on the picture for a moment and gone */try{(function(m,c){function s(){c.toggle('me-scroll',m.matches)}s();if(m.addEventListener)m.addEventListener('change',s)})(matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)'),document.documentElement.classList)}catch(e){}</script>
 <link rel="stylesheet" href="v7/code.css?v=223">
@@ -4000,8 +4000,8 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
     <ol class="me-pillars me-facts">
       <li><span class="me-k">Years in product design</span><strong class="me-v"><span data-n="6">6</span>+</strong></li>
       <li><span class="me-k">Years as Hear’s only designer, brand to code</span><strong class="me-v"><span data-n="3">3</span>+</strong></li>
-      <li><span class="me-k">Downloads of a Tap&nbsp;Mobile app I worked on</span><strong class="me-v"><span data-n="100" data-from="80">100</span><small> million</small></strong></li>
-      <li><span class="me-k">Storybook stories in Hear’s design system</span><strong class="me-v"><span data-n="122" data-from="100">122</span></strong></li>
+      <li><span class="me-k">Downloads of a Tap&nbsp;Mobile app I worked on</span><strong class="me-v"><span data-n="100">100</span><small> million</small></strong></li>
+      <li><span class="me-k">Storybook stories in Hear’s design system</span><strong class="me-v"><span data-n="122">122</span></strong></li>
     </ol>
     </div></div>
   </div>
@@ -7001,31 +7001,39 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 <script>
-/* about, on scroll: drives the pinned opening. One number, how far through the stage the page is, is eased a little every frame and
-   turned into: the painting's growth (--g), the slow push into the picture (--z), and each card's way in. */
+/* about, on scroll: drives the pinned opening. One number, how far through the stage the page is, is eased (the same pace at any
+   frame rate) and turned into: the painting's growth (--g), the depth (--dp) and each fact's place.
+   Owner, 24.11: depth, and four facts that mean something on the scroll. The growth takes the same distance as before. Then, before
+   any fact, the depth: the room dims a little around him and he comes a little closer, finished by 48% of the stage so the facts land
+   on a still picture. Then each fact lands at its own point (50, 60, 70, 80%): its rule draws up, its label comes, its figure rises
+   (hero.css). The figures are stated, not counted. On a fast scroll the facts still come one after another, at least 110ms apart. */
 (function(){ var about=document.getElementById('about'); if(!about) return; var stage=about.querySelector('.me-stage'), pin=about.querySelector('.me-pin'), intro=about.querySelector('.me-intro'), list=about.querySelector('.me-pillars'), cards=[].slice.call(about.querySelectorAll('.me-pillars li'));
-  if(!stage||!pin||!intro||cards.length<2) return; var nums=cards.map(function(c){ return c.querySelector('[data-n]') });
-  var ok=matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)'), root=document.documentElement, on=false, cur=0, raf=0;
-  function clamp(v){ return v<0?0:v>1?1:v } function io(t){ return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2 } function out(t){ return 1-Math.pow(1-t,4) }
+  if(!stage||!pin||!intro||cards.length<2) return;
+  var ok=matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)'), root=document.documentElement, on=false, cur=0, raf=0, last=0;
+  /* GROW: the share of the stage the growth takes; DEPTH: where the depth is complete; BEAT: where each fact lands */
+  var GROW=.41, DEPTH=.48, BEAT=[.5,.6,.7,.8];
+  function clamp(v){ return v<0?0:v>1?1:v } function io(t){ return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2 } function io2(t){ return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2 }
   cards.forEach(function(c,i){ c.style.setProperty('--fi',i) });
+  /* the room's shadow: one layer between the room and him, so only the room dims */
+  var bg=about.querySelector('.me-v7-bg'); if(bg&&!about.querySelector('.me-v7-air')){ var air=document.createElement('span'); air.className='me-v7-air'; air.setAttribute('aria-hidden','true'); bg.parentNode.insertBefore(air,bg.nextSibling); }
   function measure(){ var pt=parseFloat(getComputedStyle(about).paddingTop)||118; pin.style.setProperty('--pt',pt+'px'); pin.style.setProperty('--t0',(intro.offsetHeight+Math.max(22,Math.min(40,innerWidth*.03)))+'px'); pin.style.setProperty('--ch',Math.max(60,list.offsetHeight-64)+'px'); }
   function target(){ var pt=parseFloat(pin.style.getPropertyValue('--pt'))||118, total=stage.offsetHeight-pin.offsetHeight; return clamp((pt-stage.getBoundingClientRect().top)/total); }
-  var said=false, first=true, cnt=[];
-  function fin(){ cnt.forEach(function(k){ clearTimeout(k.t); cancelAnimationFrame(k.r) }); cnt=[]; nums.forEach(function(n){ if(n) n.textContent=n.getAttribute('data-n') }); }
-  /* only the two large figures count, from close by and always to the end; a figure at rest is the true one */
-  function say(run){ fin(); if(!run) return; nums.forEach(function(n,i){ var from=n&&+n.getAttribute('data-from'); if(!from) return; var to=+n.getAttribute('data-n'), k={}; n.textContent=from;
-    k.t=setTimeout(function(){ var t0=performance.now(); (function step(now){ var u=clamp((now-t0)/900); n.textContent=Math.round(from+(to-from)*(1-Math.pow(1-u,3))); if(u<1) k.r=requestAnimationFrame(step); })(t0); },620+i*110); cnt.push(k); }); }
-  function draw(p){ var g=io(clamp(p/.57)); pin.style.setProperty('--g',g.toFixed(4)); pin.style.setProperty('--z',p.toFixed(4)); pin.style.setProperty('--io',clamp(1-g*3.2).toFixed(3)); pin.classList.toggle('me-end',p>.9);
-    var grown=p>.545, late=first||p>.97;
-    if(grown!==said){ said=grown; pin.classList.toggle('me-set',grown&&late); pin.classList.toggle('me-grown',grown); say(grown&&!late); }
-    else if(grown&&p>.97&&cnt.length){ pin.classList.add('me-set'); fin(); }
-    else if(grown&&p<.95&&!cnt.length&&pin.classList.contains('me-set')) pin.classList.remove('me-set');
+  var said=false, first=true, lastIn=-1e9, st=cards.map(function(){ return false });
+  function draw(p){ var g=io(clamp(p/GROW)), d=io2(clamp((p-GROW*.96)/(DEPTH-GROW*.96)));
+    pin.style.setProperty('--g',g.toFixed(4)); pin.style.setProperty('--z',p.toFixed(4)); pin.style.setProperty('--dp',d.toFixed(4)); pin.style.setProperty('--io',clamp(1-g*3.2).toFixed(3)); pin.classList.toggle('me-end',p>.9);
+    var grown=p>GROW*.956;
+    if(grown!==said){ said=grown; pin.classList.toggle('me-grown',grown); }
+    if(first) pin.classList.add('me-set');
+    var now=performance.now(); cards.forEach(function(c,i){ var want=p>=BEAT[i]; if(want===st[i]) return; st[i]=want;
+      if(want){ var w=first?0:Math.max(0,Math.round(lastIn+110-now)); lastIn=now+w; c.style.setProperty('--fd',w+'ms'); c.classList.add('in'); }
+      else { c.classList.remove('in'); c.style.setProperty('--fd','0ms'); } });
+    if(first) requestAnimationFrame(function(){ requestAnimationFrame(function(){ pin.classList.remove('me-set'); }); });
     first=false; }
-  function tick(){ var t=target(); cur+=(t-cur)*.16; if(Math.abs(t-cur)<.0004) cur=t; draw(cur); raf=Math.abs(t-cur)>0?requestAnimationFrame(tick):0; }
+  function tick(now){ var t=target(), dt=last?Math.min(64,now-last):16.7; last=now; cur+=(t-cur)*(1-Math.exp(-dt/95)); if(Math.abs(t-cur)<.0004) cur=t; draw(cur); if(Math.abs(t-cur)>0) raf=requestAnimationFrame(tick); else { raf=0; last=0; } }
   function go(){ if(on&&!raf) raf=requestAnimationFrame(tick); }
   function set(){ var want=ok.matches; if(want===on){ if(on){ measure(); go(); } return; } on=want; root.classList.toggle('me-scroll',on);
-    if(on){ measure(); cur=target(); draw(cur); }
-    else { ['--g','--z','--io','--pt','--t0','--ch'].forEach(function(k){ pin.style.removeProperty(k) }); pin.classList.remove('me-grown','me-set','me-end'); said=false; first=true; fin(); } }
+    if(on){ measure(); cur=target(); first=true; draw(cur); }
+    else { ['--g','--z','--dp','--io','--pt','--t0','--ch'].forEach(function(k){ pin.style.removeProperty(k) }); pin.classList.remove('me-grown','me-set','me-end'); cards.forEach(function(c,i){ c.classList.remove('in'); st[i]=false; }); said=false; first=true; } }
   set(); addEventListener('scroll',go,{passive:true}); addEventListener('resize',set); ok.addEventListener('change',set); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ if(on){ measure(); go(); } });
 })();
 </script>

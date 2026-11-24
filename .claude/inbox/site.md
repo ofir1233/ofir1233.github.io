@@ -74,3 +74,4 @@
 - 24.11 Topics head: the owner approved the full pencil underdrawing; it comes up behind the Sketch step in the side margins (desktop, wide windows only) and the oil brush paints over it at Hear's world. img/topics/pencil.webp?v=2
 - 24.11 Design Lab: one head for the section (owner). The screen follows the hero buttons, the five steps sit under it, the old 'One screen' heading is for screen readers only; desktop paint fades at the window's bottom; phones/tablets have no painted band (critics round 4). topics.css?v=20, topics.js?v=16
 - 24.11 Design Lab: the moving back cloud settles at the window's top-left (owner); on the right it sat on the cloud painted in the sky. topics.js?v=18
+- 24.11 Home, opening: depth on scroll (room dims at its edges, he comes forward), then the four facts land one by one at 50/60/70/80% of the stage; figures stated, no count-up; blur tried and cut.

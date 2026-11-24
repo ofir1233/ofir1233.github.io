@@ -179,3 +179,29 @@ html:not(.me-scroll) #about .me-photo.me-v7 .hsig{ transition: opacity .6s ease;
   nav.nav ul li:last-child > a{ transition: background-color .3s ease; }
   nav.nav ul li:last-child > a.hv-arrive{ background-color: #0b6fcf !important; }
 @media (prefers-reduced-motion: reduce) { nav.nav ul .hv-ind{ transition: none; } }
+
+/* Depth, and four facts that land (owner, 24.11.2026: "make three at the highest level, and work on the four facts over the picture so
+   the scroll looks good and feels meaningful"). The page's pin script sets --dp 0..1 once the picture is whole, done by 48% of the stage.
+   - The stage is longer (262vh), so the growth takes the same distance as before and the rest is the depth and the facts.
+   - Depth the way a painter makes it, with light, not a lens (a blur was tried and wiped out the brushwork): the room dims a little
+     at its edges and grows 2%, he grows 4.5% from his chest and stays in full light, so he steps forward out of the room.
+   - Each fact lands at its own point of the scroll (li.in): its rule draws up from the floor (480ms), its label fades in (360ms, +80ms),
+     its figure rises out of a clip (560ms, +140ms). The figures are stated, never counted. Back up and a fact leaves in the
+     opposite order: figure, label, rule. */
+html.me-scroll #about .me-stage{ height: 262vh; }
+#about .me-photo.me-v7 .me-v7-air{ display: none; }
+html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ transform: translate(calc(var(--tx,0) * -2.2%), calc(var(--ty,0) * -2%)) scale(calc(1.09 + var(--g, 0) * .03 + var(--dp, 0) * .02)); }
+html.me-scroll #about .me-photo.me-v7 .me-v7-air{ display: block; position: absolute; inset: 0; pointer-events: none; opacity: var(--dp, 0);
+  background: radial-gradient(70% 85% at 66% 46%, rgba(10,22,44,0) 34%, rgba(10,22,44,.16) 70%, rgba(10,22,44,.34) 100%); }
+html.hp-wait #about .me-photo.me-v7 .me-v7-air{ visibility: hidden; }
+html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ transform: translate(calc(var(--tx,0) * 14px), calc(var(--ty,0) * 8px)) scale(calc(1 + var(--dp, 0) * .045)); transform-origin: 50% 62%; }
+html.me-scroll #about .me-pin.me-grown .me-photo.me-v7::before{ opacity: calc(.82 + var(--dp, 0) * .08); }
+
+html.me-scroll #about#about .me-pillars li, html.me-scroll #about#about .me-pillars li + li{ position: relative; opacity: 1; transform: none; transition: none; border-left: 0; will-change: auto; }
+html.me-scroll #about#about .me-pillars li + li::before{ content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 1px; background: rgba(255,255,255,.34); transform: scaleY(0); transform-origin: 50% 100%; transition: transform .2s ease 80ms; }
+html.me-scroll #about#about .me-pillars li .me-k{ opacity: 0; transition: opacity .18s ease 40ms; }
+html.me-scroll #about#about .me-pillars li .me-v{ display: block; opacity: 0; translate: 0 42%; clip-path: inset(0 -10% 100% -10%); transition: opacity .16s ease, translate .2s ease, clip-path .2s ease; }
+html.me-scroll #about#about .me-pillars li.in::before{ transform: scaleY(1); transition: transform .48s cubic-bezier(.5,0,.15,1) var(--fd, 0ms); }
+html.me-scroll #about#about .me-pillars li.in .me-k{ opacity: 1; transition: opacity .36s ease calc(var(--fd, 0ms) + 80ms); }
+html.me-scroll #about#about .me-pillars li.in .me-v{ opacity: 1; translate: 0 0; clip-path: inset(-20% -10% -20% -10%); transition: opacity .28s ease calc(var(--fd, 0ms) + 140ms), translate .56s cubic-bezier(.2,.8,.2,1) calc(var(--fd, 0ms) + 140ms), clip-path .56s cubic-bezier(.2,.8,.2,1) calc(var(--fd, 0ms) + 140ms); }
+html.me-scroll #about#about .me-pin.me-set .me-pillars li::before, html.me-scroll #about#about .me-pin.me-set .me-pillars li *{ transition: none !important; }
