@@ -192,3 +192,19 @@ html body section#ia#ia .ia-sub-h{ background:#fff !important; box-shadow:0 0 0 
 html body section#ia#ia .ia-global > span.ia-gl{ background:none !important; box-shadow:none !important; }
 /* the level names stand over their columns inside the well */
 @media (min-width:1060px){ html body section#ia#ia .ia-lv{ padding:0 22px; } }
+
+/* ── Round 2 (critic, 24.11): the card is one object. The paper well runs to the card's edges and holds the level names,
+   the open area's pane starts at the top of its column (one long wire from the area), the middle column is quieter,
+   and the admin pieces take a clearer mark when the sentence lights them. ── */
+@media (min-width:1060px){
+  html body section#ia#ia .ia-lv{ background:#f4f3f1; margin:0 -28px; padding:24px 50px 14px; }
+  html body section#ia#ia .ia-board{ margin:0 -28px -28px; padding:6px 50px 30px; border-radius:0 0 20px 20px; }
+  html body section#ia#ia .ia-sub.open{ transform:none !important; }
+}
+html body section#ia#ia .ia-area:not(.open){ box-shadow:0 0 0 1px rgba(23,27,32,.06) !important; }
+html body section#ia#ia .ia-area:not(.open) .ct{ color:var(--mute); }
+html body section#ia#ia .ia-adm{ padding:1px 3px; margin:0 -1px; border-radius:4px; }
+html body section#ia#ia .sec-head .ia-say{ transition-duration:.45s; }
+/* the Impersonate chip keeps its white face while it waits for its turn (the shared keyframe starts from transparent) */
+#ia#ia .ia-tell .ia-global span.adm{ animation-name:ia-say-chip; }
+@keyframes ia-say-chip{ from{ background-color:#fff; color:inherit; } }
