@@ -37,7 +37,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=41">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<link rel="stylesheet" href="../v7/cs2.css?v=5">
+<link rel="stylesheet" href="../v7/cs2.css?v=6">
 <style>
 /* Newsroom only, on top of v7/cs2.css. Everything is scoped under .c2. */
 /* the problem: the bare claim, then the same story with its evidence */
@@ -50,28 +50,26 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .nr-story dd strong{ display:block; font:700 19px/1.2 var(--body); letter-spacing:-.01em; color:var(--ink); margin-top:6px; }
 
 /* the moment: check the headline yourself. The front-page claim in large type; three phrases are buttons, and each opens,
-   in place, what backs it. One open at a time; nothing moves until the reader taps; tapping the open phrase closes it. */
+   in place, what backs it. "3.4 times" is open from the start; one open at a time; a short rule ties the open phrase to its panel.
+   The panel area keeps the height of the tallest panel, so switching never moves the page. */
 .c2 .nr-check{ margin-top:clamp(32px, 4vw, 52px); }
 .c2 .nr-src{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-bottom:18px; font:500 15px/1.3 var(--body); color:var(--ink2); }
-.c2 .nr-line{ max-width:20ch; font:700 clamp(34px, 5.4vw, 70px)/1.16 var(--body); letter-spacing:-.03em; color:var(--ink); text-wrap:balance; }
+.c2 .nr-line{ font:700 clamp(34px, 5.4vw, 70px)/1.16 var(--body); letter-spacing:-.03em; color:var(--ink); }
+/* on a wide screen the line breaks after "at", so nothing stands below any of the three phrases and each rule drops straight to its panel */
+.c2 .nr-br{ display:block; }
+@media (max-width: 900px){ .c2 .nr-br{ display:none; } .c2 .nr-line{ max-width:20ch; text-wrap:balance; } }
+.c2 .nr-tie{ position:absolute; z-index:1; width:2px; margin-left:-1px; background:var(--deep); pointer-events:none;
+  transition:left .3s cubic-bezier(.2,.7,.2,1), top .3s cubic-bezier(.2,.7,.2,1), height .3s cubic-bezier(.2,.7,.2,1); }
+.c2 .nr-tie::after{ content:""; position:absolute; left:50%; bottom:-4px; width:9px; height:9px; margin-left:-4.5px; border-radius:50%; background:var(--deep); box-shadow:0 0 0 3px #fff; }
 .c2 .nr-ph{ margin:0; padding:0 .08em; border:0; border-radius:.14em; background:transparent; color:inherit; font:inherit; letter-spacing:inherit; line-height:inherit; cursor:pointer;
   background-image:linear-gradient(var(--blue), var(--blue)); background-size:calc(100% - .16em) .075em; background-position:.08em 96%; background-repeat:no-repeat;
   transition:background-color .2s, color .2s; }
 .c2 .nr-ph:hover{ background-color:rgba(19,159,253,.14); }
 .c2 .nr-ph[aria-expanded="true"]{ background-color:var(--deep); background-image:none; color:#fff; }
-.c2 .nr-ph:focus-visible, .c2 .nr-go:focus-visible{ outline:3px solid var(--blue); outline-offset:3px; }
-.c2 .nr-out{ display:grid; margin-top:clamp(28px, 3.5vw, 40px); }
+.c2 .nr-ph:focus-visible{ outline:3px solid var(--blue); outline-offset:3px; }
+.c2 .nr-out{ position:relative; display:grid; margin-top:clamp(30px, 3.5vw, 42px); }
 .c2 .nr-out > div{ grid-area:1 / 1; visibility:hidden; opacity:0; transform:translateY(8px); transition:opacity .24s ease, transform .24s ease, visibility 0s linear .24s; }
 .c2 .nr-out > div.is-open{ visibility:visible; opacity:1; transform:none; transition:opacity .24s ease, transform .24s ease; }
-/* the first state: the three claims the line makes, as the invitation */
-.c2 .nr-p0{ display:grid; align-content:center; padding:clamp(22px, 3vw, 36px); border-radius:20px; box-shadow:inset 0 0 0 1.5px rgba(11,111,207,.22); }
-.c2 .nr-p0 p{ max-width:56ch; font:400 clamp(17px, 1.35vw, 19px)/1.55 var(--body); color:var(--ink2); }
-.c2 .nr-p0 ul{ display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
-.c2 .nr-go{ display:inline-flex; align-items:baseline; gap:10px; min-height:48px; padding:13px 18px; border:0; border-radius:12px; background:#fff; color:var(--ink); font:400 15.5px/1.3 var(--body); text-align:left; cursor:pointer;
-  box-shadow:0 0 0 1px rgba(11,111,207,.18), 0 10px 24px -18px rgba(11,79,138,.5); transition:box-shadow .2s; }
-.c2 .nr-go:hover{ box-shadow:0 0 0 2px var(--blue), 0 10px 24px -18px rgba(11,79,138,.5); }
-.c2 .nr-go b{ font-weight:700; text-decoration:underline; text-decoration-color:var(--blue); text-decoration-thickness:2px; text-underline-offset:3px; }
-.c2 .nr-go span{ color:var(--ink2); }
 /* an open phrase: what it claims on the left, what backs it on the right */
 .c2 .nr-p{ display:grid; grid-template-columns:minmax(0, .9fr) minmax(0, 1.1fr); gap:clamp(22px, 3.5vw, 48px); align-items:center; padding:clamp(22px, 3vw, 36px);
   border-radius:20px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.06), 0 28px 56px -34px rgba(11,79,138,.45); }
@@ -85,11 +83,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .nr-cmp span{ font:500 14px/1.3 var(--body); color:var(--ink2); }
 .c2 .nr-cmp i{ position:relative; display:block; height:46px; border-radius:10px; background:#eef2f6; }
 .c2 .nr-cmp i::before{ content:""; position:absolute; inset:0 auto 0 0; width:0; border-radius:10px; background:var(--blue); transition:width .4s cubic-bezier(.2,.7,.2,1); }
-.c2 .nr-cmp .is-base i::before{ background:#f7f9fb; border:2px dashed #0B6FCF; }
+.c2 .nr-cmp .is-base i::before{ background:#a9d4f8; }
 .c2 .nr-p.is-open .nr-cmp i::before{ width:var(--v); }
 .c2 .nr-cmp i b{ position:absolute; top:50%; transform:translateY(-50%); font:700 22px/1 var(--body); font-variant-numeric:tabular-nums; }
 .c2 .nr-cmp .is-hi i b{ right:14px; color:#fff; }
-.c2 .nr-cmp .is-base i b{ left:calc(29.3% + 12px); color:var(--ink); }
+.c2 .nr-cmp .is-base i b{ left:calc(var(--v) - 14px); transform:translate(-100%, -50%); color:var(--ink); }
 .c2 .nr-cmp small{ font:500 14px/1.4 var(--body); color:var(--mute); }
 /* usual day: the dashed line, drawn from the story's chart */
 .c2 .nr-chart{ padding-top:30px; }
@@ -123,14 +121,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .nr-ex{ font-weight:600; color:var(--ink); }
 .c2 #rule .c2-dec{ align-items:start; }
 
-@media (max-width: 900px){ .c2 .nr-p{ grid-template-columns:1fr; align-items:start; } }
+@media (max-width: 900px){ .c2 .nr-p{ grid-template-columns:1fr; align-items:start; align-content:start; } }
 @media (max-width: 560px){
   .c2 .nr-story{ grid-template-columns:1fr; gap:4px; } .c2 .nr-story dd + dt{ margin-top:10px; }
-  /* on a phone only the open panel takes space, so the first state leaves no empty gap */
-  .c2 .nr-out > div:not(.is-open){ display:none; }
-  .c2 .nr-p0{ padding:0; box-shadow:none; }
-  .c2 .nr-p0 ul{ display:grid; }
-  .c2 .nr-go{ width:100%; }
   .c2 .nr-when{ grid-template-columns:1fr; gap:0; }
   .c2 .nr-when li{ padding:0 0 16px 22px; border-top:0; border-left:3px solid #cfd4d9; }
   .c2 .nr-when li.is-on{ border-left-color:var(--blue); }
@@ -140,7 +133,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 }
 @media (prefers-reduced-motion: reduce){
   .c2 .nr-out > div, .c2 .nr-out > div.is-open{ transform:none; transition:none; }
-  .c2 .nr-cmp i::before{ transition:none; }
+  .c2 .nr-cmp i::before, .c2 .nr-tie{ transition:none; }
 }
 </style>
 </head>
@@ -160,12 +153,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-kick">Case study · <b>Newsroom</b></p>
       <h1>AI stories a reader can check against the calls</h1>
-      <p class="c2-ctx">Hear's AI reads every call in a contact center. Newsroom, the news feed I designed for it, writes what changed as short stories, and each story shows the evidence behind it.</p>
+      <p class="c2-ctx">Hear's AI reads every call a contact center takes. Newsroom, the feed I designed for it, tells what changed as short stories.</p>
       <dl class="c2-sum">
-        <div><dt>For</dt><dd>The people who read what Hear finds in their contact center's calls, and act on it.</dd></div>
-        <div><dt>The problem</dt><dd>An AI headline can sound more certain than its data, and asks people to trust the wording.</dd></div>
-        <div><dt>What I did</dt><dd>Designed and built Newsroom: a front page of stories, an article page for each, and a rule for how exact a story may sound.</dd></div>
-        <div><dt>Where it stands</dt><dd>Built in July 2026 and updated since, as the News tab in the Lab, my working copy of Hear, with demo data.</dd></div>
+        <div><dt>For</dt><dd>People who read what Hear finds in their calls, and act on it.</dd></div>
+        <div><dt>The problem</dt><dd>An AI headline can sound more certain than its data.</dd></div>
+        <div><dt>What I did</dt><dd>Stories that show their evidence, and a rule for how exact each may sound.</dd></div>
+        <div><dt>Where it stands</dt><dd>The News tab in Hear Design Lab, my working copy of Hear, built in code.</dd></div>
       </dl>
       <figure class="c2-fig">
         <div class="c2-shot"><img src="../img/v7s-news-feed.webp?v=11" width="2060" height="1327" alt="The Newsroom front page with demo data. A lead story, tagged Surging, from the signal Cancellation intent at 4:12 pm: Cancellation intent is running at 3.4 times its usual day. In 58 calls yesterday the customer said they want to cancel or leave; a usual day has 17. A chart of the last 30 days draws a usual day as a dashed line and marks the peak, 58 calls on Oct 12. Below it, two quotes from calls and the line Why you're seeing this: the signal passed twice its usual level on Oct 9 and has stayed above it for four days, marked Strong, with a link, See the 211 calls. On the right, the monthly recap and the week's other stories." fetchpriority="high">
@@ -186,13 +179,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The setting</p>
       <h2>Four parts of Hear raise findings; one front page gathers them</h2>
-      <p class="c2-lede">Newsroom turns those findings into stories on one front page, with a tab for each source. It also holds a monthly recap, the month as a 75-second story that plays only when you press Play.</p>
+      <p class="c2-lede">The four are signals (labels Hear puts on calls, by AI or by rule), agent evaluations (scores for the person who took the call), compliance checks, and alerts (checks the team sets, which fire on a call). Newsroom turns their findings into stories on one front page, with a tab for each source.</p>
       <ol class="c2-flow">
-        <li><b>Calls</b><span>Agents, the people who answer customer calls, take calls all day.</span></li>
-        <li><b>Hear's AI reads every call</b><span>Signals (classifiers that run on calls), agent evaluations, compliance checks and alerts each raise findings.</span></li>
-        <li class="is-me"><em>My screens</em><b>A front page of stories</b><span>What changed in the calls, written as stories you can read or play.</span></li>
+        <li><b>Calls</b><span>Agents, the people who answer the calls, take calls all day.</span></li>
+        <li><b>Hear's AI reads every call</b><span>Signals, agent evaluations, compliance checks and alerts each raise findings.</span></li>
+        <li class="is-me"><em>My screens</em><b>A front page of stories</b><span>What changed in the calls, written as short stories.</span></li>
         <li><b>A person checks, then acts</b><span>Each story opens to an article page with its sources and actions, such as Open in Data.</span></li>
       </ol>
+      <p class="c2-note"><b>Every story points at something real in Hear.</b> I set aside general events about the contact center, which had nothing to open behind them. Each story comes from a signal, an evaluation or a report, so a reader can follow it back to its source, and the whole card opens its article page.</p>
     </div>
   </section>
 
@@ -218,24 +212,17 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">Check the headline yourself</p>
       <h2>Every claim in the headline opens the evidence behind it</h2>
+      <p class="c2-lede">An AI wrote this headline. Each underlined phrase is a claim: tap one to see what backs it, taken from the story itself.</p>
       <div class="nr-check">
         <p class="nr-src"><span class="nr-tag">Surging</span>Signal · Cancellation intent · 4:12 pm</p>
-        <p class="nr-line">Cancellation intent is <button type="button" class="nr-ph" id="ph-run" aria-expanded="false" aria-controls="ck-run">running</button> at <button type="button" class="nr-ph" id="ph-x" aria-expanded="false" aria-controls="ck-x">3.4&nbsp;times</button> its <button type="button" class="nr-ph" id="ph-base" aria-expanded="false" aria-controls="ck-base">usual&nbsp;day</button></p>
+        <p class="nr-line">Cancellation intent is <button type="button" class="nr-ph" id="ph-run" aria-expanded="false" aria-controls="ck-run">running</button> at<span class="nr-br"></span> <button type="button" class="nr-ph" id="ph-x" aria-expanded="true" aria-controls="ck-x">3.4&nbsp;times</button> its <button type="button" class="nr-ph" id="ph-base" aria-expanded="false" aria-controls="ck-base">usual&nbsp;day</button></p>
         <div class="nr-out">
-          <div class="nr-p0 is-open">
-            <p>An AI wrote this line. Three of its phrases make a claim. Tap one to see what backs it, taken from the story itself.</p>
-            <ul>
-              <li><button type="button" class="nr-go" data-to="1"><b>3.4 times</b><span>How much more?</span></button></li>
-              <li><button type="button" class="nr-go" data-to="2"><b>usual day</b><span>Compared with what?</span></button></li>
-              <li><button type="button" class="nr-go" data-to="0"><b>running</b><span>Is it still happening?</span></button></li>
-            </ul>
-          </div>
-
+          <span class="nr-tie" aria-hidden="true"></span>
           <div class="nr-p" id="ck-run" role="region" aria-labelledby="ph-run" inert>
             <div>
               <p class="nr-q">What backs “running”</p>
-              <h3>It passed twice its usual level on Oct 9 and has stayed above it for four days</h3>
-              <p>The story's last line says why it is on the front page. <b>Strong</b> is its strength label; every story carries one of three: strong, moderate or for watch. The line ends where a reader can check it: the calls.</p>
+              <h3>Still above its usual level, four days on</h3>
+              <p><b>Strong</b> is the story's strength label, one of three: strong, moderate or for watch. The story's last line says why it is on the front page, and ends where a reader can check it: the calls.</p>
             </div>
             <div>
               <ol class="nr-when">
@@ -247,7 +234,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             </div>
           </div>
 
-          <div class="nr-p" id="ck-x" role="region" aria-labelledby="ph-x" inert>
+          <div class="nr-p is-open" id="ck-x" role="region" aria-labelledby="ph-x">
             <div>
               <p class="nr-q">What backs “3.4 times”</p>
               <h3>58 calls yesterday, against 17 on a usual day</h3>
@@ -283,24 +270,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </section>
 
-  <section class="c2-sec" id="story" data-ch="What counts as a story">
-    <div class="c2-w">
-      <p class="c2-n">What counts as a story</p>
-      <h2>Every story points at something real you can open in Hear</h2>
-      <div class="c2-dec">
-        <div class="c2-opt"><h3>General events <em>Set aside</em></h3><p>Events about the contact center in general, each with a chart. Nothing to open behind them.</p></div>
-        <div class="c2-opt is-chosen"><h3>Things in Hear <em>Chosen</em></h3><p>Each story comes from a real part of Hear, such as a signal, an evaluation or a report. A story drawn from a report names it and the dates it covers.</p></div>
-      </div>
-      <p class="c2-result"><b>Why:</b> a reader can follow any story back to its source. It also means a card in the feed needs no buttons: the whole card opens the story's article page, where its actions sit, such as Edit signal and Open in Data.</p>
-      <p class="c2-result">A week after the feed was built, I also sketched four other ways to frame the same news, from a front page to a work queue; they remain low-fidelity sketches.</p>
-    </div>
-  </section>
-
   <section class="c2-sec" id="rule" data-ch="The key decision">
     <div class="c2-w">
       <p class="c2-n">The key decision</p>
       <h2>No invented numbers: a story sounds only as exact as its data</h2>
-      <p class="c2-lede">Nobody set a threshold for cancellation intent; like every trend, the story measures a change over time. So it says <span class="nr-ex">“3.4 times its usual day”</span>, against its own baseline, never that it passed a number no one chose. Alerts, compliance checks and evaluations have a threshold someone set, so their stories name it.</p>
+      <p class="c2-lede">Nobody set a threshold for cancellation intent; like every trend, the story measures a change over time. So it says <span class="nr-ex">“3.4 times its usual day”</span>, against its own baseline, never that it passed a number no one chose. Alerts, compliance checks and agent evaluations have a threshold someone set, so their stories name it.</p>
       <div class="c2-dec">
         <div class="c2-opt"><h3>A number on every trigger <em>Set aside</em></h3><p>Every story names a threshold it crossed, even a trend that has none. That figure would be made up, and a reader could not check it.</p></div>
         <div class="c2-opt is-chosen"><h3>As exact as the data <em>Chosen</em></h3>
@@ -312,11 +286,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
-      <h2 class="c2-stand-h">Designed and built in the Lab, on demo data</h2>
-      <div class="c2-stand">
-        <div><h3>Where it stands</h3><p>Newsroom is the News tab in the Lab, rebuilt in code with demo data. The names of fields and metrics are real; the values are illustrative.</p></div>
-        <div><h3>My part</h3><p>I designed and built Newsroom in July 2026 with Claude Code, and have updated it since: the front page, the article page and the rule for how exact a story may sound.</p></div>
-      </div>
+      <p class="c2-coda">One headline, three claims, <em>each with its evidence.</em></p>
+      <p class="c2-status"><b>Where it stands:</b> the News tab in the Lab, with demo data; the names of fields and metrics are real, the values illustrative. I designed and built it in July 2026 with Claude Code, and have updated it since.</p>
     </div>
   </section>
 
@@ -360,17 +331,19 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 </footer>
 <script src="case.js?v=8"></script>
 <script src="../v7/cs2.js?v=2" defer></script>
-<script>/* Newsroom: check the headline yourself. Each underlined phrase opens what backs it, in place; one at a time; the open phrase, or Escape, closes it */
+<script>/* Newsroom: check the headline yourself. "3.4 times" is open from the start; each underlined phrase opens what backs it, in place, one at a time.
+   A short rule ties the open phrase to its panel: it drops from under the phrase (or from under the headline's last text in its way) to the panel's top edge */
 (function(){var box=document.querySelector('.nr-check');if(!box)return;
-var ph=[].slice.call(box.querySelectorAll('.nr-ph')),ps=ph.map(function(b){return document.getElementById(b.getAttribute('aria-controls'));}),p0=box.querySelector('.nr-p0'),cur=-1;
+var ph=[].slice.call(box.querySelectorAll('.nr-ph')),ps=ph.map(function(b){return document.getElementById(b.getAttribute('aria-controls'));}),
+line=box.querySelector('.nr-line'),out=box.querySelector('.nr-out'),tie=box.querySelector('.nr-tie'),cur=1;
+function place(){var b=ph[cur].getBoundingClientRect(),o=out.getBoundingClientRect(),x=b.left+b.width/2,y=b.bottom,r=document.createRange();
+r.selectNodeContents(line);[].forEach.call(r.getClientRects(),function(t){if(t.top>b.bottom-4&&t.width>0&&t.left<=x+2&&t.right>=x-2)y=Math.max(y,t.bottom);});
+y+=6;tie.style.left=(x-o.left)+'px';tie.style.top=(y-o.top)+'px';tie.style.height=Math.max(0,o.top-y)+'px';}
 function set(i){cur=i;ph.forEach(function(b,k){b.setAttribute('aria-expanded',k===cur);});
-ps.forEach(function(p,k){var on=k===cur;p.classList.toggle('is-open',on);if(on)p.removeAttribute('inert');else p.setAttribute('inert','');});
-p0.classList.toggle('is-open',cur<0);if(cur<0)p0.removeAttribute('inert');else p0.setAttribute('inert','');}
-ph.forEach(function(b,k){b.addEventListener('click',function(){set(cur===k?-1:k);});
-b.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){e.preventDefault();ph[(k+d+ph.length)%ph.length].focus();}});});
-[].forEach.call(box.querySelectorAll('.nr-go'),function(g){g.addEventListener('click',function(){var k=+g.getAttribute('data-to');set(k);ph[k].focus();});});
-box.addEventListener('keydown',function(e){if(e.key==='Escape'&&cur>-1){var k=cur;set(-1);ph[k].focus();}});
-set(-1);})();</script>
+ps.forEach(function(p,k){var on=k===cur;p.classList.toggle('is-open',on);if(on)p.removeAttribute('inert');else p.setAttribute('inert','');});place();}
+ph.forEach(function(b,k){b.addEventListener('click',function(){set(k);});
+b.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){e.preventDefault();var n=(k+d+ph.length)%ph.length;ph[n].focus();set(n);}});});
+set(1);addEventListener('resize',place);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(place);addEventListener('load',place);})();</script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>
