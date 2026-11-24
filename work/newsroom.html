@@ -37,10 +37,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=41">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<link rel="stylesheet" href="../v7/cs2.css?v=4">
+<link rel="stylesheet" href="../v7/cs2.css?v=5">
 <style>
 /* Newsroom only, on top of v7/cs2.css. Everything is scoped under .c2. */
-/* a story drawn in HTML from the screen's own words: the bare claim, then the same story with its evidence */
+/* the problem: the bare claim, then the same story with its evidence */
 .c2 .nr-tag{ display:inline-block; padding:5px 10px; border-radius:8px; background:#fde4dc; color:#b8391c; font:600 14px/1 var(--body); }
 .c2 .nr-bare{ display:grid; gap:12px; justify-items:start; }
 .c2 .nr-bare strong{ font:700 26px/1.15 var(--body); letter-spacing:-.015em; color:var(--ink); }
@@ -48,29 +48,100 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .nr-story dt{ padding-top:2px; font:600 12.5px/1.3 var(--body); letter-spacing:.02em; color:var(--deep); }
 .c2 .nr-story dd{ font:400 15px/1.45 var(--body); color:var(--ink2); }
 .c2 .nr-story dd strong{ display:block; font:700 19px/1.2 var(--body); letter-spacing:-.01em; color:var(--ink); margin-top:6px; }
-.c2 .nr-story dd small{ display:block; margin-top:4px; font:400 13.5px/1.4 var(--body); color:var(--mute); }
-.c2 .nr-bars{ display:grid; grid-template-columns:78px 1fr 30px; gap:7px 10px; align-items:center; margin-top:8px; font:500 13.5px/1 var(--body); color:var(--ink2); }
-.c2 .nr-bars i{ height:6px; border-radius:3px; background:#e7e9ec; position:relative; overflow:hidden; }
-.c2 .nr-bars i::after{ content:""; position:absolute; inset:0 auto 0 0; width:var(--v); background:var(--c); border-radius:3px; }
-.c2 .nr-calls{ display:inline-block; margin-top:6px; color:var(--deep); font-weight:600; }
-/* the stepper's stills are crops of the one front-page still, so each step shows its part close up */
-.c2 .nr-steps{ grid-template-columns:minmax(0, .72fr) minmax(0, 1.28fr); }
-.c2 .c2-panel .c2-shot:has(.nr-crop){ padding:clamp(10px, 1.6vw, 18px); }
-.c2 .c2-panel .nr-crop{ position:relative; width:100%; overflow:hidden; border-radius:12px; background:#eef4fa; box-shadow:0 18px 40px -22px rgba(11,79,138,.45); }
-.c2 .c2-panel .nr-crop img{ position:absolute; left:var(--il); top:var(--it); width:var(--iw); max-width:none; max-height:none; border-radius:0; box-shadow:none; }
-/* the rule per kind of story */
+
+/* the moment: check the headline yourself. The front-page claim in large type; three phrases are buttons, and each opens,
+   in place, what backs it. One open at a time; nothing moves until the reader taps; tapping the open phrase closes it. */
+.c2 .nr-check{ margin-top:clamp(32px, 4vw, 52px); }
+.c2 .nr-src{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-bottom:18px; font:500 15px/1.3 var(--body); color:var(--ink2); }
+.c2 .nr-line{ max-width:20ch; font:700 clamp(34px, 5.4vw, 70px)/1.16 var(--body); letter-spacing:-.03em; color:var(--ink); text-wrap:balance; }
+.c2 .nr-ph{ margin:0; padding:0 .08em; border:0; border-radius:.14em; background:transparent; color:inherit; font:inherit; letter-spacing:inherit; line-height:inherit; cursor:pointer;
+  background-image:linear-gradient(var(--blue), var(--blue)); background-size:calc(100% - .16em) .075em; background-position:.08em 96%; background-repeat:no-repeat;
+  transition:background-color .2s, color .2s; }
+.c2 .nr-ph:hover{ background-color:rgba(19,159,253,.14); }
+.c2 .nr-ph[aria-expanded="true"]{ background-color:var(--deep); background-image:none; color:#fff; }
+.c2 .nr-ph:focus-visible, .c2 .nr-go:focus-visible{ outline:3px solid var(--blue); outline-offset:3px; }
+.c2 .nr-out{ display:grid; margin-top:clamp(28px, 3.5vw, 40px); }
+.c2 .nr-out > div{ grid-area:1 / 1; visibility:hidden; opacity:0; transform:translateY(8px); transition:opacity .24s ease, transform .24s ease, visibility 0s linear .24s; }
+.c2 .nr-out > div.is-open{ visibility:visible; opacity:1; transform:none; transition:opacity .24s ease, transform .24s ease; }
+/* the first state: the three claims the line makes, as the invitation */
+.c2 .nr-p0{ display:grid; align-content:center; padding:clamp(22px, 3vw, 36px); border-radius:20px; box-shadow:inset 0 0 0 1.5px rgba(11,111,207,.22); }
+.c2 .nr-p0 p{ max-width:56ch; font:400 clamp(17px, 1.35vw, 19px)/1.55 var(--body); color:var(--ink2); }
+.c2 .nr-p0 ul{ display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
+.c2 .nr-go{ display:inline-flex; align-items:baseline; gap:10px; min-height:48px; padding:13px 18px; border:0; border-radius:12px; background:#fff; color:var(--ink); font:400 15.5px/1.3 var(--body); text-align:left; cursor:pointer;
+  box-shadow:0 0 0 1px rgba(11,111,207,.18), 0 10px 24px -18px rgba(11,79,138,.5); transition:box-shadow .2s; }
+.c2 .nr-go:hover{ box-shadow:0 0 0 2px var(--blue), 0 10px 24px -18px rgba(11,79,138,.5); }
+.c2 .nr-go b{ font-weight:700; text-decoration:underline; text-decoration-color:var(--blue); text-decoration-thickness:2px; text-underline-offset:3px; }
+.c2 .nr-go span{ color:var(--ink2); }
+/* an open phrase: what it claims on the left, what backs it on the right */
+.c2 .nr-p{ display:grid; grid-template-columns:minmax(0, .9fr) minmax(0, 1.1fr); gap:clamp(22px, 3.5vw, 48px); align-items:center; padding:clamp(22px, 3vw, 36px);
+  border-radius:20px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.06), 0 28px 56px -34px rgba(11,79,138,.45); }
+.c2 .nr-p .nr-q{ margin:0; font:600 14px/1.3 var(--body); color:var(--deep); }
+.c2 .nr-p h3{ margin-top:8px; font:700 clamp(22px, 2.2vw, 28px)/1.2 var(--body); letter-spacing:-.015em; color:var(--ink); text-wrap:balance; }
+.c2 .nr-p p{ margin-top:12px; font:400 16px/1.55 var(--body); color:var(--ink2); }
+.c2 .nr-p p b{ color:var(--ink); }
+/* 3.4 times: two bars, yesterday against a usual day */
+.c2 .nr-cmp{ display:grid; gap:16px; }
+.c2 .nr-cmp > div{ display:grid; gap:7px; }
+.c2 .nr-cmp span{ font:500 14px/1.3 var(--body); color:var(--ink2); }
+.c2 .nr-cmp i{ position:relative; display:block; height:46px; border-radius:10px; background:#eef2f6; }
+.c2 .nr-cmp i::before{ content:""; position:absolute; inset:0 auto 0 0; width:0; border-radius:10px; background:var(--blue); transition:width .4s cubic-bezier(.2,.7,.2,1); }
+.c2 .nr-cmp .is-base i::before{ background:#f7f9fb; border:2px dashed #0B6FCF; }
+.c2 .nr-p.is-open .nr-cmp i::before{ width:var(--v); }
+.c2 .nr-cmp i b{ position:absolute; top:50%; transform:translateY(-50%); font:700 22px/1 var(--body); font-variant-numeric:tabular-nums; }
+.c2 .nr-cmp .is-hi i b{ right:14px; color:#fff; }
+.c2 .nr-cmp .is-base i b{ left:calc(29.3% + 12px); color:var(--ink); }
+.c2 .nr-cmp small{ font:500 14px/1.4 var(--body); color:var(--mute); }
+/* usual day: the dashed line, drawn from the story's chart */
+.c2 .nr-chart{ padding-top:30px; }
+.c2 .nr-plot{ position:relative; }
+.c2 .nr-chart svg{ display:block; width:100%; height:auto; overflow:visible; }
+.c2 .nr-chart .nr-lb{ position:absolute; font:500 13.5px/1.25 var(--body); color:var(--ink2); white-space:nowrap; }
+.c2 .nr-chart .nr-lb b{ color:var(--ink); }
+.c2 .nr-chart .nr-lb-peak{ right:3.3%; top:calc(18.8% - 12px); transform:translateY(-100%); }
+.c2 .nr-chart .nr-lb-base{ left:4%; top:calc(74.4% + 12px); padding:4px 9px; border-radius:6px; background:#e3f1fe; color:var(--deep); }
+.c2 .nr-chart .nr-lb-base b{ color:var(--deep); }
+.c2 .nr-chart .nr-axis{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:0; padding-top:8px; border-top:1px solid var(--line); font:500 13px/1.3 var(--body); color:var(--mute); }
+.c2 .nr-axis em{ font-style:normal; color:var(--deep); font-weight:600; }
+/* running: when it passed its usual level, then the story's own last line */
+.c2 .nr-when{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; }
+.c2 .nr-when li{ position:relative; padding-top:20px; border-top:3px solid #cfd4d9; font:400 14.5px/1.4 var(--body); color:var(--ink2); }
+.c2 .nr-when li::before{ content:""; position:absolute; left:0; top:-8px; width:13px; height:13px; border-radius:50%; background:#fff; box-shadow:inset 0 0 0 3px var(--blue); }
+.c2 .nr-when li.is-on{ border-top-color:var(--blue); }
+.c2 .nr-when li.is-now::before{ background:var(--blue); }
+.c2 .nr-when b{ display:block; margin-bottom:4px; font:700 16px/1.25 var(--body); color:var(--ink); }
+.c2 .nr-p .nr-why{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px; margin-top:22px; padding:14px 18px; border-radius:12px; background:#f1f4f8; font:400 14.5px/1.45 var(--body); color:var(--ink2); }
+.c2 .nr-why > span:first-child{ flex:1 1 100%; }
+.c2 .nr-str{ display:inline-flex; align-items:center; gap:7px; font-weight:600; color:var(--ink); }
+.c2 .nr-str svg{ width:14px; height:14px; }
+.c2 .nr-calls{ color:var(--deep); font-weight:600; }
+
+/* the rule, by kind of story */
 .c2 .nr-rule{ margin-top:14px; display:grid; gap:0; }
-.c2 .nr-rule div{ display:grid; grid-template-columns:72px minmax(0, 1fr); gap:12px; padding:9px 0; border-top:1px solid var(--line); }
-.c2 .nr-rule dt{ font:600 14px/1.5 var(--body); color:var(--deep); }
-.c2 .nr-rule dd{ font:400 15px/1.5 var(--body); color:var(--ink2); }
-.c2 .c2-opt .nr-sub{ margin-top:4px; font:500 14px/1.4 var(--body); color:var(--mute); }
-/* four framings, kept as sketches */
-.c2 .nr-dirs{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:14px; margin-top:32px; }
-.c2 .nr-dirs li{ display:grid; gap:6px; align-content:start; padding:18px 20px 20px; border-radius:14px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
-.c2 .nr-dirs b{ font:600 18px/1.25 var(--body); color:var(--ink); }
-.c2 .nr-dirs q{ font:400 15px/1.45 var(--body); color:var(--ink2); quotes:"\201C" "\201D"; }
-@media (max-width: 900px){ .c2 .nr-dirs{ grid-template-columns:1fr 1fr; } .c2 .nr-steps{ grid-template-columns:1fr; } }
-@media (max-width: 560px){ .c2 .nr-dirs{ grid-template-columns:1fr; } .c2 .nr-story{ grid-template-columns:1fr; gap:4px; } .c2 .nr-story dd + dt{ margin-top:10px; } }
+.c2 .nr-rule div{ display:grid; grid-template-columns:132px minmax(0, 1fr); gap:12px; padding:10px 0; border-top:1px solid var(--line); }
+.c2 .nr-rule dt{ font:600 14.5px/1.5 var(--body); color:var(--deep); }
+.c2 .nr-rule dd{ font:400 15.5px/1.5 var(--body); color:var(--ink2); }
+.c2 .nr-ex{ font-weight:600; color:var(--ink); }
+.c2 #rule .c2-dec{ align-items:start; }
+
+@media (max-width: 900px){ .c2 .nr-p{ grid-template-columns:1fr; align-items:start; } }
+@media (max-width: 560px){
+  .c2 .nr-story{ grid-template-columns:1fr; gap:4px; } .c2 .nr-story dd + dt{ margin-top:10px; }
+  /* on a phone only the open panel takes space, so the first state leaves no empty gap */
+  .c2 .nr-out > div:not(.is-open){ display:none; }
+  .c2 .nr-p0{ padding:0; box-shadow:none; }
+  .c2 .nr-p0 ul{ display:grid; }
+  .c2 .nr-go{ width:100%; }
+  .c2 .nr-when{ grid-template-columns:1fr; gap:0; }
+  .c2 .nr-when li{ padding:0 0 16px 22px; border-top:0; border-left:3px solid #cfd4d9; }
+  .c2 .nr-when li.is-on{ border-left-color:var(--blue); }
+  .c2 .nr-when li.is-now{ border-left-color:transparent; padding-bottom:0; }
+  .c2 .nr-when li::before{ left:-8px; top:2px; }
+  .c2 .nr-rule div{ grid-template-columns:1fr; gap:2px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .c2 .nr-out > div, .c2 .nr-out > div.is-open{ transform:none; transition:none; }
+  .c2 .nr-cmp i::before{ transition:none; }
+}
 </style>
 </head>
 <body>
@@ -91,10 +162,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <h1>AI stories a reader can check against the calls</h1>
       <p class="c2-ctx">Hear's AI reads every call in a contact center. Newsroom, the news feed I designed for it, writes what changed as short stories, and each story shows the evidence behind it.</p>
       <dl class="c2-sum">
-        <div><dt>For</dt><dd>People who use Hear to see what changed in their contact center's calls.</dd></div>
+        <div><dt>For</dt><dd>The people who read what Hear finds in their contact center's calls, and act on it.</dd></div>
         <div><dt>The problem</dt><dd>An AI headline can sound more certain than its data, and asks people to trust the wording.</dd></div>
         <div><dt>What I did</dt><dd>Designed and built Newsroom: a front page of stories, an article page for each, and a rule for how exact a story may sound.</dd></div>
-        <div><dt>Where it stands</dt><dd>Jul 2026, updated since. The News tab in Hear Design Lab, my working replica of Hear, with demo data.</dd></div>
+        <div><dt>Where it stands</dt><dd>Built in July 2026 and updated since, as the News tab in the Lab, my working copy of Hear, with demo data.</dd></div>
       </dl>
       <figure class="c2-fig">
         <div class="c2-shot"><img src="../img/v7s-news-feed.webp?v=11" width="2060" height="1327" alt="The Newsroom front page with demo data. A lead story, tagged Surging, from the signal Cancellation intent at 4:12 pm: Cancellation intent is running at 3.4 times its usual day. In 58 calls yesterday the customer said they want to cancel or leave; a usual day has 17. A chart of the last 30 days draws a usual day as a dashed line and marks the peak, 58 calls on Oct 12. Below it, two quotes from calls and the line Why you're seeing this: the signal passed twice its usual level on Oct 9 and has stayed above it for four days, marked Strong, with a link, See the 211 calls. On the right, the monthly recap and the week's other stories." fetchpriority="high">
@@ -114,11 +185,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="c2-sec" id="context" data-ch="The setting">
     <div class="c2-w">
       <p class="c2-n">The setting</p>
-      <h2>Hear already finds things in the calls; the feed says what changed</h2>
-      <p class="c2-lede">Newsroom gathers what Hear's AI finds into one front page. It also holds a monthly recap, the month as a 75-second story that plays only when you press Play.</p>
+      <h2>Four parts of Hear raise findings; one front page gathers them</h2>
+      <p class="c2-lede">Newsroom turns those findings into stories on one front page, with a tab for each source. It also holds a monthly recap, the month as a 75-second story that plays only when you press Play.</p>
       <ol class="c2-flow">
         <li><b>Calls</b><span>Agents, the people who answer customer calls, take calls all day.</span></li>
-        <li><b>Hear's AI reads every call</b><span>Signals, agent evaluations, compliance checks and alerts each raise findings.</span></li>
+        <li><b>Hear's AI reads every call</b><span>Signals (classifiers that run on calls), agent evaluations, compliance checks and alerts each raise findings.</span></li>
         <li class="is-me"><em>My screens</em><b>A front page of stories</b><span>What changed in the calls, written as stories you can read or play.</span></li>
         <li><b>A person checks, then acts</b><span>Each story opens to an article page with its sources and actions, such as Open in Data.</span></li>
       </ol>
@@ -129,7 +200,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The problem</p>
       <h2>An AI line can sound more certain than its data</h2>
-      <p class="c2-lede">A summary of a contact center is only worth reading if people can check it. So each story carries its own evidence: its source, its time window, a baseline for any spike, and its calls.</p>
+      <p class="c2-lede">A summary of a contact center is only worth reading if people can check it. So each story carries its own evidence, and the reader can test the headline against it.</p>
       <div class="c2-ba">
         <div><h3>Before · a bare AI claim</h3>
           <div class="nr-bare"><span class="nr-tag">Surging</span><strong>Cancellation intent</strong></div>
@@ -137,49 +208,78 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><h3>After · the same story, with its evidence</h3>
           <dl class="nr-story">
             <dt>Source</dt><dd>Signal · Cancellation intent · 4:12 pm<strong>Cancellation intent is running at 3.4 times its usual day</strong></dd>
-            <dt>Baseline</dt><dd>In 58 calls yesterday the customer said they want to cancel or leave. A usual day has 17.
-              <div class="nr-bars"><span>Yesterday</span><i style="--v:100%;--c:var(--blue)"></i><span>58</span><span>Usual day</span><i style="--v:29%;--c:#9aa3ad"></i><span>17</span></div></dd>
-            <dt>Time window</dt><dd>Cancellation-intent calls a day, last 30 days</dd>
-            <dt>Why it's here</dt><dd>The signal passed twice its usual level on Oct 9 and has stayed above it for four days.<small>Strength: Strong</small><span class="nr-calls">See the 211 calls →</span></dd>
+            <dt>Evidence</dt><dd>Yesterday's count against a usual day, the 30 days it is measured over, the rule that put it on the front page, and its 211 calls.</dd>
           </dl></div>
       </div>
     </div>
   </section>
 
-  <section class="c2-sec" id="how" data-ch="How it works">
+  <section class="c2-sec is-key" id="check" data-ch="Check the headline">
     <div class="c2-w">
-      <p class="c2-n">How it works</p>
-      <h2>Three questions a reader can answer from the story itself</h2>
-      <div class="c2-steps nr-steps">
-        <div class="c2-side">
-          <div class="c2-tabs" role="tablist" aria-label="Three questions">
-            <button type="button" class="c2-tab" role="tab" id="t1" aria-controls="p1" aria-selected="true"><i>1</i><div><b>Where is it from?</b><span>The day and how many stories the last 7 days hold, then the story's source, a signal here, and the time it fired.</span></div></button>
-            <button type="button" class="c2-tab" role="tab" id="t2" aria-controls="p2" aria-selected="false"><i>2</i><div><b>Compared with what?</b><span>A usual day, 17 calls, is a dashed line to measure the rise against. The chart marks the day it passed twice the usual, and the peak: 58 calls on Oct 12.</span></div></button>
-            <button type="button" class="c2-tab" role="tab" id="t3" aria-controls="p3" aria-selected="false"><i>3</i><div><b>Why is it here?</b><span>Two callers' own words, with each call's date, time and length. Then the rule that put the story here, a strength label and a link to its 211 calls.</span></div></button>
+      <p class="c2-n">Check the headline yourself</p>
+      <h2>Every claim in the headline opens the evidence behind it</h2>
+      <div class="nr-check">
+        <p class="nr-src"><span class="nr-tag">Surging</span>Signal · Cancellation intent · 4:12 pm</p>
+        <p class="nr-line">Cancellation intent is <button type="button" class="nr-ph" id="ph-run" aria-expanded="false" aria-controls="ck-run">running</button> at <button type="button" class="nr-ph" id="ph-x" aria-expanded="false" aria-controls="ck-x">3.4&nbsp;times</button> its <button type="button" class="nr-ph" id="ph-base" aria-expanded="false" aria-controls="ck-base">usual&nbsp;day</button></p>
+        <div class="nr-out">
+          <div class="nr-p0 is-open">
+            <p>An AI wrote this line. Three of its phrases make a claim. Tap one to see what backs it, taken from the story itself.</p>
+            <ul>
+              <li><button type="button" class="nr-go" data-to="1"><b>3.4 times</b><span>How much more?</span></button></li>
+              <li><button type="button" class="nr-go" data-to="2"><b>usual day</b><span>Compared with what?</span></button></li>
+              <li><button type="button" class="nr-go" data-to="0"><b>running</b><span>Is it still happening?</span></button></li>
+            </ul>
+          </div>
+
+          <div class="nr-p" id="ck-run" role="region" aria-labelledby="ph-run" inert>
+            <div>
+              <p class="nr-q">What backs “running”</p>
+              <h3>It passed twice its usual level on Oct 9 and has stayed above it for four days</h3>
+              <p>The story's last line says why it is on the front page. <b>Strong</b> is its strength label; every story carries one of three: strong, moderate or for watch. The line ends where a reader can check it: the calls.</p>
+            </div>
+            <div>
+              <ol class="nr-when">
+                <li class="is-on"><b>Oct 9</b>Passes twice its usual level</li>
+                <li class="is-on"><b>Oct 12</b>The peak: 58 calls</li>
+                <li class="is-now"><b>Oct 13 · 4:12 pm</b>The story leads the front page</li>
+              </ol>
+              <p class="nr-why"><span>Why you're seeing this: the signal passed twice its usual level on Oct 9 and has stayed above it for four days.</span><span class="nr-str"><svg viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx=".8"/><rect x="5.5" y="5" width="3" height="8" rx=".8"/><rect x="10" y="2" width="3" height="11" rx=".8"/></svg>Strong</span><span class="nr-calls">See the 211 calls →</span></p>
+            </div>
+          </div>
+
+          <div class="nr-p" id="ck-x" role="region" aria-labelledby="ph-x" inert>
+            <div>
+              <p class="nr-q">What backs “3.4 times”</p>
+              <h3>58 calls yesterday, against 17 on a usual day</h3>
+              <p>In 58 calls yesterday the customer said they want to cancel or leave. A usual day has 17. <b>58 is 3.4 times 17.</b></p>
+            </div>
+            <div class="nr-cmp">
+              <div class="is-hi"><span>Yesterday, Oct 12</span><i style="--v:100%"><b>58</b></i></div>
+              <div class="is-base"><span>A usual day</span><i style="--v:29.3%"><b>17</b></i></div>
+              <small>Calls in which the customer said they want to cancel or leave</small>
+            </div>
+          </div>
+
+          <div class="nr-p" id="ck-base" role="region" aria-labelledby="ph-base" inert>
+            <div>
+              <p class="nr-q">What backs “usual day”</p>
+              <h3>A usual day is 17 calls, drawn as a dashed line</h3>
+              <p>A spike is drawn against a usual day, never alone. The chart counts cancellation-intent calls a day over the <b>last 30 days</b>, Sep 13 to Oct 12.</p>
+            </div>
+            <div class="nr-chart"><div class="nr-plot">
+              <svg viewBox="0 0 600 236" role="img" aria-label="Cancellation-intent calls a day over the last 30 days: flat at the usual day, 17 calls, drawn dashed, until early October, then rising to 58 calls on Oct 12.">
+                <path d="M20.0 174.3 C23.2 174.7 32.9 176.2 39.3 176.9 C45.7 177.5 52.2 178.4 58.6 178.2 C65.1 177.9 71.5 176.5 77.9 175.6 C84.4 174.7 90.8 173.1 97.2 173.0 C103.7 172.9 110.1 174.3 116.6 175.0 C123.0 175.7 129.4 176.8 135.9 177.2 C142.3 177.6 148.7 177.8 155.2 177.5 C161.6 177.2 168.0 175.9 174.5 175.3 C180.9 174.6 187.4 173.6 193.8 173.7 C200.2 173.7 206.7 175.1 213.1 175.6 C219.5 176.1 226.0 176.8 232.4 176.9 C238.9 177.0 245.3 176.6 251.7 176.2 C258.2 175.9 264.6 175.0 271.0 174.6 C277.5 174.3 283.9 174.1 290.3 174.3 C296.8 174.5 303.2 175.4 309.7 175.9 C316.1 176.4 322.5 177.3 329.0 177.2 C335.4 177.1 341.8 176.2 348.3 175.6 C354.7 175.0 361.1 173.6 367.6 173.7 C374.0 173.8 380.5 175.5 386.9 176.2 C393.3 176.9 399.8 178.1 406.2 177.8 C412.6 177.6 419.1 175.3 425.5 175.0 C432.0 174.6 438.4 176.1 444.8 175.6 C451.3 175.1 457.7 174.7 464.1 171.8 C470.6 168.8 477.0 164.8 483.4 158.0 C489.9 151.2 496.3 141.7 502.8 130.8 C509.2 119.9 515.6 103.3 522.1 92.4 C528.5 81.5 534.9 72.1 541.4 65.2 C547.8 58.3 554.3 54.3 560.7 50.8 C567.1 47.3 576.8 45.5 580.0 44.4 L580 236 L20 236 Z" fill="#e3f1fe" opacity=".7"/>
+                <path d="M20.0 174.3 C23.2 174.7 32.9 176.2 39.3 176.9 C45.7 177.5 52.2 178.4 58.6 178.2 C65.1 177.9 71.5 176.5 77.9 175.6 C84.4 174.7 90.8 173.1 97.2 173.0 C103.7 172.9 110.1 174.3 116.6 175.0 C123.0 175.7 129.4 176.8 135.9 177.2 C142.3 177.6 148.7 177.8 155.2 177.5 C161.6 177.2 168.0 175.9 174.5 175.3 C180.9 174.6 187.4 173.6 193.8 173.7 C200.2 173.7 206.7 175.1 213.1 175.6 C219.5 176.1 226.0 176.8 232.4 176.9 C238.9 177.0 245.3 176.6 251.7 176.2 C258.2 175.9 264.6 175.0 271.0 174.6 C277.5 174.3 283.9 174.1 290.3 174.3 C296.8 174.5 303.2 175.4 309.7 175.9 C316.1 176.4 322.5 177.3 329.0 177.2 C335.4 177.1 341.8 176.2 348.3 175.6 C354.7 175.0 361.1 173.6 367.6 173.7 C374.0 173.8 380.5 175.5 386.9 176.2 C393.3 176.9 399.8 178.1 406.2 177.8 C412.6 177.6 419.1 175.3 425.5 175.0 C432.0 174.6 438.4 176.1 444.8 175.6 C451.3 175.1 457.7 174.7 464.1 171.8 C470.6 168.8 477.0 164.8 483.4 158.0 C489.9 151.2 496.3 141.7 502.8 130.8 C509.2 119.9 515.6 103.3 522.1 92.4 C528.5 81.5 534.9 72.1 541.4 65.2 C547.8 58.3 554.3 54.3 560.7 50.8 C567.1 47.3 576.8 45.5 580.0 44.4" fill="none" stroke="#7cc4fb" stroke-width="3" stroke-linecap="round"/>
+                <line x1="20" y1="175.6" x2="580" y2="175.6" stroke="#0B6FCF" stroke-width="3" stroke-dasharray="9 7" stroke-linecap="round"/>
+                <circle cx="580" cy="44.4" r="5.5" fill="#139FFD"/>
+              </svg>
+              <span class="nr-lb nr-lb-peak"><b>58 calls</b> · Oct 12</span>
+              <span class="nr-lb nr-lb-base">Usual day · <b>17 calls</b></span></div>
+              <p class="nr-axis"><span>Sep 13</span><em>Last 30 days</em><span>Oct 12</span></p>
+            </div>
           </div>
         </div>
-        <div class="c2-stage">
-          <figure class="c2-panel" role="tabpanel" id="p1" aria-labelledby="t1"><div class="c2-shot"><div class="nr-crop" style="aspect-ratio:960/295;--iw:208.33%;--il:-4.17%;--it:-50.85%"><img src="../img/v7s-news-feed.webp?v=11" width="2060" height="1327" alt="Close up: Tuesday, October 13, 31 stories in the last 7 days. The lead story, tagged Surging, Signal, Cancellation intent, 4:12 pm, with its headline and its first line." loading="lazy"></div></div><figcaption><b>The source line.</b> Every story names where it came from and when.</figcaption></figure>
-          <figure class="c2-panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden><div class="c2-shot"><div class="nr-crop" style="aspect-ratio:1060/540;--iw:188.68%;--il:-28.3%;--it:-93.52%"><img src="../img/v7s-news-feed.webp?v=11" width="2060" height="1327" alt="Close up of the chart: a flat line at the usual day, 17 calls, dashed; the line rises past over twice the usual on Oct 9 to a peak of 58 calls on Oct 12." loading="lazy"></div></div><figcaption><b>The baseline.</b> A spike is drawn against a usual day, never alone.</figcaption></figure>
-          <figure class="c2-panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden><div class="c2-shot"><div class="nr-crop" style="aspect-ratio:1315/194;--iw:152.09%;--il:-3.04%;--it:-545.36%"><img src="../img/v7s-news-feed.webp?v=11" width="2060" height="1327" alt="Close up: two quotes from calls on Oct 12, each with its time and length, then Why you're seeing this: the signal passed twice its usual level on Oct 9 and has stayed above it for four days. Strong. See the 211 calls." loading="lazy"></div></div><figcaption><b>The calls.</b> The story ends where a reader can check it.</figcaption></figure>
-          <div class="c2-nav"><button type="button" data-go="-1" aria-label="Previous step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button><button type="button" data-go="1" aria-label="Next step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button><span aria-live="polite">1 of 3</span></div>
-        </div>
       </div>
-    </div>
-  </section>
-
-  <section class="c2-sec" id="rule" data-ch="The hard rule">
-    <div class="c2-w">
-      <p class="c2-n">The hard rule</p>
-      <h2>No invented numbers: a trend's trigger stays in words</h2>
-      <p class="c2-lede">Alerts, compliance and evaluations are measured against a threshold someone set. A trend has none, so any number in its trigger would be made up. I set how exact each kind of story may sound.</p>
-      <div class="c2-dec">
-        <div class="c2-opt"><h3>Trends</h3><p class="nr-sub">Measured over a period</p>
-          <dl class="nr-rule"><div><dt>Trigger</dt><dd>In words, with no invented threshold</dd></div><div><dt>Time</dt><dd>A window, such as “this week”</dd></div><div><dt>Basis</dt><dd>The method behind the story</dd></div></dl></div>
-        <div class="c2-opt"><h3>Alerts, compliance, evaluations</h3><p class="nr-sub">Measured against a rule someone set up</p>
-          <dl class="nr-rule"><div><dt>Trigger</dt><dd>The real threshold that was set</dd></div><div><dt>Time</dt><dd>A clock time for a real moment, such as an alert</dd></div><div><dt>Basis</dt><dd>The method behind the story</dd></div></dl></div>
-      </div>
-      <p class="c2-result"><b>Set aside:</b> a figure on every trigger, even where no threshold exists. <b>Every story</b> also gets a strength label (strong, moderate or for watch) and a line that leads to its calls.</p>
     </div>
   </section>
 
@@ -191,29 +291,30 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div class="c2-opt"><h3>General events <em>Set aside</em></h3><p>Events about the contact center in general, each with a chart. Nothing to open behind them.</p></div>
         <div class="c2-opt is-chosen"><h3>Things in Hear <em>Chosen</em></h3><p>Each story comes from a real part of Hear, such as a signal, an evaluation or a report. A story drawn from a report names it and the dates it covers.</p></div>
       </div>
-      <p class="c2-result"><b>Why:</b> a reader can follow any story back to its source. It also means a card in the feed needs no buttons: the whole card opens the story's article page, where its actions sit, such as Edit signal, Open in Data and Run report.</p>
+      <p class="c2-result"><b>Why:</b> a reader can follow any story back to its source. It also means a card in the feed needs no buttons: the whole card opens the story's article page, where its actions sit, such as Edit signal and Open in Data.</p>
+      <p class="c2-result">A week after the feed was built, I also sketched four other ways to frame the same news, from a front page to a work queue; they remain low-fidelity sketches.</p>
     </div>
   </section>
 
-  <section class="c2-sec" id="directions" data-ch="Explorations">
+  <section class="c2-sec" id="rule" data-ch="The key decision">
     <div class="c2-w">
-      <p class="c2-n">Explorations</p>
-      <h2>Four other ways to frame the same news, kept as sketches</h2>
-      <p class="c2-lede">A week after the feed was built, I sketched four low-fidelity directions, each around a different main idea. They are gray wireframes with notes, and remain explorations.</p>
-      <ol class="nr-dirs">
-        <li><b>Edition</b><q>read what changed</q></li>
-        <li><b>Radar</b><q>see the whole operation at once</q></li>
-        <li><b>Inbox</b><q>work the queue</q></li>
-        <li><b>Briefing</b><q>tell me, then let me dig</q></li>
-      </ol>
-      <p class="c2-result">Edition is a front page, like the built feed. Every direction keeps the same three parts in its side panel: why, evidence and actions.</p>
+      <p class="c2-n">The key decision</p>
+      <h2>No invented numbers: a story sounds only as exact as its data</h2>
+      <p class="c2-lede">Nobody set a threshold for cancellation intent; like every trend, the story measures a change over time. So it says <span class="nr-ex">“3.4 times its usual day”</span>, against its own baseline, never that it passed a number no one chose. Alerts, compliance checks and evaluations have a threshold someone set, so their stories name it.</p>
+      <div class="c2-dec">
+        <div class="c2-opt"><h3>A number on every trigger <em>Set aside</em></h3><p>Every story names a threshold it crossed, even a trend that has none. That figure would be made up, and a reader could not check it.</p></div>
+        <div class="c2-opt is-chosen"><h3>As exact as the data <em>Chosen</em></h3>
+          <dl class="nr-rule"><div><dt>Trends</dt><dd>The trigger in words, against a usual day; time as a window, such as “this week”</dd></div><div><dt>Alerts, compliance, evaluations</dt><dd>The real threshold that was set; a clock time for a real moment, such as an alert</dd></div><div><dt>Every story</dt><dd>The method behind it, and a line that leads to its calls</dd></div></dl></div>
+      </div>
+      <p class="c2-result"><b>Why:</b> the feed is worth reading only if a reader can check it, and a number nobody set cannot be checked.</p>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
+      <h2 class="c2-stand-h">Designed and built in the Lab, on demo data</h2>
       <div class="c2-stand">
-        <div><h3>Where it stands</h3><p>Newsroom is the News tab in Hear Design Lab, my working replica of Hear, rebuilt in code with demo data. The names of fields and metrics are real; the values are illustrative. The tab also runs in Hebrew, right to left.</p></div>
+        <div><h3>Where it stands</h3><p>Newsroom is the News tab in the Lab, rebuilt in code with demo data. The names of fields and metrics are real; the values are illustrative.</p></div>
         <div><h3>My part</h3><p>I designed and built Newsroom in July 2026 with Claude Code, and have updated it since: the front page, the article page and the rule for how exact a story may sound.</p></div>
       </div>
     </div>
@@ -258,7 +359,18 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </div>
 </footer>
 <script src="case.js?v=8"></script>
-<script src="../v7/cs2.js?v=1" defer></script>
+<script src="../v7/cs2.js?v=2" defer></script>
+<script>/* Newsroom: check the headline yourself. Each underlined phrase opens what backs it, in place; one at a time; the open phrase, or Escape, closes it */
+(function(){var box=document.querySelector('.nr-check');if(!box)return;
+var ph=[].slice.call(box.querySelectorAll('.nr-ph')),ps=ph.map(function(b){return document.getElementById(b.getAttribute('aria-controls'));}),p0=box.querySelector('.nr-p0'),cur=-1;
+function set(i){cur=i;ph.forEach(function(b,k){b.setAttribute('aria-expanded',k===cur);});
+ps.forEach(function(p,k){var on=k===cur;p.classList.toggle('is-open',on);if(on)p.removeAttribute('inert');else p.setAttribute('inert','');});
+p0.classList.toggle('is-open',cur<0);if(cur<0)p0.removeAttribute('inert');else p0.setAttribute('inert','');}
+ph.forEach(function(b,k){b.addEventListener('click',function(){set(cur===k?-1:k);});
+b.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){e.preventDefault();ph[(k+d+ph.length)%ph.length].focus();}});});
+[].forEach.call(box.querySelectorAll('.nr-go'),function(g){g.addEventListener('click',function(){var k=+g.getAttribute('data-to');set(k);ph[k].focus();});});
+box.addEventListener('keydown',function(e){if(e.key==='Escape'&&cur>-1){var k=cur;set(-1);ph[k].focus();}});
+set(-1);})();</script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>
