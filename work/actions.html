@@ -38,13 +38,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/case.css?v=43">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
 <link rel="stylesheet" href="../v7/cs2.css?v=6">
+<link rel="stylesheet" href="../v7/hear-ui.css?v=1">
 <style>
 /* Actions only. The page's moment is "Open the task": the refund card from the board, and the task panel it opens beside it,
    pinned and keyed, all in one 1440x900 screen. It opens open (the point is made before any click); "Back to the board" or the
    card closes it, and the card (its small "Open the task" control) opens it again. The panel slides in from the card's side in
    280 ms; with reduced motion it simply appears.
-   Also: the worked task in Before/After; priority redrawn from colour to weight (two cards, before/after); the key decision
-   with each option's own filter bar; close reasons as one note (the list is the product's own). */
+   Also: the worked task in Before/After; priority from colour to weight (a schematic, two cards); the key decision with each
+   option's own filter bar (the product today as a schematic, the chosen one in the product kit); close reasons as one note. */
 .c2 .ac-chip{ display:inline-flex; padding:8px 14px; border-radius:99px; background:#e3f1fe; color:var(--deep); font:600 15px/1.2 var(--body); }
 .c2 .ac-facts{ display:grid; grid-template-columns:auto 1fr; gap:10px 18px; font:400 15px/1.45 var(--body); color:var(--ink2); }
 .c2 .ac-facts dt{ font:600 13px/1.6 var(--body); letter-spacing:.02em; color:var(--mute); }
@@ -56,13 +57,13 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ac-open [hidden]{ display:none !important; }
 .c2 .ac-open, .c2 .ac-open *{ overflow-anchor:none; } /* closing must not move the page under the reader */
 .c2 .ac-side{ grid-area:1 / 1; }
-.c2 .ac-col{ position:relative; border-radius:16px; overflow:hidden; background:#f4f6f8; box-shadow:0 0 0 1px rgba(23,27,32,.08), 0 24px 48px -28px rgba(11,79,138,.35); }
-.c2 .ac-colin{ position:relative; }
-.c2 .ac-card{ position:absolute; left:2.3%; top:9.5%; width:95%; height:32.1%; padding:0; border:0; border-radius:14px; background:transparent; cursor:pointer; transition:box-shadow .2s; }
-.c2 .ac-card:hover{ box-shadow:0 0 0 3px rgba(19,159,253,.35); }
-.c2 .ac-card:focus-visible{ outline:none; box-shadow:0 0 0 3px var(--ink), 0 0 0 6px #fff; }
+.c2 .ac-mcol{ position:relative; border-radius:16px; overflow:hidden; background:#f4f6f8; box-shadow:0 0 0 1px rgba(23,27,32,.08), 0 24px 48px -28px rgba(11,79,138,.35); }
+.c2 .ac-mcolin{ position:relative; }
+.c2 .ac-mcard{ position:absolute; left:2.3%; top:9.5%; width:95%; height:32.1%; padding:0; border:0; border-radius:14px; background:transparent; cursor:pointer; transition:box-shadow .2s; }
+.c2 .ac-mcard:hover{ box-shadow:0 0 0 3px rgba(19,159,253,.35); }
+.c2 .ac-mcard:focus-visible{ outline:none; box-shadow:0 0 0 3px var(--ink), 0 0 0 6px #fff; }
 /* closed: a small control on the column's header row, above the card's top-right corner, clear of its text */
-.c2 .ac-open:not(.is-open) .ac-card::after{ content:"Open the task"; position:absolute; right:0; bottom:calc(100% + 5px); padding:6px 11px; border-radius:99px; background:var(--ink); color:#fff; font:600 12.5px/1 var(--body); white-space:nowrap; box-shadow:0 4px 10px rgba(10,20,30,.2); }
+.c2 .ac-open:not(.is-open) .ac-mcard::after{ content:"Open the task"; position:absolute; right:0; bottom:calc(100% + 5px); padding:6px 11px; border-radius:99px; background:var(--ink); color:#fff; font:600 12.5px/1 var(--body); white-space:nowrap; box-shadow:0 4px 10px rgba(10,20,30,.2); }
 .c2 .ac-ctl{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; margin-top:16px; }
 .c2 .ac-ctl small{ font:400 14px/1.4 var(--body); color:var(--mute); }
 .c2 .ac-toggle{ display:inline-flex; align-items:center; gap:8px; min-height:38px; padding:0 14px 0 11px; border:0; border-radius:99px; background:var(--card); box-shadow:inset 0 0 0 1px #c9ced3; color:var(--ink); font:600 14px/1 var(--body); cursor:pointer; }
@@ -78,54 +79,56 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ac-open:not(.is-open) .ac-key{ opacity:0; transform:translateX(-14px); }
 
 
-/* priority, colour to weight: two cards of the Pending column, redrawn in HTML; before = the first board's badges (30 Mar 2026),
-   after = Flow's bars (weight in ink, one accent for interaction only) */
+/* Drawn screens follow .claude/case-review/PRODUCT-LOOK.md: a principle is a black-and-white schematic (.hui.hui-bw, labelled),
+   the product is drawn with the product kit (v7/hear-ui.css, the studio Actions screen's own parts). The moment's still is the studio's.
+   Priority, colour to weight: two Pending cards as a schematic; only the colours the point is about stay (the first board's coral,
+   blue and green badges, 30 Mar 2026); after = Flow's bars in ink. */
 .c2 .ac-wt{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px, 3.4vw, 48px); margin-top:clamp(36px, 4.5vw, 56px); }
 .c2 .ac-wt figure{ display:flex; flex-direction:column; min-width:0; }
 .c2 .ac-wt-h{ margin-bottom:12px; font:600 14px/1.3 var(--body); color:var(--deep); }
 .c2 .ac-wt figure:first-child .ac-wt-h{ color:var(--mute); }
-.c2 .ac-lane{ display:grid; gap:12px; padding:16px; border-radius:18px; background:#e8e8e6; }
-.c2 .ac-lh{ margin:2px 0 0 4px; font:600 15px/1.2 var(--body); color:var(--ink); }
-.c2 .ac-wc{ display:grid; gap:12px; padding:18px 20px; border-radius:13px; background:#fff; box-shadow:0 1px 2px rgba(10,20,30,.08); }
-.c2 .ac-wc b{ font:600 clamp(17px, 1.45vw, 19.5px)/1.3 var(--body); color:var(--ink); }
-.c2 .ac-wc-t{ display:flex; gap:8px; align-items:center; }
-.c2 .ac-wc-o{ display:flex; align-items:center; gap:9px; font:400 15px/1 var(--body); color:var(--ink2); }
-.c2 .ac-wc-o i{ display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:#eceef0; font:600 11px/1 var(--body); font-style:normal; color:var(--ink2); }
 .c2 .v1-p{ display:inline-flex; align-items:center; height:24px; padding:0 10px; border-radius:20px; background:#ff7056; color:#fff; font:700 12px/1 var(--body); letter-spacing:.04em; }
 .c2 .v1-p.is-m{ background:#1779f7; } .c2 .v1-p.is-l{ background:#4ba373; }
 .c2 .v1-s{ display:inline-flex; align-items:center; height:26px; padding:0 10px; border-radius:7px; background:#f1f1f1; box-shadow:inset 0 0 0 1px #e1e1e1; color:#ff7056; font:700 12px/1 var(--body); letter-spacing:.04em; }
-.c2 .ac-pr{ display:inline-flex; align-items:center; gap:7px; font:600 16px/1 var(--body); color:var(--ink); }
-.c2 .ac-pr svg{ width:17px; height:17px; fill:var(--ink); }
-.c2 .ac-pr .off{ fill:#d6d6d4; }
-.c2 .ac-pr.is-m{ font-weight:500; color:var(--ink2); } .c2 .ac-pr.is-l{ font-weight:500; color:var(--mute); }
+.c2 .ac-pr{ display:inline-flex; align-items:center; gap:7px; font:600 16px/1 var(--body); color:#181818; }
+.c2 .ac-pr svg{ width:17px; height:17px; fill:#181818; }
+.c2 .ac-pr .off{ fill:#d0d0d0; }
+.c2 .ac-pr.is-m{ font-weight:500; color:#4a4a4a; } .c2 .ac-pr.is-l{ font-weight:500; color:#8a8a8a; }
 .c2 .ac-leg{ display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; margin-top:16px; }
 .c2 .ac-wt-p{ margin-top:12px; max-width:48ch; font:400 17px/1.5 var(--body); color:var(--ink2); }
 .c2 .ac-greys{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+/* the kit inside the page: undo the few page rules that reach into it */
+.c2 .hui footer{ padding:0; }
+.c2 .c2-opt .hui p, .c2 .c2-opt:not(.is-chosen) .hui p{ font-family:inherit; color:inherit; }
+.c2 .hui .hui-schem{ top:-9px; right:12px; }
+.c2 .ac-demo{ zoom:1.2; }
+.c2 .ac-demo .ac-col{ position:relative; box-shadow:inset 0 0 0 1px #D0D0D0; }
+.c2 .ac-demo .ac-hd{ display:flex; align-items:center; gap:7px; }
+.c2 .ac-demo .ac-card p{ margin-top:9px; }
+.c2 .hui .v1-p{ height:19px; padding:0 7px; font-size:9.5px; font-family:inherit; }
+.c2 .hui .v1-s{ height:21px; padding:0 8px; font-size:9.5px; font-family:inherit; }
+.c2 .hui .ac-pr{ gap:6px; font-size:13px; font-family:inherit; }
+.c2 .hui .ac-pr svg{ width:14px; height:14px; }
 
-/* the key decision: each option carries its own filter bar, drawn in HTML */
+/* the key decision: each option carries its own filter bar. Set aside = the product today, as a schematic (it is not the studio's look);
+   chosen = the studio Actions screen's own chips, column and task card */
 .c2 .c2-opt h3 em{ white-space:nowrap; }
-.c2 .ac-fb{ display:flex; flex-wrap:wrap; align-items:flex-start; gap:10px; margin:16px 0 14px; padding:14px; border-radius:12px; background:#fff; box-shadow:0 0 0 1px var(--line); }
-.c2 .ac-fb.is-prod{ display:grid; grid-template-columns:auto auto auto; justify-content:start; gap:6px 10px; background:#fbfbfa; }
-.c2 .ac-dd small{ font:500 14px/1 var(--body); color:var(--mute); }
-.c2 .ac-dd{ position:relative; display:inline-flex; align-items:center; gap:6px; height:34px; padding:0 10px 0 12px; border-radius:8px; box-shadow:inset 0 0 0 1px #c9ced3; background:#fff; font:600 14px/1 var(--body); color:var(--ink); white-space:nowrap; }
-.c2 .ac-dd svg{ width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
-.c2 .ac-menu{ grid-column:1 / -1; grid-row:2; justify-self:start; display:grid; gap:2px; min-width:150px; padding:6px; border-radius:10px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.1), 0 12px 24px -10px rgba(10,20,30,.25); z-index:1; }
-.c2 .ac-menu span{ padding:8px 10px 8px 28px; border-radius:6px; font:500 14px/1 var(--body); color:var(--ink2); position:relative; }
-.c2 .ac-menu span.on::before{ content:"\2713"; position:absolute; left:10px; color:var(--ink); }
-.c2 .ac-menu span:last-child{ box-shadow:inset 0 0 0 1.5px var(--deep); color:var(--ink); }
-.c2 .ac-avs{ display:inline-flex; align-items:center; height:34px; padding-left:6px; }
-.c2 .ac-avs i{ display:grid; place-items:center; width:30px; height:30px; margin-left:-3px; border-radius:50%; background:#e6e8eb; box-shadow:0 0 0 2px #fbfbfa; font:600 10.5px/1 var(--body); font-style:normal; color:var(--ink2); }
-.c2 .ac-avs i.na svg{ width:16px; height:16px; fill:none; stroke:#7b838b; stroke-width:1.5; stroke-linecap:round; }
-.c2 .ac-mt{ flex:1 0 100%; display:grid; gap:7px; margin-top:4px; padding:13px 15px; border-radius:11px; background:#fff; box-shadow:0 0 0 1px var(--line), 0 6px 16px -10px rgba(10,20,30,.25); }
-.c2 .ac-mt-m{ display:flex; align-items:center; gap:7px; font:400 13.5px/1.2 var(--body); color:var(--mute); }
-.c2 .ac-mt-m b{ font-weight:600; color:var(--ink2); }
-.c2 .ac-mt-m i{ display:grid; place-items:center; width:22px; height:22px; border-radius:50%; background:#e6e8eb; font:600 9.5px/1 var(--body); font-style:normal; color:var(--ink2); }
-.c2 .ac-mt-t{ font:600 16px/1.3 var(--body); color:var(--ink); }
-.c2 .ac-mt-q{ font:400 14px/1.45 var(--body); color:var(--ink2); }
-.c2 .ac-mt-q em{ font-style:normal; font-weight:600; color:var(--blue); }
-.c2 .ac-seg{ display:inline-flex; flex-wrap:wrap; gap:2px; padding:3px; border-radius:10px; background:#f1f2f3; }
-.c2 .ac-seg span{ padding:9px 13px; border-radius:8px; font:500 14.5px/1 var(--body); color:var(--mute); white-space:nowrap; }
-.c2 .ac-seg span.on{ background:#fff; box-shadow:inset 0 0 0 1px #aeb4ba; color:var(--ink); font-weight:600; }
+.c2 .ac-fbx{ position:relative; margin:18px 0 14px; }
+.c2 .ac-fbx.hui-bw{ padding:16px 14px 14px; border-radius:8px; background:#fff; box-shadow:inset 0 0 0 1px #D0D0D0; }
+.c2 .ac-row{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.c2 .ac-fbx .sx-chip svg{ width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+.c2 .ac-avs{ display:inline-flex; align-items:center; padding-left:4px; }
+.c2 .ac-avs{ gap:3px; }
+.c2 .ac-avs .sx-av{ box-shadow:0 0 0 2px #fff; }
+.c2 .ac-avs .sx-av.na{ background:#fff; box-shadow:inset 0 0 0 1px #C9C9C9, 0 0 0 2px #fff; }
+.c2 .ac-avs .na svg{ width:15px; height:15px; fill:none; stroke:#8A8A8A; stroke-width:1.5; stroke-linecap:round; }
+.c2 .ac-menu{ display:grid; width:max-content; min-width:150px; gap:2px; margin-top:6px; padding:5px; border-radius:6px; background:#fff; box-shadow:inset 0 0 0 1px #D0D0D0, 0 10px 20px -12px rgba(0,0,0,.3); }
+.c2 .ac-menu span{ position:relative; padding:8px 10px 8px 27px; border-radius:4px; font-size:13px; color:#181818; }
+.c2 .ac-menu span.on::before{ content:"\2713"; position:absolute; left:10px; }
+.c2 .ac-menu span.hl{ box-shadow:inset 0 0 0 1.5px var(--deep); }      /* annotation, in the site's colour */
+.c2 .ac-fbx.is-kit .card{ padding:22px 24px 22px; }
+.c2 .ac-fbx.is-kit .ac-bar{ display:flex; flex-wrap:wrap; gap:8px; }
+.c2 .ac-fbx.is-kit .ac-col{ max-width:400px; margin-top:18px; }
 
 @media (max-width: 1100px){
   .c2 .ac-open{ grid-template-columns:minmax(0, 1fr) 300px; gap:28px; }
@@ -137,17 +140,16 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 }
 @media (max-width: 640px){
   .c2 .ac-open{ grid-template-columns:minmax(0, 1fr); gap:20px; }
-  .c2 .ac-col{ aspect-ratio:768 / 338; }
+  .c2 .ac-mcol{ aspect-ratio:768 / 338; }
   .c2 .ac-side, .c2 .ac-drawer, .c2 .ac-key{ grid-area:auto; }
   .c2 .ac-drawer{ width:min(100%, 340px); margin-inline:auto; }
   .c2 .ac-open:not(.is-open) .ac-ctl{ display:none; }
   .c2 .ac-open:not(.is-open) .ac-drawer{ transform:translateY(-18px); }
   .c2 .ac-open:not(.is-open) .ac-key{ transform:none; }
-  .c2 .ac-lane{ padding:12px; gap:10px; }
-  .c2 .ac-wc{ padding:15px 16px; }
+  .c2 .ac-demo{ zoom:1.08; }
   .c2 .ac-wt-p{ font-size:16px; }
-  .c2 .ac-fb.is-prod > .ac-dd:not(.is-open){ display:none; }
-  .c2 .ac-seg span{ padding:8px 10px; font-size:14px; }
+  .c2 .ac-fbx .ac-st{ display:none; }
+  .c2 .ac-fbx.is-kit .card{ padding:16px 14px; }
 }
 @media (prefers-reduced-motion: reduce){
   .c2 .ac-drawer, .c2 .ac-key, .c2 .ac-toggle svg{ transition:none; }
@@ -232,8 +234,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <h2>Open a card, and the task holds everything needed to finish it</h2>
       <p class="c2-lede">The refund task, open beside the board: who has it, where it came from, what to do, how it ends, and the team's thread.</p>
       <div class="ac-open is-open">
-        <div class="ac-side"><div class="ac-col"><div class="ac-colin"><img src="../img/v7s-actions-pending.webp?v=1" width="768" height="786" alt="The Pending column of the Actions board. The first card, outlined because it is open: Alert, Today, High. Customer asked twice for a refund, was offered only a voucher. 02:41, “…a refund, not a voucher.” Daniel Brooks. Below it, a call tagged Billing that should be Flight change, and a recording notice missing in the first 30 seconds, not assigned." loading="lazy">
-          <button type="button" class="ac-card" aria-expanded="true" aria-controls="ac-drawer" aria-label="The refund task card. Open or close its panel"></button></div></div>
+        <div class="ac-side"><div class="ac-mcol"><div class="ac-mcolin"><img src="../img/v7s-actions-pending.webp?v=1" width="768" height="786" alt="The Pending column of the Actions board. The first card, outlined because it is open: Alert, Today, High. Customer asked twice for a refund, was offered only a voucher. 02:41, “…a refund, not a voucher.” Daniel Brooks. Below it, a call tagged Billing that should be Flight change, and a recording notice missing in the first 30 seconds, not assigned." loading="lazy">
+          <button type="button" class="ac-mcard" aria-expanded="true" aria-controls="ac-drawer" aria-label="The refund task card. Open or close its panel"></button></div></div>
           <div class="ac-ctl"><button type="button" class="ac-toggle" aria-expanded="true" aria-controls="ac-drawer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg>Back to the board</button><small>The card closes it too.</small></div></div>
         <figure class="ac-drawer" id="ac-drawer" aria-label="The refund task, open">
           <div class="c2-shot"><img src="../img/v7s-actions-panel-clean.webp?v=1" width="620" height="1573" alt="The task panel. Customer asked twice for a refund, was offered only a voucher: a cancelled JFK–LHR flight, the customer asked for a cash refund twice and the agent offered a voucher both times. Source: Alert, Refund refused. Priority: High. Assignee: Daniel Brooks. Call: Oct 13, 6 min 12 sec. From the call, agent Selma K.: two moments on the call's line, 01:22 “I'd like a refund for the cancelled flight.” and 02:41 “I asked for a refund, not a voucher.” Checklist, all ticked: Listen to the call, Refund the customer, Book coaching with Selma K. Outcome: Refunded · coaching set for Oct 15. Comments, 2: Maya Collins, 10:05, “@Alex Ward second refund complaint on this route this week, worth a look.” Daniel Brooks, 10:20, “On it, calling after 14:00.” A comment box: @ a teammate, or @AI. Buttons: Reassign and Close as Resolved." loading="lazy">
@@ -258,18 +260,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div class="ac-wt">
         <figure>
           <figcaption class="ac-wt-h">Before · my first board, 30 March 2026</figcaption>
-          <div class="ac-lane" role="img" aria-label="Two cards in the Pending column of the first board. The refund task carries a coral HIGH badge and a coral PENDING badge; the Billing task carries a blue MEDIUM badge and the same coral PENDING badge."><span class="ac-lh">Pending</span>
-            <div class="ac-wc"><p class="ac-wc-t"><span class="v1-p">HIGH</span><span class="v1-s">PENDING</span></p><b>Customer asked twice for a refund, was offered only a voucher</b><span class="ac-wc-o"><i>DB</i>Daniel Brooks</span></div>
-            <div class="ac-wc"><p class="ac-wc-t"><span class="v1-p is-m">MEDIUM</span><span class="v1-s">PENDING</span></p><b>Reason for call tagged as Billing, should be Flight change</b><span class="ac-wc-o"><i>MC</i>Maya Collins</span></div></div>
+          <div class="hui hui-bw ac-demo" role="img" aria-label="Schematic. Two cards in the Pending column of the first board. The refund task carries a coral HIGH badge and a coral PENDING badge; the Billing task carries a blue MEDIUM badge and the same coral PENDING badge."><section class="ac-col"><span class="hui-schem">Schematic</span><h4>Pending</h4><div class="ac-card"><span class="ac-hd"><span class="v1-p">HIGH</span><span class="v1-s">PENDING</span></span><p>Customer asked twice for a refund, was offered only a voucher</p><footer><i class="sx-av">DB</i>Daniel Brooks</footer></div><div class="ac-card"><span class="ac-hd"><span class="v1-p is-m">MEDIUM</span><span class="v1-s">PENDING</span></span><p>Reason for call tagged as Billing, should be Flight change</p><footer><i class="sx-av">MC</i>Maya Collins</footer></div></section></div>
           <p class="ac-leg"><span class="v1-p">HIGH</span><span class="v1-p is-m">MEDIUM</span><span class="v1-p is-l">LOW</span><span class="v1-s">PENDING</span></p>
           <p class="ac-wt-p">Coral on every card in Pending, urgent or not. That afternoon I tried Pending in four greys:</p>
           <p class="ac-greys" aria-label="Four PENDING badges in four greys, from light to dark; they look almost the same"><span class="v1-s" style="color:#a3a3a3">PENDING</span><span class="v1-s" style="color:#747474">PENDING</span><span class="v1-s" style="color:#6b7280">PENDING</span><span class="v1-s" style="color:#4b5563">PENDING</span></p>
         </figure>
         <figure>
           <figcaption class="ac-wt-h">After · Flow, October 2026</figcaption>
-          <div class="ac-lane is-flow" role="img" aria-label="The same two cards in Flow. The refund task: three filled priority bars and High in bold ink. The Billing task: two filled bars and Medium in lighter grey. No badge colours; the column says Pending."><span class="ac-lh">Pending</span>
-            <div class="ac-wc"><p class="ac-wc-t"><span class="ac-pr is-h"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect x="10" y="2" width="3" height="11" rx="1"/></svg>High</span></p><b>Customer asked twice for a refund, was offered only a voucher</b><span class="ac-wc-o"><i>DB</i>Daniel Brooks</span></div>
-            <div class="ac-wc"><p class="ac-wc-t"><span class="ac-pr is-m"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect class="off" x="10" y="2" width="3" height="11" rx="1"/></svg>Medium</span></p><b>Reason for call tagged as Billing, should be Flight change</b><span class="ac-wc-o"><i>MC</i>Maya Collins</span></div></div>
+          <div class="hui hui-bw ac-demo" role="img" aria-label="Schematic. The same two cards in Flow. The refund task: three filled priority bars and High in bold ink. The Billing task: two filled bars and Medium in lighter grey. No badge colours; the column says Pending."><section class="ac-col"><span class="hui-schem">Schematic</span><h4>Pending</h4><div class="ac-card"><span class="ac-hd"><span class="ac-pr is-h"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect x="10" y="2" width="3" height="11" rx="1"/></svg>High</span></span><p>Customer asked twice for a refund, was offered only a voucher</p><footer><i class="sx-av">DB</i>Daniel Brooks</footer></div><div class="ac-card"><span class="ac-hd"><span class="ac-pr is-m"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect class="off" x="10" y="2" width="3" height="11" rx="1"/></svg>Medium</span></span><p>Reason for call tagged as Billing, should be Flight change</p><footer><i class="sx-av">MC</i>Maya Collins</footer></div></section></div>
           <p class="ac-leg"><span class="ac-pr is-h"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect x="10" y="2" width="3" height="11" rx="1"/></svg>High</span><span class="ac-pr is-m"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect class="off" x="10" y="2" width="3" height="11" rx="1"/></svg>Medium</span><span class="ac-pr is-l"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect class="off" x="5.5" y="5" width="3" height="8" rx="1"/><rect class="off" x="10" y="2" width="3" height="11" rx="1"/></svg>Low</span></p>
           <p class="ac-wt-p">Bars filled to the level, in ink; the column already says Pending. Blue, the one accent, is kept for what you can click.</p>
         </figure>
@@ -283,13 +281,13 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <h2>Being mentioned gets its own filter, so you find where you're needed first</h2>
       <div class="c2-dec">
         <div class="c2-opt"><h3>A mode of the people filter, as in the product today <em>Set aside</em></h3>
-          <div class="ac-fb is-prod" role="img" aria-label="The product's filter bar: an Assignee dropdown, opened to show its two options, Assignee (ticked) and Mentioned, then people avatars and Status."><span class="ac-dd is-open">Assignee<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span></span><span class="ac-avs"><i class="na"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M4.2 11.8 11.8 4.2"/></svg></i><i>DB</i><i>MC</i><i>RC</i></span><span class="ac-dd">Status<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span><span class="ac-menu"><span class="on">Assignee</span><span>Mentioned</span></div>
+          <div class="hui hui-bw ac-fbx" role="img" aria-label="Schematic of the product's filter bar today: an Assignee menu, opened to show its two options, Assignee (ticked) and Mentioned, then people avatars and Status."><span class="hui-schem">Schematic</span><div class="ac-row"><span class="sx-chip">Assignee<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span><span class="ac-avs"><i class="sx-av na"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M4.2 11.8 11.8 4.2"/></svg></i><i class="sx-av">DB</i><i class="sx-av">MC</i><i class="sx-av">RC</i></span><span class="sx-chip ac-st">Status<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span></div><div class="ac-menu"><span class="on">Assignee</span><span class="hl">Mentioned</span></div></div>
           <p>Mentioned hides inside the Assignee menu: switch it, then pick yourself among the faces. My first board, on 30 March, copied it.</p></div>
-        <div class="c2-opt is-chosen"><h3>Its own place in the row, beside Assigned to me <em>Chosen</em></h3>
-          <div class="ac-fb is-flow" role="img" aria-label="Flow's filter row: Everyone, Assigned to me, Mentioned me (selected), Not assigned, then Status and Priority menus. Below it, the one task that mentions Alex Ward: the refund task, where Maya Collins wrote at 10:05, “@Alex Ward second refund complaint on this route this week, worth a look.”"><span class="ac-seg"><span>Everyone</span><span>Assigned to me</span><span class="on">Mentioned me</span><span>Not assigned</span></span><span class="ac-dd">Status <small>All</small><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span><span class="ac-dd">Priority <small>All</small><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span><span class="ac-mt"><span class="ac-mt-m"><i>MC</i><span><b>Maya Collins</b> mentioned you · 10:05</span></span><b class="ac-mt-t">Customer asked twice for a refund, was offered only a voucher</b><span class="ac-mt-q"><em>@Alex Ward</em> second refund complaint on this route this week, worth a look.</span></span></div>
-          <p>One tap leaves the task where you're needed.</p></div>
+        <div class="c2-opt is-chosen"><h3>Its own filter, beside Assigned to me <em>Chosen</em></h3>
+          <div class="hui ac-fbx is-kit" role="img" aria-label="Hear's Actions screen, filtered: Everyone, Assigned to me, and Mentions me (selected). The Pending column keeps one task, the refund task: Alert, Today, High. Customer asked twice for a refund, was offered only a voucher. 02:41, “…a refund, not a voucher.” Daniel Brooks."><div class="card is-flow"><div class="ac-bar"><span class="sx-chip">Everyone</span><span class="sx-chip">Assigned to me</span><span class="sx-chip on">Mentions me</span></div><section class="ac-col"><h4>Pending<i>1</i></h4><div class="ac-card"><small><u class="hi"></u>Alert · Today · High</small><p>Customer asked twice for a refund, was offered only a voucher</p><span class="cev"><b>02:41</b>“…a refund, not a voucher.”</span><footer><i class="sx-av">DB</i>Daniel Brooks</footer></div></section></div></div>
+          <p>One tap leaves the task where you're needed: the refund, where Maya Collins wrote “@Alex Ward second refund complaint on this route this week.”</p></div>
       </div>
-      <p class="c2-result"><b>Why:</b> a mention means someone needs you, as Alex Ward is needed in the refund thread. Mentioned me shows those tasks first.</p>
+      <p class="c2-result"><b>Why:</b> a mention means someone needs you, as Alex Ward is needed in the refund thread. Mentions me shows those tasks first.</p>
       <p class="c2-note"><b>Close reasons are the product's own:</b> Resolved, Duplicate, Not actionable, Escalated, Other. Hear already asks for one when a task closes, and reports on them. My part is the reason on every closed card, and in Flow a tally at the top of Done.</p>
     </div>
   </section>
@@ -343,7 +341,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script src="../v7/cs2.js?v=3" defer></script>
 <script>/* Open the task: the card and the small button open and close the panel; nothing moves by itself */
 (function(){var box=document.querySelector('.ac-open');if(!box)return;
-var drawer=box.querySelector('.ac-drawer'),key=box.querySelector('.ac-key'),btn=box.querySelector('.ac-toggle'),card=box.querySelector('.ac-card'),t=0,
+var drawer=box.querySelector('.ac-drawer'),key=box.querySelector('.ac-key'),btn=box.querySelector('.ac-toggle'),card=box.querySelector('.ac-mcard'),t=0,
 reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function set(open){clearTimeout(t);
   if(open){drawer.hidden=key.hidden=false;void box.offsetWidth;box.classList.add('is-open');}
