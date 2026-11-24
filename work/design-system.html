@@ -52,10 +52,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .c2-hero h1{ max-width:16em; }
 .c2 .c2-hero .c2-ctx{ max-width:64ch; }
 .c2 .ds-hero{ margin-top:clamp(28px, 3vw, 36px); }
-.c2 .ds-hwell{ display:grid; place-items:center; padding:clamp(30px, 3vw, 40px) clamp(16px, 4vw, 48px) clamp(34px, 3.4vw, 46px); overflow:visible; background:#F4F3F1; box-shadow:0 0 0 1px rgba(23,27,32,.08); }
+.c2 .ds-hwell{ display:grid; place-items:center; max-width:640px; padding:40px; overflow:visible; background:#F4F3F1; box-shadow:0 0 0 1px rgba(23,27,32,.08); }
 .c2 .ds-hcard{ position:relative; width:min(100%, 520px); padding:24px 26px 22px; border-radius:22px; background:#fff;
   box-shadow:0 0 0 2.5px #139FFD, 0 0 0 7px rgba(19,159,253,.14), 0 26px 46px -26px rgba(16,34,60,.5); }
 .c2 .ds-hl, .c2 .ds-ht{ display:block; }
+@media (min-width: 901px){
+  .c2 .ds-hero{ display:grid; grid-template-columns:minmax(0, 640px) minmax(0, 1fr); gap:clamp(32px, 4vw, 56px); align-items:center; }
+  .c2 .ds-hero .c2-key{ grid-template-columns:1fr; margin-top:0; gap:16px; }
+}
 .c2 .ds-at{ position:relative; display:inline-block; width:0; height:1em; vertical-align:-.12em; }
 .c2 .ds-hl{ font:400 17px/1.3 var(--body); color:#6A7078; }
 .c2 .ds-ht{ margin-top:8px; padding-right:34px; font:500 25px/1.32 var(--body); letter-spacing:-.01em; color:#181818; }
@@ -100,7 +104,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ds-pop-bar i::after{ content:""; position:absolute; inset:0 auto 0 0; width:81%; border-radius:3px; background:#139FFD; }
 .c2 .ds-pop-bar b{ text-align:right; font-weight:600; }
 .c2 .ds-pop > .ds-pop-lab{ display:block; margin:10px 50px 0 82px; text-align:right; font:500 18px/1.3 var(--body); }
-.c2 .ds-pop > .ds-pop-link{ display:block; margin-top:22px; padding-top:22px; border-top:1px solid #e3e6e9; font:600 26px/1.25 var(--body); letter-spacing:-.005em; }
+.c2 .ds-pop > .ds-pop-link{ display:block; margin-top:22px; padding-top:20px; border-top:1px solid #e3e6e9; font:500 16px/1.4 var(--body); }
 .c2 .ds-blue{ color:var(--t); transition:color .3s ease; }
 .c2 .ds-stage figcaption{ max-width:575px; margin-top:18px; font:400 14.5px/1.5 var(--body); color:var(--ink2); }
 .c2 .ds-stage figcaption b{ color:var(--ink); }
@@ -131,7 +135,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ds-tile figcaption b{ color:var(--ink); }
 .c2 .ds-tile figcaption small{ display:block; margin-top:4px; font:500 13px/1.3 var(--body); color:var(--mute); }
 /* the real case for roles (round 5): 34 places in the product took the main button's color as their text color */
-.c2 .ds-case{ display:grid; grid-template-columns:minmax(0, .8fr) minmax(0, 1.2fr); gap:clamp(24px, 4vw, 56px); align-items:center; margin:44px 0 clamp(48px, 6vw, 72px); padding:clamp(24px, 3vw, 36px); border-radius:18px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
+.c2 .ds-case{ display:grid; grid-template-columns:minmax(0, .8fr) minmax(0, 1.2fr); gap:clamp(24px, 4vw, 56px); align-items:center; margin:clamp(48px, 6vw, 72px) 0 0; padding:clamp(24px, 3vw, 36px); border-radius:18px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
 .c2 .ds-stat{ display:flex; align-items:baseline; gap:12px; font:700 clamp(72px, 8vw, 112px)/.9 var(--body); letter-spacing:-.04em; color:var(--deep); font-variant-numeric:tabular-nums; }
 .c2 .ds-stat small{ font:600 clamp(20px, 2vw, 26px)/1 var(--body); letter-spacing:-.01em; color:var(--ink); }
 .c2 .ds-case-t > p:not(.ds-stat){ margin-top:16px; font:400 16.5px/1.55 var(--body); color:var(--ink2); }
@@ -140,6 +144,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ds-spec{ padding:18px 18px 16px; border-radius:14px; background:#F4F3F1; }
 .c2 .ds-spec > b{ display:block; font:600 13px/1.2 var(--body); letter-spacing:.02em; color:var(--mute); }
 .c2 .ds-spec code{ display:inline-block; margin-top:8px; padding:3px 7px; border-radius:6px; background:#fff; box-shadow:inset 0 0 0 1px var(--line); font:500 13px/1.3 "Geist Mono", ui-monospace, monospace; color:var(--ink); }
+.c2 .ds-spec .ds-hex{ display:block; margin-top:6px; font:500 13px/1.3 var(--body); color:var(--mute); }
 .c2 .ds-spec-ui{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; margin-top:16px; padding:16px; border-radius:10px; background:#fff; }
 .c2 .ds-spec-btn{ display:inline-flex; align-items:center; height:34px; padding:0 14px; border-radius:8px; background:rgba(255,112,86,.1); box-shadow:inset 0 0 0 1.5px #FF7056; font:600 14px/1 var(--body); color:#FF7056; }
 .c2 .ds-spec-lk{ font:600 15.5px/1.2 var(--body); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
@@ -163,8 +168,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .ds-tile .c2-shot{ min-height:0; }
 }
 @media (max-width: 560px){
-  .c2 .ds-hwell{ padding:28px 22px 46px; }
-  .c2 .ds-hwell > .ds-p1{ --x:34px !important; --y:calc(100% - 23px) !important; }
+  .c2 .ds-hwell{ padding:26px 32px; }
+  .c2 .ds-hcard > .ds-p1{ --x:-16px !important; }
   .c2 .ds-hcard{ padding:18px 18px 16px; border-radius:18px; }
   .c2 .ds-hl{ font-size:14.5px; }
   .c2 .ds-ht{ margin-top:6px; padding-right:24px; font-size:19px; }
@@ -198,7 +203,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .ds-pop > small{ font-size:15.5px; }
   .c2 .ds-pop-bar{ grid-template-columns:50px 1fr 28px; gap:12px; margin-top:18px; font-size:16px; }
   .c2 .ds-pop > .ds-pop-lab{ margin:8px 40px 0 62px; font-size:14.5px; }
-  .c2 .ds-pop > .ds-pop-link{ margin-top:16px; padding-top:16px; font-size:21px; }
+  .c2 .ds-pop > .ds-pop-link{ margin-top:16px; padding-top:14px; font:500 16px/1.4 var(--body); }
   .c2 .ds-stage figcaption{ margin-top:14px; font-size:14px; }
 }
 </style>
@@ -229,12 +234,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       </dl>
       <figure class="c2-fig ds-hero">
         <div class="c2-shot ds-hwell" role="img" aria-label="A task card, selected, on the paper canvas. Four numbered markers: the Paper canvas behind it, the title in Ink, the gray source label, From Compliance, and the selection outline in Hear Blue.">
-          <span class="c2-pin ds-p1" style="--x:5.5%;--y:16%" aria-hidden="true">1</span>
           <div class="ds-hcard">
             <small class="ds-hl">From Compliance<span class="ds-at"><span class="c2-pin" style="--x:24px;--y:50%" aria-hidden="true">3</span></span></small>
             <b class="ds-ht">Recording disclosure missing in the first 30&nbsp;seconds<span class="ds-at"><span class="c2-pin" style="--x:26px;--y:50%" aria-hidden="true">2</span></span></b>
             <div class="ds-ft"><i class="ds-av">PN</i><span class="ds-tag">Open</span></div>
             <span class="c2-pin" style="--x:100%;--y:0%" aria-hidden="true">4</span>
+            <span class="c2-pin ds-p1" style="--x:-21px;--y:72%" aria-hidden="true">1</span>
           </div>
         </div>
         <figcaption><ol class="c2-key" style="--n:4">
@@ -269,31 +274,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <p class="c2-n">Three layers</p>
       <h2>Components ask for a role, and the role picks the color</h2>
       <p class="c2-lede">I built the tokens in three layers. A component never names a palette color; it asks for a job, such as body text, and that job has one value behind it.</p>
-      <!-- Verified in Hear's platform repo, commit 9b2bffb24 (26 Apr 2026, by Ofir): "Fix button.primary text color regression:
-           replace 34 text-color usages of button.primary with blue (interactive) to keep links/icons blue". The same commit moved
-           button.primary from #007AFF to coral #FF7056 (light theme) and the Link component's base color from light.button.primary to
-           light.blue (#1779F7). The main button was turned blue again on 31 May 2026 (5da041972). -->
-      <div class="ds-case">
-        <div class="ds-case-t">
-          <p class="ds-stat">34 <small>places</small></p>
-          <p>In the product, links and icons took their text color from the main button. In April 2026, moving the product onto the design system's colors turned that button coral, and <b>34 places would have turned coral with it.</b> I pointed each one at the blue role instead, so the button can change without moving a link.</p>
-        </div>
-        <figure class="ds-ba">
-          <div class="ds-spec">
-            <b>Before</b>
-            <code>color: button.primary</code>
-            <div class="ds-spec-ui" aria-hidden="true"><span class="ds-spec-btn">Main button</span><span class="ds-spec-lk" style="color:#FF7056">A link →</span></div>
-            <span class="ds-v no"><span aria-hidden="true">✕</span> Follows the button</span>
-          </div>
-          <div class="ds-spec">
-            <b>After</b>
-            <code>color: blue</code>
-            <div class="ds-spec-ui" aria-hidden="true"><span class="ds-spec-btn">Main button</span><span class="ds-spec-lk" style="color:#1779F7">A link →</span></div>
-            <span class="ds-v"><span aria-hidden="true">✓</span> Asks for a role</span>
-          </div>
-          <figcaption class="ds-ba-cap"><b>The product's link, before and after.</b> It asked for the button's color, so it went coral with the button; now it asks for the blue role, the interactive color.</figcaption>
-        </figure>
-      </div>
       <div class="ds-split">
         <div>
           <ol class="ds-lay">
@@ -301,8 +281,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             <li><i aria-hidden="true">2</i><div><b>Roles</b><span>What components ask for: canvas, card, body text, muted text.</span></div></li>
             <li><i aria-hidden="true">3</i><div><b>Component sets</b><span>Tokens for one component: the score scale, tag fills paired with their text, a data-grid theme.</span></div></li>
           </ol>
-          <p class="c2-quote">“Always prefer semantic tokens in components.” The rule, as the Colors page in the Lab's Storybook states it.</p>
-          <p class="ds-cap">In the Lab's Storybook each story renders the real component; by July 2026 it held 122 stories for 32 components. The product's Storybook, which I set up in June 2026, keeps one rule: “Stories document only real platform usage, verified by codebase audit.”</p>
         </div>
         <figure class="ds-fig">
           <table class="ds-chain">
@@ -320,6 +298,31 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <figcaption><b>One card, six tokens.</b> The card at the top of the page, traced through the layers: a palette color becomes a role, and the card asks only for the role.</figcaption>
         </figure>
       </div>
+      <!-- Verified in Hear's platform repo, commit 9b2bffb24 (26 Apr 2026, by Ofir): "Fix button.primary text color regression:
+           replace 34 text-color usages of button.primary with blue (interactive) to keep links/icons blue". The same commit moved
+           button.primary from #007AFF to coral #FF7056 (light theme) and the Link component's base color from light.button.primary to
+           light.blue (#1779F7). The main button was turned blue again on 31 May 2026 (5da041972). -->
+      <div class="ds-case">
+        <div class="ds-case-t">
+          <p class="ds-stat">34 <small>places</small></p>
+          <p>In the product, links and icons took their text color from the main button. In April 2026, moving the product onto the design system's colors turned that button coral, and <b>34 places would have turned coral with it.</b> I pointed each one at the blue role instead, so the button can change without moving a link.</p>
+        </div>
+        <figure class="ds-ba">
+          <div class="ds-spec">
+            <b>Before</b>
+            <code>color: button.primary</code><small class="ds-hex">= coral #FF7056</small>
+            <div class="ds-spec-ui" aria-hidden="true"><span class="ds-spec-btn">Main button</span><span class="ds-spec-lk" style="color:#FF7056">A link →</span></div>
+            <span class="ds-v no"><span aria-hidden="true">✕</span> Follows the button</span>
+          </div>
+          <div class="ds-spec">
+            <b>After</b>
+            <code>color: blue</code><small class="ds-hex">= Cobalt #1779F7</small>
+            <div class="ds-spec-ui" aria-hidden="true"><span class="ds-spec-btn">Main button</span><span class="ds-spec-lk" style="color:#1779F7">A link →</span></div>
+            <span class="ds-v"><span aria-hidden="true">✓</span> Asks for a role</span>
+          </div>
+          <figcaption class="ds-ba-cap"><b>The product's link, before and after.</b> It asked for the button's color, so it went coral with the button; now it asks for the blue role, the interactive color.</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -327,7 +330,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The finding</p>
       <h2>The product's link blue fails as text, so I proposed a darker one</h2>
-      <p class="c2-lede">Because text and surfaces are named tokens, each pair has one contrast ratio, worked out once instead of screen by screen. One pair fails: the blue the 34 places now ask for, Cobalt, just under the bar for text. The new brand palette gives text its own darker blue, Deep Blue.</p>
+      <p class="c2-lede">The 34 links I kept from turning coral now point at Cobalt, and Cobalt fails as text. Because text and surfaces are named tokens, each pair has one contrast ratio, worked out once. The new brand palette gives text its own darker blue, Deep Blue.</p>
       <div class="ds-try" data-c="deep">
         <figure class="ds-stage">
           <div class="ds-pop">
@@ -360,7 +363,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <p class="ds-say" aria-live="polite">Deep Blue on white: 5.0:1, above the 4.5:1 that text needs. It is the darker text blue I propose, from the new brand palette.</p>
         </div>
       </div>
-      <p class="ds-note">WCAG 2 ratios, computed from the hex values; text needs at least 4.5:1. On the product's light paper, #F9F9F7, Cobalt drops to 3.9:1. The new brand's bright Hear Blue, #139FFD, is 2.8:1 on white, so it marks what is selected and never carries text.</p>
+      <p class="ds-note">WCAG 2 ratios, computed from the hex values. Text under 24px (19px bold) needs 4.5:1; the link here is 16px. On the product's light paper, #F9F9F7, Cobalt drops to 3.9:1. The new brand's bright Hear Blue, #139FFD, is 2.8:1 on white, so it marks what is selected and never carries text.</p>
     </div>
   </section>
 
