@@ -40,11 +40,13 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=20">
 <link rel="stylesheet" href="../v7/case.css?v=41">
+<link rel="stylesheet" href="../v7/case-r16.css?v=3">
 <style>
 .actions-sub { margin: clamp(48px, 7vw, 88px) 0 clamp(18px, 2.4vw, 28px); }
-.actions-sub + .prose { margin-bottom: clamp(20px, 3vw, 32px); }
 .actions-crop { background: #efefed; padding: clamp(16px, 3vw, 32px) clamp(16px, 3vw, 32px) 52px; }
 .actions-crop img { width: auto; max-width: 100%; margin-inline: auto; border-radius: 10px; }
+/* the Done crop fades out instead of slicing its third card (round 16) */
+.actions-crop > img[src*="v7s-actions-done"] { -webkit-mask-image: linear-gradient(#000 74%, transparent 97%); mask-image: linear-gradient(#000 74%, transparent 97%); }
 /* two crops side by side share one frame height, the smaller crop centered in its frame */
 @media (min-width: 861px) { #closing .two:not(.xtra) { align-items: stretch; grid-template-rows: auto auto; row-gap: 0; } #closing .two:not(.xtra) > figure { display: grid; grid-row: span 2; grid-template-rows: subgrid; } #closing .two:not(.xtra) .actions-crop { display: grid; align-content: center; } }
 .actions-anat { list-style: none; counter-reset: a; margin: 0 !important; display: grid; gap: 12px !important; }
@@ -96,7 +98,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><div class="label">01 · <b>The problem</b></div><h2>A finding isn't finished until someone owns it</h2></div>
         <div class="prose">
           <p class="lead">Alerts, Signals and agent evaluations report that something happened, not who is dealing with it or how it ended. I designed Actions so every task shows who has it, or says “Not assigned” when nobody does yet.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Alerts fire when a monitor trips. Signals classify calls, and agent evaluations score each contact-center agent. None of them names an owner.</p></div></details>
+          <p>Alerts fire when a monitor trips. Signals classify calls, and agent evaluations score each contact-center agent. None of them names an owner.</p>
         </div>
       </div>
       <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-actions-board.webp?v=8" data-zoom alt="The Actions board in four columns, Pending, In progress, Done and Cancelled. Every card names its source, its date, the line from the call that raised it and its owner." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div>
@@ -110,27 +112,27 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div class="ch-head">
         <div><div class="label">02 · <b>The board</b></div><h2>Every card follows one order, from source to owner</h2></div>
         <div class="prose"><p class="lead">Top to bottom, a card shows where it came from, how urgent it is, what happened and who has it.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Cards sit in four columns, Pending, In progress, Done and Cancelled, under the filter bar.</p></div></details></div>
+          <p>Cards sit in four columns, Pending, In progress, Done and Cancelled, under the filter bar.</p></div>
       </div>
       <figure class="v7-anat rv">
         <div class="shot pad v7s" style="--iw:400px;--ir:4.6% / 11.1%"><span class="live">Design Lab · demo data</span><img src="../img/v7s-actions-card.webp?v=8" alt="One Actions card: a high-priority alert from today, “Customer asked twice for a refund, was offered only a voucher”, with the line from the call that raised it, and owned by Daniel Brooks." width="869" height="441" loading="lazy"></div>
         <ol class="v7-parts" aria-label="The parts of a card, top to bottom"><li><span class="n">01</span><b>Source and age.</b> Alert, Call, Agent evaluation or Feedback, then Today, Yesterday or a date.</li><li><span class="n">02</span><b>Priority.</b> A high-priority task says so on the same line, with a coral dot.</li><li><span class="n">03</span><b>What happened.</b> One plain sentence, two lines at most. Under it, the line from the call that raised the task.</li><li><span class="n">04</span><b>Owner.</b> The assignee, or “Not assigned” when nobody has it.</li></ol>
         <div class="ct-foot"><figcaption><b>A card from the board.</b> The same task is opened in the demo at the top of the page.</figcaption><a class="ct-jump" href="#demo" data-beat="2">Watch it open</a></div>
       </figure>
-      <p class="why xtra"><b>Design choice:</b> being mentioned gets its own filter, Mentions me, so you find where you're needed before you open anything.</p>
 
       <h3 class="actions-sub">Filters that ask whose, which and from where</h3>
       <figure class="rv"><div class="shot v7s actions-bar"><img src="../img/v7s-actions-bar.webp?v=6" alt="The Actions filter bar: Everyone, Assigned to me and Mentions me, then High priority, From alerts and From agent evaluation. The last three each show a count." width="2017" height="151" loading="lazy"></div>
         <figcaption><b>The filter bar.</b> Who the task belongs to on the left. On the right, three quick filters, each with the number of tasks that match. Design Lab · demo data.</figcaption></figure>
       <div class="two actions-two-top xtra">
-        <div class="prose"><p>Left to right, the bar answers three questions. <b>Whose work?</b> Everyone, Assigned to me or Mentions me. <b>Which tasks?</b> High priority, with its count. <b>From where?</b> From alerts or From agent evaluation.</p></div>
+        <div class="prose"><p>Left to right, the bar answers three questions. <b>Whose work?</b> Everyone, Assigned to me or Mentions me. <b>Which tasks?</b> High priority, with its count. <b>From where?</b> From alerts or From agent evaluation.</p>
+          <p class="why"><b>Design choice:</b> being mentioned gets its own filter, Mentions me, so you find where you're needed before you open anything.</p></div>
         <div class="prose"><p>On the first board, mentions were an option inside the Assignee dropdown. On the current board, Assigned to me and Mentioned me have their own control.</p>
           <p class="why">A quick filter fades the cards that don't match instead of removing them, so the board keeps its shape.</p></div>
       </div>
 
       <h3 class="actions-sub xtra">The board's first day</h3>
       <div class="prose xtra"><p>I built the first board in late March 2026 and, the same day, aligned its colors to design-system tokens.</p></div>
-      <article class="decision rv xtra" style="margin-top:clamp(28px,4vw,44px)">
+      <article class="decision rv xtra">
         <div class="label">Decision 1 · <b>Status color, day one</b></div>
         <h3>What color should a task that's waiting be?</h3>
         <ul class="opts">
@@ -149,7 +151,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><div class="label">03 · <b>Closing the loop</b></div><h2>Closed work keeps its reason</h2></div>
         <div class="prose">
           <p class="lead">A task ends in the Done or Cancelled column, and either way it says why: <b>Resolved</b>, <b>Duplicate</b>, <b>Not actionable</b> or <b>Escalated</b>.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>A duplicate points to the task it repeats: “Same incident as … Closed as a duplicate.” Feedback about the website search closes as Not actionable, with a line that says it isn't a contact-center issue.</p></div></details>
+          <p>A duplicate points to the task it repeats: “Same incident as … Closed as a duplicate.” Feedback about the website search closes as Not actionable, with a line that says it isn't a contact-center issue.</p>
         </div>
       </div>
       <div class="two">
@@ -158,12 +160,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <figure class="rv"><div class="shot actions-crop v7s" style="--iw:330px"><span class="live">Design Lab · demo data</span><img src="../img/v7s-actions-cancelled.webp?v=7" alt="The Cancelled column: a duplicate task and a not-actionable feedback task, each tagged with its close reason." width="706" height="988" loading="lazy"></div>
           <figcaption><b>The Cancelled column.</b> Each closed card carries its reason as a tag.</figcaption></figure>
       </div>
+      <div class="ct-foot"><a class="ct-jump" href="#demo" data-beat="3">Watch a task close</a></div>
 
       <h3 class="actions-sub xtra">Inside a task, changes stay on the record</h3>
       <div class="two xtra">
         <div class="prose">
           <p>A card opens into a side panel, and its activity log records each change, such as Created, Assigned to and Moved to In progress.</p>
           <p><b>Open call</b> and <b>Ask AI</b> sit at the top of the panel, so the call linked to the task is one click away.</p>
+          <div class="ct-foot"><a class="ct-jump" href="#demo" data-beat="2">See the panel open</a></div>
         </div>
         <div class="prose">
           <p class="why" style="margin-top:0"><b>Design choice:</b> I built the board around how teams follow up, so every task keeps its source and its close reason for the team to learn from.</p>
@@ -176,9 +180,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="chapter sheet" id="ai-tasks">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">04 · <b>Earlier work · June&nbsp;2026</b></div><h2>AI Tasks: the AI proposes and a person decides</h2></div>
+        <div><div class="label">04 · <b>AI Tasks</b> · earlier work, June&nbsp;2026</div><h2>AI Tasks: the AI proposes and a person decides</h2></div>
         <div class="prose"><p class="lead">In AI Tasks, a coded prototype in the Lab, a person chooses Approve, Modify or Decline for each group of proposed changes.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Actions starts from findings. AI Tasks starts from the AI's own proposals, such as an operation to run or a change to the setup.</p></div></details></div>
+          <p>Actions starts from findings. AI Tasks starts from the AI's own proposals, such as an operation to run or a change to the setup.</p></div>
       </div>
       <div class="two">
         <div class="prose actions-col">
@@ -199,7 +203,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </div>
       </div>
 
-      <div class="stack xtra" style="margin-top:clamp(36px,5vw,56px)">
+      <div class="stack xtra">
         <article class="decision rv">
           <div class="label">Decision 2 · <b>AI Tasks, lo-fi vs. build</b></div>
           <h3>What should lead the page: status, or the kind of request?</h3>
@@ -226,9 +230,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="chapter ink" id="alerts">
     <div class="wrap">
       <div class="ch-head">
-        <div><div class="label">05 · <b>Earlier work · June to July&nbsp;2026</b></div><h2>Alerts: rebuilt around a data table</h2></div>
+        <div><div class="label">05 · <b>Alerts</b> · earlier work, June to July&nbsp;2026</div><h2>Alerts: rebuilt around a data table</h2></div>
         <div class="prose"><p class="lead">Alerts are one source of Actions tasks. I rebuilt the Alerts page, and on the same day its new filter panel replaced the Data page's filter strip.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The first build followed a low-fidelity wireframe almost one to one, and I rebuilt the page a few days later.</p></div></details></div>
+          <p>The first build followed a low-fidelity wireframe almost one to one, and I rebuilt the page a few days later.</p></div>
       </div>
       <article class="decision rv xtra">
         <div class="label">Decision 4 · <b>Alerts, first build vs. rebuild</b></div>
@@ -283,7 +287,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 </footer>
 <script src="lab-live.js" defer></script>
 <script src="lab-actions.js" defer></script>
-<script src="case.js?v=7"></script>
+<script src="case.js?v=8"></script>
 <script src="lab-stage.js" defer></script>
 <script src="../v7/depth.js?v=6" defer></script>
 <script src="../v7/product.js?v=39" defer></script>

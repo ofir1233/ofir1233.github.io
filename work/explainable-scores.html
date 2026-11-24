@@ -41,6 +41,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=20">
 <link rel="stylesheet" href="../v7/case.css?v=41">
+<link rel="stylesheet" href="../v7/case-r16.css?v=3">
 <style>
 /* explainable-scores: page-only pieces */
 .es-scale { background: var(--card); border-radius: 22px; padding: clamp(18px, 2.6vw, 28px); display: grid; gap: 10px; }
@@ -59,6 +60,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 @media print { :root[data-theme="dark"] .sheet .shot.pad.es-light { box-shadow: 0 0 0 1px rgba(20,32,27,.08), var(--win-shadow); } }
 .es-prose ol + p { margin-top: 1em; }
 .es-gap { margin-top: clamp(36px, 5vw, 64px); }
+/* the popover crop ends just under the opened cell (round 16) */
+#cell .shot.v7s > img { aspect-ratio: 1010 / 850; height: auto; object-fit: cover; object-position: 50% 0; }
 @media (max-width: 1239px) { .ct-hero.es-stage .ct-stage { --ct-band: 55cqw; --ct-top: 45cqw; } }
 @media (max-width: 719px) { .ct-hero.es-stage .ct-stage { --ct-band: 80cqw; --ct-top: 65cqw; } }
 </style>
@@ -84,7 +87,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div><dt>When</dt><dd>Mar–Oct 2026</dd></div>
       <div><dt>Scope</dt><dd>Compliance heatmap and popover · Agent evaluation chart · score answers in Ask AI</dd></div>
     </dl>
-    <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#grid"><span>02</span> Compliance</a><a class="pill" href="#cell"><span>03</span> The popover</a><a class="pill" href="#answers"><span>04</span> Ask AI</a><a class="pill" href="#decisions"><span>05</span> Decisions</a></nav>
+    <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#grid"><span>02</span> Compliance</a><a class="pill" href="#cell"><span>03</span> The popover</a><a class="pill" href="#answers"><span>04</span> Ask AI</a><a class="pill" href="#chart"><span>05</span> Agent evaluation</a><a class="pill" href="#decisions"><span>06</span> Decisions</a></nav>
     <div class="px-host" id="demo"><figure class="px-fig" data-px="compliance"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=compliance&v=202" title="Compliance in Hear Studio: five rules by agent, a failing score opened against the team, and Ask AI naming the calls." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
   </header>
 
@@ -94,10 +97,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><div class="label">01 · <b>The problem</b></div><h2>An unexplained score leaves two bad options</h2></div>
         <div class="prose">
           <p class="lead">These scores are about people, and when nothing explains one, the person reading it can only trust the number blindly or ignore it.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body">
           <p>Agent evaluation started as my first version in the Lab. In the Lab's July 2026 build, it showed scores over time and per skill, with tables of teams and agents. Nothing said why a score was what it was, and Compliance wasn't built yet.</p>
           
-          <p>Both screens follow three principles.</p></div></details>
+          <p>Both screens follow three principles.</p>
         </div>
       </div>
       <ol class="steps rv">
@@ -114,8 +116,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><div class="label">02 · <b>Compliance</b></div><h2>A grid that stays quiet until something fails</h2></div>
         <div class="prose">
           <p class="lead">Only failing cells get color, so a row of grays looks fine before anyone reads a number.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The grid has agents across and criteria down. Each cell is one agent's score on one rule over the selected date range.</p>
-          <p>The last row counts each agent's failing criteria, so the worst columns stand out.</p></div></details>
+          <p>The grid has agents across and criteria down. Each cell is one agent's score on one rule over the selected date range.</p>
+          <p>The last row counts each agent's failing criteria, so the worst columns stand out.</p>
         </div>
       </div>
       <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-es-grid.webp?v=6" data-zoom alt="The Compliance screen: five criteria as rows and ten agents as columns. Passing scores are gray, failing scores are coral, a Failing criteria row counts them, and one failing cell has its popover open." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div>
@@ -141,8 +143,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">03 · <b>The popover</b></div><h2>One agent, placed against the whole team</h2></div>
-        <div class="prose"><p class="lead">Clicking a cell opens a popover that puts the score beside the team's and offers the next question.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
+        <div class="prose"><p class="lead">Clicking a cell opens a popover that puts the score beside the team's and offers the next question.</p></div>
       </div>
       <div class="two">
         <figure class="rv"><div class="shot v7s"><img src="../img/v7s-es-popover.webp?v=6" alt="The cell popover above a failing score of 54: Selma K., Vulnerable customer protocol, 12 of 26 calls failed this rule, a bar for Selma at 54 and a bar for the team at 81, the pass mark of 70 notched on both, and a link, Ask AI which calls." width="1010" height="928" loading="lazy"><span class="live">Design Lab · demo data</span></div>
@@ -165,7 +166,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div class="ch-head">
         <div><div class="label">04 · <b>Ask AI</b></div><h2>An answer that shows its evidence</h2></div>
         <div class="prose"><p class="lead"><b>Ask AI which calls</b> sends the cell to Ask AI, and its answer names the calls that lowered the score.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The question arrives already written, with the agent and the criterion in it, and the agent's name stays at the top of the panel.</p></div></details></div>
+          <p>The question arrives already written, with the agent and the criterion in it, and the agent's name stays at the top of the panel.</p></div>
       </div>
       <div class="two">
         <figure class="rv"><div class="shot pad v7s" style="--iw:400px;--ir:22px"><img src="../img/v7s-es-ask.webp?v=5" alt="An Ask AI answer for Selma K.: the question, Which calls pulled Selma’s Vulnerable customer protocol score down, then 12 calls failed and 9 of them share one cause, then the calls by date, each with what was missed and the moment the protocol was skipped, marked on the length of the call." width="830" height="935" loading="lazy"><span class="live">Design Lab · demo data</span></div>
@@ -181,29 +182,29 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="prose es-gap">
-        <h3 style="margin-top:0">The chart explains itself too</h3>
-        <p>In Agent evaluation, the score chart's subtitle states its own encoding: coral is a day 8 or more points under the average. A dashed line marks that average, so a low day reads the way a failing cell does in Compliance.</p>
+  <section class="chapter" id="chart">
+    <div class="wrap">
+      <div class="ch-head">
+        <div><div class="label">05 · <b>Agent evaluation</b></div><h2>The chart explains itself too</h2></div>
+        <div class="prose"><p class="lead">In Agent evaluation, the score chart's subtitle states its own encoding: coral is a day 8 or more points under the average.</p>
+          <p>A dashed line marks that average, so a low day reads the way a failing cell does in Compliance.</p></div>
       </div>
-      <div class="prose xtra es-gap">
-        <h3 style="margin-top:0">Two ways into the same chat</h3>
-        <p>Ask AI also opens from the top of the sidebar. It says “Ask about what you're looking at” and keeps the page and project as context.</p>
-      </div>
-
-      <div class="px-host rv es-gap"><figure class="px-fig" data-px="agents"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=agents&v=202" title="Agent evaluation in Hear Studio: the average score by day, a low day opened, and the spread of agents." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
+      <div class="px-host rv"><figure class="px-fig" data-px="agents"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=agents&v=202" title="Agent evaluation in Hear Studio: the average score by day, a low day opened, and the spread of agents." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
     </div>
   </section>
 
   <section class="chapter ink" id="decisions">
     <div class="wrap">
-      <div class="ch-head"><div><div class="label">05 · <b>Decisions</b></div><h2>Where the design forked</h2></div><div class="prose"><p class="lead">I kept both ways into Ask AI, the cell and the sidebar, and rebuilt the score chart to control its hover.</p><details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div></div>
+      <div class="ch-head"><div><div class="label">06 · <b>Decisions</b></div><h2>Where the design forked</h2></div><div class="prose"><p class="lead">I kept both ways into Ask AI, the cell and the sidebar, and rebuilt the score chart to control its hover.</p></div></div>
 
       <article class="decision rv">
         <div class="label">Decision 1 · <b>Starting point</b></div>
         <h3>Where should a question about a score start?</h3>
         <ul class="opts">
-          <li class="opt"><strong>A blank chat</strong><span>Ask AI from the sidebar. You write the question and say which number you mean.</span></li>
+          <li class="opt"><strong>A blank chat</strong><span>Ask AI from the top of the sidebar, which says “Ask about what you're looking at” and keeps the page as context. You still write the question and say which number you mean.</span></li>
           <li class="opt chosen"><strong>The cell itself</strong><span>Ask AI which calls, the popover's one button, sends the cell's agent and criterion with the question.</span></li>
         </ul>
         <p class="because"><b>Result:</b> the cell leads. It sends the agent and the criterion, so the answer can name the calls. The sidebar stays for open questions about the page.</p>
@@ -260,7 +261,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </div>
 </footer>
-<script src="case.js?v=7"></script>
+<script src="case.js?v=8"></script>
 <script src="../v7/depth.js?v=6" defer></script>
 <script src="../v7/product.js?v=39" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>

@@ -41,6 +41,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=20">
 <link rel="stylesheet" href="../v7/case.css?v=41">
+<link rel="stylesheet" href="../v7/case-r16.css?v=3">
 <style>
 /* data: toolbar anatomy (pins; on phones the two ends of the strip stack), plan-vs-build table, 3-column steps */
 .data-anat .live { top: 4px; bottom: auto; }
@@ -53,19 +54,23 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .data-bar .data-img { width: 940px; }
   .data-bar .live { display: none; }
 }
-.data-key { list-style: none; counter-reset: k; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 28px; margin-top: 24px; }
+.data-key { list-style: none; counter-reset: k; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
+@media (max-width: 700px) { .data-key { grid-template-columns: 1fr; } }
 .data-key li { counter-increment: k; display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.5; color: var(--text); }
 .data-key li::before { content: counter(k); width: 22px; height: 22px; border-radius: 50%; background: var(--coral); color: var(--on-accent); font: 700 13.5px/22px var(--body); text-align: center; margin-top: 1px; }
 .data-key b { color: var(--paper); font-weight: 600; }
-@media (max-width: 1100px) { .data-key li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
 .data-gap { margin-top: clamp(40px, 6vw, 72px); }
 @media (max-width: 1239px) { .ct-hero.dt-stage .ct-stage { --ct-band: 56cqw; --ct-top: 46cqw; } }
 @media (max-width: 719px) { .ct-hero.dt-stage .ct-stage { --ct-band: 80cqw; --ct-top: 66cqw; } }
-.data-plan { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; }
-.data-plan caption { text-align: left; padding-bottom: 12px; font: 600 14px/1.4 var(--body); color: var(--mute); }
+.data-plan { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; table-layout: fixed; }
+.data-plan caption { caption-side: bottom; text-align: left; padding: 14px 0 0; font: 400 14px/1.5 var(--body); color: var(--mute); }
+.data-plan caption b { color: var(--paper); font-weight: 600; }
 .data-plan th, .data-plan td { text-align: left; vertical-align: top; padding: 16px 20px 16px 0; border-top: 1px solid var(--line); color: var(--text); }
 .data-plan thead th { font: 600 14px/1.3 var(--body); color: var(--mute); padding-block: 10px; }
-.data-plan tbody th { color: var(--paper); font-weight: 500; width: 46%; }
+.data-plan tbody th { color: var(--paper); font-weight: 500; }
+/* the second column starts on the chapter's text line */
+.data-plan thead th:first-child, .data-plan tbody th { width: calc(50% + 8px); padding-right: clamp(24px, 4vw, 64px); }
+.data-plan .data-t { display: block; width: fit-content; margin: 0 0 4px; }
 .data-plan .q { display: block; margin-top: 4px; color: var(--mute); font-weight: 400; font-size: 14px; }
 .data-t { display: inline-block; margin-right: 6px; padding: 2px 10px 3px; border-radius: 99px; font: 600 13.5px/20.8px var(--body); background: var(--ink-3); color: var(--text); vertical-align: 1px; }
 .data-t.on { background: var(--coral); color: var(--on-accent); }
@@ -112,7 +117,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div class="ch-head">
         <div><div class="label">01 · <b>The table</b></div><h2>Four slim rows hold all the controls</h2></div>
         <div class="prose"><p class="lead">I gave the table the rest of the screen, and a call opens in a side panel next to it.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>That keeps the filtered table in view, and the arrow keys step through its calls without closing the panel.</p></div></details></div>
+          <p>That keeps the filtered table in view, and the arrow keys step through its calls without closing the panel.</p></div>
       </div>
 
       <figure class="rv data-anat">
@@ -138,12 +143,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <li><span><b>Search and Upload.</b> Top right, apart from the controls that slice the table.</span></li>
       </ol>
 
-      <div class="two solo data-gap">
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-data-table.webp?v=6" data-zoom alt="The Data page: the toolbar above the call table. Each row has the call’s topic, a one-line summary, its date, status, priority, owner, sentiment and score." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The call table.</b> Each row leads with the call's topic and a one-line summary.</figcaption></figure>
-        <div class="prose xtra">
-          <h3 style="margin-top:0">Flagged calls</h3>
-          <p>A small warning sign marks a call where an alert fired. Open the call and the side panel names the alert and whether it was marked a false positive.</p>
-        </div>
+      <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-data-table.webp?v=6" data-zoom alt="The Data page: the toolbar above the call table. Each row has the call’s topic, a one-line summary, its date, status, priority, owner, sentiment and score." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The call table.</b> Each row leads with the call's topic and a one-line summary.</figcaption></figure>
+      <div class="two">
+        <h3>Flagged calls</h3>
+        <div class="prose"><p>A small warning sign marks a call where an alert fired. Open the call and the side panel names the alert and whether it was marked a false positive.</p></div>
       </div>
     </div>
   </section>
@@ -152,17 +155,16 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="wrap">
       <div class="ch-head">
         <div><div class="label">02 · <b>Three versions</b></div><h2>Each version put the filters somewhere new</h2></div>
-        <div class="prose"><p class="lead">I didn't redesign Data in place: I duplicated the page, changed the duplicate and kept both.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
+        <div class="prose"><p class="lead">I didn't redesign Data in place: I duplicated the page, changed the duplicate and kept both.</p></div>
       </div>
       <ol class="steps data-steps rv">
         <li><strong>V1 · March</strong><span>My first version: a preset dropdown, filter chips, “Add columns” in the header and a filter popover with an explicit Apply.</span></li>
         <li><strong>V2 · May</strong><span>A duplicate of V1, “so the existing filter system is preserved.” Filters move into a collapsible strip with a describe-your-query box.</span></li>
         <li><strong>V3 · June</strong><span>Column-first: click a column and its filter editor opens, first floating beside the row, then inline under it. V1 was retired.</span></li>
       </ol>
-      <div class="two data-gap xtra">
+      <div class="two">
+        <h3>Why keep more than one</h3>
         <div class="prose">
-          <h3 style="margin-top:0">Why keep more than one</h3>
           <p>The Lab's version switch lets one screen hold several designs on the same data. Today Data carries a V2 / V3 switch, and Signals a V1 / V2 one.</p>
         </div>
       </div>
@@ -174,12 +176,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div class="ch-head">
         <div><div class="label">03 · <b>Plan vs. build</b></div><h2>Saved views: the plan against the build</h2></div>
         <div class="prose"><p class="lead">Of the plan's five recommendations, two are in the Lab today, one is partly there, one was reverted and one was not built by July.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The plan had three UI states, eight decisions and 12 edge cases. Each decision gave options, a recommendation and a reason, and each edge case carried a “Handle v1” or “Punt v2” mark.</p><p>Its core idea was a <b>View</b> that saves the filters, the visible columns and their order together.</p></div></details></div>
+          <p>The plan had three UI states, eight decisions and 12 edge cases. Each decision gave options, a recommendation and a reason, and each edge case carried a “Handle v1” or “Punt v2” mark.</p><p>Its core idea was a <b>View</b> that saves the filters, the visible columns and their order together.</p></div>
       </div>
 
       <div class="rv">
         <table class="data-plan">
-          <caption>The plan's recommendations, and what got built</caption>
+          <caption><b>The plan against the build.</b> Five recommendations from the saved-views page, and what happened to each.</caption>
           <thead><tr><th scope="col">The plan recommended</th><th scope="col">What happened</th></tr></thead>
           <tbody>
             <tr><th scope="row">Call it a View, not a Preset<span class="q">“Reads as the whole screen state, not just filters”</span></th><td data-l="What happened"><span class="data-t on">In the Lab</span>The July build still used “Preset” as the name. The current Lab saves with “Save as view” instead.</td></tr>
@@ -191,7 +193,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </table>
       </div>
 
-      <article class="decision rv data-gap">
+      <article class="decision rv">
         <div class="label">Decision 1 · <b>Where columns go</b></div>
         <h3>Should columns sit inside the filter strip, or in their own modal?</h3>
         <ul class="opts">
@@ -209,7 +211,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div class="ch-head">
         <div><div class="label">04 · <b>Decisions</b></div><h2>Existing patterns won twice</h2></div>
         <div class="prose"><p class="lead">Filters went back to an explicit Apply, and Reports and Signals to a grid like the other data pages.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>Two habits run through my work on Data: reuse what exists, and build filters only from columns and values the table holds. I replaced Data's own filter strip with the one from the Alerts page, and the column-first presets “reference only real filterable columns + real values.”</p></div></details></div>
+          <p>Two habits run through my work on Data: reuse what exists, and build filters only from columns and values the table holds. I replaced Data's own filter strip with the one from the Alerts page, and the column-first presets “reference only real filterable columns + real values.”</p></div>
       </div>
       <article class="decision rv">
         <div class="label">Decision 2 · <b>When filters apply</b></div>
@@ -237,20 +239,22 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <div class="ch-head">
         <div><div class="label">05 · <b>Signals</b></div><h2>Signals that fire on their own</h2></div>
         <div class="prose"><p class="lead">Each signal has an on/off switch, its name and its rule in plain words. The ones triggered now lead the page, each with its last 14 days of calls.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>With its Auto switch on, a signal runs by itself, and its status says whether it is Active, Triggered, Paused or in Error. Signals feed the rest of Hear: on the Actions board, a task can come from a signal.</p></div></details></div>
+          <p>With its Auto switch on, a signal runs by itself, and its status says whether it is Active, Triggered, Paused or in Error. Signals feed the rest of Hear: on the Actions board, a task can come from a signal.</p></div>
       </div>
       <div class="px-host rv"><figure class="px-fig" data-px="signals"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=signals&v=202" title="Signals in Hear Studio: rules that classify calls, one opened, and a new one written in plain words." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
-      <div class="two data-gap xtra">
+      <div class="two">
+        <h3>Creating one</h3>
         <div class="prose">
-          <h3 style="margin-top:0">Creating one</h3>
           <ul>
             <li>A name, a folder (or a new one, right from the menu) and the model it runs on.</li>
             <li>Items, one per field, each with a name, a key, a type and its own description.</li>
             <li>Saving updates the folder's count.</li>
           </ul>
         </div>
+      </div>
+      <div class="two">
+        <h3>What changed since July</h3>
         <div class="prose">
-          <h3 style="margin-top:0">What changed since July</h3>
           <p>In July, Signals was an accordion list with status tabs. Now its tabs are folders with counts, and Create signal asks for a folder.</p>
           <p>I reused the Signals item row in the Knowledge glossary, so a glossary term and a signal field are edited the same way.</p>
         </div>
@@ -300,7 +304,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script src="lab-live.js" defer></script>
 <script src="lab-data.js" defer></script>
 <script src="lab-signals.js" defer></script>
-<script src="case.js?v=7"></script>
+<script src="case.js?v=8"></script>
 <script src="lab-stage.js" defer></script>
 <script src="../v7/depth.js?v=6" defer></script>
 <script src="../v7/product.js?v=39" defer></script>

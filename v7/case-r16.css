@@ -1,0 +1,98 @@
+/* v7 - ROUND 16, 24.11.2026: one structure for every Hear case page (owner: "the inner pages are a mess, go over every page,
+   restructure if needed"). Loaded last, after v7/case.css, on the case pages only (not FYI, which has its own story page).
+
+   What was wrong, on every page alike:
+   - white panels alternated with the paper for no reason, inset 10px from the window's edge;
+   - every chapter hid its text behind "Read more" (some opened nothing) and every decision behind "What I ruled out, and why";
+   - a chapter's heading and its text started on different lines;
+   - with the text folded, figures were rearranged into side-by-side layouts that changed from chapter to chapter.
+
+   Now: one ground (the paper). Every chapter opens on a hairline, its number and name, then the heading on the left and its
+   text on the right, starting on the heading's first line. Everything is shown; nothing folds. Figures run in the order written. */
+
+/* 1. one ground */
+.chapter.sheet{ background:none !important; margin-inline:0 !important; border-radius:0 !important; --card:#fff; }
+.chapter.sheet + .chapter.sheet{ margin-top:0 !important; }
+.sheet .shot.pad:not(.v7s){ background:linear-gradient(180deg, #dbe9f6 0%, #eaf2f9 100%) !important; }
+
+/* 2. one rhythm: the same space before every chapter, none after (the next one brings its own) */
+main > .chapter{ padding:clamp(80px, 8vw, 128px) 0 0 !important; }
+main > .chapter > .wrap > .ch-head{ position:relative; padding-top:22px; border-top:1px solid var(--line); margin-bottom:clamp(36px, 4vw, 56px) !important; }
+
+/* 3. the chapter head: number and name across the top, then heading | text, both starting on the same line */
+@media (min-width:861px){
+  main > .chapter > .wrap > .ch-head:not(.center){ grid-template-columns:minmax(0, 1fr) minmax(0, 1fr) !important; column-gap:16px !important; row-gap:0 !important; }
+  main > .chapter > .wrap > .ch-head:not(.center) > div:first-child{ display:contents; }
+  main > .chapter > .wrap > .ch-head:not(.center) > div:first-child > .label{ grid-column:1 / -1; grid-row:1; margin:0 0 clamp(28px, 3vw, 40px) !important; }
+  main > .chapter > .wrap > .ch-head:not(.center) > div:first-child > h2{ grid-column:1; grid-row:2; margin:0; padding-right:clamp(24px, 4vw, 64px); }
+  main > .chapter > .wrap > .ch-head:not(.center) > .prose{ grid-column:2; grid-row:2; padding-top:.4em !important; }
+}
+main > .chapter > .wrap > .ch-head .prose p:not(.lead){ margin-top:.9em; font-size:16.5px; line-height:1.6; color:var(--text); }
+main > .chapter > .wrap > .ch-head .prose .lead{ font-size:clamp(18px, 1.35vw, 20px); line-height:1.5; }
+
+/* 4. nothing folds: the "Read more" text is ordinary text in the pages now (so the .xtra blocks, once hidden while it was
+   closed, simply show), and work/case.js no longer folds the decisions */
+html body .decision .opts > li.dc-t{ display:none !important; }
+
+/* 4b. a note ("Design choice: ...", "Every direction keeps ...") is not a grey box of its own width: it is a line of text with the
+   same thin blue rule a chosen option carries */
+html body .why, html body .newsroom-rule > .all{ margin-top:24px; padding:2px 0 2px 18px !important; border-radius:0 !important; background:none !important; box-shadow:inset 2px 0 0 #0b6fcf !important; color:var(--text); font-size:16.5px; line-height:1.6; max-width:68ch; }
+html body .why b{ color:#0b6fcf; }
+
+/* 5. blocks inside a chapter keep one gap */
+main > .chapter > .wrap > * + :is(figure, .two, .steps, .px-host, .prose, article.decision, .duo, .stack){ margin-top:clamp(40px, 4.4vw, 64px); }
+/* a link that plays the demo sits just under what it shows */
+main > .chapter > .wrap > .two + .ct-foot, main > .chapter .prose > .ct-foot{ margin-top:20px; }
+main > .chapter > .wrap > .ch-head + *{ margin-top:0 !important; }
+
+/* 6. two levels of rule: ink opens a chapter, the light line separates things inside it */
+main > .chapter > .wrap > .ch-head{ border-top-color:#171b20 !important; }
+html body main article.decision > .label{ font-size:13px; }
+
+/* 7. a decision sits on the chapter's own two columns: the question and its reason on the left, the options on the right, the
+   option text starting on the same line as every chapter's text, the chosen option's blue rule in the gutter */
+html body main article.decision > .because{ font-size:16.5px; line-height:1.6; }
+html body main article.decision .opt strong{ font-size:17px; }
+html body main article.decision .opt span{ font-size:16.5px; line-height:1.6; color:var(--text); }
+@media (min-width:861px){
+  html body main article.decision{ display:grid !important; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr) !important; grid-template-rows:auto auto 1fr !important; gap:0 16px !important; align-items:start; }
+  html body main article.decision > .label{ grid-column:1 / -1 !important; grid-row:1 !important; margin:0 0 18px !important; }
+  html body main article.decision > h3{ grid-column:1 !important; grid-row:2 !important; margin-top:0 !important; padding-right:clamp(24px, 4vw, 64px); }
+  html body main article.decision > .because{ grid-column:1 !important; grid-row:3 !important; max-width:none !important; margin-top:18px !important; padding-right:clamp(24px, 4vw, 64px) !important; }
+  html body main article.decision > .opts{ grid-column:2 !important; grid-row:2 / span 2 !important; margin-top:-14px !important; }
+  html body main article.decision > figure{ grid-column:1 / -1 !important; grid-row:4 !important; }
+  html body main article.decision .opt{ padding-left:0 !important; }
+  html body main article.decision .opt.chosen{ margin-left:-16px; padding-left:16px !important; }
+}
+
+/* 8. text beside a figure starts on the figure's top edge */
+main > .chapter > .wrap > .two > .prose{ padding-top:0 !important; }
+main > .chapter > .wrap > .two > .prose > :first-child{ margin-top:0 !important; }
+main > .chapter > .wrap > .two > h3:first-child{ margin:0 !important; }
+/* the parts of a card list on the same line too */
+@media (min-width:861px){
+  main > .chapter .v7-anat{ grid-template-columns:minmax(0, 1fr) minmax(0, 1fr) !important; column-gap:16px !important; }
+  main > .chapter .v7-anat > .shot{ margin-right:clamp(16px, 2.4vw, 32px); }
+}
+/* a pair splits on the chapter's own line, so its right-hand text starts where every chapter's text starts; a picture on the left
+   keeps clear air before that text */
+@media (min-width:861px){
+  main > .chapter > .wrap > .two{ column-gap:16px !important; }
+  main > .chapter > .wrap > .two > figure:first-child{ margin-right:clamp(16px, 2.4vw, 32px); }
+  main > .chapter > .wrap > .two > h3:first-child{ padding-right:clamp(24px, 4vw, 64px); }
+}
+
+/* 9. a sub-heading belongs to what follows it: a wide gap above, a short one below */
+main > .chapter > .wrap > h3{ margin-top:clamp(72px, 7vw, 104px) !important; margin-bottom:0 !important; }
+main > .chapter > .wrap > h3 + *{ margin-top:clamp(16px, 1.8vw, 24px) !important; }
+
+/* 10. a note that stands alone in a chapter sits on the text column, like a chosen option */
+@media (min-width:861px){
+  main > .chapter > .wrap > .why{ margin-left:calc(50% + 8px - 18px) !important; max-width:none !important; }
+}
+
+/* 11. one white card: the same corner and the same inner space wherever it appears */
+main > .chapter :is(.steps li, .newsroom-dirs li, .newsroom-rule section:not(.all), .newsroom-rtl .card, .es-scale){ border-radius:14px !important; }
+
+/* 12. the page ends on its usual gap, not a looser one */
+@media (min-width:861px){ html body .sources + a.next{ margin-top:clamp(56px, 5vw, 72px) !important; } }

@@ -349,7 +349,8 @@
 
 /* Decisions open folded: the question and the option that was chosen. One outline button under the chosen option opens what was
    ruled out and the reasoning. Without this script everything is shown. A link that lands on a decision opens it. */
-(function () {
+/* Owner, 24.11.2026: no folding buttons on the Product case pages (the ones that load v7/case-r16.css). There every option and its reason is shown. */
+!document.querySelector('link[href*="case-r16"]') && (function () {
   var all = [].slice.call(document.querySelectorAll('.decision'));
   all.forEach(function (d) {
     var opts = d.querySelector('.opts'); if (!opts || !opts.querySelector('.opt.chosen')) return;

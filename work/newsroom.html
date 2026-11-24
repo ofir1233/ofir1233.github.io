@@ -40,6 +40,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/px.css?v=20">
 <link rel="stylesheet" href="../v7/case.css?v=41">
+<link rel="stylesheet" href="../v7/case-r16.css?v=3">
 <style>
 /* annotated screen: numbered pins over the image, each beside the part it names and on no text */
 .newsroom-pins { position: relative; }
@@ -50,27 +51,19 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
    so the pins that need it move to their compact spots (--xs, --ys); on phones the pin is the smallest circle that holds a 13.5px numeral */
 @media (max-width: 1023px) { .newsroom-pin { left: var(--xs, var(--x)); top: var(--ys, var(--y)); } }
 /* on a phone the annotated screen keeps a readable size and swipes sideways, pins and all */
-@media (max-width: 760px) { .newsroom-anat .shot { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; } .newsroom-anat .shot::-webkit-scrollbar { display: none; } .newsroom-pins { width: 760px; } .newsroom-pin { width: 22px; height: 22px; box-shadow: 0 0 0 2px #fff; left: var(--x); top: var(--y); } .newsroom-anat .shot > .live, .newsroom-chatin .shot > .live { display: none; }
+@media (max-width: 760px) { .newsroom-anat .shot { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; } .newsroom-anat .shot::-webkit-scrollbar { display: none; } .newsroom-pins { width: 760px; } .newsroom-pin { width: 22px; height: 22px; box-shadow: 0 0 0 2px #fff; left: var(--x); top: var(--y); } .newsroom-anat .shot > .live { display: none; }
   .newsroom-home .shot.v7s.wide { overflow: hidden; } .newsroom-home .shot.v7s.wide > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 66% 50%; } }
-.newsroom-legend { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px 28px; margin-top: 28px; }
+.newsroom-legend { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 16px; margin-top: 28px; }
+@media (max-width: 760px) { .newsroom-legend { grid-template-columns: 1fr; } }
 .newsroom-legend li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.55; color: var(--text); }
 .newsroom-legend li::before { content: attr(data-n); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: var(--on-accent); font: 700 13.5px/1 var(--body); }
 .newsroom-legend b { color: var(--paper); font-weight: 600; }
-@media (max-width: 1100px) { .newsroom-legend li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
 /* the anatomy screen's demo-data label sits in the window's title bar, so it never shares a spot with a pin or with the screen */
 .newsroom-anat .shot > .live { right: 14px; bottom: 14px; top: auto; }
-/* the chat input is a short strip: its demo-data label and enlarge mark sit in a band under the field, not on it. The band carries on the screenshot's last row of grey (the field's shadow across the middle), so there is no seam */
-.newsroom-chatin .shot { max-width: 620px; }
-.newsroom-chatin .shot.v7s { padding-bottom: 30px !important; background: linear-gradient(90deg, #e5ecf7 26%, #dce8f3) !important; }
-.newsroom-chatin .shot > .live { top: auto; bottom: 10px; right: 12px; }
-.newsroom-chatin .shot > .zx-i { top: auto; bottom: 12px; }
-@media (hover: none) { .newsroom-chatin .shot > .live { right: 42px; } .newsroom-chatin .shot > .zx-i { bottom: 8px; } }
-@media (max-width: 760px) { .newsroom-chatin .shot { padding-bottom: calc(40px - 3.43%); } .newsroom-chatin .shot > .live { bottom: 8px; } }
 /* six steps in three columns on wide screens */
 @media (min-width: 761px) {
   .newsroom-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-.newsroom-steps + .decision { margin-top: clamp(32px, 4vw, 48px); }
 /* the trust rule, per story type */
 .newsroom-rule { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: clamp(28px, 4vw, 44px); }
 .newsroom-rule section { border-radius: 22px; padding: clamp(20px, 2.4vw, 28px); background: var(--card); }
@@ -94,7 +87,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 @media (max-width: 520px) { .newsroom-dirs { grid-template-columns: 1fr; } }
 /* LTR / RTL schematic: one set of logical CSS rules */
 .newsroom-rtl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-.newsroom-rtl .card { background: var(--card); border-radius: 22px; padding: 20px; border-inline-start: 4px solid var(--coral); display: grid; gap: 10px; }
+.newsroom-rtl .card { background: var(--card); border-radius: 22px; padding: 20px; position: relative; display: grid; gap: 10px; }
+.newsroom-rtl .card::before { content: ""; position: absolute; inset-block: 18px; inset-inline-start: 0; width: 3px; background: var(--coral); }
 .newsroom-rtl .tag { justify-self: start; font: 600 13px/1 var(--body); color: var(--mute); }
 .newsroom-rtl i { display: block; height: 10px; border-radius: 99px; background: color-mix(in srgb, var(--paper) 12%, transparent); }
 .newsroom-rtl i.h { height: 16px; width: 78%; background: color-mix(in srgb, var(--paper) 28%, transparent); }
@@ -106,10 +100,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .newsroom-rtl .arr { font-size: 18px; color: var(--coral); line-height: 1; }
 .newsroom-rtl [dir="rtl"] .arr { transform: scaleX(-1); }
 @media (max-width: 520px) { .newsroom-rtl { grid-template-columns: 1fr; } }
-.newsroom-rtl-tag { font: 600 14px/1.3 var(--body); color: var(--mute); margin-bottom: 12px; }
-@media (max-width: 760px) { .newsroom-rtl-tag { margin-top: 16px; } }
 .newsroom-sub { margin-top: clamp(48px, 6vw, 72px); }
 .newsroom-sub h3 { margin-bottom: 14px; }
+.newsroom-sub > h3 { margin: 0; }
+.newsroom-sub > .newsroom-list { margin-top: 0; }
 .newsroom-list { margin: 1em 0 0 1.1em; color: var(--text); display: grid; gap: 8px; font-size: 16px; max-width: var(--read); }
 .newsroom-list li::marker { color: var(--coral); }
 .newsroom-fig-top { margin-top: clamp(28px, 4vw, 44px); }
@@ -148,7 +142,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><div class="label">01 · <b>The problem</b></div><h2>AI summaries shouldn't sound more certain than their data</h2></div>
         <div class="prose">
           <p class="lead">I put each story's evidence on the page: its source, its time window, a baseline for any spike and its calls.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>An AI summary of a contact center is only worth reading if people can check it.</p></div></details>
+          <p>An AI summary of a contact center is only worth reading if people can check it.</p>
         </div>
       </div>
       <figure class="rv newsroom-anat">
@@ -184,7 +178,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><div class="label">02 · <b>How it evolved</b></div><h2>From editorial events to stories tied to the platform</h2></div>
         <div class="prose">
           <p class="lead">Within four days, V2 replaced V1 and became the Lab's News tab.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>I built V2 as a copy of V1 and left the original untouched beside it.</p></div></details>
+          <p>I built V2 as a copy of V1 and left the original untouched beside it.</p>
         </div>
       </div>
       <ol class="steps newsroom-steps rv">
@@ -225,7 +219,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><div class="label">03 · <b>Showing evidence</b></div><h2>Precision only where the platform has it</h2></div>
         <div class="prose">
           <p class="lead">In each story's “Why you're seeing this” line, I show a threshold only where a configured rule sets one, so trends stay in words.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>In the trust layer I defined the rules in the feed's data, one set per story type.</p></div></details>
+          <p>In the trust layer I defined the rules in the feed's data, one set per story type.</p>
         </div>
       </div>
 
@@ -263,7 +257,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </section>
       </div>
 
-      <div class="newsroom-sub prose rv xtra">
+      <div class="two newsroom-sub rv">
         <h3>How the charts carry it</h3>
         <ul class="newsroom-list">
           <li>Eleven custom SVG chart types, from trend lines to a causal chain, sit in one registry. A story names the chart it needs, and the registry draws it.</li>
@@ -281,16 +275,16 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><div class="label">04 · <b>Directions &amp; Hebrew</b></div><h2>Four ways to frame the same news</h2></div>
         <div class="prose">
           <p class="lead">A week after the built feed, I sketched four low-fidelity directions, each with a different main metaphor.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>I kept them at wireframe fidelity on purpose, as gray skeletons with notes. They sit in the Lab's sidebar as News · Directions.</p></div></details>
+          <p>I kept them at wireframe fidelity on purpose, as gray skeletons with notes. They sit in the Lab's sidebar as News · Directions.</p>
         </div>
       </div>
       <ol class="newsroom-dirs rv">
-        <li><span class="n">01</span><strong>Edition</strong><q>read what changed</q><span>A front page, like the built feed.</span></li>
+        <li><span class="n">01</span><strong>Edition</strong><q>read what changed</q></li>
         <li><span class="n">02</span><strong>Radar</strong><q>see the whole operation at once</q></li>
         <li><span class="n">03</span><strong>Inbox</strong><q>work the queue</q></li>
         <li><span class="n">04</span><strong>Briefing</strong><q>tell me, then let me dig</q></li>
       </ol>
-      <p class="why rv xtra">Every direction keeps the same three parts in its side panel: why, evidence and actions. All four remain explorations.</p>
+      <p class="why rv xtra">Edition is a front page, like the built feed. Every direction keeps the same three parts in its side panel: why, evidence and actions. All four remain explorations.</p>
 
       <div class="two solo newsroom-sub">
         <div class="prose rv xtra">
@@ -299,12 +293,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <p>The app shell around News stayed in English. Numbers stay in Latin digits, as is standard in Hebrew interfaces.</p>
         </div>
         <figure class="rv">
-          <p class="newsroom-rtl-tag" aria-hidden="true">Schematic · not a product screen</p>
           <div class="newsroom-rtl" role="img" aria-label="Schematic: one story card drawn left to right, then right to left. The accent border and the quote line move to the other side, the arrow flips and the number stays in Latin digits.">
             <div class="card" dir="ltr"><span class="tag" dir="ltr">dir="ltr"</span><i class="k"></i><i class="h"></i><div class="q"><i></i><i class="s"></i></div><div class="foot"><span class="num">123</span><span class="arr" aria-hidden="true">→</span></div></div>
             <div class="card" dir="rtl"><span class="tag" dir="ltr">dir="rtl"</span><i class="k"></i><i class="h"></i><div class="q"><i></i><i class="s"></i></div><div class="foot"><span class="num">123</span><span class="arr" aria-hidden="true">→</span></div></div>
           </div>
-          <figcaption><b>One story card, both reading directions.</b> The same logical CSS rules mirror its accent border, quote line and arrow.</figcaption>
+          <figcaption><b>One story card, both reading directions.</b> A schematic, not a product screen. The same logical CSS rules mirror its accent border, quote line and arrow.</figcaption>
         </figure>
       </div>
     </div>
@@ -317,12 +310,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><div class="label">05 · <b>Where AI belongs</b></div><h2>In the chat input, I added a moving logo, then took it out</h2></div>
         <div class="prose">
           <p class="lead">In April and May I reworked parts of the chat home; some of what I added around the input, I later took out again.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>News puts the AI's stories at the front of the page. The chat home is a different case, one I built in the Lab's first version.</p></div></details>
+          <p>News puts the AI's stories at the front of the page. The chat home is a different case, one I built in the Lab's first version.</p>
         </div>
       </div>
       <figure class="rv newsroom-home nohint">
         <div class="shot v7s wide"><span class="live">Design Lab · demo data</span><img src="../img/v7s-studio-home.webp?v=3" data-zoom alt="The home screen: the Hear mark above the line Describe it. Hear builds it., one field with an at button, a slash button and a microphone, on a painted sky, with the product in the sidebar" width="2560" height="1440" loading="lazy"></div>
-        <figcaption><b>Home today.</b> The Hear mark sits above the line, not in the field.</figcaption>
+        <figcaption><b>Home today.</b> The Hear mark sits above the line, not in the field, which holds @ to bring someone in, / for commands and a microphone.</figcaption>
       </figure>
       <ol class="steps newsroom-fig-top rv xtra">
         <li><strong>Suggestions</strong><span>AI suggestions capped at five, with the original suggestions design restored.</span></li>
@@ -330,14 +323,13 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <li><strong>Controls</strong><span>A slash-command button added. The plus and attachment button removed.</span></li>
       </ol>
 
-      <article class="decision rv" style="margin-top:clamp(32px,4vw,48px)">
+      <article class="decision rv">
         <div class="label">Decision 4 · <b>The AI's presence</b></div>
         <h3>Does the AI need a face inside the input?</h3>
         <ul class="opts">
           <li class="opt"><strong>Logo in the field</strong><span>A morphing logo and a dot ring, with the logo in the input reacting to each keystroke.</span></li>
           <li class="opt chosen"><strong>A plain field</strong><span>The logo leaves the input. The field holds what you type, two shortcut buttons and a mic.</span></li>
         </ul>
-        <figure class="newsroom-chatin"><div class="shot v7s"><span class="live">Design Lab · demo data</span><img src="../img/v7s-studio-composer.webp?v=3" alt="The field on the home screen: a line of text, an at button, a slash button and a microphone" width="1522" height="339" loading="lazy"></div><figcaption><b>The field today.</b> @ to bring someone in, / for commands, and a microphone.</figcaption></figure>
         <p class="because"><b>Result:</b> the Hear mark greets you above the field, and the field is left for the question.</p>
       </article>
     </div>
@@ -382,7 +374,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </div>
 </footer>
-<script src="case.js?v=7"></script>
+<script src="case.js?v=8"></script>
 <script src="../v7/depth.js?v=6" defer></script>
 <script src="../v7/product.js?v=39" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>
