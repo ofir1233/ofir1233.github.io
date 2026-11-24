@@ -72,24 +72,31 @@
   nav.addEventListener('focusin', function () { root.classList.remove('hv-down'); });
 })();
 
-/* The painter signs the canvas. The drawing is the footer's signature (one source: footer .ft-sig), cloned into .hsig on the
-   hero picture. It is written once: in the pinned stage as soon as the picture has grown to fill the stage (the page's pin script
-   sets .me-grown on .me-pin; owner, 22.11.2026: the signature is seen in the top section when the picture with the background grows, not only at the end); in the plain layout 400 ms after the picture's lower corner is in view and the opening has come in.
-   It never replays. Reduced motion: shown complete. Styles in v7/hero.css. */
+/* The painter signs the sky. The drawing is the footer's signature (one source: footer .ft-sig): its strokes are cloned into .me-v7-sig,
+   a layer between the plain sky and its clouds (styles in v7/hero.css), and they uncover the signature painted in the clouds' white paint.
+   It is laid on the painting's own pixels (viewBox = the 1920x1280 picture): over the open sky between the trees, left of his head.
+   It is written once: in the pinned stage as soon as the picture has grown to fill the stage (the page's pin script sets .me-grown on
+   .me-pin); in the plain layout 400 ms after the sky is in view. Never during the paint-in, and it never replays. Reduced motion: complete. */
 (function () {
-  var fig = document.querySelector('#about .me-photo.me-v7'), box = fig && fig.querySelector('.hsig'), src = document.querySelector('footer.ft .ft-sig');
+  var fig = document.querySelector('#about .me-photo.me-v7'), box = fig && fig.querySelector('.me-v7-sig'), src = document.querySelector('footer.ft .ft-sig');
   if (!box || !src) return;
-  var svg = src.cloneNode(true), mask = svg.querySelector('mask'), img = svg.querySelector('image');
+  var NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg'), g = document.createElementNS(NS, 'g');
+  svg.setAttribute('viewBox', '0 0 1920 1280'); svg.setAttribute('focusable', 'false');
+  g.setAttribute('transform', 'translate(566 204) scale(' + (636 / 1203).toFixed(5) + ')');
+  [].forEach.call(src.childNodes, function (n) { g.appendChild(n.cloneNode(true)); });
+  var mask = g.querySelector('mask'), img = g.querySelector('image');
   if (!mask || !img) return;
-  svg.setAttribute('class', 'hsig-svg'); svg.removeAttribute('style'); mask.id = 'hsig-m'; img.setAttribute('mask', 'url(#hsig-m)');
-  box.appendChild(svg);
+  mask.id = 'hsig-m'; img.setAttribute('mask', 'url(#hsig-m)');
+  img.removeAttributeNS('http://www.w3.org/1999/xlink', 'href'); img.setAttribute('href', 'img/me-v7-sky-sig.webp?v=1');
+  var pen = mask.querySelector('g'); if (pen) pen.setAttribute('stroke-width', '36');
+  svg.appendChild(g); box.appendChild(svg);
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   box.classList.add('js');
   var root = document.documentElement, pin = fig.closest('.me-pin'), signed = false, timer = 0, tick = false;
   function ready() {
     if (root.classList.contains('hp-wait') || root.classList.contains('hp-on')) return false; // a picture is signed when it is finished, not while it is being painted
     if (root.classList.contains('me-scroll')) return !!pin && pin.classList.contains('me-grown');
-    var r = fig.getBoundingClientRect(); return r.bottom < innerHeight - 8 && r.bottom > 140;
+    var r = fig.getBoundingClientRect(); return r.top < innerHeight * .6 && r.bottom > 200;
   }
   function stop() { removeEventListener('scroll', ask); removeEventListener('resize', ask); if (mo) mo.disconnect(); if (mr) mr.disconnect(); }
   function check() {

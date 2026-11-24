@@ -100,7 +100,7 @@ html.me-scroll #about .me-facts .me-k{ font-weight: 600; color: #fff; }
     html.me-scroll #about .me-pin > *{ --rest: min(100cqh - var(--t0, 330px) - var(--sb), 130cqw); }
     html.me-scroll #about .me-photo.me-v7{ left: 0; width: 100%; top: calc(var(--t0, 330px) * (1 - var(--g, 0))); height: calc(var(--rest) + (100cqh - var(--rest)) * var(--g, 0)); }
     html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ left: 54%; height: min(92%, 62cqw); }
-    html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ object-position: 50% 58%; }
+    html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ object-position: 46% 58%; }
   }
   /* no pin (reduced motion): the same two columns, still */
   html:not(.me-scroll) #about .me-top{ display: grid; grid-template-columns: 47% minmax(0, 1fr); gap: 4%; align-items: center; }
@@ -139,29 +139,28 @@ html.me-scroll #about .me-facts .me-k{ font-weight: 600; color: #fff; }
 }
 @media (max-width: 899px) and (prefers-reduced-motion: reduce) { nav.nav{ transition: none; } }
 
-/* The painter signs the canvas (owner, 22.11.2026 night: "I asked for my signature here too").
-   The drawing is the footer's own signature, cloned by v7/hero.js, in white paint at the bottom right of the picture.
-   Plain layout (phones, reduced motion): the true corner. Pinned stage: right-aligned on the jacket, just above where the four
-   facts will land; it is written as soon as the picture has grown and stays while it is grown (opacity follows --g from the
-   page's pin script). Owner, 22.11.2026: a dark name on the sky "cannot be seen at all, better as it was": white, on the jacket. Written once, in 1.4 s; never again. */
-#about .me-photo.me-v7 .hsig{ position: absolute; z-index: 2; right: clamp(14px, 4.4%, 24px); bottom: clamp(14px, 3.8%, 24px); width: clamp(112px, 31%, 140px); pointer-events: none; opacity: .94; rotate: -3deg; transform-origin: 0 100%; filter: sepia(.6) drop-shadow(0 0 .5px rgba(255,255,255,.85)) drop-shadow(0 1px 1.5px rgba(6,16,40,.7)); }
-/* plain layout: the corner of the picture can be pale floor or bright jacket, so the corner is shaded a little under the name */
-#about .me-photo.me-v7 .hsig::before{ content: ""; position: absolute; inset: -70% -34% -80% -40%; z-index: -1; background: radial-gradient(closest-side, rgba(8,22,56,.5), rgba(8,22,56,.26) 55%, rgba(8,22,56,0)); }
-html.me-scroll #about .me-photo.me-v7 .hsig::before{ content: none; }
-#about .hsig .hsig-svg{ display: block; width: 100%; height: auto; overflow: visible; }
-#about .hsig.js mask path{ stroke-dasharray: 1; stroke-dashoffset: 1; }
-#about .hsig.js.signed mask path{ animation: hsig-write calc(var(--t) * .476) cubic-bezier(.42,.1,.5,1) calc(var(--d) * .476) forwards; }
+/* The painter signs the sky (owner, 24.11.2026: "delete the plane, and instead the signature is painted huge behind me, across the
+   whole sky, with an effect"). The drawing is the footer's own signature (one source), cloned by v7/hero.js into .me-v7-sig: a layer
+   between the plain sky and its clouds, so the clouds, the city, the trees and he all stand in front of it. Its paint is the clouds' own
+   white with a ridge lit from the upper left (img/me-v7-sky-sig.webp). The layer is the same box as the sky picture and moves with it;
+   inside it the drawing is laid on the picture's own pixels (object-fit: cover done by hand: --opx/--opy follow the pictures'
+   object-position), so the name holds its place in the painting at every window shape.
+   Written once, in 2.3 s, as soon as the picture has grown to fill the stage (plain layout: when the sky is in view); never again. */
+#about .me-photo.me-v7{ --opx: .5; --opy: .58; }
+#about .me-photo.me-v7 .me-v7-sig{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; container-type: size; pointer-events: none; will-change: transform; transform: translate(calc(var(--tx,0) * -2.2%), calc(var(--ty,0) * -2%)) scale(1.09); }
+#about .me-v7-sig svg{ position: absolute; display: block; width: max(100cqw, 150cqh); height: auto; aspect-ratio: 3 / 2; left: calc((100cqw - max(100cqw, 150cqh)) * var(--opx)); top: calc((100cqh - max(100cqw, 150cqh) / 1.5) * var(--opy)); overflow: visible; }
+#about .me-v7-sig.js mask path{ stroke-dasharray: 1; stroke-dashoffset: 1; }
+#about .me-v7-sig.js.signed mask path{ animation: hsig-write calc(var(--t) * .8) cubic-bezier(.42,.1,.5,1) calc(var(--d) * .8) forwards; }
 @keyframes hsig-write{ to{ stroke-dashoffset: 0; } }
-html.me-scroll #about .me-photo.me-v7 .hsig{ right: clamp(26px, 3.2vw, 52px); bottom: calc(clamp(22px, 4vh, 40px) + var(--ch, 90px) + 64px + clamp(30px, 4.6cqh, 44px)); width: clamp(128px, 14cqw, 176px); opacity: clamp(0, calc((var(--g, 0) - .8) * 4.7), .94); }
-@media (prefers-reduced-motion: reduce) { #about .hsig mask path{ stroke-dashoffset: 0 !important; animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { #about .me-v7-sig mask path{ stroke-dashoffset: 0 !important; animation: none !important; } }
+@media (max-width: 860px) { #about .me-photo.me-v7{ --opx: .3; --opy: .5; } }
+@media (min-width: 861px) { html:not(.me-scroll) #about .me-photo.me-v7{ --opx: .64; } html.me-scroll #about .me-photo.me-v7{ --opx: .46; } }
+html.hp-wait #about .me-photo.me-v7 .me-v7-sig{ visibility: hidden; }
 /* The picture is painted in front of the visitor (v7/hero-paint.js). While the pencil is being prepared the frame is bare paper,
    so the finished picture is never seen first; then one canvas of pencil lies over the picture and thins out role by role. */
 html.hp-wait #about .me-photo.me-v7 .me-v7-in img{ visibility: hidden; }
 html.hp-wait #about .me-photo.me-v7{ background: #eeede9 !important; }
 #about .me-photo.me-v7 .me-v7-in .hp-cv{ position: absolute; inset: 0; z-index: 3; display: block; width: 100%; height: 100%; pointer-events: none; transition: opacity .26s ease; }
-/* while the frame is bare paper the signature and its soft shade wait too, then come in with the paint */
-html.hp-wait #about .me-photo.me-v7 .hsig{ opacity: 0 !important; }
-html:not(.me-scroll) #about .me-photo.me-v7 .hsig{ transition: opacity .6s ease; }
 
 /* Between 900 and 999 wide the two sides of the bar asked for 170px each and the five links for 525: more than the bar has, so the
    Contact pill ran past the right edge. The sides take what the name and the pill need. (found 23.11) */
@@ -194,7 +193,7 @@ html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ transform: translate(calc(var(-
 html.me-scroll #about .me-photo.me-v7 .me-v7-air{ display: block; position: absolute; inset: 0; pointer-events: none; opacity: var(--dp, 0);
   background: radial-gradient(70% 85% at 66% 46%, rgba(10,22,44,0) 34%, rgba(10,22,44,.16) 70%, rgba(10,22,44,.34) 100%); }
 html.hp-wait #about .me-photo.me-v7 .me-v7-air{ visibility: hidden; }
-html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ transform: translate(calc(var(--tx,0) * 14px), calc(var(--ty,0) * 8px)) scale(calc(1 + var(--dp, 0) * .045)); transform-origin: 50% 62%; }
+html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ transform: translate(calc(var(--tx,0) * 14px), calc(var(--ty,0) * 8px)) scale(calc(1 + var(--dp, 0) * .06)); transform-origin: 50% 62%; }
 html.me-scroll #about .me-pin.me-grown .me-photo.me-v7::before{ opacity: calc(.82 + var(--dp, 0) * .08); }
 
 html.me-scroll #about#about .me-pillars li, html.me-scroll #about#about .me-pillars li + li{ position: relative; opacity: 1; transform: none; transition: none; border-left: 0; will-change: auto; }
@@ -206,11 +205,14 @@ html.me-scroll #about#about .me-pillars li.in .me-k{ opacity: 1; transition: opa
 html.me-scroll #about#about .me-pillars li.in .me-v{ opacity: 1; translate: 0 0; clip-path: inset(-20% -10% -20% -10%); transition: opacity .28s ease calc(var(--fd, 0ms) + 140ms), translate .56s cubic-bezier(.2,.8,.2,1) calc(var(--fd, 0ms) + 140ms), clip-path .56s cubic-bezier(.2,.8,.2,1) calc(var(--fd, 0ms) + 140ms); }
 html.me-scroll #about#about .me-pin.me-set .me-pillars li::before, html.me-scroll #about#about .me-pin.me-set .me-pillars li *{ transition: none !important; }
 
-/* The boulevard in three painted layers (owner, 24.11.2026: "the layers are the street with the people, the far city, the sky and
-   what is in it, and me"). The three images share .me-v7-bg (place, crop, the growth), so at rest they are one painting.
-   On the scroll each takes its own distance: the sky drifts a little to the left across the whole stage, as if the plane carried it;
-   the far city hardly moves; the street, with every person standing on it, comes closest, from the vanishing point, during the depth.
-   The mouse moves the far layers more than the near one. Without the scroll (phones, reduced motion) they simply lie on top of each other. */
-html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-sky{ transform: translate(calc(var(--tx,0) * -2.6% - var(--z,0) * 3%), calc(var(--ty,0) * -2.4% + var(--z,0) * 1%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .01)); }
-html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-city{ transform: translate(calc(var(--tx,0) * -2.2%), calc(var(--ty,0) * -2%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .025)); transform-origin: 52% 50%; }
-html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-street{ transform: translate(calc(var(--tx,0) * -1%), calc(var(--ty,0) * -.8%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .08)); transform-origin: 52% 52%; }
+/* The boulevard in painted layers (owner, 24.11.2026: "the layers are the street with the people, the far city, the sky and
+   what is in it, and me"). The images share .me-v7-bg (place, crop, the growth), so at rest they are one painting.
+   On the scroll each takes its own distance. The sky, its signature and its clouds and gulls move as one: a little to the left while the
+   picture grows and deepens, then still (min(--z, .5)), so nothing moves under the facts. The far city hardly moves; the street, with
+   every person standing on it, comes closer during the depth, and he comes closest of all (motion critic, 24.11: the nearest layer grows most).
+   All share one origin, so at rest they line up to the pixel. The mouse moves the far layers more than the near ones.
+   Without the scroll (phones, reduced motion) they simply lie on top of each other. */
+html.me-scroll #about .me-photo.me-v7 .me-v7-bg, html.me-scroll #about .me-photo.me-v7 .me-v7-sig{ transform-origin: 52% 52%; }
+html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-sky, html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-clouds, html.me-scroll #about .me-photo.me-v7 .me-v7-sig{ transform: translate(calc(var(--tx,0) * -2.6% - min(var(--z,0), .5) * 4%), calc(var(--ty,0) * -2.4% + min(var(--z,0), .5) * 1.4%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .01)); }
+html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-city{ transform: translate(calc(var(--tx,0) * -2.2%), calc(var(--ty,0) * -2%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .022)); }
+html.me-scroll #about .me-photo.me-v7 .me-v7-bg.me-v7-street{ transform: translate(calc(var(--tx,0) * -.4%), calc(var(--ty,0) * -.3%)) scale(calc(1.09 + var(--g,0) * .03 + var(--dp,0) * .036)); }
