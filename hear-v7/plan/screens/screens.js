@@ -171,6 +171,11 @@
         '<h4>Checklist</h4><div class="ac-check" data-late><i></i>Listen to the call</div><div class="ac-check" data-late><i></i>Refund the customer</div><div class="ac-check" data-late><i></i>Book coaching with Selma K.</div>' +
         /* the outcome is written here, by the person who closes the task; it is the line the card carries in Done */
         '<div class="ac-out"><h4>Outcome</h4><div class="f"><span class="tx"></span></div></div>' +
+        /* the team talks on the task itself, as in an issue tracker: a short thread, and @ reaches a teammate or the AI */
+        '<div class="ac-cm"><h4>Comments<small>2</small></h4>' +
+        '<p>' + av('Maya Collins') + '<span><b>Maya Collins</b><small>10:05</small><br><em>@Alex Ward</em> second refund complaint on this route this week, worth a look.</span></p>' +
+        '<p>' + av('Daniel Brooks') + '<span><b>Daniel Brooks</b><small>10:20</small><br>On it, calling after 14:00.</span></p>' +
+        '<div class="in">Write a comment<small>@ a teammate, or @AI</small></div></div>' +
         '<div class="ft">' + act('Reassign') + act('Close as Resolved', 'ink') + '</div>');
       /* the task is worked in front of the viewer: the refund, then the coaching, and only then is it closed as Resolved */
       if (i === 2) {

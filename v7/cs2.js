@@ -42,6 +42,17 @@
     addEventListener('resize', fit);
   });
 
+  /* phones: a wide annotated still (one with pins and wider than 1.3:1) is wrapped so it can be panned, pins and all */
+  [].forEach.call(document.querySelectorAll('.c2 .c2-shot'), function (shot) {
+    var img = shot.querySelector(':scope > img'); if (!img || !shot.querySelector(':scope > .c2-pin')) return;
+    var w = +img.getAttribute('width'), h = +img.getAttribute('height'); if (!w || !h || w / h < 1.3) return;
+    var pan = document.createElement('div'); pan.className = 'c2-pan';
+    [].slice.call(shot.children).forEach(function (n) { if (n === img || n.classList.contains('c2-pin')) pan.appendChild(n); });
+    shot.insertBefore(pan, shot.firstChild); shot.classList.add('is-pan');
+    var hint = document.createElement('span'); hint.className = 'c2-panhint'; hint.textContent = 'Drag the picture sideways to see all of it.';
+    shot.parentNode.insertBefore(hint, shot.nextSibling);
+  });
+
   var run = document.querySelector('.tb-run .tb-ch'), bar = document.querySelector('.topbar .progress'), secs = [].slice.call(document.querySelectorAll('.c2 [data-ch]')), raf = 0, said = '';
   function spy() {
     raf = 0; var line = innerHeight * .38, txt = '';
