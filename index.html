@@ -5066,7 +5066,9 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     if (!mq.matches) { sec.classList.remove('r8-stack'); return; }
     sec.classList.add('r8-stack');
     const vh = innerHeight;
-    const m = cards.map((c, i) => { const top = 128 + i * 14, room = vh - top - 20, h = c.offsetHeight; return { c, top, room, h, tall: h > room }; });
+    // owner, 24.11.2026: "I really don't like how the cards pile up on each other, it looks messy". Every card pins on the same line
+    // (it was 14px lower per card, so each earlier card showed as a strip above the next): the next card covers the last one whole
+    const m = cards.map((c, i) => { const top = 128, room = vh - top - 20, h = c.offsetHeight; return { c, top, room, h, tall: h > room }; });
     const H = Math.max(0, ...m.filter(x => !x.tall).map(x => x.h));
     m.forEach(({ c, top, room, h, tall }) => {
       c.classList.toggle('tall', tall);
