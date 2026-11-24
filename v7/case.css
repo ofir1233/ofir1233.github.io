@@ -484,5 +484,9 @@ html body .decision .dc-btn:focus-visible{ outline:2px solid #0b6fcf; outline-of
 html body article.decision.dc-fold > figure{ margin-top:48px; }
 @media (max-width:760px){ html body article.decision.dc-fold > figure{ margin-top:40px; } }
 /* owner, 24.11: the new symbol replaces the typed name in the case pages' top bar */
-html body header.topbar .home .nona-logo{ display:block; height:38px; width:auto; }
-@media (max-width: 560px){ html body header.topbar .home .nona-logo{ height:32px; } }
+/* owner, 24.11: a little smaller in general (was 38 / 32), and smaller again once the page moves, with the bar in its own .3s (as on the home) */
+html body header.topbar .home .nona-logo{ display:block; height:34px; width:auto; transition:height .3s; }
+@media (max-width: 560px){ html body header.topbar .home .nona-logo{ height:30px; } }
+html.tb-stuck body header.topbar .home .nona-logo{ height:28px; }
+@media (max-width: 560px){ html.tb-stuck body header.topbar .home .nona-logo{ height:26px; } }
+@media (prefers-reduced-motion:reduce){ html body header.topbar .home .nona-logo{ transition:none; } }
