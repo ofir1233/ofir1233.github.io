@@ -204,3 +204,11 @@
 #design-lab#design-lab .tp-name{ font-size:12px; white-space:nowrap; }
 }
 #design-lab#design-lab .tp-say .tp-keep{ white-space:nowrap; }
+/* owner, 24.11: no line under the steps. This section brings the visitor into Hear's product and shows the process; what the
+   screen is belongs to the case study. The sentences stay for screen readers (each step's aria-describedby), not on screen */
+#design-lab#design-lab .tp-say{ position:absolute; width:1px; height:1px; min-height:0; margin:0; padding:0; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
+@media (min-width:900px){
+#design-lab#design-lab .tp-fig{ margin-top:52px; }
+#design-lab#design-lab .tp-sky{ -webkit-mask-image:linear-gradient(180deg, transparent 0 318px, #000 408px); mask-image:linear-gradient(180deg, transparent 0 318px, #000 408px); }
+}
+@media (max-width:899px){ #design-lab#design-lab .tp-fig{ margin-top:32px; } }
