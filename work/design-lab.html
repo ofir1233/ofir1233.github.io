@@ -120,13 +120,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .is-phone .rp-r{ grid-template-columns:minmax(0, 1fr) auto; height:46px; }
 .c2 .is-phone .rp-r .rp-l, .c2 .is-phone .rp-r .rp-b, .c2 .is-phone .rp-r .rp-a, .c2 .is-phone .rp-r .rp-m{ display:none; }
 .c2 .is-phone .rp-n .t{ overflow:hidden; text-overflow:ellipsis; }
-.c2 .dl-hkey{ --n:3; }
+.c2 .dl-hkey{ --n:2; }
 
-/* the method: six stops in one line */
-.c2 .dl-flow{ grid-template-columns:repeat(6, minmax(0, 1fr)); gap:22px; }
-.c2 .dl-flow li + li::before{ left:-17px; }
-.c2 .dl-flow b{ font-size:16px; }
-.c2 .c2-flow li.is-me em{ background:#e3f1fe; }
 
 /* THE MOMENT: Alerts as Hear ships it (Platform) and as I fixed it (Fixed), one screen at 1440 wide, the fold of a 1440x900 window marked.
    The reader switches the view (two buttons, or arrow keys on them); in Fixed the rows are buttons that light their monitor in the chart. */
@@ -141,8 +136,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .dl-drag b{ color:var(--ink); }
 .c2 .dl-moshot{ background:#E8F0FA; }
 .c2 .dl-stack{ display:grid; width:1440px; position:relative; }
-.c2 .al{ grid-area:1 / 1; width:1440px; height:1180px; overflow:hidden; display:grid; grid-template-columns:236px minmax(0, 1fr); align-items:start; background:linear-gradient(180deg, #E2EEFA, #EEF5FC); transition:opacity .25s, visibility 0s; }
-.c2 .al .sb{ height:1180px; }
+.c2 .al{ grid-area:1 / 1; width:1440px; height:1100px; overflow:hidden; display:grid; grid-template-columns:236px minmax(0, 1fr); align-items:start; background:linear-gradient(180deg, #E2EEFA, #EEF5FC); transition:opacity .25s, visibility 0s; }
+.c2 .al .sb{ height:1100px; }
 .c2 .dl-mo[data-view="platform"] .al-fx, .c2 .dl-mo[data-view="fixed"] .al-pf{ opacity:0; visibility:hidden; transition:opacity .25s, visibility 0s .25s; }
 .c2 .dl-mo[data-view="platform"] .dl-pin[data-for="fixed"], .c2 .dl-mo[data-view="fixed"] .dl-pin[data-for="platform"]{ display:none; }
 /* chart, shared */
@@ -156,7 +151,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .seg{ display:block; width:100%; transition:opacity .2s; }
 .c2 .bar > span{ position:absolute; top:100%; left:50%; transform:translateX(-50%); margin-top:9px; white-space:nowrap; font-size:11.5px; color:#6A7078; }
 /* Platform: grayer, tighter, an older type */
-.c2 .pt{ margin:12px 12px 0 0; padding:20px 24px; height:1168px; border-radius:10px 10px 0 0; background:#F4F5F7; box-shadow:0 0 0 1px #DCE0E5; font:400 13px/1.35 "Helvetica Neue", Arial, sans-serif; color:#1F2328; }
+.c2 .pt{ margin:12px 12px 0 0; padding:20px 24px; height:1088px; border-radius:10px 10px 0 0; background:#F4F5F7; box-shadow:0 0 0 1px #DCE0E5; font:400 13px/1.35 "Helvetica Neue", Arial, sans-serif; color:#1F2328; }
 .c2 .pt-h{ display:flex; justify-content:space-between; align-items:center; height:44px; }
 .c2 .pt-h > span:first-child{ font-weight:700; font-size:20px; }
 .c2 .pt-btn{ padding:8px 14px; border-radius:6px; background:#1677FF; color:#fff; font-weight:600; }
@@ -194,8 +189,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .pt-f, .c2 .pt-d{ color:#5A616A; }
 .c2 .pt-m{ color:#9AA0A8; }
 /* Fixed: the v7 look; the same page, its parts joined */
-.c2 .fx{ margin:12px 12px 0 0; padding:24px 28px; height:1168px; border-radius:16px 16px 0 0; background:#fff; box-shadow:0 0 0 1px #E3E7EB, 0 12px 30px -20px rgba(11,79,138,.35); }
-.c2 .fx-side{ height:1180px; }
+.c2 .fx{ margin:12px 12px 0 0; padding:24px 28px; height:1088px; border-radius:16px 16px 0 0; background:#fff; box-shadow:0 0 0 1px #E3E7EB, 0 12px 30px -20px rgba(11,79,138,.35); }
+.c2 .fx-side{ height:1100px; }
 .c2 .fx-h{ display:flex; justify-content:space-between; align-items:flex-start; height:64px; }
 .c2 .fx-h > div > span{ font-weight:600; font-size:26px; line-height:1.15; letter-spacing:-.01em; }
 .c2 .fx-h p{ margin-top:4px; color:#69707A; }
@@ -238,9 +233,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .al-fx.is-sel .seg.on{ opacity:1; }
 .c2 .al-fx.is-sel button.fx-r:not([aria-pressed="true"]) .fx-n i{ opacity:.3; }
 /* the fold of a 1440x900 window, and the list's distance from the top */
-.c2 .al-below{ position:absolute; left:0; right:0; top:902px; bottom:0; z-index:2; pointer-events:none; background:linear-gradient(180deg, rgba(226,236,248,.5), rgba(226,236,248,.8) 70%, #E8F0FA); }
-.c2 .al-fold{ position:absolute; left:0; right:0; top:900px; z-index:3; border-top:3px dashed #FF6F52; pointer-events:none; }
-.c2 .al-fold b{ position:absolute; right:24px; bottom:8px; padding:7px 14px; border-radius:99px; background:#FF6F52; color:#fff; font:600 18px/1 "Byrd", sans-serif; white-space:nowrap; }
+.c2 .al-below{ position:absolute; left:0; right:0; top:792px; bottom:0; z-index:2; pointer-events:none; background:linear-gradient(180deg, rgba(226,236,248,.5), rgba(226,236,248,.8) 70%, #E8F0FA); }
+.c2 .al-fold{ position:absolute; left:0; right:0; top:790px; z-index:3; border-top:3px dashed #FF6F52; pointer-events:none; }
+.c2 .al-fold b{ position:absolute; right:24px; bottom:9px; padding:7px 14px; border-radius:99px; background:#FF6F52; color:#fff; font:600 18px/1 "Byrd", sans-serif; white-space:nowrap; }
 .c2 .al-ruler{ position:absolute; left:250px; top:0; height:730px; z-index:3; border-left:2px solid #0B6FCF; pointer-events:none; }
 .c2 .al-ruler::before, .c2 .al-ruler::after{ content:""; position:absolute; left:-8px; width:14px; border-top:2px solid #0B6FCF; }
 .c2 .al-ruler::before{ top:0; } .c2 .al-ruler::after{ bottom:0; }
@@ -252,7 +247,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .is-small .al .seg2 .on, .c2 .is-small .al .btn, .c2 .is-small .al .pt-btn{ background:#C4CCD5; }
 .c2 .is-small .al-fold{ border-top-width:calc(2px / var(--z)); }
 .c2 .is-small .al-fold b, .c2 .is-small .al-ruler b{ color:#fff !important; font-size:calc(12px / var(--z)); padding:calc(4px / var(--z)) calc(8px / var(--z)); }
-.c2 .is-small .al-fold b{ bottom:calc(5px / var(--z)); right:calc(8px / var(--z)); }
+.c2 .is-small .al-fold b{ bottom:auto; top:calc(6px / var(--z)); right:calc(8px / var(--z)); }
 .c2 .is-small .al-ruler{ border-left-width:calc(2px / var(--z)); }
 .c2 .is-small .al-ruler b{ left:calc(6px / var(--z)); bottom:calc(4px / var(--z)); }
 .c2 .is-key .c2-key{ margin-top:24px; }
@@ -265,20 +260,23 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .dl-tally b{ font:700 clamp(32px, 3.6vw, 48px)/1 var(--body); letter-spacing:-.02em; color:var(--ink); }
 .c2 .dl-tally .is-x b{ color:var(--coral); }
 .c2 .dl-tally span{ font:400 15px/1.35 var(--body); color:var(--mute); }
-.c2 .dl-kill{ display:grid; grid-template-columns:repeat(6, minmax(0, 1fr)); gap:16px; margin-top:24px; }
-.c2 .dl-kill > li{ grid-column:span 2; display:flex; flex-direction:column; gap:10px; padding:22px 22px 22px; border-radius:16px; background:#fff; box-shadow:0 0 0 1px var(--line); }
-.c2 .dl-kill > li.big{ grid-row:span 2; box-shadow:0 0 0 1px rgba(23,27,32,.06), 0 24px 48px -30px rgba(11,79,138,.4); }
-.c2 .dl-kill > li.dir{ grid-column:span 3; background:transparent; box-shadow:inset 0 0 0 1px #cfd4d9; }
+.c2 .dl-kill{ display:grid; grid-template-columns:minmax(0, 1.3fr) minmax(0, 1fr); gap:16px; margin-top:24px; }
+.c2 .dl-kill > li{ display:flex; flex-direction:column; gap:10px; padding:24px 26px; border-radius:16px; background:#fff; box-shadow:0 0 0 1px var(--line); }
+.c2 .dl-kill > li.big{ grid-row:span 2; padding:28px 30px; box-shadow:0 0 0 1px rgba(23,27,32,.06), 0 24px 48px -30px rgba(11,79,138,.4); }
 .c2 .k-h{ display:flex; align-items:center; gap:8px; font:500 13.5px/1 var(--body); color:var(--mute); }
 .c2 .k-h code{ padding:4px 7px; border-radius:6px; background:#EEF1F4; font:600 12.5px/1 "Geist Mono", ui-monospace, monospace; color:var(--ink); }
-.c2 .k-x{ margin-left:auto; padding:5px 9px; border-radius:99px; box-shadow:inset 0 0 0 1.5px var(--coral); font:600 12px/1 var(--body); color:#E0482B; }
-.c2 .dl-kill h3{ font:600 21px/1.25 var(--body); color:var(--ink2); text-decoration:line-through; text-decoration-color:var(--coral); text-decoration-thickness:2px; }
+.c2 .k-pills{ display:flex; flex-wrap:wrap; gap:8px; }
+.c2 .k-pills span{ display:inline-flex; align-items:center; gap:7px; padding:7px 12px; border-radius:10px; box-shadow:inset 0 0 0 1px #E3E7EB; font:500 13.5px/1 var(--body); color:var(--ink2); }
+.c2 .k-pills b{ font-weight:600; color:var(--ink); }
+.c2 .k-pills u{ text-decoration:underline wavy var(--coral) 1.5px; text-underline-offset:4px; color:var(--ink); }
+.c2 .k-pills em{ padding:4px 8px; border-radius:99px; background:#E8F4FF; color:var(--deep); font-style:normal; font-weight:600; }
+.c2 .dl-kill h3{ font:600 22px/1.25 var(--body); color:var(--ink2); text-decoration:line-through; text-decoration-color:var(--coral); text-decoration-thickness:2px; }
 .c2 .k-did{ font:400 15px/1.5 var(--body); color:var(--mute); }
 .c2 .k-why{ margin-top:auto; padding-top:12px; border-top:1px solid var(--line); font:500 16.5px/1.45 var(--body); color:var(--ink); }
 .c2 .k-why small{ display:block; margin-bottom:4px; font:600 12.5px/1.2 var(--body); color:var(--deep); }
-.c2 .k-big{ font:700 clamp(24px, 2.3vw, 30px)/1.12 var(--body); letter-spacing:-.02em; color:var(--ink); }
+.c2 .k-big{ font:700 clamp(26px, 2.6vw, 36px)/1.1 var(--body); letter-spacing:-.02em; color:var(--ink); }
 .c2 .k-mini{ position:relative; margin:4px 0 2px; padding:14px 14px 10px; border-radius:12px; background:#F6F8FA; box-shadow:inset 0 0 0 1px #E6EAEE; }
-.c2 .k-mini .km-b{ display:flex; align-items:flex-end; justify-content:space-around; height:110px; }
+.c2 .k-mini .km-b{ display:flex; align-items:flex-end; justify-content:space-around; height:120px; }
 .c2 .k-mini .km-b > div{ display:flex; flex-direction:column; align-items:center; gap:4px; width:16%; }
 .c2 .k-mini .km-b s{ font:600 11px/1 var(--body); color:var(--coral); text-decoration-thickness:1.5px; }
 .c2 .k-mini .km-b span{ display:flex; flex-direction:column-reverse; width:100%; border-radius:4px 4px 0 0; overflow:hidden; }
@@ -314,14 +312,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .fc-he span{ display:flex; justify-content:space-between; gap:10px; padding:6px 10px; border-radius:6px; background:#fff; border:1px solid #DCE0E5; font-size:13px; }
 .c2 .fc-v.fc-fx .fc-he span{ border:0; border-radius:10px; box-shadow:inset 0 0 0 1px #D3E0EC; }
 .c2 .fc-he bdo{ font-variant-numeric:tabular-nums; }
-.c2 .fc-tree{ display:flex; height:92px; border-radius:8px; overflow:hidden; background:#fff; border:1px solid #DCE0E5; }
-.c2 .fc-v.fc-fx .fc-tree{ border:0; box-shadow:inset 0 0 0 1px #D3E0EC; border-radius:10px; }
-.c2 .fc-tree ul{ flex:none; display:grid; align-content:start; gap:4px; padding:8px 6px; border-right:1px solid #E6E9ED; font-size:11.5px; white-space:nowrap; overflow:hidden; }
-.c2 .fc-tree li{ overflow:hidden; text-overflow:ellipsis; }
-.c2 .fc-tree div{ flex:1; display:grid; align-content:start; gap:6px; padding:10px; }
-.c2 .fc-tree div i{ display:block; height:5px; border-radius:3px; background:#E3E7EB; }
-.c2 .fc-v.fc-pf .fc-tree ul{ width:16.7%; min-width:34px; }
-.c2 .fc-v.fc-fx .fc-tree ul{ width:62%; font-size:12px; }
 
 /* Ask AI: one panel, its states picked by the reader (the shared stepper) */
 .c2 .dl-ai .c2-panel .c2-shot{ padding:clamp(16px, 3vw, 32px); }
@@ -375,20 +365,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 
 .c2 .c2-coda{ max-width:none; }
 .c2 .c2-coda em{ white-space:nowrap; }
-@media (max-width:1100px){ .c2 .dl-flow{ grid-template-columns:repeat(3, minmax(0, 1fr)); } .c2 .dl-flow li:nth-child(4)::before{ display:none; } }
 @media (max-width:900px){
-  .c2 .dl-flow{ grid-template-columns:1fr 1fr; }
-  .c2 .dl-flow li:nth-child(4)::before{ display:block; }
-  .c2 .dl-flow li:nth-child(3)::before, .c2 .dl-flow li:nth-child(5)::before{ display:none; }
-  .c2 .dl-kill > li, .c2 .dl-kill > li.dir{ grid-column:span 3; }
-  .c2 .dl-kill > li.big{ grid-column:1 / -1; grid-row:auto; }
+  .c2 .dl-kill{ grid-template-columns:1fr; }
+  .c2 .dl-kill > li.big{ grid-row:auto; padding:24px 22px; }
   .c2 .dl-found{ grid-template-columns:1fr; }
   .c2 .dl-hkey{ --n:1; }
+  .c2 .dl-dead{ grid-template-columns:1fr; }
 }
 @media (max-width:560px){
-  .c2 .dl-flow{ grid-template-columns:1fr; }
-  .c2 .dl-kill{ grid-template-columns:1fr; }
-  .c2 .dl-kill > li, .c2 .dl-kill > li.dir, .c2 .dl-kill > li.big{ grid-column:1 / -1; }
   .c2 .dl-views{ display:flex; width:100%; }
   .c2 .dl-views button{ flex:1; padding:0 8px; font-size:14.5px; }
   .c2 .dl-views small{ display:none; }
@@ -398,6 +382,65 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .ai{ min-height:500px; }
 }
 @media (prefers-reduced-motion: reduce){ .c2 .al, .c2 .seg, .c2 .fx-n i, .c2 .fx-go{ transition:none !important; } }
+
+.c2 .hc2{ grid-template-columns:268px minmax(0, 1fr); }
+.c2 .hc2 .sb-big .sb-sw{ grid-template-columns:.9fr 1.15fr 1fr; }
+/* round 5: the hero holds the thesis. One compliance report, Platform and Fixed side by side, the view switch large and named */
+.c2 .hc2 .sb-big{ padding:12px; }
+.c2 .hc2 .sb-big p:first-child{ font-size:13.5px; }
+.c2 .hc2 .sb-big .sb-sw{ padding:4px; border-radius:11px; }
+.c2 .hc2 .sb-big .sb-sw span{ display:grid; align-content:center; min-height:46px; padding:6px 0; font-size:14px; border-radius:8px; }
+.c2 .hc2 .sb-big .sb-sw span small{ display:block; margin-top:2px; font-size:10.5px; font-weight:500; color:#69707A; }
+.c2 .hc2 .sb-big .sb-sw span.l{ border-radius:8px 0 0 8px; box-shadow:0 1px 2px rgba(16,40,70,.14), inset -1px 0 0 #E3E7EB; }
+.c2 .hc2 .sb-big .sb-sw span.r{ border-radius:0 8px 8px 0; }
+.c2 .hc2 .sb-note{ margin:8px 0 0 !important; font-size:12px !important; color:#0B6FCF !important; font-weight:500; }
+.c2 .hs{ position:relative; margin:14px 14px 14px 0; display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); border-radius:16px; overflow:hidden; box-shadow:0 0 0 1px #DCE0E5, 0 12px 30px -20px rgba(11,79,138,.35); }
+.c2 .hs-p{ padding:22px 26px 20px; }
+.c2 .hs-pf{ background:#F4F5F7; font:400 13px/1.35 "Helvetica Neue", Arial, sans-serif; color:#1F2328; }
+.c2 .hs-fx{ background:#fff; }
+.c2 .hs-tag{ display:inline-block; margin-bottom:14px !important; padding:5px 10px; border-radius:99px; font:600 12px/1 "Byrd", sans-serif; background:#E2E5E9; color:#3A4048; }
+.c2 .hs-fx .hs-tag{ background:#E3F1FE; color:#0B6FCF; }
+.c2 .hs-cr{ font-size:12.5px; color:#69707A; }
+.c2 .hs-p h4{ margin-top:4px; font-size:20px; font-weight:600; line-height:1.2; }
+.c2 .hs-pf h4{ font-weight:700; font-size:18px; }
+.c2 .hs-fs{ display:grid; grid-template-columns:1fr 1fr; gap:16px 18px; margin-top:20px; }
+.c2 .hs-f{ display:grid; gap:4px; align-content:start; }
+.c2 .hs-f span{ font-size:12.5px; color:#69707A; }
+.c2 .hs-pf .hs-f span{ font-size:11.5px; font-weight:700; letter-spacing:.03em; color:#6A7078; text-transform:uppercase; }
+.c2 .hs-f b{ font-size:18px; font-weight:600; line-height:1.25; }
+.c2 .hs-pf .hs-f b{ font-weight:700; font-size:17px; }
+.c2 .hs-f b small{ font-size:13px; font-weight:500; color:#4A525B; }
+.c2 .hs-pf .hs-f.per b{ font-size:15px; }
+.c2 .hs-f.hit b{ justify-self:start; margin:-4px 0 0 -8px; padding:3px 8px; border-radius:8px; box-shadow:0 0 0 2px #0B6FCF; }
+.c2 .hs-pf .hs-f.hit b{ box-shadow:0 0 0 2px #FF6F52; }
+.c2 .hs-fx .hs-f.dim b{ color:#B3BAC2; }
+.c2 .hs-tb{ margin-top:22px; border-radius:12px; overflow:hidden; box-shadow:inset 0 0 0 1px #E3E7EB; background:#fff; }
+.c2 .hs-pf .hs-tb{ border-radius:6px; box-shadow:inset 0 0 0 1px #DCE0E5; }
+.c2 .hs-r{ display:grid; grid-template-columns:minmax(0, 1.6fr) 1fr 1fr; gap:10px; padding:10px 14px; border-top:1px solid #EDF0F3; font-size:13px; }
+.c2 .hs-hd{ border-top:0; background:#FAFBFC; font-size:12px; color:#69707A; font-weight:500; }
+.c2 .hs-pf .hs-hd{ background:#F7F8FA; font-weight:700; }
+.c2 .hs-d{ position:absolute; top:0; bottom:0; left:50%; width:2px; margin-left:-1px; background:#181818; }
+.c2 .hs-d i{ position:absolute; top:50%; left:50%; width:34px; height:34px; margin:-17px 0 0 -17px; display:grid; place-items:center; border-radius:50%; background:#181818; color:#fff; font-style:normal; font-size:15px; letter-spacing:-1px; }
+.c2 .is-phone .hs{ margin:10px; grid-template-columns:1fr; }
+.c2 .is-phone .hs-d{ display:none; }
+.c2 .is-phone .hs-p{ padding:16px 16px 18px; }
+.c2 .is-phone .hs-pf{ border-bottom:2px solid #181818; }
+.c2 .is-phone .hs-tb, .c2 .is-phone .hs-f.dim, .c2 .is-phone .hs-f.own, .c2 .is-phone .hs-f.per, .c2 .is-phone .hc2 .sb-note{ display:none; }
+.c2 .is-phone .hs-fs{ margin-top:14px; grid-template-columns:1fr; gap:12px; }
+/* the two directions the test deleted, as one strip under the moment */
+.c2 .dl-dead{ display:grid; grid-template-columns:200px minmax(0, 1fr); gap:24px; align-items:center; margin-top:28px; padding:20px 24px; border-radius:16px; box-shadow:inset 0 0 0 1px #c9d6e3; background:rgba(255,255,255,.55); }
+.c2 .dd-th{ display:grid; gap:7px; padding:12px; border-radius:10px; background:#fff; box-shadow:0 0 0 1px #E3E7EB; }
+.c2 .dd-th p{ display:flex; gap:4px; margin-bottom:4px; }
+.c2 .dd-th p span{ padding:4px 8px; border-radius:6px; font:500 11px/1 var(--body); color:var(--mute); }
+.c2 .dd-th p span.on{ background:#181818; color:#fff; }
+.c2 .dd-th i{ display:block; height:8px; border-radius:4px; background:#E3E7EB; }
+.c2 .dd-th i:nth-child(odd){ width:82%; }
+.c2 .dd-h{ font:600 13px/1.2 var(--body); color:var(--deep); }
+.c2 .dl-dead h3{ margin-top:6px; font:600 21px/1.3 var(--body); color:var(--ink2); }
+.c2 .dl-dead h3 s{ text-decoration-color:var(--coral); text-decoration-thickness:2px; }
+.c2 .dl-dead h3 span{ color:var(--mute); font-weight:400; }
+.c2 .dl-dead > div > p:last-child{ margin-top:8px; font:400 16px/1.5 var(--body); color:var(--ink2); }
+@media (max-width:760px){ .c2 .dl-dead{ grid-template-columns:1fr; gap:16px; padding:18px; } .c2 .dd-th{ max-width:220px; } }
 </style>
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
@@ -422,17 +465,16 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><dt>For</dt><dd>Hear&rsquo;s product team and developers, who decide what gets built.</dd></div>
         <div><dt>The problem</dt><dd>A redesign judged against a picture of the old screen always wins.</dd></div>
         <div><dt>What I did</dt><dd>Hear Design Lab, my working copy of Hear, built in code: each screen as shipped, beside my fix.</dd></div>
-        <div><dt>Where it stands</dt><dd>Parts reached the product: Topics, its colours, icons. Most fixes are proposals.</dd></div>
+        <div><dt>Where it stands</dt><dd>In Hear&rsquo;s own repository since Mar 2026. Topics, its colours and icons shipped; most fixes wait.</dd></div>
       </dl>
       <figure class="c2-fig">
-        <div class="c2-shot dl-hshot" role="img" aria-label="A Reports screen in the Lab, in the Fixed view, for the demo company Northwind. The sidebar holds a view switch with Off, Platform and Fixed; the page holds a version switch from V1 to V8; the table lists seven reports with their status and last run.">
-          <div class="dl-scr" data-dw="1200" data-phone="reflow"><div class="dl-cv hc dl-z"><div class="sb"><div class="sb-ws"><i>N</i><span class="t">Northwind</span><em aria-hidden="true">&#8963;</em></div><ul class="sb-nav"><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5h10v6.5H7.2L4.5 13.2V11H3z"/></svg><span class="t">Chat</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H3zM9 9h4v4H9z"/></svg><span class="t">Data</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6.5" r="3"/><circle cx="10.5" cy="10" r="2.5"/></svg><span class="t">Topics</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5A3.5 3.5 0 0 0 4.5 6v3L3 11h10l-1.5-2V6A3.5 3.5 0 0 0 8 2.5zM6.5 13a1.5 1.5 0 0 0 3 0"/></svg><span class="t">Alerts</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2l5 2v4c0 3-2.2 5-5 6-2.8-1-5-3-5-6V4z"/></svg><span class="t">Compliance</span></li><li class="on"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 13V8M8 13V3M12.5 13V6"/></svg><span class="t">Reports</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3.5h4a1 1 0 0 1 1 1V13a1 1 0 0 0-1-1H3zM13 3.5H9a1 1 0 0 0-1 1V13a1 1 0 0 1 1-1h4z"/></svg><span class="t">Knowledge</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h1.5M3 8h1.5M3 12h1.5M7 4h6M7 8h6M7 12h6"/></svg><span class="t">AI Tasks</span></li></ul><div class="sb-dev" id="hp-sw"><p><b>DEV</b><span class="t">View</span></p><div class="sb-sw"><span class="">Off</span><span class="">Platform</span><span class="on">Fixed</span></div></div><div class="sb-me"><i>MC</i><span class="t">Maya Chen<small>QA lead</small></span></div></div><div class="mn"><div class="mn-h"><div><h4>Reports</h4><p>Every report your team runs, with its last result.</p></div><div class="mn-ha"><div class="vs" id="hp-vs"><span class="vs-l">Version</span><div><span class="">V1</span><span class="">V2</span><span class="">V3</span><span class="on">V4</span><span class="">V5</span><span class="">V6</span><span class="">V7</span><span class="">V8</span></div></div><span class="btn">+ New report</span></div></div><div class="rp-q" id="hp-q"><span>Total reports <b>15</b></span><span>Active reports <b>7 / 100</b></span></div><div class="rp-tb"><span class="srch">Search reports</span><span class="chip on">All</span><span class="chip">Compliance</span><span class="chip">Quality</span><span class="chip">Operations</span></div><div class="rp"><div class="rp-r rp-hd" id="hp-hd"><span>Name</span><span>Status</span><span class="rp-l">Last run</span><span class="rp-b">Created by</span><span class="rp-a">Active</span><span class="rp-m"></span></div><div class="rp-r" id="hp-row"><span class="rp-n"><span class="t">Weekly compliance summary</span><em>SYSTEM</em></span><span class="rp-s ok"><i></i><span class="t">Success</span></span><span class="rp-l t">7 days ago</span><span class="rp-b"><i>M</i><span class="t">Maya</span></span><span class="rp-a"><i class="tg on"></i></span><span class="rp-m">&#8942;</span></div><div class="rp-r"><span class="rp-n"><span class="t">Agent evaluation, Team North</span></span><span class="rp-s ok"><i></i><span class="t">Success</span></span><span class="rp-l t">2 days ago</span><span class="rp-b"><i>D</i><span class="t">Dana</span></span><span class="rp-a"><i class="tg on"></i></span><span class="rp-m">&#8942;</span></div><div class="rp-r"><span class="rp-n"><span class="t">Refund requests by topic</span><em>AI</em></span><span class="rp-s bad"><i></i><span class="t">Failed</span></span><span class="rp-l t">3 days ago</span><span class="rp-b"><i>S</i><span class="t">Sam</span></span><span class="rp-a"><i class="tg on"></i></span><span class="rp-m">&#8942;</span></div><div class="rp-r"><span class="rp-n"><span class="t">Escalations this month</span></span><span class="rp-s nil"><i></i><span class="t">Empty</span></span><span class="rp-l t">Yesterday</span><span class="rp-b"><i>T</i><span class="t">Tyler</span></span><span class="rp-a"><i class="tg on"></i></span><span class="rp-m">&#8942;</span></div><div class="rp-r"><span class="rp-n"><span class="t">Disclosure review</span></span><span class="rp-s run"><i></i><span class="t">Running</span></span><span class="rp-l t">Now</span><span class="rp-b"><i>M</i><span class="t">Maya</span></span><span class="rp-a"><i class="tg on"></i></span><span class="rp-m">&#8942;</span></div><div class="rp-r"><span class="rp-n"><span class="t">Handle time by team</span></span><span class="rp-s nil"><i></i><span class="t">Skipped</span></span><span class="rp-l t">5 days ago</span><span class="rp-b"><i>D</i><span class="t">Dana</span></span><span class="rp-a"><i class="tg"></i></span><span class="rp-m">&#8942;</span></div><div class="rp-r"><span class="rp-n"><span class="t">Churn signals, weekly</span></span><span class="rp-s off"><i></i><span class="t">Inactive</span></span><span class="rp-l t">Never run</span><span class="rp-b"><i>S</i><span class="t">Sam</span></span><span class="rp-a"><i class="tg"></i></span><span class="rp-m">&#8942;</span></div></div></div></div></div>
-          <span class="c2-pin dl-pin" data-at="#hp-sw" data-ax="1" data-ay="0" data-ox="-22" aria-hidden="true">1</span><span class="c2-pin dl-pin" data-at="#hp-vs" data-ax="0" data-ay="0.5" data-ox="-20" data-pm="1,0.5,18" aria-hidden="true">2</span><span class="c2-pin dl-pin" data-at="#hp-hd > span:first-child" data-ax="0.5" data-ay="0.5" data-ox="0" aria-hidden="true">3</span>
+        <div class="c2-shot dl-hshot" role="img" aria-label="One compliance report in the Lab, for the demo company Northwind, shown as Platform and Fixed side by side. The sidebar's view switch reads Off (demo data), Platform and Fixed. Platform gives Total calls reviewed 50; Fixed gives 76, first 50 below.">
+          <div class="dl-scr" data-dw="1200" data-phone="reflow"><div class="dl-cv hc hc2 dl-z"><div class="sb"><div class="sb-ws"><i>N</i><span class="t">Northwind</span><em aria-hidden="true">&#8963;</em></div><ul class="sb-nav"><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5h10v6.5H7.2L4.5 13.2V11H3z"/></svg><span class="t">Chat</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H3zM9 9h4v4H9z"/></svg><span class="t">Data</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6.5" r="3"/><circle cx="10.5" cy="10" r="2.5"/></svg><span class="t">Topics</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5A3.5 3.5 0 0 0 4.5 6v3L3 11h10l-1.5-2V6A3.5 3.5 0 0 0 8 2.5zM6.5 13a1.5 1.5 0 0 0 3 0"/></svg><span class="t">Alerts</span></li><li class="on"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2l5 2v4c0 3-2.2 5-5 6-2.8-1-5-3-5-6V4z"/></svg><span class="t">Compliance</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 13V8M8 13V3M12.5 13V6"/></svg><span class="t">Reports</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3.5h4a1 1 0 0 1 1 1V13a1 1 0 0 0-1-1H3zM13 3.5H9a1 1 0 0 0-1 1V13a1 1 0 0 1 1-1h4z"/></svg><span class="t">Knowledge</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h1.5M3 8h1.5M3 12h1.5M7 4h6M7 8h6M7 12h6"/></svg><span class="t">AI Tasks</span></li></ul><div class="sb-dev sb-big" id="hp-sw"><p><b>DEV</b><span>View</span></p><div class="sb-sw"><span>Off<small>demo data</small></span><span class="on l">Platform</span><span class="on r">Fixed</span></div><p class="sb-note">Platform and Fixed, side by side</p></div><div class="sb-me"><i>MC</i><span class="t">Maya Chen<small>QA lead</small></span></div></div><div class="hs"><div class="hs-p hs-pf"><p class="hs-tag">Platform &middot; as shipped</p><p class="hs-cr">Compliance &rsaquo; Reports</p><h4>Disclosure review, Team North</h4><div class="hs-fs"><div class="hs-f per"><span>Monitoring period</span><b>28/09/2026 &ndash; 27/10/2026</b></div><div class="hs-f hit"><span>Total calls reviewed</span><b>50</b></div><div class="hs-f off"><span>Total offences</span><b>33</b></div><div class="hs-f dim"><span>Total scoring</span><b>&mdash;</b></div><div class="hs-f dim"><span>Total applicable fine</span><b>&mdash;</b></div><div class="hs-f own"><span>Report owner</span><b>Maya</b></div></div><div class="hs-tb"><div class="hs-r hs-hd"><span>Call</span><span>Length</span><span>Offences</span></div><div class="hs-r"><span>Oct 27, 09:14</span><span>4:12</span><span>2</span></div><div class="hs-r"><span>Oct 27, 08:40</span><span>2:48</span><span>0</span></div><div class="hs-r"><span>Oct 26, 16:05</span><span>6:31</span><span>1</span></div></div></div><div class="hs-d" aria-hidden="true"><i>&#8249;&#8250;</i></div><div class="hs-p hs-fx"><p class="hs-tag">Fixed &middot; my version</p><p class="hs-cr">Compliance &rsaquo; Reports</p><h4>Disclosure review, Team North</h4><div class="hs-fs"><div class="hs-f per"><span>Monitoring period</span><b>Sep 28 &ndash; Oct 27, 2026</b></div><div class="hs-f hit" id="hp-76"><span>Total calls reviewed</span><b>76 <small>(first 50 below)</small></b></div><div class="hs-f off"><span>Total offences</span><b>33 <small>in the first 50</small></b></div><div class="hs-f dim"><span>Total scoring</span><b>&mdash;</b></div><div class="hs-f dim"><span>Total applicable fine</span><b>&mdash;</b></div><div class="hs-f own"><span>Report owner</span><b>Maya</b></div></div><div class="hs-tb"><div class="hs-r hs-hd"><span>Call</span><span>Length</span><span>Offences</span></div><div class="hs-r"><span>Oct 27, 09:14</span><span>4:12</span><span>2</span></div><div class="hs-r"><span>Oct 27, 08:40</span><span>2:48</span><span>0</span></div><div class="hs-r"><span>Oct 26, 16:05</span><span>6:31</span><span>1</span></div></div></div></div></div></div>
+          <span class="c2-pin dl-pin" data-at="#hp-sw" data-ax="1" data-ay="0" data-ox="-22" aria-hidden="true">1</span><span class="c2-pin dl-pin" data-at="#hp-76 b" data-ax="1" data-ay="0.5" data-ox="26" aria-hidden="true">2</span>
         </div>
         <figcaption><ol class="c2-key dl-hkey">
-          <li><i aria-hidden="true">1</i><span><b>One screen, three views.</b> Off runs on demo data, Platform is the screen as Hear ships it today, Fixed is my version.</span></li>
-          <li><i aria-hidden="true">2</i><span><b>Competing directions</b> sit on the page itself. Reports had eight; two were kept as finalists.</span></li>
-          <li><i aria-hidden="true">3</i><span><b>The same data behind every view:</b> Northwind, a made-up company, with its own people and calls.</span></li>
+          <li><i aria-hidden="true">1</i><span><b>One screen, three views.</b> Off runs on demo data, Platform is the screen as Hear ships it, Fixed is my version. Here Platform and Fixed sit side by side.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>Same report, same data.</b> Platform quietly totals the 50 calls it loaded; Fixed says 76, first 50 below. Only a real volume shows that.</span></li>
         </ol></figcaption>
       </figure>
     </div>
@@ -442,39 +484,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The problem</p>
       <h2>Against a picture of the old screen, a redesign always wins</h2>
-      <p class="c2-lede">A redesign is usually shown beside a mockup of the screen it replaces: tidy data, one state, drawn at a comfortable size. Next to that, the new design always looks better, and nobody can tell whether it is.</p>
-      <div class="c2-ba">
-        <div><h3>The usual opponent · a picture</h3>
-          <span class="dl-big">A memory<small>tidy data, one state, no real width</small></span>
-          <p>The old screen as someone remembers it. Its real problems never show, so it cannot win.</p></div>
-        <div><h3>My opponent · a copy of the live screen</h3>
-          <span class="dl-big">The real screen<small>real widths, languages and volumes</small></span>
-          <p>The screen as Hear ships it, checked against the live product, beside my fix, on the same data and at the same height.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="c2-sec" id="method" data-ch="The method">
-    <div class="c2-w">
-      <p class="c2-n">The method</p>
-      <h2>Every fix met a faithful copy of the live screen</h2>
-      <p class="c2-lede">The review had one rule, and it applied to my own work first: an item not clearly better was removed, and production&rsquo;s version came back.</p>
-      <ol class="c2-flow dl-flow">
-        <li><b>Copy the live screen</b><span>Rebuilt from the platform&rsquo;s own code: the Platform view.</span></li>
-        <li><b>Check it against the live product</b><span>Same page, same width, side by side in the browser.</span></li>
-        <li><b>Fix it in its own copy</b><span>The Fixed view. Platform stays untouched.</span></li>
-        <li><b>Compare on the same data</b><span>Side by side, at the same height.</span></li>
-        <li class="is-me"><em>The rule</em><b>Keep only what is clearly better</b><span>Anything else goes, and production&rsquo;s version returns.</span></li>
-        <li><b>Hand it to development</b><span>Tickets are written only after the choice.</span></li>
-      </ol>
+      <p class="c2-lede">Beside a tidy mockup of the old screen, a new design always looks better, so mine had to face a faithful copy of the live screen, on the same data, at the same size.</p>
     </div>
   </section>
 
   <section class="c2-sec is-key" id="alerts" data-ch="Alerts, side by side">
     <div class="c2-w">
       <p class="c2-n">Alerts, side by side</p>
-      <h2>On a laptop screen, Alerts shows one row of its own list</h2>
-      <p class="c2-lede">Alerts are checks the team sets, which fire on a call; each check is a monitor. Copied at 1440&times;900, a common laptop window, the page&rsquo;s list of monitors starts about 730 px down. One row shows above the fold.</p>
+      <h2>The fix that moved Alerts&rsquo; list up lost. The one that kept the page whole won.</h2>
+      <p class="c2-lede">Moving the list up took the numbers and the chart off the page, so the winner keeps production&rsquo;s page whole and makes its table the chart&rsquo;s key. The list still sits low: on a 1440&times;900 screen, not one monitor shows above the fold. (Alerts are checks the team sets, which fire on a call; each check is a monitor.)</p>
       <figure class="dl-mo" data-view="platform">
         <div class="dl-ctl">
           <div class="dl-views" role="group" aria-label="Show the Alerts screen as">
@@ -488,7 +506,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             <div class="dl-cv al al-fx al-v" data-v="fixed"><div aria-hidden="true" class="fx-side"><div class="sb"><div class="sb-ws"><i>N</i><span class="t">Northwind</span><em aria-hidden="true">&#8963;</em></div><ul class="sb-nav"><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5h10v6.5H7.2L4.5 13.2V11H3z"/></svg><span class="t">Chat</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H3zM9 9h4v4H9z"/></svg><span class="t">Data</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6.5" r="3"/><circle cx="10.5" cy="10" r="2.5"/></svg><span class="t">Topics</span></li><li class="on"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5A3.5 3.5 0 0 0 4.5 6v3L3 11h10l-1.5-2V6A3.5 3.5 0 0 0 8 2.5zM6.5 13a1.5 1.5 0 0 0 3 0"/></svg><span class="t">Alerts</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2l5 2v4c0 3-2.2 5-5 6-2.8-1-5-3-5-6V4z"/></svg><span class="t">Compliance</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 13V8M8 13V3M12.5 13V6"/></svg><span class="t">Reports</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3.5h4a1 1 0 0 1 1 1V13a1 1 0 0 0-1-1H3zM13 3.5H9a1 1 0 0 0-1 1V13a1 1 0 0 1 1-1h4z"/></svg><span class="t">Knowledge</span></li><li class=""><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h1.5M3 8h1.5M3 12h1.5M7 4h6M7 8h6M7 12h6"/></svg><span class="t">AI Tasks</span></li></ul><div class="sb-dev"><p><b>DEV</b><span class="t">View</span></p><div class="sb-sw"><span class="">Off</span><span class="">Platform</span><span class="on">Fixed</span></div></div><div class="sb-me"><i>MC</i><span class="t">Maya Chen<small>QA lead</small></span></div></div></div><div class="fx"><div aria-hidden="true"><div class="fx-h"><div><span class="t">Alerts</span><p class="t">Checks your team sets, which fire on a call.</p></div><span class="btn t">+ New monitor</span></div><div class="fx-fl"><span class="t">Last 30 days</span><span class="t">+ Filter</span><span class="t">+1</span><span class="t">Presets &#9662;</span></div><div class="fx-g"><span class="t">Configuration</span><span class="t">Activity</span></div><div class="fx-ks"><div class="fx-k"><p><span class="t">Total monitors</span><i>i</i></p><b class="t">9</b></div><div class="fx-k"><p><span class="t">Active monitors</span><i>i</i></p><b class="t"><em>8 / 10</em></b></div><div class="fx-k"><p><span class="t">Alert triggers</span><i>i</i></p><b class="t">403</b><small class="t">+63 on the period before</small></div><div class="fx-k"><p><span class="t">Interactions with alerts</span><i>i</i></p><b class="t">212</b></div></div><div class="fx-ch" id="fx-chart"><div class="fx-chh"><span class="t">Alert triggers by week</span><span class="seg2"><span class="on t">Stacked total</span><span class="t">Compare monitors</span></span></div><div class="ch" style="height:280px"><div class="ch-y"><span style="bottom:0px"><b class="t">0</b></span><span style="bottom:86px"><b class="t">50</b></span><span style="bottom:173px"><b class="t">100</b></span><span style="bottom:259px"><b class="t">150</b></span></div><div class="ch-b"><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:78.0px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:10.4px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:6.9px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.2px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.5px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:1.7px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:1.7px;background:#9C7A5B"></i></div><span class="t">Week 39</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:72.8px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:10.4px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:5.2px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.2px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.5px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:1.7px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:1.7px;background:#9C7A5B"></i></div><span class="t">Week 40</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:84.9px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:10.4px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:6.9px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.2px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.5px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:1.7px;background:#00B3BF"></i><i class="seg" data-m="wp" style="height:1.7px;background:#8FA3B8"></i></div><span class="t">Week 41</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:90.1px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:12.1px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:6.9px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.2px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:3.5px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:3.5px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:1.7px;background:#9C7A5B"></i></div><span class="t">Week 42</span></div><div class="bar"><div class="stk"><i class="seg" data-m="tp" style="height:202.8px;background:#2DBE7E"></i><i class="seg" data-m="id" style="height:15.6px;background:#7B61FF"></i><i class="seg" data-m="pb" style="height:10.4px;background:#F5A524"></i><i class="seg" data-m="rn" style="height:5.2px;background:#139FFD"></i><i class="seg" data-m="cb" style="height:5.2px;background:#E85D9A"></i><i class="seg" data-m="rl" style="height:5.2px;background:#00B3BF"></i><i class="seg" data-m="rr" style="height:3.5px;background:#9C7A5B"></i><i class="seg" data-m="wp" style="height:5.2px;background:#8FA3B8"></i></div><span class="t">Week 43</span></div></div></div></div></div><div class="fx-tb" id="fx-table"><div class="fx-tbh" aria-hidden="true"><span class="t">Monitors <b>9</b></span><span class="srch t">Search monitors</span><span class="t">All folders &#9662;</span></div><div class="fx-r fx-hd" aria-hidden="true"><span class="fx-n t">Monitor</span><span class="fx-c t">Alerts</span><span class="fx-s t">Share</span><span class="fx-d t">Change</span><span class="fx-l t">Last fired</span><span class="fx-a t">Active</span><span class="fx-go"></span></div><div class="fx-rows"><button type="button" class="fx-r" data-m="tp" id="fx-row1" aria-pressed="false" aria-label="Third-party disclosure: 305 alerts, 76% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#2DBE7E"></i><span class="t">Third-party disclosure</span></span><span class="fx-c t">305</span><span class="fx-s t">76%</span><span class="fx-d t up">+58</span><span class="fx-l t">2 h ago</span><span class="fx-a"><i class="tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button type="button" class="fx-r" data-m="id" aria-pressed="false" aria-label="Account details without ID check: 34 alerts, 8% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#7B61FF"></i><span class="t">Account details without ID check</span></span><span class="fx-c t">34</span><span class="fx-s t">8%</span><span class="fx-d t">&minus;8</span><span class="fx-l t">5 h ago</span><span class="fx-a"><i class="tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button type="button" class="fx-r" data-m="pb" aria-pressed="false" aria-label="Pressure to buy: 21 alerts, 5% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#F5A524"></i><span class="t">Pressure to buy</span></span><span class="fx-c t">21</span><span class="fx-s t">5%</span><span class="fx-d t up">+6</span><span class="fx-l t">Yesterday</span><span class="fx-a"><i class="tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button type="button" class="fx-r" data-m="rn" aria-pressed="false" aria-label="Missing recording notice: 15 alerts, 4% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#139FFD"></i><span class="t">Missing recording notice</span></span><span class="fx-c t">15</span><span class="fx-s t">4%</span><span class="fx-d t up">+3</span><span class="fx-l t">Yesterday</span><span class="fx-a"><i class="tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button type="button" class="fx-r" data-m="cb" aria-pressed="false" aria-label="Callback promised: 11 alerts, 3% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#E85D9A"></i><span class="t">Callback promised</span></span><span class="fx-c t">11</span><span class="fx-s t">3%</span><span class="fx-d t up">+2</span><span class="fx-l t">2 days ago</span><span class="fx-a"><i class="tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button type="button" class="fx-r" data-m="rl" aria-pressed="false" aria-label="Rude language: 8 alerts, 2% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#00B3BF"></i><span class="t">Rude language</span></span><span class="fx-c t">8</span><span class="fx-s t">2%</span><span class="fx-d t up">+1</span><span class="fx-l t">3 days ago</span><span class="fx-a"><i class="tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button type="button" class="fx-r" data-m="rr" aria-pressed="false" aria-label="Refund refused: 5 alerts, 1% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#9C7A5B"></i><span class="t">Refund refused</span></span><span class="fx-c t">5</span><span class="fx-s t">1%</span><span class="fx-d t">0</span><span class="fx-l t">4 days ago</span><span class="fx-a"><i class="tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button type="button" class="fx-r" data-m="wp" aria-pressed="false" aria-label="Wrong product named: 4 alerts, 1% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#8FA3B8"></i><span class="t">Wrong product named</span></span><span class="fx-c t">4</span><span class="fx-s t">1%</span><span class="fx-d t up">+1</span><span class="fx-l t">6 days ago</span><span class="fx-a"><i class="tg on"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button><button type="button" class="fx-r" data-m="cm" aria-pressed="false" aria-label="Competitor mentioned: 0 alerts, 0% of all. Show only this monitor in the chart."><span class="fx-n"><i style="background:#C7B3F5"></i><span class="t">Competitor mentioned</span></span><span class="fx-c t">0</span><span class="fx-s t">0%</span><span class="fx-d t">0</span><span class="fx-l t">Never</span><span class="fx-a"><i class="tg"></i></span><span class="fx-go" aria-hidden="true"><span class="t">Open</span> &#8250;</span></button></div></div></div></div>
             <div class="al-below" aria-hidden="true"></div>
             <div class="al-ruler" aria-hidden="true"><b>730 px</b></div>
-            <div class="al-fold" aria-hidden="true"><b>1440&times;900 ends here</b></div>
+            <div class="al-fold" aria-hidden="true"><b>A 1440&times;900 screen ends about here</b></div>
           </div></div>
           <span class="c2-pin dl-pin" data-at="#pf-chart" data-ax="0.5" data-ay="0.3" data-ox="0" data-for="platform" aria-hidden="true">1</span><span class="c2-pin dl-pin" data-at="#pf-table" data-ax="0.5" data-ay="0" data-ox="0" data-for="platform" aria-hidden="true">2</span><span class="c2-pin dl-pin" data-at=".al-fold b" data-ax="0" data-ay="0.5" data-ox="-22" data-for="platform" aria-hidden="true">3</span><span class="c2-pin dl-pin" data-at=".fx-hd .fx-n" data-ax="0.3" data-ay="0.5" data-ox="0" data-for="fixed" aria-hidden="true">1</span><span class="c2-pin dl-pin" data-at="#fx-chart" data-ax="0.5" data-ay="0.3" data-ox="0" data-for="fixed" aria-hidden="true">2</span><span class="c2-pin dl-pin" data-at="#fx-row1 .fx-go" data-ax="1" data-ay="0.5" data-ox="14" data-pm="0.4,0.5,0" data-for="fixed" aria-hidden="true">3</span>
         </div>
@@ -497,7 +515,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <ol class="c2-key" data-key="platform">
             <li><i aria-hidden="true">1</i><span><b>Nine colours, no key.</b> Which colour is which monitor shows only on hover.</span></li>
             <li><i aria-hidden="true">2</i><span><b>The list starts about 730 px down,</b> under four numbers and the chart.</span></li>
-            <li><i aria-hidden="true">3</i><span><b>The fold:</b> one row above it, eight below.</span></li>
+            <li><i aria-hidden="true">3</i><span><b>The fold:</b> the browser leaves about 790 px of a 1440&times;900 screen. The list&rsquo;s title shows; none of its rows.</span></li>
           </ol>
           <ol class="c2-key" data-key="fixed" hidden>
             <li><i aria-hidden="true">1</i><span><b>The table is the chart&rsquo;s key:</b> each row carries its monitor&rsquo;s colour and share, sorted by alerts.</span></li>
@@ -506,7 +524,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           </ol>
         </figcaption>
       </figure>
-      <p class="c2-result"><b>Why the fold stays:</b> two other directions moved the list up, and the test removed both, because they took the numbers and the chart off the page. Fixed keeps production&rsquo;s page whole and joins its parts.</p>
+      <div class="dl-dead">
+        <div class="dd-th" aria-hidden="true"><p><span class="on">Monitors</span><span>Activity</span></p><i></i><i></i><i></i><i></i><i></i></div>
+        <div><p class="dd-h">Deleted: the two directions that moved the list up</p>
+          <h3><s>Two tabs, monitors first</s> <span>&middot;</span> <s>The list only</s></h3>
+          <p>The tabs were my own recommendation after the research. Both took the numbers and the chart off the page. The monitor&rsquo;s own page survived, as where a row opens.</p></div>
+      </div>
     </div>
   </section>
 
@@ -514,43 +537,28 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">What the test removed</p>
       <h2>The side-by-side test killed my own fixes first</h2>
-      <p class="c2-lede">On 28 Oct 2026 every change was checked again against the live screen, side by side and at the same height. Each of these was mine, and each lost.</p>
+      <p class="c2-lede">On 28 Oct 2026 every change was checked again against the live screen, side by side at the same height. An item not clearly better was removed, and production&rsquo;s version came back. These were mine.</p>
       <div class="dl-tally">
         <div><b>52</b><span>changes on seven screens</span></div>
-        <div class="is-x"><b>5</b><span>removed after the side-by-side</span></div>
-        <div class="is-x"><b>2 of 3</b><span>directions for Alerts deleted</span></div>
+        <div><b>47</b><span>kept</span></div>
+        <div class="is-x"><b>5</b><span>removed</span></div>
       </div>
       <ol class="dl-kill">
-        <li class="big"><p class="k-h"><code>A2</code>Alerts<span class="k-x">Removed</span></p>
+        <li class="big"><p class="k-h"><code>A2</code>Alerts</p>
           <h3>A chart you can read</h3>
           <p class="k-did">A key with each monitor&rsquo;s count, and a sum over every week.</p>
           <div class="k-mini" aria-hidden="true"><div class="km-b"><div><s>62</s><span><i style="height:27.9px;background:#2DBE7E"></i><i style="height:3.7px;background:#7B61FF"></i><i style="height:2.5px;background:#F5A524"></i><i style="height:1.9px;background:#139FFD"></i><i style="height:1.2px;background:#E85D9A"></i><i style="height:0.6px;background:#00B3BF"></i><i style="height:0.6px;background:#9C7A5B"></i></span></div><div><s>58</s><span><i style="height:26.0px;background:#2DBE7E"></i><i style="height:3.7px;background:#7B61FF"></i><i style="height:1.9px;background:#F5A524"></i><i style="height:1.9px;background:#139FFD"></i><i style="height:1.2px;background:#E85D9A"></i><i style="height:0.6px;background:#00B3BF"></i><i style="height:0.6px;background:#9C7A5B"></i></span></div><div><s>66</s><span><i style="height:30.4px;background:#2DBE7E"></i><i style="height:3.7px;background:#7B61FF"></i><i style="height:2.5px;background:#F5A524"></i><i style="height:1.9px;background:#139FFD"></i><i style="height:1.2px;background:#E85D9A"></i><i style="height:0.6px;background:#00B3BF"></i><i style="height:0.6px;background:#8FA3B8"></i></span></div><div><s>71</s><span><i style="height:32.2px;background:#2DBE7E"></i><i style="height:4.3px;background:#7B61FF"></i><i style="height:2.5px;background:#F5A524"></i><i style="height:1.9px;background:#139FFD"></i><i style="height:1.2px;background:#E85D9A"></i><i style="height:1.2px;background:#00B3BF"></i><i style="height:0.6px;background:#9C7A5B"></i></span></div><div><s>146</s><span><i style="height:72.5px;background:#2DBE7E"></i><i style="height:5.6px;background:#7B61FF"></i><i style="height:3.7px;background:#F5A524"></i><i style="height:1.9px;background:#139FFD"></i><i style="height:1.9px;background:#E85D9A"></i><i style="height:1.9px;background:#00B3BF"></i><i style="height:1.2px;background:#9C7A5B"></i><i style="height:1.9px;background:#8FA3B8"></i></span></div></div><div class="km-l"><s style="--c:#2DBE7E">Third-party 305</s><s style="--c:#7B61FF">Account 34</s><s style="--c:#F5A524">Pressure 21</s><s style="--c:#139FFD">Missing 15</s><s style="--c:#E85D9A">Callback 11</s></div></div>
           <p class="k-big">&ldquo;Production&rsquo;s chart, unchanged.&rdquo;</p>
           <p class="k-why"><small>Why it went</small>Production&rsquo;s tooltip already shows each week&rsquo;s monitors, colours, counts and sum, and the table under the chart repeats the totals.</p></li>
-        <li><p class="k-h"><code>A1</code>Alerts<span class="k-x">Removed</span></p>
+        <li><p class="k-h"><code>A1</code>Alerts</p>
           <h3>What fired, first</h3>
-          <p class="k-did">Activity numbers before setup numbers, the monitors folded into &ldquo;8 of 9 active&rdquo;.</p>
+          <p class="k-did">Activity numbers before setup numbers, with the monitors folded into &ldquo;8 of 9 active&rdquo;.</p>
           <p class="k-why"><small>Why it went</small>A monitor count is setup, not activity. Production&rsquo;s split was right.</p></li>
-        <li><p class="k-h"><code>A7</code>Alerts<span class="k-x">Removed</span></p>
+        <li><p class="k-h"><code>A7</code>Alerts</p>
           <h3>Say what the cap counts</h3>
-          <p class="k-did">A label before the &ldquo;8 / 10&rdquo; pill: &ldquo;Active monitors&rdquo;.</p>
-          <p class="k-why"><small>Why it went</small>It didn&rsquo;t solve the confusion: the same words beside &ldquo;9 total&rdquo;, with two different totals.</p></li>
-        <li><p class="k-h"><code>A5</code>Alerts<span class="k-x">Removed</span></p>
-          <h3>Every filter in sight</h3>
-          <p class="k-did">The default filter as its own chip, not hidden behind &ldquo;+1&rdquo;.</p>
-          <p class="k-why"><small>Why it went</small>Not clearly better in review. Production&rsquo;s filter came back.</p></li>
-        <li><p class="k-h"><code>K5</code>Knowledge<span class="k-x">Removed</span></p>
-          <h3>A panel as tall as its content</h3>
-          <p class="k-did">The document tree&rsquo;s panel ends where its list ends.</p>
-          <p class="k-why"><small>Why it went</small>A matter of taste, not a visible improvement.</p></li>
-        <li class="dir"><p class="k-h"><code>Direction</code>Alerts<span class="k-x">Deleted</span></p>
-          <h3>Two tabs, monitors first</h3>
-          <p class="k-did">The list opens first, right under the filter; the numbers and the chart move to an Activity tab. It was my own recommendation after researching how similar products build this page.</p>
-          <p class="k-why"><small>Why it went</small>It took the numbers and the chart off the page.</p></li>
-        <li class="dir"><p class="k-h"><code>Direction</code>Alerts<span class="k-x">Deleted</span></p>
-          <h3>The list only</h3>
-          <p class="k-did">Alerts becomes a plain list, and each monitor gets a page of its own, with its chart.</p>
-          <p class="k-why"><small>Why it went</small>The same loss. The monitor&rsquo;s own page survived, as the place a row opens.</p></li>
+          <p class="k-pills" aria-hidden="true"><span>Total monitors <b>9</b></span><span><u>Active monitors</u> <em>8 / 10</em></span></p>
+          <p class="k-did">Production shows &ldquo;8 / 10&rdquo;, eight active of a cap of ten, beside nine monitors in all. I labelled the pill.</p>
+          <p class="k-why"><small>Why it went</small>It didn&rsquo;t solve the confusion: two totals, 9 and 10, under the same words.</p></li>
       </ol>
     </div>
   </section>
@@ -559,32 +567,20 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">What copying found</p>
       <h2>Copying the real screen found what no mockup shows</h2>
-      <p class="c2-lede">The Alerts fold was one. Copying screens at real widths, in Hebrew and at real volumes turned up more, and each became a fix.</p>
+      <p class="c2-lede">The fold and the 50-call total were two. Copying screens at real widths and in Hebrew turned up more, and each got a fix in the Lab.</p>
       <div class="dl-found">
-        <article class="dl-fc"><p class="fc-h">Compliance · the period</p><h3>The date chip is a day early</h3>
+        <article class="dl-fc"><p class="fc-h">Compliance · the period</p><h3>East of UTC, the date chip is a day early</h3>
           <div class="fc-ba">
             <div class="fc-v fc-pf"><span class="fc-l">PLATFORM</span><span class="fc-chip">&#128197;&#xFE0E; 2026-09-27 &ndash; 2026-10-27</span><span class="fc-pop">A cell on the same range: Sep 28</span><span class="fc-sm">Below 1280 px the chip hides under its clip.</span></div>
             <div class="fc-v fc-fx"><span class="fc-l">FIXED</span><span class="fc-chip">Sep 28 &ndash; Oct 28, 2026</span><span class="fc-sm">Always on screen, in the reader&rsquo;s own day.</span></div>
           </div>
           <p>The chip printed each end of the range in UTC, so <b>east of UTC it showed the day before.</b></p></article>
-        <article class="dl-fc"><p class="fc-h">Compliance · a report</p><h3>A report capped at 50 calls totals only those 50</h3>
-          <div class="fc-ba">
-            <div class="fc-v fc-pf"><span class="fc-l">PLATFORM</span><span class="fc-kv"><span>Total calls reviewed</span><b>50</b></span><span class="fc-kv"><span>Total offences</span><b>33</b></span></div>
-            <div class="fc-v fc-fx"><span class="fc-l">FIXED</span><span class="fc-kv"><span>Total calls reviewed</span><b>76 <small>(first 50 below)</small></b></span><span class="fc-kv"><span>Total offences</span><b>33 <small>in the first 50</small></b></span></div>
-          </div>
-          <p>Only a real volume shows it: <b>the sums quietly counted the 50 calls loaded,</b> not the 76 reviewed.</p></article>
         <article class="dl-fc"><p class="fc-h">Hebrew · every page</p><h3>In Hebrew, numbers turn around</h3>
           <div class="fc-ba">
             <div class="fc-v fc-pf"><span class="fc-l">PLATFORM</span><div class="fc-he" lang="he"><span>טלפון <bdo dir="ltr">6137 555 415 1+</bdo></span><span>ציות <bdo dir="ltr">%89</bdo></span></div></div>
             <div class="fc-v fc-fx"><span class="fc-l">FIXED</span><div class="fc-he" lang="he"><span>טלפון <bdo dir="ltr">+1 415 555 6137</bdo></span><span>ציות <bdo dir="ltr">89%</bdo></span></div></div>
           </div>
           <p>Each value now keeps its own direction. The strings showed more: <b>&ldquo;monitor&rdquo; was translated five ways.</b></p></article>
-        <article class="dl-fc"><p class="fc-h">Knowledge · narrow windows</p><h3>The document tree gets a sixth of the screen</h3>
-          <div class="fc-ba">
-            <div class="fc-v fc-pf"><span class="fc-l">PLATFORM</span><div class="fc-tree"><ul><li>Privacy_Handbook.pdf</li><li>Refund_Policy.pdf</li><li>Escalation_Guide.docx</li></ul><div><i></i><i></i><i style="width:70%"></i><i></i></div></div><span class="fc-sm">About 125 px at 1054 px wide.</span></div>
-            <div class="fc-v fc-fx"><span class="fc-l">FIXED</span><div class="fc-tree"><ul><li>Privacy_Handbook.pdf</li><li>Refund_Policy.pdf</li><li>Escalation_Guide.docx</li></ul><div><i></i><i style="width:60%"></i></div></div><span class="fc-sm">A fixed 300 px; names read whole.</span></div>
-          </div>
-          <p>The tree&rsquo;s width was set for a laptop size the design never defined, so <b>a name kept one or two letters.</b></p></article>
       </div>
     </div>
   </section>
@@ -593,21 +589,20 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">Ask AI</p>
       <h2>With AI, I can&rsquo;t design the answer&rsquo;s words, only its shape</h2>
-      <p class="c2-lede">The Lab&rsquo;s chat and its Ask AI panel call a real model, so no two answers are worded alike. What I could design is the shape every answer takes, and each state around it. Pick a state.</p>
+      <p class="c2-lede">The Lab&rsquo;s Ask AI panel calls a real model, so no two answers are worded alike. I designed the shape every answer takes and the states around it. Starter prompts never quote a figure, and Send turns into Stop while an answer is written.</p>
       <div class="c2-steps dl-ai">
-        <div class="c2-tabs" role="tablist" aria-label="Ask AI answer states" aria-orientation="vertical"><button type="button" class="c2-tab" role="tab" id="ai-t0" aria-controls="ai-p0"><i>1</i><div><b>Starter prompts, never figures</b><span>An empty panel offers three questions about the page. None quotes a number: the panel has no page data to back one.</span></div></button><button type="button" class="c2-tab" role="tab" id="ai-t1" aria-controls="ai-p1"><i>2</i><div><b>The result comes first</b><span>One result sentence, then what was searched. That is the shape of production&rsquo;s own answers; I asked the model for it, so Platform and Fixed are compared fairly.</span></div></button><button type="button" class="c2-tab" role="tab" id="ai-t2" aria-controls="ai-p2"><i>3</i><div><b>Sections and a table</b><span>A longer answer keeps the same order: the result, then the numbers in a quiet table, then what was searched.</span></div></button><button type="button" class="c2-tab" role="tab" id="ai-t3" aria-controls="ai-p3"><i>4</i><div><b>Nothing found, nothing invented</b><span>When the answer finds nothing, the panel says so and offers a wider search. Anything the answer does not contain is simply not shown.</span></div></button><button type="button" class="c2-tab" role="tab" id="ai-t4" aria-controls="ai-p4"><i>5</i><div><b>A stop at 30 seconds</b><span>The thinking bubble could spin forever. Now a request stops after 30 seconds and says so, and Retry asks the same question again. A failed request says the same: the question is kept.</span></div></button><button type="button" class="c2-tab" role="tab" id="ai-t5" aria-controls="ai-p5"><i>6</i><div><b>Stop while it writes</b><span>While the answer arrives, Send turns into Stop, so a wrong question can be cut short.</span></div></button></div>
-        <div class="c2-stage"><figure class="c2-panel" role="tabpanel" id="ai-p0" aria-labelledby="ai-t0"><div class="c2-shot"><div class="ai" role="img" aria-label="Ask AI, greeting state. The empty Ask AI panel on Alerts: a greeting and three starter questions, none with a number."><div class="ai-h"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5l1.6 4.2 4.4.3-3.4 2.8 1.1 4.3L8 10.7 4.3 13.1l1.1-4.3L2 6l4.4-.3z"/></svg><b>Ask AI</b><span><i>&#8635;</i><i>+</i><i>&times;</i></span></div><div class="ai-ctx"><span>Context: Alerts &times;</span></div><div class="ai-b"><div class="ai-greet"><b>Ask about what you&rsquo;re looking at</b><p>I see which page you&rsquo;re on and keep this conversation as you move around the platform.</p><ul><li>Which alerts need attention first?</li><li>Group today&rsquo;s alerts by cause</li><li>Which agents trigger the most alerts?</li></ul></div></div><div class="ai-c"><span>Ask anything about this page&hellip;</span><i aria-hidden="true">&uarr;</i></div></div></div></figure><figure class="c2-panel" role="tabpanel" id="ai-p1" aria-labelledby="ai-t1" hidden><div class="c2-shot"><div class="ai" role="img" aria-label="Ask AI, short state. A short answer: one result sentence, then what was searched as chips."><div class="ai-h"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5l1.6 4.2 4.4.3-3.4 2.8 1.1 4.3L8 10.7 4.3 13.1l1.1-4.3L2 6l4.4-.3z"/></svg><b>Ask AI</b><span><i>&#8635;</i><i>+</i><i>&times;</i></span></div><div class="ai-ctx"><span>Context: Alerts &times;</span></div><div class="ai-b"><p class="ai-q">Which monitor fired most this month?</p><div class="ai-a"><p><b>Third-party disclosure fired most: 305 of 403 alerts (76%).</b></p><p class="ai-src">Searched <span>Alerts</span><span>Last 30 days</span><span>All teams</span></p><p class="ai-act"><i>&#10697;</i><i>&#128077;&#xFE0E;</i><i>&#128078;&#xFE0E;</i><i>&#8635;</i></p></div></div><div class="ai-c"><span>Ask anything about this page&hellip;</span><i aria-hidden="true">&uarr;</i></div></div></div></figure><figure class="c2-panel" role="tabpanel" id="ai-p2" aria-labelledby="ai-t2" hidden><div class="c2-shot"><div class="ai" role="img" aria-label="Ask AI, structured state. A structured answer: a result sentence, a small table of monitors, and the search scope."><div class="ai-h"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5l1.6 4.2 4.4.3-3.4 2.8 1.1 4.3L8 10.7 4.3 13.1l1.1-4.3L2 6l4.4-.3z"/></svg><b>Ask AI</b><span><i>&#8635;</i><i>+</i><i>&times;</i></span></div><div class="ai-ctx"><span>Context: Alerts &times;</span></div><div class="ai-b"><p class="ai-q">Group this month&rsquo;s alerts by cause</p><div class="ai-a"><p><b>Three monitors account for 89% of this month&rsquo;s 403 alerts.</b></p><p class="ai-sec">Result</p><div class="ai-tbl"><div><span>Monitor</span><span>Alerts</span><span>Share</span></div><div><span>Third-party disclosure</span><span>305</span><span>76%</span></div><div><span>Account details without ID check</span><span>34</span><span>8%</span></div><div><span>Pressure to buy</span><span>21</span><span>5%</span></div><div><span>Five other monitors</span><span>43</span><span>11%</span></div></div><p class="ai-src">Searched <span>Alerts</span><span>Last 30 days</span></p></div></div><div class="ai-c"><span>Ask anything about this page&hellip;</span><i aria-hidden="true">&uarr;</i></div></div></div></figure><figure class="c2-panel" role="tabpanel" id="ai-p3" aria-labelledby="ai-t3" hidden><div class="c2-shot"><div class="ai" role="img" aria-label="Ask AI, no data state. A no-data answer: no calls matched, with a button to search the last 30 days and one to include short calls."><div class="ai-h"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5l1.6 4.2 4.4.3-3.4 2.8 1.1 4.3L8 10.7 4.3 13.1l1.1-4.3L2 6l4.4-.3z"/></svg><b>Ask AI</b><span><i>&#8635;</i><i>+</i><i>&times;</i></span></div><div class="ai-ctx"><span>Context: Alerts &times;</span></div><div class="ai-b"><p class="ai-q">Which calls mentioned a refund this week?</p><div class="ai-empty"><i aria-hidden="true">&#8709;</i><b>No calls mentioned a refund this week</b><p>Searched answered calls over 1 minute, this week, all teams.</p><div class="ai-row"><span class="ai-btn solid">Try the last 30 days</span><span class="ai-btn">Include calls under 1 minute</span></div><span class="ai-lnk">Why no results?</span></div></div><div class="ai-c"><span>Ask anything about this page&hellip;</span><i aria-hidden="true">&uarr;</i></div></div></div></figure><figure class="c2-panel" role="tabpanel" id="ai-p4" aria-labelledby="ai-t4" hidden><div class="c2-shot"><div class="ai" role="img" aria-label="Ask AI, timed out state. A timed-out answer: the question stays, a message says the request timed out, and a Retry button."><div class="ai-h"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5l1.6 4.2 4.4.3-3.4 2.8 1.1 4.3L8 10.7 4.3 13.1l1.1-4.3L2 6l4.4-.3z"/></svg><b>Ask AI</b><span><i>&#8635;</i><i>+</i><i>&times;</i></span></div><div class="ai-ctx"><span>Context: Alerts &times;</span></div><div class="ai-b"><p class="ai-q">Which agents trigger the most alerts?</p><div class="ai-err"><p>That took too long &mdash; the request timed out. Please try again.</p><small>Stopped after 30 seconds. Your question is kept.</small><span class="ai-btn">Retry</span></div></div><div class="ai-c"><span>Ask anything about this page&hellip;</span><i aria-hidden="true">&uarr;</i></div></div></div></figure><figure class="c2-panel" role="tabpanel" id="ai-p5" aria-labelledby="ai-t5" hidden><div class="c2-shot"><div class="ai" role="img" aria-label="Ask AI, writing state. An answer being written, with the Send button turned into Stop."><div class="ai-h"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5l1.6 4.2 4.4.3-3.4 2.8 1.1 4.3L8 10.7 4.3 13.1l1.1-4.3L2 6l4.4-.3z"/></svg><b>Ask AI</b><span><i>&#8635;</i><i>+</i><i>&times;</i></span></div><div class="ai-ctx"><span>Context: Alerts &times;</span></div><div class="ai-b"><p class="ai-q">Summarize what this page shows</p><p class="ai-think"><i aria-hidden="true"></i>Writing the answer</p><div class="ai-a"><p>Northwind&rsquo;s nine monitors fired 403 alerts in the last 30 days, 63 more than the period before. Most came from Third-party disc<span class="ai-caret" aria-hidden="true"></span></p></div></div><div class="ai-c"><span>Ask anything about this page&hellip;</span><em>Stop</em><i class="stop" aria-hidden="true"></i></div></div></div></figure>
-          <div class="c2-nav"><button type="button" data-go="-1" aria-label="Previous state"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button><button type="button" data-go="1" aria-label="Next state"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button><span>1 of 6</span></div>
+        <div class="c2-tabs" role="tablist" aria-label="Ask AI answer states" aria-orientation="vertical"><button type="button" class="c2-tab" role="tab" id="ai-t0" aria-controls="ai-p0"><i>1</i><div><b>The result comes first</b><span>One result sentence, then what was searched: the shape of production&rsquo;s own answers. I asked the model for it, so the comparison is fair.</span></div></button><button type="button" class="c2-tab" role="tab" id="ai-t1" aria-controls="ai-p1"><i>2</i><div><b>Sections and a table</b><span>A longer answer keeps the order: the result, the numbers in a quiet table, what was searched.</span></div></button><button type="button" class="c2-tab" role="tab" id="ai-t2" aria-controls="ai-p2"><i>3</i><div><b>Nothing found, said plainly</b><span>The panel adds nothing of its own: no starter figure, no filler. If the answer finds nothing, it says so, and offers a wider search.</span></div></button><button type="button" class="c2-tab" role="tab" id="ai-t3" aria-controls="ai-p3"><i>4</i><div><b>A stop at 30 seconds</b><span>The thinking bubble could spin forever. Now a request stops after 30 seconds and says so, and Retry asks the same question again.</span></div></button></div>
+        <div class="c2-stage"><figure class="c2-panel" role="tabpanel" id="ai-p0" aria-labelledby="ai-t0"><div class="c2-shot"><div class="ai" role="img" aria-label="Ask AI, short state. A short answer: one result sentence, then what was searched as chips."><div class="ai-h"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5l1.6 4.2 4.4.3-3.4 2.8 1.1 4.3L8 10.7 4.3 13.1l1.1-4.3L2 6l4.4-.3z"/></svg><b>Ask AI</b><span><i>&#8635;</i><i>+</i><i>&times;</i></span></div><div class="ai-ctx"><span>Context: Alerts &times;</span></div><div class="ai-b"><p class="ai-q">Which monitor fired most this month?</p><div class="ai-a"><p><b>Third-party disclosure fired most: 305 of 403 alerts (76%).</b></p><p class="ai-src">Searched <span>Alerts</span><span>Last 30 days</span><span>All teams</span></p><p class="ai-act"><i>&#10697;</i><i>&#128077;&#xFE0E;</i><i>&#128078;&#xFE0E;</i><i>&#8635;</i></p></div></div><div class="ai-c"><span>Ask anything about this page&hellip;</span><i aria-hidden="true">&uarr;</i></div></div></div></figure><figure class="c2-panel" role="tabpanel" id="ai-p1" aria-labelledby="ai-t1" hidden><div class="c2-shot"><div class="ai" role="img" aria-label="Ask AI, structured state. A structured answer: a result sentence, a small table of monitors, and the search scope."><div class="ai-h"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5l1.6 4.2 4.4.3-3.4 2.8 1.1 4.3L8 10.7 4.3 13.1l1.1-4.3L2 6l4.4-.3z"/></svg><b>Ask AI</b><span><i>&#8635;</i><i>+</i><i>&times;</i></span></div><div class="ai-ctx"><span>Context: Alerts &times;</span></div><div class="ai-b"><p class="ai-q">Group this month&rsquo;s alerts by cause</p><div class="ai-a"><p><b>Three monitors account for 89% of this month&rsquo;s 403 alerts.</b></p><p class="ai-sec">Result</p><div class="ai-tbl"><div><span>Monitor</span><span>Alerts</span><span>Share</span></div><div><span>Third-party disclosure</span><span>305</span><span>76%</span></div><div><span>Account details without ID check</span><span>34</span><span>8%</span></div><div><span>Pressure to buy</span><span>21</span><span>5%</span></div><div><span>Five other monitors</span><span>43</span><span>11%</span></div></div><p class="ai-src">Searched <span>Alerts</span><span>Last 30 days</span></p></div></div><div class="ai-c"><span>Ask anything about this page&hellip;</span><i aria-hidden="true">&uarr;</i></div></div></div></figure><figure class="c2-panel" role="tabpanel" id="ai-p2" aria-labelledby="ai-t2" hidden><div class="c2-shot"><div class="ai" role="img" aria-label="Ask AI, nothing found state. A no-data answer: no calls matched, with a button to search the last 30 days and one to include short calls."><div class="ai-h"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5l1.6 4.2 4.4.3-3.4 2.8 1.1 4.3L8 10.7 4.3 13.1l1.1-4.3L2 6l4.4-.3z"/></svg><b>Ask AI</b><span><i>&#8635;</i><i>+</i><i>&times;</i></span></div><div class="ai-ctx"><span>Context: Alerts &times;</span></div><div class="ai-b"><p class="ai-q">Which calls mentioned a refund this week?</p><div class="ai-empty"><i aria-hidden="true">&#8709;</i><b>No calls mentioned a refund this week</b><p>Searched answered calls over 1 minute, this week, all teams.</p><div class="ai-row"><span class="ai-btn solid">Try the last 30 days</span><span class="ai-btn">Include calls under 1 minute</span></div></div></div><div class="ai-c"><span>Ask anything about this page&hellip;</span><i aria-hidden="true">&uarr;</i></div></div></div></figure><figure class="c2-panel" role="tabpanel" id="ai-p3" aria-labelledby="ai-t3" hidden><div class="c2-shot"><div class="ai" role="img" aria-label="Ask AI, timed out state. A timed-out answer: the question stays, a message says the request stopped after 30 seconds, and a Retry button."><div class="ai-h"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5l1.6 4.2 4.4.3-3.4 2.8 1.1 4.3L8 10.7 4.3 13.1l1.1-4.3L2 6l4.4-.3z"/></svg><b>Ask AI</b><span><i>&#8635;</i><i>+</i><i>&times;</i></span></div><div class="ai-ctx"><span>Context: Alerts &times;</span></div><div class="ai-b"><p class="ai-q">Which agents trigger the most alerts?</p><div class="ai-err"><p>That took too long. The request stopped after 30 seconds; your question is kept.</p><span class="ai-btn">Retry</span></div></div><div class="ai-c"><span>Ask anything about this page&hellip;</span><i aria-hidden="true">&uarr;</i></div></div></div></figure>
+          <div class="c2-nav"><button type="button" data-go="-1" aria-label="Previous state"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button><button type="button" data-go="1" aria-label="Next state"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button><span>1 of 4</span></div>
         </div>
       </div>
-      <p class="c2-note"><b>Nothing in the panel invents content.</b> It shows only what the answer contains, and the answers on this page are written on demo data.</p>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
       <p class="c2-coda">Not clearly better? <em>Removed.</em></p>
-      <p class="c2-status"><b>What reached the product:</b> Hear&rsquo;s Topics shipped in July 2026 on the Lab&rsquo;s design, its Landscape colours follow the Lab&rsquo;s colour spec (Sept 2026), and its icons came from the Lab. I merged 37 front-end changes myself (Apr&ndash;Jun 2026), among them the Compliance heatmap, worked out in the Lab first. The review&rsquo;s fixes are still proposals. I started the Lab alone on 3 Mar 2026; on 16 Mar a Hear developer brought it into the company&rsquo;s code.</p>
+      <p class="c2-status"><b>On 16 Mar 2026 a Hear developer imported the Lab into the company&rsquo;s own repository;</b> the fixes the review kept wait for tickets, which are written only after the choice. What reached the product so far: the Topics canvas (July 2026), the landscape colour spec (Sept 2026) and the icons.</p>
     </div>
   </section>
 
@@ -708,7 +703,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   });
 })();
 </script>
-<script src="../v7/cs2.js?v=3" defer></script>
+<script src="../v7/cs2.js?v=2" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>
