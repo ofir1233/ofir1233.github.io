@@ -232,8 +232,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><dt>Where it stands</dt><dd>A concept: the News tab in Hear Design Lab, my working copy of Hear, built in code; not in the product.</dd></div>
       </dl>
       <figure class="c2-fig">
-        <div class="c2-shot"><img src="../img/v7s-news-feed.webp?v=11" width="2060" height="1327" alt="The Newsroom front page with demo data. A lead story, tagged Surging, from the signal Cancellation intent at 4:12 pm: Cancellation intent is running at 3.4 times its usual day. In 58 calls yesterday the customer said they want to cancel or leave; a usual day has 17. A chart of the last 30 days draws a usual day as a dashed line and marks the peak, 58 calls on Oct 12. Below it, two quotes from calls and the line Why you're seeing this: the signal passed twice its usual level on Oct 9 and has stayed above it for four days, marked Strong, with a link, See the 211 calls. On the right, the monthly recap and the week's other stories." fetchpriority="high">
-          <span class="c2-pin" style="--x:28.6%;--y:13.8%" aria-hidden="true">1</span><span class="c2-pin" style="--x:26.3%;--y:19.9%" aria-hidden="true">2</span><span class="c2-pin" style="--x:56.2%;--y:69.5%" aria-hidden="true">3</span><span class="c2-pin" style="--x:46.7%;--y:93.3%" aria-hidden="true">4</span></div>
+        <div class="c2-shot"><img src="../img/v7s-news-front-r9.webp" width="2060" height="1331" alt="The Newsroom front page in Hear Design Lab, with demo data. Tuesday, October 13: 31 stories in the last 7 days, with tabs for the front page, signals, agent evaluation, compliance and alerts. The lead story, tagged Surging, from the signal Cancellation intent at 4:12 pm: Cancellation intent is running at 3.4 times its usual day. In 58 calls yesterday the customer said they want to cancel or leave; a usual day has 17. A chart of the last 30 days draws a usual day, 17 calls, as a dashed line, marks Over twice the usual on Oct 9 and the peak, 58 calls on Oct 12. Two quotes from calls, then Why you're seeing this: the signal passed twice its usual level on Oct 9 and has stayed above it for four days, marked Strong, with a link, See the 211 calls since Oct 9. On the right, the monthly recap and the week's other stories, among them Recording disclosure went missing on 27 calls in two days." fetchpriority="high">
+          <span class="c2-pin" style="--x:28.6%;--y:13.8%" aria-hidden="true">1</span><span class="c2-pin" style="--x:26.3%;--y:19.8%" aria-hidden="true">2</span><span class="c2-pin" style="--x:56.2%;--y:66.3%" aria-hidden="true">3</span><span class="c2-pin" style="--x:42.6%;--y:92.3%" aria-hidden="true">4</span></div>
         <figcaption><ol class="c2-key" style="--n:4">
           <li><i aria-hidden="true">1</i><span><b>Time window.</b> The day, and how many stories the last 7 days hold.</span></li>
           <li><i aria-hidden="true">2</i><span><b>Source.</b> Where the story came from, and when.</span></li>
@@ -436,7 +436,11 @@ function set(i){cur=i;ph.forEach(function(b,k){b.setAttribute('aria-expanded',k=
 ps.forEach(function(p,k){var on=k===cur;p.classList.toggle('is-open',on);if(on)p.removeAttribute('inert');else p.setAttribute('inert','');});place();}
 ph.forEach(function(b,k){b.addEventListener('click',function(){set(k);});
 b.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){e.preventDefault();var n=(k+d+ph.length)%ph.length;ph[n].focus();set(n);}});});
-set(1);addEventListener('resize',place);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(place);addEventListener('load',place);})();</script>
+function hold(){out.style.minHeight='';var m=0;ps.forEach(function(p){m=Math.max(m,p.offsetHeight);});out.style.minHeight=m+'px';place();}
+set(1);hold();addEventListener('resize',hold);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(hold);addEventListener('load',hold);})();
+/* phones: the hero still pans; open it on its left edge (the page title, the headline and pins 1, 2 and 4), after cs2.js aims it at the pins' mean */
+(function(){function left(){var s=document.querySelector('.c2-hero .c2-shot.is-pan');if(s)s.scrollLeft=0;}
+addEventListener('load',function(){setTimeout(left,0);});addEventListener('resize',function(){requestAnimationFrame(left);});})();</script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>
