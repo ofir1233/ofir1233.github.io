@@ -109,3 +109,4 @@
 - 24.11 How I work: the cloud mark over the sign-in card is a clean cut (img/hw-cloud-mark, no stray specks or empty canvas) and is centred: its <picture> takes the 40% width (it used to take the image's natural width, leaving the cloud at its left edge). code.css v225
 - 24.11 IA: the search field is hidden (owner: no need for it). ia-process.css v225
 - 24.11 Product windows: the focus mark is Hear's own focus ring (1.5px #139FFD + soft halo), 10px clear of the part with concentric corners (map tiles 2px, in the gutter); the pale wash outside it is gone, so the screen keeps one colour. product.js v229
+- 24.11 case footer: the link to the page you are on was faded and unpressable (read as a bug). Now full white with a thin underline; a press scrolls to the top (v7/case.css v44, v7/foot.js v202).

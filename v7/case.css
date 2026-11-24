@@ -332,8 +332,9 @@ html.to-next .next .next-line{ view-transition-name:case-title; }
 @media (prefers-reduced-motion:reduce){ @view-transition{ navigation:none; } }
 
 /* 3. THE FOOTER is the home page's: the painted sky and the name signed by hand (v7/foot.css, v7/foot.js). Here it names the
-      eight cases; the page you are on is quiet and cannot be pressed. */
-footer.ft .ft-nav a[aria-current]{ opacity:.62; pointer-events:none; }
+      eight cases. The page you are on keeps full white and a thin underline; a press takes you to its top (v7/foot.js).
+      Owner, 24.11: the faded, unpressable link read as a bug. */
+footer.ft .ft-nav a[aria-current]{ opacity:1; pointer-events:auto; text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:6px; }
 footer.ft .ft-base p a{ color:#fff; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px; }
 footer.ft .ft-base p a:hover{ text-decoration-thickness:2px; }
 

@@ -26,3 +26,11 @@
   addEventListener('scroll', (window.v7Near || function (e, f) { return f; })(ft, function () { if (!tick) { tick = true; requestAnimationFrame(par); } }), { passive: true });
   addEventListener('resize', par); par();
 })();
+
+/* the case footer: the link to the page you are on goes to its top instead of reloading it */
+document.addEventListener('click', e => {
+  const a = e.target.closest && e.target.closest('footer.ft .ft-nav a[aria-current]');
+  if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+  e.preventDefault();
+  scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+});
