@@ -107,6 +107,12 @@ Owner's order, 22.11.2026: from now on only OpenAI's best and most expensive ima
 - Small things do not go where the prompt says. The kites were asked for "a little left of the centre, one third down" and landed there, but the page needed them between the signature and the link columns. Moving them afterwards was cheaper and exact: copy a feathered box around them to the new place and close the hole with a feathered box of sky from the same height further right (PIL only, box with a wide margin so no tail is left behind). Check the result at full size for ghosts.
 - The picture is anchored to the bottom of the footer and is 50vw high, so the top of the painting is what sits under the text. Check every width (1440, 1920, 390) that no kite, gull or cloud lies under a word.
 
+## Log, Topics pencil underdrawing (24.11.2026)
+
+- A graphite underdrawing of the Topics sky (`img/topics/sky.webp`), shown at Sketch and painted over by the brush at Hear's world. Draft: `images/edits`, `gpt-image-2.6-sunburst`, sky.webp as the only reference, "the artist's preparatory GRAPHITE PENCIL UNDERDRAWING ... the painting could be laid over the drawing and match line for line", grey graphite on cool white paper, no colour named as forbidden. Quality `low`, about $0.04. Shown to the owner in place; he approved it.
+- Final: same call at `high 2048x1360`, about $0.08, with the low draft as image 2 and "The shading is LIGHTER and SPARSER than in that sketch: only a few loose hatch lines on each cloud's shadow side, never a dense or solid dark patch." The clouds registered with the oil sky in a 50% overlay. Mean saturation 0.30 (grey).
+- To place it, convert to alpha, not multiply: colour 39,40,43; alpha = ((paper - v) / (paper - 40)) ^ .85, paper = the 60th percentile of the grey histogram (254). `scratchpad/palpha.py`, WebP q80, 328KB. Shown at opacity .32 behind a mask that starts at the window's top, so the head stays clear.
+
 ## THE FIXED PROMPT. Every painting uses these blocks word for word.
 
 Only the SUBJECT block changes from picture to picture. Both reference images go in with every call.
