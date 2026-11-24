@@ -304,6 +304,9 @@ html body section#product#product article.spot .txt:not(:has(> .cs-links)) > .mr
   #product#product .px-steps li.on{ clip-path:inset(-6px); }
   #product#product .px-steps li.on .l{ display:block; width:calc(100cqw - (var(--n, 3) - 1) * 66px - 12px); }
 }
+/* where the row is shortened beside a painting a sentence can take two lines: the row always keeps room for two, so a step that
+   wraps does not make the card taller when its turn comes */
+@media (min-width:861px){ #product#product .px-steps li.on button{ min-height:86px; } }
 @media (min-width:761px) and (max-width:860px){
   #product#product .px-steps li.on .l{ width:calc(100cqw - (var(--n, 3) - 1) * 66px - 46px); }
 }

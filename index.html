@@ -3927,7 +3927,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <link rel="stylesheet" href="v7/code.css?v=223">
 <link rel="stylesheet" href="v7/design-lab.css?v=224">
 <link rel="stylesheet" href="v7/topics.css?v=20">
-<link rel="stylesheet" href="v7/product.css?v=233">
+<link rel="stylesheet" href="v7/product.css?v=234">
 <link rel="stylesheet" href="v7/system.css?v=222">
 <link rel="stylesheet" href="v7/web-fyi.css?v=2240">
 <link rel="stylesheet" href="v7/fyi-door.css?v=3">
@@ -3939,7 +3939,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <link rel="stylesheet" href="v7/path.css?v=223">
 <link rel="stylesheet" href="v7/site.css?v=224">
 <link rel="stylesheet" href="v7/corners.css?v=221">
-<link rel="stylesheet" href="v7/spot-art.css?v=21">
+<link rel="stylesheet" href="v7/spot-art.css?v=23">
 <link rel="stylesheet" href="v7/close.css?v=222">
 <noscript><style>html #contact#contact .cl-pic{background-image:url(img/end-harbour.webp) !important}html #contact#contact .cl-stamp u{background-image:url(img/end-harbour-1152.webp) !important}</style></noscript>
 <link rel="stylesheet" href="v7/short.css?v=221">
@@ -5054,7 +5054,7 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
       if (k && k.classList.contains('r8-mark')) k.style.scrollMarginTop = Math.round(h + at - (nx ? D / 2 : 0) - pad) + 'px';
     });
   };
-  if ('ResizeObserver' in window) { let pt = 0; const ro = new ResizeObserver(() => { if (cards.some((c, i) => Math.abs(c.offsetHeight - (seen[i] || 0)) > 1)) { clearTimeout(pt); pt = setTimeout(place, 120); } }); cards.forEach(c => ro.observe(c)); }
+  if ('ResizeObserver' in window) { let pt = 0; const ro = new ResizeObserver(() => { if (cards.some((c, i) => Math.abs(c.offsetHeight - (seen[i] || 0)) > 1)) { clearTimeout(pt); pt = setTimeout(() => fit(), 120); } }); cards.forEach(c => ro.observe(c)); }
   const fit = keep => {
     keep = keep instanceof Element ? keep : null; const y0 = keep ? keep.getBoundingClientRect().top : 0;
     cards.forEach(c => { c.classList.remove('tall'); c.style.removeProperty('--pin'); c.style.removeProperty('--fill'); c.style.removeProperty('--dwell'); });
@@ -7094,7 +7094,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 <script src="v7/gyro.js?v=1" defer></script>
-<script src="v7/spot-art.js?v=2" defer></script>
+<script src="v7/spot-art.js?v=3" defer></script>
 <script src="v7/hero.js?v=232" defer></script>
 <script src="v7/code.js?v=224" defer></script>
 <script src="v7/depth.js?v=224" defer></script>
