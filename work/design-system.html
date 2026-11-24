@@ -48,22 +48,33 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ds-lay i{ width:28px; height:28px; display:grid; place-items:center; border-radius:50%; background:var(--ink); color:#fff; font:600 13.5px/1 var(--body); font-style:normal; }
 .c2 .ds-lay b{ display:block; font:600 17px/1.3 var(--body); }
 .c2 .ds-lay span{ display:block; margin-top:4px; font:400 15px/1.5 var(--body); color:var(--ink2); }
-/* one card on the paper canvas, its six colors numbered */
-.c2 .ds-anat{ position:relative; display:grid; gap:28px; justify-items:center; padding:52px clamp(18px, 3vw, 32px) 30px; border-radius:16px; background:#F4F3F1; box-shadow:0 0 0 1px rgba(23,27,32,.08); }
-.c2 .ds-card{ position:relative; width:min(100%, 300px); padding:14px 15px 13px; border-radius:15px; background:#fff; box-shadow:0 0 0 1px rgba(24,36,48,.07), 0 10px 22px -14px rgba(16,34,60,.4); }
-.c2 .ds-card small{ display:block; font:400 12.5px/1.3 var(--body); color:#6A7078; }
-.c2 .ds-card > b{ display:block; margin-top:5px; font:500 14.5px/1.35 var(--body); color:#181818; }
-.c2 .ds-card .ds-ft{ display:flex; align-items:center; gap:8px; margin-top:12px; }
+/* the hero (round 4): the page's own object, one task card on the Paper canvas, built in HTML; its pins sit on the card's own parts */
+.c2 .c2-hero h1{ max-width:16em; }
+.c2 .c2-hero .c2-ctx{ max-width:64ch; }
+.c2 .ds-hero{ margin-top:clamp(28px, 3vw, 36px); }
+.c2 .ds-hwell{ display:grid; place-items:center; padding:clamp(30px, 3vw, 40px) clamp(16px, 4vw, 48px) clamp(34px, 3.4vw, 46px); overflow:visible; background:#F4F3F1; box-shadow:0 0 0 1px rgba(23,27,32,.08); }
+.c2 .ds-hcard{ position:relative; width:min(100%, 520px); padding:24px 26px 22px; border-radius:22px; background:#fff;
+  box-shadow:0 0 0 2.5px #139FFD, 0 0 0 7px rgba(19,159,253,.14), 0 26px 46px -26px rgba(16,34,60,.5); }
+.c2 .ds-hl, .c2 .ds-ht{ display:block; }
+.c2 .ds-at{ position:relative; display:inline-block; width:0; height:1em; vertical-align:-.12em; }
+.c2 .ds-hl{ font:400 17px/1.3 var(--body); color:#6A7078; }
+.c2 .ds-ht{ margin-top:8px; padding-right:34px; font:500 25px/1.32 var(--body); letter-spacing:-.01em; color:#181818; }
+.c2 .ds-hcard .ds-ft{ display:flex; align-items:center; gap:12px; margin-top:20px; }
+.c2 .ds-hcard .ds-av{ width:42px; height:42px; font-size:15px; }
+.c2 .ds-hcard .ds-tag{ height:32px; padding:0 14px; font-size:15.5px; }
 .c2 .ds-av{ display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%; background:#139FFD; font:600 11.5px/1 var(--body); font-style:normal; color:#fff; }
 .c2 .ds-tag{ display:inline-flex; align-items:center; height:24px; padding:0 10px; border-radius:99px; background:#E9EEF2; font:500 12.5px/1 var(--body); color:#3d444c; }
-.c2 .ds-m{ display:inline-grid; place-items:center; width:20px; height:20px; margin-left:6px; border-radius:50%; background:var(--ink); color:#fff; font:600 11px/1 var(--body); font-style:normal; vertical-align:1px; box-shadow:0 0 0 2px #fff; }
-.c2 .ds-card > .ds-m{ position:absolute; top:-9px; right:-9px; margin:0; }
-.c2 .ds-anat > .ds-m{ position:absolute; top:18px; left:18px; margin:0; }
-.c2 .ds-roles{ width:100%; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px 18px; }
-.c2 .ds-roles li{ display:flex; align-items:center; gap:9px; min-width:0; font:400 14px/1.35 var(--body); color:var(--ink2); }
-.c2 .ds-roles li .ds-m{ flex:none; margin:0; box-shadow:none; }
-.c2 .ds-roles .sw{ flex:none; width:20px; height:20px; border-radius:6px; box-shadow:inset 0 0 0 1px rgba(24,36,48,.14); }
-.c2 .ds-roles b{ color:var(--ink); }
+/* the layers section: the same card traced palette → role → place, as a table (not a second drawing of the card) */
+.c2 .ds-chain{ width:100%; border-collapse:separate; border-spacing:0; border-radius:16px; overflow:hidden; background:var(--card); box-shadow:0 0 0 1px var(--line); font:400 15px/1.35 var(--body); color:var(--ink2); }
+.c2 .ds-chain th{ padding:16px 18px 12px; text-align:left; font:600 13px/1.2 var(--body); letter-spacing:.02em; color:var(--mute); background:#F4F3F1; white-space:nowrap; }
+.c2 .ds-chain th i{ display:inline-grid; place-items:center; width:22px; height:22px; margin-right:8px; border-radius:50%; background:var(--ink); color:#fff; font:600 11.5px/1 var(--body); font-style:normal; vertical-align:-1px; letter-spacing:0; }
+.c2 .ds-chain td{ padding:12px 18px; border-top:1px solid var(--line); vertical-align:middle; }
+.c2 .ds-chain td:first-child{ color:var(--ink); font-weight:500; white-space:nowrap; }
+.c2 .ds-chain td:nth-child(2){ color:var(--ink); font-weight:600; }
+.c2 .ds-chain td + td{ position:relative; }
+.c2 .ds-chain td + td::before{ content:"→"; position:absolute; left:-6px; color:var(--mute); font-weight:400; }
+.c2 .ds-chain .sw{ display:inline-block; width:20px; height:20px; margin-right:10px; border-radius:6px; vertical-align:-5px; box-shadow:inset 0 0 0 1px rgba(24,36,48,.14); }
+.c2 .ds-vh{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 .c2 .ds-fig figcaption, .c2 .ds-cap{ margin-top:14px; font:400 15px/1.5 var(--body); color:var(--ink2); }
 .c2 .ds-fig figcaption b, .c2 .ds-cap b{ color:var(--ink); }
 /* pass / fail chips and the note under the moment */
@@ -74,10 +85,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ds-scale{ display:flex; align-items:center; gap:10px; margin-top:16px; font:500 13px/1 var(--body); color:var(--mute); }
 .c2 .ds-scale span{ display:flex; gap:3px; }
 .c2 .ds-scale i{ width:34px; height:18px; border-radius:5px; }
-/* the problem: one tall crop of the Compliance screen, its key beside it */
-.c2 .ds-prob{ display:grid; grid-template-columns:minmax(0, 520px) minmax(0, 1fr); gap:clamp(24px, 4vw, 56px); align-items:center; }
-.c2 .ds-prob .c2-key{ grid-template-columns:1fr; gap:20px; margin-top:0; }
-.c2 .ds-prob .c2-key li{ font-size:17px; }
+/* the problem: one wide strip of the Compliance screen (its figures and table header, not the grid), its key under it */
+.c2 .ds-prob .c2-shot{ background:#fff; }
 /* the moment (round 2): the same product text in Hear Blue or Deep Blue, with the measured ratio */
 .c2 .ds-try{ display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(0, 1fr); gap:clamp(24px, 4vw, 56px); margin-top:40px; align-items:center; }
 .c2 .ds-stage{ display:grid; place-items:center; padding:clamp(28px, 4vw, 48px) clamp(18px, 3vw, 36px); border-radius:18px; background:#F4F3F1; box-shadow:0 0 0 1px rgba(23,27,32,.08); }
@@ -123,13 +132,22 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ds-tile figcaption small{ display:block; margin-top:4px; font:500 13px/1.3 var(--body); color:var(--mute); }
 @media (prefers-reduced-motion: reduce){ .c2 .ds-blue, .c2 .ds-meter > i, .c2 .ds-tg button{ transition:none; } }
 @media (max-width: 900px){
-  .c2 .ds-split, .c2 .ds-prob, .c2 .ds-try{ grid-template-columns:1fr; }
-  .c2 .ds-prob .c2-shot{ max-width:520px; }
+  .c2 .ds-split, .c2 .ds-try{ grid-template-columns:1fr; }
   .c2 .ds-tiles{ grid-template-columns:1fr; }
   .c2 .ds-tile .c2-shot{ min-height:0; }
 }
 @media (max-width: 560px){
-  .c2 .ds-roles{ grid-template-columns:1fr; }
+  .c2 .ds-hwell{ padding:28px 22px 46px; }
+  .c2 .ds-hwell > .ds-p1{ --x:34px !important; --y:calc(100% - 23px) !important; }
+  .c2 .ds-hcard{ padding:18px 18px 16px; border-radius:18px; }
+  .c2 .ds-hl{ font-size:14.5px; }
+  .c2 .ds-ht{ margin-top:6px; padding-right:24px; font-size:19px; }
+  .c2 .ds-hcard .ds-ft{ margin-top:14px; gap:10px; }
+  .c2 .ds-hcard .ds-av{ width:34px; height:34px; font-size:12.5px; }
+  .c2 .ds-hcard .ds-tag{ height:28px; font-size:14px; }
+  .c2 .ds-chain{ font-size:14px; }
+  .c2 .ds-chain th, .c2 .ds-chain td{ padding-left:12px; padding-right:10px; }
+  .c2 .ds-chain th i{ margin-right:5px; }
   .c2 .ds-tg button{ padding:14px; gap:4px 12px; }
   /* on a phone the switch sits right above the card, so both are on screen while the reader toggles */
   .c2 .ds-try{ display:flex; flex-direction:column; align-items:stretch; gap:0; margin-top:32px; }
@@ -181,16 +199,23 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><dt>For</dt><dd>Whoever builds a screen of Hear. So far, that is me, with Claude Code.</dd></div>
         <div><dt>The problem</dt><dd>Dense screens need one set of names for color, surface and state.</dd></div>
         <div><dt>What I did</dt><dd>Built the tokens, the shared components and their docs, with Claude Code.</dd></div>
-        <div><dt>Where it stands</dt><dd>Partly shipped: Hear's live theme and its Storybook. The full system is in Hear Design Lab, my working copy of Hear, built in code.</dd></div>
+        <div><dt>Where it stands</dt><dd>Partly shipped: Hear's live theme and Storybook. In full: Hear Design Lab, my working copy of Hear, built in code.</dd></div>
       </dl>
-      <figure class="c2-fig">
-        <div class="c2-shot"><img src="../img/v7s-design-system-hero.webp?v=1" width="2264" height="928" alt="Part of the Actions screen: two columns of task cards, the first card selected with a blue outline, and beside them the open task's panel with its source, priority, owner, the call's timeline, a checklist and the outcome in an outlined field." fetchpriority="high">
-          <span class="c2-pin" style="--x:63.6%;--y:18.5%" aria-hidden="true">1</span><span class="c2-pin" style="--x:50%;--y:39.6%" aria-hidden="true">2</span><span class="c2-pin" style="--x:94%;--y:91.2%" aria-hidden="true">3</span><span class="c2-pin" style="--x:33.1%;--y:23.2%" aria-hidden="true">4</span></div>
+      <figure class="c2-fig ds-hero">
+        <div class="c2-shot ds-hwell" role="img" aria-label="A task card, selected, on the paper canvas. Four numbered markers: the Paper canvas behind it, the title in Ink, the gray source label, From Compliance, and the selection outline in Hear Blue.">
+          <span class="c2-pin ds-p1" style="--x:5.5%;--y:16%" aria-hidden="true">1</span>
+          <div class="ds-hcard">
+            <small class="ds-hl">From Compliance<span class="ds-at"><span class="c2-pin" style="--x:24px;--y:50%" aria-hidden="true">3</span></span></small>
+            <b class="ds-ht">Recording disclosure missing in the first 30&nbsp;seconds<span class="ds-at"><span class="c2-pin" style="--x:26px;--y:50%" aria-hidden="true">2</span></span></b>
+            <div class="ds-ft"><i class="ds-av">PN</i><span class="ds-tag">Open</span></div>
+            <span class="c2-pin" style="--x:100%;--y:0%" aria-hidden="true">4</span>
+          </div>
+        </div>
         <figcaption><ol class="c2-key" style="--n:4">
-          <li><i aria-hidden="true">1</i><span><b>Body text:</b> near-black Ink, for every title.</span></li>
-          <li><i aria-hidden="true">2</i><span><b>Labels:</b> one gray that still passes contrast.</span></li>
-          <li><i aria-hidden="true">3</i><span><b>Outlines and dividers:</b> one light gray, everywhere.</span></li>
-          <li><i aria-hidden="true">4</i><span><b>Selection:</b> Hear Blue, the brand's blue.</span></li>
+          <li><i aria-hidden="true">1</i><span><b>Paper:</b> the canvas every card sits on.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>Ink:</b> near-black, for every title.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>Label gray:</b> one gray that still passes contrast, 5.0:1.</span></li>
+          <li><i aria-hidden="true">4</i><span><b>Hear Blue:</b> the brand's blue marks what is selected.</span></li>
         </ol></figcaption>
       </figure>
     </div>
@@ -200,15 +225,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The problem</p>
       <h2>One screen mixes figures, tables, charts and chat, and must still read as one</h2>
-      <p class="c2-lede">Compliance checks every agent, the people who answer the calls, against the center's rules. Its top alone holds headline figures, a table header and a grid of scores; further down sit a popover with its own chart and a way into chat. Without shared names for color, surface and state, each part would answer the same questions its own way.</p>
+      <p class="c2-lede">Compliance checks every agent, the people who answer the calls, against the center's rules. Its top strip alone holds headline figures, each measured its own way, and a table header with its own team, count and pass mark. Under it sit a grid of scores, a popover with its own chart and a way into chat. Without shared names for color, surface and state, each part would answer the same questions its own way.</p>
       <figure class="c2-fig ds-prob">
-        <div class="c2-shot"><img src="../img/v7s-design-system-compliance.webp?v=1" width="852" height="666" alt="The top of the Compliance screen: the title and its purpose; two headline figures, 72.6 percent sales without alerts, up 2.1 points against the 6 weeks before, and 93.8 percent valid sales against a target of 90; the table header, Criteria by agent, Team B, 10 of 26 agents, pass mark 70; and the first scores, where only 67 is coral." loading="lazy">
-          <span class="c2-pin" style="--x:27%;--y:30.8%" aria-hidden="true">1</span><span class="c2-pin" style="--x:89%;--y:18.5%" aria-hidden="true">2</span><span class="c2-pin" style="--x:80.2%;--y:53.3%" aria-hidden="true">3</span><span class="c2-pin" style="--x:82.7%;--y:69.1%" aria-hidden="true">4</span></div>
-        <figcaption><ol class="c2-key" style="--n:1">
+        <div class="c2-shot"><img src="../img/v7s-design-system-kpis.webp?v=2" width="1296" height="318" alt="The top strip of the Compliance screen: two headline figures, 72.6 percent sales without alerts, up 2.1 points against the 6 weeks before, and 93.8 percent valid sales against a target of 90; under them the table header, Criteria by agent, Team B, 10 of 26 agents, pass mark 70, and the first agents' names." loading="lazy">
+          <span class="c2-pin" style="--x:30.5%;--y:41%" aria-hidden="true">1</span><span class="c2-pin" style="--x:63.5%;--y:41%" aria-hidden="true">2</span><span class="c2-pin" style="--x:51.5%;--y:71%" aria-hidden="true">3</span></div>
+        <figcaption><ol class="c2-key" style="--n:3">
           <li><i aria-hidden="true">1</i><span><b>A headline figure,</b> with its comparison.</span></li>
           <li><i aria-hidden="true">2</i><span><b>A second figure,</b> with its target.</span></li>
           <li><i aria-hidden="true">3</i><span><b>A table header,</b> with its team, count and pass mark.</span></li>
-          <li><i aria-hidden="true">4</i><span><b>A grid of scores,</b> where only one under the pass mark takes coral.</span></li>
         </ol></figcaption>
       </figure>
     </div>
@@ -230,19 +254,19 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <p class="ds-cap">Storybook is where the system is documented: each story renders the real component, and by July 2026 it held 122 stories for 32 components.</p>
         </div>
         <figure class="ds-fig">
-          <div class="ds-anat" role="img" aria-label="A task card on the paper canvas, with six numbered markers: the canvas, the white card, the title in ink, the muted source line, the gray tag and the blue avatar.">
-            <i class="ds-m" aria-hidden="true">1</i>
-            <div class="ds-card"><i class="ds-m" aria-hidden="true">2</i><small>From Compliance<i class="ds-m" aria-hidden="true">4</i></small><b>Recording disclosure missing in the first 30 seconds<i class="ds-m" aria-hidden="true">3</i></b><div class="ds-ft"><i class="ds-av">PN</i><i class="ds-m" style="margin-left:-2px" aria-hidden="true">6</i><span class="ds-tag">Open</span><i class="ds-m" style="margin-left:-2px" aria-hidden="true">5</i></div></div>
-            <ol class="ds-roles" aria-hidden="true">
-              <li><i class="ds-m">1</i><i class="sw" style="background:#F4F3F1"></i><span><b>Canvas</b> Paper</span></li>
-              <li><i class="ds-m">2</i><i class="sw" style="background:#FFFFFF"></i><span><b>Card</b> white</span></li>
-              <li><i class="ds-m">3</i><i class="sw" style="background:#181818"></i><span><b>Body text</b> Ink</span></li>
-              <li><i class="ds-m">4</i><i class="sw" style="background:#6A7078"></i><span><b>Muted text</b> #6A7078</span></li>
-              <li><i class="ds-m">5</i><i class="sw" style="background:#E9EEF2"></i><span><b>Chip</b> #E9EEF2</span></li>
-              <li><i class="ds-m">6</i><i class="sw" style="background:#139FFD"></i><span><b>Accent</b> Hear Blue</span></li>
-            </ol>
-          </div>
-          <figcaption><b>One card, six tokens.</b> Every color on the task card is a role, and each role has one value.</figcaption>
+          <table class="ds-chain">
+            <caption class="ds-vh">The card from the top of this page: each of its colors from the palette, through a role, to its place on the card</caption>
+            <thead><tr><th scope="col"><i aria-hidden="true">1</i>Palette</th><th scope="col"><i aria-hidden="true">2</i>Role</th><th scope="col"><i aria-hidden="true">3</i>On the card</th></tr></thead>
+            <tbody>
+              <tr><td><i class="sw" style="background:#F4F3F1" aria-hidden="true"></i>Paper</td><td>Canvas</td><td>behind it</td></tr>
+              <tr><td><i class="sw" style="background:#FFFFFF" aria-hidden="true"></i>white</td><td>Card</td><td>its face</td></tr>
+              <tr><td><i class="sw" style="background:#181818" aria-hidden="true"></i>Ink</td><td>Body text</td><td>the title</td></tr>
+              <tr><td><i class="sw" style="background:#6A7078" aria-hidden="true"></i>#6A7078</td><td>Muted text</td><td>From Compliance</td></tr>
+              <tr><td><i class="sw" style="background:#E9EEF2" aria-hidden="true"></i>#E9EEF2</td><td>Chip</td><td>the Open tag</td></tr>
+              <tr><td><i class="sw" style="background:#139FFD" aria-hidden="true"></i>Hear Blue</td><td>Accent</td><td>selection, avatar</td></tr>
+            </tbody>
+          </table>
+          <figcaption><b>One card, six tokens.</b> The card at the top of the page, traced through the layers: a palette color becomes a role, and the card asks only for the role.</figcaption>
         </figure>
       </div>
     </div>
