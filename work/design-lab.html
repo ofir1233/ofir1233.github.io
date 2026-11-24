@@ -17,12 +17,12 @@ addEventListener('hashchange',function(){setTimeout(strip,0);});
 addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
 }catch(e){}})();</script>
 <title>Hear Design Lab · Ofir Nona</title>
-<meta name="description" content="I built Hear Design Lab, a working replica of Hear, with Claude Code, to test designs and compare versions on the same demo data.">
+<meta name="description" content="On my own initiative I rebuilt Hear, an AI platform for contact centers, in code, so its designs are tested on realistic data before development.">
 <meta name="theme-color" content="#f4f3f1">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/design-lab.html">
 <meta property="og:title" content="Hear Design Lab · Ofir Nona">
-<meta property="og:description" content="I built Hear Design Lab, a working replica of Hear, with Claude Code, to test designs and compare versions on the same demo data.">
+<meta property="og:description" content="On my own initiative I rebuilt Hear, an AI platform for contact centers, in code, so its designs are tested on realistic data before development.">
 <meta property="og:image" content="https://ofir1233.github.io/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -34,37 +34,46 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css?v=201">
 <link rel="stylesheet" href="../v7/foot.css?v=200">
-<link rel="stylesheet" href="lab-live.css">
-<link rel="stylesheet" href="lab-tour.css">
-<link rel="stylesheet" href="lab-topics.css">
-<link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/px.css?v=20">
 <link rel="stylesheet" href="../v7/case.css?v=41">
+<link rel="stylesheet" href="../v7/case-r16.css?v=3">
+<link rel="stylesheet" href="../v7/cs2.css?v=4">
 <style>
-.design-lab-sub { margin: clamp(40px, 6vw, 72px) 0 18px; }
-.design-lab-sub + p { margin-bottom: 22px; }
-.design-lab-tablabel { width: fit-content; padding: 6px 13px 7px; border-radius: 99px; margin-bottom: 2px; background: var(--ink-3); color: var(--text); }
-.design-lab-note { margin-top: 18px; }
-.design-lab-gap { margin-top: clamp(28px, 4vw, 48px); }
-.lab-notes { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
-.lab-notes li { display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px 18px; border-radius: 16px; background: var(--card); font: 500 15px/1.45 var(--body); color: var(--paper); }
-.lab-notes b { flex: none; width: 24px; height: 24px; border-radius: 50%; background: #139FFD; color: #fff; font: 700 13px/24px var(--body); text-align: center; }
-@media (max-width: 860px) { .lab-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 480px) { .lab-notes { grid-template-columns: minmax(0, 1fr); } }
-.design-lab-mini { max-width: 505px; }
-@media (max-width: 860px) { .design-lab-mini { margin-inline: auto; } }
-.design-lab-pair { display: grid; grid-template-columns: minmax(0, 2.54fr) minmax(0, 1fr); gap: 16px; align-items: start; }
-.design-lab-pair .form { max-width: 440px; }
-@media (max-width: 760px) { .design-lab-pair { grid-template-columns: 1fr; gap: 24px; } .design-lab-pair .form { margin-inline: auto; width: 100%; max-width: 260px; } .design-lab-mini { max-width: 300px; } }
-.compare.shot .live { pointer-events: none; }
-.design-lab-more { margin-top: 22px; }
-.design-lab-more a { color: var(--coral); text-underline-offset: 3px; }
-.design-lab-close { margin-top: clamp(36px, 5vw, 64px); display: grid; gap: 14px; }
-/* the caption says which side is which; a pill here sat on the app's own header */
-.compare .tag { display: none; }
-.dl-tq .ct-rail .lx-beats li.on button::after { transform: scaleX(var(--p, 1)); }
-.design-lab-close cite { font: 600 14px/1.4 var(--body); color: var(--mute); font-style: normal; }
+/* page-only rules for the Design Lab case, scoped under .c2 (the shared sheet is v7/cs2.css) */
+/* before and after: a tidy mockup beside the same screen's real numbers */
+.c2 .dl-mock{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; height:220px; }
+.c2 .dl-mock span{ display:flex; flex-direction:column; justify-content:space-between; padding:12px; border-radius:8px; background:#eceef0; }
+.c2 .dl-mock span::before{ content:""; width:70%; height:8px; border-radius:4px; background:#d5d9dd; }
+.c2 .dl-mock span::after{ content:"00"; font:600 26px/1 var(--body); color:#c2c7cc; }
+.c2 .dl-tree{ display:grid; grid-template-columns:54fr 46fr; gap:6px; height:220px; }
+.c2 .dl-tree > div{ display:grid; gap:6px; }
+.c2 .dl-tree > div:first-child{ grid-template-rows:4412fr 3968fr; }
+.c2 .dl-tree > div:last-child{ grid-template-rows:2451fr 2377fr 2206fr; }
+.c2 .dl-tree span{ position:relative; min-width:0; overflow:hidden; padding:8px 10px; border-radius:8px; font:600 12.5px/1.2 var(--body); color:#0d2a44; background:var(--bg); }
+.c2 .dl-tree span small{ display:block; margin-top:2px; font:400 11px/1.2 var(--body); opacity:.8; }
+.c2 .dl-tree span b{ position:absolute; left:10px; bottom:6px; font:700 24px/1 var(--body); }
+.c2 .dl-tree span.dk{ color:#fff; }
+.c2 .dl-legend{ display:flex; flex-wrap:wrap; gap:4px 12px; margin-top:12px; font:400 12.5px/1.2 var(--body); color:var(--mute); }
+.c2 .dl-legend i{ display:inline-block; width:14px; height:8px; margin-right:5px; border-radius:2px; background:var(--bg); vertical-align:0; }
+/* the wireframe / built slider (work/case.js .compare), with numbered pins that sit on the same feature in both designs */
+.c2 .compare{ margin-top:32px; }
+.c2 .compare .c2-pin{ z-index:3; pointer-events:none; }
+.c2 .compare .tag{ display:none; } /* the line below the picture says which side is which; a pill here covered the app's workspace name */
+.c2 .dl-drag{ margin-top:14px; font:400 15px/1.5 var(--body); color:var(--ink2); }
+.c2 .dl-drag b{ color:var(--ink); }
+@media (max-width:760px){ .c2 .compare .c2-pin{ left:var(--mx); } }
+@media (max-width:560px){ .c2 .c2-hero .c2-pin{ left:var(--hx, var(--x)); top:var(--my, var(--y)); } } /* the workspace pin clears the picture's top edge on a phone */
+/* three habits */
+.c2 .dl-how{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:14px; margin-top:32px; }
+.c2 .dl-how li{ padding:20px 22px 22px; border-radius:16px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
+.c2 .dl-how b{ display:block; font:600 17px/1.3 var(--body); margin-bottom:8px; }
+.c2 .dl-how span{ display:block; font:400 15.5px/1.5 var(--body); color:var(--ink2); }
+.c2 .c2-dec + .c2-result{ margin-bottom:8px; }
+.c2 .c2-sec .c2-sub:first-of-type{ margin-top:36px; }
+.c2 .c2-sub + .c2-dec{ margin-top:16px; }
+.c2 .c2-stand a, .c2 .c2-result a{ color:var(--deep); text-underline-offset:3px; }
+@media (max-width:900px){ .c2 .dl-how{ grid-template-columns:1fr; } }
+@media (max-width:560px){ .c2 .dl-mock, .c2 .dl-tree{ height:240px; } .c2 .dl-tree span{ font-size:11.5px; padding:7px 8px; } .c2 .dl-tree span b{ left:8px; font-size:20px; } .c2 .dl-tree span small{ display:none; } }
 </style>
 </head>
 <body>
@@ -78,168 +87,148 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main">
-  <header class="cs-hero wrap">
-    <div class="label">Case study · <b>Hear Design Lab</b></div>
-    <h1>A working replica of Hear, built to test designs</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>Hear is an AI platform for contact centers. A design has to hold up with each customer's data and volume.</dd></div><div><dt>What I designed</dt><dd>I built Hear Design Lab from scratch, on my own initiative. It's connected to an AI API, so it gives realistic answers.</dd></div><div><dt>Where it stands</dt><dd>As of October 2026, the Lab has demo environments and version switches. Demo mode is in development.</dd></div></dl>
-    <dl class="meta">
-      <div><dt>Role</dt><dd>Started it and built it alone, with Claude&nbsp;Code</dd></div>
-      <div><dt>When</dt><dd>Since Feb 2026</dd></div>
-      <div><dt>Scope</dt><dd>Working replica · version switches · demo environments</dd></div>
-    </dl>
-    <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#versions"><span>02</span> One screen, many designs</a><a class="pill" href="#decisions"><span>03</span> Decisions</a><a class="pill" href="#demos"><span>04</span> Demo environments</a><a class="pill" href="#build"><span>05</span> How I build it</a></nav>
-    <div class="px-host" id="demo"><figure class="px-fig" data-px="agents"><div class="px-tabs" role="group" aria-label="Screen shown in the window"><button type="button" data-k="agents" data-q="screen=agents" aria-pressed="true">Agents</button><button type="button" data-k="news" data-q="screen=news" aria-pressed="false">Newsroom</button><button type="button" data-k="actions" data-q="screen=actions" aria-pressed="false">Actions</button><button type="button" data-k="compliance" data-q="screen=compliance" aria-pressed="false">Compliance</button></div><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=agents&v=202" title="The Lab: Agent evaluation, Newsroom, Actions and Compliance, each played in the same working replica." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
+<main id="main" class="c2">
+  <header class="c2-hero">
+    <div class="c2-w">
+      <p class="c2-kick">Case study · <b>Hear Design Lab</b></p>
+      <h1>I test Hear's designs on realistic data, before development</h1>
+      <p class="c2-ctx">Hear is an AI platform that reads every call, chat and ticket in a contact center. On my own initiative, I rebuilt it in code as Hear Design Lab, so a design is judged on a customer's data and volume, not in a tidy mockup.</p>
+      <dl class="c2-sum">
+        <div><dt>For</dt><dd>Anyone reviewing a Hear design: they look at a working screen, not a picture of one.</dd></div>
+        <div><dt>The problem</dt><dd>A static mockup shows one tidy state. A real screen has to hold up with each customer's data and volume.</dd></div>
+        <div><dt>What I did</dt><dd>Built the Lab from scratch, alone, with Claude Code: a sign-in, demo companies, and screens that hold more than one design.</dd></div>
+        <div><dt>Where it stands</dt><dd>Started in Feb 2026. As of Oct 2026 it has demo environments and version switches.</dd></div>
+      </dl>
+      <figure class="c2-fig">
+        <div class="c2-shot"><img src="../img/v7s-topics-hi.webp?v=5" width="2560" height="1440" alt="Topics in Hear Design Lab, in the Northwind demo workspace: 22,150 calls across 13 topics, the five highest-volume topics as boxes sized by calls and colored by score, and a daily score for each topic." fetchpriority="high">
+          <span class="c2-pin" style="--x:9.4%;--y:4.3%;--my:7.5%" aria-hidden="true">1</span><span class="c2-pin" style="--x:28.5%;--y:25%;--hx:32%" aria-hidden="true">2</span><span class="c2-pin" style="--x:55%;--y:62%" aria-hidden="true">3</span></div>
+        <figcaption><ol class="c2-key">
+          <li><i aria-hidden="true">1</i><span><b>A demo company,</b> Northwind, with its own workspace, people and calls.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>A customer's volume,</b> not a tidy sample: 22,150 calls across 13 topics.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>A screen that runs:</b> hover a box and it shows the three scores behind it.</span></li>
+        </ol></figcaption>
+      </figure>
+      <div class="c2-live"><button type="button" class="c2-btn" data-live="../hear-v7/plan/studio.html?topics=hi&amp;v=202" data-title="Topics, the live screen in Hear Design Lab" data-open="Try the live screen" data-close="Close the live screen" aria-expanded="false" aria-controls="live-t"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .5.6.8 1 .5l8-5.2a.6.6 0 0 0 0-1L5.5 2.3c-.4-.3-1 0-1 .5z"/></svg><span class="c2-bt">Try the live screen</span></button><small>The real screen in the Lab, with demo data. Hover any box.</small></div>
+      <div class="c2-frame" id="live-t" hidden></div>
+    </div>
   </header>
 
-  <!-- 01 -->
-  <section class="chapter" id="problem">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">01 · <b>The problem</b></div><h2>A static mockup shows only one tidy state</h2></div>
-        <div class="prose">
-          <p class="lead">So I test designs in the Lab, with real interactions and realistic data, before development.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details>
-        </div>
+  <section class="c2-sec" id="problem" data-ch="The problem">
+    <div class="c2-w">
+      <p class="c2-n">The problem</p>
+      <h2>A mockup shows one tidy state; a real screen has to carry a customer's data</h2>
+      <p class="c2-lede">Each contact center brings its own data and volume. A picture of a screen can't show whether a design holds up under that, or what happens on a hover or a click. Trying it in the real product means development first.</p>
+      <div class="c2-ba">
+        <div><h3>Before · a static mockup</h3>
+          <div class="dl-mock" aria-hidden="true"><span></span><span></span><span></span></div>
+          <p>One state, drawn to fit the frame. Nothing answers a hover or a click.</p></div>
+        <div><h3>After · the same screen in the Lab</h3>
+          <div class="dl-tree" role="img" aria-label="The five highest-volume topics as boxes sized by calls: Online Booking, 4,412 calls, score 43; Trip Status, 3,968 calls, 63; E-ticket Delivery, 2,451 calls, 72; Itinerary Questions, 2,377 calls, 43; Changes and Cancellations, 2,206 calls, 34.">
+            <div><span class="dk" style="--bg:#1a9cfa">Online Booking<small>4,412 calls</small><b>43</b></span><span style="--bg:#aad7f9">Trip Status<small>3,968 calls</small><b>63</b></span></div>
+            <div><span style="--bg:#ddeefb">E-ticket Delivery<small>2,451 calls</small><b>72</b></span><span class="dk" style="--bg:#1a9cfa">Itinerary Questions<small>2,377 calls</small><b>43</b></span><span class="dk" style="--bg:#0f6fd0">Changes &amp; Cancellations<small>2,206 calls</small><b>34</b></span></div>
+          </div>
+          <p class="dl-legend" aria-hidden="true"><span><i style="--bg:#0f6fd0"></i>under 40</span><span><i style="--bg:#1a9cfa"></i>40–49</span><span><i style="--bg:#aad7f9"></i>60–69</span><span><i style="--bg:#ddeefb"></i>70 and up</span></p>
+          <p>The demo company's topics, at its volume, sized by calls. Hover a box and it shows the three scores behind it.</p></div>
       </div>
-      <div class="two solo">
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-home.webp?v=3" data-zoom alt="The Lab home: the line Describe it. Hear builds it. above one field, on a painted sky, with the workspace, the apps and the product areas in the sidebar" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Home.</b> The whole product sits in the sidebar, around one field.</figcaption></figure>
-        <div class="prose xtra">
-          <h3 style="margin-top:0">What's in the Lab</h3>
-          <ul>
-            <li>The sidebar holds the apps built so far, then Conversations, Knowledge, Workflows and Topics.</li>
-            <li>A workspace for each demo environment, with “Powered by Hear” at the foot of the sidebar.</li>
-            <li>Notifications, Help and Settings sit above the signed-in user.</li>
-          </ul>
-        </div>
-      </div>
-
-      <h3 class="design-lab-sub xtra">How it started</h3>
-      <ol class="steps rv xtra">
-        <li><strong>Feb 2026 · A gallery first</strong><span>A separate component-gallery site. I stopped after two days.</span></li>
-        <li><strong>Mar 2026 · My first version</strong><span>Chat home, sign-in, first versions of several pages, an in-app Design Inspector and the design system with its first Storybook stories.</span></li>
-        <li><strong>Mar to Jul 2026 · Built out</strong><span>A Lab shell for experiments, new pages such as Actions, Signals, Knowledge, AI Tasks and News, and copies of screens to try other designs.</span></li>
-      </ol>
     </div>
   </section>
 
-  <!-- 02 -->
-  <section class="chapter sheet" id="versions">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">02 · <b>One screen, many designs</b></div><h2>Several designs of one screen, compared in place</h2></div>
-        <div class="prose"><p class="lead">Some screens in the Lab hold more than one design. Topics holds two stages, the wireframe and the built screen, on the same data.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The design changes and the data doesn’t, so the two can be judged side by side. Earlier, five key screens carried a version switch in their own toolbar.</p></div></details></div>
+  <section class="c2-sec" id="lab" data-ch="What the Lab is">
+    <div class="c2-w">
+      <p class="c2-n">What the Lab is</p>
+      <h2>Hear's product, rebuilt in code, with demo companies in place of customers</h2>
+      <p class="c2-lede">A demo environment stands in for one kind of customer: its own workspace, people, apps and calls. Northwind is one. The Lab is connected to an AI service, so its AI answers are realistic too.</p>
+      <div class="c2-steps">
+        <div class="c2-side">
+          <div class="c2-tabs" role="tablist" aria-label="Three steps into the Lab">
+            <button type="button" class="c2-tab" role="tab" id="t1" aria-controls="p1" aria-selected="true"><i>1</i><div><b>Sign in</b><span>The product's own sign-in. One sign-in leads into every demo environment.</span></div></button>
+            <button type="button" class="c2-tab" role="tab" id="t2" aria-controls="p2" aria-selected="false"><i>2</i><div><b>Pick a demo company</b><span>Each one is a workspace with its own team and apps. In Northwind, five apps, built by Maya, Dana, Sam and Tyler.</span></div></button>
+            <button type="button" class="c2-tab" role="tab" id="t3" aria-controls="p3" aria-selected="false"><i>3</i><div><b>Open a screen</b><span>Hear's screens, filled with the company's data. Some hold more than one design, on the same data.</span></div></button>
+          </div>
+        </div>
+        <div class="c2-stage">
+          <figure class="c2-panel" role="tabpanel" id="p1" aria-labelledby="t1"><div class="c2-shot wide"><img src="../img/v7s-studio-login.webp?v=3" width="2560" height="1440" alt="The Lab's sign-in screen: work email, password and Continue with Google, under the Hear mark drawn as a cloud, over a city." loading="lazy"></div><figcaption><b>Sign in.</b> The same door for every demo company.</figcaption></figure>
+          <figure class="c2-panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden><div class="c2-shot wide"><img src="../img/v7s-studio-apps.webp?v=3" width="2560" height="1440" alt="All apps in the Northwind workspace: Evaluation by agent, Disclosure review, Handle time by team, Compliance review, and Coaching queue, still a draft." loading="lazy"></div><figcaption><b>Northwind.</b> A demo company, with the apps its team built.</figcaption></figure>
+          <figure class="c2-panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden><div class="c2-shot wide"><img src="../img/v7s-topics-lo.webp?v=3" width="2560" height="1440" alt="Topics as a wireframe in the Northwind workspace: gray boxes sized by calls, each with its score, a daily score list, and four numbered notes in blue." loading="lazy"></div><figcaption><b>Topics,</b> in its wireframe design, on Northwind's 22,150 calls.</figcaption></figure>
+          <div class="c2-nav"><button type="button" data-go="-1" aria-label="Previous step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button><button type="button" data-go="1" aria-label="Next step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button><span aria-live="polite">1 of 3</span></div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="compare shot v7s rv">
+  <section class="c2-sec" id="test" data-ch="Testing a design">
+    <div class="c2-w">
+      <p class="c2-n">Testing a design</p>
+      <h2>Two designs of one screen, judged on the same numbers</h2>
+      <p class="c2-lede">Topics shows what customers called about and how each topic scored. Its wireframe and its built design run on the same demo data: same topics, same numbers. Only the design changes.</p>
+      <div class="compare shot v7s">
         <img src="../img/v7s-topics-lo.webp?v=3" alt="Topics as a wireframe: gray boxes sized by calls, each with its average score, a daily score list, and four numbered notes in blue" width="2560" height="1440" loading="lazy">
         <div class="after"><img src="../img/v7s-topics-hi.webp?v=5" alt="The same Topics screen, built: the boxes in one blue that deepens as the score drops, on a glass panel over a painted sky" width="2560" height="1440" loading="lazy"></div>
         <span class="tag l">Wireframe</span><span class="tag r">Built</span>
-        <input type="range" min="0" max="100" value="50" aria-label="Drag to compare the wireframe and the built Topics screen">
+        <input type="range" min="0" max="100" value="80" aria-label="Drag to compare the wireframe and the built Topics screen">
         <span class="handle" aria-hidden="true"></span>
         <span class="live">Design Lab · demo data</span>
+        <span class="c2-pin" style="--x:31.5%;--y:15%;--mx:21.3%" aria-hidden="true">1</span><span class="c2-pin" style="--x:30%;--y:47%;--mx:19.3%" aria-hidden="true">2</span><span class="c2-pin" style="--x:46%;--y:70%;--mx:40.7%" aria-hidden="true">3</span><span class="c2-pin" style="--x:86%;--y:45%;--mx:94%" aria-hidden="true">4</span>
       </div>
-      <p class="design-lab-note" style="font-size:14px"><b>Wireframe to built.</b> The wireframe is on the left, the built screen on the right. Drag the handle. Same topics, same numbers. Design Lab, demo data.</p>
-
-      <ol class="lab-notes rv" aria-label="Four notes the wireframe carries">
-        <li><b>1</b><span>The score is defined before any number is shown.</span></li>
-        <li><b>2</b><span>A box’s size is its calls. The darkest boxes need attention first.</span></li>
-        <li><b>3</b><span>Hovering a box shows the three scores behind it.</span></li>
-        <li><b>4</b><span>The daily panel lists the same topics, by day.</span></li>
+      <p class="dl-drag"><b>Wireframe on the left, built on the right.</b> Drag the line to move between them.</p>
+      <ol class="c2-key" style="--n:4">
+        <li><i aria-hidden="true">1</i><span><b>The score is defined</b> before any number is shown.</span></li>
+        <li><i aria-hidden="true">2</i><span><b>A box's size is its calls.</b> The darkest boxes need attention first.</span></li>
+        <li><i aria-hidden="true">3</i><span><b>Hover a box</b> to see the three scores behind it.</span></li>
+        <li><i aria-hidden="true">4</i><span><b>The daily panel</b> lists the same topics, by day.</span></li>
       </ol>
-      <p class="design-lab-note" style="font-size:14px">The built screen keeps all four notes and adds one color: the deeper the blue, the lower the score.</p>
-
-      <div class="px-host rv design-lab-gap"><figure class="px-fig" data-px="topics"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?topics=hi&v=202" title="Topics in Hear Studio: every topic as a box sized by calls and colored by score." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
-
-      <article class="decision rv design-lab-gap">
-        <div class="label">Decision 1 · <b>Where an alternative design sits</b></div>
-        <h3>Should a new design get its own page, or a switch on the screen?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>Its own page in the nav</strong><span>The earlier pattern was a copy of the page with its own nav item, such as Data and Data V2.</span></li>
-          <li class="opt chosen"><strong>A Version switch on the screen</strong><span>Five key screens carried the switch on the screen itself. The design changes; the data and the view don't.</span></li>
-        </ul>
-        <p class="because"><b>Result:</b> each version is seen on the same data and in the same view, like the two stages of Topics above.</p>
-      </article>
+      <p class="c2-result"><b>What the comparison shows:</b> the built screen keeps all four and adds one color. The deeper the blue, the lower the score.</p>
     </div>
   </section>
 
-  <!-- 03 -->
-  <section class="chapter ink" id="decisions">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">03 · <b>Decisions</b></div><h2>The choice that shaped the Lab</h2></div>
-        <div class="prose"><p class="lead">I chose a working replica over a component gallery. How the components are documented is in the <a href="design-system.html#decisions">Design system</a> case.</p></div>
+  <section class="c2-sec" id="decisions" data-ch="Decisions">
+    <div class="c2-w">
+      <p class="c2-n">Decisions</p>
+      <h2>Three choices that keep every design inside the screen it belongs to</h2>
+      <h3 class="c2-sub">A gallery of parts, or the whole product?</h3>
+      <div class="c2-dec">
+        <div class="c2-opt"><h3>A component gallery <em>Set aside</em></h3><p>My first try, in Feb 2026: a separate site that showed each component in Preview and Code tabs. I stopped after two days, with two sample components.</p></div>
+        <div class="c2-opt is-chosen"><h3>A working copy of Hear <em>Chosen</em></h3><p>The product with its sign-in, navigation and demo data.</p></div>
       </div>
-
-      <article class="decision rv">
-        <div class="label">Decision 2 · <b>Gallery or replica</b></div>
-        <h3>Should the Lab be a component gallery, or a working replica of Hear?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>A component gallery site</strong><span>My first attempt was a separate site with a sign-in and a gallery that showed each component in Preview and Code tabs. It held two sample components when I stopped.</span></li>
-          <li class="opt chosen"><strong>A working replica of Hear</strong><span>The product with its sign-in, navigation and demo data.</span></li>
-        </ul>
-        <p class="because"><b>Result:</b> I judge a design inside the screen it belongs to, with the data it has to carry.</p>
-      </article>
-
+      <p class="c2-result"><b>Why:</b> I judge a design inside the screen it belongs to, with the data it has to carry. How the parts are documented is in the <a href="design-system.html#decisions">Design system</a> case.</p>
+      <h3 class="c2-sub">A new design: its own page, or a switch on the screen?</h3>
+      <div class="c2-dec">
+        <div class="c2-opt"><h3>Its own page <em>Set aside</em></h3><p>A copy of the page, with its own item in the navigation, next to the original.</p></div>
+        <div class="c2-opt is-chosen"><h3>A switch on the screen <em>Chosen</em></h3><p>Five key screens carried a version switch on the screen itself.</p></div>
+      </div>
+      <p class="c2-result"><b>Why:</b> the design changes while the data and the view stay, so two versions are judged side by side.</p>
+      <h3 class="c2-sub">Experiments and demos: one space, or two?</h3>
+      <div class="c2-dec">
+        <div class="c2-opt"><h3>One space for everything <em>Set aside</em></h3><p>Keep adding every new page to my first version.</p></div>
+        <div class="c2-opt is-chosen"><h3>Two, behind one sign-in <em>Chosen</em></h3><p>A separate space for experiments, built from the first version. The first version stays as the demo, with a smaller set of screens.</p></div>
+      </div>
+      <p class="c2-result"><b>Why:</b> new work lands with the experiments first, and only some of it moves on to the demo.</p>
     </div>
   </section>
 
-  <!-- 04 -->
-  <section class="chapter sheet" id="demos">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">04 · <b>Demo environments</b></div><h2>One build, several demo environments</h2></div>
-        <div class="prose">
-          <p class="lead">The Lab holds separate demo environments, such as Northwind, so I can check one design against different kinds of customers.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details>
-        </div>
-      </div>
-
-      <div class="grid2">
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-login.webp?v=3" data-zoom alt="The sign-in screen: a glass panel with work email, password and Continue with Google, under the Hear mark as a cloud, on a painted sky above a city" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>Sign in.</b> One sign-in leads into every demo environment.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-studio-apps.webp?v=3" data-zoom alt="All apps in the Northwind workspace: a card to describe a new app, then Evaluation by agent, Disclosure review, Handle time by team, Compliance review and Coaching queue" width="2560" height="1440" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>A demo environment.</b> The Northwind workspace, with the apps built in it.</figcaption></figure>
-      </div>
-
-      <article class="decision rv design-lab-gap xtra">
-        <div class="label">Decision 3 · <b>Two modes</b></div>
-        <h3>Should experiments get a shell of their own?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>One shell for everything</strong><span>Keep adding every new page to the one shell of my first version.</span></li>
-          <li class="opt chosen"><strong>A Lab shell beside it</strong><span>I built a separate Lab shell from the first one, for every experiment, and kept the first shell as Demo mode, with a smaller set of screens.</span></li>
-        </ul>
-        <p class="because"><b>Result:</b> one sign-in leads to both modes. New work lands in the Lab first, and some of it moves on to Demo mode later.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- 05 -->
-  <section class="chapter ink" id="build">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">05 · <b>How I build it</b></div><h2>Prototyping in code, with Claude&nbsp;Code</h2></div>
-        <div class="prose">
-          <p class="lead">I build the Lab in React, so a design review looks at a working screen, not a picture of one.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>I'm a designer with a background in coding.</p><p>Three patterns run through the work.</p></div></details>
-        </div>
-      </div>
-
-      <ol class="steps rv xtra">
-        <li><strong>Duplicate, compare, delete</strong><span>A new idea gets its own copy of the screen while the original keeps working. Later one of them goes: News V1 was dropped, and V2 became the News tab. Data still keeps two versions behind one switch.</span></li>
-        <li><strong>Real fields, illustrative values</strong><span>Screens stay close to what Hear has. News uses real field and metric names with illustrative values, and Data's filter presets use only columns and values that exist in the table. I also took out an invented “risk” concept.</span></li>
-        <li><strong>Reuse before inventing</strong><span>I build new pages from parts the Lab already has. The Settings section uses only existing components, and the Knowledge glossary row reuses the item row from Signals.</span></li>
+  <section class="c2-sec" id="build" data-ch="How I build">
+    <div class="c2-w">
+      <p class="c2-n">How I build</p>
+      <h2>I build it in React with Claude Code, so a review looks at a working screen</h2>
+      <p class="c2-lede">I'm a designer with a background in code. Three habits keep the Lab close to Hear.</p>
+      <ol class="dl-how">
+        <li><b>Duplicate, compare, delete</b><span>A new idea gets its own copy of a screen while the original keeps working. Later, one of them goes.</span></li>
+        <li><b>Real fields, illustrative values</b><span>Screens use Hear's real field and metric names. Filters offer only columns and values the table has. I took out an invented "risk" idea.</span></li>
+        <li><b>Reuse before inventing</b><span>New pages are built from parts the Lab already has. Settings uses only existing components.</span></li>
       </ol>
+    </div>
+  </section>
 
-
-      <div class="design-lab-close rv">
-        <p class="pull">A replica of our platform I made to test designs and ideas.</p>
-        <cite>How I describe the Lab, Oct 2026</cite>
+  <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
+    <div class="c2-w">
+      <div class="c2-stand">
+        <div><h3>Where it stands</h3><p>Started in February 2026. As of October 2026 the Lab has demo environments and version switches, and the demo with its smaller set of screens is still in development. The product screens across this site are shown in it, with demo data.</p></div>
+        <div><h3>My part</h3><p>I started it on my own initiative and built it alone, from scratch, with Claude Code.</p></div>
       </div>
     </div>
   </section>
 
-  <div class="wrap">
-    <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy. The pull quote is my own description of the Lab (Oct 2026).</p></div>
+  <div class="c2-w c2-next">
     <a class="next" href="explainable-scores.html" aria-label="Next case study: Explainable scores. Every AI score should lead back to the calls behind it"><span class="next-t"><span class="label">Next case study</span><span class="next-name">Explainable scores</span><span class="next-line">Every AI score should lead back to the calls behind it</span><span class="next-go">Read next</span></span><span class="next-thumb" aria-hidden="true"><img src="../img/next-compliance.webp?v=2" width="1440" height="900" alt="" loading="lazy" decoding="async"></span></a>
   </div>
 </main>
@@ -277,9 +266,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </div>
 </footer>
-<script src="case.js?v=7"></script>
-<script src="../v7/depth.js?v=6" defer></script>
-<script src="../v7/product.js?v=39" defer></script>
+<script src="case.js?v=8"></script>
+<script src="../v7/cs2.js?v=1" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>
