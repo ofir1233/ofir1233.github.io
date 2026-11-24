@@ -321,3 +321,33 @@ html body section#product#product article.spot .txt:not(:has(> .cs-links)) > .mr
 html body section#product#product article.spot .cs-link{ height:42px; padding:0 18px !important; border-radius:21px; font:600 15px/1 var(--body) !important; white-space:nowrap; }
 html body section#product#product article.spot .txt > .mr > .mr-btn{ height:42px; min-height:42px; padding:0 18px 0 14px !important; border-radius:21px; font:600 15px/1 var(--body) !important; white-space:nowrap; }
 html body section#product#product article.spot .txt > .cs-links, html body section#product#product article.spot .txt > .mr > .mr-btn{ margin-top:24px !important; }
+
+/* THE PHONE (owner, 24.11.2026: "on a phone these cards are really broken; make the phone view optimal, a different UI if it needs one").
+   One column, read top to bottom: the card's number and name, the window, the step being played, the sentence, the case study.
+   - The text block kept the old sticky offset (top: 90px) as a push down: it left a hole under the steps and slid the Case study
+     button under the card's edge, where it was cut off. It sits in the flow now.
+   - The window is 4:3, not 16:9: product.js draws the screen at the window's shape, so the app has more height and the camera crops less.
+   - The steps are one row of short bars, like a story, with the step being played written once under them, at a fixed height (room for three lines, so a longer step never makes the card grow). */
+@media (max-width:760px){
+  html body section#product#product#product article.spot{ row-gap:0; }
+  html body section#product#product#product article.spot > .txt{ display:contents; }
+  html body section#product#product#product article.spot > .txt > .head{ order:-6; margin:8px 8px 0; }
+  html body section#product#product#product article.spot > .txt > h3{ order:-5; margin:6px 8px 18px !important; }
+  html body section#product#product#product article.spot > .media{ order:-2; }
+  html body section#product#product#product article.spot > .txt > .pf-lead{ order:1; margin:22px 8px 0 !important; }
+  html body section#product#product#product article.spot > .txt > .cs-links{ order:2; margin:22px 8px 2px !important; }
+
+  html body section#product#product#product .px-steps{ grid-template-columns:44px minmax(0, 1fr); gap:0 14px; margin:16px 2px 0; align-items:start; }
+  html body section#product#product#product .px-steps ol{ position:relative; display:flex; flex-flow:row nowrap; align-items:flex-start; gap:6px; min-height:110px; }
+  html body section#product#product#product .px-steps li{ position:static; flex:1 1 0; min-width:0; }
+  html body section#product#product#product .px-steps li button{ position:static; display:block; width:100%; height:auto; min-height:0; padding:20px 0 21px; font-size:0; border-radius:0; }
+  html body section#product#product#product .px-steps li button::before{ position:static; display:block; width:auto; height:3px; border-radius:2px; background:#dddcd7; }
+  html body section#product#product#product .px-steps li.done button::before{ background:#171b20; }
+  html body section#product#product#product .px-steps li.on button::before{ background:linear-gradient(90deg, #139ffd calc(var(--p, 0) * 100%), #dddcd7 0); }
+  html body section#product#product#product .px-steps li:not(.on) button .n, html body section#product#product#product .px-steps li:not(.on) button .l{ display:none; }
+  html body section#product#product#product .px-steps li.on .n{ position:absolute; left:0; top:44px; margin:0; font:500 13.5px/21px var(--body); color:#0B6FCF; }
+  html body section#product#product#product .px-steps li.on .l{ position:absolute; left:30px; right:0; top:44px; width:auto; font:400 15.5px/1.38 var(--body); letter-spacing:-.003em; color:#171b20; text-align:left; text-wrap:pretty; }
+}
+@media (max-width:600px){
+  html body section#product#product#product .px-win{ aspect-ratio:4 / 3; }
+}

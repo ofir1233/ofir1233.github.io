@@ -178,12 +178,15 @@
       if (LOAD.busy === P) LOAD.busy = null;
       frame.src = 'about:blank';
     };
-    var H = function () { return Math.round(P.w * 9 / 16); };
+    var H = function () { return P.h || Math.round(P.w * 9 / 16); };
     var px = function (n) { return n.toFixed(1) + 'px'; };
-    /* On a phone the frame is too small for the whole app: the sidebar steps aside and the screen is drawn at 860 wide. */
+    /* On a phone the frame is too small for the whole app: the sidebar steps aside and the screen is drawn at 860 wide. Owner, 24.11:
+       "on a phone the cards are really broken". The phone's window is taller than 16:9 (see product.css, 4:3), and the screen is drawn
+       at the window's own shape, so the app lays itself out with more height and the camera crops less. */
     function fit() {
       var small = win.clientWidth < 520, w = small ? 860 : 1120;
-      frame.style.width = w + 'px'; frame.style.height = Math.round(w * 9 / 16) + 'px';
+      var h = win.clientHeight > 40 && win.clientWidth > 40 ?Math.round(w * win.clientHeight / win.clientWidth) : Math.round(w * 9 / 16);
+      frame.style.width = w + 'px'; frame.style.height = h + 'px'; P.h = h;
       P.s = win.clientWidth / (w - 2 * TRIM); P.w = w; P.small = small;
       fig.style.setProperty('--s', P.s);
       try { frame.contentDocument.documentElement.classList.toggle('px-small', small); } catch (e) {}
@@ -235,6 +238,15 @@
       });
       return best;
     }
+    /* the sky margin plus the glass rim around the app's white card, in the screen's px (about 27 on a phone) */
+    function edge() {
+      var m = 0;
+      try { [].some.call(frame.contentDocument.querySelectorAll('.stage .card'), function (c) {
+        var b = c.getBoundingClientRect();
+        if (b.width > P.w * .8 && b.height > H() * .6) { m = Math.max(0, Math.min(40, Math.round(Math.min(b.left, b.top)))); return true; }
+      }); } catch (e) {}
+      return m;
+    }
     /* Where the frame must be to show r. Returns the camera {x, y, z} in the screen's px. */
     function frameFor(r, o) {
       var W = P.w, h = H(), z = 1, cx = W / 2, cy = h / 2;
@@ -260,6 +272,16 @@
       /* The app's panel floats on a sky margin of about 20px. Zoomed in on something beside the right or bottom edge, a sliver of that
          margin showed at the rim as a stray blue strip: the frame stops at the panel's edge, unless the thing itself reaches into the margin. */
       var mr = r && z > 1.05 && r[0] + r[2] <= W - 24 ? 20 : 0, mb = r && z > 1.05 && r[1] + r[3] <= h - 24 ? 20 : 0;
+      /* a phone never shows the sky margin and the glass rim around the app's card: at the window's rim they read as two stray blue
+         strips (owner, 24.11). The frame stays inside the card, and is never wider than it. */
+      if (P.small) {
+        var M = edge();
+        if (M > 0) {
+          z = Math.max(z, W / (W - 2 * M), h / (h - 2 * M));
+          var x = W / 2 - cx * z, y = h / 2 - cy * z;
+          return { x: Math.min(-M * z, Math.max(W - (W - M) * z, x)), y: Math.min(-M * z, Math.max(h - (h - M) * z, y)), z: z };
+        }
+      }
       return { x: Math.min(0, Math.max(W - W * z + mr * z, W / 2 - cx * z)), y: Math.min(0, Math.max(h - h * z + mb * z, h / 2 - cy * z)), z: z };
     }
     /* How long a move takes: a longer way takes longer, a change of zoom counts as way, and nothing is rushed or dragged out. */
