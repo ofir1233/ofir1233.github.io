@@ -43,8 +43,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
    pinned and keyed, all in one 1440x900 screen. It opens open (the point is made before any click); "Back to the board" or the
    card closes it, and the card (its small "Open the task" control) opens it again. The panel slides in from the card's side in
    280 ms; with reduced motion it simply appears.
-   Also: the worked task in Before/After, five directions as schematic boards with one card redrawn from colour to weight,
-   the close reasons beside their column, the filter bar as a strip. */
+   Also: the worked task in Before/After; priority redrawn from colour to weight (two cards, before/after); the key decision
+   with each option's own filter bar; close reasons as one note (the list is the product's own). */
 .c2 .ac-chip{ display:inline-flex; padding:8px 14px; border-radius:99px; background:#e3f1fe; color:var(--deep); font:600 15px/1.2 var(--body); }
 .c2 .ac-facts{ display:grid; grid-template-columns:auto 1fr; gap:10px 18px; font:400 15px/1.45 var(--body); color:var(--ink2); }
 .c2 .ac-facts dt{ font:600 13px/1.6 var(--body); letter-spacing:.02em; color:var(--mute); }
@@ -77,86 +77,57 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ac-open:not(.is-open) .ac-drawer{ opacity:0; transform:translateX(-28px); }
 .c2 .ac-open:not(.is-open) .ac-key{ opacity:0; transform:translateX(-14px); }
 
-.c2 .ac-close{ display:grid; grid-template-columns:minmax(0, .8fr) minmax(0, 1.2fr); gap:clamp(24px, 4vw, 56px); margin-top:32px; align-items:start; }
-.c2 .ac-close .c2-shot{ display:grid; place-items:center; padding:clamp(18px, 3vw, 32px); background:linear-gradient(180deg, #dcebf8, #eef4fa); }
-.c2 .ac-close .c2-shot img{ aspect-ratio:706 / 730; object-fit:cover; object-position:50% 0; -webkit-mask-image:linear-gradient(#000 95%, transparent); mask-image:linear-gradient(#000 95%, transparent); width:auto; max-width:100%; max-height:400px; border-radius:12px; box-shadow:0 18px 40px -22px rgba(11,79,138,.45); }
-.c2 .ac-reasons{ display:grid; gap:12px; }
-.c2 .ac-reasons li{ padding:16px 20px; border-radius:14px; background:var(--card); box-shadow:0 0 0 1px var(--line); font:400 15.5px/1.5 var(--body); color:var(--ink2); }
-.c2 .ac-reasons li b{ display:inline-block; margin-right:8px; padding:4px 10px; border-radius:99px; background:#e9ecef; font:600 13px/1.2 var(--body); color:var(--ink); }
-.c2 .ac-reasons li b.ok{ background:#dff3e6; color:#1d6b3b; }
-.c2 .ac-reasons q{ quotes:"\201C" "\201D"; color:var(--ink); }
 
-.c2 .ac-bar{ margin-top:28px; }
-.c2 .ac-bar .c2-shot{ background:#fff; }
-.c2 .c2-opt h3 em{ white-space:nowrap; }
-
-/* five directions: schematic boards (not screenshots), drawn from the five working pages of 6 Oct 2026; Flow marked */
-.c2 .ac-dirs{ display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:18px; margin-top:32px; }
-.c2 .ac-dirs li p{ margin-top:10px; font:400 14px/1.4 var(--body); color:var(--mute); }
-.c2 .ac-dirs li p b{ font:600 15.5px/1.3 var(--body); color:var(--ink); }
-.c2 .ac-dirs li p em{ margin-left:6px; padding:2px 8px; border-radius:99px; background:var(--deep); color:#fff; font:600 11.5px/1.4 var(--body); font-style:normal; vertical-align:2px; }
-.c2 .ac-dirs li p span{ display:block; margin-top:2px; }
-.c2 .ac-th{ display:flex; flex-direction:column; gap:5px; aspect-ratio:16 / 10; padding:8px; border-radius:10px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.1); opacity:.82; }
-.c2 .ac-dirs .is-pick .ac-th{ opacity:1; box-shadow:0 0 0 2px var(--deep), 0 16px 30px -18px rgba(11,79,138,.5); }
-.c2 .ac-th i, .c2 .ac-th b{ display:block; }
-.c2 .ac-th .t-h{ height:5px; width:28%; border-radius:2px; background:#c9ced3; }
-.c2 .ac-th .t-title{ height:9px; width:38%; border-radius:2px; background:#9aa1a8; }
-.c2 .ac-th .t-tabs{ height:4px; width:22%; border-radius:2px; background:#c9ced3; }
-.c2 .ac-th .t-f{ height:5px; width:72%; border-radius:3px; background:repeating-linear-gradient(90deg, #dde1e5 0 13%, transparent 13% 15%); }
-.c2 .ac-th .t-k{ display:grid; grid-template-columns:repeat(4, 1fr); gap:4px; }
-.c2 .ac-th .t-k i{ height:9px; border-radius:3px; background:#eceef0; box-shadow:inset 0 0 0 1px #dde1e5; }
-.c2 .t-ref .t-k i{ height:15px; }
-.c2 .t-ref .t-k i.on{ box-shadow:inset 0 0 0 1.5px #3a4148; }
-.c2 .ac-th .t-l{ flex:1; display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:4px; min-height:0; }
-.c2 .ac-th .t-l b{ display:flex; flex-direction:column; gap:3px; padding:3px; border-radius:4px; background:#eef0f2; overflow:hidden; }
-.c2 .ac-th .t-l b i{ height:11px; flex:none; border-radius:2px; background:#fff; box-shadow:0 0 0 .5px #d6dade; }
-.c2 .t-flow .t-l b.t-done{ background:#e6efe9; }
-.c2 .t-flow .t-l b i.t-sum{ position:relative; height:16px; box-shadow:0 0 0 .5px #c3cfc7; }
-.c2 .t-flow .t-sum::after{ content:""; position:absolute; left:3px; right:3px; top:5px; height:4px; border-radius:2px; background:linear-gradient(90deg, #3a4148 0 50%, #8b939b 50% 70%, #b9c0c6 70% 85%, #dde1e5 85%); }
-.c2 .t-lanes .t-l b::before{ content:""; display:block; height:4px; width:60%; border-radius:2px; background:var(--lh, #c9ced3); }
-.c2 .t-lanes .t-l b:nth-child(1){ --lh:#e9c9a8; } .c2 .t-lanes .t-l b:nth-child(2){ --lh:#b9d3f2; } .c2 .t-lanes .t-l b:nth-child(3){ --lh:#bfdcc9; } .c2 .t-lanes .t-l b:nth-child(4){ --lh:#d3d6da; }
-.c2 .t-rail .t-l{ grid-auto-columns:1fr 1fr 1fr 1fr 1.25fr; }
-.c2 .t-rail .t-l b.t-side{ background:#fff; box-shadow:inset 0 0 0 .5px #d6dade; }
-.c2 .t-rail .t-l b.t-side i{ height:4px; box-shadow:none; background:#dde1e5; }
-
-/* colour to weight: one card, redrawn in HTML; before = the first board's badges, after = Flow's priority bars */
-.c2 .ac-wt{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px, 3vw, 40px); margin-top:clamp(40px, 5vw, 64px); }
-.c2 .ac-wt figure{ display:grid; grid-template-columns:minmax(0, 290px) minmax(0, 1fr); grid-template-rows:auto auto 1fr; column-gap:22px; align-items:start; }
-.c2 .ac-wt-h{ grid-column:1 / -1; }
-.c2 .ac-wt .ac-lane{ grid-row:2 / 4; }
-.c2 .ac-wt .ac-leg{ grid-column:2; grid-row:2; margin-top:4px; }
-.c2 .ac-wt .ac-wt-p{ grid-column:2; grid-row:3; }
-.c2 .ac-wt-h{ margin-bottom:12px; font:600 13.5px/1.3 var(--body); color:var(--deep); }
+/* priority, colour to weight: two cards of the Pending column, redrawn in HTML; before = the first board's badges (30 Mar 2026),
+   after = Flow's bars (weight in ink, one accent for interaction only) */
+.c2 .ac-wt{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px, 3.4vw, 48px); margin-top:clamp(36px, 4.5vw, 56px); }
+.c2 .ac-wt figure{ display:flex; flex-direction:column; min-width:0; }
+.c2 .ac-wt-h{ margin-bottom:12px; font:600 14px/1.3 var(--body); color:var(--deep); }
 .c2 .ac-wt figure:first-child .ac-wt-h{ color:var(--mute); }
-.c2 .ac-lane{ padding:12px; border-radius:14px; background:#e8e8e6; }
-.c2 .ac-lh{ display:block; margin:0 0 10px 4px; font:600 14px/1.2 var(--body); color:var(--ink); }
-.c2 .ac-wc{ display:grid; gap:9px; padding:13px 14px; border-radius:11px; background:#fff; box-shadow:0 1px 2px rgba(10,20,30,.08); }
-.c2 .ac-wc b{ font:600 15.5px/1.3 var(--body); color:var(--ink); }
+.c2 .ac-lane{ display:grid; gap:12px; padding:16px; border-radius:18px; background:#e8e8e6; }
+.c2 .ac-lh{ margin:2px 0 0 4px; font:600 15px/1.2 var(--body); color:var(--ink); }
+.c2 .ac-wc{ display:grid; gap:12px; padding:18px 20px; border-radius:13px; background:#fff; box-shadow:0 1px 2px rgba(10,20,30,.08); }
+.c2 .ac-wc b{ font:600 clamp(17px, 1.45vw, 19.5px)/1.3 var(--body); color:var(--ink); }
 .c2 .ac-wc-t{ display:flex; gap:8px; align-items:center; }
-.c2 .ac-wc-o{ display:flex; align-items:center; gap:8px; font:400 14px/1 var(--body); color:var(--ink2); }
-.c2 .ac-wc-o i{ display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:#eceef0; font:600 10px/1 var(--body); font-style:normal; color:var(--ink2); }
-.c2 .v1-p{ display:inline-flex; align-items:center; height:20px; padding:0 8px; border-radius:20px; background:#ff7056; color:#fff; font:700 10.5px/1 var(--body); letter-spacing:.04em; }
+.c2 .ac-wc-o{ display:flex; align-items:center; gap:9px; font:400 15px/1 var(--body); color:var(--ink2); }
+.c2 .ac-wc-o i{ display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:#eceef0; font:600 11px/1 var(--body); font-style:normal; color:var(--ink2); }
+.c2 .v1-p{ display:inline-flex; align-items:center; height:24px; padding:0 10px; border-radius:20px; background:#ff7056; color:#fff; font:700 12px/1 var(--body); letter-spacing:.04em; }
 .c2 .v1-p.is-m{ background:#1779f7; } .c2 .v1-p.is-l{ background:#4ba373; }
-.c2 .v1-s{ display:inline-flex; align-items:center; height:22px; padding:0 9px; border-radius:7px; background:#f1f1f1; box-shadow:inset 0 0 0 1px #e1e1e1; color:#ff7056; font:700 10.5px/1 var(--body); letter-spacing:.04em; }
-.c2 .ac-pr{ display:inline-flex; align-items:center; gap:6px; font:600 14px/1 var(--body); color:var(--ink); }
-.c2 .ac-pr svg{ width:14px; height:14px; fill:currentColor; }
+.c2 .v1-s{ display:inline-flex; align-items:center; height:26px; padding:0 10px; border-radius:7px; background:#f1f1f1; box-shadow:inset 0 0 0 1px #e1e1e1; color:#ff7056; font:700 12px/1 var(--body); letter-spacing:.04em; }
+.c2 .ac-pr{ display:inline-flex; align-items:center; gap:7px; font:600 16px/1 var(--body); color:var(--ink); }
+.c2 .ac-pr svg{ width:17px; height:17px; fill:var(--ink); }
 .c2 .ac-pr .off{ fill:#d6d6d4; }
 .c2 .ac-pr.is-m{ font-weight:500; color:var(--ink2); } .c2 .ac-pr.is-l{ font-weight:500; color:var(--mute); }
-.c2 .ac-pr.is-m svg, .c2 .ac-pr.is-l svg{ color:var(--ink); }
-.c2 .ac-leg{ display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; margin-top:14px; }
-.c2 .ac-wt-p{ margin-top:12px; max-width:44ch; font:400 15.5px/1.5 var(--body); color:var(--ink2); }
+.c2 .ac-leg{ display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; margin-top:16px; }
+.c2 .ac-wt-p{ margin-top:12px; max-width:48ch; font:400 17px/1.5 var(--body); color:var(--ink2); }
 .c2 .ac-greys{ display:inline-flex; gap:4px; vertical-align:-3px; margin-left:2px; }
-.c2 .ac-greys i{ width:16px; height:16px; border-radius:4px; background:var(--g); }
+.c2 .ac-greys i{ width:17px; height:17px; border-radius:4px; background:var(--g); }
+
+/* the key decision: each option carries its own filter bar, drawn in HTML */
+.c2 .c2-opt h3 em{ white-space:nowrap; }
+.c2 .ac-fb{ display:flex; flex-wrap:wrap; align-items:flex-start; gap:10px; margin:16px 0 14px; padding:14px; border-radius:12px; background:#fff; box-shadow:0 0 0 1px var(--line); }
+.c2 .ac-fb.is-prod{ min-height:148px; background:#fbfbfa; }
+.c2 .ac-dd small{ font:500 14px/1 var(--body); color:var(--mute); }
+.c2 .ac-dd{ position:relative; display:inline-flex; align-items:center; gap:6px; height:34px; padding:0 10px 0 12px; border-radius:8px; box-shadow:inset 0 0 0 1px #c9ced3; background:#fff; font:600 14px/1 var(--body); color:var(--ink); white-space:nowrap; }
+.c2 .ac-dd svg{ width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+.c2 .ac-menu{ position:absolute; top:calc(100% + 6px); left:0; display:grid; gap:2px; min-width:150px; padding:6px; border-radius:10px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.1), 0 12px 24px -10px rgba(10,20,30,.25); z-index:1; }
+.c2 .ac-menu span{ padding:8px 10px 8px 28px; border-radius:6px; font:500 14px/1 var(--body); color:var(--ink2); position:relative; }
+.c2 .ac-menu span.on::before{ content:"\2713"; position:absolute; left:10px; color:var(--ink); }
+.c2 .ac-menu span:last-child{ box-shadow:inset 0 0 0 1.5px var(--deep); color:var(--ink); }
+.c2 .ac-avs{ display:inline-flex; align-items:center; height:34px; padding-left:6px; }
+.c2 .ac-avs i{ display:grid; place-items:center; width:30px; height:30px; margin-left:-3px; border-radius:50%; background:#e6e8eb; box-shadow:0 0 0 2px #fbfbfa; font:600 10.5px/1 var(--body); font-style:normal; color:var(--ink2); }
+.c2 .ac-avs i.na svg{ width:16px; height:16px; fill:none; stroke:#7b838b; stroke-width:1.5; stroke-linecap:round; }
+.c2 .ac-seg{ display:inline-flex; flex-wrap:wrap; gap:2px; padding:3px; border-radius:10px; background:#f1f2f3; }
+.c2 .ac-seg span{ padding:9px 13px; border-radius:8px; font:500 14.5px/1 var(--body); color:var(--mute); white-space:nowrap; }
+.c2 .ac-seg span.on{ background:#fff; box-shadow:inset 0 0 0 1px #aeb4ba; color:var(--ink); font-weight:600; }
 
 @media (max-width: 1100px){
   .c2 .ac-open{ grid-template-columns:minmax(0, 1fr) 300px; gap:28px; }
   .c2 .ac-key{ grid-area:2 / 1 / auto / span 2; --n:2; }
-  .c2 .ac-wt{ grid-template-columns:1fr; }
 }
 @media (max-width: 900px){
-  .c2 .ac-close{ grid-template-columns:1fr; }
-  .c2 .ac-close .c2-shot img{ max-height:300px; }
   .c2 .ac-key{ --n:1; }
+  .c2 .ac-wt{ grid-template-columns:1fr; }
 }
 @media (max-width: 640px){
   .c2 .ac-open{ grid-template-columns:minmax(0, 1fr); gap:20px; }
@@ -166,29 +137,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .ac-open:not(.is-open) .ac-ctl{ display:none; }
   .c2 .ac-open:not(.is-open) .ac-drawer{ transform:translateY(-18px); }
   .c2 .ac-open:not(.is-open) .ac-key{ transform:none; }
-}
-@media (max-width: 900px){
-  .c2 .ac-dirs{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
-}
-@media (max-width: 640px){
-  .c2 .ac-dirs{ grid-template-columns:1fr; gap:14px; }
-  .c2 .ac-dirs li{ display:grid; grid-template-columns:120px minmax(0, 1fr); gap:14px; align-items:center; }
-  .c2 .ac-dirs li p{ margin-top:0; }
-  .c2 .ac-th{ padding:5px; gap:3px; border-radius:7px; }
-  .c2 .ac-th .t-l b{ padding:2px; gap:2px; }
-  .c2 .ac-th .t-l b i{ height:7px; }
-  .c2 .t-ref .t-k i{ height:9px; }
-  .c2 .ac-th .t-k i{ height:6px; }
-  .c2 .t-flow .t-l b i.t-sum{ height:10px; }
-  .c2 .t-flow .t-sum::after{ top:3px; height:3px; }
-  .c2 .ac-wt{ grid-template-columns:1fr; }
-  .c2 .ac-wt figure{ grid-template-columns:1fr; }
-  .c2 .ac-wt .ac-lane, .c2 .ac-wt .ac-leg, .c2 .ac-wt .ac-wt-p{ grid-column:1; grid-row:auto; }
-  .c2 .ac-wt .ac-leg{ margin-top:14px; }
-}
-@media (max-width: 700px){
-  .c2 .ac-bar .c2-shot{ overflow-x:auto; overscroll-behavior-x:contain; }
-  .c2 .ac-bar .c2-shot img{ width:820px; max-width:none; }
+  .c2 .ac-lane{ padding:12px; gap:10px; }
+  .c2 .ac-wc{ padding:15px 16px; }
+  .c2 .ac-wt-p{ font-size:16px; }
+  .c2 .ac-fb.is-prod{ min-height:0; padding-bottom:96px; }
+  .c2 .ac-fb.is-prod > .ac-dd:last-child{ display:none; }
+  .c2 .ac-seg span{ padding:8px 10px; font-size:14px; }
 }
 @media (prefers-reduced-motion: reduce){
   .c2 .ac-drawer, .c2 .ac-key, .c2 .ac-toggle svg{ transition:none; }
@@ -291,50 +245,28 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </section>
 
-  <section class="c2-sec" id="direction" data-ch="Five directions">
+  <section class="c2-sec" id="weight" data-ch="Priority">
     <div class="c2-w">
-      <p class="c2-n">Five directions</p>
-      <h2>Five boards, one pick: priority as weight, not colour</h2>
-      <p class="c2-lede">On 6 October 2026 I built five directions as working pages and picked Flow.</p>
-      <ol class="ac-dirs">
-        <li class="is-pick"><div class="ac-th t-flow" aria-hidden="true"><i class="t-h"></i><span class="t-k"><i></i><i></i><i></i><i></i></span><i class="t-f"></i><span class="t-l"><b><i></i><i></i><i></i></b><b><i></i><i></i></b><b class="t-done"><i class="t-sum"></i><i></i></b><b><i></i></b></span></div><p><b>Flow</b> <em>Picked</em><span>Counts on top; Done tallies its reasons</span></p></li>
-        <li><div class="ac-th t-ws" aria-hidden="true"><i class="t-title"></i><i class="t-tabs"></i><i class="t-f"></i><span class="t-l"><b><i></i><i></i><i></i></b><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i></b></span></div><p><b>Workspace</b><span>Board and List tabs</span></p></li>
-        <li><div class="ac-th t-lanes" aria-hidden="true"><i class="t-h"></i><i class="t-f"></i><span class="t-l"><b><i></i><i></i><i></i></b><b><i></i><i></i><i></i></b><b><i></i><i></i></b><b><i></i></b></span></div><p><b>Lanes</b><span>Filters first, tinted lane heads</span></p></li>
-        <li><div class="ac-th t-ref" aria-hidden="true"><i class="t-h"></i><span class="t-k"><i></i><i class="on"></i><i></i><i></i></span><i class="t-f"></i><span class="t-l"><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i></b></span></div><p><b>Refined</b><span>Count cards that filter the board</span></p></li>
-        <li><div class="ac-th t-rail" aria-hidden="true"><i class="t-h"></i><i class="t-f"></i><span class="t-l"><b><i></i><i></i><i></i></b><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i></b><b class="t-side"><i></i><i></i><i></i></b></span></div><p><b>Rail</b><span>A side rail of progress</span></p></li>
-      </ol>
+      <p class="c2-n">Priority</p>
+      <h2>Coral meant urgent and waiting, so priority became weight in ink</h2>
+      <p class="c2-lede">Flow, picked from five directions built as working pages on 6 Oct 2026.</p>
       <div class="ac-wt">
         <figure>
           <figcaption class="ac-wt-h">Before · my first board, 30 March 2026</figcaption>
-          <div class="ac-lane" role="img" aria-label="A card on the first board: a coral HIGH badge and a coral PENDING badge on the refund task, owned by Daniel Brooks"><span class="ac-lh">Pending</span>
-            <div class="ac-wc"><p class="ac-wc-t"><span class="v1-p">HIGH</span><span class="v1-s">PENDING</span></p><b>Customer asked twice for a refund</b><span class="ac-wc-o"><i>DB</i>Daniel Brooks</span></div></div>
+          <div class="ac-lane" role="img" aria-label="Two cards in the Pending column of the first board. The refund task carries a coral HIGH badge and a coral PENDING badge; the Billing task carries a blue MEDIUM badge and the same coral PENDING badge."><span class="ac-lh">Pending</span>
+            <div class="ac-wc"><p class="ac-wc-t"><span class="v1-p">HIGH</span><span class="v1-s">PENDING</span></p><b>Customer asked twice for a refund, was offered only a voucher</b><span class="ac-wc-o"><i>DB</i>Daniel Brooks</span></div>
+            <div class="ac-wc"><p class="ac-wc-t"><span class="v1-p is-m">MEDIUM</span><span class="v1-s">PENDING</span></p><b>Reason for call tagged as Billing, should be Flight change</b><span class="ac-wc-o"><i>MC</i>Maya Collins</span></div></div>
           <p class="ac-leg"><span class="v1-p">HIGH</span><span class="v1-p is-m">MEDIUM</span><span class="v1-p is-l">LOW</span><span class="v1-s">PENDING</span></p>
-          <p class="ac-wt-p">Coral meant urgent and also waiting. That afternoon, four tries gave Pending a grey: <span class="ac-greys" aria-hidden="true"><i style="--g:#a3a3a3"></i><i style="--g:#747474"></i><i style="--g:#6b7280"></i><i style="--g:#4b5563"></i></span></p>
+          <p class="ac-wt-p">Coral on every card in Pending, urgent or not. That afternoon, four tries gave Pending a grey: <span class="ac-greys" aria-hidden="true"><i style="--g:#a3a3a3"></i><i style="--g:#747474"></i><i style="--g:#6b7280"></i><i style="--g:#4b5563"></i></span></p>
         </figure>
         <figure>
           <figcaption class="ac-wt-h">After · Flow, October 2026</figcaption>
-          <div class="ac-lane is-flow" role="img" aria-label="The same card in Flow: three priority bars, all filled, beside the word High in ink; no badge colours"><span class="ac-lh">Pending</span>
-            <div class="ac-wc"><p class="ac-wc-t"><span class="ac-pr is-h"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect x="10" y="2" width="3" height="11" rx="1"/></svg>High</span></p><b>Customer asked twice for a refund</b><span class="ac-wc-o"><i>DB</i>Daniel Brooks</span></div></div>
+          <div class="ac-lane is-flow" role="img" aria-label="The same two cards in Flow. The refund task: three filled priority bars and High in bold ink. The Billing task: two filled bars and Medium in lighter grey. No badge colours; the column says Pending."><span class="ac-lh">Pending</span>
+            <div class="ac-wc"><p class="ac-wc-t"><span class="ac-pr is-h"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect x="10" y="2" width="3" height="11" rx="1"/></svg>High</span></p><b>Customer asked twice for a refund, was offered only a voucher</b><span class="ac-wc-o"><i>DB</i>Daniel Brooks</span></div>
+            <div class="ac-wc"><p class="ac-wc-t"><span class="ac-pr is-m"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect class="off" x="10" y="2" width="3" height="11" rx="1"/></svg>Medium</span></p><b>Reason for call tagged as Billing, should be Flight change</b><span class="ac-wc-o"><i>MC</i>Maya Collins</span></div></div>
           <p class="ac-leg"><span class="ac-pr is-h"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect x="10" y="2" width="3" height="11" rx="1"/></svg>High</span><span class="ac-pr is-m"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect class="off" x="10" y="2" width="3" height="11" rx="1"/></svg>Medium</span><span class="ac-pr is-l"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect class="off" x="5.5" y="5" width="3" height="8" rx="1"/><rect class="off" x="10" y="2" width="3" height="11" rx="1"/></svg>Low</span></p>
-          <p class="ac-wt-p">Bars filled to the level, in ink; the lane says Pending. Blue, the one accent, is kept for what you can click.</p>
+          <p class="ac-wt-p">Bars filled to the level, in ink; the column already says Pending. Blue, the one accent, is kept for what you can click.</p>
         </figure>
-      </div>
-    </div>
-  </section>
-
-  <section class="c2-sec" id="reasons" data-ch="Close reasons">
-    <div class="c2-w">
-      <p class="c2-n">Close reasons</p>
-      <h2>Hear already records why work closed; the board puts it in sight</h2>
-      <p class="c2-lede">Resolved, Duplicate, Not actionable, Escalated, Other: the list is the product's own, and Hear already reports on it. I put it on the board: each closed card wears its reason, and Flow's Done lane opens with a tally.</p>
-      <div class="ac-close">
-        <figure><div class="c2-shot"><img src="../img/v7s-actions-cancelled.webp?v=7" width="706" height="988" alt="The Cancelled column: Duplicate: booking engine timeout, “Same failure as the Oct 10 alert”, tagged Duplicate; and Website search is slow, “Not about a call”, not assigned, tagged Not actionable." loading="lazy"></div></figure>
-        <ul class="ac-reasons">
-          <li><b class="ok">Resolved</b><q>Refunded · coaching set for Oct 15.</q></li>
-          <li><b>Escalated</b><q>Ground team found the bag, Oct 6.</q></li>
-          <li><b>Duplicate</b><q>Same failure as the Oct 10 alert.</q></li>
-          <li><b>Not actionable</b><q>Not about a call.</q></li>
-        </ul>
       </div>
     </div>
   </section>
@@ -343,18 +275,22 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The key decision</p>
       <h2>Being mentioned gets its own filter, so you find where you're needed first</h2>
-      <figure class="ac-bar"><div class="c2-shot"><img src="../img/v7s-actions-bar.webp?v=6" width="2017" height="151" alt="The Actions filter bar: Everyone, Assigned to me and Mentions me, then High priority 4, From alerts 5 and From agent evaluation 2." loading="lazy"></div></figure>
       <div class="c2-dec">
-        <div class="c2-opt"><h3>A mode of the people filter, as in the product today <em>Set aside</em></h3><p>The filter reads Assignee until you switch it to Mentioned. My first board, on 30 March, copied it.</p></div>
-        <div class="c2-opt is-chosen"><h3>Its own filter, Mentions me <em>Chosen</em></h3><p>Beside Everyone and Assigned to me, at the start of the filter bar.</p></div>
+        <div class="c2-opt"><h3>A mode of the people filter, as in the product today <em>Set aside</em></h3>
+          <div class="ac-fb is-prod" role="img" aria-label="The product's filter bar: an Assignee dropdown, opened to show its two options, Assignee (ticked) and Mentioned, then people avatars and Status."><span class="ac-dd is-open">Assignee<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg><span class="ac-menu"><span class="on">Assignee</span><span>Mentioned</span></span></span><span class="ac-avs"><i class="na"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M4.2 11.8 11.8 4.2"/></svg></i><i>DB</i><i>MC</i><i>RC</i></span><span class="ac-dd">Status<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span></div>
+          <p>Mentioned is the other option inside the Assignee menu. My first board, on 30 March, copied it.</p></div>
+        <div class="c2-opt is-chosen"><h3>Its own place in the row, beside Assigned to me <em>Chosen</em></h3>
+          <div class="ac-fb is-flow" role="img" aria-label="Flow's filter row: Everyone, Assigned to me, Mentioned me (selected), Not assigned, then Status and Priority menus."><span class="ac-seg"><span>Everyone</span><span>Assigned to me</span><span class="on">Mentioned me</span><span>Not assigned</span></span><span class="ac-dd">Status <small>All</small><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span><span class="ac-dd">Priority <small>All</small><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span></div>
+          <p>One row says whose tasks you see, and Mentioned me is one tap.</p></div>
       </div>
-      <p class="c2-result"><b>Why:</b> a mention means someone needs you, as Alex Ward is needed in the refund thread. Mentions me shows those tasks first.</p>
+      <p class="c2-result"><b>Why:</b> a mention means someone needs you, as Alex Ward is needed in the refund thread. Mentioned me shows those tasks first.</p>
+      <p class="c2-note"><b>Close reasons are the product's own:</b> Resolved, Duplicate, Not actionable, Escalated, Other. Hear already asks for one when a task closes, and reports on them. My part is the reason on every closed card, and in Flow a tally at the top of Done.</p>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
-      <p class="c2-coda">A refused refund: one owner, three steps, <em>one reason it closed</em>.</p>
+      <p class="c2-coda">Priority in ink, and <em>every closed card says why</em>.</p>
       <p class="c2-status"><b>Where it stands:</b> Hear already has an Actions board; this redesign runs in the Lab on demo data and is not built. <b>My part:</b> I designed and built it with Claude Code, from a first board on 30 March 2026 to five directions on 6 October.</p>
     </div>
   </section>
