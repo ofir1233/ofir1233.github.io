@@ -114,6 +114,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .ac-drawer, .c2 .ac-key, .c2 .ac-toggle svg{ transition:none; }
   .c2 .ac-open:not(.is-open) .ac-drawer, .c2 .ac-open:not(.is-open) .ac-key{ transform:none; }
 }
+.c2 .c2-hero h1{max-width:15em}
 </style>
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
@@ -138,7 +139,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div><dt>For</dt><dd>The contact-center team that follows up on what Hear's AI finds in its calls.</dd></div>
         <div><dt>The problem</dt><dd>A finding says what happened, not who is on it or how it ended.</dd></div>
         <div><dt>What I did</dt><dd>Designed and built the Actions board, and the task panel each card opens.</dd></div>
-        <div><dt>Where it stands</dt><dd>A redesign of the board Hear already ships, built in Hear Design Lab, my working copy of Hear, built in code; not built in the product yet.</dd></div>
+        <div><dt>Where it stands</dt><dd>A redesign of the board Hear ships, in Hear Design Lab, my working copy of Hear; not built yet.</dd></div>
       </dl>
       <figure class="c2-fig">
         <div class="c2-shot"><img src="../img/v7s-actions-board.webp?v=8" width="2060" height="1327" alt="The Actions board in four columns: Pending, In progress, Done and Cancelled, under a filter bar. Every card names its source and date, says what happened in one sentence, quotes the line from the call that raised it and names its owner. Closed cards carry a reason such as Resolved, Escalated, Duplicate or Not actionable." fetchpriority="high">
@@ -271,7 +272,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <li><a href="explainable-scores.html">Explainable scores</a></li>
           <li><a href="actions.html" aria-current="page">Actions</a></li>
           <li><a href="newsroom.html">Newsroom</a></li>
-          <li><a href="data.html">Data &amp; Signals</a></li>
+          <li><a href="data.html">Data</a></li>
         </ul></div>
         <div><h3>More cases</h3><ul>
           <li><a href="design-lab.html">Hear Design Lab</a></li>
@@ -293,7 +294,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </div>
 </footer>
 <script src="case.js?v=8"></script>
-<script src="../v7/cs2.js?v=2" defer></script>
+<script src="../v7/cs2.js?v=3" defer></script>
 <script>/* Open the task: the card and the small button open and close the panel; nothing moves by itself */
 (function(){var box=document.querySelector('.ac-open');if(!box)return;
 var drawer=box.querySelector('.ac-drawer'),key=box.querySelector('.ac-key'),btn=box.querySelector('.ac-toggle'),card=box.querySelector('.ac-card'),t=0,

@@ -51,6 +51,10 @@
     shot.insertBefore(pan, shot.firstChild); shot.classList.add('is-pan');
     var hint = document.createElement('span'); hint.className = 'c2-panhint'; hint.textContent = 'Drag the picture sideways to see all of it.';
     shot.parentNode.insertBefore(hint, shot.nextSibling);
+    /* open the pan on the pins (their mean position), not on the picture's left edge */
+    function aim() { if (shot.scrollWidth <= shot.clientWidth) return; var xs = [].map.call(pan.querySelectorAll('.c2-pin'), function (p) { return parseFloat(p.style.getPropertyValue('--x')) || 50; });
+      var m = xs.reduce(function (a, b) { return a + b; }, 0) / xs.length; shot.scrollLeft = Math.max(0, pan.offsetWidth * m / 100 - shot.clientWidth / 2); }
+    if (img.complete) aim(); else img.addEventListener('load', aim, { once: true }); addEventListener('resize', aim);
   });
 
   var run = document.querySelector('.tb-run .tb-ch'), bar = document.querySelector('.topbar .progress'), secs = [].slice.call(document.querySelectorAll('.c2 [data-ch]')), raf = 0, said = '';
