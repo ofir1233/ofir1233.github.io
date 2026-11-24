@@ -101,3 +101,4 @@
 - 24.11 (round 5, speed): Bricolage asked only at 700, the one weight the page uses (font file 77 KB to 40 KB); the FYI door's paint and spray and the phone footer's brush texture wait until two screens away (data-near / .is-near in the late loader).
 - 24.11: speed round 6: the campaign card's nine thumbnails and its cover strip now come in sizes that match how big they show (240/360 px thumbs, 720/1200 px cover), at measured quality equal or better than before; same look in phone and desktop frames.
 - 24.11 Product cards on a phone (≤760): heading first, then a 4:3 window, story-style step bars with the current step under them at a fixed height, then the lead and the Case study button; the camera keeps the app's white card filling the window (no sky or glass strips). product.css v236, product.js v228.
+- 24.11 Header logo smaller (owner: a little too big): 34px at the top, 28px once the page moves (phone 30 / 26), in the bar's own .3s. hero.css v236.

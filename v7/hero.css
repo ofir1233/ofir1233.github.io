@@ -226,5 +226,10 @@ html:not(.me-scroll) #about .me-photo.me-v7 .me-v7-bg.me-v7-sky, html:not(.me-sc
 html:not(.me-scroll) #about .me-photo.me-v7 .me-v7-bg.me-v7-city{ transform: translate(calc(var(--tx,0) * -1.8%), calc(var(--ty,0) * -1.6%)) scale(1.09); }
 html:not(.me-scroll) #about .me-photo.me-v7 .me-v7-bg.me-v7-street{ transform: translate(calc(var(--tx,0) * -.5%), calc(var(--ty,0) * -.4%)) scale(1.09); }
 /* owner, 24.11: the new symbol ('no / na.' between two heavy quotation marks, img/logo-nona.svg) replaces the typed name */
-nav.nav .brand .nona-logo{ display:block; height:40px; width:auto; }
-@media (max-width: 860px){ nav.nav .brand .nona-logo{ height:34px; } }
+/* owner, 24.11: "in general it is a little too big" (was 40 / 34 on a phone) */
+nav.nav .brand .nona-logo{ display:block; height:34px; width:auto; transition: height .3s; }
+@media (max-width: 860px){ nav.nav .brand .nona-logo{ height:30px; } }
+/* owner, 24.11: "when scrolling the logo should be a little smaller". It shrinks with the bar (72 to 60), in the bar's own .3s */
+html.hv-stuck nav.nav .brand .nona-logo{ height:28px; }
+@media (max-width: 860px){ html.hv-stuck nav.nav .brand .nona-logo{ height:26px; } }
+@media (prefers-reduced-motion: reduce){ nav.nav .brand .nona-logo{ transition:none; } }
