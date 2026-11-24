@@ -17,12 +17,12 @@ addEventListener('hashchange',function(){setTimeout(strip,0);});
 addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
 }catch(e){}})();</script>
 <title>Data &amp; Signals · Ofir Nona</title>
-<meta name="description" content="In Hear Design Lab, I designed three versions of the call table, with an AI filter that becomes a chip you can read and remove, and the Signals list.">
+<meta name="description" content="I designed Data for Hear, an AI platform for contact centers: one table of every call, and a filter you ask in plain words that becomes chips you can read and remove.">
 <meta name="theme-color" content="#f4f3f1">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/data.html">
 <meta property="og:title" content="Data &amp; Signals · Ofir Nona">
-<meta property="og:description" content="In Hear Design Lab, I designed three versions of the call table, with an AI filter that becomes a chip you can read and remove, and the Signals list.">
+<meta property="og:description" content="I designed Data for Hear, an AI platform for contact centers: one table of every call, and a filter you ask in plain words that becomes chips you can read and remove.">
 <meta property="og:image" content="https://ofir1233.github.io/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -34,57 +34,36 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css?v=201">
 <link rel="stylesheet" href="../v7/foot.css?v=200">
-<link rel="stylesheet" href="lab-live.css">
-<link rel="stylesheet" href="lab-data.css">
-<link rel="stylesheet" href="lab-signals.css">
-<link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/px.css?v=20">
 <link rel="stylesheet" href="../v7/case.css?v=41">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
+<link rel="stylesheet" href="../v7/cs2.css?v=4">
 <style>
-/* data: toolbar anatomy (pins; on phones the two ends of the strip stack), plan-vs-build table, 3-column steps */
-.data-anat .live { top: 4px; bottom: auto; }
-.data-img { position: relative; }
-.data-crop.b { display: none; }
-.data-pin { position: absolute; transform: translate(-50%, -50%); width: 22px; height: 22px; border-radius: 50%; background: var(--coral); color: var(--on-accent); font: 700 13.5px/22px var(--body); text-align: center; box-shadow: 0 0 0 3px #fff, 0 4px 12px rgba(20,32,27,.3); pointer-events: none; }
-@media (max-width: 900px) {
-  .data-pin { width: 20px; height: 20px; font-size: 13.5px; line-height: 20px; box-shadow: 0 0 0 2px #fff; }
-  .data-bar { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
-  .data-bar .data-img { width: 940px; }
-  .data-bar .live { display: none; }
-}
-.data-key { list-style: none; counter-reset: k; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
-@media (max-width: 700px) { .data-key { grid-template-columns: 1fr; } }
-.data-key li { counter-increment: k; display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.5; color: var(--text); }
-.data-key li::before { content: counter(k); width: 22px; height: 22px; border-radius: 50%; background: var(--coral); color: var(--on-accent); font: 700 13.5px/22px var(--body); text-align: center; margin-top: 1px; }
-.data-key b { color: var(--paper); font-weight: 600; }
-.data-gap { margin-top: clamp(40px, 6vw, 72px); }
-@media (max-width: 1239px) { .ct-hero.dt-stage .ct-stage { --ct-band: 56cqw; --ct-top: 46cqw; } }
-@media (max-width: 719px) { .ct-hero.dt-stage .ct-stage { --ct-band: 80cqw; --ct-top: 66cqw; } }
-.data-plan { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; table-layout: fixed; }
-.data-plan caption { caption-side: bottom; text-align: left; padding: 14px 0 0; font: 400 14px/1.5 var(--body); color: var(--mute); }
-.data-plan caption b { color: var(--paper); font-weight: 600; }
-.data-plan th, .data-plan td { text-align: left; vertical-align: top; padding: 16px 20px 16px 0; border-top: 1px solid var(--line); color: var(--text); }
-.data-plan thead th { font: 600 14px/1.3 var(--body); color: var(--mute); padding-block: 10px; }
-.data-plan tbody th { color: var(--paper); font-weight: 500; }
-/* the second column starts on the chapter's text line */
-.data-plan thead th:first-child, .data-plan tbody th { width: calc(50% + 8px); padding-right: clamp(24px, 4vw, 64px); }
-.data-plan .data-t { display: block; width: fit-content; margin: 0 0 4px; }
-.data-plan .q { display: block; margin-top: 4px; color: var(--mute); font-weight: 400; font-size: 14px; }
-.data-t { display: inline-block; margin-right: 6px; padding: 2px 10px 3px; border-radius: 99px; font: 600 13.5px/20.8px var(--body); background: var(--ink-3); color: var(--text); vertical-align: 1px; }
-.data-t.on { background: var(--coral); color: var(--on-accent); }
-@media (max-width: 760px) {
-  .data-plan thead { display: none; }
-  .data-plan tr { display: block; border-top: 1px solid var(--line); padding: 14px 0 10px; }
-  .data-plan th, .data-plan td { display: block; border: 0; padding: 4px 0; width: auto; }
-  .data-plan tbody th { width: auto; }
-  .data-plan td::before { content: attr(data-l); display: block; margin-top: 8px; font: 600 14px/1.4 var(--body); color: var(--mute); }
-}
-.data-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-@media (max-width: 860px) { .data-steps { grid-template-columns: 1fr; } }
-/* the Signals window has no bottom fade: the stage's lower edge crops it, so the toast that confirms a change (at the window's foot) stays solid */
-:root .ct-plain:has(.lx[data-lab="signals"]) .ct-win { -webkit-mask-image: none; mask-image: none; }
+/* data, page only: the plain-words filter drawn in HTML from the screen's own example (the sentence, its three chips, the count as
+   each one lands), and a three-step timeline for the three designs. Everything scoped under .c2. */
+.c2 .d-ask{ display:flex; align-items:flex-start; gap:12px; padding:16px 18px; border-radius:14px; background:#f6f8fb; box-shadow:inset 0 0 0 1px var(--line); font:500 18px/1.6 var(--body); color:var(--ink); }
+.c2 .d-ask svg{ flex:none; width:18px; height:18px; margin-top:5px; color:#7b4fd6; }
+.c2 .d-ask u{ text-decoration:none; border-bottom:2px solid #a98be6; padding-bottom:1px; }
+.c2 .d-ask sup, .c2 .d-chip sup{ display:inline-grid; place-items:center; width:17px; height:17px; margin:0 1px 0 3px; border-radius:50%; background:var(--ink); color:#fff; font:600 10.5px/1 var(--body); vertical-align:3px; }
+.c2 .d-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.c2 .d-chip{ display:inline-flex; align-items:center; gap:6px; min-height:36px; padding:0 10px 0 8px; border-radius:99px; background:#f1ecfc; box-shadow:inset 0 0 0 1px #d9cdf5; font:400 15px/1 var(--body); color:var(--ink2); }
+.c2 .d-chip sup{ margin:0; vertical-align:0; }
+.c2 .d-chip b{ color:var(--ink); }
+.c2 .d-chip .x{ width:14px; height:14px; color:var(--mute); }
+.c2 .d-count{ display:grid; grid-template-columns:auto 1fr; gap:8px 14px; margin-top:20px; align-items:center; font:400 15px/1.35 var(--body); color:var(--ink2); }
+.c2 .d-count b{ font:600 20px/1 var(--body); color:var(--ink); font-variant-numeric:tabular-nums; text-align:right; }
+.c2 .d-count .is-end b{ display:inline-grid; place-items:center; min-width:56px; height:36px; padding:0 10px; border-radius:9px; background:var(--ink); color:#fff; }
+.c2 .d-count > span{ display:contents; }
+.c2 .d-count i{ font-style:normal; color:var(--mute); }
+.c2 .d-foot{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px; padding-top:16px; border-top:1px solid var(--line); font:400 14.5px/1.4 var(--body); color:var(--ink2); }
+.c2 .d-foot b{ display:block; font:600 20px/1.1 var(--body); color:var(--ink); }
+.c2 .d-foot b small{ font:400 14.5px/1 var(--body); color:var(--mute); }
+.c2 .c2-ba .d-ask + p{ margin-top:16px; }
+.c2 .d-ver{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
+.c2 .d-ver em{ display:inline-block; margin-top:12px; padding:4px 9px; border-radius:99px; background:#e9ecef; font:600 12px/1 var(--body); font-style:normal; color:var(--ink2); }
+.c2 .d-ver li.on em{ background:#e3f1fe; color:var(--deep); }
+@media (max-width: 900px){ .c2 .d-ver{ grid-template-columns:1fr; } .c2 .d-ver li::before{ display:none; } }
+@media (max-width: 560px){ .c2 .d-ask{ font-size:16.5px; } .c2 .d-foot{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -98,172 +77,137 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main">
-  <header class="cs-hero wrap">
-    <div class="label">Case study · <b>Data &amp; Signals</b></div>
-    <h1>A dense call table that stays easy to slice</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>In Hear, an AI platform for contact centers, one table must show which calls need review, which are high priority and what happened on each.</dd></div><div><dt>What I designed</dt><dd>I designed V1 to V3 of the Data table and its AI filter. I also designed Signals, the page for AI or rule-based classifiers that run on calls.</dd></div><div><dt>Where it stands</dt><dd>V2 and V3 both still run in Hear Design Lab, a working replica of Hear. V1 is retired.</dd></div></dl>
-    <dl class="meta">
-      <div><dt>Role</dt><dd>Design and build in the Lab, with Claude&nbsp;Code</dd></div>
-      <div><dt>When</dt><dd>Mar–Oct 2026</dd></div>
-      <div><dt>Scope</dt><dd>Call table · filters · columns · saved views · Reports and Signals</dd></div>
-    </dl>
-    <nav class="toc" aria-label="On this page"><a class="pill" href="#table"><span>01</span> The table</a><a class="pill" href="#versions"><span>02</span> Three versions</a><a class="pill" href="#plan"><span>03</span> Plan vs. build</a><a class="pill" href="#decisions"><span>04</span> Decisions</a><a class="pill" href="#signals"><span>05</span> Signals</a></nav>
-    <div class="px-host" id="demo"><figure class="px-fig" data-px="data"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=data&v=202" title="Data in Hear Studio: every call as a row, and a filter asked for in plain words." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
+<main id="main" class="c2">
+  <header class="c2-hero">
+    <div class="c2-w">
+      <p class="c2-kick">Case study · <b>Data &amp; Signals</b></p>
+      <h1>Finding the few calls that matter among thousands</h1>
+      <p class="c2-ctx">Hear, an AI platform for contact centers, keeps every call in one table; I designed that table and a filter you can ask in plain words.</p>
+      <dl class="c2-sum">
+        <div><dt>For</dt><dd>People who go through a contact center's calls to see which need review, which are urgent and what happened on each.</dd></div>
+        <div><dt>The problem</dt><dd>Thousands of calls, and only a handful that answer the question in hand.</dd></div>
+        <div><dt>What I did</dt><dd>Designed and built the call table in three designs, and a filter that turns a sentence into chips you can read and remove.</dd></div>
+        <div><dt>Where it stands</dt><dd>Mar–Oct 2026, in Hear Design Lab, my working replica of Hear, with demo data.</dd></div>
+      </dl>
+      <figure class="c2-fig">
+        <div class="c2-shot"><img src="../img/v7s-data-table.webp?v=6" width="2060" height="1327" alt="The Data screen: tabs with counts (All calls 2,000, Needs review 148, High priority 62, Alerts 17, Done 1,204), a box that says Filter in plain words, then the date range, Filter and Columns, and the call table. Each row has the call's topic and a one-line summary, its date, status, priority, who has it, direction, length, sentiment and score; three refund calls carry a small warning sign." fetchpriority="high">
+          <span class="c2-pin" style="--x:52.4%;--y:8.7%" aria-hidden="true">1</span><span class="c2-pin" style="--x:17.2%;--y:14.5%" aria-hidden="true">2</span><span class="c2-pin" style="--x:35.8%;--y:29.8%" aria-hidden="true">3</span><span class="c2-pin" style="--x:16.4%;--y:27.9%" aria-hidden="true">4</span></div>
+        <figcaption><ol class="c2-key" style="--n:4">
+          <li><i aria-hidden="true">1</i><span><b>Tabs slice the same table:</b> 148 calls need review, 62 are high priority, 17 have alerts.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>Filter in plain words.</b> Type the question; it becomes filters.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>Each row says what happened:</b> the topic and a one-line summary lead.</span></li>
+          <li><i aria-hidden="true">4</i><span><b>A warning sign</b> marks a call where an alert fired.</span></li>
+        </ol></figcaption>
+      </figure>
+      <div class="c2-live"><button type="button" class="c2-btn" data-live="../hear-v7/plan/studio.html?screen=data&amp;v=202" data-title="Data, the live screen in Hear Design Lab" data-open="Try the live screen" data-close="Close the live screen" aria-expanded="false" aria-controls="live-d"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .5.6.8 1 .5l8-5.2a.6.6 0 0 0 0-1L5.5 2.3c-.4-.3-1 0-1 .5z"/></svg><span class="c2-bt">Try the live screen</span></button><small>The real screen, with demo data.</small></div>
+      <div class="c2-frame" id="live-d" hidden></div>
+    </div>
   </header>
 
-  <section class="chapter" id="table">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">01 · <b>The table</b></div><h2>Four slim rows hold all the controls</h2></div>
-        <div class="prose"><p class="lead">I gave the table the rest of the screen, and a call opens in a side panel next to it.</p>
-          <p>That keeps the filtered table in view, and the arrow keys step through its calls without closing the panel.</p></div>
-      </div>
+  <section class="c2-sec" id="context" data-ch="The setting">
+    <div class="c2-w">
+      <p class="c2-n">The setting</p>
+      <h2>Every call a contact center takes ends up as a row in one table</h2>
+      <p class="c2-lede">"Agents" are the people who answer customer calls. Hear reads each call, and Data is where all of them can be found again.</p>
+      <ol class="c2-flow">
+        <li><b>Calls</b><span>Agents take customer calls all day. New ones arrive while older ones are still processing.</span></li>
+        <li><b>Hear reads every call</b><span>Each gets a topic, a one-line summary, a sentiment and a score. Some set off an alert.</span></li>
+        <li class="is-me"><em>My screens</em><b>One table of every call</b><span>Tabs, filters and columns to find the right ones.</span></li>
+        <li><b>A person opens a call</b><span>It opens in a side panel next to the table, to read what happened.</span></li>
+      </ol>
+    </div>
+  </section>
 
-      <figure class="rv data-anat">
-        <div class="shot v7s data-bar">
-          <div class="data-img">
-            <img src="../img/v7s-data-toolbar.webp?v=5" alt="The Data toolbar: breadcrumb and search on the first row, six tabs on the second, a filter box for plain words, then the date range, Filter and Columns" width="2543" height="366" loading="lazy">
-            <span class="data-pin" style="left:24.0%;top:19%" aria-hidden="true">1</span>
-            <span class="data-pin" style="left:52.3%;top:41%" aria-hidden="true">2</span>
-            <span class="data-pin" style="left:20.5%;top:89%" aria-hidden="true">3</span>
-            <span class="data-pin" style="left:90.7%;top:65%" aria-hidden="true">4</span>
-            <span class="data-pin" style="left:87.7%;top:89%" aria-hidden="true">5</span>
-            <span class="data-pin" style="left:69.2%;top:19%" aria-hidden="true">6</span>
+  <section class="c2-sec" id="problem" data-ch="The problem">
+    <div class="c2-w">
+      <p class="c2-n">The problem</p>
+      <h2>Two thousand calls, and the question fits none of the tabs</h2>
+      <p class="c2-lede">In the demo project, the last 90 days hold 2,000 calls: 223 pages of nine rows. The tabs cut that down, but a question like "long refund calls where the customer was unhappy" is not a tab.</p>
+      <h3 class="c2-sub">Three questions someone brings to the table</h3>
+      <ol class="c2-qs">
+        <li><q>Which calls need someone now?</q><span>The tabs slice the same table, each with its count: Needs review, High priority, Alerts, Done.</span><small><i>1</i>Tabs, in the picture above</small></li>
+        <li><q>Where are the long, unhappy refund calls?</q><span>Type it. The sentence becomes three filters you can read before you trust them.</span><small>→ Asking in plain words</small></li>
+        <li><q>What happened on this call?</q><span>Open it beside the table. The arrow keys step to the next call without closing the panel. If an alert fired, the panel names it and says whether it was marked a false positive.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="c2-sec" id="ask" data-ch="Asking in plain words">
+    <div class="c2-w">
+      <p class="c2-n">Asking in plain words</p>
+      <h2>A sentence becomes filters you can read, check and remove</h2>
+      <p class="c2-lede">The AI's reading never hides. Each phrase turns into an ordinary chip in the filter bar, built only from columns and values the table really holds, so a wrong guess is one click to remove.</p>
+      <div class="c2-ba">
+        <div><h3>You type</h3>
+          <p class="d-ask"><svg viewBox="0 0 18 18" fill="currentColor" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span><u>refund calls</u><sup>1</sup> <u>over 5 minutes</u><sup>2</sup> where the customer was <u>unhappy</u><sup>3</sup></span></p>
+          <p>Into the one box above the table, Filter in plain words.</p>
+          <div class="d-count"><span><b>2,000</b><i>calls in the last 90 days: 223 pages of nine rows</i></span></div></div>
+        <div><h3>It becomes</h3>
+          <div class="d-chips" role="list" aria-label="The three filters">
+            <span class="d-chip" role="listitem"><sup>1</sup>Topic <b>Refunds &amp; Credits</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span>
+            <span class="d-chip" role="listitem"><sup>2</sup>Length <b>over 5 min</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span>
+            <span class="d-chip" role="listitem"><sup>3</sup>Sentiment <b>Negative</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span>
           </div>
-        </div>
-        <figcaption><b>The Data toolbar.</b> Numbers match the list below. Design Lab, demo data.</figcaption>
-      </figure>
-      <ol class="data-key rv">
-        <li><span><b>Where you are.</b> The breadcrumb, how many calls are in view and how many are still processing.</span></li>
-        <li><span><b>Tabs.</b> All calls, Needs review, High priority, Alerts, Done and Agent evaluation slice the same table.</span></li>
-        <li><span><b>Date range.</b> It opens the last row, ahead of Filter.</span></li>
-        <li><span><b>Filter in plain words.</b> One box across the table. A single condition is added with Filter, beside the date range.</span></li>
-        <li><span><b>Columns.</b> One button, with a count, at the far end of the row.</span></li>
-        <li><span><b>Search and Upload.</b> Top right, apart from the controls that slice the table.</span></li>
+          <div class="d-count" aria-label="How the count narrows">
+            <span><b>318</b><i>of the 2,000 are about refunds</i></span>
+            <span><b>141</b><i>of them over five minutes</i></span>
+            <span class="is-end"><b>86</b><i>of those with an unhappy customer</i></span>
+          </div>
+          <div class="d-foot">
+            <span>Average score<b>36 <small>against 76 for all calls</small></b></span>
+            <span>Average length<b>7:07 <small>against 4:12</small></b></span>
+          </div>
+          <p>The count narrows as each chip lands, and the table's foot compares the 86 with every call.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="c2-sec" id="versions" data-ch="Where filters live">
+    <div class="c2-w">
+      <p class="c2-n">Where filters live</p>
+      <h2>I tried three places for the filters, and kept two side by side</h2>
+      <p class="c2-lede">I never redesigned Data in place. Each new design was a copy beside the last, and a switch on the screen shows either one on the same calls.</p>
+      <ol class="c2-flow d-ver">
+        <li><b>March · A filter popover</b><span>Ready-made sets in a dropdown, filters as chips, and a popover to build one, with an explicit Apply.</span><em>Retired</em></li>
+        <li class="on"><b>May · A filter strip</b><span>Filters move into one strip that can fold away, with a box to describe what you want.</span><em>Still runs</em></li>
+        <li class="on"><b>June · Start from a column</b><span>Click a column and its filter opens in place, so choosing a column is the first step of filtering it.</span><em>Still runs</em></li>
       </ol>
+      <p class="c2-result"><b>Saving a view:</b> change any filter and the bar says Unsaved changes, with Reset and Save as view beside it.</p>
+    </div>
+  </section>
 
-      <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-data-table.webp?v=6" data-zoom alt="The Data page: the toolbar above the call table. Each row has the call’s topic, a one-line summary, its date, status, priority, owner, sentiment and score." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div><figcaption><b>The call table.</b> Each row leads with the call's topic and a one-line summary.</figcaption></figure>
-      <div class="two">
-        <h3>Flagged calls</h3>
-        <div class="prose"><p>A small warning sign marks a call where an alert fired. Open the call and the side panel names the alert and whether it was marked a false positive.</p></div>
+  <section class="c2-sec" id="decision" data-ch="The key decision">
+    <div class="c2-w">
+      <p class="c2-n">The key decision</p>
+      <h2>Filters wait for Apply, so the table changes once, not on every click</h2>
+      <div class="c2-dec">
+        <div class="c2-opt"><h3>Apply on every change <em>Set aside</em></h3><p>Tried on the March design in June: each click ran the filter at once, and the Apply button went away.</p></div>
+        <div class="c2-opt is-chosen"><h3>An explicit Apply <em>Chosen</em></h3><p>Set up the conditions, then run them once. The shared filter from the Alerts page, which Data now uses, works the same way.</p></div>
+      </div>
+      <p class="c2-result"><b>Why:</b> building a filter takes several clicks. Ticking one option shouldn't re-run the query before the filter is finished.</p>
+    </div>
+  </section>
+
+  <section class="c2-sec" id="signals" data-ch="Signals">
+    <div class="c2-w">
+      <p class="c2-n">A second page: Signals</p>
+      <h2>Signals keep looking at the calls when no one is filtering</h2>
+      <p class="c2-lede">Signals are classifiers, AI or rule-based, that run on calls; with Auto on, a signal runs by itself. Each has an on/off switch, a name and its rule in plain words. The ones triggered now lead the page, each with its last 14 days of calls, and a task on the Actions board can come from one.</p>
+      <div class="c2-live"><button type="button" class="c2-btn" data-live="../hear-v7/plan/studio.html?screen=signals&amp;v=202" data-title="Signals, the live screen in Hear Design Lab" data-open="Open Signals" data-close="Close Signals" aria-expanded="false" aria-controls="live-s"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .5.6.8 1 .5l8-5.2a.6.6 0 0 0 0-1L5.5 2.3c-.4-.3-1 0-1 .5z"/></svg><span class="c2-bt">Open Signals</span></button><small>The real screen, with demo data.</small></div>
+      <div class="c2-frame" id="live-s" hidden></div>
+    </div>
+  </section>
+
+  <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
+    <div class="c2-w">
+      <div class="c2-stand">
+        <div><h3>Where it stands</h3><p>Data lives in Hear Design Lab, my working replica of Hear, rebuilt in code with demo data. The May and June designs both still run there; the March one is retired.</p></div>
+        <div><h3>My part</h3><p>I designed and built Data and Signals in the Lab, from March to October 2026, with Claude Code.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="chapter sheet" id="versions">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">02 · <b>Three versions</b></div><h2>Each version put the filters somewhere new</h2></div>
-        <div class="prose"><p class="lead">I didn't redesign Data in place: I duplicated the page, changed the duplicate and kept both.</p></div>
-      </div>
-      <ol class="steps data-steps rv">
-        <li><strong>V1 · March</strong><span>My first version: a preset dropdown, filter chips, “Add columns” in the header and a filter popover with an explicit Apply.</span></li>
-        <li><strong>V2 · May</strong><span>A duplicate of V1, “so the existing filter system is preserved.” Filters move into a collapsible strip with a describe-your-query box.</span></li>
-        <li><strong>V3 · June</strong><span>Column-first: click a column and its filter editor opens, first floating beside the row, then inline under it. V1 was retired.</span></li>
-      </ol>
-      <div class="two">
-        <h3>Why keep more than one</h3>
-        <div class="prose">
-          <p>The Lab's version switch lets one screen hold several designs on the same data. Today Data carries a V2 / V3 switch, and Signals a V1 / V2 one.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="chapter ink" id="plan">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">03 · <b>Plan vs. build</b></div><h2>Saved views: the plan against the build</h2></div>
-        <div class="prose"><p class="lead">Of the plan's five recommendations, two are in the Lab today, one is partly there, one was reverted and one was not built by July.</p>
-          <p>The plan had three UI states, eight decisions and 12 edge cases. Each decision gave options, a recommendation and a reason, and each edge case carried a “Handle v1” or “Punt v2” mark.</p><p>Its core idea was a <b>View</b> that saves the filters, the visible columns and their order together.</p></div>
-      </div>
-
-      <div class="rv">
-        <table class="data-plan">
-          <caption><b>The plan against the build.</b> Five recommendations from the saved-views page, and what happened to each.</caption>
-          <thead><tr><th scope="col">The plan recommended</th><th scope="col">What happened</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">Call it a View, not a Preset<span class="q">“Reads as the whole screen state, not just filters”</span></th><td data-l="What happened"><span class="data-t on">In the Lab</span>The July build still used “Preset” as the name. The current Lab saves with “Save as view” instead.</td></tr>
-            <tr><th scope="row">Show when the screen no longer matches the saved view</th><td data-l="What happened"><span class="data-t on">In the Lab</span>“Unsaved changes” appears with Reset and Save as view as soon as a filter changes.</td></tr>
-            <tr><th scope="row">Columns stacked under the filters, collapsed by default<span class="q">“Filters are edited often, columns rarely”</span></th><td data-l="What happened"><span class="data-t">Reverted</span>Built in the strip, then replaced by a columns modal (Decision 1).</td></tr>
-            <tr><th scope="row">One saved state for filters and columns</th><td data-l="What happened"><span class="data-t">Partly</span>On the column-first page, the built-in presets set both. A preset you save there keeps filters only.</td></tr>
-            <tr><th scope="row">A view switcher (rename, duplicate, set default, share), with views for a project or the whole org</th><td data-l="What happened"><span class="data-t">Not in July</span>The July build had no view switcher.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <article class="decision rv">
-        <div class="label">Decision 1 · <b>Where columns go</b></div>
-        <h3>Should columns sit inside the filter strip, or in their own modal?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>Inside the strip</strong><span>The plan's answer. Columns stack under the filters, collapsed to a count, with one Reset, Save and Apply for both. Built first.</span></li>
-          <li class="opt chosen"><strong>A columns modal</strong><span>The pattern the platform already used, opened from an “Add columns” button. Edits stay a draft and only land on Apply.</span></li>
-          <li class="opt"><strong>Column-first</strong><span>A third model, from June: picking a column is the first step of filtering it. Built as its own page.</span></li>
-        </ul>
-        <p class="because"><b>Why:</b> reuse won over the plan. Columns went back to a modal “in favor of the existing platform pattern.”</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="chapter sheet" id="decisions">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">04 · <b>Decisions</b></div><h2>Existing patterns won twice</h2></div>
-        <div class="prose"><p class="lead">Filters went back to an explicit Apply, and Reports and Signals to a grid like the other data pages.</p>
-          <p>Two habits run through my work on Data: reuse what exists, and build filters only from columns and values the table holds. I replaced Data's own filter strip with the one from the Alerts page, and the column-first presets “reference only real filterable columns + real values.”</p></div>
-      </div>
-      <article class="decision rv">
-        <div class="label">Decision 2 · <b>When filters apply</b></div>
-        <h3>Should a filter apply the moment you click, or wait for Apply?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>Apply on every change</strong><span>Tried on V1 in June: filters applied by themselves and the Apply button went away.</span></li>
-          <li class="opt chosen"><strong>An explicit Apply</strong><span>The plan's choice, and what the shared filter from Alerts brought back. Set up the conditions, then run them once.</span></li>
-        </ul>
-        <p class="because"><b>Why:</b> as the plan put it, toggling an option shouldn't re-run the query on every click.</p>
-      </article>
-      <article class="decision rv xtra">
-        <div class="label">Decision 3 · <b>Table or list</b></div>
-        <h3>Should Reports and Signals be a grid or an accordion list?</h3>
-        <ul class="opts">
-          <li class="opt chosen"><strong>A grid</strong><span>Rows read the same way as on the other data pages. In March, Reports moved to a grid to match Signals and Agent evaluation.</span></li>
-          <li class="opt"><strong>An accordion list</strong><span>Tried on both in May. A collapsed row shows a status dot, name, schedule and toggle, and expands to context, trend, details and actions.</span></li>
-        </ul>
-        <p class="because"><b>Result:</b> Reports went back to a grid in July, and today Signals opens as a table too.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="chapter ink" id="signals">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">05 · <b>Signals</b></div><h2>Signals that fire on their own</h2></div>
-        <div class="prose"><p class="lead">Each signal has an on/off switch, its name and its rule in plain words. The ones triggered now lead the page, each with its last 14 days of calls.</p>
-          <p>With its Auto switch on, a signal runs by itself, and its status says whether it is Active, Triggered, Paused or in Error. Signals feed the rest of Hear: on the Actions board, a task can come from a signal.</p></div>
-      </div>
-      <div class="px-host rv"><figure class="px-fig" data-px="signals"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=signals&v=202" title="Signals in Hear Studio: rules that classify calls, one opened, and a new one written in plain words." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
-      <div class="two">
-        <h3>Creating one</h3>
-        <div class="prose">
-          <ul>
-            <li>A name, a folder (or a new one, right from the menu) and the model it runs on.</li>
-            <li>Items, one per field, each with a name, a key, a type and its own description.</li>
-            <li>Saving updates the folder's count.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="two">
-        <h3>What changed since July</h3>
-        <div class="prose">
-          <p>In July, Signals was an accordion list with status tabs. Now its tabs are folders with counts, and Create signal asks for a folder.</p>
-          <p>I reused the Signals item row in the Knowledge glossary, so a glossary term and a signal field are edited the same way.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="wrap">
-    <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy. Other quoted lines come from a saved-views planning page (March to July 2026).</p></div>
+  <div class="c2-w c2-next">
     <a class="next" href="design-system.html" aria-label="Next case study: Design system. One token set behind every screen in the Lab"><span class="next-t"><span class="label">Next case study</span><span class="next-name">Design system</span><span class="next-line">One token set behind every screen in the Lab</span><span class="next-go">Read next</span></span><span class="next-thumb fade-l" aria-hidden="true"><img src="../img/next-system.webp?v=3" width="1440" height="900" alt="" loading="lazy" decoding="async"></span></a>
   </div>
 </main>
@@ -301,13 +245,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </div>
 </footer>
-<script src="lab-live.js" defer></script>
-<script src="lab-data.js" defer></script>
-<script src="lab-signals.js" defer></script>
 <script src="case.js?v=8"></script>
-<script src="lab-stage.js" defer></script>
-<script src="../v7/depth.js?v=6" defer></script>
-<script src="../v7/product.js?v=39" defer></script>
+<script src="../v7/cs2.js?v=1" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>

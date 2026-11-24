@@ -34,35 +34,74 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css?v=201">
 <link rel="stylesheet" href="../v7/foot.css?v=200">
-<link rel="stylesheet" href="lab-live.css">
-<link rel="stylesheet" href="lab-actions.css">
-<link rel="stylesheet" href="lab-stage.css">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/px.css?v=20">
 <link rel="stylesheet" href="../v7/case.css?v=41">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
+<link rel="stylesheet" href="../v7/cs2.css?v=4">
 <style>
-.actions-sub { margin: clamp(48px, 7vw, 88px) 0 clamp(18px, 2.4vw, 28px); }
-.actions-crop { background: #efefed; padding: clamp(16px, 3vw, 32px) clamp(16px, 3vw, 32px) 52px; }
-.actions-crop img { width: auto; max-width: 100%; margin-inline: auto; border-radius: 10px; }
-/* the Done crop fades out instead of slicing its third card (round 16) */
-.actions-crop > img[src*="v7s-actions-done"] { -webkit-mask-image: linear-gradient(#000 74%, transparent 97%); mask-image: linear-gradient(#000 74%, transparent 97%); }
-/* two crops side by side share one frame height, the smaller crop centered in its frame */
-@media (min-width: 861px) { #closing .two:not(.xtra) { align-items: stretch; grid-template-rows: auto auto; row-gap: 0; } #closing .two:not(.xtra) > figure { display: grid; grid-row: span 2; grid-template-rows: subgrid; } #closing .two:not(.xtra) .actions-crop { display: grid; align-content: center; } }
-.actions-anat { list-style: none; counter-reset: a; margin: 0 !important; display: grid; gap: 12px !important; }
-.actions-anat li { counter-increment: a; display: grid; grid-template-columns: 28px 1fr; gap: 0 10px; }
-.actions-anat li::before { content: counter(a, decimal-leading-zero); font: 600 14px/1.75 var(--body); font-variant-numeric: tabular-nums; color: var(--coral); }
-.actions-strip { overflow-x: auto; overscroll-behavior-x: contain; }
-.actions-crop .lx { width: min(var(--sw), 100%); margin-inline: auto; border-radius: 10px; }
-.actions-hint { display: none; margin-top: 10px; font: 600 14px/1.3 var(--body); color: var(--mute); }
-.actions-col h3 { margin: 0 0 .6em; }
-.actions-two-top { margin-top: clamp(28px, 4vw, 44px); }
-.actions-col ul + p { margin-top: 1em; }
-@media (max-width: 760px) {
-  .actions-crop { padding-bottom: clamp(16px, 3vw, 32px); }
-  .actions-strip .lx { width: 1150px; max-width: none; }
-  .actions-hint { display: block; }
-  .ct-jump { min-height: 44px; }
+/* Actions only: the stills inside the stepper, the worked task drawn as a list, the close reasons beside their column,
+   the filter bar as a strip, and AI Tasks drawn as a diagram (it has no still; this is a diagram, not a screen). */
+.c2 .ac-chip{ display:inline-flex; padding:8px 14px; border-radius:99px; background:#e3f1fe; color:var(--deep); font:600 15px/1.2 var(--body); }
+.c2 .ac-facts{ display:grid; grid-template-columns:auto 1fr; gap:10px 18px; font:400 15px/1.45 var(--body); color:var(--ink2); }
+.c2 .ac-facts dt{ font:600 13px/1.6 var(--body); letter-spacing:.02em; color:var(--mute); }
+.c2 .ac-facts dd b{ color:var(--ink); }
+.c2 .ac-tag{ display:inline-block; margin-right:6px; padding:3px 9px; border-radius:99px; background:#dff3e6; color:#1d6b3b; font:600 13px/1.3 var(--body); }
+.c2 .ac-done img{ -webkit-mask-image:linear-gradient(#000 70%, transparent 96%); mask-image:linear-gradient(#000 70%, transparent 96%); }
+.c2 .ac-card-shot img{ max-width:min(100%, 520px); }
+
+.c2 .ac-work{ border-radius:16px; padding:clamp(18px, 3vw, 32px); background:linear-gradient(180deg, #dcebf8, #eef4fa); box-shadow:0 0 0 1px rgba(23,27,32,.08); }
+.c2 .ac-work ol{ display:grid; gap:10px; max-width:460px; margin-inline:auto; }
+.c2 .ac-work li{ display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:start; padding:14px 16px; border-radius:12px; background:#fff; box-shadow:0 0 0 1px var(--line); font:400 15px/1.45 var(--body); color:var(--ink2); }
+.c2 .ac-work li > i{ width:24px; height:24px; display:grid; place-items:center; border-radius:50%; background:#e3f1fe; color:var(--deep); font:600 13px/1 var(--body); font-style:normal; }
+.c2 .ac-work li b{ display:block; color:var(--ink); font-weight:600; }
+.c2 .ac-work li.is-end{ box-shadow:0 0 0 2px var(--ink); }
+.c2 .ac-work li.is-end > i{ background:var(--ink); color:#fff; }
+.c2 .ac-work .t{ font-variant-numeric:tabular-nums; font-weight:600; color:var(--ink); }
+
+.c2 .ac-close{ display:grid; grid-template-columns:minmax(0, .8fr) minmax(0, 1.2fr); gap:clamp(24px, 4vw, 56px); margin-top:32px; align-items:start; }
+.c2 .ac-close .c2-shot{ display:grid; place-items:center; padding:clamp(18px, 3vw, 32px); background:linear-gradient(180deg, #dcebf8, #eef4fa); }
+.c2 .ac-close .c2-shot img{ aspect-ratio:706 / 730; object-fit:cover; object-position:50% 0; -webkit-mask-image:linear-gradient(#000 95%, transparent); mask-image:linear-gradient(#000 95%, transparent); width:auto; max-width:100%; max-height:460px; border-radius:12px; box-shadow:0 18px 40px -22px rgba(11,79,138,.45); }
+.c2 .ac-reasons{ display:grid; gap:12px; }
+.c2 .ac-reasons li{ padding:16px 20px; border-radius:14px; background:var(--card); box-shadow:0 0 0 1px var(--line); font:400 15.5px/1.5 var(--body); color:var(--ink2); }
+.c2 .ac-reasons li b{ display:inline-block; margin-right:8px; padding:4px 10px; border-radius:99px; background:#e9ecef; font:600 13px/1.2 var(--body); color:var(--ink); }
+.c2 .ac-reasons li b.ok{ background:#dff3e6; color:#1d6b3b; }
+.c2 .ac-reasons q{ quotes:"\201C" "\201D"; color:var(--ink); }
+
+.c2 .ac-bar{ margin-top:28px; }
+.c2 .ac-bar .c2-shot{ background:#fff; }
+
+.c2 .ai-dia{ display:grid; grid-template-columns:minmax(0, .85fr) 26px minmax(0, 1.5fr) 26px minmax(0, .85fr); align-items:stretch; margin-top:32px; }
+.c2 .ai-box{ padding:20px 22px 22px; border-radius:16px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
+.c2 .ai-box.is-me{ box-shadow:0 0 0 2px var(--ink); }
+.c2 .ai-box > small{ display:block; margin-bottom:8px; font:600 12.5px/1.2 var(--body); letter-spacing:.03em; color:var(--deep); }
+.c2 .ai-box > b{ display:block; font:600 17px/1.3 var(--body); color:var(--ink); }
+.c2 .ai-box > p{ margin-top:8px; font:400 14.5px/1.5 var(--body); color:var(--ink2); }
+.c2 .ai-arr{ position:relative; }
+.c2 .ai-arr::before{ content:""; position:absolute; left:50%; top:50%; width:10px; height:10px; margin:-5px 0 0 -7px; border-top:2px solid var(--mute); border-right:2px solid var(--mute); transform:rotate(45deg); }
+.c2 .ai-grps{ display:grid; gap:10px; margin-top:14px; }
+.c2 .ai-grp{ display:grid; gap:8px; padding:14px 16px; border-radius:12px; background:#f6f8fa; box-shadow:inset 0 0 0 1px var(--line); font:400 14px/1.4 var(--body); color:var(--ink2); }
+.c2 .ai-grp > b{ font:600 14.5px/1.3 var(--body); color:var(--ink); }
+.c2 .ai-cnt{ display:flex; flex-wrap:wrap; gap:6px; }
+.c2 .ai-cnt span{ padding:3px 8px; border-radius:99px; background:#fff; box-shadow:inset 0 0 0 1px var(--line); font:500 12.5px/1.3 var(--body); }
+.c2 .ai-val s{ color:var(--mute); }
+.c2 .ai-val i{ font-style:normal; color:var(--mute); margin:0 6px; }
+.c2 .ai-val b{ color:var(--ink); font-weight:600; }
+.c2 .ai-seg{ display:inline-flex; width:max-content; max-width:100%; border-radius:99px; box-shadow:inset 0 0 0 1px var(--line); background:#fff; overflow:hidden; }
+.c2 .ai-seg span{ padding:6px 12px; font:600 12.5px/1 var(--body); color:var(--ink2); }
+.c2 .ai-seg span + span{ box-shadow:inset 1px 0 0 var(--line); }
+.c2 .ai-seg span.on{ background:var(--ink); color:#fff; }
+.c2 .ai-off{ display:inline-flex; align-items:center; min-height:38px; margin-top:14px; padding:0 16px; border-radius:99px; background:#e9ecef; color:var(--mute); font:600 14px/1 var(--body); }
+.c2 .ai-auto{ margin-top:14px; padding:14px 20px; border-radius:14px; border:1.5px dashed #c9ced3; font:400 14.5px/1.5 var(--body); color:var(--ink2); }
+.c2 .ai-auto q{ quotes:"\201C" "\201D"; color:var(--ink); }
+
+@media (max-width: 900px){
+  .c2 .ac-close{ grid-template-columns:1fr; }
+  .c2 .ai-dia{ grid-template-columns:1fr; grid-template-rows:auto 26px auto 26px auto; }
+  .c2 .ai-arr::before{ transform:rotate(135deg); margin:-8px 0 0 -5px; }
+}
+@media (max-width: 700px){
+  .c2 .ac-bar .c2-shot{ overflow-x:auto; overscroll-behavior-x:contain; }
+  .c2 .ac-bar .c2-shot img{ width:820px; max-width:none; }
 }
 </style>
 </head>
@@ -77,177 +116,162 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main">
-  <header class="cs-hero wrap">
-    <div class="label">Case study · <b>Actions</b></div>
-    <h1>Findings become work a person owns</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>Hear, an AI platform for contact centers, raises findings through alerts, signals and evaluations. Each needs an owner and an outcome.</dd></div><div><dt>What I designed</dt><dd>The Actions board, where each finding becomes a task with a source and an assignee, and AI Tasks, a coded prototype where a person reviews what the AI proposes.</dd></div><div><dt>Where it stands</dt><dd>The board runs as V2 in Hear Design Lab, a working replica of Hear.</dd></div></dl>
-    <dl class="meta">
-      <div><dt>Role</dt><dd>Design and build in the Lab, with Claude Code</dd></div>
-      <div><dt>When</dt><dd>Mar–Oct 2026 · screens from Oct</dd></div>
-      <div><dt>Scope</dt><dd>Actions board and task panel · earlier: AI Tasks, Alerts</dd></div>
-    </dl>
-    <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#board"><span>02</span> The board</a><a class="pill" href="#closing"><span>03</span> Closing the loop</a><a class="pill" href="#ai-tasks"><span>04</span> AI Tasks</a><a class="pill" href="#alerts"><span>05</span> Alerts</a></nav>
-    <div class="px-host" id="demo"><figure class="px-fig" data-px="actions"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="../hear-v7/plan/studio.html?screen=actions&v=202" title="Actions in Hear Studio: findings as tasks on a board, one task opened with the call it came from." scrolling="no" tabindex="-1"></iframe></div></div></figure></div>
+<main id="main" class="c2">
+  <header class="c2-hero">
+    <div class="c2-w">
+      <p class="c2-kick">Case study · <b>Actions</b></p>
+      <h1>Every finding from a call gets an owner and an outcome</h1>
+      <p class="c2-ctx">Hear's AI flags problems on contact-center calls through alerts, signals and agent evaluations. I designed Actions, the board where each finding becomes a task that someone owns and closes with a reason.</p>
+      <dl class="c2-sum">
+        <div><dt>For</dt><dd>The contact-center team that follows up on what Hear's AI finds in its calls.</dd></div>
+        <div><dt>The problem</dt><dd>A finding says something happened. It doesn't say who is dealing with it, or how it ended.</dd></div>
+        <div><dt>What I did</dt><dd>Designed and built the Actions board and its task panel, and earlier AI Tasks, where a person reviews what the AI proposes.</dd></div>
+        <div><dt>Where it stands</dt><dd>Mar–Oct 2026, in Hear Design Lab, my working replica of Hear, with demo data.</dd></div>
+      </dl>
+      <figure class="c2-fig">
+        <div class="c2-shot"><img src="../img/v7s-actions-board.webp?v=8" width="2060" height="1327" alt="The Actions board in four columns: Pending, In progress, Done and Cancelled, under a filter bar. Every card names its source and date, says what happened in one sentence, quotes the line from the call that raised it and names its owner. Closed cards carry a reason such as Resolved, Escalated, Duplicate or Not actionable." fetchpriority="high">
+          <span class="c2-pin" style="--x:17.2%;--y:23.3%" aria-hidden="true">1</span><span class="c2-pin" style="--x:22.4%;--y:31.8%" aria-hidden="true">2</span><span class="c2-pin" style="--x:15.6%;--y:35.5%" aria-hidden="true">3</span><span class="c2-pin" style="--x:63.6%;--y:53.3%" aria-hidden="true">4</span></div>
+        <figcaption><ol class="c2-key" style="--n:4">
+          <li><i aria-hidden="true">1</i><span><b>Where it came from:</b> an alert, a call, an agent evaluation or feedback, and how urgent it is.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>The evidence:</b> what happened, then the customer's words, timed in the call.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>Who has it:</b> a name, or “Not assigned” until someone takes it.</span></li>
+          <li><i aria-hidden="true">4</i><span><b>How it ended:</b> a closed task carries its reason, such as Resolved.</span></li>
+        </ol></figcaption>
+      </figure>
+      <div class="c2-live"><button type="button" class="c2-btn" data-live="../hear-v7/plan/studio.html?screen=actions&amp;v=202" data-title="Actions, the live screen in Hear Design Lab" data-open="Try the live screen" data-close="Close the live screen" aria-expanded="false" aria-controls="live-b"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .5.6.8 1 .5l8-5.2a.6.6 0 0 0 0-1L5.5 2.3c-.4-.3-1 0-1 .5z"/></svg><span class="c2-bt">Try the live screen</span></button><small>The real screen, with demo data.</small></div>
+      <div class="c2-frame" id="live-b" hidden></div>
+    </div>
   </header>
 
-  <!-- 01 · ink -->
-  <section class="chapter" id="problem">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">01 · <b>The problem</b></div><h2>A finding isn't finished until someone owns it</h2></div>
-        <div class="prose">
-          <p class="lead">Alerts, Signals and agent evaluations report that something happened, not who is dealing with it or how it ended. I designed Actions so every task shows who has it, or says “Not assigned” when nobody does yet.</p>
-          <p>Alerts fire when a monitor trips. Signals classify calls, and agent evaluations score each contact-center agent. None of them names an owner.</p>
-        </div>
-      </div>
-      <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-actions-board.webp?v=8" data-zoom alt="The Actions board in four columns, Pending, In progress, Done and Cancelled. Every card names its source, its date, the line from the call that raised it and its owner." width="2060" height="1327" loading="lazy"><span class="live">Design Lab · demo data</span></div>
-        <figcaption><b>The Actions board.</b> Four columns, Pending to Cancelled, under one filter bar.</figcaption></figure>
+  <section class="c2-sec" id="context" data-ch="The setting">
+    <div class="c2-w">
+      <p class="c2-n">The setting</p>
+      <h2>Between a flagged call and a fixed problem, someone has to pick it up</h2>
+      <p class="c2-lede">Hear is an AI platform for contact centers. Its AI finds problems on calls; Actions turns each one into work for a person.</p>
+      <ol class="c2-flow">
+        <li><b>Calls</b><span>Agents, the people who answer customer calls, take calls all day.</span></li>
+        <li><b>Hear's AI flags something</b><span>An alert fires when a monitor trips; a signal classifies calls; an evaluation scores an agent.</span></li>
+        <li class="is-me"><em>My screens</em><b>A task on the board</b><span>With its source, a priority, the line from the call and an owner.</span></li>
+        <li><b>A person closes it</b><span>In Done or Cancelled, with a reason the team can look back on.</span></li>
+      </ol>
     </div>
   </section>
 
-  <!-- 02 · sheet -->
-  <section class="chapter sheet" id="board">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">02 · <b>The board</b></div><h2>Every card follows one order, from source to owner</h2></div>
-        <div class="prose"><p class="lead">Top to bottom, a card shows where it came from, how urgent it is, what happened and who has it.</p>
-          <p>Cards sit in four columns, Pending, In progress, Done and Cancelled, under the filter bar.</p></div>
+  <section class="c2-sec" id="problem" data-ch="The problem">
+    <div class="c2-w">
+      <p class="c2-n">The problem</p>
+      <h2>A finding says something happened, not who is dealing with it</h2>
+      <div class="c2-ba">
+        <div><h3>Before · a finding alone</h3><span class="ac-chip">Alert · Refund refused</span>
+          <p>The Oct 13 refund call raised an alert. It reports what happened. No name is on it, and nothing says if it was handled.</p></div>
+        <div><h3>After · the same finding as a task</h3>
+          <dl class="ac-facts">
+            <dt>Task</dt><dd><b>Customer asked twice for a refund, was offered only a voucher</b></dd>
+            <dt>Evidence</dt><dd>02:41 “…a refund, not a voucher.”</dd>
+            <dt>Owner</dt><dd>Daniel Brooks · High priority</dd>
+            <dt>Ended</dt><dd><span class="ac-tag">Resolved</span> Refunded · coaching set for Oct 15</dd>
+          </dl></div>
       </div>
-      <figure class="v7-anat rv">
-        <div class="shot pad v7s" style="--iw:400px;--ir:4.6% / 11.1%"><span class="live">Design Lab · demo data</span><img src="../img/v7s-actions-card.webp?v=8" alt="One Actions card: a high-priority alert from today, “Customer asked twice for a refund, was offered only a voucher”, with the line from the call that raised it, and owned by Daniel Brooks." width="869" height="441" loading="lazy"></div>
-        <ol class="v7-parts" aria-label="The parts of a card, top to bottom"><li><span class="n">01</span><b>Source and age.</b> Alert, Call, Agent evaluation or Feedback, then Today, Yesterday or a date.</li><li><span class="n">02</span><b>Priority.</b> A high-priority task says so on the same line, with a coral dot.</li><li><span class="n">03</span><b>What happened.</b> One plain sentence, two lines at most. Under it, the line from the call that raised the task.</li><li><span class="n">04</span><b>Owner.</b> The assignee, or “Not assigned” when nobody has it.</li></ol>
-        <div class="ct-foot"><figcaption><b>A card from the board.</b> The same task is opened in the demo at the top of the page.</figcaption><a class="ct-jump" href="#demo" data-beat="2">Watch it open</a></div>
+      <h3 class="c2-sub">Three questions the person working the board brings</h3>
+      <ol class="c2-qs">
+        <li><q>Why is this on my board?</q><span>The card names its source and quotes the call.</span><small><i>1</i>It arrives with its evidence</small></li>
+        <li><q>What do I do about it?</q><span>The task opens with its call and a checklist.</span><small><i>2</i>It is worked from the call</small></li>
+        <li><q>How did it end?</q><span>A closed task keeps what was done, and why.</span><small><i>3</i>It closes with how it ended</small></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="c2-sec" id="how" data-ch="How it works">
+    <div class="c2-w">
+      <p class="c2-n">How it works</p>
+      <h2>One task, from the call that raised it to how it ended</h2>
+      <div class="c2-steps">
+        <div class="c2-side">
+          <div class="c2-tabs" role="tablist" aria-label="Three steps of one task">
+            <button type="button" class="c2-tab" role="tab" id="t1" aria-controls="p1" aria-selected="true"><i>1</i><div><b>It arrives with its evidence</b><span>The refund alert is now a task in Pending, High priority, with the customer's words at 02:41 and an owner, Daniel Brooks. Its next moves sit on the card: reassign, start or resolve.</span></div></button>
+            <button type="button" class="c2-tab" role="tab" id="t2" aria-controls="p2" aria-selected="false"><i>2</i><div><b>It is worked from the call</b><span>Opened, the task shows its call, the two moments the customer asked, and a checklist. An activity log records each change, such as Moved to In progress.</span></div></button>
+            <button type="button" class="c2-tab" role="tab" id="t3" aria-controls="p3" aria-selected="false"><i>3</i><div><b>It closes with how it ended</b><span>The outcome is written in and the task closes as Resolved. It moves to Done, and the card now carries the outcome.</span></div></button>
+          </div>
+          <p class="c2-quote">The card comes in with the customer's words and leaves with what was done.</p>
+        </div>
+        <div class="c2-stage">
+          <figure class="c2-panel" role="tabpanel" id="p1" aria-labelledby="t1"><div class="c2-shot ac-card-shot"><img src="../img/v7s-actions-card.webp?v=8" width="869" height="441" alt="One Actions card: Alert, Today, High. Customer asked twice for a refund, was offered only a voucher. 02:41, “…a refund, not a voucher.” Owner: Daniel Brooks." loading="lazy"></div><figcaption><b>Pending.</b> The card as it arrives.</figcaption></figure>
+          <figure class="c2-panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden><div class="ac-work"><ol>
+            <li><i aria-hidden="true">1</i><span><b>Listen to the call</b>Oct 13, agent Selma K. The customer asked at <span class="t">01:22</span> and again at <span class="t">02:41</span>.</span></li>
+            <li><i aria-hidden="true">2</i><span><b>Refund the customer</b></span></li>
+            <li><i aria-hidden="true">3</i><span><b>Book coaching with Selma K.</b></span></li>
+            <li class="is-end"><i aria-hidden="true">✓</i><span><b>Write the outcome, close as Resolved</b>“Refunded · coaching set for Oct 15”</span></li>
+          </ol></div><figcaption><b>Inside the task,</b> drawn as a list. The live screen shows the panel.</figcaption></figure>
+          <figure class="c2-panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden><div class="c2-shot ac-done"><img src="../img/v7s-actions-done.webp?v=7" width="706" height="988" alt="The Done column. At the top, the same refund task, now reading Refunded, coaching set for Oct 15, owned by Daniel Brooks and tagged Resolved. Below it, a lost baggage claim tagged Escalated." loading="lazy"></div><figcaption><b>Done.</b> The same task, now with its outcome and its reason.</figcaption></figure>
+          <div class="c2-nav"><button type="button" data-go="-1" aria-label="Previous step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button><button type="button" data-go="1" aria-label="Next step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button><span aria-live="polite">1 of 3</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="c2-sec" id="reasons" data-ch="Close reasons">
+    <div class="c2-w">
+      <p class="c2-n">Close reasons</p>
+      <h2>Closed work keeps its reason, so the team can learn from it</h2>
+      <p class="c2-lede">Done or Cancelled, a task says why it ended. I built the board around how teams follow up, so the team can look back at what became of each finding.</p>
+      <div class="ac-close">
+        <figure><div class="c2-shot"><img src="../img/v7s-actions-cancelled.webp?v=7" width="706" height="988" alt="The Cancelled column: Duplicate: booking engine timeout, “Same failure as the Oct 10 alert”, tagged Duplicate; and Website search is slow, “Not about a call”, not assigned, tagged Not actionable." loading="lazy"></div></figure>
+        <ul class="ac-reasons">
+          <li><b class="ok">Resolved</b><q>Refunded · coaching set for Oct 15.</q></li>
+          <li><b>Escalated</b>Handed on, with what came back: <q>Ground team found the bag, Oct 6.</q></li>
+          <li><b>Duplicate</b>Points to the task it repeats: <q>Same failure as the Oct 10 alert.</q></li>
+          <li><b>Not actionable</b>Feedback on slow website search: <q>Not about a call.</q></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="c2-sec" id="ai-tasks" data-ch="AI Tasks">
+    <div class="c2-w">
+      <p class="c2-n">Earlier work · AI Tasks, June 2026</p>
+      <h2>In AI Tasks, the AI proposes and a person decides, one group at a time</h2>
+      <p class="c2-lede">Actions starts from findings. AI Tasks, a coded prototype in the Lab, starts from the AI's own proposals, such as a change to the setup.</p>
+      <figure class="ai-fig">
+        <div class="ai-dia">
+          <div class="ai-box"><small>1 · The AI proposes</small><b>A request waits for review</b><p>An operation request, a system improvement or a scheduled task: “AI-proposed setup changes waiting for your review.”</p></div>
+          <div class="ai-arr" aria-hidden="true"></div>
+          <div class="ai-box is-me"><small>2 · A person reviews each group</small><b>One decision per group of changes</b>
+            <div class="ai-grps">
+              <div class="ai-grp"><b>A group of changes</b><div class="ai-cnt"><span>Created</span><span>Updated</span><span>Deleted</span></div><div class="ai-val"><s>Old value</s><i aria-hidden="true">→</i><b>New value</b></div><span>The AI's reasoning for this group</span><span class="ai-seg"><span class="on">Approve</span><span>Modify</span><span>Decline</span></span></div>
+              <div class="ai-grp"><b>The next group</b><div class="ai-val"><s>Old value</s><i aria-hidden="true">→</i><b>New value</b></div><span>Its own decision</span><span class="ai-seg"><span>Approve</span><span>Modify</span><span>Decline</span></span></div>
+            </div></div>
+          <div class="ai-arr" aria-hidden="true"></div>
+          <div class="ai-box"><small>3 · Then submits</small><b>Decisions go out together</b><span class="ai-off">Submit decisions</span><p>Off until every group has a decision. Past decisions go to a log.</p></div>
+        </div>
+        <p class="ai-auto">Automatic operations stay in plain view, in their own list: <q>These operations do not require approval.</q></p>
       </figure>
-
-      <h3 class="actions-sub">Filters that ask whose, which and from where</h3>
-      <figure class="rv"><div class="shot v7s actions-bar"><img src="../img/v7s-actions-bar.webp?v=6" alt="The Actions filter bar: Everyone, Assigned to me and Mentions me, then High priority, From alerts and From agent evaluation. The last three each show a count." width="2017" height="151" loading="lazy"></div>
-        <figcaption><b>The filter bar.</b> Who the task belongs to on the left. On the right, three quick filters, each with the number of tasks that match. Design Lab · demo data.</figcaption></figure>
-      <div class="two actions-two-top xtra">
-        <div class="prose"><p>Left to right, the bar answers three questions. <b>Whose work?</b> Everyone, Assigned to me or Mentions me. <b>Which tasks?</b> High priority, with its count. <b>From where?</b> From alerts or From agent evaluation.</p>
-          <p class="why"><b>Design choice:</b> being mentioned gets its own filter, Mentions me, so you find where you're needed before you open anything.</p></div>
-        <div class="prose"><p>On the first board, mentions were an option inside the Assignee dropdown. On the current board, Assigned to me and Mentioned me have their own control.</p>
-          <p class="why">A quick filter fades the cards that don't match instead of removing them, so the board keeps its shape.</p></div>
-      </div>
-
-      <h3 class="actions-sub xtra">The board's first day</h3>
-      <div class="prose xtra"><p>I built the first board in late March 2026 and, the same day, aligned its colors to design-system tokens.</p></div>
-      <article class="decision rv xtra">
-        <div class="label">Decision 1 · <b>Status color, day one</b></div>
-        <h3>What color should a task that's waiting be?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>Coral</strong><span>The first color for Pending. Coral is also Hear's brand accent.</span></li>
-          <li class="opt chosen"><strong>Neutral gray</strong><span>Switched the same day, then darkened step by step.</span></li>
-        </ul>
-        <p class="because"><b>Result:</b> by the end of the day, Pending was a darker neutral gray, chosen “for clear visibility.” The brand color no longer marked a task that is only waiting.</p>
-      </article>
+      <p class="c2-result"><b>A choice inside it:</b> I removed an earlier risk rating, so the person judges the change itself, from its old and new values and the AI's reasoning.</p>
     </div>
   </section>
 
-  <!-- 03 · ink -->
-  <section class="chapter ink" id="closing">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">03 · <b>Closing the loop</b></div><h2>Closed work keeps its reason</h2></div>
-        <div class="prose">
-          <p class="lead">A task ends in the Done or Cancelled column, and either way it says why: <b>Resolved</b>, <b>Duplicate</b>, <b>Not actionable</b> or <b>Escalated</b>.</p>
-          <p>A duplicate points to the task it repeats: “Same incident as … Closed as a duplicate.” Feedback about the website search closes as Not actionable, with a line that says it isn't a contact-center issue.</p>
-        </div>
+  <section class="c2-sec" id="decision" data-ch="The key decision">
+    <div class="c2-w">
+      <p class="c2-n">The key decision</p>
+      <h2>Being mentioned gets its own filter, so you find where you're needed first</h2>
+      <figure class="ac-bar"><div class="c2-shot"><img src="../img/v7s-actions-bar.webp?v=6" width="2017" height="151" alt="The Actions filter bar: Everyone, Assigned to me and Mentions me, then High priority 4, From alerts 5 and From agent evaluation 2." loading="lazy"></div></figure>
+      <div class="c2-dec">
+        <div class="c2-opt"><h3>Inside the Assignee menu <em>Set aside</em></h3><p>On the first board, mentions were one option in the Assignee dropdown, out of sight until opened.</p></div>
+        <div class="c2-opt is-chosen"><h3>Its own filter, Mentions me <em>Chosen</em></h3><p>Beside Everyone and Assigned to me, at the start of the filter bar.</p></div>
       </div>
-      <div class="two">
-        <figure class="rv"><div class="shot actions-crop v7s" style="--iw:330px"><span class="live">Design Lab · demo data</span><img src="../img/v7s-actions-done.webp?v=7" alt="The Done column: closed tasks, each with its outcome written under the title and a tag, Resolved or Escalated." width="706" height="988" loading="lazy"></div>
-          <figcaption><b>The Done column.</b> A finished task says how it ended: Resolved or Escalated.</figcaption></figure>
-        <figure class="rv"><div class="shot actions-crop v7s" style="--iw:330px"><span class="live">Design Lab · demo data</span><img src="../img/v7s-actions-cancelled.webp?v=7" alt="The Cancelled column: a duplicate task and a not-actionable feedback task, each tagged with its close reason." width="706" height="988" loading="lazy"></div>
-          <figcaption><b>The Cancelled column.</b> Each closed card carries its reason as a tag.</figcaption></figure>
-      </div>
-      <div class="ct-foot"><a class="ct-jump" href="#demo" data-beat="3">Watch a task close</a></div>
+      <p class="c2-result"><b>Why:</b> a mention means someone needs you on that task. Mentions me shows those tasks before you open anything.</p>
+    </div>
+  </section>
 
-      <h3 class="actions-sub xtra">Inside a task, changes stay on the record</h3>
-      <div class="two xtra">
-        <div class="prose">
-          <p>A card opens into a side panel, and its activity log records each change, such as Created, Assigned to and Moved to In progress.</p>
-          <p><b>Open call</b> and <b>Ask AI</b> sit at the top of the panel, so the call linked to the task is one click away.</p>
-          <div class="ct-foot"><a class="ct-jump" href="#demo" data-beat="2">See the panel open</a></div>
-        </div>
-        <div class="prose">
-          <p class="why" style="margin-top:0"><b>Design choice:</b> I built the board around how teams follow up, so every task keeps its source and its close reason for the team to learn from.</p>
-        </div>
+  <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
+    <div class="c2-w">
+      <div class="c2-stand">
+        <div><h3>Where it stands</h3><p>The board runs in Hear Design Lab, my working replica of Hear, rebuilt in code with demo data; screens from October 2026. AI Tasks is a June 2026 prototype. I also rebuilt the Alerts page, one source of tasks; it is not covered here.</p></div>
+        <div><h3>My part</h3><p>I designed and built the board in the Lab with Claude Code, from the first board in late March 2026 to the current one.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- 04 · sheet -->
-  <section class="chapter sheet" id="ai-tasks">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">04 · <b>AI Tasks</b> · earlier work, June&nbsp;2026</div><h2>AI Tasks: the AI proposes and a person decides</h2></div>
-        <div class="prose"><p class="lead">In AI Tasks, a coded prototype in the Lab, a person chooses Approve, Modify or Decline for each group of proposed changes.</p>
-          <p>Actions starts from findings. AI Tasks starts from the AI's own proposals, such as an operation to run or a change to the setup.</p></div>
-      </div>
-      <div class="two">
-        <div class="prose actions-col">
-          <h3>Three modes share one page</h3>
-          <p>Requests come in three modes: Operation Requests, System Improvements and Scheduled Tasks, the last a read-only list. The page's own copy reads “AI-proposed setup changes waiting for your review.”</p>
-          <p>On one side is what's waiting. On the other is a log of past decisions.</p>
-        </div>
-        <div class="prose actions-col">
-          <h3>One decision per group</h3>
-          <p>A request opens in a review drawer. For each group of changes, it shows:</p>
-          <ul>
-            <li>counts of what will be created, updated and deleted</li>
-            <li>each field's old value, struck through, beside the new one</li>
-            <li>the AI's reasoning for that group</li>
-            <li>Approve, Modify or Decline</li>
-          </ul>
-          <p>Automatic operations sit in their own list, in plain view, under “These operations do not require approval.” The Submit decisions button stays off until every group has a decision.</p>
-        </div>
-      </div>
-
-      <div class="stack xtra">
-        <article class="decision rv">
-          <div class="label">Decision 2 · <b>AI Tasks, lo-fi vs. build</b></div>
-          <h3>What should lead the page: status, or the kind of request?</h3>
-          <ul class="opts">
-            <li class="opt"><strong>Status first: the lo-fi, “Mission Control”</strong><span>Three view tabs, then a page-wide strip of four counts (Awaiting Approval, Approved, Completed, Rejected) above two panels.</span></li>
-            <li class="opt chosen"><strong>Kind of request first: the build, “AI Tasks”</strong><span>The mode is the main axis, and switching it re-slices the list, the log and the counts together.</span></li>
-          </ul>
-          <p class="because"><b>Result:</b> one switch sets the whole page. Status counts became four small filter cards inside the log, next to past decisions.</p>
-        </article>
-        <article class="decision rv">
-          <div class="label">Decision 3 · <b>AI Tasks, what a proposal shows</b></div>
-          <h3>Should each proposal carry a risk rating?</h3>
-          <ul class="opts">
-            <li class="opt"><strong>A risk rating</strong><span>Tried in an earlier version of the page.</span></li>
-            <li class="opt chosen"><strong>No rating</strong><span>The person judges the change itself: the old and new values, and the AI's reasoning.</span></li>
-          </ul>
-          <p class="because"><b>Result:</b> I removed the rating because the Lab's screens stay close to what Hear has. The commit message calls it a “non-real 'risk' concept.”</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05 · ink -->
-  <section class="chapter ink" id="alerts">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">05 · <b>Alerts</b> · earlier work, June to July&nbsp;2026</div><h2>Alerts: rebuilt around a data table</h2></div>
-        <div class="prose"><p class="lead">Alerts are one source of Actions tasks. I rebuilt the Alerts page, and on the same day its new filter panel replaced the Data page's filter strip.</p>
-          <p>The first build followed a low-fidelity wireframe almost one to one, and I rebuilt the page a few days later.</p></div>
-      </div>
-      <article class="decision rv xtra">
-        <div class="label">Decision 4 · <b>Alerts, first build vs. rebuild</b></div>
-        <h3>Keep the first build's extras, or rebuild around a data table?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>Keep the first build</strong><span>Compare mode, filter chips, a last-7-days sparkline on every row, KPI deltas and multi-select with bulk actions.</span></li>
-          <li class="opt chosen"><strong>Rebuild</strong><span>A data table, a stacked chart in the design system's colors, a chart that expands, count-up stat cards, a limit on active monitors and a filter panel other pages can share.</span></li>
-        </ul>
-        <p class="because"><b>Result:</b> the rebuild replaced the first build, without those extras.</p>
-      </article>
-    </div>
-  </section>
-
-  <div class="wrap">
-    <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy.</p></div>
+  <div class="c2-w c2-next">
     <a class="next" href="newsroom.html" aria-label="Next case study: Newsroom. An AI news feed that says why each story is there"><span class="next-t"><span class="label">Next case study</span><span class="next-name">Newsroom</span><span class="next-line">An AI news feed that says why each story is there</span><span class="next-go">Read next</span></span><span class="next-thumb whole" aria-hidden="true"><img src="../img/v7s-news-feed.webp?v=11" width="2060" height="1327" alt="" loading="lazy" decoding="async"></span></a>
   </div>
 </main>
@@ -285,12 +309,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </div>
 </footer>
-<script src="lab-live.js" defer></script>
-<script src="lab-actions.js" defer></script>
 <script src="case.js?v=8"></script>
-<script src="lab-stage.js" defer></script>
-<script src="../v7/depth.js?v=6" defer></script>
-<script src="../v7/product.js?v=39" defer></script>
+<script src="../v7/cs2.js?v=1" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>

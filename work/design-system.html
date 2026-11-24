@@ -17,12 +17,12 @@ addEventListener('hashchange',function(){setTimeout(strip,0);});
 addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
 }catch(e){}})();</script>
 <title>Design system · Ofir Nona</title>
-<meta name="description" content="I built the token-based design system of Hear Design Lab and documented it in Storybook: tiers, tokens, contrast and the screens built from them.">
+<meta name="description" content="I built the design system of Hear Design Lab: one set of tokens, in three layers, so a dense AI product for contact centers reads as one product.">
 <meta name="theme-color" content="#f4f3f1">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/design-system.html">
 <meta property="og:title" content="Design system · Ofir Nona">
-<meta property="og:description" content="I built the token-based design system of Hear Design Lab and documented it in Storybook: tiers, tokens, contrast and the screens built from them.">
+<meta property="og:description" content="I built the design system of Hear Design Lab: one set of tokens, in three layers, so a dense AI product for contact centers reads as one product.">
 <meta property="og:image" content="https://ofir1233.github.io/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -31,130 +31,72 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script>(function(){try{var t='light',m=document.querySelector('meta[name="theme-color"]');document.documentElement.dataset.theme=t;if(m)m.content=t==='dark'?'#101614':'#f3f4f2';}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="case.css?v=201">
 <link rel="stylesheet" href="../v7/foot.css?v=200">
 <link rel="stylesheet" href="../v7/font.css?v=3">
-<link rel="stylesheet" href="../v7/px.css?v=20">
-<link rel="stylesheet" href="../v7/system.css?v=4">
 <link rel="stylesheet" href="../v7/case.css?v=41">
+<link rel="stylesheet" href="../v7/case-r16.css?v=3">
+<link rel="stylesheet" href="../v7/cs2.css?v=4">
 <style>
-.ds-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.ds-code, .ds-ct code, .ds-list code, .ds-layer code { font: 500 .86em/1.4 var(--mono); overflow-wrap: anywhere; }
-.ds-code, .ds-ct code, .ds-list code { white-space: nowrap; }
-.ds-note { font-size: 14px; color: var(--mute); }
-/* story inventory: a table drawn as bars */
-.ds-inv { margin-top: clamp(28px, 4vw, 44px); }
-.ds-keys { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 14px; font-size: 14px; color: var(--text); }
-.ds-keys i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 8px; vertical-align: -1px; }
-.ds-inv table { width: 100%; border-collapse: collapse; }
-.ds-inv th, .ds-inv td { padding: 9px 0; border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent); text-align: left; font-weight: 400; vertical-align: middle; }
-.ds-inv th { width: 9.5em; font-size: 15px; color: var(--paper); padding-right: 12px; }
-.ds-inv td.ds-n { width: 7.5em; text-align: right; font: 600 15px/1.3 var(--body); font-variant-numeric: tabular-nums; color: var(--paper); padding-left: 12px; }
-.ds-inv td.ds-n small { display: block; font-size: 11.5px; color: var(--mute); font-weight: 400; }
-.ds-bar { display: flex; gap: 2px; height: 14px; }
-.ds-bar span { border-radius: 3px; min-width: 0; }
-.ds-base { background: color-mix(in srgb, var(--paper) 30%, transparent); } .ds-mine { background: var(--coral); }
-@media (max-width: 520px) { .ds-inv th { width: 6.6em; font-size: 14px; } .ds-inv td.ds-n { width: 5.4em; } }
-.prose .ds-list, .ds-list { list-style: none; display: grid; gap: 14px; margin: 18px 0 0; }
-.ds-list li { padding: 14px 18px; border-radius: 16px; background: var(--ink-3); color: var(--text); }
-.ds-list strong { display: block; }
-/* token layers */
-.ds-layers { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 12px; align-items: stretch; margin-bottom: 14px; }
-.ds-layer { background: var(--card); border-radius: 22px; padding: 20px; display: grid; gap: 10px; align-content: start; }
-.ds-layer h3 { font-size: 20px; }
-.ds-layer p { font-size: 14.5px; line-height: 1.5; }
-.ds-arrow { align-self: center; color: var(--coral); font: 700 22px/1 var(--display); }
-.ds-chips { list-style: none; display: grid; gap: 7px; }
-.ds-chips li { display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--text); min-width: 0; }
-.ds-sw { flex: none; display: inline-flex; }
-.ds-sw i { width: 18px; height: 18px; border-radius: 5px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--paper) 16%, transparent); }
-.ds-sw i + i { margin-left: -4px; }
-@media (max-width: 860px) { .ds-layers { grid-template-columns: 1fr; } .ds-arrow { transform: rotate(90deg); justify-self: center; } }
-/* contrast table. Its rounded clip also takes in the caption, so the 22px corner would cut the start of the caption's last line:
-   the caption keeps a corner's depth (22px) of padding under its text and the table hands that depth back, so nothing below moves */
-.ds-ct { width: 100%; border-collapse: collapse; font-size: 15px; background: var(--card); border-radius: 22px; overflow: hidden; margin-bottom: -22px; }
-.ds-ct caption { caption-side: bottom; text-align: left; padding-top: 12px; padding-bottom: 22px; font-size: 14px; color: var(--mute); }
-.ds-ct th, .ds-ct td { padding: 13px 16px; text-align: left; vertical-align: middle; border-top: 1px solid color-mix(in srgb, var(--paper) 8%, transparent); color: var(--paper); font-weight: 400; }
-.ds-ct thead th { border-top: 0; font: 600 14px/1.3 var(--body); color: var(--mute); background: var(--ink-3); }
-.ds-ct tbody th { font-size: 14.5px; line-height: 1.45; }
-.ds-ct code { font-size: 13.5px; }
-.ds-ct .ds-group td { padding-block: 10px 8px; font: 600 14px/1.2 var(--body); color: var(--mute); background: color-mix(in srgb, var(--paper) 3%, transparent); }
-.ds-aa { display: inline-flex; gap: 5px; margin-top: 6px; }
-.ds-aa span { font: 600 13.5px/1 var(--body); padding: 5px 7px; border-radius: 6px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--paper) 14%, transparent); }
-.ds-ratio { font: 600 15.5px/1.2 var(--body); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.ds-meter { position: relative; display: block; height: 6px; margin-top: 8px; border-radius: 3px; background: color-mix(in srgb, var(--paper) 9%, transparent); min-width: 120px; }
-.ds-meter span { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: var(--paper); width: calc((var(--hi) - 1) / 17 * 100%); }
-.ds-meter span.rng { background: linear-gradient(90deg, var(--paper) calc((var(--lo) - 1) / (var(--hi) - 1) * 100%), color-mix(in srgb, var(--paper) 35%, transparent) 0); }
-.ds-meter::after { content: ""; position: absolute; top: -4px; bottom: -4px; left: calc(3.5 / 17 * 100%); width: 2px; background: var(--coral); }
-.ds-v { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 99px; font-size: 13.5px; font-weight: 600; white-space: nowrap; color: var(--coral); background: var(--ink-3); }
-.ds-v.no { color: #a3381f; background: color-mix(in srgb, #a3381f 10%, transparent); }
-@media (max-width: 680px) {
-  .ds-ct thead { display: none; }
-  .ds-ct tr { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; padding: 14px 16px; border-top: 1px solid color-mix(in srgb, var(--paper) 8%, transparent); }
-  .ds-ct th, .ds-ct td { padding: 0; border: 0; }
-  .ds-ct tbody th { grid-column: 1 / -1; }
-  .ds-ct .ds-group { padding-block: 10px 8px; } .ds-ct .ds-group td { grid-column: 1 / -1; background: none; padding: 0; }
-  .ds-ct td:last-child { align-self: end; }
+/* page-only parts of the design-system case, scoped under .c2 (the shared sheet is v7/cs2.css) */
+/* the three layers, in words, beside the one card that shows them */
+.c2 .ds-split{ display:grid; grid-template-columns:minmax(0, .9fr) minmax(0, 1.1fr); gap:clamp(24px, 4vw, 56px); margin-top:36px; align-items:start; }
+.c2 .ds-lay{ display:grid; gap:10px; }
+.c2 .ds-lay li{ position:relative; display:grid; grid-template-columns:34px 1fr; gap:12px; padding:18px 18px 18px 16px; border-radius:14px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
+.c2 .ds-lay li + li::before{ content:""; position:absolute; left:29px; top:-11px; width:2px; height:12px; background:var(--mute); }
+.c2 .ds-lay i{ width:28px; height:28px; display:grid; place-items:center; border-radius:50%; background:var(--ink); color:#fff; font:600 13.5px/1 var(--body); font-style:normal; }
+.c2 .ds-lay b{ display:block; font:600 17px/1.3 var(--body); }
+.c2 .ds-lay span{ display:block; margin-top:4px; font:400 15px/1.5 var(--body); color:var(--ink2); }
+/* one card on the paper canvas, its six colors numbered */
+.c2 .ds-anat{ position:relative; display:grid; gap:28px; justify-items:center; padding:52px clamp(18px, 3vw, 32px) 30px; border-radius:16px; background:#F4F3F1; box-shadow:0 0 0 1px rgba(23,27,32,.08); }
+.c2 .ds-card{ position:relative; width:min(100%, 300px); padding:14px 15px 13px; border-radius:15px; background:#fff; box-shadow:0 0 0 1px rgba(24,36,48,.07), 0 10px 22px -14px rgba(16,34,60,.4); }
+.c2 .ds-card small{ display:block; font:400 12.5px/1.3 var(--body); color:#6A7078; }
+.c2 .ds-card > b{ display:block; margin-top:5px; font:500 14.5px/1.35 var(--body); color:#181818; }
+.c2 .ds-card .ds-ft{ display:flex; align-items:center; gap:8px; margin-top:12px; }
+.c2 .ds-av{ display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%; background:#139FFD; font:600 11.5px/1 var(--body); font-style:normal; color:#fff; }
+.c2 .ds-tag{ display:inline-flex; align-items:center; height:24px; padding:0 10px; border-radius:99px; background:#E9EEF2; font:500 12.5px/1 var(--body); color:#3d444c; }
+.c2 .ds-m{ display:inline-grid; place-items:center; width:20px; height:20px; margin-left:6px; border-radius:50%; background:var(--ink); color:#fff; font:600 11px/1 var(--body); font-style:normal; vertical-align:1px; box-shadow:0 0 0 2px #fff; }
+.c2 .ds-card > .ds-m{ position:absolute; top:-9px; right:-9px; margin:0; }
+.c2 .ds-anat > .ds-m{ position:absolute; top:18px; left:18px; margin:0; }
+.c2 .ds-roles{ width:100%; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px 18px; }
+.c2 .ds-roles li{ display:flex; align-items:center; gap:9px; min-width:0; font:400 14px/1.35 var(--body); color:var(--ink2); }
+.c2 .ds-roles li .ds-m{ flex:none; margin:0; box-shadow:none; }
+.c2 .ds-roles .sw{ flex:none; width:20px; height:20px; border-radius:6px; box-shadow:inset 0 0 0 1px rgba(24,36,48,.14); }
+.c2 .ds-roles b{ color:var(--ink); }
+.c2 .ds-fig figcaption, .c2 .ds-cap{ margin-top:14px; font:400 15px/1.5 var(--body); color:var(--ink2); }
+.c2 .ds-fig figcaption b, .c2 .ds-cap b{ color:var(--ink); }
+/* three contrast pairs, drawn from the token values */
+.c2 .ds-ct{ width:100%; max-width:860px; margin-top:32px; border-collapse:separate; border-spacing:0; border-radius:16px; overflow:hidden; background:var(--card); box-shadow:0 0 0 1px var(--line); font:400 15.5px/1.45 var(--body); }
+.c2 .ds-ct th, .c2 .ds-ct td{ padding:16px 20px; text-align:left; vertical-align:middle; font-weight:400; color:var(--ink); }
+.c2 .ds-ct tbody tr > *{ border-top:1px solid var(--line); }
+.c2 .ds-ct thead th{ padding-block:12px; font:600 13px/1.3 var(--body); letter-spacing:.02em; color:var(--mute); background:#f6f7f8; }
+.c2 .ds-ct tbody th b{ display:block; font-weight:600; }
+.c2 .ds-ct tbody th span{ display:block; font-size:14px; color:var(--ink2); }
+.c2 .ds-aa{ display:inline-flex; gap:6px; }
+.c2 .ds-aa span{ display:inline-grid; place-items:center; width:46px; height:34px; border-radius:8px; font:600 17px/1 var(--body); box-shadow:inset 0 0 0 1px rgba(23,27,32,.12); }
+.c2 .ds-r{ font:600 17px/1.2 var(--body); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.c2 .ds-v{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px; border-radius:99px; font:600 13.5px/1 var(--body); white-space:nowrap; background:#eef0f2; color:var(--ink); }
+.c2 .ds-v.no{ background:#fde9e4; color:#a3381f; }
+.c2 .ds-ct tr.is-fail > *{ background:#fff8f6; }
+.c2 .ds-note{ max-width:62ch; margin-top:14px; font:400 14px/1.5 var(--body); color:var(--mute); }
+/* the score scale inside the chosen option */
+.c2 .ds-scale{ display:flex; align-items:center; gap:10px; margin-top:16px; font:500 13px/1 var(--body); color:var(--mute); }
+.c2 .ds-scale span{ display:flex; gap:3px; }
+.c2 .ds-scale i{ width:34px; height:18px; border-radius:5px; }
+/* the two proof screens, one under the other */
+.c2 .ds-proof + .ds-proof{ margin-top:clamp(40px, 5vw, 64px); }
+@media (max-width: 900px){
+  .c2 .ds-split{ grid-template-columns:1fr; }
 }
-.ds-ctwrap { max-width: 860px; margin-inline: 0; }
-div.ds-ctwrap:not(.prose) { max-width: none; }
-/* v7 specimens: components and colors drawn in code with the Lab's current values, so no picture on this page shows an earlier look */
-.shot.sx { background: #fff; padding: clamp(20px, 2.6vw, 30px) clamp(18px, 2.4vw, 28px) 54px; font-family: var(--body); color: #181818; }
-.shot.sx.sx-cv { background: #F4F3F1 !important; }
-.sx-g { display: grid; grid-auto-flow: column; grid-template-rows: repeat(6, auto); grid-template-columns: auto auto auto; justify-content: center; gap: 12px clamp(22px, 4vw, 44px); align-items: center; justify-items: start; }
-.sx-g > .h, .sx-chat > .h, .sx-pal h4 { margin: 0; font: 500 12.5px/1.2 var(--body); letter-spacing: 0; color: #6A7078; }
-.sx-g > .r { font: 500 12.5px/1.2 var(--body); color: #6A7078; }
-.sx-g > .h { font-size: 13.5px; color: #3d444c; }
-.sx-b { display: inline-flex; align-items: center; justify-content: center; gap: 7px; height: 38px; padding: 0 15px; border-radius: 19px; background: #fff; box-shadow: inset 0 0 0 1.5px #CBD3DA; font: 500 14px/1 var(--body); color: #181818; white-space: nowrap; }
-.sx-b.ink { background: #232323; color: #fff; box-shadow: none; }
-.sx-b.hv { box-shadow: inset 0 0 0 1.5px #9aa5af; } .sx-b.ink.hv { background: #000; box-shadow: none; }
-.sx-b.fc { outline: 2px solid #139FFD; outline-offset: 2px; }
-.sx-b.off { opacity: .38; }
-.sx-b.ld::before { content: ""; width: 12px; height: 12px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: sx-spin .9s linear infinite; }
-@keyframes sx-spin { to { rotate: 360deg; } }
-.sx-chat { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 18px 12px; align-items: start; }
-.sx-chat > .h { padding-top: 12px; }
-.sx-you { justify-self: end; margin: 0; max-width: 88%; padding: 11px 14px; border-radius: 16px 16px 4px 16px; background: #E9EEF2; font: 400 14.5px/1.4 var(--body); color: #181818; }
-.sx-ai { display: flex; align-items: flex-start; gap: 11px; padding-top: 8px; }
-.sx-ai p { margin: 0; font: 400 14.5px/1.45 var(--body); color: #3d444c; } .sx-ai p b { font-weight: 600; color: #181818; }
-.sx-mk { flex: none; width: 20px; height: 18px; margin-top: 2px; fill: #139FFD; }
-.sx-think { display: flex; gap: 5px; padding: 6px 0; }
-.sx-think i { width: 7px; height: 7px; border-radius: 50%; background: #139FFD; animation: sx-think 1.2s ease-in-out infinite; } .sx-think i:nth-child(2) { animation-delay: .15s; } .sx-think i:nth-child(3) { animation-delay: .3s; }
-@keyframes sx-think { 0%, 60%, 100% { opacity: .25; translate: 0 0; } 30% { opacity: 1; translate: 0 -3px; } }
-@media (prefers-reduced-motion: reduce) { .sx-b.ld::before, .sx-think i { animation: none; } }
-/* one card and the role each of its colors plays */
-.sx-anat { display: grid; gap: clamp(20px, 3vw, 30px); justify-items: center; }
-.sx-card { position: relative; width: min(100%, 290px); box-sizing: border-box; padding: 14px 15px 13px; border-radius: 15px; background: #fff; box-shadow: 0 0 0 1px rgba(24,36,48,.07), 0 10px 22px -14px rgba(16,34,60,.4); }
-.sx-card small { display: block; font: 400 12.5px/1.3 var(--body); color: #6A7078; }
-.sx-card > b { display: block; margin-top: 5px; font: 500 14.5px/1.35 var(--body); color: #181818; }
-.sx-card footer { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 0; }
-.sx-av { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #139FFD; font: 600 11.5px/1 var(--body); font-style: normal; color: #fff; }
-.sx-tag { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 99px; background: #E9EEF2; font: 500 12.5px/1 var(--body); color: #3d444c; }
-.sx-n { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: #0B6FCF; font: 600 11px/1 var(--body); font-style: normal; color: #fff; vertical-align: 1px; margin-left: 5px; }
-.sx-card > .sx-n { position: absolute; top: -8px; right: -8px; margin: 0; }
-.sx-anat > .sx-n { position: absolute; top: 22px; left: 22px; margin: 0; }
-@media (max-width: 640px) { .sx-anat { padding-top: 30px; } .sx-anat > .sx-n { top: 8px; left: 8px; } }
-.sx-roles { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px; }
-.sx-roles li { display: flex; align-items: center; gap: 9px; min-width: 0; font: 400 13.5px/1.35 var(--body); color: #3d444c; }
-.sx-roles li .sx-n { flex: none; margin: 0; }
-.sx-roles li i.sw, .sx-pal i.sw { flex: none; width: 20px; height: 20px; border-radius: 6px; box-shadow: inset 0 0 0 1px rgba(24,36,48,.12); }
-.sx-roles b { font-weight: 600; color: #181818; }
-@media (max-width: 420px) { .sx-roles { grid-template-columns: minmax(0, 1fr); } }
-/* the palette by role, each color with its reason */
-.sx-pal { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 28px; }
-.sx-pal ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
-.sx-pal li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 2px 11px; align-items: center; font: 400 13.5px/1.35 var(--body); color: #3d444c; }
-.sx-pal li i.sw { grid-row: span 2; width: 28px; height: 28px; border-radius: 8px; }
-.sx-pal li b { font-weight: 600; color: #181818; } .sx-pal li b span { font-weight: 400; color: #6A7078; margin-left: 6px; font-variant-numeric: tabular-nums; }
-@media (max-width: 520px) { .sx-pal { grid-template-columns: minmax(0, 1fr); } }
-/* four screens, one token set */
-.ds-screens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 32px) 16px; }
-@media (max-width: 860px) { .ds-screens { grid-template-columns: minmax(0, 1fr); } }
-.ds-screens-note { margin: 14px 0 0; font: 400 14px/1.5 var(--body); color: var(--mute); }
-/* a pair of specimens stands in frames of one height, so their captions start on one line */
-.grid2 > figure:has(> .shot.sx) { display: grid; grid-template-rows: 1fr auto; }
-.grid2 > figure > .shot.sx { display: grid; align-content: center; }
+@media (max-width: 560px){
+  .c2 .ds-roles{ grid-template-columns:1fr; }
+  .c2 .ds-ct{ font-size:14.5px; }
+  .c2 .ds-ct th, .c2 .ds-ct td{ padding:14px 12px; }
+  .c2 .ds-ct .ds-col-aa{ display:none; }
+  .c2 .ds-r{ font-size:15px; }
+  .c2 .ds-ct .ds-v{ padding:5px 8px; font-size:13px; }
+}
 </style>
 </head>
 <body>
@@ -168,221 +110,157 @@ div.ds-ctwrap:not(.prose) { max-width: none; }
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main">
-  <header class="cs-hero wrap">
-    <div class="label">Case study · <b>Design system</b></div>
-    <h1>One token set behind every screen in the Lab</h1>
-    <dl class="brief"><div><dt>The challenge</dt><dd>Hear, an AI platform for contact centers, has dense screens that mix call tables, score charts, filters and chat.</dd></div><div><dt>What I designed</dt><dd>The token-based React system of Hear Design Lab, my working replica of Hear. I built its tokens, shared components and Storybook, with Claude Code.</dd></div><div><dt>Where it stands</dt><dd>Storybook documents it in 122 stories across six tiers. Every screen in the Lab draws its color, surface and type from the same tokens.</dd></div></dl>
-    <dl class="meta">
-      <div><dt>Role</dt><dd>Built the system and its Storybook</dd></div>
-      <div><dt>When</dt><dd>Since Mar 2026</dd></div>
-      <div><dt>Scope</dt><dd>Tokens · components · Storybook</dd></div>
-    </dl>
-    <nav class="toc" aria-label="On this page"><a class="pill" href="#problem"><span>01</span> The problem</a><a class="pill" href="#structure"><span>02</span> Structure</a><a class="pill" href="#tokens"><span>03</span> Tokens</a><a class="pill" href="#contrast"><span>04</span> Contrast &amp; charts</a><a class="pill" href="#screens"><span>05</span> Across screens</a><a class="pill" href="#decisions"><span>06</span> Decisions</a></nav>
-    <div id="system" class="px-host ds-wall"><div class="dk" id="ds-kit"><div class="dw-head dk-head"><p class="dw-stat"><span><b>122</b> stories</span> <i aria-hidden="true">·</i> <span><b>6</b> tiers</span></p><p class="dw-sub">Real components, not pictures: press a chip, flip a switch, send a question.</p><button type="button" class="dk-pause" aria-pressed="false" hidden><span class="dk-pi" aria-hidden="true"></span><span class="dk-pt">Pause motion</span></button></div><div class="dk-rows"></div></div></div>
+<main id="main" class="c2">
+  <header class="c2-hero">
+    <div class="c2-w">
+      <p class="c2-kick">Case study · <b>Design system</b></p>
+      <h1>One set of tokens lets a dense AI product read as one product</h1>
+      <p class="c2-ctx">Hear is an AI platform for contact centers, and its screens are dense: call tables, score charts, filters and chat side by side. I built the design system behind Hear Design Lab, my working replica of Hear, so all of it speaks one visual language.</p>
+      <dl class="c2-sum">
+        <div><dt>For</dt><dd>Every screen in Hear Design Lab, from score maps to boards, feeds and chat.</dd></div>
+        <div><dt>The problem</dt><dd>Screens that mix many kinds of content need one set of names for color, surface and state.</dd></div>
+        <div><dt>What I did</dt><dd>Built the tokens, the shared components and their documentation in Storybook, with Claude Code.</dd></div>
+        <div><dt>Where it stands</dt><dd>Since Mar 2026, in the Lab, with demo data. Every screen there draws its color, surface and type from the same tokens.</dd></div>
+      </dl>
+      <figure class="c2-fig">
+        <div class="c2-shot"><img src="../img/v7s-topics-panel.webp?v=5" width="2072" height="1339" alt="The Topics screen: four headline figures, five topics drawn as boxes sized by calls in one blue that deepens as the score drops, and a daily score list beside them." fetchpriority="high">
+          <span class="c2-pin" style="--x:10.25%;--y:4.8%" aria-hidden="true">1</span><span class="c2-pin" style="--x:44.25%;--y:19.66%" aria-hidden="true">2</span><span class="c2-pin" style="--x:79.7%;--y:5.19%" aria-hidden="true">3</span><span class="c2-pin" style="--x:16%;--y:53.4%" aria-hidden="true">4</span></div>
+        <figcaption><ol class="c2-key" style="--n:4">
+          <li><i aria-hidden="true">1</i><span><b>Body text</b> is Ink, for titles and figures.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>Muted text</b> for labels, one gray that still passes contrast.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>Glass Gray</b> draws every outline and divider.</span></li>
+          <li><i aria-hidden="true">4</i><span><b>The score scale:</b> one blue in steps, deeper as the score drops.</span></li>
+        </ol></figcaption>
+      </figure>
+    </div>
   </header>
 
-  <section class="chapter" id="problem">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">01 · <b>The problem</b></div><h2>A dense product needs one vocabulary</h2></div>
-        <div class="prose">
-          <p class="lead">I built the system to give every screen in the Lab one set of names for color, surface and state.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>One Agent evaluation page holds a score chart, category bars, filters, version switches and a team table. Elsewhere in the Lab there are data grids, chat, alerts, a kanban board and settings.</p>
-          <p>I built the base first: a palette and semantic tokens in one CSS file, an initial set of components and a Storybook with foundations. Then I extended it as the Lab grew.</p></div></details>
-        </div>
-      </div>
-      <figure class="ds-inv rv">
-        <table>
-          <caption class="ds-sr">Storybook stories per tier</caption>
-          <thead class="ds-sr"><tr><th scope="col">Tier</th><th scope="col">Stories, as bars</th><th scope="col">Total</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">Foundations</th><td><div class="ds-bar" title="8 stories"><span class="ds-mine" style="width:calc(8 / 31 * 100%)"></span></div></td><td class="ds-n">8</td></tr>
-            <tr><th scope="row">Atoms</th><td><div class="ds-bar" title="31 stories"><span class="ds-mine" style="width:100%"></span></div></td><td class="ds-n">31</td></tr>
-            <tr><th scope="row">Molecules</th><td><div class="ds-bar" title="22 stories"><span class="ds-mine" style="width:calc(22 / 31 * 100%)"></span></div></td><td class="ds-n">22</td></tr>
-            <tr><th scope="row">Organisms</th><td><div class="ds-bar" title="28 stories"><span class="ds-mine" style="width:calc(28 / 31 * 100%)"></span></div></td><td class="ds-n">28</td></tr>
-            <tr><th scope="row">Templates</th><td><div class="ds-bar" title="5 stories"><span class="ds-mine" style="width:calc(5 / 31 * 100%)"></span></div></td><td class="ds-n">5</td></tr>
-            <tr><th scope="row">Pages</th><td><div class="ds-bar" title="28 stories"><span class="ds-mine" style="width:calc(28 / 31 * 100%)"></span></div></td><td class="ds-n">28</td></tr>
-          </tbody>
-        </table>
-        <figcaption><b>Stories per tier.</b> By July 2026, Storybook held 122 stories across 32 components.</figcaption>
+  <section class="c2-sec" id="problem" data-ch="The problem">
+    <div class="c2-w">
+      <p class="c2-n">The problem</p>
+      <h2>One screen mixes figures, tables, charts and chat, and must still read as one</h2>
+      <p class="c2-lede">Compliance, one screen of the Lab, holds four kinds of content at once. Across the Lab there are also data grids, alerts, a kanban board and settings. Without shared names for color, surface and state, each part would answer the same questions its own way.</p>
+      <figure class="c2-fig">
+        <div class="c2-shot"><img src="../img/v7s-es-grid.webp?v=6" width="2060" height="1327" alt="The Compliance screen: three headline figures, a grid of five rules by ten agents where only failing scores are coral, and one failing score's popover open, with a small bar chart and a link, Ask AI which calls." loading="lazy">
+          <span class="c2-pin" style="--x:12%;--y:18%" aria-hidden="true">1</span><span class="c2-pin" style="--x:35%;--y:52.6%" aria-hidden="true">2</span><span class="c2-pin" style="--x:94%;--y:41.1%" aria-hidden="true">3</span><span class="c2-pin" style="--x:86.5%;--y:57%" aria-hidden="true">4</span></div>
+        <figcaption><ol class="c2-key" style="--n:4">
+          <li><i aria-hidden="true">1</i><span><b>Headline figures,</b> each with its comparison.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>A table of scores,</b> where only failing ones take coral.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>A popover</b> with its own small bar chart.</span></li>
+          <li><i aria-hidden="true">4</i><span><b>A way into chat:</b> Ask AI, from the score.</span></li>
+        </ol></figcaption>
       </figure>
     </div>
   </section>
 
-  <section class="chapter sheet" id="structure">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">02 · <b>Structure</b></div><h2>Six tiers, from foundations to full pages</h2></div>
-        <div class="prose"><p class="lead">I sorted Storybook in Atomic Design order, with a Pages tier on top.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div>
-      </div>
-      <div class="grid2">
-        <figure class="rv"><div class="shot sx" role="img" aria-label="The Button atom in two variants, primary on ink and secondary with a gray outline, each in five states: default, hover, focus, disabled and loading"><div class="sx-g"><span class="h"></span><span class="h">Default</span><span class="h">Hover</span><span class="h">Focus</span><span class="h">Disabled</span><span class="h">Loading</span><span class="r">Primary</span><span class="sx-b ink">New app</span><span class="sx-b ink hv">New app</span><span class="sx-b ink fc">New app</span><span class="sx-b ink off">New app</span><span class="sx-b ink ld">Saving</span><span class="r">Secondary</span><span class="sx-b ">Share</span><span class="sx-b hv">Share</span><span class="sx-b fc">Share</span><span class="sx-b off">Share</span><span class="sx-b ld">Saving</span></div><span class="live">Design Lab · components</span></div><figcaption><b>Atom · Button.</b> Primary and secondary, each in five states, from default to loading. Storybook holds nine Button stories.</figcaption></figure>
-        <figure class="rv"><div class="shot sx" role="img" aria-label="The ChatBubble molecule in its three roles: a user question in a gray bubble, a thinking state with three blue dots beside the Hear mark, and an AI answer beside the Hear mark"><div class="sx-chat"><span class="h">User</span><p class="sx-you">Which calls pulled Selma’s Vulnerable customer protocol score down?</p><span class="h">Thinking</span><div class="sx-ai"><svg class="sx-mk" viewBox="0 0 69 60" aria-hidden="true"><path d="M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z"/></svg><span class="sx-think"><i></i><i></i><i></i></span></div><span class="h">AI</span><div class="sx-ai"><svg class="sx-mk" viewBox="0 0 69 60" aria-hidden="true"><path d="M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z"/></svg><p><b>12 calls</b> failed, and 9 of them share one cause: the customer said they were struggling to pay and the protocol questions were skipped.</p></div></div><span class="live">Design Lab · demo data</span></div><figcaption><b>Molecule · ChatBubble.</b> Three roles: user, thinking and AI. Storybook holds six ChatBubble stories, including a markdown table and a copied state.</figcaption></figure>
-      </div>
-
-      <div class="two xtra" style="margin-top:clamp(40px,6vw,72px)">
-        <div class="prose">
-          <h3 style="margin-top:0">Pages are stories too</h3>
-          <p>By July, the Pages tier held 28 stories for nine pages, including Agent evaluation and Alerts, with variants such as Default, With Sidebar and Mobile. The Create report page also exports its page-local pieces as stories, so they're documented even though they live inside the page file.</p>
+  <section class="c2-sec" id="layers" data-ch="Three layers">
+    <div class="c2-w">
+      <p class="c2-n">Three layers</p>
+      <h2>Components ask for a role, and the role picks the color</h2>
+      <p class="c2-lede">I built the tokens in three layers. A component never names a palette color; it asks for a job, such as body text, and that job has one value behind it.</p>
+      <div class="ds-split">
+        <div>
+          <ol class="ds-lay">
+            <li><i aria-hidden="true">1</i><div><b>Palette</b><span>Nine colors, each with a name and a stated use, such as Hear Blue, Ink and Coral.</span></div></li>
+            <li><i aria-hidden="true">2</i><div><b>Roles</b><span>What components ask for: canvas, card, body text, muted text.</span></div></li>
+            <li><i aria-hidden="true">3</i><div><b>Component sets</b><span>Tokens for one component: the score scale, tag fills paired with their text, a data-grid theme.</span></div></li>
+          </ol>
+          <p class="c2-quote">“Always prefer semantic tokens in components.” The rule, as the Colors page in Storybook states it.</p>
         </div>
-        <div class="prose">
-          <h3 style="margin-top:0">Shared parts, with their specs written down</h3>
-          <ul class="ds-list">
-            <li><strong>Button, reworked, used in 21 files.</strong> The secondary is neutral, so the primary is the only filled button on a screen. Its loading state sets <code>aria-busy</code>.</li>
-            <li><strong>PageHeader, new, used in 16 page files.</strong> Its spec sits in the code: 12px gutters, 16px radius, 1px border, 56px height.</li>
-            <li><strong>SegmentedTabs, new.</strong> It exports its 36px height so sibling controls can match it, and calls itself the “single source of truth for its height/look.”</li>
-            <li><strong>Badge, reworked, used in 13 files.</strong> Its tinted fills have their own tokens.</li>
-          </ul>
-        </div>
+        <figure class="ds-fig">
+          <div class="ds-anat" role="img" aria-label="A task card on the paper canvas, with six numbered markers: the canvas, the white card, the title in ink, the muted source line, the gray tag and the blue avatar.">
+            <i class="ds-m" aria-hidden="true">1</i>
+            <div class="ds-card"><i class="ds-m" aria-hidden="true">2</i><small>From Compliance<i class="ds-m" aria-hidden="true">4</i></small><b>Recording disclosure missing in the first 30 seconds<i class="ds-m" aria-hidden="true">3</i></b><div class="ds-ft"><i class="ds-av">PN</i><i class="ds-m" style="margin-left:-2px" aria-hidden="true">6</i><span class="ds-tag">Open</span><i class="ds-m" style="margin-left:-2px" aria-hidden="true">5</i></div></div>
+            <ol class="ds-roles" aria-hidden="true">
+              <li><i class="ds-m">1</i><i class="sw" style="background:#F4F3F1"></i><span><b>Canvas</b> Paper</span></li>
+              <li><i class="ds-m">2</i><i class="sw" style="background:#FFFFFF"></i><span><b>Card</b> white</span></li>
+              <li><i class="ds-m">3</i><i class="sw" style="background:#181818"></i><span><b>Body text</b> Ink</span></li>
+              <li><i class="ds-m">4</i><i class="sw" style="background:#6A7078"></i><span><b>Muted text</b> #6A7078</span></li>
+              <li><i class="ds-m">5</i><i class="sw" style="background:#E9EEF2"></i><span><b>Chip</b> #E9EEF2</span></li>
+              <li><i class="ds-m">6</i><i class="sw" style="background:#139FFD"></i><span><b>Accent</b> Hear Blue</span></li>
+            </ol>
+          </div>
+          <figcaption><b>One card, six tokens.</b> Every color on the task card is a role, and each role has one value.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <section class="chapter ink" id="tokens">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">03 · <b>Tokens</b></div><h2>Every color has a name and a reason</h2></div>
-        <div class="prose"><p class="lead">I built the tokens in three layers so components ask for a role, such as body text, rather than a palette color.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The Colors page in Storybook states the rule: “Always prefer semantic tokens (<code class="ds-code">--bg-canvas</code>, <code class="ds-code">--text-primary</code>) in components. Use raw palette tokens (<code class="ds-code">--c100</code>, <code class="ds-code">--b80</code>) only for one-off overrides or design explorations.”</p></div></details></div>
-      </div>
+  <section class="c2-sec" id="finding" data-ch="The finding">
+    <div class="c2-w">
+      <p class="c2-n">The finding</p>
+      <h2>Hear Blue fails as text on white, so text uses Deep Blue</h2>
+      <p class="c2-lede">Because text and surfaces are named tokens, each pair has one contrast ratio, worked out once instead of screen by screen. One pair failed: the brand's own blue. So the blue has two roles. Hear Blue stays for the mark, selection and the score scale; links and small blue text use Deep Blue.</p>
+      <table class="ds-ct">
+        <thead><tr><th scope="col">Pair</th><th scope="col" class="ds-col-aa">Sample</th><th scope="col">Ratio</th><th scope="col">Body text</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><b>Body text, Ink</b><span>#181818 on white / on Paper</span></th><td class="ds-col-aa"><span class="ds-aa" aria-hidden="true"><span style="color:#181818;background:#FFFFFF">Aa</span><span style="color:#181818;background:#F4F3F1">Aa</span></span></td><td><span class="ds-r">17.8 / 16.0</span></td><td><span class="ds-v">✓ Pass</span></td></tr>
+          <tr class="is-fail"><th scope="row"><b>Hear Blue with white</b><span>#139FFD, either way round</span></th><td class="ds-col-aa"><span class="ds-aa" aria-hidden="true"><span style="color:#139FFD;background:#FFFFFF">Aa</span><span style="color:#FFFFFF;background:#139FFD">Aa</span></span></td><td><span class="ds-r">2.8</span></td><td><span class="ds-v no"><span aria-hidden="true">✕</span> Fail</span></td></tr>
+          <tr><th scope="row"><b>Links, Deep Blue</b><span>#0B6FCF on white / on Paper</span></th><td class="ds-col-aa"><span class="ds-aa" aria-hidden="true"><span style="color:#0B6FCF;background:#FFFFFF">Aa</span><span style="color:#0B6FCF;background:#F4F3F1">Aa</span></span></td><td><span class="ds-r">5.0 / 4.5</span></td><td><span class="ds-v">✓ Pass</span></td></tr>
+        </tbody>
+      </table>
+      <p class="ds-note">WCAG 2 ratios, computed from the token hex values. Body text needs at least 4.5:1.</p>
+    </div>
+  </section>
 
-      <div class="ds-layers rv" role="group" aria-label="Three token layers">
-        <div class="ds-layer">
-          <div class="label">Layer 1</div>
-          <h3>Raw palette</h3>
-          <p>The colors themselves, each with a name and a stated use.</p>
-          <ul class="ds-chips">
-            <li><span class="ds-sw"><i style="background:#139FFD"></i></span><span><b>Hear Blue</b> · #139FFD</span></li>
-            <li><span class="ds-sw"><i style="background:#181818"></i></span><span><b>Ink</b> · #181818</span></li>
-            <li><span class="ds-sw"><i style="background:#FF6F52"></i></span><span><b>Coral</b> · #FF6F52</span></li>
-            <li><span>Plus Deep Blue, Green, Lilac, Paper, Sky and Glass Gray</span></li>
-          </ul>
-        </div>
-        <span class="ds-arrow" aria-hidden="true">→</span>
-        <div class="ds-layer">
-          <div class="label">Layer 2</div>
-          <h3>Semantic roles</h3>
-          <p>What components ask for: a job, such as body text, with one value behind it.</p>
-          <ul class="ds-chips">
-            <li><span class="ds-sw"><i style="background:#F4F3F1"></i></span><span><b>Canvas</b> · Paper</span></li>
-            <li><span class="ds-sw"><i style="background:#FFFFFF"></i></span><span><b>Card</b> · white</span></li>
-            <li><span class="ds-sw"><i style="background:#181818"></i></span><span><b>Body text</b> · Ink</span></li>
-            <li><span class="ds-sw"><i style="background:#3D444C"></i><i style="background:#6A7078"></i></span><span><b>Secondary and muted text</b></span></li>
-            <li><span class="ds-sw"><i style="background:#139FFD"></i></span><span><b>Interactive</b> · Hear Blue</span></li>
-          </ul>
-        </div>
-        <span class="ds-arrow" aria-hidden="true">→</span>
-        <div class="ds-layer">
-          <div class="label">Layer 3</div>
-          <h3>Component sets</h3>
-          <p>Tokens scoped to one component.</p>
-          <ul class="ds-chips">
-            <li><span class="ds-sw"><i style="background:#DCEFFE"></i><i style="background:#A9DAFE"></i><i style="background:#63BEFE"></i><i style="background:#139FFD"></i></span><span>The score scale, one blue in steps</span></li>
-            <li><span>Tag fills and text, set as pairs</span></li>
-            <li><span>A data-grid theme mapped onto the semantic variables</span></li>
-          </ul>
-        </div>
+  <section class="c2-sec" id="decision" data-ch="The key decision">
+    <div class="c2-w">
+      <p class="c2-n">The key decision</p>
+      <h2>Scores run in one blue, so a dense map stays readable</h2>
+      <p class="c2-lede">The Topics map at the top shows many scores at once. The question was how a score scale should look there.</p>
+      <div class="c2-dec">
+        <div class="c2-opt"><h3>Red to green <em>Set aside</em></h3><p>A different color for each score band. On a dense map the colors compete, and the screen is hard to read.</p></div>
+        <div class="c2-opt is-chosen"><h3>One blue, in steps <em>Chosen</em></h3><p>The deeper the blue, the lower the score.</p>
+          <p class="ds-scale" aria-hidden="true">Higher<span><i style="background:#DCEFFE"></i><i style="background:#A9DAFE"></i><i style="background:#63BEFE"></i><i style="background:#139FFD"></i></span>Lower</p></div>
       </div>
-      <div class="duo" style="--duo: minmax(0, 1fr) minmax(0, 1.38fr); margin-top:clamp(32px,5vw,56px)">
-      <div class="two">
-        <figure class="rv"><div class="shot sx sx-cv sx-anat" role="img" aria-label="A task card on the paper canvas, with six numbered markers: the canvas, the white card, the title in ink, the muted source line, the gray tag and the blue avatar"><i class="sx-n">1</i><div class="sx-card"><i class="sx-n">2</i><small>From Compliance<i class="sx-n">4</i></small><b>Recording disclosure missing in the first 30 seconds<i class="sx-n">3</i></b><footer><i class="sx-av">PN</i><i class="sx-n" style="margin-left:-2px">6</i><span class="sx-tag">Open</span><i class="sx-n" style="margin-left:-2px">5</i></footer></div><ol class="sx-roles"><li><i class="sx-n">1</i><i class="sw" style="background:#F4F3F1"></i><span><b>Canvas</b> Paper</span></li><li><i class="sx-n">2</i><i class="sw" style="background:#FFFFFF"></i><span><b>Card</b> white</span></li><li><i class="sx-n">3</i><i class="sw" style="background:#181818"></i><span><b>Body text</b> Ink</span></li><li><i class="sx-n">4</i><i class="sw" style="background:#6A7078"></i><span><b>Muted text</b> #6A7078</span></li><li><i class="sx-n">5</i><i class="sw" style="background:#E9EEF2"></i><span><b>Chip</b> #E9EEF2</span></li><li><i class="sx-n">6</i><i class="sw" style="background:#139FFD"></i><span><b>Accent</b> Hear Blue</span></li></ol><span class="live">Design Lab · demo data</span></div><figcaption><b>One card, six tokens.</b> Every color on the task card is a role, and each role has one value.</figcaption></figure>
-        <div class="prose xtra">
-          <h3 style="margin-top:0">How each layer grew</h3>
-          <ul class="ds-list">
-            <li><strong>Palette: an error red apart from the brand.</strong> <code>--red100</code> #E5484D with an 80 step and a hover, commented “destructive (distinct from brand coral).”</li>
-                        <li><strong>Semantic: one interactive blue.</strong> Links, focus rings and selection all ask for the same role.</li>
-            <li><strong>Component: tag fills.</strong> Each tag color is a pair, a tint and the text that sits on it.</li>
-          </ul>
-          <p style="margin-top:18px">After building the Actions board, I aligned all of its colors to the system tokens.</p>
-        </div>
-      </div>
+      <p class="c2-result"><b>Why:</b> Coral, green and lilac stay for small marks that each mean one thing. The Topics map and its daily list read in one hue.</p>
+    </div>
+  </section>
 
-      <div class="two" style="margin-top:clamp(40px,6vw,72px)">
-        <figure class="rv"><div class="shot sx" role="group" aria-label="The nine colors in four roles, each with its hex value and its use"><div class="sx-pal"><div><h4>Ground</h4><ul><li><i class="sw" style="background:#F4F3F1"></i><b>Paper<span>#F4F3F1</span></b><span>The page behind every screen</span></li><li><i class="sw" style="background:#CFE4F6"></i><b>Sky<span>#CFE4F6</span></b><span>The painted ground behind glass panels</span></li></ul></div><div><h4>Structure</h4><ul><li><i class="sw" style="background:#CBD3DA"></i><b>Glass Gray<span>#CBD3DA</span></b><span>Outlines and dividers</span></li><li><i class="sw" style="background:#181818"></i><b>Ink<span>#181818</span></b><span>Text and the primary button</span></li></ul></div><div><h4>Voice</h4><ul><li><i class="sw" style="background:#139FFD"></i><b>Hear Blue<span>#139FFD</span></b><span>The mark, selection and the score scale</span></li><li><i class="sw" style="background:#0B6FCF"></i><b>Deep Blue<span>#0B6FCF</span></b><span>Links and small blue text</span></li></ul></div><div><h4>Meaning</h4><ul><li><i class="sw" style="background:#FF6F52"></i><b>Coral<span>#FF6F52</span></b><span>Needs attention</span></li><li><i class="sw" style="background:#4BA373"></i><b>Green<span>#4BA373</span></b><span>On target</span></li><li><i class="sw" style="background:#D59BE0"></i><b>Lilac<span>#D59BE0</span></b><span>New</span></li></ul></div></div><span class="live">Design Lab · components</span></div><figcaption><b>The palette, with reasons.</b> Nine colors in four roles. Each one states what it is for.</figcaption></figure>
-        <div class="prose xtra">
-          <h3 style="margin-top:0">Type, and one written exception</h3>
-          <p>Type is Byrd, in seven weights with italics. The scale runs H1 to H8 for titles and P1 to P14 for body, as <code class="ds-code">--type-h*</code> and <code class="ds-code">--type-p*</code> tokens.</p>
-          <p>I made one typeface exception. News articles set their body text in an editorial serif, marked in the code as “News body text only (deliberate, scoped DS deviation).”</p>
-        </div>
-      </div>
+  <section class="c2-sec" id="proof" data-ch="Proof it holds">
+    <div class="c2-w">
+      <p class="c2-n">Proof it holds</p>
+      <h2>A board and a news feed draw on the same roles</h2>
+      <p class="c2-lede">Neither screen sets a color of its own. Each asks for a role, and the role decides the value.</p>
+      <figure class="c2-fig ds-proof">
+        <div class="c2-shot"><img src="../img/v7s-actions-board.webp?v=8" width="2060" height="1327" alt="The Actions board in four columns, Pending, In progress, Done and Cancelled. Every card names its source, its date, the line from the call that raised it and its owner." loading="lazy">
+          <span class="c2-pin" style="--x:16.6%;--y:24.2%" aria-hidden="true">1</span><span class="c2-pin" style="--x:64.5%;--y:53.2%" aria-hidden="true">2</span><span class="c2-pin" style="--x:14%;--y:84.6%" aria-hidden="true">3</span></div>
+        <figcaption><p class="ds-cap"><b>Actions.</b> After building the board, I aligned all of its colors to the system tokens.</p><ol class="c2-key">
+          <li><i aria-hidden="true">1</i><span><b>Coral</b> marks high priority: needs attention.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>Green</b> marks Resolved: on target.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>White cards on a gray column;</b> nothing else takes color.</span></li>
+        </ol></figcaption>
+      </figure>
+      <figure class="c2-fig ds-proof">
+        <div class="c2-shot"><img src="../img/v7s-news-feed.webp?v=11" width="2060" height="1327" alt="The Newsroom front page: the lead story with its chart, a dashed line for a usual day and the peak marked, the monthly recap with its Play button, and the week's other stories, each with a source line and a one-word tag." loading="lazy">
+          <span class="c2-pin" style="--x:63.5%;--y:59%" aria-hidden="true">1</span><span class="c2-pin" style="--x:91%;--y:44.3%" aria-hidden="true">2</span><span class="c2-pin" style="--x:67.5%;--y:93.25%" aria-hidden="true">3</span></div>
+        <figcaption><p class="ds-cap"><b>Newsroom.</b> The same roles carry direction too: in July I added right to left for the News tab, and its layout flips with the text.</p><ol class="c2-key">
+          <li><i aria-hidden="true">1</i><span><b>The chart</b> takes the same Hear Blue.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>Each tag</b> is a tint with its own text color, set as a pair.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>Links</b> are Deep Blue, the blue that passes as text.</span></li>
+        </ol></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="c2-sec" id="docs" data-ch="Documentation">
+    <div class="c2-w">
+      <p class="c2-n">Documentation</p>
+      <h2>Storybook documents the system beside the real components</h2>
+      <p class="c2-lede">I first documented it in an in-app inspector fed by a hand-kept file, then moved it to Storybook, where each story renders the real component, so there is no second file to keep in sync. By July 2026 it held 122 stories for 32 components, in six tiers from foundations to full pages.</p>
+    </div>
+  </section>
+
+  <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
+    <div class="c2-w">
+      <div class="c2-stand">
+        <div><h3>Where it stands</h3><p>The system lives in Hear Design Lab, my working replica of Hear, rebuilt in code with demo data. It has grown with the Lab since March 2026.</p></div>
+        <div><h3>My part</h3><p>I built the tokens, the shared components and the Storybook that documents them, with Claude Code.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="chapter sheet" id="contrast">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">04 · <b>Contrast &amp; charts</b></div><h2>Contrast you can compute from the tokens</h2></div>
-        <div class="prose"><p class="lead">Because text and surfaces are named tokens, each pair has one contrast ratio, worked out once instead of screen by screen.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>The table shows one failure. Hear Blue with white reaches 2.8, under the minimum for body text, so links and small blue text use Deep Blue.</p></div></details></div>
-      </div>
-      <div class="ds-ctwrap rv">
-        <table class="ds-ct">
-          <caption>WCAG 2 ratios from the token hex values. The line on each bar marks 4.5:1, the AA minimum for body text.</caption>
-          <thead><tr><th scope="col">Pair</th><th scope="col">Ratio</th><th scope="col">AA, body text</th></tr></thead>
-          <tbody>
-            <tr class="ds-group"><td colspan="3">Text on surfaces</td></tr>
-            <tr><th scope="row">Body text, Ink #181818, on card / canvas<br><span class="ds-aa" aria-hidden="true"><span style="color:#181818;background:#FFFFFF">Aa</span><span style="color:#181818;background:#F4F3F1">Aa</span></span></th><td><span class="ds-ratio">17.8 / 16.0</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:16;--hi:17.8"></span></span></td><td><span class="ds-v">✓ Pass</span></td></tr>
-            <tr><th scope="row">Secondary text #3D444C on card / canvas<br><span class="ds-aa" aria-hidden="true"><span style="color:#3D444C;background:#FFFFFF">Aa</span><span style="color:#3D444C;background:#F4F3F1">Aa</span></span></th><td><span class="ds-ratio">9.9 / 8.9</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:8.9;--hi:9.9"></span></span></td><td><span class="ds-v">✓ Pass</span></td></tr>
-            <tr><th scope="row">Muted text #6A7078 on card / canvas<br><span class="ds-aa" aria-hidden="true"><span style="color:#6A7078;background:#FFFFFF">Aa</span><span style="color:#6A7078;background:#F4F3F1">Aa</span></span></th><td><span class="ds-ratio">5.0 / 4.5</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:4.5;--hi:5"></span></span></td><td><span class="ds-v">✓ Pass</span></td></tr>
-            <tr><th scope="row">Deep Blue #0B6FCF, links, on card / canvas<br><span class="ds-aa" aria-hidden="true"><span style="color:#0B6FCF;background:#FFFFFF">Aa</span><span style="color:#0B6FCF;background:#F4F3F1">Aa</span></span></th><td><span class="ds-ratio">5.0 / 4.5</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:4.5;--hi:5"></span></span></td><td><span class="ds-v">✓ Pass</span></td></tr>
-            <tr><th scope="row">Hear Blue #139FFD with white, either way round<br><span class="ds-aa" aria-hidden="true"><span style="color:#139FFD;background:#FFFFFF">Aa</span><span style="color:#FFFFFF;background:#139FFD">Aa</span></span></th><td><span class="ds-ratio">2.8</span><span class="ds-meter" aria-hidden="true"><span style="--hi:2.8"></span></span></td><td><span class="ds-v no"><span aria-hidden="true">✕</span> Fail</span></td></tr>
-            <tr class="ds-group"><td colspan="3">Fills</td></tr>
-            <tr><th scope="row">Tag text on its tint, five colors<br><span class="ds-aa" aria-hidden="true"><span style="color:#3D444C;background:#E9EEF2">Aa</span><span style="color:#0B4F8A;background:#DCEFFE">Aa</span><span style="color:#B5371D;background:#FFE3DB">Aa</span><span style="color:#226A45;background:#DBEFE3">Aa</span><span style="color:#7A3E98;background:#F4E5F8">Aa</span></span></th><td><span class="ds-ratio">4.9–8.4</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:4.9;--hi:8.4"></span></span></td><td><span class="ds-v">✓ Pass</span></td></tr>
-            <tr><th scope="row">Score scale, numbers on the three tints<br><span class="ds-aa" aria-hidden="true"><span style="color:#1B4666;background:#DCEFFE">62</span><span style="color:#0B3A5E;background:#A9DAFE">71</span><span style="color:#06365C;background:#63BEFE">78</span></span></th><td><span class="ds-ratio">6.1–8.4</span><span class="ds-meter" aria-hidden="true"><span class="rng" style="--lo:6.1;--hi:8.4"></span></span></td><td><span class="ds-v">✓ Pass</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="prose ds-ctwrap xtra" style="margin-top:clamp(40px,6vw,64px)"><h3 style="margin-top:0">Charts read the same tokens</h3><p>I built the News charts to take every color from CSS variables. On the Topics map, one blue deepens as the score drops.</p></div>
-    </div>
-  </section>
-
-  <section class="chapter ink" id="screens">
-    <div class="wrap">
-      <div class="ch-head">
-        <div><div class="label">05 · <b>Across screens</b></div><h2>Four screens, one token set</h2></div>
-        <div class="prose"><p class="lead">A map, a board, a grid and a feed share the same surfaces, the same text roles and the same blue.</p>
-          <details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"><p>None of the four screens sets a color of its own. Each one asks for a role, and the role decides the value.</p>
-          <p>The same approach carried direction. I first built right to left for the News tab in July. A language hook follows the page's <code class="ds-code">lang</code>, UI strings sit in a dictionary, and logical CSS properties such as <code class="ds-code">borderInlineStart</code> let the layout flip with the text.</p></div></details></div>
-      </div>
-      <div class="ds-screens">
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-topics-panel.webp?v=5" data-zoom alt="The Topics screen: boxes sized by calls, in one blue that deepens as the score drops, with the daily score list beside them" width="2072" height="1339" loading="lazy"></div><figcaption><b>Topics.</b> The blue is the score scale.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-actions-board.webp?v=8" data-zoom alt="The Actions board in four columns, Pending, In progress, Done and Cancelled. Every card names its source, its date, the line from the call that raised it and its owner." width="2060" height="1327" loading="lazy"></div><figcaption><b>Actions.</b> White cards on a gray column. Only high priority and Resolved take color.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-es-grid.webp?v=6" data-zoom alt="The Compliance screen: five criteria as rows and ten agents as columns. Passing scores are gray, failing scores are coral, and one failing cell has its popover open." width="2060" height="1327" loading="lazy"></div><figcaption><b>Compliance.</b> Coral marks only the failing scores.</figcaption></figure>
-        <figure class="rv"><div class="shot v7s wide"><img src="../img/v7s-news-feed.webp?v=11" data-zoom alt="The Newsroom front page: the lead story with its chart, a dashed line for a usual day and the peak marked, the monthly recap with its Play button, and the week’s other stories, each with a source line and a one-word tag" width="2060" height="1327" loading="lazy"></div><figcaption><b>Newsroom.</b> The chart takes the same blue. Each tag is a tint with its own text color.</figcaption></figure>
-      </div>
-      <p class="ds-screens-note">All four: Design Lab, demo data.</p>
-    </div>
-  </section>
-
-  <section class="chapter sheet" id="decisions">
-    <div class="wrap">
-      <div class="ch-head"><div><div class="label">06 · <b>Decisions</b></div><h2>Where the system forked</h2></div><div class="prose"><p class="lead">I moved the system's documentation from an in-app inspector to Storybook, and gave the score scale one blue.</p><details class="more"><summary><span class="more-dot" aria-hidden="true"></span><span class="rm">Read more</span><span class="less">Show less</span></summary><div class="more-body"></div></details></div></div>
-      <article class="decision rv">
-        <div class="label">Decision 1 · <b>Documentation</b></div>
-        <h3>Document the system in an in-app inspector, or in Storybook?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>In-app Design Inspector</strong><span>A drawer with Components, Foundations and Icons tabs, fed by a hand-kept definitions file. I built it, fixed its crashes and documented new components in it.</span></li>
-          <li class="opt chosen"><strong>Storybook</strong><span>Stories that render the real components, in tiers, with docs pages. I put my stories here and removed the Inspector.</span></li>
-        </ul>
-        <p class="because"><b>Result:</b> Storybook stayed as the one place the system is documented, next to the components it renders, with no separate definitions file to keep in sync by hand.</p>
-      </article>
-      <article class="decision rv xtra">
-        <div class="label">Decision 2 · <b>Color</b></div>
-        <h3>Should a score scale run red to green, or stay in one hue?</h3>
-        <ul class="opts">
-          <li class="opt"><strong>Red to green</strong><span>A different color for each score band. On a dense map the colors compete and the screen is hard to read.</span></li>
-          <li class="opt chosen"><strong>One blue, in steps</strong><span>On the Topics map, the deeper the blue, the lower the score. Coral, green and lilac stay for small marks that each mean one thing.</span></li>
-        </ul>
-        <p class="because"><b>Result:</b> the Topics map and its daily list read in one hue.</p>
-      </article>
-    </div>
-  </section>
-
-  <div class="wrap">
-    <div class="sources"><p>Hear Design Lab screens, rebuilt in code with demo data. Quoted phrases come from the Lab's commit messages and on-screen copy. The component and color figures are drawn in code with the Lab's current values. Other quoted lines come from the Lab's code and Storybook docs, and contrast ratios are computed from the token values.</p></div>
+  <div class="c2-w c2-next">
     <a class="next" href="brand-web.html" aria-label="Next case study: Brand &amp; website. I designed Hear's brand from zero"><span class="next-t"><span class="label">Next case study</span><span class="next-name">Brand &amp; website</span><span class="next-line">I designed Hear's brand from zero</span><span class="next-go">Read next</span></span><span class="next-thumb" aria-hidden="true"><img src="../img/next-brand.webp" width="1440" height="900" alt="" loading="lazy" decoding="async"></span></a>
   </div>
 </main>
@@ -420,8 +298,8 @@ div.ds-ctwrap:not(.prose) { max-width: none; }
     </div>
   </div>
 </footer>
-<script src="case.js?v=7"></script>
-<script src="../v7/system.js?v=5" defer></script>
+<script src="case.js?v=8"></script>
+<script src="../v7/cs2.js?v=1" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>
