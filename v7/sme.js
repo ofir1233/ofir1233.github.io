@@ -3,7 +3,7 @@
    only the brush and the colour spec do (.p, when the image is there, or after 1.6s at most). Without the script everything shows.
    Styles and the reason: v7/sme.css. */
 (function () {
-  var root = document.querySelector('#system .sm'); if (!root) return;
+  var root = document.querySelector('#line .sm'); if (!root) return;
   var s = root.querySelector('.sm-s'), img = root.querySelector('.sm-e');
   if (s && !s.querySelector('i')) {
     var w = s.textContent; s.textContent = '';

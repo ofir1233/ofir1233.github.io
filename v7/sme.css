@@ -6,61 +6,67 @@
    (sampled from that very spot of the painting, 24.11: #109AF9 to #169EF9), the first colour of the card below.
    The card builds its picture over the same guides, so the paragraph is proven at once.
    No canvas, no WebGL: lines, letters, one image and one 2KB mask. Script: v7/sme.js (.js, .in when seen, .p when the paint is there). */
-#system#system .sm{ --gl:rgba(19,159,253,.55); --gl2:rgba(19,159,253,.28); --gt:#0B6FCF; position:relative; margin-top:44px; color:#181818; }
-#system#system .sm-head{ display:grid; grid-template-columns:minmax(0, 1.5fr) minmax(0, 1fr); gap:28px 64px; align-items:end; }
-#system#system .sm-h{ margin:0; padding:0; font:inherit; letter-spacing:0; max-width:none; }
-#system#system .sm-vh{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
-#system#system .sm-art{ --fs:15.6cqi; position:relative; display:block; container-type:inline-size; padding:0; }
+#line#line .sm{ --gl:rgba(19,159,253,.55); --gl2:rgba(19,159,253,.28); --gt:#0B6FCF; position:relative; margin:0; color:#181818; }
+#line#line .sm-head{ display:grid; grid-template-columns:minmax(0, 1.5fr) minmax(0, 1fr); gap:28px 64px; align-items:end; }
+#line#line .sm-h{ margin:0; padding:0; font:inherit; letter-spacing:0; max-width:none; }
+#line#line .sm-vh{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
+#line#line .sm-art{ --fs:15.6cqi; position:relative; display:block; container-type:inline-size; padding:0; }
 
 /* STRUCTURE on its grid. Sizes are in cqi so the word, the lines and the painting keep one proportion at every width.
    The lines sit on the font's measured metrics (Byrd SemiBold: cap .716em, baseline at .90em of a 1.0 line). */
-#system#system .sm-s{ position:relative; display:block; margin-top:5.2cqi; font:600 var(--fs)/1 "Byrd", var(--body); letter-spacing:.012em; text-transform:none; white-space:nowrap; color:#181818; }
-#system#system .sm-s i{ display:inline-block; font-style:normal; }
-#system#system .sm-g{ position:absolute; left:-2.2cqi; right:-2.2cqi; top:5.2cqi; height:var(--fs); pointer-events:none; }
-#system#system .sm-l{ position:absolute; left:0; right:0; height:1px; background:var(--gl2); transform-origin:0 50%; }
-#system#system .sm-l.cap{ top:calc(var(--fs) * .184); }
-#system#system .sm-l.base{ top:calc(var(--fs) * .90); background:var(--gl); }
-#system#system .sm-l b, #system#system .sm-ru b{ position:absolute; font:500 max(10px, 1.25cqi)/1 var(--body); letter-spacing:.02em; color:var(--gt); opacity:.8; white-space:nowrap; }
-#system#system .sm-l b{ right:0; bottom:3px; }
-#system#system .sm-l.base b{ bottom:auto; top:5px; }
+#line#line .sm-s{ position:relative; display:block; margin-top:5.2cqi; font:600 var(--fs)/1 "Byrd", var(--body); letter-spacing:.012em; text-transform:none; white-space:nowrap; color:#181818; }
+#line#line .sm-s i{ display:inline-block; font-style:normal; }
+#line#line .sm-g{ position:absolute; left:-2.2cqi; right:-2.2cqi; top:5.2cqi; height:var(--fs); pointer-events:none; }
+#line#line .sm-l{ position:absolute; left:0; right:0; height:1px; background:var(--gl2); transform-origin:0 50%; }
+#line#line .sm-l.cap{ top:calc(var(--fs) * .184); }
+#line#line .sm-l.base{ top:calc(var(--fs) * .90); background:var(--gl); }
+#line#line .sm-l b, #line#line .sm-ru b{ position:absolute; font:500 max(10px, 1.25cqi)/1 var(--body); letter-spacing:.02em; color:var(--gt); opacity:.8; white-space:nowrap; }
+#line#line .sm-l b{ right:0; bottom:3px; }
+#line#line .sm-l.base b{ bottom:auto; top:5px; }
 /* a true 8px ruler: a tick every 8px, a long one every 64px */
-#system#system .sm-ru{ position:absolute; left:0; right:0; top:-3.4cqi; height:9px; border-top:1px solid var(--gl2); transform-origin:0 50%;
+#line#line .sm-ru{ position:absolute; left:0; right:0; top:-3.4cqi; height:9px; border-top:1px solid var(--gl2); transform-origin:0 50%;
   background:repeating-linear-gradient(90deg, var(--gl2) 0 1px, transparent 1px 8px) 0 0 / 100% 4px no-repeat,
              repeating-linear-gradient(90deg, var(--gl) 0 1px, transparent 1px 64px) 0 0 / 100% 100% no-repeat; }
-#system#system .sm-ru b{ left:0; bottom:calc(100% + 4px); }
-#system#system .sm-v{ position:absolute; top:-3.4cqi; height:calc(3.4cqi + var(--fs) * .90 + 1.4cqi); width:1px; background:var(--gl2); transform-origin:50% 0; }
-#system#system .sm-v.a{ left:2.2cqi; }
-#system#system .sm-v.b{ left:calc(2.2cqi + var(--fs) * 6.42); }
+#line#line .sm-ru b{ left:0; bottom:calc(100% + 4px); }
+#line#line .sm-v{ position:absolute; top:-3.4cqi; height:calc(3.4cqi + var(--fs) * .90 + 1.4cqi); width:1px; background:var(--gl2); transform-origin:50% 0; }
+#line#line .sm-v.a{ left:2.2cqi; }
+#line#line .sm-v.b{ left:calc(2.2cqi + var(--fs) * 6.42); }
 
 /* Meets: the hinge between the two readings */
-#system#system .sm-m{ display:flex; align-items:center; gap:2.2cqi; margin:2.4cqi 0 0; font:500 max(13px, 2.3cqi)/1 var(--body); letter-spacing:.06em; color:#6A7078; }
-#system#system .sm-m::before, #system#system .sm-m::after{ content:""; flex:1; height:1px; background:var(--gl2); }
-#system#system .sm-m::before{ flex:0 0 7cqi; }
-#system#system .sm-m::after{ margin-right:7cqi; }
+#line#line .sm-m{ display:flex; align-items:center; gap:2.2cqi; margin:2.4cqi 0 0; font:500 max(13px, 2.3cqi)/1 var(--body); letter-spacing:.06em; color:#6A7078; }
+#line#line .sm-m::before, #line#line .sm-m::after{ content:""; flex:1; height:1px; background:var(--gl2); }
+#line#line .sm-m::before{ flex:0 0 7cqi; }
+#line#line .sm-m::after{ margin-right:7cqi; }
 
 /* EXPRESSION, painted, and the spec that measures it */
-#system#system .sm-ew{ position:relative; display:block; width:106%; margin:-.2cqi 0 0 -3%; transform:rotate(-1.6deg); transform-origin:10% 50%; }
-#system#system .sm-e{ display:block; width:100%; max-width:none; height:auto; margin:0; border-radius:0; }
-#system#system .sm-spec{ position:absolute; left:4.8%; top:56.2%; width:0; height:0; transform:rotate(1.6deg); pointer-events:none; }
-#system#system .sm-ring{ position:absolute; left:-9px; top:-9px; width:18px; height:18px; border-radius:50%; box-sizing:border-box; border:1.5px solid #fff; box-shadow:0 0 0 1px rgba(11,111,207,.9), 0 2px 6px rgba(10,40,80,.25); }
-#system#system .sm-wire{ position:absolute; left:-.75px; top:10px; width:1.5px; height:calc(var(--wh, 7cqi) - 6px); background:#fff; box-shadow:0 0 0 .5px rgba(11,111,207,.9); transform-origin:50% 0; }
-#system#system .sm-chip{ position:absolute; left:-12px; top:calc(var(--wh, 7cqi) + 4px); display:inline-flex; align-items:center; gap:7px; height:26px; padding:0 10px 0 7px; border-radius:99px; background:#fff;
+#line#line .sm-ew{ position:relative; display:block; width:106%; margin:-.2cqi 0 0 -3%; transform:rotate(-1.6deg); transform-origin:10% 50%; }
+#line#line .sm-e{ display:block; width:100%; max-width:none; height:auto; margin:0; border-radius:0; }
+#line#line .sm-spec{ position:absolute; left:4.8%; top:56.2%; width:0; height:0; transform:rotate(1.6deg); pointer-events:none; }
+#line#line .sm-ring{ position:absolute; left:-9px; top:-9px; width:18px; height:18px; border-radius:50%; box-sizing:border-box; border:1.5px solid #fff; box-shadow:0 0 0 1px rgba(11,111,207,.9), 0 2px 6px rgba(10,40,80,.25); }
+#line#line .sm-wire{ position:absolute; left:-.75px; top:10px; width:1.5px; height:calc(var(--wh, 7cqi) - 6px); background:#fff; box-shadow:0 0 0 .5px rgba(11,111,207,.9); transform-origin:50% 0; }
+#line#line .sm-chip{ position:absolute; left:-12px; top:calc(var(--wh, 7cqi) + 4px); display:inline-flex; align-items:center; gap:7px; height:26px; padding:0 10px 0 7px; border-radius:99px; background:#fff;
   box-shadow:0 0 0 1px rgba(11,111,207,.22), 0 2px 8px rgba(10,40,80,.08); font:500 12.5px/1 var(--body); letter-spacing:0; color:#181818; white-space:nowrap; }
-#system#system .sm-chip b{ font-weight:500; color:var(--gt); font-variant-numeric:tabular-nums; }
-#system#system .sm-sw{ width:14px; height:14px; border-radius:50%; background:#139FFD; box-shadow:inset 0 0 0 1px rgba(0,0,0,.08); }
+#line#line .sm-chip b{ font-weight:500; color:var(--gt); font-variant-numeric:tabular-nums; }
+#line#line .sm-sw{ width:14px; height:14px; border-radius:50%; background:#139FFD; box-shadow:inset 0 0 0 1px rgba(0,0,0,.08); }
 
-/* the words, unchanged */
-#system#system .sm-say{ padding-bottom:1.2cqi; }
-#system#system .sm-say p{ margin:0; max-width:34em; font:400 17px/1.6 var(--body); letter-spacing:0; color:#4d555c; }
-#system#system .sm-say p.sm-lead{ margin-bottom:16px; font:500 clamp(21px, 1.9vw, 26px)/1.32 var(--body); letter-spacing:-.008em; color:#181818; }
+/* the words, unchanged, in his own voice (owner, 24.11: "a statement from the heart, in my words; it looks dry. Serif, and quotation
+   marks, so it is clear these are my words"). Fraunces with its WONK and SOFT axes on: a serif that is itself a little imperfect.
+   fonts/Fraunces-sme.woff2 is a 20KB subset holding only the glyphs of this paragraph (SIL Open Font License); a new word
+   with a new letter falls back to Georgia for that letter. The opening mark hangs in the margin so the text keeps its edge. */
+@font-face{ font-family:"Fraunces SME"; src:url("../fonts/Fraunces-sme.woff2") format("woff2"); font-weight:300 500; font-display:swap; }
+#line#line .sm-say{ margin:0; padding:0 0 1.2cqi; border:0; quotes:none; }
+#line#line .sm-say p{ margin:0; max-width:31em; font:350 19px/1.55 "Fraunces SME", Georgia, serif; font-optical-sizing:auto; letter-spacing:0; color:#3d444c; }
+#line#line .sm-say p.sm-lead{ position:relative; max-width:15em; margin-bottom:18px; font:400 clamp(27px, 2.4vw, 35px)/1.18 "Fraunces SME", Georgia, serif; letter-spacing:-.012em; color:#181818; }
+#line#line .sm-q{ position:absolute; right:100%; top:-.08em; padding-right:.08em; font-size:1.45em; line-height:1; color:#139FFD; }
+#line#line .sm-qc{ color:#139FFD; }
 
 /* the colour card follows the line it proves; the component wall comes after it */
-#system#system .sm + .tk{ margin-top:72px; }
+#system#system .sec-head + .tk{ margin-top:34px; }
 #system#system .tk + .dk{ margin-top:64px; }
 /* the card's tag is a path (tier / foundation), not two tabs */
-#system#system .sm + .tk .tk-tag{ gap:0; font-weight:500; color:#6A7078; }
-#system#system .sm + .tk .tk-tag span{ padding:0; background:none; color:#6A7078; }
-#system#system .sm + .tk .tk-tag span::after{ content:"/"; margin:0 8px; color:#b4b8bd; }
+#system#system .tk .tk-tag{ gap:0; font-weight:500; color:#6A7078; }
+#system#system .tk .tk-tag span{ padding:0; background:none; color:#6A7078; }
+#system#system .tk .tk-tag span::after{ content:"/"; margin:0 8px; color:#b4b8bd; }
 
 /* the same guides lie over the picture while it is still a drawing (cap height on the tower tops, baseline on the waterline),
    and lift when the paint takes over */
@@ -73,7 +79,7 @@
 #system#system .tk-guide::before{ content:"Cap height"; top:calc(18% - 17px); }
 #system#system .tk-guide::after{ content:"Baseline"; top:calc(61% + 6px); }
 /* and when the card's Voice beat brings Hear Blue, its swatch wears the same ring the heading put on the paint */
-#system#system .sm + .tk[data-mode="build"]:has(.tk-g:nth-child(3).now) .tk-c[data-k="B"].in i{ animation:sm-mark .72s ease both; }
+#system#system .tk[data-mode="build"]:has(.tk-g:nth-child(3).now) .tk-c[data-k="B"].in i{ animation:sm-mark .72s ease both; }
 @keyframes sm-mark{ 0%{ box-shadow:inset 0 0 0 1px rgba(23,27,32,.1), 0 0 0 0 #fff, 0 0 0 0 rgba(11,111,207,0); }
   17%, 58%{ box-shadow:inset 0 0 0 1px rgba(23,27,32,.1), 0 0 0 2px #fff, 0 0 0 3.5px rgba(11,111,207,.9); }
   100%{ box-shadow:inset 0 0 0 1px rgba(23,27,32,.1), 0 0 0 2px rgba(255,255,255,0), 0 0 0 3.5px rgba(11,111,207,0); } }
@@ -84,39 +90,39 @@
    bristled edge: v7/sme-brush.svg), and only then the ring lands on the paint and names its colour.
    The words of the paragraph arrive while the paint is still moving. STRUCTURE never waits for the image; only the brush does. */
 @media (prefers-reduced-motion: no-preference){
-  #system#system .sm.js .sm-l, #system#system .sm.js .sm-ru{ transform:scaleX(0); }
-  #system#system .sm.js .sm-v{ transform:scaleY(0); }
-  #system#system .sm.js .sm-l b, #system#system .sm.js .sm-ru b, #system#system .sm.js .sm-m, #system#system .sm.js .sm-say > *{ opacity:0; }
-  #system#system .sm.js .sm-say > *{ transform:translateY(14px); }
-  #system#system .sm.js .sm-s i{ opacity:0; transform:translateY(-.16em); }
-  #system#system .sm.in .sm-ru{ transform:none; transition:transform 1s cubic-bezier(.6,0,.2,1); }
-  #system#system .sm.in .sm-l{ transform:none; transition:transform 1s cubic-bezier(.6,0,.2,1) calc(.1s + var(--d, 0s)); }
-  #system#system .sm.in .sm-l.cap{ --d:.08s; } #system#system .sm.in .sm-l.base{ --d:.2s; }
-  #system#system .sm.in .sm-v{ transform:none; transition:transform .8s cubic-bezier(.6,0,.2,1) .3s; }
-  #system#system .sm.in .sm-l b, #system#system .sm.in .sm-ru b{ opacity:.8; transition:opacity .5s ease 1s; }
-  #system#system .sm.in .sm-s i{ opacity:1; transform:none; transition:opacity .35s ease calc(.55s + var(--i) * 45ms), transform .55s cubic-bezier(.2,.9,.25,1) calc(.55s + var(--i) * 45ms); }
-  #system#system .sm.in .sm-m{ opacity:1; transition:opacity .6s ease 1.1s; }
-  #system#system .sm.in .sm-say > *{ opacity:1; transform:none; transition:opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); transition-delay:1.15s; }
-  #system#system .sm.in .sm-say > * + *{ transition-delay:1.3s; }
-  #system#system .sm.js .sm-e{ -webkit-mask:url(sme-brush.svg) 100% 0 / 300% 100% no-repeat; mask:url(sme-brush.svg) 100% 0 / 300% 100% no-repeat; }
-  #system#system .sm.in.p .sm-e{ animation:sm-paint 1.1s cubic-bezier(.3,0,.15,1) 1.2s both; }
-  #system#system .sm.js .sm-ring{ opacity:0; transform:scale(2.2); }
-  #system#system .sm.js .sm-wire{ transform:scaleY(0); }
-  #system#system .sm.js .sm-chip{ opacity:0; transform:translateY(-6px); }
-  #system#system .sm.in.p .sm-ring{ opacity:1; transform:none; transition:opacity .25s ease 2.5s, transform .45s cubic-bezier(.2,.9,.25,1) 2.5s; }
-  #system#system .sm.in.p .sm-wire{ transform:none; transition:transform .3s cubic-bezier(.6,0,.2,1) 2.75s; }
-  #system#system .sm.in.p .sm-chip{ opacity:1; transform:none; transition:opacity .35s ease 2.95s, transform .45s cubic-bezier(.2,.8,.2,1) 2.95s; }
+  #line#line .sm.js .sm-l, #line#line .sm.js .sm-ru{ transform:scaleX(0); }
+  #line#line .sm.js .sm-v{ transform:scaleY(0); }
+  #line#line .sm.js .sm-l b, #line#line .sm.js .sm-ru b, #line#line .sm.js .sm-m, #line#line .sm.js .sm-say > *{ opacity:0; }
+  #line#line .sm.js .sm-say > *{ transform:translateY(14px); }
+  #line#line .sm.js .sm-s i{ opacity:0; transform:translateY(-.16em); }
+  #line#line .sm.in .sm-ru{ transform:none; transition:transform 1s cubic-bezier(.6,0,.2,1); }
+  #line#line .sm.in .sm-l{ transform:none; transition:transform 1s cubic-bezier(.6,0,.2,1) calc(.1s + var(--d, 0s)); }
+  #line#line .sm.in .sm-l.cap{ --d:.08s; } #line#line .sm.in .sm-l.base{ --d:.2s; }
+  #line#line .sm.in .sm-v{ transform:none; transition:transform .8s cubic-bezier(.6,0,.2,1) .3s; }
+  #line#line .sm.in .sm-l b, #line#line .sm.in .sm-ru b{ opacity:.8; transition:opacity .5s ease 1s; }
+  #line#line .sm.in .sm-s i{ opacity:1; transform:none; transition:opacity .35s ease calc(.55s + var(--i) * 45ms), transform .55s cubic-bezier(.2,.9,.25,1) calc(.55s + var(--i) * 45ms); }
+  #line#line .sm.in .sm-m{ opacity:1; transition:opacity .6s ease 1.1s; }
+  #line#line .sm.in .sm-say > *{ opacity:1; transform:none; transition:opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); transition-delay:1.15s; }
+  #line#line .sm.in .sm-say > * + *{ transition-delay:1.3s; }
+  #line#line .sm.js .sm-e{ -webkit-mask:url(sme-brush.svg) 100% 0 / 300% 100% no-repeat; mask:url(sme-brush.svg) 100% 0 / 300% 100% no-repeat; }
+  #line#line .sm.in.p .sm-e{ animation:sm-paint 1.1s cubic-bezier(.3,0,.15,1) 1.2s both; }
+  #line#line .sm.js .sm-ring{ opacity:0; transform:scale(2.2); }
+  #line#line .sm.js .sm-wire{ transform:scaleY(0); }
+  #line#line .sm.js .sm-chip{ opacity:0; transform:translateY(-6px); }
+  #line#line .sm.in.p .sm-ring{ opacity:1; transform:none; transition:opacity .25s ease 2.5s, transform .45s cubic-bezier(.2,.9,.25,1) 2.5s; }
+  #line#line .sm.in.p .sm-wire{ transform:none; transition:transform .3s cubic-bezier(.6,0,.2,1) 2.75s; }
+  #line#line .sm.in.p .sm-chip{ opacity:1; transform:none; transition:opacity .35s ease 2.95s, transform .45s cubic-bezier(.2,.8,.2,1) 2.95s; }
 }
 @keyframes sm-paint{ from{ -webkit-mask-position:100% 0; mask-position:100% 0; } to{ -webkit-mask-position:0 0; mask-position:0 0; } }
 
 @media (max-width: 900px){
-  #system#system .sm{ margin-top:32px; }
-  #system#system .sm-head{ grid-template-columns:minmax(0, 1fr); }
-  #system#system .sm-say p{ font-size:16px; }
-  #system#system .sm-g{ left:0; right:0; }
-  #system#system .sm-v.a{ left:0; }
-  #system#system .sm-v.b{ left:calc(var(--fs) * 6.42); }
-  #system#system .sm-ew{ width:100%; margin-left:0; }
-  #system#system .sm-art{ padding-bottom:34px; }
-  #system#system .sm + .tk{ margin-top:64px; }
+  #line#line .sm-head{ grid-template-columns:minmax(0, 1fr); }
+  #line#line .sm-say p{ font-size:17.5px; }
+  #line#line .sm-say p.sm-lead{ font-size:27px; }
+  #line#line .sm-q{ font-size:1.2em; top:-.02em; }
+  #line#line .sm-g{ left:0; right:0; }
+  #line#line .sm-v.a{ left:0; }
+  #line#line .sm-v.b{ left:calc(var(--fs) * 6.42); }
+  #line#line .sm-ew{ width:100%; margin-left:0; }
+  #line#line .sm-art{ padding-bottom:34px; }
 }
