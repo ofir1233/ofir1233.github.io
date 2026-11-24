@@ -46,11 +46,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
    280 ms; with reduced motion it simply appears.
    Also: the worked task in Before/After; priority from colour to weight (a schematic, two cards); the key decision with each
    option's own filter bar (the product today as a schematic, the chosen one in the product kit); close reasons as one note. */
-.c2 .ac-chip{ display:inline-flex; padding:8px 14px; border-radius:99px; background:#e3f1fe; color:var(--deep); font:600 15px/1.2 var(--body); }
-.c2 .ac-facts{ display:grid; grid-template-columns:auto 1fr; gap:10px 18px; font:400 15px/1.45 var(--body); color:var(--ink2); }
-.c2 .ac-facts dt{ font:600 13px/1.6 var(--body); letter-spacing:.02em; color:var(--mute); }
-.c2 .ac-facts dd b{ color:var(--ink); }
-.c2 .ac-tag{ display:inline-block; margin-right:6px; padding:3px 9px; border-radius:99px; background:#dff3e6; color:#1d6b3b; font:600 13px/1.3 var(--body); }
 
 /* the moment */
 .c2 .ac-open{ display:grid; grid-template-columns:minmax(0, 360px) 300px minmax(0, 1fr); gap:40px; align-items:start; margin-top:36px; }
@@ -78,6 +73,13 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ac-open:not(.is-open) .ac-drawer{ opacity:0; transform:translateX(-28px); }
 .c2 .ac-open:not(.is-open) .ac-key{ opacity:0; transform:translateX(-14px); }
 
+
+/* the problem's Before/After: before = a schematic of an alert alone; after = the studio's own Done card for the refund task */
+.c2 .c2-ba .hui p, .c2 .c2-ba > div:first-child .hui p{ font-family:inherit; color:inherit; }
+.c2 .ac-alone{ position:relative; padding:14px 12px 12px; border-radius:8px; background:#F2F2F2; box-shadow:inset 0 0 0 1px #D0D0D0; }
+.c2 .ac-after .ac-col{ max-width:380px; }
+/* phones: the board still pans at a readable size, opening on the title and the first three pins (the page script sets the start) */
+@media (max-width: 560px){ .c2 .c2-hero .c2-pan{ width:300%; } }
 
 /* Drawn screens follow .claude/case-review/PRODUCT-LOOK.md: a principle is a black-and-white schematic (.hui.hui-bw, labelled),
    the product is drawn with the product kit (v7/hear-ui.css, the studio Actions screen's own parts). The moment's still is the studio's.
@@ -184,7 +186,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       </dl>
       <figure class="c2-fig">
         <div class="c2-shot"><img src="../img/v7s-actions-board.webp?v=8" width="2060" height="1327" alt="The Actions board in four columns: Pending, In progress, Done and Cancelled, under a filter bar. Every card names its source and date, says what happened in one sentence, quotes the line from the call that raised it and names its owner. Closed cards carry a reason such as Resolved, Escalated, Duplicate or Not actionable." fetchpriority="high">
-          <span class="c2-pin" style="--x:19.4%;--y:22.3%" aria-hidden="true">1</span><span class="c2-pin" style="--x:24.1%;--y:32.4%" aria-hidden="true">2</span><span class="c2-pin" style="--x:16.2%;--y:37%" aria-hidden="true">3</span><span class="c2-pin" style="--x:63.6%;--y:53.3%" aria-hidden="true">4</span></div>
+          <span class="c2-pin" style="--x:19.4%;--y:22.3%" aria-hidden="true">1</span><span class="c2-pin" style="--x:26%;--y:31.9%" aria-hidden="true">2</span><span class="c2-pin" style="--x:18.6%;--y:35.6%" aria-hidden="true">3</span><span class="c2-pin" style="--x:63.6%;--y:53.3%" aria-hidden="true">4</span></div>
         <figcaption><ol class="c2-key" style="--n:4">
           <li><i aria-hidden="true">1</i><span><b>Where it came from:</b> an alert, a call, an agent evaluation or feedback, and how urgent it is.</span></li>
           <li><i aria-hidden="true">2</i><span><b>The evidence:</b> what happened, then the customer's words, timed in the call.</span></li>
@@ -215,15 +217,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <p class="c2-n">The problem</p>
       <h2>A finding says something happened, not who is dealing with it</h2>
       <div class="c2-ba">
-        <div><h3>Before · a finding alone</h3><span class="ac-chip">Alert · Refund refused</span>
+        <div><h3>Before · a finding alone</h3>
+          <div class="hui hui-bw ac-alone" role="img" aria-label="Schematic: an alert on its own. Alert, Oct 13: Refund refused. No owner, no outcome."><span class="hui-schem">Schematic</span><div class="ac-card"><small><u></u>Alert · Oct 13</small><p>Refund refused</p></div></div>
           <p>The Oct 13 refund call raised an alert. No name is on it, and nothing says if it was handled.</p></div>
         <div><h3>After · the same finding as a task</h3>
-          <dl class="ac-facts">
-            <dt>Task</dt><dd><b>Customer asked twice for a refund, was offered only a voucher</b></dd>
-            <dt>Evidence</dt><dd>02:41 “…a refund, not a voucher.”</dd>
-            <dt>Owner</dt><dd>Daniel Brooks · High priority</dd>
-            <dt>Ended</dt><dd><span class="ac-tag">Resolved</span> Refunded · coaching set for Oct 15</dd>
-          </dl></div>
+          <div class="hui ac-after" role="img" aria-label="Hear's Actions screen, the Done column: the refund task. Alert, Today. Customer asked twice for a refund, was offered only a voucher. Refunded · coaching set for Oct 15. Daniel Brooks. Resolved."><section class="ac-col"><h4>Done<i>4</i></h4><div class="ac-card"><small><u></u>Alert · Today</small><p>Customer asked twice for a refund, was offered only a voucher</p><span class="cev">Refunded · coaching set for Oct 15</span><footer><i class="sx-av">DB</i>Daniel Brooks<span class="sx-tag ok">Resolved</span></footer></div></section></div>
+          <p>An owner, what was done, and the reason it closed, on the card in Done.</p></div>
       </div>
     </div>
   </section>
@@ -350,6 +349,11 @@ function set(open){clearTimeout(t);
 btn.addEventListener('click',function(){set(false);});
 card.addEventListener('click',function(){set(!box.classList.contains('is-open'));});
 })();</script>
+<script>/* phones: the hero's board opens at its left edge, on the title and pins 1-3; cs2.js first aims at the mean of the pins */
+(function(){var shot=document.querySelector('.c2-hero .c2-shot');if(!shot)return;
+function left(){setTimeout(function(){if(shot.classList.contains('is-pan')&&shot.scrollWidth>shot.clientWidth)shot.scrollLeft=0;},0);}
+var img=shot.querySelector('img');if(img&&!img.complete)img.addEventListener('load',left,{once:true});
+addEventListener('DOMContentLoaded',left);addEventListener('load',left);addEventListener('resize',left);})();</script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>
