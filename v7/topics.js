@@ -913,7 +913,9 @@
        button); the back cloud sits on their ends */
     var headR = stepsEl.getBoundingClientRect().right,      /* the steps now sit under the window; their right end still sets where the back cloud and the wisteria start */
          clear = function (v, wd, gap) { return ((headR + gap - cx) / k - (v - wd / 2) * .2588) / .9659; };
-    art.back.style.left = f1(Math.max(Lx + sw * .655, headR + 30)) + 'px';
+    /* owner, 24.11: the back cloud settles on the window's top-left corner, where the painted sky has none; on the right it sat
+       on the big cloud painted in the sky. Its place mirrors the old one: about 100px behind the window, the rest outside it */
+    art.back.style.left = f1(Lx + 100 - art.back.offsetWidth) + 'px';
     art.wist.style.left = small ? '' : f1(Math.max(Lx + sw - 285, vw - 452, headR + 6)) + 'px';      /* the wisteria too hangs clear of the head */
     fig.style.setProperty('--k', Math.max(.8, Math.min(1.06, sw / 952)).toFixed(3));
     list.forEach(function (b, bi) {
