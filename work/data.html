@@ -97,12 +97,17 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 /* who reads the sentence (the Lab's describeFilters): rules first, the model only as a fallback, its answer checked. The page's line of
    stops (.c2-flow); the fallback stop is dashed, the checked chips carry the page's blue. */
 .c2 .d-rules{ margin-top:clamp(36px, 3.6vw, 48px); }
-.c2 .d-rules h3{ max-width:none; font:600 clamp(19px, 1.6vw, 22px)/1.3 var(--body); letter-spacing:-.01em; color:var(--ink); }
 .c2 .d-rules .c2-flow{ margin-top:20px; }
 .c2 .d-rules .c2-flow li{ padding-top:14px; }
 .c2 .d-rules .c2-flow li.is-fb{ border-top:2px dashed #aeb4ba; }
-.c2 .d-rules .c2-flow li.is-fb b, .c2 .d-rules .c2-flow li.is-fb span{ color:var(--mute); }
 .c2 .d-rules .c2-flow li.is-me{ padding-top:13px; }
+.c2 .d-chip .d-src{ padding:4px 7px; border-radius:99px; background:#fff; box-shadow:inset 0 0 0 1px #b9dcfa; font:600 11px/1 var(--body); letter-spacing:.02em; color:var(--deep); white-space:nowrap; transition:opacity .2s; }
+.c2 .d-chip[aria-pressed="false"] .d-src{ opacity:.5; }
+.c2 .d-chip b{ white-space:nowrap; }
+@media (max-width: 560px){ .c2 .d-chip{ gap:5px; padding:0 10px 0 8px; } .c2 .d-chip .d-src{ padding:3px 6px; font-size:10.5px; } }
+.c2 .d-rules h3{ font:600 13px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); }
+.c2 .d-rules .c2-flow li.is-miss b, .c2 .d-rules .c2-flow li.is-miss span{ color:var(--mute); }
+.c2 .c2-status + .c2-status{ margin-top:8px; padding-top:0; border-top:0; }
 .c2 .d-say{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
 @media (max-width: 900px){ .c2 .d-try{ grid-template-columns:1fr; } }
 @media (max-width: 560px){ .c2 .c2-hero .c2-pin.d-p4{ top:25.9%; } .c2 .d-ask{ font-size:16.5px; } .c2 .d-foot > div{ grid-template-columns:1fr; } .c2 .d-try > div{ padding:20px 18px 22px; } .c2 .d-try h3.d-then{ margin-top:24px; } .c2 .d-chip{ font-size:14.5px; } }
@@ -172,16 +177,16 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="c2-sec is-key" id="ask" data-ch="Asking in plain words">
     <div class="c2-w">
       <p class="c2-n">Asking in plain words</p>
-      <h2>A sentence becomes filters you can read, check and remove</h2>
-      <p class="c2-lede">Each phrase becomes an ordinary chip in the filter bar.</p>
+      <h2>Rules read the sentence first; the AI model is only the fallback</h2>
+      <p class="c2-lede">No rule fires on this sentence, so the model reads it. Every chip it writes is checked against the table, tagged, and one click to remove.</p>
       <div class="c2-ba d-try" data-try>
         <div><h3>You type</h3>
           <p class="d-ask"><svg viewBox="0 0 18 18" fill="currentColor" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span><u>refund calls</u><sup>1</sup> <u>over 5 minutes</u><sup>2</sup> where the customer was <u>unhappy</u><sup>3</sup></span></p>
-          <h3 class="d-then">It becomes three filters</h3>
+          <h3 class="d-then">The model writes three filters</h3>
           <div class="d-chips" role="group" aria-label="The three filters" aria-describedby="d-how">
-            <button type="button" class="d-chip" aria-pressed="true" aria-label="Topic: Refunds &amp; Credits"><sup aria-hidden="true">1</sup>Topic <b>Refunds &amp; Credits</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
-            <button type="button" class="d-chip" aria-pressed="true" aria-label="Length: over 5 minutes"><sup aria-hidden="true">2</sup>Length <b>over 5 min</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
-            <button type="button" class="d-chip is-last" aria-pressed="true" aria-label="Sentiment: Negative"><sup aria-hidden="true">3</sup>Sentiment <b>Negative</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
+            <button type="button" class="d-chip" aria-pressed="true" aria-label="Topic: Refunds &amp; Credits, from the AI, checked"><sup aria-hidden="true">1</sup>Topic <b>Refunds &amp; Credits</b><small class="d-src" aria-hidden="true">AI, checked</small><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
+            <button type="button" class="d-chip" aria-pressed="true" aria-label="Length: over 5 minutes, from the AI, checked"><sup aria-hidden="true">2</sup>Length <b>over 5 min</b><small class="d-src" aria-hidden="true">AI, checked</small><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
+            <button type="button" class="d-chip is-last" aria-pressed="true" aria-label="Sentiment: Negative, from the AI, checked"><sup aria-hidden="true">3</sup>Sentiment <b>Negative</b><small class="d-src" aria-hidden="true">AI, checked</small><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
             <button type="button" class="d-reset" disabled>Reset</button>
           </div>
           <p class="d-how" id="d-how">Chips come off last first, so every count is one the real screen shows.</p></div>
@@ -200,11 +205,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <p class="d-say" aria-live="polite"></p></div>
       </div>
       <div class="d-rules">
-        <h3>Rules read the sentence first; the AI model is only the fallback</h3>
+        <h3>How this sentence was read</h3>
         <ol class="c2-flow">
           <li><b>The sentence</b><span>Typed in English or Hebrew.</span></li>
-          <li><b>Rules first</b><span>They catch status, alerts, topics, people, length, score and dates, offline: the public demo needs no model.</span></li>
-          <li class="is-fb"><b>The AI model, only if no rule fires</b><span>Given the table's columns and values to choose from.</span></li>
+          <li class="is-miss"><b>Rules first, offline</b><span>They would catch “high priority calls from yesterday”. Here none fires: no rule knows mood, and “over 5 minutes” isn't their “longer than”.</span></li>
+          <li class="is-fb"><b>The AI model, only if no rule fires</b><span>So this one goes to the model, with the table's columns and values to choose from.</span></li>
           <li class="is-me"><b>Checked chips</b><span>Its answer is checked against those columns and values; anything else is dropped.</span></li>
         </ol>
       </div>
@@ -219,15 +224,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div class="c2-opt"><h3>Filter on every change <em>Set aside</em></h3><p>Tried in June on an earlier design, without the Apply button: every click ran the filter at once, while the filter was still being built.</p></div>
         <div class="c2-opt is-chosen"><h3>An explicit Apply <em>Chosen</em></h3><p>Set up the conditions, then run them once. The shared filter from the Alerts page, which Data now uses, works the same way.</p></div>
       </div>
-      <p class="c2-result"><b>Why:</b> building a filter takes several clicks. With Apply, the table changes once, when the filter is finished, not after every tick.</p>
-      <p class="c2-note"><b>Columns follow the same rule:</b> a saved “view” keeps filters and columns together behind one Apply. An inline column picker went in on 24 May and out that day, for the product's Manage Columns window; in October, views became tabs.</p>
+      <p class="c2-result"><b>Why:</b> building a filter takes several clicks; the table should change once.</p>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
       <p class="c2-coda">Rules first; a wrong chip is <em>one click to remove.</em></p>
-      <p class="c2-status"><b>Where it stands:</b> Hear's product already turns a sentence into filters; this redesign of how they are read, checked and applied runs in the Lab on demo data, not built. In the product I moved Data onto the shared action menus (April 2026) and shipped an empty state that tells “nothing uploaded yet” from “nothing matches these filters”, hiding the empty table but keeping the filters, with a button to clear them (May 2026). <b>My part:</b> I designed and built the Lab version, March to October 2026, with Claude Code.</p>
+      <p class="c2-status"><b>Where it stands:</b> the product already turns a sentence into filters; my redesign of how they are read and checked runs in the Lab, on demo data, built with Claude Code, March–October 2026.</p>
+      <p class="c2-status"><b>Shipped in the product:</b> Data on the shared action menus (April 2026); an empty state that tells “nothing uploaded” from “nothing matches” (May 2026).</p>
     </div>
   </section>
   <div class="c2-w c2-next">
