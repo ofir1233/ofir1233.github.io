@@ -208,3 +208,6 @@ html body section#ia#ia .sec-head .ia-say{ transition-duration:.45s; }
 /* the Impersonate chip keeps its white face while it waits for its turn (the shared keyframe starts from transparent) */
 #ia#ia .ia-tell .ia-global span.adm{ animation-name:ia-say-chip; }
 @keyframes ia-say-chip{ from{ background-color:#fff; color:inherit; } }
+
+/* owner, 24.11: "no need for the search bar here". Hidden, not removed: the explorer's script still reads the (empty) field. */
+html body section#ia#ia .ia-find{ display:none !important; }
