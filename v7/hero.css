@@ -182,16 +182,15 @@ html.hp-wait #about .me-photo.me-v7{ background: #eeede9 !important; }
 /* Depth, and four facts that land (owner, 24.11.2026: "make three at the highest level, and work on the four facts over the picture so
    the scroll looks good and feels meaningful"). The page's pin script sets --dp 0..1 once the picture is whole, done by 48% of the stage.
    - The stage is longer (262vh), so the growth takes the same distance as before and the rest is the depth and the facts.
-   - Depth the way a painter makes it, with light, not a lens (a blur was tried and wiped out the brushwork): the room dims a little
-     at its edges and grows 2%, he grows 4.5% from his chest and stays in full light, so he steps forward out of the room.
+   - Depth the way a painter makes it, with light, not a lens (a blur was tried and wiped out the brushwork): the room grows 2%
+     and keeps its light, he grows 4.5% from his chest and stays in full light, so he steps forward out of the room.
    - Each fact lands at its own point of the scroll (li.in): its rule draws up from the floor (480ms), its label fades in (360ms, +80ms),
      its figure rises out of a clip (560ms, +140ms). The figures are stated, never counted. Back up and a fact leaves in the
      opposite order: figure, label, rule. */
 html.me-scroll #about .me-stage{ height: 262vh; }
 #about .me-photo.me-v7 .me-v7-air{ display: none; }
 html.me-scroll #about .me-photo.me-v7 .me-v7-bg{ transform: translate(calc(var(--tx,0) * -2.2%), calc(var(--ty,0) * -2%)) scale(calc(1.09 + var(--g, 0) * .03 + var(--dp, 0) * .02)); }
-html.me-scroll #about .me-photo.me-v7 .me-v7-air{ display: block; position: absolute; inset: 0; pointer-events: none; opacity: var(--dp, 0);
-  background: radial-gradient(70% 85% at 66% 46%, rgba(10,22,44,0) 34%, rgba(10,22,44,.16) 70%, rgba(10,22,44,.34) 100%); }
+/* the room no longer dims at its edges as it grows (owner, 24.11: "why does the whole picture darken?"): only the floor darkens, for the facts */
 html.hp-wait #about .me-photo.me-v7 .me-v7-air{ visibility: hidden; }
 html.me-scroll #about .me-photo.me-v7 .me-v7-fg{ transform: translate(calc(var(--tx,0) * 14px), calc(var(--ty,0) * 8px)) scale(calc(1 + var(--dp, 0) * .06)); transform-origin: 50% 62%; }
 html.me-scroll #about .me-pin.me-grown .me-photo.me-v7::before{ opacity: calc(.82 + var(--dp, 0) * .08); }
