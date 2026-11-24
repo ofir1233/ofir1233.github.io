@@ -127,6 +127,13 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ds-meter > span::after{ content:"4.5:1, the least for text"; position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); white-space:nowrap; font:600 12.5px/1 var(--body); color:var(--ink); }
 .c2 .ds-scl{ display:flex; justify-content:space-between; margin-top:8px; font:500 12.5px/1 var(--body); color:var(--mute); font-variant-numeric:tabular-nums; }
 .c2 .ds-say{ margin-top:16px; min-height:3em; font:500 16px/1.5 var(--body); color:var(--ink); }
+.c2 .ds-scale.is-big{ max-width:640px; margin-top:36px; gap:16px; font:600 15px/1 var(--body); color:var(--ink2); }
+.c2 .ds-scale.is-big span{ flex:1; gap:6px; }
+.c2 .ds-scale.is-big i{ flex:1; width:auto; height:56px; border-radius:10px; }
+.c2 #decision .c2-result{ max-width:62ch; margin-top:24px; }
+.c2 .ds-status span{ display:block; }
+.c2 .ds-status span + span{ margin-top:6px; }
+@media (max-width: 560px){ .c2 .ds-scale.is-big{ gap:10px; font-size:13.5px; } .c2 .ds-scale.is-big i{ height:44px; } }
 /* proof: three tight crops of a token in use, enlarged */
 .c2 .ds-tiles{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:clamp(16px, 2vw, 24px); margin-top:36px; }
 .c2 .ds-tile .c2-shot{ display:grid; place-items:center; min-height:300px; padding:20px; background:linear-gradient(180deg, #e9f1f9, #f2f6fa); }
@@ -393,20 +400,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The key decision</p>
       <h2>Scores run in one blue, so a dense map stays readable</h2>
-      <p class="c2-lede">The Topics screen draws each topic as a box sized by its calls, so many scores show at once. The question was how a score scale should look there.</p>
-      <div class="c2-dec">
-        <div class="c2-opt"><h3>Red to green <em>Set aside</em></h3><p>A different color for each score band. On a dense map the colors compete, and the screen is hard to read.</p></div>
-        <div class="c2-opt is-chosen"><h3>One blue, in steps <em>Chosen</em></h3><p>The deeper the blue, the lower the score.</p>
-          <p class="ds-scale" aria-hidden="true">Higher<span><i style="background:#DCEFFE"></i><i style="background:#A9DAFE"></i><i style="background:#63BEFE"></i><i style="background:#139FFD"></i></span>Lower</p></div>
-      </div>
-      <p class="c2-result"><b>Why:</b> Coral, green and lilac stay for small marks that each mean one thing. The Topics map and its daily list read in one hue.</p>
+      <p class="ds-scale is-big" role="img" aria-label="The score scale: four steps of one blue, from the palest for a higher score to Hear Blue for a lower one">Higher<span><i style="background:#DCEFFE"></i><i style="background:#A9DAFE"></i><i style="background:#63BEFE"></i><i style="background:#139FFD"></i></span>Lower</p>
+      <p class="c2-result"><b>Why:</b> on the Topics map, where each topic is a box sized by its calls, red to green would make the colors compete; one blue, deeper for a lower score, keeps it readable, and coral, green and lilac stay for small marks.</p>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
       <p class="c2-coda">One blue to mark, <em>a darker one to read.</em></p>
-      <p class="c2-status"><b>Partly shipped:</b> I moved the product's colors onto the design system's palette and pointed its 34 links and icons at the blue role (April 2026), turned its main buttons blue (May 2026), and set up the product's Storybook with its foundations and first components (June 2026); developers then synced the remaining tokens against it. <b>In the Lab:</b> every screen draws on the full set of tokens since March 2026. <b>Proposed:</b> Deep Blue as the text blue, from the new brand palette this site uses. <b>My part:</b> the tokens, the shared components and both Storybooks, with Claude Code.</p>
+      <p class="c2-status ds-status"><span><b>Shipped:</b> the product's colors on the system palette, 34 links and icons on the blue role (Apr 2026), blue main buttons (May), the product's Storybook (Jun).</span><span><b>Proposed:</b> Deep Blue as the text blue.</span><span><b>My part:</b> the tokens, shared components and both Storybooks, with Claude Code.</span></p>
     </div>
   </section>
   <div class="c2-w c2-next">
