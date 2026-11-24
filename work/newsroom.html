@@ -40,14 +40,38 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/cs2.css?v=6">
 <style>
 /* Newsroom only, on top of v7/cs2.css. Everything is scoped under .c2. */
-/* the problem: the bare claim, then the same story with its evidence */
 .c2 .nr-tag{ display:inline-block; padding:5px 10px; border-radius:8px; background:#fde4dc; color:#b8391c; font:600 14px/1 var(--body); }
-.c2 .nr-bare{ display:grid; gap:12px; justify-items:start; }
-.c2 .nr-bare strong{ font:700 26px/1.15 var(--body); letter-spacing:-.015em; color:var(--ink); }
-.c2 .nr-story{ display:grid; grid-template-columns:96px minmax(0, 1fr); gap:14px 16px; align-items:start; }
-.c2 .nr-story dt{ padding-top:2px; font:600 12.5px/1.3 var(--body); letter-spacing:.02em; color:var(--deep); }
-.c2 .nr-story dd{ font:400 15px/1.45 var(--body); color:var(--ink2); }
-.c2 .nr-story dd strong{ display:block; font:700 19px/1.2 var(--body); letter-spacing:-.01em; color:var(--ink); margin-top:6px; }
+/* the problem, from production: a range the chart claims, next to what is stored behind it (redrawn, no customer name) */
+.c2 .nr-claim{ display:grid; grid-template-columns:minmax(0, 1fr) auto minmax(0, 1fr); align-items:center; gap:0 clamp(16px, 2.4vw, 32px); margin-top:clamp(28px, 3.5vw, 44px);
+  padding:clamp(22px, 3vw, 36px); border-radius:20px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.06), 0 24px 48px -30px rgba(11,79,138,.35); }
+.c2 .nr-k{ margin:0 0 12px; font:600 13.5px/1.3 var(--body); color:var(--deep); }
+.c2 .nr-band{ position:relative; height:60px; margin:40px 0 4px; border-bottom:2px solid #cfd4d9; }
+.c2 .nr-band-r{ position:absolute; left:18%; width:40%; bottom:0; height:44px; border-radius:8px 8px 0 0; background:repeating-linear-gradient(135deg, #fde4dc 0 7px, #fbd3c6 7px 14px); box-shadow:inset 0 0 0 1.5px #e8836a; }
+.c2 .nr-band-r b{ position:absolute; left:50%; bottom:calc(100% + 8px); transform:translateX(-50%); font:700 20px/1 var(--body); letter-spacing:-.01em; color:#b8391c; white-space:nowrap; }
+.c2 .nr-band-d{ position:absolute; left:76%; bottom:52px; width:14px; height:14px; margin-left:-7px; border-radius:50%; background:#b8391c; box-shadow:0 0 0 3px #fff; }
+.c2 .nr-band-d b{ position:absolute; left:50%; bottom:calc(100% + 8px); transform:translateX(-50%); font:600 14px/1 var(--body); color:#b8391c; white-space:nowrap; }
+.c2 .nr-claim-x{ display:grid; place-items:center; width:44px; height:44px; border-radius:50%; background:#f1f4f8; font:600 20px/1 var(--body); color:var(--ink2); }
+.c2 .nr-claim-b ul{ display:grid; gap:0; }
+.c2 .nr-claim-b li{ display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-top:1px solid var(--line); font:400 15.5px/1.4 var(--body); color:var(--ink); }
+.c2 .nr-claim-b li.is-none{ color:var(--mute); }
+.c2 .nr-claim-b li em{ flex:none; font:600 13px/1.4 var(--body); font-style:normal; color:#b8391c; }
+.c2 .nr-k small{ display:block; margin-top:3px; font:400 13px/1.3 var(--body); color:var(--mute); }
+/* the chart bake-off: the axis from the data next to the axis from zero */
+.c2 .nr-bake{ display:grid; grid-template-columns:minmax(0, 1fr) 150px 150px; gap:clamp(18px, 2.6vw, 36px); align-items:end; margin-top:clamp(28px, 3.5vw, 40px); }
+.c2 .nr-bake figcaption{ align-self:start; max-width:62ch; font:400 16.5px/1.55 var(--body); color:var(--ink2); }
+.c2 .nr-bake figcaption b{ color:var(--ink); }
+.c2 .nr-bars p{ margin:0 0 10px; font:600 13.5px/1.3 var(--body); color:var(--ink); }
+.c2 .nr-bars.is-lie p{ color:#b8391c; }
+.c2 .nr-cols{ position:relative; display:flex; align-items:flex-end; gap:14px; height:120px; padding:0 8px; border-bottom:2px solid var(--ink); }
+.c2 .nr-cols span{ position:relative; flex:1; height:var(--h); border-radius:6px 6px 0 0; background:var(--blue); }
+.c2 .nr-cols span:first-child{ background:#a9d4f8; }
+.c2 .nr-cols b{ position:absolute; left:0; right:0; top:6px; text-align:center; font:700 14px/1 var(--body); font-variant-numeric:tabular-nums; color:#fff; }
+.c2 .nr-cols span:first-child b{ color:var(--deep); }
+.c2 .nr-bars.is-lie .nr-cols span{ background:#f2a48f; }
+.c2 .nr-bars.is-lie .nr-cols span:first-child{ background:#fbd3c6; }
+.c2 .nr-bars.is-lie .nr-cols span b{ color:#7a2410; }
+/* a cut axis: the dashed baseline says the bars do not start at zero */
+.c2 .nr-bars.is-lie .nr-cols{ border-bottom-style:dashed; border-bottom-color:#b8391c; }
 
 /* the moment: check the headline yourself. The front-page claim in large type; three phrases are buttons, and each opens,
    in place, what backs it. "3.4 times" is open from the start; one open at a time; a short rule ties the open phrase to its panel.
@@ -115,15 +139,30 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 
 /* the rule, by kind of story */
 .c2 .nr-rule{ margin-top:14px; display:grid; gap:0; }
-.c2 .nr-rule div{ display:grid; grid-template-columns:132px minmax(0, 1fr); gap:12px; padding:10px 0; border-top:1px solid var(--line); }
+.c2 .nr-rule div{ display:grid; grid-template-columns:150px minmax(0, 1fr); gap:12px; padding:10px 0; border-top:1px solid var(--line); }
 .c2 .nr-rule dt{ font:600 14.5px/1.5 var(--body); color:var(--deep); }
 .c2 .nr-rule dd{ font:400 15.5px/1.5 var(--body); color:var(--ink2); }
 .c2 .nr-ex{ font-weight:600; color:var(--ink); }
 .c2 #rule .c2-dec{ align-items:start; }
+/* the reason and its honest catch, side by side on a wide screen */
+.c2 .nr-why2{ display:grid; grid-template-columns:minmax(0, 1.15fr) minmax(0, 1fr); gap:clamp(24px, 3.5vw, 48px); align-items:start; }
+.c2 .nr-why2 .c2-note{ margin-top:22px; }
+@media (max-width: 900px){ .c2 .nr-why2{ grid-template-columns:1fr; gap:0; } }
 
-@media (max-width: 900px){ .c2 .nr-p{ grid-template-columns:1fr; align-items:start; align-content:start; } }
+@media (max-width: 900px){
+  .c2 .nr-p{ grid-template-columns:1fr; align-items:start; align-content:start; }
+  .c2 .nr-claim{ grid-template-columns:1fr; justify-items:stretch; }
+  .c2 .nr-claim-x{ justify-self:center; margin:14px 0; transform:rotate(90deg); }
+  .c2 .nr-bake{ grid-template-columns:1fr 1fr; }
+  .c2 .nr-bake figcaption{ grid-column:1 / -1; }
+}
 @media (max-width: 560px){
-  .c2 .nr-story{ grid-template-columns:1fr; gap:4px; } .c2 .nr-story dd + dt{ margin-top:10px; }
+  .c2 .nr-cols{ height:96px; }
+  .c2 .nr-bake{ gap:16px 20px; }
+  .c2 .nr-bake figcaption, .c2 .nr-why2 .c2-note{ font-size:15.5px; }
+  .c2 .nr-claim-x{ width:32px; height:32px; margin:4px 0 2px; font-size:16px; }
+  .c2 .nr-claim{ padding:20px 18px; }
+  .c2 .nr-claim-b li{ font-size:15px; }
   .c2 .nr-when{ grid-template-columns:1fr; gap:0; }
   .c2 .nr-when li{ padding:0 0 16px 22px; border-top:0; border-left:3px solid #cfd4d9; }
   .c2 .nr-when li.is-on{ border-left-color:var(--blue); }
@@ -183,29 +222,36 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <p class="c2-lede">The four are signals (labels Hear puts on calls, by AI or by rule), agent evaluations (scores for the person who took the call), compliance checks, and alerts (checks the team sets, which fire on a call). Newsroom turns their findings into stories on one front page, with a tab for each source.</p>
       <ol class="c2-flow">
         <li><b>Calls</b><span>Agents, the people who answer the calls, take calls all day.</span></li>
-        <li><b>Hear's AI reads every call</b><span>Signals, agent evaluations, compliance checks and alerts each raise findings.</span></li>
+        <li><b>Hear's AI reads every call</b><span>Each of the four raises findings.</span></li>
         <li class="is-me"><em>My screens</em><b>A front page of stories</b><span>What changed in the calls, written as short stories.</span></li>
-        <li><b>A person checks, then acts</b><span>Each story opens to an article page with its sources and actions, such as Open in Data.</span></li>
+        <li><b>A person checks, then acts</b><span>Every story points at something real: its article page has its sources and actions.</span></li>
       </ol>
-      <p class="c2-note"><b>Every story points at something real in Hear.</b> I set aside general events about the contact center, which had nothing to open behind them. Each story comes from a signal, an evaluation or a report, so a reader can follow it back to its source, and the whole card opens its article page.</p>
     </div>
   </section>
 
   <section class="c2-sec" id="problem" data-ch="The problem">
     <div class="c2-w">
       <p class="c2-n">The problem</p>
-      <h2>An AI line can sound more certain than its data</h2>
-      <p class="c2-lede">A summary of a contact center is only worth reading if people can check it. So each story carries its own evidence, and the reader can test the headline against it.</p>
-      <div class="c2-ba">
-        <div><h3>Before · a bare AI claim</h3>
-          <div class="nr-bare"><span class="nr-tag">Surging</span><strong>Cancellation intent</strong></div>
-          <p>A headline that says a topic surged, with no baseline, time window or calls. All a reader can do is trust the wording.</p></div>
-        <div><h3>After · the same story, with its evidence</h3>
-          <dl class="nr-story">
-            <dt>Source</dt><dd>Signal · Cancellation intent · 4:12 pm<strong>Cancellation intent is running at 3.4 times its usual day</strong></dd>
-            <dt>Evidence</dt><dd>Yesterday's count against a usual day, the 30 days it is measured over, the rule that put it on the front page, and its 211 calls.</dd>
-          </dl></div>
-      </div>
+      <h2>Hear's own AI already draws numbers nobody stored</h2>
+      <p class="c2-lede">Not a guess: checking the design against the production code (7 Sep 2026), I found a customer's AI report with a range on its chart. The AI had written it into the page; no range is stored anywhere.</p>
+      <figure class="nr-claim">
+        <div class="nr-claim-a">
+          <p class="nr-k">What the report's chart claims <small>Redrawn; the customer is left out</small></p>
+          <div class="nr-band" role="img" aria-label="A range drawn on the chart, 12.7% to 13.9%, with a point past it marked past band.">
+            <span class="nr-band-r"><b>12.7%–13.9%</b></span><span class="nr-band-d"><b>past band</b></span>
+          </div>
+        </div>
+        <span class="nr-claim-x" aria-hidden="true">↔</span>
+        <div class="nr-claim-b">
+          <p class="nr-k">What Hear stores behind it</p>
+          <ul>
+            <li>A sentence comparing two periods</li>
+            <li>Yes or no: a drastic change?</li>
+            <li class="is-none">The range's low and high<em>not stored</em></li>
+            <li class="is-none">Today's value, a comparable day, a peak<em>not stored</em></li>
+          </ul>
+        </div>
+      </figure>
     </div>
   </section>
 
@@ -275,20 +321,32 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The key decision</p>
       <h2>No invented numbers: a story sounds only as exact as its data</h2>
-      <p class="c2-lede">Nobody set a threshold for cancellation intent; like every trend, the story measures a change over time. So it says <span class="nr-ex">“3.4 times its usual day”</span>, against its own baseline, never that it passed a number no one chose. Alerts, compliance checks and agent evaluations have a threshold someone set, so their stories name it.</p>
+      <p class="c2-lede">Alerts, compliance checks and agent evaluations have a threshold someone set, so their stories name it. A trend has none, so its story says what changed in words, against its usual day.</p>
       <div class="c2-dec">
-        <div class="c2-opt"><h3>A number on every trigger <em>Set aside</em></h3><p>Every story names a threshold it crossed, even a trend that has none. That figure would be made up, and a reader could not check it.</p></div>
+        <div class="c2-opt"><h3>A number on every trigger <em>Set aside</em></h3><p>Every story names a threshold it crossed, even a trend that has none: a made-up figure no reader could check.</p></div>
         <div class="c2-opt is-chosen"><h3>As exact as the data <em>Chosen</em></h3>
-          <dl class="nr-rule"><div><dt>Trends</dt><dd>The trigger in words, against a usual day; time as a window, such as “this week”</dd></div><div><dt>Alerts, compliance, evaluations</dt><dd>The real threshold that was set; a clock time for a real moment, such as an alert</dd></div><div><dt>Every story</dt><dd>The method behind it, and a line that leads to its calls</dd></div></dl></div>
+          <dl class="nr-rule"><div><dt>Trends</dt><dd>The trigger in words, against a usual day; time as a window, such as “this week”</dd></div><div><dt>Alerts, compliance, evaluations</dt><dd>The real threshold that was set; a clock time for a real moment, such as an alert</dd></div></dl></div>
       </div>
-      <p class="c2-result"><b>Why:</b> the feed is worth reading only if a reader can check it, and a number nobody set cannot be checked.</p>
+      <div class="nr-why2"><p class="c2-result"><b>Why:</b> Hear stores a trend's change only in words, a yes-or-no “drastic change” and a sentence, so a number there would be made up. I wrote the rule into the News tab's code in July 2026.</p>
+      <p class="c2-note"><b>The honest catch:</b> the headline's <span class="nr-ex">3.4 times</span>, its usual day and its 211 calls need numbers the production check found missing, and its strength label is illustrative. The design names the pipeline it needs.</p></div>
+      <figure class="nr-bake">
+        <figcaption><b>The same rule chose the charts.</b> Side by side, a chart library started the axis at the data, drawing 109 next to 216 as near-equal bars; it could not read the design's color tokens, and needed nine charts for nine cards. Hand-built HTML and SVG won: about six components, 300 lines, no dependencies. Bars from zero are a code-review rule.</figcaption>
+        <div class="nr-bars is-lie" role="img" aria-label="Axis from the data: bars for 109 and 216 drawn almost the same height.">
+          <p>Axis from the data</p>
+          <div class="nr-cols"><span style="--h:86%"><b>109</b></span><span style="--h:100%"><b>216</b></span></div>
+        </div>
+        <div class="nr-bars" role="img" aria-label="Axis from zero: the bar for 109 is about half the height of the bar for 216.">
+          <p>Axis from zero</p>
+          <div class="nr-cols"><span style="--h:50.5%"><b>109</b></span><span style="--h:100%"><b>216</b></span></div>
+        </div>
+      </figure>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
       <p class="c2-coda">One headline, three claims, <em>each with its evidence.</em></p>
-      <p class="c2-status"><b>Where it stands:</b> a concept that has not shipped. It runs as the News tab in the Lab, with demo data; the names of fields and metrics are real, the values illustrative. Its nearest relative in the product is the Daily Briefing in chat, which I redesigned and built into the product in April 2026. <b>My part:</b> I designed and built the News tab in July 2026 with Claude Code, and have updated it since.</p>
+      <p class="c2-status"><b>Where it stands:</b> a concept, not shipped: the News tab in the Lab, on demo data with real field names and illustrative values. The rule already runs in the product: the Daily Briefing I redesigned and built into Hear's chat (April 2026) shows only real suggestions, never hard-coded English stand-ins or Hebrew ones in the English screen. <b>My part:</b> designed and built in July 2026 with Claude Code; checked against the production code in September.</p>
     </div>
   </section>
 

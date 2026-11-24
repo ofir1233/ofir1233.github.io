@@ -94,6 +94,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .d-foot > div{ display:grid; grid-template-columns:1fr 1fr; gap:12px; font:400 14.5px/1.4 var(--body); color:var(--ink2); }
 .c2 .d-foot b{ display:block; font:600 20px/1.1 var(--body); color:var(--ink); }
 .c2 .d-foot b small{ font:400 14.5px/1 var(--body); color:var(--mute); }
+/* who reads the sentence (the Lab's describeFilters): rules first, the model only as a fallback, its answer checked. The page's line of
+   stops (.c2-flow); the fallback stop is dashed, the checked chips carry the page's blue. */
+.c2 .d-rules{ margin-top:clamp(36px, 3.6vw, 48px); }
+.c2 .d-rules h3{ max-width:none; font:600 clamp(19px, 1.6vw, 22px)/1.3 var(--body); letter-spacing:-.01em; color:var(--ink); }
+.c2 .d-rules .c2-flow{ margin-top:20px; }
+.c2 .d-rules .c2-flow li{ padding-top:14px; }
+.c2 .d-rules .c2-flow li.is-fb{ border-top:2px dashed #aeb4ba; }
+.c2 .d-rules .c2-flow li.is-fb b, .c2 .d-rules .c2-flow li.is-fb span{ color:var(--mute); }
+.c2 .d-rules .c2-flow li.is-me{ padding-top:13px; }
 .c2 .d-say{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
 @media (max-width: 900px){ .c2 .d-try{ grid-template-columns:1fr; } }
 @media (max-width: 560px){ .c2 .c2-hero .c2-pin.d-p4{ top:25.9%; } .c2 .d-ask{ font-size:16.5px; } .c2 .d-foot > div{ grid-template-columns:1fr; } .c2 .d-try > div{ padding:20px 18px 22px; } .c2 .d-try h3.d-then{ margin-top:24px; } .c2 .d-chip{ font-size:14.5px; } }
@@ -144,10 +153,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <h2>Every call a contact center takes ends up as a row in one table</h2>
       <p class="c2-lede">Agents are the people who answer the calls. Hear reads each call, and Data is where all of them can be found again.</p>
       <ol class="c2-flow">
-        <li><b>Calls</b><span>Agents take customer calls all day. New ones arrive while older ones are still processing.</span></li>
-        <li><b>Hear reads every call</b><span>Each gets a topic, a one-line summary, a sentiment and a score. Some set off an alert.</span></li>
+        <li><b>Calls</b><span>Agents take customer calls all day.</span></li>
+        <li><b>Hear reads every call</b><span>Each gets a topic, a summary, a sentiment and a score; some set off an alert.</span></li>
         <li class="is-me"><em>My screens</em><b>One table of every call</b><span>Tabs, filters and columns to find the right ones.</span></li>
-        <li><b>A person opens a call</b><span>It opens in a side panel next to the table, to read what happened.</span></li>
+        <li><b>A person opens a call</b><span>It opens in a side panel beside the table.</span></li>
       </ol>
     </div>
   </section>
@@ -157,12 +166,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <p class="c2-n">The problem</p>
       <h2>Two thousand calls, and the question fits none of the tabs</h2>
       <p class="c2-lede">In Northwind, the demo workspace in the picture above, the last 90 days hold 2,000 calls: 223 pages of nine rows. The tabs cut that down, but a question like "long refund calls where the customer was unhappy" is not a tab.</p>
-      <h3 class="c2-sub">Three questions someone brings to the table</h3>
-      <ol class="c2-qs">
-        <li><q>Which calls need someone now?</q><span>The tabs slice the same table, each with its count: Needs review, High priority, Alerts, Done.</span><small><i>1</i>Tabs, in the picture above</small></li>
-        <li><q>Where are the long, unhappy refund calls?</q><span>Type it. The sentence becomes three filters you can read before you trust them.</span><small>→ Asking in plain words</small></li>
-        <li><q>What happened on this call?</q><span>Open it beside the table. The arrow keys step to the next call without closing the panel. If an alert fired, the panel names it and says whether it was marked a false positive.</span></li>
-      </ol>
     </div>
   </section>
 
@@ -170,7 +173,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">Asking in plain words</p>
       <h2>A sentence becomes filters you can read, check and remove</h2>
-      <p class="c2-lede">The AI's reading never hides. Each phrase turns into an ordinary chip in the filter bar, built only from columns and values the table really holds.</p>
+      <p class="c2-lede">Each phrase becomes an ordinary chip in the filter bar.</p>
       <div class="c2-ba d-try" data-try>
         <div><h3>You type</h3>
           <p class="d-ask"><svg viewBox="0 0 18 18" fill="currentColor" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span><u>refund calls</u><sup>1</sup> <u>over 5 minutes</u><sup>2</sup> where the customer was <u>unhappy</u><sup>3</sup></span></p>
@@ -181,7 +184,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             <button type="button" class="d-chip is-last" aria-pressed="true" aria-label="Sentiment: Negative"><sup aria-hidden="true">3</sup>Sentiment <b>Negative</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
             <button type="button" class="d-reset" disabled>Reset</button>
           </div>
-          <p class="d-how" id="d-how">Chips come off in reverse order, so each count is one the real screen shows: 2,000, 318, 141, 86.</p></div>
+          <p class="d-how" id="d-how">Chips come off last first, so every count is one the real screen shows.</p></div>
         <div>
           <p class="d-total"><span>Calls that match</span><b class="d-num">86</b></p>
           <ol class="d-count" aria-label="How the count narrows">
@@ -196,6 +199,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           </div></div>
           <p class="d-say" aria-live="polite"></p></div>
       </div>
+      <div class="d-rules">
+        <h3>Rules read the sentence first; the AI model is only the fallback</h3>
+        <ol class="c2-flow">
+          <li><b>The sentence</b><span>Typed in English or Hebrew.</span></li>
+          <li><b>Rules first</b><span>They catch status, alerts, topics, people, length, score and dates, offline: the public demo needs no model.</span></li>
+          <li class="is-fb"><b>The AI model, only if no rule fires</b><span>Given the table's columns and values to choose from.</span></li>
+          <li class="is-me"><b>Checked chips</b><span>Its answer is checked against those columns and values; anything else is dropped.</span></li>
+        </ol>
+      </div>
     </div>
   </section>
 
@@ -208,14 +220,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div class="c2-opt is-chosen"><h3>An explicit Apply <em>Chosen</em></h3><p>Set up the conditions, then run them once. The shared filter from the Alerts page, which Data now uses, works the same way.</p></div>
       </div>
       <p class="c2-result"><b>Why:</b> building a filter takes several clicks. With Apply, the table changes once, when the filter is finished, not after every tick.</p>
-      <p class="c2-note"><b>Where filters live:</b> two designs, a filter strip and start-from-a-column, still run side by side on the same calls.</p>
+      <p class="c2-note"><b>Columns follow the same rule:</b> a saved “view” keeps filters and columns together behind one Apply. An inline column picker went in on 24 May and out that day, for the product's Manage Columns window; in October, views became tabs.</p>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
-      <p class="c2-coda">The AI guesses; a wrong guess is <em>one click to remove.</em></p>
-      <p class="c2-status"><b>Where it stands:</b> Hear's product already turns a sentence into filters; this redesign of how those filters are read, checked and applied runs in the Lab on demo data and has not been built. In the product itself I moved the Data page onto the shared menus and shipped a system-wide empty state for tables (April–May 2026). <b>My part:</b> I designed and built the Lab version, March to October 2026, with Claude Code.</p>
+      <p class="c2-coda">Rules first; a wrong chip is <em>one click to remove.</em></p>
+      <p class="c2-status"><b>Where it stands:</b> Hear's product already turns a sentence into filters; this redesign of how they are read, checked and applied runs in the Lab on demo data, not built. In the product I moved Data onto the shared action menus (April 2026) and shipped an empty state that tells “nothing uploaded yet” from “nothing matches these filters”, hiding the empty table but keeping the filters, with a button to clear them (May 2026). <b>My part:</b> I designed and built the Lab version, March to October 2026, with Claude Code.</p>
     </div>
   </section>
   <div class="c2-w c2-next">

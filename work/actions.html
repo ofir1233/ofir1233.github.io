@@ -43,7 +43,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
    pinned and keyed, all in one 1440x900 screen. It opens open (the point is made before any click); "Back to the board" or the
    card closes it, and the card (its small "Open the task" control) opens it again. The panel slides in from the card's side in
    280 ms; with reduced motion it simply appears.
-   Also: the worked task in Before/After, the close reasons beside their column, the filter bar as a strip. */
+   Also: the worked task in Before/After, five directions as schematic boards with one card redrawn from colour to weight,
+   the close reasons beside their column, the filter bar as a strip. */
 .c2 .ac-chip{ display:inline-flex; padding:8px 14px; border-radius:99px; background:#e3f1fe; color:var(--deep); font:600 15px/1.2 var(--body); }
 .c2 .ac-facts{ display:grid; grid-template-columns:auto 1fr; gap:10px 18px; font:400 15px/1.45 var(--body); color:var(--ink2); }
 .c2 .ac-facts dt{ font:600 13px/1.6 var(--body); letter-spacing:.02em; color:var(--mute); }
@@ -87,10 +88,70 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 
 .c2 .ac-bar{ margin-top:28px; }
 .c2 .ac-bar .c2-shot{ background:#fff; }
+.c2 .c2-opt h3 em{ white-space:nowrap; }
+
+/* five directions: schematic boards (not screenshots), drawn from the five working pages of 6 Oct 2026; Flow marked */
+.c2 .ac-dirs{ display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:18px; margin-top:32px; }
+.c2 .ac-dirs li p{ margin-top:10px; font:400 14px/1.4 var(--body); color:var(--mute); }
+.c2 .ac-dirs li p b{ font:600 15.5px/1.3 var(--body); color:var(--ink); }
+.c2 .ac-dirs li p em{ margin-left:6px; padding:2px 8px; border-radius:99px; background:var(--deep); color:#fff; font:600 11.5px/1.4 var(--body); font-style:normal; vertical-align:2px; }
+.c2 .ac-dirs li p span{ display:block; margin-top:2px; }
+.c2 .ac-th{ display:flex; flex-direction:column; gap:5px; aspect-ratio:16 / 10; padding:8px; border-radius:10px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.1); opacity:.82; }
+.c2 .ac-dirs .is-pick .ac-th{ opacity:1; box-shadow:0 0 0 2px var(--deep), 0 16px 30px -18px rgba(11,79,138,.5); }
+.c2 .ac-th i, .c2 .ac-th b{ display:block; }
+.c2 .ac-th .t-h{ height:5px; width:28%; border-radius:2px; background:#c9ced3; }
+.c2 .ac-th .t-title{ height:9px; width:38%; border-radius:2px; background:#9aa1a8; }
+.c2 .ac-th .t-tabs{ height:4px; width:22%; border-radius:2px; background:#c9ced3; }
+.c2 .ac-th .t-f{ height:5px; width:72%; border-radius:3px; background:repeating-linear-gradient(90deg, #dde1e5 0 13%, transparent 13% 15%); }
+.c2 .ac-th .t-k{ display:grid; grid-template-columns:repeat(4, 1fr); gap:4px; }
+.c2 .ac-th .t-k i{ height:9px; border-radius:3px; background:#eceef0; box-shadow:inset 0 0 0 1px #dde1e5; }
+.c2 .t-ref .t-k i{ height:15px; }
+.c2 .t-ref .t-k i.on{ box-shadow:inset 0 0 0 1.5px #3a4148; }
+.c2 .ac-th .t-l{ flex:1; display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:4px; min-height:0; }
+.c2 .ac-th .t-l b{ display:flex; flex-direction:column; gap:3px; padding:3px; border-radius:4px; background:#eef0f2; overflow:hidden; }
+.c2 .ac-th .t-l b i{ height:11px; flex:none; border-radius:2px; background:#fff; box-shadow:0 0 0 .5px #d6dade; }
+.c2 .t-flow .t-l b.t-done{ background:#e6efe9; }
+.c2 .t-flow .t-l b i.t-sum{ position:relative; height:16px; box-shadow:0 0 0 .5px #c3cfc7; }
+.c2 .t-flow .t-sum::after{ content:""; position:absolute; left:3px; right:3px; top:5px; height:4px; border-radius:2px; background:linear-gradient(90deg, #3a4148 0 50%, #8b939b 50% 70%, #b9c0c6 70% 85%, #dde1e5 85%); }
+.c2 .t-lanes .t-l b::before{ content:""; display:block; height:4px; width:60%; border-radius:2px; background:var(--lh, #c9ced3); }
+.c2 .t-lanes .t-l b:nth-child(1){ --lh:#e9c9a8; } .c2 .t-lanes .t-l b:nth-child(2){ --lh:#b9d3f2; } .c2 .t-lanes .t-l b:nth-child(3){ --lh:#bfdcc9; } .c2 .t-lanes .t-l b:nth-child(4){ --lh:#d3d6da; }
+.c2 .t-rail .t-l{ grid-auto-columns:1fr 1fr 1fr 1fr 1.25fr; }
+.c2 .t-rail .t-l b.t-side{ background:#fff; box-shadow:inset 0 0 0 .5px #d6dade; }
+.c2 .t-rail .t-l b.t-side i{ height:4px; box-shadow:none; background:#dde1e5; }
+
+/* colour to weight: one card, redrawn in HTML; before = the first board's badges, after = Flow's priority bars */
+.c2 .ac-wt{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px, 3vw, 40px); margin-top:clamp(40px, 5vw, 64px); }
+.c2 .ac-wt figure{ display:grid; grid-template-columns:minmax(0, 290px) minmax(0, 1fr); grid-template-rows:auto auto 1fr; column-gap:22px; align-items:start; }
+.c2 .ac-wt-h{ grid-column:1 / -1; }
+.c2 .ac-wt .ac-lane{ grid-row:2 / 4; }
+.c2 .ac-wt .ac-leg{ grid-column:2; grid-row:2; margin-top:4px; }
+.c2 .ac-wt .ac-wt-p{ grid-column:2; grid-row:3; }
+.c2 .ac-wt-h{ margin-bottom:12px; font:600 13.5px/1.3 var(--body); color:var(--deep); }
+.c2 .ac-wt figure:first-child .ac-wt-h{ color:var(--mute); }
+.c2 .ac-lane{ padding:12px; border-radius:14px; background:#e8e8e6; }
+.c2 .ac-lh{ display:block; margin:0 0 10px 4px; font:600 14px/1.2 var(--body); color:var(--ink); }
+.c2 .ac-wc{ display:grid; gap:9px; padding:13px 14px; border-radius:11px; background:#fff; box-shadow:0 1px 2px rgba(10,20,30,.08); }
+.c2 .ac-wc b{ font:600 15.5px/1.3 var(--body); color:var(--ink); }
+.c2 .ac-wc-t{ display:flex; gap:8px; align-items:center; }
+.c2 .ac-wc-o{ display:flex; align-items:center; gap:8px; font:400 14px/1 var(--body); color:var(--ink2); }
+.c2 .ac-wc-o i{ display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:#eceef0; font:600 10px/1 var(--body); font-style:normal; color:var(--ink2); }
+.c2 .v1-p{ display:inline-flex; align-items:center; height:20px; padding:0 8px; border-radius:20px; background:#ff7056; color:#fff; font:700 10.5px/1 var(--body); letter-spacing:.04em; }
+.c2 .v1-p.is-m{ background:#1779f7; } .c2 .v1-p.is-l{ background:#4ba373; }
+.c2 .v1-s{ display:inline-flex; align-items:center; height:22px; padding:0 9px; border-radius:7px; background:#f1f1f1; box-shadow:inset 0 0 0 1px #e1e1e1; color:#ff7056; font:700 10.5px/1 var(--body); letter-spacing:.04em; }
+.c2 .ac-pr{ display:inline-flex; align-items:center; gap:6px; font:600 14px/1 var(--body); color:var(--ink); }
+.c2 .ac-pr svg{ width:14px; height:14px; fill:currentColor; }
+.c2 .ac-pr .off{ fill:#d6d6d4; }
+.c2 .ac-pr.is-m{ font-weight:500; color:var(--ink2); } .c2 .ac-pr.is-l{ font-weight:500; color:var(--mute); }
+.c2 .ac-pr.is-m svg, .c2 .ac-pr.is-l svg{ color:var(--ink); }
+.c2 .ac-leg{ display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; margin-top:14px; }
+.c2 .ac-wt-p{ margin-top:12px; max-width:44ch; font:400 15.5px/1.5 var(--body); color:var(--ink2); }
+.c2 .ac-greys{ display:inline-flex; gap:4px; vertical-align:-3px; margin-left:2px; }
+.c2 .ac-greys i{ width:16px; height:16px; border-radius:4px; background:var(--g); }
 
 @media (max-width: 1100px){
   .c2 .ac-open{ grid-template-columns:minmax(0, 1fr) 300px; gap:28px; }
   .c2 .ac-key{ grid-area:2 / 1 / auto / span 2; --n:2; }
+  .c2 .ac-wt{ grid-template-columns:1fr; }
 }
 @media (max-width: 900px){
   .c2 .ac-close{ grid-template-columns:1fr; }
@@ -105,6 +166,25 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .ac-open:not(.is-open) .ac-ctl{ display:none; }
   .c2 .ac-open:not(.is-open) .ac-drawer{ transform:translateY(-18px); }
   .c2 .ac-open:not(.is-open) .ac-key{ transform:none; }
+}
+@media (max-width: 900px){
+  .c2 .ac-dirs{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 640px){
+  .c2 .ac-dirs{ grid-template-columns:1fr; gap:14px; }
+  .c2 .ac-dirs li{ display:grid; grid-template-columns:120px minmax(0, 1fr); gap:14px; align-items:center; }
+  .c2 .ac-dirs li p{ margin-top:0; }
+  .c2 .ac-th{ padding:5px; gap:3px; border-radius:7px; }
+  .c2 .ac-th .t-l b{ padding:2px; gap:2px; }
+  .c2 .ac-th .t-l b i{ height:7px; }
+  .c2 .t-ref .t-k i{ height:9px; }
+  .c2 .ac-th .t-k i{ height:6px; }
+  .c2 .t-flow .t-l b i.t-sum{ height:10px; }
+  .c2 .t-flow .t-sum::after{ top:3px; height:3px; }
+  .c2 .ac-wt{ grid-template-columns:1fr; }
+  .c2 .ac-wt figure{ grid-template-columns:1fr; }
+  .c2 .ac-wt .ac-lane, .c2 .ac-wt .ac-leg, .c2 .ac-wt .ac-wt-p{ grid-column:1; grid-row:auto; }
+  .c2 .ac-wt .ac-leg{ margin-top:14px; }
 }
 @media (max-width: 700px){
   .c2 .ac-bar .c2-shot{ overflow-x:auto; overscroll-behavior-x:contain; }
@@ -160,12 +240,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The setting</p>
       <h2>Between a flagged call and a fixed problem, someone has to pick it up</h2>
-      <p class="c2-lede">Hear is an AI platform for contact centers. Its AI finds problems on calls; Actions turns each one into work for a person.</p>
       <ol class="c2-flow">
         <li><b>Calls</b><span>Customers call; agents, the people who answer the calls, take them all day.</span></li>
         <li><b>Hear's AI flags something</b><span>Alerts: checks the team sets, which fire on a call. Agent evaluations: scores for the person who took the call.</span></li>
-        <li class="is-me"><em>My screens</em><b>A task on the board</b><span>With its source, a priority, the line from the call and an owner.</span></li>
-        <li><b>A person closes it</b><span>In Done or Cancelled, with a reason the team can look back on.</span></li>
+        <li class="is-me"><em>My screens</em><b>A task on the board</b><span>Its source, priority, evidence and owner.</span></li>
+        <li><b>A person closes it</b><span>In Done or Cancelled, with a reason.</span></li>
       </ol>
     </div>
   </section>
@@ -176,7 +255,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <h2>A finding says something happened, not who is dealing with it</h2>
       <div class="c2-ba">
         <div><h3>Before · a finding alone</h3><span class="ac-chip">Alert · Refund refused</span>
-          <p>The Oct 13 refund call raised an alert. It reports what happened. No name is on it, and nothing says if it was handled.</p></div>
+          <p>The Oct 13 refund call raised an alert. No name is on it, and nothing says if it was handled.</p></div>
         <div><h3>After · the same finding as a task</h3>
           <dl class="ac-facts">
             <dt>Task</dt><dd><b>Customer asked twice for a refund, was offered only a voucher</b></dd>
@@ -185,12 +264,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             <dt>Ended</dt><dd><span class="ac-tag">Resolved</span> Refunded · coaching set for Oct 15</dd>
           </dl></div>
       </div>
-      <h3 class="c2-sub">Three questions the person working the board brings</h3>
-      <ol class="c2-qs">
-        <li><q>Why is this on my board?</q><span>The card names its source and quotes the call.</span><small><i>1</i>In the open task: where it came from</small></li>
-        <li><q>What do I do about it?</q><span>The task opens with its call and a checklist.</span><small><i>3</i>In the open task: the checklist</small></li>
-        <li><q>How did it end?</q><span>A closed task keeps what was done, and why.</span><small><i>4</i>In the open task: the outcome</small></li>
-      </ol>
     </div>
   </section>
 
@@ -198,7 +271,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">Open the task</p>
       <h2>Open a card, and the task holds everything needed to finish it</h2>
-      <p class="c2-lede">This is the refund task, open beside the board. One panel says who has it, where it came from, what to do and how it ends, and keeps the team's thread on the task itself.</p>
+      <p class="c2-lede">The refund task, open beside the board: who has it, where it came from, what to do, how it ends, and the team's thread.</p>
       <div class="ac-open is-open">
         <div class="ac-side"><div class="ac-col"><div class="ac-colin"><img src="../img/v7s-actions-pending.webp?v=1" width="768" height="786" alt="The Pending column of the Actions board. The first card, outlined because it is open: Alert, Today, High. Customer asked twice for a refund, was offered only a voucher. 02:41, “…a refund, not a voucher.” Daniel Brooks. Below it, a call tagged Billing that should be Flight change, and a recording notice missing in the first 30 seconds, not assigned." loading="lazy">
           <button type="button" class="ac-card" aria-expanded="true" aria-controls="ac-drawer" aria-label="The refund task card. Open or close its panel"></button></div></div>
@@ -208,12 +281,43 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             <span class="c2-pin" style="--x:86.3%;--y:25.6%" aria-hidden="true">1</span><span class="c2-pin" style="--x:77.4%;--y:32.4%" aria-hidden="true">2</span><span class="c2-pin" style="--x:35.5%;--y:50.4%" aria-hidden="true">3</span><span class="c2-pin" style="--x:31.5%;--y:65.7%" aria-hidden="true">4</span><span class="c2-pin" style="--x:46.7%;--y:74.2%" aria-hidden="true">5</span></div>
         </figure>
         <ol class="c2-key ac-key">
-          <li><i aria-hidden="true">1</i><span><b>Where it came from:</b> the Refund refused alert, and the call's two asks.</span></li>
-          <li><i aria-hidden="true">2</i><span><b>Who has it:</b> Daniel Brooks. Reassign hands it on.</span></li>
+          <li><i aria-hidden="true">1</i><span><b>Where it came from:</b> the Refund refused alert.</span></li>
+          <li><i aria-hidden="true">2</i><span><b>Who has it:</b> Daniel Brooks.</span></li>
           <li><i aria-hidden="true">3</i><span><b>What to do:</b> a checklist, all three steps ticked.</span></li>
-          <li><i aria-hidden="true">4</i><span><b>How it ends:</b> the outcome, written in, then Close as Resolved.</span></li>
+          <li><i aria-hidden="true">4</i><span><b>How it ends:</b> the outcome, then Close as Resolved.</span></li>
           <li><i aria-hidden="true">5</i><span><b>The team's thread:</b> @ a teammate, or @AI, on the task.</span></li>
         </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="c2-sec" id="direction" data-ch="Five directions">
+    <div class="c2-w">
+      <p class="c2-n">Five directions</p>
+      <h2>Five boards, one pick: priority as weight, not colour</h2>
+      <p class="c2-lede">On 6 October 2026 I built five directions as working pages and picked Flow.</p>
+      <ol class="ac-dirs">
+        <li class="is-pick"><div class="ac-th t-flow" aria-hidden="true"><i class="t-h"></i><span class="t-k"><i></i><i></i><i></i><i></i></span><i class="t-f"></i><span class="t-l"><b><i></i><i></i><i></i></b><b><i></i><i></i></b><b class="t-done"><i class="t-sum"></i><i></i></b><b><i></i></b></span></div><p><b>Flow</b> <em>Picked</em><span>Counts on top; Done tallies its reasons</span></p></li>
+        <li><div class="ac-th t-ws" aria-hidden="true"><i class="t-title"></i><i class="t-tabs"></i><i class="t-f"></i><span class="t-l"><b><i></i><i></i><i></i></b><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i></b></span></div><p><b>Workspace</b><span>Board and List tabs</span></p></li>
+        <li><div class="ac-th t-lanes" aria-hidden="true"><i class="t-h"></i><i class="t-f"></i><span class="t-l"><b><i></i><i></i><i></i></b><b><i></i><i></i><i></i></b><b><i></i><i></i></b><b><i></i></b></span></div><p><b>Lanes</b><span>Filters first, tinted lane heads</span></p></li>
+        <li><div class="ac-th t-ref" aria-hidden="true"><i class="t-h"></i><span class="t-k"><i></i><i class="on"></i><i></i><i></i></span><i class="t-f"></i><span class="t-l"><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i></b></span></div><p><b>Refined</b><span>Count cards that filter the board</span></p></li>
+        <li><div class="ac-th t-rail" aria-hidden="true"><i class="t-h"></i><i class="t-f"></i><span class="t-l"><b><i></i><i></i><i></i></b><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i></b><b class="t-side"><i></i><i></i><i></i></b></span></div><p><b>Rail</b><span>A side rail of progress</span></p></li>
+      </ol>
+      <div class="ac-wt">
+        <figure>
+          <figcaption class="ac-wt-h">Before · my first board, 30 March 2026</figcaption>
+          <div class="ac-lane" role="img" aria-label="A card on the first board: a coral HIGH badge and a coral PENDING badge on the refund task, owned by Daniel Brooks"><span class="ac-lh">Pending</span>
+            <div class="ac-wc"><p class="ac-wc-t"><span class="v1-p">HIGH</span><span class="v1-s">PENDING</span></p><b>Customer asked twice for a refund</b><span class="ac-wc-o"><i>DB</i>Daniel Brooks</span></div></div>
+          <p class="ac-leg"><span class="v1-p">HIGH</span><span class="v1-p is-m">MEDIUM</span><span class="v1-p is-l">LOW</span><span class="v1-s">PENDING</span></p>
+          <p class="ac-wt-p">Coral meant urgent and also waiting. That afternoon, four tries gave Pending a grey: <span class="ac-greys" aria-hidden="true"><i style="--g:#a3a3a3"></i><i style="--g:#747474"></i><i style="--g:#6b7280"></i><i style="--g:#4b5563"></i></span></p>
+        </figure>
+        <figure>
+          <figcaption class="ac-wt-h">After · Flow, October 2026</figcaption>
+          <div class="ac-lane is-flow" role="img" aria-label="The same card in Flow: three priority bars, all filled, beside the word High in ink; no badge colours"><span class="ac-lh">Pending</span>
+            <div class="ac-wc"><p class="ac-wc-t"><span class="ac-pr is-h"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect x="10" y="2" width="3" height="11" rx="1"/></svg>High</span></p><b>Customer asked twice for a refund</b><span class="ac-wc-o"><i>DB</i>Daniel Brooks</span></div></div>
+          <p class="ac-leg"><span class="ac-pr is-h"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect x="10" y="2" width="3" height="11" rx="1"/></svg>High</span><span class="ac-pr is-m"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="5.5" y="5" width="3" height="8" rx="1"/><rect class="off" x="10" y="2" width="3" height="11" rx="1"/></svg>Medium</span><span class="ac-pr is-l"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="8" width="3" height="5" rx="1"/><rect class="off" x="5.5" y="5" width="3" height="8" rx="1"/><rect class="off" x="10" y="2" width="3" height="11" rx="1"/></svg>Low</span></p>
+          <p class="ac-wt-p">Bars filled to the level, in ink; the lane says Pending. Blue, the one accent, is kept for what you can click.</p>
+        </figure>
       </div>
     </div>
   </section>
@@ -221,15 +325,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="c2-sec" id="reasons" data-ch="Close reasons">
     <div class="c2-w">
       <p class="c2-n">Close reasons</p>
-      <h2>Closed work keeps its reason, so the team can learn from it</h2>
-      <p class="c2-lede">Done or Cancelled, a task says why it ended, so the team can look back at what became of each finding.</p>
+      <h2>Hear already records why work closed; the board puts it in sight</h2>
+      <p class="c2-lede">Resolved, Duplicate, Not actionable, Escalated, Other: the list is the product's own, and Hear already reports on it. I put it on the board: each closed card wears its reason, and Flow's Done lane opens with a tally.</p>
       <div class="ac-close">
         <figure><div class="c2-shot"><img src="../img/v7s-actions-cancelled.webp?v=7" width="706" height="988" alt="The Cancelled column: Duplicate: booking engine timeout, “Same failure as the Oct 10 alert”, tagged Duplicate; and Website search is slow, “Not about a call”, not assigned, tagged Not actionable." loading="lazy"></div></figure>
         <ul class="ac-reasons">
           <li><b class="ok">Resolved</b><q>Refunded · coaching set for Oct 15.</q></li>
-          <li><b>Escalated</b>Handed on, with what came back: <q>Ground team found the bag, Oct 6.</q></li>
-          <li><b>Duplicate</b>Points to the task it repeats: <q>Same failure as the Oct 10 alert.</q></li>
-          <li><b>Not actionable</b>Feedback on slow website search: <q>Not about a call.</q></li>
+          <li><b>Escalated</b><q>Ground team found the bag, Oct 6.</q></li>
+          <li><b>Duplicate</b><q>Same failure as the Oct 10 alert.</q></li>
+          <li><b>Not actionable</b><q>Not about a call.</q></li>
         </ul>
       </div>
     </div>
@@ -241,17 +345,17 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <h2>Being mentioned gets its own filter, so you find where you're needed first</h2>
       <figure class="ac-bar"><div class="c2-shot"><img src="../img/v7s-actions-bar.webp?v=6" width="2017" height="151" alt="The Actions filter bar: Everyone, Assigned to me and Mentions me, then High priority 4, From alerts 5 and From agent evaluation 2." loading="lazy"></div></figure>
       <div class="c2-dec">
-        <div class="c2-opt"><h3>Inside the Assignee menu <em>Set aside</em></h3><p>On the first board, mentions were one option in the Assignee dropdown, out of sight until opened.</p></div>
+        <div class="c2-opt"><h3>A mode of the people filter, as in the product today <em>Set aside</em></h3><p>The filter reads Assignee until you switch it to Mentioned. My first board, on 30 March, copied it.</p></div>
         <div class="c2-opt is-chosen"><h3>Its own filter, Mentions me <em>Chosen</em></h3><p>Beside Everyone and Assigned to me, at the start of the filter bar.</p></div>
       </div>
-      <p class="c2-result"><b>Why:</b> a mention means someone needs you on that task, as Alex Ward is needed in the refund task's thread. Mentions me shows those tasks before you open anything.</p>
+      <p class="c2-result"><b>Why:</b> a mention means someone needs you, as Alex Ward is needed in the refund thread. Mentions me shows those tasks first.</p>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
       <p class="c2-coda">A refused refund: one owner, three steps, <em>one reason it closed</em>.</p>
-      <p class="c2-status"><b>Where it stands:</b> Hear's product already has an Actions board; this is my redesign of it, which runs in the Lab on demo data (screens from October 2026) and has not been built in the product. <b>My part:</b> I designed and built it with Claude Code, from the first board in late March 2026.</p>
+      <p class="c2-status"><b>Where it stands:</b> Hear already has an Actions board; this redesign runs in the Lab on demo data and is not built. <b>My part:</b> I designed and built it with Claude Code, from a first board on 30 March 2026 to five directions on 6 October.</p>
     </div>
   </section>
 

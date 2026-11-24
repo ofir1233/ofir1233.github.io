@@ -91,7 +91,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ds-try{ display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(0, 1fr); gap:clamp(24px, 4vw, 56px); margin-top:40px; align-items:center; }
 .c2 .ds-stage{ display:grid; place-items:center; padding:clamp(28px, 4vw, 48px) clamp(18px, 3vw, 36px); border-radius:18px; background:#F4F3F1; box-shadow:0 0 0 1px rgba(23,27,32,.08); }
 .c2 .ds-pop{ --t:#0B6FCF; width:min(100%, 575px); padding:30px 34px 28px; border-radius:20px; background:#fff; box-shadow:0 0 0 1px rgba(24,36,48,.07), 0 18px 36px -20px rgba(16,34,60,.45); color:#181818; }
-.c2 .ds-try[data-c="hear"] .ds-pop{ --t:#139FFD; }
+.c2 .ds-try[data-c="cobalt"] .ds-pop{ --t:#1779F7; }
 .c2 .ds-pop > b{ display:block; font:600 25px/1.25 var(--body); }
 .c2 .ds-pop > span{ display:block; margin-top:3px; font:500 23px/1.3 var(--body); }
 .c2 .ds-pop > small{ display:block; margin-top:4px; font:400 21px/1.35 var(--body); color:#6A7078; }
@@ -114,7 +114,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ds-tg button:focus-visible{ outline:2px solid var(--deep); outline-offset:3px; }
 .c2 .ds-tg .sw{ width:26px; height:26px; border-radius:8px; }
 .c2 .ds-tg .nm{ font:600 17px/1.25 var(--body); }
-.c2 .ds-tg .nm small{ margin-left:6px; font:400 14px/1 var(--body); color:var(--mute); }
+.c2 .ds-tg .nm small{ display:block; margin-top:4px; font:400 14px/1.2 var(--body); color:var(--mute); }
 .c2 .ds-tg .rt{ grid-column:3; display:flex; align-items:center; gap:12px; }
 .c2 .ds-tg .rt > b{ font:700 24px/1 var(--body); font-variant-numeric:tabular-nums; letter-spacing:-.01em; }
 .c2 .ds-meter{ position:relative; height:10px; margin:34px 0 0; border-radius:5px; background:#d9e2ea; }
@@ -130,6 +130,32 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .ds-tile figcaption{ margin-top:14px; font:400 15.5px/1.5 var(--body); color:var(--ink2); }
 .c2 .ds-tile figcaption b{ color:var(--ink); }
 .c2 .ds-tile figcaption small{ display:block; margin-top:4px; font:500 13px/1.3 var(--body); color:var(--mute); }
+/* the real case for roles (round 5): 34 places in the product took the main button's color as their text color */
+.c2 .ds-case{ display:grid; grid-template-columns:minmax(0, .8fr) minmax(0, 1.2fr); gap:clamp(24px, 4vw, 56px); align-items:center; margin:44px 0 clamp(48px, 6vw, 72px); padding:clamp(24px, 3vw, 36px); border-radius:18px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
+.c2 .ds-stat{ display:flex; align-items:baseline; gap:12px; font:700 clamp(72px, 8vw, 112px)/.9 var(--body); letter-spacing:-.04em; color:var(--deep); font-variant-numeric:tabular-nums; }
+.c2 .ds-stat small{ font:600 clamp(20px, 2vw, 26px)/1 var(--body); letter-spacing:-.01em; color:var(--ink); }
+.c2 .ds-case-t > p:not(.ds-stat){ margin-top:16px; font:400 16.5px/1.55 var(--body); color:var(--ink2); }
+.c2 .ds-case-t > p:not(.ds-stat) b{ color:var(--ink); }
+.c2 .ds-ba{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:14px; }
+.c2 .ds-spec{ padding:18px 18px 16px; border-radius:14px; background:#F4F3F1; }
+.c2 .ds-spec > b{ display:block; font:600 13px/1.2 var(--body); letter-spacing:.02em; color:var(--mute); }
+.c2 .ds-spec code{ display:inline-block; margin-top:8px; padding:3px 7px; border-radius:6px; background:#fff; box-shadow:inset 0 0 0 1px var(--line); font:500 13px/1.3 "Geist Mono", ui-monospace, monospace; color:var(--ink); }
+.c2 .ds-spec-ui{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; margin-top:16px; padding:16px; border-radius:10px; background:#fff; }
+.c2 .ds-spec-btn{ display:inline-flex; align-items:center; height:34px; padding:0 14px; border-radius:8px; background:rgba(255,112,86,.1); box-shadow:inset 0 0 0 1.5px #FF7056; font:600 14px/1 var(--body); color:#FF7056; }
+.c2 .ds-spec-lk{ font:600 15.5px/1.2 var(--body); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+.c2 .ds-spec .ds-v{ margin-top:14px; }
+.c2 .ds-ba-cap{ grid-column:1 / -1; margin-top:2px; font:400 14.5px/1.5 var(--body); color:var(--ink2); }
+@media (max-width: 900px){ .c2 .ds-case{ grid-template-columns:minmax(0, 1fr); } }
+@media (max-width: 560px){
+  .c2 .ds-case{ padding:20px 16px; }
+  .c2 .ds-ba{ gap:10px; }
+  .c2 .ds-spec{ padding:14px 12px; }
+  .c2 .ds-spec code{ font-size:12px; }
+  .c2 .ds-spec-ui{ flex-direction:column; align-items:flex-start; gap:10px; padding:12px; }
+  .c2 .ds-spec-btn{ height:30px; padding:0 11px; font-size:13px; }
+  .c2 .ds-spec-lk{ font-size:14.5px; }
+  .c2 .ds-spec .ds-v{ white-space:normal; padding:5px 8px; font-size:12.5px; line-height:1.2; }
+}
 @media (prefers-reduced-motion: reduce){ .c2 .ds-blue, .c2 .ds-meter > i, .c2 .ds-tg button{ transition:none; } }
 @media (max-width: 900px){
   .c2 .ds-split, .c2 .ds-try{ grid-template-columns:1fr; }
@@ -215,7 +241,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <li><i aria-hidden="true">1</i><span><b>Paper:</b> the canvas every card sits on.</span></li>
           <li><i aria-hidden="true">2</i><span><b>Ink:</b> near-black, for every title.</span></li>
           <li><i aria-hidden="true">3</i><span><b>Label gray:</b> one gray that still passes contrast, 5.0:1.</span></li>
-          <li><i aria-hidden="true">4</i><span><b>Hear Blue:</b> the brand's blue marks what is selected.</span></li>
+          <li><i aria-hidden="true">4</i><span><b>Hear Blue:</b> the new brand's blue marks what is selected.</span></li>
         </ol></figcaption>
       </figure>
     </div>
@@ -243,15 +269,40 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <p class="c2-n">Three layers</p>
       <h2>Components ask for a role, and the role picks the color</h2>
       <p class="c2-lede">I built the tokens in three layers. A component never names a palette color; it asks for a job, such as body text, and that job has one value behind it.</p>
+      <!-- Verified in Hear's platform repo, commit 9b2bffb24 (26 Apr 2026, by Ofir): "Fix button.primary text color regression:
+           replace 34 text-color usages of button.primary with blue (interactive) to keep links/icons blue". The same commit moved
+           button.primary from #007AFF to coral #FF7056 (light theme) and the Link component's base color from light.button.primary to
+           light.blue (#1779F7). The main button was turned blue again on 31 May 2026 (5da041972). -->
+      <div class="ds-case">
+        <div class="ds-case-t">
+          <p class="ds-stat">34 <small>places</small></p>
+          <p>In the product, links and icons took their text color from the main button. In April 2026, moving the product onto the design system's colors turned that button coral, and <b>34 places would have turned coral with it.</b> I pointed each one at the blue role instead, so the button can change without moving a link.</p>
+        </div>
+        <figure class="ds-ba">
+          <div class="ds-spec">
+            <b>Before</b>
+            <code>color: button.primary</code>
+            <div class="ds-spec-ui" aria-hidden="true"><span class="ds-spec-btn">Main button</span><span class="ds-spec-lk" style="color:#FF7056">A link →</span></div>
+            <span class="ds-v no"><span aria-hidden="true">✕</span> Follows the button</span>
+          </div>
+          <div class="ds-spec">
+            <b>After</b>
+            <code>color: blue</code>
+            <div class="ds-spec-ui" aria-hidden="true"><span class="ds-spec-btn">Main button</span><span class="ds-spec-lk" style="color:#1779F7">A link →</span></div>
+            <span class="ds-v"><span aria-hidden="true">✓</span> Asks for a role</span>
+          </div>
+          <figcaption class="ds-ba-cap"><b>The product's link, before and after.</b> It asked for the button's color, so it went coral with the button; now it asks for the blue role, the interactive color.</figcaption>
+        </figure>
+      </div>
       <div class="ds-split">
         <div>
           <ol class="ds-lay">
-            <li><i aria-hidden="true">1</i><div><b>Palette</b><span>Nine colors, each with a name and a stated use: Ink for body text, Glass Gray for outlines, Coral for what needs attention, Hear Blue for the brand.</span></div></li>
+            <li><i aria-hidden="true">1</i><div><b>Palette</b><span>Named colors, each with a stated use. The new brand palette has nine: Ink for body text, Glass Gray for outlines, Coral for what needs attention, Hear Blue for what is selected, Deep Blue for blue text.</span></div></li>
             <li><i aria-hidden="true">2</i><div><b>Roles</b><span>What components ask for: canvas, card, body text, muted text.</span></div></li>
             <li><i aria-hidden="true">3</i><div><b>Component sets</b><span>Tokens for one component: the score scale, tag fills paired with their text, a data-grid theme.</span></div></li>
           </ol>
-          <p class="c2-quote">“Always prefer semantic tokens in components.” The rule, as the Colors page in Storybook states it.</p>
-          <p class="ds-cap">Storybook is where the system is documented: each story renders the real component, and by July 2026 it held 122 stories for 32 components.</p>
+          <p class="c2-quote">“Always prefer semantic tokens in components.” The rule, as the Colors page in the Lab's Storybook states it.</p>
+          <p class="ds-cap">In the Lab's Storybook each story renders the real component; by July 2026 it held 122 stories for 32 components. The product's Storybook, which I set up in June 2026, keeps one rule: “Stories document only real platform usage, verified by codebase audit.”</p>
         </div>
         <figure class="ds-fig">
           <table class="ds-chain">
@@ -275,8 +326,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="c2-sec is-key" id="finding" data-ch="The finding">
     <div class="c2-w">
       <p class="c2-n">The finding</p>
-      <h2>Hear Blue fails as text on white, so text uses Deep Blue</h2>
-      <p class="c2-lede">Because text and surfaces are named tokens, each pair has one contrast ratio, worked out once instead of screen by screen. One pair failed: the brand's own blue. So the blue has two roles: Hear Blue for the mark, selection and the score scale; Deep Blue for links and small blue text.</p>
+      <h2>The product's link blue fails as text, so I proposed a darker one</h2>
+      <p class="c2-lede">Because text and surfaces are named tokens, each pair has one contrast ratio, worked out once instead of screen by screen. One pair fails: the blue the 34 places now ask for, Cobalt, just under the bar for text. The new brand palette gives text its own darker blue, Deep Blue.</p>
       <div class="ds-try" data-c="deep">
         <figure class="ds-stage">
           <div class="ds-pop">
@@ -287,25 +338,29 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             <span class="ds-pop-lab ds-blue">pass mark 70</span>
             <span class="ds-pop-link ds-blue">Ask AI which calls →</span>
           </div>
-          <figcaption><b>The popover from Compliance.</b> Its label and its link switch color; the bar keeps Hear Blue either way, because a chart is not text.</figcaption>
+          <figcaption><b>A popover, drawn in the new palette.</b> Only its label and its link switch color; the bar is a chart, not text, so it keeps its fill.</figcaption>
         </figure>
         <div class="ds-panel">
-          <h3>Try Hear Blue as text</h3>
+          <h3>Try the product's blue as text</h3>
           <p>Switch the color of the label and the link. Ratios on white, the popover's card.</p>
-          <!-- Ratios: WCAG 2 contrast from the token hex values, as stated on this page (2.8, 5.0 / 4.5).
-               The one number not stated elsewhere on the page, Hear Blue on Paper (2.6), is computed exactly the same way:
-               relative luminance L = 0.2126 R + 0.7152 G + 0.0722 B of the linearised sRGB channels, ratio = (L1 + 0.05) / (L2 + 0.05);
-               #139FFD on #F4F3F1 = 2.557, shown as 2.6. -->
+          <!-- Ratios: WCAG 2 contrast, computed exactly from the hex values (round 5, 24.11.2026):
+               relative luminance L = 0.2126 R + 0.7152 G + 0.0722 B of the linearised sRGB channels
+               (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ^ 2.4), ratio = (L1 + 0.05) / (L2 + 0.05).
+               Cobalt #1779F7 (the product's link blue: platform light.blue, and --b100 / --color-interactive in the Lab's src/index.css):
+                 on #FFFFFF 4.106 (shown 4.1), on #F9F9F7 (the Lab's paper-50) 3.895 (shown 3.9), on #F4F3F1 3.703.
+               Deep Blue #0B6FCF (new brand palette): on #FFFFFF 5.013 (shown 5.0), on #F4F3F1 4.521 (shown 4.5).
+               Hear Blue #139FFD (new brand palette): on #FFFFFF 2.836 (shown 2.8).
+               The meter runs from 1:1 to 7:1, width = (ratio - 1) / 6: Deep Blue 66.88%, Cobalt 51.77%, the 4.5 line at 58.33%. -->
           <div class="ds-tg" role="group" aria-label="Color of the label and the link">
-            <button type="button" data-c="deep" aria-pressed="true"><i class="sw" style="background:#0B6FCF" aria-hidden="true"></i><span class="nm">Deep Blue <small>#0B6FCF</small></span><span class="rt"><b>5.0:1</b><span class="ds-v"><span aria-hidden="true">✓</span> Passes</span></span></button>
-            <button type="button" data-c="hear" aria-pressed="false"><i class="sw" style="background:#139FFD" aria-hidden="true"></i><span class="nm">Hear Blue <small>#139FFD</small></span><span class="rt"><b>2.8:1</b><span class="ds-v no"><span aria-hidden="true">✕</span> Fails</span></span></button>
+            <button type="button" data-c="deep" aria-pressed="true"><i class="sw" style="background:#0B6FCF" aria-hidden="true"></i><span class="nm">Deep Blue <small>#0B6FCF · proposed</small></span><span class="rt"><b>5.0:1</b><span class="ds-v"><span aria-hidden="true">✓</span> Passes</span></span></button>
+            <button type="button" data-c="cobalt" aria-pressed="false"><i class="sw" style="background:#1779F7" aria-hidden="true"></i><span class="nm">Cobalt <small>#1779F7 · the product's</small></span><span class="rt"><b>4.1:1</b><span class="ds-v no"><span aria-hidden="true">✕</span> Fails</span></span></button>
           </div>
           <div class="ds-meter" aria-hidden="true"><i></i><span></span></div>
           <p class="ds-scl" aria-hidden="true"><span>1:1</span><span>7:1</span></p>
-          <p class="ds-say" aria-live="polite">Deep Blue on white: 5.0:1, above the 4.5:1 that text needs. This is what the Lab uses.</p>
+          <p class="ds-say" aria-live="polite">Deep Blue on white: 5.0:1, above the 4.5:1 that text needs. It is the darker text blue I propose, from the new brand palette.</p>
         </div>
       </div>
-      <p class="ds-note">WCAG 2 ratios, computed from the token hex values; text needs at least 4.5:1. On Paper, the canvas behind the cards, Deep Blue is 4.5:1 and Hear Blue 2.6:1. Body text in Ink is 17.8:1 on white.</p>
+      <p class="ds-note">WCAG 2 ratios, computed from the hex values; text needs at least 4.5:1. On the product's light paper, #F9F9F7, Cobalt drops to 3.9:1. The new brand's bright Hear Blue, #139FFD, is 2.8:1 on white, so it marks what is selected and never carries text.</p>
     </div>
   </section>
 
@@ -313,7 +368,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">Proof it holds</p>
       <h2>Up close, on other screens, each color does only its job</h2>
-      <p class="c2-lede">Three crops from other screens of the Lab, enlarged. None of these screens sets a color of its own; each asks for a role.</p>
+      <p class="c2-lede">Three crops from screens drawn in the new brand palette, enlarged. None of these screens sets a color of its own; each asks for a role.</p>
       <div class="ds-tiles">
         <figure class="ds-tile">
           <div class="c2-shot"><img src="../img/v7s-design-system-coral.webp?v=1" width="638" height="392" alt="Twelve score cells from the Compliance grid. Most are gray; 61 and 69, under the pass mark of 70, are coral, and small coral badges below count the failing rules." loading="lazy"></div>
@@ -325,7 +380,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         </figure>
         <figure class="ds-tile">
           <div class="c2-shot"><img src="../img/v7s-design-system-link.webp?v=1" width="350" height="89" alt="A signal strength, Strong, beside the link See the 211 calls, in Deep Blue." loading="lazy"></div>
-          <figcaption><b>Links:</b> Deep Blue, the blue that passes as text. <small>Newsroom</small></figcaption>
+          <figcaption><b>Links:</b> Deep Blue, the proposed blue that passes as text. <small>Newsroom</small></figcaption>
         </figure>
       </div>
     </div>
@@ -347,8 +402,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
-      <p class="c2-coda">Hear Blue to mark, <em>Deep Blue to read.</em></p>
-      <p class="c2-status"><b>Partly shipped:</b> I moved the product's colors onto this palette (April 2026), turned its main buttons blue, and set up the product's Storybook with its foundations and first components (June 2026); developers then synced the remaining tokens against it. <b>In the Lab:</b> every screen draws on the full set of tokens since March 2026. <b>My part:</b> the tokens, the shared components and both Storybooks, with Claude Code.</p>
+      <p class="c2-coda">One blue to mark, <em>a darker one to read.</em></p>
+      <p class="c2-status"><b>Partly shipped:</b> I moved the product's colors onto the design system's palette and pointed its 34 links and icons at the blue role (April 2026), turned its main buttons blue (May 2026), and set up the product's Storybook with its foundations and first components (June 2026); developers then synced the remaining tokens against it. <b>In the Lab:</b> every screen draws on the full set of tokens since March 2026. <b>Proposed:</b> Deep Blue as the text blue, from the new brand palette this site uses. <b>My part:</b> the tokens, the shared components and both Storybooks, with Claude Code.</p>
     </div>
   </section>
   <div class="c2-w c2-next">
@@ -391,11 +446,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 </footer>
 <script src="case.js?v=8"></script>
 <script src="../v7/cs2.js?v=3" defer></script>
-<script>/* the moment: the label and the link switch between Hear Blue and Deep Blue; the reader moves it (buttons, arrow keys), nothing plays by itself */
+<script>/* the moment: the label and the link switch between the product's Cobalt and the proposed Deep Blue; the reader moves it (buttons, arrow keys), nothing plays by itself */
 (function(){var box=document.querySelector('.ds-try');if(!box)return;var btns=[].slice.call(box.querySelectorAll('.ds-tg button')),meter=box.querySelector('.ds-meter'),say=box.querySelector('.ds-say'),
-S={deep:{w:'66.67%',t:'#0B6FCF',say:'Deep Blue on white: 5.0:1, above the 4.5:1 that text needs. This is what the Lab uses.'},
-hear:{w:'30%',t:'#139FFD',say:'Hear Blue on white: 2.8:1, under the 4.5:1 that text needs. Small blue text becomes hard to read.'}};
-/* the meter runs from 1:1 to 7:1: width = (ratio - 1) / 6, so 5.0 = 66.67%, 2.8 = 30%, and the 4.5 line sits at 58.33% */
+S={deep:{w:'66.88%',t:'#0B6FCF',say:'Deep Blue on white: 5.0:1, above the 4.5:1 that text needs. It is the darker text blue I propose, from the new brand palette.'},
+cobalt:{w:'51.77%',t:'#1779F7',say:'Cobalt on white: 4.1:1, just under the 4.5:1 that text needs. It is the blue the product’s links use.'}};
+/* the meter runs from 1:1 to 7:1: width = (ratio - 1) / 6, so 5.013 = 66.88%, 4.106 = 51.77%, and the 4.5 line sits at 58.33% */
 function set(c,focus){box.setAttribute('data-c',c);btns.forEach(function(b){var on=b.getAttribute('data-c')===c;b.setAttribute('aria-pressed',on);if(on&&focus)b.focus();});
 meter.style.setProperty('--w',S[c].w);meter.style.setProperty('--t',S[c].t);say.textContent=S[c].say;}
 btns.forEach(function(b,k){b.addEventListener('click',function(){set(b.getAttribute('data-c'));});
