@@ -903,7 +903,8 @@
     var list = small ? [[(sh / 2 + 52) / k, -700 / k, 700 / k, 120 / k, -14], [(sh / 2 + 122) / k, -700 / k, 700 / k, 100 / k, -22]] : BR;
     /* the two strokes above the window start clear of the head, wherever the head ends on this screen (its last thing is the play
        button); the back cloud sits on their ends */
-    var headR = again.getBoundingClientRect().right, clear = function (v, wd, gap) { return ((headR + gap - cx) / k - (v - wd / 2) * .2588) / .9659; };
+    var headR = stepsEl.getBoundingClientRect().right,      /* owner, 24.11: the replay button is gone, the rail's end is the head's edge */
+         clear = function (v, wd, gap) { return ((headR + gap - cx) / k - (v - wd / 2) * .2588) / .9659; };
     art.back.style.left = f1(Math.max(Lx + sw * .655, headR + 30)) + 'px';
     art.wist.style.left = small ? '' : f1(Math.max(Lx + sw - 285, vw - 452, headR + 6)) + 'px';      /* the wisteria too hangs clear of the head */
     fig.style.setProperty('--k', Math.max(.8, Math.min(1.06, sw / 952)).toFixed(3));
@@ -1025,15 +1026,12 @@
       li.classList.toggle('on', j === cur && !live && t > REST); li.classList.toggle('done', k >= 1);
       li.querySelector('button').setAttribute('aria-current', j === cur && !live ? 'step' : 'false');
     });
+    /* owner, 24.11: one quiet line under the rail. It holds still while the build plays (what the screen is: Hear Studio, Topics,
+       demo data); a step held on its own frame says that step's sentence instead, cross-faded in CSS */
+    var shown = held && started && si < 5 ? si : 5;
     says.forEach(function (e, j) {
-      var o = 0;
-      if (held) o = j === si ? 1 : 0;
-      else if (j === 5) o = cur === 4 && stopAt >= T ? seg(t, T - .3, T) : 0;      /* the hand-over comes in as the answer has landed */
-      else if (j === cur) {
-        o = j === 0 ? 1 : seg(t, B[j], B[j] + .28);
-        if (j < 4 ? stopAt > B[j + 1] : stopAt >= T) o *= 1 - (j < 4 ? seg(t, B[j + 1] - .1, B[j + 1]) : seg(t, T - .45, T - .3));      /* it only leaves when the play goes on */
-      }
-      e.style.opacity = o.toFixed(3); e.style.pointerEvents = o > .5 ? '' : 'none';
+      var o = j === shown ? 1 : 0;
+      if (e.style.opacity !== String(o)) e.style.opacity = o; e.style.pointerEvents = o ? '' : 'none';
     });
     sayEl.classList.toggle('is-held', held);
     fig.classList.toggle('is-usable', false);      /* owner, 23.11: the screen only plays, the visitor does not drive it */
@@ -1121,7 +1119,7 @@
   ['pointerup', 'pointercancel'].forEach(function (ev) { stepsEl.addEventListener(ev, function () { if (sd && sd.moved) { swallow = true; setTimeout(function () { swallow = false; }, 0); } sd = null; }); });
   stepLis.forEach(function (li, i) {
     var b = li.querySelector('button');
-    b.addEventListener('click', function () { if (swallow || !G) return; go(i ? B[i] : REST, B[i + 1]); });      /* one step, then it holds: the steps are also the way to compare */
+    b.addEventListener('click', function () { if (swallow || !G) return; if (!i) go(REST, T); else go(B[i], B[i + 1]); });      /* Sketch plays the whole build again; any later step plays itself, then holds: the steps are also the way to compare */
     /* the arrow keys walk the steps: the neighbour takes the focus and its finished frame is shown; Home and End go to the ends */
     b.addEventListener('keydown', function (e) {
       var n = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? 4 : -1;

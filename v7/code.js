@@ -86,8 +86,11 @@
   function clear(){ run++; timers.forEach(clearTimeout); timers = []; parts.forEach(function(e){ e.classList.remove('show'); }); btn.classList.remove('sq'); card.classList.remove('fin', 'c0'); glass.classList.remove('g0');
     [sel, gap, prop, cur].forEach(function(e){ e.classList.remove('show'); }); cur.classList.remove('down'); prop.classList.remove('edit'); }
   function play(){ clear(); card.classList.add('hd-run', 'c0'); glass.classList.add('g0'); var me = run, g = box(glass), k = box(card), e = box(email), p = box(pass), b = box(btn), W = g.w;
-    function wait(ms){ return new Promise(function(res){ timers.push(setTimeout(function(){ if (me === run) res(); }, ms)); }); }
-    function len(d){ glass.style.setProperty('--d', d + 'ms'); }
+    /* owner, 24.11: the build runs faster. F scales every step of it (waits and travel times); the finished card's hold does not */
+    var F = .58;
+    function hold(ms){ return new Promise(function(res){ timers.push(setTimeout(function(){ if (me === run) res(); }, ms)); }); }
+    function wait(ms){ return hold(Math.round(ms * F)); }
+    function len(d){ glass.style.setProperty('--d', Math.round(d * F) + 'ms'); }
     function curAt(x, y){ cur.style.translate = Math.round(x) + 'px ' + Math.round(y) + 'px'; }
     function selAt(x, y, w, h){ sel.style.left = x + 'px'; sel.style.top = y + 'px'; sel.style.width = w + 'px'; sel.style.height = h + 'px'; }
     function jump(f){ sel.style.transition = cur.style.transition = 'none'; f(); sel.offsetWidth; cur.offsetWidth; sel.style.transition = cur.style.transition = ''; }
@@ -117,15 +120,15 @@
       await press(); btn.classList.add('sq'); await draw(b, 560); await lift(); btn.classList.add('show'); await wait(300);
       prop.style.left = (W - 30) + 'px'; prop.style.top = (b.y - 8) + 'px'; prop.classList.add('show');
       await move(W + 30, b.y + 36, 520); await wait(120); await press(); prop.classList.add('edit'); btn.classList.remove('sq');
-      await new Promise(function(res){ var t0 = performance.now(); (function tick(t){ if (me !== run) return; var u = Math.min(1, (t - t0) / 850), s = u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+      await new Promise(function(res){ var t0 = performance.now(); (function tick(t){ if (me !== run) return; var u = Math.min(1, (t - t0) / (850 * F)), s = u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
         propN.textContent = Math.round(6 + 21 * s); if (u < 1) requestAnimationFrame(tick); else res(); })(t0); });   /* the number runs up as the corners round */
       await lift(); await wait(380); prop.classList.remove('show', 'edit'); sel.classList.remove('show');
       for (var i = 0; i < rest.length; i++) { rest[i].classList.add('show'); await wait(120); }
       await wait(160); card.classList.add('fin');
       await move(W + 80, g.h * .78, 600); cur.classList.remove('show');
       if (++laps >= 2) return;   /* second pass: stay finished */
-      await wait(2700);
-      card.classList.add('c0'); await wait(260); glass.classList.add('g0'); await wait(1050);
+      await hold(2700);
+      card.classList.add('c0'); await hold(260); glass.classList.add('g0'); await hold(1050);
       play();
     })(); }
   var laps = 0;

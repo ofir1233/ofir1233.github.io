@@ -145,12 +145,34 @@
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.6), inset 0 1px 0 1px rgba(255,255,255,.5), 0 34px 54px -34px rgba(12,50,100,.4); }
 @media (max-width:899px){ #design-lab#design-lab .tp-fig .ct-stage::before{ inset:-8px; border-radius:24px; } }
 @media (prefers-reduced-motion:reduce){ #design-lab#design-lab .tp-fig .ct-stage{ transform:none; } }
-/* owner, 24.11: with the Hear Studio demo gone, the Topics block stands on the section head's centre line:
-   the label, the heading, the five steps and the line under them centred, the window centred under them */
+/* owner, 24.11: with the Hear Studio demo gone the head was crowded. Now it is three things: the heading, the five steps, and
+   one quiet line under them. No label above, no replay button (Sketch plays it all again), no numbers, no dot.
+   The line holds what the screen is while the build plays; a held step says its own sentence there. */
+#design-lab#design-lab .tp-again, #design-lab#design-lab .tp-num{ display:none; }
+#design-lab#design-lab .tp-name{ margin-top:8px; }
+#design-lab#design-lab .tp-say{ min-height:24px; margin-top:14px; font-size:15px; color:var(--mute); }
+#design-lab#design-lab .tp-say > span{ transition:opacity .2s ease; }
+#design-lab#design-lab .tp-say > span > i:not(.tp-dot){ opacity:1; transition:none; }
+#design-lab#design-lab .tp-say b{ font-weight:600; color:var(--ink); }
 @media (min-width:900px){
+#design-lab#design-lab .tp-block{ margin-top:120px; }
 #design-lab#design-lab .tp-head{ margin-inline:auto; text-align:center; }
+#design-lab#design-lab .tp-head h3{ font-size:clamp(28px,2.6vw,36px); line-height:1.1; }
+#design-lab#design-lab .tp-bar{ justify-content:center; margin-top:26px; }
 #design-lab#design-lab .tp-say{ justify-items:center; text-align:center; }
-#design-lab#design-lab .tp-block{ margin-top:96px; }
-#design-lab#design-lab .tp-bar{ justify-content:center; padding-left:46px; }      /* the replay button's width and gap, so the five steps themselves sit on the centre */
+#design-lab#design-lab .tp-fig{ margin-top:40px; }
 #design-lab#design-lab .tp-fig .ct-stage{ margin-left:auto; margin-right:auto; }
+/* the painted sky stops short of the head: it fades in from just above the window, and its back cloud sits lower, behind the window's corner */
+#design-lab#design-lab .tp-sky{ -webkit-mask-image:linear-gradient(180deg, transparent 0 262px, #000 352px); mask-image:linear-gradient(180deg, transparent 0 262px, #000 352px); }
+#design-lab#design-lab .a-cloud-back{ top:-104px; }
+}
+@media (max-width:899px){
+#design-lab#design-lab .tp-head h3{ font-size:28px; line-height:1.12; }
+#design-lab#design-lab .tp-name{ margin-top:6px; }
+}
+/* between 761 and 899 the section head above is still centred, so the head stays on its centre line too */
+@media (min-width:761px) and (max-width:899px){
+#design-lab#design-lab .tp-head{ text-align:center; }
+#design-lab#design-lab .tp-say{ justify-items:center; text-align:center; }
+#design-lab#design-lab .tp-steps button{ text-align:center; }
 }
