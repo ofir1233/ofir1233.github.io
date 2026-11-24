@@ -86,20 +86,27 @@
   var fig = document.querySelector('#about .me-photo.me-v7'), box = fig && fig.querySelector('.me-v7-sig'), src = document.querySelector('footer.ft .ft-sig');
   var pen = src && src.querySelector('mask > g');
   if (!box || !pen) return;
-  var NS = 'http://www.w3.org/2000/svg', T = 'translate(500 205) rotate(-8) scale(' + (720 / 1203).toFixed(5) + ')';
+  /* where the name lies in the picture: wide windows show the whole sky, a phone a narrower slice of it, so there it is a little smaller */
+  var NS = 'http://www.w3.org/2000/svg', small = matchMedia('(max-width: 860px)');
+  function at(x, y, w) { return 'translate(' + x + ' ' + y + ') rotate(-8) scale(' + (w / 1203).toFixed(5) + ')'; }
+  var T = small.matches ? at(440, 238, 800) : at(470, 228, 860);
   function el(name, at, kids) { var e = document.createElementNS(NS, name); for (var k in at) e.setAttribute(k, at[k]); (kids || []).forEach(function (c) { e.appendChild(c); }); return e; }
   var all = { maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: 1920, height: 1280 };
   var strokes = pen.cloneNode(true); strokes.setAttribute('transform', T); strokes.setAttribute('stroke-width', '36');
   var write = el('mask', Object.assign({ id: 'hsig-m' }, all), [strokes]);
-  var shape = el('mask', Object.assign({ id: 'hsig-s' }, all), [el('image', { href: 'img/me-v7-sky-sig-shape.webp?v=1', width: 1203, height: 306, transform: T })]);
-  var paint = el('filter', { id: 'hsig-f', filterUnits: 'userSpaceOnUse', x: 466, y: 92, width: 820, height: 332, 'color-interpolation-filters': 'sRGB' },
+  var shape = el('mask', Object.assign({ id: 'hsig-s' }, all), [el('image', { href: 'img/me-v7-sky-sig-shape.webp?v=2', width: 1203, height: 306, transform: T })]);
+  var paint = el('filter', { id: 'hsig-f', filterUnits: 'userSpaceOnUse', x: 400, y: 80, width: 980, height: 390, 'color-interpolation-filters': 'sRGB' },
     [el('feColorMatrix', { type: 'matrix', values: '0 .55 0 0 .58  0 .55 0 0 .64  0 0 .3 0 .72  0 2.4 0 0 -.36' })]);
-  var sky = el('image', { href: 'img/me-v7-blvd-sky-1920.webp?v=2', width: 1920, height: 1280, preserveAspectRatio: 'none', filter: 'url(#hsig-f)' });
+  /* the sky's own paint: the very file the page already chose for the sky picture (its width depends on the screen), never a second download */
+  var pic = fig.querySelector('.me-v7-sky'), sky = el('image', { href: (pic && (pic.currentSrc || pic.src)) || 'img/me-v7-blvd-sky-1920.webp?v=3', width: 1920, height: 1280, preserveAspectRatio: 'none', filter: 'url(#hsig-f)' });
   var svg = el('svg', { viewBox: '0 0 1920 1280', focusable: 'false' }, [
     el('defs', {}, [write, shape, paint]),
-    el('g', { mask: 'url(#hsig-m)' }, [el('g', { mask: 'url(#hsig-s)' }, [sky]), el('image', { href: 'img/me-v7-sky-sig-ridge.webp?v=1', width: 1203, height: 306, transform: T })])
+    el('g', { mask: 'url(#hsig-m)' }, [el('g', { mask: 'url(#hsig-s)' }, [sky]), el('image', { href: 'img/me-v7-sky-sig-ridge.webp?v=2', width: 1203, height: 306, transform: T })])
   ]);
   box.appendChild(svg);
+  if (pic && !pic.currentSrc) pic.addEventListener('load', function () { sky.setAttribute('href', pic.currentSrc || pic.src); }, { once: true });
+  var placed = [strokes, shape.firstChild, svg.lastChild.lastChild];
+  small.addEventListener && small.addEventListener('change', function () { T = small.matches ? at(440, 238, 800) : at(470, 228, 860); placed.forEach(function (e) { e.setAttribute('transform', T); }); });
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   box.classList.add('js');
   var root = document.documentElement, pin = fig.closest('.me-pin'), signed = false, timer = 0, tick = false;

@@ -12,7 +12,7 @@
   var root = document.documentElement; if (!root.classList.contains('hp-wait')) return;
   var fig = document.querySelector('#about .me-photo.me-v7'), inn = fig && fig.querySelector('.me-v7-in');
   var bgs = inn ? [].slice.call(inn.querySelectorAll('.me-v7-bg')) : [], fg = inn && inn.querySelector('.me-v7-fg');
-  var over = false, cv = null, guard = setTimeout(end, Math.max(400, 2400 - performance.now()));
+  var over = false, cv = null, guard = setTimeout(end, Math.max(400, 3000 - performance.now()));
   function end() {
     if (over) return; over = true; clearTimeout(guard); root.classList.remove('hp-wait', 'hp-on');
     removeEventListener('scroll', away); removeEventListener('resize', leave);
