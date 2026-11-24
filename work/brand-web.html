@@ -37,7 +37,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=41">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<link rel="stylesheet" href="../v7/cs2.css?v=4">
+<link rel="stylesheet" href="../v7/cs2.css?v=5">
 <style>
 /* brand-web: page-only pieces on the cs2 page. A brand has no single screen, so the hero still is a board built in HTML from
    the brand's own parts (one painting, the mark, the palette), and the applied work is one static grid labelled staging or mockup. */
@@ -79,11 +79,44 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .bw-idea dt{ font:600 12.5px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); margin-bottom:5px; }
 .c2 .bw-idea dd{ font:400 16px/1.45 var(--body); color:var(--ink2); }
 .c2 .bw-idea dd.big{ font:600 clamp(20px, 2vw, 25px)/1.2 var(--body); letter-spacing:-.015em; color:var(--ink); }
-/* the decision shows its two pictures */
-.c2 .bw-dec{ max-width:860px; }
-.c2 .bw-dec .c2-opt{ display:flex; flex-direction:column; }
-.c2 .bw-dec .c2-opt p{ margin-bottom:16px; }
-.c2 .bw-dec .c2-opt img{ width:100%; margin-top:auto; border-radius:10px; }
+/* the key decision (round 2): the rejected and the approved newspaper page as one before/after the reader drags.
+   The two pages are the same 640px painting, so the slider is as large as the screen's height allows (about 1.15x) rather than
+   the full column, which would blur the very sharpness of the rejected print it exists to show. The rejected page is on the left,
+   and its words sit beside (desktop) or under (phone) the left half; the approved page's words sit on the right. Moved only by
+   the reader: drag anywhere on the picture, the arrow keys on the focused line, or the two buttons; no motion on its own. */
+.c2 .bw-ba{ --W:min(100vw - 2*clamp(16px, 4vw, 40px), 1320px); width:var(--W); margin-left:calc((100% - var(--W)) / 2);
+  display:grid; grid-template-columns:minmax(0, 1fr) auto minmax(0, 1fr); gap:clamp(24px, 3vw, 40px); align-items:center; margin-top:clamp(32px, 4vw, 48px); }
+.c2 .bw-side-t{ display:grid; gap:10px; align-content:center; }
+.c2 .bw-side-t.l{ text-align:right; justify-items:end; }
+.c2 .bw-side-t em{ font:600 12.5px/1 var(--body); font-style:normal; letter-spacing:.03em; color:var(--mute); }
+.c2 .bw-side-t.r em{ color:var(--deep); }
+.c2 .bw-side-t h3{ font:600 clamp(19px, 1.7vw, 23px)/1.2 var(--body); letter-spacing:-.012em; }
+.c2 .bw-side-t.l h3{ color:var(--ink2); }
+.c2 .bw-side-t p{ font:400 16px/1.5 var(--body); color:var(--ink2); }
+.c2 .bw-side-t.l p{ color:var(--mute); }
+.c2 .bw-show{ display:inline-flex; align-items:center; gap:8px; min-height:40px; margin-top:4px; padding:0 16px; border:0; border-radius:99px; background:#fff; color:var(--ink); font:600 14px/1 var(--body); cursor:pointer;
+  box-shadow:inset 0 0 0 1px #cfd6de; transition:box-shadow .2s, background .2s; }
+.c2 .bw-show:hover{ box-shadow:inset 0 0 0 1.5px var(--ink); }
+.c2 .bw-show[aria-pressed="true"]{ background:var(--ink); color:#fff; box-shadow:none; }
+.c2 .bw-show:focus-visible, .c2 .bw-handle:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+.c2 .bw-cmp{ --pos:50%; position:relative; width:min(780px, calc(100svh - 150px), 62vw); aspect-ratio:640 / 641; border-radius:16px; overflow:hidden; background:#e8eef4;
+  box-shadow:0 0 0 1px rgba(23,27,32,.08), 0 30px 60px -34px rgba(11,79,138,.5); touch-action:pan-y; cursor:ew-resize; user-select:none; -webkit-user-select:none; }
+.c2 .bw-cmp img{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; -webkit-user-drag:none; }
+.c2 .bw-cmp .bw-no{ clip-path:inset(0 calc(100% - var(--pos)) 0 0); }
+.c2 .bw-cmp.is-ease .bw-no{ transition:clip-path .32s cubic-bezier(.3,.7,.3,1); }
+.c2 .bw-cmp.is-ease .bw-line, .c2 .bw-cmp.is-ease .bw-handle{ transition:left .32s cubic-bezier(.3,.7,.3,1); }
+.c2 .bw-tagl, .c2 .bw-tagr{ position:absolute; top:14px; z-index:2; padding:6px 11px 7px; border-radius:99px; font:600 13px/1 var(--body); pointer-events:none; transition:opacity .2s; }
+.c2 .bw-tagl{ left:14px; background:rgba(255,255,255,.94); color:var(--ink2); box-shadow:0 1px 2px rgba(23,40,70,.12); }
+.c2 .bw-tagr{ right:14px; background:var(--deep); color:#fff; }
+.c2 .bw-cmp.no-l .bw-tagl, .c2 .bw-cmp.no-r .bw-tagr{ opacity:0; }
+.c2 .bw-line{ position:absolute; top:0; bottom:0; left:var(--pos); z-index:3; width:0; }
+.c2 .bw-line::before{ content:""; position:absolute; top:0; bottom:0; left:-1.5px; width:3px; background:#fff; box-shadow:0 0 0 1px rgba(23,27,32,.12), 0 0 14px rgba(10,20,30,.25); }
+.c2 .bw-handle{ position:absolute; z-index:4; top:50%; left:clamp(26px, var(--pos), calc(100% - 26px)); width:52px; height:52px; margin:-26px 0 0 -26px; display:grid; place-items:center; border-radius:50%; background:#fff; color:var(--ink); cursor:ew-resize;
+  box-shadow:0 0 0 1px rgba(23,27,32,.1), 0 8px 20px -6px rgba(10,20,30,.4); }
+.c2 .bw-handle svg{ width:26px; height:26px; }
+.c2 .bw-why{ max-width:64ch; margin:clamp(32px, 4vw, 48px) auto 0; text-align:center; font:400 clamp(18px, 1.5vw, 20px)/1.55 var(--body); color:var(--ink); text-wrap:pretty; }
+.c2 .bw-why b{ color:var(--deep); }
+@media (prefers-reduced-motion: reduce){ .c2 .bw-cmp.is-ease .bw-no, .c2 .bw-cmp.is-ease .bw-line, .c2 .bw-cmp.is-ease .bw-handle{ transition:none; } }
 /* applied: one static grid, each piece labelled with where it stands */
 .c2 .bw-apps{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:28px 16px; margin-top:32px; }
 .c2 .bw-th{ position:relative; aspect-ratio:16 / 10; border-radius:14px; overflow:hidden; background:#eef3f8; box-shadow:0 0 0 1px rgba(23,27,32,.08); }
@@ -104,6 +137,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .bw-rules > div + div{ margin-top:20px; }
   .c2 .bw-apps{ grid-template-columns:1fr 1fr; }
 }
+@media (max-width: 1100px){
+  /* the slider takes the column; the two sides' words sit under it, each under its own half */
+  .c2 .bw-ba{ --W:min(100%, 640px); grid-template-columns:1fr 1fr; gap:18px 16px; align-items:start; }
+  .c2 .bw-cmp{ grid-column:1 / -1; grid-row:1; width:100%; }
+  .c2 .bw-side-t.l{ text-align:left; justify-items:start; }
+}
 @media (max-width: 560px){
   .c2 .bw-board{ padding:8px; gap:8px; }
   .c2 .bw-side{ grid-template-columns:1fr; gap:8px; }
@@ -116,11 +155,13 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   .c2 .bw-c code{ font-size:10.5px; }
   .c2 .bw-logo{ min-height:110px; }
   .c2 .bw-logo img{ width:170px; }
-  .c2 .bw-dec{ grid-template-columns:1fr 1fr; gap:10px; }
-  .c2 .bw-dec .c2-opt{ padding:14px; }
-  .c2 .bw-dec .c2-opt h3{ flex-wrap:wrap; gap:6px; font-size:15px; }
-  .c2 .bw-dec .c2-opt p{ font-size:14px; }
-  .c2 .bw-dec .c2-opt p{ margin-bottom:12px; }
+  .c2 .bw-side-t h3{ font-size:17px; }
+  .c2 .bw-side-t p{ font-size:14.5px; }
+  .c2 .bw-show{ min-height:40px; padding:0 14px; font-size:14px; }
+  .c2 .bw-x{ display:none; }
+  .c2 .bw-tagl, .c2 .bw-tagr{ top:10px; padding:5px 9px 6px; font-size:12px; }
+  .c2 .bw-tagl{ left:10px; } .c2 .bw-tagr{ right:10px; }
+  .c2 .bw-handle{ left:clamp(23px, var(--pos), calc(100% - 23px)); width:46px; height:46px; margin:-23px 0 0 -23px; }
   .c2 .bw-apps{ gap:22px 12px; }
   .c2 .bw-apps figcaption{ font-size:14px; }
 }
@@ -142,25 +183,25 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-kick">Case study · <b>Brand &amp; website</b></p>
       <h1>Hear's new brand puts the message inside the picture</h1>
-      <p class="c2-ctx">Hear is an AI platform that reads every customer call in a contact center. I gave it a new identity built on one idea: the line is part of the painted scene, never a caption on top.</p>
+      <p class="c2-ctx">Hear is an AI platform that reads every customer call in a contact center, the team that answers a company's calls. I gave it a new identity built on one idea: the line is part of the painted scene, never a caption on top.</p>
       <dl class="c2-sum">
-        <div><dt>For</dt><dd>Hear, across its product, its website, social posts and print.</dd></div>
-        <div><dt>The problem</dt><dd>One brand had to work in all four places, and a single picture had to tell a stranger what Hear does.</dd></div>
+        <div><dt>For</dt><dd>Strangers meeting Hear for the first time: in the LinkedIn feed, on the website, on a station wall.</dd></div>
+        <div><dt>The problem</dt><dd>One brand had to work in the product, the site, social posts and print, and a single picture had to tell a stranger what Hear does.</dd></div>
         <div><dt>What I did</dt><dd>The mark, nine colors, one typeface and a painted city. Then the marketing site, which I designed and built, a LinkedIn campaign, a station sign and a tote.</dd></div>
-        <div><dt>Where it stands</dt><dd>The site runs on staging. The campaign, the station sign and the tote are mockups; the campaign has not been published.</dd></div>
+        <div><dt>Where it stands</dt><dd>The site runs on staging, a pre-release address. The campaign, the station sign and the tote are mockups, pictures of how they would look; the campaign has not been published.</dd></div>
       </dl>
       <figure class="c2-fig">
         <div class="c2-shot"><div class="bw-board">
           <div class="bw-tile"><img src="../img/cw-plane.webp" width="1200" height="628" alt="Painting of a woman on a terrace looking at the city. A plane has written 100% coverage in the sky." fetchpriority="high" decoding="async"><span class="c2-pin" style="--x:94%;--y:27%" aria-hidden="true">1</span></div>
           <div class="bw-side">
             <div class="bw-tile bw-mark"><img src="../hear-v7/hear-logo.svg" width="126" height="34" alt="The Hear logo: the mark and the name, dark on a light ground" decoding="async"><span class="c2-pin" style="--x:30px;--y:30px" aria-hidden="true">2</span></div>
-            <div class="bw-tile bw-chips" role="img" aria-label="The nine brand colors in four groups: Ground, Structure, Voice and Meaning"><div><span>Ground</span><p><i style="--c:#F4F3F1;box-shadow:inset 0 0 0 1px rgba(23,27,32,.14)"></i><i style="--c:#CFE4F6"></i></p></div><div><span>Structure</span><p><i style="--c:#CBD3DA"></i><i style="--c:#181818"></i></p></div><div><span>Voice</span><p><i style="--c:#139FFD"></i><i style="--c:#0B6FCF"></i></p></div><div><span>Meaning</span><p><i style="--c:#FF6F52"></i><i style="--c:#4BA373"></i><i style="--c:#D59BE0"></i></p></div><span class="c2-pin" style="--x:30px;--y:30px" aria-hidden="true">3</span></div>
+            <div class="bw-tile bw-chips" role="img" aria-label="The nine brand colors: Paper, Sky, Glass Gray, Ink, Hear Blue, Deep Blue, Coral, Green and Lilac"><div><p><i style="--c:#F4F3F1;box-shadow:inset 0 0 0 1px rgba(23,27,32,.14)"></i><i style="--c:#CFE4F6"></i></p></div><div><p><i style="--c:#CBD3DA"></i><i style="--c:#181818"></i></p></div><div><p><i style="--c:#139FFD"></i><i style="--c:#0B6FCF"></i></p></div><div><p><i style="--c:#FF6F52"></i><i style="--c:#4BA373"></i><i style="--c:#D59BE0"></i></p></div><span class="c2-pin" style="--x:30px;--y:30px" aria-hidden="true">3</span></div>
           </div>
         </div></div>
         <figcaption><ol class="c2-key">
           <li><i aria-hidden="true">1</i><span><b>The message lives inside the picture.</b> A plane writes the claim, 100% coverage, across the sky.</span></li>
           <li><i aria-hidden="true">2</i><span><b>One mark,</b> dark on paper, on the site, the posts and the tote.</span></li>
-          <li><i aria-hidden="true">3</i><span><b>Nine colors in four roles,</b> shared by the screens and the paintings.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>Nine colors,</b> shared by the screens and the paintings.</span></li>
         </ol></figcaption>
       </figure>
     </div>
@@ -177,7 +218,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <figcaption><ol class="c2-key">
           <li><i aria-hidden="true">1</i><span><b>2%:</b> a cart with two balloons, the share a sample hears.</span></li>
           <li><i aria-hidden="true">2</i><span><b>100%:</b> a cart lifted off the ground by a hundred. The numbers are the only words.</span></li>
-          <li><i aria-hidden="true">3</i><span><b>We stand among the people.</b> A person's point of view, one of the painting rules: the scene is seen by a spectator in it.</span></li>
+          <li><i aria-hidden="true">3</i><span><b>Seen from the crowd, at eye level.</b> A rule for every painting: we look from a spot inside the scene, here among the people watching.</span></li>
         </ol></figcaption>
       </figure>
     </div>
@@ -186,7 +227,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <section class="c2-sec" id="system" data-ch="The system">
     <div class="c2-w">
       <p class="c2-n">The system</p>
-      <h2>Nine colors in four roles and one typeface tie the screens to the paintings</h2>
+      <h2>One family of colors and one typeface make a screen and a painting look related</h2>
       <p class="c2-lede">The same values run through the product and the site. In the paintings the colors are oil paint, not fixed values, but they are the same family: a blue sky, coral, lilac and green.</p>
       <div class="bw-sys">
         <div class="bw-card bw-pal" role="img" aria-label="The nine colors in four roles. Ground: Paper and Sky. Structure: Glass Gray and Ink. Voice: Hear Blue and Deep Blue. Meaning: Coral, Green and Lilac."><div class="bw-g"><span>Ground</span><div><div class="bw-c" style="--c:#F4F3F1"><i></i><b>Paper</b><code>#F4F3F1</code></div><div class="bw-c" style="--c:#CFE4F6"><i></i><b>Sky</b><code>#CFE4F6</code></div></div></div><div class="bw-g"><span>Structure</span><div><div class="bw-c" style="--c:#CBD3DA"><i></i><b>Glass Gray</b><code>#CBD3DA</code></div><div class="bw-c" style="--c:#181818"><i></i><b>Ink</b><code>#181818</code></div></div></div><div class="bw-g"><span>Voice</span><div><div class="bw-c" style="--c:#139FFD"><i></i><b>Hear Blue</b><code>#139FFD</code></div><div class="bw-c" style="--c:#0B6FCF"><i></i><b>Deep Blue</b><code>#0B6FCF</code></div></div></div><div class="bw-g"><span>Meaning</span><div><div class="bw-c" style="--c:#FF6F52"><i></i><b>Coral</b><code>#FF6F52</code></div><div class="bw-c" style="--c:#4BA373"><i></i><b>Green</b><code>#4BA373</code></div><div class="bw-c" style="--c:#D59BE0"><i></i><b>Lilac</b><code>#D59BE0</code></div></div></div></div>
@@ -222,7 +263,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <div class="c2-tabs" role="tablist" aria-label="Four steps">
             <button type="button" class="c2-tab" role="tab" id="t1" aria-controls="p1" aria-selected="true"><i>1</i><div><b>One sentence</b><span>What you see, where the words live in the scene, and what a stranger understands about Hear.</span></div></button>
             <button type="button" class="c2-tab" role="tab" id="t2" aria-controls="p2" aria-selected="false"><i>2</i><div><b>Gray sketches</b><span>Three compositions in gray, in the final format, with one color for the place of the words.</span></div></button>
-            <button type="button" class="c2-tab" role="tab" id="t3" aria-controls="p3" aria-selected="false"><i>3</i><div><b>The painting</b><span>Painted only after a composition is chosen, then fixed one problem at a time: thick paint with clear edges, bright daylight, grown-up realism, full edge to edge.</span></div></button>
+            <button type="button" class="c2-tab" role="tab" id="t3" aria-controls="p3" aria-selected="false"><i>3</i><div><b>The painting</b><span>Painted only after a composition is chosen, then fixed one problem at a time: thick paint with clear edges, bright daylight, full edge to edge.</span></div></button>
             <button type="button" class="c2-tab" role="tab" id="t4" aria-controls="p4" aria-selected="false"><i>4</i><div><b>Feed check</b><span>Inside a mockup of the LinkedIn feed, at the size a post is really seen.</span></div></button>
           </div>
           <p class="c2-quote">If there is no one sentence, there is no idea.</p>
@@ -242,22 +283,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </section>
 
-  <section class="c2-sec" id="decision" data-ch="The key decision">
-    <div class="c2-w">
-      <p class="c2-n">The key decision</p>
-      <h2>The words are painted into the scene, never pasted on top</h2>
-      <div class="c2-dec bw-dec">
-        <div class="c2-opt"><h3>Print that looked pasted <em>Rejected</em></h3><p>Smooth, sharp type on a painted page reads as a sticker.</p><img src="../img/v7b-no-print.webp" width="640" height="641" alt="The newspaper painting with smooth, sharp print on the page" loading="lazy" decoding="async"></div>
-        <div class="c2-opt is-chosen"><h3>The same page, repainted <em>Approved</em></h3><p>The ink is painted with the knife, and the lines bend with the paper.</p><img src="../img/v7b-ok-print.webp" width="640" height="641" alt="The same newspaper page, What your customers actually said, with the ink painted in knife strokes and a shadow of leaves across it" loading="lazy" decoding="async"></div>
-      </div>
-      <p class="c2-result"><b>Why:</b> the whole idea is that the world writes the message: a receipt, a plane's trail, balloon letters, a headline. Words that look laid on top read as a sticker, and the idea is lost.</p>
-    </div>
-  </section>
-
   <section class="c2-sec" id="applied" data-ch="Applied">
     <div class="c2-w">
       <p class="c2-n">Applied</p>
-      <h2>The same city carries the site, the feed, a station and a tote</h2>
+      <h2>The same painted world carries the site, the feed, a station and a tote</h2>
       <div class="bw-apps">
         <figure><div class="bw-th" style="--o:50% 0"><span class="bw-tag st">Staging</span><img src="../img/v7b-site-hero.webp" width="2160" height="1350" alt="The Hear homepage: the line Run your contact center on what customers actually say, two buttons, and a painting of a contact center with a wall of windows onto a city" loading="lazy" decoding="async"></div><figcaption><b>The homepage.</b> One line, then the painted contact center, so the city appears before any product.</figcaption></figure>
         <figure><div class="bw-th" style="--o:50% 0"><span class="bw-tag st">Staging</span><img src="../img/v7b-site-roles.webp" width="2160" height="1350" alt="The By role section: four tall portrait cards; three are in gray and the open one, Sales and Marketing, is in color" loading="lazy" decoding="async"></div><figcaption><b>Built for every role.</b> Four teams as four portraits, and only the open one takes color.</figcaption></figure>
@@ -270,11 +299,42 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </section>
 
+  <section class="c2-sec is-key" id="decision" data-ch="The key decision">
+    <div class="c2-w">
+      <p class="c2-n">The key decision</p>
+      <h2>The words are painted into the scene, never pasted on top</h2>
+      <p class="c2-lede">The same newspaper page, twice. Drag the line across the headline and watch the print change.</p>
+      <div class="bw-ba">
+        <div class="bw-side-t l">
+          <em>Rejected</em>
+          <h3>Print that looked pasted</h3>
+          <p>Smooth, sharp type on a painted page reads as a sticker.</p>
+          <button type="button" class="bw-show" data-to="100" aria-pressed="false">Show <span class="bw-x">the </span>rejected<span class="bw-x"> page</span></button>
+        </div>
+        <div class="bw-cmp" id="bw-cmp">
+          <img class="bw-ok" src="../img/v7b-ok-print.webp" width="640" height="641" alt="Approved: the newspaper page, What your customers actually said, with the ink painted in knife strokes, the lines bending with the paper and a shadow of leaves across it" loading="lazy" decoding="async">
+          <img class="bw-no" src="../img/v7b-no-print.webp" width="640" height="641" alt="Rejected: the same newspaper page with smooth, sharp print laid on the painted paper" loading="lazy" decoding="async">
+          <span class="bw-tagl" aria-hidden="true">Pasted on top</span>
+          <span class="bw-tagr" aria-hidden="true">Painted into the scene</span>
+          <div class="bw-line"></div><div class="bw-handle" role="slider" tabindex="0" aria-label="Compare the rejected page, on the left, with the approved page, on the right" aria-controls="bw-cmp" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Half and half"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7 4 12l5 5"/><path d="m15 7 5 5-5 5"/></svg></div>
+        </div>
+        <div class="bw-side-t r">
+          <em>Approved</em>
+          <h3>The same page, repainted</h3>
+          <p>The ink is painted with the knife, and the lines bend with the paper.</p>
+          <button type="button" class="bw-show" data-to="0" aria-pressed="false">Show <span class="bw-x">the </span>approved<span class="bw-x"> page</span></button>
+        </div>
+      </div>
+      <p class="bw-why"><b>Why:</b> the whole idea is that the world writes the message: a receipt, a plane's trail, balloon letters, a headline. Words that look laid on top read as a sticker, and the idea is lost.</p>
+    </div>
+  </section>
+
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
+      <h2 class="c2-stand-h">The site is built and on staging; the campaign exists only as mockups</h2>
       <div class="c2-stand">
-        <div><h3>Where it stands</h3><p>The marketing site runs on staging. The LinkedIn campaign, the station sign and the tote are mockups, and the campaign has not been published. Before this identity, a trade-show booth was built from my earlier design.</p></div>
-        <div><h3>My part</h3><p>I designed the brand: the mark, the color, the type and the painted city. In my plan for Hear's redesign the brand came first, ahead of the website and the product. I designed and built the site. The same nine colors run through the <a href="design-system.html">design system</a>.</p></div>
+        <div><h3>Where it stands</h3><p>The marketing site runs on staging. The LinkedIn campaign, the station sign and the tote are mockups, and the campaign has not been published. A trade-show booth was built for real, but from my earlier design, before this identity.</p></div>
+        <div><h3>My part</h3><p>I designed the brand: the mark, the color, the type and the painted city. I designed and built the site. The same nine colors run through the <a href="design-system.html">design system</a>.</p></div>
       </div>
     </div>
   </section>
@@ -317,8 +377,49 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </div>
 </footer>
+<script>/* brand-web: the before/after of the key decision. --pos is how much of the width shows the rejected page (from the left).
+   Drag anywhere on the picture (pointer capture; vertical swipes still scroll the page), arrow keys / Home / End / Page keys on the
+   focused handle, or the two buttons. Only the buttons ease (320 ms, none with reduced motion); a drag follows the hand. */
+(function () {
+  var box = document.getElementById('bw-cmp'); if (!box) return;
+  var h = box.querySelector('.bw-handle'), btns = [].slice.call(document.querySelectorAll('.bw-show')), pos = 50, drag = false, id = null;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function set(v, ease) {
+    pos = Math.max(0, Math.min(100, Math.round(v * 10) / 10));
+    box.classList.toggle('is-ease', !!ease && !reduce);
+    box.style.setProperty('--pos', pos + '%');
+    box.classList.toggle('no-l', pos < 12); box.classList.toggle('no-r', pos > 88);
+    var r = Math.round(pos);
+    h.setAttribute('aria-valuenow', r);
+    h.setAttribute('aria-valuetext', r === 0 ? 'Only the approved page' : r === 100 ? 'Only the rejected page' : r === 50 ? 'Half and half' : 'Rejected page on the left ' + r + ' percent, approved page ' + (100 - r) + ' percent');
+    btns.forEach(function (b) { b.setAttribute('aria-pressed', +b.getAttribute('data-to') === r); });
+  }
+  function at(e) { var b = box.getBoundingClientRect(); return (e.clientX - b.left) / b.width * 100; }
+  /* a mouse moves the line at once; a finger moves it only once it travels sideways, so a vertical swipe still scrolls the page,
+     and a tap without travel sends the line to the tap */
+  var x0 = 0, moved = false, mouse = false;
+  box.addEventListener('pointerdown', function (e) {
+    if (e.button !== 0) return; drag = true; id = e.pointerId; x0 = e.clientX; moved = false; mouse = e.pointerType === 'mouse';
+    if (mouse) { e.preventDefault(); try { box.setPointerCapture(id); } catch (x) {} set(at(e), !e.target.closest('.bw-handle')); h.focus({ preventScroll: true }); }
+  });
+  box.addEventListener('pointermove', function (e) {
+    if (!drag || e.pointerId !== id) return;
+    if (!mouse && !moved) { if (Math.abs(e.clientX - x0) < 6) return; moved = true; try { box.setPointerCapture(id); } catch (x) {} }
+    set(at(e));
+  });
+  box.addEventListener('pointerup', function (e) { if (drag && !mouse && !moved && e.pointerId === id) set(at(e), true); drag = false; });
+  ['pointercancel', 'lostpointercapture'].forEach(function (t) { box.addEventListener(t, function () { drag = false; }); });
+  h.addEventListener('keydown', function (e) {
+    var k = e.key, step = e.shiftKey ? 20 : 5, v = null;
+    if (k === 'ArrowLeft' || k === 'ArrowDown') v = pos - step; else if (k === 'ArrowRight' || k === 'ArrowUp') v = pos + step;
+    else if (k === 'PageDown') v = pos - 20; else if (k === 'PageUp') v = pos + 20; else if (k === 'Home') v = 0; else if (k === 'End') v = 100;
+    if (v !== null) { e.preventDefault(); set(v); }
+  });
+  btns.forEach(function (b) { b.addEventListener('click', function () { var to = +b.getAttribute('data-to'); set(pos === to ? 50 : to, true); }); });
+  set(50);
+})();</script>
 <script src="case.js?v=8"></script>
-<script src="../v7/cs2.js?v=1" defer></script>
+<script src="../v7/cs2.js?v=2" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>
