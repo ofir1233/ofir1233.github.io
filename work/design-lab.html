@@ -37,14 +37,16 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=41">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<link rel="stylesheet" href="../v7/cs2.css?v=4">
+<link rel="stylesheet" href="../v7/cs2.css?v=5">
 <style>
 /* page-only rules for the Design Lab case, scoped under .c2 (the shared sheet is v7/cs2.css) */
-/* before and after: a tidy mockup beside the same screen's real numbers */
-.c2 .dl-mock{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; height:220px; }
-.c2 .dl-mock span{ display:flex; flex-direction:column; justify-content:space-between; padding:12px; border-radius:8px; background:#eceef0; }
-.c2 .dl-mock span::before{ content:""; width:70%; height:8px; border-radius:4px; background:#d5d9dd; }
-.c2 .dl-mock span::after{ content:"00"; font:600 26px/1 var(--body); color:#c2c7cc; }
+/* the hero: a crop of the built Topics screen beside its key, so it is not the same full screen as the comparison below */
+.c2 .dl-hfig{ display:grid; grid-template-columns:minmax(0, 1.55fr) minmax(0, 1fr); gap:clamp(24px, 3.5vw, 48px); align-items:end; }
+.c2 .dl-hfig .c2-key{ --n:1; margin-top:0; gap:20px; }
+.c2 .dl-hfig .c2-key li{ font-size:16.5px; }
+/* before and after: a still of the wireframe beside the same screen's real numbers */
+.c2 .dl-before{ border-radius:10px; overflow:hidden; box-shadow:0 0 0 1px #dfe2e5; }
+.c2 .dl-before img{ width:100%; aspect-ratio:2 / 1; object-fit:cover; opacity:.85; }
 .c2 .dl-tree{ display:grid; grid-template-columns:54fr 46fr; gap:6px; height:220px; }
 .c2 .dl-tree > div{ display:grid; gap:6px; }
 .c2 .dl-tree > div:first-child{ grid-template-rows:4412fr 3968fr; }
@@ -55,25 +57,38 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .dl-tree span.dk{ color:#fff; }
 .c2 .dl-legend{ display:flex; flex-wrap:wrap; gap:4px 12px; margin-top:12px; font:400 12.5px/1.2 var(--body); color:var(--mute); }
 .c2 .dl-legend i{ display:inline-block; width:14px; height:8px; margin-right:5px; border-radius:2px; background:var(--bg); vertical-align:0; }
-/* the wireframe / built slider (work/case.js .compare), with numbered pins that sit on the same feature in both designs */
-.c2 .compare{ margin-top:32px; }
+/* THE MOMENT: the wireframe / built slider (work/case.js .compare), with numbered pins that sit on the same feature in both designs.
+   The reader moves it: drag the line, arrow keys on it, or the three buttons. It never moves by itself (the script below tells
+   case.js the reader is in charge, so its one-time nudge does not run). A button glides the line in 350 ms; reduced motion jumps. */
+.c2 .compare{ margin-top:36px; }
 .c2 .compare .c2-pin{ z-index:3; pointer-events:none; }
-.c2 .compare .tag{ display:none; } /* the line below the picture says which side is which; a pill here covered the app's workspace name */
-.c2 .dl-drag{ margin-top:14px; font:400 15px/1.5 var(--body); color:var(--ink2); }
+.c2 .compare .tag{ display:none; } /* the line under the picture says which side is which; a pill here covered the app's workspace name */
+.c2 .compare.is-glide .after{ transition:clip-path .35s cubic-bezier(.3,.7,.2,1); }
+.c2 .compare.is-glide .handle{ transition:left .35s cubic-bezier(.3,.7,.2,1); }
+.c2 .dl-ctl{ display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px; margin-top:18px; }
+.c2 .dl-views{ display:inline-flex; padding:4px; border-radius:99px; background:#fff; box-shadow:inset 0 0 0 1px #cfd8e2; }
+.c2 .dl-views button{ min-height:40px; padding:0 16px; border:0; border-radius:99px; background:transparent; color:var(--ink2); font:600 14.5px/1 var(--body); cursor:pointer; }
+.c2 .dl-views button:hover{ color:var(--ink); }
+.c2 .dl-views button[aria-pressed="true"]{ background:var(--ink); color:#fff; }
+.c2 .dl-views button:focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
+.c2 .dl-drag{ font:400 15px/1.5 var(--body); color:var(--ink2); }
 .c2 .dl-drag b{ color:var(--ink); }
+.c2 .is-key .c2-key{ margin-top:26px; }
 @media (max-width:760px){ .c2 .compare .c2-pin{ left:var(--mx); } }
-@media (max-width:560px){ .c2 .c2-hero .c2-pin{ left:var(--hx, var(--x)); top:var(--my, var(--y)); } } /* the workspace pin clears the picture's top edge on a phone */
-/* three habits */
-.c2 .dl-how{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:14px; margin-top:32px; }
-.c2 .dl-how li{ padding:20px 22px 22px; border-radius:16px; background:var(--card); box-shadow:0 0 0 1px var(--line); }
-.c2 .dl-how b{ display:block; font:600 17px/1.3 var(--body); margin-bottom:8px; }
+/* how I keep it close to Hear: three habits, as a line of short notes, not three more boxes */
+.c2 .dl-how{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:18px 28px; margin-top:18px; }
+.c2 .dl-how li{ padding-top:14px; border-top:2px solid #cfd4d9; }
+.c2 .dl-how b{ display:block; font:600 17px/1.3 var(--body); margin-bottom:6px; }
 .c2 .dl-how span{ display:block; font:400 15.5px/1.5 var(--body); color:var(--ink2); }
+.c2 .dl-how-l{ max-width:60ch; margin-top:12px; font:400 17px/1.55 var(--body); color:var(--ink2); }
 .c2 .c2-dec + .c2-result{ margin-bottom:8px; }
 .c2 .c2-sec .c2-sub:first-of-type{ margin-top:36px; }
 .c2 .c2-sub + .c2-dec{ margin-top:16px; }
 .c2 .c2-stand a, .c2 .c2-result a{ color:var(--deep); text-underline-offset:3px; }
-@media (max-width:900px){ .c2 .dl-how{ grid-template-columns:1fr; } }
-@media (max-width:560px){ .c2 .dl-mock, .c2 .dl-tree{ height:240px; } .c2 .dl-tree span{ font-size:11.5px; padding:7px 8px; } .c2 .dl-tree span b{ left:8px; font-size:20px; } .c2 .dl-tree span small{ display:none; } }
+@media (max-width:900px){ .c2 .dl-how, .c2 .dl-hfig{ grid-template-columns:1fr; } .c2 .dl-hfig .c2-key{ margin-top:4px; } }
+@media (max-width:560px){ .c2 .dl-tree{ height:240px; } .c2 .dl-tree span{ font-size:11.5px; padding:7px 8px; } .c2 .dl-tree span b{ left:8px; font-size:20px; } .c2 .dl-tree span small{ display:none; }
+  .c2 .dl-views{ width:100%; } .c2 .dl-views button{ flex:1; padding:0 8px; } }
+@media (prefers-reduced-motion: reduce){ .c2 .compare.is-glide .after, .c2 .compare.is-glide .handle{ transition:none; } }
 </style>
 </head>
 <body>
@@ -94,16 +109,16 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <h1>I test Hear's designs on realistic data, before development</h1>
       <p class="c2-ctx">Hear is an AI platform that reads every call, chat and ticket in a contact center. On my own initiative, I rebuilt it in code as Hear Design Lab, so a design is judged on a customer's data and volume, not in a tidy mockup.</p>
       <dl class="c2-sum">
-        <div><dt>For</dt><dd>Anyone reviewing a Hear design: they look at a working screen, not a picture of one.</dd></div>
-        <div><dt>The problem</dt><dd>A static mockup shows one tidy state. A real screen has to hold up with each customer's data and volume.</dd></div>
-        <div><dt>What I did</dt><dd>Built the Lab from scratch, alone, with Claude Code: a sign-in, demo companies, and screens that hold more than one design.</dd></div>
-        <div><dt>Where it stands</dt><dd>Started in Feb 2026. As of Oct 2026 it has demo environments and version switches.</dd></div>
+        <div><dt>For</dt><dd>Whoever reviews a Hear design: they judge a working screen, not a picture of one.</dd></div>
+        <div><dt>The problem</dt><dd>A mockup shows one tidy state. A real screen has to hold up with each customer's data and volume.</dd></div>
+        <div><dt>What I did</dt><dd>Built the Lab, my working copy of Hear, from scratch and alone with Claude Code: a sign-in, made-up companies to test in, and screens that switch between designs.</dd></div>
+        <div><dt>Where it stands</dt><dd>Started in Feb 2026. The product screens across this site are shown in it, with demo data.</dd></div>
       </dl>
-      <figure class="c2-fig">
-        <div class="c2-shot"><img src="../img/v7s-topics-hi.webp?v=5" width="2560" height="1440" alt="Topics in Hear Design Lab, in the Northwind demo workspace: 22,150 calls across 13 topics, the five highest-volume topics as boxes sized by calls and colored by score, and a daily score for each topic." fetchpriority="high">
-          <span class="c2-pin" style="--x:9.4%;--y:4.3%;--my:7.5%" aria-hidden="true">1</span><span class="c2-pin" style="--x:28.5%;--y:25%;--hx:32%" aria-hidden="true">2</span><span class="c2-pin" style="--x:55%;--y:62%" aria-hidden="true">3</span></div>
+      <figure class="c2-fig dl-hfig">
+        <div class="c2-shot"><img src="../img/v7s-design-lab-topics.webp?v=1" width="1448" height="1376" alt="Part of the Topics screen in Hear Design Lab, in the Northwind demo workspace: 22,150 calls across 13 topics, and the five highest-volume topics as boxes sized by calls and colored by score." fetchpriority="high">
+          <span class="c2-pin" style="--x:19.4%;--y:4.6%" aria-hidden="true">1</span><span class="c2-pin" style="--x:52%;--y:26.5%" aria-hidden="true">2</span><span class="c2-pin" style="--x:55%;--y:55%" aria-hidden="true">3</span></div>
         <figcaption><ol class="c2-key">
-          <li><i aria-hidden="true">1</i><span><b>A demo company,</b> Northwind, with its own workspace, people and calls.</span></li>
+          <li><i aria-hidden="true">1</i><span><b>A demo company,</b> Northwind: made up, with its own workspace, people and calls.</span></li>
           <li><i aria-hidden="true">2</i><span><b>A customer's volume,</b> not a tidy sample: 22,150 calls across 13 topics.</span></li>
           <li><i aria-hidden="true">3</i><span><b>A screen that runs:</b> hover a box and it shows the three scores behind it.</span></li>
         </ol></figcaption>
@@ -119,9 +134,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <h2>A mockup shows one tidy state; a real screen has to carry a customer's data</h2>
       <p class="c2-lede">Each contact center brings its own data and volume. A picture of a screen can't show whether a design holds up under that, or what happens on a hover or a click. Trying it in the real product means development first.</p>
       <div class="c2-ba">
-        <div><h3>Before · a static mockup</h3>
-          <div class="dl-mock" aria-hidden="true"><span></span><span></span><span></span></div>
-          <p>One state, drawn to fit the frame. Nothing answers a hover or a click.</p></div>
+        <div><h3>Before · a design as a still picture</h3>
+          <div class="dl-before"><img src="../img/v7s-design-lab-wireframe.webp?v=1" width="1057" height="528" alt="A still of the Topics wireframe: gray boxes for Online Booking, Itinerary Questions, Changes and Cancellations and others, each with its calls and score." loading="lazy"></div>
+          <p>One state, one frame. A still can't say what a hover or a click does, or whether the screen holds another customer's volume.</p></div>
         <div><h3>After · the same screen in the Lab</h3>
           <div class="dl-tree" role="img" aria-label="The five highest-volume topics as boxes sized by calls: Online Booking, 4,412 calls, score 43; Trip Status, 3,968 calls, 63; E-ticket Delivery, 2,451 calls, 72; Itinerary Questions, 2,377 calls, 43; Changes and Cancellations, 2,206 calls, 34.">
             <div><span class="dk" style="--bg:#1a9cfa">Online Booking<small>4,412 calls</small><b>43</b></span><span style="--bg:#aad7f9">Trip Status<small>3,968 calls</small><b>63</b></span></div>
@@ -133,44 +148,24 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </section>
 
-  <section class="c2-sec" id="lab" data-ch="What the Lab is">
-    <div class="c2-w">
-      <p class="c2-n">What the Lab is</p>
-      <h2>Hear's product, rebuilt in code, with demo companies in place of customers</h2>
-      <p class="c2-lede">A demo environment stands in for one kind of customer: its own workspace, people, apps and calls. Northwind is one. The Lab is connected to an AI service, so its AI answers are realistic too.</p>
-      <div class="c2-steps">
-        <div class="c2-side">
-          <div class="c2-tabs" role="tablist" aria-label="Three steps into the Lab">
-            <button type="button" class="c2-tab" role="tab" id="t1" aria-controls="p1" aria-selected="true"><i>1</i><div><b>Sign in</b><span>The product's own sign-in. One sign-in leads into every demo environment.</span></div></button>
-            <button type="button" class="c2-tab" role="tab" id="t2" aria-controls="p2" aria-selected="false"><i>2</i><div><b>Pick a demo company</b><span>Each one is a workspace with its own team and apps. In Northwind, five apps, built by Maya, Dana, Sam and Tyler.</span></div></button>
-            <button type="button" class="c2-tab" role="tab" id="t3" aria-controls="p3" aria-selected="false"><i>3</i><div><b>Open a screen</b><span>Hear's screens, filled with the company's data. Some hold more than one design, on the same data.</span></div></button>
-          </div>
-        </div>
-        <div class="c2-stage">
-          <figure class="c2-panel" role="tabpanel" id="p1" aria-labelledby="t1"><div class="c2-shot wide"><img src="../img/v7s-studio-login.webp?v=3" width="2560" height="1440" alt="The Lab's sign-in screen: work email, password and Continue with Google, under the Hear mark drawn as a cloud, over a city." loading="lazy"></div><figcaption><b>Sign in.</b> The same door for every demo company.</figcaption></figure>
-          <figure class="c2-panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden><div class="c2-shot wide"><img src="../img/v7s-studio-apps.webp?v=3" width="2560" height="1440" alt="All apps in the Northwind workspace: Evaluation by agent, Disclosure review, Handle time by team, Compliance review, and Coaching queue, still a draft." loading="lazy"></div><figcaption><b>Northwind.</b> A demo company, with the apps its team built.</figcaption></figure>
-          <figure class="c2-panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden><div class="c2-shot wide"><img src="../img/v7s-topics-lo.webp?v=3" width="2560" height="1440" alt="Topics as a wireframe in the Northwind workspace: gray boxes sized by calls, each with its score, a daily score list, and four numbered notes in blue." loading="lazy"></div><figcaption><b>Topics,</b> in its wireframe design, on Northwind's 22,150 calls.</figcaption></figure>
-          <div class="c2-nav"><button type="button" data-go="-1" aria-label="Previous step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button><button type="button" data-go="1" aria-label="Next step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button><span aria-live="polite">1 of 3</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="c2-sec" id="test" data-ch="Testing a design">
+  <section class="c2-sec is-key" id="test" data-ch="Testing a design">
     <div class="c2-w">
       <p class="c2-n">Testing a design</p>
       <h2>Two designs of one screen, judged on the same numbers</h2>
-      <p class="c2-lede">Topics shows what customers called about and how each topic scored. Its wireframe and its built design run on the same demo data: same topics, same numbers. Only the design changes.</p>
+      <p class="c2-lede">Topics shows what customers called about and how each topic scored. In the Lab, its wireframe and its built design run on the same demo data: same topics, same numbers. Only the design changes.</p>
       <div class="compare shot v7s">
         <img src="../img/v7s-topics-lo.webp?v=3" alt="Topics as a wireframe: gray boxes sized by calls, each with its average score, a daily score list, and four numbered notes in blue" width="2560" height="1440" loading="lazy">
         <div class="after"><img src="../img/v7s-topics-hi.webp?v=5" alt="The same Topics screen, built: the boxes in one blue that deepens as the score drops, on a glass panel over a painted sky" width="2560" height="1440" loading="lazy"></div>
-        <span class="tag l">Wireframe</span><span class="tag r">Built</span>
-        <input type="range" min="0" max="100" value="80" aria-label="Drag to compare the wireframe and the built Topics screen">
+        <input type="range" min="0" max="100" value="50" aria-label="Compare the wireframe and the built Topics screen">
         <span class="handle" aria-hidden="true"></span>
-        <span class="live">Design Lab · demo data</span>
-        <span class="c2-pin" style="--x:31.5%;--y:15%;--mx:21.3%" aria-hidden="true">1</span><span class="c2-pin" style="--x:30%;--y:47%;--mx:19.3%" aria-hidden="true">2</span><span class="c2-pin" style="--x:46%;--y:70%;--mx:40.7%" aria-hidden="true">3</span><span class="c2-pin" style="--x:86%;--y:45%;--mx:94%" aria-hidden="true">4</span>
+        <span class="c2-pin" style="--x:31.5%;--y:15%;--mx:21.3%" aria-hidden="true">1</span><span class="c2-pin" style="--x:30%;--y:47%;--mx:19.3%" aria-hidden="true">2</span><span class="c2-pin" style="--x:27%;--y:76%;--mx:15.3%" aria-hidden="true">3</span><span class="c2-pin" style="--x:86%;--y:45%;--mx:94%" aria-hidden="true">4</span>
       </div>
-      <p class="dl-drag"><b>Wireframe on the left, built on the right.</b> Drag the line to move between them.</p>
+      <div class="dl-ctl">
+        <div class="dl-views" role="group" aria-label="Show the Topics screen as">
+          <button type="button" data-v="100" aria-pressed="false">Wireframe</button><button type="button" data-v="50" aria-pressed="true">Half and half</button><button type="button" data-v="0" aria-pressed="false">Built</button>
+        </div>
+        <p class="dl-drag"><b>Wireframe on the left, built on the right.</b> Drag the line, or pick a view.</p>
+      </div>
       <ol class="c2-key" style="--n:4">
         <li><i aria-hidden="true">1</i><span><b>The score is defined</b> before any number is shown.</span></li>
         <li><i aria-hidden="true">2</i><span><b>A box's size is its calls.</b> The darkest boxes need attention first.</span></li>
@@ -178,6 +173,34 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <li><i aria-hidden="true">4</i><span><b>The daily panel</b> lists the same topics, by day.</span></li>
       </ol>
       <p class="c2-result"><b>What the comparison shows:</b> the built screen keeps all four and adds one color. The deeper the blue, the lower the score.</p>
+    </div>
+  </section>
+
+  <section class="c2-sec" id="lab" data-ch="What the Lab is">
+    <div class="c2-w">
+      <p class="c2-n">What the Lab is</p>
+      <h2>Hear's product, rebuilt in code, with demo companies in place of customers</h2>
+      <p class="c2-lede">A demo company is made up. It stands in for one kind of customer, with its own workspace, people, apps and calls; Northwind is one. The Lab is connected to an AI service, so its AI answers are realistic too.</p>
+      <div class="c2-steps">
+        <div class="c2-side">
+          <div class="c2-tabs" role="tablist" aria-label="Two steps into the Lab">
+            <button type="button" class="c2-tab" role="tab" id="t1" aria-controls="p1" aria-selected="true"><i>1</i><div><b>Sign in</b><span>The product's own sign-in. One sign-in leads into every demo company.</span></div></button>
+            <button type="button" class="c2-tab" role="tab" id="t2" aria-controls="p2" aria-selected="false"><i>2</i><div><b>Pick a demo company</b><span>Each one is a workspace with its own team and apps. Northwind has five apps, built by Maya, Dana, Sam and Tyler, and its screens, like Topics, fill with its data.</span></div></button>
+          </div>
+        </div>
+        <div class="c2-stage">
+          <figure class="c2-panel" role="tabpanel" id="p1" aria-labelledby="t1"><div class="c2-shot wide"><img src="../img/v7s-studio-login.webp?v=3" width="2560" height="1440" alt="The Lab's sign-in screen: work email, password and Continue with Google, under the Hear mark drawn as a cloud, over a city." loading="lazy"></div><figcaption><b>Sign in.</b> The same door for every demo company.</figcaption></figure>
+          <figure class="c2-panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden><div class="c2-shot wide"><img src="../img/v7s-studio-apps.webp?v=3" width="2560" height="1440" alt="All apps in the Northwind workspace: Evaluation by agent, Disclosure review, Handle time by team, Compliance review, and Coaching queue, still a draft." loading="lazy"></div><figcaption><b>Northwind.</b> A demo company, with the apps its team built.</figcaption></figure>
+          <div class="c2-nav"><button type="button" data-go="-1" aria-label="Previous step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button><button type="button" data-go="1" aria-label="Next step"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button><span aria-live="polite">1 of 2</span></div>
+        </div>
+      </div>
+      <h3 class="c2-sub">Three habits keep it close to Hear</h3>
+      <p class="dl-how-l">I'm a designer with a background in code, and I build the Lab in React with Claude Code.</p>
+      <ol class="dl-how">
+        <li><b>Duplicate, compare, delete</b><span>A new idea gets its own copy of a screen while the original keeps working. Later, one of them goes.</span></li>
+        <li><b>Real names, made-up values</b><span>Screens use Hear's real field and metric names. Filters offer only the columns and values a table really has.</span></li>
+        <li><b>Reuse before inventing</b><span>New pages are built from parts the Lab already has. Settings uses only existing components.</span></li>
+      </ol>
     </div>
   </section>
 
@@ -191,38 +214,26 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div class="c2-opt is-chosen"><h3>A working copy of Hear <em>Chosen</em></h3><p>The product with its sign-in, navigation and demo data.</p></div>
       </div>
       <p class="c2-result"><b>Why:</b> I judge a design inside the screen it belongs to, with the data it has to carry. How the parts are documented is in the <a href="design-system.html#decisions">Design system</a> case.</p>
+      <h3 class="c2-sub">Trying new designs and showing finished ones: one space, or two?</h3>
+      <div class="c2-dec">
+        <div class="c2-opt"><h3>One space for everything <em>Set aside</em></h3><p>Keep adding every new page to my first version.</p></div>
+        <div class="c2-opt is-chosen"><h3>Two, behind one sign-in <em>Chosen</em></h3><p>A new space for experiments, copied from the first version. The first version stays as the demo, the version I show, with fewer screens.</p></div>
+      </div>
+      <p class="c2-result"><b>Why:</b> new work lands with the experiments first, and only some of it moves on to the demo.</p>
       <h3 class="c2-sub">A new design: its own page, or a switch on the screen?</h3>
       <div class="c2-dec">
         <div class="c2-opt"><h3>Its own page <em>Set aside</em></h3><p>A copy of the page, with its own item in the navigation, next to the original.</p></div>
-        <div class="c2-opt is-chosen"><h3>A switch on the screen <em>Chosen</em></h3><p>Five key screens carried a version switch on the screen itself.</p></div>
+        <div class="c2-opt is-chosen"><h3>A switch on the screen <em>Chosen</em></h3><p>Five key screens got a switch on the screen itself that swaps one design for another, while the data stays.</p></div>
       </div>
-      <p class="c2-result"><b>Why:</b> the design changes while the data and the view stay, so two versions are judged side by side.</p>
-      <h3 class="c2-sub">Experiments and demos: one space, or two?</h3>
-      <div class="c2-dec">
-        <div class="c2-opt"><h3>One space for everything <em>Set aside</em></h3><p>Keep adding every new page to my first version.</p></div>
-        <div class="c2-opt is-chosen"><h3>Two, behind one sign-in <em>Chosen</em></h3><p>A separate space for experiments, built from the first version. The first version stays as the demo, with a smaller set of screens.</p></div>
-      </div>
-      <p class="c2-result"><b>Why:</b> new work lands with the experiments first, and only some of it moves on to the demo.</p>
-    </div>
-  </section>
-
-  <section class="c2-sec" id="build" data-ch="How I build">
-    <div class="c2-w">
-      <p class="c2-n">How I build</p>
-      <h2>I build it in React with Claude Code, so a review looks at a working screen</h2>
-      <p class="c2-lede">I'm a designer with a background in code. Three habits keep the Lab close to Hear.</p>
-      <ol class="dl-how">
-        <li><b>Duplicate, compare, delete</b><span>A new idea gets its own copy of a screen while the original keeps working. Later, one of them goes.</span></li>
-        <li><b>Real fields, illustrative values</b><span>Screens use Hear's real field and metric names. Filters offer only columns and values the table has. I took out an invented "risk" idea.</span></li>
-        <li><b>Reuse before inventing</b><span>New pages are built from parts the Lab already has. Settings uses only existing components.</span></li>
-      </ol>
+      <p class="c2-result"><b>Why:</b> the data and the view stay put while the design changes, so two designs are judged side by side, as in the comparison above.</p>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
+      <h2 class="c2-stand-h">Built alone since February 2026; the product screens on this site are shown in it</h2>
       <div class="c2-stand">
-        <div><h3>Where it stands</h3><p>Started in February 2026. As of October 2026 the Lab has demo environments and version switches, and the demo with its smaller set of screens is still in development. The product screens across this site are shown in it, with demo data.</p></div>
+        <div><h3>Where it stands</h3><p>As of October 2026 the Lab has its demo companies and the design switches on five screens. The demo, the version I show with fewer screens, is still being built. The product screens across this site are shown in the Lab, with demo data.</p></div>
         <div><h3>My part</h3><p>I started it on my own initiative and built it alone, from scratch, with Claude Code.</p></div>
       </div>
     </div>
@@ -267,7 +278,17 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </div>
 </footer>
 <script src="case.js?v=8"></script>
-<script src="../v7/cs2.js?v=1" defer></script>
+<script>/* the comparison is moved only by the reader: drag, arrow keys on the line, or the three buttons */
+(function(){var box=document.querySelector('#test .compare'),r=box&&box.querySelector('input[type="range"]');if(!r)return;
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,btns=[].slice.call(document.querySelectorAll('#test .dl-views button')),t=0,gliding=false;
+r.dispatchEvent(new Event('pointerdown')); /* case.js would otherwise nudge the line once by itself; this tells it the reader is in charge */
+function mark(){var v=+r.value;r.setAttribute('aria-valuetext',v>=100?'Wireframe only':v<=0?'Built only':v+'% wireframe, '+(100-v)+'% built');btns.forEach(function(b){b.setAttribute('aria-pressed',String(+b.getAttribute('data-v')===v));});}
+r.addEventListener('input',function(){if(!gliding)box.classList.remove('is-glide');mark();});
+btns.forEach(function(b){b.addEventListener('click',function(){
+if(!reduce){box.classList.add('is-glide');clearTimeout(t);t=setTimeout(function(){box.classList.remove('is-glide');},400);}
+r.value=b.getAttribute('data-v');gliding=true;r.dispatchEvent(new Event('input',{bubbles:true}));gliding=false;});});
+mark();})();</script>
+<script src="../v7/cs2.js?v=2" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
 </html>
