@@ -36,10 +36,9 @@
 #system#system .sm-m::before{ flex:0 0 7cqi; }
 #system#system .sm-m::after{ margin-right:7cqi; }
 
-/* EXPRESSION, painted, and the spec that measures it */
+/* EXPRESSION, painted */
 #system#system .sm-ew{ position:relative; display:block; width:106%; margin:-.2cqi 0 0 -3%; transform:rotate(-1.6deg); transform-origin:10% 50%; }
 #system#system .sm-e{ display:block; width:100%; max-width:none; height:auto; margin:0; border-radius:0; }
-  box-shadow:0 0 0 1px rgba(11,111,207,.22), 0 2px 8px rgba(10,40,80,.08); font:500 12.5px/1 var(--body); letter-spacing:0; color:#181818; white-space:nowrap; }
 
 /* the words, unchanged, in his own voice (owner, 24.11: "a statement from the heart, in my words; it looks dry. Serif, and quotation
    marks, so it is clear these are my words"). Fraunces with its WONK and SOFT axes on: a serif that is itself a little imperfect.
@@ -49,8 +48,9 @@
 #system#system .sm-say{ margin:0; padding:0 0 1.2cqi; border:0; quotes:none; }
 #system#system .sm-say p{ margin:0; max-width:31em; font:350 19px/1.55 "Fraunces SME", Georgia, serif; font-optical-sizing:auto; letter-spacing:0; color:#3d444c; }
 #system#system .sm-say p.sm-lead{ position:relative; max-width:15em; margin-bottom:18px; font:400 clamp(27px, 2.4vw, 35px)/1.18 "Fraunces SME", Georgia, serif; letter-spacing:-.012em; color:#181818; }
-#system#system .sm-q{ position:absolute; right:100%; top:-.08em; padding-right:.08em; font-size:1.45em; line-height:1; color:#139FFD; }
-#system#system .sm-qc{ color:#139FFD; }
+/* the quotation marks are painted with the same brush as EXPRESSION (img/sme/quote-open|close.webp, 28KB each) */
+#system#system .sm-q{ position:absolute; right:calc(100% + 12px); top:-.02em; display:block; width:auto; max-width:none; height:1.45em; margin:0; border-radius:0; }
+#system#system .sm-qc{ display:inline-block; width:auto; max-width:none; height:.95em; margin:-.1em 0 0 .14em; vertical-align:top; border-radius:0; }
 
 /* the colour card follows the line it proves; the component wall comes after it */
 #system#system .sm + .tk{ margin-top:72px; }
@@ -100,7 +100,7 @@
   #system#system .sm-head{ grid-template-columns:minmax(0, 1fr); }
   #system#system .sm-say p{ font-size:17.5px; }
   #system#system .sm-say p.sm-lead{ font-size:27px; }
-  #system#system .sm-q{ font-size:1.2em; top:-.02em; }
+  #system#system .sm-q{ position:static; height:38px; margin:0 0 10px; }
   #system#system .sm-g{ left:0; right:0; }
   #system#system .sm-v.a{ left:0; }
   #system#system .sm-v.b{ left:calc(var(--fs) * 6.42); }
