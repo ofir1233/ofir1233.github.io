@@ -225,3 +225,13 @@
   .c2 .c2-flow li + li::before{ display:none; }
 }
 @media (min-width: 561px){ .c2 .c2-panhint{ display:none; } }
+
+/* ── round 3: the ending is one line the page has earned (from its moment), and one quiet line of status;
+   the two-column "Where it stands" block no longer repeats on every page ── */
+.c2 .c2-coda{ max-width:21ch; font:700 clamp(30px, 4.2vw, 58px)/1.06 var(--body); letter-spacing:-.028em; color:var(--ink); text-wrap:balance; }
+.c2 .c2-coda em{ font-style:normal; color:var(--deep); }
+.c2 .c2-status{ max-width:62ch; margin-top:20px; padding-top:16px; border-top:1px solid var(--line); font:400 15.5px/1.55 var(--body); color:var(--mute); }
+.c2 .c2-status b{ color:var(--ink2); font-weight:600; }
+/* a decision that is not the page's key one: a plain line, not two cards */
+.c2 .c2-note{ max-width:62ch; margin-top:22px; padding-left:16px; border-left:2px solid #cfd4d9; font:400 16.5px/1.55 var(--body); color:var(--ink2); }
+.c2 .c2-note b{ color:var(--ink); }
