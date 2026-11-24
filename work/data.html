@@ -16,12 +16,12 @@ addEventListener('load',function(){setTimeout(function(){if('scrollRestoration' 
 addEventListener('hashchange',function(){setTimeout(strip,0);});
 addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
 }catch(e){}})();</script>
-<title>Data &amp; Signals · Ofir Nona</title>
+<title>Data · Ofir Nona</title>
 <meta name="description" content="I designed Data for Hear, an AI platform for contact centers: one table of every call, and a filter you ask in plain words that becomes chips you can read and remove.">
 <meta name="theme-color" content="#f4f3f1">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/data.html">
-<meta property="og:title" content="Data &amp; Signals · Ofir Nona">
+<meta property="og:title" content="Data · Ofir Nona">
 <meta property="og:description" content="I designed Data for Hear, an AI platform for contact centers: one table of every call, and a filter you ask in plain words that becomes chips you can read and remove.">
 <meta property="og:image" content="https://ofir1233.github.io/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -37,45 +37,50 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=41">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<link rel="stylesheet" href="../v7/cs2.css?v=5">
+<link rel="stylesheet" href="../v7/cs2.css?v=6">
 <style>
 /* data, page only: the plain-words filter drawn in HTML from the screen's own example (the sentence, its three chips, the count as
-   each one lands), live: the reader removes a chip and the count widens. And a three-step timeline for the three designs.
-   Everything scoped under .c2. */
-.c2 .d-ask{ display:flex; align-items:flex-start; gap:12px; padding:16px 18px; border-radius:14px; background:#f6f8fb; box-shadow:inset 0 0 0 1px var(--line); font:500 18px/1.6 var(--body); color:var(--ink); }
+   each one lands), live: the reader removes a chip and the count widens. Cause (the sentence and its chips) sits on the left, effect
+   (the count and the table's foot) on the right. The chips speak the page's blue; only the sparkle keeps the product's own AI purple,
+   as on the still. Everything scoped under .c2. */
+.c2 .d-ask{ display:flex; align-items:flex-start; gap:12px; padding:16px 18px; border-radius:14px; background:#fff; box-shadow:inset 0 0 0 1px var(--line); font:500 18px/1.6 var(--body); color:var(--ink); }
 .c2 .d-ask svg{ flex:none; width:18px; height:18px; margin-top:5px; color:#7b4fd6; }
-.c2 .d-ask u{ text-decoration:none; border-bottom:2px solid #a98be6; padding-bottom:1px; }
-.c2 .d-ask sup, .c2 .d-chip sup{ display:inline-grid; place-items:center; width:17px; height:17px; margin:0 1px 0 3px; border-radius:50%; background:var(--ink); color:#fff; font:600 10.5px/1 var(--body); vertical-align:3px; }
-.c2 .d-ask u.is-off{ color:var(--mute); border-bottom-color:transparent; text-decoration:line-through; text-decoration-color:#a98be6; text-decoration-thickness:2px; }
-.c2 .d-ask u{ transition:color .2s, border-color .2s; }
-.c2 .c2-ba .d-ask + p{ margin-top:16px; }
-/* the moment: the chips are toggle buttons. They come off last first (and go back on in order), because the page holds the count
-   for exactly those steps: 2,000, 318, 141, 86. No other mix is ever shown, so no number here is computed. */
-.c2 .d-try .d-how{ margin:0 0 14px; font:400 15px/1.45 var(--body); color:var(--ink2); }
-.c2 .d-how b{ color:var(--deep); }
+.c2 .d-ask u{ text-decoration:none; border-bottom:2px solid #8cc4f5; padding-bottom:1px; transition:color .2s, border-color .2s; }
+.c2 .d-ask sup, .c2 .d-chip sup{ display:inline-grid; place-items:center; width:17px; height:17px; margin:0 1px 0 3px; border-radius:50%; background:var(--deep); color:#fff; font:600 10.5px/1 var(--body); vertical-align:3px; }
+.c2 .d-ask u.is-off + sup{ background:#9aa6b2; }
+.c2 .d-ask u.is-off{ color:var(--mute); border-bottom-color:transparent; text-decoration:line-through; text-decoration-color:#8cc4f5; text-decoration-thickness:2px; }
+/* the moment: two even cards. The chips are toggle buttons. They come off last first (and go back on in order), because the page holds
+   the count for exactly those steps: 2,000, 318, 141, 86. No other mix is ever shown, so no number here is computed. */
+.c2 .d-try{ grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); align-items:stretch; }
+.c2 .d-try > div{ padding:26px 28px 28px; }
+.c2 .d-try > div:first-child{ background:rgba(255,255,255,.55); box-shadow:0 0 0 1px var(--line); }
+.c2 .d-try h3 + .d-ask{ margin-top:0; }
+.c2 .d-try > div:first-child .d-ask{ color:var(--ink); }
+.c2 .d-try > div:first-child .d-how{ color:var(--ink2); }
+.c2 .d-try h3.d-then{ margin-top:30px; }
+.c2 .d-try .d-how{ margin:16px 0 0; font:400 15px/1.5 var(--body); color:var(--ink2); }
 .c2 .d-chips{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
-.c2 .d-chip{ display:inline-flex; align-items:center; gap:6px; min-height:40px; padding:0 12px 0 9px; border:1px solid #d9cdf5; border-radius:99px; background:#f1ecfc; font:400 15px/1 var(--body); color:var(--ink2); cursor:pointer;
+.c2 .d-chip{ display:inline-flex; align-items:center; gap:6px; min-height:40px; padding:0 12px 0 9px; border:1px solid #b9dcfa; border-radius:99px; background:#eaf4fe; font:400 15px/1 var(--body); color:var(--ink2); cursor:pointer;
   transition:background .2s, border-color .2s, color .2s, opacity .2s; }
 .c2 .d-chip sup{ margin:0; vertical-align:0; transition:background .2s; }
 .c2 .d-chip b{ color:var(--ink); font-weight:600; transition:color .2s; }
 .c2 .d-chip svg{ display:none; width:15px; height:15px; flex:none; }
-.c2 .d-chip.is-last{ background:#e7ddfb; border-color:#b9a2ee; }
+.c2 .d-chip.is-last{ background:#d6eafd; border-color:#7fbcf3; }
 .c2 .d-chip.is-last .x{ display:block; color:var(--ink); }
-.c2 .d-chip.is-last:hover{ background:#dccdfa; }
-.c2 .d-chip[aria-pressed="false"]{ background:transparent; border-style:dashed; border-color:#b9a2ee; color:var(--mute); }
+.c2 .d-chip.is-last:hover{ background:#c7e2fc; }
+.c2 .d-chip[aria-pressed="false"]{ background:transparent; border-style:dashed; border-color:#8cc4f5; color:var(--mute); }
 .c2 .d-chip[aria-pressed="false"] b{ color:var(--mute); font-weight:500; }
-.c2 .d-chip[aria-pressed="false"] sup{ background:#a59fb3; }
+.c2 .d-chip[aria-pressed="false"] sup{ background:#9aa6b2; }
 .c2 .d-chip[aria-pressed="false"]:not(:disabled) .plus{ display:block; color:var(--deep); }
-.c2 .d-chip[aria-pressed="false"]:not(:disabled):hover{ background:#f6f2fd; }
+.c2 .d-chip[aria-pressed="false"]:not(:disabled):hover{ background:#f1f8ff; }
 .c2 .d-chip[aria-pressed="false"]:disabled{ opacity:.45; }
 .c2 .d-chip:disabled{ cursor:default; }
 .c2 .d-chip:focus-visible, .c2 .d-reset:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
 .c2 .d-reset{ min-height:40px; margin-left:4px; padding:0 12px; border:0; border-radius:99px; background:none; font:600 14.5px/1 var(--body); color:var(--deep); cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
 .c2 .d-reset:disabled{ color:var(--mute); opacity:.5; text-decoration:none; cursor:default; }
-.c2 .d-try .d-total{ display:grid; justify-items:start; gap:6px; margin-top:24px; }
+.c2 .d-try .d-total{ display:grid; justify-items:start; gap:6px; margin-top:0; }
 .c2 .d-num{ font:700 clamp(44px, 4.6vw, 60px)/1 var(--body); letter-spacing:-.03em; color:var(--ink); font-variant-numeric:tabular-nums; }
-.c2 .d-total span{ font:600 13px/1.3 var(--body); letter-spacing:.02em; color:var(--mute); }
-.c2 .d-try > div:first-child{ align-self:start; }
+.c2 .d-total span{ font:600 13px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); }
 .c2 .d-count{ display:grid; grid-template-columns:auto 1fr; gap:6px 14px; margin-top:16px; align-items:center; font:400 15px/1.35 var(--body); color:var(--ink2); }
 .c2 .d-count > li{ display:contents; }
 .c2 .d-count b{ display:inline-grid; place-items:center; justify-self:end; min-width:62px; height:32px; padding:0 10px; border-radius:8px; font:600 17px/1 var(--body); color:var(--ink); font-variant-numeric:tabular-nums; transition:background .2s, color .2s, opacity .2s; }
@@ -90,14 +95,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .d-foot b{ display:block; font:600 20px/1.1 var(--body); color:var(--ink); }
 .c2 .d-foot b small{ font:400 14.5px/1 var(--body); color:var(--mute); }
 .c2 .d-say{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
-.c2 .d-try > div:last-child{ padding:26px 28px 28px; }
-.c2 .d-ver{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
-.c2 .d-ver em{ display:inline-block; margin-top:12px; padding:4px 9px; border-radius:99px; background:#e9ecef; font:600 12px/1 var(--body); font-style:normal; color:var(--ink2); }
-.c2 .d-ver li.on em{ background:#e3f1fe; color:var(--deep); }
-
-.c2 .d-ver + .c2-result{ margin-top:36px; }
-@media (max-width: 900px){ .c2 .d-ver{ grid-template-columns:1fr; } .c2 .d-ver li::before{ display:none; } }
-@media (max-width: 560px){ .c2 .c2-hero .c2-pin.d-p4{ top:25.9%; } .c2 .d-ask{ font-size:16.5px; } .c2 .d-foot > div{ grid-template-columns:1fr; } .c2 .d-try > div:last-child{ padding:20px 18px 22px; } .c2 .d-chip{ font-size:14.5px; } }
+@media (max-width: 900px){ .c2 .d-try{ grid-template-columns:1fr; } }
+@media (max-width: 560px){ .c2 .c2-hero .c2-pin.d-p4{ top:25.9%; } .c2 .d-ask{ font-size:16.5px; } .c2 .d-foot > div{ grid-template-columns:1fr; } .c2 .d-try > div{ padding:20px 18px 22px; } .c2 .d-try h3.d-then{ margin-top:24px; } .c2 .d-chip{ font-size:14.5px; } }
 </style>
 </head>
 <body>
@@ -105,7 +104,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <header class="topbar">
   <div class="wrap">
     <a class="home" href="../index.html#product" aria-label="Ofir Nona. Back to all work">Ofir Nona<span>.</span></a>
-    <p class="tb-run" aria-hidden="true"><b class="tb-case">Data &amp; Signals</b><span class="tb-ch"></span></p>
+    <p class="tb-run" aria-hidden="true"><b class="tb-case">Data</b><span class="tb-ch"></span></p>
     <nav aria-label="Case studies"><a class="tb-link tb-all" href="../index.html#product">All work</a><a class="tb-link pill-cv" href="../ofir-nona-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a><a class="pill solid" href="design-system.html" aria-label="Next case: Design system"><span class="tb-nx">Next: Design system</span><span class="tb-nxs" aria-hidden="true">Next</span></a></nav>
   </div>
   <span class="progress" aria-hidden="true"></span>
@@ -114,14 +113,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <main id="main" class="c2">
   <header class="c2-hero">
     <div class="c2-w">
-      <p class="c2-kick">Case study · <b>Data &amp; Signals</b></p>
+      <p class="c2-kick">Case study · <b>Data</b></p>
       <h1>Finding the few calls that matter among thousands</h1>
       <p class="c2-ctx">Hear, an AI platform for contact centers, keeps every call in one table; I designed that table and a filter you can ask in plain words.</p>
       <dl class="c2-sum">
-        <div><dt>For</dt><dd>People who go through a contact center's calls to see which need review, which are urgent and what happened on each.</dd></div>
+        <div><dt>For</dt><dd>People sorting a contact center's calls: what needs review, what is urgent.</dd></div>
         <div><dt>The problem</dt><dd>Thousands of calls, and only a handful that answer the question in hand.</dd></div>
-        <div><dt>What I did</dt><dd>Designed and built the call table in three designs, and a filter that turns a sentence into chips you can read and remove.</dd></div>
-        <div><dt>Where it stands</dt><dd>Designed and built Mar–Oct 2026 in Hear Design Lab, my working copy of Hear, on demo data.</dd></div>
+        <div><dt>What I did</dt><dd>The call table, and a filter that turns a sentence into chips you can remove.</dd></div>
+        <div><dt>Where it stands</dt><dd>In Hear Design Lab, my working copy of Hear, built in code, on demo data.</dd></div>
       </dl>
       <figure class="c2-fig">
         <div class="c2-shot"><img src="../img/v7s-data-table.webp?v=6" width="2060" height="1327" alt="The Data screen: tabs with counts (All calls 2,000, Needs review 148, High priority 62, Alerts 17, Done 1,204), a box that says Filter in plain words, then the date range, Filter and Columns, and the call table. Each row has the call's topic and a one-line summary, its date, status, priority, who has it, direction, length, sentiment and score; three refund calls carry a small warning sign." fetchpriority="high">
@@ -130,7 +129,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
           <li><i aria-hidden="true">1</i><span><b>Tabs slice the same table:</b> 148 calls need review, 62 are high priority, 17 have alerts.</span></li>
           <li><i aria-hidden="true">2</i><span><b>Filter in plain words.</b> Type the question; it becomes filters.</span></li>
           <li><i aria-hidden="true">3</i><span><b>Each row says what happened:</b> the topic and a one-line summary lead.</span></li>
-          <li><i aria-hidden="true">4</i><span><b>A warning sign</b> marks a call where an alert fired.</span></li>
+          <li><i aria-hidden="true">4</i><span><b>A warning sign:</b> an alert went off. Alerts are checks the team sets, which fire on a call.</span></li>
         </ol></figcaption>
       </figure>
       <div class="c2-live"><button type="button" class="c2-btn" data-live="../hear-v7/plan/studio.html?screen=data&amp;v=202" data-title="Data, the live screen in Hear Design Lab" data-open="Try the live screen" data-close="Close the live screen" aria-expanded="false" aria-controls="live-d"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .5.6.8 1 .5l8-5.2a.6.6 0 0 0 0-1L5.5 2.3c-.4-.3-1 0-1 .5z"/></svg><span class="c2-bt">Try the live screen</span></button><small>The real screen, with demo data.</small></div>
@@ -142,14 +141,14 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The setting</p>
       <h2>Every call a contact center takes ends up as a row in one table</h2>
-      <p class="c2-lede">"Agents" are the people who answer customer calls. Hear reads each call, and Data is where all of them can be found again.</p>
+      <p class="c2-lede">Agents are the people who answer the calls. Hear reads each call, and Data is where all of them can be found again.</p>
       <ol class="c2-flow">
         <li><b>Calls</b><span>Agents take customer calls all day. New ones arrive while older ones are still processing.</span></li>
         <li><b>Hear reads every call</b><span>Each gets a topic, a one-line summary, a sentiment and a score. Some set off an alert.</span></li>
         <li class="is-me"><em>My screens</em><b>One table of every call</b><span>Tabs, filters and columns to find the right ones.</span></li>
         <li><b>A person opens a call</b><span>It opens in a side panel next to the table, to read what happened.</span></li>
       </ol>
-      <p class="c2-result">Beside the table I also designed <b>Signals</b>: classifiers, AI or rule-based, that keep running on the calls when no one is filtering, with the ones triggered now at the top.</p>
+      <p class="c2-result">Beside the table I also designed <b>Signals</b>, labels Hear puts on calls, by AI or by rule; they keep running when no one is filtering, and the ones triggered now sit at the top.</p>
     </div>
   </section>
 
@@ -171,19 +170,19 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">Asking in plain words</p>
       <h2>A sentence becomes filters you can read, check and remove</h2>
-      <p class="c2-lede">The AI's reading never hides. Each phrase turns into an ordinary chip in the filter bar, built only from columns and values the table really holds, so a wrong guess is one click to remove.</p>
+      <p class="c2-lede">The AI's reading never hides. Each phrase turns into an ordinary chip in the filter bar, built only from columns and values the table really holds.</p>
       <div class="c2-ba d-try" data-try>
         <div><h3>You type</h3>
           <p class="d-ask"><svg viewBox="0 0 18 18" fill="currentColor" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span><u>refund calls</u><sup>1</sup> <u>over 5 minutes</u><sup>2</sup> where the customer was <u>unhappy</u><sup>3</sup></span></p>
-          <p>Into the one box above the table, Filter in plain words. A phrase whose chip is removed is struck through here.</p></div>
-        <div><h3>It becomes</h3>
-          <p class="d-how" id="d-how"><b>Try it:</b> remove a chip, then add it back. Here they come off last first, so every count shown is the screen's own.</p>
+          <h3 class="d-then">It becomes three filters</h3>
           <div class="d-chips" role="group" aria-label="The three filters" aria-describedby="d-how">
             <button type="button" class="d-chip" aria-pressed="true" aria-label="Topic: Refunds &amp; Credits"><sup aria-hidden="true">1</sup>Topic <b>Refunds &amp; Credits</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
             <button type="button" class="d-chip" aria-pressed="true" aria-label="Length: over 5 minutes"><sup aria-hidden="true">2</sup>Length <b>over 5 min</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
             <button type="button" class="d-chip is-last" aria-pressed="true" aria-label="Sentiment: Negative"><sup aria-hidden="true">3</sup>Sentiment <b>Negative</b><svg class="x" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="plus" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
             <button type="button" class="d-reset" disabled>Reset</button>
           </div>
+          <p class="d-how" id="d-how">Chips come off in reverse order, so each count is one the real screen shows: 2,000, 318, 141, 86.</p></div>
+        <div>
           <p class="d-total"><span>Calls that match</span><b class="d-num">86</b></p>
           <ol class="d-count" aria-label="How the count narrows">
             <li class="is-past"><b>2,000</b><i>every call in the last 90 days</i></li>
@@ -200,40 +199,23 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </section>
 
-  <section class="c2-sec" id="versions" data-ch="Where filters live">
-    <div class="c2-w">
-      <p class="c2-n">Where filters live</p>
-      <h2>I retired the filter popover; two newer designs run on the same calls</h2>
-      <p class="c2-lede">I never redesigned Data in place. Each new design was a copy beside the last, so a switch on the screen shows the strip or the column filter on the same calls.</p>
-      <ol class="c2-flow d-ver">
-        <li><b>March · A filter popover</b><span>Ready-made sets in a dropdown, filters as chips, and a popover to build one, with an explicit Apply.</span><em>Retired</em></li>
-        <li class="on"><b>May · A filter strip</b><span>Filters move into one strip that can fold away, with a box to describe what you want.</span><em>Still runs</em></li>
-        <li class="on"><b>June · Start from a column</b><span>Click a column and its filter opens in place, so choosing a column is the first step of filtering it.</span><em>Still runs</em></li>
-      </ol>
-      <p class="c2-result"><b>Saving a view:</b> change any filter and the bar says Unsaved changes, with Reset and Save as view beside it.</p>
-    </div>
-  </section>
-
   <section class="c2-sec" id="decision" data-ch="The key decision">
     <div class="c2-w">
       <p class="c2-n">The key decision</p>
       <h2>Filters wait for Apply, so the table changes once, not on every click</h2>
       <div class="c2-dec">
-        <div class="c2-opt"><h3>Filter on every change <em>Set aside</em></h3><p>Tried on the March design in June, without the Apply button: every click ran the filter at once, while the filter was still being built.</p></div>
+        <div class="c2-opt"><h3>Filter on every change <em>Set aside</em></h3><p>Tried in June on an earlier design, without the Apply button: every click ran the filter at once, while the filter was still being built.</p></div>
         <div class="c2-opt is-chosen"><h3>An explicit Apply <em>Chosen</em></h3><p>Set up the conditions, then run them once. The shared filter from the Alerts page, which Data now uses, works the same way.</p></div>
       </div>
       <p class="c2-result"><b>Why:</b> building a filter takes several clicks. With Apply, the table changes once, when the filter is finished, not after every tick.</p>
+      <p class="c2-note"><b>Where filters live:</b> two designs, a filter strip and start-from-a-column, still run side by side on the same calls.</p>
     </div>
   </section>
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
-      <p class="c2-n">Where it stands</p>
-      <h2 class="c2-stand-h">Designed and built in the Lab, on demo data</h2>
-      <div class="c2-stand">
-        <div><h3>Status</h3><p>The strip and the column filter both still run in the Lab, side by side on the same calls; the March popover is retired.</p></div>
-        <div><h3>My part</h3><p>I designed and built Data and Signals, from March to October 2026, with Claude Code.</p></div>
-      </div>
+      <p class="c2-coda">The AI guesses; a wrong guess is <em>one click to remove.</em></p>
+      <p class="c2-status"><b>Where it stands:</b> in the Lab, on demo data. I designed and built Data and Signals there, March to October 2026, with Claude Code.</p>
     </div>
   </section>
   <div class="c2-w c2-next">
