@@ -142,7 +142,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 <link rel="stylesheet" href="screens/screens.css?v=73">
 
 <div class="stage s1 v2 brand-powered" id="stage">
-  <img class="bg" draggable="false" src="login/bg-calm-sky.jpg" alt="">
+  <img class="bg" draggable="false" src="login/bg-calm-sky-1600.webp" alt="" decoding="async">
 
   <aside class="side">
     <div class="side__top"><button type="button" class="ws" id="ws" data-tip="Northwind" aria-label="Workspace: Northwind. Switch workspace"><b class="ws__mark">N</b><span class="ws__name">Northwind</span><svg class="i ws__chev" viewBox="0 0 18 18"><path d="M6 7.5l3-3 3 3M6 10.5l3 3 3-3"/></svg></button><button type="button" class="tgl" id="tgl"><svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="3" width="13" height="12" rx="3"/><path d="M7 3v12"/></svg></button></div>
@@ -219,7 +219,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
      עובד ועושה איתך תהליך יצירה … loop animation עדין … רגע של celebration"). The painting is his approved "Hear Studio" parade. -->
 <div class="welcome" id="welcome" hidden>
   <div class="welcome__card" role="dialog" aria-modal="true" aria-labelledby="wl-t" tabindex="-1">
-    <div class="welcome__art"><video src="login/welcome-parade-loop.mp4" poster="login/welcome-parade-loop.jpg" autoplay muted loop playsinline preload="auto" aria-label="A city parade with Hear Studio written in balloons"></video><!-- the painting alive: his pick (11-19): the ORIGINAL Omni clip (v1), only its steady middle (1.5 s–5 s, where the band marks time), played forward then backward (7 s), so it never jumps --><canvas id="confetti" aria-hidden="true"></canvas></div>
+    <div class="welcome__art"><video data-src="login/welcome-parade-loop.mp4" muted loop playsinline preload="none" aria-label="A city parade with Hear Studio written in balloons"></video><!-- the painting alive: his pick (11-19): the ORIGINAL Omni clip (v1), only its steady middle (1.5 s–5 s, where the band marks time), played forward then backward (7 s), so it never jumps --><canvas id="confetti" aria-hidden="true"></canvas></div>
     <div class="welcome__text">
       <h2 id="wl-t">Meet Hear Studio</h2>
       <p>Describe the app your team needs. Hear builds it from your conversations, and you change it in plain words.</p>
@@ -763,7 +763,7 @@ const Confetti=(function(){
   wl.addEventListener('pointermove',e=>{ if(e.pointerType!=='mouse') return; const r=card.getBoundingClientRect();
     tx=Math.max(-1,Math.min(1,(e.clientX-(r.left+r.width/2))/(r.width/2))); ty=Math.max(-1,Math.min(1,(e.clientY-(r.top+r.height/2))/(r.height/2))); go() });
   wl.addEventListener('pointerleave',()=>{ tx=0; ty=0; go() }); })();
-function openWelcome(){ const v=wl.querySelector('video'); if(v){ if(calmMotion){ v.removeAttribute('autoplay'); v.pause() } else { v.currentTime=0; v.play().catch(()=>{}) } }
+function openWelcome(){ const v=wl.querySelector('video'); if(v){ if(!v.getAttribute('src')&&v.dataset.src){ v.poster='login/welcome-parade-loop.jpg'; v.src=v.dataset.src } if(calmMotion){ v.removeAttribute('autoplay'); v.pause() } else { v.currentTime=0; v.play().catch(()=>{}) } }
   wl.hidden=false; wl.classList.remove('is-out'); wl.classList.add('is-in'); zoomUI();
   requestAnimationFrame(()=>{ Confetti.start(); setTimeout(()=>Confetti.burst(90),450) }); setTimeout(()=>document.querySelector('.welcome__card').focus({preventScroll:true}),60) }      // focus the dialog, not the button: no focus ring on arrival
 function closeWelcome(then){ wl.classList.add('is-out'); setTimeout(()=>{ wl.hidden=true; wl.classList.remove('is-in','is-out'); Confetti.stop(); if(then) then() },300) }

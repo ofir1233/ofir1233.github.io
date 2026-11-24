@@ -9,8 +9,9 @@
       x += (gx - x) * .12; y += (gy - y) * .12;
       st.style.setProperty('--tx', x.toFixed(4)); st.style.setProperty('--ty', y.toFixed(4));
       raf = (Math.abs(gx - x) + Math.abs(gy - y) > .002) ? requestAnimationFrame(tick) : 0;
+      if (!raf && !gx && !gy) st.classList.remove('sa-live');
     }
-    function go(a, b) { gx = a; gy = b; if (!raf) raf = requestAnimationFrame(tick); }
+    function go(a, b) { gx = a; gy = b; if (a || b) st.classList.add('sa-live'); if (!raf) raf = requestAnimationFrame(tick); }
     if (fine) {
       card.addEventListener('pointermove', function (e) {
         var r = card.getBoundingClientRect();

@@ -22,7 +22,9 @@
     -webkit-mask: url(../img/spot-brush-l.png?v=2) 0 0 / 100% 100% no-repeat; mask: url(../img/spot-brush-l.png?v=2) 0 0 / 100% 100% no-repeat; }
   #product .spot:nth-of-type(even) .sa-stage{ left: auto; right: 0;
     -webkit-mask: url(../img/spot-brush-r.png?v=2) 0 0 / 100% 100% no-repeat; mask: url(../img/spot-brush-r.png?v=2) 0 0 / 100% 100% no-repeat; }
-  #product .spot .sa-stage img{ position: absolute; left: -4%; top: calc(var(--sa-dy, 0%) - 4%); width: 108%; height: 108%; max-width: none; object-fit: cover; object-position: 50% 78%; will-change: transform; }
+  #product .spot .sa-stage img{ position: absolute; left: -4%; top: calc(var(--sa-dy, 0%) - 4%); width: 108%; height: 108%; max-width: none; object-fit: cover; object-position: 50% 78%; }
+  /* a layer of its own only while it moves; at rest the scene is drawn once into the card */
+  #product .spot .sa-stage.sa-live img{ will-change: transform; }
   #product .spot .sa-back{ transform: translate(calc(var(--tx, 0) * -2.4%), calc(var(--ty, 0) * -2%)); }
   #product .spot .sa-near{ transform: translate(calc(var(--tx, 0) * -.6%), calc(var(--ty, 0) * -.5%)) scale(1.01); }
 }

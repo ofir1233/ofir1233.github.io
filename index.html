@@ -2447,7 +2447,9 @@ html:has(#system .dsx[open]):where(:not(.lx-app, .lx-app *)){ overflow: hidden; 
 @media (max-width: 760px) { #product .ep-xb:where(:not(.lx-app, .lx-app *)), #product .shot.win .bar .ep-t:where(:not(.lx-app, .lx-app *)){ display: none; } }
 @media (min-width: 861px) {
   #product.r8-stack .spot .ep-veil:where(:not(.lx-app, .lx-app *)){ display: block; position: absolute; inset: -1px; z-index: 3; border-radius: inherit; background: var(--ink); opacity: 0; pointer-events: none; }
-  #product.r8-stack .spot:where(:not(.lx-app, .lx-app *)){ will-change: scale; }
+  /* no standing layer per card (it held every card's painting and app window in graphics memory); a card under the next one
+     draws only its white and its edge */
+  #product.r8-stack .spot.r8-under > .spot-art, #product.r8-stack .spot.r8-under > .media, #product.r8-stack .spot.r8-under > .txt{ visibility: hidden; }
   /* index pill: a coral hairline under the current card's label grows with its progress */
   #product .pf-idx button:where(:not(.lx-app, .lx-app *)){ position: relative; }
   #product .pf-idx button:where(:not(.lx-app, .lx-app *))::after{ content: ""; position: absolute; left: 13px; right: 13px; bottom: 3px; height: 1.5px; border-radius: 2px; background: var(--coral); opacity: 0; transform: scaleX(var(--pp, 0)); transform-origin: 0 50%; transition: opacity .3s; }
@@ -3921,7 +3923,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <link rel="stylesheet" href="v7/code.css?v=223">
 <link rel="stylesheet" href="v7/design-lab.css?v=224">
 <link rel="stylesheet" href="v7/topics.css?v=20">
-<link rel="stylesheet" href="v7/product.css?v=231">
+<link rel="stylesheet" href="v7/product.css?v=232">
 <link rel="stylesheet" href="v7/system.css?v=222">
 <link rel="stylesheet" href="v7/web-fyi.css?v=2240">
 <link rel="stylesheet" href="v7/fyi-door.css?v=3">
@@ -3933,7 +3935,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <link rel="stylesheet" href="v7/path.css?v=223">
 <link rel="stylesheet" href="v7/site.css?v=224">
 <link rel="stylesheet" href="v7/corners.css?v=221">
-<link rel="stylesheet" href="v7/spot-art.css?v=18">
+<link rel="stylesheet" href="v7/spot-art.css?v=19">
 <link rel="stylesheet" href="v7/close.css?v=222">
 <noscript><style>html #contact#contact .cl-pic{background-image:url(img/end-harbour.webp) !important}html #contact#contact .cl-stamp u{background-image:url(img/end-harbour-1152.webp) !important}</style></noscript>
 <link rel="stylesheet" href="v7/short.css?v=221">
@@ -4090,8 +4092,8 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
             <div class="tp-sheet" aria-hidden="true"></div>
             <div class="tp-frame" aria-hidden="true"></div>
             <div class="hs-win">
-              <iframe class="hs-app tp-lo" src="hear-v7/plan/studio.html?topics=lo&v=201" loading="lazy" title="Hear Studio, the Topics screen as a gray wireframe" tabindex="-1" scrolling="no" aria-hidden="true" inert></iframe>
-              <iframe class="hs-app tp-hi" src="hear-v7/plan/studio.html?topics=hi&v=201" loading="lazy" title="Hear Studio, the Topics screen in the finished Hear look, running live" tabindex="-1" scrolling="no"></iframe>
+              <iframe class="hs-app tp-lo" src="hear-v7/plan/studio.html?topics=lo&v=202" loading="lazy" title="Hear Studio, the Topics screen as a gray wireframe" tabindex="-1" scrolling="no" aria-hidden="true" inert></iframe>
+              <iframe class="hs-app tp-hi" src="hear-v7/plan/studio.html?topics=hi&v=202" loading="lazy" title="Hear Studio, the Topics screen in the finished Hear look, running live" tabindex="-1" scrolling="no"></iframe>
               <!-- the pencil drawing: one svg a region, built by topics.js from the wireframe's own boxes -->
               <div class="tp-sketch" aria-hidden="true"></div>
               <!-- the resting sheet's invitation; it leaves as the first stroke is laid -->
@@ -4158,7 +4160,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <p class="pf-sol pf-lead">I sized topics by calls and colored them by score, so the weak ones stand out before anyone reads a number.</p>
         <div class="pf-call"><p class="pf-call-k">One call, four screens <i>stop 1 of 4</i></p><p class="pf-call-t">A sample call from Oct 13: a customer asks twice for a refund and is offered a voucher. In Topics it sits in <b>Refunds&nbsp;&amp;&nbsp;Credits</b>, a topic that scores 36.</p><button type="button" class="pf-call-go" data-follow="Topics">Show it in Topics</button></div>
       </div>
-      <div class="media"><figure class="ct-fig px-fig rv" data-px="topics"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?topics=hi&v=200" title="Topics in Hear Studio: every topic as a box sized by calls and colored by score, with the daily score beside it." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
+      <div class="media"><figure class="ct-fig px-fig rv" data-px="topics"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?topics=hi&v=202" title="Topics in Hear Studio: every topic as a box sized by calls and colored by score, with the daily score beside it." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot has-art">
@@ -4172,7 +4174,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <div class="pf-call"><p class="pf-call-k">The same call <i>stop 2 of 4</i></p><p class="pf-call-t">Here the Oct 13 refund call explains <b>Selma&nbsp;K.</b>&rsquo;s low score on one rule. Ask AI lists it first among the calls that pulled it down.</p><button type="button" class="pf-call-go" data-follow="Compliance">Show it in Compliance</button></div>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html" aria-label="Explainable scores case study">Case study <span aria-hidden="true">→</span></a></div>
       </div>
-      <div class="media"><figure class="ct-fig px-fig rv" data-px="compliance"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=compliance&v=200" title="Compliance in Hear Studio: five rules by agent, a failing score opened beside the team, and Ask AI naming the calls." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
+      <div class="media"><figure class="ct-fig px-fig rv" data-px="compliance"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=compliance&v=202" title="Compliance in Hear Studio: five rules by agent, a failing score opened beside the team, and Ask AI naming the calls." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot has-art">
@@ -4186,7 +4188,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <div class="pf-call pf-skip"><p class="pf-call-k">The same call <i>skips this screen</i></p><p class="pf-call-t">Agent evaluation scores a whole day, not single calls, and its chart ends on Oct 12, the day before the call.</p></div>
         <div class="cs-links"><a class="cs-link" href="work/explainable-scores.html" aria-label="Explainable scores case study">Case study <span aria-hidden="true">→</span></a></div>
       </div>
-      <div class="media"><figure class="ct-fig px-fig rv" data-px="agents"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=agents&v=200" title="Agent evaluation in Hear Studio: the average score of each day, one low day opened, and the spread of agents by score." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
+      <div class="media"><figure class="ct-fig px-fig rv" data-px="agents"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=agents&v=202" title="Agent evaluation in Hear Studio: the average score of each day, one low day opened, and the spread of agents by score." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot has-art">
@@ -4199,7 +4201,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <div class="pf-call"><p class="pf-call-k">The same call <i>stop 3 of 4</i></p><p class="pf-call-t">The Oct 13 refund call raised an alert. The alert is now a task, High priority, assigned to <b>Daniel&nbsp;Brooks</b>.</p><button type="button" class="pf-call-go" data-follow="Actions">Show it in Actions</button></div>
         <div class="cs-links"><a class="cs-link" href="work/actions.html" aria-label="Actions case study">Case study <span aria-hidden="true">→</span></a></div>
       </div>
-      <div class="media"><figure class="ct-fig px-fig rv" data-px="actions"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=actions&v=200" title="Actions in Hear Studio: a finding becomes a task, gets an owner and moves across the board." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
+      <div class="media"><figure class="ct-fig px-fig rv" data-px="actions"><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=actions&v=202" title="Actions in Hear Studio: a finding becomes a task, gets an owner and moves across the board." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure></div>
     </article>
 
     <article class="spot has-art">
@@ -4214,7 +4216,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
         <div class="cs-links"><a class="cs-link" href="work/newsroom.html" aria-label="Newsroom case study">Newsroom <span aria-hidden="true">→</span></a><a class="cs-link" href="work/data.html" aria-label="Data &amp; Signals case study">Data &amp; Signals <span aria-hidden="true">→</span></a></div>
       </div>
       <div class="media">
-        <figure class="ct-fig px-fig rv" data-px="news"><div class="px-tabs" role="group" aria-label="Screen shown in the window"><button type="button" data-k="news" data-q="screen=news" aria-pressed="true">Newsroom</button><button type="button" data-k="data" data-q="screen=data" aria-pressed="false">Data</button><button type="button" data-k="signals" data-q="screen=signals" aria-pressed="false">Signals</button></div><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=news&v=200" title="Newsroom in Hear Studio: the week as stories, the monthly recap played, and the calls behind a story." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure>
+        <figure class="ct-fig px-fig rv" data-px="news"><div class="px-tabs" role="group" aria-label="Screen shown in the window"><button type="button" data-k="news" data-q="screen=news" aria-pressed="true">Newsroom</button><button type="button" data-k="data" data-q="screen=data" aria-pressed="false">Data</button><button type="button" data-k="signals" data-q="screen=signals" aria-pressed="false">Signals</button></div><div class="px-stage"><div class="px-win"><iframe class="px-app" data-src="hear-v7/plan/studio.html?screen=news&v=202" title="Newsroom in Hear Studio: the week as stories, the monthly recap played, and the calls behind a story." scrolling="no" tabindex="-1"></iframe></div></div><div class="ct-rail"><button type="button" class="lx-pp" aria-label="Pause the demo"></button><ol class="lx-beats" aria-label="Steps in the demo"></ol><p class="lx-now" aria-hidden="true"></p></div></figure>
       </div>
     </article>
   </div>
@@ -5059,6 +5061,10 @@ document.querySelector('.br-strip')?.addEventListener('focusin', e => { if (e.ta
     const on = sec.classList.contains('r8-stack'), vh = innerHeight;
     cards.forEach((c, i) => {
       const nx = cards[i + 1], hide = on && !!nx && nx.getBoundingClientRect().top < vh * .35;
+      // under: only a thin strip of this card shows above the next one, so its painting, words and app window stop being drawn
+      // (owner, 24.11.2026: cards drew half-white and windows empty; the covered cards' contents filled the graphics memory)
+      const band = nx ? nx.getBoundingClientRect().top - c.getBoundingClientRect().top : 1e9;
+      c.classList.toggle('r8-under', on && band < 22);
       if (hide && !covered.has(c)) { covered.add(c); vids(c).forEach(v => { if (!v.paused) { v.pause(); v.dataset.r8wait = '1'; } }); c.classList.add('r8-cov'); lxSync(); }
       else if (!hide && covered.has(c)) { covered.delete(c); show(c); c.classList.remove('r8-cov'); lxSync(); }
     });
@@ -7057,12 +7063,12 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 <script src="v7/gyro.js?v=1" defer></script>
-<script src="v7/spot-art.js?v=1" defer></script>
+<script src="v7/spot-art.js?v=2" defer></script>
 <script src="v7/hero.js?v=231" defer></script>
 <script src="v7/code.js?v=223" defer></script>
-<script src="v7/depth.js?v=223" defer></script>
+<script src="v7/depth.js?v=224" defer></script>
 <script src="v7/topics.js?v=19" defer></script>
-<script src="v7/product.js?v=223" defer></script>
+<script src="v7/product.js?v=224" defer></script>
 <script src="v7/system.js?v=222" defer></script>
 <script src="v7/web-fyi.js?v=221" defer></script>
 <script src="v7/fyi-door.js?v=3" defer></script>

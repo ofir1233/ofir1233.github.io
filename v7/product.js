@@ -111,8 +111,8 @@
      and the press. */
   var VEIL =
     '#px-rim{position:fixed;left:0;top:0;width:100px;height:100px;z-index:2147483001;pointer-events:none;opacity:0;border-radius:var(--r,8px);' +
-    'box-shadow:0 0 0 var(--h,1px) rgba(255,255,255,.9),0 24px 60px -24px rgba(12,38,78,.45),0 0 0 4000px rgba(228,238,249,.4)}' +
-    '.px-soft{position:fixed;z-index:2147483000;pointer-events:none;opacity:0;-webkit-backdrop-filter:blur(1.1px);backdrop-filter:blur(1.1px)}' +
+    'box-shadow:0 0 0 var(--h,1px) rgba(255,255,255,.9),0 24px 60px -24px rgba(12,38,78,.45)}' +
+    '.px-soft{position:fixed;z-index:2147483000;pointer-events:none;opacity:0;background:rgba(228,238,249,.4)}' +
     '#px-rim.on,.px-soft.on{opacity:1}' +
     '#px-tap{position:fixed;z-index:2147483002;pointer-events:none;border-radius:50%;opacity:0;background:rgba(19,159,253,.22);box-shadow:inset 0 0 0 var(--h,1px) rgba(255,255,255,.95),0 0 0 var(--h,1px) rgba(11,111,207,.55)}' +
     '#px-tap.go{animation:px-tap .54s cubic-bezier(.3,.6,.2,1) both}' +

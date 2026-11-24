@@ -14,9 +14,15 @@ window.v7Depth = function (frame, host, still) {
   var CSS = '.bg{scale:1.1!important;translate:calc(var(--tx,0)*-26px) calc(var(--ty,0)*-15px)!important}' +
     '.v7-over .glass.sx,.v7-over .glass.tp{transform:perspective(1900px) rotateX(calc(var(--ty,0)*-1.5deg)) rotateY(calc(var(--tx,0)*2deg))}';
   function doc() { try { return frame.contentDocument; } catch (e) { return null; } }
+  /* still: the drift is a compositor animation of the sky alone. Sending a pointer every frame made Studio restyle its whole
+     page every frame (measured 24.11: about 4 s of style work in a 12 s scroll), which starved the page around it. */
+  var STILL = '.bg{scale:1.1!important;animation:v7drift 26s ease-in-out infinite;animation-play-state:paused}' +
+    '.v7-drift .bg{animation-play-state:running}' +
+    '@keyframes v7drift{0%,100%{translate:-15px 0}25%{translate:0 8px}50%{translate:15px 0}75%{translate:0 -8px}}';
   frame.addEventListener('load', function () {
     var d = doc(); if (!d || !d.head) return;
-    var st = d.createElement('style'); st.textContent = CSS; d.head.appendChild(st);
+    var st = d.createElement('style'); st.textContent = still ? STILL : CSS; d.head.appendChild(st);
+    if (still && on && d.documentElement) d.documentElement.classList.add('v7-drift');
   });
   function send(type, fx, fy) {
     try {
@@ -42,5 +48,6 @@ window.v7Depth = function (frame, host, still) {
     if (!over) { var a = t / 1000; send('pointermove', .5 + Math.sin(a * .5) * .3, .5 + Math.cos(a * .37) * .26); }
     raf = requestAnimationFrame(loop);
   }
+  if (still) return { drift: function (v) { v = !!v; if (v === on) return; on = v; var d = doc(); if (d && d.documentElement) d.documentElement.classList.toggle('v7-drift', on); } };
   return { drift: function (v) { v = !!v; if (v === on) return; on = v; if (on) { if (!raf) raf = requestAnimationFrame(loop); } else if (!over) send('pointerleave', .5, .5); } };
 };
