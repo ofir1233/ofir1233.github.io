@@ -17,12 +17,12 @@ addEventListener('hashchange',function(){setTimeout(strip,0);});
 addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
 }catch(e){}})();</script>
 <title>Explainable scores · Ofir Nona</title>
-<meta name="description" content="I designed Compliance and Agent evaluation for Hear, an AI platform for contact centers, so people can check an AI score against its calls.">
+<meta name="description" content="I designed the Compliance screens for Hear, an AI platform for contact centers, so people can check an AI score against its calls.">
 <meta name="theme-color" content="#f4f3f1">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/explainable-scores.html">
 <meta property="og:title" content="Explainable scores · Ofir Nona">
-<meta property="og:description" content="I designed Compliance and Agent evaluation for Hear, an AI platform for contact centers, so people can check an AI score against its calls.">
+<meta property="og:description" content="I designed the Compliance screens for Hear, an AI platform for contact centers, so people can check an AI score against its calls.">
 <meta property="og:image" content="https://ofir1233.github.io/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -37,7 +37,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=41">
 <link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<link rel="stylesheet" href="../v7/cs2.css?v=5">
+<link rel="stylesheet" href="../v7/cs2.css?v=6">
 <style>
 /* this page only: the bare score of Before, the coach's questions as links into the thread, and "Pull the thread" (the key band):
    one low score and the three layers under it, opened one click at a time, the layers above staying in view */
@@ -57,7 +57,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .c2-th-who span{ display:block; margin-top:4px; font:400 17px/1.35 var(--body); color:var(--ink2); }
 .c2 .c2-th-ctl{ margin-left:auto; display:flex; align-items:center; gap:14px; }
 .c2 .c2-th-st{ font:500 14px/1.35 var(--body); color:var(--mute); text-align:right; }
-.c2 .c2-th-reset{ min-height:40px; padding:0 16px; border:0; border-radius:99px; background:transparent; box-shadow:inset 0 0 0 1.5px var(--ink); color:var(--ink); font:600 14px/1 var(--body); cursor:pointer; }
+.c2 .c2-th-reset{ flex:none; white-space:nowrap; min-height:40px; padding:0 16px; border:0; border-radius:99px; background:transparent; box-shadow:inset 0 0 0 1.5px var(--ink); color:var(--ink); font:600 14px/1 var(--body); cursor:pointer; }
 .c2 .c2-th-reset:hover{ background:#fff; }
 .c2 .c2-th-reset[hidden]{ display:none; }
 
@@ -107,6 +107,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .c2-th-b .c2-shot{ max-width:420px; margin-left:auto; }
 .c2 .c2-th-l.is-fresh .c2-th-b{ animation:c2-down .32s cubic-bezier(.2,.7,.2,1) both; }
 @keyframes c2-down{ from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:none; } }
+/* a layer above the open one folds down to its one-line answer: still readable, opened again with a click */
+.c2 .c2-th-l.is-folded .c2-th-b{ display:block; margin:0; padding:0 0 2px; background:none; box-shadow:none; border-radius:0; }
+.c2 .c2-th-l.is-folded .c2-th-b > :not(:first-child), .c2 .c2-th-l.is-folded .c2-th-b > div:first-child > :not(.c2-th-a){ display:none; }
+.c2 .c2-th-l.is-folded .c2-th-a{ margin:0; font-size:17px !important; line-height:1.4; }
+.c2 .c2-th-l.is-folded .c2-th-a::before{ content:"→ "; color:var(--coral); font-weight:700; }
+.c2 .c2-th-l.is-folded .c2-th-go{ min-height:56px; }
 
 /* layer 1: where 54 sits on the scale */
 .c2 .c2-scale{ position:relative; padding:34px 0 34px; }
@@ -130,24 +136,34 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 @media (max-width: 900px){
   .c2 .c2-th-b, .c2 .c2-th-b.is-calls{ grid-template-columns:1fr; }
   .c2 .c2-th-b .c2-shot{ margin:0; }
-  .c2 .c2-th-ctl{ margin-left:0; width:100%; justify-content:space-between; }
+  /* the controls get their own row under the score: the thread runs past them, unbroken */
+  .c2 .c2-th-ctl{ position:relative; margin-left:0; width:100%; justify-content:space-between; padding-left:calc(var(--cx) + 50px); }
+  .c2 .c2-th-ctl::before{ content:""; position:absolute; left:calc(var(--cx) - 1.5px); top:-19px; bottom:-1px; width:3px; border-radius:2px; background:var(--coral); }
   .c2 .c2-th-st{ text-align:left; }
 }
 @media (max-width: 560px){
   .c2 .c2-bare{ padding:18px; gap:16px; }
   /* on a phone the name and the controls come first, so the thread hangs straight from the score */
   .c2 .c2-thread{ --cx:44px; }
-  .c2 .c2-th-top{ gap:12px 16px; }
-  .c2 .c2-th-who{ order:1; width:100%; }
+  /* on a phone the score and the name share one row; the controls sit under them, beside the thread */
+  .c2 .c2-th-top{ flex-wrap:wrap; gap:12px 16px; }
+  .c2 .c2-th-score{ flex:none; width:88px; height:72px; font-size:42px; border-radius:16px; }
+  .c2 .c2-th-who{ flex:1; min-width:0; }
   .c2 .c2-th-who b{ font-size:21px; }
-  .c2 .c2-th-ctl{ order:2; }
-  .c2 .c2-th-score{ order:3; width:88px; height:72px; margin-top:6px; font-size:42px; border-radius:16px; }
+  .c2 .c2-th-who span{ font-size:16px; }
+  .c2 .c2-th-ctl{ padding-left:76px; gap:12px; }
+  .c2 .c2-th-ctl::before{ top:-13px; }
+  .c2 .c2-th-st{ font-size:13.5px; }
   .c2 .c2-th-l{ padding-left:76px; }
   .c2 .c2-th-n{ width:40px; height:34px; left:calc(var(--cx) - 20px); }
   .c2 .c2-th-go{ flex-wrap:wrap; gap:10px; padding:12px 12px 12px 14px; }
   .c2 .c2-th-l.is-next .c2-th-v{ width:100%; justify-content:center; }
-  .c2 .c2-th-l.is-open .c2-th-v{ display:none; }
+  .c2 .c2-th-l.is-full .c2-th-v{ display:none; }
+  .c2 .c2-th-l.is-folded .c2-th-go{ flex-wrap:nowrap; }
+  .c2 .c2-th-l.is-folded .c2-th-v{ font-size:13px; white-space:nowrap; }
   .c2 .c2-th-b{ margin-left:-76px; padding:20px 18px; }
+  .c2 .c2-th-l.is-folded .c2-th-b{ margin-left:0; padding:0 0 2px; }
+  .c2 .c2-th-l.is-folded .c2-th-a{ font-size:16px !important; }
   .c2 .c2-th-a{ font-size:18px !important; }
 }
 @media (prefers-reduced-motion: reduce){ .c2 .c2-th-l.is-fresh .c2-th-b{ animation:none; } }
@@ -169,12 +185,12 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-kick">Case study · <b>Explainable scores</b></p>
       <h1>Every AI score leads back to the calls behind it</h1>
-      <p class="c2-ctx">Hear's AI reads every call in a contact center and scores each agent against the center's rules. People coach agents from those scores, so I made every score open into its evidence.</p>
+      <p class="c2-ctx">Hear's AI reads every call in a contact center and scores the agents, the people who answer the calls, against the center's rules. I made every score open into its evidence.</p>
       <dl class="c2-sum">
         <div><dt>For</dt><dd>The people who coach agents and check compliance in a contact center.</dd></div>
         <div><dt>The problem</dt><dd>A score with nothing behind it can only be trusted blindly or ignored.</dd></div>
-        <div><dt>What I did</dt><dd>Designed and built the screens that score agents: the grid of scores, the popover that explains one, and its answers in Ask AI, the AI assistant in Hear's sidebar.</dd></div>
-        <div><dt>Where it stands</dt><dd>Mar–Oct 2026, built in Hear Design Lab, my working copy of Hear, with demo data.</dd></div>
+        <div><dt>What I did</dt><dd>Designed and built the grid of scores, each score's popover, and its AI answer.</dd></div>
+        <div><dt>Where it stands</dt><dd>Mar–Oct 2026, on demo data, in Hear Design Lab, my working copy of Hear, built in code.</dd></div>
       </dl>
       <figure class="c2-fig">
         <div class="c2-shot"><img src="../img/v7s-es-grid.webp?v=6" width="2060" height="1327" alt="The Compliance screen: five rules as rows and ten agents as columns. Passing scores are gray, failing scores are coral, and the failing cell of Selma K., 54, has its popover open: 12 of 26 calls failed this rule, Selma 54 against a team of 81, and a link, Ask AI which calls." fetchpriority="high">
@@ -194,7 +210,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">The setting</p>
       <h2>A score here is about a person, not a machine</h2>
-      <p class="c2-lede">In a contact center, "agents" are the people who answer customer calls. Their scores decide who gets coached, and on what.</p>
+      <p class="c2-lede">An agent's scores decide who gets coached, and on what.</p>
       <ol class="c2-flow">
         <li><b>Calls</b><span>Agents take customer calls all day.</span></li>
         <li><b>Hear's AI reads every call</b><span>It checks each call against the center's rules, such as fee disclosure or the vulnerable customer protocol.</span></li>
@@ -214,7 +230,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <ol class="c2-qs">
         <li><q>Is this score really bad?</q><span>Only a score under the pass mark of 70 takes color, so a low one stands out before anyone reads a number.</span><small><a href="#layer-1" data-depth="1"><i>1</i><span>Answered in layer 1, the rule</span></a></small></li>
         <li><q>Is it the agent, or the whole team?</q><span>The popover puts the agent's score beside the team's, against the same pass mark.</span><small><a href="#layer-2" data-depth="2"><i>2</i><span>Answered in layer 2, what it rests on</span></a></small></li>
-        <li><q>What actually happened on the calls?</q><span>Ask AI names the calls, what most of them share, and the step that was missed on each.</span><small><a href="#layer-3" data-depth="3"><i>3</i><span>Answered in layer 3, the calls</span></a></small></li>
+        <li><q>What actually happened on the calls?</q><span>Ask AI, the AI assistant in Hear's sidebar, names the calls, what most of them share, and the step that was missed on each.</span><small><a href="#layer-3" data-depth="3"><i>3</i><span>Answered in layer 3, the calls</span></a></small></li>
       </ol>
     </div>
   </section>
@@ -223,7 +239,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">After · pull the thread</p>
       <h2>Three clicks under one low score are the calls themselves</h2>
-      <p class="c2-lede">This is Selma's 54 from the grid. Each click opens the layer the screens open next, and keeps the layers above it in view.</p>
+      <p class="c2-lede">This is Selma's 54 from the grid. Each click opens the layer the screens open next; the layer above folds down to its answer.</p>
       <div class="c2-thread" data-depth="3">
         <div class="c2-th-top">
           <span class="c2-th-score" aria-hidden="true">54</span>
@@ -289,12 +305,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 
   <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
     <div class="c2-w">
-      <p class="c2-n">Where it stands</p>
-      <h2 class="c2-stand-h">Designed and built in the Lab, on demo data</h2>
-      <div class="c2-stand">
-        <div><h3>Status</h3><p>The screens run in the Lab, rebuilt in code with demo data, as of October 2026.</p></div>
-        <div><h3>My part</h3><p>I designed and built them with Claude Code, from the first version in March 2026 to the current one. Beside the grid, a second screen, Agent evaluation, brings the same rule to its score chart: the subtitle says coral is a day 8 or more points under the average.</p></div>
-      </div>
+      <p class="c2-coda">One low score, twelve failed calls, <em>one cause behind nine of them.</em></p>
+      <p class="c2-status"><b>Where it stands:</b> the screens run in the Lab on demo data, as of October 2026. <b>My part:</b> I designed and built them with Claude Code, from the first version in March 2026.</p>
     </div>
   </section>
 
@@ -337,40 +349,58 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </div>
 </footer>
 <script src="case.js?v=8"></script>
-<script>/* Pull the thread: one layer per click, the layers above stay open. Nothing moves by itself.
-   Without this script all three layers are simply open. Keys: the arrows go one layer down or up from any control in the thread. */
+<script>/* Pull the thread: one layer per click. The newest layer opens in full and every layer above folds down to its one-line answer,
+   still readable and opened again with a click. Nothing moves by itself. Without this script all three layers are simply open.
+   Keys: the arrows go one layer down or up from any control in the thread. */
 (function () {
   var box = document.querySelector('.c2-thread'); if (!box) return;
-  var ls = [].slice.call(box.querySelectorAll('.c2-th-l')), reset = box.querySelector('[data-th="reset"]'), st = box.querySelector('.c2-th-st'), depth = 0,
-    said = ['The bare score. Three layers under it, one click each.', 'Layer 1 of 3 open: the rule.', 'Layer 2 of 3 open: what it rests on.', 'Layer 3 of 3 open: the calls, three clicks from the score.'];
-  function set(d, fresh) {
-    depth = Math.max(0, Math.min(ls.length, d));
+  var ls = [].slice.call(box.querySelectorAll('.c2-th-l')), reset = box.querySelector('[data-th="reset"]'), st = box.querySelector('.c2-th-st'), depth = 0, view = 0,
+    names = ['the rule', 'what it rests on', 'the calls'],
+    said = ['The bare score. Three layers under it, one click each.', 'Layer 1 of 3: the rule.', 'Layer 2 of 3: what it rests on.', 'Layer 3 of 3: the calls.'];
+  /* keep the control the reader used where it was, while the layers around it fold or open */
+  function hold(li, fn) {
+    var y = li ? li.getBoundingClientRect().top : 0; fn();
+    if (li) { var dy = li.getBoundingClientRect().top - y; if (Math.abs(dy) > 1) { var de = document.documentElement, sb = de.style.scrollBehavior; de.style.scrollBehavior = 'auto'; scrollBy(0, dy); de.style.scrollBehavior = sb; } }
+  }
+  function set(d, v, fresh) {
+    depth = Math.max(0, Math.min(ls.length, d)); view = Math.max(0, Math.min(depth, v));
     ls.forEach(function (li, k) {
-      var n = k + 1, open = n <= depth, next = n === depth + 1, go = li.querySelector('.c2-th-go'), b = li.querySelector('.c2-th-b'), v = li.querySelector('.c2-th-v');
-      li.classList.toggle('is-open', open); li.classList.toggle('is-next', next); li.classList.toggle('is-fresh', n === fresh);
-      b.hidden = !open; go.setAttribute('aria-expanded', open); go.disabled = !open && !next;
-      v.textContent = next ? go.getAttribute('data-verb') : open ? 'Fold up' : '';
+      var n = k + 1, open = n <= depth, full = open && n === view, next = n === depth + 1, go = li.querySelector('.c2-th-go'), b = li.querySelector('.c2-th-b'), vb = li.querySelector('.c2-th-v');
+      li.classList.toggle('is-open', open); li.classList.toggle('is-full', full); li.classList.toggle('is-folded', open && !full);
+      li.classList.toggle('is-next', next); li.classList.toggle('is-fresh', n === fresh);
+      b.hidden = !open; go.setAttribute('aria-expanded', full); go.disabled = !open && !next;
+      vb.textContent = next ? go.getAttribute('data-verb') : full ? 'Fold' : open ? 'Open again' : '';
     });
-    box.setAttribute('data-depth', depth); st.textContent = said[depth]; reset.hidden = depth === 0;
+    box.setAttribute('data-depth', depth);
+    st.textContent = depth && !view ? 'Every layer folded to its answer.' : view !== depth ? 'Layer ' + view + ' open again: ' + names[view - 1] + '.' : said[depth];
+    reset.hidden = depth === 0;
   }
   ls.forEach(function (li, k) {
-    li.querySelector('.c2-th-go').addEventListener('click', function () { set(depth >= k + 1 ? k : k + 1, depth >= k + 1 ? 0 : k + 1); });
+    var n = k + 1;
+    li.querySelector('.c2-th-go').addEventListener('click', function () {
+      hold(li, function () {
+        if (n > depth) set(n, n, n);            /* the next layer: open it, fold the ones above */
+        else if (n === view) set(depth, 0);      /* the open layer: fold it to its answer */
+        else set(depth, n, n);                   /* a folded layer: open it again */
+      });
+    });
   });
-  reset.addEventListener('click', function () { set(0); ls[0].querySelector('.c2-th-go').focus(); });
+  reset.addEventListener('click', function () { set(0, 0); ls[0].querySelector('.c2-th-go').focus(); });
   box.addEventListener('keydown', function (e) {
     var up = e.key === 'ArrowUp', down = e.key === 'ArrowDown'; if (!up && !down) return;
     e.preventDefault(); var d = depth + (down ? 1 : -1); if (d < 0 || d > ls.length) return;
-    set(d, down ? d : 0); ls[Math.min(d, ls.length - 1)].querySelector('.c2-th-go').focus();
+    var li = ls[Math.min(d, ls.length - 1)];
+    hold(li, function () { set(d, d, down ? d : 0); }); li.querySelector('.c2-th-go').focus();
   });
   [].forEach.call(document.querySelectorAll('.c2 a[data-depth]'), function (a) {
     a.addEventListener('click', function (e) {
       e.preventDefault(); var d = +a.getAttribute('data-depth');
-      if (depth < d) set(d, d);
+      set(Math.max(depth, d), d, d);
       var li = ls[d - 1]; li.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
       li.querySelector('.c2-th-go').focus({ preventScroll: true });
     });
   });
-  set(0);
+  set(0, 0);
 })();</script>
 <script src="../v7/cs2.js?v=2" defer></script>
 <script src="../v7/foot.js?v=201" defer></script>
