@@ -80,8 +80,10 @@
     }
     const N = bars.length;
     bars.forEach((b, k) => { b.at = .62 + 1.5 * (k / N); b.drip = (!mobile && (k === N - 3 || k === N - 6 || k === N - 8)) ? 22 + ((k * 37) % 30) : 0; });
+    /* the pink paint waits until the section is about two screens away (the page's late loader adds .is-near and sets the href) */
+    const later = () => { const s = document.getElementById('fyi'); return !!(s && s.hasAttribute('data-near') && !s.classList.contains('is-near')); };
     const defs = id => `<defs>
-      <pattern id="fd-pp${id}" patternUnits="userSpaceOnUse" width="720" height="360"><image href="img/fyi-door/paint-pink.webp" width="720" height="360" preserveAspectRatio="none"/></pattern>
+      <pattern id="fd-pp${id}" patternUnits="userSpaceOnUse" width="720" height="360"><image ${later() ? 'data-near-href' : 'href'}="img/fyi-door/paint-pink.webp" width="720" height="360" preserveAspectRatio="none"/></pattern>
       <filter id="fd-wr${id}" x="-10%" y="-20%" width="120%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
       ${id === 'b' ? halftone(x1, cy, hMax) : ''}</defs>`;
     const off = { c: [-4, 3.5], v: [3.5, -3], m: [0, 0] };

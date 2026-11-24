@@ -41,7 +41,8 @@ window.v7Near=function(el,fn,m){if(!el||!('IntersectionObserver' in window))retu
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>/* decorative textures of far sections wait for .is-near (set by the late loader at the foot of the page) */#fyi[data-near]:not(.is-near) .fd-bg-cyan, footer.ft[data-near]:not(.is-near) .ft-sky::before{ background-image:none !important; }</style>
 <link rel="stylesheet" href="work/lab-live.css">
 <link rel="stylesheet" href="work/lab-tour.css">
 <link rel="stylesheet" href="work/lab-topics.css">
@@ -4345,7 +4346,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 
 
 <!-- ============================================================ FYI (bonus, before AI) -->
-<section id="fyi" aria-labelledby="fyi-h" data-fd-beat="0">
+<section id="fyi" aria-labelledby="fyi-h" data-fd-beat="0" data-near>
   <div class="wrap fd-door-grid">
     <div class="fd-d-copy">
       <div class="label">Case study · <b>Mobile app</b></div>
@@ -4570,7 +4571,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 
 </main>
 
-<footer class="ft" id="foot">
+<footer class="ft" id="foot" data-near>
   <div class="ft-sky" aria-hidden="true"><picture><source type="image/avif" srcset="img/foot-sky-s.avif?v=2 1536w, img/foot-sky-2048.avif?v=2 2048w, img/foot-sky.avif?v=2 3072w" sizes="(max-width: 560px) 600px, 104vw"><img src="img/foot-sky.webp?v=2" srcset="img/foot-sky-s.webp?v=2 1536w, img/foot-sky-2048.webp?v=1 2048w, img/foot-sky.webp?v=2 3072w" sizes="(max-width: 560px) 600px, 104vw" alt="" width="3072" height="1536" loading="lazy" decoding="async"></picture></div>
   <div class="wrap ft-in">
     <div class="ft-top">
@@ -7035,7 +7036,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <script src="v7/product.js?v=226" defer></script>
 <script src="v7/system.js?v=222" defer></script>
 <script src="v7/web-fyi.js?v=221" defer></script>
-<script src="v7/fyi-door.js?v=3" defer></script>
+<script src="v7/fyi-door.js?v=4" defer></script>
 <script src="v7/feed.js?v=5" defer></script>
 <script src="v7/ia-process.js?v=221" defer></script>
 <script src="v7/path-contact.js?v=221" defer></script>
@@ -7047,7 +7048,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <script src="v7/plan.js?v=223" defer></script>
 <script src="v7/path.js?v=222" defer></script>
 <script>/* the paintings of the parts further down (Topics) wait until the opening has loaded, so they never compete with it, and then until
-   they are about two screens away, so a visitor who never scrolls that far never downloads them */(function(){var av=false,t=new Image();t.onload=function(){av=t.width>0};t.src='data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADrbWV0YQAAAAAAAAAhaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAAAAAAAOcGl0bQAAAAAAAQAAAB5pbG9jAAAAAEQAAAEAAQAAAAEAAAETAAAAKAAAAChpaW5mAAAAAAABAAAAGmluZmUCAAAAAAEAAGF2MDFDb2xvcgAAAABqaXBycAAAAEtpcGNvAAAAFGlzcGUAAAAAAAAAAQAAAAEAAAAQcGl4aQAAAAADCAgIAAAADGF2MUOBAAwAAAAAE2NvbHJuY2x4AAEADQAGgAAAABdpcG1hAAAAAAAAAAEAAQQBAoMEAAAAMG1kYXQSAAoIGAAGiAhoNCAyGhlHh4Yhh5555oAAAJBAyRxhSytNj1FFTqSg';var set=function(e){var v=e.getAttribute('data-late');if(!v)return;if(av&&e.getAttribute('data-late-avif'))v=e.getAttribute('data-late-avif');e.removeAttribute('data-late');if(e.tagName.toLowerCase()==='img')e.src=v;else e.setAttribute('href',v)};var go=function(){var els=[].slice.call(document.querySelectorAll('[data-late]'));if(!('IntersectionObserver' in window)){els.forEach(set);return}var io=new IntersectionObserver(function(es){es.forEach(function(x){if(!x.isIntersecting)return;io.unobserve(x.target);els.forEach(function(e){if((e.ownerSVGElement||e)===x.target)set(e)})})},{rootMargin:'200% 0px'});els.forEach(function(e){io.observe(e.ownerSVGElement||e)})};if(document.readyState==='complete')go();else{addEventListener('load',go);setTimeout(go,6000)}})()</script>
+   they are about two screens away, so a visitor who never scrolls that far never downloads them */(function(){var av=false,t=new Image();t.onload=function(){av=t.width>0};t.src='data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADrbWV0YQAAAAAAAAAhaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAAAAAAAOcGl0bQAAAAAAAQAAAB5pbG9jAAAAAEQAAAEAAQAAAAEAAAETAAAAKAAAAChpaW5mAAAAAAABAAAAGmluZmUCAAAAAAEAAGF2MDFDb2xvcgAAAABqaXBycAAAAEtpcGNvAAAAFGlzcGUAAAAAAAAAAQAAAAEAAAAQcGl4aQAAAAADCAgIAAAADGF2MUOBAAwAAAAAE2NvbHJuY2x4AAEADQAGgAAAABdpcG1hAAAAAAAAAAEAAQQBAoMEAAAAMG1kYXQSAAoIGAAGiAhoNCAyGhlHh4Yhh5555oAAAJBAyRxhSytNj1FFTqSg';var set=function(e){var v=e.getAttribute('data-late');if(!v)return;if(av&&e.getAttribute('data-late-avif'))v=e.getAttribute('data-late-avif');e.removeAttribute('data-late');if(e.tagName.toLowerCase()==='img')e.src=v;else e.setAttribute('href',v)};var hit=function(n){n.classList.add('is-near');[].forEach.call(n.querySelectorAll('[data-near-href]'),function(i){i.setAttribute('href',i.getAttribute('data-near-href'));i.removeAttribute('data-near-href')})};var go=function(){var els=[].slice.call(document.querySelectorAll('[data-late]')),near=[].slice.call(document.querySelectorAll('[data-near]:not(.is-near)'));if(!('IntersectionObserver' in window)){els.forEach(set);near.forEach(hit);return}var no=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){no.unobserve(x.target);hit(x.target)}})},{rootMargin:'200% 0px'});near.forEach(function(n){no.observe(n)});var io=new IntersectionObserver(function(es){es.forEach(function(x){if(!x.isIntersecting)return;io.unobserve(x.target);els.forEach(function(e){if((e.ownerSVGElement||e)===x.target)set(e)})})},{rootMargin:'200% 0px'});els.forEach(function(e){io.observe(e.ownerSVGElement||e)})};if(document.readyState==='complete')go();else{addEventListener('load',go);setTimeout(go,6000)}})()</script>
 <script>
 /* A part of the page that is off screen holds its animations still (24.11.2026, speed pass): eleven loops (the Code cloud, the
    Design system's thinking dots, the FYI buttons, the Contact ping) ran on below and above the reader, and two of them animate a
