@@ -176,3 +176,15 @@
 #design-lab#design-lab .tp-say{ justify-items:center; text-align:center; }
 #design-lab#design-lab .tp-steps button{ text-align:center; }
 }
+/* critics, round 2 (24.11): one centre line for heading, names and the line; the line a rank below the names; the back cloud no
+   higher than the window's top; equal steps on narrow screens; a done step steps back, the one on screen stays ink and blue */
+#design-lab#design-lab .tp-say{ max-width:none; margin:18px auto 0; font-size:14.5px; }
+#design-lab#design-lab .tp-steps li.done:not(.on) .tp-name{ color:var(--soft); }
+@media (min-width:900px){
+#design-lab#design-lab .tp-steps button{ text-align:center; }
+#design-lab#design-lab .a-cloud-back{ top:-24px; }
+}
+@media (max-width:899px){
+#design-lab#design-lab .tp-steps li{ flex:1 1 0; }
+#design-lab#design-lab .tp-fig{ margin-top:40px; }
+}

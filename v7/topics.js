@@ -1023,7 +1023,7 @@
     stepLis.forEach(function (li, j) {
       var k = seg(t, B[j], B[j + 1]);
       li.querySelector('.tp-line i').style.transform = 'scaleX(' + k.toFixed(4) + ')';
-      li.classList.toggle('on', j === cur && !live && t > REST); li.classList.toggle('done', k >= 1);
+      li.classList.toggle('on', (j === cur && !live && t > REST) || (live && j === 4));      /* the rail ends on the step on screen */ li.classList.toggle('done', k >= 1);
       li.querySelector('button').setAttribute('aria-current', j === cur && !live ? 'step' : 'false');
     });
     /* owner, 24.11: one quiet line under the rail. It holds still while the build plays (what the screen is: Hear Studio, Topics,
