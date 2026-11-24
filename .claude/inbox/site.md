@@ -110,3 +110,4 @@
 - 24.11 IA: the search field is hidden (owner: no need for it). ia-process.css v225
 - 24.11 Product windows: the focus mark is Hear's own focus ring (1.5px #139FFD + soft halo), 10px clear of the part with concentric corners (map tiles 2px, in the gutter); the pale wash outside it is gone, so the screen keeps one colour. product.js v229
 - 24.11 case footer: the link to the page you are on was faded and unpressable (read as a bug). Now full white with a thin underline; a press scrolls to the top (v7/case.css v44, v7/foot.js v202).
+- 24.11 Experience: the timeline is replaced by four passes on one cord (v7/experience.css v2, v7/experience.js v1). Hear in front with the painted cloud; a list row, a back pass, or a press on the front pass brings a job forward. The inline timeline observer is guarded (it threw once #timeline was gone). Owner approved the local version.
