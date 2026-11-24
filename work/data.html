@@ -106,7 +106,26 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 .c2 .d-chip b{ white-space:nowrap; }
 @media (max-width: 560px){ .c2 .d-chip{ gap:5px; padding:0 10px 0 8px; } .c2 .d-chip .d-src{ padding:3px 6px; font-size:10.5px; } }
 .c2 .d-rules h3{ font:600 13px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); }
-.c2 .d-rules .c2-flow li.is-miss b, .c2 .d-rules .c2-flow li.is-miss span{ color:var(--mute); }
+/* the reader picks the sentence: one the rules miss (the default, with the screen's counts) or one they catch (no counts) */
+.c2 .d-case[data-state="a"] .s-b, .c2 .d-case[data-state="b"] .s-a{ display:none !important; }
+.c2 .d-case[data-state="a"] li.a-miss > b, .c2 .d-case[data-state="a"] li.a-miss > span,
+.c2 .d-case[data-state="b"] li.b-miss > b, .c2 .d-case[data-state="b"] li.b-miss > span{ color:var(--mute); }
+.c2 .d-case[data-state="b"] li.is-fb{ border-top-color:#cfd4d9; }
+.c2 .d-pick{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:26px 0 18px; }
+.c2 .d-rules .c2-flow b > span{ display:inline; font:inherit; color:inherit; }
+.c2 .d-pick > span{ margin-right:6px; font:600 13px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); }
+.c2 .d-pick button{ min-height:40px; padding:0 16px; border:1px solid #b9c3cc; border-radius:99px; background:#fff; font:500 15px/1 var(--body); color:var(--ink2); cursor:pointer; transition:background .2s, color .2s, border-color .2s; }
+.c2 .d-pick button:hover{ border-color:var(--ink2); }
+.c2 .d-pick button[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:#fff; }
+.c2 .d-pick button:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+@media (max-width: 560px){ .c2 .d-pick > span{ flex-basis:100%; } .c2 .d-pick button{ padding:0 14px; font-size:14.5px; } }
+.c2 .d-ask .d-u{ font-style:normal; border-bottom:2px solid #c3c9cf; padding-bottom:1px; }
+.c2 .d-chip.is-static{ cursor:default; background:#f3f5f7; border-color:#cfd4d9; }
+.c2 .d-chip.is-static sup{ background:#6a7078; }
+.c2 .d-ask .d-u + sup{ background:#6a7078; }
+.c2 .d-chip .d-src.is-rule{ box-shadow:inset 0 0 0 1px #cfd4d9; color:var(--ink2); }
+.c2 .d-who b{ min-width:54px; font-size:14px; background:#e9ecef; }
+.c2 .d-who .is-now b{ background:#e9ecef; color:var(--ink); }
 .c2 .c2-status + .c2-status{ margin-top:8px; padding-top:0; border-top:0; }
 .c2 .d-say{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
 @media (max-width: 900px){ .c2 .d-try{ grid-template-columns:1fr; } }
@@ -178,9 +197,11 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="c2-w">
       <p class="c2-n">Asking in plain words</p>
       <h2>Rules read the sentence first; the AI model is only the fallback</h2>
-      <p class="c2-lede">No rule fires on this sentence, so the model reads it. Every chip it writes is checked against the table, tagged, and one click to remove.</p>
+      <p class="c2-lede">When a rule fires, the model is never asked; when none does, the model writes the chips and each is checked. Every chip says who wrote it.</p>
+      <div class="d-case" data-state="a">
+      <div class="d-pick" role="group" aria-label="Pick a sentence"><span aria-hidden="true">Pick a sentence</span><button type="button" aria-pressed="true" data-pick="a">The rules miss it</button><button type="button" aria-pressed="false" data-pick="b">The rules catch it</button></div>
       <div class="c2-ba d-try" data-try>
-        <div><h3>You type</h3>
+        <div><div class="s-a"><h3>You type</h3>
           <p class="d-ask"><svg viewBox="0 0 18 18" fill="currentColor" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span><u>refund calls</u><sup>1</sup> <u>over 5 minutes</u><sup>2</sup> where the customer was <u>unhappy</u><sup>3</sup></span></p>
           <h3 class="d-then">The model writes three filters</h3>
           <div class="d-chips" role="group" aria-label="The three filters" aria-describedby="d-how">
@@ -190,7 +211,15 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             <button type="button" class="d-reset" disabled>Reset</button>
           </div>
           <p class="d-how" id="d-how">Chips come off last first, so every count is one the real screen shows.</p></div>
-        <div>
+          <div class="s-b"><h3>You type</h3>
+            <p class="d-ask"><svg viewBox="0 0 18 18" fill="currentColor" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span><i class="d-u">high priority</i><sup>1</sup> calls from <i class="d-u">yesterday</i><sup>2</sup></span></p>
+            <h3 class="d-then">The rules write two filters</h3>
+            <div class="d-chips" role="list" aria-label="The two filters">
+              <span class="d-chip is-static" role="listitem"><sup aria-hidden="true">1</sup>Priority <b>High</b><small class="d-src is-rule">rule</small></span>
+              <span class="d-chip is-static" role="listitem"><sup aria-hidden="true">2</sup>Call date <b>on <span class="d-yday">yesterday's date</span></b><small class="d-src is-rule">rule</small></span>
+            </div>
+            <p class="d-how">The chips the Lab's rules produce for this sentence, word for word. No counts: the demo numbers belong to the first sentence.</p></div></div>
+        <div><div class="s-a">
           <p class="d-total"><span>Calls that match</span><b class="d-num">86</b></p>
           <ol class="d-count" aria-label="How the count narrows">
             <li class="is-past"><b>2,000</b><i>every call in the last 90 days</i></li>
@@ -202,16 +231,25 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
             <span>Average score<b>36 <small>against 76 for all calls</small></b></span>
             <span>Average length<b>7:07 <small>against 4:12</small></b></span>
           </div></div>
+          </div>
+          <div class="s-b">
+            <p class="d-total"><span>Who wrote the chips</span><b class="d-num">Rules</b></p>
+            <ol class="d-count d-who" aria-label="Who wrote each chip">
+              <li class="is-now"><b>rule</b><i>“high priority” became Priority: High</i></li>
+              <li class="is-now"><b>rule</b><i>“yesterday” became Call date: on <span class="d-yday">yesterday's date</span></i></li>
+              <li class="is-off"><b>AI</b><i>not asked: a rule fired, so the model is skipped</i></li>
+            </ol></div>
           <p class="d-say" aria-live="polite"></p></div>
       </div>
       <div class="d-rules">
         <h3>How this sentence was read</h3>
         <ol class="c2-flow">
           <li><b>The sentence</b><span>Typed in English or Hebrew.</span></li>
-          <li class="is-miss"><b>Rules first, offline</b><span>They would catch “high priority calls from yesterday”. Here none fires: no rule knows mood, and “over 5 minutes” isn't their “longer than”.</span></li>
-          <li class="is-fb"><b>The AI model, only if no rule fires</b><span>So this one goes to the model, with the table's columns and values to choose from.</span></li>
-          <li class="is-me"><b>Checked chips</b><span>Its answer is checked against those columns and values; anything else is dropped.</span></li>
+          <li class="a-miss"><b>Rules first, offline</b><span class="s-a">None fires here: no rule knows mood, and “over 5 minutes” isn't their “longer than”.</span><span class="s-b">“high priority” and “yesterday” each match a rule.</span></li>
+          <li class="is-fb b-miss"><b>The AI model, only if no rule fires</b><span class="s-a">So this one goes to the model, with the table's columns and values to choose from.</span><span class="s-b">Not asked: a rule fired.</span></li>
+          <li class="is-me"><b><span class="s-a">Checked chips</span><span class="s-b">Rule chips</span></b><span class="s-a">Its answer is checked against those columns and values; anything else is dropped.</span><span class="s-b">Tagged “rule”, and removed like any other chip.</span></li>
         </ol>
+      </div>
       </div>
     </div>
   </section>
@@ -280,8 +318,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 (function () {
   var box = document.querySelector('[data-try]'); if (!box) return;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches,
-    chips = [].slice.call(box.querySelectorAll('.d-chip')), words = [].slice.call(box.querySelectorAll('.d-ask u')),
-    rows = [].slice.call(box.querySelectorAll('.d-count li')), num = box.querySelector('.d-num'), foot = box.querySelector('.d-foot'),
+    chips = [].slice.call(box.querySelectorAll('button.d-chip')), words = [].slice.call(box.querySelectorAll('.s-a .d-ask u')),
+    rows = [].slice.call(box.querySelectorAll('.s-a .d-count li')), num = box.querySelector('.d-num'), foot = box.querySelector('.d-foot'),
     reset = box.querySelector('.d-reset'), say = box.querySelector('.d-say'),
     COUNT = [2000, 318, 141, 86], NAME = ['Refunds & Credits', 'Over 5 minutes', 'Negative'], n = 3, shown = 86, raf = 0;
   function fmt(v) { return v.toLocaleString('en-US'); }
@@ -318,6 +356,19 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     say.textContent = 'All three filters are back. 86 calls match.';
   });
   render();
+  /* the sentence picker: the date chip says what the rules write today ("on" + yesterday, as the Lab formats it) */
+  var yd = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(new Date(Date.now() - 864e5));
+  [].forEach.call(document.querySelectorAll('.d-yday'), function (e) { e.textContent = yd; });
+  var kase = document.querySelector('.d-case'), picks = [].slice.call(kase.querySelectorAll('[data-pick]'));
+  picks.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var st = b.getAttribute('data-pick');
+      kase.setAttribute('data-state', st);
+      picks.forEach(function (o) { o.setAttribute('aria-pressed', o === b); });
+      say.textContent = st === 'b' ? 'High priority calls from yesterday: two rules fire, Priority High and Call date on ' + yd + '. The model is not asked.'
+        : 'Refund calls over 5 minutes where the customer was unhappy: no rule fires, so the model writes three filters, each checked.';
+    });
+  });
 })();</script>
 <script src="../v7/foot.js?v=201" defer></script>
 </body>
