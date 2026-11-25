@@ -3885,7 +3885,11 @@ html body :is(#design-lab, #product, #system, #web, #ia, #process, #path) :is(.s
 @media (min-width:900px){ html body #code#code .hw-nav a{ font-size:clamp(34px, 4.7vw, 68px) !important; line-height:.94 !important; } }
 html body #about#about .me-facts .me-v{ font-size:clamp(46px, 5.85vw, 78px); letter-spacing:-.045em; }
 html body #about#about .me-facts .me-v small{ font-size:.22em; letter-spacing:0; }
-@media (max-width:860px){ html body #about#about .me-facts .me-v{ font-size:clamp(44px, 13vw, 60px); } }</style>
+@media (max-width:860px){ html body #about#about .me-facts .me-v{ font-size:clamp(44px, 13vw, 60px); } }
+/* owner, 25.11.2026: the text under every main headline is set like the one under the hero (size, leading, colour). The quote in
+   Design system, FYI's own copy and the postcard are exceptions and stay as they are. */
+html body :is(#design-lab, #product, #web, #ia, #process, #path) .sec-head p:not(.pf-note){ font-size:clamp(17px, 1.48vw, 21px) !important; line-height:1.48 !important; color:var(--v7-ink-2, #464b52) !important; }
+@media (min-width:900px){ html body #code#code .hw-nav .hw-d{ width:min(100%, 480px); } html body #code#code .hw-nav .hw-d > span{ font-size:clamp(17px, 1.48vw, 21px); line-height:1.48; color:var(--v7-ink-2, #464b52); -webkit-text-fill-color:var(--v7-ink-2, #464b52); } }</style>
 </head>
 <body>
 
