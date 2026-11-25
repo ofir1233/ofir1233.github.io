@@ -241,3 +241,20 @@ html body #contact#contact#contact.cl-night{ background-color:#17458a !important
 
 /* loading: the harbour paintings wait until the reader is near the postcard (close.js sets html.cl-near) */
 html:not(.cl-near) #contact#contact .cl-pic, html:not(.cl-near) #contact#contact .cl-stamp u, html:not(.cl-near) #contact#contact{ background-image:none !important; }
+
+/* DEPTH (owner, 25.11.2026: "a depth effect of at least two layers, here too"). By day, on a wide window, the harbour is three painted
+   planes of the same picture: the sky, towers and sea (l1), the waterfront town with the sailboats and the lighthouse (l2), and the
+   fishing boat, the rowing boat, the buoys and the pier with its flowers (l3). They part as the frame crosses the screen (--p) and as
+   the pointer moves over it (--mx, --my, v7/close.js): the nearer the plane, the further it travels. Each hour (day, dusk, night) has its own three planes;
+   until an hour's three have loaded, and on a narrow window, the one flat painting stays. */
+#contact#contact .cl-lay{ display:none; }
+@media (min-width:961px){
+  #contact#contact .cl-lay{ display:block; position:absolute; inset:0; opacity:0; transition:opacity .5s ease; }
+  #contact#contact .cl-lay img{ position:absolute; left:-2.5%; width:105%; max-width:none; bottom:-4%; height:109%; object-fit:cover; object-position:50% 100%; will-change:translate; }
+  #contact#contact .cl-l1{ translate:calc(var(--mx, 0) * -5px) calc(var(--p, 0) * 1.2% + var(--my, 0) * -2px); }
+  #contact#contact .cl-l2{ translate:calc(var(--mx, 0) * -13px) calc(var(--p, 0) * 2.4% + var(--my, 0) * -5px); }
+  #contact#contact .cl-l3{ translate:calc(var(--mx, 0) * -26px) calc(var(--p, 0) * 3.2% + var(--my, 0) * -8px); }
+  #contact#contact.cl-deep .cl-lay{ opacity:1; }
+  #contact#contact.cl-deep .cl-pic{ visibility:hidden; }
+}
+@media (prefers-reduced-motion: reduce){ #contact#contact .cl-lay img{ translate:none !important; } }

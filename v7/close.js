@@ -81,13 +81,43 @@
     }, { threshold: .5 }).observe(card);
   }
 
+  /* depth: the three painted planes are fetched when the postcard comes near; once all three are in, they take the flat picture's
+     place (.cl-deep, v7/close.css). The pointer moves them apart, eased, the nearest plane the most. */
+  var lay = $('.cl-lay'), wide = matchMedia('(min-width: 961px)');
+  if (lay && wide.matches && 'IntersectionObserver' in window) {
+    var imgs = [].slice.call(lay.querySelectorAll('img')), have = '', run = 0;
+    /* each hour has its own three planes (end-harbour[-dusk|-night]-l1..3.webp); when the hour's painting changes, so do they */
+    var planes = function () {
+      var hour = sec.classList.contains('cl-night') ? '-night' : sec.classList.contains('cl-dusk') ? '-dusk' : '';
+      if (hour === have) return; have = hour; var mine = ++run, left = imgs.length;
+      sec.classList.remove('cl-deep');
+      imgs.forEach(function (im, k) {
+        var t = new Image(); t.onload = function () { if (mine !== run) return; im.src = t.src; if (!--left) (im.decode ? im.decode().catch(function () {}) : Promise.resolve()).then(function () { if (mine === run) sec.classList.add('cl-deep'); }); };
+        t.src = im.dataset.src.replace('-l' + (k + 1), hour + '-l' + (k + 1));
+      });
+    };
+    new IntersectionObserver(function (es, io) {
+      if (!es[0].isIntersecting) return; io.disconnect(); have = null; planes();
+      new MutationObserver(planes).observe(sec, { attributes: true, attributeFilter: ['class'] });
+    }, { rootMargin: '1500px 0px' }).observe(sec);
+    if (!reduce && matchMedia('(hover: hover)').matches) {
+      var tx = 0, ty = 0, x = 0, y = 0, raf = 0, step = function () {
+        x += (tx - x) * .08; y += (ty - y) * .08;
+        lay.style.setProperty('--mx', x.toFixed(4)); lay.style.setProperty('--my', y.toFixed(4));
+        raf = Math.abs(tx - x) + Math.abs(ty - y) > .002 ? requestAnimationFrame(step) : 0;
+      };
+      sec.addEventListener('pointermove', function (e) { var r = sec.getBoundingClientRect(); tx = ((e.clientX - r.left) / r.width - .5) * 2; ty = ((e.clientY - r.top) / r.height - .5) * 2; if (!raf) raf = requestAnimationFrame(step); });
+      sec.addEventListener('pointerleave', function () { tx = ty = 0; if (!raf) raf = requestAnimationFrame(step); });
+    }
+  }
+
   /* the picture drifts a little as the frame crosses the screen */
   var pic = $('.cl-pic');
   if (pic && !reduce) {
     var tick = 0, drift = function () {
       tick = 0; var r = sec.getBoundingClientRect(), vh = innerHeight; if (r.bottom < -40 || r.top > vh + 40) return;
       var p = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2);
-      pic.style.setProperty('--p', Math.max(-1, Math.min(1, p)).toFixed(3));
+      var pv = Math.max(-1, Math.min(1, p)).toFixed(3); pic.style.setProperty('--p', pv); if (lay) lay.style.setProperty('--p', pv);
     };
     addEventListener('scroll', (window.v7Near || function (e, f) { return f; })(sec, function () { if (!tick) tick = requestAnimationFrame(drift); }), { passive: true });
     addEventListener('resize', drift); drift();
