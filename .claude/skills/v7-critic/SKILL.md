@@ -33,9 +33,10 @@ If something is merely fine, say what would make it excellent. Do not praise.
 
 - Light page. No dark sections. No full-screen coloured surfaces, except the blue Newsroom recap slides and the painted-sky footer.
 - Coral, green and lilac only on small things with a meaning. Blue is the product colour.
-- No recorded video of the product, no coach-mark bubbles, no long progress bars with a grey pause circle, no caption strip under a product frame, no painting behind an app frame, no people at desks in new paintings, nothing about a "Demos engine", no vertical row titles on the Design system wall.
+- No recorded video of the product, no coach-mark bubbles, no long progress bars with a grey pause circle, no caption strip under a product frame, no people at desks in new paintings, nothing about a "Demos engine", no vertical row titles on the Design system wall.
 - Product windows do not react to the mouse inside the app.
-- The low-fidelity Topics wireframe stays as it is.
+- The brand painting stands around and behind the case stages, as on the home page (owner, 25.11): painted sky and clouds from the existing art, no flowers (owner, 23.11). The product never sits under paint.
+- Every case page is now high fidelity (owner, 25.11), Topics included.
 - A new paid painting needs the owner's eye on a cheap draft first (`.claude/skills/v7-painting/SKILL.md`). Say when an idea needs one.
 
 ## What to send back
