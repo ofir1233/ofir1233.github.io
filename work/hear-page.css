@@ -6,7 +6,7 @@
    Nothing here carries an invented number, name or date. */
 *, ::before, ::after{ box-sizing:border-box; }
 html{ -webkit-text-size-adjust:100%; }
-body{ margin:0; background:#f4f3f1; color:#171b20; font:400 16px/1.5 var(--body); -webkit-font-smoothing:antialiased; }
+body{ margin:0; background:#faf9f7; color:#171b20; font:400 16px/1.5 var(--body); -webkit-font-smoothing:antialiased; }
 img, video{ display:block; max-width:100%; }
 a{ color:inherit; }
 button{ font:inherit; color:inherit; }
@@ -125,7 +125,7 @@ button{ font:inherit; color:inherit; }
 .lp-row{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); align-items:center; padding:2px 8px 4px; border-top:1px solid #f1f0ed; }
 .lp-act, .lp-dr{ display:flex; align-items:center; justify-content:center; gap:8px; height:44px; font:500 14px/1 var(--body); }
 .lp-act{ padding:0; border:0; border-radius:8px; background:transparent; color:#333a42; cursor:pointer; transition:background-color .2s, color .2s; }
-.lp-act:hover{ background:#f4f3f1; }
+.lp-act:hover{ background:#faf9f7; }
 .lp-act:focus-visible{ outline-offset:-2px; } /* inside the row: the card clips anything drawn past its edge */
 .lp-act svg, .lp-dr svg{ width:19px; height:19px; flex:none; }
 .lp-act svg{ transition:transform .24s cubic-bezier(.3,1.6,.5,1); }
@@ -205,7 +205,7 @@ button{ font:inherit; color:inherit; }
    If the script never arrives it shows after 3 s; with no script at all it is there at once (noscript, in the page) */
 .lk-feed:empty + .lp-me{ animation:lp-hold 3s; }
 @keyframes lp-hold{ from, to{ visibility:hidden; } }
-.lp-link{ display:grid; grid-template-columns:minmax(0, 1fr) auto; align-items:center; gap:0 16px; margin:0 20px; border-radius:12px; background:#f4f3f1; text-decoration:none; overflow:hidden; transition:background-color .2s; }
+.lp-link{ display:grid; grid-template-columns:minmax(0, 1fr) auto; align-items:center; gap:0 16px; margin:0 20px; border-radius:12px; background:#faf9f7; text-decoration:none; overflow:hidden; transition:background-color .2s; }
 .lp-link:hover{ background:#eeedea; }
 .lp-pair{ grid-column:1 / -1; display:grid; grid-template-columns:minmax(0, 5fr) minmax(0, 7fr); }
 .lp-pair img{ width:100%; height:auto; }
@@ -238,7 +238,7 @@ button{ font:inherit; color:inherit; }
 #post0 .lp-who span{ view-transition-name:hp-sub; }
 #post0 .lp-t{ view-transition-name:hp-cap; }
 
-::view-transition{ background:#f4f3f1; }
+::view-transition{ background:#faf9f7; }
 
 /* 1 · 0–200 ms: the home page leaves; 100–450 ms: the page's ground and its top bar arrive. Never both readable at once */
 ::view-transition-old(root){ animation:hp-out .2s ease both; mix-blend-mode:normal; }

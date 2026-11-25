@@ -3,7 +3,7 @@
    Every rule is scoped to #fyi#fyi and every class, id and custom property carries the fd- prefix, so nothing here reaches the rest of the page
    and the page's own rules for .rv, .row, .pill and the like do not reach in. The label and the button keep the page's own look.
    Behaviour: v7/fyi-door.js. Prototype and history: .claude/fyi/. */
-#fyi#fyi{ --fd-ground:#f4f3f1; --fd-ink:#171b20; --fd-ink-h:#131a21; --fd-text:#333a42; --fd-mute:#5d636a; --fd-line:#d9d7d2; --fd-pink:#ff2d8f; --fd-cyan:#22cdf0; --fd-violet:#7a2cff; --fd-navy:#15183f; }
+#fyi#fyi{ --fd-ground:#faf9f7; --fd-ink:#171b20; --fd-ink-h:#131a21; --fd-text:#333a42; --fd-mute:#5d636a; --fd-line:#d9d7d2; --fd-pink:#ff2d8f; --fd-cyan:#22cdf0; --fd-violet:#7a2cff; --fd-navy:#15183f; }
 #fyi#fyi .fd-d-cta{ grid-area:cta; align-self:start; justify-self:start; margin-top:22px; }
 #fyi#fyi .fd-door-grid button{ font:inherit; color:inherit; }
 #fyi#fyi .fd-door-grid{ display:grid; grid-template-columns:minmax(0,400px) minmax(0,1fr); grid-template-areas:"copy stage" "ctl stage" "cta stage"; grid-template-rows:auto auto auto; column-gap:56px; align-content:center; }
@@ -154,7 +154,7 @@
 #fyi#fyi .fd-rec-in{ position:absolute; inset:0; transform:rotate(calc(var(--fd-lift,0) * -7deg)); }
 #fyi#fyi .fd-rec-disc{ position:absolute; left:5%; top:5%; width:90%; height:90%; border-radius:50%; transform:translate(calc(var(--fd-out,0) * 20%), calc(var(--fd-out,0) * -44%)) rotate(calc(var(--fd-out,0) * 140deg)); background:radial-gradient(circle,transparent 0 17.500%,#0b0b0e 18% 19.500%,transparent 20%), repeating-radial-gradient(circle,#101014 0 1px,#1d1d24 1.2px 2.4px); box-shadow:-2px 1.5px 0 rgba(34,205,240,.8), 2px -1.5px 0 rgba(255,45,143,.75), 0 10px 18px -8px rgba(23,27,32,.6); }
 #fyi#fyi .fd-rec-disc::before{ content:""; position:absolute; inset:0; border-radius:50%; background:conic-gradient(from 20deg,transparent 0 8%,rgba(255,255,255,.2) 13%,transparent 19% 50%,rgba(255,255,255,.15) 58%,transparent 66% 100%); }
-#fyi#fyi .fd-rec-lbl{ position:absolute; left:32.500%; top:32.500%; width:35%; height:35%; border-radius:50%; background:radial-gradient(circle,#0b0b0e 0 6%,#f4f3f1 6.500% 9%,transparent 9.500%), conic-gradient(from 200deg,var(--fd-pink) 0 62%,#f7b267 62% 80%,#e9742b 80% 100%); }
+#fyi#fyi .fd-rec-lbl{ position:absolute; left:32.500%; top:32.500%; width:35%; height:35%; border-radius:50%; background:radial-gradient(circle,#0b0b0e 0 6%,#faf9f7 6.500% 9%,transparent 9.500%), conic-gradient(from 200deg,var(--fd-pink) 0 62%,#f7b267 62% 80%,#e9742b 80% 100%); }
 #fyi#fyi .fd-rec-slv{ position:absolute; inset:0; border-radius:3px; overflow:hidden; box-shadow:-2.5px 2px 0 rgba(34,205,240,.85), 2.5px -2px 0 rgba(255,45,143,.8), 0 0 0 .5px rgba(0,0,0,.4); }
 #fyi#fyi .fd-rec-slv img{ display:block; width:100%; height:100%; }
 #fyi#fyi .fd-rec-slv::after{ content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(255,255,255,.2) 0,rgba(255,255,255,0) 2.500%,rgba(0,0,0,0) 96%,rgba(0,0,0,.25) 100%), linear-gradient(180deg,rgba(0,0,0,.28) 0,rgba(0,0,0,0) 3%); }
