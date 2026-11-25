@@ -116,3 +116,4 @@
 - 25.11: Topics slide on the home no longer links to the Introduction (Topics has no case study of its own); the other slides keep their case links.
 - 25.11: Introduction step 1 filled: why Hear exists, from hear.ai (About: founded 2023, AI helps people understand each other; FAQ: 100% of interactions instead of manual sampling, the why behind the numbers). The empty slot is gone.
 - 25.11: Topics case study (work/topics.html): a low-fi wireframe in four steps on the same sticky stage (v7/topics-story.css, v7/topics-story.js): a table of calls, boxes sized by calls and shaded by score, Online Booking as the most to gain (handle time 9, long verification, shorter script), Ask AI explains why. The home Topics slide links to it again.
+- 25.11: Topics copy now leads with the goal: a dashboard where the contact center manager sees the whole center on one screen and digs into what matters with no friction (hero, steps 1, 2, 4).
