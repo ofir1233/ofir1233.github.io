@@ -36,98 +36,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/foot.css?v=200">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=44">
-<link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<link rel="stylesheet" href="../v7/cs2.css?v=6">
-<link rel="stylesheet" href="../v7/hear-ui.css?v=1">
-<style>
-/* data, page only. The moment: the reader picks a sentence; the left card shows what is typed and the chips it becomes, the right
-   card what follows. The sentence bar and the chips are THE PRODUCT, so they are the product's own parts from v7/hear-ui.css, as
-   studio.html?screen=data draws them: .dt-ask (the ask bar, its lilac spark and underlines), .dt-f (a condition the AI wrote, lilac),
-   .sx-chip (a plain condition, here one a rule wrote) and .sx-tag for who wrote it (.nw lilac for the AI, grey for a rule). The
-   numbered dots are the page's own annotation. The flow under the cards is a principle, so it is a .hui-bw schematic. */
-.c2 .d-hui .dt-ask{ height:auto; min-height:44px; margin-top:0; padding:4px 6px 4px 15px; }
-.c2 .d-hui .dt-ask .tx{ white-space:normal; line-height:2; }
-.c2 .d-hui .dt-ask .tx u{ text-decoration:underline 2px var(--lilac); text-underline-offset:5px; transition:color .2s; }
-.c2 .d-hui .dt-ask .tx u.is-rule{ text-decoration-color:#AEB8C1; }
-.c2 .d-hui .dt-ask .tx u.is-off{ color:var(--mut); text-decoration:line-through 2px var(--lilac); }
-.c2 .d-hui sup{ display:inline-grid; place-items:center; width:17px; height:17px; margin:0 1px 0 3px; border-radius:50%; background:var(--deep); color:#fff; font:600 10.5px/1 var(--body); vertical-align:3px; transition:background .2s; }
-.c2 .d-hui u.is-off + sup, .c2 .d-hui u.is-rule + sup{ background:#7C858E; }
-/* the moment: two even cards. The chips are toggle buttons. They come off last first (and go back on in order), because the page holds
-   the count for exactly those steps: 2,000, 318, 141, 86. No other mix is ever shown, so no number here is computed. */
-.c2 .d-try{ grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); align-items:stretch; }
-.c2 .d-try > div{ padding:26px 28px 28px; }
-.c2 .d-try > div:first-child{ background:rgba(255,255,255,.55); box-shadow:0 0 0 1px var(--line); }
-.c2 .d-try > div:first-child .d-how{ color:var(--ink2); }
-.c2 .d-try h3.d-then{ margin-top:28px; }
-.c2 .d-try .d-how{ margin:16px 0 0; font:400 15px/1.5 var(--body); color:var(--ink2); }
-.c2 .d-chips{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
-.c2 .d-hui .dt-f sup, .c2 .d-hui .sx-chip sup{ margin:0 1px 0 -4px; vertical-align:0; }
-.c2 .d-hui .sx-chip sup{ background:#7C858E; }
-.c2 .d-hui .dt-f{ border:1.5px solid transparent; transition:background .2s, color .2s, border-color .2s, opacity .2s; }
-.c2 .d-hui .dt-f .sx-tag.nw{ background:#fff; transition:opacity .2s; }
-.c2 .d-hui .dt-f svg{ display:none; }
-.c2 .d-hui .dt-f.is-last svg.x{ display:block; opacity:.8; }
-.c2 .d-hui .dt-f.is-last{ cursor:pointer; }
-.c2 .d-hui .dt-f.is-last:hover{ background:#EDD6F4; }
-.c2 .d-hui .dt-f[aria-pressed="false"]{ background:none; border:1.5px dashed #BAC4CD; color:var(--mut); }
-.c2 .d-hui .dt-f[aria-pressed="false"] b{ color:var(--mut); font-weight:500; }
-.c2 .d-hui .dt-f[aria-pressed="false"] sup{ background:#9aa6b2; }
-.c2 .d-hui .dt-f[aria-pressed="false"] .sx-tag{ opacity:.5; }
-.c2 .d-hui .dt-f[aria-pressed="false"]:not(:disabled){ cursor:pointer; }
-.c2 .d-hui .dt-f[aria-pressed="false"]:not(:disabled) svg.plus{ display:block; opacity:.8; }
-.c2 .d-hui .dt-f[aria-pressed="false"]:not(:disabled):hover{ background:#fff; }
-.c2 .d-hui .dt-f[aria-pressed="false"]:disabled{ opacity:.45; }
-.c2 .d-hui .dt-f:focus-visible, .c2 .d-reset:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
-.c2 .d-reset{ min-height:40px; margin-left:4px; padding:0 12px; border:0; border-radius:99px; background:none; font:600 14.5px/1 var(--body); color:var(--deep); cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
-.c2 .d-reset:disabled{ color:var(--mute); opacity:.5; text-decoration:none; cursor:default; }
-/* the readout beside the product's parts is an explanation, not the product: a .hui-bw schematic (greys and ink, the kit's type) */
-.c2 .d-try > div.hui{ display:flex; padding:0; border-radius:0; background:none; box-shadow:none; }
-.c2 .d-read{ flex:1; padding:34px 28px 28px; --body:"Hear Byrd", Byrd, system-ui, sans-serif; --mute:#8A8A8A; --ink2:#181818; }
-.c2 .d-read .d-count{ color:#181818; }
-.c2 .d-read .d-foot{ border-top-color:#E4E4E4; }
-.c2 .d-try .d-total{ display:grid; justify-items:start; gap:6px; margin-top:0; }
-.c2 .d-num{ font:700 clamp(44px, 4.6vw, 60px)/1 var(--body); letter-spacing:-.03em; color:var(--ink); font-variant-numeric:tabular-nums; }
-.c2 .d-total span{ font:600 13px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); }
-.c2 .d-count{ display:grid; grid-template-columns:auto 1fr; gap:6px 14px; margin-top:16px; align-items:center; font:400 15px/1.35 var(--body); color:var(--ink2); }
-.c2 .d-count > li{ display:contents; }
-.c2 .d-count b{ display:inline-grid; place-items:center; justify-self:end; min-width:62px; height:32px; padding:0 10px; border-radius:8px; font:600 17px/1 var(--body); color:var(--ink); font-variant-numeric:tabular-nums; transition:background .2s, color .2s, opacity .2s; }
-.c2 .d-count i{ font-style:normal; color:var(--ink2); transition:opacity .2s; }
-.c2 .d-count .is-now b{ background:var(--ink); color:#fff; }
-.c2 .d-count .is-now i{ color:var(--ink); font-weight:500; }
-.c2 .d-count .is-off b, .c2 .d-count .is-off i{ opacity:.32; }
-.c2 .d-foot{ margin-top:20px; padding-top:14px; border-top:1px solid var(--line); transition:opacity .2s; }
-.c2 .d-foot.is-dim{ opacity:.32; }
-.c2 .d-try .d-foot > p{ margin:0 0 10px; font:600 13px/1.3 var(--body); letter-spacing:.02em; color:var(--mute); }
-.c2 .d-foot > div{ display:grid; grid-template-columns:1fr 1fr; gap:12px; font:400 14.5px/1.4 var(--body); color:var(--ink2); }
-.c2 .d-foot b{ display:block; font:600 20px/1.1 var(--body); color:var(--ink); }
-.c2 .d-foot b small{ font:400 14.5px/1 var(--body); color:var(--mute); }
-/* who reads the sentence (the Lab's describeFilters): rules first, the model only as a fallback. A principle, so a .hui-bw schematic:
-   greys and ink only. The stops on this sentence's path are outlined in ink; a stop it skipped is dashed grey. */
-.c2 .d-rules{ margin-top:clamp(36px, 3.6vw, 48px); }
-.c2 .d-rules > h3{ font:600 13px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); }
-.c2 .d-rules .card.d-sch{ margin-top:14px; padding:34px 28px 26px; }
-.c2 .d-sf{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:30px; }
-.c2 .d-sf li{ position:relative; display:grid; align-content:start; justify-items:start; gap:8px; padding:14px 16px 16px; border-radius:6px; border:1.5px solid #181818; transition:border-color .2s, color .2s; }
-.c2 .d-sf li + li::before{ content:""; position:absolute; left:-21px; top:50%; width:9px; height:9px; margin-top:-5px; border-top:1.5px solid #8A8A8A; border-right:1.5px solid #8A8A8A; transform:rotate(45deg); }
-.c2 .d-sf b{ font-size:15px; font-weight:600; line-height:1.3; }
-.c2 .d-sf p{ font-size:13.5px; line-height:1.45; }
-.c2 .d-case[data-state="a"] .d-sf li.a-miss, .c2 .d-case[data-state="b"] .d-sf li.b-miss{ border:1.5px dashed #C9C9C9; color:#8A8A8A; }
-/* the reader picks the sentence: one the rules miss (the default, with the screen's counts) or one they catch (no counts) */
-.c2 .d-case[data-state="a"] .s-b, .c2 .d-case[data-state="b"] .s-a{ display:none !important; }
-.c2 .d-pick{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:26px 0 18px; }
-.c2 .d-pick > span{ margin-right:6px; font:600 13px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); }
-.c2 .d-pick button{ min-height:40px; padding:0 16px; border:1px solid #b9c3cc; border-radius:99px; background:#fff; font:500 15px/1 var(--body); color:var(--ink2); cursor:pointer; transition:background .2s, color .2s, border-color .2s; }
-.c2 .d-pick button:hover{ border-color:var(--ink2); }
-.c2 .d-pick button[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:#fff; }
-.c2 .d-pick button:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
-@media (max-width: 560px){ .c2 .d-pick > span{ flex-basis:100%; } .c2 .d-pick button{ padding:0 14px; font-size:14.5px; } }
-.c2 .d-who b{ min-width:54px; font-size:14px; border-radius:4px; background:#E4E4E4; }
-.c2 .d-who .is-now b{ background:#E4E4E4; color:#181818; }
-.c2 .c2-status + .c2-status{ margin-top:8px; padding-top:0; border-top:0; }
-.c2 .d-say{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
-@media (max-width: 900px){ .c2 .d-try{ grid-template-columns:1fr; } .c2 .d-sf{ grid-template-columns:1fr 1fr; gap:22px 30px; } .c2 .d-sf li:nth-child(3)::before{ display:none; } }
-@media (max-width: 560px){ .c2 .d-foot > div{ grid-template-columns:1fr; } .c2 .d-read{ padding:34px 18px 22px; } .c2 .d-try > div{ padding:20px 18px 22px; } .c2 .d-try h3.d-then{ margin-top:24px; } .c2 .d-rules .card.d-sch{ padding:34px 16px 18px; } .c2 .d-sf{ grid-template-columns:1fr; gap:22px; } .c2 .d-sf li + li::before{ display:block; left:50%; top:-15px; margin:0 0 0 -5px; transform:rotate(135deg); } .c2 .d-sf li:nth-child(3)::before{ display:block; } }
-</style>
+<link rel="stylesheet" href="../v7/intro.css?v=2">
+<link rel="stylesheet" href="../v7/wf-story.css?v=2">
+<link rel="stylesheet" href="../v7/data-wf.css?v=1">
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
 <body>
@@ -141,153 +52,131 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main" class="c2">
-  <header class="c2-hero">
-    <div class="c2-w">
-      <p class="c2-kick">Case study · <b>Data</b></p>
-      <h1>Finding the few calls that matter among thousands</h1>
-      <p class="c2-ctx">Hear, an AI platform for contact centers, keeps every call in one table; I designed that table and a filter you can ask in plain words.</p>
-      <dl class="c2-sum">
-        <div><dt>For</dt><dd>People sorting a contact center's calls: what needs review, what is urgent.</dd></div>
-        <div><dt>The problem</dt><dd>Thousands of calls, and only a handful that answer the question in hand.</dd></div>
-        <div><dt>What I did</dt><dd>The call table, and a filter that turns a sentence into chips you can remove.</dd></div>
-        <div><dt>Where it stands</dt><dd>A redesign of how the product's filters are read and applied, in Hear Design Lab, my working copy of Hear, built in code; not built yet.</dd></div>
-      </dl>
-      <figure class="c2-fig">
-        <div class="c2-shot"><img id="d-hero" src="../img/v7s-data-table.webp?v=6" width="2060" height="1327" alt="The Data screen: tabs with counts (All calls 2,000, Needs review 148, High priority 62, Alerts 17, Done 1,204), a box that says Filter in plain words, then the date range, Filter and Columns, and the call table. Each row has the call's topic and a one-line summary, its date, status, priority, who has it, direction, length, sentiment and score; three refund calls carry a small warning sign." fetchpriority="high">
-          <span class="c2-pin" style="--x:33%;--y:3.9%" data-m="56.7,6.2" aria-hidden="true">1</span><span class="c2-pin" style="--x:17.2%;--y:14.5%" data-m="29.5,22.8" aria-hidden="true">2</span><span class="c2-pin" style="--x:32.4%;--y:35.6%" data-m="55.6,55.9" aria-hidden="true">3</span><span class="c2-pin" style="--x:17%;--y:26.4%" data-m="29.2,41.4" aria-hidden="true">4</span></div>
-        <figcaption><ol class="c2-key" style="--n:4">
-          <li><i aria-hidden="true">1</i><span><b>Tabs slice the same table:</b> 148 calls need review, 62 are high priority, 17 have alerts.</span></li>
-          <li><i aria-hidden="true">2</i><span><b>Filter in plain words.</b> Type the question; it becomes filters.</span></li>
-          <li><i aria-hidden="true">3</i><span><b>Each row says what happened:</b> the topic and a one-line summary lead.</span></li>
-          <li><i aria-hidden="true">4</i><span><b>A warning sign:</b> an alert went off. Alerts are checks the team sets, which fire on a call.</span></li>
-        </ol></figcaption>
-      </figure>
-      <script>/* data, page only: on a phone the hero is a tighter crop of the same still (the left two thirds, the first six rows), so its
-         words read at about 11px in the pan instead of 5px; the pins move to the same spots on the crop. Runs before cs2.js wraps the pan. */
-      (function () {
-        var img = document.getElementById('d-hero'); if (!img || !window.matchMedia) return;
-        var mq = matchMedia('(max-width: 560px)'), pins = [].slice.call(img.parentNode.querySelectorAll('.c2-pin')),
-          full = pins.map(function (p) { return [p.style.getPropertyValue('--x'), p.style.getPropertyValue('--y')]; });
-        function set() {
-          var m = mq.matches;
-          img.setAttribute('width', m ? 1200 : 2060); img.setAttribute('height', m ? 845 : 1327);
-          img.src = m ? '../img/v7s-data-table-m.webp?v=1' : '../img/v7s-data-table.webp?v=6';
-          pins.forEach(function (p, k) { var xy = m ? p.getAttribute('data-m').split(',').map(function (v) { return v + '%'; }) : full[k];
-            p.style.setProperty('--x', xy[0]); p.style.setProperty('--y', xy[1]); });
-        }
-        set(); if (mq.addEventListener) mq.addEventListener('change', function () { set(); dispatchEvent(new Event('resize')); });
-      })();</script>
-      <div class="c2-live"><button type="button" class="c2-btn" data-live="../hear-v7/plan/studio.html?screen=data&amp;v=204" data-title="Data, the live screen in Hear Design Lab" data-open="Try the live screen" data-close="Close the live screen" aria-expanded="false" aria-controls="live-d"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .5.6.8 1 .5l8-5.2a.6.6 0 0 0 0-1L5.5 2.3c-.4-.3-1 0-1 .5z"/></svg><span class="c2-bt">Try the live screen</span></button><small>The real screen, with demo data.</small></div>
-      <div class="c2-frame" id="live-d" hidden></div>
-    </div>
+<main id="main" class="in-page">
+  <header class="in-hero">
+    <p class="in-tag">Data <b>Wireframe · low fidelity</b></p>
+    <h1>Finding the few calls that matter among thousands</h1>
+    <p>Hear keeps every contact center call in one table. I designed that table, plus a filter you can ask in plain words. Rules read the sentence first. An AI model writes filters only when no rule can.</p>
+    <p class="in-note">My redesign, built in Hear Design Lab on demo data.</p>
   </header>
 
-  <section class="c2-sec" id="context" data-ch="The setting">
-    <div class="c2-w">
-      <p class="c2-n">The setting</p>
-      <h2>Every call a contact center takes ends up as a row in one table</h2>
-      <p class="c2-lede">Agents are the people who answer the calls. Hear reads each call, and Data is where all of them can be found again.</p>
-      <ol class="c2-flow">
-        <li><b>Calls</b><span>Agents take customer calls all day.</span></li>
-        <li><b>Hear reads every call</b><span>Each gets a topic, a summary, a sentiment and a score; some set off an alert.</span></li>
-        <li class="is-me"><em>My screens</em><b>One table of every call</b><span>Tabs, filters and columns to find the right ones.</span></li>
-        <li><b>A person opens a call</b><span>It opens in a side panel beside the table.</span></li>
-      </ol>
-    </div>
-  </section>
+  <section class="in-sl" aria-label="Data, six steps">
+    <div class="in-stw">
+      <div class="in-stage">
+        <div class="in-sv" id="in-sv" data-s="0" aria-hidden="true">
+          <div class="aw">
 
-  <section class="c2-sec" id="problem" data-ch="The problem">
-    <div class="c2-w">
-      <p class="c2-n">The problem</p>
-      <h2>Two thousand calls, and the question fits none of the tabs</h2>
-      <p class="c2-lede">In Northwind, the demo workspace in the picture above, the last 90 days hold 2,000 calls: 223 pages of nine rows. The tabs cut that down, but a question like "long refund calls where the customer was unhappy" is not a tab.</p>
-    </div>
-  </section>
-
-  <section class="c2-sec is-key" id="ask" data-ch="Asking in plain words">
-    <div class="c2-w">
-      <p class="c2-n">Asking in plain words</p>
-      <h2>Rules read the sentence first; the AI model is only the fallback</h2>
-      <p class="c2-lede">When a rule fires, the model is never asked; when none does, the model writes the chips and each is checked. Every chip says who wrote it.</p>
-      <div class="d-case" data-state="a">
-      <div class="d-pick" role="group" aria-label="Pick a sentence"><span aria-hidden="true">Pick a sentence</span><button type="button" aria-pressed="true" data-pick="a">The rules miss it</button><button type="button" aria-pressed="false" data-pick="b">The rules catch it</button></div>
-      <div class="c2-ba d-try" data-try>
-        <div><div class="s-a"><h3>You type</h3>
-          <div class="hui d-hui"><div class="dt-ask d-ask"><svg class="i" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="tx"><u>refund calls</u><sup>1</sup> <u>over 5 minutes</u><sup>2</sup> where the customer was <u>unhappy</u><sup>3</sup></span><i class="dt-send"><svg class="i" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 13.5v-9M5.2 8.3 9 4.5l3.8 3.8"/></svg></i></div></div>
-          <h3 class="d-then">The model writes three filters</h3>
-          <div class="hui d-hui d-chips" role="group" aria-label="The three filters" aria-describedby="d-how">
-            <button type="button" class="dt-f d-chip" aria-pressed="true" aria-label="Topic: Refunds &amp; Credits, from the AI, checked"><sup aria-hidden="true">1</sup>Topic <b>Refunds &amp; Credits</b><span class="sx-tag nw" aria-hidden="true">AI, checked</span><svg class="i x" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="i plus" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
-            <button type="button" class="dt-f d-chip" aria-pressed="true" aria-label="Length: over 5 minutes, from the AI, checked"><sup aria-hidden="true">2</sup>Length <b>over 5 min</b><span class="sx-tag nw" aria-hidden="true">AI, checked</span><svg class="i x" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="i plus" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
-            <button type="button" class="dt-f d-chip is-last" aria-pressed="true" aria-label="Sentiment: Negative, from the AI, checked"><sup aria-hidden="true">3</sup>Sentiment <b>Negative</b><span class="sx-tag nw" aria-hidden="true">AI, checked</span><svg class="i x" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg><svg class="i plus" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 4.5v9M4.5 9h9"/></svg></button>
-            <button type="button" class="d-reset" disabled>Reset</button>
-          </div>
-          <p class="d-how" id="d-how">Chips come off last first, so every count is one the real screen shows.</p></div>
-          <div class="s-b"><h3>You type</h3>
-            <div class="hui d-hui"><div class="dt-ask"><svg class="i" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="tx"><u class="is-rule">high priority</u><sup>1</sup> calls from <u class="is-rule">yesterday</u><sup>2</sup></span><i class="dt-send"><svg class="i" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 13.5v-9M5.2 8.3 9 4.5l3.8 3.8"/></svg></i></div></div>
-            <h3 class="d-then">The rules write two filters</h3>
-            <div class="hui d-hui d-chips" role="list" aria-label="The two filters">
-              <span class="sx-chip" role="listitem"><sup aria-hidden="true">1</sup>Priority <b>High</b><span class="sx-tag">rule</span></span>
-              <span class="sx-chip" role="listitem"><sup aria-hidden="true">2</sup>Call date <b>on <span class="d-yday">yesterday's date</span></b><span class="sx-tag">rule</span></span>
+            <div class="aw-sc dw-s1">
+              <div class="dw-tbl">
+                <div class="dw-tabs"><span class="t0">All calls<em>2,000</em></span><span>Needs review<em>148</em></span><span>High priority<em>62</em></span><span class="t3">Alerts<em>17</em></span><span class="t4">Done<em>1,204</em></span></div>
+                <div class="dw-rows">
+                  <div class="dw-r al" style="--r:0"><span class="tp"><b>Refunds &amp; Credits<u></u></b><small>Asks twice for a refund on a cancelled flight, is offered a voucher</small></span><span class="dt">Oct 13 · 14:02</span><span class="st">In progress</span></div>
+                  <div class="dw-r" style="--r:1"><span class="tp"><b>Online Booking</b><small>Books two seats to Lisbon and adds a bag at checkout</small></span><span class="dt">Oct 13 · 13:47</span><span class="st">Done</span></div>
+                  <div class="dw-r" style="--r:2"><span class="tp"><b>Trip Status</b><small>Asks whether the 18:40 to Madrid is still on time</small></span><span class="dt">Oct 13 · 13:31</span><span class="st">Done</span></div>
+                  <div class="dw-r al up" style="--r:3"><span class="tp"><b>Refunds &amp; Credits<u></u></b><small>A refund promised ten days ago has not arrived</small></span><span class="dt">Oct 13 · 13:18</span><span class="st">In progress</span></div>
+                  <div class="dw-r" style="--r:4"><span class="tp"><b>Seating &amp; Extras</b><small>Moves to an aisle seat and pays for extra legroom</small></span><span class="dt">Oct 13 · 12:56</span><span class="st">Done</span></div>
+                </div>
+              </div>
             </div>
-            <p class="d-how">The chips the Lab's rules produce for this sentence, word for word. No counts: the demo numbers belong to the first sentence.</p></div></div>
-        <div class="hui hui-bw d-readw"><div class="card is-flow d-read"><span class="hui-schem">Schematic</span><div class="s-a">
-          <p class="d-total"><span>Calls that match</span><b class="d-num">86</b></p>
-          <ol class="d-count" aria-label="How the count narrows">
-            <li class="is-past"><b>2,000</b><i>every call in the last 90 days</i></li>
-            <li class="is-past"><b>318</b><i>of them about refunds</i></li>
-            <li class="is-past"><b>141</b><i>of those over five minutes</i></li>
-            <li class="is-now"><b>86</b><i>of those with an unhappy customer</i></li>
-          </ol>
-          <div class="d-foot"><p>Averages for the 86</p><div>
-            <span>Average score<b>36 <small>against 76 for all calls</small></b></span>
-            <span>Average length<b>7:07 <small>against 4:12</small></b></span>
-          </div></div>
+
+            <div class="aw-sc dw-s2">
+              <div class="dw-big"><b>2,000</b><span>calls in the last 90 days</span><small>223 pages of nine rows</small></div>
+              <div class="dw-ask"><small>The question</small><p><span>long refund calls where the customer was unhappy</span></p></div>
+              <div class="dw-tabs2"><span style="--t:0">Needs review</span><span style="--t:1">High priority</span><span style="--t:2">Alerts</span><span style="--t:3">Done</span></div>
+              <p class="dw-none">No tab answers it</p>
+            </div>
+
+            <div class="aw-sc dw-s3">
+              <div class="dw-sent"><small>You type</small><p><mark class="m1"><i class="sw-n">1</i>high priority</mark> calls from <mark class="m2"><i class="sw-n">2</i>yesterday</mark></p></div>
+              <div class="dw-lane rules"><h5>Rules, first <em>Two rules fire</em></h5>
+                <div class="dw-chips"><span class="dw-chip c1"><i class="sw-n">1</i>Priority: High<em>rule</em></span><span class="dw-chip c2"><i class="sw-n">2</i>Call date: yesterday’s date<em>rule</em></span></div>
+              </div>
+              <div class="dw-lane model"><h5>AI model, only if no rule fires <em>Not asked</em></h5><p>A rule fired, so the model is skipped.</p></div>
+            </div>
+
+            <div class="aw-sc dw-s4">
+              <div class="dw-sent"><small>You type</small><p><mark class="m1"><i class="sw-n">1</i>refund calls</mark> <mark class="m2"><i class="sw-n">2</i>over 5 minutes</mark> <mark class="m3"><i class="sw-n">3</i>where the customer was unhappy</mark></p></div>
+              <div class="dw-lane rules"><h5>Rules, first <em>No rule fires</em></h5><p>No rule knows mood, and “over 5 minutes” isn’t their “longer than”.</p></div>
+              <div class="dw-lane model"><h5>AI model <em>Asked, with the table’s columns and values</em></h5>
+                <div class="dw-chips"><span class="dw-chip c1"><i class="sw-n">1</i>Topic: Refunds &amp; Credits<em>AI, checked</em></span><span class="dw-chip c2"><i class="sw-n">2</i>Length: over 5 min<em>AI, checked</em></span><span class="dw-chip c3"><i class="sw-n">3</i>Sentiment: Negative<em>AI, checked</em></span></div>
+              </div>
+            </div>
+
+            <div class="aw-sc dw-s5">
+              <div class="dw-fb off"><small>Set aside · every click runs the filter<em>ran 3 times</em></small>
+                <div class="dw-bar"><span class="dw-chip k1">Refunds &amp; Credits</span><span class="dw-chip k2">over 5 min</span><span class="dw-chip k3">Negative</span><span class="dw-ct"><b class="v0">2,000</b><b class="v1">318</b><b class="v2">141</b><b class="v3">86</b></span></div>
+                <div class="dw-gh"><i></i><i></i><i></i></div>
+              </div>
+              <div class="dw-fb yes"><small>Chosen · an explicit Apply<em>ran once</em></small>
+                <div class="dw-bar"><span class="dw-chip k1">Refunds &amp; Credits</span><span class="dw-chip k2">over 5 min</span><span class="dw-chip k3">Negative</span><span class="dw-ap">Apply</span><span class="dw-ct"><b class="v0">2,000</b><b class="v3">86</b></span></div>
+                <div class="dw-gh"><i></i><i></i><i></i></div>
+              </div>
+            </div>
+
+            <div class="aw-sc dw-s6">
+              <div class="dw-list">
+                <i class="hl"></i>
+                <div class="dw-r"><b>Refunds &amp; Credits<u></u></b><small>Asks twice for a refund on a cancelled flight</small></div>
+                <div class="dw-r"><b>Online Booking</b><small>Books two seats to Lisbon</small></div>
+                <div class="dw-r"><b>Trip Status</b><small>Asks if the 18:40 to Madrid is on time</small></div>
+                <div class="dw-r"><b>Refunds &amp; Credits<u></u></b><small>A refund promised ten days ago</small></div>
+              </div>
+              <div class="dw-keys"><span class="kd"><kbd>↓</kbd>next call</span><span><kbd>Esc</kbd>closes</span></div>
+              <div class="dw-pan">
+                <div class="pc p1"><small>Call · Oct 13 · 14:02</small><b>Refunds &amp; Credits</b><p>Asks twice for a refund on a cancelled flight, is offered a voucher</p><span class="dw-alert"><u></u>Alert fired · Refund refused</span></div>
+                <div class="pc p2"><small>Call · Oct 13 · 13:47</small><b>Online Booking</b><p>Books two seats to Lisbon and adds a bag at checkout</p></div>
+                <div class="fx"><i class="aw-ln"></i><i class="aw-ln s"></i><i class="aw-ln"></i></div>
+                <p class="of">Open full call →</p>
+                <div class="ask">Ask AI about this call</div>
+              </div>
+            </div>
+
           </div>
-          <div class="s-b">
-            <p class="d-total"><span>Who wrote the chips</span><b class="d-num">Rules</b></p>
-            <ol class="d-count d-who" aria-label="Who wrote each chip">
-              <li class="is-now"><b>rule</b><i>“high priority” became Priority: High</i></li>
-              <li class="is-now"><b>rule</b><i>“yesterday” became Call date: on <span class="d-yday">yesterday's date</span></i></li>
-              <li class="is-off"><b>AI</b><i>not asked: a rule fired, so the model is skipped</i></li>
-            </ol></div>
-          <p class="d-say" aria-live="polite"></p></div></div>
-      </div>
-      <div class="d-rules">
-        <h3>How this sentence was read</h3>
-        <div class="hui hui-bw"><div class="card is-flow d-sch"><span class="hui-schem">Schematic</span>
-          <ol class="d-sf">
-            <li><b>The sentence</b><p>Typed in English or Hebrew.</p></li>
-            <li class="a-miss"><b>Rules first, offline</b><span class="sx-tag s-a">No rule fires</span><span class="sx-tag ink s-b">Two rules fire</span><p class="s-a">No rule knows mood, and “over 5 minutes” isn't their “longer than”.</p><p class="s-b">“high priority” and “yesterday” each match a rule.</p></li>
-            <li class="b-miss"><b>The AI model, only if no rule fires</b><span class="sx-tag ink s-a">Asked</span><span class="sx-tag s-b">Not asked</span><p class="s-a">It gets the table's columns and values to choose from.</p><p class="s-b">A rule fired, so the model is skipped.</p></li>
-            <li><b><span class="s-a">Checked chips</span><span class="s-b">Rule chips</span></b><p class="s-a">Its answer is checked against those columns and values; anything else is dropped.</p><p class="s-b">Tagged “rule”, and removed like any other chip.</p></li>
-          </ol>
-        </div></div>
-      </div>
+        </div>
+        <div class="in-meter" aria-label="Steps"></div>
       </div>
     </div>
+
+    <ol class="in-steps">
+      <li class="in-st on">
+        <span class="in-n">01</span>
+        <h2>One table for every call</h2>
+        <p>Hear reads every call a contact center takes, and each one becomes a row in Data. The row starts with what happened: the topic and a one-line summary. If an alert went off, it shows a warning sign. Tabs cut the same table into groups: 148 calls need review, 62 are high priority, 17 have alerts.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">02</span>
+        <h2>The question fits none of the tabs</h2>
+        <p>In Northwind, the demo workspace, the last 90 days hold 2,000 calls: 223 pages of nine rows. Tabs help narrow that down, but “long refund calls where the customer was unhappy” isn’t a tab. So the filter lets you ask in plain words.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">03</span>
+        <h2>Rules read the sentence first</h2>
+        <p>The sentence goes through rules before any AI. “High priority” and “yesterday” each match a rule, so they become two filters: Priority: High and Call date: yesterday’s date. Each is marked “rule”. Because a rule fired, the AI model is not asked. You can type the sentence in English or Hebrew.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">04</span>
+        <h2>The model fills the gap, then gets checked</h2>
+        <p>No rule knows mood, and “over 5 minutes” isn’t their “longer than”. So the AI model gets the sentence, with the table’s columns and values to choose from. It writes three filters. Each one is checked against those columns and values, and anything else is dropped. Every chip shows who wrote it and comes off with one click.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">05</span>
+        <h2>The table changes once, on Apply</h2>
+        <p>Building a filter takes several clicks. In June, I tried an earlier design without the Apply button. Every click ran the filter right away, while it was still being built. With Apply, you set the conditions first, and the table changes once, here from 2,000 calls to 86. The shared filter from the Alerts page, which Data now uses, works the same way.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">06</span>
+        <h2>A call opens beside the table</h2>
+        <p>Click a row and the call opens in a side panel, so the filtered table stays in view. The panel names the alert that went off. Arrow keys move to the next call without closing it, Esc closes it, and the full call is one click away. From the panel, you can ask the AI about that one call.</p>
+      </li>
+    </ol>
   </section>
 
-  <section class="c2-sec" id="decision" data-ch="The key decision">
-    <div class="c2-w">
-      <p class="c2-n">The key decision</p>
-      <h2>Filters wait for Apply, so the table changes once, not on every click</h2>
-      <div class="c2-dec">
-        <div class="c2-opt"><h3>Filter on every change <em>Set aside</em></h3><p>Tried in June on an earlier design, without the Apply button: every click ran the filter at once, while the filter was still being built.</p></div>
-        <div class="c2-opt is-chosen"><h3>An explicit Apply <em>Chosen</em></h3><p>Set up the conditions, then run them once. The shared filter from the Alerts page, which Data now uses, works the same way.</p></div>
-      </div>
-      <p class="c2-result"><b>Why:</b> building a filter takes several clicks; the table should change once.</p>
-    </div>
+  <section class="aw-end" aria-labelledby="aw-end-h">
+    <h2 id="aw-end-h">Where it stands</h2>
+    <p>Hear’s product already turns a sentence into filters. My redesign of how the sentence is read and checked runs in Hear Design Lab, my working copy of Hear, on demo data. I built it with Claude Code from March to October 2026. Each new version of the page went in as a copy, so the earlier one stayed one click away. Two parts reached the product: Data on the shared action menus (April 2026), and an empty state that tells “nothing uploaded” from “nothing matches” (May 2026).</p>
   </section>
 
-  <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
-    <div class="c2-w">
-      <p class="c2-coda">Rules first; a wrong chip is <em>one click to remove.</em></p>
-      <p class="c2-status"><b>Where it stands:</b> the product already turns a sentence into filters; my redesign of how they are read and checked runs in the Lab, on demo data, built with Claude Code, March–October 2026.</p>
-      <p class="c2-status"><b>Shipped in the product:</b> Data on the shared action menus (April 2026); an empty state that tells “nothing uploaded” from “nothing matches” (May 2026).</p>
-    </div>
-  </section>
-  <div class="c2-w c2-next">
+  <div class="aw-next">
     <a class="next" href="design-system.html" aria-label="Next case study: Design system. One token set behind every screen in the Lab"><span class="next-t"><span class="label">Next case study</span><span class="next-name">Design system</span><span class="next-line">One token set behind every screen in the Lab</span><span class="next-go">Read next</span></span><span class="next-thumb fade-l" aria-hidden="true"><img src="../img/next-system.webp?v=3" width="1440" height="900" alt="" loading="lazy" decoding="async"></span></a>
   </div>
 </main>
@@ -326,64 +215,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </div>
 </footer>
 <script src="case.js?v=8"></script>
-<script src="../v7/cs2.js?v=3" defer></script>
-<script>/* data, page only: remove a chip. The chips come off last first and go back on in order, so the count is always one the page gives
-   (2,000, 318, 141, 86); no other mix exists here and nothing is computed. The number changes in 320 ms, at once with reduced motion. */
-(function () {
-  var box = document.querySelector('[data-try]'); if (!box) return;
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches,
-    chips = [].slice.call(box.querySelectorAll('button.d-chip')), words = [].slice.call(box.querySelectorAll('.s-a .d-ask u')),
-    rows = [].slice.call(box.querySelectorAll('.s-a .d-count li')), num = box.querySelector('.d-num'), foot = box.querySelector('.d-foot'),
-    reset = box.querySelector('.d-reset'), say = box.querySelector('.d-say'),
-    COUNT = [2000, 318, 141, 86], NAME = ['Refunds & Credits', 'Over 5 minutes', 'Negative'], n = 3, shown = 86, raf = 0;
-  function fmt(v) { return v.toLocaleString('en-US'); }
-  function tick(to) {
-    cancelAnimationFrame(raf);
-    if (reduce) { shown = to; num.textContent = fmt(to); return; }
-    var from = shown, t0 = performance.now();
-    raf = requestAnimationFrame(function step(t) {
-      var p = Math.min(1, (t - t0) / 320), e = 1 - Math.pow(1 - p, 3);
-      shown = Math.round(from + (to - from) * e); num.textContent = fmt(shown);
-      if (p < 1) raf = requestAnimationFrame(step);
-    });
-  }
-  function render() {
-    chips.forEach(function (c, k) {
-      var on = k < n;
-      c.setAttribute('aria-pressed', on); c.disabled = !(k === n - 1 || k === n);
-      c.classList.toggle('is-last', k === n - 1); words[k].classList.toggle('is-off', !on);
-    });
-    rows.forEach(function (r, k) { r.classList.toggle('is-now', k === n); r.classList.toggle('is-off', k > n); });
-    foot.classList.toggle('is-dim', n !== 3);
-    reset.disabled = n === 3;
-  }
-  chips.forEach(function (c, k) {
-    c.addEventListener('click', function () {
-      if (c.disabled) return;
-      var off = k === n - 1; n = off ? k : k + 1;
-      render(); tick(COUNT[n]);
-      say.textContent = NAME[k] + (off ? ' removed. ' : ' added back. ') + fmt(COUNT[n]) + ' calls match.';
-    });
-  });
-  reset.addEventListener('click', function () {
-    n = 3; render(); tick(COUNT[3]); chips[2].focus();
-    say.textContent = 'All three filters are back. 86 calls match.';
-  });
-  render();
-  /* the sentence picker: the date chip says what the rules write today ("on" + yesterday, as the Lab formats it) */
-  var yd = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(new Date(Date.now() - 864e5));
-  [].forEach.call(document.querySelectorAll('.d-yday'), function (e) { e.textContent = yd; });
-  var kase = document.querySelector('.d-case'), picks = [].slice.call(kase.querySelectorAll('[data-pick]'));
-  picks.forEach(function (b) {
-    b.addEventListener('click', function () {
-      var st = b.getAttribute('data-pick');
-      kase.setAttribute('data-state', st);
-      picks.forEach(function (o) { o.setAttribute('aria-pressed', o === b); });
-      say.textContent = st === 'b' ? 'High priority calls from yesterday: two rules fire, Priority High and Call date on ' + yd + '. The model is not asked.'
-        : 'Refund calls over 5 minutes where the customer was unhappy: no rule fires, so the model writes three filters, each checked.';
-    });
-  });
-})();</script>
 <script src="../v7/foot.js?v=202" defer></script>
+<script src="../v7/wf-story.js?v=2" defer></script>
 </body>
 </html>
