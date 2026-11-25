@@ -54,7 +54,8 @@
       /* a phone reads the grid from the names to the Compliance column, the width of the frame */
       [[0, null], [1700, '#hm, .appv[data-v="eval"] .key', { pad: 22, max: 1.7, big: true }], [4300, '#hm, .appv[data-v="eval"] .key', { pad: 22, max: 1.7, keep: true, call: 1, big: true }],
         [1700, CM, { fit: 'w', pad: 14, max: 2, small: true }], [4300, CM, { fit: 'w', pad: 14, max: 2, keep: true, call: 1, small: true }]],
-      [[0, '#hm td[data-a="Selma Kaya"][data-c="Compliance"]', { pad: 180, pad2: 30, max: 1.85, grow: '.xp-pop' }]],
+      /* owner, 25.11: the rim rang the card and the whole Compliance column, "too big, it marks more than it should": it rings the card only */
+      [[0, '#hm td[data-a="Selma Kaya"][data-c="Compliance"]', { pad: 180, pad2: 30, max: 1.85, grow: '.xp-pop', mark: '.xp-pop' }]],
       /* the calls, then what the AI says; a phone reads the first call in two parts: the call, then its score and what Hear found */
       [[0, '.ev:not(.xp-empty), .ev:not(.xp-empty) #evl', { pad: 22, max: 1.8, from: '.xp-pop .xp-go' }], [2700, '#evl tr:first-child', { pad: 16, max: 2, gx: 10, gy: 0, ax: 1, small: true }],
         [4000, '.xp-said', { pad: 26, max: 1.8, big: true, mark: '.it.xp-said' }], [5200, '.xp-said', { pad: 20, max: 2, small: true, mark: '.it.xp-said' }]]
