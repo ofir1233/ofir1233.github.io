@@ -34,6 +34,12 @@
 .aw-tag.ink{ background:var(--ink); border-color:var(--ink); color:#fff; }
 
 
+/* phone: a taller stage, and side notes give their room to the part itself (the step text says what they said) */
+@media (max-width: 860px){
+  .in-stage:has(.aw){ height:min(54vh, 470px); }
+  .aw-sc .aw-lb{ display:none; }
+}
+
 @media (prefers-reduced-motion: reduce){ .aw-sc, .aw-sc *{ transition:none !important; animation:none !important; } }
 
 /* after the steps: where it stands, and the next case (as on Explainable scores) */

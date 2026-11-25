@@ -169,3 +169,22 @@
 .nw-rec .wk .on{ background:#fff; border-color:#fff; color:var(--mute); }
 .nw-rec .wk .on b{ color:var(--ink); }
 .go .nw-rec .wk .on{ animation:nw-in .4s ease 7.2s both; }
+
+/* phone: the room is 400 wide; the front page narrows and its tabs wrap, the two cards and the two ways sit tighter or stack,
+   the recap opens over its card like a story opened on a phone */
+@media (max-width: 860px){
+  .nw-page{ width:390px; height:390px; }
+  .nw-mast{ flex-direction:column; align-items:flex-start; gap:6px; }
+  .nw-tabs{ flex-wrap:wrap; row-gap:6px; }
+  .nw-lead{ top:156px; width:214px; height:200px; } .nw-lead .box{ height:130px; }
+  .nw-side{ left:244px; top:156px; width:130px; }
+  .nw-side i{ height:42px; }
+  .nw-claim{ width:192px; padding:12px 12px 14px; } .nw-store{ left:204px; width:196px; padding:12px 12px 14px; }
+  .nw-rg{ width:166px; height:113px; }
+  .nw-row{ flex-direction:column; align-items:flex-start; gap:6px; margin-top:8px; padding:8px 9px; }
+  .nw-op.off{ left:0; top:0; width:400px; }
+  .nw-op.yes{ left:0; top:124px; width:400px; }
+  .nw-feat{ top:150px; }
+  .nw-rec{ left:146px; width:254px; }
+  .nw-plot span, .nw-rec .mon .tip, .nw-rec .mon .x, .nw-rec .wk span{ font-size:10.5px; }
+}

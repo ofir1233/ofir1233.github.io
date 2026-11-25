@@ -92,3 +92,16 @@
 .sw-all{ margin:8px 0 0; font-size:10.5px; color:var(--soft); text-align:right; opacity:0; transition:opacity .3s ease; }
 .go .sw-all{ opacity:1; transition-delay:3.6s; }
 .sw-btn{ display:block; margin-top:14px; padding:9px 12px; border:1.5px solid var(--ink); border-radius:7px; background:#fff; color:var(--ink); font:500 11.5px/1 "Geist Mono", monospace; text-align:center; }
+
+/* phone: the room is 400 wide; the grid's columns narrow under short names, the card sits closer, the calls keep date, score and finding */
+@media (max-width: 860px){
+  .sw-grid{ grid-template-columns:70px repeat(7, 44px); gap:5px; }
+  .sw-grid .h{ font-size:0; }
+  .sw-grid .h::after{ content:attr(data-s); font-size:9.5px; }
+  .sw-grid .n{ font-size:10.5px; }
+  .sw-key{ left:70px; }
+  .sw-pop{ left:84px; width:316px; }
+  .sw-chat{ width:400px; }
+  .sw-calls li{ grid-template-columns:44px 24px 1fr; }
+  .sw-calls li b, .sw-calls li em{ display:none; }
+}
