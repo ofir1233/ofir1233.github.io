@@ -136,10 +136,11 @@
 #fyi#fyi .fd-ev-n{ margin-left:auto; font-size:11px; color:#aeaeb2; font-variant-numeric:tabular-nums; }
 #fyi#fyi .fd-ev-n b{ color:#fff; font-weight:600; }
 /* ---------- the wave */
-/* the voice note, painted as heat (img/fyi-door/thermal-wave.webp, transparent). The timeline reveals it left to right with a clip and
-   breathes it with a scale while Maya talks: no repaint of the picture itself. */
-#fyi#fyi .fd-tw{ left:0; top:0; width:10px; height:10px; z-index:1; pointer-events:none; clip-path:inset(-10% calc((1 - var(--fd-rev,0)) * 100%) -10% 0); }
-#fyi#fyi .fd-tw img{ display:block; width:100%; height:100%; transform-origin:50% 53%; will-change:transform; }
+/* the voice note, painted as heat (img/fyi-door/thermal-wave.webp, transparent). The timeline lets it in left to right through a soft,
+   feathered edge (a mask 40% wide) while it slowly stretches open, as heat spreading; the picture itself is never touched. */
+#fyi#fyi .fd-tw{ left:0; top:0; width:10px; height:10px; z-index:1; pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,#000 var(--fd-ma,-40%),transparent var(--fd-mb,0%)); mask-image:linear-gradient(90deg,#000 var(--fd-ma,-40%),transparent var(--fd-mb,0%)); }
+#fyi#fyi .fd-tw img{ display:block; width:100%; height:100%; transform-origin:0 53%; will-change:transform, opacity; }
 /* ---------- the poster */
 #fyi#fyi .fd-pst{ left:508px; top:262px; width:250px; height:350px; z-index:2; transform-origin:0 0; pointer-events:none; }
 #fyi#fyi .fd-pst.fd-fly{ z-index:6; }
@@ -315,16 +316,19 @@
    Inter Tight, heavy and tight, upper case for the voice of the poster; square rules instead of soft pills. */
 #fyi#fyi{ --fd-type:"Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif; }
 #fyi#fyi .fd-d-copy, #fyi#fyi .fd-d-ctl{ font-family:var(--fd-type); }
-#fyi#fyi .fd-d-copy .label{ display:block; padding-top:10px; border-top:2px solid var(--fd-ink-h); font-family:var(--fd-type) !important; font-size:12px !important; font-weight:800 !important; letter-spacing:.08em !important; text-transform:uppercase !important; color:var(--fd-ink-h); }
-#fyi#fyi .fd-d-copy .label b{ font-weight:800; color:var(--fd-pink); }
-#fyi#fyi h2{ margin-top:14px; font-size:clamp(40px,4.7vw,66px); font-weight:900; line-height:.9; letter-spacing:-.05em; text-transform:uppercase; max-width:8em; }
+#fyi#fyi .fd-logo{ display:flex; align-items:center; gap:16px; }
+#fyi#fyi .fd-logo-w{ font-family:var(--fd-type); font-size:44px; font-weight:900; letter-spacing:-.07em; line-height:.8; color:var(--fd-ink-h); white-space:nowrap; }
+#fyi#fyi .fd-logo-w i{ display:inline-block; width:.2em; height:.2em; margin-left:.06em; background:var(--fd-pink); }
+#fyi#fyi .fd-logo-sub{ font-family:var(--fd-type); font-size:11px; font-weight:800; letter-spacing:.1em; line-height:1.35; text-transform:uppercase; color:var(--fd-text); padding-left:14px; border-left:2px solid var(--fd-ink-h); }
+#fyi#fyi h2{ margin-top:26px; font-size:clamp(40px,4.7vw,66px); font-weight:900; line-height:.9; letter-spacing:-.05em; text-transform:uppercase; max-width:8em; }
 #fyi#fyi .fd-d-copy p{ font-size:17px; font-weight:500; line-height:1.45; letter-spacing:-.005em; }
 #fyi#fyi .fd-trk-l, #fyi#fyi .fd-trk-l i{ height:2px; border-radius:0; }
 #fyi#fyi .fd-trk-n{ font-size:12px; font-weight:800; letter-spacing:.04em; }
 #fyi#fyi .fd-trk-t{ font-size:13px; font-weight:800; letter-spacing:.03em; text-transform:uppercase; }
 #fyi#fyi .fd-cap-i{ font-size:15.5px; font-weight:500; }
 @media (max-width:860px){
-  #fyi#fyi h2{ font-size:clamp(38px,11.5vw,56px); max-width:7.6em; }
+  #fyi#fyi h2{ font-size:clamp(38px,11.5vw,56px); max-width:7.6em; margin-top:20px; }
+  #fyi#fyi .fd-logo-w{ font-size:36px; }
   #fyi#fyi .fd-trk-t{ font-size:12px; }
 }
 

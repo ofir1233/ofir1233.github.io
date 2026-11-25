@@ -69,7 +69,7 @@
     let x0, x1, cy;
     if (!mobile) { x0 = G.ph.x + G.ph.w - 24; x1 = G.W + G.bleed - 4; cy = G.vn.y + G.vn.h / 2; }
     else { x0 = -14; x1 = G.W + 22; cy = G.ph.y - 40; }
-    const w = x1 - x0, h = w * 418 / 900;
+    const w = x1 - x0, h = w * 371 / 800;
     HB = { x: x0, y: cy - h * .53, w, h, cx: x0 + w / 2, cy };
     Object.assign(tw.style, { left: HB.x.toFixed(1) + 'px', top: HB.y.toFixed(1) + 'px', width: w.toFixed(1) + 'px', height: h.toFixed(1) + 'px' });
   }
@@ -121,7 +121,7 @@
     const t = G.tkt;
     g(t, -9, `M${f(t.x + 8)} ${f(t.y + 6)}H${f(t.x + t.w - 6)}V${f(t.y + t.h - 6)}H${f(t.x + 6)}Z` + `M${f(t.x + t.w * .72)} ${f(t.y + 10)}v8m0 6v8m0 6v8m0 6v8`);
     sk.innerHTML = `<defs><filter id="fd-skr" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".014" numOctaves="2" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6"/></filter></defs><g filter="url(#fd-skr)">${P.join('')}</g>`;
-    skw = sk.querySelector('#fd-skw');
+    skw = sk.querySelector('#fd-skw'); if (skw) skw.dataset.o = getComputedStyle(skw).opacity;   // keep the sketch's own light grey
   }
   const inkSet = (id, d, o = 1) => { const p = inkEls[id]; if (p) { p.style.setProperty('--fd-d', d.toFixed(3)); p.style.setProperty('--fd-o', o.toFixed(3)); } };
 
@@ -155,12 +155,12 @@
     const n = Math.round(4 + 23 * out3(seg(t, 11.25, 12.5)));
     if (n !== lastN) { evN.textContent = n; tktN.textContent = n; lastN = n; }
 
-    // the voice note: revealed left to right while Maya talks, breathing with her voice
-    const rev = io(seg(t, .5, 2.45));
-    tw.style.setProperty('--fd-rev', rev.toFixed(3));
-    if (skw) skw.style.opacity = (1 - clamp(rev * 1.6)).toFixed(3);
-    const talk = t > .5 && t < 2.45 ? Math.abs(Math.sin(t * 9)) * .08 : 0;
-    twImg.style.transform = talk ? `scale(1,${(1 + talk).toFixed(3)})` : '';
+    // the voice note: it spreads in from the left through a soft edge while Maya talks, slowly stretching open
+    const rev = io(seg(t, .4, 2.6)), open = out3(seg(t, .4, 2.9)), ma = rev * 140 - 40;
+    tw.style.setProperty('--fd-ma', ma.toFixed(1) + '%'); tw.style.setProperty('--fd-mb', (ma + 40).toFixed(1) + '%');
+    twImg.style.opacity = clamp(rev * 3).toFixed(3);
+    twImg.style.transform = open < 1 ? `scale(${(.9 + .1 * open).toFixed(4)},${(.82 + .18 * open).toFixed(4)})` : '';
+    if (skw) skw.style.opacity = ((+skw.dataset.o || .3) * (1 - clamp(rev * 4))).toFixed(3);
     bgDots.style.setProperty('--fd-on', io(seg(t, 10.9, 11.7)).toFixed(3));
 
     // record
