@@ -34,22 +34,22 @@
 .hf-cf{ transform:translateX(calc(var(--s, 0) * 14px)); }
 /* each case opens under the same calm blue sky, with its own place along the bottom (owner, 25.11: "blue skies in all of them, but
    sometimes a city at the bottom and sometimes a park or something, and the sky always about 80 percent so it does not disturb").
-   img/hf/st-*.webp are the site's calm sky with a strip cut from an existing painting fading in under it: the Introduction over the
-   city skyline, Topics over the city and its green park, Explainable scores on the Compliance beach, Actions at the harbour with its
-   boats, Newsroom at the harbour and its lighthouse, Data over the sea and the sailboats. The strip stays at the foot of the stage
-   and each step pans a little across it (--sky, from 0% to 100%), from --pa by --pk. The sky has no stroked clouds of its own to
+   img/hf/st-*.webp are each painted as one picture (a collage faded in looked amateur, owner 25.11), the scenery on the bottom fifth:
+   the Introduction over the city skyline, Topics over the city and its park, Explainable scores at the lifeguard tower on the
+   promenade, Actions at the old port with its crane and crates, Newsroom at the harbour, Data over the whole city from above. The
+   strip stays at the foot of the stage and each step pans a little across it (--sky, from 0% to 100%), from --pa by --pk. The sky has no stroked clouds of its own to
    fight the product, so the two drawn clouds stay out. */
 .hf.ih, .hf.tq-hf, .hf.es, .hf.an, .hf.nw, .hf.da{ --pa:0%; --pk:1; }
 .hf.ih .in-stage, .hf.tq-hf .in-stage, .hf.es .in-stage, .hf.an .in-stage, .hf.nw .in-stage, .hf.da .in-stage{
   background-color:#36a2f2; background-size:cover; background-position:calc(var(--pa) + var(--sky, 0%) * var(--pk)) 100%; }
 .hf.ih .hf-cb, .hf.ih .hf-cf, .hf.tq-hf .hf-cb, .hf.tq-hf .hf-cf, .hf.es .hf-cb, .hf.es .hf-cf,
 .hf.an .hf-cb, .hf.an .hf-cf, .hf.nw .hf-cb, .hf.nw .hf-cf, .hf.da .hf-cb, .hf.da .hf-cf{ display:none; }
-.hf.ih .in-stage{ background-image:url("../img/hf/st-ih.webp?v=2"); }
-.hf.tq-hf .in-stage{ background-image:url("../img/hf/st-tq.webp?v=2"); --pa:100%; --pk:-1; }
-.hf.es .in-stage{ background-image:url("../img/hf/st-es.webp?v=2"); }
-.hf.an .in-stage{ background-image:url("../img/hf/st-an.webp?v=2"); --pa:100%; --pk:-1; }
-.hf.nw .in-stage{ background-image:url("../img/hf/st-nw.webp?v=2"); }
-.hf.da .in-stage{ background-image:url("../img/hf/st-da.webp?v=2"); --pa:100%; --pk:-1; }
+.hf.ih .in-stage{ background-image:url("../img/hf/st-ih.webp?v=3"); }
+.hf.tq-hf .in-stage{ background-image:url("../img/hf/st-tq.webp?v=3"); --pa:100%; --pk:-1; }
+.hf.es .in-stage{ background-image:url("../img/hf/st-es.webp?v=3"); }
+.hf.an .in-stage{ background-image:url("../img/hf/st-an.webp?v=3"); --pa:100%; --pk:-1; }
+.hf.nw .in-stage{ background-image:url("../img/hf/st-nw.webp?v=3"); }
+.hf.da .in-stage{ background-image:url("../img/hf/st-da.webp?v=3"); --pa:100%; --pk:-1; }
 
 /* the step meter is ink, so it reads on the sky and on a cloud alike */
 .hf .in-meter button::before{ background:rgba(16,34,60,.3); }
