@@ -737,3 +737,13 @@
 .fx-app:has(.l6-toast) .a-th { -webkit-mask-image: linear-gradient(180deg, transparent 52px, #000 92px); mask-image: linear-gradient(180deg, transparent 52px, #000 92px); }
 /* the task sheet: with history in the thread, the room behind the lifted message goes darker */
 .fx-app.fx-app .t4-dim { background: rgba(0,0,0,.84); }
+
+/* ---------- FYI's new language in the app (25.11.2026) ----------
+   The display face is the posters' Inter Tight; the dark surfaces lean to the posters' ink navy instead of neutral black,
+   so the app, its posters and its covers read as one world. Body text stays Geist for reading; pink keeps its one job. */
+.fx-app, .fx-sb, .fx-vars { --fxd: "Inter Tight", "Helvetica Neue", Arial, sans-serif; }
+.fx-app, .fx-vars { --bg: #070818; --s0: #0d0f22; --s1: #161936; --s2: #222649; --hl: #323764; }
+.a-welcome h3, .a-pg h3, .a-lt h3 { font-weight: 900; letter-spacing: -.04em; }
+.a-story h3 { font-weight: 900; letter-spacing: -.03em; }
+.a-sheet .sh h4, .a-nav .nm, .a-row .nm { font-weight: 800; letter-spacing: -.02em; }
+.a-welcome { background: radial-gradient(420px 380px at 50% 30%, rgba(122,44,255,.24), rgba(255,45,143,.08) 45%, transparent 72%), var(--bg); }
