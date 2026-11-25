@@ -7,7 +7,7 @@
   var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   ft.classList.add('js');
   if (calm || !('IntersectionObserver' in window)) { ft.classList.add('signed'); return; }
-  var sign = ft.querySelector('.ft-sign'), sky = ft.querySelector('.ft-sky img'), done = false, busy = false;
+  var sign = ft.querySelector('.ft-sign'), sky = ft.querySelector('.ft-lay') || ft.querySelector('.ft-sky img'), done = false, busy = false;
   var all = parseFloat(getComputedStyle(ft.querySelector('.ft-sig')).getPropertyValue('--all')) || 3;
   function write() {
     if (busy) return; busy = true;
