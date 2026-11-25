@@ -1,0 +1,28 @@
+/* v7 - facts (owner, 25.11.2026, direction A): on a wide window the four figures on the grown opening picture are no longer a row of
+   cells. One figure at a time fills the picture, about three times the old size, with its label above it; the four wait as a small
+   list at the right and the open one is lit. They turn on a clock (v7/facts.js), never on the scroll; pointing at one in the list
+   opens it. A narrow window keeps the plain grid. */
+@media (min-width: 861px){
+  html.me-scroll #about#about#about ol.me-facts{ display:block; height:clamp(190px, 24vw, 330px); }
+  html.me-scroll #about#about#about ol.me-facts li, html.me-scroll #about#about#about ol.me-facts li + li{ position:absolute; left:clamp(26px, 3.2vw, 52px); bottom:0; display:flex; flex-direction:column; justify-content:flex-end; gap:clamp(14px, 1.6vw, 24px); padding:0; pointer-events:none; }
+  html.me-scroll #about#about#about ol.me-facts li::before{ content:none; }
+  html.me-scroll #about#about#about ol.me-facts .me-k{ font-size:clamp(16px, 1.45vw, 21px); line-height:1.3; max-width:18em; }
+  html.me-scroll #about#about#about ol.me-facts .me-v{ font-size:clamp(120px, 15.5vw, 224px); line-height:.78; letter-spacing:-.06em; }
+  html.me-scroll #about#about#about ol.me-facts .me-v small{ font-size:.2em; letter-spacing:-.02em; margin-left:.12em; }
+  /* only the open one shows; the one before it leaves upward as the next rises: an odometer */
+  html.me-scroll #about#about#about ol.me-facts li.in:not(.cur) .me-k{ opacity:0; transition:opacity .2s ease; }
+  html.me-scroll #about#about#about ol.me-facts li.in:not(.cur) .me-v{ opacity:0; translate:0 46%; clip-path:inset(0 -10% 100% -10%); transition:opacity .2s ease, translate .0s linear .3s, clip-path 0s linear .3s; }
+  html.me-scroll #about#about#about ol.me-facts li.in.was .me-v{ translate:0 -46%; clip-path:inset(100% -10% 0 -10%); transition:opacity .3s ease, translate .44s cubic-bezier(.5,0,.8,.4), clip-path .44s cubic-bezier(.5,0,.8,.4); }
+  html.me-scroll #about#about#about ol.me-facts li.in.cur .me-k{ transition:opacity .4s ease .22s; }
+  html.me-scroll #about#about#about ol.me-facts li.in.cur .me-v{ transition:opacity .3s ease .12s, translate .62s cubic-bezier(.2,.8,.2,1) .12s, clip-path .62s cubic-bezier(.2,.8,.2,1) .12s; }
+  /* the list at the right */
+  html.me-scroll #about .me-dial{ position:absolute; z-index:3; right:clamp(26px, 3.2vw, 52px); bottom:clamp(22px, 4vh, 40px); display:grid; justify-items:end; gap:2px; opacity:0; translate:0 10px; pointer-events:none; transition:opacity .2s ease, translate .2s ease; }
+  html.me-scroll #about .me-pin.me-grown .me-dial{ opacity:1; translate:0 0; pointer-events:auto; transition:opacity .5s ease .5s, translate .5s cubic-bezier(.2,.7,.2,1) .5s; }
+  html.me-scroll #about .me-dial button{ appearance:none; border:0; background:none; cursor:pointer; padding:5px 0 5px 22px; font:700 clamp(19px, 1.9vw, 27px)/1 var(--display, inherit); letter-spacing:-.03em; color:rgba(255,255,255,.46); text-shadow:0 1px 14px rgba(8,14,20,.45); transition:color .3s ease; }
+  html.me-scroll #about .me-dial button:hover{ color:rgba(255,255,255,.8); }
+  html.me-scroll #about .me-dial button.on{ color:#fff; }
+  html.me-scroll #about .me-dial button:focus-visible{ outline:2px solid #fff; outline-offset:2px; border-radius:4px; }
+  /* the giant white figure needs a deeper foot on the picture */
+  html.me-scroll #about#about .me-photo.me-v7::before{ background:linear-gradient(to top, rgba(10,18,24,.92) 0, rgba(10,18,24,.8) 26%, rgba(10,18,24,.5) 50%, rgba(10,18,24,.16) 68%, rgba(10,18,24,0) 82%); }
+}
+@media (max-width: 860px){ #about .me-dial{ display:none; } }
