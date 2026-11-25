@@ -146,7 +146,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 /* the paintings are part of the room, not things to pick up: they cannot be dragged or selected, and clicks pass through them */
 .bg,.cloud,.tile{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}
 </style>
-<link rel="stylesheet" href="login/studio-composer.css?v=2">
+<link rel="stylesheet" href="login/studio-composer.css?v=6">
 <link rel="stylesheet" href="topics/topics.css?v=11">
 <link rel="stylesheet" href="screens/screens.css?v=77">
 
@@ -569,7 +569,7 @@ const CHECKED=1284;
 function renderComp(){ const v=document.getElementById('v-comp'), pass=Math.round(RULES.reduce((x,r)=>x+r[1],0)/RULES.length), low=RULES.filter(r=>r[1]<95);
   v.innerHTML=head('Compliance review',`This month · ${RULES.length} required rules · ${fmt(CHECKED)} calls checked`)
    +kpis([['Pass rate',pass+'%','All rules'],['Calls with a failure','287','Of '+fmt(CHECKED)+' checked'],['Rules under 95%',String(low.length),low.map(r=>r[0].split(' ')[0]).join(', ')]])
-   +`<table class="tbl rules"><colgroup><col><col style="width:30%"><col style="width:13%"><col style="width:15%"></colgroup><thead><tr><th>Rule</th><th>Pass rate</th><th>Failed calls</th><th>Since last month</th></tr></thead><tbody>${RULES.map((r,i)=>`<tr data-i="${i}" tabindex="0"><td>${r[0]}</td><td><span class="rbar ${r[1]<95?'is-low':''}" style="--p:${r[1]}%"><i></i><b>${r[1]}%</b></span></td><td>${Math.round(CHECKED*(100-r[1])/100)}</td><td class="${r[2]<0?'is-down':''}">${r[2]>0?'+':''}${r[2].toFixed(1)} pts</td></tr>`).join('')}</tbody></table>`
+   +`<table class="tbl rules"><colgroup><col><col style="width:30%"><col style="width:13%"><col style="width:15%"></colgroup><thead><tr><th>Rule</th><th>Pass rate</th><th>Failed calls</th><th>Since last month</th></tr></thead><tbody>${RULES.map((r,i)=>`<tr data-i="${i}" tabindex="0"><td>${r[0]}</td><td><span class="rbar ${r[1]<95?'is-low':''}" style="--p:${r[1]}%"><i></i><b>${r[1]}%</b></span></td><td>${Math.round(CHECKED*(100-r[1])/100)}</td><td class="${r[2]<0?'is-down':'is-up'}">${r[2]>0?'+':''}${r[2].toFixed(1)} pts</td></tr>`).join('')}</tbody></table>`
    +`<section class="ev comp__ev"><header><b id="comp-t"></b><span>Where it failed</span><a href="#" id="comp-a"></a></header><table class="tbl"><colgroup><col style="width:24%"><col style="width:18%"><col style="width:11%"><col style="width:11%"><col></colgroup><thead><tr><th>Agent</th><th>Call</th><th>Date</th><th>Moment</th><th>What Hear found</th></tr></thead><tbody id="comp-l"></tbody></table></section>`;
   v.querySelectorAll('.rules tbody tr').forEach(tr=>{ const go=()=>{ pickRow('tr',tr); compShow(+tr.dataset.i) }; tr.addEventListener('click',go); tr.addEventListener('keydown',e=>{ if(e.key==='Enter') go() }) });
   const worst=RULES.reduce((a,r,i)=>r[1]<RULES[a][1]?i:a,0); pickRow('tr',v.querySelectorAll('.rules tbody tr')[worst]); compShow(worst) }
@@ -637,11 +637,11 @@ const prev={
   // picture of a screen (boxes in a box, empty white, thin pale lines), the only preview not drawn as its data (his note, 11-19: "רק זה מכוער
   // והוא יוצא דופן, תביני למה ותסדרי").
   disc:()=>{ const W=[.42,.66,.5,.82,.58,.95,.7,.46,.88,.62,.54,.78,.6,.9,.48,.74,.44,.86,.64,.52,.8,.68,.5,.72,.58,.84], miss=[8,19], tone=['#A9DAFE','#63BEFE','#139FFD'];
-    return `<div class="pa pa-wavefull">${W.map((h,k)=>`<i style="height:${Math.round(h*100)}%;background:${miss.includes(k)?'#232323':tone[(k*7+3)%3]}"></i>`).join('')}</div>` },
+    return `<div class="pa pa-wavefull">${W.map((h,k)=>`<i style="height:${Math.round(h*100)}%;background:${miss.includes(k)?'#FF6F52':tone[(k*7+3)%3]}"></i>`).join('')}</div>` },
   // Handle time by team: just the bars against the dashed target
   aht:()=>`<div class="pa pa-aht"><div class="pa-chart"><s style="bottom:60%"></s>${TEAMS.map(t=>`<i class="${t[2]>TARGET?'no':''}" style="height:${Math.round(t[2]/AXIS*100)}%"></i>`).join('')}</div></div>`,
-  // Compliance review: one bar per rule, the weakest in ink
-  comp:()=>`<div class="pa pa-comp"><div class="pa-rules">${RULES.map(r=>`<p><i class="${r[1]===Math.min(...RULES.map(x=>x[1]))?'no':''}" style="--p:${(r[1]-80)*5}%"></i></p>`).join('')}</div></div>`,
+  // Compliance review: one bar per rule, those under 95% in coral, as in the app (was: only the weakest, in ink)
+  comp:()=>`<div class="pa pa-comp"><div class="pa-rules">${RULES.map(r=>`<p><i class="${r[1]<95?'no':''}" style="--p:${(r[1]-80)*5}%"></i></p>`).join('')}</div></div>`,
   // a draft: the layout it will have, still pale
   coach:()=>`<div class="pa pa-coach">${[0,1,2,3,4].map(i=>`<p><b></b><em style="width:${[72,58,80,50,66][i]}%"></em><i></i></p>`).join('')}</div>`};
 let galTeam='All', galQ='';

@@ -935,3 +935,27 @@ kbd{display:inline-block;min-width:18px;padding:1px 5px;border-radius:5px;backgr
 /* the preview darkens while the card is hovered, so the eye in its middle reads at once */
 .gal__pv::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(14,22,32,.5);opacity:0;transition:opacity .2s;pointer-events:none}
 .gal__card:not(.is-draft):hover .gal__pv::after,.peek .gal__card .gal__pv::after{opacity:1}
+
+/* Owner, 25.11.2026: the colours follow the design system's roles in every app, not only the evaluation heatmap. Ink is for words and the
+   one main button; what needs attention is Coral (#FF6F52, its text #B5371D), a rise is Green (#226A45), and a reference line such as a
+   target is Deep Blue, as the average line on Agent evaluation. Was: ink bars, ink marks and an ink dashed slot. */
+.aht__bar.is-over,.lg-o,.pv-bars i.over{background:#FF6F52}
+.aht__target{border-top-color:#0B6FCF}
+.lg-t,.pv-bars s{border-top-color:#0B6FCF}
+.rbar.is-low i::after,.pv-rules em.low::after{background:#FF6F52}
+.rules td.is-down{color:#B5371D}
+.rules td.is-up{color:#226A45;font-weight:500}
+.dq__checks .is-miss .ic,.pv-q__d i.no::before{background:#FF6F52}
+.dq__checks .is-miss em{color:#B5371D}
+.dq__pin.is-miss{background:#FF6F52}
+.dq__pin.is-miss::after{color:#B5371D}
+.dq__slot{border-color:#FF6F52}
+.dq__slot small{color:#B5371D}
+.pv-q__d u{border-color:#FF6F52}/* the All apps previews draw the same: coral where the app shows attention, the target line Deep Blue */
+.pa-chart i.no,.pa-rules p i.no::after,.pa-q b.no,.pa-call p.no b,.pa-wave i.no{background:#FF6F52}
+.pa-chart s{border-top-color:#0B6FCF}
+.pa-call s{border-color:#FF6F52}
+
+/* the target line runs behind the bars, so it never crosses a value (6:48 sat right on it) */
+.aht__target{z-index:0}.aht__bars{z-index:1}
+.pa-k i:nth-child(2) b{background:#FF6F52}
