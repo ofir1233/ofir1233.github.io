@@ -1,0 +1,171 @@
+/* v7 - Newsroom (work/newsroom.html): its five scenes, on the shared wireframe stage (v7/wf-story.css, v7/wf-story.js).
+   Four sources land on one front page; the range an AI drew that nothing stores; the lead story and what it rests on;
+   the rule, as exact as the data; the month played as a story. In this wireframe ink stands for coral. */
+
+.aw-sc .nw-cap, .aw-sc .nw-page p{ margin:0; }
+
+/* 1. four parts of Hear drop their findings into one front page, one tab each; then the page fills */
+.nw-cap{ position:absolute; left:0; top:0; font-size:11px; color:var(--soft); opacity:0; transition:opacity .3s ease .1s; }
+.go .nw-cap{ opacity:1; }
+.nw-page{ position:absolute; left:0; top:80px; width:520px; height:350px; border:1.5px solid var(--edge); border-radius:10px; background:#fff; padding:16px 16px 0; color:var(--ink); }
+.nw-mast{ display:flex; align-items:baseline; justify-content:space-between; padding-bottom:12px; border-bottom:1.5px solid var(--ink); }
+.nw-mast b{ font:600 17px/1 "Geist Mono", monospace; letter-spacing:-.02em; }
+.nw-mast em{ font-style:normal; font-size:11px; color:var(--soft); opacity:0; transition:opacity .4s ease; }
+.go .nw-mast em{ opacity:1; transition-delay:2.1s; }
+.nw-tabs{ display:flex; gap:6px; margin-top:12px; }
+.nw-tabs > span{ display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 8px; border-radius:6px; font:500 10.5px/1 "Geist Mono", monospace; white-space:nowrap; }
+.nw-tabs .fp{ background:var(--ink); color:#fff; }
+/* each source waits above the page, then drops into its tab; the empty tab slot shows where it goes */
+.nw-chip{ border:1.5px solid var(--wf2); background:#fff; color:var(--ink); opacity:0; transform:translateY(-96px); }
+.nw-chip em{ font-style:normal; color:var(--soft); }
+.go .nw-chip{ animation:nw-drop 1.2s cubic-bezier(.3,.7,.2,1) both; }
+.go .nw-chip.c1{ animation-delay:.2s; } .go .nw-chip.c2{ animation-delay:.5s; } .go .nw-chip.c3{ animation-delay:.8s; } .go .nw-chip.c4{ animation-delay:1.1s; }
+@keyframes nw-drop{ 0%{ opacity:0; transform:translateY(-96px); } 20%{ opacity:1; transform:translateY(-96px); } 45%{ opacity:1; transform:translateY(-96px); } 100%{ opacity:1; transform:none; } }
+.nw-lead{ position:absolute; left:16px; top:104px; width:300px; height:230px; opacity:0; transform:translateY(6px); transition:opacity .4s ease, transform .4s ease; }
+.nw-lead .aw-ln{ height:12px; width:92%; margin-top:0; background:var(--wf2); }
+.nw-lead .aw-ln.s{ width:64%; margin-top:8px; }
+.nw-lead .box{ display:block; margin-top:14px; height:150px; border:1.5px dashed var(--wf2); border-radius:6px; }
+.nw-side{ position:absolute; left:334px; top:104px; width:168px; display:flex; flex-direction:column; gap:10px; }
+.nw-side i{ display:block; height:48px; border:1.5px solid var(--wf); border-radius:6px; opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .35s ease; position:relative; }
+.nw-side i::before, .nw-side i::after{ content:""; position:absolute; left:9px; height:6px; border-radius:3px; background:var(--wf); }
+.nw-side i::before{ top:12px; width:70%; } .nw-side i::after{ top:26px; width:45%; }
+.go .nw-lead{ opacity:1; transform:none; transition-delay:2.3s; }
+.go .nw-side i{ opacity:1; transform:none; }
+.go .nw-side i:nth-child(1){ transition-delay:2.45s; } .go .nw-side i:nth-child(2){ transition-delay:2.55s; } .go .nw-side i:nth-child(3){ transition-delay:2.65s; } .go .nw-side i:nth-child(4){ transition-delay:2.75s; }
+
+/* 2. what the report's chart claims, and what Hear stores behind it */
+.nw-claim, .nw-store{ position:absolute; top:0; border:1.5px solid var(--edge); border-radius:10px; background:#fff; padding:14px 16px 16px; color:var(--ink); }
+.nw-claim small, .nw-store small{ display:block; font-size:11px; color:var(--soft); }
+.nw-claim{ left:0; width:256px; opacity:0; transform:translateY(10px); transition:opacity .3s ease .1s, transform .45s ease .1s; }
+.nw-store{ left:276px; width:262px; opacity:0; transform:translateX(16px); transition:opacity .3s ease 2.4s, transform .45s ease 2.4s; }
+.go .nw-claim, .go .nw-store{ opacity:1; transform:none; }
+.nw-rg{ display:block; width:220px; height:150px; margin-top:12px; overflow:visible; border-bottom:1.5px solid var(--wf2); }
+.nw-rg .ln{ fill:none; stroke:var(--mute); stroke-width:2; stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset 1.1s ease .4s; }
+.go .nw-rg .ln{ stroke-dashoffset:0; }
+.nw-rg .band{ fill:rgba(23,27,32,.08); stroke:var(--ink); stroke-width:1.5; stroke-dasharray:4 3; opacity:0; transition:opacity .4s ease 1.5s; }
+.nw-rg .pt{ fill:var(--ink); opacity:0; transform-origin:200px 38px; transform:scale(.2); transition:opacity .2s ease 1.9s, transform .35s cubic-bezier(.2,.9,.3,1.4) 1.9s; }
+.go .nw-rg .band{ opacity:1; } .go .nw-rg .pt{ opacity:1; transform:none; }
+.nw-claim .r1, .nw-claim .r2{ display:flex; align-items:center; gap:8px; margin:10px 0 0; font-size:11.5px; opacity:0; transition:opacity .3s ease; }
+.nw-claim .r1::before{ content:""; width:16px; height:10px; border:1.5px dashed var(--ink); background:rgba(23,27,32,.08); border-radius:2px; }
+.nw-claim .r2{ margin-top:6px; color:var(--mute); }
+.nw-claim .r2::before{ content:""; width:9px; height:9px; margin:0 4px 0 3px; border-radius:50%; background:var(--ink); }
+.go .nw-claim .r1{ opacity:1; transition-delay:1.6s; } .go .nw-claim .r2{ opacity:1; transition-delay:2s; }
+.nw-ai{ margin:14px 0 0; padding:7px 9px; border-radius:6px; background:var(--ink); color:#fff; font-size:11px; opacity:0; transform:translateY(5px); transition:opacity .3s ease, transform .35s ease; }
+.go .nw-ai{ opacity:1; transform:none; transition-delay:4.3s; }
+.nw-row{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px; padding:10px 11px; border:1.5px solid var(--wf2); border-radius:7px; font-size:11.5px; line-height:1.35;
+  opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .35s ease; }
+.nw-row b{ flex:none; font-weight:500; color:var(--ink); }
+.nw-row.no{ border-style:dashed; color:var(--mute); }
+.nw-row.no b{ padding:4px 7px; border-radius:5px; border:1.5px solid var(--ink); font-size:10px; transform:scale(.6); opacity:0; transition:transform .35s cubic-bezier(.2,.9,.3,1.4), opacity .2s ease, background-color .3s ease, color .3s ease; }
+.nw-store small{ margin-bottom:2px; }
+.go .nw-row{ opacity:1; transform:none; }
+.go .nw-row.k1{ transition-delay:2.7s; } .go .nw-row.k2{ transition-delay:2.95s; } .go .nw-row.k3{ transition-delay:3.3s; } .go .nw-row.k4{ transition-delay:3.55s; }
+.go .nw-row.no b{ transform:none; opacity:1; background:var(--ink); color:#fff; }
+.go .nw-row.k3 b{ transition-delay:3.7s; } .go .nw-row.k4 b{ transition-delay:3.95s; }
+
+/* 3. the lead story: source and time, a chart with a usual day under its peak, and why it is here */
+.nw-story{ left:0; top:0; width:332px; padding:14px 15px 15px; opacity:0; transform:translateY(10px); transition:opacity .3s ease .1s, transform .45s ease .1s; }
+.go .nw-story{ opacity:1; transform:none; }
+.nw-story small{ flex-wrap:wrap; font-size:10px; gap:7px; }
+.nw-story > b{ font-size:14px; line-height:1.3; margin-top:9px; }
+.nw-plot{ position:relative; height:132px; margin-top:12px; }
+.nw-plot svg{ position:absolute; left:0; top:0; width:100%; height:110px; overflow:visible; }
+.nw-plot .ln{ fill:none; stroke:var(--ink); stroke-width:2; stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset 1.4s cubic-bezier(.5,0,.6,1) .5s; }
+.go .nw-plot .ln{ stroke-dashoffset:0; }
+.nw-plot .base{ position:absolute; left:0; right:0; top:81.7px; border-top:1.5px dashed var(--edge); opacity:0; transition:opacity .3s ease .35s; }
+.nw-plot span{ position:absolute; font-size:9.5px; line-height:1; color:var(--mute); white-space:nowrap; opacity:0; transition:opacity .3s ease; }
+.nw-plot .bl{ left:0; top:67px; }
+.nw-plot .x0{ left:0; top:118px; color:var(--soft); } .nw-plot .x1{ right:0; top:118px; color:var(--soft); }
+.nw-plot .dot{ position:absolute; width:9px; height:9px; margin:-4.5px 0 0 -4.5px; border-radius:50%; background:var(--ink); box-shadow:0 0 0 2.5px #fff; transform:scale(0); transition:transform .3s cubic-bezier(.2,.9,.3,1.5); }
+.nw-plot .d9{ left:89.7%; top:36.7px; } .nw-plot .pk{ left:100%; top:13.3px; }
+.nw-plot .l9{ right:15%; top:32px; } .nw-plot .lpk{ right:9px; top:-1px; color:var(--ink); }
+.go .nw-plot .base, .go .nw-plot .bl, .go .nw-plot .x0, .go .nw-plot .x1{ opacity:1; }
+.go .nw-plot .bl{ transition-delay:.45s; } .go .nw-plot .x0, .go .nw-plot .x1{ transition-delay:.35s; }
+.go .nw-plot .d9{ transform:none; transition-delay:1.55s; } .go .nw-plot .l9{ opacity:1; transition-delay:1.65s; }
+.go .nw-plot .pk{ transform:none; transition-delay:1.9s; } .go .nw-plot .lpk{ opacity:1; transition-delay:2s; }
+.nw-why{ margin-top:4px; padding:10px 11px; border-radius:7px; background:#f4f3f1; opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .4s ease; }
+.go .nw-why{ opacity:1; transform:none; transition-delay:2.5s; }
+.nw-why p{ margin:0; font-size:11px; line-height:1.45; color:var(--ink); }
+.nw-why p b{ display:block; margin-bottom:3px; font-size:10px; font-weight:500; color:var(--soft); }
+.nw-why .nw-wf{ display:flex; justify-content:space-between; align-items:center; margin-top:9px; font-size:10.5px; color:var(--ink); }
+.nw-why .nw-wf > span:last-child{ text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:3px; }
+.nw-str{ display:inline-flex; align-items:flex-end; gap:2px; color:var(--mute); }
+.nw-str i{ width:4px; border-radius:1px; background:var(--ink); }
+.nw-str i:nth-child(1){ height:5px; } .nw-str i:nth-child(2){ height:8px; } .nw-str i:nth-child(3){ height:11px; margin-right:5px; }
+.nw-s3 .aw-lb{ left:352px; opacity:0; transform:translateX(-6px); transition:opacity .3s ease, transform .35s ease; }
+.nw-s3 .l1{ top:14px; } .nw-s3 .l2{ top:82px; } .nw-s3 .l3{ top:150px; } .nw-s3 .l4{ top:262px; }
+.nw-s3 .aw-lb{ line-height:1.5; padding-left:23px; text-indent:-23px; }
+.nw-s3 .aw-lb b{ text-indent:0; }
+.go .aw-lb{ opacity:1; transform:none; }
+.go .aw-lb.l1{ transition-delay:.6s; } .go .aw-lb.l2{ transition-delay:2.1s; } .go .aw-lb.l3{ transition-delay:1s; } .go .aw-lb.l4{ transition-delay:2.7s; }
+
+/* 4. the rule: one way is set aside, struck through; the chosen one fills in, row by row */
+.nw-op{ position:absolute; top:0; border-radius:10px; background:#fff; padding:14px 16px 16px; color:var(--ink); }
+.nw-op small{ display:block; font-size:10.5px; color:var(--soft); }
+.nw-op > b{ position:relative; display:inline-block; margin-top:7px; font-size:14px; line-height:1.3; font-weight:500; }
+.nw-op > p{ margin:10px 0 0; font-size:11px; line-height:1.5; color:var(--mute); }
+.nw-op.off{ left:0; top:26px; width:186px; border:1.5px dashed var(--wf2); opacity:0; transform:translateY(8px); transition:opacity .3s ease .15s, transform .4s ease .15s; }
+.go .nw-op.off{ opacity:1; transform:none; }
+.nw-op.off > b{ text-decoration:line-through; text-decoration-thickness:2px; text-decoration-color:transparent; transition:text-decoration-color .4s ease 1.2s, color .4s ease 1.5s; }
+.go .nw-op.off > b{ text-decoration-color:var(--ink); }
+.go .nw-op.off > b, .go .nw-op.off > p{ color:var(--soft); }
+.nw-op.off > p{ transition:color .4s ease 1.5s; }
+.nw-op.yes{ left:204px; width:334px; border:2px solid var(--ink); opacity:0; transform:translateX(18px); transition:opacity .3s ease 1.7s, transform .5s cubic-bezier(.3,.7,.2,1) 1.7s; }
+.go .nw-op.yes{ opacity:1; transform:none; }
+.nw-op.yes small{ color:var(--ink); }
+.nw-rule{ margin-top:12px; padding:11px 12px 12px; border:1.5px solid var(--wf2); border-radius:7px; opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .35s ease; }
+.nw-rule h5{ margin:0; font:500 10.5px/1 "Geist Mono", monospace; letter-spacing:.04em; text-transform:uppercase; color:var(--ink); }
+.nw-rule p{ margin:7px 0 9px; font-size:11px; line-height:1.5; color:var(--mute); }
+.nw-rule .aw-tag{ white-space:nowrap; font-size:10px; transform:scale(.85); opacity:0; transition:transform .35s cubic-bezier(.2,.9,.3,1.4), opacity .25s ease, border-color .3s ease, color .3s ease; }
+.go .nw-rule{ opacity:1; transform:none; }
+.go .nw-rule.r1{ transition-delay:2.3s; } .go .nw-rule.r2{ transition-delay:3.1s; }
+.go .nw-rule .aw-tag{ white-space:nowrap; font-size:10px; transform:none; opacity:1; border-color:var(--ink); color:var(--ink); }
+.go .nw-rule.r1 .aw-tag{ transition-delay:2.7s; } .go .nw-rule.r2 .aw-tag{ transition-delay:3.5s; }
+
+/* 5. the recap waits on the front page until Play; then the month plays as slides, each with its own bar on top */
+.nw-feat{ position:absolute; left:0; top:110px; width:250px; border:1.5px solid var(--edge); border-radius:10px; background:#fff; padding:14px 16px 16px; color:var(--ink);
+  opacity:0; transform:translateY(8px); transition:opacity .3s ease .1s, transform .4s ease .1s; }
+.go .nw-feat{ opacity:1; transform:none; }
+.nw-feat small{ display:block; font-size:10.5px; color:var(--soft); }
+.nw-feat b{ display:block; margin-top:8px; font-size:16px; line-height:1.25; font-weight:600; letter-spacing:-.01em; }
+.nw-feat p{ margin:8px 0 0; font-size:11px; line-height:1.5; color:var(--mute); }
+.nw-play{ position:relative; display:inline-flex; align-items:center; margin-top:14px; padding:8px 11px; border-radius:7px; background:var(--ink); color:#fff; font:500 11px/1 "Geist Mono", monospace; }
+.nw-play::after{ content:""; position:absolute; left:14px; top:50%; width:30px; height:30px; margin:-15px 0 0 -15px; border-radius:50%; background:rgba(255,255,255,.45); transform:scale(.3); opacity:0; }
+.go .nw-play::after{ animation:nw-tap .6s ease 1s both; }
+@keyframes nw-tap{ 0%{ transform:scale(.3); opacity:0; } 35%{ opacity:1; } 100%{ transform:scale(1.7); opacity:0; } }
+.nw-rec{ position:absolute; left:272px; top:0; width:260px; height:460px; border-radius:14px; background:var(--ink); color:#fff; padding:16px 18px; overflow:hidden;
+  opacity:0; transform:scale(.9); transform-origin:0 60%; transition:opacity .3s ease 1.35s, transform .5s cubic-bezier(.3,.7,.2,1) 1.35s; }
+.go .nw-rec{ opacity:1; transform:none; }
+.nw-rec .pr{ display:flex; gap:4px; }
+.nw-rec .pr i{ position:relative; flex:1; height:3px; border-radius:2px; background:rgba(255,255,255,.25); overflow:hidden; }
+.nw-rec .pr i::after{ content:""; position:absolute; inset:0; background:#fff; transform:scaleX(0); transform-origin:0 50%; }
+.go .nw-rec .pr i:nth-child(1)::after{ animation:nw-fill 2.3s linear 1.7s both; }
+.go .nw-rec .pr i:nth-child(2)::after{ animation:nw-fill 2.6s linear 4s both; }
+.go .nw-rec .pr i:nth-child(3)::after{ animation:nw-fill 2.6s linear 6.6s both; }
+@keyframes nw-fill{ to{ transform:none; } }
+.nw-rec .sl{ position:absolute; left:18px; right:18px; top:46px; opacity:0; }
+.nw-rec .sl small{ display:block; font-size:10.5px; color:rgba(255,255,255,.6); }
+.nw-rec .sl h3{ margin:14px 0 0; font:600 24px/1.15 "Geist Mono", monospace; letter-spacing:-.03em; color:#fff; }
+.nw-rec .sl p{ margin:10px 0 0; font-size:11.5px; line-height:1.5; color:rgba(255,255,255,.75); }
+.nw-rec .s0 h3{ margin-top:110px; font-size:25px; }
+.nw-rec .s1 h3{ font-size:40px; }
+.go .nw-rec .s0{ animation:nw-slide 2.3s ease 1.7s both; }
+.go .nw-rec .s1{ animation:nw-slide 2.6s ease 4s both; }
+.go .nw-rec .s2{ animation:nw-in .45s ease 6.6s both; }
+@keyframes nw-slide{ 0%{ opacity:0; transform:translateY(8px); } 12%{ opacity:1; transform:none; } 88%{ opacity:1; transform:none; } 100%{ opacity:0; transform:translateY(-6px); } }
+@keyframes nw-in{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+.nw-rec .mon{ position:relative; margin-top:44px; }
+.nw-rec .mon .b{ display:flex; align-items:flex-end; gap:2px; height:110px; border-bottom:1.5px solid rgba(255,255,255,.35); }
+.nw-rec .mon .b i{ flex:1; height:calc(var(--h) * 100%); border-radius:1.5px 1.5px 0 0; background:rgba(255,255,255,.32); transform:scaleY(0); transform-origin:50% 100%; }
+.nw-rec .mon .b i.top{ background:#fff; }
+.go .nw-rec .mon .b i{ animation:nw-grow .5s cubic-bezier(.3,.7,.2,1) 4.3s both; }
+@keyframes nw-grow{ to{ transform:none; } }
+.nw-rec .mon .x{ display:flex; justify-content:space-between; margin-top:5px; font-size:9.5px; color:rgba(255,255,255,.55); }
+.nw-rec .mon .tip{ position:absolute; right:0; top:-26px; padding:4px 7px; border-radius:5px; background:#fff; color:var(--ink); font-size:9.5px; white-space:nowrap; opacity:0; }
+.go .nw-rec .mon .tip{ animation:nw-in .35s ease 5.1s both; }
+.nw-rec .wk{ display:flex; gap:10px; margin-top:34px; }
+.nw-rec .wk span{ flex:1; padding:10px 10px 11px; border:1.5px solid rgba(255,255,255,.3); border-radius:7px; font-size:9.5px; color:rgba(255,255,255,.65); }
+.nw-rec .wk b{ display:block; margin-bottom:5px; font:600 20px/1 "Geist Mono", monospace; color:#fff; }
+.nw-rec .wk .on{ background:#fff; border-color:#fff; color:var(--mute); }
+.nw-rec .wk .on b{ color:var(--ink); }
+.go .nw-rec .wk .on{ animation:nw-in .4s ease 7.2s both; }
