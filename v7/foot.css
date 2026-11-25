@@ -73,8 +73,9 @@ footer.ft.js.signed .ft-base{ opacity:1; transform:none; transition-delay:2.9s; 
   footer.ft .ft-up:hover svg{ animation:none; }
 }
 
-/* owner, 25.11.2026: no flat blue band fading into the painting at the top. On a wide screen the painted sky now fills the whole
-   footer, its knife strokes reaching the rounded top edge; it stays anchored at the bottom so the city and the kites keep their place. */
+/* owner, 25.11.2026: no flat blue band at the top, and the kites stay clear of the signature. The painting keeps its own size and
+   place (its kites were placed between the signature and the links); above it the sky goes on in the same paint, a tile cut from the
+   painting's own plain sky (img/foot-sky-top.webp, mirrored so it has no seams), at the same scale as the painting. */
 @media (min-width: 901px){
-  footer.ft .ft-sky img{ top:-48px; height:auto; min-height:calc(100% + 48px); -webkit-mask-image:none; mask-image:none; }
+  footer.ft .ft-sky{ background:url(../img/foot-sky-top.webp) 0 0 / calc(100% * 1372 / 1536) auto repeat #1079e1; }
 }
