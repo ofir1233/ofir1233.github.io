@@ -4,7 +4,7 @@
    asks the AI for the calls. Before that the calls section says so, in one quiet line. SAMPLE DATA: the studio's own.
    When at least half of the agents shown are under the pass mark on the score's criterion, the card says so (it may be the process, not the
    agent) and Explore in Chat asks about the criterion across the team. The page drives it with window.hearExplain.step(n): 0 the grid,
-   1 the scores under the pass mark, 2 the card on the lowest score of the lowest criterion (Tyler's Compliance 58, where 5 of 8 agents are
+   1 the scores under the pass mark, 2 the card on the lowest score of the lowest criterion (Selma's Compliance 58, where 5 of 8 agents are
    under 70), 3 the calls and the answer. */
 (function () {
   const app = document.querySelector('.app .card'), view = document.querySelector('.appv[data-v="eval"]'), hm = document.getElementById('hm');
@@ -21,6 +21,13 @@
   const hint = document.createElement('p'); hint.className = 'xp-hint'; hint.textContent = 'Pick a score, then Explore in Chat to see the calls behind it.';
   ev.appendChild(hint);
   const origPick = pick, origFill = fillCalls;
+  // the portfolio's one sample call, followed through four screens (Topics, here, Actions, Newsroom): on Oct 13 a customer who cannot
+  // afford to rebook asks twice for a refund and is offered a voucher. It is the lowest of the calls behind Selma's Compliance score, so it
+  // takes the first row; the rest stay the studio's own, and the answer in the chat counts them as they are
+  const origCalls = callsFor, OCT13 = { reason: 'Refund request', d: 'Oct 13', len: '6:12', mom: '1:48', s: 29, miss: true, find: 'Vulnerability protocol skipped' };
+  callsFor = function (agent, crit, v, n) { const out = origCalls(agent, crit, v, n);
+    if (agent === 'Selma Kaya' && crit === 'Compliance' && out.length) out[0] = Object.assign({}, OCT13);
+    return out; };
   let explored = null, pop = null, popCell = null, said = [], thinkT = 0;
   // the studio refits the calls on resize and on showing the app: here only once they were asked for, for that score
   fillCalls = function (td) { if (td && td === explored) origFill(td); };
@@ -85,9 +92,9 @@
       : !miss.length ? `<p>All ${n} calls in the table met it. The lowest scored ${list[0].s}.</p>`
       : top[1] > 1 ? `<p><strong>${top[0]}</strong> on ${top[1]} of the ${n} calls in the table.</p>`
       : `<p>Each low call missed something different. The lowest: <strong>${list[0].find.charAt(0).toLowerCase() + list[0].find.slice(1)}</strong>.</p>`;
-    const qd = say('you', ''); qd.textContent = q; said.push(qd);
-    if (!slow) { said.push(say('it', ans)); return; }
-    const p = say('it think', '<span class="dots" aria-label="Thinking"><i></i><i></i><i></i></span>'); said.push(p);
+    const qd = say('you xp-said', ''); qd.textContent = q; said.push(qd);
+    if (!slow) { said.push(say('it xp-said', ans)); return; }
+    const p = say('it think xp-said', '<span class="dots" aria-label="Thinking"><i></i><i></i><i></i></span>'); said.push(p);
     thinkT = setTimeout(() => { p.classList.remove('think'); p.innerHTML = ans; msgs.scrollTop = msgs.scrollHeight; }, 900);
   }
 

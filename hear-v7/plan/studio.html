@@ -252,7 +252,7 @@ document.getElementById('try').innerHTML=TRY.map((t,i)=>`<button type="button" s
 // SAMPLE DATA: evaluation criteria, and each agent's evaluated calls and score per criterion (0–100)
 const CRIT=['Greeting','Verification','Discovery','Resolution','Compliance','Empathy','Closing'];
 // Compliance is low across most of the team (5 of 8 under the pass mark, the best two high): a pattern that points at the process, not one agent
-const AG=[['Tyler Shaw',172,[92,64,71,68,58,77,81]],['Nina Vargas',148,[88,71,66,74,62,62,84]],['Omar Haddad',131,[95,58,79,81,66,85,78]],['Luis Ortega',166,[84,76,83,72,64,74,90]],
+const AG=[['Selma Kaya',172,[92,64,71,68,58,77,81]],['Nina Vargas',148,[88,71,66,74,62,62,84]],['Omar Haddad',131,[95,58,79,81,66,85,78]],['Luis Ortega',166,[84,76,83,72,64,74,90]],
           ['Grace Kim',189,[97,82,78,86,77,91,88]],['Dana Levi',154,[91,79,88,84,68,83,86]],['Sam Rivera',160,[96,88,85,91,89,87,93]],['Ines Moreau',164,[98,93,90,94,96,92,95]]];
 const PASS=70, avg=a=>Math.round(a.reduce((x,y)=>x+y,0)/a.length), band=v=>v>=90?'b5':v>=80?'b4':v>=PASS?'b3':v>=60?'b2':'b1';
 const rows=AG.map(([n,c,s])=>({n,c,s,o:avg(s)})).sort((a,b)=>a.o-b.o);          // lowest overall first, as asked in the conversation
@@ -480,18 +480,18 @@ const I_NO='<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M6 6l6 6M12 6l-
 const head=(t,sub)=>`<div class="top"><div><h2>${t}</h2><p>${sub}</p></div><div class="sp"></div><button class="act">Share</button><button class="act sq" aria-label="Open full page">${EXPAND}</button></div>`;
 const kpis=k=>`<div class="kpis">${k.map(([a,b,c])=>`<div><small>${a}</small><b>${b}</b><i>${c}</i></div>`).join('')}</div>`;
 const sec=t=>{ const m=Math.floor(t/60); return m+':'+String(Math.round(t%60)).padStart(2,'0') }, toS=l=>{ const [m,x]=l.split(':'); return m*60+ +x };
-const TEAM={'Team Atlas':['Tyler Shaw','Nina Vargas'],'Team Birch':['Omar Haddad','Luis Ortega'],'Team Cedar':['Grace Kim','Dana Levi'],'Team Delta':['Sam Rivera','Ines Moreau']};
+const TEAM={'Team Atlas':['Selma Kaya','Nina Vargas'],'Team Birch':['Omar Haddad','Luis Ortega'],'Team Cedar':['Grace Kim','Dana Levi'],'Team Delta':['Sam Rivera','Ines Moreau']};
 const pickRow=(sel,el)=>{ el.parentElement.querySelectorAll(sel).forEach(x=>x.classList.toggle('on',x===el)) };
 // as many rows as the card has room for (critic round 6: the new screens ended early): render 9, drop from the end while the card scrolls
 function fitRows(tb,make,min=3){ let n=9; tb.innerHTML=make(n); const card=document.querySelector('.app .card'); while(n>min&&card.scrollHeight>card.clientHeight+1){ n--; tb.lastElementChild.remove() } return n }
 
 // 1 · Disclosure review: the calls that miss a required sentence, one at a time
 const DISC=['Call recording notice','Fee disclosure','Cooling-off period'];
-const DQ=[{a:'Nina Vargas',r:'Payment plan',d:'Nov 18',len:'8:05',said:[15,null,null]},{a:'Tyler Shaw',r:'Billing dispute',d:'Nov 18',len:'6:42',said:[21,null,358]},
+const DQ=[{a:'Nina Vargas',r:'Payment plan',d:'Nov 18',len:'8:05',said:[15,null,null]},{a:'Selma Kaya',r:'Billing dispute',d:'Nov 18',len:'6:42',said:[21,null,358]},
           {a:'Luis Ortega',r:'Cancel request',d:'Nov 17',len:'4:18',said:[18,null,241]},{a:'Omar Haddad',r:'Plan upgrade',d:'Nov 17',len:'5:10',said:[null,132,290]},
           {a:'Grace Kim',r:'Card replacement',d:'Nov 16',len:'7:11',said:[22,175,null]},{a:'Dana Levi',r:'Rate question',d:'Nov 15',len:'3:54',said:[19,null,201]},
           {a:'Sam Rivera',r:'Refund status',d:'Nov 15',len:'6:20',said:[17,null,330]},{a:'Ines Moreau',r:'Address change',d:'Nov 14',len:'4:02',said:[16,98,null]},
-          {a:'Tyler Shaw',r:'Fraud alert',d:'Nov 14',len:'9:15',said:[null,210,470]},{a:'Nina Vargas',r:'Plan upgrade',d:'Nov 13',len:'5:44',said:[20,null,301]},
+          {a:'Selma Kaya',r:'Fraud alert',d:'Nov 14',len:'9:15',said:[null,210,470]},{a:'Nina Vargas',r:'Plan upgrade',d:'Nov 13',len:'5:44',said:[20,null,301]},
           {a:'Omar Haddad',r:'Delivery delay',d:'Nov 13',len:'3:31',said:[14,null,186]},{a:'Grace Kim',r:'Payment plan',d:'Nov 12',len:'7:58',said:[19,null,null]}];
 // where each sentence belongs in the call, and a few lines of the conversation around that moment (SAMPLE); the missing sentence is a dashed gap
 const WHERE=[[.02,'Before the account details',[['Agent','Thanks for calling Northwind, this is {A}.'],['Customer','Hi, I have a question about my account.'],['Agent','Sure, can I have your account number?'],['Customer','It’s 4471 2290.']]],
@@ -624,7 +624,7 @@ const GAL=[{v:'eval',n:'Evaluation by agent',team:'QA',by:'Maya Chen',when:'2 h 
            {v:'disc',n:'Disclosure review',team:'Compliance',by:'Dana Levi',when:'today',line:'12 calls to review',live:true},
            {v:'aht',n:'Handle time by team',team:'Operations',by:'Sam Rivera',when:'yesterday',line:'Delta and Birch over target',live:true},
            {v:'comp',n:'Compliance review',team:'Compliance',by:'Maya Chen',when:'3 d ago',line:'Pass rate 94%',live:true},
-           {v:'coach',n:'Coaching queue',team:'QA',by:'Tyler Shaw',when:'last week',line:'Draft · not built yet',live:false,ask:'A coaching queue of the agents with the lowest scores this week'}];
+           {v:'coach',n:'Coaching queue',team:'QA',by:'Selma Kaya',when:'last week',line:'Draft · not built yet',live:false,ask:'A coaching queue of the agents with the lowest scores this week'}];
 const ME='Maya Chen';
 // The previews: an abstract picture of each app's layout that fills the whole frame, in the page's blue scale with ink for what needs attention,
 // and no text (his notes, 11-19: only the heatmap card "looks good"; "it needs to be abstract general description of the layout that fills the
@@ -828,6 +828,6 @@ document.getElementById('new').addEventListener('click',()=>{ resetMaking(); sto
 <!-- Product screens: the Design Lab's other screens, made simple in the Studio look (screens/) -->
 <script src="screens/screens.js?v=67"></script>
 <!-- Explain mode, for the portfolio's Explainable scores case (studio.html?app=eval&explain=1): loaded only under that flag, nothing changes without it -->
-<script>if(new URLSearchParams(location.search).has('explain')){ const l=document.createElement('link'); l.rel='stylesheet'; l.href='explain/explain.css?v=3'; document.head.appendChild(l);
-  const s=document.createElement('script'); s.src='explain/explain.js?v=6'; s.async=false; document.body.appendChild(s) }</script>
+<script>if(new URLSearchParams(location.search).has('explain')){ const l=document.createElement('link'); l.rel='stylesheet'; l.href='explain/explain.css?v=4'; document.head.appendChild(l);
+  const s=document.createElement('script'); s.src='explain/explain.js?v=7'; s.async=false; document.body.appendChild(s) }</script>
 </html>

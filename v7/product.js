@@ -14,6 +14,18 @@
       if (i === 0) t.hot(-1, -1, 'force'); else if (i === 1) t.hot(0, -1, 'map'); else t.ask(0, 2);
     }
   };
+  /* Compliance is the Explainable scores case's own screen: the Evaluation by agent app in explain mode (studio.html?app=eval&explain=1,
+     hear-v7/plan/explain). Its four states (the grid, the scores under 70, the card, the calls) play as three steps: the grid's second
+     shot dims the blue side (call: 1), the card opens on Selma's Compliance 58, and Explore in Chat brings the calls. */
+  var EXPLAIN = {
+    steps: ['Every agent on every rule: coral under the pass mark of 70, blue above it.', 'A click on a low score opens a card that compares the agent with the team.', 'Explore in Chat brings in the calls behind the score, and the AI points to the process.'],
+    step: function (w, i, sub) {
+      var n = sub != null ? sub : [0, 2, 3][i], c = w.document.querySelector('.app .card');
+      w.hearExplain.step(n);
+      /* the window is shorter than the case page's: the app card scrolls, so the calls are brought up whole once they are asked for */
+      if (c) c.scrollTop = n === 3 ? c.scrollHeight : 0;
+    }
+  };
   /* THE CAMERA (owner, 22.11.2026: "a busy screen cannot be shown whole: the animation has to focus on one part at a time", and later
      the same day: "more thought in the animation, more exact timings, a more calculated experience").
      Every step is a list of shots: [after ms, selector in the screen, options]. The frame moves in on what the selector finds, measured
@@ -30,21 +42,27 @@
        4. as it opens, the lit area grows around it and the frame pushes in on it, in one move.
      When what the step is about does not exist yet (a side panel), the frame holds where it is, the screen opens it, and then the frame
      goes to it. Nothing opens while the picture is still travelling. */
+  var CM = '#hm tr:first-child th:first-child, #hm tr:last-child td[data-c="Compliance"]';
   var SHOTS = {
     topics: [
       [[0, null], [1700, '.tp-col:first-child', { pad: 22 }]],
       [[0, '#tp-map [data-k="0"]', { pad: 56, max: 2.1 }]],
       [[0, '.ask-on .tp-ask', { fit: 'w', pad: 26, max: 2, from: '#tp-map [data-k="0"] .tp-p[data-p="2"]' }], [5200, '.ask-on .tp-ask', { fit: 'w', part: [0, .17, 1, 1], keep: true, pad: 26, max: 2 }]]
     ],
+    /* call: the screen's own sub-step, played when the shot comes (and at once when the step is shown paused) */
     compliance: [
-      [[0, null], [1700, '.cm-grid', { part: [0, 0, .6, 1], max: 1.7 }], [4000, '.cm-grid', { part: [.4, 0, 1, 1], max: 1.7 }]],
-      [[0, '[data-c="3-9"]', { pad: 180, pad2: 46, max: 1.85, grow: '.sx-tip.on' }]],
-      [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.sx-tip.on .go' }], [3600, '.sx-side.on', { fit: 'w', part: [0, .16, 1, 1], keep: true, small: true, pad: 26, max: 2 }]]
+      /* a phone reads the grid from the names to the Compliance column, the width of the frame */
+      [[0, null], [1700, '#hm, .appv[data-v="eval"] .key', { pad: 22, max: 1.7, big: true }], [4300, '#hm, .appv[data-v="eval"] .key', { pad: 22, max: 1.7, keep: true, call: 1, big: true }],
+        [1700, CM, { fit: 'w', pad: 14, max: 2, small: true }], [4300, CM, { fit: 'w', pad: 14, max: 2, keep: true, call: 1, small: true }]],
+      [[0, '#hm td[data-a="Selma Kaya"][data-c="Compliance"]', { pad: 180, pad2: 30, max: 1.85, grow: '.xp-pop' }]],
+      /* the calls, then what the AI says; a phone reads the first call in two parts: the call, then its score and what Hear found */
+      [[0, '.ev:not(.xp-empty), .ev:not(.xp-empty) #evl', { pad: 22, max: 1.8, from: '.xp-pop .xp-go' }], [2700, '#evl tr:first-child', { pad: 16, max: 2, gx: 10, gy: 0, ax: 1, small: true }],
+        [4000, '.xp-said', { pad: 26, max: 1.8, big: true, mark: '.it.xp-said' }], [5200, '.xp-said', { pad: 20, max: 2, small: true, mark: '.it.xp-said' }]]
     ],
     agents: [
       /* the chart is nearly as wide as the screen: a small zoom only cut the screen's title in half at the top rim, so the screen stays whole and the chart is lit */
       [[0, null], [1700, '.ae-plot, .ae-dates', { pad: 80, ax: .62 }]],
-      [[0, '[data-b="17"]', { pad: 130, pad2: 50, max: 1.85, grow: '.sx-tip.on' }]],
+      [[0, '[data-b="17"]', { pad: 130, pad2: 50, max: 1.85, grow: '.sx-tip.on', mark: '.sx-tip.on' }]],
       [[0, '.sx-side.on', { fit: 'w', pad: 26, max: 2, from: '.ae-strip i:last-child' }], [3000, '.sx-side.on', { fit: 'w', part: [0, .26, 1, 1], keep: true, small: true, pad: 26, max: 2 }], [4900, '.sx-side.on', { fit: 'w', part: [0, .62, 1, 1], keep: true, small: true, pad: 26, max: 2 }], [4700, '.sx-side.on .ae-ag, .sx-side.on .ae-nt, .sx-side.on .ft', { keep: true, big: true, pad: 16, max: 2 }]]
     ],
     actions: [
@@ -81,7 +99,9 @@
     topics: { k: 0, sel: '#tp-map [data-k="5"]', o: { pad: 120, max: 1.7, gx: 2, gy: 2 }, os: { pad: 34, max: 2.6, gx: 2, gy: 2 },
       act: function (w) { var t = w.hearTopics, b = w.document.querySelector('#tp-view button[data-i="1"]'); t.close(); if (b && !b.classList.contains('on')) b.click(); t.hot(5, -1, 'map'); },
       undo: function (w) { var b = w.document.querySelector('#tp-view button[data-i="0"]'); if (b && !b.classList.contains('on')) b.click(); } },
-    compliance: { k: 2, sel: '.sx-side.on li:first-child', o: { pad: 54, max: 2, gx: 10, gy: 0 }, os: { pad: 38, max: 2.4, gx: 10, gy: 0 }, late: true },
+    /* the calls behind Selma's Compliance score, after Explore in Chat: the Oct 13 call is the first row (explain.js) */
+    compliance: { k: 2, sel: '#evl tr:first-child', o: { pad: 54, max: 2, gx: 10, gy: 0 }, os: { pad: 38, max: 2.4, gx: 10, gy: 0 },
+      then: function (small) { return small ? { at: 2600, sel: '#evl tr:first-child', o: { pad: 20, max: 2.4, gx: 10, gy: 0, ax: 1 } } : null; } },
     /* the task, from its header ("From an alert") down to its facts: priority, who has it, which call. A phone cannot read all of that
        at once: it reads the task first, then (then:) the frame moves down to the facts. */
     actions: { k: 2, sel: function (small) { return small ? '.sx-side.on header, .sx-side.on .a' : '.sx-side.on header, .sx-side.on .a, .sx-side.on dl'; },
@@ -90,7 +110,7 @@
     news: { k: 0, sel: '.nr-item.thread', o: { pad: 70, max: 1.9, gx: 14, gy: 0 }, os: { pad: 28, max: 2.2, gx: 10, gy: 0 } }
   };
   /* How long each step lasts once the frame has landed on it (the way there is added: see P.off). */
-  var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 4400, 7600], agents: [6200, 4800, 8600], actions: [5600, 4200, 8500, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9900], signals: [8200, 6600, 14000] };
+  var DUR = { topics: [5400, 4400, 10200], compliance: [6600, 5200, 9400], agents: [6200, 4800, 8600], actions: [5600, 4200, 8500, 4600], news: [8600, 4600, 4400, 5000], data: [6600, 4800, 9900], signals: [8200, 6600, 14000] };
   /* owner, 24.11: "the demos run too slowly, at least at the start". The step lengths and the shots' start times above are played
      at this pace: the first step (which only shows the screen) at 55%, the rest at 80%. The camera's travel and the press, open and
      settle beats below are not scaled, so nothing still opens while the picture is moving. */
@@ -114,7 +134,10 @@
     /* owner, 24.11: "the mark is ugly, it does not fit what it marks and nearly touches it, and the two parts differ in colour". The mark
        is now Hear's own focus ring (the field in focus in the app: a blue line and a soft blue halo), 10px clear of the part with the
        part's corner plus that air, and nothing outside it is washed: the screen keeps one colour. */
-    'box-shadow:0 0 0 calc(var(--h,1px)*1.5) #139FFD,0 0 0 calc(var(--h,1px)*5) rgba(19,159,253,.16)}' +
+    /* owner, 25.11: "what is around it is not dimmed as it was; the whole point was to help focus on what matters". Everything outside
+       the rim is dimmed again, by the rim's own shadow, so the dimmed area follows the rim's corners exactly: a light veil, the same
+       on every colour, about what the old screens did with opacity .6 on what was not in focus. */
+    'box-shadow:0 0 0 calc(var(--h,1px)*1.5) #139FFD,0 0 0 calc(var(--h,1px)*5) rgba(19,159,253,.16),0 0 0 4000px rgba(255,255,255,.55)}' +
     '.px-soft{position:fixed;z-index:2147483000;pointer-events:none;opacity:0;background:none}' +
     '#px-rim.on,.px-soft.on{opacity:1}' +
     '#px-tap{position:fixed;z-index:2147483002;pointer-events:none;border-radius:50%;opacity:0;background:rgba(19,159,253,.22);box-shadow:inset 0 0 0 var(--h,1px) rgba(255,255,255,.95),0 0 0 var(--h,1px) rgba(11,111,207,.55)}' +
@@ -127,6 +150,7 @@
      behind is emptied, and loads again when the reader comes back. Until a window has drawn, it shows a still of its first view
      (img/px-poster-*.webp, the whole screen as step 1 opens on it), never an empty blue box. */
   var LOAD = { busy: null, t: 0 }, FAR = 4000, UNDER = 2500;
+  var POSTER = { compliance: 2 };          /* a still redrawn since: its version, so no browser keeps the old one */
   function pump() {
     if (LOAD.busy && performance.now() - LOAD.t < 6000) return;
     LOAD.busy = null;
@@ -161,8 +185,8 @@
     var key = function () { return fig.getAttribute('data-px'); };
     /* the still of the screen the window holds; it is drawn only while the app is not (a still under a live app is wasted memory) */
     function still() {
-      var f = base + 'img/px-poster-' + key();
-      poster.srcset = f + '-s.webp?v=1 800w, ' + f + '.webp?v=1 1600w'; poster.src = f + '.webp?v=1';
+      var f = base + 'img/px-poster-' + key(), v = '.webp?v=' + (POSTER[key()] || 1);
+      poster.srcset = f + '-s' + v + ' 800w, ' + f + v + ' 1600w'; poster.src = f + v;
     }
     function cover(on) { clearTimeout(P.pv); if (on) poster.style.visibility = ''; else P.pv = setTimeout(function () { poster.style.visibility = 'hidden'; }, 700); }
     still();
@@ -225,21 +249,32 @@
     function target(full, rest) {
       var sh = shot(), o = (sh && sh[2]) || {};
       if (!sh || !sh[1]) return null;
-      try { var sel = full && o.grow ? sh[1] + ', ' + o.grow : sh[1]; P.rad = o.part ? 0 : radOf(sel); return rectOf(sel, o.part, rest); } catch (e) { return null; }
+      /* mark: the rim goes round this part only, while the frame still shows the whole shot (the AI's answer, with its question above it) */
+      try { var sel = full && o.grow ? sh[1] + ', ' + o.grow : sh[1], ms = o.mark || null;
+        P.rad = o.part ? null : radOf(ms || sel); P.mark = ms ? rectOf(ms) : null; return rectOf(sel, o.part, rest); } catch (e) { P.mark = null; return null; }
     }
     /* The corner of what a selector covers, in the screen's px: the corner of the thing itself, or, when it is a plain box, of what
        sits in its corner (a map tile's face, the first card of a column). The lit area takes its corner from here, so its shape is
        the shape of the part it marks (owner, 22.11.2026 night: "it is not about more or less, it must fit the part it marks"). */
+    /* owner, 25.11: "the curve must be exact for every one of them". Each of the four corners is read on its own: the corner of the
+       thing that sits in that corner of what is marked (a bubble, a cell, a card). Where nothing with a shape sits in a corner (a line
+       of text, a header), that corner is null and the rim is nearly square there. [top-left, top-right, bottom-right, bottom-left] */
     function radOf(sel) {
-      var d = frame.contentDocument, w = frame.contentWindow, best = 0;
-      [].forEach.call(d.querySelectorAll(sel), function (el) {
-        var r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return;
-        var v = parseFloat(w.getComputedStyle(el).borderTopLeftRadius) || 0;
-        if (!v) { var kids = el.querySelectorAll('*'), n = Math.min(kids.length, 60);
-          for (var i = 0; i < n && !v; i++) { var b = kids[i].getBoundingClientRect(); if (b.width > 8 && Math.abs(b.left - r.left) < 6 && Math.abs(b.top - r.top) < 6) v = parseFloat(w.getComputedStyle(kids[i]).borderTopLeftRadius) || 0; } }
-        best = Math.max(best, Math.min(v, r.width / 2, r.height / 2));
+      var d = frame.contentDocument, w = frame.contentWindow, els = [].filter.call(d.querySelectorAll(sel), function (el) { var b = el.getBoundingClientRect(); return b.width >= 2 && b.height >= 2; });
+      if (!els.length) return null;
+      var bs = els.map(function (el) { return el.getBoundingClientRect(); });
+      var L = Math.min.apply(null, bs.map(function (b) { return b.left; })), T = Math.min.apply(null, bs.map(function (b) { return b.top; })),
+        R = Math.max.apply(null, bs.map(function (b) { return b.right; })), B = Math.max.apply(null, bs.map(function (b) { return b.bottom; }));
+      var pool = []; els.forEach(function (el) { pool.push(el); var k = el.querySelectorAll('*'); for (var i = 0; i < Math.min(k.length, 400); i++) pool.push(k[i]); });
+      var C = [['left', 'top', 'borderTopLeftRadius'], ['right', 'top', 'borderTopRightRadius'], ['right', 'bottom', 'borderBottomRightRadius'], ['left', 'bottom', 'borderBottomLeftRadius']];
+      var at = { left: L, top: T, right: R, bottom: B }, any = false;
+      var out = C.map(function (c) {
+        var v = 0;
+        for (var i = 0; i < pool.length && !v; i++) { var b = pool[i].getBoundingClientRect(); if (b.width < 8 || b.height < 8) continue;
+          if (Math.abs(b[c[0]] - at[c[0]]) < 3 && Math.abs(b[c[1]] - at[c[1]]) < 3) v = Math.min(parseFloat(w.getComputedStyle(pool[i])[c[2]]) || 0, b.width / 2, b.height / 2); }
+        if (v) any = true; return v;
       });
-      return best;
+      return any ? out : null;
     }
     /* the sky margin plus the glass rim around the app's white card, in the screen's px (about 27 on a phone) */
     function edge() {
@@ -315,13 +350,15 @@
            two curves are concentric. A part with square corners gets a nearly square frame. */
         /* the air between the part and its rim: 10 all round, unless the shot says otherwise (text that starts at the part's own edge
            needs more at the sides; rows ruled by hairlines need none above and below, or the rules show inside the rim) */
-        var gx = o.gx == null ? 10 : o.gx, gy = o.gy == null ? 10 : o.gy, g = Math.max(0, Math.min(gx, gy));
-        var x = r[0] - gx, y = r[1] - gy, w = r[2] + 2 * gx, h = r[3] + 2 * gy, k = P.s * c.z;
+        var gx = o.gx == null ? 10 : o.gx, gy = o.gy == null ? 10 : o.gy, g = Math.max(0, Math.min(gx, gy)), m = P.mark || r;
+        var x = m[0] - gx, y = m[1] - gy, w = m[2] + 2 * gx, h = m[3] + 2 * gy, k = P.s * c.z;
+        /* each corner: the marked part's own corner plus the air, so the curves are concentric; a corner with no shape in it stays nearly square */
+        var rad = (P.rad || [0, 0, 0, 0]).map(function (v) { return (v ? Math.min(v + g, w / 2, h / 2) : Math.min(6, g)).toFixed(2) + 'px'; }).join(' ');
         var T = was ? 'opacity .3s ease, left ' + geo + ', top ' + geo + ', width ' + geo + ', height ' + geo + ', border-radius ' + geo : 'opacity .46s ease ' + Math.round(ms * .5) + 'ms';
         var boxes = [[0, 0, P.w, Math.max(0, y)], [0, y + h, P.w, H()], [0, y, Math.max(0, x), h], [x + w, y, P.w, h]];
         if (!was) { rim.style.transition = 'none'; [].forEach.call(soft, function (el) { el.style.transition = 'none'; }); }
         var place = function () {
-          rim.style.setProperty('--r', (P.rad ? Math.min(P.rad + g, w / 2, h / 2) : 4 + g).toFixed(2) + 'px'); rim.style.setProperty('--h', (1 / k).toFixed(2) + 'px');
+          rim.style.setProperty('--r', rad); rim.style.setProperty('--h', (1 / k).toFixed(2) + 'px');
           set(rim, { left: px(x), top: px(y), width: px(w), height: px(h) });
           [].forEach.call(soft, function (el, i) { set(el, { left: px(boxes[i][0]), top: px(boxes[i][1]), width: px(boxes[i][2]), height: px(boxes[i][3]) }); });
         };
@@ -361,6 +398,7 @@
     /* things that happen later in the step, on the step's own clock: a pause holds them too */
     function at(ms, fn) { P.q.push({ t: P.ms + ms, fn: fn }); P.q.sort(function (a, b) { return a.t - b.t; }); }
     var act = function () { try { P.api(P.k); } catch (e) {} };
+    var sub = function (o) { if (o && o.call != null) { try { P.api(P.k, o.call); } catch (e) {} } };
     /* after the screen has answered: take in what opened, in one move */
     function settle() {
       var sh = shot(), o = (sh && sh[2]) || {}, r = target(true), a = P.r;
@@ -382,7 +420,7 @@
         }
         var m0 = move(null, o); if (first) P.off = m0; return;
       }
-      if (!first) { at(move(r, o) + 60, settle); return; }
+      if (!first) { sub(o); at(move(r, o) + 60, settle); return; }
       if (!r) {                                  /* not there yet: hold, let the screen open it, then go to it */
         P.r = null;
         /* what opens it is pressed first, where the frame already is; then the light goes out (it never slides across the screen),
@@ -416,7 +454,7 @@
       if (P.paused || reduce) {
         /* paused, a step is shown finished, on its closest shot: no sequence to wait for */
         if (st) P.si = st.length - 1;
-        act();
+        act(); if (st) st.forEach(function (x) { sub(x[2]); });
         if (hold) return;                        /* the caller takes the frame somewhere itself, in one move */
         look(reduce ? 0 : 700);
         [560, 1300].forEach(function (ms) { P.re.push(setTimeout(function () { look(reduce ? 0 : 640); }, ms)); });
@@ -464,7 +502,9 @@
         /* the fold is in place: from here the screen's own transitions run again */
         st.textContent = st.textContent.replace(HOLD, '');
       } catch (e) {}
-      if (w.hearScreens) { P.steps = w.hearScreens.steps; P.dur = DUR[key()] || w.hearScreens.dur || []; P.api = function (i) { w.hearScreens.step(i); }; }
+      /* explain mode first: the studio also carries Topics (hearTopics), so it must not be taken for it */
+      if (w.hearExplain) { P.steps = EXPLAIN.steps; P.dur = DUR[key()] || []; P.api = function (i, n) { EXPLAIN.step(w, i, n); }; }
+      else if (w.hearScreens) { P.steps = w.hearScreens.steps; P.dur = DUR[key()] || w.hearScreens.dur || []; P.api = function (i) { w.hearScreens.step(i); }; }
       else if (w.hearTopics) { P.steps = TOPICS.steps; P.dur = DUR.topics; P.api = function (i) { TOPICS.step(w, i); }; }
       else return;
       beats.style.setProperty('--n', P.steps.length);
