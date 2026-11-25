@@ -37,7 +37,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=44">
 <link rel="stylesheet" href="../v7/intro.css?v=1">
-<link rel="stylesheet" href="../v7/scores-story.css?v=1">
+<link rel="stylesheet" href="../v7/wf-story.css?v=1">
+<link rel="stylesheet" href="../v7/scores-wf.css?v=2">
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
 <body>
@@ -51,20 +52,84 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main" class="in-page es-page">
+<main id="main" class="in-page">
   <header class="in-hero">
-    <p class="in-tag">Explainable scores</p>
+    <p class="in-tag">Explainable scores <b>Wireframe · low fidelity</b></p>
     <h1>Every AI score leads back to the calls behind it</h1>
     <p>Hear’s AI scores every agent on every call. I designed each score to open up the evidence: one click shows the quick context, and a second click opens the calls themselves.</p>
     <p class="in-note">My vision for the screen, built in Hear Studio on demo data.</p>
   </header>
 
-  <section class="in-sl es-sl" aria-label="Explainable scores, four steps">
+  <section class="in-sl" aria-label="Explainable scores, four steps">
     <div class="in-stw">
-      <div class="in-stage es-stage">
-        <div class="es-view">
-          <p class="es-load">Loading the live screen…</p>
-          <div class="es-cam" id="es-cam"><iframe id="es-app" src="../hear-v7/plan/studio.html?app=eval&amp;explain=1&amp;v=7" width="1037" height="792" loading="lazy" title="Hear Studio, the Evaluation by agent app, live with demo data. Click any score."></iframe></div>
+      <div class="in-stage">
+        <div class="in-sv" id="in-sv" data-s="0" aria-hidden="true">
+          <div class="aw">
+
+            <div class="aw-sc sw-s1">
+              <div class="aw-card sw-one">
+                <small>Compliance · last 30 days</small>
+                <b>Selma Kaya</b>
+                <div class="sw-big">58</div>
+                <div class="sw-q q1"><span><i class="sw-n">1</i>Is it truly low?</span><em>?</em></div>
+                <div class="sw-q q2"><span><i class="sw-n">2</i>Her, or the whole team?</span><em>?</em></div>
+                <div class="sw-q q3"><span><i class="sw-n">3</i>And why?</span><em>?</em></div>
+              </div>
+            </div>
+
+            <div class="aw-sc sw-s2">
+              <div class="sw-grid">
+                <span class="h"></span><span class="h">Greeting</span><span class="h">Verify</span><span class="h">Discovery</span><span class="h">Resolution</span><span class="h">Compliance</span><span class="h">Empathy</span><span class="h">Closing</span>
+                <span class="n">Nina Vargas</span><i style="--c:0">88</i><i style="--c:1">71</i><i class="lo" style="--c:2">66</i><i style="--c:3">74</i><i class="lo" style="--c:4">62</i><i class="lo" style="--c:5">62</i><i style="--c:6">84</i>
+                <span class="n">Selma Kaya</span><i style="--c:0">92</i><i class="lo" style="--c:1">64</i><i style="--c:2">71</i><i class="lo" style="--c:3">68</i><i class="lo2" style="--c:4">58</i><i style="--c:5">77</i><i style="--c:6">81</i>
+                <span class="n">Omar Haddad</span><i style="--c:0">95</i><i class="lo2" style="--c:1">58</i><i style="--c:2">79</i><i style="--c:3">81</i><i class="lo" style="--c:4">66</i><i style="--c:5">85</i><i style="--c:6">78</i>
+                <span class="n">Luis Ortega</span><i style="--c:0">84</i><i style="--c:1">76</i><i style="--c:2">83</i><i style="--c:3">72</i><i class="lo" style="--c:4">64</i><i style="--c:5">74</i><i style="--c:6">90</i>
+                <span class="n">Dana Levi</span><i style="--c:0">91</i><i style="--c:1">79</i><i style="--c:2">88</i><i style="--c:3">84</i><i class="lo" style="--c:4">68</i><i style="--c:5">83</i><i style="--c:6">86</i>
+                <span class="n">Grace Kim</span><i style="--c:0">97</i><i style="--c:1">82</i><i style="--c:2">78</i><i style="--c:3">86</i><i style="--c:4">77</i><i style="--c:5">91</i><i style="--c:6">88</i>
+                <span class="n">Sam Rivera</span><i style="--c:0">96</i><i style="--c:1">88</i><i style="--c:2">85</i><i style="--c:3">91</i><i style="--c:4">89</i><i style="--c:5">87</i><i style="--c:6">93</i>
+                <span class="n">Ines Moreau</span><i style="--c:0">98</i><i style="--c:1">93</i><i style="--c:2">90</i><i style="--c:3">94</i><i style="--c:4">96</i><i style="--c:5">92</i><i style="--c:6">95</i>
+              </div>
+              <div class="sw-key"><span><i class="k1"></i>Under 70</span><span><i class="k2"></i>70 and up</span><b>10 of 56</b></div>
+            </div>
+
+            <div class="aw-sc sw-s3">
+              <div class="sw-colm">
+                <small>Compliance</small>
+                <i class="lo">62</i><i class="lo2 me">58</i><i class="lo">66</i><i class="lo">64</i><i class="lo">68</i><i>77</i><i>89</i><i>96</i>
+              </div>
+              <div class="aw-card sw-pop">
+                <small>Compliance · last 30 days</small>
+                <b>Selma Kaya</b>
+                <div class="sw-vs"><span class="sw-tile">58</span><span><i class="sw-n">1</i>−15 vs team average<br><em>Lowest of 8 agents</em></span></div>
+                <h5>Across all 8 agents</h5>
+                <div class="sw-hist"><s class="b1" style="--h:16px"></s><s class="b2" style="--h:64px"></s><s class="b3" style="--h:16px"></s><s class="b4" style="--h:16px"></s><s class="b5" style="--h:16px"></s><u></u></div>
+                <div class="sw-ax"><span>Low 58</span><span>Team avg 73</span><span>High 96</span></div>
+                <p class="sw-note"><i class="sw-n">2</i><span>5 of 8 agents are under 70 on Compliance. It may be the process, not the agent.</span></p>
+                <span class="sw-btn">Explore in Chat</span>
+                <p class="sw-quiet">Nothing extra loads until you click.</p>
+              </div>
+            </div>
+
+            <div class="aw-sc sw-s4">
+              <div class="sw-chat">
+                <small>Chat · Compliance, across the team’s calls</small>
+                <p class="sw-ask">Why are 5 of 8 agents under 70 on Compliance?</p>
+                <div class="sw-ans"><span class="dots"><i></i><i></i><i></i></span><p><i class="sw-n">3</i>It isn’t only Selma: 5 of the 8 agents are under 70 on Compliance, so start with the process. In Selma’s calls the most common miss is fees stated after the agreement, on 4 of 7.</p></div>
+                <h5>7 of the calls behind this score <em>Selma Kaya · 58</em></h5>
+                <ol class="sw-calls">
+                  <li style="--r:0"><span>Oct 13</span><b>Refund request</b><em>▸ 1:48</em><span>29</span><span>Vulnerability protocol skipped</span></li>
+                  <li style="--r:1"><span>Oct 26</span><b>Fraud alert</b><em>▸ 1:45</em><span>50</span><span>Recording disclosure not read</span></li>
+                  <li style="--r:2" class="fee"><span>Oct 29</span><b>Billing dispute</b><em>▸ 0:38</em><span>53</span><span>Fees stated after the agreement</span></li>
+                  <li style="--r:3" class="fee"><span>Nov 4</span><b>Cancel request</b><em>▸ 1:02</em><span>58</span><span>Fees stated after the agreement</span></li>
+                  <li style="--r:4" class="fee"><span>Nov 17</span><b>Account closure</b><em>▸ 0:49</em><span>63</span><span>Fees stated after the agreement</span></li>
+                  <li style="--r:5" class="fee"><span>Nov 15</span><b>Refund status</b><em>▸ 1:29</em><span>67</span><span>Fees stated after the agreement</span></li>
+                  <li style="--r:6"><span>Oct 31</span><b>Rate question</b><em>▸ 0:16</em><span>69</span><span>Disclosure read too fast</span></li>
+                </ol>
+                <p class="sw-all">All 172 calls →</p>
+              </div>
+            </div>
+
+          </div>
         </div>
         <div class="in-meter" aria-label="Steps"></div>
       </div>
@@ -74,32 +139,32 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <li class="in-st on">
         <span class="in-n">01</span>
         <h2>A score on its own goes nowhere</h2>
-        <p>An agent’s scores shape who gets coached, and on what. But a number with nothing behind it leaves two choices: trust it blindly, or ignore it. This screen shows the whole team: eight agents by seven criteria.</p>
+        <p>An agent’s scores shape who gets coached, and on what. Take Selma Kaya’s 58 on Compliance. A number alone raises three questions: is it truly low, is it her or the whole team, and why? Without answers there are two choices: trust it blindly, or ignore it.</p>
       </li>
       <li class="in-st">
         <span class="in-n">02</span>
         <h2>Only low scores stand out</h2>
-        <p>The scale splits at the pass mark of 70: coral under 70, blue at 70 and above. The farther a score is from 70, the stronger the color gets. Coral is the only color asking for attention here. In this view, that means 10 scores out of 56.</p>
+        <p>The whole team, eight agents by seven criteria. The scale splits at the pass mark of 70: coral under 70, blue at 70 and above, and the farther a score is from 70, the stronger its color. Coral is the only color asking for attention. Here that is 10 scores out of 56.</p>
       </li>
       <li class="in-st">
         <span class="in-n">03</span>
         <h2>One click answers the first two questions</h2>
-        <p>Click a score and a card opens beside it. It shows if the score is truly low, and if the issue is with one agent or the team. It compares the score with the team average, shows the rank, and shows the spread as one bar per range, so it stays readable with 1,000 agents. If most of the team is low on the same rule, the card says so. That likely points to the process, not the person, and becomes the question for the AI. Nothing loads from the AI yet.</p>
+        <p>Click Selma’s 58 and a card opens beside it. Is it truly low? It is 15 under the team average, the lowest of 8. Her, or the team? The spread shows one bar per range, so it stays readable with 1,000 agents, and here 5 of 8 are under 70. So the card says it may be the process, not the agent. Nothing loads from the AI yet.</p>
       </li>
       <li class="in-st">
         <span class="in-n">04</span>
         <h2>A second click asks the AI</h2>
-        <p>Explore in Chat is a separate, deliberate click, so a stray click never starts an AI conversation. It brings in the calls behind the score, with the moment each one was judged and what Hear found. The answer names the cause before the person.</p>
+        <p>Explore in Chat is a separate, deliberate click, so a stray click never starts an AI conversation. It asks the card’s question and brings in the calls behind the score, each with the moment it was judged and what Hear found. The answer names the cause before the person: fees stated after the agreement, on 4 of Selma’s 7 calls.</p>
       </li>
     </ol>
   </section>
 
-  <section class="es-end" aria-labelledby="es-end-h">
-    <h2 id="es-end-h">Where it stands</h2>
+  <section class="aw-end" aria-labelledby="aw-end-h">
+    <h2 id="aw-end-h">Where it stands</h2>
     <p>I built the compliance heatmap into Hear’s product myself (May 2026). My spec of 5 Oct 2026 gave each score a card with the score against the team average, a rank, the spread of all agents in 12 ranges, and Explore in Chat. Three days later developers shipped a popover with the same contents, without the chat button (8 Oct 2026), and reused the heatmap on Agent evaluation. Asking AI from a score is still a proposal, which the product does not have yet.</p>
   </section>
 
-  <div class="es-next">
+  <div class="aw-next">
     <a class="next" href="actions.html" aria-label="Next case study: Actions. Findings become work a person owns"><span class="next-t"><span class="label">Next case study</span><span class="next-name">Actions</span><span class="next-line">Findings become work a person owns</span><span class="next-go">Read next</span></span><span class="next-thumb whole" aria-hidden="true"><img src="../img/v7s-actions-board.webp?v=8" width="2060" height="1327" alt="" loading="lazy" decoding="async"></span></a>
   </div>
 </main>
@@ -139,6 +204,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 </footer>
 <script src="case.js?v=8"></script>
 <script src="../v7/foot.js?v=202" defer></script>
-<script src="../v7/scores-story.js?v=3" defer></script>
+<script src="../v7/wf-story.js?v=1" defer></script>
 </body>
 </html>
