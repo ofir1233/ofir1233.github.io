@@ -36,226 +36,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/foot.css?v=200">
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=44">
-<link rel="stylesheet" href="../v7/case-r16.css?v=3">
-<link rel="stylesheet" href="../v7/cs2.css?v=6">
-<link rel="stylesheet" href="../v7/hear-ui.css?v=1">
-<style>
-/* this page only: the bare score of Before, the coach's questions as links into the thread, and "Pull the thread" (the key band):
-   one low score and the three layers under it, opened one click at a time, the layers above staying in view */
-.c2 .c2-bare{ display:grid; grid-template-columns:auto minmax(0, 1fr); gap:22px; align-items:start; max-width:680px; margin-top:32px; padding:22px 24px; border-radius:16px; box-shadow:inset 0 0 0 1px #cfd3d8; }
-.c2 .c2-bare .c2-score{ background:#9aa1a8; }
-.c2 .c2-bare h3{ font:600 13px/1.3 var(--body); letter-spacing:.03em; color:var(--mute); margin-bottom:6px; }
-.c2 .c2-bare p{ font:400 16px/1.5 var(--body); color:var(--mute); }
-.c2 .c2-qs small a{ display:inline-flex; align-items:center; gap:8px; color:var(--deep); text-decoration:none; border-radius:6px; }
-.c2 .c2-qs small a:hover span{ text-decoration:underline; text-underline-offset:3px; }
-.c2 .c2-qs small a:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
-
-.c2 .c2-thread{ --cx:66px; margin-top:clamp(32px, 4vw, 48px); }
-.c2 .c2-th-top{ display:flex; align-items:center; flex-wrap:wrap; gap:18px 24px; }
-.c2 .c2-th-score{ display:grid; place-items:center; width:132px; height:104px; border-radius:20px; background:var(--coral); color:#fff; font:700 60px/1 var(--body); letter-spacing:-.03em; font-variant-numeric:tabular-nums;
-  box-shadow:0 0 0 4px #eaf3fc, 0 0 0 6.5px var(--blue), 0 24px 40px -22px rgba(255,111,82,.7); }
-.c2 .c2-th-who b{ display:block; font:700 24px/1.2 var(--body); letter-spacing:-.01em; }
-.c2 .c2-th-who span{ display:block; margin-top:4px; font:400 17px/1.35 var(--body); color:var(--ink2); }
-.c2 .c2-th-ctl{ margin-left:auto; display:flex; align-items:center; gap:14px; }
-.c2 .c2-th-st{ font:500 14px/1.35 var(--body); color:var(--mute); text-align:right; }
-.c2 .c2-th-reset{ flex:none; white-space:nowrap; min-height:40px; padding:0 16px; border:0; border-radius:99px; background:transparent; box-shadow:inset 0 0 0 1.5px var(--ink); color:var(--ink); font:600 14px/1 var(--body); cursor:pointer; }
-.c2 .c2-th-reset:hover{ background:#fff; }
-.c2 .c2-th-reset[hidden]{ display:none; }
-
-.c2 .c2-th-ls{ margin-top:0; }
-.c2 .c2-th-l{ position:relative; padding:26px 0 0 calc(var(--cx) + 50px); scroll-margin-top:96px; }
-/* the thread: from the score (or the layer above) down to this layer's knot, and on from it */
-.c2 .c2-th-l::before, .c2 .c2-th-l::after{ content:""; position:absolute; left:calc(var(--cx) - 1.5px); width:3px; border-radius:2px;
-  background:repeating-linear-gradient(180deg, #a9b8c7 0 6px, transparent 6px 12px); transition:background-color .3s; }
-.c2 .c2-th-l::before{ top:0; height:40px; }
-.c2 .c2-th-l::after{ top:76px; bottom:-26px; }
-.c2 .c2-th-l:last-child::after{ display:none; }
-.c2 .c2-th-l.is-open::before, .c2 .c2-th-l.is-next::before, .c2 .c2-th-l.is-open::after{ background:var(--coral); }
-.c2 .c2-th-n{ position:absolute; left:calc(var(--cx) - 22px); top:40px; width:44px; height:36px; display:grid; place-items:center; border-radius:12px; background:#eef2f6; color:var(--mute);
-  box-shadow:inset 0 0 0 1.5px #b9c6d3; font:700 16px/1 var(--body); font-style:normal; transition:background-color .3s, color .3s; }
-.c2 .c2-th-l.is-next .c2-th-n{ background:#fff; color:var(--ink); box-shadow:inset 0 0 0 2px var(--ink); }
-.c2 .c2-th-l.is-open .c2-th-n{ background:var(--coral); color:#fff; box-shadow:none; }
-
-.c2 .c2-th-go{ display:flex; align-items:center; gap:16px; width:100%; min-height:64px; padding:12px 14px 12px 20px; border:1.5px solid transparent; border-radius:16px; background:transparent;
-  text-align:left; color:var(--mute); font:inherit; cursor:pointer; transition:background-color .2s, border-color .2s; }
-.c2 .c2-th-go:disabled{ cursor:default; }
-/* round 4: a closed layer (not the next one) is a plain row, no outline; its one-line answer shows under it, muted, so the three rows already read as the argument */
-.c2 .c2-th-l.is-shut:not(.is-next) .c2-th-go{ padding-left:0; min-height:56px; }
-.c2 .c2-th-l.is-shut .c2-th-t b{ color:var(--ink2); }
-.c2 .c2-th-l.is-shut:not(.is-next) .c2-th-go:hover b{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
-.c2 .c2-th-t{ flex:1; min-width:0; }
-.c2 .c2-th-t b{ display:block; font:700 19px/1.25 var(--body); }
-.c2 .c2-th-t small{ display:block; margin-top:3px; font:400 15.5px/1.35 var(--body); }
-.c2 .c2-th-v{ flex:none; font-style:normal; }
-.c2 .c2-th-v:empty{ display:none; }
-.c2 .c2-th-l.is-next .c2-th-go{ border:0; background:#fff; color:var(--ink); box-shadow:0 0 0 1.5px var(--ink), 0 18px 36px -24px rgba(11,79,138,.55); }
-.c2 .c2-th-l.is-next .c2-th-t small{ color:var(--ink2); }
-.c2 .c2-th-l.is-next .c2-th-v{ display:inline-flex; align-items:center; gap:8px; min-height:42px; padding:0 18px; border-radius:99px; background:var(--ink); color:#fff; font:600 15px/1 var(--body); }
-.c2 .c2-th-l.is-next .c2-th-v::after{ content:"↓"; font-weight:600; }
-.c2 .c2-th-l.is-next .c2-th-go:hover .c2-th-v{ background:#000; }
-.c2 .c2-th-l.is-open .c2-th-go{ border-color:transparent; padding-left:0; color:var(--ink); min-height:64px; }
-.c2 .c2-th-l.is-open .c2-th-t small{ color:var(--ink2); }
-.c2 .c2-th-l.is-open .c2-th-v{ font:500 14px/1 var(--body); color:var(--mute); }
-.c2 .c2-th-l.is-open .c2-th-go:hover .c2-th-v{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
-.c2 .c2-th-go:focus-visible, .c2 .c2-th-reset:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
-
-/* a layer's content: the answer first, then its evidence */
-.c2 .c2-th-b{ position:relative; z-index:1; display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:24px 44px; align-items:center; margin-top:10px; padding:26px 28px; border-radius:18px; background:#fff;
-  box-shadow:0 0 0 1px rgba(23,27,32,.06), 0 24px 48px -32px rgba(11,79,138,.4); }
-.c2 .c2-th-b[hidden]{ display:none; }
-.c2 .c2-th-b.is-calls{ grid-template-columns:minmax(0, 1.1fr) minmax(0, .9fr); align-items:start; }
-.c2 .c2-th-b p{ font:400 16px/1.55 var(--body); color:var(--ink2); }
-.c2 .c2-th-b p + p, .c2 .c2-th-b p + .c2-key, .c2 .c2-th-b .c2-key + p{ margin-top:12px; }
-.c2 .c2-th-a{ font:600 20px/1.35 var(--body) !important; color:var(--ink) !important; letter-spacing:-.01em; margin-bottom:10px; }
-.c2 .c2-th-b .c2-key{ margin-top:14px; gap:10px; }
-.c2 .c2-th-b .c2-quote{ margin-top:18px; }
-.c2 .c2-th-b .c2-shot{ max-width:420px; margin-left:auto; }
-.c2 .c2-th-l.is-fresh .c2-th-b{ animation:c2-down .32s cubic-bezier(.2,.7,.2,1) both; }
-@keyframes c2-down{ from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:none; } }
-/* a layer above the open one folds down to its one-line answer: still readable, opened again with a click */
-.c2 .c2-th-l.is-folded .c2-th-b{ display:block; margin:0; padding:0 0 2px; background:none; box-shadow:none; border-radius:0; }
-.c2 .c2-th-l.is-folded .c2-th-b > :not(:first-child), .c2 .c2-th-l.is-folded .c2-th-b > div:first-child > :not(.c2-th-a){ display:none; }
-.c2 .c2-th-l.is-folded .c2-th-a{ margin:0; font-size:17px !important; line-height:1.4; }
-.c2 .c2-th-l.is-folded .c2-th-a::before{ content:"→ "; color:var(--coral); font-weight:700; }
-.c2 .c2-th-l.is-folded .c2-th-go{ min-height:56px; }
-.c2 .c2-th-l.is-shut .c2-th-b{ display:block; margin:0; padding:0 0 2px; background:none; box-shadow:none; border-radius:0; }
-.c2 .c2-th-l.is-shut .c2-th-b > :not(:first-child), .c2 .c2-th-l.is-shut .c2-th-b > div:first-child > :not(.c2-th-a){ display:none; }
-.c2 .c2-th-l.is-shut .c2-th-a{ margin:0; font-size:17px !important; font-weight:500 !important; line-height:1.4; color:var(--ink2) !important; }
-.c2 .c2-th-l.is-shut .c2-th-a::before{ content:"→ "; color:#a9b8c7; font-weight:700; }
-.c2 .c2-th-l.is-shut.is-next .c2-th-b{ margin-top:12px; padding-left:22px; }
-
-/* layer 1: where 54 sits on the scale */
-.c2 .c2-scale{ position:relative; padding:34px 0 34px; }
-.c2 .c2-scale-t{ height:14px; border-radius:7px; background:linear-gradient(90deg, var(--coral) 0 60%, #f8cfc4 60% 70%, #e3e6e9 70% 100%); position:relative; }
-.c2 .c2-scale-t::before{ content:""; position:absolute; left:70%; top:-6px; bottom:-6px; width:2px; margin-left:-1px; background:var(--ink); }
-.c2 .c2-scale-t::after{ content:""; position:absolute; left:54%; top:50%; width:22px; height:22px; margin:-11px 0 0 -11px; border-radius:50%; background:var(--coral); box-shadow:0 0 0 4px #fff, 0 4px 10px rgba(10,20,30,.25); }
-.c2 .c2-scale-me, .c2 .c2-scale-pm, .c2 .c2-scale-e{ position:absolute; left:var(--at); transform:translateX(-50%); white-space:nowrap; }
-.c2 .c2-scale-me{ top:0; font:700 15px/1 var(--body); color:var(--ink); }
-.c2 .c2-scale-pm{ bottom:6px; font:600 13.5px/1 var(--body); color:var(--ink); }
-.c2 .c2-scale-e{ bottom:6px; font:500 13px/1 var(--body); color:var(--mute); }
-.c2 .c2-scale-e[style*="0%"]{ transform:none; }
-.c2 .c2-scale-e[style*="100%"]{ transform:translateX(-100%); }
-
-@media (max-width: 900px){
-  .c2 .c2-th-b, .c2 .c2-th-b.is-calls{ grid-template-columns:1fr; }
-  .c2 .c2-th-b .c2-shot{ margin:0; }
-  /* the controls get their own row under the score: the thread runs past them, unbroken */
-  .c2 .c2-th-ctl{ position:relative; margin-left:0; width:100%; justify-content:space-between; padding-left:calc(var(--cx) + 50px); }
-  .c2 .c2-th-ctl::before{ content:""; position:absolute; left:calc(var(--cx) - 1.5px); top:-19px; bottom:-1px; width:3px; border-radius:2px; background:var(--coral); }
-  .c2 .c2-th-st{ text-align:left; }
-}
-@media (max-width: 560px){
-  .c2 .c2-bare{ padding:18px; gap:16px; }
-  /* on a phone the name and the controls come first, so the thread hangs straight from the score */
-  .c2 .c2-thread{ --cx:44px; }
-  /* on a phone the score and the name share one row; the controls sit under them, beside the thread */
-  .c2 .c2-th-top{ flex-wrap:wrap; gap:12px 16px; }
-  .c2 .c2-th-score{ flex:none; width:88px; height:72px; font-size:42px; border-radius:16px; }
-  .c2 .c2-th-who{ flex:1; min-width:0; }
-  .c2 .c2-th-who b{ font-size:21px; }
-  .c2 .c2-th-who span{ font-size:16px; }
-  .c2 .c2-th-ctl{ padding-left:76px; gap:12px; }
-  .c2 .c2-th-ctl::before{ top:-13px; }
-  .c2 .c2-th-st{ font-size:13.5px; }
-  .c2 .c2-th-l{ padding-left:76px; }
-  .c2 .c2-th-n{ width:40px; height:34px; left:calc(var(--cx) - 20px); }
-  .c2 .c2-th-go{ flex-wrap:wrap; gap:10px; padding:12px 12px 12px 14px; }
-  .c2 .c2-th-l.is-next .c2-th-v{ width:100%; justify-content:center; }
-  .c2 .c2-th-l.is-full .c2-th-v{ display:none; }
-  .c2 .c2-th-l.is-folded .c2-th-go{ flex-wrap:nowrap; }
-  .c2 .c2-th-l.is-folded .c2-th-v{ font-size:13px; white-space:nowrap; }
-  .c2 .c2-th-b{ margin-left:-76px; padding:20px 18px; }
-  .c2 .c2-th-l.is-folded .c2-th-b, .c2 .c2-th-l.is-shut .c2-th-b{ margin-left:0; padding:0 0 2px; }
-  .c2 .c2-th-l.is-shut.is-next .c2-th-b{ padding-left:16px; }
-  .c2 .c2-th-l.is-shut .c2-th-a{ font-size:16px !important; }
-  .c2 .c2-th-l.is-folded .c2-th-a{ font-size:16px !important; }
-  .c2 .c2-th-a{ font-size:18px !important; }
-}
-@media (prefers-reduced-motion: reduce){ .c2 .c2-th-l.is-fresh .c2-th-b{ animation:none; } }
-
-/* round 5: the key decision as three ways in (✕ ✕ ✓), each with its reason; the chosen one leads */
-.c2 .c2-dec.is-three{ grid-template-columns:minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.25fr); }
-.c2 .c2-dec.is-three .c2-opt{ position:relative; padding-top:62px; }
-.c2 .c2-mk{ position:absolute; left:24px; top:20px; width:30px; height:30px; display:grid; place-items:center; border-radius:50%; font:700 15px/1 var(--body);
-  background:#eceef1; color:var(--mute); }
-.c2 .c2-opt.is-chosen .c2-mk{ background:var(--deep); color:#fff; }
-.c2 .c2-dec.is-three .c2-opt h3{ display:block; }
-.c2 .c2-dec.is-three .c2-opt h3 em{ display:inline-block; margin-left:6px; vertical-align:2px; }
-.c2 .c2-dec.is-three .c2-opt p{ font-size:16px; }
-.c2 .c2-dec.is-three .c2-opt:not(.is-chosen) p{ color:var(--ink2); }
-.c2 .c2-rule{ display:flex; align-items:center; gap:14px; max-width:62ch; margin-top:16px; font:400 15px/1.5 var(--body); color:var(--mute); }
-.c2 .c2-rule svg{ flex:none; width:84px; height:28px; }
-@media (max-width: 900px){
-  .c2 .c2-dec.is-three{ grid-template-columns:1fr; }
-  .c2 .c2-dec.is-three .c2-opt{ padding-top:22px; padding-left:66px; }
-  .c2 .c2-mk{ top:22px; left:20px; }
-}
-@media (max-width: 560px){ .c2 .c2-rule{ align-items:flex-start; } .c2 .c2-rule svg{ width:60px; height:20px; margin-top:3px; } }
-
-/* round 9, one product look (.claude/case-review/PRODUCT-LOOK.md). "Pull the thread" demonstrates a principle, so it is a black-and-white
-   schematic in the kit's .hui-bw greys (#181818 ink, #F2F2F2 #E4E4E4 #C9C9C9 #8A8A8A, 1px #D0D0D0, modest radius): no band, no ring,
-   no blue. Colour stays only on the 54 and the under-70 slice of the scale, the point of layer 1. What the product shows inside a
-   layer is the product itself: layer 2 is the studio's own popover (its CSS copied below, under .c2 .hui), layer 3 the studio's still. */
-.c2 .c2-sec.is-key#thread{ background:none; }
-.c2 .c2-schem{ display:inline-block; margin-top:22px; padding:3px 8px; border-radius:4px; background:#fff; box-shadow:inset 0 0 0 1px #D0D0D0; font:600 11px/1.4 var(--body); letter-spacing:.08em; text-transform:uppercase; color:#8A8A8A; }
-.c2 .c2-schem + .c2-thread{ margin-top:18px; }
-.c2 .c2-th-score{ border-radius:8px; box-shadow:none; }
-.c2 .c2-th-reset{ border-radius:6px; box-shadow:inset 0 0 0 1px #D0D0D0; }
-.c2 .c2-th-reset:hover{ background:#F2F2F2; }
-.c2 .c2-th-l::before, .c2 .c2-th-l::after{ background:repeating-linear-gradient(180deg, #C9C9C9 0 6px, transparent 6px 12px); }
-.c2 .c2-th-l.is-open::before, .c2 .c2-th-l.is-next::before, .c2 .c2-th-l.is-open::after{ background:#8A8A8A; }
-.c2 .c2-th-n{ border-radius:6px; background:#F2F2F2; color:#8A8A8A; box-shadow:inset 0 0 0 1px #D0D0D0; }
-.c2 .c2-th-l.is-next .c2-th-n{ background:#fff; color:#181818; box-shadow:inset 0 0 0 1.5px #181818; }
-.c2 .c2-th-l.is-open .c2-th-n{ background:#181818; color:#fff; box-shadow:none; }
-.c2 .c2-th-go{ border-radius:8px; }
-.c2 .c2-th-l.is-next .c2-th-go{ background:#fff; box-shadow:0 0 0 1px #181818; }
-.c2 .c2-th-l.is-next .c2-th-v{ min-height:40px; padding:0 16px; border-radius:6px; background:#fff; color:#181818; box-shadow:inset 0 0 0 1px #181818; font:600 14.5px/1 var(--body); }
-.c2 .c2-th-l.is-next .c2-th-go:hover .c2-th-v{ background:#F2F2F2; }
-.c2 .c2-th-go:focus-visible, .c2 .c2-th-reset:focus-visible{ outline-color:#181818; }
-.c2 .c2-th-b{ border-radius:8px; box-shadow:0 0 0 1px #D0D0D0; }
-.c2 .c2-th-l.is-folded .c2-th-a::before{ color:#181818; }
-.c2 .c2-th-l.is-shut .c2-th-a::before{ color:#C9C9C9; }
-.c2 .c2-th-b .c2-quote{ border-left-color:#181818; }
-@media (max-width: 900px){ .c2 .c2-th-ctl::before{ background:#8A8A8A; } }
-/* layer 1: the scale keeps the product's two corals under 70 (under 60, 60 to 69); the rest is grey and ink */
-.c2 .c2-scale-t{ border-radius:4px; background:linear-gradient(90deg, var(--coral) 0 60%, #FFD0C4 60% 70%, #E4E4E4 70% 100%); }
-.c2 .c2-scale-t::before{ background:#181818; }
-.c2 .c2-scale-t::after{ background:#181818; box-shadow:0 0 0 4px #fff; }
-.c2 .c2-scale-me, .c2 .c2-scale-pm{ color:#181818; }
-.c2 .c2-scale-e{ color:#8A8A8A; }
-
-/* layer 2: the studio's own score popover over Selma's 54 (hear-v7/plan/screens/screens.css .sx-tip, as it finally cascades in the
-   studio at full size, and the grid cells of the kit), on the card's paper, on glass, on the sky */
-.c2 .hui.es-pop{ justify-self:end; aspect-ratio:auto; padding:18px; border-radius:16px; }
-.c2 .hui .es-glass{ padding:12px; border-radius:26px; background:rgba(255,255,255,.2); -webkit-backdrop-filter:blur(18px) saturate(1.2); backdrop-filter:blur(18px) saturate(1.2);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.7), inset 0 1.5px 0 rgba(255,255,255,.9), 0 24px 48px -16px rgba(10,40,80,.4); }
-.c2 .hui .es-paper{ padding:22px 22px 24px; border-radius:20px; background:radial-gradient(135% 110% at 16% 2%,#fff 0,#fff 26%,#F6F9FD 48%,#E9F0F9 74%,#DCE8F5 100%); box-shadow:0 8px 22px rgba(16,34,60,.14); }
-.c2 .hui .sx-tip{ position:relative; display:flex; flex-direction:column; width:318px; height:206px; padding:14px 16px; border-radius:15px; background:#fff; color:var(--ink); font-size:12.5px; line-height:1.35; white-space:nowrap;
-  box-shadow:0 0 0 1px rgba(16,34,60,.07), 0 18px 40px -16px rgba(8,20,40,.38); }
-.c2 .hui .sx-tip strong{ display:block; font-size:14px; font-weight:600; }
-.c2 .hui .sx-tip .t2{ display:block; margin-top:1px; font-size:13px; font-weight:500; color:var(--ink); }
-.c2 .hui .sx-tip .t2 + span{ display:block; margin-top:2px; color:var(--mut); }
-.c2 .hui .sx-tip .m{ display:grid; grid-template-columns:52px 1fr 26px; align-items:center; gap:9px; margin-top:9px; color:var(--ink); }
-.c2 .hui .sx-tip .t2 + span + .m{ margin-top:auto; }
-.c2 .hui .sx-tip .m i{ position:relative; display:block; height:6px; border-radius:3px; background:rgba(24,36,48,.09); overflow:hidden; }
-.c2 .hui .sx-tip .m i::after{ content:""; position:absolute; left:70%; top:0; bottom:0; width:2px; margin-left:-1px; background:#fff; }
-.c2 .hui .sx-tip .m u{ display:block; height:100%; border-radius:3px; background:var(--coral); }
-.c2 .hui .sx-tip .m.t u{ background:#139FFD; }
-.c2 .hui .sx-tip .m em{ font-style:normal; font-weight:600; text-align:right; }
-.c2 .hui .sx-tip .pm{ position:relative; height:13px; margin:3px 35px 0 61px; }
-.c2 .hui .sx-tip .pm span{ position:absolute; left:70%; top:0; translate:-50% 0; font-size:10.5px; line-height:13px; color:var(--mut); white-space:nowrap; }
-.c2 .hui .sx-tip .go{ display:block; margin-top:auto; padding-top:10px; border-top:1px solid var(--line); font-weight:500; color:#0B6FCF; }
-.c2 .hui .es-cells{ display:grid; grid-template-columns:repeat(3, 101px); gap:7px; margin-top:12px; }
-.c2 .hui .es-cells span{ display:grid; place-items:center; height:66px; border-radius:12px; background:rgba(24,36,48,.045); font-size:15.5px; font-weight:500; color:var(--ink2); font-variant-numeric:tabular-nums; }
-.c2 .hui .es-cells .mid{ background:#FFD0C4; color:#8E2A14; }
-.c2 .hui .es-cells .low{ background:var(--coral); color:#fff; }
-.c2 .hui .es-cells .hot{ box-shadow:0 0 0 3px #fff, 0 0 0 5px #139FFD; transform:scale(1.04); }
-/* layer 3: pins 1 and 3 stand on the still's left edge, beside the lines they point at, never on the answer's text */
-.c2 #th-b3 .c2-shot{ overflow:visible; }
-.c2 #th-b3 .c2-shot img{ border-radius:16px; }
-@media (max-width: 900px){ .c2 .hui.es-pop{ justify-self:start; } }
-@media (max-width: 560px){ .c2 .hui.es-pop{ zoom:.78; padding:16px; } }
-</style>
+<link rel="stylesheet" href="../v7/intro.css?v=1">
+<link rel="stylesheet" href="../v7/scores-story.css?v=1">
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
 <body>
@@ -269,143 +51,55 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main" class="c2">
-  <header class="c2-hero">
-    <div class="c2-w">
-      <p class="c2-kick">Case study · <b>Explainable scores</b></p>
-      <h1>Every AI score leads back to the calls behind it</h1>
-      <p class="c2-ctx">Hear's AI reads every call in a contact center and scores the agents, the people who answer the calls, against the center's rules. I made every score open into its evidence.</p>
-      <dl class="c2-sum">
-        <div><dt>For</dt><dd>The people who coach agents and check compliance in a contact center.</dd></div>
-        <div><dt>The problem</dt><dd>A score with nothing behind it can only be trusted blindly or ignored.</dd></div>
-        <div><dt>What I did</dt><dd>Designed and built the grid of scores, each score's popover, and its AI answer.</dd></div>
-        <div><dt>Where it stands</dt><dd>The heatmap shipped: I built it into Hear's product in May 2026. The rest is in Hear Design Lab, my working copy of Hear.</dd></div>
-      </dl>
-      <figure class="c2-fig">
-        <div class="c2-shot"><img src="../img/v7s-es-grid-r9.webp?v=1" width="2169" height="1236" alt="The Compliance screen in Hear Studio: five rules as rows and ten agents as columns, with a row of failing counts under them. Passing scores are gray, 60 to 69 is pale coral and under 60 is coral. Selma K.'s 54 on the vulnerable customer protocol has its popover open: 12 of 26 calls failed this rule, Selma 54 and the team 81 on two bars with the pass mark of 70, and a link, Ask AI which calls." fetchpriority="high">
-          <span class="c2-pin" style="--x:36%;--y:43.2%" aria-hidden="true">1</span><span class="c2-pin" style="--x:92.3%;--y:43.9%" aria-hidden="true">2</span><span class="c2-pin" style="--x:85.7%;--y:61.9%" aria-hidden="true">3</span></div>
-        <figcaption><ol class="c2-key">
-          <li><i aria-hidden="true">1</i><span><b>Only a failing score takes color.</b> Everything that passes stays gray.</span></li>
-          <li><i aria-hidden="true">2</i><span><b>Its popover says why:</b> 12 of 26 calls failed this rule, and the team is at 81.</span></li>
-          <li><i aria-hidden="true">3</i><span><b>One step to the evidence:</b> ask which calls, from the score itself.</span></li>
-        </ol></figcaption>
-      </figure>
-      <div class="c2-live"><button type="button" class="c2-btn" data-live="../hear-v7/plan/studio.html?screen=compliance&amp;v=202" data-title="Compliance, the live screen in Hear Design Lab" data-open="Try the live screen" data-close="Close the live screen" aria-expanded="false" aria-controls="live-c"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4c0 .5.6.8 1 .5l8-5.2a.6.6 0 0 0 0-1L5.5 2.3c-.4-.3-1 0-1 .5z"/></svg><span class="c2-bt">Try the live screen</span></button><small>The real screen, with demo data. Click any score.</small></div>
-      <div class="c2-frame" id="live-c" hidden></div>
-    </div>
+<main id="main" class="in-page es-page">
+  <header class="in-hero">
+    <p class="in-tag">Explainable scores</p>
+    <h1>Every AI score leads back to the calls behind it</h1>
+    <p>Hear’s AI scores every agent on every call. I designed each score to open up the evidence: one click shows the quick context, and a second click opens the calls themselves.</p>
+    <p class="in-note">My vision for the screen, built in Hear Studio on demo data.</p>
   </header>
 
-  <section class="c2-sec" id="context" data-ch="The setting">
-    <div class="c2-w">
-      <p class="c2-n">The setting</p>
-      <h2>A score here is about a person, not a machine</h2>
-      <p class="c2-lede">An agent's scores decide who gets coached, and on what.</p>
-      <ol class="c2-flow">
-        <li><b>Calls</b><span>Agents take customer calls all day.</span></li>
-        <li><b>Hear's AI reads every call</b><span>It checks each call against the center's rules, such as fee disclosure or the vulnerable customer protocol.</span></li>
-        <li class="is-me"><em>My screens</em><b>A score per agent, per rule</b><span>Over a date range, with the calls it rests on.</span></li>
-        <li><b>A person acts</b><span>Someone decides whom to coach, and on which rule.</span></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="c2-sec" id="problem" data-ch="The problem">
-    <div class="c2-w">
-      <p class="c2-n">The problem</p>
-      <h2>A bare number leaves two bad options: trust it blindly, or ignore it</h2>
-      <div class="c2-bare"><span class="c2-score">54</span>
-        <div><h3>Before · a score alone</h3><p>In the first version I built in the Lab, scores came over time and per skill, in tables of teams and agents. Nothing said why a score was what it was.</p></div></div>
-      <h3 class="c2-sub">Three questions a coach brings to a low score</h3>
-      <ol class="c2-qs">
-        <li><q>Is this score really bad?</q><span>Only a score under the pass mark of 70 takes color, so a low one stands out before anyone reads a number.</span><small><a href="#layer-1" data-depth="1"><i>1</i><span>Answered in layer 1, the rule</span></a></small></li>
-        <li><q>Is it the agent, or the whole team?</q><span>The popover puts the agent's score beside the team's, against the same pass mark.</span><small><a href="#layer-2" data-depth="2"><i>2</i><span>Answered in layer 2, what it rests on</span></a></small></li>
-        <li><q>What actually happened on the calls?</q><span>Ask AI, the AI assistant in Hear's sidebar, names the calls, what most of them share, and the step that was missed on each.</span><small><a href="#layer-3" data-depth="3"><i>3</i><span>Answered in layer 3, the calls</span></a></small></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="c2-sec is-key" id="thread" data-ch="Pull the thread">
-    <div class="c2-w">
-      <p class="c2-n">After · pull the thread</p>
-      <h2>Three clicks under one low score are the calls themselves</h2>
-      <p class="c2-lede">This is Selma's 54 from the grid. Each layer's answer is already here; a click opens its evidence, the layer the screens open next, and the layer above folds back to its answer.</p>
-      <p class="c2-schem">Schematic</p>
-      <div class="c2-thread" data-depth="3">
-        <div class="c2-th-top">
-          <span class="c2-th-score" aria-hidden="true">54</span>
-          <p class="c2-th-who"><b>Selma K.</b><span>Vulnerable customer protocol</span></p>
-          <div class="c2-th-ctl"><p class="c2-th-st" aria-live="polite">All three layers are open.</p><button type="button" class="c2-th-reset" data-th="reset">Start again</button></div>
+  <section class="in-sl es-sl" aria-label="Explainable scores, four steps">
+    <div class="in-stw">
+      <div class="in-stage es-stage">
+        <div class="es-view">
+          <p class="es-load">Loading the live screen…</p>
+          <div class="es-cam" id="es-cam"><iframe id="es-app" src="../hear-v7/plan/studio.html?app=eval&amp;explain=1&amp;v=3" width="1037" height="792" loading="lazy" title="Hear Studio, the Evaluation by agent app, live with demo data. Click any score."></iframe></div>
         </div>
-        <ol class="c2-th-ls">
-          <li class="c2-th-l" id="layer-1"><i class="c2-th-n" aria-hidden="true">1</i>
-            <button type="button" class="c2-th-go" aria-expanded="true" aria-controls="th-b1" data-verb="Show the rule"><span class="c2-th-t"><b>The rule</b><small>“Is this score really bad?”</small></span><em class="c2-th-v"></em></button>
-            <div class="c2-th-b" id="th-b1">
-              <div><p class="c2-th-a">Yes. 54 is 16 points under the pass mark of 70.</p>
-                <p>The vulnerable customer protocol is one of the center's five rules, and Hear's AI checks every call against it. Only a score under 70 takes color; under 60, the deepest coral.</p></div>
-              <div class="c2-scale" role="img" aria-label="A scale from 0 to 100. Under 60 is deep coral, 60 to 69 pale coral, 70 and up gray. The pass mark is at 70; Selma's 54 sits in the deep coral.">
-                <span class="c2-scale-me" style="--at:54%">Selma · 54</span>
-                <div class="c2-scale-t"></div>
-                <span class="c2-scale-pm" style="--at:70%">pass mark 70</span>
-                <span class="c2-scale-e" style="--at:0%">0</span><span class="c2-scale-e" style="--at:100%">100</span>
-              </div>
-            </div>
-          </li>
-          <li class="c2-th-l" id="layer-2"><i class="c2-th-n" aria-hidden="true">2</i>
-            <button type="button" class="c2-th-go" aria-expanded="true" aria-controls="th-b2" data-verb="Click the score"><span class="c2-th-t"><b>What it rests on</b><small>“Is it the agent, or the whole team?”</small></span><em class="c2-th-v"></em></button>
-            <div class="c2-th-b" id="th-b2">
-              <div><p class="c2-th-a">It is Selma, not the team.</p>
-                <p>Clicking the score opens its popover. It says what the 54 rests on, 12 of 26 calls failed, and puts it beside the team's 81 on the same rule, against the same pass mark.</p></div>
-              <div class="hui hui-frame es-pop" role="img" aria-label="The popover in Hear Studio, open over Selma's 54: Selma K., Vulnerable customer protocol, 12 of 26 calls failed this rule. Two bars, Selma 54 and Team 81, each with a white tick at the pass mark of 70, labeled pass mark 70. Under a line, a link: Ask AI which calls. Below it the row's last three scores, 89, 68 and 54, the 54 selected.">
-                <div class="es-glass"><div class="es-paper">
-                  <div class="sx-tip"><strong>Selma K.</strong><span class="t2">Vulnerable customer protocol</span><span>12 of 26 calls failed this rule</span><div class="m"><b>Selma</b><i><u style="width:54%"></u></i><em>54</em></div><div class="m t"><b>Team</b><i><u style="width:81%"></u></i><em>81</em></div><div class="pm"><span>pass mark 70</span></div><b class="go">Ask AI which calls →</b></div>
-                  <div class="es-cells"><span>89</span><span class="mid">68</span><span class="low hot">54</span></div>
-                </div></div></div>
-            </div>
-          </li>
-          <li class="c2-th-l" id="layer-3"><i class="c2-th-n" aria-hidden="true">3</i>
-            <button type="button" class="c2-th-go" aria-expanded="true" aria-controls="th-b3" data-verb="Ask AI which calls"><span class="c2-th-t"><b>The calls</b><small>“What actually happened on the calls?”</small></span><em class="c2-th-v"></em></button>
-            <div class="c2-th-b is-calls" id="th-b3">
-              <div><p class="c2-th-a">On 9 of the 12, the customer said they were struggling to pay, and the protocol questions were skipped.</p>
-                <p>The popover's one button, Ask AI which calls, sends the agent and the rule with the question already written. The answer gives:</p>
-                <ol class="c2-key" style="--n:1">
-                  <li><i aria-hidden="true">1</i><span><b>How many:</b> 12 calls failed.</span></li>
-                  <li><i aria-hidden="true">2</i><span><b>What most share:</b> 9 of them, one cause.</span></li>
-                  <li><i aria-hidden="true">3</i><span><b>Each call:</b> what happened and when the protocol was skipped, such as 01:48 into a 6 min 12 sec call on Oct 13.</span></li>
-                </ol>
-                <p class="c2-quote">The answer names the cause before it names the person.</p></div>
-              <figure><div class="c2-shot"><img src="../img/v7s-es-ask-r9.webp?v=1" width="834" height="1360" alt="The Ask AI side sheet in Hear Studio, on its glass over the sky, for Selma K. The question: Which calls pulled Selma's Vulnerable customer protocol score down? The answer: 12 calls failed, and 9 of them share one cause: the customer said they were struggling to pay and the protocol questions were skipped. Then four calls by date, each with a timeline marking where the protocol was skipped: Oct 13, cannot afford to rebook, refund asked twice, voucher offered, skipped at 01:48 of 6 min 12 sec; Oct 9, customer mentions a missed payment, no affordability check, 02:14 of 8 min 40 sec; Oct 7, says the rent is due tomorrow, the sale continues, 03:05 of 7 min 21 sec; Oct 5, says money is tight this month, the upgrade is still offered, 00:57 of 5 min 30 sec. Then a link, Show all 12 calls." loading="lazy">
-                <span class="c2-pin" style="--x:0%;--y:26.25%" aria-hidden="true">1</span><span class="c2-pin" style="--x:96%;--y:26.25%" aria-hidden="true">2</span><span class="c2-pin" style="--x:0%;--y:38.5%" aria-hidden="true">3</span></div></figure>
-            </div>
-          </li>
-        </ol>
+        <div class="in-meter" aria-label="Steps"></div>
       </div>
     </div>
+
+    <ol class="in-steps">
+      <li class="in-st on">
+        <span class="in-n">01</span>
+        <h2>A score on its own goes nowhere</h2>
+        <p>An agent’s scores shape who gets coached, and on what. But a number with nothing behind it leaves two choices: trust it blindly, or ignore it. This screen shows the whole team: eight agents by seven criteria.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">02</span>
+        <h2>Only the low scores stand out</h2>
+        <p>The scale uses one blue, so most of the grid stays quiet. Scores under 60 turn black. That is the one thing on the page asking for attention. Here, that is two scores out of 56.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">03</span>
+        <h2>One click answers the first two questions</h2>
+        <p>Click a score and a card opens beside it. It answers what a coach asks first: is this really bad, and is it the agent or the whole team? It compares the score with the team average, shows the rank, and shows the spread of all agents. It uses one bar per range, never one mark per agent, so it stays readable with 1,000 agents. Nothing loads from the AI yet.</p>
+      </li>
+      <li class="in-st">
+        <span class="in-n">04</span>
+        <h2>A second click asks the AI</h2>
+        <p>Explore in Chat is a separate, deliberate click, so a stray click never starts an AI conversation. It brings in the calls behind the score, with the moment each one was judged and what Hear found. The answer names the cause before the person.</p>
+      </li>
+    </ol>
   </section>
 
-  <section class="c2-sec" id="decision" data-ch="The key decision">
-    <div class="c2-w">
-      <p class="c2-n">The key decision</p>
-      <h2>A click shows a card; only a second, deliberate click asks the AI</h2>
-      <p class="c2-lede">Three ways from a score to its AI answer. My spec set two of them aside, each for a reason the user would feel.</p>
-      <div class="c2-dec is-three">
-        <div class="c2-opt"><span class="c2-mk" aria-hidden="true">✕</span><h3>A tooltip on hover, with a button inside <em>Set aside</em></h3><p>It disappears as you move toward the button, and a touch screen has no hover.</p></div>
-        <div class="c2-opt"><span class="c2-mk" aria-hidden="true">✕</span><h3>The click opens the chat <em>Set aside</em></h3><p>Every accidental click would start an AI conversation, with nothing to preview first.</p></div>
-        <div class="c2-opt is-chosen"><span class="c2-mk" aria-hidden="true">✓</span><h3>A card first, then one click <em>Chosen</em></h3><p>The card says why at once: 12 of 26 calls failed, the team is at 81. Nothing extra loads until you click Ask AI, so a page view costs no AI.</p></div>
-      </div>
-      <p class="c2-result"><b>Why:</b> the card answers the first two questions for free. When the AI question comes, it already carries the agent and the rule, so the answer can name the calls.</p>
-      <p class="c2-note"><b>The spec, 5 Oct 2026:</b> my card gave the score against the team average, a rank, the spread of all agents in 12 ranges, and Explore in Chat. Three days later the product shipped a popover with the same contents, without the chat button.</p>
-      <p class="c2-rule"><svg viewBox="0 0 84 28" aria-hidden="true"><g fill="#cfd4d9"><rect x="0" y="22" width="5" height="6" rx="1"/><rect x="7" y="18" width="5" height="10" rx="1"/><rect x="14" y="20" width="5" height="8" rx="1"/><rect x="21" y="14" width="5" height="14" rx="1"/><rect x="35" y="8" width="5" height="20" rx="1"/><rect x="42" y="4" width="5" height="24" rx="1"/><rect x="49" y="0" width="5" height="28" rx="1"/><rect x="56" y="6" width="5" height="22" rx="1"/><rect x="63" y="12" width="5" height="16" rx="1"/><rect x="70" y="18" width="5" height="10" rx="1"/><rect x="77" y="23" width="5" height="5" rx="1"/></g><rect x="28" y="16" width="5" height="12" rx="1" fill="#181818"/></svg><span>The spread's rule: “One bar per score range, never one mark per agent. That keeps it readable with 1,000 agents.”</span></p>
-    </div>
+  <section class="es-end" aria-labelledby="es-end-h">
+    <h2 id="es-end-h">Where it stands</h2>
+    <p>I built the compliance heatmap into Hear’s product myself (May 2026). My spec of 5 Oct 2026 gave each score a card with the score against the team average, a rank, the spread of all agents in 12 ranges, and Explore in Chat. Three days later developers shipped a popover with the same contents, without the chat button (8 Oct 2026), and reused the heatmap on Agent evaluation. Asking AI from a score is still a proposal, which the product does not have yet.</p>
   </section>
 
-  <section class="c2-sec c2-end" id="stands" data-ch="Where it stands">
-    <div class="c2-w">
-      <p class="c2-coda">One low score, twelve failed calls, <em>one cause behind nine of them.</em></p>
-      <p class="c2-status"><b>Shipped:</b> I built the compliance heatmap into Hear's product myself (May 2026); it is now Hear's only Compliance page, and developers later added its cell popover (8 Oct 2026) and reused the heatmap on Agent evaluation. <b>Still a proposal:</b> asking AI from a score, which the product does not have yet. <b>My part:</b> design, and the front-end code of the heatmap; the Lab screens with Claude Code, March to October 2026.</p>
-    </div>
-  </section>
-
-  <div class="c2-w c2-next">
+  <div class="es-next">
     <a class="next" href="actions.html" aria-label="Next case study: Actions. Findings become work a person owns"><span class="next-t"><span class="label">Next case study</span><span class="next-name">Actions</span><span class="next-line">Findings become work a person owns</span><span class="next-go">Read next</span></span><span class="next-thumb whole" aria-hidden="true"><img src="../img/v7s-actions-board.webp?v=8" width="2060" height="1327" alt="" loading="lazy" decoding="async"></span></a>
   </div>
 </main>
@@ -444,72 +138,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </div>
 </footer>
 <script src="case.js?v=8"></script>
-<script>/* Pull the thread: one layer per click. The newest layer opens in full and every layer above folds down to its one-line answer,
-   still readable and opened again with a click. Nothing moves by itself. Without this script all three layers are simply open.
-   Keys: the arrows go one layer down or up from any control in the thread. */
-(function () {
-  var box = document.querySelector('.c2-thread'); if (!box) return;
-  var ls = [].slice.call(box.querySelectorAll('.c2-th-l')), reset = box.querySelector('[data-th="reset"]'), st = box.querySelector('.c2-th-st'), depth = 0, view = 0,
-    names = ['the rule', 'what it rests on', 'the calls'],
-    said = ['Three answers under the score. Click a layer for its evidence.', 'Layer 1 of 3: the rule.', 'Layer 2 of 3: what it rests on.', 'Layer 3 of 3: the calls.'];
-  /* keep the control the reader used where it was, while the layers around it fold or open */
-  function hold(li, fn) {
-    var y = li ? li.getBoundingClientRect().top : 0; fn();
-    if (li) { var dy = li.getBoundingClientRect().top - y; if (Math.abs(dy) > 1) { var de = document.documentElement, sb = de.style.scrollBehavior; de.style.scrollBehavior = 'auto'; scrollBy(0, dy); de.style.scrollBehavior = sb; } }
-  }
-  function set(d, v, fresh) {
-    depth = Math.max(0, Math.min(ls.length, d)); view = Math.max(0, Math.min(depth, v));
-    ls.forEach(function (li, k) {
-      var n = k + 1, open = n <= depth, full = open && n === view, next = n === depth + 1, go = li.querySelector('.c2-th-go'), b = li.querySelector('.c2-th-b'), vb = li.querySelector('.c2-th-v');
-      li.classList.toggle('is-open', open); li.classList.toggle('is-shut', !open); li.classList.toggle('is-full', full); li.classList.toggle('is-folded', open && !full);
-      li.classList.toggle('is-next', next); li.classList.toggle('is-fresh', n === fresh);
-      b.hidden = false; go.setAttribute('aria-expanded', full);
-      vb.textContent = next ? go.getAttribute('data-verb') : full ? 'Fold' : open ? 'Open again' : '';
-    });
-    box.setAttribute('data-depth', depth);
-    st.textContent = depth && !view ? 'Every layer folded to its answer.' : view !== depth ? 'Layer ' + view + ' open again: ' + names[view - 1] + '.' : said[depth];
-    reset.hidden = depth === 0;
-  }
-  ls.forEach(function (li, k) {
-    var n = k + 1;
-    li.querySelector('.c2-th-go').addEventListener('click', function () {
-      hold(li, function () {
-        if (n > depth) set(n, n, n);            /* the next layer: open it, fold the ones above */
-        else if (n === view) set(depth, 0);      /* the open layer: fold it to its answer */
-        else set(depth, n, n);                   /* a folded layer: open it again */
-      });
-    });
-  });
-  reset.addEventListener('click', function () { set(0, 0); ls[0].querySelector('.c2-th-go').focus(); });
-  box.addEventListener('keydown', function (e) {
-    var up = e.key === 'ArrowUp', down = e.key === 'ArrowDown'; if (!up && !down) return;
-    e.preventDefault(); var d = depth + (down ? 1 : -1); if (d < 0 || d > ls.length) return;
-    var li = ls[Math.min(d, ls.length - 1)];
-    hold(li, function () { set(d, d, down ? d : 0); }); li.querySelector('.c2-th-go').focus();
-  });
-  [].forEach.call(document.querySelectorAll('.c2 a[data-depth]'), function (a) {
-    a.addEventListener('click', function (e) {
-      e.preventDefault(); var d = +a.getAttribute('data-depth');
-      set(Math.max(depth, d), d, d);
-      var li = ls[d - 1]; li.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
-      li.querySelector('.c2-th-go').focus({ preventScroll: true });
-    });
-  });
-  set(0, 0);
-})();</script>
-<script>/* phones: the hero still opens at its left edge, so the screen's title and the first pin are in view (cs2.js aims a pan at the
-   pins' mean, which here is mid-grid). Registered after cs2.js's own listeners, so it has the last word; a resize that keeps the
-   width (a phone's address bar) keeps where the reader dragged to */
-document.addEventListener('DOMContentLoaded', function () {
-  var shot = document.querySelector('.c2-hero .c2-shot'); if (!shot) return;
-  var img = shot.querySelector('img'), w = innerWidth, x = 0;
-  function put() { if (shot.classList.contains('is-pan')) shot.scrollLeft = x; }
-  shot.addEventListener('scroll', function () { x = shot.scrollLeft; }, { passive: true });
-  if (img && !img.complete) img.addEventListener('load', put, { once: true });
-  put(); addEventListener('load', put);
-  addEventListener('resize', function () { if (innerWidth !== w) { w = innerWidth; x = 0; } put(); });
-});</script>
-<script src="../v7/cs2.js?v=3" defer></script>
 <script src="../v7/foot.js?v=202" defer></script>
+<script src="../v7/scores-story.js?v=1" defer></script>
 </body>
 </html>

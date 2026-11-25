@@ -1,0 +1,52 @@
+/* Explain mode of the Evaluation by agent app (studio.html?app=eval&explain=1), for the portfolio's Explainable scores case.
+   Everything here sits under .xp, a class only explain.js sets, so the default studio.html never sees it.
+   The colours are the Studio's own (studio.html, login/studio-composer.css, screens/screens.css): no new shades. */
+
+/* a table someone reads stays still: the sky does not follow the pointer here */
+.xp .bg{translate:none!important;scale:1!important}
+
+/* step 2 of the story: only a low score stands out. The rest of the grid steps back, and so does the legend after "under 60" */
+.xp #hm td[data-a],.xp #hm tr td:last-child,.xp .key>*{transition:opacity .35s ease}
+.xp.xp-low #hm td[data-a]:not(.b1),.xp.xp-low #hm tr td:last-child{opacity:.28}
+.xp.xp-low .key>:nth-child(n+4){opacity:.3}
+.xp.xp-low .key>:nth-child(3){color:var(--ink);font-weight:500}
+
+/* Open agent evaluation: the agent's own row, every criterion */
+.xp.xp-row #hm tr:not(.xp-on) td[data-a],.xp.xp-row #hm tr:not(.xp-on) td:last-child{opacity:.28}
+
+/* the calls, before anyone asks for them: one quiet line, no rows */
+.xp .ev.xp-empty header,.xp .ev.xp-empty .evtab{display:none}
+.xp-hint{margin:2px 0 0;font-size:14px;color:var(--mut)}
+.xp .ev:not(.xp-empty) .xp-hint{display:none}
+/* the finding is the point of the table: the narrower columns give it room */
+.xp .evtab th:nth-child(1){width:172px}.xp .evtab th:nth-child(2){width:70px}.xp .evtab th:nth-child(3){width:62px}.xp .evtab th:nth-child(4){width:72px}.xp .evtab th:nth-child(5){width:64px}
+
+/* the card over a score: the original popover's content, in the Studio's look (the white .sx-tip of screens.css) */
+.xp-pop{position:absolute;z-index:9;width:304px;padding:16px 18px 14px;border-radius:15px;background:#fff;color:var(--ink);font-size:13px;line-height:1.35;
+  box-shadow:0 0 0 1px rgba(16,34,60,.07),0 18px 40px -16px rgba(8,20,40,.38);animation:xp-in .22s cubic-bezier(.2,.8,.2,1) both}
+@keyframes xp-in{from{opacity:0;translate:0 6px}}
+.xp-pop strong{display:block;padding-right:28px;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.xp-sub{display:block;margin-top:2px;color:var(--mut)}
+.xp-x{position:absolute;right:10px;top:10px;display:grid;place-items:center;width:28px;height:28px;border-radius:14px;color:var(--mut);font-size:20px;line-height:1}
+.xp-x:hover{background:#E9EEF2;color:var(--ink)}
+.xp-head{display:flex;align-items:center;gap:12px;margin-top:14px}
+.xp-chip{display:grid;place-items:center;flex:none;width:60px;height:46px;border-radius:9px;font-size:22px;font-weight:500;font-variant-numeric:tabular-nums}
+.xp-head b:not(.xp-chip){display:block;font-size:14.5px;font-weight:600}
+.xp-head span{display:block;margin-top:2px;color:var(--mut)}
+.xp-lbl{display:block;margin-top:16px;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.xp-hist{position:relative;display:flex;align-items:flex-end;gap:4px;height:58px;margin-top:9px;border-bottom:1px solid var(--line)}
+.xp-hist i{flex:1;min-height:3px;border-radius:3px 3px 0 0;background:#A9DAFE}
+.xp-hist i.me{background:#232323}
+.xp-hist .avg{position:absolute;top:-4px;bottom:0;width:0;border-left:1.5px dashed var(--ink);margin-left:-.75px}
+.xp-ax{position:relative;height:16px;margin-top:5px;font-size:11.5px;color:var(--mut);white-space:nowrap}
+.xp-ax span{position:absolute;top:0}
+.xp-ax span:first-child{left:0}.xp-ax span:last-child{right:0}
+.xp-ax .mid{translate:-50% 0;color:var(--ink)}
+.xp-note{margin:14px 0 0;font-size:12.5px;line-height:1.4;color:var(--mut);white-space:normal}
+.xp-go{display:block;width:100%;height:40px;margin-top:12px;border-radius:20px;background:var(--blue);color:#fff;font-size:14.5px;font-weight:500;transition:background-color .15s}
+.xp-go:hover{background:#0B8FEB}
+.xp-link{display:block;width:100%;height:34px;margin-top:4px;border-radius:17px;font-size:14px;font-weight:500;color:var(--ink)}
+.xp-link:hover{background:#E9EEF2}
+.xp-pop button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+@media (prefers-reduced-motion:reduce){.xp-pop{animation:none}.xp #hm td[data-a],.xp .key>*{transition:none}}

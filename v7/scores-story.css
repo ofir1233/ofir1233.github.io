@@ -1,0 +1,35 @@
+/* v7 - Explainable scores (work/explainable-scores.html): the story of Topics (v7/intro.css), with the real screen on the stage.
+   The stage holds Hear Studio's Evaluation by agent app, live (hear-v7/plan/studio.html?app=eval&explain=1), drawn at one fixed size
+   and scaled; each step moves a gentle camera to the one part that matters (v7/scores-story.js). */
+
+.in-note{ margin:14px 0 0 !important; font:500 13px/1.4 "Geist Mono", ui-monospace, monospace !important; color:var(--soft) !important; }
+
+/* the screen needs the wider column; the text keeps its measure */
+.es-page .in-sl{ grid-template-columns:minmax(0, 4fr) minmax(0, 7fr); }
+.es-page .in-st p{ max-width:40ch; }
+
+/* the stage: the app's window on top, the step meter on a strip under it */
+.es-stage{ background:#fff; }
+.es-view{ position:absolute; left:0; right:0; top:0; bottom:44px; overflow:hidden; background:#f4f3f1; border-bottom:1px solid var(--line); }
+.es-load{ position:absolute; inset:0; display:grid; place-items:center; margin:0; font:500 13px/1 "Geist Mono", ui-monospace, monospace; color:var(--soft); }
+.es-cam{ position:absolute; left:0; top:0; width:1037px; height:792px; transform-origin:0 0; opacity:0;
+  transition:transform .6s cubic-bezier(.3,.7,.2,1), opacity .35s ease; }
+.es-cam.on{ opacity:1; }
+.es-cam iframe{ display:block; width:1037px; height:792px; border:0; background:#0b2a55; }
+
+/* after the steps: where it stands, and the next case */
+.es-end{ max-width:760px; padding:24px 0 0; }
+.es-end h2{ margin:0; font-size:clamp(28px, 3vw, 38px); line-height:1.1; letter-spacing:-.025em; font-weight:600; }
+.es-end p{ margin:16px 0 0; font-size:18px; line-height:1.55; color:var(--mute); max-width:60ch; text-wrap:pretty; }
+.es-next{ margin-top:72px; }
+
+@media (prefers-reduced-motion: reduce){ .es-cam{ transition:none !important; } }
+
+@media (max-width: 860px){
+  .es-stage{ height:min(48vh, 420px); }
+  .es-view{ bottom:34px; }
+  .es-stage .in-meter{ bottom:6px; }
+  .es-end{ padding-top:8px; }
+  .es-end p{ font-size:17px; }
+  .es-next{ margin-top:48px; }
+}
