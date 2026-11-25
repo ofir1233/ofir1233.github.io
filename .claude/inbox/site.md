@@ -114,3 +114,4 @@
 - 24.11: Experience back to the earlier timeline at the owner's word ("תחזירי לעיצוב הקודם"); the badges (v7/experience.*) removed, they stay in history at 0d3b1d2.
 - 24.11: Introduction replaces the Design Lab case (work/design-lab.html): a low-fi wireframe in seven steps, a sticky stage on the right whose shapes rearrange per step (v7/intro.css, v7/intro.js). Home button and footers say Introduction. Step 1 keeps a slot for the private talk's 'why Hear exists'.
 - 25.11: Topics slide on the home no longer links to the Introduction (Topics has no case study of its own); the other slides keep their case links.
+- 25.11: Introduction step 1 filled: why Hear exists, from hear.ai (About: founded 2023, AI helps people understand each other; FAQ: 100% of interactions instead of manual sampling, the why behind the numbers). The empty slot is gone.
