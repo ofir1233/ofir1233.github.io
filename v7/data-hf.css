@@ -94,7 +94,6 @@
 .da-pn > *{ display:grid; place-items:center; min-width:24px; height:24px; padding:0 3px; border-radius:8px; font-style:normal; font-weight:500; font-variant-numeric:tabular-nums; }
 .da-pn b{ background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-line); color:var(--h-ink); }
 .da-pn u:last-of-type{ color:var(--h-ink); transition:background-color .3s ease; }
-.go .da-pn u:last-of-type{ background:var(--h-b1); transition-delay:.9s; }
 .da-q{ gap:10px; padding:7px 14px; opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .4s cubic-bezier(.2,.8,.2,1); }
 .da-q span{ font-size:12px; color:var(--h-mut); }
 .da-q b{ font-size:14px; font-weight:500; color:var(--h-ink); }
@@ -148,14 +147,22 @@
 .da-s3.go .c1{ transition-delay:1.8s; } .da-s3.go .c1 .hf-tag{ transition-delay:2.15s; }
 .da-s3.go .c2{ transition-delay:2.1s; } .da-s3.go .c2 .hf-tag{ transition-delay:2.45s; }
 .da-s3 .da-ai{ transition:opacity .4s ease, transform .5s cubic-bezier(.2,.8,.2,1), background .4s ease; }
-.da-s3.go .da-ai{ opacity:.62; transform:none; background:rgba(255,255,255,.82); transition-delay:3s; }
+.da-s3.go .da-ai{ opacity:1; transform:none; transition-delay:3s; }
+.da-ln > *{ transition:opacity .4s ease; }
+.da-s3.go .da-ai > *{ opacity:.5; transition-delay:3s; }
 .da-s3.go .da-ai .da-lh .hf-tag{ transition-delay:3.3s; }
 /* 4: no rule fires and its lane steps back; the model is asked, writes three filters, and each is checked */
-.da-s4.go .da-ru{ opacity:.62; transform:none; background:rgba(255,255,255,.82); transition-delay:1.9s; }
+.da-s4.go .da-ru{ opacity:1; transform:none; transition-delay:1.9s; }
+.da-s4.go .da-ru > *{ opacity:.5; transition-delay:2.6s; }
 .da-s4.go .da-ru .da-lh .hf-tag{ transition-delay:2.3s; }
 .da-s4.go .da-ai{ opacity:1; transform:none; box-shadow:0 0 0 1px rgba(16,34,60,.06), 0 0 0 4px rgba(213,155,224,.45), 0 22px 44px -22px rgba(10,40,80,.42); transition-delay:2.8s; }
 .da-s4.go .da-ai .da-lh .hf-tag{ transition-delay:3.1s; }
 .da-s4.go .c1{ transition-delay:3.5s; } .da-s4.go .c2{ transition-delay:3.8s; } .da-s4.go .c3{ transition-delay:4.1s; }
+.da-s4 .da-in u{ background-image:linear-gradient(var(--lilac-ink), var(--lilac-ink)); }
+.da-s4 .da-in u .hf-n{ background:var(--lilac-ink); }
+.da-s4.go .da-in .u1{ transition-delay:3.5s; } .da-s4.go .da-in .u1 .hf-n{ transition-delay:3.65s; }
+.da-s4.go .da-in .u2{ transition-delay:3.8s; } .da-s4.go .da-in .u2 .hf-n{ transition-delay:3.95s; }
+.da-s4.go .da-in .u3{ transition-delay:4.1s; } .da-s4.go .da-in .u3 .hf-n{ transition-delay:4.25s; }
 .da-s4.go .c1 .hf-tag{ transition-delay:4.6s; } .da-s4.go .c2 .hf-tag{ transition-delay:4.85s; } .da-s4.go .c3 .hf-tag{ transition-delay:5.1s; }
 
 /* 5. two ways to build the same filter. Set aside: every click ran it, and the count jumped three times. Chosen: the chips are set,
@@ -174,7 +181,7 @@
 .da-fb .da-f{ opacity:0; transform:scale(.9); transition:opacity .2s ease, transform .3s cubic-bezier(.2,.8,.2,1.3); }
 .go .da-fb .da-f{ opacity:1; transform:none; }
 .go .da-fb .k1{ transition-delay:.5s; } .go .da-fb .k2{ transition-delay:1s; } .go .da-fb .k3{ transition-delay:1.5s; }
-.da-cy{ position:relative; display:grid; margin-left:auto; min-width:64px; height:30px; font-size:15px; font-variant-numeric:tabular-nums; }
+.da-cy{ position:relative; display:grid; margin-left:auto; min-width:64px; height:30px; font-size:13px; font-variant-numeric:tabular-nums; }
 .da-cy b{ grid-area:1 / 1; align-self:center; justify-self:end; font-weight:600; opacity:0; }
 .da-cy .v0{ opacity:1; }
 .go .da-cy .v1{ animation:da-show 0s .62s both, da-hide 0s 1.12s both; }
@@ -193,7 +200,7 @@
 .go .da-fb > *{ opacity:.45; transition:opacity .45s ease 2.3s; }
 .da-op.yes{ opacity:0; transform:translateY(12px); transition:opacity .3s ease, transform .5s cubic-bezier(.3,.7,.2,1); }
 .go .da-op.yes{ opacity:1; transform:none; transition-delay:2.4s; }
-.go .da-op.yes .hf-note .hf-tag{ opacity:1; max-width:110px; margin-left:10px; padding:0 9px; transition-delay:4.9s; }
+.go .da-op.yes .hf-note .hf-tag{ opacity:1; max-width:110px; margin-left:10px; padding:0 9px; transition-delay:5.5s; }
 .da-fw{ width:540px; padding:14px 18px 6px; }
 .da-fw .da-bar .da-f{ opacity:0; transform:scale(.9); transition:opacity .2s ease, transform .3s cubic-bezier(.2,.8,.2,1.3); }
 .go .da-fw .da-bar .da-f{ opacity:1; transform:none; }
@@ -204,13 +211,15 @@
 .da-btn{ display:inline-flex; align-items:center; gap:6px; height:30px; padding:0 11px; border-radius:15px; background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-line); font-size:12.5px; font-weight:500; color:var(--h-ink2); white-space:nowrap; }
 .da-btn .da-i{ color:#7C858E; }
 .da-n{ margin-left:auto; font-size:13px; color:var(--h-mut); white-space:nowrap; }
-.da-n b{ font-weight:600; color:var(--h-ink); font-variant-numeric:tabular-nums; }
-.da-ofn{ display:none; }
-.go .da-ofn{ display:inline; animation:da-show .3s ease 3.65s both; opacity:0; }
+.da-n b{ font-size:16px; font-weight:600; color:var(--h-ink); font-variant-numeric:tabular-nums; }
+/* "of 2,000" opens in when the count changes, so the bar does not wait with a gap */
+.da-ofn{ display:inline-block; max-width:0; overflow:hidden; white-space:pre; vertical-align:bottom; }
+.go .da-ofn{ animation:da-ofn .35s cubic-bezier(.2,.8,.2,1) 4.4s both; }
+@keyframes da-ofn{ to{ max-width:90px; } }
 .da-ap{ position:relative; height:30px; }
 .da-ap::after{ content:""; position:absolute; inset:0; border-radius:inherit; }
-.go .da-ap{ animation:da-press .3s ease 3.5s both; }
-.go .da-ap::after{ animation:da-tap .6s ease-out 3.5s both; }
+.go .da-ap{ animation:da-press .3s ease 4.2s both; }
+.go .da-ap::after{ animation:da-tap .6s ease-out 4.2s both; }
 @keyframes da-press{ 0%, 100%{ transform:none; } 40%{ transform:scale(.94); } }
 @keyframes da-tap{ 0%{ box-shadow:0 0 0 0 rgba(35,35,35,.35); } 100%{ box-shadow:0 0 0 10px rgba(35,35,35,0); } }
 .da-fw .da-r{ grid-template-columns:minmax(0, 1fr) 46px 92px 38px; min-height:50px; }
@@ -218,16 +227,20 @@
 .da-set{ position:relative; }
 .da-hit{ position:absolute; left:0; right:0; top:0; }
 .da-hit .da-r{ opacity:0; transform:translateY(8px); }
-.go .da-hit .da-r{ opacity:1; transform:none; transition:opacity .3s ease, transform .45s cubic-bezier(.2,.8,.2,1); transition-delay:calc(3.7s + var(--r) * .07s); }
+.go .da-hit .da-r{ opacity:1; transform:none; transition:opacity .3s ease, transform .45s cubic-bezier(.2,.8,.2,1); transition-delay:calc(4.45s + (var(--r) - 2) * .07s); }
+/* the two calls that match stay where they are, the second slides up two rows; only the rows that did not match leave */
+.da-hit .da-r:nth-child(-n+2){ visibility:hidden; }
 .da-all .da-r{ transition:opacity .2s ease; }
-.go .da-all .da-r{ opacity:0; transition-delay:3.6s; }
+.go .da-all .da-r:not(:nth-child(1)):not(:nth-child(4)){ opacity:0; transition-delay:4.3s; }
+.da-all .da-r:nth-child(4){ position:relative; z-index:1; transition:transform .45s cubic-bezier(.2,.8,.2,1); }
+.go .da-all .da-r:nth-child(4){ transform:translateY(-100px); transition-delay:4.4s; }
 .da-hit .da-r, .da-all .da-r{ background:linear-gradient(90deg, #fff, #fbfcfe); }
 .da-set .da-r:last-child{ box-shadow:none; }
-.da-av{ display:flex; gap:22px; height:40px; align-items:center; box-shadow:inset 0 1px 0 rgba(24,36,48,.1); font-size:12.5px; color:var(--h-mut); white-space:nowrap; opacity:0; transition:opacity .4s ease; }
+.da-av{ display:flex; gap:16px; height:40px; align-items:center; box-shadow:inset 0 1px 0 rgba(24,36,48,.1); font-size:12px; color:var(--h-mut); white-space:nowrap; opacity:0; transition:opacity .4s ease; }
 .da-av span{ display:inline-flex; align-items:center; gap:6px; }
 .da-av b{ font-weight:600; color:var(--h-ink); }
 .da-av .da-sc{ width:32px; height:20px; font-size:12px; }
-.go .da-av{ opacity:1; transition-delay:4.5s; }
+.go .da-av{ opacity:1; transition-delay:5.1s; }
 
 /* 6. a call opens beside the filtered table: the panel names its alert; the down arrow moves to the next call without closing it */
 .da-two{ position:relative; display:flex; align-items:flex-start; }
@@ -306,12 +319,12 @@
   .da-av{ gap:14px; font-size:12px; }
   .da-av span + span{ display:none; }
   /* 6: the panel over most of the list */
-  .da-li{ width:220px; padding:12px 12px 4px; }
+  .da-li{ width:190px; padding:12px 12px 4px; }
   .da-hl{ left:4px; right:4px; top:39px; }
   .da-li .da-r{ grid-template-columns:minmax(0, 1fr); }
   .da-li .da-r .da-sc{ display:none; }
-  .da-pan{ width:240px; margin-left:-60px; padding:14px 14px 12px; }
+  .da-pan{ width:240px; margin-left:-30px; padding:14px 14px 12px; }
   .da-pc.p2{ left:14px; right:14px; top:14px; }
 }
 @media (prefers-reduced-motion: reduce){ .da .in-sv *, .da .in-sv *::after{ transition:none !important; animation:none !important; }
-  .da-tw .da-tx span{ max-width:none; box-shadow:none; } .da-all{ visibility:hidden; } .da-hit .da-r{ opacity:1; transform:none; } .da-cy .v0{ opacity:0; } .da-cy .v3{ opacity:1; } .da-ofn{ display:inline; } }
+  .da-tw .da-tx span{ max-width:none; box-shadow:none; } .da-all{ visibility:hidden; } .da-hit .da-r{ opacity:1; transform:none; } .da-cy .v0{ opacity:0; } .da-cy .v3{ opacity:1; } .da-ofn{ max-width:none; } }
