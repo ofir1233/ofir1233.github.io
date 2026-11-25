@@ -47,8 +47,8 @@
     topics: [
       [[0, null], [1700, '.tp-col:first-child', { pad: 22 }]],
       [[0, '#tp-map [data-k="0"]', { pad: 56, max: 2.1 }]],
-      /* owner, 25.11: the rim sat 10px out on the sky around the panel, so a thick uneven blue band showed inside it and its top was cut by the frame. It hugs the panel now. */
-      [[0, '.ask-on .tp-ask', { fit: 'w', pad: 26, max: 2, gx: 0, gy: 0, air: 40, from: '#tp-map [data-k="0"] .tp-p[data-p="2"]' }], [5200, '.ask-on .tp-ask', { fit: 'w', part: [0, .17, 1, 1], keep: true, pad: 26, max: 2 }]]
+      /* owner, 25.11: the rim sat 10px out on the sky around the panel, so a thick uneven blue band showed inside it and its top was cut by the frame. It stands 6px clear of the panel now, the same on every side, with as much again between it and the frame (0 was tried first: it sat on the panel's own edge). */
+      [[0, '.ask-on .tp-ask', { fit: 'w', pad: 26, max: 2, gx: 6, gy: 6, air: 40, from: '#tp-map [data-k="0"] .tp-p[data-p="2"]' }], [5200, '.ask-on .tp-ask', { fit: 'w', part: [0, .17, 1, 1], keep: true, pad: 26, max: 2 }]]
     ],
     /* call: the screen's own sub-step, played when the shot comes (and at once when the step is shown paused) */
     compliance: [
