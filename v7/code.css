@@ -269,3 +269,11 @@
 #code .hd-cur.c2{ transition:opacity .35s ease, translate var(--d2, .5s) cubic-bezier(.5,0,.15,1); }
 #code .hd-cur.c2 svg{ fill:#8b6cf0; }
 #code .hd-cur.c2 b{ background:#8b6cf0; }
+/* owner, 25.11.2026: the line "I don't hand off. I ship." is taken off the wide layout; DESIGN. SYSTEM. SHIP. stand under "How I work"
+   alone. It stays in the page for screen readers (the section is labelled by it) and on narrow windows, where it is the only headline. */
+@media (min-width: 900px){
+  #code#code .hw-h{ position:absolute !important; width:1px; height:1px; margin:-1px !important; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  #code#code .hw-nav{ margin-top:14px; }
+}
+/* owner, 25.11.2026: the small lines under each step's sentence ("Hear sign-in page", "Pull request · illustrative") are taken off */
+#code#code .hw-nav .hw-d small, #code#code .hw-cap .hw-tag{ display:none; }
