@@ -230,30 +230,27 @@
 /* the tag under a step is a plain note, not a pill: it does nothing when pressed */
 #code#code .hw-tag{ border:0 !important; background:none !important; padding-left:0 !important; padding-right:0 !important; border-radius:0 !important; box-shadow:none !important; }
 
-/* The left side, redrawn (owner, 25.11.2026: "ugly and boring"). The headline does the work: it stands large, and "hand off."
-   is struck out by one pen stroke when the section comes into view (scroll-driven where the browser can, otherwise it is simply struck).
-   The three steps shrink to quiet tabs in a row; the active one is blue, and its sentence sits under the row. */
-#code#code .hw-h{ max-width:none !important; font-size:clamp(44px, 5.4vw, 78px) !important; line-height:.96 !important; letter-spacing:-.045em !important; }
-#code .hw-x{ position:relative; display:inline-block; color:#b4b1ab; }
-#code .hw-x::after{ content:""; position:absolute; left:-.06em; right:-.08em; top:54%; height:.085em; border-radius:.05em; background:var(--v7-blue, #139ffd); rotate:-2.2deg; transform-origin:0 50%; transform:scaleX(1); }
-@supports (animation-timeline: view()){
-  @media (prefers-reduced-motion: no-preference){
-    #code .hw-x{ animation:hw-grey linear both; animation-timeline:view(); animation-range:entry 60% cover 38%; }
-    #code .hw-x::after{ animation:hw-strike linear both; animation-timeline:view(); animation-range:entry 60% cover 38%; }
-  }
-}
-@keyframes hw-strike{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
-@keyframes hw-grey{ from{ color:#171b20; } 60%{ color:#171b20; } to{ color:#b4b1ab; } }
+/* The left side, direction D (owner, 25.11.2026): the three words ARE the headline. Design. System. Ship. stand large, one under
+   the other; the word on show fills with blue from left to right as its screen is scrolled through (--p, v7/code.js), the ones
+   behind it stand in ink, the ones ahead wait in grey. "I don't hand off. I ship." is the line above them. Each step also holds
+   for longer: the pinned row is taller. Wide windows only; a narrow window keeps the plain list. */
 @media (min-width: 900px){
-  #code#code .hw-nav{ position:relative; display:flex; flex-wrap:wrap; gap:8px; max-width:440px; margin-top:34px; padding:0 0 128px; border-top:0; }
-  #code#code .hw-nav a{ position:static; display:inline-flex; align-items:center; gap:8px; padding:11px 16px; border-radius:9px; background:#e8e6e1; font-size:16px !important; font-weight:600 !important; line-height:1 !important; letter-spacing:0; color:#6a6f76 !important; translate:none; transition:background-color .3s, color .3s; }
-  #code#code .hw-nav a::before, #code#code .hw-nav a::after{ content:none; }
-  #code#code .hw-nav a i{ font-size:12px; opacity:.7; }
-  #code#code .hw-nav a:hover{ background:#dddbd5; color:#171b20 !important; }
-  #code#code .hw-nav a.on{ background:var(--v7-blue, #139ffd); color:#fff !important; }
-  #code#code .hw-nav a.on i{ color:#fff; }
-  #code#code .hw-nav .hw-d{ position:absolute; left:0; right:0; top:62px; display:block; opacity:0; pointer-events:none; transition:opacity .35s; }
-  #code#code .hw-nav a.on .hw-d{ opacity:1; }
-  #code#code .hw-nav .hw-d > span{ display:block; overflow:visible; font:400 18px/1.5 var(--body); color:#4a5058; }
+  #code#code .hw-steps.hw-pin{ grid-template-rows:calc(400vh - 170px); }
+  #code#code .hw-h{ max-width:none !important; font-size:clamp(20px, 1.7vw, 25px) !important; line-height:1.2 !important; letter-spacing:-.02em !important; }
+  #code#code .hw-h br{ display:none; }
+  #code#code .hw-h em::before{ content:" "; }
+  #code#code .hw-nav{ position:relative; display:block; max-width:none; margin-top:26px; padding:0 0 150px; border-top:0; }
+  #code#code .hw-nav a{ position:static; display:block; width:max-content; padding:0; translate:none; font-size:clamp(54px, 6.6vw, 96px) !important; font-weight:700 !important; line-height:.98 !important; letter-spacing:-.05em;
+    color:transparent !important; -webkit-background-clip:text; background-clip:text; background-image:linear-gradient(90deg, var(--v7-blue, #139ffd) calc(var(--p, 0) * 100%), #cfccc6 calc(var(--p, 0) * 100%)); transition:none; }
+  #code#code .hw-nav a.done{ background-image:linear-gradient(#171b20, #171b20); }
+  #code#code .hw-nav a::before{ content:none; }
+  #code#code .hw-nav a::after{ content:"."; position:static; display:inline; width:auto; background:none; transform:none; }
+  #code#code .hw-nav a i{ display:none; }
+  #code#code .hw-nav a:hover{ color:transparent !important; background-image:linear-gradient(90deg, var(--v7-blue, #139ffd) calc(var(--p, 0) * 100%), #a9a6a0 calc(var(--p, 0) * 100%)); }
+  #code#code .hw-nav a.done:hover{ background-image:linear-gradient(#171b20, #171b20); }
+  #code#code .hw-nav .hw-d{ position:absolute; left:0; top:calc(100% - 126px); width:min(100%, 420px); display:block; opacity:0; translate:0 8px; pointer-events:none; transition:opacity .4s ease, translate .5s cubic-bezier(.2,.7,.2,1); letter-spacing:0; }
+  #code#code .hw-nav a.on .hw-d{ opacity:1; translate:0 0; }
+  #code#code .hw-nav .hw-d > span{ display:block; overflow:visible; font:400 18px/1.5 var(--body); color:#4a5058; -webkit-text-fill-color:#4a5058; }
   #code#code .hw-nav .hw-d > span::before{ content:none; }
+  #code#code .hw-nav .hw-d small{ -webkit-text-fill-color:#6a6f76; }
 }

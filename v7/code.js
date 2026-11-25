@@ -11,7 +11,7 @@
   var H0 = 0, RG = 1;
   function sizes(){ H0 = steps[0].offsetHeight; RG = Math.max(1, ol.offsetHeight - H0); }
   function range(){ return RG; }
-  function mark(i){ if (i === cur) return; cur = i; steps.forEach(function(s, k){ s.classList.toggle('on', k === i); }); links.forEach(function(a, k){ a.classList.toggle('on', k === i); }); }
+  function mark(i){ if (i === cur) return; cur = i; steps.forEach(function(s, k){ s.classList.toggle('on', k === i); }); links.forEach(function(a, k){ a.classList.toggle('on', k === i); a.classList.toggle('done', k < i); }); }
   function set(){
     var pin = mq.matches; ol.classList.toggle('hw-pin', pin); if (!pin) { cur = -1; return; }
     /* the frame is held in the middle of the window, under the header, and the heading beside it starts level with it */
