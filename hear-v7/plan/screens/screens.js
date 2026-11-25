@@ -341,7 +341,7 @@
           '<span class="dr">' + (r[12] ? 'Outbound' : 'Inbound') + '</span>' +
           '<span class="du">' + r[9] + '</span>' +
           '<span class="se"><i class="' + (r[10] === 'Negative' ? 'neg' : r[10] === 'Neutral' ? 'neu' : '') + '"></i>' + r[10] + '</span>' +
-          '<span class="sc ' + (r[11] < 50 ? 'lo' : r[11] < 75 ? 'md' : 'hi') + '">' + r[11] + '</span></div>';
+          '<span class="sc ' + (r[11] < 60 ? 'b1' : r[11] < 70 ? 'b2' : r[11] < 80 ? 'b3' : r[11] < 90 ? 'b4' : 'b5') + '">' + r[11] + '</span></div>';
       };
       var tab = function (t, n, on) { return '<span' + (on ? ' class="on"' : '') + '>' + t + (n ? '<small>' + n + '</small>' : '') + '</span>'; };
       var chip = function (k, v, n) { return '<span class="dt-f" style="--n:' + n + '">' + k + ' <b>' + v + '</b>' + ic(X, 'x') + '</span>'; };
@@ -355,7 +355,7 @@
         '<span class="dt-btn">' + ic('<rect x="3" y="3.5" width="12" height="11" rx="2.5"/><path d="M7.2 3.5v11M10.8 3.5v11"/>') + 'Columns<b>10</b></span></div>' +
         '<div class="dt-tbl"><div class="dt-r hd"><i class="ck"></i><span>Call</span><span>ID</span><span class="srt">Call date' + ic('<path d="M9 4v10M5.5 10.5 9 14l3.5-3.5"/>') + '</span><span>Status</span><span>Priority</span><span>Assigned to</span><span>Direction</span><span class="du">Length</span><span>Sentiment</span><span style="text-align:right">Score</span></div>' +
         '<div class="dt-body"><div class="dt-set all">' + A.map(function (r, n) { return UP[n] != null ? row(r, n, 'stay', UP[n]) : row(r, n); }).join('') + '</div><div class="dt-set hit">' + F.map(function (r, n) { return row(r, n, n < 4 ? 'dup' : ''); }).join('') + '</div></div>' +
-        '<div class="dt-foot"><span class="ct"><span class="rg"><b>1–9</b> of </span><span class="of">2,000</span> calls</span><span class="av"><i></i><span>Average score <b class="p">36</b><small>against <b class="p hi">76</b><em> for all calls</em></small></span><i></i><span class="ln">Average length <b>7:07</b><small>against <b>4:12</b></small></span></span><button class="act ink sig" type="button">Save as a signal</button><span class="sp"></span>' +
+        '<div class="dt-foot"><span class="ct"><span class="rg"><b>1–9</b> of </span><span class="of">2,000</span> calls</span><span class="av"><i></i><span>Average score <b class="p">36</b><small>against <b class="p b3">76</b><em> for all calls</em></small></span><i></i><span class="ln">Average length <b>7:07</b><small>against <b>4:12</b></small></span></span><button class="act ink sig" type="button">Save as a signal</button><span class="sp"></span>' +
         '<span class="pg"><i>' + ic('<path d="M11 5l-4 4 4 4"/>') + '</i><b>1</b><u>2</u><u>3</u><em>…</em><u class="last">223</u><i>' + ic('<path d="M7 5l4 4-4 4"/>') + '</i></span></div></div>';
     },
     show: function (el, i, ui) {
