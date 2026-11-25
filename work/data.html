@@ -38,7 +38,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/case.css?v=44">
 <link rel="stylesheet" href="../v7/intro.css?v=2">
 <link rel="stylesheet" href="../v7/wf-story.css?v=2">
-<link rel="stylesheet" href="../v7/data-wf.css?v=1">
+<link rel="stylesheet" href="../v7/hf-story.css?v=3">
+<link rel="stylesheet" href="../v7/data-hf.css?v=1">
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
 <body>
@@ -52,9 +53,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main" class="in-page">
+<main id="main" class="in-page hf da">
   <header class="in-hero">
-    <p class="in-tag">Data <b>Wireframe · low fidelity</b></p>
+    <p class="in-tag">Data</p>
     <h1>Finding the few calls that matter among thousands</h1>
     <p>Hear keeps every contact center call in one table. I designed that table, plus a filter you can ask in plain words. Rules read the sentence first. An AI model writes filters only when no rule can.</p>
     <p class="in-note">My redesign, built in Hear Design Lab on demo data.</p>
@@ -66,69 +67,105 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div class="in-sv" id="in-sv" data-s="0" aria-hidden="true">
           <div class="aw">
 
-            <div class="aw-sc dw-s1">
-              <div class="dw-tbl">
-                <div class="dw-tabs"><span class="t0">All calls<em>2,000</em></span><span>Needs review<em>148</em></span><span>High priority<em>62</em></span><span class="t3">Alerts<em>17</em></span><span class="t4">Done<em>1,204</em></span></div>
-                <div class="dw-rows">
-                  <div class="dw-r al" style="--r:0"><span class="tp"><b>Refunds &amp; Credits<u></u></b><small>Asks twice for a refund on a cancelled flight, is offered a voucher</small></span><span class="dt">Oct 13 · 14:02</span><span class="st">In progress</span></div>
-                  <div class="dw-r" style="--r:1"><span class="tp"><b>Online Booking</b><small>Books two seats to Lisbon and adds a bag at checkout</small></span><span class="dt">Oct 13 · 13:47</span><span class="st">Done</span></div>
-                  <div class="dw-r" style="--r:2"><span class="tp"><b>Trip Status</b><small>Asks whether the 18:40 to Madrid is still on time</small></span><span class="dt">Oct 13 · 13:31</span><span class="st">Done</span></div>
-                  <div class="dw-r al up" style="--r:3"><span class="tp"><b>Refunds &amp; Credits<u></u></b><small>A refund promised ten days ago has not arrived</small></span><span class="dt">Oct 13 · 13:18</span><span class="st">In progress</span></div>
-                  <div class="dw-r" style="--r:4"><span class="tp"><b>Seating &amp; Extras</b><small>Moves to an aisle seat and pays for extra legroom</small></span><span class="dt">Oct 13 · 12:56</span><span class="st">Done</span></div>
+            <div class="aw-sc da-s1">
+              <div class="hf-win da-tb">
+                <p class="da-top"><b>Data</b><span class="da-crumb"><svg class="da-i cr" viewBox="0 0 18 18" aria-hidden="true"><path d="M7 5l4 4-4 4"/></svg>Northwind</span></p>
+                <div class="da-tabs"><span class="on">All calls<small>2,000</small></span><span class="t1">Needs review<small>148</small></span><span class="t2">High priority<small>62</small></span><span class="t3">Alerts<small>17</small></span><span class="t4">Done<small>1,204</small></span></div>
+                <div class="da-r da-hd"><span>Call</span><span>Call date</span><span>Status</span><span>Score</span></div>
+                <div class="da-r al" style="--r:0"><span class="da-cl"><b>Refunds &amp; Credits<svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg></b><small>Asks twice for a refund on a cancelled flight, is offered a voucher</small></span><span class="da-dc">Oct 13<small>14:02</small></span><span><i class="da-st ip">In progress</i></span><span class="da-sc b1">38</span></div><div class="da-r" style="--r:1"><span class="da-cl"><b>Online Booking</b><small>Books two seats to Lisbon and adds a bag at checkout</small></span><span class="da-dc">Oct 13<small>13:47</small></span><span><i class="da-st dn">Done</i></span><span class="da-sc b4">82</span></div><div class="da-r" style="--r:2"><span class="da-cl"><b>Trip Status</b><small>Asks whether the 18:40 to Madrid is still on time</small></span><span class="da-dc">Oct 13<small>13:31</small></span><span><i class="da-st dn">Done</i></span><span class="da-sc b3">71</span></div><div class="da-r al" style="--r:3"><span class="da-cl"><b>Refunds &amp; Credits<svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg></b><small>A refund promised ten days ago has not arrived</small></span><span class="da-dc">Oct 13<small>13:18</small></span><span><i class="da-st ip">In progress</i></span><span class="da-sc b1">41</span></div><div class="da-r" style="--r:4"><span class="da-cl"><b>Seating &amp; Extras</b><small>Moves to an aisle seat and pays for extra legroom</small></span><span class="da-dc">Oct 13<small>12:56</small></span><span><i class="da-st dn">Done</i></span><span class="da-sc b4">88</span></div>
+              </div>
+            </div>
+
+            <div class="aw-sc da-s2">
+              <div class="hf-win da-ct">
+                <p class="da-big"><b>2,000</b><span>calls in the last 90 days</span></p>
+                <div class="da-pg"><p class="da-pn"><i><svg class="da-i cr" viewBox="0 0 18 18" aria-hidden="true"><path d="M11 5l-4 4 4 4"/></svg></i><b>1</b><u>2</u><u>3</u><em>…</em><u>223</u><i><svg class="da-i cr" viewBox="0 0 18 18" aria-hidden="true"><path d="M7 5l4 4-4 4"/></svg></i></p><small>223 pages of nine rows</small></div>
+              </div>
+              <p class="hf-note pl da-q"><span>The question</span><b>long refund calls where the customer was unhappy</b></p>
+              <div class="hf-win da-tw">
+                <div class="da-tabs"><span class="on">All calls<small>2,000</small></span><span class="t1">Needs review<small>148</small></span><span class="t2">High priority<small>62</small></span><span class="t3">Alerts<small>17</small></span><span class="t4">Done<small>1,204</small></span></div>
+                <p class="da-none"><span class="hf-tag coral">No tab answers it</span></p>
+                <div class="da-ask"><svg class="da-i sp" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="da-tx"><span>long refund calls where the customer was unhappy</span></span><i class="da-send"><svg class="da-i" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 13.5v-9M5.2 8.3 9 4.5l3.8 3.8"/></svg></i></div>
+              </div>
+            </div>
+
+            <div class="aw-sc da-s3">
+              <div class="hf-win da-ask da-in"><svg class="da-i sp" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="da-tx"><u class="u1"><i class="hf-n">1</i>high priority</u> calls from <u class="u2"><i class="hf-n">2</i>yesterday</u></span><i class="da-send"><svg class="da-i" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 13.5v-9M5.2 8.3 9 4.5l3.8 3.8"/></svg></i></div>
+              <div class="hf-win da-ln da-ru">
+                <p class="da-lh"><b>Rules, first</b><span class="hf-tag blue">Two rules fire</span></p>
+                <div class="da-cs"><span class="da-f ru c1"><span class="da-fc"><i class="hf-n">1</i>Priority <b>High</b></span><span class="hf-tag blue">rule</span></span><span class="da-f ru c2"><span class="da-fc"><i class="hf-n">2</i>Call date <b>yesterday’s date</b></span><span class="hf-tag blue">rule</span></span></div>
+              </div>
+              <div class="hf-win da-ln da-ai">
+                <p class="da-lh"><b>AI model, only if no rule fires</b><span class="hf-tag">Not asked</span></p>
+                <p class="da-lp">A rule fired, so the model is skipped.</p>
+              </div>
+            </div>
+
+            <div class="aw-sc da-s4">
+              <div class="hf-win da-ask da-in"><svg class="da-i sp" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="da-tx"><u class="u1"><i class="hf-n">1</i>refund calls</u> <u class="u2"><i class="hf-n">2</i>over 5 minutes</u> <u class="u3"><i class="hf-n">3</i>where the customer was unhappy</u></span><i class="da-send"><svg class="da-i" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 13.5v-9M5.2 8.3 9 4.5l3.8 3.8"/></svg></i></div>
+              <div class="hf-win da-ln da-ru">
+                <p class="da-lh"><b>Rules, first</b><span class="hf-tag">No rule fires</span></p>
+                <p class="da-lp">No rule knows mood, and “over 5 minutes” isn’t their “longer than”.</p>
+              </div>
+              <div class="hf-win da-ln da-ai">
+                <p class="da-lh"><b>AI model</b><span class="hf-tag lilac">Asked</span></p>
+                <p class="da-lp">With the table’s columns and values to choose from.</p>
+                <div class="da-cs"><span class="da-f ai c1"><span class="da-fc"><i class="hf-n">1</i>Topic <b>Refunds &amp; Credits</b><svg class="da-i x" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span><span class="hf-tag green"><svg class="da-i ck" viewBox="0 0 18 18" aria-hidden="true"><path d="M4.5 9.4l3 2.9 6-6.6"/></svg>AI, checked</span></span><span class="da-f ai c2"><span class="da-fc"><i class="hf-n">2</i>Length <b>over 5 min</b><svg class="da-i x" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span><span class="hf-tag green"><svg class="da-i ck" viewBox="0 0 18 18" aria-hidden="true"><path d="M4.5 9.4l3 2.9 6-6.6"/></svg>AI, checked</span></span><span class="da-f ai c3"><span class="da-fc"><i class="hf-n">3</i>Sentiment <b>Negative</b><svg class="da-i x" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span><span class="hf-tag green"><svg class="da-i ck" viewBox="0 0 18 18" aria-hidden="true"><path d="M4.5 9.4l3 2.9 6-6.6"/></svg>AI, checked</span></span></div>
+              </div>
+            </div>
+
+            <div class="aw-sc da-s5">
+              <div class="da-op off">
+                <p class="hf-note pl">Set aside · every click runs the filter<span class="hf-tag coral">ran 3 times</span></p>
+                <div class="hf-win da-fb">
+                  <div class="da-bar"><span class="da-f ai k1"><span class="da-fc">Refunds &amp; Credits</span></span><span class="da-f ai k2"><span class="da-fc">over 5 min</span></span><span class="da-f ai k3"><span class="da-fc">Negative</span></span><span class="da-cy"><b class="v0">2,000</b><b class="v1">318</b><b class="v2">141</b><b class="v3">86</b></span></div>
+                  <div class="da-gh"><i></i><i></i><i></i></div>
+                </div>
+              </div>
+              <div class="da-op yes">
+                <p class="hf-note pl">Chosen · an explicit Apply<span class="hf-tag green">ran once</span></p>
+                <div class="hf-win da-fw">
+                  <div class="da-bar"><span class="da-f ai k1"><span class="da-fc">Topic <b>Refunds &amp; Credits</b><svg class="da-i x" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span></span><span class="da-f ai k2"><span class="da-fc">Length <b>over 5 min</b><svg class="da-i x" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span></span><span class="da-f ai k3"><span class="da-fc">Sentiment <b>Negative</b><svg class="da-i x" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span></span></div>
+                  <div class="da-bar b2"><span class="da-btn"><svg class="da-i" viewBox="0 0 18 18" aria-hidden="true"><rect x="3" y="4" width="12" height="11" rx="2.5"/><path d="M3 7.5h12M6.5 2.5v3M11.5 2.5v3"/></svg>Last 90 days</span><span class="da-n"><b data-from="2000" data-to="86" data-at="3650" data-dur="1000">2,000</b><span class="da-ofn"> of 2,000</span> calls</span><span class="hf-btn da-ap">Apply</span></div>
+                  <div class="da-r da-hd"><span>Call</span><span class="da-du">Length</span><span>Sentiment</span><span>Score</span></div>
+                  <div class="da-set">
+                    <div class="da-all"><div class="da-r" style="--r:0"><span class="da-cl"><b>Refunds &amp; Credits<svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg></b><small>Asks twice for a refund on a cancelled flight, is offered a voucher</small></span><span class="da-du">6:12</span><span class="da-se"><i class="neg"></i>Negative</span><span class="da-sc b1">38</span></div><div class="da-r" style="--r:1"><span class="da-cl"><b>Online Booking</b><small>Books two seats to Lisbon and adds a bag at checkout</small></span><span class="da-du">3:05</span><span class="da-se"><i class=""></i>Positive</span><span class="da-sc b4">82</span></div><div class="da-r" style="--r:2"><span class="da-cl"><b>Trip Status</b><small>Asks whether the 18:40 to Madrid is still on time</small></span><span class="da-du">2:40</span><span class="da-se"><i class="neu"></i>Neutral</span><span class="da-sc b3">71</span></div><div class="da-r" style="--r:3"><span class="da-cl"><b>Refunds &amp; Credits<svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg></b><small>A refund promised ten days ago has not arrived</small></span><span class="da-du">7:48</span><span class="da-se"><i class="neg"></i>Negative</span><span class="da-sc b1">41</span></div><div class="da-r" style="--r:4"><span class="da-cl"><b>Seating &amp; Extras</b><small>Moves to an aisle seat and pays for extra legroom</small></span><span class="da-du">1:52</span><span class="da-se"><i class=""></i>Positive</span><span class="da-sc b4">88</span></div></div>
+                    <div class="da-hit"><div class="da-r" style="--r:0"><span class="da-cl"><b>Refunds &amp; Credits<svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg></b><small>Asks twice for a refund on a cancelled flight, is offered a voucher</small></span><span class="da-du">6:12</span><span class="da-se"><i class="neg"></i>Negative</span><span class="da-sc b1">38</span></div><div class="da-r" style="--r:1"><span class="da-cl"><b>Refunds &amp; Credits<svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg></b><small>A refund promised ten days ago has not arrived</small></span><span class="da-du">7:48</span><span class="da-se"><i class="neg"></i>Negative</span><span class="da-sc b1">41</span></div><div class="da-r" style="--r:2"><span class="da-cl"><b>Refunds &amp; Credits</b><small>Offered a credit in place of the refund and refuses it</small></span><span class="da-du">5:27</span><span class="da-se"><i class="neg"></i>Negative</span><span class="da-sc b1">35</span></div><div class="da-r" style="--r:3"><span class="da-cl"><b>Refunds &amp; Credits<svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg></b><small>Third call about the same refund, asks for a manager</small></span><span class="da-du">9:03</span><span class="da-se"><i class="neg"></i>Negative</span><span class="da-sc b1">29</span></div><div class="da-r" style="--r:4"><span class="da-cl"><b>Refunds &amp; Credits</b><small>The refund went to an old card, wants it sent again</small></span><span class="da-du">6:40</span><span class="da-se"><i class="neg"></i>Negative</span><span class="da-sc b1">44</span></div></div>
+                  </div>
+                  <p class="da-av"><span>Average score <b class="da-sc b1">36</b> against <b class="da-sc b3">76</b></span><span>Average length <b>7:07</b> against <b>4:12</b></span></p>
                 </div>
               </div>
             </div>
 
-            <div class="aw-sc dw-s2">
-              <div class="dw-big"><b>2,000</b><span>calls in the last 90 days</span><small>223 pages of nine rows</small></div>
-              <div class="dw-ask"><small>The question</small><p><span>long refund calls where the customer was unhappy</span></p></div>
-              <div class="dw-tabs2"><span style="--t:0">Needs review</span><span style="--t:1">High priority</span><span style="--t:2">Alerts</span><span style="--t:3">Done</span></div>
-              <p class="dw-none">No tab answers it</p>
-            </div>
-
-            <div class="aw-sc dw-s3">
-              <div class="dw-sent"><small>You type</small><p><mark class="m1"><i class="sw-n">1</i>high priority</mark> calls from <mark class="m2"><i class="sw-n">2</i>yesterday</mark></p></div>
-              <div class="dw-lane rules"><h5>Rules, first <em>Two rules fire</em></h5>
-                <div class="dw-chips"><span class="dw-chip c1"><i class="sw-n">1</i>Priority: High<em>rule</em></span><span class="dw-chip c2"><i class="sw-n">2</i>Call date: yesterday’s date<em>rule</em></span></div>
+            <div class="aw-sc da-s6">
+              <div class="da-two">
+                <div class="hf-win da-li">
+                  <p class="da-lt">86 of 2,000 calls</p>
+                  <i class="da-hl"></i>
+                  <div class="da-r k0"><span class="da-cl"><b>Refunds &amp; Credits<svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg></b><small>Asks twice for a refund on a cancelled flight, is offered a voucher</small></span><span class="da-sc b1">38</span></div><div class="da-r k1"><span class="da-cl"><b>Refunds &amp; Credits<svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg></b><small>A refund promised ten days ago has not arrived</small></span><span class="da-sc b1">41</span></div><div class="da-r k2"><span class="da-cl"><b>Refunds &amp; Credits</b><small>Offered a credit in place of the refund and refuses it</small></span><span class="da-sc b1">35</span></div><div class="da-r k3"><span class="da-cl"><b>Refunds &amp; Credits<svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg></b><small>Third call about the same refund, asks for a manager</small></span><span class="da-sc b1">29</span></div>
+                </div>
+                <div class="hf-win da-pan">
+                  <div class="da-pc p1">
+                    <p class="da-ph"><small>Call · Oct 13 · 14:02</small><span class="da-x"><svg class="da-i x" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span></p>
+                    <b class="da-pt">Refunds &amp; Credits</b>
+                    <p class="da-ps">Asks twice for a refund on a cancelled flight, is offered a voucher</p>
+                    <p class="da-alert"><svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg><span>Alert fired · <b>Refund refused</b></span></p>
+                    <dl class="da-dl"><dt>Assigned to</dt><dd><i class="hf-av">DB</i>Daniel Brooks</dd><dt>Length</dt><dd>6:12</dd><dt>Sentiment</dt><dd><i class="da-dot neg"></i>Negative</dd><dt>Score</dt><dd><span class="da-sc b1">38</span></dd></dl>
+                  </div>
+                  <div class="da-pc p2">
+                    <p class="da-ph"><small>Call · Oct 13 · 13:18</small><span class="da-x"><svg class="da-i x" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 5.5l7 7M12.5 5.5l-7 7"/></svg></span></p>
+                    <b class="da-pt">Refunds &amp; Credits</b>
+                    <p class="da-ps">A refund promised ten days ago has not arrived</p>
+                    <p class="da-alert"><svg class="da-i wn" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/></svg><span>Alert fired</span></p>
+                    <dl class="da-dl"><dt>Assigned to</dt><dd><i class="hf-av">PN</i>Paula Nunes</dd><dt>Length</dt><dd>7:48</dd><dt>Sentiment</dt><dd><i class="da-dot neg"></i>Negative</dd><dt>Score</dt><dd><span class="da-sc b1">41</span></dd></dl>
+                  </div>
+                  <div class="da-pf">
+                    <p class="da-of">Open full call →</p>
+                    <div class="da-ask da-aa"><svg class="da-i sp" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg><span class="da-tx">Ask AI about this call</span></div>
+                  </div>
+                </div>
               </div>
-              <div class="dw-lane model"><h5>AI model, only if no rule fires <em>Not asked</em></h5><p>A rule fired, so the model is skipped.</p></div>
-            </div>
-
-            <div class="aw-sc dw-s4">
-              <div class="dw-sent"><small>You type</small><p><mark class="m1"><i class="sw-n">1</i>refund calls</mark> <mark class="m2"><i class="sw-n">2</i>over 5 minutes</mark> <mark class="m3"><i class="sw-n">3</i>where the customer was unhappy</mark></p></div>
-              <div class="dw-lane rules"><h5>Rules, first <em>No rule fires</em></h5><p>No rule knows mood, and “over 5 minutes” isn’t their “longer than”.</p></div>
-              <div class="dw-lane model"><h5>AI model <em>Asked, with the table’s columns and values</em></h5>
-                <div class="dw-chips"><span class="dw-chip c1"><i class="sw-n">1</i>Topic: Refunds &amp; Credits<em>AI, checked</em></span><span class="dw-chip c2"><i class="sw-n">2</i>Length: over 5 min<em>AI, checked</em></span><span class="dw-chip c3"><i class="sw-n">3</i>Sentiment: Negative<em>AI, checked</em></span></div>
-              </div>
-            </div>
-
-            <div class="aw-sc dw-s5">
-              <div class="dw-fb off"><small>Set aside · every click runs the filter<em>ran 3 times</em></small>
-                <div class="dw-bar"><span class="dw-chip k1">Refunds &amp; Credits</span><span class="dw-chip k2">over 5 min</span><span class="dw-chip k3">Negative</span><span class="dw-ct"><b class="v0">2,000</b><b class="v1">318</b><b class="v2">141</b><b class="v3">86</b></span></div>
-                <div class="dw-gh"><i></i><i></i><i></i></div>
-              </div>
-              <div class="dw-fb yes"><small>Chosen · an explicit Apply<em>ran once</em></small>
-                <div class="dw-bar"><span class="dw-chip k1">Refunds &amp; Credits</span><span class="dw-chip k2">over 5 min</span><span class="dw-chip k3">Negative</span><span class="dw-ap">Apply</span><span class="dw-ct"><b class="v0">2,000</b><b class="v3">86</b></span></div>
-                <div class="dw-gh"><i></i><i></i><i></i></div>
-              </div>
-            </div>
-
-            <div class="aw-sc dw-s6">
-              <div class="dw-list">
-                <i class="hl"></i>
-                <div class="dw-r"><b>Refunds &amp; Credits<u></u></b><small>Asks twice for a refund on a cancelled flight</small></div>
-                <div class="dw-r"><b>Online Booking</b><small>Books two seats to Lisbon</small></div>
-                <div class="dw-r"><b>Trip Status</b><small>Asks if the 18:40 to Madrid is on time</small></div>
-                <div class="dw-r"><b>Refunds &amp; Credits<u></u></b><small>A refund promised ten days ago</small></div>
-              </div>
-              <div class="dw-keys"><span class="kd"><kbd>↓</kbd>next call</span><span><kbd>Esc</kbd>closes</span></div>
-              <div class="dw-pan">
-                <div class="pc p1"><small>Call · Oct 13 · 14:02</small><b>Refunds &amp; Credits</b><p>Asks twice for a refund on a cancelled flight, is offered a voucher</p><span class="dw-alert"><u></u>Alert fired · Refund refused</span></div>
-                <div class="pc p2"><small>Call · Oct 13 · 13:47</small><b>Online Booking</b><p>Books two seats to Lisbon and adds a bag at checkout</p></div>
-                <div class="fx"><i class="aw-ln"></i><i class="aw-ln s"></i><i class="aw-ln"></i></div>
-                <p class="of">Open full call →</p>
-                <div class="ask">Ask AI about this call</div>
-              </div>
+              <p class="hf-note pl da-keys"><span class="da-kd"><kbd>↓</kbd>next call</span><span><kbd>Esc</kbd>closes</span></p>
             </div>
 
           </div>
@@ -216,6 +253,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 </footer>
 <script src="case.js?v=8"></script>
 <script src="../v7/foot.js?v=202" defer></script>
-<script src="../v7/wf-story.js?v=2" defer></script>
+<script src="../v7/wf-story.js?v=6" defer></script>
 </body>
 </html>
