@@ -3854,7 +3854,7 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
 <script>/* the phone's tilt (v7/gyro.js): depths that start before it has loaded wait in this queue */window.v7Gyro={q:[],watch:function(e,f){this.q.push([e,f])}};
 /* the hero picture is painted in once per tab: v7/hero-paint.js */try{if(!sessionStorage.getItem('hp')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('hp-wait')}catch(e){}</script>
 <script>/* the pinned opening (html.me-scroll) is decided here, before the first paint; the pin script at the foot of the page then takes over. Decided only there, the page was first painted in the plain layout, and the four facts were seen on the picture for a moment and gone */try{(function(m,c){function s(){c.toggle('me-scroll',m.matches)}s();if(m.addEventListener)m.addEventListener('change',s)})(matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)'),document.documentElement.classList)}catch(e){}</script>
-<link rel="stylesheet" href="v7/code.css?v=225">
+<link rel="stylesheet" href="v7/code.css?v=226">
 <link rel="stylesheet" href="v7/design-lab.css?v=224">
 <link rel="stylesheet" href="v7/topics.css?v=20">
 <link rel="stylesheet" href="v7/product.css?v=237">
@@ -3956,7 +3956,7 @@ html body #about#about h1.hv-h, html body #about#about h1.hv-h em, html body #co
   <div class="wrap hw">
     <div class="hw-side">
       <p class="hw-eye">How I work</p>
-      <h2 id="code-h" class="hw-h">I don’t hand off.<br><em>I ship.</em></h2>
+      <h2 id="code-h" class="hw-h">I don’t<br><span class="hw-x">hand off.</span><br><em>I ship.</em></h2>
       <nav class="hw-nav" aria-label="Steps of how I work">
         <a href="#hw-1"><i>01</i>Design</a>
         <a href="#hw-2"><i>02</i>System</a>
