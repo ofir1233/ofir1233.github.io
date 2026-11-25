@@ -40,7 +40,7 @@
   // 1. a table of calls: the same thirteen shapes are its rows, and nothing says which topic a call is
   S[0] = (() => { const o = { tw: [60, 52, 480, 404, 1] };
     BX.forEach((b, i) => { o[b.id] = [74, 86 + i * 27, 452, 19, 1, 0, 'row']; });
-    return { o, lb: [{ t: 'One table: 22,150 calls, no topics', x: 60, y: 474 }] }; })();
+    return { o, lb: [{ t: '22,150 calls in one table. No topics.', x: 60, y: 474 }] }; })();
   // 2. four shapes tried, boxes chosen
   S[1] = (() => { const o = { tw: [30, 96, 540, 352, 1] };
     OPS.forEach((e, i) => { o[e.id] = [30 + i * 136, 46, 132, 32, 1]; });
@@ -50,7 +50,7 @@
   S[2] = (() => { const o = { tw: [30, 66, 340, 384, 1], sp: [390, 66, 180, 210, 1] };
     boxes(o, 40, 94, 320, 346, [0, 4]);
     return { o, tag: { 0: 'Most to gain', 4: 'Lowest score' },
-      lb: [{ t: 'Cause: a long verification', x: 390, y: 298 }, { t: 'Fix: a shorter script', x: 390, y: 324 }, { t: 'The topic with the most calls', x: 390, y: 350 }, { t: 'moves the whole center most', x: 390, y: 370 }] }; })();
+      lb: [{ t: 'Cause: long verification', x: 390, y: 298 }, { t: 'Fix: a shorter script', x: 390, y: 324 }, { t: 'The topic with the most calls', x: 390, y: 350 }, { t: 'moves the whole center most', x: 390, y: 370 }] }; })();
   // 4. Ask AI answers beside the screen
   S[3] = (() => { const o = { tw: [30, 66, 200, 384, 1], ap: [250, 66, 320, 384, 1] };
     boxes(o, 38, 94, 184, 346, [0]);
