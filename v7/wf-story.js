@@ -8,6 +8,13 @@
   const sc = [...sv.querySelectorAll('.aw-sc')], calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   let cur = -1, goT = 0, seen = !document.querySelector('.hf') || !('IntersectionObserver' in window);
 
+  /* a number that says it counts, counts: [data-to] in a scene runs from data-from to data-to, data-at ms after the scene's motion starts */
+  const count = s => s.querySelectorAll('[data-to]').forEach(el => { const a = +el.dataset.from, b = +el.dataset.to, d = +el.dataset.dur || 1200, f = v => Math.round(v).toLocaleString('en-US');
+    clearInterval(el._t); el.textContent = f(calm() ? b : a); if (calm()) return;
+    const t0 = performance.now() + (+el.dataset.at || 0);
+    el._t = setInterval(() => { const p = Math.min(1, Math.max(0, (performance.now() - t0) / d)); el.textContent = f(a + (b - a) * (1 - Math.pow(1 - p, 3))); if (p >= 1) clearInterval(el._t); }, 40); });
+  const go = s => { s.classList.add('go'); count(s); };
+
   const apply = n => {
     if (n === cur) return;
     cur = n; sv.dataset.s = n; stage.style.setProperty('--s', n);
@@ -16,7 +23,7 @@
     /* the scene settles in first, then its motion starts */
     if (hf) stage.style.setProperty('--sky', (sc.length > 1 ? n / (sc.length - 1) * 100 : 0).toFixed(1) + '%');
     /* a story in Hear's world plays its first scene only once the reader can see the stage */
-    if (seen) { if (calm()) sc[n].classList.add('go'); else goT = setTimeout(() => sc[n].classList.add('go'), hf ? 420 : 260); }
+    if (seen) { if (calm()) go(sc[n]); else goT = setTimeout(() => go(sc[n]), hf ? 420 : 260); }
     steps.forEach((s, i) => s.classList.toggle('on', i === n));
     [...meter.children].forEach((b, i) => { if (i === n) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
   };
