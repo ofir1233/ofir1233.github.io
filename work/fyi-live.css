@@ -747,3 +747,8 @@
 .a-story h3 { font-weight: 900; letter-spacing: -.03em; }
 .a-sheet .sh h4, .a-nav .nm, .a-row .nm { font-weight: 800; letter-spacing: -.02em; }
 .a-welcome { background: radial-gradient(420px 380px at 50% 30%, rgba(122,44,255,.24), rgba(255,45,143,.08) 45%, transparent 72%), var(--bg); }
+
+/* owner, 25.11: the pale haze turned into a grey cloud on the dark welcome screen; the wordmark sits on the violet and pink glow alone.
+   The first story card was a half-painted sheet of paper; it is now the crew's cover C (the stack: plans and tasks), printed whole. */
+.a-welcome::before { content: none; }
+.o1-art.a::before { left: 22px; top: 26px; width: 236px; height: 236px; border-radius: 2px; rotate: -5deg; box-shadow: var(--off); background: #15183f url(../img/fyi-door/cover-c.webp) 50% 50% / cover no-repeat; }

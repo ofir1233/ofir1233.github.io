@@ -175,3 +175,9 @@ html.ot-3d .ot-fin{ max-width:none; height:100vh; margin:0; padding:0; }
 html.ot-3d .ot-fin-art{ display:contents; }
 html.ot-3d .ot-fin-t{ position:fixed; z-index:3; left:0; right:0; top:clamp(84px, 11.5vh, 120px); text-align:center; font-size:clamp(40px, 4.6vw, 66px); opacity:var(--fo, 0); transform:translate3d(0, calc(var(--sy, 0px) + (1 - var(--fo, 0)) * 26px), 0); pointer-events:none; }
 html.ot-3d .ot-fin .oa{ translate:calc(var(--mx, 0) * var(--z, 8) * -1px) calc(var(--my, 0) * var(--z, 8) * -1px + var(--sy, 0px)); }
+
+/* "Play again" is only its icon now (owner, 25.11): a round ink button the size of a tap */
+.ot-again{ display:grid; place-items:center; width:40px; height:40px; min-height:40px; padding:0; border-radius:50%; background:transparent; box-shadow:inset 0 0 0 1.5px rgba(23,27,32,.22); color:var(--ink); }
+.ot-again:hover{ background:rgba(23,27,32,.06); box-shadow:inset 0 0 0 1.5px rgba(23,27,32,.5); }
+.ot-again svg{ width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+@media (max-width:860px){ .ot-part > .ot-rail .ot-again{ width:44px; height:44px; min-height:44px; } }
