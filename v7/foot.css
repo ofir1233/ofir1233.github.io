@@ -101,3 +101,13 @@ footer.ft .ft-sky::after{ content:""; position:absolute; z-index:1; inset:0 0 au
 @media (max-width: 560px){ footer.ft .ft-in{ padding-top:56px; } footer.ft .ft-sky::after{ height:78%; } }
 /* the veil lies on the sky only: the kites and the city stay in front of it, in full colour */
 footer.ft .ft-lay .ft-kites, footer.ft .ft-lay .ft-front{ z-index:2; }
+
+/* owner, 25.11.2026: the layers also part under the mouse (--mx, --my from v7/foot.js); the content sits lower still, and the
+   picture is cut from the bottom (the box hangs below the footer's edge, which clips it) so the footer is shorter. */
+footer.ft .ft-lay{ bottom:calc(max(50vw, 340px) * -.13); }
+footer.ft .ft-lay .ft-back{ transform:translate3d(calc(var(--mx, 0) * 14px), calc(var(--py, 0px) * 1.5 + var(--my, 0) * 8px), 0) scale(1.07); }
+footer.ft .ft-lay .ft-front{ transform:translate3d(calc(var(--mx, 0) * -22px), calc(var(--py, 0px) * -.55 + var(--my, 0) * -9px), 0) scale(1.06); }
+footer.ft .ft-lay .ft-kites{ transform:translate3d(calc(var(--py, 0px) * -.5 + var(--mx, 0) * -40px), calc(var(--py, 0px) * 2.6 + var(--my, 0) * -22px), 0) rotate(calc(var(--py, 0px) * .08deg + var(--mx, 0) * -3deg)); }
+footer.ft .ft-in{ padding-top:clamp(110px, 11vw, 168px); padding-bottom:max(clamp(170px, 16.5vw, 320px), calc(36vw - 330px)); }
+@media (max-width: 900px){ footer.ft .ft-in{ padding-top:72px; padding-bottom:max(40vw, 210px); } }
+@media (max-width: 560px){ footer.ft .ft-lay{ bottom:-34px; } footer.ft .ft-in{ padding-top:56px; padding-bottom:200px; } }

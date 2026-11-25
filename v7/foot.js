@@ -25,6 +25,24 @@
   }
   addEventListener('scroll', (window.v7Near || function (e, f) { return f; })(ft, function () { if (!tick) { tick = true; requestAnimationFrame(par); } }), { passive: true });
   addEventListener('resize', par); par();
+  /* depth under the pointer: the layers part a little as the mouse moves over the footer (eased; mouse only) */
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var tx = 0, ty = 0, x = 0, y = 0, raf = 0;
+    var step = function () {
+      x += (tx - x) * .08; y += (ty - y) * .08;
+      sky.style.setProperty('--mx', x.toFixed(3)); sky.style.setProperty('--my', y.toFixed(3));
+      raf = (Math.abs(tx - x) > .002 || Math.abs(ty - y) > .002) ? requestAnimationFrame(step) : 0;
+    };
+    var go = function () { if (!raf) raf = requestAnimationFrame(step); };
+    ft.addEventListener('pointermove', function (e) {
+      if (e.pointerType && e.pointerType !== 'mouse') return;
+      var r = ft.getBoundingClientRect();
+      tx = Math.max(-1, Math.min(1, (e.clientX - r.left) / r.width * 2 - 1));
+      ty = Math.max(-1, Math.min(1, (e.clientY - r.top) / r.height * 2 - 1));
+      go();
+    });
+    ft.addEventListener('pointerleave', function () { tx = 0; ty = 0; go(); });
+  }
 })();
 
 /* the case footer: the link to the page you are on goes to its top instead of reloading it */
