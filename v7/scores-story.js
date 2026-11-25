@@ -1,4 +1,4 @@
-/* v7 - Explainable scores (work/explainable-scores.html): the sticky stage of Topics (v7/topics-story.js), holding the real screen.
+/* v7 - Compliance (work/compliance.html): the sticky stage of Topics (v7/topics-story.js), holding the real screen.
    The stage shows Hear Studio's Evaluation by agent app, live with demo data, drawn at one size (1037 x 792) and scaled. Each step
    sets the app to one state (window.hearExplain.step, hear-v7/plan/explain/explain.js) and moves a gentle camera to the one part that
    matters: the grid, the low scores, the card on a score, the calls. The camera moves only when the step changes: a reader clicking

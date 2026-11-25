@@ -12,7 +12,7 @@
   const LN = AREAS.map((_, i) => mk('in-ln', 'l' + i));
   const CH = AREAS.map((a, i) => { const e = mk('in-ch', 'c' + i); e.textContent = a; return e; });
   const LB = Array.from({ length: 4 }, (_, i) => mk('in-lb', 'b' + i));
-  const NEXT = [['Explainable scores', 'explainable-scores.html'], ['Actions', 'actions.html'], ['Newsroom', 'newsroom.html'], ['Data & Signals', 'data.html']];
+  const NEXT = [['Compliance', 'compliance.html'], ['Actions', 'actions.html'], ['Newsroom', 'newsroom.html'], ['Data & Signals', 'data.html']];
   const CD = NEXT.map(([t, h], i) => { const a = document.createElement('a'); a.className = 'in-cd'; a.id = 'k' + i; a.href = h; a.tabIndex = -1; a.innerHTML = '<small>0' + (i + 1) + '</small>' + t; sv.append(a); return a; });
   const W = ['w1', 'w2', 'w3'].map(id => document.getElementById(id));
 

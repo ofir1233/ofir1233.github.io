@@ -1,4 +1,4 @@
-/* v7 - the low-fidelity case stories (work/actions.html, work/explainable-scores.html): the sticky stage of the Introduction (v7/intro.css), one part per step (v7/wf-story.css, and each case's scenes file).
+/* v7 - the low-fidelity case stories (work/actions.html, work/compliance.html): the sticky stage of the Introduction (v7/intro.css), one part per step (v7/wf-story.css, and each case's scenes file).
    The step in front shows its scene; the scene plays its one motion when it comes in (.go), and plays it again each time the reader
    comes back to it, so a step always shows the same thing happening. */
 (() => {

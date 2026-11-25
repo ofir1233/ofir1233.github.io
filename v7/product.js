@@ -14,7 +14,7 @@
       if (i === 0) t.hot(-1, -1, 'force'); else if (i === 1) t.hot(0, -1, 'map'); else t.ask(0, 2);
     }
   };
-  /* Compliance is the Explainable scores case's own screen: the Evaluation by agent app in explain mode (studio.html?app=eval&explain=1,
+  /* Compliance is the Compliance case's own screen: the Evaluation by agent app in explain mode (studio.html?app=eval&explain=1,
      hear-v7/plan/explain). Its four states (the grid, the scores under 70, the card, the calls) play as three steps: the grid's second
      shot dims the blue side (call: 1), the card opens on Selma's Compliance 58, and Explore in Chat brings the calls. */
   var EXPLAIN = {
