@@ -37,7 +37,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=44">
 <link rel="stylesheet" href="../v7/intro.css?v=2">
-<link rel="stylesheet" href="../v7/topics-story.css?v=1">
+<link rel="stylesheet" href="../v7/hf-story.css?v=3">
+<link rel="stylesheet" href="../v7/topics-hf.css?v=1">
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
 <body>
@@ -51,9 +52,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main" class="in-page">
+<main id="main" class="in-page hf tq-hf">
   <header class="in-hero">
-    <p class="in-tag">Topics <b>Wireframe · low fidelity</b></p>
+    <p class="in-tag">Topics</p>
     <h1>The whole center, on one screen</h1>
     <p>A dashboard for a contact center manager: see what’s happening across 22,150 calls, then get into what matters without extra work.</p>
     <p class="in-note">My vision for the screen, built in Hear Design Lab on demo data.</p>
@@ -63,20 +64,21 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     <div class="in-stw">
       <div class="in-stage">
         <div class="in-sv tq" id="in-sv" data-s="0" aria-hidden="true">
-          <div class="in-w" id="tw"><div class="bar"><em class="tq-t0">Calls · 22,150</em><em class="tq-t1">Topics · 22,150 calls</em></div></div>
+          <div class="in-w" id="tw"><div class="bar"><b class="t0">Calls</b><b class="t1">Topics</b><span class="hf-lb">22,150 calls</span></div></div>
           <div class="in-w" id="sp">
-            <div class="bar"><em>Online Booking · 43</em></div>
+            <div class="bar"><b>Online Booking</b><span class="hf-lb">4,412 calls</span><span class="tq-pill">43</span></div>
             <div class="tq-sc"><span>Satisfaction</span><i style="--v:44"></i><em>44</em></div>
             <div class="tq-sc"><span>Silence time</span><i style="--v:77"></i><em>77</em></div>
-            <div class="tq-sc hot"><span>Handle time</span><i style="--v:9"></i><em>9</em></div>
+            <div class="tq-sc hot"><span>Handle time · 5.9 min</span><i style="--v:9"></i><em>9</em></div>
+            <p class="tq-why"><span><small>Cause</small>Long verification</span><span><small>Fix</small>A shorter script</span></p>
           </div>
           <div class="in-w" id="ap">
-            <div class="bar"><em>Ask AI</em></div>
+            <div class="bar"><span class="tq-ai"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></svg>Ask AI</span></div>
             <p class="tq-q">Why is Handle time 9?</p>
-            <div class="tq-a"><b>1</b><span>Long verification steps</span></div>
-            <div class="tq-a"><b>2</b><i></i></div>
-            <div class="tq-a"><b>3</b><i></i></div>
-            <div class="tq-fix"><small>Try first</small>A shorter script · about 40 s a call</div>
+            <p class="tq-lead">Three things are likely behind the 5.9 min handle time:</p>
+            <ol class="tq-as"><li><b>1</b>Complex itineraries</li><li class="on"><b>2</b>Extensive verification steps</li><li><b>3</b>Gaps in what agents know about fare rules</li></ol>
+            <p class="tq-fix"><small>Try first</small>Start with verification: a shorter script could cut about 40 s a call.</p>
+            <p class="tq-src">From the 4,412 calls behind the score</p>
           </div>
         </div>
         <div class="in-meter" aria-label="Steps"></div>
@@ -149,6 +151,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 </footer>
 <script src="case.js?v=8"></script>
 <script src="../v7/foot.js?v=202" defer></script>
-<script src="../v7/topics-story.js?v=2" defer></script>
+<script src="../v7/topics-hf.js?v=2" defer></script>
 </body>
 </html>
