@@ -12,12 +12,12 @@
   function load() { if (img && img.dataset.src) { img.srcset = img.dataset.srcset || ''; img.src = img.dataset.src; img.removeAttribute('data-src'); } }
   if (!('IntersectionObserver' in window)) { load(); return; }
   root.classList.add('js');
-  new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '1000px 0px' }).observe(root);
+  new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '3000px 0px' }).observe(root);
   new IntersectionObserver(function (es, io) {
     if (!es[0].isIntersecting) return; io.disconnect();
     root.classList.add('in');
     function paint() { root.classList.add('p'); }
     if (!img || img.complete && img.naturalWidth) paint();
-    else { var t = setTimeout(paint, 1600); img.addEventListener('load', function () { clearTimeout(t); paint(); }, { once: true }); }
-  }, { threshold: .45 }).observe(root.querySelector('.sm-art') || root);
+    else { var t = setTimeout(paint, 700); img.addEventListener('load', function () { clearTimeout(t); paint(); }, { once: true }); }
+  }, { threshold: .12 }).observe(root.querySelector('.sm-art') || root);
 })();
