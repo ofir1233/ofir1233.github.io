@@ -214,12 +214,9 @@
 .go .ih-ship p.sh, .go .ih-ship p.sh .hf-tag{ opacity:1; transform:none; }
 .ih-s7 .ih-four{ left:0; top:160px; --d:1250ms; }
 .ih-s7 .ih-cs{ left:0; top:200px; width:420px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.ih-cs > span{ position:relative; display:block; box-sizing:border-box; padding:5px 5px 0; height:120px; border-radius:var(--r-plate); background:#fff; box-shadow:var(--sh-card); }
-.ih-cs picture{ position:relative; display:block; border-radius:var(--r-well); overflow:hidden; }
-.ih-cs picture::after{ content:""; position:absolute; inset:0; border-radius:inherit; box-shadow:var(--well-sh); pointer-events:none; }
-/* each story: its whole picture 5px inside the plate with the well's corner, then the name on one baseline */
-.ih-cs img{ display:block; width:100%; height:auto; aspect-ratio:384 / 158; border-radius:var(--r-well); }
-.ih-cs b{ display:block; padding:9px 7px 0; font-size:var(--t-md); line-height:16px; font-weight:600; }
+/* the four stories are four names, nothing else (owner, 25.11: "too much information, a mess for the eye, something simpler") */
+.ih-cs > span{ position:relative; display:flex; align-items:center; box-sizing:border-box; height:48px; padding:0 16px; border-radius:var(--r-plate); background:#fff; box-shadow:var(--sh-card); }
+.ih-cs b{ display:block; font-size:var(--t-lg); line-height:20px; font-weight:600; letter-spacing:-.01em; }
 
 /* phone: the scenes are drawn about 420 wide already; the mockup gives the product a little more room */
 @media (max-width: 860px){
