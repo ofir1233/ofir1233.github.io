@@ -10,25 +10,25 @@
   var rough = function (id, sc, fq) { return '<filter id="otr' + id + '" x="-10%" y="-20%" width="120%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="' + fq + '" numOctaves="2" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="' + sc + '"/></filter>'; };
   var box = function (el) { var s = el.style; return { w: parseFloat(s.getPropertyValue('--w')), h: parseFloat(s.getPropertyValue('--h')) }; };
 
-  // the voice note as paint: thin bars at the phone that grow as they leave it, pink over two inks set a little off
+  // the voice note, painted as heat (the same picture as the home page door); it spreads in through a soft edge (v7/fyi-take.css)
   function wave(svg) {
-    var b = box(svg), id = ++uid, W = b.w, cy = b.h / 2, hMin = 15, hMax = b.h * .96, x = 0, w = 3, i = 0, bars = [];
-    while (x + w < W && i < 60) {
-      var u = x / W, k = .3 + .7 * Math.abs(Math.sin(i * 1.7 + .4) * .6 + Math.sin(i * .63 + 1.3) * .4);
-      bars.push({ x: x, w: w, h: Math.max(w * 1.6, (hMin + (hMax - hMin) * Math.pow(u, 1.22)) * k) });
-      x += w * 1.74; w *= 1.082; i++;
-    }
-    var rects = function (dx, dy) { return bars.map(function (r, n) { var q = Math.min(1, r.w / 9); return '<rect class="wb" style="--i:' + n + '" x="' + f(r.x + dx * q) + '" y="' + f(cy - r.h / 2 + dy * q) + '" width="' + f(r.w) + '" height="' + f(r.h) + '" rx="' + f(r.w / 2) + '"/>'; }).join(''); };
+    var b = box(svg);
     svg.setAttribute('viewBox', '0 0 ' + b.w + ' ' + b.h);
-    svg.innerHTML = '<defs>' + paint(id) + rough(id, 5, '.035') + '</defs><g filter="url(#otr' + id + ')"><g fill="#22cdf0">' + rects(-4, 3.5) + '</g><g fill="#7a2cff">' + rects(3.5, -3) + '</g><g fill="url(#otp' + id + ')">' + rects(0, 0) + '</g></g>';
+    svg.innerHTML = '<image href="../img/fyi-door/thermal-wave.webp" x="0" y="0" width="' + b.w + '" height="' + b.h + '" preserveAspectRatio="xMinYMid meet"/>';
   }
-  // a number or a name in the same paint
+  // a number or a name, set like the posters: heavy and tight, in ink. "FYI" is the wordmark, with its pink full stop.
   function num(svg) {
-    var b = box(svg), id = ++uid, size = +svg.dataset.size || b.h * .9, t = svg.dataset.num, y = b.h / 2 + size * .35;
-    var tx = function (dx, dy, fill) { return '<text x="' + f(b.w / 2 + dx) + '" y="' + f(y + dy) + '" text-anchor="middle" font-size="' + size + '" fill="' + fill + '">' + t + '</text>'; };
-    var o = Math.max(2, size * .028);
+    var b = box(svg), size = +svg.dataset.size || b.h * .9, t = svg.dataset.num, y = b.h / 2 + size * .35;
     svg.setAttribute('viewBox', '0 0 ' + b.w + ' ' + b.h);
-    svg.innerHTML = '<defs>' + paint(id) + rough(id, Math.max(2, size * .02), '.03') + '</defs><g filter="url(#otr' + id + ')">' + tx(-o, o * .9, '#22cdf0') + tx(o * .9, -o * .8, '#7a2cff') + tx(0, 0, 'url(#otp' + id + ')') + '</g>';
+    svg.innerHTML = '<text x="' + f(b.w / 2) + '" y="' + f(y) + '" text-anchor="middle" font-size="' + size + '">' + t + '</text>';
+    if (t === 'FYI') {
+      var place = function () { var tb = svg.querySelector('text').getBBox(), q = size * .2;
+        if (!tb.width) return;
+        svg.querySelector('text').setAttribute('x', f(b.w / 2 - q * .6));
+        tb = svg.querySelector('text').getBBox();
+        svg.insertAdjacentHTML('beforeend', '<rect class="dot" x="' + f(tb.x + tb.width + size * .05) + '" y="' + f(y - q) + '" width="' + f(q) + '" height="' + f(q) + '"/>'); };
+      (d.fonts && d.fonts.ready ? d.fonts.ready : Promise.resolve()).then(place);
+    }
   }
   function ink(svg) {
     var b = box(svg), id = ++uid, k = svg.dataset.ink, w = b.w, h = b.h, cx = w / 2, cy = h / 2, rx = w * .44, ry = h * .4, p = '';

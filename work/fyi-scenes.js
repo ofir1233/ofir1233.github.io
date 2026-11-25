@@ -5,7 +5,7 @@
   const FX = window.FX, ic = FX.ic;
   // the logo: the three letters in pink paint, with cyan and violet copies printed a little off (the same FYI that opens the page)
   const MK_B = 'M6 6h112v68H42L20 98V74H6z';
-  FX.mark = (cls = '') => `<svg class="fx-mark ${cls}" viewBox="0 0 240 104" role="img" aria-label="FYI"><g filter="url(#fx-mk-r)"><text class="c" x="117" y="90.7" text-anchor="middle" font-size="104" fill="#22cdf0">FYI</text><text class="v" x="122.7" y="85.6" text-anchor="middle" font-size="104" fill="#7a2cff">FYI</text><text class="p" x="120" y="88" text-anchor="middle" font-size="104" fill="url(#fx-mk-p)">FYI</text></g></svg>`;
+  FX.mark = (cls = '') => `<svg class="fx-mark ${cls}" viewBox="0 0 240 104" role="img" aria-label="FYI"><text x="196" y="88" text-anchor="end" font-size="104" fill="#F2EDE4">FYI</text><rect x="203" y="67" width="21" height="21" fill="#ff2d8f"/></svg>`;
   // one gradient for every AI mark on the page (violet appears only where AI acted)
   if (!document.getElementById('fx-ai-g')) document.body.insertAdjacentHTML('afterbegin', '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="fx-ai-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF2D8F"/><stop offset="1" stop-color="#7A2CFF"/></linearGradient><pattern id="fx-mk-p" patternUnits="userSpaceOnUse" width="240" height="120"><image href="../img/fyi-door/paint-pink.webp" width="240" height="120" preserveAspectRatio="none"/></pattern><filter id="fx-mk-r" x="-10%" y="-20%" width="120%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"/></filter></defs></svg>');
 
