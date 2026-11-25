@@ -6,7 +6,7 @@
   if (!sv) return;
   const stage = sv.parentElement, steps = [...document.querySelectorAll('.in-st')], meter = stage.querySelector('.in-meter');
   const sc = [...sv.querySelectorAll('.aw-sc')], calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let cur = -1, goT = 0;
+  let cur = -1, goT = 0, seen = !document.querySelector('.hf') || !('IntersectionObserver' in window);
 
   const apply = n => {
     if (n === cur) return;
@@ -14,7 +14,9 @@
     clearTimeout(goT);
     sc.forEach((s, i) => { s.classList.toggle('on', i === n); s.classList.remove('go'); });
     /* the scene settles in first, then its motion starts */
-    if (calm()) sc[n].classList.add('go'); else goT = setTimeout(() => sc[n].classList.add('go'), hf ? 420 : 260);
+    if (hf) stage.style.setProperty('--sky', (sc.length > 1 ? n / (sc.length - 1) * 100 : 0).toFixed(1) + '%');
+    /* a story in Hear's world plays its first scene only once the reader can see the stage */
+    if (seen) { if (calm()) sc[n].classList.add('go'); else goT = setTimeout(() => sc[n].classList.add('go'), hf ? 420 : 260); }
     steps.forEach((s, i) => s.classList.toggle('on', i === n));
     [...meter.children].forEach((b, i) => { if (i === n) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
   };
@@ -60,5 +62,6 @@
     b.addEventListener('click', () => { const r = steps[i].getBoundingClientRect(); scrollTo({ top: scrollY + r.top - line() + 40, behavior: calm() ? 'auto' : 'smooth' }); }); });
 
   frames(); fit(); pick();
+  if (!seen) { const io = new IntersectionObserver(es => { if (es.some(e => e.intersectionRatio >= .6)) { io.disconnect(); seen = true; const n = cur; cur = -1; apply(n); } }, { threshold: [.6] }); io.observe(stage); }
   if (document.fonts) document.fonts.ready.then(frames);
 })();

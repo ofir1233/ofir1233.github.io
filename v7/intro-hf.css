@@ -16,7 +16,12 @@
 
 /* a part that differs is washed in Hear's palest blue, at its own time (--p) */
 .ih-hl{ transition:background-color .4s ease var(--p), box-shadow .4s ease var(--p); }
-.go .ih-hl{ background-color:var(--h-b1) !important; box-shadow:inset 0 0 0 1px rgba(19,159,253,.38) !important; }
+.go .ih-hl:not(.ps){ background-color:var(--h-b1) !important; box-shadow:inset 0 0 0 1px rgba(19,159,253,.38) !important; }
+/* in scene 3 a wash passes over each difference and leaves; only the count stays lit */
+.ih-s3 .ih-hl.ps{ transition:none; }
+.go .ih-hl.ps{ animation:ih-wash 1.3s ease var(--p) both; }
+@keyframes ih-wash{ 0%, 100%{ background-color:var(--wb, rgba(24,36,48,.045)); box-shadow:var(--ws, none); }
+  22%, 70%{ background-color:var(--h-b1); box-shadow:inset 0 0 0 1px rgba(19,159,253,.38); } }
 
 /* rows, as in Data */
 .ih-hd{ display:flex; align-items:baseline; gap:10px; padding:0 18px 12px; }
@@ -116,11 +121,14 @@
 .ih-sw{ --b:150ms; } .ih-cps{ --b:650ms; }
 .go .ih-sw > *, .go .ih-cps > *{ opacity:1; transform:none; }
 .ih-s4 .ih-row{ grid-template-columns:26px minmax(0, 1fr) 38px; }
-.ih-rg{ position:relative; }
-.ih-rg::after{ content:""; position:absolute; inset:-4px; border-radius:var(--rr, 999px); box-shadow:0 0 0 2px var(--h-blue); opacity:0; transform:scale(.9); pointer-events:none; }
-.go .ih-rg::after{ animation:ih-ring 1.7s ease var(--p) both; }
-@keyframes ih-ring{ 0%{ opacity:0; transform:scale(.9); } 18%{ opacity:1; transform:none; } 72%{ opacity:1; transform:none; } 100%{ opacity:0; transform:none; } }
-
+/* the moment: the palest blue changes once, in the tokens (2.0s), and the score made of it follows in the components (2.25s) and
+   on the screen (2.5s); at about 4s all three go back. The hex beside Tokens says which value it is */
+.go .ih-tc{ animation:ih-tok 2s ease var(--p) both; }
+@keyframes ih-tok{ 0%, 100%{ background-color:#DCEFFE; } 15%, 82%{ background-color:#A9DAFE; } }
+.ih-hex{ position:relative; margin-left:auto; height:15px; overflow:hidden; font:500 11.5px/15px "Geist Mono", ui-monospace, monospace; color:var(--h-ink2); }
+.ih-hex span{ display:block; }
+.go .ih-hex span{ animation:ih-hexr 2s ease 2s both; }
+@keyframes ih-hexr{ 0%, 100%{ transform:none; } 15%, 82%{ transform:translateY(-15px); } }
 /* 5 - the Lab: the screen as shipped, and beside it my fix on the same data (in at 550ms); what the fix changed is washed blue,
    one at a time from 1.25s, 250ms apart. 420 x 386 */
 .ih-s5 .ih-lab{ left:0; top:0; width:420px; height:52px; display:flex; align-items:center; gap:9px; padding:0 12px 0 14px; }
@@ -128,7 +136,7 @@
 .ih-lab > b{ font-size:14px; font-weight:600; }
 .ih-lab .hf-lb{ font-size:12.5px; }
 .ih-lab .hf-tag{ margin-left:auto; }
-.ih-lab .hf-tag .ih-sp{ width:12px; height:12px; }
+.ih-lab .hf-tag .ih-sp{ width:12px; height:12px; fill:var(--h-deep); }
 .ih-s5 .ih-old, .ih-s5 .ih-new{ top:66px; width:204px; height:344px; padding:14px; }
 .ih-s5 .ih-old{ left:0; }
 .ih-s5 .ih-new{ left:216px; --d:550ms; }
@@ -179,6 +187,7 @@
 .ih-ship p{ position:relative; display:grid; grid-template-columns:96px 1fr auto; align-items:center; height:32px; padding-left:20px; font-size:13px; color:var(--h-ink2); }
 .ih-ship p::before{ content:""; position:absolute; left:2px; top:12px; width:8px; height:8px; border-radius:50%; background:var(--h-blue); box-shadow:0 0 0 3px #fff; z-index:1; }
 .ih-ship p + p::after{ content:""; position:absolute; left:5.25px; top:-16px; width:1.5px; height:32px; background:var(--h-b2); }
+.ih-ship p:last-child::before{ display:none; }
 .ih-ship p > span:first-child{ color:var(--h-mut); font-size:12.5px; }
 .ih-ship p b{ font-weight:600; color:var(--h-ink); }
 .ih-ship p.sh{ opacity:0; transform:translateX(-6px); transition:opacity .35s ease var(--d), transform .5s cubic-bezier(.2,.8,.2,1) var(--d); }
@@ -188,7 +197,7 @@
 .ih-s7 .ih-cs{ left:0; top:200px; width:420px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .ih-cs > span{ position:relative; display:block; padding:6px 6px 0; height:116px; border-radius:14px; background:#fff; box-shadow:0 0 0 1px rgba(16,34,60,.06), 0 18px 34px -20px rgba(10,40,80,.4); }
 .ih-cs picture{ display:block; }
-.ih-cs img{ display:block; width:100%; height:auto; aspect-ratio:480 / 198; border-radius:9px; box-shadow:0 0 0 1px rgba(16,34,60,.06); }
+.ih-cs img{ display:block; width:100%; height:auto; aspect-ratio:384 / 158; border-radius:9px; box-shadow:0 0 0 1px rgba(16,34,60,.06); }
 .ih-cs b{ display:block; padding:9px 6px 0; font-size:13px; font-weight:600; }
 
 /* phone: the scenes are drawn about 420 wide already; the mockup gives the product a little more room */

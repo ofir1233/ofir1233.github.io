@@ -18,22 +18,25 @@
    home page's frame (23.11). All of it is the home page's own art (img/topics/, the sky cut to the stage in img/hf/). The scene keeps a margin of sky on every side (wf-story.js),
    so nothing painted covers the product */
 .hf .in-stage{ border:0; border-radius:18px; overflow:visible; background-color:#3f97e6;
-  background-image:url("../img/hf/sky.webp?v=1"); background-image:image-set(url("../img/hf/sky.avif?v=1") type("image/avif"), url("../img/hf/sky.webp?v=1") type("image/webp"));
-  background-size:cover; background-position:50% 40%; box-shadow:0 30px 60px -42px rgba(10,40,80,.55); }
+  background-image:url("../img/hf/sky-tall.webp?v=1"); background-image:image-set(url("../img/hf/sky-tall.avif?v=1") type("image/avif"), url("../img/hf/sky-tall.webp?v=1") type("image/webp"));
+  background-size:cover; background-position:50% var(--sky, 0%); transition:background-position 1.6s cubic-bezier(.3,.7,.2,1);
+  box-shadow:0 30px 60px -42px rgba(10,40,80,.55); }
 .hf .in-sv{ z-index:1; }
 .hf .in-meter{ z-index:4; }
 .hf-art{ position:absolute; z-index:2; display:block; pointer-events:none; user-select:none; }
 .hf-art img{ display:block; width:100%; height:auto; }
-.hf-cb{ z-index:0; right:4%; top:5%; width:46%; opacity:.92; }
+.hf-cb{ z-index:0; right:4%; top:-3%; width:36%; opacity:.92; }
 .hf-cf{ left:-7%; bottom:-4%; width:50%; }
-/* each step moves the clouds a few pixels, the far one less than the near one */
+/* each step the reader goes a little further down the sky (wf-story.js sets --sky from the top of the painting to its foot), and
+   the two clouds drift the other way, the far one less than the near one */
 .hf-cb, .hf-cf{ transition:transform 1.6s cubic-bezier(.3,.7,.2,1); }
-.hf-cb{ transform:translateX(calc(var(--s, 0) * -6px)); }
-.hf-cf{ transform:translateX(calc(var(--s, 0) * 9px)); }
-.hf .in-meter button::before{ background:rgba(255,255,255,.45); }
-.hf .in-meter button[aria-current="step"]::before{ background:#fff; }
+.hf-cb{ transform:translateX(calc(var(--s, 0) * -18px)); }
+.hf-cf{ transform:translateX(calc(var(--s, 0) * 14px)); }
+/* the step meter is ink, so it reads on the sky and on a cloud alike */
+.hf .in-meter button::before{ background:rgba(16,34,60,.3); }
+.hf .in-meter button[aria-current="step"]::before{ background:var(--h-ink); }
 @media (max-width: 860px){
-  .hf-cb{ width:44%; top:3%; }
+  .hf-cb{ width:40%; top:-2%; }
   .hf-cf{ left:-4%; bottom:-1%; width:44%; }
 }
 
