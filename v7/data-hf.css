@@ -10,66 +10,71 @@
 .da .aw-sc u{ text-decoration:none; }
 
 /* Hear's small line icons */
-.da-i{ flex:none; width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
-.da-i.wn{ width:14px; height:14px; stroke-width:1.9; color:var(--coral); }
-.da-i.sp{ width:18px; height:18px; color:var(--lilac-ink); fill:var(--lilac-tint); stroke-width:1.4; }
-.da-i.x{ width:12px; height:12px; stroke-width:1.8; opacity:.55; }
-.da-i.ck{ width:12px; height:12px; stroke-width:2; }
-.da-i.cr{ width:14px; height:14px; opacity:.7; }
+/* one drawn weight: every icon lands on 1.5px whatever its size (stroke = 1.5 x 18 / size) */
+.da-i{ flex:none; width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.da-i.wn{ width:14px; height:14px; stroke-width:1.93; color:var(--coral); }
+.da-i.sp{ width:18px; height:18px; color:var(--lilac-ink); fill:var(--lilac-tint); stroke-width:1.5; }
+.da-i.x{ width:12px; height:12px; stroke-width:2.25; opacity:.6; }
+.da-i.ck{ width:12px; height:12px; stroke-width:2.25; }
+.da-i.cr{ width:14px; height:14px; stroke-width:1.93; opacity:.6; }
 
 /* the table, as in Data: the call (topic, a warning sign if an alert went off, a one-line summary), then the columns */
 .da-top{ display:flex; align-items:center; gap:8px; }
-.da-top b{ font-size:20px; font-weight:600; letter-spacing:-.015em; }
-.da-crumb{ display:inline-flex; align-items:center; gap:3px; font-size:14px; color:var(--h-mut); }
-.da-tabs{ display:flex; gap:16px; height:38px; box-shadow:inset 0 -1px 0 rgba(24,36,48,.1); font-size:13px; color:var(--h-mut); white-space:nowrap; }
+.da-top b{ font-size:var(--t-num); font-weight:600; letter-spacing:-.015em; }
+.da-crumb{ display:inline-flex; align-items:center; gap:4px; font-size:var(--t-md); color:var(--h-mut); }
+.da-tabs{ display:flex; gap:16px; height:40px; box-shadow:inset 0 -1px 0 var(--rule); font-size:var(--t-md); color:var(--h-mut); white-space:nowrap; }
 .da-tabs span{ position:relative; display:flex; align-items:center; gap:6px; }
-.da-tabs small{ font-size:11.5px; font-variant-numeric:tabular-nums; }
-.da-tabs .on{ font-weight:600; color:var(--h-ink); box-shadow:inset 0 -2px 0 var(--h-ink); }
+.da-tabs small{ font-size:var(--t-micro); font-variant-numeric:tabular-nums; }
+/* the open tab's line and the caret are drawn as backgrounds: an inset shadow leaks a hairline on its other sides when the stage is scaled */
+.da-tabs .on{ font-weight:600; color:var(--h-ink); background:linear-gradient(var(--h-ink), var(--h-ink)) 0 100% / 100% 1.5px no-repeat; }
 .da-tabs .on small{ font-weight:500; color:var(--h-ink2); }
-.da-r{ display:grid; align-items:center; gap:12px; min-height:52px; box-shadow:inset 0 -1px 0 rgba(24,36,48,.08); font-size:13px; color:var(--h-ink2); white-space:nowrap; }
-.da-r.da-hd{ min-height:30px; font-size:11.5px; font-weight:500; color:var(--h-mut); }
+.da-r{ display:grid; align-items:center; gap:12px; min-height:52px; box-shadow:inset 0 -1px 0 var(--rule); font-size:var(--t-md); color:var(--h-ink2); white-space:nowrap; }
+/* one material (hf-story.css): the column heads sit in a well band, 8 inside the plate's rim; the calls under it stay rows */
+.da-r.da-hd{ min-height:32px; margin:0 -8px; padding:0 8px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); font-size:var(--t-micro); font-weight:500; color:var(--h-mut); }
 .da-cl{ display:flex; flex-direction:column; gap:2px; min-width:0; }
-.da-cl b{ display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; line-height:1.25; color:var(--h-ink); }
-.da-cl small{ overflow:hidden; text-overflow:ellipsis; font-size:12px; line-height:1.3; color:var(--h-mut); }
-.da-dc{ display:flex; flex-direction:column; gap:1px; line-height:1.25; color:var(--h-ink); }
-.da-dc small{ font-size:12px; color:var(--h-mut); }
-.da-st{ display:inline-flex; align-items:center; gap:5px; height:22px; padding:0 9px 0 8px; border-radius:11px; font-style:normal; font-size:11.5px; font-weight:500; color:var(--h-ink2); background:var(--h-chip); }
-.da-st::before{ content:""; flex:none; width:6px; height:6px; border-radius:50%; background:#B6C0C9; }
+.da-cl b{ display:flex; align-items:center; gap:6px; font-size:var(--t-md); font-weight:600; line-height:1.25; color:var(--h-ink); }
+.da-cl small{ overflow:hidden; text-overflow:ellipsis; font-size:var(--t-sm); line-height:1.3; color:var(--h-mut); }
+.da-dc{ display:flex; flex-direction:column; gap:2px; line-height:1.25; color:var(--h-ink); }
+.da-dc small{ font-size:var(--t-sm); color:var(--h-mut); }
+/* a status is the kit's tag with a dot (.hf-tag): same height, padding, size */
+.da-st{ display:inline-flex; align-items:center; gap:6px; height:22px; padding:0 9px; border-radius:var(--r-pill); font-style:normal; font-size:var(--t-sm); font-weight:500; line-height:1; color:var(--h-ink2); background:var(--h-chip); }
+.da-st::before{ content:""; flex:none; width:6px; height:6px; border-radius:50%; background:var(--h-mut); }
 .da-st.ip{ background:var(--h-b1); } .da-st.ip::before{ background:var(--h-blue); }
 .da-st.dn{ background:var(--green-tint); } .da-st.dn::before{ background:var(--green); }
-/* the one score scale of every screen (the design system's roles): coral under 60, light coral under 70, then three blues */
-.da-sc{ display:inline-grid; place-items:center; justify-self:end; width:38px; height:22px; border-radius:11px; font-size:12.5px; font-weight:600; font-variant-numeric:tabular-nums; }
-.da-sc.b1{ background:#FF6F52; color:#fff; } .da-sc.b2{ background:#FFD0C4; color:#8E2A14; }
-.da-sc.b3{ background:#DCEFFE; color:#1B4666; box-shadow:inset 0 0 0 1.5px #A9DAFE; } .da-sc.b4{ background:#A9DAFE; color:#0B3A5E; } .da-sc.b5{ background:#139FFD; color:#fff; }
+/* the one score scale of every screen (the design system's roles), drawn as the kit's score (.hf-sc): coral under 60, then the blues */
+.da-sc{ display:inline-grid; place-items:center; justify-self:end; width:38px; height:22px; border-radius:var(--r-pill); font-size:var(--t-sm); font-weight:600; font-variant-numeric:tabular-nums; }
+.da-sc.b1{ background:var(--coral); color:#fff; }
+.da-sc.b3{ background:var(--h-b1); color:#0B4F8A; box-shadow:inset 0 0 0 1px rgba(19,159,253,.25); } .da-sc.b4{ background:var(--h-b2); color:#0B4F8A; } .da-sc.b5{ background:var(--h-blue); color:#fff; }
 .da-du{ text-align:right; font-variant-numeric:tabular-nums; }
 .da-se{ display:flex; align-items:center; gap:6px; }
 .da-se i, .da-dot{ width:7px; height:7px; border-radius:50%; background:var(--green); }
-.da-se i.neg, .da-dot.neg{ background:var(--coral); } .da-se i.neu{ background:#C9D3DB; }
+.da-se i.neg, .da-dot.neg{ background:var(--coral); } .da-se i.neu{ background:var(--h-line); }
 
 /* the Ask field: a sentence in plain words, with the AI's spark */
-.da-ask{ display:flex; align-items:center; gap:10px; min-height:46px; padding:0 7px 0 14px; border-radius:23px; background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-line); font-size:14.5px; color:var(--h-ink); }
+.da-ask{ display:flex; align-items:center; gap:8px; min-height:48px; padding:0 8px 0 16px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); font-size:var(--t-lg); color:var(--h-ink); }
 .da-tx{ flex:1; min-width:0; }
-.da-send{ display:grid; place-items:center; flex:none; width:32px; height:32px; border-radius:50%; background:#E6EBEF; color:#8D959D; }
-.da-send .da-i{ width:16px; height:16px; stroke-width:2; }
+.da-send{ display:grid; place-items:center; flex:none; width:32px; height:32px; border-radius:50%; background:#fff; box-shadow:var(--well-sh); color:var(--h-mut); }
+.da-send .da-i{ width:16px; height:16px; stroke-width:1.69; }
 
 /* a filter chip: what a rule wrote is blue, what the AI model wrote is lilac and comes off with its x */
-.da-cs{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; margin-top:12px; }
-.da-f{ display:inline-flex; align-items:center; gap:10px; }
-.da-fc{ display:inline-flex; align-items:center; gap:6px; height:32px; padding:0 12px 0 6px; border-radius:16px; font-size:13px; white-space:nowrap; }
+/* the filters a lane wrote are its answer: set in the well, 8 of air all round */
+.da-cs{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; margin-top:12px; padding:8px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); }
+.da-f{ display:inline-flex; align-items:center; gap:8px; }
+/* one chip everywhere: 32 high, 12 of air each side; a numbered one seats its marker 6 from the rim all round, one with an x gives it 8 */
+.da-fc{ display:inline-flex; align-items:center; gap:6px; height:32px; padding:0 12px; border-radius:var(--r-pill); font-size:var(--t-md); line-height:1; white-space:nowrap; }
 .da-fc b{ font-weight:600; }
-.da-fc .hf-n{ width:20px; height:20px; box-shadow:none; margin-right:2px; }
-.da-f.ru .da-fc{ background:var(--h-b1); color:#0B4F8A; box-shadow:inset 0 0 0 1.5px var(--h-b2); }
-.da-f.ru .da-fc b{ color:#06365C; }
+.da-cs .da-fc{ padding-left:6px; }
+.da-cs .da-f.ai .da-fc, .da-fw .da-fc{ padding-right:8px; }
+.da-fc .hf-n{ box-shadow:none; margin-right:2px; }
+.da-f.ru .da-fc{ background:var(--h-b1); color:#0B4F8A; }
 .da-f.ai .da-fc{ background:var(--lilac-tint); color:var(--lilac-ink); }
-.da-f.ai .da-fc b{ color:#4E2466; }
 .da-f.ai .da-fc .hf-n{ background:var(--lilac-ink); }
-.da-f .hf-tag{ height:21px; font-size:11.5px; }
-.da-f .hf-tag.green .da-i{ margin-left:-2px; }
 
 /* 1. one table for every call: the window, then the rows one by one, then the alerts' signs; then each tab names its group */
-.da-tb{ width:540px; padding:16px 18px 6px; opacity:0; transform:translateY(10px); transition:opacity .3s ease .1s, transform .5s cubic-bezier(.2,.8,.2,1) .1s; }
+.da-tb{ width:540px; padding:16px 16px 4px; opacity:0; transform:translateY(10px); transition:opacity .3s ease .1s, transform .5s cubic-bezier(.2,.8,.2,1) .1s; }
 .go .da-tb{ opacity:1; transform:none; }
-.da-tb .da-tabs{ margin-top:10px; }
+.da-tb .da-tabs{ margin-top:8px; }
+.da-tb .da-r.da-hd{ margin-top:8px; }
 .da-tb .da-r{ grid-template-columns:minmax(0, 1fr) 54px 96px 38px; }
 .da-tb .da-r:last-child{ box-shadow:none; }
 .da-tb .da-r:not(.da-hd){ opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .4s cubic-bezier(.2,.8,.2,1); }
@@ -78,65 +83,67 @@
 .go .da-tb .da-i.wn{ transform:none; transition-delay:1.35s; }
 .go .da-tb .da-r.al{ animation:da-al 1.2s ease 1.35s both; }
 @keyframes da-al{ 0%, 100%{ background:transparent; } 30%{ background:rgba(255,111,82,.09); } }
-.da-tb .da-tabs small{ padding:2px 6px; margin:-2px -6px; border-radius:9px; transition:background-color .35s ease, color .35s ease; }
+.da-tb .da-tabs small{ padding:2px 6px; margin:-2px -6px; border-radius:var(--r-pill); transition:background-color .35s ease, color .35s ease; }
 .go .da-tb .da-tabs .t1 small, .go .da-tb .da-tabs .t2 small, .go .da-tb .da-tabs .t3 small{ background:var(--h-b1); color:#0B4F8A; font-weight:600; }
 .go .da-tb .da-tabs .t1 small{ transition-delay:2.1s; } .go .da-tb .da-tabs .t2 small{ transition-delay:2.45s; } .go .da-tb .da-tabs .t3 small{ transition-delay:2.8s; }
 
 /* 2. the count and its pages; the question; each tab tried and none fits; then the question goes into the Ask field */
-.da-ct{ display:flex; align-items:flex-end; justify-content:space-between; width:540px; padding:18px 20px 18px; opacity:0; transform:translateY(10px); transition:opacity .3s ease .1s, transform .5s cubic-bezier(.2,.8,.2,1) .1s; }
+.da-ct{ display:flex; align-items:flex-end; justify-content:space-between; width:540px; padding:8px 16px 8px 8px; opacity:0; transform:translateY(10px); transition:opacity .3s ease .1s, transform .5s cubic-bezier(.2,.8,.2,1) .1s; }
 .go .da-ct{ opacity:1; transform:none; }
-.da-big{ display:flex; flex-direction:column; gap:2px; }
-.da-big b{ font-size:44px; font-weight:500; letter-spacing:-.035em; line-height:1; }
-.da-big span{ font-size:13.5px; color:var(--h-mut); }
-.da-pg{ display:flex; flex-direction:column; align-items:flex-end; gap:7px; }
-.da-pg small{ font-size:12px; color:var(--h-mut); }
-.da-pn{ display:flex; align-items:center; gap:2px; font-size:12.5px; color:var(--h-mut); }
-.da-pn > *{ display:grid; place-items:center; min-width:24px; height:24px; padding:0 3px; border-radius:8px; font-style:normal; font-weight:500; font-variant-numeric:tabular-nums; }
-.da-pn b{ background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-line); color:var(--h-ink); }
+.da-big{ display:flex; flex-direction:column; gap:4px; padding:8px 12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); }
+.da-big b{ font-size:44px; font-weight:600; letter-spacing:-.035em; line-height:1; }
+.da-big span{ font-size:var(--t-md); line-height:1.3; color:var(--h-mut); }
+.da-pg{ display:flex; flex-direction:column; align-items:flex-end; gap:8px; margin-bottom:8px; }
+.da-pg small{ font-size:var(--t-sm); line-height:1.3; color:var(--h-mut); }
+.da-pn{ display:flex; align-items:center; gap:4px; font-size:var(--t-sm); color:var(--h-mut); }
+.da-pn > *{ display:grid; place-items:center; min-width:24px; height:24px; padding:0 4px; border-radius:var(--r-ctl); font-style:normal; font-weight:500; font-variant-numeric:tabular-nums; }
+.da-pn b{ background:var(--well); box-shadow:var(--well-sh); color:var(--h-ink); }
 .da-pn u:last-of-type{ color:var(--h-ink); transition:background-color .3s ease; }
-.da-q{ gap:10px; padding:7px 14px; opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .4s cubic-bezier(.2,.8,.2,1); }
-.da-q span{ font-size:12px; color:var(--h-mut); }
-.da-q b{ font-size:14px; font-weight:500; color:var(--h-ink); }
+.da-q{ gap:8px; opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .4s cubic-bezier(.2,.8,.2,1); }
+.da-q span{ font-size:var(--t-sm); color:var(--h-mut); }
+.da-q b{ font-size:var(--t-md); font-weight:600; color:var(--h-ink); }
 .go .da-q{ opacity:1; transform:none; transition-delay:1.1s; }
-.da-tw{ width:540px; padding:6px 18px 18px; opacity:0; transform:translateY(10px); transition:opacity .3s ease, transform .5s cubic-bezier(.2,.8,.2,1); }
+.da-tw{ width:540px; padding:4px 16px 16px; opacity:0; transform:translateY(10px); transition:opacity .3s ease, transform .5s cubic-bezier(.2,.8,.2,1); }
 .go .da-tw{ opacity:1; transform:none; transition-delay:1.5s; }
 /* each tab lights as it is tried, then fades and is struck */
 .da-tw .da-tabs span:not(.on){ text-decoration:line-through 1.5px transparent; }
 .go .da-tw .da-tabs span:not(.on){ animation:da-try .9s ease both; }
 .go .da-tw .da-tabs .t1{ animation-delay:2s; } .go .da-tw .da-tabs .t2{ animation-delay:2.35s; } .go .da-tw .da-tabs .t3{ animation-delay:2.7s; } .go .da-tw .da-tabs .t4{ animation-delay:3.05s; }
-@keyframes da-try{ 0%{ color:var(--h-mut); } 30%{ color:var(--h-ink); text-decoration-color:transparent; } 100%{ color:#AEB6BE; text-decoration-color:#AEB6BE; } }
+@keyframes da-try{ 0%{ color:var(--h-mut); } 30%{ color:var(--h-ink); text-decoration-color:transparent; } 100%{ color:var(--h-line); text-decoration-color:var(--h-line); } }
 .da-none{ height:0; overflow:visible; }
 .da-none .hf-tag{ position:relative; top:12px; opacity:0; transform:translateY(4px); transition:opacity .3s ease, transform .4s cubic-bezier(.2,.8,.2,1); }
 .go .da-none .hf-tag{ opacity:1; transform:none; transition-delay:3.75s; }
-.da-tw .da-ask{ margin-top:48px; opacity:.35; transition:opacity .35s ease, box-shadow .35s ease; }
-.go .da-tw .da-ask{ opacity:1; box-shadow:inset 0 0 0 2px var(--h-blue), 0 0 0 4px rgba(19,159,253,.14); transition-delay:4.3s; }
+.da-tw .da-ask{ margin-top:48px; opacity:.35; transition:opacity .35s ease, box-shadow .35s ease, background-color .35s ease; }
+/* the field the step points at is the well filled in */
+.go .da-tw .da-ask{ opacity:1; background:var(--lit); box-shadow:var(--lit-sh); transition-delay:4.3s; }
 /* the sentence is typed in, with the caret at its end */
 .da-tw .da-tx{ display:block; white-space:nowrap; overflow:hidden; }
-.da-tw .da-tx span{ display:inline-block; max-width:0; overflow:hidden; vertical-align:bottom; box-shadow:inset -1.5px 0 0 var(--h-blue); padding-right:2px; }
+.da-tw .da-tx span{ display:inline-block; max-width:0; overflow:hidden; vertical-align:bottom; background:linear-gradient(var(--h-blue), var(--h-blue)) 100% 0 / 1.5px 100% no-repeat; padding-right:2px; }
 .go .da-tw .da-tx span{ animation:da-type 1.7s steps(46, end) 4.5s both, da-caret .9s step-end 6.2s 3; }
 @keyframes da-type{ to{ max-width:420px; } }
-@keyframes da-caret{ 50%{ box-shadow:none; } }
+@keyframes da-caret{ 50%{ background-size:0 0; } }
 .da-tw .da-send{ transition:background-color .3s ease, color .3s ease; }
-.go .da-tw .da-send{ background:var(--h-btn); color:#fff; transition-delay:6.2s; }
+.go .da-tw .da-send{ background:var(--h-btn); box-shadow:none; color:#fff; transition-delay:6.2s; }
 
 /* 3 and 4. the sentence; its phrases are marked as the rules read them; then each part becomes a filter, or the model is not asked */
-.da-in{ width:540px; padding:22px 7px 14px 14px; align-items:flex-end; opacity:0; transform:translateY(10px); transition:opacity .3s ease .1s, transform .5s cubic-bezier(.2,.8,.2,1) .1s; }
+/* the field as a window: the window's corner and air, the send button as far from the right rim as from the top */
+.da-in{ width:540px; padding:20px 12px 12px 16px; border-radius:var(--r-win); background:#fff; box-shadow:var(--sh-win); align-items:flex-end; opacity:0; transform:translateY(10px); transition:opacity .3s ease .1s, transform .5s cubic-bezier(.2,.8,.2,1) .1s; }
 .go .da-in{ opacity:1; transform:none; }
 .da-in > .da-i.sp{ align-self:center; margin-top:-8px; }
-.da-in > .da-send{ align-self:center; margin-top:-8px; }
+.da-in > .da-send{ align-self:center; margin-top:-8px; background:var(--well); }
 .da-in .da-tx{ line-height:1.9; }
-.da-in u{ position:relative; background:linear-gradient(var(--h-blue), var(--h-blue)) 0 100% / 0 2px no-repeat; padding-bottom:2px; transition:background-size .45s cubic-bezier(.4,0,.2,1); }
-.da-in u .hf-n{ position:absolute; left:-4px; top:-17px; width:18px; height:18px; font-size:10.5px; transform:scale(0); transition:transform .3s cubic-bezier(.2,.9,.3,1.5); }
-.go .da-in u{ background-size:100% 2px; } .go .da-in u .hf-n{ transform:none; }
+.da-in u{ position:relative; background:linear-gradient(var(--h-blue), var(--h-blue)) 0 100% / 0 1.5px no-repeat; padding-bottom:2px; transition:background-size .45s cubic-bezier(.4,0,.2,1); }
+.da-in u .hf-n{ position:absolute; left:-4px; top:-18px; transform:scale(0); transition:transform .3s cubic-bezier(.2,.9,.3,1.5); }
+.go .da-in u{ background-size:100% 1.5px; } .go .da-in u .hf-n{ transform:none; }
 .go .da-in .u1{ transition-delay:.6s; } .go .da-in .u1 .hf-n{ transition-delay:.75s; }
 .go .da-in .u2{ transition-delay:1s; } .go .da-in .u2 .hf-n{ transition-delay:1.15s; }
 .go .da-in .u3{ transition-delay:1.4s; } .go .da-in .u3 .hf-n{ transition-delay:1.55s; }
-.da-ln{ width:540px; padding:16px 18px 18px; opacity:0; transform:translateY(10px); transition:opacity .3s ease, transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease; }
+.da-ln{ width:540px; padding:16px; opacity:0; transform:translateY(10px); transition:opacity .3s ease, transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease; }
 .da-lh{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.da-lh b{ font-size:15px; font-weight:600; letter-spacing:-.01em; }
+.da-lh b{ font-size:var(--t-lg); line-height:1.25; font-weight:600; letter-spacing:-.01em; }
 .da-lh .hf-tag{ opacity:0; transform:scale(.7); transition:opacity .25s ease, transform .35s cubic-bezier(.2,.9,.3,1.4); }
 .go .da-lh .hf-tag{ opacity:1; transform:none; }
-.da-lp{ margin-top:6px !important; font-size:13px; line-height:1.45; color:var(--h-ink2); }
+.da-lp{ margin-top:4px !important; font-size:var(--t-md); line-height:1.4; color:var(--h-ink2); }
 .da-cs .da-f{ opacity:0; transform:translateY(-14px) scale(.96); transition:opacity .3s ease, transform .5s cubic-bezier(.2,.8,.2,1.2); }
 .go .da-cs .da-f{ opacity:1; transform:none; }
 .da-cs .da-f .hf-tag{ opacity:0; transition:opacity .3s ease; }
@@ -155,7 +162,7 @@
 .da-s4.go .da-ru{ opacity:1; transform:none; transition-delay:1.9s; }
 .da-s4.go .da-ru > *{ opacity:.5; transition-delay:2.6s; }
 .da-s4.go .da-ru .da-lh .hf-tag{ transition-delay:2.3s; }
-.da-s4.go .da-ai{ opacity:1; transform:none; box-shadow:0 0 0 1px rgba(16,34,60,.06), 0 0 0 4px rgba(213,155,224,.45), 0 22px 44px -22px rgba(10,40,80,.42); transition-delay:2.8s; }
+.da-s4.go .da-ai{ opacity:1; transform:none; box-shadow:0 0 0 2px var(--lilac), var(--sh-win); transition-delay:2.8s; }
 .da-s4.go .da-ai .da-lh .hf-tag{ transition-delay:3.1s; }
 .da-s4.go .c1{ transition-delay:3.5s; } .da-s4.go .c2{ transition-delay:3.8s; } .da-s4.go .c3{ transition-delay:4.1s; }
 .da-s4 .da-in u{ background-image:linear-gradient(var(--lilac-ink), var(--lilac-ink)); }
@@ -167,21 +174,21 @@
 
 /* 5. two ways to build the same filter. Set aside: every click ran it, and the count jumped three times. Chosen: the chips are set,
    the table waits, Apply runs it once, and 2,000 calls become 86 */
-.da-op{ display:flex; flex-direction:column; align-items:flex-start; gap:10px; }
+.da-op{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
 .da-op .hf-note{ gap:0; }
-/* the verdict joins the note when it is earned; until then the note is only as long as its words */
-.da-op .hf-note .hf-tag{ height:20px; max-width:0; margin-left:0; padding:0; overflow:hidden; font-size:11.5px; opacity:0; transition:opacity .25s ease, max-width .35s cubic-bezier(.2,.8,.2,1), margin .35s ease, padding .35s ease; }
+/* the verdict is the kit's tag, seated 5 from the note's rim all round, as the note seats anything it carries.
+   the verdict joins the note when it is earned; until then the note is only as long as its words */
+.da-op .hf-note .hf-tag{ max-width:0; margin:0; padding:0; overflow:hidden; opacity:0; transition:opacity .25s ease, max-width .35s cubic-bezier(.2,.8,.2,1), margin .35s ease, padding .35s ease; }
 .da-op > .hf-win{ position:relative; }
 .da-bar{ display:flex; align-items:center; gap:8px; }
-.da-bar .da-fc{ height:30px; padding:0 9px 0 12px; font-size:12.5px; }
 .da-op.off{ opacity:0; transform:translateY(8px); transition:opacity .3s ease .1s, transform .45s cubic-bezier(.2,.8,.2,1) .1s; }
 .go .da-op.off{ opacity:1; transform:none; }
-.go .da-op.off .hf-note .hf-tag{ opacity:1; max-width:110px; margin-left:10px; padding:0 9px; transition-delay:2s; }
-.da-fb{ width:540px; padding:12px 14px; }
+.go .da-op.off .hf-note .hf-tag{ opacity:1; max-width:110px; margin:0 -7px 0 8px; padding:0 9px; transition-delay:2s; }
+.da-fb{ width:540px; padding:16px; }
 .da-fb .da-f{ opacity:0; transform:scale(.9); transition:opacity .2s ease, transform .3s cubic-bezier(.2,.8,.2,1.3); }
 .go .da-fb .da-f{ opacity:1; transform:none; }
 .go .da-fb .k1{ transition-delay:.5s; } .go .da-fb .k2{ transition-delay:1s; } .go .da-fb .k3{ transition-delay:1.5s; }
-.da-cy{ position:relative; display:grid; margin-left:auto; min-width:64px; height:30px; font-size:13px; font-variant-numeric:tabular-nums; }
+.da-cy{ position:relative; display:grid; margin-left:auto; min-width:64px; height:32px; font-size:var(--t-title); font-variant-numeric:tabular-nums; }
 .da-cy b{ grid-area:1 / 1; align-self:center; justify-self:end; font-weight:600; opacity:0; }
 .da-cy .v0{ opacity:1; }
 .go .da-cy .v1{ animation:da-show 0s .62s both, da-hide 0s 1.12s both; }
@@ -191,140 +198,141 @@
 @keyframes da-show{ to{ opacity:1; } }
 @keyframes da-hide{ to{ opacity:0; } }
 /* the table under it redraws on every click */
-.da-gh{ display:flex; flex-direction:column; gap:7px; margin-top:12px; }
-.da-gh i{ height:7px; border-radius:4px; background:rgba(24,36,48,.08); }
+.da-gh{ display:flex; flex-direction:column; gap:8px; margin-top:12px; padding:12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); }
+.da-gh i{ height:8px; border-radius:var(--r-xs); background:var(--rule); }
 .da-gh i:nth-child(2){ width:82%; } .da-gh i:nth-child(3){ width:64%; }
 .go .da-gh i{ animation:da-flick3 1.5s linear .6s both; }
 @keyframes da-flick3{ 0%, 33%, 66%{ opacity:.15; } 12%, 45%, 78%, 100%{ opacity:1; } }
 .da-fb > *{ transition:opacity .2s ease; }
 .go .da-fb > *{ opacity:.45; transition:opacity .45s ease 2.3s; }
+/* the ghost table stays a well of the family when the window steps back */
+.go .da-fb > .da-gh{ opacity:.7; }
 .da-op.yes{ opacity:0; transform:translateY(12px); transition:opacity .3s ease, transform .5s cubic-bezier(.3,.7,.2,1); }
 .go .da-op.yes{ opacity:1; transform:none; transition-delay:2.4s; }
-.go .da-op.yes .hf-note .hf-tag{ opacity:1; max-width:110px; margin-left:10px; padding:0 9px; transition-delay:5.5s; }
-.da-fw{ width:540px; padding:14px 18px 6px; }
+.go .da-op.yes .hf-note .hf-tag{ opacity:1; max-width:110px; margin:0 -7px 0 8px; padding:0 9px; transition-delay:5.5s; }
+.da-fw{ width:540px; padding:16px 16px 4px; }
 .da-fw .da-bar .da-f{ opacity:0; transform:scale(.9); transition:opacity .2s ease, transform .3s cubic-bezier(.2,.8,.2,1.3); }
 .go .da-fw .da-bar .da-f{ opacity:1; transform:none; }
 .go .da-fw .k1{ transition-delay:2.8s; } .go .da-fw .k2{ transition-delay:3s; } .go .da-fw .k3{ transition-delay:3.2s; }
-.da-fw .da-bar.b2{ margin-top:10px; }
-.da-fw .da-bar:first-child{ gap:6px; }
-.da-fw .da-bar .da-fc{ gap:5px; padding:0 8px 0 11px; font-size:12px; }
-.da-btn{ display:inline-flex; align-items:center; gap:6px; height:30px; padding:0 11px; border-radius:15px; background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-line); font-size:12.5px; font-weight:500; color:var(--h-ink2); white-space:nowrap; }
-.da-btn .da-i{ color:#7C858E; }
-.da-n{ margin-left:auto; font-size:13px; color:var(--h-mut); white-space:nowrap; }
-.da-n b{ font-size:16px; font-weight:600; color:var(--h-ink); font-variant-numeric:tabular-nums; }
+.da-fw .da-bar.b2{ margin-top:8px; }
+/* three long chips share one line of the plate: 4 between them and inside them, so the last one stays 16 from the rim */
+.da-fw .da-bar:not(.b2){ gap:4px; }
+.da-fw .da-bar:not(.b2) .da-fc{ gap:4px; padding:0 6px 0 10px; }
+/* the date button is the kit's chip (.hf-chip) with an icon */
+.da-btn{ display:inline-flex; align-items:center; gap:7px; height:30px; padding:0 13px 0 11px; border-radius:var(--r-pill); background:#fff; box-shadow:var(--hair); font-size:var(--t-md); font-weight:500; color:var(--h-ink2); white-space:nowrap; }
+.da-btn .da-i{ color:var(--h-mut); }
+.da-n{ margin-left:auto; font-size:var(--t-md); color:var(--h-mut); white-space:nowrap; }
+.da-n b{ font-size:var(--t-title); font-weight:600; color:var(--h-ink); font-variant-numeric:tabular-nums; }
 /* "of 2,000" opens in when the count changes, so the bar does not wait with a gap */
 .da-ofn{ display:inline-block; max-width:0; overflow:hidden; white-space:pre; vertical-align:bottom; }
 .go .da-ofn{ animation:da-ofn .35s cubic-bezier(.2,.8,.2,1) 4.4s both; }
 @keyframes da-ofn{ to{ max-width:90px; } }
-.da-ap{ position:relative; height:30px; }
+.da-ap{ position:relative; }
 .da-ap::after{ content:""; position:absolute; inset:0; border-radius:inherit; }
 .go .da-ap{ animation:da-press .3s ease 4.2s both; }
 .go .da-ap::after{ animation:da-tap .6s ease-out 4.2s both; }
 @keyframes da-press{ 0%, 100%{ transform:none; } 40%{ transform:scale(.94); } }
 @keyframes da-tap{ 0%{ box-shadow:0 0 0 0 rgba(35,35,35,.35); } 100%{ box-shadow:0 0 0 10px rgba(35,35,35,0); } }
-.da-fw .da-r{ grid-template-columns:minmax(0, 1fr) 46px 92px 38px; min-height:50px; }
-.da-fw .da-r.da-hd{ margin-top:8px; min-height:28px; }
+.da-fw .da-r{ grid-template-columns:minmax(0, 1fr) 46px 92px 38px; }
+.da-fw .da-r.da-hd{ margin-top:8px; }
 .da-set{ position:relative; }
 .da-hit{ position:absolute; left:0; right:0; top:0; }
 .da-hit .da-r{ opacity:0; transform:translateY(8px); }
 .go .da-hit .da-r{ opacity:1; transform:none; transition:opacity .3s ease, transform .45s cubic-bezier(.2,.8,.2,1); transition-delay:calc(4.45s + (var(--r) - 2) * .07s); }
-/* the two calls that match stay where they are, the second slides up two rows; only the rows that did not match leave */
+/* the two calls that match stay where they are, the second slides up two rows (2 x 52); only the rows that did not match leave */
 .da-hit .da-r:nth-child(-n+2){ visibility:hidden; }
 .da-all .da-r{ transition:opacity .2s ease; }
 .go .da-all .da-r:not(:nth-child(1)):not(:nth-child(4)){ opacity:0; transition-delay:4.3s; }
 .da-all .da-r:nth-child(4){ position:relative; z-index:1; transition:transform .45s cubic-bezier(.2,.8,.2,1); }
-.go .da-all .da-r:nth-child(4){ transform:translateY(-100px); transition-delay:4.4s; }
-.da-hit .da-r, .da-all .da-r{ background:linear-gradient(90deg, #fff, #fbfcfe); }
+.go .da-all .da-r:nth-child(4){ transform:translateY(-104px); transition-delay:4.4s; }
+.da-hit .da-r, .da-all .da-r{ background:#fff; }
 .da-set .da-r:last-child{ box-shadow:none; }
-.da-av{ display:flex; gap:16px; height:40px; align-items:center; box-shadow:inset 0 1px 0 rgba(24,36,48,.1); font-size:12px; color:var(--h-mut); white-space:nowrap; opacity:0; transition:opacity .4s ease; }
-.da-av span{ display:inline-flex; align-items:center; gap:6px; }
+/* what the filter found, as a figure: the same well band as the column heads */
+.da-av{ display:flex; justify-content:space-between; gap:8px; height:40px; margin:0 -8px 4px; padding:0 12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); align-items:center; font-size:var(--t-sm); color:var(--h-mut); white-space:nowrap; opacity:0; transition:opacity .4s ease; }
+.da-av span{ display:inline-flex; align-items:center; gap:4px; }
 .da-av b{ font-weight:600; color:var(--h-ink); }
-.da-av .da-sc{ width:32px; height:20px; font-size:12px; }
 .go .da-av{ opacity:1; transition-delay:5.1s; }
 
 /* 6. a call opens beside the filtered table: the panel names its alert; the down arrow moves to the next call without closing it */
 .da-two{ position:relative; display:flex; align-items:flex-start; }
 .da-two > .hf-win{ position:relative; }
-.da-li{ width:300px; padding:14px 16px 4px; z-index:0; opacity:0; transform:translateY(10px); transition:opacity .3s ease .1s, transform .5s cubic-bezier(.2,.8,.2,1) .1s; }
+.da-li{ width:300px; padding:16px 16px 4px; z-index:0; opacity:0; transform:translateY(10px); transition:opacity .3s ease .1s, transform .5s cubic-bezier(.2,.8,.2,1) .1s; }
 .go .da-li{ opacity:1; transform:none; }
-.da-lt{ font-size:12px; color:var(--h-mut); padding-bottom:8px; box-shadow:inset 0 -1px 0 rgba(24,36,48,.1); }
-.da-li .da-r{ position:relative; z-index:1; grid-template-columns:minmax(0, 1fr); min-height:58px; padding-right:30px; }
+.da-lt{ font-size:var(--t-sm); line-height:20px; color:var(--h-mut); padding-bottom:8px; box-shadow:inset 0 -1px 0 var(--rule); }
+.da-li .da-r{ position:relative; z-index:1; grid-template-columns:minmax(0, 1fr); min-height:56px; padding-right:28px; }
 .da-li .da-r .da-sc{ display:none; }
 .da-li .da-r:last-child{ box-shadow:none; }
-.da-hl{ position:absolute; left:6px; right:6px; top:43px; height:58px; border-radius:10px; background:var(--h-b1); box-shadow:inset 3px 0 0 var(--h-blue); opacity:0; transition:opacity .3s ease, transform .4s cubic-bezier(.3,.7,.2,1); }
-.go .da-hl{ opacity:1; transition-delay:.6s, 2.9s; transform:translateY(58px); }
-.da-li .da-r .da-cl{ padding-left:6px; }
-.da-pan{ width:268px; margin:-18px 0 0 -28px; z-index:1; padding:16px 16px 14px; opacity:0; transform:translateX(30px); transition:opacity .3s ease, transform .55s cubic-bezier(.2,.8,.2,1);
-  box-shadow:0 0 0 1px rgba(16,34,60,.06), 0 1px 2px rgba(16,34,60,.06), -18px 30px 50px -24px rgba(10,40,80,.5); }
+/* the open row: Hear's palest blue with its own hairline, 12 of air from its rim to the words, which stay on the list's left edge */
+.da-hl{ position:absolute; left:4px; right:4px; top:44px; height:56px; border-radius:var(--r-well); background:var(--lit); box-shadow:var(--lit-sh); opacity:0; transition:opacity .3s ease, transform .4s cubic-bezier(.3,.7,.2,1); }
+.go .da-hl{ opacity:1; transition-delay:.6s, 2.9s; transform:translateY(56px); }
+.da-pan{ width:268px; margin:-18px 0 0 -28px; z-index:1; padding:16px; opacity:0; transform:translateX(30px); transition:opacity .3s ease, transform .55s cubic-bezier(.2,.8,.2,1); }
 .go .da-pan{ opacity:1; transform:none; transition-delay:.8s; }
 .da-pc{ transition:opacity .25s ease; }
 .da-pc.p2{ position:absolute; left:16px; right:16px; top:16px; opacity:0; }
 .go .da-pc.p1{ opacity:0; transition-delay:2.85s; }
 .go .da-pc.p2{ opacity:1; transition-delay:3s; }
 .da-ph{ display:flex; align-items:center; justify-content:space-between; }
-.da-ph small{ font-size:12px; color:var(--h-mut); }
-.da-x{ display:grid; place-items:center; width:24px; height:24px; border-radius:8px; background:var(--h-chip); color:var(--h-ink2); }
-.da-x .da-i{ opacity:.8; }
-.da-pt{ display:block; margin-top:10px; font-size:18px; font-weight:600; letter-spacing:-.015em; }
-.da-ps{ margin-top:5px !important; font-size:13px; line-height:1.42; color:var(--h-ink2); }
-.da-alert{ display:flex; align-items:center; gap:8px; margin-top:12px !important; padding:8px 11px; border-radius:10px; background:var(--coral-tint); font-size:12.5px; color:var(--coral-ink); }
+.da-ph small{ font-size:var(--t-sm); color:var(--h-mut); }
+.da-x{ display:grid; place-items:center; width:24px; height:24px; border-radius:var(--r-ctl); background:var(--well); box-shadow:var(--well-sh); color:var(--h-ink2); }
+.da-pt{ display:block; margin-top:8px; font-size:var(--t-title); line-height:1.25; font-weight:600; letter-spacing:-.01em; }
+.da-ps{ margin-top:4px !important; font-size:var(--t-md); line-height:1.4; color:var(--h-ink2); }
+.da-alert{ display:flex; align-items:center; gap:8px; margin-top:12px !important; padding:8px 12px; border-radius:var(--r-well); background:var(--coral-tint); box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--coral) 22%, transparent); font-size:var(--t-sm); line-height:1.3; color:var(--coral-ink); }
 .da-alert b{ font-weight:600; }
-.da-dl{ display:grid; grid-template-columns:auto 1fr; gap:9px 14px; margin:14px 0 0; font-size:12.5px; align-items:center; }
+/* four even rows, whatever each holds */
+/* the call's facts sit in the well, with the alert's inset and air (8 by 12) */
+.da-dl{ display:grid; grid-template-columns:auto 1fr; grid-auto-rows:24px; gap:4px 16px; margin:8px 0 0; padding:8px 12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); font-size:var(--t-sm); align-items:center; }
 .da-dl dt{ color:var(--h-mut); }
-.da-dl dd{ display:flex; align-items:center; gap:7px; margin:0; color:var(--h-ink); }
-.da-dl .hf-av{ width:22px; height:22px; font-size:9.5px; }
+.da-dl dd{ display:flex; align-items:center; gap:8px; margin:0; color:var(--h-ink); white-space:nowrap; }
+.da-dl .hf-av{ width:22px; height:22px; }
 .da-dl .da-sc{ justify-self:start; }
-.da-pf{ margin-top:14px; padding-top:12px; box-shadow:inset 0 1px 0 rgba(24,36,48,.1); }
-.da-of{ font-size:13px; font-weight:500; color:var(--h-deep); }
-.da-aa{ margin-top:12px; min-height:40px; font-size:13px; color:var(--h-mut); box-shadow:inset 0 0 0 1.5px var(--lilac); }
-.da-aa .da-i.sp{ width:16px; height:16px; }
-.da-keys{ align-self:flex-end; gap:16px; margin-right:6px; opacity:0; transition:opacity .35s ease; }
+.da-pf{ margin-top:12px; padding-top:12px; box-shadow:inset 0 1px 0 var(--rule); }
+.da-of{ font-size:var(--t-md); line-height:1.3; font-weight:500; color:var(--h-deep); }
+/* asking the AI: the same well as every field (.da-ask), with lilac words and the spark, as in the Introduction */
+.da-aa{ margin-top:12px; min-height:40px; padding:0 12px; font-size:var(--t-md); color:var(--lilac-ink); }
+.da-aa .da-i.sp{ width:16px; height:16px; stroke-width:1.69; }
+.da-keys{ align-self:flex-end; gap:16px; margin-right:8px; padding-left:8px; opacity:0; transition:opacity .35s ease; }
 .go .da-keys{ opacity:1; transition-delay:1.9s; }
-.da-keys span{ display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:var(--h-ink2); }
-.da-keys kbd{ display:grid; place-items:center; min-width:24px; height:22px; padding:0 5px; border-radius:6px; background:#fff; box-shadow:inset 0 0 0 1px var(--h-line), 0 1.5px 0 var(--h-line); font:600 11.5px/1 "Byrd", system-ui, sans-serif; color:var(--h-ink); }
+.da-keys span{ display:inline-flex; align-items:center; gap:8px; }
+.da-keys kbd{ display:grid; place-items:center; min-width:24px; height:22px; padding:0 4px; border-radius:var(--r-ctl); background:var(--well); box-shadow:var(--well-sh); font:600 var(--t-micro)/1 "Byrd", system-ui, sans-serif; color:var(--h-ink); }
 .go .da-kd kbd{ animation:da-key .35s ease 2.7s both; }
-@keyframes da-key{ 0%, 100%{ transform:none; box-shadow:inset 0 0 0 1px var(--h-line), 0 1.5px 0 var(--h-line); } 45%{ transform:translateY(1.5px); background:var(--h-b1); box-shadow:inset 0 0 0 1px var(--h-b2), 0 0 0 var(--h-line); } }
+@keyframes da-key{ 0%, 100%{ transform:none; background:var(--well); box-shadow:var(--well-sh); } 45%{ transform:translateY(1.5px); background:var(--lit); box-shadow:var(--lit-sh); } }
 
 @media (max-width: 860px){
-  .da .aw-sc{ gap:10px; }
+  .da .aw-sc{ gap:8px; }
   /* 1: the status column steps out; four tabs */
   .da-tb, .da-ct, .da-tw, .da-in, .da-ln, .da-fb, .da-fw{ width:400px; }
-  .da-tb{ padding:14px 14px 4px; }
-  .da-tabs{ gap:12px; font-size:12px; } .da-tabs small{ font-size:11px; }
+  .da-tabs{ gap:12px; font-size:var(--t-sm); }
   .da-tabs .t4{ display:none; }
   .da-tb .da-r{ grid-template-columns:minmax(0, 1fr) 50px 38px; }
   .da-tb .da-r > :nth-child(3){ display:none; }
   /* 2 */
-  .da-ct{ padding:16px; }
   .da-big b{ font-size:38px; }
-  .da-q{ flex-direction:column; align-items:flex-start; gap:2px; border-radius:14px; white-space:normal; }
-  .da-tw{ padding:4px 14px 14px; }
-  .da-tw .da-ask{ font-size:13.5px; padding-top:8px; padding-bottom:8px; }
+  .da-pn{ gap:2px; }
+  .da-pn > *{ min-width:22px; }
+  .da-q{ flex-direction:column; align-items:flex-start; gap:2px; padding:8px 12px; border-radius:var(--r-plate); white-space:normal; }
+  .da-tw .da-ask{ font-size:var(--t-md); padding-top:8px; padding-bottom:8px; }
   /* the field is too narrow to type the sentence on one line: it comes in whole, on two */
-  .da-tw .da-tx{ white-space:normal; line-height:1.35; }
-  .da-tw .da-tx span{ display:inline; max-width:none; box-shadow:none; padding:0; opacity:0; }
+  .da-tw .da-tx{ white-space:normal; line-height:1.4; }
+  .da-tw .da-tx span{ display:inline; max-width:none; background:none; padding:0; opacity:0; }
   .go .da-tw .da-tx span{ animation:da-show .5s ease 4.5s both; }
   /* 3, 4: the sentence may take two lines */
-  .da-in{ padding-left:12px; }
-  .da-ln{ padding:14px 14px 16px; }
-  .da-in .da-tx{ font-size:13.5px; }
+  .da-in .da-tx{ font-size:var(--t-md); }
   /* 5: the filter bar on two lines, three columns */
   .da-bar{ flex-wrap:wrap; }
-  .da-fb{ padding:10px 12px; }
-  .da-fb .da-bar .da-fc{ padding:0 10px; }
-  .da-fw{ padding:12px 14px 4px; }
-  .da-fw .da-bar:first-child{ row-gap:6px; }
+  /* the set-aside bar keeps its count on the chips' line */
+  .da-fb .da-bar{ flex-wrap:nowrap; gap:4px; }
+  .da-fb .da-cy{ min-width:40px; }
   .da-fw .da-r{ grid-template-columns:minmax(0, 1fr) 40px 38px; }
   .da-fw .da-r > :nth-child(3){ display:none; }
-  .da-av{ gap:14px; font-size:12px; }
   .da-av span + span{ display:none; }
   /* 6: the panel over most of the list */
-  .da-li{ width:190px; padding:12px 12px 4px; }
-  .da-hl{ left:4px; right:4px; top:39px; }
-  .da-li .da-r{ grid-template-columns:minmax(0, 1fr); }
-  .da-li .da-r .da-sc{ display:none; }
-  .da-pan{ width:240px; margin-left:-30px; padding:14px 14px 12px; }
-  .da-pc.p2{ left:14px; right:14px; top:14px; }
+  .da-li{ width:190px; }
+  .da-pan{ width:240px; margin-left:-30px; }
+  .da-dl{ column-gap:8px; }
+  /* both calls' summaries take two lines (12 of air in the narrow panel, the smaller text size), so the panel keeps no empty band for the hidden one */
+  .da-pan{ padding:12px; }
+  .da-pc.p2{ left:12px; right:12px; top:12px; }
+  .da-ps{ font-size:var(--t-sm); }
 }
 @media (prefers-reduced-motion: reduce){ .da .in-sv *, .da .in-sv *::after{ transition:none !important; animation:none !important; }
-  .da-tw .da-tx span{ max-width:none; box-shadow:none; } .da-all{ visibility:hidden; } .da-hit .da-r{ opacity:1; transform:none; } .da-cy .v0{ opacity:0; } .da-cy .v3{ opacity:1; } .da-ofn{ max-width:none; } }
+  .da-tw .da-tx span{ max-width:none; background:none; } .da-all{ visibility:hidden; } .da-hit .da-r{ opacity:1; transform:none; } .da-cy .v0{ opacity:0; } .da-cy .v3{ opacity:1; } .da-ofn{ max-width:none; } }

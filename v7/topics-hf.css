@@ -1,6 +1,7 @@
 /* v7 - Topics in high fidelity (work/topics.html, v7/topics-hf.js), owner 25.11. The page, the steps and the stage come from
    v7/intro.css; Hear's look and the painted stage from v7/hf-story.css. The shapes move as in the wireframe (position, size and fade,
-   staggered by --dl); here they are drawn as Hear draws them. */
+   staggered by --dl); here they are drawn as Hear draws them. Every corner, text size and depth is one of the kit's tokens
+   (owner, 25.11: "every box speaks a slightly different language"). */
 
 .in-note{ margin:14px 0 0 !important; font:500 13px/1.4 "Geist Mono", ui-monospace, monospace !important; color:var(--soft) !important; }
 
@@ -10,97 +11,120 @@
 .tq-hf .in-sv ol{ margin:0; padding:0; }
 .tq-hf .in-sv em{ font-style:normal; }
 
-/* the windows: white glass with depth, as every high-fidelity part */
-.tq-hf .in-w{ border:0; border-radius:16px; overflow:hidden; background:radial-gradient(135% 110% at 16% 2%, #fff 0, #fff 40%, #F3F7FC 100%);
-  box-shadow:0 0 0 1px rgba(16,34,60,.06), 0 1px 2px rgba(16,34,60,.06), 0 22px 44px -22px rgba(10,40,80,.42); }
-.tq-hf .in-w .bar{ position:relative; display:flex; align-items:baseline; gap:10px; height:52px; padding:17px 18px 0; border:0; }
+/* one material, as in the Introduction (owner, 25.11; tokens in hf-story.css): a window is a plain white plate; what is set INTO
+   it (the map of topics, the three scores, the question, an answer, a cause's number) sits in the same pale-blue well with one blue
+   hairline; the part the step points at is the well filled in. One head for all three: 16px in from the rim, the title on
+   the kit's title size, the count beside it on the same baseline */
+.tq-hf .in-w{ border:0; border-radius:var(--r-win); overflow:hidden; background:#fff;
+  box-shadow:var(--sh-win); }
+.tq-hf .in-w .bar{ position:relative; display:flex; align-items:baseline; gap:8px; height:52px; padding:16px 16px 0; border:0; }
 .tq-hf .in-w .bar::before{ content:none; }
-.tq-hf .in-w .bar > b{ font-size:17px; font-weight:600; letter-spacing:-.01em; line-height:1.2; }
+.tq-hf .in-w .bar > b{ font-size:var(--t-title); font-weight:600; letter-spacing:-.01em; line-height:1.25; }
 .tq-hf .in-w .bar .hf-lb{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
 /* the window's title changes with the step: a table of calls, then the topics */
 #tw .bar b{ transition:opacity .3s ease .2s; }
-#tw .bar .t1{ position:absolute; left:18px; opacity:0; }
+#tw .bar .t1{ position:absolute; left:16px; opacity:0; }
 .tq:not([data-s="0"]) #tw .t0{ opacity:0; } .tq:not([data-s="0"]) #tw .t1{ opacity:1; }
-#tw .bar .hf-lb{ margin-left:60px; }
+/* the count stands 8px after "Topics", as it does after "Online Booking" ("Topics" is 13px wider than the "Calls" it replaces) */
+#tw .bar .hf-lb{ margin-left:13px; }
 .tq[data-s="3"] #tw .bar .hf-lb{ opacity:0; }
 
-/* a topic: a box sized by calls, shaded by score in the Topics screen's five blues, deeper is lower */
-.tq-hf .in-bx{ border-radius:11px; overflow:hidden; padding:11px 12px 10px; display:flex; flex-direction:column; }
-.in-bx.b1{ background-color:#0B6FCF; color:#fff; } .in-bx.b2{ background-color:#139FFD; color:#fff; } .in-bx.b3{ background-color:#63BEFE; color:#06365C; }
-.in-bx.b4{ background-color:#A9DAFE; color:#0B3A5E; } .in-bx.b5{ background-color:#DCEFFE; color:#1B4666; box-shadow:inset 0 0 0 1px rgba(19,159,253,.14); }
+/* the map of topics is set into the window: one well behind the boxes, 6px inside the plate's rim and 6px around the map, so a
+   box that steps back in step 3 leaves its place in the well. It comes in as the rows turn into boxes */
+#tw::after{ content:""; position:absolute; left:6px; right:6px; top:48px; bottom:6px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh);
+  opacity:0; transition:opacity .3s ease; }
+.tq:is([data-s="1"], [data-s="2"]) #tw::after{ opacity:1; transition:opacity .45s ease .35s; }
+
+/* a topic: a box sized by calls, shaded by score in the Topics screen's five blues, deeper is lower. Every box has one anatomy:
+   12px of air, the name, its calls 4px under it, the score on the floor */
+.tq-hf .in-bx{ border-radius:var(--r-ctl); overflow:hidden; padding:12px; display:flex; flex-direction:column; }
+.in-bx.b1{ background-color:var(--h-deep); color:#fff; } .in-bx.b2{ background-color:var(--h-blue); color:#fff; } .in-bx.b3{ background-color:var(--h-b3); color:var(--h-ink); }
+.in-bx.b4{ background-color:var(--h-b2); color:var(--h-ink); } .in-bx.b5{ background-color:var(--h-b1); color:var(--h-ink); box-shadow:var(--well-sh); }
 .in-bx > *{ transition:opacity .3s ease .4s; }
-.in-bx > b{ font-size:13.5px; font-weight:500; line-height:1.2; }
-.in-bx > small{ margin-top:3px; font-size:11.5px; opacity:.75; white-space:nowrap; }
-/* the score is the box's own ink: white on the two deep blues, dark blue on the three pale ones, never coral on blue (owner, 25.11) */
-.in-bx > .sc{ color:inherit; margin-top:auto; font-size:30px; font-weight:500; line-height:.95; letter-spacing:-.03em; }
-.in-bx.tiny{ padding:8px 9px; } .in-bx.mini{ padding:0; }
+.in-bx > b{ font-size:var(--t-md); font-weight:500; line-height:1.2; }
+.in-bx > small{ margin-top:4px; font-size:var(--t-micro); line-height:1.2; opacity:.75; white-space:nowrap; }
+/* the score is the box's own ink: white on the two deep blues, the kit's ink on the three pale ones, never coral on blue (owner, 25.11) */
+.in-bx > .sc{ color:inherit; margin-top:auto; font-size:30px; font-weight:600; line-height:.95; letter-spacing:-.03em; }
+.tq-hf .in-bx.tiny{ padding:8px; } .tq-hf .in-bx.mini{ padding:0; border-radius:var(--r-xs); }
 .in-bx.tiny > b, .in-bx.tiny > small, .in-bx.mini > *{ display:none; }
-.tq-hf .in-bx.b1 > .sc, .tq-hf .in-bx.b2 > .sc{ color:#fff; } .tq-hf .in-bx.b3 > .sc{ color:#06365C; } .tq-hf .in-bx.b4 > .sc{ color:#0B3A5E; } .tq-hf .in-bx.b5 > .sc{ color:#1B4666; }
+.tq-hf .in-bx.b1 > .sc, .tq-hf .in-bx.b2 > .sc{ color:#fff; } .tq-hf .in-bx.b3 > .sc{ color:var(--h-ink); } .tq-hf .in-bx.b4 > .sc{ color:var(--h-ink); } .tq-hf .in-bx.b5 > .sc{ color:var(--h-ink); }
 .tq-hf .in-bx.row > .sc{ color:var(--h-ink); }
-.in-bx.tiny > .sc{ font-size:16px; letter-spacing:0; }
-.in-bx.lit{ outline:2px solid var(--h-ink); outline-offset:2px; }
-.in-bx[data-tag]::after{ content:attr(data-tag); position:absolute; right:8px; bottom:9px; height:20px; padding:0 8px; border-radius:999px;
-  display:flex; align-items:center; background:var(--h-btn); color:#fff; font-size:11.5px; font-weight:500; white-space:nowrap; }
+.in-bx.tiny > .sc{ font-size:var(--t-title); letter-spacing:0; }
+/* the two boxes the step is about: the chosen one in a 2px ink ring, the passed-over one in a thinner grey one. Both sit on
+   the box's own edge, so neither runs into a neighbour across the 4px between boxes */
+.in-bx.lit{ outline:2px solid var(--h-ink); outline-offset:0; }
+/* the word on a box is the kit's tag: 22 high, 12px, standing on the score's floor, 8px in from the box's rim so it keeps air after
+   a two-digit score in the narrow box */
+.in-bx[data-tag]::after{ content:attr(data-tag); position:absolute; right:8px; bottom:15px; height:22px; padding:0 8px; border-radius:var(--r-pill);
+  display:flex; align-items:center; background:var(--h-btn); color:#fff; font-size:var(--t-sm); font-weight:500; line-height:1; white-space:nowrap; }
 .in-bx.tiny[data-tag]::after, .in-bx.mini[data-tag]::after{ content:none; }
-.in-bx[data-tag="Lowest"]::after{ background:#fff; color:var(--h-ink2); box-shadow:0 0 0 1px rgba(16,34,60,.08); }
-.in-bx[data-tag="Lowest"]{ outline:2px dashed rgba(24,24,24,.55); outline-offset:2px; }
+.in-bx[data-tag="Lowest"]::after{ background:#fff; color:var(--h-ink2); }
+.in-bx[data-tag="Lowest"]{ outline:1.5px solid var(--h-ink2); outline-offset:0; }
 
 /* in the table, each shape is one call, as the Data screen lists it: time, what happened, its score. No topic */
 .in-bx > .rw{ display:none; }
-.in-bx.row{ background-color:transparent; color:var(--h-ink); border-radius:0; padding:0 18px; box-shadow:inset 0 1px 0 rgba(24,36,48,.07); outline:0; }
+.tq-hf .in-bx.row{ background-color:transparent; color:var(--h-ink); border-radius:0; padding:0 16px; box-shadow:inset 0 1px 0 var(--rule); outline:0; }
 .in-bx.row > *{ display:none; }
 .in-bx.row > .rw{ display:grid; grid-template-columns:44px minmax(0, 1fr) 36px; align-items:center; column-gap:12px; height:100%; }
-.rw i{ font-style:normal; font-size:11.5px; color:var(--h-mut); white-space:nowrap; }
-.rw > span{ font-size:12.5px; color:var(--h-ink2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.rw .hf-sc{ height:20px; min-width:32px; font-size:11.5px; }
+.rw i{ font-style:normal; font-size:var(--t-micro); color:var(--h-mut); white-space:nowrap; }
+.rw > span{ font-size:var(--t-sm); font-weight:500; color:var(--h-ink2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.rw .hf-sc{ justify-self:end; }
 
-/* the four shapes tried */
-.tq-hf .in-op{ display:flex; align-items:center; justify-content:center; gap:7px; border-radius:999px; background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-line), 0 10px 22px -16px rgba(10,40,80,.45);
-  font-size:13px; font-weight:500; color:var(--h-mut); white-space:nowrap; }
-.tq-hf .in-op:not(.on){ text-decoration:line-through; text-decoration-color:rgba(106,112,120,.6); }
-.tq-hf .in-op.on{ background:var(--h-btn); color:#fff; box-shadow:0 10px 22px -14px rgba(10,40,80,.6); }
-.tq-hf .in-op.on::before{ content:""; width:11px; height:6px; margin-top:-3px; border:solid #fff; border-width:0 0 2px 2px; transform:rotate(-45deg); }
+/* the four shapes tried: the kit's chip, floating on the sky */
+.tq-hf .in-op{ display:flex; align-items:center; justify-content:center; gap:8px; border-radius:var(--r-pill); background:#fff; box-shadow:var(--hair), var(--sh-card);
+  font-size:var(--t-md); font-weight:500; color:var(--h-mut); white-space:nowrap; }
+.tq-hf .in-op:not(.on){ text-decoration:line-through; text-decoration-thickness:1.5px; text-decoration-color:var(--h-line); }
+.tq-hf .in-op.on{ background:var(--h-btn); color:#fff; box-shadow:var(--sh-card); }
+.tq-hf .in-op.on::before{ content:""; width:10px; height:5px; margin-top:-3px; border:solid #fff; border-width:0 0 1.5px 1.5px; transform:rotate(-45deg); }
 
-/* a line on the sky gets a pane of glass */
-.tq-hf .in-lb{ display:inline-flex; align-items:center; height:30px; margin:0; padding:0 13px; border-radius:999px; background:rgba(255,255,255,.9);
-  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:0 0 0 1px rgba(16,34,60,.06), 0 10px 24px -14px rgba(10,40,80,.45);
-  font-size:12.5px; color:var(--h-ink2); white-space:nowrap; transition:opacity .4s ease; }
+/* a line on the sky gets a pane of glass, the kit's note */
+.tq-hf .in-lb{ display:inline-flex; align-items:center; height:30px; margin:0; padding:0 12px; border-radius:var(--r-pill); background:rgba(255,255,255,.9);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:var(--sh-card);
+  font-size:var(--t-md); font-weight:500; line-height:1.2; color:var(--h-ink2); white-space:nowrap; transition:opacity .4s ease; }
 
 /* Online Booking: its score and the three behind it; handle time is the weak one, and the line under them says why and what first */
 #sp .bar{ height:48px; }
-.tq-pill{ margin-left:auto; align-self:center; display:inline-grid; place-items:center; min-width:34px; height:22px; padding:0 8px; border-radius:999px; background:#139FFD; color:#fff; font-size:12px; font-weight:600; }
-.tq-sc{ display:grid; grid-template-columns:150px minmax(0, 1fr) 24px; align-items:center; column-gap:12px; height:24px; margin:0 18px; font-size:12.5px; color:var(--h-ink2); }
-.tq-sc i{ position:relative; height:8px; border-radius:4px; background:var(--h-chip); overflow:hidden; }
-.tq-sc i::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:calc(var(--v) * 1%); border-radius:4px; background:var(--h-b3); transform:scaleX(0); transform-origin:0 50%; transition:transform .7s cubic-bezier(.2,.8,.2,1) var(--t, .5s); }
+/* the three scores are one figure, set in one well under the title (16px in, as the title; 4px of air around the rows) */
+#sp::before{ content:""; position:absolute; left:16px; right:16px; top:44px; height:80px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); }
+/* the topic's score is the kit's score pill in the topic's own blue (43 is the box's shade, not an alert) */
+.tq-pill{ margin-left:auto; background:var(--h-blue); color:#fff; }
+.tq-sc{ position:relative; display:grid; grid-template-columns:152px minmax(0, 1fr) 24px; align-items:center; column-gap:12px; height:24px; margin:0 20px; padding:0 8px; font-size:var(--t-md); font-weight:500; color:var(--h-ink2); }
+.tq-sc > span{ white-space:nowrap; }
+.tq-sc i{ position:relative; height:8px; border-radius:var(--r-xs); background:#fff; overflow:hidden; }
+.tq-sc i::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:calc(var(--v) * 1%); border-radius:var(--r-xs); background:var(--h-b3); transform:scaleX(0); transform-origin:0 50%; transition:transform .7s cubic-bezier(.2,.8,.2,1) var(--t, .5s); }
 .tq-sc em{ text-align:right; font-weight:600; color:var(--h-ink); }
 .tq-sc.hot{ color:var(--h-ink); font-weight:600; }
 .tq-sc.hot i::after{ background:var(--h-deep); }
 .tq-sc:nth-of-type(3){ --t:.6s; } .tq-sc.hot{ --t:.7s; }
 .tq:is([data-s="2"], [data-s="3"]) .tq-sc i::after{ transform:none; }
 .tq[data-s="3"] .tq-sc i::after{ transition:none; }
-/* step 4: the click on Handle time that opens Ask AI */
-.tq-sc.hot{ border-radius:8px; transition:background-color .2s ease, box-shadow .2s ease; }
-.tq[data-s="3"] .tq-sc.hot{ background:var(--h-b1); box-shadow:0 0 0 5px var(--h-b1); transition-delay:.35s; }
+/* step 4: the click on Handle time that opens Ask AI. The pressed row is the well filled in, 4px inside the well's rim */
+.tq-sc.hot{ border-radius:var(--r-ctl); transition:background-color .2s ease, box-shadow .2s ease; }
+.tq[data-s="3"] .tq-sc.hot{ background:var(--lit); box-shadow:var(--lit-sh); transition-delay:.35s; }
+/* the well gives the pressed row a little more floor, so the two rims do not pinch at the bottom corners */
+.tq[data-s="3"] #sp::before{ height:82px; }
 .tq[data-s="3"] .tq-why{ display:none; }
-.tq-why{ display:flex; gap:18px; align-items:baseline; margin:12px 18px 0 !important; padding:9px 12px; border-radius:12px; background:var(--h-b1); font-size:12.5px; line-height:1.35; color:#0B3A5E; }
+/* the two answers, why and what first, are one kind of part: the well, a small blue overline, the line in the kit's ink */
+.tq-why, .tq-fix{ border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); font-size:var(--t-md); font-weight:500; line-height:1.4; color:var(--h-ink); }
+.tq-why small, .tq-fix small{ flex:none; font-size:var(--t-micro); font-weight:600; line-height:1.2; letter-spacing:.02em; text-transform:uppercase; color:var(--h-deep); }
+.tq-why{ display:flex; gap:16px; align-items:baseline; margin:12px 16px 0 !important; padding:8px 12px; }
 .tq-why span{ display:flex; gap:8px; align-items:baseline; white-space:nowrap; }
-.tq-why small{ flex:none; font-size:11px; font-weight:600; letter-spacing:.02em; text-transform:uppercase; color:var(--h-deep); }
 
-/* Ask AI: the question, its three causes, the first fix to try, and where the answer comes from */
-.tq-ai{ display:flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--lilac-ink); }
-.tq-ai svg{ width:15px; height:15px; fill:var(--lilac-ink); }
-#ap .bar{ align-items:center; padding-top:0; }
-.tq-q{ margin:0 16px 0 auto !important; width:max-content; max-width:80%; padding:8px 12px; border-radius:14px 14px 4px 14px; background:var(--h-btn); color:#fff; font-size:13px; line-height:1.3; }
-.tq-lead{ margin:14px 16px 0 !important; font-size:13px; line-height:1.4; color:var(--h-ink2); }
+/* Ask AI: the question, its three causes, the first fix to try, and where the answer comes from. Its head is a window's title
+   like the other two, in lilac because the AI made what is under it; the spark beside it said nothing more and is out */
+.tq-ai{ font-size:var(--t-title); font-weight:600; letter-spacing:-.01em; line-height:1.25; color:var(--lilac-ink); }
+.tq-ai svg{ display:none; }
+.tq-q{ margin:0 16px 0 auto !important; width:max-content; max-width:80%; padding:8px 12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); color:var(--h-ink); font-size:var(--t-md); font-weight:600; line-height:1.3; }
+.tq-lead{ margin:12px 16px 0 !important; font-size:var(--t-md); font-weight:500; line-height:1.4; color:var(--h-ink2); }
 .tq-as{ list-style:none; margin:8px 16px 0 !important; }
-.tq-as li{ display:flex; align-items:center; gap:9px; min-height:32px; padding:4px 0; font-size:13px; line-height:1.3; color:var(--h-ink2); border-top:1px solid rgba(24,36,48,.07); }
-.tq-as li b{ display:grid; place-items:center; flex:none; width:20px; height:20px; border-radius:50%; background:var(--h-chip); color:var(--h-ink2); font-size:11px; font-weight:600; }
+.tq-as li{ display:flex; align-items:center; gap:8px; min-height:32px; padding:4px 0; font-size:var(--t-md); font-weight:500; line-height:1.3; color:var(--h-ink2); border-top:1px solid var(--rule); }
+.tq-as li b{ display:grid; place-items:center; flex:none; width:20px; height:20px; border-radius:50%; background:var(--well); box-shadow:var(--well-sh); color:var(--h-ink2); font-size:var(--t-micro); font-weight:600; }
 .tq-as li.on{ color:var(--h-ink); font-weight:600; }
-.tq-as li.on b{ background:var(--h-blue); color:#fff; }
-.tq-fix{ margin:12px 16px 0 !important; padding:10px 12px 11px; border-radius:12px; background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-blue); font-size:13px; line-height:1.4; color:var(--h-ink); }
-.tq-fix small{ display:block; margin-bottom:3px; font-size:11px; font-weight:600; letter-spacing:.02em; text-transform:uppercase; color:var(--h-deep); }
-.tq-src{ margin:12px 16px 0 !important; font-size:12px; color:var(--h-mut); }
+.tq-as li.on b{ background:var(--h-blue); box-shadow:none; color:#fff; }
+.tq-fix{ margin:12px 16px 0 !important; padding:12px; }
+.tq-fix small{ display:block; margin-bottom:4px; }
+.tq-src{ margin:12px 16px 0 !important; font-size:var(--t-sm); font-weight:500; line-height:1.3; color:var(--h-mut); }
 
 /* the panels' parts come in after the boxes have moved, one after another; they leave at once */
 #sp > *:not(.bar), #ap > *:not(.bar){ opacity:0; transform:translateY(8px); transition:opacity .25s ease, transform .25s ease; }
@@ -111,10 +135,21 @@
 #ap .tq-as{ --a:1.5s; } #ap .tq-fix{ --a:2.1s; } #ap .tq-src{ --a:2.5s; }
 
 @media (max-width: 860px){
-  .tq-sc{ grid-template-columns:140px minmax(0, 1fr) 22px; margin:0 14px; }
-  .tq-why{ margin:8px 14px 0 !important; padding:7px 10px; font-size:12px; }
-  .tq-q, .tq-lead, .tq-as, .tq-fix{ margin-left:12px !important; margin-right:12px !important; }
-  .tq-lead, .tq-as li, .tq-fix{ font-size:12.5px; }
-  .tq-src{ margin:10px 12px 0 !important; }
+  /* the phone's table rows are 17px tall: the score keeps the kit's shape one size down, so two never touch */
+  .rw .hf-sc{ height:14px; min-width:30px; padding:0 6px; font-size:var(--t-micro); line-height:14px; }
+  /* everything in a window stands 16px in, under its title */
+  .tq-sc{ grid-template-columns:144px minmax(0, 1fr) 24px; }
+  .tq-why{ margin:10px 16px 0 !important; padding:4px 12px; font-size:var(--t-sm); }
+  /* Ask AI is the tallest window: its head and rows close up, the first fix takes the cause strip's shape (overline beside
+     the line) and the source line is left to the desktop, so nothing is cut by the window's floor */
+  #ap .bar{ height:40px; padding-top:12px; }
+  .tq-lead, .tq-as, .tq-fix{ margin-left:16px !important; margin-right:16px !important; }
+  .tq-lead{ margin-top:8px !important; }
+  .tq-as{ margin-top:4px !important; }
+  .tq-as li{ min-height:20px; padding:1px 0; }
+  .tq-fix{ display:flex; gap:8px; align-items:baseline; margin-top:8px !important; padding:8px 12px; }
+  .tq-fix small{ margin-bottom:0; white-space:nowrap; }
+  .tq-lead, .tq-as li, .tq-fix{ font-size:var(--t-sm); }
+  .tq-src{ display:none; }
 }
 @media (prefers-reduced-motion: reduce){ .in-bx > *, #sp > *, #ap > *, .tq-sc i::after{ transition:none !important; } }

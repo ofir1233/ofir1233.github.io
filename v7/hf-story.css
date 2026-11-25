@@ -8,7 +8,18 @@
 .in-page.hf{ --h-ink:#181818; --h-ink2:#3d444c; --h-mut:#6A7078; --h-blue:#139FFD; --h-deep:#0B6FCF; --h-chip:#E9EEF2; --h-line:#CBD3DA;
   --h-b1:#DCEFFE; --h-b2:#A9DAFE; --h-b3:#63BEFE; --h-btn:#232323;
   --coral:#FF6F52; --coral-ink:#B5371D; --coral-tint:#FFE3DB; --green:#4BA373; --green-ink:#226A45; --green-tint:#DBEFE3;
-  --lilac:#D59BE0; --lilac-ink:#7A3E98; --lilac-tint:#F4E5F8; }
+  --lilac:#D59BE0; --lilac-ink:#7A3E98; --lilac-tint:#F4E5F8;
+  /* one scale for every case (owner, 25.11: "every box speaks a slightly different language"): four corners, five text sizes,
+     three depths and one hairline. A scene never writes a radius, a size or a shadow of its own. */
+  --r-win:16px; --r-card:12px; --r-ctl:8px; --r-xs:4px; --r-pill:999px;
+  --t-micro:11px; --t-sm:12px; --t-md:13px; --t-lg:15px; --t-title:16px; --t-num:20px; --t-num-l:26px; --t-num-xl:34px;
+  --sh-win:0 0 0 1px rgba(16,34,60,.06), 0 1px 2px rgba(16,34,60,.06), 0 22px 44px -22px rgba(10,40,80,.42);
+  --sh-card:0 0 0 1px rgba(16,34,60,.06), 0 10px 24px -14px rgba(10,40,80,.45);
+  --sh-flat:inset 0 0 0 1px rgba(16,34,60,.08);
+  --hair:inset 0 0 0 1.5px var(--h-line); --rule:rgba(24,36,48,.08); --focus:0 0 0 2px var(--h-blue);
+  /* one material (owner, 25.11): a window is a plain white plate; what is set INTO a plate sits in a pale-blue well; what the story points at is the well filled in */
+  --r-well:10px; --r-plate:14px; --well:color-mix(in srgb, var(--h-b1) 42%, #fff); --well-sh:inset 0 0 0 1px rgba(19,159,253,.16), inset 0 1px 2px rgba(10,60,120,.07);
+  --lit:var(--h-b1); --lit-sh:inset 0 0 0 1.5px var(--h-b3); }
 
 /* the tag above the title says only the case */
 .hf .in-tag b{ display:none; }
@@ -70,7 +81,7 @@
 /* a line that sits on the sky gets a pane of glass, so it reads */
 .hf-note{ display:inline-flex; align-items:center; gap:8px; padding:5px 12px 5px 5px; border-radius:999px; background:rgba(255,255,255,.9);
   -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:0 0 0 1px rgba(16,34,60,.06), 0 10px 24px -14px rgba(10,40,80,.45);
-  font-size:12.5px; line-height:1.2; color:var(--h-ink2); white-space:nowrap; }
+  font-size:var(--t-md); line-height:1.2; color:var(--h-ink2); white-space:nowrap; }
 .hf-note.pl{ padding-left:12px; }
 
 /* scenes speak Byrd */
@@ -81,7 +92,7 @@
 
 /* the parts every high-fidelity scene is drawn from */
 .hf-win{ position:absolute; box-sizing:border-box; border-radius:16px; color:var(--h-ink);
-  background:radial-gradient(135% 110% at 16% 2%, #fff 0, #fff 40%, #F3F7FC 100%);
+  background:#fff;
   box-shadow:0 0 0 1px rgba(16,34,60,.06), 0 1px 2px rgba(16,34,60,.06), 0 22px 44px -22px rgba(10,40,80,.42); }
 .hf-lb{ display:block; font-size:12px; line-height:1.3; color:var(--h-mut); }
 .hf-tl{ display:block; font-size:16px; line-height:1.25; font-weight:600; letter-spacing:-.01em; color:var(--h-ink); }
@@ -97,7 +108,7 @@
 .hf-chip.on{ background:var(--h-btn); color:#fff; box-shadow:none; }
 .hf-chip.on b{ color:#fff; }
 .hf-btn{ display:inline-flex; align-items:center; justify-content:center; gap:7px; height:32px; padding:0 14px; border-radius:999px; background:var(--h-btn); color:#fff; font-size:13px; font-weight:500; white-space:nowrap; }
-.hf-av{ display:inline-grid; place-items:center; flex:none; width:26px; height:26px; border-radius:50%; background:#D6DEE4; font-size:10.5px; font-weight:600; font-style:normal; color:#4b535b; }
+.hf-av{ display:inline-grid; place-items:center; flex:none; width:26px; height:26px; border-radius:50%; background:#D6DEE4; font-size:var(--t-micro); font-weight:600; font-style:normal; color:#4b535b; }
 /* a score, as in Data: coral under the pass mark of 70, Hear's palest blue above it */
 .hf-sc{ display:inline-grid; place-items:center; min-width:34px; height:22px; padding:0 7px; border-radius:999px; font-size:12px; font-weight:600; font-variant-numeric:tabular-nums; }
 .hf-sc.lo{ background:var(--coral); color:#fff; }

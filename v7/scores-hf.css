@@ -2,98 +2,112 @@
    and v7/wf-story.css; Hear's look and the painted stage from v7/hf-story.css. The four parts are drawn from the Studio's own Evaluation by
    agent app and its Explain mode (hear-v7/plan/studio.html, explain/explain.css): the same five score colours split at the pass mark of 70,
    the same card over a score, the same calls table. The three questions a bare score raises carry Hear blue pins 1, 2, 3; the card answers
-   1 and 2, the chat answers 3, and each answer wears its pin on the window's edge. */
+   1 and 2, the chat answers 3, and each answer wears its pin on the window's edge.
+   The material is the Introduction's (hf-story.css tokens): a window is a white plate; a question, a figure, a chart, a matrix and a
+   quote each sit in the same pale-blue well; the answer the step points at is the well filled in. */
 
 /* the score scale: two sides split at 70, each stronger the further a score is from it (studio.html .b1-.b5) */
-.es .in-sv .b1{ background:#FF6F52; color:#fff; } .es .in-sv .b2{ background:#FFD0C4; color:#8E2A14; }
-.es .in-sv .b3{ background:#DCEFFE; color:#1B4666; } .es .in-sv .b4{ background:#A9DAFE; color:#0B3A5E; } .es .in-sv .b5{ background:#139FFD; color:#fff; }
-.es .in-sv .c{ display:grid; place-items:center; border-radius:8px; font-size:13px; font-weight:500; font-variant-numeric:tabular-nums; }
+.es .in-sv .b1{ background:var(--coral); color:#fff; } .es .in-sv .b2{ background:#FFD0C4; color:#8E2A14; }
+.es .in-sv .b3{ background:var(--h-b1); color:#1B4666; } .es .in-sv .b4{ background:var(--h-b2); color:#0B3A5E; } .es .in-sv .b5{ background:var(--h-blue); color:#fff; }
+/* one score tile everywhere: a control corner, the part's text size, a number's weight; only the pill in the calls table differs */
+.es .in-sv .c{ display:grid; place-items:center; border-radius:var(--r-ctl); font-size:var(--t-md); font-weight:600; font-variant-numeric:tabular-nums; }
+/* every window in this case has the same 16px rim and the same title and second line */
+.es-who b, .es-bar b, .es-pn, .es-evh b{ font-size:var(--t-title); line-height:1.25; font-weight:600; letter-spacing:-.01em; color:var(--h-ink); }
+.es-who small, .es-bar small, .es-sub, .es-evh small{ font-size:var(--t-sm); line-height:1.3; color:var(--h-mut); }
 .es .es-pin{ position:absolute; left:-10px; }
 .es-stk{ position:absolute; left:0; top:0; display:flex; flex-direction:column; align-items:flex-start; gap:12px; }
 .es-stk > .hf-win{ position:relative; }
 
-/* 1. one score, alone: the three questions it cannot answer wait in dashed slots */
-.es-one{ left:0; top:0; width:300px; padding:18px 18px 16px; opacity:0; transform:translateY(-18px); transition:opacity .3s ease .1s, transform .55s cubic-bezier(.2,.8,.2,1) .1s; }
+/* 1. one score, alone: the three questions it cannot answer wait in three wells */
+.es-one{ left:0; top:0; width:300px; padding:16px; opacity:0; transform:translateY(-18px); transition:opacity .3s ease .1s, transform .55s cubic-bezier(.2,.8,.2,1) .1s; }
 .go .es-one{ opacity:1; transform:none; }
-.es-who{ display:flex; align-items:center; gap:10px; }
-.es-who b{ display:block; font-size:16px; font-weight:600; letter-spacing:-.01em; line-height:1.2; }
-.es-who small{ display:block; margin-top:2px; font-size:12.5px; color:var(--h-mut); }
-.es .in-sv .es-big{ display:grid; place-items:center; width:84px; height:62px; margin:16px 0 6px; border-radius:12px; font-size:34px; font-weight:500; letter-spacing:-.03em; }
-.es-q{ display:flex; align-items:center; margin-top:8px !important; height:38px; padding:0 12px 0 9px; border-radius:10px; background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-line);
-  font-size:13px; color:var(--h-ink2); opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .45s cubic-bezier(.2,.8,.2,1); }
-.es-q .hf-n{ margin-right:9px; box-shadow:none; }
-.es-q span{ margin-left:auto; font-size:15px; font-weight:600; color:var(--h-mut); }
+.es-who{ display:flex; align-items:center; gap:12px; }
+.es-who b{ display:block; }
+.es-who small{ display:block; margin-top:2px; }
+.es .in-sv .es-big{ display:grid; place-items:center; width:84px; height:64px; margin:16px 0 8px; border-radius:var(--r-ctl); font-size:var(--t-num-xl); font-weight:600; letter-spacing:-.03em; }
+.es-q{ display:flex; align-items:center; margin-top:8px !important; height:40px; padding:0 12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh);
+  font-size:var(--t-md); color:var(--h-ink2); opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .45s cubic-bezier(.2,.8,.2,1); }
+/* inside a well the pin is flat; the white halo stays where a pin rides a window edge (.es-pin) */
+.es-q .hf-n{ margin-right:8px; box-shadow:none; }
+/* the question already ends in its own mark; the second "?" at the row's end said nothing */
+.es-q span{ display:none; }
 .go .es-q{ opacity:1; transform:none; }
 .go .es-q.q1{ transition-delay:1s; } .go .es-q.q2{ transition-delay:1.45s; } .go .es-q.q3{ transition-delay:1.9s; }
 
 /* 2. the whole team: every score starts grey, then takes its colour column by column; then the blue side steps back, so only the ten
    under 70 stay loud, and Compliance, where most of the team is under, is underlined in coral (studio.html .hm th.is-team) */
-.es-hm{ width:590px; padding:16px 18px 14px; }
-.es-bar{ display:flex; align-items:baseline; gap:10px; }
-.es-bar b{ font-size:17px; font-weight:600; letter-spacing:-.01em; }
-.es-bar small{ font-size:12.5px; color:var(--h-mut); }
-.es-grid{ display:grid; grid-template-columns:124px repeat(7, 58px); gap:4px 3px; align-items:center; margin-top:12px; }
-.es-grid .h{ padding-bottom:2px; font-size:10.5px; letter-spacing:-.01em; color:var(--h-mut); text-align:center; white-space:nowrap; }
+.es-hm{ width:590px; padding:16px; }
+.es-bar{ display:flex; align-items:baseline; gap:8px; }
+/* the matrix is a chart, so it sits in the well, 6px inside it; the names give the room */
+.es-grid{ display:grid; grid-template-columns:116px repeat(7, 1fr); gap:4px; align-items:center; margin-top:12px; padding:6px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); }
+.es-grid .h{ padding-bottom:4px; font-size:var(--t-micro); letter-spacing:-.025em; color:var(--h-mut); text-align:center; white-space:nowrap; }
 .es-grid .h.cp{ text-decoration:underline 2px transparent; text-underline-offset:3px; transition:color .3s ease, text-decoration-color .3s ease; }
-.es-grid .n{ display:flex; align-items:center; gap:7px; font-size:12.5px; letter-spacing:-.01em; color:var(--h-ink2); white-space:nowrap; }
-.es-grid .n .hf-av{ width:24px; height:24px; font-size:9.5px; }
+.es-grid .n{ display:flex; align-items:center; gap:6px; font-size:var(--t-sm); letter-spacing:-.01em; color:var(--h-ink2); white-space:nowrap; }
 .es .in-sv .es-grid .c{ height:32px;
   transition:background-color .35s ease calc(.5s + var(--c) * .14s), color .35s ease calc(.5s + var(--c) * .14s), opacity .45s ease; }
-.es .in-sv .es-s2:not(.go) .es-grid .c{ background:var(--h-chip); color:var(--h-mut); transition:none; }
-.es-s2.go .es-grid .c:is(.b3, .b4){ opacity:.3; transition-delay:calc(.5s + var(--c) * .14s), calc(.5s + var(--c) * .14s), 2.3s; }
-.es-s2.go .es-grid .c.b5{ opacity:.18; transition-delay:calc(.5s + var(--c) * .14s), calc(.5s + var(--c) * .14s), 2.3s; }
+.es .in-sv .es-s2:not(.go) .es-grid .c{ background:#fff; color:var(--h-mut); transition:none; }
+.es-s2.go .es-grid .c.b3{ opacity:.8; transition-delay:calc(.5s + var(--c) * .14s), calc(.5s + var(--c) * .14s), 2.3s; }
+.es-s2.go .es-grid .c.b4{ opacity:.6; transition-delay:calc(.5s + var(--c) * .14s), calc(.5s + var(--c) * .14s), 2.3s; }
+.es-s2.go .es-grid .c.b5{ opacity:.45; transition-delay:calc(.5s + var(--c) * .14s), calc(.5s + var(--c) * .14s), 2.3s; }
 .es-s2.go .es-grid .h.cp{ color:var(--h-ink); text-decoration-color:var(--coral); transition-delay:2.6s; }
-.es-key{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:12px !important; font-size:11.5px; color:var(--h-mut); }
-.es-key i{ width:18px; height:10px; border-radius:3px; }
+.es-key{ display:flex; flex-wrap:wrap; align-items:center; gap:4px; margin-top:12px !important; font-size:var(--t-micro); line-height:16px; color:var(--h-mut); }
+.es-key i{ width:16px; height:8px; border-radius:var(--r-xs); }
 .es-key > span:first-child{ display:none; }
-.es-key span{ margin-right:6px; transition:opacity .45s ease; }
+.es-key span{ margin-right:8px; transition:opacity .45s ease; }
 .es-key i{ transition:opacity .45s ease; }
-.es-key .ps{ display:inline-flex; align-items:center; gap:7px; margin:0 8px 0 2px; color:var(--h-ink); font-weight:500; }
-.es-key .ps::before{ content:""; width:1.5px; height:16px; border-radius:1px; background:var(--h-line); }
-.es-s2.go .es-key .up{ opacity:.3; transition-delay:2.3s; }
-.es-cnt{ margin-left:18px; opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .45s cubic-bezier(.2,.8,.2,1); }
-.es-cnt b{ display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 6px; border-radius:999px; background:var(--coral); color:#fff; font-size:12px; font-weight:600; }
+.es-key .ps{ display:inline-flex; align-items:center; gap:8px; margin:0 8px 0 0; color:var(--h-ink); font-weight:500; }
+.es-key .ps::before{ content:""; width:1.5px; height:16px; background:var(--h-line); }
+.es-s2.go .es-key .up{ opacity:.7; transition-delay:2.3s; }
+/* the count sits in the note as a badge: 5px of glass all round it, and the note starts on the window's own text edge */
+.es-cnt{ margin-left:11px !important; padding-left:5px; opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .45s cubic-bezier(.2,.8,.2,1); }
+.es-cnt b{ display:inline-grid; place-items:center; box-sizing:border-box; min-width:34px; height:22px; padding:0 8px; border-radius:var(--r-pill); background:var(--coral); color:#fff; font-size:var(--t-sm); font-weight:600; }
 .go .es-cnt{ opacity:1; transform:none; transition-delay:2.8s; }
 
 /* 3. a click on the 58 opens the card beside it (explain.css .xp-pop): how it compares, the team's spread bar by bar, what the spread means */
-.es-col{ position:absolute; left:0; top:50px; width:74px; display:flex; flex-direction:column; gap:4px; padding:8px 6px; border-radius:14px; background:#fff; box-shadow:0 0 0 1px rgba(16,34,60,.06), 0 18px 36px -22px rgba(10,40,80,.42); }
-.es-col small{ padding-bottom:2px; font-size:11px; color:var(--h-ink); text-align:center; text-decoration:underline 2px var(--coral); text-underline-offset:3px; }
+/* the column is a small plate: its scores sit in a well 5px inside the rim, 4px of well round them, the criterion's name above */
+.es-col{ position:absolute; left:-14px; top:50px; box-sizing:border-box; width:88px; display:flex; flex-direction:column; gap:4px; padding:12px 9px 9px; border-radius:var(--r-plate); background:#fff; box-shadow:var(--sh-card); }
+.es-col::before{ content:""; position:absolute; left:5px; right:5px; top:30px; bottom:5px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); }
+.es-col small{ align-self:center; padding-bottom:4px; font-size:var(--t-micro); line-height:14px; letter-spacing:-.025em; white-space:nowrap; color:var(--h-ink); text-align:center; text-decoration:underline 2px var(--coral); text-underline-offset:3px; }
 .es .in-sv .es-col .c{ position:relative; height:32px; }
 .es-col .c:not(.me){ opacity:.6; }
-.es-col .c.me{ transition:outline-color .25s ease; outline:2.5px solid transparent; outline-offset:2px; }
-.go .es-col .c.me{ outline-color:var(--h-blue); transition-delay:.5s; }
-.es-col .c.me::after{ content:""; position:absolute; left:50%; top:50%; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%; background:rgba(24,24,24,.22); transform:scale(.3); opacity:0; }
+.es-col .c.me{ transition:box-shadow .25s ease; box-shadow:0 0 0 2px transparent; }
+.go .es-col .c.me{ box-shadow:var(--focus); transition-delay:.5s; }
+.es-col .c.me::after{ content:""; position:absolute; left:50%; top:50%; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%; background:color-mix(in srgb, var(--h-ink) 22%, transparent); transform:scale(.3); opacity:0; }
 .go .es-col .c.me::after{ animation:es-tap .6s ease .2s both; }
 @keyframes es-tap{ 0%{ transform:scale(.3); opacity:0; } 35%{ opacity:1; } 100%{ transform:scale(1.7); opacity:0; } }
 
-.es-pop{ left:90px; top:0; width:304px; padding:16px 18px 14px; font-size:13px; line-height:1.35; opacity:0; transform:translateX(-10px) scale(.97); transform-origin:0 30%;
+.es-pop{ left:90px; top:0; width:304px; padding:16px 16px 8px; font-size:var(--t-md); line-height:1.35; opacity:0; transform:translateX(-10px) scale(.97); transform-origin:0 30%;
   transition:opacity .3s ease .6s, transform .45s cubic-bezier(.2,.8,.2,1) .6s; }
 .go .es-pop{ opacity:1; transform:none; }
-.es-pn{ display:block; font-size:16px; font-weight:600; letter-spacing:-.01em; }
-.es-sub{ display:block; margin-top:2px; color:var(--h-mut); }
-.es-head{ display:flex; align-items:center; gap:12px; margin-top:14px; }
-.es .in-sv .es-head .c{ flex:none; width:60px; height:46px; border-radius:9px; font-size:22px; }
-.es-head b{ display:block; font-size:14.5px; font-weight:600; color:var(--coral-ink); }
-.es-head small{ display:block; margin-top:2px; color:var(--h-mut); }
-.es-lbl{ display:block; margin-top:16px; font-size:11px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--h-mut); }
-.es-hist{ position:relative; display:flex; align-items:flex-end; gap:4px; height:58px; margin-top:9px; border-bottom:1px solid rgba(24,36,48,.12); }
-.es-hist i{ flex:1; height:var(--h); border-radius:3px 3px 0 0; background:#A9DAFE; transform:scaleY(0); transform-origin:50% 100%; transition:transform .45s cubic-bezier(.3,.7,.2,1); }
+.es-pn{ display:block; }
+.es-sub{ display:block; margin-top:2px; }
+/* the figure and the chart are two wells of one width; the tile in the figure is one corner under its well */
+.es-head{ display:flex; align-items:center; gap:12px; margin-top:12px; padding:8px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); }
+.es .in-sv .es-head .c{ flex:none; width:60px; height:48px; border-radius:var(--r-ctl); font-size:var(--t-num); }
+.es-head b{ display:block; font-size:var(--t-lg); line-height:1.25; font-weight:600; color:var(--coral-ink); }
+.es-head small{ display:block; margin-top:2px; font-size:var(--t-sm); line-height:1.3; color:var(--h-mut); }
+.es-lbl{ display:block; margin-top:12px; font-size:var(--t-sm); line-height:1.3; font-weight:500; color:var(--h-mut); }
+/* the chart's well holds the bars, their floor and the axis under it (the axis line is pulled up into the well) */
+.es-hist{ position:relative; box-sizing:border-box; display:flex; align-items:flex-end; gap:4px; height:100px; margin-top:8px; padding:12px 12px 32px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); }
+.es-hist::after{ content:""; position:absolute; left:12px; right:12px; bottom:31px; height:1px; background:var(--rule); }
+.es-hist i{ flex:1; height:var(--h); border-radius:var(--r-xs) var(--r-xs) 0 0; background:var(--h-b2); transform:scaleY(0); transform-origin:50% 100%; transition:transform .45s cubic-bezier(.3,.7,.2,1); }
 .es-hist i.lo{ background:#FFD0C4; } .es-hist i.lo.me{ background:var(--coral); }
 .go .es-hist i{ transform:none; }
 .go .es-hist i:nth-child(1){ transition-delay:1s; } .go .es-hist i:nth-child(2){ transition-delay:1.1s; } .go .es-hist i:nth-child(3){ transition-delay:1.2s; }
 .go .es-hist i:nth-child(4){ transition-delay:1.3s; } .go .es-hist i:nth-child(5){ transition-delay:1.4s; }
 /* the team average, 73, on the 50-100 axis */
-.es-hist u{ position:absolute; top:-4px; bottom:0; width:0; margin-left:-.75px; border-left:1.5px dashed var(--h-ink); opacity:0; transition:opacity .3s ease; }
+/* the mark's 46% is of the bars' width, which now starts 12px inside the well */
+.es-hist u{ position:absolute; top:8px; bottom:32px; left:calc(12px + (100% - 24px) * .46) !important; width:0; margin-left:-.75px; border-left:1.5px dashed var(--h-ink); opacity:0; transition:opacity .3s ease; }
 .go .es-hist u{ opacity:1; transition-delay:1.7s; }
-.es-ax{ position:relative; height:16px; margin-top:5px !important; font-size:11.5px; color:var(--h-mut); white-space:nowrap; }
+.es-ax{ position:relative; height:16px; margin:-28px 12px 20px !important; font-size:var(--t-micro); line-height:16px; color:var(--h-mut); white-space:nowrap; }
 .es-ax span{ position:absolute; top:0; } .es-ax span:first-child{ left:0; } .es-ax span:last-child{ right:0; }
 .es-ax .mid{ translate:-50% 0; color:var(--h-ink); }
-.es-team{ position:relative; margin-top:14px !important; padding-left:15px; font-size:13px; line-height:1.4; color:var(--h-ink); }
-.es-team::before{ content:""; position:absolute; left:0; top:.42em; width:7px; height:7px; border-radius:50%; background:var(--coral); }
-.es-team .es-pin{ left:-28px; top:0; }
-.es-nt{ margin-top:8px !important; font-size:12.5px; line-height:1.4; color:var(--h-mut); }
-.es-go{ display:grid; place-items:center; height:40px; margin-top:12px; border-radius:20px; background:var(--h-btn); color:#fff; font-size:14px; font-weight:500; }
-.es-lk{ display:grid; place-items:center; height:32px; margin-top:4px; font-size:13.5px; font-weight:500; color:var(--h-deep); }
+/* the answer the card exists for is the lit part */
+.es-team{ position:relative; margin-top:8px !important; padding:8px 12px; border-radius:var(--r-well); background:var(--lit); box-shadow:var(--lit-sh); font-size:var(--t-md); line-height:1.4; color:var(--h-ink); text-wrap:balance; }
+.es-team .es-pin{ left:-26px; top:7px; }
+.es-nt{ margin-top:12px !important; font-size:var(--t-sm); line-height:1.4; color:var(--h-mut); }
+.es-go{ display:grid; place-items:center; height:32px; margin-top:12px; border-radius:var(--r-pill); background:var(--h-btn); color:#fff; font-size:var(--t-md); font-weight:500; }
+.es-lk{ display:grid; place-items:center; height:32px; margin-top:4px; font-size:var(--t-md); font-weight:500; color:var(--h-deep); }
 /* the answers come in after the card, each with its pin */
 .es-pop .es-pin, .es-team, .es-nt{ opacity:0; transition:opacity .35s ease; }
 .go .es-head .es-pin{ opacity:1; transition-delay:.95s; }
@@ -102,19 +116,21 @@
 
 /* 4. the deliberate second click: the card's question goes to the chat, it answers with the cause, and the calls behind the score
    come in, the four with that cause marked */
-.es-chat{ width:520px; padding:14px 18px 16px; opacity:0; transform:translateX(18px); transition:opacity .3s ease .15s, transform .5s cubic-bezier(.2,.8,.2,1) .15s; }
+.es-chat{ width:520px; padding:16px; opacity:0; transform:translateX(18px); transition:opacity .3s ease .15s, transform .5s cubic-bezier(.2,.8,.2,1) .15s; }
 .go .es-chat{ opacity:1; transform:none; }
-.es-ai{ display:flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--lilac-ink); }
-.es-ai svg{ width:15px; height:15px; fill:var(--lilac-ink); }
-.es-ask{ width:max-content; max-width:80%; margin:8px 0 0 auto !important; padding:9px 13px; border-radius:16px 16px 4px 16px; background:var(--h-chip); font-size:13px; line-height:1.35; color:var(--h-ink);
+/* the window's name is the kit's lilac tag (made by AI); the sparkle glyph said nothing */
+.es-ai{ display:flex; width:max-content; }
+.es-ai svg{ display:none; }
+.es-ask{ width:max-content; max-width:80%; margin:8px 0 0 auto !important; padding:8px 12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); font-size:var(--t-md); line-height:1.35; color:var(--h-ink);
   opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .35s ease; }
 .go .es-ask{ opacity:1; transform:none; transition-delay:.6s; }
-.es-ans{ position:relative; min-height:40px; margin-top:10px; }
-.es-ans p{ font-size:13px; line-height:1.5; color:var(--h-ink2); opacity:0; transition:opacity .4s ease; }
+/* the question is a well; the answer, which the step points at, is the well filled in */
+.es-ans{ position:relative; box-sizing:border-box; min-height:40px; margin-top:8px; padding:8px 12px; border-radius:var(--r-well); background:var(--lit); box-shadow:var(--lit-sh); }
+.es-ans p{ font-size:var(--t-md); line-height:1.4; color:var(--h-ink); opacity:0; transition:opacity .4s ease; }
 .es-ans strong{ font-weight:600; color:var(--h-ink); }
-.es-ans .es-pin{ left:-28px; top:2px; }
+.es-ans .es-pin{ left:-26px; top:8px; }
 .go .es-ans p{ opacity:1; transition-delay:2.1s; }
-.es-ans .dots{ position:absolute; left:0; top:12px; display:flex; gap:5px; opacity:0; transition:opacity .2s ease; }
+.es-ans .dots{ position:absolute; left:12px; top:17px; display:flex; gap:5px; opacity:0; transition:opacity .2s ease; }
 .go .es-ans .dots{ opacity:1; transition-delay:1.1s; animation:es-out .2s ease 2s forwards; }
 @keyframes es-out{ to{ opacity:0; } }
 .es-ans .dots i{ width:6px; height:6px; border-radius:50%; background:var(--lilac); }
@@ -122,22 +138,20 @@
 .go .es-ans .dots i:nth-child(2){ animation-delay:.15s; } .go .es-ans .dots i:nth-child(3){ animation-delay:.3s; }
 @keyframes es-dot{ 0%, 100%{ opacity:.35; transform:none; } 50%{ opacity:1; transform:translateY(-2px); } }
 
-.es-ev{ width:520px; padding:14px 18px 10px; opacity:0; transform:translateY(10px); transition:opacity .3s ease, transform .5s cubic-bezier(.2,.8,.2,1); }
+.es-ev{ width:520px; padding:16px 16px 8px; opacity:0; transform:translateY(10px); transition:opacity .3s ease, transform .5s cubic-bezier(.2,.8,.2,1); }
 .go .es-ev{ opacity:1; transform:none; transition-delay:2.5s; }
-.es-evh{ display:flex; align-items:baseline; gap:10px; white-space:nowrap; }
-.es-evh b{ font-size:15px; font-weight:600; }
-.es-evh small{ font-size:12.5px; color:var(--h-mut); }
-.es-evh a{ margin-left:auto; font-size:12.5px; font-weight:500; color:var(--h-deep); }
-.es-th, .es-calls li{ display:grid; grid-template-columns:46px 104px 58px 38px minmax(0, 1fr); column-gap:10px; align-items:center; }
-.es-th{ margin-top:10px !important; height:24px; font-size:11px; color:var(--h-mut); }
+.es-evh{ display:flex; align-items:baseline; gap:8px; white-space:nowrap; }
+.es-evh a{ margin-left:auto; font-size:var(--t-sm); font-weight:500; color:var(--h-deep); }
+.es-th, .es-calls li{ display:grid; grid-template-columns:48px 104px 56px 36px minmax(0, 1fr); column-gap:12px; align-items:center; }
+.es-th{ margin-top:8px !important; height:24px; font-size:var(--t-micro); color:var(--h-mut); }
 .es-calls{ list-style:none; margin:0; padding:0; }
-.es-calls li{ height:31px; border-top:1px solid rgba(24,36,48,.07); font-size:12px; color:var(--h-mut); white-space:nowrap;
+.es-calls li{ height:32px; border-top:1px solid var(--rule); font-size:var(--t-sm); color:var(--h-mut); white-space:nowrap;
   opacity:0; transform:translateY(5px); transition:opacity .3s ease, transform .35s ease; }
 .es-calls li b{ font-weight:500; color:var(--h-ink); overflow:hidden; text-overflow:ellipsis; }
 .es-calls .mo{ display:flex; align-items:center; gap:6px; color:var(--h-ink2); }
-.es-calls .pl{ display:grid; place-items:center; flex:none; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-line); }
+.es-calls .pl{ display:grid; place-items:center; flex:none; width:20px; height:20px; border-radius:50%; background:var(--well); box-shadow:var(--well-sh); }
 .es-calls .pl::before{ content:""; margin-left:2px; border-style:solid; border-width:3.5px 0 3.5px 6px; border-color:transparent transparent transparent var(--h-ink); }
-.es .in-sv .es-calls .c{ width:36px; height:22px; border-radius:11px; font-size:12px; font-weight:600; }
+.es .in-sv .es-calls .c{ width:36px; height:22px; border-radius:var(--r-pill); font-size:var(--t-sm); }
 .es-calls .fd{ overflow:hidden; text-overflow:ellipsis; color:var(--h-ink2); }
 .go .es-calls li{ opacity:1; transform:none; transition-delay:calc(2.7s + var(--r) * .08s); }
 /* the cause the chat named, marked where it happened: Hear's coral underline (screens.css .sg-q u) */
@@ -151,21 +165,26 @@
 
 /* phone: the room is 400 wide; the grid keeps first names and short criteria, the calls keep date, score and finding */
 @media (max-width: 860px){
-  .es-hm{ width:410px; padding:14px 12px 12px; }
-  .es-grid{ grid-template-columns:82px repeat(7, 40px); gap:3px; }
+  .es-hm{ width:410px; padding:12px; }
+  .es-grid{ grid-template-columns:70px repeat(7, 40px); padding:4px; }
   .es-grid .h{ font-size:0; }
-  .es-grid .h::after{ content:attr(data-s); font-size:10.5px; }
-  .es-grid .n{ gap:6px; font-size:0; }
-  .es-grid .n span::after{ content:attr(data-f); font-size:12px; }
-  .es-grid .n .hf-av{ width:22px; height:22px; font-size:9px; }
-  .es .in-sv .es-grid .c{ height:30px; font-size:12.5px; }
-  .es-key{ gap:4px; font-size:10.5px; } .es-key i{ width:14px; } .es-key .ps{ margin:0 4px; } .es-key > span:first-child{ display:none; } .es-key span{ margin-right:4px; }
-  .es-cnt{ margin-left:12px; }
+  .es-grid .h::after{ content:attr(data-s); font-size:var(--t-micro); letter-spacing:-.03em; }
+  .es-grid .n{ font-size:0; }
+  .es-grid .n span::after{ content:attr(data-f); font-size:var(--t-sm); }
+  .es .in-sv .es-grid .c{ height:30px; font-size:var(--t-sm); }
+  /* the key takes two rows on purpose: under the pass mark, then over it, so no label leaves its swatch */
+  .es-key::after{ content:""; order:1; flex-basis:100%; height:0; margin-top:-4px; }
+  .es-key .up{ order:2; }
+  .es-cnt{ margin-left:7px !important; }
+  /* the card sits 6px nearer here, so the column steps 6px out and the pins on the card's edge clear its rim */
+  .es-col{ left:-20px; }
   .es-pop{ left:84px; }
-  .es-chat, .es-ev{ width:400px; padding-left:14px; padding-right:14px; }
-  .es-ans .es-pin, .es-team .es-pin{ left:-24px; }
+  .es-chat, .es-ev{ width:400px; padding-left:12px; padding-right:12px; }
+  .es-chat{ padding-top:12px; padding-bottom:12px; } .es-ev{ padding-top:12px; }
+  .es-ask{ max-width:100%; }
+  .es-ans .es-pin{ left:-22px; }
   .es-evh small{ display:none; }
-  .es-th, .es-calls li{ grid-template-columns:44px 36px minmax(0, 1fr); }
+  .es-th, .es-calls li{ grid-template-columns:48px 36px minmax(0, 1fr); }
   .es-th span:nth-child(2), .es-th span:nth-child(3), .es-calls li b, .es-calls li .mo{ display:none; }
 }
 @media (prefers-reduced-motion: reduce){ .es .in-sv *, .es .in-sv *::after{ transition:none !important; animation:none !important; } }

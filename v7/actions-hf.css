@@ -3,127 +3,140 @@
    (hear-v7/plan/screens/screens.js S.actions, screens.css .ac-*, .sx-side): the same cards, the same refund task, the same close reasons. */
 
 /* a card on the board (screens.css .ac-card): where it came from, what was found, the line from the call, who has it */
-.an-cd{ position:relative; padding:13px 14px 12px; border-radius:14px; background:#fff; box-shadow:0 1px 2px rgba(16,34,60,.06), 0 6px 14px -10px rgba(16,34,60,.3); }
-.an-cd small{ display:flex; align-items:center; gap:6px; font-size:12px; color:var(--h-mut); }
-.an-cd small u{ width:7px; height:7px; border-radius:50%; background:#C9D3DB; text-decoration:none; }
+/* one material (owner, 25.11), as in the Introduction: a window or a column is a plain white plate; a card set into it is a pale-blue
+   well; the card the step is about is the well filled in. The tokens are in hf-story.css. */
+.an-cd{ position:relative; padding:12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); }
+.an-cd small{ display:flex; align-items:flex-start; gap:8px; font-size:var(--t-sm); line-height:1.3; color:var(--h-mut); }
+.an-cd small u{ flex:none; width:7px; height:7px; margin-top:4px; border-radius:50%; background:var(--h-line); text-decoration:none; }
 .an-cd small u.hi{ background:var(--h-btn); }
-.an-cd p{ margin-top:6px !important; font-size:14px; font-weight:500; line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-.an-cd .cev{ display:block; margin-top:9px; padding-left:9px; border-left:2px solid #A9DAFE; font-size:12.5px; line-height:1.35; color:var(--h-ink2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.an-cd .cev b{ margin-right:6px; font-weight:500; color:var(--h-ink); }
-.an-cd footer{ position:relative; display:flex; align-items:center; gap:8px; margin:11px 0 0; padding:0; border:0; background:none; min-height:0; height:26px; font-size:13px; color:var(--h-ink2); }
-.an-cd footer .hf-tag{ margin-left:auto; }
+.an-cd p{ margin-top:8px !important; font-size:var(--t-md); font-weight:500; line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+/* the line from the call is drawn one way everywhere: a 1.5px blue rule, the time in ink, the words beside it */
+.an-cd .cev{ display:block; padding-left:8px; border-left:1.5px solid var(--h-b3); color:var(--h-ink2); }
+.an-cd .cev{ margin-top:8px; font-size:var(--t-sm); line-height:1.35; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.an-cd .cev b, .an-ev b{ margin-right:8px; font-weight:500; color:var(--h-ink); }
+.an-cd footer{ position:relative; display:flex; align-items:center; gap:8px; margin:12px 0 0; padding:0; border:0; background:none; min-height:0; height:26px; font-size:var(--t-sm); color:var(--h-ink2); white-space:nowrap; }
+.an-cd footer .hf-tag{ flex:none; margin-left:auto; }
 .an-cd .na{ display:flex; align-items:center; gap:8px; color:var(--h-mut); white-space:nowrap; }
-.an-cd footer .hf-tag{ flex:none; }
-.an .hf-av.no{ background:none; box-shadow:inset 0 0 0 1.3px #B9C3CC; }
-.an .hf-av{ width:26px; height:26px; }
+/* on a pale-blue well a face or a neutral tag is white, never the kit's grey (art director, 25.11) */
+.an-cd .hf-av, .an-faces .hf-av{ background:#fff; box-shadow:var(--sh-flat); }
+.an-cd .hf-tag:not(.green){ background:#fff; }
+.an .hf-av.no{ background:none; box-shadow:var(--hair); }
+/* the card the step is about is lit */
+.go .an-cd.src, .go .an-cd.mt, .go .an-cd.nw{ background-color:var(--lit); box-shadow:var(--lit-sh); }
 
 /* a column of the board (screens.css .ac-col) */
-.an-col{ display:flex; flex-direction:column; gap:10px; padding:14px 12px 12px; background:linear-gradient(rgba(24,36,48,.045), rgba(24,36,48,.045)), #fff; }
-.an-col h4{ display:flex; align-items:center; gap:8px; margin:0 4px 2px; font-size:14.5px; font-weight:600; }
-.an-col h4 i{ font-style:normal; font-size:12.5px; font-weight:500; color:var(--h-mut); }
+.an-col{ display:flex; flex-direction:column; gap:8px; padding:8px; }
+.an-col h4{ display:flex; align-items:baseline; gap:8px; margin:4px 12px 0; font-size:var(--t-lg); line-height:1.3; font-weight:600; }
+.an-col h4 i{ font-style:normal; font-size:var(--t-sm); font-weight:500; color:var(--h-mut); }
 
 /* 1. the alert alone: what happened, the customer's words; who is on it and how it ended wait in dashed slots */
-.an-al{ left:0; top:0; width:330px; padding:18px 18px 16px; opacity:0; transform:translateY(-18px); transition:opacity .3s ease .1s, transform .55s cubic-bezier(.2,.8,.2,1) .1s; }
+.an-al{ left:0; top:0; width:348px; padding:20px; opacity:0; transform:translateY(-18px); transition:opacity .3s ease .1s, transform .55s cubic-bezier(.2,.8,.2,1) .1s; }
 .go .an-al{ opacity:1; transform:none; }
 .an-src{ display:flex; align-items:center; gap:8px; }
-.an-src small{ font-size:12.5px; color:var(--h-mut); }
-.an-tl{ display:block; margin-top:12px; font-size:19px; font-weight:600; letter-spacing:-.01em; }
-.an-d{ margin-top:6px !important; font-size:13.5px; line-height:1.45; color:var(--h-ink2); }
-.an-ev{ display:block; margin-top:12px; padding-left:9px; border-left:2px solid #A9DAFE; font-size:13px; line-height:1.4; color:var(--h-ink2); }
-.an-ev b{ margin-right:6px; font-weight:500; color:var(--h-ink); }
-.an-q{ display:flex; align-items:center; height:38px; margin-top:8px !important; padding:0 12px; border-radius:10px; background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-line); font-size:13px; color:var(--h-ink2);
+.an-src small{ font-size:var(--t-sm); color:var(--h-mut); }
+/* the finding's name is set the same on the alert and on the opened task */
+.an-tl, .an-tt{ display:block; margin-top:12px !important; font-size:var(--t-num); font-weight:600; line-height:1.25; letter-spacing:-.01em; }
+.an-d{ margin-top:8px !important; font-size:var(--t-md); line-height:1.45; color:var(--h-ink2); }
+/* on a plate the customer's words sit in a well, the time in ink before them */
+.an-ev{ display:block; margin-top:12px; padding:10px 12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); font-size:var(--t-md); line-height:20px; color:var(--h-ink2); }
+/* a field: 40 high, a well (the two empty slots here, the outcome and the comment in the task) */
+.an-q{ display:flex; align-items:center; height:40px; margin-top:8px !important; padding:0 12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); font-size:var(--t-md); color:var(--h-ink2);
   opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .45s cubic-bezier(.2,.8,.2,1); }
-.an-q.q1{ margin-top:16px !important; }
-.an-q span{ margin-left:auto; font-size:15px; font-weight:600; color:var(--h-mut); }
+.an-q.q1{ margin-top:8px !important; }
+.an-q span{ margin-left:auto; font-size:var(--t-lg); font-weight:600; color:var(--h-mut); }
 .go .an-q{ opacity:1; transform:none; } .go .an-q.q1{ transition-delay:1.1s; } .go .an-q.q2{ transition-delay:1.6s; }
 
 /* 2. the finding as a card in Pending: its three parts named one by one; then Daniel Brooks takes it */
 .an-s2 .an-col{ position:absolute; left:0; top:0; width:290px; opacity:0; transition:opacity .35s ease .1s; }
 .go.an-s2 .an-col{ opacity:1; }
-.an-s2 .an-cd.gh{ opacity:.45; }
-.an-cd.src{ transition:box-shadow .3s ease; }
-.go .an-cd.src{ box-shadow:0 0 0 2px var(--h-blue), 0 14px 26px -14px rgba(16,34,60,.45); transition-delay:.6s; }
+/* set aside: the well stays solid, only what it holds fades */
+.an-s2 .an-cd.gh > *{ opacity:.45; }
+.an-cd.src{ transition:box-shadow .3s ease, background-color .3s ease; }
+.go .an-cd.src{ transition-delay:.6s; }
 .an-cd.src .who{ position:absolute; left:0; top:0; display:flex; align-items:center; gap:8px; color:var(--h-ink); font-weight:500; opacity:0; transition:opacity .35s ease; }
 .an-cd.src .na{ transition:opacity .3s ease; }
 .go .an-cd.src .who{ opacity:1; transition-delay:2.6s; } .go .an-cd.src .na{ opacity:0; transition-delay:2.4s; }
 .an-lb{ position:absolute; left:304px; opacity:0; transform:translateX(-6px); transition:opacity .35s ease, transform .45s cubic-bezier(.2,.8,.2,1); }
-.an-lb .hf-n{ box-shadow:none; }
-.an-lb.l1{ top:52px; } .an-lb.l2{ top:128px; } .an-lb.l3{ top:178px; }
+/* each label sits level with the part it names: the source line, the quote, the footer */
+.an-lb.l1{ top:44px; } .an-lb.l2{ top:108px; } .an-lb.l3{ top:146px; }
 .go .an-lb{ opacity:1; transform:none; } .go .an-lb.l1{ transition-delay:1s; } .go .an-lb.l2{ transition-delay:1.45s; } .go .an-lb.l3{ transition-delay:1.9s; }
 
 /* 3. two ways to find a mention: Hear's today, inside the Assignee menu, set aside; and its own filter, chosen */
 .an-row{ position:absolute; left:0; top:0; display:flex; align-items:flex-start; gap:16px; }
 .an-op{ display:flex; flex-direction:column; align-items:flex-start; gap:10px; transition:opacity .45s ease; }
 .an-op > .hf-win{ position:relative; }
-.an-oh{ gap:8px; }
-.an-oh .hf-tag{ height:20px; font-size:11.5px; }
-/* set aside: the window stays solid over the painting, only what it holds fades (critic, 25.11) */
-.go .an-op.off > .hf-win > *{ opacity:.45; transition:opacity .45s ease 1.7s; }
+/* a tag that ends a glass note sits in it with the same 5px on three sides */
+.an-oh, .an-rs{ padding-right:5px; }
+/* set aside: the window and its well stay solid over the painting, only what they hold fades (critic, 25.11) */
+.go .an-op.off > .hf-win > .hf-chip, .go .an-op.off .an-menu > *{ opacity:.45; transition:opacity .45s ease 1.7s; }
 .go .an-op.off > .hf-note{ opacity:.8; transition:opacity .45s ease 1.7s; }
-.an-dd{ width:224px; padding:14px; }
-.an-dd > .hf-chip svg{ width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
-.an-menu{ margin-top:8px; padding:8px; border-radius:12px; background:#fff; box-shadow:0 0 0 1px rgba(16,34,60,.07), 0 12px 26px -14px rgba(8,20,40,.35); }
-.an-seg{ display:flex; padding:3px; border-radius:999px; background:var(--h-chip); }
-.an-seg span{ flex:1; display:grid; place-items:center; height:26px; border-radius:999px; font-size:12px; font-weight:500; color:var(--h-mut); }
-.an-seg .on{ background:#fff; color:var(--h-ink); box-shadow:0 1px 3px rgba(16,34,60,.15); }
-.an-faces{ display:grid; grid-template-columns:repeat(5, 26px); gap:8px 10px; justify-content:space-between; margin-top:10px; padding:0 4px 2px; }
-.an-faces .me{ transition:box-shadow .3s ease; }
-.go .an-faces .me{ box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--h-blue); transition-delay:.9s; }
+.an-dd{ width:224px; padding:12px; }
+.an-dd > .hf-chip svg{ width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+.an-menu{ margin-top:8px; padding:8px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); }
+.an-seg{ display:flex; }
+.an-seg span{ flex:1; display:grid; place-items:center; height:24px; border-radius:var(--r-pill); font-size:var(--t-sm); font-weight:500; color:var(--h-mut); }
+.an-seg .on{ background:var(--h-btn); color:#fff; }
+.an-faces{ display:grid; grid-template-columns:repeat(5, 26px); gap:8px; justify-content:space-between; margin-top:12px; padding:0 4px 4px; }
+.an-faces .me{ transition:box-shadow .3s ease, background-color .3s ease; }
+.go .an-faces .me{ background:var(--lit); box-shadow:var(--lit-sh); transition-delay:.9s; }
 
-.an-fl{ width:312px; padding:14px; display:flex; flex-direction:column; gap:10px; }
-.an-chips{ display:flex; gap:6px; }
-.an-chips .hf-chip{ height:28px; padding:0 11px; font-size:12.5px; gap:6px; transition:background-color .3s ease, color .3s ease, box-shadow .3s ease; }
-.an-chips .hf-chip svg{ display:none; width:11px; height:11px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.an-fl{ width:312px; padding:12px; display:flex; flex-direction:column; gap:8px; }
+.an-chips{ display:flex; gap:4px; }
+/* three filters share one row of the window, so they are the kit's chip one step smaller */
+.an-chips .hf-chip{ height:28px; padding:0 8px; font-size:var(--t-sm); gap:4px; transition:background-color .3s ease, color .3s ease, box-shadow .3s ease; }
+/* the chosen filter is the ink one; a tick beside its name said the same thing twice and pushed the row past the rim */
+.an-chips .hf-chip svg{ display:none; }
 .an-chips .c0{ background:var(--h-btn); color:#fff; box-shadow:none; }
-.go .an-chips .c0{ background:#fff; color:var(--h-ink2); box-shadow:inset 0 0 0 1.5px var(--h-line); transition-delay:1.3s; }
+.go .an-chips .c0{ background:#fff; color:var(--h-ink2); box-shadow:var(--hair); transition-delay:1.3s; }
 .go .an-chips .c2{ background:var(--h-btn); color:#fff; box-shadow:none; transition-delay:1.3s; }
-.go .an-chips .c2 svg{ display:block; }
-.an-fl .an-cd.gh{ transition:opacity .35s ease; }
-.go .an-fl .an-cd.gh{ opacity:.35; transition-delay:1.6s; }
-.an-cd.mt{ transition:box-shadow .3s ease; }
-.go .an-cd.mt{ box-shadow:0 0 0 2px var(--h-blue), 0 14px 26px -14px rgba(16,34,60,.45); transition-delay:1.9s; }
-.an-cm{ display:flex; gap:9px; margin-top:10px; padding-top:10px; border-top:1px solid rgba(24,36,48,.08); font-size:12.5px; line-height:1.4; color:var(--h-ink2); }
+.an-fl .an-cd.gh > *{ transition:opacity .35s ease; }
+.go .an-fl .an-cd.gh > *{ opacity:.45; transition-delay:1.6s; }
+.an-cd.mt{ transition:box-shadow .3s ease, background-color .3s ease; }
+.go .an-cd.mt{ transition-delay:1.9s; }
+.an-cm{ display:flex; gap:8px; margin-top:12px; padding-top:12px; border-top:1px solid var(--rule); font-size:var(--t-sm); line-height:1.4; color:var(--h-ink2); }
 .an-cm b{ font-weight:600; color:var(--h-ink); }
-.an-cm small{ display:inline; margin-left:6px; font-size:11.5px; }
+.an-cm small{ display:inline; margin-left:8px; font-size:var(--t-micro); }
 .an-cm em{ font-weight:500; color:var(--h-deep); }
 
 /* 4. the task, opened (screens.css .sx-side): the call is listened to, the moments answered, the checklist ticked, the outcome written,
    and it closes as Resolved */
-.an-tp{ left:0; top:0; width:384px; padding:20px 22px 18px; font-size:13.5px; opacity:0; transform:translateX(18px); transition:opacity .3s ease .1s, transform .5s cubic-bezier(.2,.8,.2,1) .1s; }
+.an-tp{ left:0; top:0; width:384px; padding:20px; font-size:var(--t-md); opacity:0; transform:translateX(18px); transition:opacity .3s ease .1s, transform .5s cubic-bezier(.2,.8,.2,1) .1s; }
 .go .an-tp{ opacity:1; transform:none; }
-.an-th{ display:flex; align-items:baseline; gap:9px; }
-.an-th b{ font-size:16px; font-weight:600; }
-.an-th small{ margin-left:auto; font-size:12.5px; color:var(--h-mut); }
-.an-tt{ margin-top:12px !important; font-size:18px; font-weight:500; line-height:1.25; letter-spacing:-.01em; text-wrap:balance; }
-.an-tp dl{ display:grid; grid-template-columns:84px 1fr; gap:9px 10px; margin:14px 0 0; font-size:13.5px; }
+.an-th{ display:flex; align-items:baseline; gap:8px; }
+.an-th b{ font-size:var(--t-title); font-weight:600; letter-spacing:-.01em; }
+.an-th small{ margin-left:auto; font-size:var(--t-sm); color:var(--h-mut); }
+.an-tt{ text-wrap:balance; }
+.an-tp dl{ display:grid; grid-template-columns:84px 1fr; grid-auto-rows:26px; align-items:center; gap:4px 12px; margin:12px 0 0; font-size:var(--t-md); }
 .an-tp dt{ color:var(--h-mut); } .an-tp dd{ display:flex; align-items:center; gap:8px; margin:0; font-weight:500; }
-.an-tp h5{ margin:16px 0 4px !important; font-size:12.5px; font-weight:500; color:var(--h-mut); }
-.an-call h5{ margin-top:16px !important; }
-.an-call .tl{ position:relative; display:block; height:4px; margin:10px 0 9px; border-radius:2px; background:#DCEFFE; }
-.an-call .tl u{ position:absolute; top:-3px; width:10px; height:10px; margin-left:-5px; border-radius:50%; background:var(--coral); box-shadow:0 0 0 2px #fff; transition:background-color .3s ease; }
-.an-call .tl b{ position:absolute; top:-5px; left:0; width:2px; height:14px; margin-left:-1px; border-radius:1px; background:var(--h-blue); opacity:0; }
+.an-tp h5{ margin:16px 0 4px !important; font-size:var(--t-sm); line-height:1.3; font-weight:500; color:var(--h-mut); }
+/* the call is one well: its label, the timeline with the two moments, and the two lines */
+.an-call{ margin-top:12px; padding:12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); }
+.an-call h5{ margin:0 !important; }
+.an-call .tl{ position:relative; display:block; height:4px; margin:12px 0 8px; border-radius:var(--r-xs); background:var(--h-b2); }
+.an-call .tl u{ position:absolute; top:-3px; width:10px; height:10px; margin-left:-5px; border-radius:50%; background:var(--coral); box-shadow:0 0 0 2px var(--well); transition:background-color .3s ease; }
+.an-call .tl b{ position:absolute; top:-5px; left:0; width:2px; height:14px; margin-left:-1px; border-radius:var(--r-xs); background:var(--h-blue); opacity:0; }
 .go .an-call .tl b{ animation:an-play 1.3s cubic-bezier(.4,0,.2,1) .9s both; }
 @keyframes an-play{ 0%{ left:0; opacity:1; } 92%{ opacity:1; } 100%{ left:43.3%; opacity:0; } }
 .go .an-call .tl u{ background:var(--green); transition-delay:4.9s; } .go .an-call .tl u.u2{ transition-delay:5.05s; }
-.an-call p{ display:flex; gap:12px; padding:2px 0; font-size:13px; line-height:1.4; color:var(--h-ink2); }
-.an-call p b{ flex:none; width:38px; font-weight:500; color:var(--h-ink); }
-.an-ck{ display:flex; align-items:center; gap:10px; padding:6px 0; font-size:13.5px; transition:color .3s ease; }
-.an-ck i{ display:grid; place-items:center; width:18px; height:18px; border-radius:6px; box-shadow:inset 0 0 0 1.5px var(--h-line); transition:background-color .25s ease, box-shadow .25s ease; }
-.an-ck svg{ width:11px; height:11px; fill:none; stroke:#fff; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; opacity:0; transition:opacity .2s ease; }
+.an-call p{ display:flex; gap:12px; padding:2px 0; font-size:var(--t-md); line-height:1.4; color:var(--h-ink2); }
+.an-call p b{ flex:none; width:40px; font-weight:500; color:var(--h-ink); }
+.an-ck{ display:flex; align-items:center; gap:8px; padding:4px 0; font-size:var(--t-md); transition:color .3s ease; }
+.an-ck i{ display:grid; place-items:center; flex:none; width:16px; height:16px; border-radius:var(--r-xs); box-shadow:var(--hair); transition:background-color .25s ease, box-shadow .25s ease; }
+.an-ck svg{ width:10px; height:10px; fill:none; stroke:#fff; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; opacity:0; transition:opacity .2s ease; }
 .go .an-ck{ color:var(--h-mut); } .go .an-ck i{ background:var(--h-btn); box-shadow:none; } .go .an-ck svg{ opacity:1; }
 .go .an-ck.k1, .go .an-ck.k1 i, .go .an-ck.k1 svg{ transition-delay:2.4s; }
 .go .an-ck.k2, .go .an-ck.k2 i, .go .an-ck.k2 svg{ transition-delay:2.9s; }
 .go .an-ck.k3, .go .an-ck.k3 i, .go .an-ck.k3 svg{ transition-delay:3.4s; }
-.an-out{ display:flex; align-items:center; height:38px; padding:0 13px; border-radius:10px; background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-line); font-size:13.5px; color:var(--h-ink); white-space:nowrap; overflow:hidden; }
+.an-out{ display:flex; align-items:center; height:40px; padding:0 12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); font-size:var(--t-md); color:var(--h-ink); white-space:nowrap; overflow:hidden; }
 .an-out span{ clip-path:inset(0 100% 0 0); }
 .go .an-out{ animation:an-typing 1.1s linear 3.8s both; }
 .go .an-out span{ animation:an-type 1s steps(34, end) 3.85s both; }
 @keyframes an-type{ to{ clip-path:inset(0 0 0 0); } }
-@keyframes an-typing{ 0%, 100%{ box-shadow:inset 0 0 0 2px var(--h-blue); } }
-.an-cmt{ display:flex; align-items:center; height:38px; margin-top:12px !important; padding:0 13px; border-radius:10px; background:var(--h-chip); font-size:13px; color:var(--h-mut); }
-.an-cmt small{ margin-left:auto; font-size:12px; }
-.an-ft{ display:flex; gap:10px; margin-top:14px !important; }
-.an-bt{ flex:1; display:grid; place-items:center; height:36px; border-radius:18px; background:#fff; box-shadow:inset 0 0 0 1.5px var(--h-line); font-size:13.5px; font-weight:500; }
+@keyframes an-typing{ 0%, 100%{ background-color:var(--lit); box-shadow:var(--lit-sh); } }
+.an-cmt{ display:flex; align-items:center; height:40px; margin-top:8px !important; padding:0 12px; border-radius:var(--r-well); background:var(--well); box-shadow:var(--well-sh); font-size:var(--t-md); color:var(--h-mut); }
+.an-cmt small{ margin-left:auto; font-size:var(--t-sm); }
+.an-ft{ display:flex; gap:8px; margin-top:16px !important; }
+.an-bt{ flex:1; display:grid; place-items:center; height:36px; border-radius:var(--r-pill); background:#fff; box-shadow:var(--hair); font-size:var(--t-md); font-weight:500; }
 .an-bt.ink{ background:var(--h-btn); color:#fff; box-shadow:none; }
 .go .an-bt.ink{ animation:an-press .32s ease 5.5s; }
 @keyframes an-press{ 50%{ transform:scale(.96); } }
@@ -131,29 +144,27 @@
 /* 5. closed work keeps its reason: the five reasons Hear asks for, and the board's two ends, each card showing how it ended; the
    refund card lands at the top of Done */
 .an-stk{ position:absolute; left:0; top:0; display:flex; flex-direction:column; align-items:flex-start; gap:12px; }
-.an-rs{ gap:6px; padding-right:6px; }
-.an-rs > span:first-child{ margin-right:4px; font-weight:500; color:var(--h-ink); }
-.an-rs .hf-tag{ height:22px; opacity:0; transition:opacity .3s ease; }
+.an-rs{ gap:8px; }
+.an-rs > span:first-child{ font-weight:500; color:var(--h-ink); }
+.an-rs .hf-tag{ opacity:0; transition:opacity .3s ease; }
 .go .an-rs .hf-tag{ opacity:1; } .go .an-rs .hf-tag:nth-child(2){ transition-delay:.25s; } .go .an-rs .hf-tag:nth-child(3){ transition-delay:.35s; }
 .go .an-rs .hf-tag:nth-child(4){ transition-delay:.45s; } .go .an-rs .hf-tag:nth-child(5){ transition-delay:.55s; } .go .an-rs .hf-tag:nth-child(6){ transition-delay:.65s; }
 .an-cols{ display:flex; align-items:flex-start; gap:12px; }
-.an-cols .an-col{ position:relative; width:264px; }
-.an-s5 .an-cd:not(.nw){ opacity:.8; }
-.an-cd.nw{ opacity:0; transform:translateY(-26px); transition:opacity .3s ease, transform .55s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease; }
-.go .an-cd.nw{ opacity:1; transform:none; box-shadow:0 0 0 2px var(--h-blue), 0 14px 26px -14px rgba(16,34,60,.45); transition-delay:1s, 1s, 1.2s; }
+.an-cols .an-col{ position:relative; width:268px; }
+.an-cd.nw{ opacity:0; transform:translateY(-26px); transition:opacity .3s ease, transform .55s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease, background-color .3s ease; }
+.go .an-cd.nw{ opacity:1; transform:none; transition-delay:1s, 1s, 1.2s, 1.2s; }
 .an-cd.nw .hf-tag{ transform:scale(.6); opacity:0; transition:transform .35s cubic-bezier(.3,1.5,.5,1), opacity .2s ease; }
 .go .an-cd.nw .hf-tag{ transform:none; opacity:1; transition-delay:1.7s; }
 
 /* phone: the room is 400 wide */
 @media (max-width: 860px){
   .an-s2 .an-col{ width:250px; }
-  .an-lb{ left:262px; max-width:138px; white-space:normal; align-items:flex-start; padding:6px 10px 6px 6px; border-radius:14px; }
-  .an-lb.l1{ top:50px; } .an-lb.l2{ top:116px; } .an-lb.l3{ top:196px; }
+  .an-lb{ left:262px; max-width:138px; white-space:normal; align-items:flex-start; padding:6px 10px 6px 6px; border-radius:var(--r-card); }
+  .an-lb.l1{ top:38px; } .an-lb.l2{ top:88px; } .an-lb.l3{ top:168px; }
   .an-row{ flex-direction:column; gap:12px; }
   .an-fl{ width:360px; }
-  .an-cols{ gap:8px; } .an-cols .an-col{ width:196px; padding:12px 8px 8px; }
-  .an-cols .an-cd{ padding:11px 11px 10px; } .an-cols .an-cd p{ font-size:13px; } .an-cols .an-cd footer{ font-size:12px; gap:6px; }
+  .an-cols{ gap:8px; } .an-cols .an-col{ width:196px; }
   .an-cols .an-cd footer .hf-av, .an-cols .an-cd footer .na{ display:none; }
-  .an-rs{ flex-wrap:wrap; max-width:400px; white-space:normal; border-radius:16px; }
+  .an-rs{ flex-wrap:wrap; max-width:400px; white-space:normal; padding:8px 12px; border-radius:var(--r-card); }
 }
 @media (prefers-reduced-motion: reduce){ .an .in-sv *{ transition:none !important; animation:none !important; } .an-out span{ clip-path:none; } }
