@@ -22,6 +22,9 @@
   background-size:cover; background-position:50% var(--sky, 0%); transition:background-position 1.6s cubic-bezier(.3,.7,.2,1);
   box-shadow:0 30px 60px -42px rgba(10,40,80,.55); }
 .hf .in-sv{ z-index:1; }
+/* the stage sits in the middle of the screen below the bar, not pinned to its top (owner, 25.11: "on every page it is not centred,
+   it sticks to the top"): on a tall screen the stage stops growing at 720px, so its sticky top is half the room left over */
+@media (min-width:861px){ .hf .in-stage{ top:max(96px, calc(50vh + 30px - min(50vh - 68px, 360px))); } }
 .hf .in-meter{ z-index:4; }
 .hf-art{ position:absolute; z-index:2; display:block; pointer-events:none; user-select:none; }
 .hf-art img{ display:block; width:100%; height:auto; }
