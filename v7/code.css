@@ -254,3 +254,8 @@
   #code#code .hw-nav .hw-d > span::before{ content:none; }
   #code#code .hw-nav .hw-d small{ -webkit-text-fill-color:#6a6f76; }
 }
+/* the fill is painted through the letters' own box, which at this tight line height ends above the descenders (g, y, p were cut):
+   the box is padded to hold them, and a negative margin keeps the three words as close as before */
+@media (min-width: 900px){
+  #code#code .hw-nav a{ padding:.1em .06em .24em 0; margin:-.1em 0 -.24em; }
+}
