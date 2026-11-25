@@ -1,0 +1,109 @@
+/* v7 - Actions (work/actions.html): its five scenes, on the shared wireframe stage (v7/wf-story.css, v7/wf-story.js).
+   Each step shows only the part it talks about: an alert, a card, the filter, the task, the closed column. */
+
+/* 1. one alert, fired, and nobody on it: the two things it cannot say wait in dashed slots */
+.aw-alert{ left:120px; top:86px; width:300px; transform:translateY(-26px); opacity:0; transition:transform .55s cubic-bezier(.2,.9,.3,1.2) .2s, opacity .3s ease .2s; }
+.go .aw-alert{ transform:none; opacity:1; }
+.aw-q{ display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding:9px 11px; border:1.5px dashed var(--wf2); border-radius:6px; font-size:11.5px; color:var(--soft); opacity:0; transition:opacity .4s ease; }
+.aw-q em{ font-style:normal; font-size:15px; color:var(--ink); }
+.go .aw-q.q1{ opacity:1; transition-delay:1s; } .go .aw-q.q2{ opacity:1; transition-delay:1.6s; }
+
+/* 2. the same finding as a card: where it came from, the customer's words timed in the call, who has it */
+.aw-s2 .aw-col{ left:20px; top:20px; width:300px; height:420px; }
+.aw-task{ left:34px; top:58px; width:272px; }
+.aw-task [data-b]{ transition:background-color .4s ease, box-shadow .4s ease; border-radius:4px; }
+.aw-task .ev{ display:flex; gap:8px; margin:9px 0 0; padding-left:9px; border-left:2px solid var(--wf2); font-size:11.5px; color:var(--mute); }
+.aw-task .ev em{ font-style:normal; color:var(--ink); }
+.aw-task .ev span{ clip-path:inset(0 100% 0 0); transition:clip-path .9s steps(26) 1.2s; white-space:nowrap; }
+.go .aw-task .ev span{ clip-path:inset(0 0 0 0); }
+.aw-task footer{ position:relative; display:flex; align-items:center; gap:8px; height:22px; margin-top:12px; font-size:11.5px; }
+.aw-task footer .na, .aw-task footer .nm{ position:absolute; left:0; display:flex; align-items:center; gap:8px; transition:opacity .35s ease; }
+.aw-task footer .na{ color:var(--soft); }
+.aw-task footer .nm{ opacity:0; }
+.go .aw-task footer .na{ opacity:0; transition-delay:2.5s; } .go .aw-task footer .nm{ opacity:1; transition-delay:2.6s; }
+.aw-s2 .aw-ghost{ left:34px; width:272px; height:70px; opacity:.6; }
+.aw-s2 .aw-lb{ left:350px; opacity:0; transition:opacity .35s ease; }
+.aw-s2 .aw-lb::before{ content:""; position:absolute; right:calc(100% + 8px); top:8px; width:30px; height:1.5px; background:var(--wf2); }
+.aw-s2.go .l1{ opacity:1; transition-delay:.5s; } .aw-s2.go .l2{ opacity:1; transition-delay:1.2s; } .aw-s2.go .l3{ opacity:1; transition-delay:2.5s; }
+
+/* 3. two ways to find where you're needed: the menu Hear has, set aside, and a filter of its own, which is tapped */
+.aw-op{ position:absolute; top:24px; height:412px; border-radius:10px; padding:16px; }
+.aw-op > small{ display:block; font:500 10.5px/1 "Geist Mono", monospace; color:var(--soft); letter-spacing:.02em; }
+.aw-op.off{ left:0; width:196px; border:1.5px dashed var(--wf2); }
+.aw-op.off > :not(small){ opacity:.6; }
+.aw-op.yes{ left:212px; width:328px; border:1.5px solid var(--ink); }
+.aw-op.yes > small{ color:var(--ink); }
+.aw-dd{ display:flex; justify-content:space-between; margin-top:16px; padding:8px 10px; border:1.5px solid var(--edge); border-radius:6px; font-size:11.5px; color:var(--ink); }
+.aw-menu{ margin-top:6px; padding:10px; border:1.5px solid var(--wf2); border-radius:8px; }
+.aw-seg{ display:flex; border:1.5px solid var(--wf2); border-radius:6px; overflow:hidden; font-size:10.5px; }
+.aw-seg span{ flex:1; padding:6px 0; text-align:center; color:var(--soft); }
+.aw-seg span.on{ background:var(--wf); color:var(--ink); }
+.aw-faces{ display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+.aw-faces i{ width:24px; height:24px; border-radius:50%; background:var(--wf); }
+.aw-faces i.me{ background:#fff; border:1.5px dashed var(--edge); }
+.aw-chips{ display:flex; gap:6px; margin-top:16px; }
+.aw-chip{ position:relative; padding:7px 10px; border:1.5px solid var(--edge); border-radius:999px; font-size:11px; line-height:1; color:var(--ink); white-space:nowrap; transition:background-color .25s ease, color .25s ease, border-color .25s ease; }
+.aw-chip.on{ background:var(--ink); border-color:var(--ink); color:#fff; }
+.go .aw-chip.on{ background:#fff; color:var(--ink); border-color:var(--edge); transition-delay:1s; }
+.go .aw-chip.me{ background:var(--ink); border-color:var(--ink); color:#fff; transition-delay:1s; }
+.aw-chip.me::after{ content:""; position:absolute; left:50%; top:50%; width:26px; height:26px; margin:-13px 0 0 -13px; border-radius:50%; background:rgba(23,27,32,.18); transform:scale(.3); opacity:0; }
+.go .aw-chip.me::after{ animation:aw-tap .6s ease .7s both; }
+@keyframes aw-tap{ 0%{ transform:scale(.3); opacity:0; } 35%{ opacity:1; } 100%{ transform:scale(1.5); opacity:0; } }
+.aw-list{ position:relative; margin-top:14px; height:300px; }
+.aw-list .aw-ghost{ left:0; right:0; height:62px; transition:opacity .3s ease; }
+.go .aw-list .aw-ghost{ opacity:0; transition-delay:1.1s; }
+.aw-ment{ left:0; right:0; top:0; opacity:0; transform:translateY(10px); transition:opacity .4s ease, transform .5s cubic-bezier(.3,.7,.2,1); }
+.go .aw-ment{ opacity:1; transform:none; transition-delay:1.4s; }
+.aw-ment .cm{ display:flex; gap:8px; margin-top:12px; padding:10px; border-radius:8px; background:#f4f3f1; font-size:11px; line-height:1.45; color:var(--mute); white-space:normal; }
+.aw-ment .cm b{ color:var(--ink); font-weight:500; }
+.aw-ment .cm u{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1.5px; }
+
+/* 4. the task, opened: the call it came from is played to the two moments, the checklist is ticked, the outcome written, closed */
+.aw-tp{ position:absolute; left:90px; top:0; width:360px; height:460px; border:1.5px solid var(--edge); border-radius:10px; background:#fff; padding:16px 18px; color:var(--ink); font:500 11.5px/1.4 "Geist Mono", monospace; }
+.aw-tp > small{ font-size:10.5px; color:var(--soft); }
+.aw-tp > b{ display:block; margin-top:5px; font-size:13px; line-height:1.35; font-weight:500; }
+.aw-tp dl{ display:grid; grid-template-columns:62px 1fr; gap:7px 10px; margin:12px 0 0; align-items:center; }
+.aw-tp dt{ color:var(--soft); font-size:10.5px; } .aw-tp dd{ margin:0; display:flex; align-items:center; gap:7px; }
+.aw-tp h5{ margin:14px 0 6px; font:500 10.5px/1 "Geist Mono", monospace; color:var(--soft); }
+.aw-call{ position:relative; height:28px; }
+.aw-call s{ position:absolute; left:0; right:0; top:8px; height:3px; border-radius:2px; background:var(--wf); }
+.aw-call s::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:0; border-radius:2px; background:var(--ink); transition:width 1.3s linear .4s; }
+.go .aw-call s::after{ width:43.3%; }
+.aw-call i{ position:absolute; top:4px; width:11px; height:11px; margin-left:-5.5px; border-radius:50%; background:#fff; border:1.5px solid var(--edge); transition:background-color .2s ease, border-color .2s ease; }
+.aw-call em{ position:absolute; top:18px; font-style:normal; font-size:10px; color:var(--soft); transform:translateX(-50%); }
+.go .aw-call i.m1{ background:var(--ink); border-color:var(--ink); transition-delay:1.05s; }
+.go .aw-call i.m2{ background:var(--ink); border-color:var(--ink); transition-delay:1.7s; }
+.aw-ck{ display:flex; align-items:center; gap:8px; margin-top:5px; color:var(--mute); }
+.aw-ck i{ display:grid; place-items:center; width:14px; height:14px; border-radius:4px; border:1.5px solid var(--edge); font-style:normal; font-size:9px; color:transparent; transition:background-color .2s ease, color .2s ease, border-color .2s ease; }
+.go .aw-ck i{ background:var(--ink); border-color:var(--ink); color:#fff; }
+.go .aw-ck.c1 i{ transition-delay:2.1s; } .go .aw-ck.c2 i{ transition-delay:2.6s; } .go .aw-ck.c3 i{ transition-delay:3.1s; }
+.aw-out{ height:28px; padding:6px 9px; border:1.5px solid var(--wf2); border-radius:6px; }
+.aw-out span{ display:block; white-space:nowrap; clip-path:inset(0 100% 0 0); transition:clip-path 1.1s steps(34) 3.5s; }
+.go .aw-out span{ clip-path:inset(0 0 0 0); }
+.aw-cmt{ margin-top:12px; padding:7px 9px; border:1.5px solid var(--wf2); border-radius:6px; display:flex; justify-content:space-between; color:var(--soft); font-size:10.5px; }
+.aw-cmt b{ font-weight:500; color:var(--ink); }
+.aw-tp .ft{ position:absolute; left:18px; right:18px; bottom:16px; display:flex; justify-content:flex-end; gap:8px; }
+.aw-btn{ padding:8px 12px; border:1.5px solid var(--edge); border-radius:7px; font-size:11px; line-height:1; color:var(--ink); background:#fff; transition:transform .15s ease; }
+.aw-btn.ink{ background:var(--ink); border-color:var(--ink); color:#fff; }
+.go .aw-btn.ink{ animation:aw-press .3s ease 4.9s both; }
+@keyframes aw-press{ 50%{ transform:scale(.94); } }
+
+/* 5. closed: the refund card drops into Done carrying its outcome, and every closed card says why it closed */
+.aw-s5 .aw-col{ top:46px; height:394px; }
+.aw-s5 .c1{ left:0; width:280px; } .aw-s5 .c2{ left:296px; width:244px; }
+.aw-rs{ position:absolute; left:0; top:0; display:flex; gap:6px; align-items:center; }
+.aw-rs small{ font-size:10.5px; color:var(--soft); margin-right:4px; }
+.aw-cc{ left:12px; right:12px; padding:10px 12px; }
+.aw-cc > b{ margin-top:4px; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.aw-cc p{ margin:6px 0 0; padding-left:8px; border-left:2px solid var(--wf2); font-size:11px; color:var(--mute); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.aw-cc .aw-tag{ margin-top:8px; }
+.aw-s5 .aw-cc{ position:absolute; transition:transform .55s cubic-bezier(.3,.7,.2,1) .2s; }
+.aw-s5 .c1 .aw-cc:not(.new){ transform:translateY(-104px); }
+.aw-s5.go .c1 .aw-cc:not(.new){ transform:none; }
+.aw-cc.new{ opacity:0; transform:translateY(-40px); transition:opacity .3s ease .45s, transform .6s cubic-bezier(.2,.9,.3,1.15) .45s !important; border-color:var(--ink); }
+.go .aw-cc.new{ opacity:1; transform:none; }
+.aw-cc .aw-tag{ transition:background-color .25s ease, color .25s ease, border-color .25s ease, transform .3s cubic-bezier(.2,.9,.3,1.4); }
+.go .aw-cc .aw-tag{ background:var(--ink); border-color:var(--ink); color:#fff; }
+.aw-cc.new .aw-tag{ transform:scale(1.25); }
+.go .aw-cc.new .aw-tag{ transform:none; transition-delay:1.3s; }
+.go .aw-cc.k2 .aw-tag{ transition-delay:1.8s; } .go .aw-cc.k3 .aw-tag{ transition-delay:2s; } .go .aw-cc.k4 .aw-tag{ transition-delay:2.2s; } .go .aw-cc.k5 .aw-tag{ transition-delay:2.4s; }
