@@ -92,3 +92,12 @@ footer.ft .ft-in{ padding-bottom:max(clamp(225px, 22.5vw, 420px), calc(50vw - 45
 @media (max-width: 900px){ footer.ft .ft-in{ padding-bottom:max(48vw, 250px); } }
 @media (max-width: 560px){ footer.ft .ft-lay{ height:300px; } footer.ft .ft-lay .ft-kites{ display:none; } footer.ft .ft-in{ padding-bottom:230px; } }
 @media (prefers-reduced-motion: reduce){ footer.ft .ft-lay img{ transform:none !important; } }
+
+/* owner, 25.11.2026: the content sits a little lower, and a soft deep-blue veil lies between it and the painting so the white
+   text reads easily; the veil fades out before the clouds and the city. */
+footer.ft .ft-in{ padding-top:clamp(84px, 8.4vw, 128px); }
+footer.ft .ft-sky::after{ content:""; position:absolute; z-index:1; inset:0 0 auto 0; height:min(74%, 640px); pointer-events:none;
+  background:linear-gradient(to bottom, rgba(8,74,160,.5) 0, rgba(8,74,160,.44) 55%, rgba(8,74,160,.2) 82%, rgba(8,74,160,0) 100%); }
+@media (max-width: 560px){ footer.ft .ft-in{ padding-top:56px; } footer.ft .ft-sky::after{ height:78%; } }
+/* the veil lies on the sky only: the kites and the city stay in front of it, in full colour */
+footer.ft .ft-lay .ft-kites, footer.ft .ft-lay .ft-front{ z-index:2; }
