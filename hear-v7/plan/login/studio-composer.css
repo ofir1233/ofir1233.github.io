@@ -189,7 +189,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 5px;border-radius:5px;backgr
 .msgs .is-new{animation:msg-in .3s cubic-bezier(.3,1.1,.4,1) both}
 @keyframes msg-in{from{opacity:0;translate:0 10px;scale:.97}}
 .it .dots,.dots{display:inline-flex;gap:5px;padding:9px 2px;margin:0;color:inherit}      /* .it span is a block elsewhere: the dots must stay a row, or they draw at zero width */
-.dots i{width:7px;height:7px;border-radius:50%;background:#1F1F1F;opacity:.35;animation:dot 1s ease-in-out infinite}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--lilac-ink,#7A3E98);opacity:.35;animation:dot 1s ease-in-out infinite}      /* the AI is thinking: Lilac (design system, 11-25; was near-black) */
 .dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
 @keyframes dot{0%,60%,100%{translate:0 0;opacity:.35}30%{translate:0 -3px;opacity:1}}
 .it em+em{margin-left:6px}
@@ -198,7 +198,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 5px;border-radius:5px;backgr
 .next button{flex:none;white-space:nowrap}      /* a chip is never cut: one that does not fit whole is left out (the script) */
 .next button.is-used,.chat .card:has(.field.is-busy) .next{opacity:.4;pointer-events:none}
 .next button.is-in{animation:msg-in .3s cubic-bezier(.3,1.1,.4,1) both;pointer-events:none}
-.next button{height:30px;padding:0 12px;border-radius:15px;background:rgba(255,255,255,.72);box-shadow:inset 0 0 0 1px #D9E1E8;font-size:13px;color:var(--ink2);transition:background-color .15s,color .15s,scale .12s,box-shadow .15s}
+.next button{height:30px;padding:0 12px;border-radius:15px;background:rgba(255,255,255,.72);box-shadow:inset 0 0 0 1px #CBD3DA;font-size:13px;color:var(--ink2);transition:background-color .15s,color .15s,scale .12s,box-shadow .15s}
 .next button:hover{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px #B4C2CE}
 .next button:active{scale:.96}
 .chat .field{border-radius:18px}
@@ -240,7 +240,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 5px;border-radius:5px;backgr
 .evtab tbody.is-new tr:nth-child(2){animation-delay:.04s}.evtab tbody.is-new tr:nth-child(3){animation-delay:.08s}.evtab tbody.is-new tr:nth-child(4){animation-delay:.12s}
 .ev .pl:active{scale:.9}
 .ev header a{transition:color .14s}
-.ev header a:hover{color:var(--blue)}
+.ev header a:hover{text-decoration:underline;text-underline-offset:3px}      /* a link stays Deep Blue (Hear Blue fails as text); hover underlines it */
 .me{transition:background-color .15s;cursor:pointer}
 .me:hover{background:#fff}
 
@@ -292,6 +292,9 @@ kbd{display:inline-block;min-width:18px;padding:1px 5px;border-radius:5px;backgr
 .chat .cmp__retry{height:28px;padding:0 11px;font-size:13px}
 
 /* ── replies that belong to the screen (critic round 2) ── */
+/* the AI speaking: its answers sit on the lilac tint with Ink words (the design system's Lilac = the AI is speaking; the tint and its pairing
+   are screens.css's own --lilac-tint). The build status block (.work) is Hear at work, not an answer, and stays on the paper. */
+.it:not(.work){align-self:flex-start;max-width:92%;padding:10px 13px;border-radius:16px 16px 16px 4px;background:var(--lilac-tint,#F4E5F8);color:var(--ink)}
 .it p{margin:0}
 .it p+p{margin-top:6px}
 .it strong{font-weight:600}

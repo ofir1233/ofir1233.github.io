@@ -1,15 +1,17 @@
 /* Explain mode of the Evaluation by agent app (studio.html?app=eval&explain=1), for the portfolio's Explainable scores case.
    Everything here sits under .xp, a class only explain.js sets, so the default studio.html never sees it.
-   The colours are the Studio's own (studio.html, login/studio-composer.css, screens/screens.css): no new shades. */
+   The colours are the Studio's own (studio.html, login/studio-composer.css, screens/screens.css): no new shades. Each one keeps its role in
+   the design system (v7/tokens.js): Coral and its dark text for what needs attention, Green's dark text for a rise, Hear Blue for a good
+   score and for focus, Deep Blue for a link, Ink for words and the one main button, Glass Grey for hairlines. */
 
 /* a table someone reads stays still: the sky does not follow the pointer here */
 .xp .bg{translate:none!important;scale:1!important}
 
-/* step 2 of the story: only a low score stands out. The rest of the grid steps back, and so does the legend after "under 60" */
+/* step 2 of the story: only the scores under the pass mark stand out. The rest of the grid steps back, and so does the blue side of the legend */
 .xp #hm td[data-a],.xp #hm tr td:last-child,.xp .key>*{transition:opacity .35s ease}
-.xp.xp-low #hm td[data-a]:not(.b1),.xp.xp-low #hm tr td:last-child{opacity:.28}
-.xp.xp-low .key>:nth-child(n+4){opacity:.3}
-.xp.xp-low .key>:nth-child(3){color:var(--ink);font-weight:500}
+.xp.xp-low #hm td[data-a]:not(.b1):not(.b2),.xp.xp-low #hm tr td:last-child{opacity:.28}
+.xp.xp-low .key>.b3,.xp.xp-low .key>.b3~*{opacity:.3}
+.xp.xp-low .key>.b1+span,.xp.xp-low .key>.b2+span{color:var(--ink);font-weight:500}
 
 /* Open agent evaluation: the agent's own row, every criterion */
 .xp.xp-row #hm tr:not(.xp-on) td[data-a],.xp.xp-row #hm tr:not(.xp-on) td:last-child{opacity:.28}
@@ -28,25 +30,36 @@
 .xp-pop strong{display:block;padding-right:28px;font-size:16px;font-weight:600;letter-spacing:-.01em}
 .xp-sub{display:block;margin-top:2px;color:var(--mut)}
 .xp-x{position:absolute;right:10px;top:10px;display:grid;place-items:center;width:28px;height:28px;border-radius:14px;color:var(--mut);font-size:20px;line-height:1}
-.xp-x:hover{background:#E9EEF2;color:var(--ink)}
+.xp-x:hover{background:rgba(203,211,218,.45);color:var(--ink)}      /* Glass Grey at 45% */
 .xp-head{display:flex;align-items:center;gap:12px;margin-top:14px}
 .xp-chip{display:grid;place-items:center;flex:none;width:60px;height:46px;border-radius:9px;font-size:22px;font-weight:500;font-variant-numeric:tabular-nums}
 .xp-head b:not(.xp-chip){display:block;font-size:14.5px;font-weight:600}
+/* the difference from the team: under it in coral's dark text, over it in green's (screens.css --coral-ink, --green-ink: the tag texts, readable on white) */
+.xp-head b.dn{color:var(--coral-ink,#B5371D)}.xp-head b.up{color:var(--green-ink,#226A45)}
 .xp-head span{display:block;margin-top:2px;color:var(--mut)}
 .xp-lbl{display:block;margin-top:16px;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
 .xp-hist{position:relative;display:flex;align-items:flex-end;gap:4px;height:58px;margin-top:9px;border-bottom:1px solid var(--line)}
+/* the bars take the scale's two sides: a range under the pass mark is light coral, one at 70 or above is the light blue; the agent's own
+   range is the strong tone of its side (Coral, or Hear Blue), never black */
 .xp-hist i{flex:1;min-height:3px;border-radius:3px 3px 0 0;background:#A9DAFE}
-.xp-hist i.me{background:#232323}
+.xp-hist i.lo{background:#FFD0C4}
+.xp-hist i.me{background:#139FFD}
+.xp-hist i.lo.me{background:var(--coral,#FF6F52)}
 .xp-hist .avg{position:absolute;top:-4px;bottom:0;width:0;border-left:1.5px dashed var(--ink);margin-left:-.75px}
 .xp-ax{position:relative;height:16px;margin-top:5px;font-size:11.5px;color:var(--mut);white-space:nowrap}
 .xp-ax span{position:absolute;top:0}
 .xp-ax span:first-child{left:0}.xp-ax span:last-child{right:0}
 .xp-ax .mid{translate:-50% 0;color:var(--ink)}
+/* most of the team is under 70 on this criterion: one calm line, a coral dot and Ink words */
+.xp-team{position:relative;margin:14px 0 0;padding-left:15px;font-size:13px;line-height:1.4;color:var(--ink);white-space:normal}
+.xp-team::before{content:'';position:absolute;left:0;top:.42em;width:7px;height:7px;border-radius:50%;background:var(--coral,#FF6F52)}
+.xp-team+.xp-note{margin-top:8px}
 .xp-note{margin:14px 0 0;font-size:12.5px;line-height:1.4;color:var(--mut);white-space:normal}
-.xp-go{display:block;width:100%;height:40px;margin-top:12px;border-radius:20px;background:var(--blue);color:#fff;font-size:14.5px;font-weight:500;transition:background-color .15s}
-.xp-go:hover{background:#0B8FEB}
-.xp-link{display:block;width:100%;height:34px;margin-top:4px;border-radius:17px;font-size:14px;font-weight:500;color:var(--ink)}
-.xp-link:hover{background:#E9EEF2}
+/* Explore in Chat is the one decision in the card: Ink, the main button (hover: the Studio's own #000, as its other ink buttons) */
+.xp-go{display:block;width:100%;height:40px;margin-top:12px;border-radius:20px;background:var(--ink);color:#fff;font-size:14.5px;font-weight:500;transition:background-color .15s}
+.xp-go:hover{background:#000}
+.xp-link{display:block;width:100%;height:34px;margin-top:4px;border-radius:17px;font-size:14px;font-weight:500;color:#0B6FCF}      /* a link: Deep Blue */
+.xp-link:hover{background:rgba(203,211,218,.45)}
 .xp-pop button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 
 @media (prefers-reduced-motion:reduce){.xp-pop{animation:none}.xp #hm td[data-a],.xp .key>*{transition:none}}

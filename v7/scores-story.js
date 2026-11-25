@@ -11,14 +11,18 @@
   const IW = 1037, IH = 792, calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches, narrow = () => innerWidth <= 860;
   let cur = -1, api = null;
 
-  /* frame the step's part: as large as the window allows (never past 1.75x), centred, never showing past the app's edges */
+  /* frame the step's part: as large as the window allows (never past 1.75x), centred, never showing past the app's edges (the app's
+     paper card, when the app says where it is: a wide part near the card's edge no longer shows the glass rim and the sky beside it) */
   const aim = instant => {
     if (!api || cur < 0) return;
     const r = api.rect(cur, narrow()); if (!r) return;
     const W = view.clientWidth, H = view.clientHeight, pad = narrow() ? 8 : 18;
-    const s = Math.min((W - 2 * pad) / r.w, (H - 2 * pad) / r.h, 1.75);
-    const fit = (t, span, room) => span <= room ? (room - span) / 2 : Math.min(0, Math.max(room - span, t));
-    const tx = fit(W / 2 - (r.x + r.w / 2) * s, IW * s, W), ty = fit(H / 2 - (r.y + r.h / 2) * s, IH * s, H);
+    let s = Math.min((W - 2 * pad) / r.w, (H - 2 * pad) / r.h, 1.75);
+    const card = api.bounds && api.bounds(), cx = r.x + r.w / 2, cy = r.y + r.h / 2;      // the card bounds the camera only when the part is on it (the chat sits beside it)
+    const b = card && cx > card.x && cx < card.x + card.w && cy > card.y && cy < card.y + card.h ? card : { x: 0, y: 0, w: IW, h: IH };
+    if (b.w * s < W && b.w * s > W * .82 && r.h * W / b.w <= H) s = Math.min(1.75, W / b.w);      // the card nearly fills the width: fill it, no thin rim at the sides
+    const fit = (t, lo, span, room) => span <= room ? (room - span) / 2 - lo : Math.min(-lo, Math.max(room - span - lo, t));
+    const tx = fit(W / 2 - (r.x + r.w / 2) * s, b.x * s, b.w * s, W), ty = fit(H / 2 - (r.y + r.h / 2) * s, b.y * s, b.h * s, H);
     if (instant) cam.style.transition = 'none';
     cam.style.transform = `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) scale(${s.toFixed(4)})`;
     if (instant) { void cam.offsetWidth; cam.style.transition = ''; }

@@ -11,13 +11,13 @@
        2 after:  the sidebar, the chat at the side, the built system shown beside it      studio.html?s=2
      The sidebar is a must (he: "אין שם sidebar שחייב אותו"): one sheet of frosted glass, the shell; the chat and the app are paper on glass plates.
      Use case: production's own suggestion, "A heatmap of evaluation criteria by agent" (QA lead). All names and scores are SAMPLE DATA.
-     Scores use one fixed scale for the whole page (five steps of the one blue); nothing is stretched to the data.
+     Scores use one fixed scale for the whole page (two sides around the pass mark of 70: coral under it, blue above it); nothing is stretched to the data.
      Send / Enter in state 1 builds; "New app" goes back. Direction: the landing page's glass on the painted sky, Byrd, one blue. The room is open sky only: the city stays on the sign-in screen. -->
 <style>
 @font-face{font-family:Byrd;src:url(../fonts/Byrd-Regular.woff2);font-weight:400}
 @font-face{font-family:Byrd;src:url(../fonts/Byrd-Medium.woff2);font-weight:500}
 @font-face{font-family:Byrd;src:url(../fonts/Byrd-SemiBold.woff2);font-weight:600}
-:root{--ink:#181818;--ink2:#3d444c;--mut:#6A7078;--blue:#139FFD;--chip:#E9EEF2;--line:#DDE3E8;--side:260px}
+:root{--ink:#181818;--ink2:#3d444c;--mut:#6A7078;--blue:#139FFD;--deep:#0B6FCF;--chip:#E9EEF2;--line:#CBD3DA;--side:260px}      /* --line is Glass Grey, the hairline of the design system (was #DDE3E8, 11-25); --deep is Deep Blue, blue that can be read (links) */
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:#0b2a55}
 button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
@@ -40,7 +40,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .side hr{width:calc(100% - 20px);margin:14px 10px 8px;border:0;border-top:1px solid rgba(24,36,48,.1)}
 .side .sp{flex:1}
 .me{display:flex;align-items:center;gap:10px;margin-top:8px;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.7)}
-.me b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#D6DEE4;font-size:12px;font-weight:600;color:#4b535b}
+.me b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#CBD3DA;font-size:12px;font-weight:600;color:var(--ink)}
 .me span{font-size:14px;font-weight:500;line-height:1.2}
 .me small{display:block;font-size:12.5px;font-weight:400;color:var(--mut)}
 
@@ -81,28 +81,37 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .hm td{height:38px;border-radius:9px;text-align:center;font-weight:500;font-variant-numeric:tabular-nums}
 .hm td:first-child{text-align:left;font-weight:400;white-space:nowrap;border-radius:0}
 .hm td:first-child span{display:flex;align-items:center;gap:9px}
-.hm td:first-child b{display:grid;place-items:center;flex:none;width:26px;height:26px;border-radius:50%;background:#D6DEE4;font-size:10px;font-weight:600;color:#4b535b}
+.hm td:first-child b{display:grid;place-items:center;flex:none;width:26px;height:26px;border-radius:50%;background:#CBD3DA;font-size:10px;font-weight:600;color:var(--ink)}      /* avatars are Glass Grey */
 .hm td:last-child{font-weight:600;font-size:15px;background:none}
-.b5{background:#139FFD;color:#fff}.b4{background:#63BEFE;color:#06365c}.b3{background:#A9DAFE;color:#0b3a5e}.b2{background:#DCEFFE;color:#1b4666}.b1{background:#fff;box-shadow:inset 0 0 0 1.5px #C9D3DB;color:var(--ink)}
+/* Scores: one scale with two sides, split at the pass mark of 70 (the design system: Coral = something needs attention, Hear Blue = a good
+   score). Under 70 is the coral side, 70 and up the blue side, and each side is stronger the further a score is from 70. Only colours the
+   site already has: Coral #FF6F52 (--coral), the light coral #FFD0C4 with its dark coral text #8E2A14 (screens.css .cm-grid .c.mid, and
+   screens.js's 60–69), and the score scale's blues #DCEFFE and #A9DAFE with their text colours, up to Hear Blue #139FFD. White text only on
+   the two solid ends. */
+.b1{background:#FF6F52;color:#fff}.b2{background:#FFD0C4;color:#8E2A14}.b3{background:#DCEFFE;color:#1b4666}.b4{background:#A9DAFE;color:#0b3a5e}.b5{background:#139FFD;color:#fff}
 .key{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:14px;font-size:12.5px;color:var(--mut)}
 .key i{width:26px;height:12px;border-radius:4px}
 .key span{margin-right:10px}
+/* the pass mark sits between the two sides of the legend: a Glass Grey rule, then the words */
+.key .key__pass{display:inline-flex;align-items:center;gap:8px;margin:0 12px 0 4px;color:var(--ink);font-weight:500;white-space:nowrap}
+.key .key__pass::before{content:'';width:1.5px;height:18px;border-radius:1px;background:#CBD3DA}
+/* a criterion most of the team is under 70 on: its name is underlined in coral (the screens' own coral underline, screens.css .sg-q u) */
+.hm th.is-team{color:var(--ink);text-decoration:underline;text-decoration-color:var(--coral,#FF6F52);text-decoration-thickness:2px;text-underline-offset:3px;cursor:help}
 
 /* Three improvements to the base he liked (first shown as V2 on a Design switch; he had the switch removed, 2026-11-19, and this is now the page):
    1 the empty lower third of the app becomes the evidence: pick a score, see the calls behind it (every number opens its conversations);
-   2 the scores that need attention are the loudest thing on the page (ink), not the quietest (white);
+   2 the scores that need attention are the loudest thing on the page (Coral, by the design system's roles; it was ink until 11-25), not the quietest (white);
    3 the chat joins the shell (frosted glass, like the sidebar), so the app is the one sheet of paper in the room. */
-.v2 .b1{background:#232323;color:#fff;box-shadow:none}
 .v2 .chat{border-radius:26px;background:rgba(255,255,255,.66);-webkit-backdrop-filter:blur(26px) saturate(1.3);backdrop-filter:blur(26px) saturate(1.3);box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),0 20px 44px -20px rgba(10,40,80,.35)}
 .v2 .chat .card{inset:0;background:none;box-shadow:none;padding:22px 20px 20px}
 .v2 .chat .you{background:#fff;box-shadow:0 2px 8px -4px rgba(16,34,60,.2)}
 .v2 .key{margin-top:0;padding-top:10px}
 .v2 .hm td[data-a]{cursor:pointer}
-.v2 .hm td.sel{outline:2.5px solid var(--ink);outline-offset:2px}
+.v2 .hm td.sel{outline:2.5px solid var(--blue);outline-offset:2px}      /* selected = Hear Blue, the focus ring (it was ink): the 2 px gap keeps it clear of a blue cell too */
 .ev{flex:1;min-height:0;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column}
 .ev header{display:flex;align-items:baseline;gap:10px;font-size:14px;color:var(--mut)}
 .ev header b{font-size:16px;font-weight:600;color:var(--ink)}
-.ev header a{margin-left:auto;color:var(--ink);font-weight:500;text-decoration:none;white-space:nowrap}
+.ev header a{margin-left:auto;color:var(--deep);font-weight:500;text-decoration:none;white-space:nowrap}      /* a link: Deep Blue */
 .ev .pl{display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA}
 .ev .pl::before{content:'';border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent var(--ink);margin-left:2px}
 
@@ -137,7 +146,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 /* the paintings are part of the room, not things to pick up: they cannot be dragged or selected, and clicks pass through them */
 .bg,.cloud,.tile{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}
 </style>
-<link rel="stylesheet" href="login/studio-composer.css">
+<link rel="stylesheet" href="login/studio-composer.css?v=2">
 <link rel="stylesheet" href="topics/topics.css?v=11">
 <link rel="stylesheet" href="screens/screens.css?v=74">
 
@@ -205,7 +214,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
     <div class="filters" id="filters" hidden><button type="button">Team: All<svg class="i" viewBox="0 0 18 18"><path d="M5 7.5l4 4 4-4"/></svg></button></div>
     <div class="kpis" id="kpis"></div>
     <table class="hm" id="hm"></table>
-    <div class="key"><span>Score</span><i class="b1"></i><span>under 60</span><i class="b2"></i><span>60–69</span><i class="b3"></i><span>70–79</span><i class="b4"></i><span>80–89</span><i class="b5"></i><span>90 and up</span></div>
+    <div class="key"><span>Score</span><i class="b1"></i><span>under 60</span><i class="b2"></i><span>60–69</span><span class="key__pass">Pass mark 70</span><i class="b3"></i><span>70–79</span><i class="b4"></i><span>80–89</span><i class="b5"></i><span>90 and up</span></div>
     <section class="ev"><header><b id="evt"></b><span id="evs"></span><a href="#" id="eva"></a></header><table class="evtab"><thead><tr><th>Call</th><th>Date</th><th>Length</th><th>Moment</th><th>Score</th><th>What Hear found</th></tr></thead><tbody id="evl"></tbody></table></section>
     </div>
     <!-- the team's other apps, each in its own shape (his ask, 11-19: "צריך משהו ייחודי מעניין ומתאים לכל אחד"); drawn by the script -->
@@ -242,18 +251,21 @@ document.getElementById('try').innerHTML=TRY.map((t,i)=>`<button type="button" s
 
 // SAMPLE DATA: evaluation criteria, and each agent's evaluated calls and score per criterion (0–100)
 const CRIT=['Greeting','Verification','Discovery','Resolution','Compliance','Empathy','Closing'];
-const AG=[['Tyler Shaw',172,[92,64,71,68,58,77,81]],['Nina Vargas',148,[88,71,66,74,69,62,84]],['Omar Haddad',131,[95,58,79,81,72,85,78]],['Luis Ortega',166,[84,76,83,72,81,74,90]],
-          ['Grace Kim',189,[97,82,78,86,77,91,88]],['Dana Levi',154,[91,79,88,84,92,83,86]],['Sam Rivera',160,[96,88,85,91,89,87,93]],['Ines Moreau',164,[98,93,90,94,96,92,95]]];
-const avg=a=>Math.round(a.reduce((x,y)=>x+y,0)/a.length), band=v=>v>=90?'b5':v>=80?'b4':v>=70?'b3':v>=60?'b2':'b1';
+// Compliance is low across most of the team (5 of 8 under the pass mark, the best two high): a pattern that points at the process, not one agent
+const AG=[['Tyler Shaw',172,[92,64,71,68,58,77,81]],['Nina Vargas',148,[88,71,66,74,62,62,84]],['Omar Haddad',131,[95,58,79,81,66,85,78]],['Luis Ortega',166,[84,76,83,72,64,74,90]],
+          ['Grace Kim',189,[97,82,78,86,77,91,88]],['Dana Levi',154,[91,79,88,84,68,83,86]],['Sam Rivera',160,[96,88,85,91,89,87,93]],['Ines Moreau',164,[98,93,90,94,96,92,95]]];
+const PASS=70, avg=a=>Math.round(a.reduce((x,y)=>x+y,0)/a.length), band=v=>v>=90?'b5':v>=80?'b4':v>=PASS?'b3':v>=60?'b2':'b1';
 const rows=AG.map(([n,c,s])=>({n,c,s,o:avg(s)})).sort((a,b)=>a.o-b.o);          // lowest overall first, as asked in the conversation
 const calls=rows.reduce((x,r)=>x+r.c,0), all=avg(rows.map(r=>r.o));
 const byCrit=CRIT.map((c,i)=>[c,avg(rows.map(r=>r.s[i]))]).sort((a,b)=>a[1]-b[1]);
 const fmt=n=>n.toLocaleString('en-US');
+// a criterion where at least half of the agents shown are under the pass mark: likely the process, not the agent
+const teamLow=ci=>{ const u=rows.filter(r=>r.s[ci]<PASS).length; return u*2>=rows.length?u:0 };
 document.getElementById('sub').textContent=`Last 30 days · ${rows.length} agents · ${CRIT.length} criteria`;
 document.getElementById('built').textContent=`Built from ${fmt(calls)} evaluated calls in the last 30 days.`;
 document.getElementById('kpis').innerHTML=`<div><small>Average score</small><b>${all}</b><i>All agents</i></div><div><small>Evaluated calls</small><b>${fmt(calls)}</b><i>Last 30 days</i></div><div><small>Lowest criterion</small><b>${byCrit[0][1]}</b><i>${byCrit[0][0]}</i></div>`;
 const ini=n=>n.split(' ').map(w=>w[0]).join('');
-document.getElementById('hm').innerHTML='<tr><th>Agent</th>'+CRIT.map(c=>`<th>${c}</th>`).join('')+'<th>Overall</th></tr>'
+document.getElementById('hm').innerHTML='<tr><th>Agent</th>'+CRIT.map((c,i)=>teamLow(i)?`<th class="is-team" title="${teamLow(i)} of ${rows.length} agents under ${PASS}">${c}</th>`:`<th>${c}</th>`).join('')+'<th>Overall</th></tr>'
   +rows.map(r=>`<tr><td><span><b>${ini(r.n)}</b>${r.n}</span></td>${r.s.map((v,i)=>`<td class="${band(v)}" data-a="${r.n}" data-c="${CRIT[i]}" data-v="${v}" data-n="${r.c}">${v}</td>`).join('')}<td>${r.o}</td></tr>`).join('');
 
 // The calls behind a score, as a table (his ask, 11-19: "במקום החלק התחתון הזה להניח איזו טבלה"): pick a score in the heatmap and the table
@@ -384,7 +396,8 @@ function reply(text){
     return `<p>Added a <strong>Team</strong> filter above the scores. It starts on all teams.</p><em>v${ver}</em>` }
   const crit=byC.find(x=>t.includes(x.c.toLowerCase()))||(/lowest|worst/.test(t)?low:null);
   if(crit){ const two=rows.map(r=>({n:r.n,v:r.s[crit.i]})).sort((a,b)=>a.v-b.v).slice(0,2); used.add('why');
-    return `<p><strong>${crit.c}</strong> averages <strong>${crit.avg}</strong>${crit===low?`, the lowest of the ${CRIT.length} criteria`:''}.</p><p>Two agents pull it down most: ${two.map(x=>`${x.n} (${x.v})`).join(' and ')}.</p>` }
+    const u=teamLow(crit.i);      // most of the team under the pass mark: say so, instead of naming two agents
+    return `<p><strong>${crit.c}</strong> averages <strong>${crit.avg}</strong>${crit===low?`, the lowest of the ${CRIT.length} criteria`:''}.</p>`+(u?`<p>It is not one or two agents: ${u} of ${rows.length} are under ${PASS} on it, so the cause may be the process.</p>`:`<p>Two agents pull it down most: ${two.map(x=>`${x.n} (${x.v})`).join(' and ')}.</p>`) }
   const ag=rows.find(r=>t.includes(r.n.toLowerCase().split(' ')[0]));
   if(ag){ const w=CRIT.map((c,i)=>({c,v:ag.s[i]})).sort((a,b)=>a.v-b.v)[0];
     return `<p><strong>${ag.n}</strong> scores <strong>${ag.o}</strong> overall on ${ag.c} evaluated calls. The weakest criterion is ${w.c} (${w.v}).</p>` }
@@ -815,6 +828,6 @@ document.getElementById('new').addEventListener('click',()=>{ resetMaking(); sto
 <!-- Product screens: the Design Lab's other screens, made simple in the Studio look (screens/) -->
 <script src="screens/screens.js?v=67"></script>
 <!-- Explain mode, for the portfolio's Explainable scores case (studio.html?app=eval&explain=1): loaded only under that flag, nothing changes without it -->
-<script>if(new URLSearchParams(location.search).has('explain')){ const l=document.createElement('link'); l.rel='stylesheet'; l.href='explain/explain.css?v=2'; document.head.appendChild(l);
-  const s=document.createElement('script'); s.src='explain/explain.js?v=3'; s.async=false; document.body.appendChild(s) }</script>
+<script>if(new URLSearchParams(location.search).has('explain')){ const l=document.createElement('link'); l.rel='stylesheet'; l.href='explain/explain.css?v=3'; document.head.appendChild(l);
+  const s=document.createElement('script'); s.src='explain/explain.js?v=6'; s.async=false; document.body.appendChild(s) }</script>
 </html>
