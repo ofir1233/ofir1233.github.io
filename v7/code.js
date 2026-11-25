@@ -9,11 +9,13 @@
     var t = c.querySelector('p'), g = c.querySelector('.hw-tag'); d.innerHTML = '<span>' + (t ? t.innerHTML : '') + (g ? '<small>' + g.innerHTML + '</small>' : '') + '</span>'; l.appendChild(d); });
   /* the sizes are read when they change (a ResizeObserver), not on every scroll */
   var H0 = 0, RG = 1;
-  function sizes(){ H0 = steps[0].offsetHeight; RG = Math.max(1, ol.offsetHeight - H0); }
+  /* owner, 25.11.2026: "all the content moves once the scroll is over". The row is one window taller than the three steps need (v7/code.css):
+     through that last window nothing here moves and the next section slides up over it. The steps are measured without it. */
+  function sizes(){ H0 = steps[0].offsetHeight; RG = Math.max(1, ol.offsetHeight - H0 - (mq.matches ? innerHeight : 0)); }
   function range(){ return RG; }
   function mark(i){ if (i === cur) return; cur = i; steps.forEach(function(s, k){ s.classList.toggle('on', k === i); }); links.forEach(function(a, k){ a.classList.toggle('on', k === i); a.classList.toggle('done', k < i); }); }
   function set(){
-    var pin = mq.matches; ol.classList.toggle('hw-pin', pin); if (!pin) { cur = -1; return; }
+    var pin = mq.matches; ol.classList.toggle('hw-pin', pin); document.documentElement.classList.toggle('hw-cover', pin); if (!pin) { cur = -1; return; }
     /* the frame is held in the middle of the window, under the header, and the heading beside it starts level with it */
     var top = Math.max(84, Math.round((innerHeight + 60 - H0) / 2)); if (top !== TOP) { TOP = top; ol.parentNode.style.setProperty('--hw-top', TOP + 'px'); }
     var p = (TOP - ol.getBoundingClientRect().top) / range();
