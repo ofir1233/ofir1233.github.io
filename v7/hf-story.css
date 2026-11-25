@@ -32,36 +32,24 @@
 .hf-cb, .hf-cf{ transition:transform 1.6s cubic-bezier(.3,.7,.2,1); }
 .hf-cb{ transform:translateX(calc(var(--s, 0) * -18px)); }
 .hf-cf{ transform:translateX(calc(var(--s, 0) * 14px)); }
-/* each case wears its own painting (owner, 25.11: the same blue sky on every page, and blue on blue, "I want more creativity, take
-   from the rest of the site, like the city"). It is the painting the reader met beside that product on the home page, so the case
-   opens in the same place: Topics over the roofs where one coral building stands out, Actions under the crane lifting its crate,
-   Explainable scores, whose story is a Compliance score, on the Compliance beach; Newsroom at dusk, so the blue recap reads against a warm sky; Data over the whole city from
-   above; the Introduction on the boulevard. Each step pans a little across it (--sky, from 0% to 100%), from --pa by --pk, ending
-   on the painting's own subject. The painting has its own clouds, so the two drawn ones stay out.
-   Then (owner, 25.11: the paintings are "very dense with information, extreme cognitive load") each is drawn out of focus, as a
-   lens would behind what it is focused on: img/hf/bg-*.webp are the same paintings blurred, a touch less saturated and lifted toward
-   white, so the place stays as colour and shape (the dusk band, the coral crate, the sand) and the product is the only sharp thing */
-.hf.ih, .hf.tq-hf, .hf.es, .hf.an, .hf.nw, .hf.da{ --pa:50%; --pk:0; }
+/* each case opens under the same calm blue sky, with its own place along the bottom (owner, 25.11: "blue skies in all of them, but
+   sometimes a city at the bottom and sometimes a park or something, and the sky always about 80 percent so it does not disturb").
+   img/hf/st-*.webp are the site's calm sky with a strip cut from an existing painting fading in under it: the Introduction over the
+   city skyline, Topics over the city and its green park, Explainable scores on the Compliance beach, Actions at the harbour with its
+   boats, Newsroom at the harbour and its lighthouse, Data over the sea and the sailboats. The strip stays at the foot of the stage
+   and each step pans a little across it (--sky, from 0% to 100%), from --pa by --pk. The sky has no stroked clouds of its own to
+   fight the product, so the two drawn clouds stay out. */
+.hf.ih, .hf.tq-hf, .hf.es, .hf.an, .hf.nw, .hf.da{ --pa:0%; --pk:1; }
 .hf.ih .in-stage, .hf.tq-hf .in-stage, .hf.es .in-stage, .hf.an .in-stage, .hf.nw .in-stage, .hf.da .in-stage{
-  background-position:calc(var(--pa) + var(--sky, 0%) * var(--pk)) 50%; }
+  background-color:#36a2f2; background-size:cover; background-position:calc(var(--pa) + var(--sky, 0%) * var(--pk)) 100%; }
 .hf.ih .hf-cb, .hf.ih .hf-cf, .hf.tq-hf .hf-cb, .hf.tq-hf .hf-cf, .hf.es .hf-cb, .hf.es .hf-cf,
 .hf.an .hf-cb, .hf.an .hf-cf, .hf.nw .hf-cb, .hf.nw .hf-cf, .hf.da .hf-cb, .hf.da .hf-cf{ display:none; }
-.hf.ih{ --pa:15%; --pk:.6; }
-.hf.ih .in-stage{ background-color:#7fb2d9; background-image:url("../img/hf/bg-ih.webp?v=1"); }
-.hf.tq-hf{ --pa:70%; --pk:-.7; }
-.hf.tq-hf .in-stage{ background-color:#4d8fe0; background-image:url("../img/hf/bg-tq.webp?v=1"); }
-.hf.es{ --pa:55%; --pk:-.55; }
-.hf.es .in-stage{ background-color:#5d9be0; background-image:url("../img/hf/bg-es.webp?v=1"); }
-.hf.an{ --pa:0%; --pk:.35; }
-.hf.an .in-stage{ background-color:#2f72d8; background-image:url("../img/hf/bg-an.webp?v=1"); }
-.hf.nw{ --pa:60%; --pk:-.5; }
-.hf.nw .in-stage{ background-color:#5a5fae; background-image:url("../img/hf/bg-nw.webp?v=1"); }
-.hf.da{ --pa:95%; --pk:-.65; }
-.hf.da .in-stage{ background-color:#5d9be0; background-image:url("../img/hf/bg-da.webp?v=1"); }
-/* the subject owns the stage, not the band of stroked cloud above it (critic, 25.11): the roofs, the beach and the crane are drawn
-   larger and the stage looks at their part of the painting; the harbour looks at its pink dusk band, so the blue recap reads on warm */
-.hf.tq-hf .in-stage, .hf.es .in-stage, .hf.an .in-stage{ background-size:auto 125%; background-position:calc(var(--pa) + var(--sky, 0%) * var(--pk)) 78%; }
-.hf.nw .in-stage{ background-size:auto 130%; background-position:calc(var(--pa) + var(--sky, 0%) * var(--pk)) 14%; }
+.hf.ih .in-stage{ background-image:url("../img/hf/st-ih.webp?v=2"); }
+.hf.tq-hf .in-stage{ background-image:url("../img/hf/st-tq.webp?v=2"); --pa:100%; --pk:-1; }
+.hf.es .in-stage{ background-image:url("../img/hf/st-es.webp?v=2"); }
+.hf.an .in-stage{ background-image:url("../img/hf/st-an.webp?v=2"); --pa:100%; --pk:-1; }
+.hf.nw .in-stage{ background-image:url("../img/hf/st-nw.webp?v=2"); }
+.hf.da .in-stage{ background-image:url("../img/hf/st-da.webp?v=2"); --pa:100%; --pk:-1; }
 
 /* the step meter is ink, so it reads on the sky and on a cloud alike */
 .hf .in-meter button::before{ background:rgba(16,34,60,.3); }
