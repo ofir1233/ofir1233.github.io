@@ -26,7 +26,7 @@
   const band = s => s < 40 ? 'b1' : s < 50 ? 'b2' : s < 60 ? 'b3' : s < 70 ? 'b4' : 'b5';
   const BX = T.map(([n, c, s], i) => { const e = mk('div', 'in-bx ' + band(s), 'x' + i), [t, d, cs] = C[i];
     e.innerHTML = `<span class="rw"><i>${t}</i><span>${esc(d)}</span><em class="hf-sc ${cs < 70 ? 'lo' : 'hi'}">${cs}</em></span>` +
-      `<b>${esc(n)}</b><small>${c.toLocaleString('en-US')} calls</small><em class="sc">${s}</em>`; return e; });
+      `<b>${esc(n)}</b><small>${c.toLocaleString('en-US')} calls</small><span class="sc">${s}</span>`; return e; });
   const OPS = ['List', 'Flow', 'Circles', 'Boxes'].map((t, i) => { const e = mk('div', 'in-op' + (i === 3 ? ' on' : ''), 'o' + i); e.textContent = t; return e; });
   const LB = Array.from({ length: 2 }, (_, i) => mk('div', 'in-lb', 'b' + i));
   const W = ['tw', 'sp', 'ap'].map(id => document.getElementById(id));
