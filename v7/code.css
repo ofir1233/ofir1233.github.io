@@ -277,13 +277,3 @@
 }
 /* owner, 25.11.2026: the small lines under each step's sentence ("Hear sign-in page", "Pull request · illustrative") are taken off */
 #code#code .hw-nav .hw-d small, #code#code .hw-cap .hw-tag{ display:none; }
-
-/* owner, 25.11.2026: "all the content moves once the scroll is over". After the third step the block used to slide away with the page.
-   Now it stays where it is for one more window while Hear Design Lab rises over it as a sheet, so How I work never moves: it is covered.
-   html.hw-cover is set by v7/code.js together with the pin, so without the script nothing overlaps. */
-@media (min-width: 900px){
-  html.hw-cover #code#code .hw-steps.hw-pin{ grid-template-rows:calc(500vh - 170px); }
-  html.hw-cover body #code#code{ padding-bottom:0 !important; margin-bottom:0 !important; }
-  html.hw-cover body #code#code{ position:relative; z-index:1 !important; }
-  html.hw-cover body #design-lab#design-lab#design-lab{ position:relative !important; z-index:3 !important; isolation:isolate; margin-top:-100vh !important; background:#faf9f7 !important; border-radius:28px 28px 0 0; box-shadow:0 -22px 54px -10px rgba(23,27,32,.16), 0 -2px 6px rgba(23,27,32,.05), 0 -1px 0 rgba(23,27,32,.09) !important; }
-}
