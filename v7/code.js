@@ -9,7 +9,10 @@
     var t = c.querySelector('p'), g = c.querySelector('.hw-tag'); d.innerHTML = '<span>' + (t ? t.innerHTML : '') + (g ? '<small>' + g.innerHTML + '</small>' : '') + '</span>'; l.appendChild(d); });
   /* the sizes are read when they change (a ResizeObserver), not on every scroll */
   var H0 = 0, RG = 1;
-  function sizes(){ H0 = steps[0].offsetHeight; RG = Math.max(1, ol.offsetHeight - H0); }
+  /* owner, 25.11.2026: "at first the text is level with the top of the picture, later it is by its bottom". The text block was shorter than
+     the picture, so it stayed pinned for longer and the picture left without it. It is given the picture's height (--hw-h0, v7/code.css):
+     both reach the end of the row at the same moment and leave together, still level. */
+  function sizes(){ H0 = steps[0].offsetHeight; RG = Math.max(1, ol.offsetHeight - H0); ol.parentNode.style.setProperty('--hw-h0', H0 + 'px'); }
   function range(){ return RG; }
   function mark(i){ if (i === cur) return; cur = i; steps.forEach(function(s, k){ s.classList.toggle('on', k === i); }); links.forEach(function(a, k){ a.classList.toggle('on', k === i); a.classList.toggle('done', k < i); }); }
   function set(){
