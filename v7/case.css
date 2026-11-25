@@ -491,3 +491,19 @@ html body header.topbar .home .nona-logo{ display:block; height:34px; width:auto
 html.tb-stuck body header.topbar .home .nona-logo{ height:28px; }
 @media (max-width: 560px){ html.tb-stuck body header.topbar .home .nona-logo{ height:26px; } }
 @media (prefers-reduced-motion:reduce){ html body header.topbar .home .nona-logo{ transition:none; } }
+
+/* The top bar, tidied (owner, 25.11.2026: "the title sits in an odd place, the CV link should not be there, the next link is not good").
+   The case's name now reads on from the wordmark, as a path: nona / Topics. The CV link is gone from the inner pages.
+   The way on is a quiet outlined link with an arrow, not a black slab. */
+html body header.topbar .wrap{ grid-template-columns:auto minmax(0, 1fr) auto; gap:0 18px !important; }
+.tb-run{ justify-self:start; padding-left:18px; border-left:1px solid #cfcdc8; min-height:22px; font-size:15px; }
+.tb-case{ font-weight:600; }
+html body header.topbar nav{ gap:6px !important; }
+html body header.topbar .pill.solid{ min-height:40px; margin-left:6px; padding:0 16px 0 18px !important; background:transparent !important; color:#171b20 !important; font-weight:600; box-shadow:inset 0 0 0 1.5px #171b20; gap:10px; transition:background-color .2s, color .2s; }
+html body header.topbar .pill.solid::after{ content:"\2192"; font-weight:500; transition:translate .25s cubic-bezier(.2,.8,.2,1); }
+html body header.topbar .pill.solid:hover{ background:#171b20 !important; color:#fff !important; }
+html body header.topbar .pill.solid:hover::after{ translate:3px 0; }
+@media (max-width:860px){
+  .tb-run{ padding-left:12px; font-size:14px; }
+  html body header.topbar .pill.solid{ padding:0 12px 0 14px !important; gap:6px; }
+}
