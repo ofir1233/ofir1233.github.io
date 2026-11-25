@@ -126,3 +126,75 @@
 .fyacast-plate{ background:#15183f; }
 /* the cast's phone on the app's ink navy, like every other phone on the page (25.11.2026) */
 .fyacast-dev .fx-screen{ background:radial-gradient(130% 46% at 50% 0,#1d1a4a,rgba(29,26,74,0)) #070818; }
+
+
+/* ================= the lineup (owner, 25.11.2026: "this part needs far more; the phone is cut off") =================
+   Each animal is a poster: its painted portrait full bleed, its role set as the headline in the Swiss grid over the
+   navy band the painting leaves at the top. The crew's welcome is printed as slips beside it, no device. */
+#fya-cast{ --ink-n:#15183f; --cream:#F2EDE4; --pk:#ff2d8f; --tight:"Inter Tight","Helvetica Neue",Arial,sans-serif; }
+#fya-cast .fyacast-stage{ grid-template-columns:minmax(0,5fr) minmax(0,4fr); gap:clamp(32px,5vw,80px); align-items:center; padding-top:0; }
+#fya-cast .fyacast-plate{ width:100%; aspect-ratio:4/5; border-radius:4px; background:var(--ink-n); overflow:hidden; container-type:inline-size;
+  box-shadow:-3px 3px 0 #22cdf0, 3px -3px 0 #7a2cff, 0 40px 60px -34px rgba(13,16,48,.6); }
+#fya-cast .fyacast-plate::before{ content:none; }
+#fya-cast .fyacast-clip{ position:absolute; inset:0; clip-path:none !important; overflow:hidden; border-radius:0; }
+#fya-cast .fyacast-l.cut{ position:absolute; inset:0; width:auto; transform:translate3d(calc(var(--mx,0) * -6px), calc(var(--my,0) * -4px), 0) scale(1.03); }
+#fya-cast .fyacast-l.cut img{ width:100%; height:100%; object-fit:cover; object-position:50% 50%; filter:none; transform-origin:50% 60%; }
+#fya-cast .fyacast-l.sh, #fya-cast .fyacast-dots{ display:none !important; }
+
+/* the grid on the poster */
+#fya-cast .fyacast-grid{ position:absolute; z-index:2; left:5.5%; right:5.5%; top:5%; display:flex; flex-direction:column; color:var(--cream); font-family:var(--tight);
+  border-top:2px solid var(--cream); border-bottom:2px solid var(--cream); text-shadow:0 1px 12px rgba(13,16,48,.45); }
+#fya-cast .fyacast-pt{ display:block; padding:2.6cqi 0 2.4cqi; font-weight:900; line-height:.84; letter-spacing:-.055em; text-transform:uppercase; white-space:nowrap; }
+#fya-cast .fyacast-pt b{ display:block; margin-bottom:1.2cqi; font-size:4.2cqi; font-weight:800; letter-spacing:.08em; color:var(--pk); }
+#fya-cast .fyacast-pr{ display:block; font-size:min(19cqi, calc(86cqi / (var(--n, 8) * .66))); }
+#fya-cast .fyacast-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; padding:1.9cqi 0; border-top:2px solid var(--cream);
+  font-weight:800; font-size:3.2cqi; letter-spacing:.06em; text-transform:uppercase; }
+#fya-cast .fyacast-ft{ justify-content:flex-start; gap:2.4cqi; }
+#fya-cast .fyacast-arr{ color:var(--pk); }
+
+/* changing hands: the old poster drops back into the dark, the new one comes up out of the heat */
+#fya-cast .fyacast-l img{ transition:opacity .5s ease, transform .9s cubic-bezier(.2,.8,.2,1), filter .6s ease; }
+#fya-cast .fyacast-grid > *{ transition:opacity .35s ease, transform .55s cubic-bezier(.2,.8,.2,1); }
+#fya-cast .fyacast.is-out .fyacast-l img{ opacity:0; transform:scale(.96); filter:saturate(1.6) brightness(1.4); transition-duration:.16s; }
+#fya-cast .fyacast.is-pre .fyacast-l img{ opacity:0; transform:scale(1.08); filter:saturate(1.6) brightness(1.4); transition:none; }
+#fya-cast .fyacast.is-out .fyacast-grid > *, #fya-cast .fyacast.is-pre .fyacast-grid > *{ opacity:0; transform:translateY(-10px); transition-duration:.14s; }
+#fya-cast .fyacast-grid > :nth-child(2){ transition-delay:.06s; } #fya-cast .fyacast-grid > :nth-child(3){ transition-delay:.12s; }
+
+/* who it is, beside the poster */
+#fya-cast .fyacast-side{ display:flex; flex-direction:column; gap:clamp(28px,3.4vw,44px); min-width:0; }
+#fya-cast .fyacast-say{ align-self:stretch; padding:0; }
+#fya-cast .fyacast-role{ font-family:var(--tight); font-weight:900; text-transform:uppercase; letter-spacing:-.05em; line-height:.86; }
+#fya-cast .fyacast-role span{ color:var(--pk); }
+#fya-cast .fyacast-line{ font-family:var(--tight); font-weight:600; letter-spacing:-.01em; }
+
+/* the crew's welcome, printed on slips */
+#fya-cast .fyacast-phone{ display:none; }
+#fya-cast .fyacast-chat{ position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:10px; font-family:var(--tight); }
+#fya-cast .fyacast-slip{ position:relative; margin:0; max-width:92%; padding:12px 16px 12px; background:var(--ink-n); color:var(--cream); font-size:17px; font-weight:600; line-height:1.3; letter-spacing:-.01em;
+  border-radius:2px; box-shadow:-2.5px 2px 0 rgba(34,205,240,.85), 2.5px -2px 0 rgba(122,44,255,.8), 0 18px 26px -18px rgba(13,16,48,.55);
+  transition:opacity .35s ease, transform .55s cubic-bezier(.2,1.2,.3,1); }
+#fya-cast .fyacast-slip .who{ display:block; margin-bottom:3px; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:#8ec8f2; }
+#fya-cast .fyacast-re .who{ color:#c3dc6b; }
+#fya-cast .fyacast-slip .tm{ margin-left:10px; font-size:11px; font-weight:700; letter-spacing:.04em; opacity:.55; }
+#fya-cast .fyacast-kofi{ rotate:-2deg; }
+#fya-cast .fyacast-sys{ margin:2px 0 2px 4px; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--fya-mute,#6a6f76); }
+#fya-cast .fyacast-sys b{ color:var(--ink-n); }
+#fya-cast .fyacast-me{ align-self:flex-end; display:flex; align-items:center; gap:10px; }
+#fya-cast .fyacast-me .fyacast-slip{ background:var(--pk); color:#fff; rotate:2.5deg; }
+#fya-cast .fyacast-me .a-av{ flex:none; width:54px; height:54px; border-radius:50%; background:50% 40% / cover no-repeat var(--ink-n); box-shadow:0 0 0 3px #fff, 0 0 0 5px var(--pk), 0 10px 16px -10px rgba(13,16,48,.6);
+  transition:transform .5s cubic-bezier(.2,1.3,.3,1), opacity .3s; }
+#fya-cast .fyacast-re{ rotate:-1deg; margin-left:18px; }
+#fya-cast .fyacast-me.is-hid .fyacast-slip, #fya-cast .fyacast-me.is-hid .a-av{ opacity:0; transform:translateY(14px) scale(.9); }
+#fya-cast .fyacast-re.is-hid{ opacity:0; transform:translateY(14px) scale(.94); }
+
+@media (max-width: 860px){
+  #fya-cast .fyacast-stage{ grid-template-columns:1fr; gap:28px; }
+  #fya-cast .fyacast-plate{ max-width:520px; }
+  #fya-cast .fyacast-side{ gap:24px; }
+  #fya-cast .fyacast-slip{ font-size:16px; }
+}
+
+/* the poster carries the role and the genre; beside it only the line, for the eye (both stay for screen readers) */
+#fya-cast .fyacast-say .fya-tag, #fya-cast .fyacast-say .fyacast-role{ position:absolute !important; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+#fya-cast .fyacast-line{ margin:0; max-width:15em; font-size:clamp(24px,2.4vw,34px); font-weight:800; line-height:1.12; letter-spacing:-.03em; color:var(--fya-ink,#131a21); }
+#fya-cast .fyacast-chat{ align-self:stretch; }

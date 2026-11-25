@@ -1,6 +1,6 @@
-/* FYI case study, layer: The cast.
-   Pick a face: the cut-out comes forward on its ground colour, its role is set in type,
-   and the same face lands in a chat thread. Nothing plays by itself except the first arrival. */
+/* FYI case study, layer: The cast (a lineup, 25.11.2026).
+   Pick a face: its poster comes up in the Swiss grid with its role as the headline,
+   and the same face is welcomed by the crew on printed slips beside it. Nothing plays by itself except the first arrival. */
 (function () {
   'use strict';
   var sec = document.getElementById('fya-cast');
@@ -12,7 +12,8 @@
     say = q('.fyacast-say'), tag = say && say.querySelector('.fya-tag'), role = q('.fyacast-role b'), line = q('.fyacast-line'),
     me = q('.fyacast-me'), av = me && me.querySelector('.a-av'), re = q('.fyacast-re'), ret = q('.fyacast-ret'),
     btns = [].slice.call(root.querySelectorAll('.fyacast-f'));
-  if (!plate || !cut || !sh || !btns.length) return;
+  var pr = q('.fyacast-pr'), pg = q('.fyacast-pg'), no = q('.fyacast-no');
+  if (!plate || !cut || !btns.length) return;
 
   var IMG = '../img/fyi/';
   var CAST = {
@@ -34,7 +35,7 @@
   var loaded = {};
   var load = function (id) {
     if (loaded[id]) return loaded[id];
-    loaded[id] = ['a-', 's-'].map(function (p) {
+    loaded[id] = ['a-', 'f-'].map(function (p) {
       var im = new Image(); im.src = IMG + p + id + '.webp';
       return im.decode ? im.decode().catch(function () {}) : Promise.resolve();
     });
@@ -45,7 +46,9 @@
     plate.style.setProperty('--g', c.g);
     if (me) me.style.setProperty('--g', c.g);
     cut.src = IMG + 'a-' + id + '.webp'; cut.alt = c.alt;
-    sh.src = IMG + 's-' + id + '.webp';
+    if (pr) { pr.textContent = c.role; pr.style.setProperty('--n', c.role.length); }
+    if (pg) pg.textContent = c.genre;
+    if (no) no.textContent = ('0' + (Object.keys(CAST).indexOf(id) + 1)).slice(-2) + ' / 08';
     if (tag) tag.textContent = c.genre;
     if (role) role.textContent = c.role;
     if (line) line.textContent = c.line;
