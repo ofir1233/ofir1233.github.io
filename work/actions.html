@@ -38,7 +38,8 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/case.css?v=44">
 <link rel="stylesheet" href="../v7/intro.css?v=2">
 <link rel="stylesheet" href="../v7/wf-story.css?v=2">
-<link rel="stylesheet" href="../v7/actions-wf.css?v=5">
+<link rel="stylesheet" href="../v7/hf-story.css?v=3">
+<link rel="stylesheet" href="../v7/actions-hf.css?v=2">
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
 <body>
@@ -52,9 +53,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main" class="in-page">
+<main id="main" class="in-page hf an">
   <header class="in-hero">
-    <p class="in-tag">Actions <b>Wireframe · low fidelity</b></p>
+    <p class="in-tag">Actions</p>
     <h1>Every finding from a call gets an owner and an outcome</h1>
     <p>Hear’s AI reads contact-center calls and raises findings. I designed Actions, the board where each finding turns into a task someone owns and closes with a reason.</p>
     <p class="in-note">My vision for the screen, built in Hear Studio on demo data.</p>
@@ -66,81 +67,80 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
         <div class="in-sv" id="in-sv" data-s="0" aria-hidden="true">
           <div class="aw">
 
-            <div class="aw-sc aw-s1">
-              <div class="aw-card aw-alert">
-                <small><u class="hi"></u>Alert · Oct 13</small>
-                <b>Refund refused</b>
-                <i class="aw-ln"></i><i class="aw-ln s"></i>
-                <div class="aw-q q1"><span>Who is on it</span><em>?</em></div>
-                <div class="aw-q q2"><span>How it ended</span><em>?</em></div>
+            <div class="aw-sc an-s1">
+              <div class="hf-win an-al">
+                <p class="an-src"><span class="hf-tag blue">Alert</span><small>Oct 13</small></p>
+                <b class="an-tl">Refund refused</b>
+                <p class="an-d">A customer asked twice for a refund and was offered only a voucher.</p>
+                <span class="an-ev"><b>02:41</b>“I asked for a refund, not a voucher.”</span>
+                <p class="an-q q1">Who is on it<span>?</span></p>
+                <p class="an-q q2">How it ended<span>?</span></p>
               </div>
             </div>
 
-            <div class="aw-sc aw-s2">
-              <div class="aw-col"><h4>Pending<em>6</em></h4></div>
-              <div class="aw-card aw-task">
-                <small><u class="hi"></u>Alert · Today · High</small>
-                <b>Customer asked twice for a refund, was offered only a voucher</b>
-                <p class="ev"><em>02:41</em><span>“…a refund, not a voucher.”</span></p>
-                <footer><span class="na"><i class="aw-av">?</i>Not assigned</span><span class="nm"><i class="aw-av">DB</i>Daniel Brooks</span></footer>
+            <div class="aw-sc an-s2">
+              <div class="hf-win an-col">
+                <h4>Pending<i>6</i></h4>
+                <div class="an-cd src"><small><u class="hi"></u>Alert · Today · High</small><p>Customer asked twice for a refund, was offered only a voucher</p><span class="cev"><b>02:41</b>“…a refund, not a voucher.”</span><footer><span class="who"><i class="hf-av">DB</i>Daniel Brooks</span><span class="na"><i class="hf-av no"></i>Not assigned</span></footer></div>
+                <div class="an-cd gh"><small><u></u>Call · Yesterday</small><p>Reason for call tagged as Billing, should be Flight change</p><span class="cev"><b>00:38</b>“I need to move my flight.”</span><footer><i class="hf-av">MC</i>Maya Collins</footer></div>
+                <div class="an-cd gh"><small><u class="hi"></u>Agent evaluation · Yesterday · High</small><p>Recording disclosure missing in the first 30 seconds</p><span class="cev">No recording notice before 00:30</span><footer><span class="na"><i class="hf-av no"></i>Not assigned</span></footer></div>
               </div>
-              <div class="aw-ghost" style="top:268px"></div><div class="aw-ghost" style="top:350px"></div>
-              <p class="aw-lb l1" style="top:72px"><b>1</b>Where it came from</p>
-              <p class="aw-lb l2" style="top:146px"><b>2</b>The customer’s words,<br>timed in the call</p>
-              <p class="aw-lb l3" style="top:198px"><b>3</b>Who has it</p>
+              <p class="hf-note an-lb l1"><i class="hf-n">1</i>Where it came from</p>
+              <p class="hf-note an-lb l2"><i class="hf-n">2</i>The customer’s words, timed in the call</p>
+              <p class="hf-note an-lb l3"><i class="hf-n">3</i>Who has it</p>
             </div>
 
-            <div class="aw-sc aw-s3">
-              <div class="aw-op off">
-                <small>Hear today · set aside</small>
-                <div class="aw-dd"><span>Assignee</span><span>▾</span></div>
-                <div class="aw-menu">
-                  <div class="aw-seg"><span>Assignee</span><span class="on">Mentioned</span></div>
-                  <div class="aw-faces"><i></i><i></i><i></i><i class="me"></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="aw-sc an-s3">
+              <div class="an-row">
+                <div class="an-op off">
+                  <p class="hf-note pl an-oh">Hear today <span class="hf-tag">Set aside</span></p>
+                  <div class="hf-win an-dd">
+                    <span class="hf-chip">Assignee<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></span>
+                    <div class="an-menu"><p class="an-seg"><span>Assignee</span><span class="on">Mentioned</span></p><div class="an-faces"><i class="hf-av">DB</i><i class="hf-av">MC</i><i class="hf-av">PN</i><i class="hf-av">RC</i><i class="hf-av">SC</i><i class="hf-av">SK</i><i class="hf-av me">AW</i><i class="hf-av">LO</i><i class="hf-av">GK</i></div></div>
+                  </div>
                 </div>
-              </div>
-              <div class="aw-op yes">
-                <small>Its own filter · chosen</small>
-                <div class="aw-chips"><span class="aw-chip on">Everyone</span><span class="aw-chip">Assigned to me</span><span class="aw-chip me">Mentions me</span></div>
-                <div class="aw-list">
-                  <div class="aw-ghost" style="top:0"></div><div class="aw-ghost" style="top:72px"></div><div class="aw-ghost" style="top:144px"></div>
-                  <div class="aw-card aw-ment">
-                    <small><u class="hi"></u>Alert · Today · High</small>
-                    <b>Customer asked twice for a refund, was offered only a voucher</b>
-                    <div class="cm"><i class="aw-av">MC</i><span><b>Maya Collins</b><br><u>@Alex Ward</u> second refund complaint on this route this week.</span></div>
+                <div class="an-op yes">
+                  <p class="hf-note pl an-oh">My board <span class="hf-tag ink">Its own filter</span></p>
+                  <div class="hf-win an-fl">
+                    <p class="an-chips"><span class="hf-chip c0">Everyone</span><span class="hf-chip">Assigned to me</span><span class="hf-chip c2"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3l2.3 2.2 4.7-5"/></svg>Mentions me</span></p>
+                    <div class="an-cd gh"><small><u></u>Call · Oct 11</small><p>Seat upgrade charged twice on one booking</p></div>
+                    <div class="an-cd mt"><small><u class="hi"></u>Alert · Today · High</small><p>Customer asked twice for a refund, was offered only a voucher</p>
+                      <div class="an-cm"><i class="hf-av">MC</i><span><b>Maya Collins</b><small>10:05</small><br><em>@Alex Ward</em> second refund complaint on this route this week, worth a look.</span></div></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="aw-sc aw-s4">
-              <div class="aw-tp">
-                <small>Task · from the Refund refused alert</small>
-                <b>Customer asked twice for a refund, was offered only a voucher</b>
-                <dl><dt>Owner</dt><dd><i class="aw-av">DB</i>Daniel Brooks</dd><dt>Call</dt><dd>Oct 13 · agent Selma K.</dd></dl>
-                <h5>From the call</h5>
-                <div class="aw-call"><s></s><i class="m1" style="left:22%"></i><i class="m2" style="left:43.3%"></i><em style="left:22%">01:22</em><em style="left:43.3%">02:41</em></div>
+            <div class="aw-sc an-s4">
+              <div class="hf-win an-tp">
+                <p class="an-th"><b>Task</b><small>From an alert · Today</small></p>
+                <p class="an-tt">Customer asked twice for a refund, was offered only a voucher</p>
+                <dl><dt>Source</dt><dd><span class="hf-tag blue">Alert</span>Refund refused</dd><dt>Assignee</dt><dd><i class="hf-av">DB</i>Daniel Brooks</dd><dt>Call</dt><dd>Oct 13 · 6 min 12 sec</dd></dl>
+                <div class="an-call"><h5>From the call · agent Selma K.</h5><i class="tl"><s></s><u style="left:22%"></u><u class="u2" style="left:43.3%"></u><b></b></i>
+                  <p><b>01:22</b>“I’d like a refund for the cancelled flight.”</p><p><b>02:41</b>“I asked for a refund, not a voucher.”</p></div>
                 <h5>Checklist</h5>
-                <div class="aw-ck c1"><i>✓</i>Listen to the call</div>
-                <div class="aw-ck c2"><i>✓</i>Refund the customer</div>
-                <div class="aw-ck c3"><i>✓</i>Book coaching with Selma K.</div>
+                <p class="an-ck k1"><i><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3l2.3 2.2 4.7-5"/></svg></i>Listen to the call</p><p class="an-ck k2"><i><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3l2.3 2.2 4.7-5"/></svg></i>Refund the customer</p><p class="an-ck k3"><i><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3l2.3 2.2 4.7-5"/></svg></i>Book coaching with Selma K.</p>
                 <h5>Outcome</h5>
-                <div class="aw-out"><span>Refunded · coaching set for Oct 15</span></div>
-                <div class="aw-cmt"><span>Write a comment</span><span><b>@</b> a teammate, or <b>@AI</b></span></div>
-                <div class="ft"><span class="aw-btn">Reassign</span><span class="aw-btn ink">Close as Resolved</span></div>
+                <p class="an-out"><span>Refunded · coaching set for Oct&nbsp;15</span></p>
+                <p class="an-cmt">Write a comment<small>@ a teammate, or @AI</small></p>
+                <p class="an-ft"><span class="an-bt">Reassign</span><span class="an-bt ink">Close as Resolved</span></p>
               </div>
             </div>
 
-            <div class="aw-sc aw-s5">
-              <div class="aw-rs"><small>Close reasons</small><span class="aw-tag">Resolved</span><span class="aw-tag">Duplicate</span><span class="aw-tag">Not actionable</span><span class="aw-tag">Escalated</span><span class="aw-tag">Other</span></div>
-              <div class="aw-col c1"><h4>Done<em>4</em></h4>
-                <div class="aw-card aw-cc new" style="top:40px"><small>Alert · Today</small><b>Customer asked twice for a refund…</b><p>Refunded · coaching set for Oct 15</p><span class="aw-tag">Resolved</span></div>
-                <div class="aw-card aw-cc k2" style="top:150px"><small>Alert · Oct 5</small><b>Lost baggage claim escalated…</b><p>Ground team found the bag, Oct 6</p><span class="aw-tag">Escalated</span></div>
-                <div class="aw-card aw-cc k3" style="top:260px"><small>Call · Oct 4</small><b>Sentiment re-analyzed on a VIP…</b><p>Sentiment corrected to Negative</p><span class="aw-tag">Resolved</span></div>
-              </div>
-              <div class="aw-col c2"><h4>Cancelled<em>2</em></h4>
-                <div class="aw-card aw-cc k4" style="top:40px"><small>Alert · Oct 10</small><b>Booking engine timeout</b><p>Same failure as the Oct 10 alert</p><span class="aw-tag">Duplicate</span></div>
-                <div class="aw-card aw-cc k5" style="top:150px"><small>Feedback · Sep 30</small><b>Website search is slow</b><p>Not about a call</p><span class="aw-tag">Not actionable</span></div>
+            <div class="aw-sc an-s5">
+              <div class="an-stk">
+                <p class="hf-note pl an-rs"><span>Close reasons</span><span class="hf-tag green">Resolved</span><span class="hf-tag">Duplicate</span><span class="hf-tag">Not actionable</span><span class="hf-tag">Escalated</span><span class="hf-tag">Other</span></p>
+                <div class="an-cols">
+                  <div class="hf-win an-col c1"><h4>Done<i>4</i></h4>
+                    <div class="an-cd nw"><small><u></u>Alert · Today</small><p>Customer asked twice for a refund, was offered only a voucher</p><span class="cev">Refunded · coaching set for Oct&nbsp;15</span><footer><i class="hf-av">DB</i>Daniel Brooks<span class="hf-tag green">Resolved</span></footer></div>
+                    <div class="an-cd"><small><u></u>Alert · Oct 5</small><p>Lost baggage claim escalated to the ground team</p><span class="cev">Ground team found the bag, Oct 6</span><footer><i class="hf-av">SC</i>Sofia Cruz<span class="hf-tag">Escalated</span></footer></div>
+                    <div class="an-cd"><small><u></u>Call · Oct 4</small><p>Sentiment re-analyzed on a VIP escalation</p><span class="cev">Sentiment corrected to Negative</span><footer><i class="hf-av">MC</i>Maya Collins<span class="hf-tag green">Resolved</span></footer></div>
+                  </div>
+                  <div class="hf-win an-col c2"><h4>Cancelled<i>2</i></h4>
+                    <div class="an-cd"><small><u></u>Alert · Oct 10</small><p>Duplicate: booking engine timeout</p><span class="cev">Same failure as the Oct 10 alert</span><footer><i class="hf-av">RC</i>Ryan Cole<span class="hf-tag">Duplicate</span></footer></div>
+                    <div class="an-cd"><small><u></u>Feedback · Sep 30</small><p>Website search is slow</p><span class="cev">Not about a call</span><footer><span class="na"><i class="hf-av no"></i>Not assigned</span><span class="hf-tag">Not actionable</span></footer></div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -224,6 +224,6 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 </footer>
 <script src="case.js?v=8"></script>
 <script src="../v7/foot.js?v=202" defer></script>
-<script src="../v7/wf-story.js?v=2" defer></script>
+<script src="../v7/wf-story.js?v=5" defer></script>
 </body>
 </html>

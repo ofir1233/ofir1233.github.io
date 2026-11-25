@@ -45,7 +45,7 @@
   };
   const boxes = (o, x, y, w, h, lit) => tree(x, y, w, h).forEach((r, i) => {
     /* a name needs room for two lines, its calls and the score; a narrow box keeps only the score, a sliver nothing */
-    const size = r[2] < 38 || r[3] < 34 ? 'mini ' : (r[2] < 104 && !(r[2] >= 84 && r[3] >= 120)) || r[3] < 84 ? 'tiny ' : '';
+    const size = r[2] < 38 || r[3] < 34 ? 'mini ' : (r[2] < 104 && !(r[2] >= 84 && r[3] >= 120)) || r[3] < 96 ? 'tiny ' : '';
     o['x' + i] = [...r, lit && !lit.includes(i) ? .3 : 1, 0, size + (lit && lit.includes(i) ? 'lit' : '')]; });
 
   /* the room the story is drawn in: 540 wide on a wide screen, 400 on a phone, and as tall as the stage's shape allows, inside the
@@ -70,10 +70,10 @@
     // 3. the most to gain, beside the lowest score
     S[2] = (() => { const th = Math.round(RH * (phone() ? .54 : .64)), o = { tw: [0, 0, RW, th, 1], sp: [0, th + 12, RW, RH - th - 12, 1] };
       boxes(o, 10, HD, RW - 20, th - HD - 10, [0, 4]);
-      return { o, tag: { 0: 'Most to gain', 4: 'Lowest score' }, lb: [] }; })();
+      return { o, tag: { 0: 'Most to gain', 4: 'Lowest' }, lb: [] }; })();
     // 4. Ask AI answers beside the screen
-    S[3] = (() => { const tw = Math.round(RW * .34), o = { tw: [0, 0, tw, RH, 1], ap: [tw + 12, 0, RW - tw - 12, RH, 1] };
-      boxes(o, 8, HD, tw - 16, RH - HD - 8, [0]);
+    // the click is shown: Online Booking's three scores stay on top, Handle time is pressed, and Ask AI opens under them
+    S[3] = (() => { const sh = 48 + 3 * 24 + 18, o = { sp: [0, 0, RW, sh, 1], ap: [0, sh + 12, RW, Math.min(RH - sh - 12, phone() ? 380 : 360), 1] };
       return { o, lb: [] }; })();
     return S; };
 

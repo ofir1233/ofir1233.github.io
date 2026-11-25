@@ -40,7 +40,8 @@
 .es .in-sv .es-grid .c{ height:32px;
   transition:background-color .35s ease calc(.5s + var(--c) * .14s), color .35s ease calc(.5s + var(--c) * .14s), opacity .45s ease; }
 .es .in-sv .es-s2:not(.go) .es-grid .c{ background:var(--h-chip); color:var(--h-mut); transition:none; }
-.es-s2.go .es-grid .c:is(.b3, .b4, .b5){ opacity:.28; transition-delay:calc(.5s + var(--c) * .14s), calc(.5s + var(--c) * .14s), 2.3s; }
+.es-s2.go .es-grid .c:is(.b3, .b4){ opacity:.3; transition-delay:calc(.5s + var(--c) * .14s), calc(.5s + var(--c) * .14s), 2.3s; }
+.es-s2.go .es-grid .c.b5{ opacity:.18; transition-delay:calc(.5s + var(--c) * .14s), calc(.5s + var(--c) * .14s), 2.3s; }
 .es-s2.go .es-grid .h.cp{ color:var(--h-ink); text-decoration-color:var(--coral); transition-delay:2.6s; }
 .es-key{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:12px !important; font-size:11.5px; color:var(--h-mut); }
 .es-key i{ width:18px; height:10px; border-radius:3px; }
@@ -55,17 +56,17 @@
 .go .es-cnt{ opacity:1; transform:none; transition-delay:2.8s; }
 
 /* 3. a click on the 58 opens the card beside it (explain.css .xp-pop): how it compares, the team's spread bar by bar, what the spread means */
-.es-col{ position:absolute; left:0; top:58px; width:62px; display:flex; flex-direction:column; gap:4px; }
+.es-col{ position:absolute; left:0; top:50px; width:74px; display:flex; flex-direction:column; gap:4px; padding:8px 6px; border-radius:14px; background:#fff; box-shadow:0 0 0 1px rgba(16,34,60,.06), 0 18px 36px -22px rgba(10,40,80,.42); }
 .es-col small{ padding-bottom:2px; font-size:11px; color:var(--h-ink); text-align:center; text-decoration:underline 2px var(--coral); text-underline-offset:3px; }
 .es .in-sv .es-col .c{ position:relative; height:32px; }
-.es-col .c:not(.me){ opacity:.55; }
+.es-col .c:not(.me){ opacity:.6; }
 .es-col .c.me{ transition:outline-color .25s ease; outline:2.5px solid transparent; outline-offset:2px; }
 .go .es-col .c.me{ outline-color:var(--h-blue); transition-delay:.5s; }
 .es-col .c.me::after{ content:""; position:absolute; left:50%; top:50%; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%; background:rgba(24,24,24,.22); transform:scale(.3); opacity:0; }
 .go .es-col .c.me::after{ animation:es-tap .6s ease .2s both; }
 @keyframes es-tap{ 0%{ transform:scale(.3); opacity:0; } 35%{ opacity:1; } 100%{ transform:scale(1.7); opacity:0; } }
 
-.es-pop{ left:84px; top:0; width:304px; padding:16px 18px 14px; font-size:13px; line-height:1.35; opacity:0; transform:translateX(-10px) scale(.97); transform-origin:0 30%;
+.es-pop{ left:90px; top:0; width:304px; padding:16px 18px 14px; font-size:13px; line-height:1.35; opacity:0; transform:translateX(-10px) scale(.97); transform-origin:0 30%;
   transition:opacity .3s ease .6s, transform .45s cubic-bezier(.2,.8,.2,1) .6s; }
 .go .es-pop{ opacity:1; transform:none; }
 .es-pn{ display:block; font-size:16px; font-weight:600; letter-spacing:-.01em; }
@@ -140,8 +141,13 @@
 .es-calls .fd{ overflow:hidden; text-overflow:ellipsis; color:var(--h-ink2); }
 .go .es-calls li{ opacity:1; transform:none; transition-delay:calc(2.7s + var(--r) * .08s); }
 /* the cause the chat named, marked where it happened: Hear's coral underline (screens.css .sg-q u) */
-.es-calls li.fee .fd{ text-decoration:underline 2px transparent; text-underline-offset:3px; transition:color .3s ease, text-decoration-color .3s ease; }
-.go .es-calls li.fee .fd{ color:var(--h-ink); text-decoration-color:var(--coral); transition-delay:3.6s; }
+/* drawn once, left to right: first in the answer, then on the four calls where it happened */
+.es-ans strong, .es-calls li.fee .fd{ background:linear-gradient(var(--coral), var(--coral)) 0 100% / 0 2px no-repeat; padding-bottom:2px; transition:background-size .4s cubic-bezier(.4,0,.2,1), color .3s ease; }
+.es-calls li.fee .fd{ justify-self:start; max-width:100%; }
+.go .es-ans strong{ background-size:100% 2px; transition-delay:2.6s; }
+.go .es-calls li.fee .fd{ color:var(--h-ink); background-size:100% 2px; }
+.go .es-calls li.fee:nth-child(3) .fd{ transition-delay:3.4s; } .go .es-calls li.fee:nth-child(4) .fd{ transition-delay:3.5s; }
+.go .es-calls li.fee:nth-child(5) .fd{ transition-delay:3.6s; } .go .es-calls li.fee:nth-child(6) .fd{ transition-delay:3.7s; }
 
 /* phone: the room is 400 wide; the grid keeps first names and short criteria, the calls keep date, score and finding */
 @media (max-width: 860px){
@@ -153,9 +159,9 @@
   .es-grid .n span::after{ content:attr(data-f); font-size:12px; }
   .es-grid .n .hf-av{ width:22px; height:22px; font-size:9px; }
   .es .in-sv .es-grid .c{ height:30px; font-size:12.5px; }
-  .es-key{ gap:5px; font-size:11px; } .es-key > span:first-child{ display:none; } .es-key span{ margin-right:4px; }
+  .es-key{ gap:4px; font-size:10.5px; } .es-key i{ width:14px; } .es-key .ps{ margin:0 4px; } .es-key > span:first-child{ display:none; } .es-key span{ margin-right:4px; }
   .es-cnt{ margin-left:12px; }
-  .es-pop{ left:76px; }
+  .es-pop{ left:84px; }
   .es-chat, .es-ev{ width:400px; padding-left:14px; padding-right:14px; }
   .es-ans .es-pin, .es-team .es-pin{ left:-24px; }
   .es-evh small{ display:none; }
