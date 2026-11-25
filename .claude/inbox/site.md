@@ -113,3 +113,4 @@
 - 24.11 Experience: the timeline is replaced by four passes on one cord (v7/experience.css v2, v7/experience.js v1). Hear in front with the painted cloud; a list row, a back pass, or a press on the front pass brings a job forward. The inline timeline observer is guarded (it threw once #timeline was gone). Owner approved the local version.
 - 24.11: Experience back to the earlier timeline at the owner's word ("תחזירי לעיצוב הקודם"); the badges (v7/experience.*) removed, they stay in history at 0d3b1d2.
 - 24.11: Introduction replaces the Design Lab case (work/design-lab.html): a low-fi wireframe in seven steps, a sticky stage on the right whose shapes rearrange per step (v7/intro.css, v7/intro.js). Home button and footers say Introduction. Step 1 keeps a slot for the private talk's 'why Hear exists'.
+- 25.11: Topics slide on the home no longer links to the Introduction (Topics has no case study of its own); the other slides keep their case links.
