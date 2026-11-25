@@ -32,6 +32,30 @@
 .hf-cb, .hf-cf{ transition:transform 1.6s cubic-bezier(.3,.7,.2,1); }
 .hf-cb{ transform:translateX(calc(var(--s, 0) * -18px)); }
 .hf-cf{ transform:translateX(calc(var(--s, 0) * 14px)); }
+/* each case wears its own painting (owner, 25.11: the same blue sky on every page, and blue on blue, "I want more creativity, take
+   from the rest of the site, like the city"). It is the painting the reader met beside that product on the home page, so the case
+   opens in the same place: Topics over the roofs where one coral building stands out, Actions under the crane lifting its crate,
+   Explainable scores, whose story is a Compliance score, on the Compliance beach; Newsroom at dusk, so the blue recap reads against a warm sky; Data over the whole city from
+   above; the Introduction on the boulevard. Each step pans a little across it (--sky, from 0% to 100%), from --pa by --pk, ending
+   on the painting's own subject. The painting has its own clouds, so the two drawn ones stay out */
+.hf.ih, .hf.tq-hf, .hf.es, .hf.an, .hf.nw, .hf.da{ --pa:50%; --pk:0; }
+.hf.ih .in-stage, .hf.tq-hf .in-stage, .hf.es .in-stage, .hf.an .in-stage, .hf.nw .in-stage, .hf.da .in-stage{
+  background-position:calc(var(--pa) + var(--sky, 0%) * var(--pk)) 50%; }
+.hf.ih .hf-cb, .hf.ih .hf-cf, .hf.tq-hf .hf-cb, .hf.tq-hf .hf-cf, .hf.es .hf-cb, .hf.es .hf-cf,
+.hf.an .hf-cb, .hf.an .hf-cf, .hf.nw .hf-cb, .hf.nw .hf-cf, .hf.da .hf-cb, .hf.da .hf-cf{ display:none; }
+.hf.ih{ --pa:15%; --pk:.6; }
+.hf.ih .in-stage{ background-color:#7fb2d9; background-image:image-set(url("../img/me-v7-tlv-1200.webp") 1x, url("../img/me-v7-tlv-2400.webp") 2x); }
+.hf.tq-hf{ --pa:85%; --pk:-.6; }
+.hf.tq-hf .in-stage{ background-color:#4d8fe0; background-image:url("../img/spot-topics-back.webp?v=5"); }
+.hf.es{ --pa:0%; --pk:.55; }
+.hf.es .in-stage{ background-color:#5d9be0; background-image:url("../img/spot-compliance-back.webp?v=5"); }
+.hf.an{ --pa:5%; --pk:.55; }
+.hf.an .in-stage{ background-color:#2f72d8; background-image:url("../img/spot-actions-back.webp?v=5"); }
+.hf.nw{ --pa:10%; --pk:.5; }
+.hf.nw .in-stage{ background-color:#5a5fae; background-image:image-set(url("../img/end-harbour-dusk-1152.webp") 1x, url("../img/end-harbour-dusk.webp") 2x); }
+.hf.da{ --pa:95%; --pk:-.65; }
+.hf.da .in-stage{ background-color:#5d9be0; background-image:url("../img/top-sky-tlv.webp"); }
+
 /* the step meter is ink, so it reads on the sky and on a cloud alike */
 .hf .in-meter button::before{ background:rgba(16,34,60,.3); }
 .hf .in-meter button[aria-current="step"]::before{ background:var(--h-ink); }
