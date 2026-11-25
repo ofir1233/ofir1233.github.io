@@ -85,16 +85,16 @@
   function q(s){ return card.querySelector(s); }
   var title = q('.hl-t'), email = q('.hl-in.on'), pass = q('.hl-in:not(.on)'), row = q('.hl-row'), btn = q('.hl-btn:not(.g)'), rest = [q('.hl-or'), q('.hl-btn.g'), q('.hl-foot')];
   var hd = document.createElement('div'); hd.className = 'hd';
-  hd.innerHTML = '<span class="hd-sel"><i></i><i></i><i></i><i></i><b></b></span><span class="hd-gap"><b></b></span><span class="hd-prop"><small>Radius</small><b>6</b></span><span class="hd-cur"><svg viewBox="0 0 24 24"><path d="M4 3l6.5 17 2.6-7.1L20 10.2z"/></svg><b>Ofir</b></span>';
+  hd.innerHTML = '<span class="hd-sel"><i></i><i></i><i></i><i></i><b></b></span><span class="hd-gap"><b></b></span><span class="hd-prop"><small>Radius</small><b>6</b></span><span class="hd-cur"><svg viewBox="0 0 24 24"><path d="M4 3l6.5 17 2.6-7.1L20 10.2z"/></svg><b>Ofir</b></span><span class="hd-cur c2"><svg viewBox="0 0 24 24"><path d="M4 3l6.5 17 2.6-7.1L20 10.2z"/></svg><b>Claude</b></span>';
   glass.appendChild(hd);
-  var sel = hd.children[0], lab = sel.querySelector('b'), gap = hd.children[1], prop = hd.children[2], propN = prop.querySelector('b'), cur = hd.children[3];
+  var sel = hd.children[0], lab = sel.querySelector('b'), gap = hd.children[1], prop = hd.children[2], propN = prop.querySelector('b'), cur = hd.children[3], cur2 = hd.children[4];
   var parts = [title, email, pass, row, btn].concat(rest), run = 0, timers = [], shown = false;
   function box(el){ var c = el === card; return el === glass ? { x: 0, y: 0, w: el.offsetWidth, h: el.offsetHeight } : { x: card.offsetLeft + (c ? 0 : el.offsetLeft), y: card.offsetTop + (c ? 0 : el.offsetTop), w: el.offsetWidth, h: el.offsetHeight }; }
   function clear(){ run++; timers.forEach(clearTimeout); timers = []; parts.forEach(function(e){ e.classList.remove('show'); }); btn.classList.remove('sq'); card.classList.remove('fin', 'c0'); glass.classList.remove('g0');
-    [sel, gap, prop, cur].forEach(function(e){ e.classList.remove('show'); }); cur.classList.remove('down'); prop.classList.remove('edit'); }
+    [sel, gap, prop, cur, cur2].forEach(function(e){ e.classList.remove('show'); }); cur.classList.remove('down'); cur2.classList.remove('down'); prop.classList.remove('edit'); }
   function play(){ clear(); card.classList.add('hd-run', 'c0'); glass.classList.add('g0'); var me = run, g = box(glass), k = box(card), e = box(email), p = box(pass), b = box(btn), W = g.w;
     /* owner, 24.11: the build runs faster. F scales every step of it (waits and travel times); the finished card's hold does not */
-    var F = .58;
+    var F = .34;   /* owner, 25.11: the opening (glass, card, title) runs faster still; the rest at .5 */
     function hold(ms){ return new Promise(function(res){ timers.push(setTimeout(function(){ if (me === run) res(); }, ms)); }); }
     function wait(ms){ return hold(Math.round(ms * F)); }
     function len(d){ glass.style.setProperty('--d', Math.round(d * F) + 'ms'); }
@@ -109,30 +109,41 @@
     glass.style.setProperty('--dy', (e.y - p.y) + 'px'); propN.textContent = '6';
     jump(function(){ curAt(W + 46, -34); selAt(0, 0, 0, 0); });
     (async function(){
-      await wait(350); cur.classList.add('show');
+      await wait(120); cur.classList.add('show');
       await move(g.x, g.y, 560); await wait(150);
       await press(); await draw(g, 720); await lift();
       glass.classList.remove('g0'); await wait(440);                                        /* the glass comes up slowly, on its own time */
       len(460); selAt(k.x, k.y, k.w, k.h); curAt(k.x + k.w - 3, k.y + k.h - 2); await wait(460);   /* the selection steps in to the card */
       await wait(90); card.classList.remove('c0'); await wait(380);
-      title.classList.add('show'); await wait(320);
+      title.classList.add('show'); await wait(320); F = .5;
       sel.classList.remove('show'); await move(e.x, e.y, 540); await wait(140);
       await press(); await draw(e, 580); await lift();
       email.classList.add('show'); await wait(420);
+      /* a second hand joins (owner, 25.11): while Ofir duplicates the field, Claude's cursor comes in from below and sets the row and the button */
+      function move2(x, y, d){ cur2.style.setProperty('--d2', Math.round(d * F) + 'ms'); cur2.style.translate = Math.round(x - 3) + 'px ' + Math.round(y - 2) + 'px'; return wait(d); }
+      cur2.style.transition = 'none'; cur2.style.translate = '-70px ' + Math.round(g.h + 20) + 'px'; cur2.offsetWidth; cur2.style.transition = '';
+      var p2 = (async function(){
+        cur2.classList.add('show');
+        await move2(b.x + b.w * .28, b.y - 22, 620); row.classList.add('show'); await wait(240);
+        await move2(b.x + b.w * .5, b.y + b.h * .5, 360); cur2.classList.add('down'); await wait(110);
+        btn.classList.add('sq', 'show'); cur2.classList.remove('down'); await wait(260);
+        await move2(b.x + b.w * .2, b.y + b.h + 70, 520);
+      })();
       await move(e.x + e.w * .62, e.y + e.h * .52, 380); await wait(130); await press();   /* take the field and pull a copy down */
       len(480); pass.classList.add('show'); selAt(p.x, p.y, p.w, p.h); curAt(p.x + p.w * .62 - 3, p.y + p.h * .52 - 2); await wait(480); await lift();
       await wait(180); gap.style.left = (e.x + e.w / 2) + 'px'; gap.style.top = (e.y + e.h) + 'px'; gap.style.height = (p.y - e.y - e.h) + 'px'; gap.querySelector('b').textContent = p.y - e.y - e.h; gap.classList.add('show');
       await wait(560); gap.classList.remove('show'); sel.classList.remove('show'); await wait(160);
-      row.classList.add('show'); await move(b.x, b.y, 460); await wait(130);
-      await press(); btn.classList.add('sq'); await draw(b, 560); await lift(); btn.classList.add('show'); await wait(300);
+      await p2;
+      await move(b.x + b.w, b.y + b.h, 420); jump(function(){ selAt(b.x, b.y, b.w, b.h); }); sel.classList.add('show'); await wait(220);
       prop.style.left = (W - 30) + 'px'; prop.style.top = (b.y - 8) + 'px'; prop.classList.add('show');
       await move(W + 30, b.y + 36, 520); await wait(120); await press(); prop.classList.add('edit'); btn.classList.remove('sq');
       await new Promise(function(res){ var t0 = performance.now(); (function tick(t){ if (me !== run) return; var u = Math.min(1, (t - t0) / (850 * F)), s = u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
         propN.textContent = Math.round(6 + 21 * s); if (u < 1) requestAnimationFrame(tick); else res(); })(t0); });   /* the number runs up as the corners round */
       await lift(); await wait(380); prop.classList.remove('show', 'edit'); sel.classList.remove('show');
-      for (var i = 0; i < rest.length; i++) { rest[i].classList.add('show'); await wait(120); }
+      for (var i = 0; i < rest.length; i++) { var rb = box(rest[i]); move2(rb.x + rb.w * .5, rb.y + rb.h * .5, 200); await wait(200); rest[i].classList.add('show'); await wait(90); }
+      move2(-80, g.h * .9, 600);
       await wait(160); card.classList.add('fin');
-      await move(W + 80, g.h * .78, 600); cur.classList.remove('show');
+      await move(W + 80, g.h * .78, 600); cur.classList.remove('show'); cur2.classList.remove('show');
       if (++laps >= 2) return;   /* second pass: stay finished */
       await hold(2700);
       card.classList.add('c0'); await hold(260); glass.classList.add('g0'); await hold(1050);
