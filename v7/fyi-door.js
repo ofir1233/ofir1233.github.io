@@ -6,7 +6,7 @@
   const $ = (s, r = root) => r.querySelector(s), $$ = (s, r = root) => [...r.querySelectorAll(s)];
   const stage = $('#fd-stage'), stin = $('#fd-stin'), ph = $('#fd-ph'), phTilt = $('#fd-phTilt'), view = $('#fd-view'), roll = $('#fd-roll');
   const rec = $('#fd-rec'), recSh = $('#fd-recSh'), recDisc = $('#fd-recDisc'), pst = $('#fd-pst'), tkt = $('#fd-tkt'), tktIn = $('#fd-tktIn');
-  const wvBack = $('#fd-wvBack'), wvFront = $('#fd-wvFront'), ink = $('#fd-ink'), hint = $('#fd-hint'), sk = $('#fd-sk'), bgCyan = $('.fd-bg-cyan'), bgDots = $('.fd-bg-dots');
+  const tw = $('#fd-tw'), twImg = $('#fd-tw img'), ink = $('#fd-ink'), hint = $('#fd-hint'), sk = $('#fd-sk'), bgDots = $('.fd-bg-dots');
   const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MQ = matchMedia('(max-width:860px)');
   if (RM) root.classList.add('fd-rm');
@@ -41,7 +41,7 @@
   const trks = $$('.fd-trk-b');
 
   /* ---- geometry (stage px) */
-  let S = 1, mobile = false, vh = 454, G = null, wave = null, inkEls = {};
+  let S = 1, mobile = false, vh = 454, G = null, HB = null, skw = null, inkEls = {};
   const box = el => ({ x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight });
   function rel(el) { const o = stin.getBoundingClientRect(), b = el.getBoundingClientRect(); return { x: (b.left - o.left) / S, y: (b.top - o.top) / S, w: b.width / S, h: b.height / S }; }
 
@@ -60,52 +60,18 @@
       hx: parseFloat(getComputedStyle(rec).getPropertyValue('--fd-hx')) || 0, hy: parseFloat(getComputedStyle(rec).getPropertyValue('--fd-hy')) || 0, hs: parseFloat(getComputedStyle(rec).getPropertyValue('--fd-hs')) || 1
     };
     root.classList.remove('fd-measuring');
-    buildWave(); buildInk(); buildSketch();
+    buildHeat(); buildInk(); buildSketch();
     render(T);
   }
 
-  /* ---- the wave */
-  function buildWave() {
-    const pr = G.ph.x + G.ph.w;
-    let x0, x1, cy, hMin, hMax, pow;
-    if (!mobile) { x0 = G.vn.x + G.vn.w + 5; x1 = G.W + G.bleed - 4; cy = G.vn.y + G.vn.h / 2; hMin = 15; hMax = 300; pow = 1.22; }
-    else { x0 = -14; x1 = G.W + 22; cy = G.ph.y - 34; hMin = 12; hMax = 178; pow = 1.5; }
-    const bars = []; let x = x0, w = mobile ? 3.4 : 3, i = 0; const g = mobile ? 1.062 : 1.082;
-    while (x + w < x1 && i < 60) {
-      const u = (x - x0) / (x1 - x0);
-      const f = .3 + .7 * Math.abs(Math.sin(i * 1.7 + .4) * .6 + Math.sin(i * .63 + 1.3) * .4);
-      const h = Math.max(w * 1.6, (hMin + (hMax - hMin) * Math.pow(u, pow)) * f);
-      bars.push({ x, w, h, front: mobile || x < pr + 1 });
-      x += w * 1.74; w *= g; i++;
-    }
-    const N = bars.length;
-    bars.forEach((b, k) => { b.at = .62 + 1.5 * (k / N); b.drip = (!mobile && (k === N - 3 || k === N - 6 || k === N - 8)) ? 22 + ((k * 37) % 30) : 0; });
-    /* the pink paint waits until the section is about two screens away (the page's late loader adds .is-near and sets the href) */
-    const later = () => { const s = document.getElementById('fyi'); return !!(s && s.hasAttribute('data-near') && !s.classList.contains('is-near')); };
-    const defs = id => `<defs>
-      <pattern id="fd-pp${id}" patternUnits="userSpaceOnUse" width="720" height="360"><image ${later() ? 'data-near-href' : 'href'}="img/fyi-door/paint-pink.webp" width="720" height="360" preserveAspectRatio="none"/></pattern>
-      <filter id="fd-wr${id}" x="-10%" y="-20%" width="120%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
-      ${id === 'b' ? halftone(x1, cy, hMax) : ''}</defs>`;
-    const off = { c: [-4, 3.5], v: [3.5, -3], m: [0, 0] };
-    const rects = (list, cls) => list.map(b => { const k = Math.min(1, b.w / 9), dx = off[cls][0] * k, dy = off[cls][1] * k, id = bars.indexOf(b);
-      return `<rect class="fd-${cls}" data-k="${id}" data-dy="${dy.toFixed(2)}" x="${(b.x + dx).toFixed(1)}" width="${b.w.toFixed(1)}" rx="${(b.w / 2).toFixed(1)}" y="${cy}" height="0"/>` + (b.drip ? `<rect class="fd-${cls} fd-dr" data-k="${id}" data-dy="${dy.toFixed(2)}" x="${(b.x + dx + b.w * .22).toFixed(1)}" width="${(b.w * .3).toFixed(1)}" rx="${(b.w * .15).toFixed(1)}" y="${cy}" height="0"/>` : ''); }).join('');
-    const group = (list, id) => `${defs(id)}<g filter="url(#fd-wr${id})" ${id === 'b' ? 'mask="url(#fd-wmb)"' : ''}>
-      <g fill="#22cdf0">${rects(list, 'c')}</g>
-      <g fill="#7a2cff">${rects(list, 'v')}</g>
-      <g fill="url(#fd-pp${id})">${rects(list, 'm')}</g></g>`;
-    wvBack.innerHTML = group(bars.filter(b => !b.front), 'b');
-    wvFront.innerHTML = group(bars.filter(b => b.front), 'f');
-    bars.forEach((b, k) => { b.els = $$(`rect[data-k="${k}"]:not(.fd-dr)`, stin); b.drs = $$(`rect.fd-dr[data-k="${k}"]`, stin); });
-    wave = { bars, cy, x0, x1 };
-  }
-  function halftone(x1, cy, hMax) {
-    const zone = 250, xs = x1 - zone, pitch = 8.5; let c = '';
-    for (let r = 0, y = cy - hMax / 2 - 14; y < cy + hMax / 2 + 70; y += pitch * .866, r++)
-      for (let x = xs + (r % 2 ? pitch / 2 : 0); x < x1 + pitch; x += pitch) {
-        const u = clamp((x - xs) / zone), rad = pitch * .78 * Math.pow(1 - u, .62);
-        if (rad > .35) c += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad.toFixed(2)}"/>`;
-      }
-    return `<mask id="fd-wmb" maskUnits="userSpaceOnUse" x="-200" y="${cy - 400}" width="${x1 + 400}" height="800"><rect x="-200" y="${cy - 400}" width="${xs + 201}" height="800" fill="#fff"/><g fill="#fff">${c}</g></mask>`;
+  /* ---- the voice note, painted: where the picture sits (stage px). Its centre line is at 53% of its height. */
+  function buildHeat() {
+    let x0, x1, cy;
+    if (!mobile) { x0 = G.ph.x + G.ph.w - 24; x1 = G.W + G.bleed - 4; cy = G.vn.y + G.vn.h / 2; }
+    else { x0 = -14; x1 = G.W + 22; cy = G.ph.y - 40; }
+    const w = x1 - x0, h = w * 418 / 900;
+    HB = { x: x0, y: cy - h * .53, w, h, cx: x0 + w / 2, cy };
+    Object.assign(tw.style, { left: HB.x.toFixed(1) + 'px', top: HB.y.toFixed(1) + 'px', width: w.toFixed(1) + 'px', height: h.toFixed(1) + 'px' });
   }
 
   /* ---- ink */
@@ -142,10 +108,8 @@
     const boxLines = (x, y, w, h, o = 7) => `M${f(x - o)} ${f(y + 1)}L${f(x + w + o * .6)} ${f(y - 1)}M${f(x + w + 1)} ${f(y - o)}L${f(x + w - 1)} ${f(y + h + o * .7)}M${f(x + w + o * .8)} ${f(y + h)}L${f(x - o * .5)} ${f(y + h + 1.5)}M${f(x - 1)} ${f(y + h + o)}L${f(x + 1)} ${f(y - o * .6)}`;
     const zig = (x, y, w, a, n) => { let d = `M${f(x)} ${f(y)}`; for (let i = 1; i <= n; i++) d += `L${f(x + w * i / n)} ${f(y + (i % 2 ? -a : a))}`; return d; };
     const g = (b, deg, d) => P.push(`<g transform="rotate(${deg} ${f(b.x + b.w / 2)} ${f(b.y + b.h / 2)})"><path d="${d}"/></g>`);
-    // wave
-    let d = '', first = true;
-    for (const b of wave.bars) { if (!mobile && b.front) continue; const x = b.x + b.w / 2; d += `${first ? 'M' : 'L'}${f(x - b.w * .3)} ${f(wave.cy - b.h / 2 - 3)}L${f(x + b.w * .3)} ${f(wave.cy + b.h / 2 + 3)}`; first = false; }
-    P.push(`<path d="${d}"/>`);
+    // the voice note: a zigzag along its centre line
+    P.push(`<path id="fd-skw" d="${zig(HB.x + 10, HB.cy, HB.w - 20, HB.h * .16, 34)}"/>`);
     // record: sleeve and disc
     const r = G.rec, cx = r.x + r.w * .5 + r.w * .9 * .2, cy = r.y + r.h * .5 - r.h * .9 * .44, R = r.w * .45;
     g(r, -7, boxLines(r.x, r.y, r.w, r.h) + `M${f(cx - R)} ${f(cy)}a${f(R)} ${f(R)} 0 1 1 ${f(2 * R)} 0a${f(R)} ${f(R)} 0 1 1 ${f(-2 * R + 3)} ${f(-5)}M${f(cx - R * .36)} ${f(cy)}a${f(R * .36)} ${f(R * .36)} 0 1 1 ${f(R * .72)} 0a${f(R * .36)} ${f(R * .36)} 0 1 1 ${f(-R * .72 + 2)} -2`);
@@ -157,6 +121,7 @@
     const t = G.tkt;
     g(t, -9, `M${f(t.x + 8)} ${f(t.y + 6)}H${f(t.x + t.w - 6)}V${f(t.y + t.h - 6)}H${f(t.x + 6)}Z` + `M${f(t.x + t.w * .72)} ${f(t.y + 10)}v8m0 6v8m0 6v8m0 6v8`);
     sk.innerHTML = `<defs><filter id="fd-skr" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".014" numOctaves="2" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6"/></filter></defs><g filter="url(#fd-skr)">${P.join('')}</g>`;
+    skw = sk.querySelector('#fd-skw');
   }
   const inkSet = (id, d, o = 1) => { const p = inkEls[id]; if (p) { p.style.setProperty('--fd-d', d.toFixed(3)); p.style.setProperty('--fd-o', o.toFixed(3)); } };
 
@@ -190,14 +155,12 @@
     const n = Math.round(4 + 23 * out3(seg(t, 11.25, 12.5)));
     if (n !== lastN) { evN.textContent = n; tktN.textContent = n; lastN = n; }
 
-    // wave
-    for (const b of wave.bars) {
-      const p = back(seg(t, b.at, b.at + .44)), h = Math.max(0, b.h * p), d = b.drip ? (p > .9 ? out3(seg(t, b.at + .35, b.at + 1.3)) * b.drip + b.w * .6 : 0) : 0;
-      if (b.h0 !== h) { b.h0 = h; for (const e of b.els) { e.setAttribute('y', (wave.cy - h / 2 + +e.dataset.dy).toFixed(1)); e.setAttribute('height', h.toFixed(1)); } }
-      if (b.drip && b.d0 !== d) { b.d0 = d; const y0 = wave.cy + b.h / 2 - b.w * .6; for (const e of b.drs) { e.setAttribute('y', (y0 + +e.dataset.dy).toFixed(1)); e.setAttribute('height', d.toFixed(1)); } }
-    }
-    wvFront.style.opacity = mobile ? 1 : (1 - seg(t, 3.8, 4.1)).toFixed(2);
-    bgCyan.style.setProperty('--fd-on', io(seg(t, .7, 2.2)).toFixed(3));
+    // the voice note: revealed left to right while Maya talks, breathing with her voice
+    const rev = io(seg(t, .5, 2.45));
+    tw.style.setProperty('--fd-rev', rev.toFixed(3));
+    if (skw) skw.style.opacity = (1 - clamp(rev * 1.6)).toFixed(3);
+    const talk = t > .5 && t < 2.45 ? Math.abs(Math.sin(t * 9)) * .08 : 0;
+    twImg.style.transform = talk ? `scale(1,${(1 + talk).toFixed(3)})` : '';
     bgDots.style.setProperty('--fd-on', io(seg(t, 10.9, 11.7)).toFixed(3));
 
     // record

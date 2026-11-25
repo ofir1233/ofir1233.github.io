@@ -32,7 +32,6 @@
 /* ---------- stage */
 #fyi#fyi .fd-st-in{ position:relative; width:704px; height:620px; transform-origin:0 0; }
 #fyi#fyi .fd-dp{ position:absolute; will-change:translate; }
-#fyi#fyi .fd-bg-cyan{ left:300px; top:-70px; width:540px; height:430px; background:url(../img/fyi-door/spray-cyan.webp) center/100% 100% no-repeat; opacity:calc(var(--fd-on,0) * .42); }
 #fyi#fyi .fd-bg-dots{ left:420px; top:330px; width:400px; height:330px; background:radial-gradient(circle,var(--fd-pink) 1.6px,transparent 2.1px) 0 0/10px 10px; opacity:calc(var(--fd-on,0) * .5); -webkit-mask-image:radial-gradient(ellipse at 62% 50%,#000 0,transparent 66%); mask-image:radial-gradient(ellipse at 62% 50%,#000 0,transparent 66%); }
 #fyi#fyi .fd-sk{ left:0; top:0; width:1px; height:1px; overflow:visible; z-index:1; pointer-events:none; }
 #fyi#fyi .fd-sk path{ fill:none; stroke:var(--fd-ink); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; opacity:.3; }
@@ -137,9 +136,10 @@
 #fyi#fyi .fd-ev-n{ margin-left:auto; font-size:11px; color:#aeaeb2; font-variant-numeric:tabular-nums; }
 #fyi#fyi .fd-ev-n b{ color:#fff; font-weight:600; }
 /* ---------- the wave */
-#fyi#fyi .fd-wv{ left:0; top:0; width:1px; height:1px; overflow:visible; pointer-events:none; }
-#fyi#fyi .fd-wv-back{ z-index:1; }
-#fyi#fyi .fd-wv-front{ z-index:4; }
+/* the voice note, painted as heat (img/fyi-door/thermal-wave.webp, transparent). The timeline reveals it left to right with a clip and
+   breathes it with a scale while Maya talks: no repaint of the picture itself. */
+#fyi#fyi .fd-tw{ left:0; top:0; width:10px; height:10px; z-index:1; pointer-events:none; clip-path:inset(-10% calc((1 - var(--fd-rev,0)) * 100%) -10% 0); }
+#fyi#fyi .fd-tw img{ display:block; width:100%; height:100%; transform-origin:50% 53%; will-change:transform; }
 /* ---------- the poster */
 #fyi#fyi .fd-pst{ left:508px; top:262px; width:250px; height:350px; z-index:2; transform-origin:0 0; pointer-events:none; }
 #fyi#fyi .fd-pst.fd-fly{ z-index:6; }
@@ -168,9 +168,9 @@
 #fyi#fyi .fd-tkt{ left:650px; top:540px; width:150px; height:90px; z-index:7; pointer-events:none; }
 #fyi#fyi .fd-tkt-in{ position:absolute; inset:0; transform-origin:50% 50%; filter:drop-shadow(0 6px 7px rgba(23,27,32,.3)); }
 #fyi#fyi .fd-tkt-in img{ display:block; width:100%; height:100%; }
-#fyi#fyi .fd-tkt-tx{ position:absolute; left:10%; top:19%; width:60%; height:62%; display:flex; align-items:baseline; justify-content:center; gap:5px; transform:rotate(-6.500deg) translateY(17%); color:#fff; text-shadow:-1.5px 1.5px 0 var(--fd-navy), 1.5px 1.5px 0 var(--fd-navy), 0 -1px 0 var(--fd-navy), 0 3px 0 var(--fd-navy); }
-#fyi#fyi .fd-tkt-tx b{ font-size:34px; font-weight:700; line-height:1; letter-spacing:-.04em; font-variant-numeric:tabular-nums; }
-#fyi#fyi .fd-tkt-tx em{ font-style:normal; font-size:15px; font-weight:700; letter-spacing:-.01em; }
+#fyi#fyi .fd-tkt-tx{ position:absolute; left:10%; top:19%; width:60%; height:62%; display:flex; align-items:baseline; justify-content:center; gap:5px; transform:rotate(-6.500deg) translateY(17%); color:#F2EDE4; font-family:"Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif; text-shadow:0 1px 0 rgba(21,24,63,.55), 0 0 10px rgba(21,24,63,.5); }
+#fyi#fyi .fd-tkt-tx b{ font-size:36px; font-weight:900; line-height:1; letter-spacing:-.06em; font-variant-numeric:tabular-nums; }
+#fyi#fyi .fd-tkt-tx em{ font-style:normal; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; }
 /* ---------- ink */
 #fyi#fyi .fd-ink{ left:0; top:0; width:1px; height:1px; overflow:visible; z-index:8; pointer-events:none; }
 #fyi#fyi .fd-ink path{ fill:none; stroke:var(--fd-ink); stroke-width:2.200; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--fd-d,0)); opacity:var(--fd-o,1); }
@@ -178,8 +178,8 @@
 #fyi#fyi .fd-hint{ appearance:none; border:0; background:none; padding:6px 4px; left:372px; top:226px; z-index:8; cursor:pointer; font-size:15px; font-weight:600; color:var(--fd-ink-h); white-space:nowrap; transform:rotate(-3deg); }
 #fyi#fyi .fd-hint span{ display:block; }
 /* ---------- transitions on a jump */
-#fyi#fyi .fd-st-in.fd-cut .fd-rec, #fyi#fyi .fd-st-in.fd-cut .fd-pst, #fyi#fyi .fd-st-in.fd-cut .fd-tkt, #fyi#fyi .fd-st-in.fd-cut .fd-wv, #fyi#fyi .fd-st-in.fd-cut .fd-ink, #fyi#fyi .fd-st-in.fd-cut .fd-th-roll{ opacity:0; transition:opacity .16s; }
-#fyi#fyi .fd-rec, #fyi#fyi .fd-pst, #fyi#fyi .fd-tkt, #fyi#fyi .fd-wv, #fyi#fyi .fd-ink, #fyi#fyi .fd-th-roll{ transition:opacity .3s; }
+#fyi#fyi .fd-st-in.fd-cut .fd-rec, #fyi#fyi .fd-st-in.fd-cut .fd-pst, #fyi#fyi .fd-st-in.fd-cut .fd-tkt, #fyi#fyi .fd-st-in.fd-cut .fd-tw, #fyi#fyi .fd-st-in.fd-cut .fd-ink, #fyi#fyi .fd-st-in.fd-cut .fd-th-roll{ opacity:0; transition:opacity .16s; }
+#fyi#fyi .fd-rec, #fyi#fyi .fd-pst, #fyi#fyi .fd-tkt, #fyi#fyi .fd-tw, #fyi#fyi .fd-ink, #fyi#fyi .fd-th-roll{ transition:opacity .3s; }
 /* ---------- the app as it looks on the FYI page now (23.11.2026): one dark surface with a violet glow, pink for what you send,
    a pink-to-violet edge only on what AI made, stamps in mono. Sizes stay as they were, so the thread still fits its three pages. */
 #fyi#fyi{ --fd-me:linear-gradient(165deg,#ff3d98,#f01f84 55%,#d4136f); --fd-ai:linear-gradient(135deg,#ff2d8f,#7a2cff); --fd-s1:#15161f; --fd-lilac:#c9b8ff; }
@@ -290,7 +290,6 @@
   #fyi#fyi .fd-ev-btn, #fyi#fyi .fd-ev-go{ height:31px; font-size:13.500px; border-radius:16px; padding:0 14px; }
   #fyi#fyi .fd-ev-n, #fyi#fyi .fd-ev-draft small{ font-size:12.500px; }
   #fyi#fyi .fd-stack.fd-sm img{ width:20px; height:20px; }
-  #fyi#fyi .fd-bg-cyan{ left:-30px; top:-30px; width:440px; height:300px; }
   #fyi#fyi .fd-bg-dots{ left:80px; top:672px; width:300px; height:270px; }
   #fyi#fyi .fd-pst{ left:auto; right:-2px; top:680px; width:186px; height:260px; z-index:6; }
   #fyi#fyi .fd-pst.fd-fly{ z-index:9; }
@@ -298,7 +297,7 @@
   #fyi#fyi .fd-rec-av img{ width:40px; height:40px; border-width:3px; }
   #fyi#fyi .fd-tkt{ left:auto; right:0; top:878px; width:128px; height:77px; z-index:8; }
   #fyi#fyi .fd-tkt-tx b{ font-size:30px; }
-  #fyi#fyi .fd-tkt-tx em{ font-size:14px; }
+  #fyi#fyi .fd-tkt-tx em{ font-size:11px; }
   #fyi#fyi .fd-hint{ left:auto; right:12px; top:296px; font-size:15px; color:#fff; transform:rotate(-2deg); }
   #fyi#fyi .fd-sk{ z-index:5; }
   #fyi#fyi .fd-sk path{ stroke:#8d9096; opacity:.7; }
@@ -311,3 +310,25 @@
 #fyi#fyi.fd-measuring .fd-rv{ opacity:1 !important; transform:none !important; }
 #fyi#fyi.fd-measuring .fd-dp{ translate:none !important; }
 #fyi#fyi.fd-measuring .fd-rec, #fyi#fyi.fd-measuring .fd-pst, #fyi#fyi.fd-measuring .fd-ph-tilt{ transform:none !important; }
+
+/* ---- FYI's world, a new type language (25.11.2026): the whole block speaks the Swiss grid of its posters.
+   Inter Tight, heavy and tight, upper case for the voice of the poster; square rules instead of soft pills. */
+#fyi#fyi{ --fd-type:"Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif; }
+#fyi#fyi .fd-d-copy, #fyi#fyi .fd-d-ctl{ font-family:var(--fd-type); }
+#fyi#fyi .fd-d-copy .label{ display:block; padding-top:10px; border-top:2px solid var(--fd-ink-h); font-family:var(--fd-type) !important; font-size:12px !important; font-weight:800 !important; letter-spacing:.08em !important; text-transform:uppercase !important; color:var(--fd-ink-h); }
+#fyi#fyi .fd-d-copy .label b{ font-weight:800; color:var(--fd-pink); }
+#fyi#fyi h2{ margin-top:14px; font-size:clamp(40px,4.7vw,66px); font-weight:900; line-height:.9; letter-spacing:-.05em; text-transform:uppercase; max-width:8em; }
+#fyi#fyi .fd-d-copy p{ font-size:17px; font-weight:500; line-height:1.45; letter-spacing:-.005em; }
+#fyi#fyi .fd-trk-l, #fyi#fyi .fd-trk-l i{ height:2px; border-radius:0; }
+#fyi#fyi .fd-trk-n{ font-size:12px; font-weight:800; letter-spacing:.04em; }
+#fyi#fyi .fd-trk-t{ font-size:13px; font-weight:800; letter-spacing:.03em; text-transform:uppercase; }
+#fyi#fyi .fd-cap-i{ font-size:15.5px; font-weight:500; }
+@media (max-width:860px){
+  #fyi#fyi h2{ font-size:clamp(38px,11.5vw,56px); max-width:7.6em; }
+  #fyi#fyi .fd-trk-t{ font-size:12px; }
+}
+
+/* the steps are only their lines now (owner, 25.11.2026): the names and the captions stay for screen readers only */
+#fyi#fyi .fd-trk-n, #fyi#fyi .fd-trk-t, #fyi#fyi .fd-cap{ position:absolute !important; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+#fyi#fyi .fd-trk-b{ row-gap:0; padding:10px 0; }
+#fyi#fyi .fd-trk-l, #fyi#fyi .fd-trk-l i{ height:3px; }

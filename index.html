@@ -41,8 +41,8 @@ window.v7Near=function(el,fn,m){if(!el||!('IntersectionObserver' in window))retu
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>/* decorative textures of far sections wait for .is-near (set by the late loader at the foot of the page) */#fyi[data-near]:not(.is-near) .fd-bg-cyan, footer.ft[data-near]:not(.is-near) .ft-sky::before{ background-image:none !important; }</style>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Figtree:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@500;700;800;900&family=Livvic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>/* decorative textures of far sections wait for .is-near (set by the late loader at the foot of the page) */footer.ft[data-near]:not(.is-near) .ft-sky::before{ background-image:none !important; }</style>
 <link rel="stylesheet" href="work/lab-live.css">
 <link rel="stylesheet" href="work/lab-tour.css">
 <link rel="stylesheet" href="work/lab-topics.css">
@@ -4371,15 +4371,14 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
     <div class="fd-d-stage" id="fd-stage">
       <div class="fd-st-in" id="fd-stin">
 
-        <!-- far wall: spray and halftone -->
-        <div class="fd-dp fd-bg-cyan" data-depth="5"></div>
+        <!-- far wall: halftone -->
         <div class="fd-dp fd-bg-dots" data-depth="9"></div>
 
         <!-- the plan, in ink: where each thing will land -->
         <svg class="fd-dp fd-sk" id="fd-sk" data-depth="10" aria-hidden="true"></svg>
 
-        <!-- the wave, painted on the page -->
-        <svg class="fd-dp fd-wv fd-wv-back" id="fd-wvBack" data-depth="11" aria-hidden="true"></svg>
+        <!-- the voice note, painted as heat: it is revealed left to right while Maya talks -->
+        <div class="fd-dp fd-tw" id="fd-tw" data-depth="11" aria-hidden="true"><img loading="lazy" decoding="async" src="img/fyi-door/thermal-wave.webp" alt="" width="900" height="418"></div>
 
         <!-- the poster (pastes itself on the page) -->
         <div class="fd-dp fd-pst" id="fd-pst" data-depth="13" aria-hidden="true">
@@ -4473,8 +4472,6 @@ html.me-scroll #about .me-pin.me-set .me-photo.me-v7::before{ transition: none; 
           </div>
         </div>
 
-        <!-- the wave where it crosses the glass -->
-        <svg class="fd-dp fd-wv fd-wv-front" id="fd-wvFront" data-depth="18" aria-hidden="true"></svg>
 
         <!-- the record -->
         <div class="fd-dp fd-rec" id="fd-rec" data-depth="30" aria-hidden="true">
