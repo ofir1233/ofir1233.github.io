@@ -45,16 +45,20 @@
 .hf.an .hf-cb, .hf.an .hf-cf, .hf.nw .hf-cb, .hf.nw .hf-cf, .hf.da .hf-cb, .hf.da .hf-cf{ display:none; }
 .hf.ih{ --pa:15%; --pk:.6; }
 .hf.ih .in-stage{ background-color:#7fb2d9; background-image:image-set(url("../img/me-v7-tlv-1200.webp") 1x, url("../img/me-v7-tlv-2400.webp") 2x); }
-.hf.tq-hf{ --pa:85%; --pk:-.6; }
+.hf.tq-hf{ --pa:70%; --pk:-.75; }
 .hf.tq-hf .in-stage{ background-color:#4d8fe0; background-image:url("../img/spot-topics-back.webp?v=5"); }
-.hf.es{ --pa:0%; --pk:.55; }
+.hf.es{ --pa:55%; --pk:-.55; }
 .hf.es .in-stage{ background-color:#5d9be0; background-image:url("../img/spot-compliance-back.webp?v=5"); }
-.hf.an{ --pa:5%; --pk:.55; }
+.hf.an{ --pa:0%; --pk:.35; }
 .hf.an .in-stage{ background-color:#2f72d8; background-image:url("../img/spot-actions-back.webp?v=5"); }
-.hf.nw{ --pa:10%; --pk:.5; }
+.hf.nw{ --pa:60%; --pk:-.5; }
 .hf.nw .in-stage{ background-color:#5a5fae; background-image:image-set(url("../img/end-harbour-dusk-1152.webp") 1x, url("../img/end-harbour-dusk.webp") 2x); }
 .hf.da{ --pa:95%; --pk:-.65; }
 .hf.da .in-stage{ background-color:#5d9be0; background-image:url("../img/top-sky-tlv.webp"); }
+/* the subject owns the stage, not the band of stroked cloud above it (critic, 25.11): the roofs, the beach and the crane are drawn
+   larger and the stage looks at their part of the painting; the harbour looks at its pink dusk band, so the blue recap reads on warm */
+.hf.tq-hf .in-stage, .hf.es .in-stage, .hf.an .in-stage{ background-size:auto 125%; background-position:calc(var(--pa) + var(--sky, 0%) * var(--pk)) 78%; }
+.hf.nw .in-stage{ background-size:auto 130%; background-position:calc(var(--pa) + var(--sky, 0%) * var(--pk)) 14%; }
 
 /* the step meter is ink, so it reads on the sky and on a cloud alike */
 .hf .in-meter button::before{ background:rgba(16,34,60,.3); }

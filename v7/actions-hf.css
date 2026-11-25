@@ -57,7 +57,9 @@
 .an-op > .hf-win{ position:relative; }
 .an-oh{ gap:8px; }
 .an-oh .hf-tag{ height:20px; font-size:11.5px; }
-.go .an-op.off{ opacity:.45; transition-delay:1.7s; }
+/* set aside: the window stays solid over the painting, only what it holds fades (critic, 25.11) */
+.go .an-op.off > .hf-win > *{ opacity:.45; transition:opacity .45s ease 1.7s; }
+.go .an-op.off > .hf-note{ opacity:.8; transition:opacity .45s ease 1.7s; }
 .an-dd{ width:224px; padding:14px; }
 .an-dd > .hf-chip svg{ width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
 .an-menu{ margin-top:8px; padding:8px; border-radius:12px; background:#fff; box-shadow:0 0 0 1px rgba(16,34,60,.07), 0 12px 26px -14px rgba(8,20,40,.35); }
