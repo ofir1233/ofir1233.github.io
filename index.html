@@ -3890,8 +3890,53 @@ html body #about#about .me-facts .me-v small{ font-size:.22em; letter-spacing:0;
    Design system, FYI's own copy and the postcard are exceptions and stay as they are. */
 html body :is(#design-lab, #product, #web, #ia, #process, #path) .sec-head p:not(.pf-note){ font-size:clamp(17px, 1.48vw, 21px) !important; line-height:1.48 !important; color:var(--v7-ink-2, #464b52) !important; }
 </style>
+<script>/* the opening: on a fresh visit the page loads behind the logo's own animation, then the logo travels to its place in the nav.
+Not when coming back from a case page, not on a link to a #section, not with reduced motion. */
+(function(){try{var d=document,n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{},same=d.referrer&&d.referrer.indexOf(location.origin+'/')===0&&n.type!=='reload';
+if(location.hash&&n.type!=='reload'||n.type==='back_forward'||same||matchMedia('(prefers-reduced-motion: reduce)').matches||/[?&]noboot/.test(location.search))return;
+d.documentElement.classList.add('boot');new Image().src='img/logo-nona.svg';}catch(e){}})();</script>
+<style>
+#boot{ display:none; }
+html.boot #boot{ display:block; position:fixed; inset:0; z-index:9999; background:#faf9f7; transition:background-color .52s cubic-bezier(.4,0,.2,1) .4s; }
+html.boot #boot svg{ position:absolute; left:50%; top:46%; width:min(56vw, 400px); height:auto; margin:0; translate:-50% -50%; transform-origin:0 0; overflow:visible; }
+html.boot-out #boot{ background:rgba(250,249,247,0); pointer-events:none; }
+html.boot-out #boot svg{ transition:transform .82s cubic-bezier(.66,0,.18,1); }
+html.boot .nav .nona-logo{ visibility:hidden; }
+/* the first screen's own entrance waits behind the opening and plays as it lifts */
+html.boot:not(.boot-out) .nav .wrap{ animation:none !important; }
+html.boot:not(.boot-in) #about .me-intro > *, html.boot:not(.boot-in) #about .me-pillars, html.boot:not(.boot-in) #about .me-path{ animation-play-state:paused !important; }
+/* one story: it begins as the dot, the dot splits into the two marks, they swing open, the letters flicker on, and the dot drops back to end the sentence */
+#boot .seed{ fill:#139FFD; transform-box:fill-box; transform-origin:50% 50%; animation:bt-seed .5s cubic-bezier(.3,0,.2,1) .12s both; }
+#boot .mk{ fill:#139FFD; transform-box:view-box; transform-origin:0 568.6px; animation:bt-open .78s cubic-bezier(.2,1.15,.3,1) .46s both; }
+#boot .mk.l{ --x:560px; --r:-16deg; } #boot .mk.r{ --x:-560px; --r:16deg; }
+#boot .lt{ fill:#171b20; animation:bt-flick .46s linear both; animation-delay:calc(.9s + var(--i) * .11s); }
+#boot .dot{ fill:#139FFD; transform-box:fill-box; transform-origin:50% 50%; animation:bt-drop .62s cubic-bezier(.3,1.5,.4,1) 1.62s both; }
+@keyframes bt-seed{ 0%{ transform:scale(0); } 55%{ transform:scale(1.25); } 75%{ transform:scale(1); } 100%{ transform:scale(0); } }
+@keyframes bt-open{ 0%{ opacity:0; transform:translateX(var(--x)) rotate(var(--r)) scale(.2); } 18%{ opacity:1; } 100%{ opacity:1; transform:none; } }
+@keyframes bt-flick{ 0%{ opacity:0; fill:#139FFD; } 12%{ opacity:1; } 20%{ opacity:.15; } 34%{ opacity:1; } 44%{ opacity:.4; } 58%{ opacity:1; fill:#139FFD; } 100%{ opacity:1; fill:#171b20; } }
+@keyframes bt-drop{ 0%{ opacity:0; transform:translateY(-260px) scale(.6); } 30%{ opacity:1; } 100%{ opacity:1; transform:none; } }
+</style>
 </head>
 <body>
+<div id="boot" aria-hidden="true"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="-1268.8 -16.2 2537.6 1169.6"><circle class="seed" cx="0" cy="568.6" r="110"/><g class="mk r"><path d="M728.8 0.0h540.0v561.6c0 183.6 -97.2 302.4 -302.4 356.4l-32.4 -86.4c108.0 -43.2 156.6 -118.8 156.6 -226.8v-64.8h-361.8z"/></g><g class="mk l"><path d="M728.8 0.0h540.0v561.6c0 183.6 -97.2 302.4 -302.4 356.4l-32.4 -86.4c108.0 -43.2 156.6 -118.8 156.6 -226.8v-64.8h-361.8z" transform="rotate(180 0 568.6)"/></g><path class="lt" style="--i:0" fill-rule="evenodd" d="M-454.0 540.0C-443.0 540.0 -434.0 531.0 -434.0 520.0V269.0C-434.0 176.0 -392.0 114.0 -306.0 114.0C-231.0 114.0 -197.0 169.0 -197.0 259.0V520.0C-197.0 531.0 -188.0 540.0 -177.0 540.0H-69.0C-58.0 540.0 -49.0 531.0 -49.0 520.0V258.0C-49.0 90.0 -117.0 -16.0 -272.0 -16.0C-340.0 -16.0 -394.0 8.0 -434.0 56.0V20.0C-434.0 9.0 -443.0 0.0 -454.0 0.0H-563.0C-574.0 0.0 -583.0 9.0 -583.0 20.0V520.0C-583.0 531.0 -574.0 540.0 -563.0 540.0Z"/><path class="lt" style="--i:1" fill-rule="evenodd" d="M294.0 555.0C468.0 555.0 583.0 441.0 583.0 268.0C583.0 96.0 468.0 -16.0 294.0 -16.0C120.0 -16.0 5.0 96.0 5.0 268.0C5.0 441.0 120.0 555.0 294.0 555.0ZM294.0 425.0C209.0 425.0 154.0 363.0 154.0 269.0C154.0 175.0 209.0 114.0 294.0 114.0C379.0 114.0 434.0 175.0 434.0 269.0C434.0 363.0 379.0 425.0 294.0 425.0Z"/><path class="lt" style="--i:2" fill-rule="evenodd" d="M-452.0 1137.24C-441.0 1137.24 -432.0 1128.24 -432.0 1117.24V866.24C-432.0 773.24 -390.0 711.24 -304.0 711.24C-229.0 711.24 -195.0 766.24 -195.0 856.24V1117.24C-195.0 1128.24 -186.0 1137.24 -175.0 1137.24H-67.0C-56.0 1137.24 -47.0 1128.24 -47.0 1117.24V855.24C-47.0 687.24 -115.0 581.24 -270.0 581.24C-338.0 581.24 -392.0 605.24 -432.0 653.24V617.24C-432.0 606.24 -441.0 597.24 -452.0 597.24H-561.0C-572.0 597.24 -581.0 606.24 -581.0 617.24V1117.24C-581.0 1128.24 -572.0 1137.24 -561.0 1137.24Z"/><path class="lt" style="--i:3" fill-rule="evenodd" d="M269.0 1152.24C339.0 1152.24 398.0 1123.24 433.0 1076.24V1117.24C433.0 1128.24 442.0 1137.24 453.0 1137.24H561.0C572.0 1137.24 581.0 1128.24 581.0 1117.24V617.24C581.0 606.24 572.0 597.24 561.0 597.24H453.0C442.0 597.24 433.0 606.24 433.0 617.24V656.24C398.0 610.24 339.0 581.24 269.0 581.24C108.0 581.24 7.0 693.24 7.0 865.24C7.0 1038.24 108.0 1152.24 269.0 1152.24ZM296.0 1022.24C211.0 1022.24 156.0 962.24 156.0 866.24C156.0 770.24 211.0 711.24 296.0 711.24C379.0 711.24 433.0 770.24 433.0 866.24C433.0 962.24 379.0 1022.24 296.0 1022.24Z"/><circle class="dot" cx="680.9" cy="1064.3" r="72.9"/></svg></div>
+<script>/* the opening lifts when the logo has finished AND the first screen is ready (fonts, the first picture); never later than 4.5s */
+(function(){var h=document.documentElement,b=document.getElementById('boot');if(!h.classList.contains('boot')){b.remove();return;}
+var s=b.querySelector('svg'),t0=performance.now(),MIN=2350,MAX=4500,done=false,stop=function(e){e.preventDefault();};
+b.addEventListener('wheel',stop,{passive:false});b.addEventListener('touchmove',stop,{passive:false});
+function end(){h.classList.remove('boot','boot-out','boot-in');b.remove();}
+function go(){if(done)return;done=true;
+  var img=document.querySelector('.nav .nona-logo'),r=img&&img.getBoundingClientRect(),a=s.getBoundingClientRect();
+  if(img)img.src='img/logo-nona.svg';
+  if(!r||!r.width||scrollY>4){b.style.transition='opacity .5s';b.style.opacity='0';h.classList.add('boot-out','boot-in');setTimeout(end,520);return;}
+  h.classList.add('boot-out');setTimeout(function(){h.classList.add('boot-in');},380);
+  s.style.transform='translate('+(r.left-a.left)+'px,'+(r.top-a.top)+'px) scale('+(r.width/a.width)+')';
+  setTimeout(end,960);}
+function ready(){setTimeout(go,Math.max(0,MIN-(performance.now()-t0)));}
+var dom=new Promise(function(ok){if(document.readyState!=='loading')ok();else document.addEventListener('DOMContentLoaded',ok);});
+dom.then(function(){var w=[document.fonts&&document.fonts.ready],im=document.querySelector('#about img');
+  if(im&&!im.complete)w.push(new Promise(function(ok){im.addEventListener('load',ok);im.addEventListener('error',ok);}));
+  return Promise.all(w);}).then(ready,ready);
+setTimeout(go,MAX);})();</script>
 
 
 
