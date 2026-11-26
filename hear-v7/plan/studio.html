@@ -826,8 +826,9 @@ document.getElementById('new').addEventListener('click',()=>{ resetMaking(); sto
 <!-- Topics: a screen added for the portfolio, at two fidelities (topics/) -->
 <script src="topics/topics.js?v=12"></script>
 <!-- Product screens: the Design Lab's other screens, made simple in the Studio look (screens/) -->
-<script src="screens/screens.js?v=68"></script>
-<!-- Explain mode, for the portfolio's Explainable scores case (studio.html?app=eval&explain=1): loaded only under that flag, nothing changes without it -->
-<script>if(new URLSearchParams(location.search).has('explain')){ const l=document.createElement('link'); l.rel='stylesheet'; l.href='explain/explain.css?v=4'; document.head.appendChild(l);
-  const s=document.createElement('script'); s.src='explain/explain.js?v=7'; s.async=false; document.body.appendChild(s) }</script>
+<script src="screens/screens.js?v=69"></script>
+<!-- Explain mode: a click on a score opens its card (built for the portfolio's Explainable scores case). Owner, 26.11.2026: "make it default":
+     it is the Studio's own behaviour now. The portfolio still passes explain=1, which only adds what its story needs (see explain.js). -->
+<link rel="stylesheet" href="explain/explain.css?v=5">
+<script src="explain/explain.js?v=8"></script>
 </html>

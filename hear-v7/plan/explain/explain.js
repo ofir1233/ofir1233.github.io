@@ -10,7 +10,9 @@
   const app = document.querySelector('.app .card'), view = document.querySelector('.appv[data-v="eval"]'), hm = document.getElementById('hm');
   const ev = view.querySelector('.ev'), tb = document.getElementById('evl');
   if (!app || !hm || !ev) return;
-  stage.classList.add('xp'); stage.classList.remove('is-rail');
+  /* the portfolio's case (explain=1) also folds the sidebar to a rail and plays its steps; the Studio on its own keeps its layout */
+  const story = new URLSearchParams(location.search).has('explain');
+  stage.classList.add('xp'); if (story) stage.classList.remove('is-rail');
   const calm = matchMedia('(prefers-reduced-motion:reduce)').matches;
   const z = () => parseFloat(stage.style.zoom) || 1;
   const cells = () => [...hm.querySelectorAll('td[data-a]')];
@@ -25,7 +27,7 @@
   // afford to rebook asks twice for a refund and is offered a voucher. It is the lowest of the calls behind Selma's Compliance score, so it
   // takes the first row; the rest stay the studio's own, and the answer in the chat counts them as they are
   const origCalls = callsFor, OCT13 = { reason: 'Refund request', d: 'Oct 13', len: '6:12', mom: '1:48', s: 29, miss: true, find: 'Vulnerability protocol skipped' };
-  callsFor = function (agent, crit, v, n) { const out = origCalls(agent, crit, v, n);
+  if (story) callsFor = function (agent, crit, v, n) { const out = origCalls(agent, crit, v, n);
     if (agent === 'Selma Kaya' && crit === 'Compliance' && out.length) out[0] = Object.assign({}, OCT13);
     return out; };
   let explored = null, pop = null, popCell = null, said = [], thinkT = 0;

@@ -5,7 +5,7 @@
 (function () {
   var stage = document.getElementById('stage');
   var key = new URLSearchParams(location.search).get('screen');
-  if (!stage || !key) return;
+  if (!stage) return;
   var MK = typeof MARK === 'string' ? '<svg viewBox="0 0 69 60" aria-hidden="true"><path d="' + MARK + '"/></svg>' : '';
   var chev = '<svg class="i" viewBox="0 0 18 18"><path d="M5 7.5l4 4 4-4"/></svg>';
   var av = function (n) { var h = 0; for (var i = 0; i < n.length; i++) h += n.charCodeAt(i); return '<i class="sx-av a' + h % 5 + '">' + n.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2) + '</i>'; };
@@ -498,57 +498,72 @@
     }
   };
 
-  var def = S[key];
-  if (!def) return;
-
-  /* the sidebar item: only the screen that is open is added, so the menu stays short */
+  /* owner, 26.11.2026: "make it default". With ?screen=key the portfolio opens that one screen, as before (only its item is added).
+     Without it, the Studio is the product: every screen gets its own item in the sidebar, after Topics, and is built on its first open. */
   var after = document.getElementById('nav-topics') || [].filter.call(document.querySelectorAll('.side .nv'), function (b) { return /Workflows/.test(b.textContent); })[0];
-  var nav = document.createElement('button');
-  nav.className = 'nv'; nav.type = 'button'; nav.dataset.tip = def.nav;
-  nav.innerHTML = '<svg class="i" viewBox="0 0 18 18">' + def.icon + '</svg><span class="lbl">' + def.nav + '</span>';
-  after.insertAdjacentElement('afterend', nav);
-
-  var el = document.createElement('div');
-  el.className = 'glass sx on'; el.id = 'sx-' + key;
-  el.innerHTML = '<div class="card">' + def.build() + '</div><div class="sx-side"></div><div class="sx-tip"></div>';
-  stage.appendChild(el);
-  var side = el.querySelector('.sx-side'), tip = el.querySelector('.sx-tip');
-  var ui = {
-    jump: false,
-    side: function (html) { side.innerHTML = html; side.classList.add('on'); el.classList.add('side-on'); },
-    tip: function (target, html, where, width) {
-      tip.style.width = width ? width + 'px' : ''; tip.style.height = ''; tip.classList.remove('fill', 'cmp'); tip.innerHTML = html; tip.classList.add('on'); tip.style.left = tip.style.top = '0px';
-      var a = target.getBoundingClientRect(), r = el.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight, x, y;
-      if (where === 'left') { x = a.left - r.left - w - 14; y = a.top - r.top + a.height / 2 - h / 2; }
-      else if (where === 'below') { x = a.right - r.left - w; y = a.bottom - r.top + 14; }
-      else if (where === 'topright') { x = a.right - r.left - w; y = a.top - r.top - h - 14; }
-      else { x = a.left - r.left + a.width / 2 - w / 2; y = a.top - r.top - h - 14; }
-      var z = r.width / el.offsetWidth || 1; /* the stage is zoomed to fit: rects are in screen px, styles are not */
-      x = x / z + w - w / z; y = where === 'below' ? (a.bottom - r.top) / z + 14 : where === 'left' ? y / z : (a.top - r.top) / z - h - 14;
-      if (where !== 'below' && where !== 'topright' && where !== 'left') x = (a.left - r.left + a.width / 2) / z - w / 2; else if (where !== 'left') x = (a.right - r.left) / z - w;
-      /* no room under the thing it points at: it goes above it, never over it */
-      if (where === 'below' && y > el.offsetHeight - h - 20) y = (a.top - r.top) / z - h - 14;
-      if (where === 'lefttop') { var pr = target.parentNode.getBoundingClientRect(); x = (a.left - r.left) / z - w - 14; y = (pr.top - r.top) / z + 2; }
-      tip.style.left = Math.max(20, Math.min(el.offsetWidth - w - 20, x)) + 'px'; tip.style.top = Math.max(20, Math.min(el.offsetHeight - h - 20, y)) + 'px';
+  var all = [], ORDER = ['compliance', 'agents', 'actions', 'news', 'data', 'signals'];
+  function mount(k) {
+    var def = S[k]; if (!def || !after) return null;
+    var nav = document.createElement('button');
+    nav.className = 'nv'; nav.type = 'button'; nav.dataset.tip = def.nav; nav.dataset.sx = k;
+    nav.innerHTML = '<svg class="i" viewBox="0 0 18 18">' + def.icon + '</svg><span class="lbl">' + def.nav + '</span>';
+    after.insertAdjacentElement('afterend', nav); after = nav;
+    var el = null, side, tip, ui;
+    function build() {
+      if (el) return;
+      el = document.createElement('div');
+      el.className = 'glass sx'; el.id = 'sx-' + k;
+      el.innerHTML = '<div class="card">' + def.build() + '</div><div class="sx-side"></div><div class="sx-tip"></div>';
+      stage.appendChild(el);
+      side = el.querySelector('.sx-side'); tip = el.querySelector('.sx-tip');
+      ui = {
+        jump: false,
+        side: function (html) { side.innerHTML = html; side.classList.add('on'); el.classList.add('side-on'); },
+        tip: function (target, html, where, width) {
+          tip.style.width = width ? width + 'px' : ''; tip.style.height = ''; tip.classList.remove('fill', 'cmp'); tip.innerHTML = html; tip.classList.add('on'); tip.style.left = tip.style.top = '0px';
+          var a = target.getBoundingClientRect(), r = el.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight, x, y;
+          if (where === 'left') { x = a.left - r.left - w - 14; y = a.top - r.top + a.height / 2 - h / 2; }
+          else if (where === 'below') { x = a.right - r.left - w; y = a.bottom - r.top + 14; }
+          else if (where === 'topright') { x = a.right - r.left - w; y = a.top - r.top - h - 14; }
+          else { x = a.left - r.left + a.width / 2 - w / 2; y = a.top - r.top - h - 14; }
+          var z = r.width / el.offsetWidth || 1; /* the stage is zoomed to fit: rects are in screen px, styles are not */
+          x = x / z + w - w / z; y = where === 'below' ? (a.bottom - r.top) / z + 14 : where === 'left' ? y / z : (a.top - r.top) / z - h - 14;
+          if (where !== 'below' && where !== 'topright' && where !== 'left') x = (a.left - r.left + a.width / 2) / z - w / 2; else if (where !== 'left') x = (a.right - r.left) / z - w;
+          /* no room under the thing it points at: it goes above it, never over it */
+          if (where === 'below' && y > el.offsetHeight - h - 20) y = (a.top - r.top) / z - h - 14;
+          if (where === 'lefttop') { var pr = target.parentNode.getBoundingClientRect(); x = (a.left - r.left) / z - w - 14; y = (pr.top - r.top) / z + 2; }
+          tip.style.left = Math.max(20, Math.min(el.offsetWidth - w - 20, x)) + 'px'; tip.style.top = Math.max(20, Math.min(el.offsetHeight - h - 20, y)) + 'px';
+        }
+      };
     }
-  };
-  function step(i, jump) {
-    timers.forEach(clearTimeout); timers = [];
-    i = Math.max(0, Math.min(def.steps.length - 1, i | 0));
-    el.dataset.st = i; ui.jump = !!jump;
-    side.classList.remove('on'); tip.classList.remove('on'); el.classList.remove('side-on');
-    [].forEach.call(el.querySelectorAll('.hot'), function (x) { x.classList.remove('hot'); });
-    def.show(el, i, ui);
+    function step(i, jump) {
+      build(); timers.forEach(clearTimeout); timers = [];
+      i = Math.max(0, Math.min(def.steps.length - 1, i | 0));
+      el.dataset.st = i; ui.jump = !!jump;
+      side.classList.remove('on'); tip.classList.remove('on'); el.classList.remove('side-on');
+      [].forEach.call(el.querySelectorAll('.hot'), function (x) { x.classList.remove('hot'); });
+      def.show(el, i, ui);
+    }
+    function open() {
+      build();
+      stage.classList.remove('s1', 's2', 's3', 's4', 'is-fresh', 'is-leaving', 'ask-on'); stage.classList.add('s5');
+      [].forEach.call(document.querySelectorAll('.side .nv.on'), function (b) { b.classList.remove('on'); }); nav.classList.add('on');
+      [].forEach.call(stage.querySelectorAll('.sx'), function (x) { x.classList.toggle('on', x === el); });
+      step(0, true);
+    }
+    nav.addEventListener('click', open);
+    var me = { key: k, steps: def.steps, step: step, open: open, nav: nav };
+    all.push(me); return me;
   }
-  function open() {
-    stage.classList.remove('s1', 's2', 's3', 's4', 'is-fresh', 'is-leaving', 'ask-on'); stage.classList.add('s5');
-    [].forEach.call(document.querySelectorAll('.side .nv.on'), function (b) { b.classList.remove('on'); }); nav.classList.add('on');
-    step(0, true);
-  }
-  nav.addEventListener('click', open);
   new MutationObserver(function () {
-    if (stage.classList.contains('s5') && /\bs[1234]\b/.test(stage.className)) { stage.classList.remove('s5'); nav.classList.remove('on'); }
+    if (stage.classList.contains('s5') && /\bs[1234]\b/.test(stage.className)) { stage.classList.remove('s5'); all.forEach(function (m) { m.nav.classList.remove('on'); }); }
   }).observe(stage, { attributes: true, attributeFilter: ['class'] });
-  window.hearScreens = { key: key, steps: def.steps, step: step, open: open };
-  open();
+  if (key) {
+    var one = mount(key); if (!one) return;
+    window.hearScreens = { key: key, steps: one.steps, step: one.step, open: one.open };
+    one.open();
+  } else {
+    ORDER.forEach(mount);
+    window.hearScreens = { all: all };
+  }
 })();
