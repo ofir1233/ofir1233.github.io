@@ -19,7 +19,7 @@
   var MARK = '<svg class="mk" viewBox="0 0 69 60" aria-hidden="true"><path d="M63.6202 25.6905C66.431 26.6546 69 26.1754 69 28.5414C69 30.9074 65.4639 29.2245 61.4139 32.459C57.364 35.6935 56.1551 40.0061 53.4954 45.4868C50.8357 50.9675 46.5138 61.4496 39.1091 59.8324C31.7043 58.2151 34.2129 46.1157 34.0618 41.1741C33.9106 36.2325 33.2457 32.5189 29.2865 32.0696C25.3272 31.6204 23.0302 34.6153 20.7332 38.2391C18.4363 41.863 16.502 49.3802 11.0315 47.7629C5.5611 46.1457 9.3088 36.1726 7.46518 33.2077C5.62155 30.2427 3.17346 30.1886 2.29698 30.1886C1.4205 30.1886 8.16629e-06 29.7394 0 28.5714C-8.16629e-06 27.4033 1.26938 27.0739 2.29698 27.0739C3.32457 27.0739 4.60326 27.2375 7.19317 26.5291C13.6307 24.7681 12.8147 11.2251 20.1288 11.5845C27.0146 11.9229 23.4533 26.0798 30.0118 26.0798C36.5703 26.0798 38.7464 18.5027 41.4665 12.8424C44.1866 7.18205 49.4152 -1.32349 56.1551 0.173941C62.8949 1.67137 60.5677 14.1302 60.1445 18.0535C59.7214 21.9768 60.8095 24.7264 63.6202 25.6905Z"/></svg>';
   var av = function (t, on) { return '<i class="dk-av' + (on ? ' on' : '') + '">' + t + '</i>'; };
   var bars = function (a) { return '<span class="dk-bars">' + a.map(function (v) { return '<i class="' + (v < 40 ? 'l1' : v < 60 ? 'l3' : 'l5') + '" style="height:' + v + '%"></i>'; }).join('') + '</span>'; };
-  var cell = function (v) { return '<i class="dk-cell ' + (v < 60 ? 'l1' : v < 70 ? 'l3' : '') + '">' + v + '</i>'; };
+  var cell = function (v) { return '<i class="dk-cell ' + (v < 60 ? 'l1' : v < 70 ? 'l2' : v < 80 ? 'l3' : v < 90 ? 'l4' : 'l5') + '">' + v + '</i>'; };
   var task = function (t, who, tag) { return '<div class="dk-task"><small>From Compliance</small><b>' + t + '</b><footer>' + av(who) + '<span class="dk-tag">' + tag + '</span></footer></div>'; };
   var note = function (ic, t, s, un) { return '<div class="dk-note"><i class="ic">' + I(IC[ic]) + '</i><span><b>' + t + '</b><small>' + s + '</small></span>' + (un ? '<em></em>' : '') + '</div>'; };
   var nv = function (ic, t, cls) { return '<span class="dk-nv' + (cls ? ' ' + cls : '') + '">' + I(IC[ic]) + t + '</span>'; };
@@ -29,7 +29,7 @@
   var ROWS = [
     ['Foundations & Atoms', 39, [
       ['Type', 'Byrd', 230, '<div class="dk-type"><b>Aa</b><span><i style="font-weight:400">Regular</i><i style="font-weight:500">Medium</i><i style="font-weight:600">SemiBold</i></span></div>'],
-      ['Color', 'Score scale', 300, '<div class="dk-scale"><i class="l1">54</i><i class="l2">62</i><i class="l3">71</i><i class="l4">78</i><i class="l5">91</i></div>'],
+      ['Color', 'Score scale', 300, '<div class="dk-scale"><i class="l1">54</i><i class="l2">62</i><i class="l3">74</i><i class="l4">85</i><i class="l5">91</i></div>'],
       ['Button', 'Primary', 190, '<button type="button" class="dk-btn ink">' + I(IC.plus) + 'New app</button>'],
       ['Button', 'Secondary', 300, '<div class="dk-rowx"><button type="button" class="dk-btn">Last 30 days' + I(IC.chev) + '</button><button type="button" class="dk-btn">Share</button></div>'],
       ['Chip', 'Filter', 300, '<div class="dk-rowx"><button type="button" class="dk-chip" aria-pressed="true">All</button><button type="button" class="dk-chip" aria-pressed="false">Open <b>8</b></button><button type="button" class="dk-chip" aria-pressed="false">Mine</button></div>'],
@@ -42,13 +42,13 @@
       ['Badge', 'Count', 150, '<div class="dk-rowx"><b class="dk-badge">2</b><b class="dk-dot"></b></div>']
     ]],
     ['Molecules', 22, [
-      ['Navigation item', 'Three states', 270, '<div class="dk-side">' + nv('wave', 'Conversations') + nv('book', 'Knowledge', 'hv') + nv('grid', 'Topics', 'on') + '</div>', 1],
+      ['Navigation item', 'Three states', 270, '<div class="dk-side">' + nv('wave', 'Data') + nv('book', 'Knowledge', 'hv') + nv('grid', 'Topics', 'on') + '</div>', 1],
       ['Stat', 'With change', 250, '<div class="dk-kpi"><small>Sales without alerts</small><b>72.6<i>%</i></b><span>▲ 2.1 pts against the 6 weeks before</span></div>'],
       ['Chat bubble', 'Question', 320, '<p class="dk-you">Which calls pulled Selma’s Vulnerable customer protocol score down?</p>'],
       ['Chat bubble', 'Answer', 340, '<div class="dk-ai">' + MARK + '<p><b>12 calls</b> failed, and 9 of them share one cause: the customer said they were struggling to pay and the protocol questions were skipped.</p></div>'],
       ['Chat bubble', 'Thinking', 220, '<div class="dk-ai">' + MARK + '<span class="dk-think"><i></i><i></i><i></i></span></div>'],
       ['Score row', 'Thirty days', 380, '<div class="dk-srow"><b>Trip Status</b>' + bars([62, 60, 66, 64, 61, 68, 70, 63, 59, 64, 66, 69, 71, 65, 62, 60, 58, 63, 66, 68, 64, 61, 63, 65]) + '<small>▼ 5 pts</small><em>63</em></div>'],
-      ['Heatmap row', 'Only failing scores take color', 450, '<div class="dk-hrow"><b>Fee disclosure</b>' + [85, 90, 67, 100, 87, 54].map(cell).join('') + '</div>'],
+      ['Heatmap row', 'Coral under 70, blue above', 450, '<div class="dk-hrow"><b>Fee disclosure</b>' + [85, 90, 67, 100, 87, 54].map(cell).join('') + '</div>'],
       ['Story', 'With status', 360, '<div class="dk-story"><span><b>“Cancellation intent” is surging past its 30-day baseline</b><small>Signal · 240% over baseline · 4:12 pm</small></span><span class="dk-tag ink">Surging</span></div>'],
       ['Task card', 'Open', 270, task('Recording disclosure missing in the first 30 seconds', 'PN', 'Open')],
       ['Notification', 'Unread', 320, note('check', 'Fee disclosure fell to 88%', 'Compliance review · yesterday', 1)],

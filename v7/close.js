@@ -151,7 +151,7 @@
          out of three did not understand what the mark was, 23.11.2026, so it says it plainly.) No minutes and no counts: a card
          that reports numbers reads as tracking, not as post. A second line is written only for someone who followed the sample call
          in Product through all four of its screens. */
-      var th = window.v7Thread || {}, rode = th.Topics && th.Compliance && th.Actions && th.Newsroom, all = seen.length === secs.length;
+      var th = window.v7Thread || {}, rode = th.Topics && th.Compliance && th.Workflows && th.Newsroom, all = seen.length === secs.length;
       via.textContent = '';
       var l1 = document.createElement('span'); l1.textContent = all ? 'You read the whole page' : 'You read: ' + names.join(' · '); via.append(l1);
       if (rode) { var l2 = document.createElement('span'); l2.textContent = 'Followed one call to Newsroom'; via.append(l2); }

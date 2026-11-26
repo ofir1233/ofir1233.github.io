@@ -18,7 +18,7 @@
      hear-v7/plan/explain). Its four states (the grid, the scores under 70, the card, the calls) play as three steps: the grid's second
      shot dims the blue side (call: 1), the card opens on Selma's Compliance 58, and Explore in Chat brings the calls. */
   var EXPLAIN = {
-    steps: ['Every agent on every rule: coral under the pass mark of 70, blue above it.', 'A click on a low score opens a card that compares the agent with the team.', 'Explore in Chat brings in the calls behind the score, and the AI points to the process.'],
+    steps: ['Every agent on every criterion: coral under the pass mark of 70, blue above it.', 'A click on a low score opens a card that compares the agent with the team.', 'Explore in Chat brings in the calls behind the score, and the AI points to the process.'],
     step: function (w, i, sub) {
       var n = sub != null ? sub : [0, 2, 3][i], c = w.document.querySelector('.app .card');
       w.hearExplain.step(n);
@@ -91,7 +91,7 @@
     ]
   };
   /* ONE CALL, FOLLOWED. The same sample call (Oct 13: a refund asked twice, a voucher offered) is in four of the screens: a box on the
-     Topics map, a line in the Ask AI answer in Compliance, a task in Actions, a story in Newsroom. The text beside each window says so,
+     Topics map, a line in the Ask AI answer in Compliance, a task in Workflows, a story in Newsroom. The text beside each window says so,
      and its button shows it: the window stops on the step where the call is, and the frame goes to the call itself.
      k: the step; sel: where the call is in the screen; act: what the screen is asked to do when the step's own action does not show it;
      late: the call is in a panel that slides in, so the frame waits for the panel. */

@@ -12,7 +12,7 @@
     { k: 'Ofir Nona, the short version', h: 'Six years of product design, in thirty seconds.', p: 'In the format of Newsroom, a screen I designed for Hear.', ms: 6000 },
     { k: 'Before Hear, at Tap Mobile', n: 100, suf: ' million', p: 'Downloads of one of the consumer apps I worked on.', ms: 5000 },
     { k: 'Years as the only designer at Hear', n: 3, suf: '+', p: 'An AI product that reads every call in a contact center.', ms: 5000 },
-    { k: 'What I designed there', h: 'Five product areas on one design system.', p: '<span>Topics · Compliance</span><i class="j"></i><span>Agent evaluation · Actions</span><br><span>Newsroom, Data &amp; Signals</span>', list: true, ms: 6000 },
+    { k: 'What I designed there', h: 'Five product areas on one design system.', p: '<span>Topics · Compliance</span><i class="j"></i><span>Agent evaluation · Workflows</span><br><span>Newsroom, Data &amp; Signals</span>', list: true, ms: 6000 },
     { k: 'How I work', h: 'I design and build with Claude Code.', p: 'I design in a working React app.<br>My <span>front-end</span> code goes into Hear through pull requests.', ms: 8000 },
     { k: 'That was the short version', h: 'I design experiences for AI products.', p: 'The long version is one scroll away.', end: true, ms: 0 }
   ];
