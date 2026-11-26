@@ -17,21 +17,17 @@ addEventListener('hashchange',function(){setTimeout(strip,0);});
 addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){}});
 }catch(e){}})();</script>
 <title>FYI · Ofir Nona</title>
-<meta name="description" content="FYI (Focus Your Ideas) is a messenger for creators that Ofir Nona designed at Intune, before Hear. It did not launch. This case study follows one crew from a voice note to a full room, on a live, coded phone.">
+<meta name="description" content="FYI is a messenger for creative crews that Ofir Nona designed at Intune, before Hear. Every task, vote and event starts as a message and points back to it. The case study runs on a live, coded phone.">
 <meta name="theme-color" content="#faf9f7">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ofir1233.github.io/work/fyi.html">
 <meta property="og:title" content="FYI · Ofir Nona">
-<meta property="og:description" content="FYI (Focus Your Ideas) is a messenger for creators that Ofir Nona designed at Intune, before Hear. It did not launch. This case study follows one crew from a voice note to a full room, on a live, coded phone.">
+<meta property="og:description" content="FYI is a messenger for creative crews that Ofir Nona designed at Intune, before Hear. Every task, vote and event starts as a message and points back to it. The case study runs on a live, coded phone.">
 <meta name="twitter:card" content="summary">
 <script>document.documentElement.classList.add('js');try{var t='light',m=document.querySelector('meta[name="theme-color"]');document.documentElement.dataset.theme=t;if(m)m.content=t==='dark'?'#101614':'#f3f4f2';}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@500;700;800;900&display=swap" rel="stylesheet">
-<script>/* the 3D phone only where it can run well: a wide screen, WebGL, and motion allowed */
-(function(){try{var d=document.documentElement,ok=matchMedia('(min-width: 1000px) and (min-height: 600px)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!/[?&]flat\b/.test(location.search);
-if(ok){var c=document.createElement('canvas');ok=!!(window.WebGL2RenderingContext&&c.getContext('webgl2'));}
-if(ok)d.classList.add('ot-3d');}catch(e){}})();</script>
 <link rel="stylesheet" href="case.css?v=202">
 <link rel="stylesheet" href="../v7/foot.css?v=226">
 <link rel="stylesheet" href="fyi-live.css?v=12">
@@ -39,13 +35,10 @@ if(ok)d.classList.add('ot-3d');}catch(e){}})();</script>
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=46">
 <link rel="stylesheet" href="../v7/fyi-take.css?v=16">
+<link rel="stylesheet" href="fyi-thread.css?v=2">
 <link rel="stylesheet" href="../v7/fyi-around.css?v=6">
-<link rel="stylesheet" href="../v7/fya-why.css?v=13">
-<link rel="stylesheet" href="../v7/fya-map.css?v=7">
 <link rel="stylesheet" href="../v7/fya-colour.css?v=7">
-<link rel="stylesheet" href="../v7/fya-kit.css?v=7">
 <link rel="stylesheet" href="../v7/fya-cast.css?v=13">
-<link rel="stylesheet" href="../v7/fya-launch.css?v=8">
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
 <body class="fyi-page ot-page">
@@ -54,92 +47,128 @@ if(ok)d.classList.add('ot-3d');}catch(e){}})();</script>
   <div class="wrap">
     <a class="home" href="../index.html#fyi" aria-label="Ofir Nona. Back to all work"><img class="nona-logo" src="../img/logo-nona-in.svg?v=2" alt="" width="217" height="100"></a>
     <p class="tb-run" aria-hidden="true"><b class="tb-case">FYI</b><span class="tb-ch"></span></p>
-    <nav aria-label="Case studies"><a class="tb-link tb-all" href="../index.html#fyi">All work</a><button type="button" class="pill fx-all"><svg class="fx-all-i" viewBox="0 0 24 24" aria-hidden="true"><path class="ps" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/><path class="pl" d="M8 5.3v13.4a.7.7 0 0 0 1.1.6l10.3-6.7a.7.7 0 0 0 0-1.2L9.1 4.7A.7.7 0 0 0 8 5.3z"/></svg><span class="t">Pause demos</span></button><a class="pill solid" href="design-lab.html" aria-label="Next: Introduction"><span class="tb-nx">Next: Introduction</span><span class="tb-nxs" aria-hidden="true">Next</span></a></nav>
+    <nav aria-label="Case studies"><a class="tb-link tb-all" href="../index.html#fyi">All work</a><a class="pill solid" href="design-lab.html" aria-label="Next: Introduction"><span class="tb-nx">Next: Introduction</span><span class="tb-nxs" aria-hidden="true">Next</span></a></nav>
   </div>
   <span class="progress" aria-hidden="true"></span>
 </header>
 
-<main id="main" class="ot">
-  <div class="ot-story">
-  <div class="ot-stage" id="ot-stage" aria-hidden="true"></div>
-  <section class="ot-part" id="top" data-part="trailer">
-    <div class="ot-copy">
-      <p class="ot-day">Case study · FYI</p>
-      <h1>From a voice note to a full room</h1>
-      <p class="ot-lede">FYI (Focus Your Ideas) is a messenger for creative crews. I designed it for iOS at Intune, before Hear. It began as Intune's collaboration with will.i.am of the Black Eyed Peas, and it did not go ahead.</p>
-      <a class="ot-btn ot-go" href="#setup">Follow the crew</a>
-      <p class="ot-note">The phone runs as live code. The crew, Copper Hours, is demo content.</p>
-      <div class="ot-rail hold"><div class="ot-segs" role="group" aria-label="Moments of this scene"><button type="button" aria-label="Moment 1 of 6" style="--t:1295ms"><i></i></button><button type="button" aria-label="Moment 2 of 6" style="--t:2566ms"><i></i></button><button type="button" aria-label="Moment 3 of 6" style="--t:2041ms"><i></i></button><button type="button" aria-label="Moment 4 of 6" style="--t:2768ms"><i></i></button><button type="button" aria-label="Moment 5 of 6" style="--t:1894ms"><i></i></button><button type="button" aria-label="Moment 6 of 6" style="--t:2397ms"><i></i></button></div><button type="button" class="ot-again" aria-label="Play again" title="Play again" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 3.8v4.6h4.6"/></svg></button></div>
-    </div>
-    <div class="ot-ph" data-fx-stage><div class="fx-dev" data-scene="trailer"></div></div>
-    <div class="ot-art" aria-hidden="true"><i class="oa oa-spray soft" style="--x:330;--y:-150;--w:520;--h:420;--z:4"></i><i class="oa oa-dots soft" style="--x:410;--y:240;--w:360;--h:300;--z:6"></i><svg class="oa oa-wave still" data-wave data-b="1" data-play="1" style="--x:371;--y:-105;--w:400;--h:300;--z:12"></svg><span class="oa oa-tkt f" data-b="4" style="--x:405;--y:222;--w:210;--h:126;--r:-4deg;--z:24"><img src="../img/fyi-door/st-ticket.webp" width="210" height="126" alt="" loading="lazy" decoding="async"><span class="tx"><b data-count="4,27" data-cb="5">4</b><em>going</em></span></span><svg class="oa oa-ink still f" data-ink="loop" data-b="5" style="--x:405;--y:222;--w:280;--h:186;--z:20;--d:700ms"></svg></div>
-  </section>
-  <section class="ot-part" id="setup" data-part="origin">
-    <div class="ot-copy">
-      <p class="ot-day">Before Day 1</p>
-      <h2>Setup ends with a crew and a project</h2>
-      <p class="ot-lede">From the welcome screen, Maya fills in a profile, picks her crew and starts Copper Hours, the project this page follows.</p>
-      <div class="ot-rail hold"><div class="ot-segs" role="group" aria-label="Moments of this scene"><button type="button" aria-label="Moment 1 of 6" style="--t:2494ms"><i></i></button><button type="button" aria-label="Moment 2 of 6" style="--t:4800ms"><i></i></button><button type="button" aria-label="Moment 3 of 6" style="--t:2253ms"><i></i></button><button type="button" aria-label="Moment 4 of 6" style="--t:2308ms"><i></i></button><button type="button" aria-label="Moment 5 of 6" style="--t:2308ms"><i></i></button><button type="button" aria-label="Moment 6 of 6" style="--t:2115ms"><i></i></button></div><button type="button" class="ot-again" aria-label="Play again" title="Play again" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 3.8v4.6h4.6"/></svg></button></div>
-    </div>
-    <div class="ot-ph" data-fx-stage><div class="fx-dev" data-scene="origin"></div></div>
-    <div class="ot-art" aria-hidden="true"><i class="oa oa-spray soft" style="--x:345;--y:-40;--w:480;--h:390;--z:4"></i><svg class="oa oa-num" data-num="FYI" data-size="190" data-b="0" data-e="2" style="--x:366;--y:-52;--w:360;--h:230;--r:-4deg;--z:14"></svg><span class="oa oa-stk" data-b="2" style="--x:262;--y:-222;--w:104;--h:104;--r:-6deg;--z:18;--d:0ms"><img src="../img/fyi-door/av-maya.webp" width="104" height="104" alt="" loading="lazy" decoding="async"><span class="cap"><b>Maya</b><span>Artist and producer</span></span></span><span class="oa oa-stk" data-b="3" style="--x:428;--y:-128;--w:104;--h:104;--r:5deg;--z:18;--d:0ms"><img src="../img/fyi-door/av-theo.webp" width="104" height="104" alt="" loading="lazy" decoding="async"><span class="cap"><b>Theo</b><span>Video director</span></span></span><span class="oa oa-stk" data-b="3" style="--x:268;--y:0;--w:104;--h:104;--r:-3deg;--z:18;--d:260ms"><img src="../img/fyi-door/av-ines.webp" width="104" height="104" alt="" loading="lazy" decoding="async"><span class="cap"><b>Ines</b><span>Designer</span></span></span><span class="oa oa-stk" data-b="3" style="--x:432;--y:98;--w:104;--h:104;--r:7deg;--z:18;--d:520ms"><img src="../img/fyi-door/av-kofi.webp" width="104" height="104" alt="" loading="lazy" decoding="async"><span class="cap"><b>Kofi</b><span>Shows and venues</span></span></span><svg class="oa oa-num" data-num="Copper Hours" data-size="56" data-b="4" style="--x:376;--y:282;--w:400;--h:100;--r:-3deg;--z:14"></svg></div>
-  </section>
-  <section class="ot-part" id="note" data-part="spark">
-    <div class="ot-copy">
-      <p class="ot-day">Day 1 · 11:14 PM</p>
-      <h2>The idea starts as a voice note</h2>
-      <p class="ot-lede">FYI is a messenger first, with files at full size and voice notes that arrive with their transcripts.</p>
-      <div class="ot-rail hold"><div class="ot-segs" role="group" aria-label="Moments of this scene"><button type="button" aria-label="Moment 1 of 6" style="--t:1563ms"><i></i></button><button type="button" aria-label="Moment 2 of 6" style="--t:1941ms"><i></i></button><button type="button" aria-label="Moment 3 of 6" style="--t:2381ms"><i></i></button><button type="button" aria-label="Moment 4 of 6" style="--t:1434ms"><i></i></button><button type="button" aria-label="Moment 5 of 6" style="--t:1324ms"><i></i></button><button type="button" aria-label="Moment 6 of 6" style="--t:1362ms"><i></i></button></div><button type="button" class="ot-again" aria-label="Play again" title="Play again" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 3.8v4.6h4.6"/></svg></button></div>
-    </div>
-    <div class="ot-ph" data-fx-stage><div class="fx-dev" data-scene="spark"></div></div>
-    <div class="ot-art" aria-hidden="true"><i class="oa oa-spray soft" style="--x:350;--y:-70;--w:520;--h:420;--z:4"></i><i class="oa oa-dots soft" style="--x:440;--y:140;--w:300;--h:260;--z:6"></i><svg class="oa oa-wave still" data-wave data-b="1" data-play="2" style="--x:371;--y:-55;--w:400;--h:320;--z:12"></svg><svg class="oa oa-num" data-num="0:21" data-size="56" data-b="2" style="--x:262;--y:168;--w:180;--h:80;--r:-4deg;--z:14"></svg><span class="oa oa-stk" data-b="3" style="--x:336;--y:268;--w:78;--h:78;--r:-8deg;--z:18"><img src="../img/fyi-door/av-theo.webp" width="78" height="78" alt="" loading="lazy" decoding="async"></span><span class="oa oa-stk" data-b="4" style="--x:404;--y:278;--w:78;--h:78;--r:5deg;--z:18"><img src="../img/fyi-door/av-ines.webp" width="78" height="78" alt="" loading="lazy" decoding="async"></span><span class="oa oa-stk" data-b="5" style="--x:472;--y:264;--w:78;--h:78;--r:-3deg;--z:18"><img src="../img/fyi-door/av-kofi.webp" width="78" height="78" alt="" loading="lazy" decoding="async"></span></div>
-  </section>
-  <section class="ot-part" id="away" data-part="catchup">
-    <div class="ot-copy">
-      <p class="ot-day">Day 3 · 8:02 AM</p>
-      <h2>Catch up without scrolling back</h2>
-      <p class="ot-lede">Sixty-four messages later, one tap gives Maya a private catch-up, and every fact points back to its source.</p>
-      <div class="ot-rail hold"><div class="ot-segs" role="group" aria-label="Moments of this scene"><button type="button" aria-label="Moment 1 of 6" style="--t:1118ms"><i></i></button><button type="button" aria-label="Moment 2 of 6" style="--t:1370ms"><i></i></button><button type="button" aria-label="Moment 3 of 6" style="--t:3936ms"><i></i></button><button type="button" aria-label="Moment 4 of 6" style="--t:3374ms"><i></i></button><button type="button" aria-label="Moment 5 of 6" style="--t:4754ms"><i></i></button><button type="button" aria-label="Moment 6 of 6" style="--t:3763ms"><i></i></button></div><button type="button" class="ot-again" aria-label="Play again" title="Play again" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 3.8v4.6h4.6"/></svg></button></div>
-    </div>
-    <div class="ot-ph" data-fx-stage><div class="fx-dev" data-scene="catchup"></div></div>
-    <div class="ot-art" aria-hidden="true"><i class="oa oa-dots soft" style="--x:400;--y:40;--w:360;--h:300;--z:6"></i><svg class="oa oa-num" data-num="64" data-size="196" data-b="0" style="--x:348;--y:-225;--w:300;--h:200;--z:14"></svg><svg class="oa oa-ink still" data-ink="strike" data-b="2" style="--x:348;--y:-225;--w:290;--h:120;--z:20;--d:250ms"></svg><i class="oa oa-slip" data-b="0" data-b2="2" style="--x:250;--y:-62;--w:190;--h:42;--z:10;--d:0ms;--r1:-7deg;--r2:-3deg;--x2:72px;--y2:90px;--d2:0ms;--av:url(../img/fyi-door/av-theo.webp);--l2:70%"></i><i class="oa oa-slip" data-b="0" data-b2="2" style="--x:432;--y:-30;--w:172;--h:42;--z:11;--d:90ms;--r1:5deg;--r2:2deg;--x2:-54px;--y2:65px;--d2:45ms;--av:url(../img/fyi-door/av-ines.webp);--l2:48%"></i><i class="oa oa-slip" data-b="0" data-b2="2" style="--x:300;--y:12;--w:200;--h:42;--z:12;--d:180ms;--r1:3deg;--r2:-1deg;--x2:46px;--y2:30px;--d2:90ms;--av:url(../img/fyi-door/av-kofi.webp);--l2:62%"></i><i class="oa oa-slip" data-b="0" data-b2="2" style="--x:455;--y:58;--w:168;--h:42;--z:13;--d:270ms;--r1:-4deg;--r2:3deg;--x2:-61px;--y2:-9px;--d2:135ms;--av:url(../img/fyi-door/av-theo.webp);--l2:55%"></i><i class="oa oa-slip" data-b="0" data-b2="2" style="--x:246;--y:94;--w:184;--h:42;--z:14;--d:360ms;--r1:6deg;--r2:-2deg;--x2:84px;--y2:-38px;--d2:180ms;--av:url(../img/fyi-door/av-ines.webp);--l2:74%"></i><i class="oa oa-slip" data-b="0" data-b2="2" style="--x:400;--y:134;--w:196;--h:42;--z:15;--d:450ms;--r1:-6deg;--r2:1deg;--x2:-36px;--y2:-71px;--d2:225ms;--av:url(../img/fyi-door/av-kofi.webp);--l2:44%"></i><i class="oa oa-slip" data-b="0" data-b2="2" style="--x:292;--y:188;--w:176;--h:42;--z:16;--d:540ms;--r1:-3deg;--r2:-3deg;--x2:94px;--y2:-118px;--d2:270ms;--av:url(../img/fyi-door/av-theo.webp);--l2:66%"></i><i class="oa oa-slip" data-b="0" data-b2="2" style="--x:448;--y:220;--w:170;--h:42;--z:17;--d:630ms;--r1:7deg;--r2:2deg;--x2:-110px;--y2:-143px;--d2:315ms;--av:url(../img/fyi-door/av-ines.webp);--l2:52%"></i><i class="oa oa-slip" data-b="0" data-b2="2" style="--x:334;--y:272;--w:190;--h:42;--z:18;--d:720ms;--r1:4deg;--r2:0deg;--x2:22px;--y2:-188px;--d2:360ms;--av:url(../img/fyi-door/av-kofi.webp);--l2:60%"></i><span class="oa oa-cu" data-b="2" style="--x:356;--y:166;--w:304;--h:188;--z:22;--d:420ms"><b>Catch up</b><span class="vis">Only you see this</span><span class="ln">Launch night is on. Kofi is holding Fri, Nov 20 at Dock Hall 3.</span><span class="src">Kofi · Wed 6:40 PM</span></span></div>
-  </section>
-  <section class="ot-part" id="task" data-part="task">
-    <div class="ot-copy">
-      <p class="ot-day">Day 3 · 8:20 AM</p>
-      <h2>A promise in the chat becomes a task</h2>
-      <p class="ot-lede">When Theo promises a cut by November 12, FYI AI offers a task filled from his words, and Maya confirms it.</p>
-      <div class="ot-rail hold"><div class="ot-segs" role="group" aria-label="Moments of this scene"><button type="button" aria-label="Moment 1 of 6" style="--t:1545ms"><i></i></button><button type="button" aria-label="Moment 2 of 6" style="--t:1527ms"><i></i></button><button type="button" aria-label="Moment 3 of 6" style="--t:3117ms"><i></i></button><button type="button" aria-label="Moment 4 of 6" style="--t:2850ms"><i></i></button><button type="button" aria-label="Moment 5 of 6" style="--t:1922ms"><i></i></button><button type="button" aria-label="Moment 6 of 6" style="--t:3352ms"><i></i></button></div><button type="button" class="ot-again" aria-label="Play again" title="Play again" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 3.8v4.6h4.6"/></svg></button></div>
-    </div>
-    <div class="ot-ph" data-fx-stage><div class="fx-dev" data-scene="task"></div></div>
-    <div class="ot-art" aria-hidden="true"><i class="oa oa-spray soft" style="--x:335;--y:-90;--w:480;--h:390;--z:4"></i><span class="oa oa-leaf" data-b="2" style="--x:352;--y:-108;--w:230;--h:262;--r:4deg;--z:14"><em>November</em><b>12</b><span>Thursday</span></span><span class="oa oa-stk" data-b="0" style="--x:238;--y:34;--w:94;--h:94;--r:-8deg;--z:18"><img src="../img/fyi-door/av-theo.webp" width="94" height="94" alt="" loading="lazy" decoding="async"></span><span class="oa oa-task" data-b="3" style="--x:376;--y:158;--w:292;--h:72;--r:-3deg;--z:20;--d:150ms"><i class="ck"></i><span><b>Visualizer cut</b><span>Theo · Thu, Nov 12</span></span></span><svg class="oa oa-ink still pk" data-ink="check" data-b="3" style="--x:263;--y:157;--w:46;--h:46;--z:20;--d:650ms"></svg></div>
-  </section>
-  <section class="ot-part" id="together" data-part="together">
-    <div class="ot-copy">
-      <p class="ot-day">Day 19 · 7:05 PM</p>
-      <h2>The crew decides together, live in the thread</h2>
-      <p class="ot-lede">Ines posts three covers, the crew meets on a call and votes in the thread, and the call's notes go onto their tasks.</p>
-      <div class="ot-rail hold"><div class="ot-segs" role="group" aria-label="Moments of this scene"><button type="button" aria-label="Moment 1 of 6" style="--t:2756ms"><i></i></button><button type="button" aria-label="Moment 2 of 6" style="--t:3360ms"><i></i></button><button type="button" aria-label="Moment 3 of 6" style="--t:2385ms"><i></i></button><button type="button" aria-label="Moment 4 of 6" style="--t:3487ms"><i></i></button><button type="button" aria-label="Moment 5 of 6" style="--t:3384ms"><i></i></button><button type="button" aria-label="Moment 6 of 6" style="--t:2161ms"><i></i></button></div><button type="button" class="ot-again" aria-label="Play again" title="Play again" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 3.8v4.6h4.6"/></svg></button></div>
-    </div>
-    <div class="ot-ph" data-fx-stage><div class="fx-dev" data-scene="together"></div></div>
-    <div class="ot-art" aria-hidden="true"><i class="oa oa-spray soft" style="--x:350;--y:-40;--w:520;--h:420;--z:4"></i><span class="oa oa-slv" data-b="0" data-e="3" style="--x:300;--y:-190;--w:150;--h:150;--z:10;--d:0ms;--r:-6deg"><img src="../img/fyi-door/cover-a.webp" width="150" height="150" alt="" loading="lazy" decoding="async"></span><span class="oa oa-slv" data-b="0" data-e="3" style="--x:462;--y:-120;--w:150;--h:150;--z:10;--d:280ms;--r:7deg"><img src="../img/fyi-door/cover-c.webp" width="150" height="150" alt="" loading="lazy" decoding="async"></span><span class="oa oa-slv" data-b="0" style="--x:372;--y:70;--w:200;--h:200;--z:10;--d:140ms;--r:-3deg"><img src="../img/fyi-door/cover-b.webp" width="200" height="200" alt="" loading="lazy" decoding="async"></span><span class="oa oa-stk f" data-b="3" data-e="4" style="--x:270;--y:186;--w:64;--h:64;--r:-8deg;--z:18;--d:0ms"><img src="../img/fyi-door/av-maya.webp" width="64" height="64" alt="" loading="lazy" decoding="async"></span><span class="oa oa-stk f" data-b="3" data-e="4" style="--x:372;--y:206;--w:64;--h:64;--r:5deg;--z:18;--d:500ms"><img src="../img/fyi-door/av-theo.webp" width="64" height="64" alt="" loading="lazy" decoding="async"></span><span class="oa oa-stk f" data-b="3" data-e="4" style="--x:474;--y:186;--w:64;--h:64;--r:-4deg;--z:18;--d:900ms"><img src="../img/fyi-door/av-ines.webp" width="64" height="64" alt="" loading="lazy" decoding="async"></span></div>
-  </section>
-  <section class="ot-part" id="night" data-part="launch">
-    <div class="ot-copy">
-      <p class="ot-day">Day 24 to Day 39</p>
-      <h2>A message becomes a full room</h2>
-      <p class="ot-lede">Kofi confirms Dock Hall 3 in the chat, FYI AI drafts the event, and Maya promotes it in three formats that stay bound to it. On Day 39, 27 people are going.</p>
-      <div class="ot-rail hold"><div class="ot-segs" role="group" aria-label="Moments of this scene"><button type="button" aria-label="Moment 1 of 7" style="--t:1231ms"><i></i></button><button type="button" aria-label="Moment 2 of 7" style="--t:2722ms"><i></i></button><button type="button" aria-label="Moment 3 of 7" style="--t:1590ms"><i></i></button><button type="button" aria-label="Moment 4 of 7" style="--t:1775ms"><i></i></button><button type="button" aria-label="Moment 5 of 7" style="--t:1223ms"><i></i></button><button type="button" aria-label="Moment 6 of 7" style="--t:1499ms"><i></i></button><button type="button" aria-label="Moment 7 of 7" style="--t:2235ms"><i></i></button></div><button type="button" class="ot-again" aria-label="Play again" title="Play again" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 3.8v4.6h4.6"/></svg></button></div>
-    </div>
-    <div class="ot-ph" data-fx-stage><div class="fx-dev" data-scene="launch"></div></div>
-    <div class="ot-art" aria-hidden="true"><i class="oa oa-spray soft" style="--x:330;--y:-170;--w:520;--h:420;--z:4"></i><i class="oa oa-dots soft" style="--x:430;--y:250;--w:360;--h:300;--z:6"></i><svg class="oa oa-num" data-num="Dock Hall 3" data-size="62" data-b="0" data-e="3" style="--x:380;--y:-64;--w:400;--h:110;--r:-4deg;--z:14"></svg><span class="oa oa-pst" data-b="3" style="--x:376;--y:-78;--w:280;--h:392;--r:3deg;--z:16"><img src="../img/fyi-door/poster.webp" width="280" height="392" alt="" loading="lazy" decoding="async"></span><span class="oa oa-stk" data-b="0" style="--x:244;--y:-252;--w:86;--h:86;--r:-7deg;--z:18"><img src="../img/fyi-door/av-kofi.webp" width="86" height="86" alt="" loading="lazy" decoding="async"></span><span class="oa oa-tkt f" data-b="5" style="--x:442;--y:236;--w:210;--h:126;--r:-4deg;--z:24"><img src="../img/fyi-door/st-ticket.webp" width="210" height="126" alt="" loading="lazy" decoding="async"><span class="tx"><b data-count="4,27" data-cb="6">4</b><em>going</em></span></span><svg class="oa oa-ink still f" data-ink="loop" data-b="6" style="--x:442;--y:236;--w:280;--h:186;--z:20;--d:900ms"></svg></div>
-  </section>
-  <div class="ot-fin" id="fin">
-    <div class="ot-fin-art" aria-hidden="true"><i class="oa oa-spray soft" style="--x:170;--y:-110;--w:640;--h:520;--z:4"></i><i class="oa oa-dots soft" style="--x:-230;--y:200;--w:360;--h:320;--z:6"></i><span class="oa oa-stk" style="--x:-262;--y:-150;--w:136;--h:136;--r:-7deg;--z:16;--d:0ms"><img src="../img/fyi-door/av-maya.webp" width="136" height="136" alt="" loading="lazy" decoding="async"></span><span class="oa oa-stk" style="--x:-300;--y:56;--w:112;--h:112;--r:5deg;--z:16;--d:140ms"><img src="../img/fyi-door/av-theo.webp" width="112" height="112" alt="" loading="lazy" decoding="async"></span><span class="oa oa-stk" style="--x:262;--y:-182;--w:118;--h:118;--r:6deg;--z:16;--d:280ms"><img src="../img/fyi-door/av-ines.webp" width="118" height="118" alt="" loading="lazy" decoding="async"></span><span class="oa oa-stk" style="--x:300;--y:26;--w:132;--h:132;--r:-5deg;--z:16;--d:420ms"><img src="../img/fyi-door/av-kofi.webp" width="132" height="132" alt="" loading="lazy" decoding="async"></span><span class="oa oa-tkt f" style="--x:184;--y:268;--w:210;--h:126;--r:-5deg;--z:24;--d:640ms"><img src="../img/fyi-door/st-ticket.webp" width="210" height="126" alt="" loading="lazy" decoding="async"><span class="tx"><b>27</b><em>going</em></span></span></div>
-    <h2 class="ot-fin-t">39 days. One chat.</h2>
+<main id="main" class="ot fy2">
+  <div class="fy2-run" id="fy2-run">
+    <div class="fy2-pin" aria-hidden="true"><div class="fx-dev fy2-dev" id="fy2-dev"></div></div>
+    <svg class="fy2-lines" id="fy2-lines" aria-hidden="true"></svg>
+
+    <section class="fy2-s fy2-hero" id="top" data-stop="0">
+      <div class="fy2-tx">
+        <p class="fy2-kick">Case study · FYI</p>
+        <h1>The chat is the project</h1>
+        <p class="fy2-lede">FYI is a messenger for creative crews. Every task, vote and event starts as a message and points back to it.</p>
+        <p class="fy2-meta">iOS app · Designed at Intune, before Hear</p>
+        <p class="fy2-note">The phone runs as live code. The crew, Copper Hours, is demo content.</p>
+      </div>
+      <div class="fy2-m" aria-hidden="true"><div class="fx-dev fy2-dev" data-fixed="0"></div></div>
+      <div class="fy2-obj">
+        <div class="fy2-card fy2-sm fy2-out" data-out="task" data-src="chip">
+          <b class="fy2-ct">Visualizer cut</b>
+          <span class="fy2-cm"><img src="../img/fyi-door/av-theo.webp" width="28" height="28" alt="">Theo · Thu, Nov 12</span>
+          <span class="fy2-src">↳ From Theo’s message</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="fy2-s" id="task" data-stop="1">
+      <div class="fy2-tx">
+        <ol class="fy2-rail" aria-label="Three stations"><li class="on"><a href="#task">Task</a></li><li><a href="#vote">Vote</a></li><li><a href="#event">Event</a></li></ol>
+        <h2>Every task remembers the message it came from</h2>
+        <p class="fy2-lede">Nobody retypes a promise. Press the card, and the chat goes back to the words behind it.</p>
+      </div>
+      <div class="fy2-m" aria-hidden="true"><div class="fx-dev fy2-dev" data-fixed="1"></div></div>
+      <div class="fy2-obj">
+        <button type="button" class="fy2-card fy2-big fy2-out fy2-press" data-out="task2" data-src="theo" aria-label="Visualizer cut. Go to Theo's message in the chat">
+          <b class="fy2-ct">Visualizer cut</b>
+          <span class="fy2-f"><small>Due</small><span>Thu, Nov 12</span><em>from “by Nov 12”</em></span>
+          <span class="fy2-f"><small>Assigned to</small><span><img src="../img/fyi-door/av-theo.webp" width="24" height="24" alt="">Theo</span><em>from “I’ll”</em></span>
+          <span class="fy2-go">↳ Go to Theo’s message</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="fy2-s" id="vote" data-stop="2">
+      <div class="fy2-tx">
+        <ol class="fy2-rail" aria-label="Three stations"><li class="dn"><a href="#task">Task</a></li><li class="on"><a href="#vote">Vote</a></li><li><a href="#event">Event</a></li></ol>
+        <h2>The crew votes where they already are</h2>
+        <p class="fy2-lede">A decision is a message too. The poll sits in the thread, and the result stays there as a line everyone can scroll back to.</p>
+      </div>
+      <div class="fy2-m" aria-hidden="true"><div class="fx-dev fy2-dev" data-fixed="2"></div></div>
+      <div class="fy2-obj">
+        <div class="fy2-covs fy2-out" data-out="covers" data-src="poll">
+          <span class="fy2-cv a"><img src="../img/fyi-door/cover-a.webp" width="600" height="600" alt="Cover A, Horizon" loading="lazy" decoding="async"></span>
+          <span class="fy2-cv c"><img src="../img/fyi-door/cover-c.webp" width="600" height="600" alt="Cover C, Stack" loading="lazy" decoding="async"></span>
+          <span class="fy2-cv b"><img src="../img/fyi-door/cover-b.webp" width="600" height="600" alt="Cover B, Grooves, the one the crew chose" loading="lazy" decoding="async"><span class="fy2-src">↳ From Ines’s poll · 3 of 4 votes</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="fy2-s fy2-ev" id="event" data-stop="3">
+      <div class="fy2-tx">
+        <ol class="fy2-rail" aria-label="Three stations"><li class="dn"><a href="#task">Task</a></li><li class="dn"><a href="#vote">Vote</a></li><li class="on"><a href="#event">Event</a></li></ol>
+        <h2>The invitation is written from the chat</h2>
+        <p class="fy2-lede">The event is drafted from Kofi’s message. Change it in the chat and the public page changes with it.</p>
+        <p class="fy2-rule">The AI offers, a person confirms.</p>
+        <button type="button" class="fy2-btn" id="fy2-doors" aria-pressed="false">Move doors to 10 PM</button>
+      </div>
+      <div class="fy2-m" aria-hidden="true"><div class="fx-dev fy2-dev" data-fixed="3"></div></div>
+      <div class="fy2-obj">
+        <div class="fy2-web fy2-out" data-out="web" data-src="kofi2">
+          <span class="fy2-url">fyi/e/copper-hours</span>
+          <span class="fy2-art"><img src="../img/fyi-door/poster.webp" width="751" height="1050" alt="The Launch Night poster" loading="lazy" decoding="async"></span>
+          <span class="fy2-wi">
+            <b class="fy2-wt">Copper Hours: Launch Night</b>
+            <span class="fy2-ww">Fri, Nov 20 · Doors <span data-bind="doors">9 PM</span><br>Dock Hall 3</span>
+            <span class="fy2-wr"><i>RSVP</i><span>Going · <b data-bind="going">27</b></span></span>
+            <span class="fy2-src">↳ From Kofi’s message</span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section class="fy2-s fy2-pj" id="project" data-stop="4">
+      <div class="fy2-tx">
+        <p class="fy2-kick">What it adds up to</p>
+        <h2>Everything still points to its message</h2>
+        <p class="fy2-lede">The Project tab is the chat, sorted. There is no separate planning screen.</p>
+      </div>
+      <div class="fy2-m" aria-hidden="true"><div class="fx-dev fy2-dev" data-fixed="4"></div></div>
+      <div class="fy2-obj">
+        <div class="fy2-trio">
+          <div class="fy2-card fy2-sm fy2-out" data-out="p1" data-src="pj1"><b class="fy2-ct">Visualizer cut</b><span class="fy2-cm">Theo · Thu, Nov 12</span></div>
+          <span class="fy2-cv fy2-sm fy2-out" data-out="p2" data-src="pj2"><img src="../img/fyi-door/cover-b.webp" width="600" height="600" alt="Cover B, Grooves" loading="lazy" decoding="async"></span>
+          <div class="fy2-card fy2-sm fy2-out" data-out="p3" data-src="pj3"><b class="fy2-ct">Launch Night</b><span class="fy2-cm">Fri, Nov 20 · Going 27</span></div>
+        </div>
+      </div>
+    </section>
   </div>
-  </div>
+
   <div class="fya" id="around">
+<section class="fya-sec" id="fya-colour">
+  <div class="wrap">
+    <div class="fya-head"><div><p class="fya-kick">The colour</p><h2>Pink is you. Every other colour has one job.</h2></div><p class="fya-lede">Pick a colour to see where it lives.</p></div>
+    <div class="fyac">
+      
+      <div class="fyac-roles" role="group" aria-label="The colours, by the job each one does">
+        <button type="button" class="fyac-r" data-k="you" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:#ff2d8f"></i></span><b>You</b><span class="fyac-job">What you say and what you send</span></button>
+        <button type="button" class="fyac-r" data-k="ai" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:linear-gradient(135deg,#ff2d8f,#7a2cff)"></i><i style="background:#c9b8ff"></i></span><b>AI</b><span class="fyac-job">A line, never a fill</span></button>
+        <button type="button" class="fyac-r" data-k="live" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:#30d158"></i></span><b>Live</b><span class="fyac-job">Happening right now</span></button>
+        <button type="button" class="fyac-r" data-k="people" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:#e8b45c"></i><i style="background:#c3dc6b"></i><i style="background:#f28db2"></i><i style="background:#8ec8f2"></i></span><b>People</b><span class="fyac-job">A name, never a state</span></button>
+        <button type="button" class="fyac-r" data-k="print" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:#f7f3ea"></i><i style="background:#15183f"></i><i style="background:#22cdf0"></i></span><b>Print</b><span class="fyac-job">What leaves the chat</span></button>
+        <button type="button" class="fyac-r" data-k="signal" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:#ffb547"></i><i style="background:#ff453a"></i></span><b>Signals</b><span class="fyac-job">Needs your attention</span></button>
+      </div>
+      <p class="fyac-say" aria-live="polite"><b data-rest="Every colour at work">Every colour at work</b><span></span></p>
+      <div class="fyac-stage">
+        <div class="fx-dev fyac-dev"><div class="fx-body"><div class="fx-screen"><div class="fx-app fx-static fyac-kit" role="img" aria-label="A piece of the Copper Hours thread, built from the app's own parts"></div><div class="fx-sb" aria-hidden="true"><span>9:41</span><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12"><path d="M8 2.3c2.3 0 4.4.9 6 2.4l1.2-1.3A10.4 10.4 0 0 0 8 .5 10.4 10.4 0 0 0 .8 3.4L2 4.7a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.7 6.7 0 0 0 8 4.1a6.7 6.7 0 0 0-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4 10 7.5a3 3 0 0 0-4 0z"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="23" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="8" rx="2.2"/><path d="M25 4v4a2 2 0 0 0 0-4z" opacity=".45"/></svg></span></div><i class="fx-island"></i><i class="fx-home"></i></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="fya-sec" id="fya-cast">
   <div class="wrap">
     <div class="fya-head"><div><p class="fya-kick">The cast</p><h2>Pick who you are.</h2></div><p class="fya-lede">Every avatar is an animal with a role and a genre.</p></div>
@@ -183,157 +212,16 @@ if(ok)d.classList.add('ot-3d');}catch(e){}})();</script>
     </div>
   </div>
 </section>
-<section class="fya-sec" id="fya-why">
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="fyawhy-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF2D8F"/><stop offset="1" stop-color="#7A2CFF"/></linearGradient></defs></svg>
-  <div class="wrap">
-    <div class="fya-head">
-      <div><p class="fya-kick">The reason</p><h2>Work is mostly talk.</h2></div>
-      <div><p class="fya-lede">So a project's plan, files and launch live in the chat.</p></div>
-    </div>
-    <div class="fyw">
-      <div class="fyw-stage">
-        <div class="fyw-ph">
-          <div class="fx-dev fyw-dev"><div class="fx-body"><div class="fx-screen"><div class="fx-app fx-static">
-            <div class="a-hd"><div class="a-nav"><span class="bk"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></span><span class="who"><span class="a-av m a-pj"><b>CH</b></span><span style="min-width:0"><div class="nm">Copper Hours</div><div class="sub">Theo, Ines, Kofi, You</div></span></span></div></div>
-            <div class="fyw-thread">
-            <div class="fyw-it r" data-i="0" style="--i:0"><div class="a-b a-voice o tl"><span class="pl"><svg class="i f" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.3v13.4a.7.7 0 0 0 1.1.6l10.3-6.7a.7.7 0 0 0 0-1.2L9.1 4.7A.7.7 0 0 0 8 5.3z"/></svg></span><span class="a-wave"><i style="height:32%"></i><i style="height:36%"></i><i style="height:28%"></i><i style="height:83%"></i><i style="height:52%"></i><i style="height:85%"></i><i style="height:51%"></i><i style="height:31%"></i><i style="height:49%"></i><i style="height:57%"></i><i style="height:93%"></i><i style="height:44%"></i><i style="height:66%"></i><i style="height:25%"></i><i style="height:59%"></i><i style="height:39%"></i><i style="height:95%"></i><i style="height:56%"></i><i style="height:57%"></i><i style="height:26%"></i><i style="height:48%"></i><i style="height:79%"></i><i style="height:57%"></i><i style="height:87%"></i><i style="height:32%"></i><i style="height:26%"></i><i style="height:28%"></i><i style="height:90%"></i><i style="height:50%"></i><i style="height:82%"></i></span><span class="d">0:21</span></div></div>
-            <div class="fyw-it" data-i="1" style="--i:1"><div class="a-b tl" data-w="k"><span class="who" style="--c:var(--kofi)">Kofi</span>Dock Hall 3 is free on the 20th.<span class="tm">6:40 PM</span></div></div>
-            <div class="fyw-it r" data-i="2" style="--i:2"><div class="a-b a-file o tl"><span class="ft"><b class="ex">ZIP</b></span><div><div class="fn">copper-hours_stems_v4.zip</div><div class="fm">2.1 GB · full size</div></div></div></div>
-            <div class="fyw-it w" data-i="3" style="--i:3"><div class="a-ai"><div class="hd"><svg class="knot" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="url(#fyawhy-g)" stroke-width="1.9"><ellipse cx="12" cy="12.5" rx="9" ry="3.9" transform="rotate(45 12 12.5)"/><ellipse cx="12" cy="12.5" rx="9" ry="3.9" transform="rotate(-45 12 12.5)"/></g><path fill="url(#fyawhy-g)" d="M19.2 1.6l.85 2.35 2.35.85-2.35.85-.85 2.35-.85-2.35-2.35-.85 2.35-.85z"/></svg><span>Catch up</span><span class="vis"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11h12v9.5H6zM8.5 11V7.5a3.5 3.5 0 0 1 7 0V11"/></svg>Only you</span></div><ul><li>Launch night is on.<br><span class="a-src">↳ Kofi · Wed 6:40 PM</span></li></ul></div></div>
-            <div class="fyw-it" data-i="4" style="--i:4"><div class="a-chip st-appr"><span class="ck"></span>Visualizer cut · <span class="a-av xs p-t" data-p="t"></span> Theo · Nov 12</div></div>
-            <div class="fyw-it" data-i="5" style="--i:5"><div class="a-poll t5-poll"><div class="q">Which cover?<span>Poll · 4 votes</span></div><div class="r"><i class="bar" style="width:25%"></i><span class="cov cov-a"></span><span class="t">A · Horizon</span><span class="a-stack"><span class="a-av s p-k" data-p="k"></span></span><span class="v">1</span></div><div class="r mine"><i class="bar" style="width:75%"></i><span class="cov cov-b"></span><span class="t">B · Grooves</span><span class="a-stack"><span class="a-av s p-t" data-p="t"></span><span class="a-av s p-i" data-p="i"></span><span class="a-av s p-m" data-p="m"></span></span><span class="v">3</span></div></div></div>
-            <div class="fyw-it r" data-i="6" style="--i:6"><div class="a-tk"><span class="a-pub">Public</span><div class="ps"></div><div class="perf"></div><div class="stub"><span class="db"><b>NOV</b><span>20</span></span><div class="inf"><div class="tt">Fri · Doors 9 PM</div><div class="pl">Dock Hall 3</div></div></div><div class="a-rv"><span class="a-go"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Going</span><span class="a-may">Maybe</span><span class="cnt"><span>Going · <b>27</b></span></span></div></div></div>
-            <div class="fyw-it r" data-i="7" style="--i:7"><div class="a-fmts"><span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Story</span><span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Post</span><span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Link page</span></div></div>
-            </div>
-          </div><div class="fx-sb" aria-hidden="true"><span>9:41</span><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12"><path d="M8 2.3c2.3 0 4.4.9 6 2.4l1.2-1.3A10.4 10.4 0 0 0 8 .5 10.4 10.4 0 0 0 .8 3.4L2 4.7a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.7 6.7 0 0 0 8 4.1a6.7 6.7 0 0 0-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4 10 7.5a3 3 0 0 0-4 0z"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="23" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="8" rx="2.2"/><path d="M25 4v4a2 2 0 0 0 0-4z" opacity=".45"/></svg></span></div><i class="fx-island"></i><i class="fx-home"></i></div></div></div>
-          <div class="fyw-lbs" role="group" aria-label="What lives in the thread">
-          <button type="button" class="fyw-lb r" data-i="0" aria-pressed="false"><span>Voice notes</span></button>
-          <button type="button" class="fyw-lb" data-i="1" aria-pressed="false"><span>Messages</span></button>
-          <button type="button" class="fyw-lb r" data-i="2" aria-pressed="false"><span>Files</span></button>
-          <button type="button" class="fyw-lb" data-i="3" aria-pressed="false"><span>Catch-up</span></button>
-          <button type="button" class="fyw-lb" data-i="4" aria-pressed="false"><span>Tasks</span></button>
-          <button type="button" class="fyw-lb" data-i="5" aria-pressed="false"><span>Votes</span></button>
-          <button type="button" class="fyw-lb r" data-i="6" aria-pressed="false"><span>Event</span></button>
-          <button type="button" class="fyw-lb r" data-i="7" aria-pressed="false"><span>Promotion</span></button>
-          </div>
-        </div>
-      </div>
-      <div class="fyw-who">
-        <p class="fyw-wh">Who it is for<span>Creative crews. Copper Hours is the demo crew.</span></p>
-        <ul>
-          <li data-parts="2,3" tabindex="0"><img src="../img/fyi-door/av-maya.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><div><b>Artist and producer</b><span>Maya</span><p>Stems at full size, and a catch-up after a long session.</p></div></li>
-          <li data-parts="4" tabindex="0"><img src="../img/fyi-door/av-theo.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><div><b>Video director</b><span>Theo</span><p>A cut with an owner and a due date.</p></div></li>
-          <li data-parts="5" tabindex="0"><img src="../img/fyi-door/av-ines.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><div><b>Designer</b><span>Ines</span><p>One vote that settles the cover.</p></div></li>
-          <li data-parts="6" tabindex="0"><img src="../img/fyi-door/av-kofi.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><div><b>Shows and venues</b><span>Kofi</span><p>An event the room can RSVP to.</p></div></li>
-        </ul>
-      </div>
-    </div>
   </div>
-</section>
-<section class="fya-sec" id="fya-map">
-  <div class="wrap">
-    <div class="fya-head"><div><p class="fya-kick">The structure</p><h2>Everything points back to a message.</h2></div><p class="fya-lede">A voice note becomes a task, an event and a public page.</p></div>
-    <div class="fym fya-card">
-      <div class="fym-row">
-        <button type="button" class="fym-n" style="--i:0" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab">Voice note</span><span class="fym-r">The idea starts as a voice note in the chat.</span><span class="fym-mini fya-black" data-m="voice" aria-hidden="true"></span></button>
-        <button type="button" class="fym-n" style="--i:1" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab">Catch-up</span><span class="fym-r">Every line of a catch-up points to the message it came from.</span><span class="fym-mini fya-black" data-m="ai" aria-hidden="true"></span></button>
-        <button type="button" class="fym-n" style="--i:2" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab">Task</span><span class="fym-r">A task starts from the message that asked for it.</span><span class="fym-mini fya-black" data-m="task" aria-hidden="true"></span></button>
-        <button type="button" class="fym-n" style="--i:3" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab">Event</span><span class="fym-r">The event is drafted from the chat, and a person checks it first.</span><span class="fym-mini fya-black" data-m="event" aria-hidden="true"></span></button>
-        <button type="button" class="fym-n" style="--i:4" aria-pressed="false"><span class="fym-dot"></span><span class="fym-lab">Public page</span><span class="fym-r">The page goes public only when a host turns it on.</span><span class="fym-mini fym-pub" aria-hidden="true"><span class="fym-pz"><span class="fym-page fya-paper"><span class="fym-ps"></span><span class="fym-pt"><b>Copper Hours: Launch Night</b><span>Fri, Nov 20 · Doors 9 PM</span><span>Dock Hall 3</span><code>fyi/e/copper-hours</code></span></span></span></span></button>
-      </div>
-      <p class="fym-say" aria-live="polite">Pick a stop to see its rule.</p>
+
+  <section class="fy2-end" id="end">
+    <div class="wrap">
+      <p class="fy2-kick">Where it stands</p>
+      <h2>A pilot that did not go ahead</h2>
+      <p class="fy2-lede">FYI was a pilot Intune worked on with will.i.am. It did not go ahead, and I still enjoyed the process.</p>
+      <p class="fy2-note">Three things here are new, designed for this page: going back to the message, the public event page and the Project tab.</p>
     </div>
-  </div>
-</section>
-<section class="fya-sec" id="fya-colour">
-  <div class="wrap">
-    <div class="fya-head"><div><p class="fya-kick">The colour</p><h2>Pink is you. Every other colour has one job.</h2></div><p class="fya-lede">Pick a colour to see where it lives.</p></div>
-    <div class="fyac">
-      
-      <div class="fyac-roles" role="group" aria-label="The colours, by the job each one does">
-        <button type="button" class="fyac-r" data-k="you" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:#ff2d8f"></i></span><b>You</b><span class="fyac-job">What you say and what you send</span></button>
-        <button type="button" class="fyac-r" data-k="ai" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:linear-gradient(135deg,#ff2d8f,#7a2cff)"></i><i style="background:#c9b8ff"></i></span><b>AI</b><span class="fyac-job">A line, never a fill</span></button>
-        <button type="button" class="fyac-r" data-k="live" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:#30d158"></i></span><b>Live</b><span class="fyac-job">Happening right now</span></button>
-        <button type="button" class="fyac-r" data-k="people" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:#e8b45c"></i><i style="background:#c3dc6b"></i><i style="background:#f28db2"></i><i style="background:#8ec8f2"></i></span><b>People</b><span class="fyac-job">A name, never a state</span></button>
-        <button type="button" class="fyac-r" data-k="print" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:#f7f3ea"></i><i style="background:#15183f"></i><i style="background:#22cdf0"></i></span><b>Print</b><span class="fyac-job">What leaves the chat</span></button>
-        <button type="button" class="fyac-r" data-k="signal" aria-pressed="false"><span class="fyac-sw" aria-hidden="true"><i style="background:#ffb547"></i><i style="background:#ff453a"></i></span><b>Signals</b><span class="fyac-job">Needs your attention</span></button>
-      </div>
-      <p class="fyac-say" aria-live="polite"><b data-rest="Every colour at work">Every colour at work</b><span></span></p>
-      <div class="fyac-stage">
-        <div class="fx-dev fyac-dev"><div class="fx-body"><div class="fx-screen"><div class="fx-app fx-static fyac-kit" role="img" aria-label="A piece of the Copper Hours thread, built from the app's own parts"></div><div class="fx-sb" aria-hidden="true"><span>9:41</span><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12"><path d="M8 2.3c2.3 0 4.4.9 6 2.4l1.2-1.3A10.4 10.4 0 0 0 8 .5 10.4 10.4 0 0 0 .8 3.4L2 4.7a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.7 6.7 0 0 0 8 4.1a6.7 6.7 0 0 0-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4 10 7.5a3 3 0 0 0-4 0z"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="23" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="8" rx="2.2"/><path d="M25 4v4a2 2 0 0 0 0-4z" opacity=".45"/></svg></span></div><i class="fx-island"></i><i class="fx-home"></i></div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="fya-sec" id="fya-kit">
-  <div class="wrap">
-    <div class="fya-head"><div><p class="fya-kick">The kit</p><h2>Real parts, each with its states.</h2></div><div><p class="fya-lede">Each part below is the component itself, so press it and it does its job.</p>
-      <div class="fyak-bar">
-        <p class="fyak-bar-l" id="fyakit-l">Set every part to</p>
-        <div class="fyak-seg" role="group" aria-labelledby="fyakit-l">
-          <button type="button" aria-pressed="true" data-s="0">Resting</button><button type="button" aria-pressed="false" data-s="1">In use</button><button type="button" aria-pressed="false" data-s="2">Done</button>
-        </div>
-      </div></div></div>
-    <div class="fyak-wall">
-      <figure class="fyak-t" data-k="voice"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Voice note</b><span class="fyak-s">Resting</span></figcaption></figure>
-      <figure class="fyak-t" data-k="poll"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Poll</b><span class="fyak-s">Open</span></figcaption></figure>
-      <figure class="fyak-t" data-k="task"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Task</b><span class="fyak-s">Approved</span></figcaption></figure>
-      <figure class="fyak-t" data-k="ticket"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Event ticket</b><span class="fyak-s">Invited</span></figcaption></figure>
-      <figure class="fyak-t" data-k="ai"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>AI card</b><span class="fyak-s">Ready</span></figcaption></figure>
-      <figure class="fyak-t" data-k="comp"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Composer</b><span class="fyak-s">Empty</span></figcaption></figure>
-      <figure class="fyak-t" data-k="sw"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Switch</b><span class="fyak-s">Private</span></figcaption></figure>
-      <figure class="fyak-t" data-k="file"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>File</b><span class="fyak-s">Ready</span></figcaption></figure>
-    </div>
-  </div>
-</section>
-<section class="fya-sec" id="fya-launch">
-  <div class="wrap">
-    <div class="fya-head"><div><p class="fya-kick">The formats</p><h2>One event. Every format follows.</h2></div><p class="fya-lede">Move the doors and every format is marked out of date until a host refreshes it.</p></div>
-    <div class="fl-grid">
-      <div class="fya-black fl-src">
-        <div class="fx-app fx-static fya-kit">
-          <div class="a-tk fl-tk"><span class="a-pub">Public</span><div class="ps"></div><div class="perf"></div><div class="stub"><span class="db"><b>NOV</b><span>20</span></span><div class="inf"><div class="tt" data-fl-tt>Fri · Doors 9&nbsp;PM</div><div class="pl">Dock Hall 3</div></div></div></div>
-          <p class="fl-cap">Demo event · Copper Hours</p>
-          <button type="button" class="fl-move" data-fl-move>Move doors to 10 PM</button>
-        </div>
-      </div>
-      <div class="fya-card fl-press" data-fl-press>
-        <div class="fl-table">
-          <figure class="fl-sheet fl-story">
-            <div class="fl-paper"><div class="fl-face">
-              <div class="fl-art"><i class="k"></i><i class="c"></i><i class="v"></i></div>
-              <div class="fl-ink"><b class="fl-t fl-pl">Copper<br>Hours</b><span class="fl-strip fl-pl">Launch night</span><span class="fl-when"><small>Doors</small><b class="fl-pl" data-fl-time>9 PM</b></span><span class="fl-meta">Fri Nov 20 · Dock Hall 3</span><span class="fl-meta fl-end">RSVP on FYI</span></div>
-            </div></div>
-            <span class="fl-stale">Out of date</span>
-            <figcaption>Story 9:16</figcaption>
-          </figure>
-          <figure class="fl-sheet fl-square">
-            <div class="fl-paper"><div class="fl-face">
-              <div class="fl-art"><i class="k"></i><i class="c"></i><i class="v"></i></div>
-              <div class="fl-ink"><span class="fl-strip fl-pl">Launch night</span><span class="fl-when"><small>Doors</small><b class="fl-pl" data-fl-time>9 PM</b></span><span class="fl-meta">Fri Nov 20 · Dock Hall 3</span></div>
-            </div></div>
-            <span class="fl-stale">Out of date</span>
-            <figcaption>Square post 1:1</figcaption>
-          </figure>
-          <figure class="fl-sheet fl-link">
-            <div class="fl-paper"><div class="fl-face">
-              <span class="fl-url">fyi/e/copper-hours</span>
-              <div class="fl-art"><i class="k"></i><i class="c"></i><i class="v"></i></div>
-              <div class="fl-ink"><b class="fl-lt">Copper Hours: Launch Night</b><span class="fl-when"><small>Doors</small><b class="fl-pl" data-fl-time>9 PM</b></span><span class="fl-meta">Fri, Nov 20 · Dock Hall 3</span><span class="fl-go"><i>RSVP</i><em>Going · 27</em></span></div>
-            </div></div>
-            <span class="fl-stale">Out of date</span>
-            <figcaption>Link page</figcaption>
-          </figure>
-        </div>
-        <div class="fl-bar">
-          <p class="fl-status" aria-live="polite"><svg class="fl-reg" viewBox="0 0 24 24" aria-hidden="true"><g class="c"><circle cx="12" cy="12" r="6.5"/><path d="M12 1v22M1 12h22"/></g><g class="v"><circle cx="12" cy="12" r="6.5"/><path d="M12 1v22M1 12h22"/></g><g class="k"><circle cx="12" cy="12" r="6.5"/><path d="M12 1v22M1 12h22"/></g></svg><b data-fl-st>Up to date</b><span data-fl-sub>Doors 9 PM on all three</span></p>
-          <button type="button" class="fya-btn fl-refresh" data-fl-refresh disabled>Refresh</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-</div>
+  </section>
 <section class="ot-end" id="recap">
     <div class="wrap">
 
@@ -378,19 +266,10 @@ if(ok)d.classList.add('ot-3d');}catch(e){}})();</script>
 <script src="case.js?v=7"></script>
 <script src="fyi-live.js?v=4"></script>
 <script src="fyi-scenes.js?v=15"></script>
-<script src="fyi-art.js?v=10"></script>
-<script>/* the 3D engine loads only when the page can use it; if it fails, the page stays flat */
-(function(){var d=document.documentElement;if(!d.classList.contains('ot-3d'))return;
-var flat=function(){d.classList.remove('ot-3d');},add=function(src,next){var s=document.createElement('script');s.src=src;s.onload=next;s.onerror=flat;document.body.appendChild(s);};
-var r=(/[?&]r=(\d+)/.exec(location.search)||[])[1];r=r?'&r='+r:'';
-add('fyi-3d.js?v=6'+r,function(){add('fyi-take.js?v=13'+r);});})();</script>
+<script src="fyi-thread.js?v=2"></script>
 <script src="../v7/foot.js?v=224" defer></script>
-<script src="../v7/fya-why.js?v=7" defer></script>
-<script src="../v7/fya-map.js?v=7" defer></script>
 <script src="../v7/fya-colour.js?v=7" defer></script>
-<script src="../v7/fya-kit.js?v=7" defer></script>
 <script src="../v7/gyro.js?v=1" defer></script>
 <script src="../v7/fya-cast.js?v=11" defer></script>
-<script src="../v7/fya-launch.js?v=7" defer></script>
 </body>
 </html>

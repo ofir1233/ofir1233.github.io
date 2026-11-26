@@ -1,0 +1,167 @@
+/* FYI case study, the run (26.11.2026): one phone, one thread, five stops.
+   The phone stays in place while the page scrolls; what leaves the glass lands beside it as a printed thing.
+   Every rule starts with .fy2 so nothing here reaches the layers below (v7/fya-*.css) or the app kit (fyi-live.css). */
+.fy2{ --fy2-pink:#ff2d8f; --fy2-cyan:#22cdf0; --fy2-navy:#15183f; --fy2-rim:#e6e5e1; --fy2-ease:cubic-bezier(.2,.8,.2,1);
+  --fy2-mono:"Geist Mono",ui-monospace,Menlo,monospace; --fy2-d:"Bricolage Grotesque","Byrd",Arial,sans-serif;
+  --fy2-print:-2px 1.5px 0 rgba(34,205,240,.85), 2px -1.5px 0 rgba(255,45,143,.8), 0 1px 2px rgba(23,27,32,.3), 0 30px 40px -22px rgba(23,27,32,.45);
+  --fy2-pw:min(330px, calc((100svh - 150px) * .4794)); }
+.fy2, .fy2 *, .fy2 *::before, .fy2 *::after{ box-sizing:border-box; }
+.fy2 [hidden]{ display:none !important; }
+
+/* ---------- the run ---------- */
+.fy2-run{ position:relative; }
+.fy2-s{ position:relative; display:grid; grid-template-columns:400px 60px 330px 70px minmax(0,1fr); align-items:center; max-width:1160px; min-height:100svh; margin:0 auto; padding:96px 0 40px; scroll-margin-top:0; }
+.fy2-tx{ grid-column:1; min-width:0; align-self:start; margin-top:clamp(110px,19svh,180px); }
+.fy2-m{ display:none; }
+.fy2-obj{ grid-column:5; min-width:0; display:flex; justify-content:flex-start; }
+
+/* the phone: pinned to the middle column for the whole run */
+.fy2-pin{ position:sticky; z-index:3; top:calc(50svh - var(--fy2-pw) * 1.043 + 28px); height:0; max-width:1160px; margin:0 auto; pointer-events:none; }
+.fy2-pin .fy2-dev{ position:absolute; left:calc(460px + (330px - var(--fy2-pw)) / 2); top:0; }
+.fy2-dev{ --pw:var(--fy2-pw); filter:drop-shadow(0 34px 44px rgba(23,27,32,.22)); }
+
+/* the thread from a message to the thing it became */
+.fy2-lines{ position:fixed; z-index:2; left:0; top:0; width:100vw; height:100vh; overflow:visible; pointer-events:none; }
+.fy2-lines path{ fill:none; stroke:var(--fy2-pink); stroke-width:2; stroke-linecap:round; opacity:0; stroke-dasharray:1; stroke-dashoffset:1; transition:opacity .3s; }
+.fy2-lines path.on{ stroke-dashoffset:0; transition:stroke-dashoffset .42s var(--fy2-ease), opacity .3s; }
+
+/* ---------- words ---------- */
+.fy2-kick{ margin:0 0 18px; font:600 16px/1.2 var(--body); color:var(--ink); }
+.fy2 h1, .fy2-tx h2, .fy2-end h2{ margin:0; font-family:var(--display); font-weight:700; font-size:clamp(32px,3.1vw,44px); line-height:1.05; letter-spacing:-.04em; color:var(--head); text-wrap:balance; }
+.fy2 h1{ font-size:clamp(44px,5vw,68px); line-height:1; }
+.fy2-lede{ margin:24px 0 0; max-width:38ch; font:400 19px/1.5 var(--body); color:var(--text); text-wrap:pretty; }
+.fy2-meta{ margin:26px 0 0; font:600 15.5px/1.4 var(--body); color:var(--ink); }
+.fy2-note{ margin:10px 0 0; max-width:40ch; font:400 15.5px/1.5 var(--body); color:var(--mute); }
+.fy2-rule{ margin:22px 0 0; padding-left:14px; border-left:2px solid var(--fy2-pink); max-width:34ch; font:600 17px/1.4 var(--body); color:var(--ink); }
+
+/* where you are: three stations */
+.fy2-rail{ display:flex; gap:22px; margin:0 0 22px; padding:0; list-style:none; font:600 16px/1.2 var(--body); }
+.fy2-rail a{ color:var(--mute); text-decoration:none; }
+.fy2-rail li{ position:relative; padding-bottom:8px; }
+.fy2-rail li::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:2px; border-radius:2px; background:rgba(23,27,32,.14); }
+.fy2-rail li.on a{ color:var(--ink); }
+.fy2-rail li.on::after{ background:var(--fy2-pink); }
+.fy2-rail li.dn::after{ background:rgba(23,27,32,.42); }
+.fy2-rail a:hover{ color:var(--ink); }
+
+.fy2-btn{ display:inline-flex; align-items:center; justify-content:center; min-height:52px; margin-top:28px; padding:0 26px; border:0; border-radius:12px; background:var(--ink); color:#fff; font:600 16.5px/1 var(--body); cursor:pointer; transition:background-color .2s, transform .2s; }
+.fy2-btn:hover{ background:#2a3038; }
+.fy2-btn:active{ transform:scale(.98); }
+.fy2-btn:focus-visible, .fy2-press:focus-visible{ outline:2px solid var(--fy2-pink); outline-offset:4px; }
+
+/* ---------- the things that left the glass ---------- */
+.fy2-out{ opacity:0; }
+.fy2-out.is-out{ opacity:1; }
+.fy2-src, .fy2-go{ display:block; font:500 13px/1.4 var(--fy2-mono); color:#5b5f7c; }
+.fy2-card{ display:flex; flex-direction:column; align-items:flex-start; gap:10px; width:280px; padding:22px 22px 20px; border:0; border-radius:10px; background:#fff; color:var(--fy2-navy); box-shadow:var(--fy2-print); rotate:-1.5deg; text-align:left; font-family:var(--body); }
+.fy2-ct{ font:800 30px/1.02 var(--fy2-d); letter-spacing:-.02em; color:var(--fy2-navy); }
+.fy2-cm{ display:flex; align-items:center; gap:9px; font:500 16px/1.3 var(--body); color:var(--fy2-navy); }
+.fy2-cm img, .fy2-f img{ border-radius:50%; }
+.fy2-card .fy2-src{ margin-top:6px; padding-top:12px; border-top:1px dashed rgba(21,24,63,.25); align-self:stretch; }
+
+.fy2-big{ width:300px; gap:0; padding:24px 24px 0; rotate:1.2deg; cursor:pointer; transition:translate .25s var(--fy2-ease), box-shadow .25s; }
+.fy2-big .fy2-ct{ margin-bottom:16px; }
+.fy2-f{ display:grid; grid-template-columns:1fr auto; gap:2px 12px; align-items:center; align-self:stretch; padding:11px 0; border-top:1px solid rgba(21,24,63,.12); }
+.fy2-f small{ grid-column:1 / -1; font:500 12.5px/1.3 var(--body); color:#5b5f7c; }
+.fy2-f > span{ display:flex; align-items:center; gap:8px; font:600 16.5px/1.3 var(--body); }
+.fy2-f em{ font:500 12px/1.3 var(--fy2-mono); font-style:normal; color:#5b5f7c; }
+.fy2-go{ align-self:stretch; margin:6px -24px 0; padding:15px 24px 16px; border-radius:0 0 10px 10px; background:var(--fy2-navy); color:#fff; font:500 14px/1.3 var(--fy2-mono); }
+.fy2-big:hover{ translate:0 -3px; }
+.fy2-big:active{ translate:0 0; }
+
+/* the three covers: the one the crew chose steps forward */
+.fy2-covs{ position:relative; width:300px; height:430px; }
+.fy2-cv{ display:block; border-radius:6px; overflow:hidden; box-shadow:0 1px 2px rgba(23,27,32,.3), 0 26px 34px -18px rgba(23,27,32,.45); }
+.fy2-cv img{ display:block; width:100%; height:auto; }
+.fy2-covs .fy2-cv{ position:absolute; }
+.fy2-covs .a{ left:0; top:0; width:150px; rotate:-6deg; filter:saturate(.75); opacity:.9; }
+.fy2-covs .c{ right:0; top:26px; width:150px; rotate:6deg; filter:saturate(.75); opacity:.9; }
+.fy2-covs .b{ left:26px; top:128px; width:248px; overflow:visible; rotate:-2deg; box-shadow:var(--fy2-print); border-radius:6px; }
+.fy2-covs .b img{ border-radius:6px; }
+.fy2-covs .b .fy2-src{ position:absolute; left:0; top:calc(100% + 16px); white-space:nowrap; rotate:2deg; }
+
+/* the public page of the event */
+.fy2-web{ display:flex; flex-direction:column; width:270px; border-radius:12px; overflow:hidden; background:#f7f3ea; color:var(--fy2-navy); box-shadow:0 0 0 1px rgba(23,27,32,.08), 0 30px 40px -22px rgba(23,27,32,.45); }
+.fy2-url{ margin:10px 10px 0; padding:7px 12px; border-radius:8px; background:rgba(21,24,63,.07); font:500 12.5px/1.3 var(--fy2-mono); color:#5b5f7c; }
+.fy2-art{ display:block; margin:10px 10px 0; border-radius:6px; overflow:hidden; aspect-ratio:1 / .86; }
+.fy2-art img{ display:block; width:100%; height:100%; object-fit:cover; object-position:50% 0; }
+.fy2-wi{ display:flex; flex-direction:column; gap:8px; padding:16px 18px 18px; }
+.fy2-wt{ font:800 24px/1.04 var(--fy2-d); letter-spacing:-.02em; color:var(--fy2-navy); }
+.fy2-ww{ font:500 14.5px/1.4 var(--body); }
+.fy2-ww [data-bind]{ display:inline-block; font-weight:700; }
+.fy2-wr{ display:flex; align-items:center; justify-content:space-between; margin-top:6px; font:500 14.5px/1 var(--body); }
+.fy2-wr i{ display:inline-flex; align-items:center; height:38px; padding:0 20px; border-radius:99px; background:var(--fy2-pink); color:#fff; font:600 14.5px/1 var(--body); font-style:normal; }
+.fy2-web .fy2-src{ margin-top:6px; padding-top:12px; border-top:1px dashed rgba(21,24,63,.25); }
+.fy2-flash{ animation:fy2-flash .6s var(--fy2-ease); }
+@keyframes fy2-flash{ 0%{ background:var(--fy2-pink); color:#fff; box-shadow:0 0 0 4px var(--fy2-pink); border-radius:3px; } 100%{ background:transparent; box-shadow:0 0 0 4px transparent; } }
+
+/* the Project tab's three things, small */
+.fy2-trio{ display:flex; flex-direction:column; align-items:flex-start; gap:20px; }
+.fy2-sm.fy2-card{ width:230px; padding:16px 18px; gap:6px; }
+.fy2-sm .fy2-ct{ font-size:22px; }
+.fy2-sm .fy2-cm{ font-size:14.5px; }
+.fy2-trio .fy2-cv{ width:100px; rotate:1deg; box-shadow:var(--fy2-print); }
+.fy2-trio .fy2-card:last-child{ rotate:-1deg; }
+
+/* ---------- inside the phone ---------- */
+.fy2-app .fy2-view{ position:absolute; inset:0; }
+.fy2-app .fy2-view.a-tasks{ z-index:19; top:139px; transform:translateX(102%); transition:transform .42s var(--fy2-ease); padding-top:14px; }
+.fy2-app[data-tab="1"] .fy2-tasks, .fy2-app[data-tab="2"] .fy2-proj{ transform:none; }
+.fy2-app .a-msgs{ gap:0; padding-bottom:12px; }
+.fy2-app .a-msgs > [data-k]{ display:flex; flex-direction:column; margin-top:10px; transition:opacity .35s; }
+.fy2-app .a-msgs > [data-k="chip"], .fy2-app .a-msgs > [data-k="sug"]{ margin-top:4px; padding-left:36px; }
+.fy2-app .fy2-dim{ opacity:.38; }
+.fy2-app .fy2-in{ animation:fy2-in .42s var(--fy2-ease) backwards; }
+@keyframes fy2-in{ from{ opacity:0; transform:translateY(14px); } }
+.fy2-app .a-poll .who{ display:block; margin-bottom:4px; font:600 13px/16px var(--fxf); color:var(--c, var(--t2)); }
+.fy2-app .a-poll .r.mine{ box-shadow:inset 0 0 0 1.5px #ff2d8f; }
+.fy2-app .a-ai b{ display:inline; }
+.fy2-app .a-tasks h5{ margin-top:18px; font-size:14px; }
+.fy2-app .a-trow{ padding:13px 12px; }
+.fy2-app .a-trow .tt{ font-size:17px; line-height:22px; }
+.fy2-app .a-trow .mt{ font-size:14px; line-height:18px; }
+.fy2-app .fy2-from .a-src{ display:block; font-size:13px; line-height:17px; white-space:normal; }
+.fy2-app .a-tk .cnt .a-stack{ display:none; }
+.fy2-app .a-tk .cnt{ white-space:nowrap; }
+.fy2-app .fy2-th{ flex:none; width:44px; height:44px; border-radius:9px; }
+.fy2-app .a-seg .n{ font-style:normal; }
+/* back at the message: the ring that says "this one" */
+.fy2-app .fy2-ring .a-b{ animation:fy2-ring 1.5s var(--fy2-ease) both; box-shadow:0 0 0 2.5px #ff2d8f, 0 0 0 9px rgba(255,45,143,.26); }
+@keyframes fy2-ring{ 0%{ box-shadow:0 0 0 2.5px rgba(255,45,143,0), 0 0 0 26px rgba(255,45,143,0); } 35%{ box-shadow:0 0 0 2.5px #ff2d8f, 0 0 0 9px rgba(255,45,143,.4); } 100%{ box-shadow:0 0 0 2.5px #ff2d8f, 0 0 0 9px rgba(255,45,143,.26); } }
+/* a drawn touch on a control */
+.fy2-app .fy2-tap{ position:relative; }
+.fy2-app .fy2-tap::after{ content:""; position:absolute; left:50%; top:50%; width:44px; height:44px; margin:-22px 0 0 -22px; border-radius:50%; background:rgba(255,255,255,.3); box-shadow:0 0 0 1.5px rgba(255,255,255,.7); animation:fy2-tap .5s var(--fy2-ease) both; }
+@keyframes fy2-tap{ 0%{ opacity:0; transform:scale(1.5); } 40%{ opacity:1; transform:scale(.8); } 100%{ opacity:0; transform:scale(1); } }
+
+/* ---------- the closing ---------- */
+.fy2-end{ position:relative; z-index:3; background:var(--ground); padding:clamp(80px,8.5vw,120px) 0 24px; }
+.fy2-end .fy2-lede{ max-width:46ch; }
+.fy2-end .fy2-note{ max-width:52ch; margin-top:18px; }
+
+/* ---------- narrow screens: one phone per station, the thing under it ---------- */
+@media (max-width: 999px){
+  .fy2{ --fy2-pw:min(290px, calc(100vw - 96px)); }
+  .fy2-pin, .fy2-lines{ display:none; }
+  .fy2-s{ display:flex; flex-direction:column; align-items:stretch; max-width:560px; min-height:0; padding:96px 20px 0; }
+  .fy2-hero{ padding-top:112px; }
+  .fy2-m{ display:flex; justify-content:center; margin-top:36px; }
+  .fy2-obj{ justify-content:center; margin-top:28px; position:relative; z-index:4; padding-bottom:8px; }
+  .fy2-tx{ margin-top:0; }
+  .fy2-ev .fy2-tx{ display:contents; }
+  .fy2-ev .fy2-m{ order:2; } .fy2-ev .fy2-btn{ order:3; align-self:center; margin-top:22px; } .fy2-ev .fy2-obj{ order:4; }
+  .fy2-out{ translate:0 16px; transition:opacity .4s, translate .5s var(--fy2-ease); }
+  .fy2-out.is-out{ translate:0 0; }
+  .fy2-hero .fy2-obj, .fy2-pj .fy2-obj{ display:none; }
+  .fy2-lede{ font-size:17.5px; margin-top:18px; }
+  .fy2-card, .fy2-big{ width:min(280px, 100%); }
+  .fy2-covs{ width:280px; height:270px; }
+  .fy2-covs .a, .fy2-covs .c{ width:120px; }
+  .fy2-covs .b{ left:50px; top:54px; width:180px; }
+  .fy2-web{ width:260px; }
+  .fy2-art{ aspect-ratio:1 / .62; }
+  .fy2-btn{ align-self:flex-start; }
+}
+@media (prefers-reduced-motion: reduce){
+  .fy2-app .fy2-view.a-tasks, .fy2-app .a-msgs > [data-k], .fy2-big{ transition:none; }
+  .fy2-app .fy2-in, .fy2-app .fy2-ring .a-b, .fy2-flash{ animation:none; }
+}
