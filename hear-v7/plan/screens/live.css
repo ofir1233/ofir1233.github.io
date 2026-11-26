@@ -434,3 +434,245 @@
 .ex-ln.on{background:#EEF6FE;color:var(--ink)}
 .ex-ln.hot span{box-shadow:inset 2px 0 0 #FF6F52;padding-left:9px;margin-left:-11px}
 @media (max-width:900px){.ex-cols{grid-template-columns:minmax(0,1fr)}}
+/* Agent evaluation: the chart takes the height the page has, the spread stays at its foot */
+#sx-agents.lv .ae-plot{max-height:none}
+/* a story's sheet: its last seven days as a small figure */
+.lv-wk{display:flex;align-items:flex-end;gap:5px;height:64px;margin-top:10px;padding-bottom:1px;border-bottom:1px solid var(--line)}
+.lv-wk i{flex:1;border-radius:2px 2px 0 0;background:#A9DAFE}
+.lv-wk i.hi{background:#FF6F52}
+.lv-wk i.ok{background:#139FFD}
+.lv-wkx{display:flex;justify-content:space-between;margin-top:5px;font-size:12px;color:var(--mut)}
+
+/* ---------- second round, 26.11.2026 ---------- */
+/* a screen arrives with one short move */
+.s5 .sx.lv.on>.card{animation:lv-in .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes lv-in{from{opacity:0;transform:translateY(8px)}}
+@media (prefers-reduced-motion:reduce){.s5 .sx.lv.on>.card{animation:none}}
+/* Data: what is selected, on a bar of its own */
+.lv-selbar{position:absolute;z-index:7;left:50%;bottom:64px;display:flex;align-items:center;gap:6px;height:46px;padding:0 8px 0 18px;border-radius:23px;background:#1D2126;color:#fff;font-size:13.5px;white-space:nowrap;box-shadow:0 18px 40px -14px rgba(8,20,40,.6);opacity:0;transform:translate(-50%,10px);pointer-events:none;transition:opacity .2s,transform .28s cubic-bezier(.2,.8,.2,1)}
+.lv-selbar.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.lv-selbar>span{margin-right:10px;color:rgba(255,255,255,.7)}
+.lv-selbar>span b{font-weight:600;color:#fff}
+.lv-selbar .lv-t{height:30px;margin:0;padding:0 13px;border-radius:15px;background:rgba(255,255,255,.12);box-shadow:none;font-size:13px;color:#fff}
+.lv-selbar .lv-t:hover{background:rgba(255,255,255,.22);box-shadow:none}
+.lv-selbar .lv-t.x{width:30px;padding:0;display:grid;place-items:center;background:none}
+.lv-selbar .lv-t.x svg{width:14px;height:14px}
+#sx-data.lv.side-on .lv-selbar{left:calc((100% - 398px)/2)}
+/* Data: what the plain-words field can be asked */
+.lv-sugg{position:absolute;z-index:8;left:0;right:0;top:calc(100% + 8px);display:none;flex-direction:column;padding:8px;border-radius:16px;background:#fff;box-shadow:0 0 0 1px rgba(16,34,60,.08),0 18px 40px -14px rgba(8,20,40,.4)}
+.dt-ask.sg .lv-sugg{display:flex;animation:lv-pop .16s cubic-bezier(.2,.8,.2,1)}
+.lv-sugg small{padding:4px 10px 6px;font-size:12px;font-weight:500;color:var(--mut)}
+.lv-sugg button{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:10px;font-size:14px;color:var(--ink2);text-align:left}
+.lv-sugg button:hover{background:var(--lilac-tint,#F3ECF8);color:var(--ink)}
+.lv-sugg button svg{flex:none;width:15px;height:15px;color:var(--lilac-ink,#7A3F9A)}
+/* Explore: from one call to the next */
+.ex-nav{display:inline-flex;align-items:center;gap:2px;font-size:12.5px;color:var(--mut);font-variant-numeric:tabular-nums}
+.ex-nav em{font-style:normal;padding:0 4px}
+.ex-nav button{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;color:var(--ink2)}
+.ex-nav button:hover:not(:disabled){background:rgba(24,36,48,.07)}
+.ex-nav button:disabled{opacity:.3}
+.ex-nav svg{width:15px;height:15px}
+/* Explore: the recording as a drawing of the call */
+.ex-play{gap:12px}
+.ex-bar{height:44px}
+.ex-bar::before{display:none}
+.ex-wave{position:absolute;inset:0;display:flex;align-items:center;gap:1.5px}
+.ex-wave i{flex:1;min-width:1px;border-radius:1px;background:#CBD5DE;transition:background-color .12s}
+.ex-wave i.a{background:#BFD9F2}
+.ex-wave i.p{background:#8D959D}
+.ex-wave i.a.p{background:#139FFD}
+.ex-ph{position:absolute;top:-2px;bottom:-2px;width:2px;margin-left:-1px;border-radius:1px;background:#232323}
+.ex-bar s{top:0;bottom:0;height:auto;width:1px;background:rgba(24,36,48,.14)}
+.ex-bar u{top:-5px}
+.ex-bar:hover .ex-wave i:not(.p){filter:brightness(.94)}
+/* Explore: find in the transcript */
+.ex-find{flex:none;display:flex;align-items:center;gap:8px;height:34px;margin-top:10px;padding:0 12px;border-radius:17px;background:rgba(24,36,48,.055);font-size:13.5px;color:var(--mut)}
+.ex-find:focus-within{background:#fff;box-shadow:inset 0 0 0 1.5px #139FFD,0 0 0 4px rgba(19,159,253,.14)}
+.ex-find svg{width:15px;height:15px}
+.ex-find input{flex:1;min-width:0;height:100%;border:0;outline:0;background:none;font:inherit;color:var(--ink)}
+.ex-find em{font-style:normal;font-size:12.5px}
+.ex-chs{border-bottom:0;padding-bottom:0}
+.ex-ln.dim{opacity:.3}
+.lv-selbar.on~.lv-flash{bottom:124px}
+
+/* ---------- Agent evaluation: the agents ---------- */
+#sx-agents.lv .ag-tabs{margin-top:18px}
+#sx-agents.lv .ag-tabs span{cursor:pointer}
+#sx-agents.lv .ag-tabs span:hover{color:var(--ink)}
+#sx-agents.lv .kpis>div:first-child{cursor:pointer}
+#sx-agents.lv .kpis>div:first-child:hover b{color:var(--deep)}
+#sx-agents.lv .sx-body{margin-top:16px}
+.ag-view{display:none;flex:1;min-height:0;flex-direction:column;margin-top:14px}
+#sx-agents.agv .sx-body{display:none}
+#sx-agents.agv .ag-view{display:flex}
+.ag-bar{flex:none;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.ag-bar .sp{flex:1}
+.ag-search{width:200px;flex:none}
+.ag-search input{flex:1;min-width:0;height:100%;border:0;outline:0;background:none;font:inherit;color:var(--ink)}
+.ag-search:focus-within{background:#fff;box-shadow:inset 0 0 0 1.5px #139FFD,0 0 0 4px rgba(19,159,253,.14)}
+.ag-chips{display:flex;gap:6px;margin-left:6px}
+.ag-chips .sx-chip{gap:6px;height:30px;padding:0 11px;transition:box-shadow .15s}
+.ag-chips .sx-chip i{width:8px;height:8px;border-radius:50%}
+.ag-chips .sx-chip:not(.on):hover{box-shadow:inset 0 0 0 1.5px #8D959D}
+.ag-chips .sx-chip.on b{color:#fff}
+.ag-chips i.g5{background:#0B6FCF}.ag-chips i.g4{background:#139FFD}.ag-chips i.g3{background:#A9DAFE}.ag-chips i.g2{background:#FFD0C4}.ag-chips i.g1{background:#FF6F52}
+.ag-n{font-size:13px;color:var(--mut)}
+.ag-n b{font-weight:600;color:var(--ink)}
+.ag-r{display:grid;grid-template-columns:minmax(180px,1.4fr) 110px 70px minmax(0,1.3fr) 96px 56px;align-items:center;gap:16px;padding:0 12px;margin:0 -12px;font-size:14px;color:var(--ink2);white-space:nowrap}
+.ag-r.hd{flex:none;height:32px;margin-top:10px;box-shadow:inset 0 -1px 0 var(--line);font-size:11.5px;font-weight:500;color:var(--mut)}
+.ag-r.hd span{display:flex;align-items:center;gap:3px;cursor:pointer}
+.ag-r.hd span:hover,.ag-r.hd span.srt{color:var(--ink)}
+.ag-r.hd svg{width:12px;height:12px}
+.ag-r.hd span:nth-child(3),.ag-r .nu{justify-content:flex-end;text-align:right;font-variant-numeric:tabular-nums}
+.ag-r>span:last-child{display:flex;justify-content:flex-end}
+.ag-rows{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.ag-rows .ag-r{flex:none;height:48px;border-radius:10px;box-shadow:inset 0 -1px 0 var(--line);cursor:pointer;transition:background-color .12s}
+.ag-rows .ag-r:hover{background:rgba(24,36,48,.035)}
+.ag-rows .ag-r.hot{background:#EEF6FE}
+.ag-rows.is-new .ag-r{animation:dt-in .3s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--n)*.02s)}
+.ag-r .nm{display:flex;align-items:center;gap:9px;min-width:0;font-weight:600;color:var(--ink)}
+.ag-r .nm .sx-av{width:24px;height:24px;font-size:10px}
+.ag-r>span{overflow:hidden;text-overflow:ellipsis}
+.ag-r .dl{color:var(--mut)}
+.ag-r .dl.dn{color:#C2452B}.ag-r .dl.up{color:#2A8554}
+.ag-sc{display:inline-grid;place-items:center;min-width:38px;height:22px;border-radius:11px;font-style:normal;font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.ag-sc.g1{background:#FF6F52;color:#fff}.ag-sc.g2{background:#FFD0C4;color:#8E2A14}.ag-sc.g3{background:#DCEFFE;color:#1B4666;box-shadow:inset 0 0 0 1.5px #A9DAFE}.ag-sc.g4{background:#A9DAFE;color:#0B3A5E}.ag-sc.g5{background:#139FFD;color:#fff}
+.ag-foot{flex:none;display:flex;align-items:center;gap:4px;height:44px;font-size:12.5px;color:var(--mut)}
+.ag-foot .sp{flex:1}
+.ag-foot b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.ag-foot button{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;color:var(--ink2)}
+.ag-foot button:hover:not(:disabled){background:rgba(24,36,48,.07)}
+.ag-foot button:disabled{opacity:.3}
+.ag-foot svg{width:15px;height:15px}
+#sx-agents.side-on .ag-r{grid-template-columns:minmax(150px,1fr) 70px 56px}
+#sx-agents.side-on .ag-r>:nth-child(2),#sx-agents.side-on .ag-r>:nth-child(4),#sx-agents.side-on .ag-r>:nth-child(5),#sx-agents.side-on .ag-chips .sx-chip:not(.on):not(:first-child){display:none}
+/* an agent's sheet */
+.ag-hero{display:flex;align-items:center;gap:14px;margin-top:16px}
+.ag-hero .ag-sc{min-width:64px;height:44px;border-radius:14px;font-size:24px;font-weight:600;letter-spacing:-.02em}
+.ag-hero span{font-size:13px;line-height:1.4;color:var(--mut)}
+.ag-hero strong{display:block;font-size:15px;font-weight:600;color:var(--ink)}
+.ag-cr>div{display:grid;grid-template-columns:minmax(0,1fr) 90px 26px;align-items:center;gap:12px;height:34px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+.ag-cr>div:first-child{border-top:0}
+.ag-cr span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ag-cr i{height:5px;border-radius:3px;background:rgba(24,36,48,.08);overflow:hidden}
+.ag-cr u{display:block;height:100%;border-radius:3px}
+.ag-cr u.g1{background:#FF6F52}.ag-cr u.g2{background:#FFB8A8}.ag-cr u.g3{background:#A9DAFE}.ag-cr u.g4{background:#63BEFE}.ag-cr u.g5{background:#139FFD}
+.ag-cr b{font-weight:600;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+.sx-side.on .ag-cr u{animation:lv-grow .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.15s + var(--i)*.05s)}
+@keyframes lv-grow{from{width:0}}
+.ag-call{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;height:38px;border-top:1px solid var(--line);font-size:13.5px;text-align:left;color:var(--ink2)}
+.ag-call:first-of-type{border-top:0}
+.ag-call span{color:var(--mut)}
+.ag-call b{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ag-call:hover b{color:var(--deep)}
+
+/* Workflows: carrying a card */
+#sx-actions.lv .ac-card{cursor:grab}
+#sx-actions.lv .ac-card.drag{opacity:.35}
+#sx-actions.lv .ac-board.dragging .ac-card .qa{display:none}
+#sx-actions.lv .ac-col{transition:background-color .15s,box-shadow .15s}
+#sx-actions.lv .ac-col.drop{background:rgba(19,159,253,.1);box-shadow:inset 0 0 0 2px #139FFD}
+/* Knowledge: what the document says */
+.kn-q{margin:8px 0 0;padding-left:11px;border-left:2px solid #A9DAFE;font-size:13.5px;line-height:1.45;color:var(--ink)}
+.kn-q+dl{margin-top:20px}
+/* Newsroom: a section leads with its first story */
+#sx-news.lv .nr-cols{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:44px;margin-top:10px;align-items:start}
+#sx-news.lv .nr-cols .nr-list{display:flex;flex-direction:column;margin:0}
+#sx-news.lv .nr-cols .nr-list .nr-item{border-top:1px solid var(--line);padding:14px 0}
+#sx-news.lv .nr-cols .nr-list .nr-item:first-child{border-top:0;padding-top:4px}
+#sx-news.lv .nr-sl{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:4px 0 0;border:0}
+#sx-news.lv .nr-sl .sx-tag{grid-row:auto;grid-column:auto}
+#sx-news.lv .nr-sl b{margin-top:12px;font-size:30px;font-weight:500;letter-spacing:-.02em;line-height:1.12;text-wrap:balance}
+#sx-news.lv .nr-sl>span:not(.sx-tag){margin-top:10px;font-size:13.5px}
+#sx-news.lv .nr-sl .lv-wk{align-self:stretch;height:110px;margin-top:22px}
+#sx-news.lv .nr-sl .lv-wkx{align-self:stretch}
+#sx-news.lv .nr-sl em{margin-top:14px;font-style:normal;font-size:14px;line-height:1.45;color:var(--ink2)}
+#sx-news.lv.side-on .nr-cols{grid-template-columns:minmax(0,1fr)}
+#sx-news.lv.side-on .nr-cols .nr-list{display:none}
+/* a select looks like the product's own fields, not the browser's */
+.st-f select,.lv-form select{-webkit-appearance:none;appearance:none;padding-right:34px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='%236A7078' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 7.5l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:16px}
+
+/* ---------- after the critic, 26.11.2026 (7.0: colours by a different rule on each page, two charts that did not say their numbers,
+   cuts and collisions at his window) ---------- */
+/* Agent evaluation: height is the score on 0 to 100, colour is its band; the chart keeps a sane height and the criteria sit under it */
+#sx-agents.lv .ae-plot{max-height:250px;flex:1 1 180px}
+#sx-agents.lv .ae-b.g1{background:#FF6F52}#sx-agents.lv .ae-b.g2{background:#FFD0C4}#sx-agents.lv .ae-b.g3{background:#A9DAFE}#sx-agents.lv .ae-b.g4{background:#63BEFE}#sx-agents.lv .ae-b.g5{background:#139FFD}
+#sx-agents.lv .ae-plot.trend .ae-b{background:transparent}
+#sx-agents.lv .ae-b em{opacity:0;transition:opacity .15s}
+#sx-agents.lv .ae-b.at em,#sx-agents.lv .ae-b.g1 em,#sx-agents.lv .ae-b.g2 em{opacity:1}
+#sx-agents.lv .ae-plot.trend .ae-b.low::after{opacity:0}
+#sx-agents.lv .ae-plot.trend .ae-b.g2::after{background:#FF6F52;opacity:1}
+#sx-agents.lv .ae-dist{margin-top:16px}
+.ae-crit{margin-top:18px}
+.ae-crl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 44px;margin-top:4px}
+.ae-crl>div{display:grid;grid-template-columns:minmax(0,1fr) 120px 26px;align-items:center;gap:14px;height:32px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+.ae-crl>div:nth-child(-n+2){border-top:0}
+.ae-crl span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ae-crl i{height:5px;border-radius:3px;background:rgba(24,36,48,.08);overflow:hidden}
+.ae-crl u{display:block;height:100%;border-radius:3px}
+.ae-crl u.g1{background:#FF6F52}.ae-crl u.g2{background:#FFB8A8}.ae-crl u.g3{background:#A9DAFE}.ae-crl u.g4{background:#63BEFE}.ae-crl u.g5{background:#139FFD}
+.ae-crl b{font-weight:600;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+#sx-agents.side-on .ae-crl{grid-template-columns:minmax(0,1fr)}
+#sx-agents.side-on .ae-crl>div:nth-child(2){border-top:1px solid var(--line)}
+/* the agents list: its rows share the height it has, and an agent's sheet lies over the list instead of squeezing it */
+.ag-rows .ag-r{flex:1 1 0;height:auto;min-height:40px;max-height:56px}
+#sx-agents.agv.side-on .card{right:14px}
+#sx-agents.agv.side-on .ag-r{grid-template-columns:minmax(180px,1.4fr) 110px 70px minmax(0,1.3fr) 96px 56px}
+#sx-agents.agv.side-on .ag-r>:nth-child(2),#sx-agents.agv.side-on .ag-r>:nth-child(4),#sx-agents.agv.side-on .ag-r>:nth-child(5){display:block}
+#sx-agents.agv.side-on .ag-chips .sx-chip:not(.on):not(:first-child){display:inline-flex}
+#sx-agents.agv .sx-side{box-shadow:0 0 0 1px rgba(16,34,60,.06),-18px 0 50px -18px rgba(8,20,40,.35),0 8px 22px rgba(16,34,60,.14)}
+/* a figure says its numbers: each bar carries its value */
+.lv-wkt{margin:18px 0 0!important;font-size:12.5px!important;font-weight:500;color:var(--mut)}
+.lv-wk{height:84px;margin-top:22px;gap:8px}
+.lv-wk i{position:relative;min-height:2px}
+.lv-wk i b{position:absolute;left:50%;bottom:calc(100% + 4px);translate:-50% 0;font-style:normal;font-size:11.5px;font-weight:600;color:var(--ink2);font-variant-numeric:tabular-nums;white-space:nowrap}
+#sx-news.lv .nr-sl .lv-wk{height:120px;margin-top:26px}
+#sx-news.lv .nr-sl em.p{margin-top:14px;font-size:15.5px;line-height:1.5;color:var(--ink2);max-width:560px}
+#sx-news.lv .nr-sl em strong{display:block;margin-bottom:3px;font-size:13px;font-weight:600;color:var(--ink)}
+#sx-news.lv .nr-sl .lv-wkt{align-self:flex-start}
+/* Data: while calls are selected, their bar is the foot */
+.lv-selbar{bottom:20px;height:40px;border-radius:20px}
+.lv-selbar .lv-t{height:28px}
+.lv-selbar.on~.lv-flash{bottom:76px}
+#sx-data.lv.pk .dt-foot .av,#sx-data.lv.pk .dt-foot .sig{display:none!important}
+/* Explore: the recording takes the panel's width */
+.ex-play{flex-wrap:wrap;row-gap:10px}
+.ex-play .ex-bar{order:9;flex:0 0 100%;height:64px}
+.ex-play .ex-t{font-size:14px}
+.ex-play .ex-d{margin-left:auto}
+.ex-play .ex-d::before{content:"of ";color:var(--mut)}
+/* Help and Settings, filled */
+.hp-keys{margin-top:30px}
+.hp-keys>div{display:flex;align-items:center;gap:14px;height:38px;border-top:1px solid var(--line);font-size:14px;color:var(--ink2)}
+.hp-keys>div:first-of-type{border-top:0}
+.hp-keys kbd{display:inline-grid;place-items:center;min-width:44px;height:24px;padding:0 8px;box-sizing:border-box;border-radius:7px;background:#fff;box-shadow:0 0 0 1px var(--line),0 1px 0 var(--line);font:500 12px/1 inherit;color:var(--ink)}
+.hp-ask .act:disabled{opacity:.35;background:#232323;color:#fff}
+.st-saved{align-self:center;font-size:13px;color:var(--mut);white-space:nowrap}
+.st-saved::before{content:"";display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;background:var(--green,#3FA36B)}
+.st-saved.busy::before{background:#C9D3DB}
+.st-body{grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 44px}
+.st-f{grid-template-columns:96px minmax(0,1fr)}
+.st-con{height:30px;padding:0 13px;font-size:13px}
+.st-con.on{background:var(--green-tint,#E4F3EA);box-shadow:none;color:var(--green-ink,#1F6B43)}
+@media (max-width:1250px){.st-body{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#sx-news.lv .nr-sl .lv-wk b{margin:0;font-size:12px;font-weight:600;letter-spacing:0;line-height:1}
+
+/* ---------- after the critic's second round, 26.11.2026 (8.0) ---------- */
+/* Explore: the transcript begins under its field and its first and last lines fade, never sliced */
+.ex-tr{margin-top:8px;padding:10px 0 18px;-webkit-mask-image:linear-gradient(transparent 0,#000 16px,#000 calc(100% - 22px),transparent 100%);mask-image:linear-gradient(transparent 0,#000 16px,#000 calc(100% - 22px),transparent 100%)}
+/* Help: Send appears when there is something to send */
+.hp-ask .act:disabled{display:none}
+/* the agents list: the score beside the name; an agent's sheet is a layer over a list that steps back */
+.ag-r{grid-template-columns:minmax(180px,1.3fr) 64px 110px 70px minmax(0,1.3fr) 96px}
+#sx-agents.agv.side-on .ag-r{grid-template-columns:minmax(180px,1.3fr) 64px 110px 70px minmax(0,1.3fr) 96px}
+.ag-r>span:last-child{display:block}
+.ag-r>span:nth-child(2){display:flex;justify-content:flex-start}
+.ag-r.hd span:nth-child(3),.ag-r .nu{justify-content:flex-start;text-align:left}
+.ag-r.hd span:nth-child(4){justify-content:flex-end}
+.ag-r .nu{text-align:right}
+#sx-agents.agv .card::after{content:"";position:absolute;inset:0;border-radius:inherit;background:rgba(14,22,32,.12);opacity:0;pointer-events:none;transition:opacity .3s}
+#sx-agents.agv.side-on .card::after{opacity:1}
+/* Newsroom: the latest day is the deepest blue; coral stays what it is everywhere, a failing score */
+.lv-wk i.hi{background:#0B6FCF}
+/* the popover's small label, in the product's sentence case */
+.xp-pop .xp-lbl{text-transform:none;letter-spacing:0;font-size:12.5px}

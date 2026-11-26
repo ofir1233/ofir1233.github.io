@@ -37,7 +37,7 @@
     openMenu = m; return m;
   }
   addEventListener('pointerdown', function (e) { if (openMenu && !openMenu.contains(e.target) && !(openMenu._a && openMenu._a.contains(e.target))) closeMenu(); }, true);
-  addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape' && openMenu) { closeMenu(); e.stopImmediatePropagation(); } });      /* Esc closes the menu and nothing behind it */
 
   function flash(el, text) {
     var f = el.querySelector('.lv-flash'); if (!f) { f = document.createElement('div'); f.className = 'lv-flash'; f.setAttribute('role', 'status'); el.appendChild(f); }
@@ -55,6 +55,8 @@
     return side;
   }
   function shut(el) { var s = el.querySelector('.sx-side'); if (s && s.classList.contains('on') && s._shut) s._shut(); }
+  /* Esc closes the sheet that is open on the screen in view (a menu, if one is open, goes first) */
+  addEventListener('keydown', function (e) { if (e.key !== 'Escape' || openMenu) return; var on = document.querySelector('.s5 .sx.on'); if (on && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) shut(on); });
   function copy(text) { try { navigator.clipboard.writeText(text); } catch (e) {} }
   L.kit = { menu: menu, flash: flash, sheet: sheet, shut: shut, ic: ic, num: num, esc: esc, each: each, zoom: zoom, copy: copy, X: X, TICK: TICK };
 
@@ -112,7 +114,7 @@
       var se = ref[i] === 3 ? 'Negative' : ref[i] === 2 ? 'Neutral' : ref[i] ? (r < .4 ? 'Negative' : r < .8 ? 'Neutral' : 'Positive') : (r < .06 ? 'Negative' : r < .22 ? 'Neutral' : 'Positive');
       var st = done[i] ? 'Done' : al[i] || rnd() < .4 ? 'In progress' : 'Pending';
       D.push({ n: i, al: al[i] ? 1 : 0, t: tp[0], sm: say(tp), id: ('0000000' + (N - i)).slice(-8) + '-' + tp[0][0].toLowerCase() + Math.floor(rnd() * 9 + 1) + of(ABC), off: off, m: clock,
-        st: st, pr: hi[i] ? 3 : done[i] ? (rnd() < .7 ? 1 : 2) : (rnd() < .6 ? 2 : 1), who: st === 'Pending' && !hi[i] && rnd() < .35 ? '' : of(WHO),
+        st: st, pr: hi[i] ? 3 : done[i] ? (rnd() < .7 ? 1 : 2) : (rnd() < .6 ? 2 : 1), who: st === 'Pending' && rnd() < (hi[i] ? .45 : .35) ? '' : of(WHO),
         len: ref[i] > 1 ? 305 + Math.round(rnd() * 250) : ref[i] ? 90 + Math.round(rnd() * 205) : 80 + Math.round(rnd() * 320),
         se: se, sc: se === 'Negative' ? 24 + Math.round(rnd() * 26) : se === 'Neutral' ? 58 + Math.round(rnd() * 20) : 78 + Math.round(rnd() * 20), out: rnd() < .18 ? 1 : 0, rev: rev[i] ? 1 : 0 });
     }
@@ -159,6 +161,18 @@
     var sr = el.querySelector('.dt-search'), si = document.createElement('input');
     si.type = 'text'; si.placeholder = 'Search calls'; si.setAttribute('aria-label', 'Search calls'); si.autocomplete = 'off'; sr.querySelector('span').replaceWith(si);
     var note = document.createElement('p'); note.className = 'lv-note'; ask.insertAdjacentElement('afterend', note);
+    /* what is selected, and what can be done with it: a bar of its own over the table's foot, so the count under it stays the table's */
+    var selbar = document.createElement('div'); selbar.className = 'lv-selbar'; selbar.setAttribute('role', 'toolbar');
+    selbar.innerHTML = '<span></span><button type="button" class="lv-t" data-do="done">Mark done</button><button type="button" class="lv-t" data-do="mine">Assign to me</button><button type="button" class="lv-t" data-do="csv">Export</button><button type="button" class="lv-t x" data-do="none" aria-label="Clear the selection">' + ic(X) + '</button>';
+    el.appendChild(selbar);
+    /* the plain-words field shows what it can be asked, while it is empty and in focus */
+    var EX = ['refund calls over 5 minutes where the customer was unhappy', 'high priority calls nobody is assigned to', 'calls that scored under 60 last week', 'outbound calls about baggage'];
+    var sugg = document.createElement('div'); sugg.className = 'lv-sugg';
+    sugg.innerHTML = '<small>Try asking for</small>' + EX.map(function (q) { return '<button type="button" tabindex="-1">' + ic('<path d="M9 2.5l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/>') + q + '</button>'; }).join('');
+    ask.appendChild(sugg);
+    var hint = function () { ask.classList.toggle('sg', document.activeElement === tx && !tx.value.trim()); };
+    tx.addEventListener('focus', hint); tx.addEventListener('blur', function () { setTimeout(hint, 120); });
+    sugg.addEventListener('mousedown', function (e) { var b = e.target.closest('button'); if (!b) return; e.preventDefault(); tx.value = b.textContent; ask.classList.add('has'); hint(); submit(); });
 
     var cell = function (r) {
       return ['<span class="cl"><b>' + esc(r.t) + (r.al ? ic('<path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/>', 'wn') : '') + '</b><small>' + r.sm + '</small></span>',
@@ -176,8 +190,10 @@
     var WIDTH = ['minmax(250px,1fr)', '108px', '60px', '96px', '80px', '134px', '66px', '46px', '98px', '42px'];
     var shown = function () { return COLS.map(function (c, i) { return i; }).filter(function (i) { return !S.hide[i]; }); };
     var list = [], first = true;
+    /* the table takes the rows its height has room for (a row is 56px), so a tall window is not half empty and a short one is not squeezed */
+    function fit() { var h = body.clientHeight; return h ? Math.max(5, Math.floor(h / 56)) : 9; }
     function paint(keep) {
-      list = rows(); var pages = Math.max(1, Math.ceil(list.length / PER)); if (!keep) S.page = 0; S.page = Math.min(S.page, pages - 1);
+      PER = fit(); list = rows(); var pages = Math.max(1, Math.ceil(list.length / PER)); if (!keep) S.page = 0; S.page = Math.min(S.page, pages - 1);
       var cols = shown(), page = list.slice(S.page * PER, S.page * PER + PER), filtered = S.conds.length || S.q;
       el.style.setProperty('--dt-cols', '16px ' + cols.map(function (i) { return WIDTH[i]; }).join(' '));
       el.style.setProperty('--dt-min', (16 + cols.reduce(function (w, i) { return w + (parseInt(WIDTH[i], 10) || 250) + 14; }, 0)) + 'px');
@@ -199,8 +215,8 @@
       if (!first) { set.classList.remove('is-new'); void set.offsetWidth; set.classList.add('is-new'); } first = false;
       /* the foot: what is shown, what was found against all calls, the pages */
       var picked = Object.keys(S.sel).length, at = S.page * PER;
-      foot.querySelector('.ct').innerHTML = picked ? '<b>' + picked + '</b> selected<button type="button" class="lv-t" data-do="done">Mark done</button><button type="button" class="lv-t" data-do="mine">Assign to me</button><button type="button" class="lv-t" data-do="none">Clear</button>'
-        : list.length ? '<span class="rg"><b>' + (at + 1) + '–' + (at + page.length) + '</b> of </span><span class="of">' + num(list.length) + '</span> calls' : '<span class="of">0</span> calls';
+      selbar.classList.toggle('on', picked > 0); el.classList.toggle('pk', picked > 0); if (picked) selbar.firstChild.innerHTML = '<b>' + picked + '</b> selected';
+      foot.querySelector('.ct').innerHTML = list.length ? '<span class="rg"><b>' + (at + 1) + '–' + (at + page.length) + '</b> of </span><span class="of">' + num(list.length) + '</span> calls' : '<span class="of">0</span> calls';
       var sc = Math.round(mean(list, 'sc')), ln = Math.round(mean(list, 'len')), av = foot.querySelector('.av'), bcls = function (v) { return v < 60 ? 'b1' : v < 80 ? 'b3' : 'hi'; };
       av.innerHTML = list.length ? '<i></i><span>Average score <b class="p ' + bcls(sc) + '">' + sc + '</b><small>against <b class="p ' + bcls(ALLSC) + '">' + ALLSC + '</b><em> for all calls</em></small></span><i></i><span class="ln">Average length <b>' + hm(ln) + '</b><small>against <b>' + hm(ALLLEN) + '</b></small></span>' : '';
       var sig = foot.querySelector('.sig'); sig.textContent = S.saved ? 'Saved as a signal' : 'Save as a signal'; sig.classList.toggle('made', S.saved); sig.disabled = S.saved;
@@ -246,7 +262,7 @@
         S.conds = S.conds.filter(function (c) { return !c.ai; }).concat(got.conds.map(function (c) { c.ai = 1; c.fresh = 1; return c; }));
         if (got.range >= 0) S.range = got.range; S.saved = false; S.sel = {}; paint(); }, 520);
     }
-    tx.addEventListener('input', function () { ask.classList.toggle('has', !!tx.value.trim()); note.textContent = ''; });
+    tx.addEventListener('input', function () { ask.classList.toggle('has', !!tx.value.trim()); note.textContent = ''; hint(); });
     tx.addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
     send.addEventListener('click', submit);
     si.addEventListener('input', function () { S.q = si.value.trim(); paint(); });
@@ -261,29 +277,18 @@
         setTimeout(function () { menu(el, addB, [{ head: it.v }].concat(VALUES[it.v].map(function (v) { return typeof v === 'string' ? { t: v, v: { k: it.v, v: v } } : { t: v[0] + ' ' + v[1] + (it.v === 'Length' ? ' min' : ''), v: { k: it.v, op: v[0], n: v[1] } }; })), function (p) { addCond(p.v); }); }, 0);
       });
     }
-    function exportCsv() {
-      var cols = shown(), csv = [cols.map(function (i) { return COLS[i][0]; }).join(',')].concat(list.map(function (r) {
+    function exportCsv(only) {
+      var cols = shown(), src = only || list, csv = [cols.map(function (i) { return COLS[i][0]; }).join(',')].concat(src.map(function (r) {
         var v = [r.t + ': ' + r.sm, r.id, day(r.off) + ' ' + hm(r.m), r.st, PR[r.pr], r.who || 'Unassigned', r.out ? 'Outbound' : 'Inbound', hm(r.len), r.se, r.sc];
         return cols.map(function (i) { return '"' + String(v[i]).replace(/"/g, '""') + '"'; }).join(','); })).join('\n');
       var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'northwind-calls.csv'; document.body.appendChild(a); a.click(); a.remove();
-      flash(el, 'Exported ' + num(list.length) + ' calls to northwind-calls.csv');
+      flash(el, 'Exported ' + num(src.length) + (src.length === 1 ? ' call' : ' calls') + ' to northwind-calls.csv');
     }
     var up = document.createElement('input'); up.type = 'file'; up.multiple = true; up.accept = 'audio/*,.csv,.zip'; up.hidden = true; el.appendChild(up);
-    var proc = el.querySelector('.dt-proc'), procN = 3;
-    up.addEventListener('change', function () { var n = up.files.length; if (!n) return; procN += n; proc.lastChild.textContent = 'Processing ' + procN; flash(el, n + (n > 1 ? ' files are' : ' file is') + ' being processed'); up.value = ''; });
-
-    function openCall(r) {
-      each(set.children, function (x) { x.classList.toggle('hot', +x.dataset.n === r.n); });
-      var found = r.se === 'Negative' ? (r.t === 'Refunds & Credits' ? 'The customer asked for a refund and left without one.' : 'The customer was unhappy when the call ended.') : r.se === 'Neutral' ? 'The request was handled; the customer did not say how it went.' : 'The request was handled and the customer said thanks.';
-      var s = sheet(el, ui, '<header>Call<small>' + r.id + '</small></header><div class="a" style="margin-top:14px"><p style="font-size:19px;line-height:1.25;color:var(--ink);font-weight:500;text-wrap:balance">' + r.sm + '</p><p>' + found + '</p></div>' +
-        '<dl><dt>Topic</dt><dd>' + esc(r.t) + '</dd><dt>When</dt><dd>' + day(r.off) + ' · ' + hm(r.m) + '</dd><dt>Length</dt><dd>' + Math.floor(r.len / 60) + ' min ' + r.len % 60 + ' sec · ' + (r.out ? 'Outbound' : 'Inbound') + '</dd><dt>Status</dt><dd><i class="dt-st ' + STC[r.st] + '">' + r.st + '</i></dd>' +
-        '<dt>Priority</dt><dd>' + PR[r.pr] + '</dd><dt>Assigned to</dt><dd>' + (r.who ? K.av(r.who) + r.who : 'Unassigned') + '</dd><dt>Sentiment</dt><dd>' + r.se + '</dd><dt>Score</dt><dd><span class="lv-sc ' + (r.sc < 60 ? 'b1' : r.sc < 70 ? 'b2' : r.sc < 80 ? 'b3' : r.sc < 90 ? 'b4' : 'b5') + '">' + r.sc + '</span></dd></dl>' +
-        (r.al ? '<h4>Alert</h4><p class="lv-p">This call raised an alert: Refund refused.</p>' : '') +
-        '<div class="ft">' + K.act(r.who === ME ? 'Assigned to you' : 'Assign to me') + K.act(r.st === 'Done' ? 'Done' : 'Mark done', 'ink') + '</div>', function () { each(set.children, function (x) { x.classList.remove('hot'); }); });
-      var b = s.querySelectorAll('.ft .act'); b[0].disabled = r.who === ME; b[1].disabled = r.st === 'Done';
-      b[0].addEventListener('click', function () { r.who = ME; paint(true); openCall(r); flash(el, 'Assigned to you'); });
-      b[1].addEventListener('click', function () { r.st = 'Done'; paint(true); openCall(r); flash(el, 'Marked done'); });
-    }
+    var proc = el.querySelector('.dt-proc'), procN = 3, PROC = [['calls-oct-13-evening.zip', '212 calls · transcribing'], ['callback-queue.csv', '48 calls · scoring'], ['lisbon-desk-oct-12.zip', '96 calls · scoring']];
+    proc.setAttribute('role', 'button'); proc.tabIndex = 0;
+    proc.addEventListener('click', function (e) { e.stopPropagation(); menu(el, proc, [{ head: 'Being processed' }].concat(PROC.map(function (f) { return { t: f[0], sub: f[1], v: 0 }; })), function () {}); });
+    up.addEventListener('change', function () { var n = up.files.length; if (!n) return; each(up.files, function (f) { PROC.unshift([f.name, 'just added · transcribing']); }); procN += n; proc.lastChild.textContent = 'Processing ' + procN; flash(el, n + (n > 1 ? ' files are' : ' file is') + ' being processed'); up.value = ''; });
 
     /* ---------- Explore: the call itself ---------- */
     /* owner, 26.11.2026: "the Explore screen does not exist when you enter a call". A row opened a small sheet of the row's own
@@ -313,14 +318,20 @@
     function explore(r) {
       cur = r; clearInterval(timer); playing = 0; T0 = 0; speed = 1;
       var lines = script(r), seed = r.n * 31 + 7, rr = function () { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }, bad = r.se === 'Negative';
-      var sc = CRIT.map(function (c, i) { return Math.max(22, Math.min(99, Math.round(r.sc + [8, -2, 3, bad ? -14 : 4, bad ? -10 : 6, bad ? -8 : 2, 5][i] + (rr() - .5) * 12))); });
+      /* the seven criteria average to the call's score: an unhappy call opens and verifies well enough and fails where it counts */
+      var OFF = bad ? [22, 16, 4, -18, -14, -12, 2] : [6, -3, 2, 4, 5, -8, -6], jit = CRIT.map(function () { return Math.round((rr() - .5) * 8); }), mj = Math.round(jit.reduce(function (x, y) { return x + y; }, 0) / 7);
+      var sc = CRIT.map(function (c, i) { return Math.max(18, Math.min(99, r.sc + OFF[i] + jit[i] - mj)); });
       var low = CRIT.map(function (c, i) { return [c, sc[i], i]; }).filter(function (x) { return x[1] < 70; }).sort(function (x, y) { return x[1] - y[1]; });
       var chs = CH.map(function (c, k) { var mine = lines.filter(function (l) { return l.ch === k; }); return { n: c, at: mine.length ? mine[0].at : 0 }; }).filter(function (c, k) { return lines.some(function (l) { return l.ch === k; }); });
       chs.forEach(function (c, k) { c.at = k ? c.at : 0; c.end = chs[k + 1] ? chs[k + 1].at : r.len; });
+      var pos = list.indexOf(r), NB = 110, wave = '';
+      /* the recording, drawn: one stroke for each moment, in the colour of who is speaking then */
+      for (var w = 0; w < NB; w++) { var tk = (w + .5) / NB * r.len, sp = 'A'; lines.forEach(function (l) { if (l.at <= tk) sp = l.who; });
+        var near = lines.some(function (l) { return Math.abs(l.at - tk) < r.len / NB * .7; }); wave += '<i class="' + (sp === 'A' ? 'a' : 'c') + '" style="height:' + Math.round(near ? 16 + rr() * 14 : 34 + rr() * 66) + '%"></i>'; }
       var seekB = function (s, label) { return '<button type="button" class="ex-at" data-t="' + s + '">' + ic('<path d="M6 4.2v9.6l7.5-4.8z"/>') + (label || mmss(s)) + '</button>'; };
       var sig = [['Reason for call', r.t], ['What the customer wanted', r.sm], ['Resolved on the call', r.st === 'Done' ? 'Yes' : 'No'], ['Refund asked for', /Refund/.test(r.t) ? 'Yes' : 'No'], ['Customer effort', bad ? 'High: asked more than once' : 'Low'], ['Next step', r.st === 'Done' ? 'None' : r.st === 'Pending' ? 'Waiting for an owner' : 'With ' + (r.who || 'the team')]];
       var hist = [[day(r.off + 3 + r.n % 4), r.t, Math.max(25, r.sc - 6 + r.n % 9)], [day(r.off + 11 + r.n % 6), ['Trip Status', 'Online Booking', 'Baggage'][r.n % 3], 60 + r.n % 35]].slice(0, bad ? 2 : 1);
-      ex.innerHTML = '<div class="card"><div class="ex-top"><button type="button" class="ex-back">' + ic('<path d="M11 5l-4 4 4 4"/>') + 'Data</button><span class="ex-id">' + r.id + '</span><span class="sp"></span>' + K.act(r.who === ME ? 'Assigned to you' : 'Assign to me', 'ex-mine') + K.act(r.st === 'Done' ? 'Done' : 'Mark done', 'ink ex-done') + '</div>' +
+      ex.innerHTML = '<div class="card"><div class="ex-top"><button type="button" class="ex-back">' + ic('<path d="M11 5l-4 4 4 4"/>') + 'Data</button>' + (pos >= 0 ? '<span class="ex-nav"><button type="button" class="ex-pv"' + (pos ? '' : ' disabled') + ' aria-label="Previous call">' + ic('<path d="M11 5l-4 4 4 4"/>') + '</button><em>' + num(pos + 1) + ' of ' + num(list.length) + '</em><button type="button" class="ex-nx"' + (pos < list.length - 1 ? '' : ' disabled') + ' aria-label="Next call">' + ic('<path d="M7 5l4 4-4 4"/>') + '</button></span>' : '') + '<span class="ex-id">' + r.id + '</span><span class="sp"></span>' + K.act(r.who === ME ? 'Assigned to you' : 'Assign to me', 'ex-mine') + K.act(r.st === 'Done' ? 'Done' : 'Mark done', 'ink ex-done') + '</div>' +
         '<div class="ex-cols"><div class="ex-l"><div class="ex-story"><h2>' + esc(r.t) + (r.al ? '<span class="sx-tag ex-al">' + ic('<path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/>') + 'Alert · Refund refused</span>' : '') + '</h2><p>' + r.sm + '.</p>' +
           '<div class="ex-tags"><span>' + day(r.off) + ' · ' + hm(r.m) + '</span><span>' + (r.out ? 'Outbound' : 'Inbound') + '</span><span>' + (r.who ? K.av(r.who) + r.who : 'Unassigned') + '</span><span>' + PR[r.pr] + ' priority</span><i class="dt-st ' + STC[r.st] + '">' + r.st + '</i></div></div>' +
         '<div class="ex-out"><div><small>Sentiment</small><b><i class="dot ' + (bad ? 'neg' : r.se === 'Neutral' ? 'neu' : 'pos') + '"></i>' + r.se + '</b></div><div><small>Resolution</small><b>' + (r.st === 'Done' ? 'Resolved' : 'Open') + '</b></div><div><small>Churn risk</small><b>' + (bad ? 'High' : r.se === 'Neutral' ? 'Medium' : 'Low') + '</b></div><div><small>Handle time</small><b>' + mmss(r.len) + '</b></div><div><small>Score</small><b><span class="lv-sc ' + band(r.sc) + '">' + r.sc + '</span></b></div></div>' +
@@ -331,11 +342,12 @@
         '<section class="ex-sec"><header><b>Signals</b><span>' + sig.length + ' read from the call</span></header><dl class="ex-sig">' + sig.map(function (s) { return '<dt>' + s[0] + '</dt><dd>' + esc(s[1]) + '</dd>'; }).join('') + '</dl></section>' +
         '<section class="ex-sec"><header><b>The caller’s other calls</b><span>' + hist.length + ' in the last 90 days</span></header>' + hist.map(function (h) { return '<div class="ex-h"><span>' + h[0] + '</span><b>' + esc(h[1]) + '</b><span class="lv-sc ' + band(h[2]) + '">' + h[2] + '</span></div>'; }).join('') + '</section>' +
         '<section class="ex-ask"><div class="ex-msgs"></div><div class="ex-chips">' + ['Summarize this call', bad ? 'Why was the customer unhappy?' : 'What went well?', 'What should the agent do next time?'].map(function (q) { return '<button type="button">' + q + '</button>'; }).join('') + '</div><form class="ex-comp"><input type="text" placeholder="Ask about this call" aria-label="Ask about this call" autocomplete="off"><button type="submit" aria-label="Send">' + ic('<path d="M9 13.5v-9M5.2 8.3 9 4.5l3.8 3.8"/>') + '</button></form></section></div>' +
-        '<aside class="ex-r"><div class="ex-play"><button type="button" class="ex-pp" aria-label="Play">' + ic('<path d="M6 3.8v10.4l8-5.2z"/>') + '</button><span class="ex-t">0:00</span><div class="ex-bar" role="slider" tabindex="0" aria-label="Seek"><i class="ex-fill"></i>' + chs.map(function (c) { return '<s style="left:' + (c.at / r.len * 100).toFixed(2) + '%"></s>'; }).join('') + lines.filter(function (l) { return l.hot; }).map(function (l) { return '<u style="left:' + (l.at / r.len * 100).toFixed(2) + '%"></u>'; }).join('') + '</div><span class="ex-d">' + mmss(r.len) + '</span><button type="button" class="ex-sp">1×</button></div>' +
+        '<aside class="ex-r"><div class="ex-play"><button type="button" class="ex-pp" aria-label="Play">' + ic('<path d="M6 3.8v10.4l8-5.2z"/>') + '</button><span class="ex-t">0:00</span><div class="ex-bar" role="slider" tabindex="0" aria-label="Seek"><span class="ex-wave">' + wave + '</span><b class="ex-ph"></b>' + chs.map(function (c) { return '<s style="left:' + (c.at / r.len * 100).toFixed(2) + '%"></s>'; }).join('') + lines.filter(function (l) { return l.hot; }).map(function (l) { return '<u style="left:' + (l.at / r.len * 100).toFixed(2) + '%"></u>'; }).join('') + '</div><span class="ex-d">' + mmss(r.len) + '</span><button type="button" class="ex-sp">1×</button></div>' +
           '<div class="ex-chs">' + chs.map(function (c, k) { return '<button type="button" data-t="' + c.at + '" data-k="' + k + '">' + c.n + '</button>'; }).join('') + '</div>' +
-          '<div class="ex-tr">' + lines.map(function (l, i) { return '<button type="button" class="ex-ln ' + (l.who === 'A' ? 'a' : 'c') + (l.hot ? ' hot' : '') + '" data-t="' + l.at + '" data-i="' + i + '"><small>' + mmss(l.at) + '</small><span><b>' + (l.who === 'A' ? (r.who || 'Agent') : 'Customer') + '</b>' + l.text + '</span></button>'; }).join('') + '</div></aside></div></div>';
-      var fill = ex.querySelector('.ex-fill'), tEl = ex.querySelector('.ex-t'), pp = ex.querySelector('.ex-pp'), tr = ex.querySelector('.ex-tr'), lns = [].slice.call(tr.children), chb = [].slice.call(ex.querySelectorAll('.ex-chs button')), at = -1;
-      ex._seek = function (s, go2) { T0 = Math.max(0, Math.min(r.len, s)); fill.style.width = (T0 / r.len * 100) + '%'; tEl.textContent = mmss(T0);
+          '<label class="ex-find">' + ic('<circle cx="8" cy="8" r="4.5"/><path d="M11.5 11.5l3.5 3.5"/>') + '<input type="text" placeholder="Find in the transcript" aria-label="Find in the transcript" autocomplete="off"><em></em></label><div class="ex-tr">' + lines.map(function (l, i) { return '<button type="button" class="ex-ln ' + (l.who === 'A' ? 'a' : 'c') + (l.hot ? ' hot' : '') + '" data-t="' + l.at + '" data-i="' + i + '"><small>' + mmss(l.at) + '</small><span><b>' + (l.who === 'A' ? (r.who || 'Agent') : 'Customer') + '</b>' + l.text + '</span></button>'; }).join('') + '</div></aside></div></div>';
+      var ph = ex.querySelector('.ex-ph'), wv = [].slice.call(ex.querySelectorAll('.ex-wave i')), wAt = 0, tEl = ex.querySelector('.ex-t'), pp = ex.querySelector('.ex-pp'), tr = ex.querySelector('.ex-tr'), lns = [].slice.call(tr.children), chb = [].slice.call(ex.querySelectorAll('.ex-chs button')), at = -1;
+      ex._seek = function (s, go2) { T0 = Math.max(0, Math.min(r.len, s)); ph.style.left = (T0 / r.len * 100) + '%'; tEl.textContent = mmss(T0);
+        var wNow = Math.round(T0 / r.len * NB); for (var k2 = Math.min(wAt, wNow); k2 < Math.max(wAt, wNow); k2++) wv[k2].classList.toggle('p', k2 < wNow); wAt = wNow;
         var i = -1; lines.forEach(function (l, k) { if (l.at <= T0 + .01) i = k; });
         if (i !== at) { at = i; lns.forEach(function (b, k) { b.classList.toggle('on', k === i); }); if (i >= 0) { var b = lns[i]; tr.scrollTo({ top: b.offsetTop - tr.clientHeight / 2 + b.offsetHeight / 2, behavior: 'smooth' }); } }
         chb.forEach(function (b, k) { b.classList.toggle('on', T0 >= chs[k].at && T0 < chs[k].end); });
@@ -343,10 +355,13 @@
       ex._play = function () { playing = !playing; pp.innerHTML = ic(playing ? '<path d="M6 4v10M12 4v10"/>' : '<path d="M6 3.8v10.4l8-5.2z"/>'); pp.classList.toggle('on', !!playing); pp.setAttribute('aria-label', playing ? 'Pause' : 'Play'); clearInterval(timer);
         if (playing) { if (T0 >= r.len) ex._seek(0); timer = setInterval(function () { if (!ex.classList.contains('on') || !K.stage.classList.contains('s5')) { ex._play(); return; } ex._seek(T0 + .25 * speed); if (T0 >= r.len) ex._play(); }, 250); } };
       ex._seek(0);
+      var find = ex.querySelector('.ex-find input'), found = ex.querySelector('.ex-find em');
+      find.addEventListener('input', function () { var q = find.value.trim().toLowerCase(), n = 0; lns.forEach(function (b, k) { var hit = q && lines[k].text.toLowerCase().indexOf(q) >= 0; b.classList.toggle('dim', !!q && !hit); if (hit) n++; }); found.textContent = q ? n + (n === 1 ? ' line' : ' lines') : ''; });
+      try { history.replaceState(null, '', '#data/' + r.n); } catch (e) {}
       each(K.stage.querySelectorAll('.sx'), function (x) { x.classList.toggle('on', x === ex); });
       ex.querySelector('.card').scrollTop = 0;
     }
-    function exBack() { clearInterval(timer); playing = 0; each(K.stage.querySelectorAll('.sx'), function (x) { x.classList.toggle('on', x === el); }); paint(true); }
+    function exBack() { try { history.replaceState(null, '', '#data'); } catch (e) {} clearInterval(timer); playing = 0; each(K.stage.querySelectorAll('.sx'), function (x) { x.classList.toggle('on', x === el); }); paint(true); }
     var ANS = function (q, r) { var bad = r.se === 'Negative', s = q.toLowerCase();
       return /summar/.test(s) ? r.sm + '. The call took ' + mmss(r.len) + ' and ended ' + (r.st === 'Done' ? 'resolved' : 'open') + '; the customer sounded ' + r.se.toLowerCase() + '.'
         : /unhappy|why|wrong/.test(s) ? (bad ? 'The customer had to ask more than once and did not get what they asked for the first time. The low criteria in the evaluation point at the same moments.' : 'Nothing on this call suggests the customer was unhappy: the request was handled and the tone stayed ' + r.se.toLowerCase() + '.')
@@ -356,6 +371,7 @@
     ex.addEventListener('click', function (e) {
       var t = e.target, x, r = cur; if (!r) return;
       if (t.closest('.ex-back')) { exBack(); return; }
+      if ((x = t.closest('.ex-pv,.ex-nx'))) { var to = list[list.indexOf(r) + (x.classList.contains('ex-nx') ? 1 : -1)]; if (to) explore(to); return; }
       if ((x = t.closest('.ex-at,.ex-ln,.ex-chs button'))) { e.stopPropagation(); ex._seek(+x.dataset.t, true); return; }
       if (t.closest('.ex-pp')) { ex._play(); return; }
       if ((x = t.closest('.ex-sp'))) { speed = speed === 1 ? 1.5 : speed === 1.5 ? 2 : 1; x.textContent = speed + '×'; return; }
@@ -371,7 +387,10 @@
     ex.addEventListener('submit', function (e) { e.preventDefault(); var i = ex.querySelector('.ex-comp input'), v = i.value.trim(); if (!v) return; i.value = ''; exAsk(v); });
     ex.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.ex-cr.low')) { e.preventDefault(); e.target.click(); }
       if (e.target.matches('.ex-bar') && cur) { if (e.key === 'ArrowRight') ex._seek(T0 + 5); if (e.key === 'ArrowLeft') ex._seek(T0 - 5); } });
-    addEventListener('keydown', function (e) { if (e.key === 'Escape' && ex.classList.contains('on') && K.stage.classList.contains('s5') && !document.querySelector('.lv-menu')) exBack(); });
+    addEventListener('keydown', function (e) { var here = ex.classList.contains('on') && K.stage.classList.contains('s5'), typing = /INPUT|TEXTAREA/.test(document.activeElement.tagName); if (!here) return;
+      if (e.key === 'Escape' && !document.querySelector('.lv-menu')) { if (typing) document.activeElement.blur(); else exBack(); }
+      /* space plays and pauses, as in any player */
+      if (e.key === ' ' && !typing && document.activeElement.tagName !== 'BUTTON') { e.preventDefault(); ex._play(); } });
 
     el.addEventListener('click', function (e) {
       var t = e.target, x;
@@ -388,9 +407,13 @@
       if ((x = t.closest('.cp'))) { copy(x.parentNode.textContent); flash(el, 'Call id copied'); return; }
       if ((x = t.closest('.pg button'))) { if (!x.disabled) { S.page = +x.dataset.p; paint(true); } return; }
       if ((x = t.closest('.lv-t'))) { var act = x.dataset.do, keys = Object.keys(S.sel);
+        if (act === 'csv') { exportCsv(keys.map(function (k) { return D[k]; })); return; }
         if (act !== 'none') { keys.forEach(function (k) { if (act === 'done') D[k].st = 'Done'; else D[k].who = ME; }); flash(el, keys.length + (keys.length > 1 ? ' calls ' : ' call ') + (act === 'done' ? 'marked done' : 'assigned to you')); }
         S.sel = {}; paint(true); return; }
-      if (t.closest('.dt-foot .sig')) { S.saved = true; paint(true); flash(el, 'Saved as a signal: ' + S.conds.map(function (c) { return c.k + ' ' + label(c); }).join(', ')); return; }
+      if (t.closest('.dt-foot .sig')) { S.saved = true; paint(true);
+        /* the filter becomes a rule that goes on watching: it is a row in Signals from now on */
+        signal({ name: S.conds.map(function (c) { return label(c); }).join(' · ').replace(/^./, function (m) { return m.toUpperCase(); }), rule: 'Calls where ' + S.conds.map(function (c) { return c.k.toLowerCase() + ' is ' + label(c); }).join(' and '), n: list.filter(function (r) { return r.off < 14; }).length });
+        flash(el, 'Saved. It is now a signal, and goes on watching'); return; }
       if ((x = t.closest('.dt-top .act'))) { if (x.classList.contains('ink')) up.click(); else exportCsv(); return; }
       if ((x = t.closest('.dt-set .dt-r'))) { explore(D[+x.dataset.n]); return; }
     });
@@ -398,6 +421,9 @@
     /* another screen can send its reader here with the filter already on (Newsroom: "See the 211 calls") */
     L.data.filter = function (conds, range, tab) { S.conds = conds.map(function (c) { c.fresh = 1; if (c.k === 'Signal' || c.k === 'Agent' || c.k === 'From') { c.set = {}; D.filter(function (r) { return c.k !== 'Signal' ? r.who : r.se === 'Negative' || r.al || /Refund|Cancel|Complaint/.test(r.t); }).slice(0, c.n).forEach(function (r) { c.set[r.n] = 1; }); } return c; }); S.tab = tab || 0; S.sort = 2; S.dir = 1; S.q = si.value = ''; tx.value = ''; if (range != null) S.range = range; S.saved = false; S.sel = {}; shut(el); paint(); };
     paint();
+    var deep = /^#data\/(\d+)$/.exec(location.hash); if (deep && D[+deep[1]]) explore(D[+deep[1]]);
+    var fitT = 0; addEventListener('resize', function () { clearTimeout(fitT); fitT = setTimeout(function () { if (el.classList.contains('on') && fit() !== PER) paint(true); }, 120); });
+    new MutationObserver(function () { if (el.classList.contains('on') && fit() !== PER) paint(true); }).observe(el, { attributes: true, attributeFilter: ['class'] });
     if (L.data.wait) { L.data.filter.apply(null, L.data.wait); L.data.wait = null; }
   };
   /* ---------- Agent evaluation ---------- */
@@ -417,12 +443,19 @@
     each(seg.children, function (s) { s.setAttribute('role', 'button'); s.tabIndex = 0; });
     acts[0].classList.add('lv-b'); acts[1].classList.add('lv-b');
     each([kp[2]].concat([].slice.call(el.querySelectorAll('.ae-strip i,.ae-leg span'))), function (n) { n.setAttribute('role', 'button'); n.tabIndex = 0; });
-    var avg = 76, vals = base, from = 0;
+    var CRIT, avg = 76, vals = base, from = 0, gband = function (v) { return v < 60 ? 'g1' : v < 70 ? 'g2' : v < 80 ? 'g3' : v < 90 ? 'g4' : 'g5'; };
+    each(plot.querySelectorAll('.ae-y'), function (y, k) { var v = [25, 50, 75, 100][k]; y.textContent = v; y.style.bottom = 'calc(30px + (100% - 30px) * ' + v / 100 + ')'; });
+    var subEl = el.querySelector('.ae-sub'); if (subEl) subEl.textContent = 'Height is the day’s score, 0 to 100';
+    var critEl = document.createElement('div'); critEl.className = 'ae-crit'; el.querySelector('.ae-dist').insertAdjacentElement('afterend', critEl);
     function paint() {
       var f = FORMS[S.form], n = RANGE[S.range][1]; vals = f[1]; from = 30 - n;
       var shown = vals.slice(from); avg = Math.round(shown.reduce(function (a, v) { return a + v; }, 0) / n);
-      var Y = function (v) { return Math.max(0, Math.min(100, (v - 50) / 40 * 100)); };
-      bars.forEach(function (b, i) { b.hidden = i < from; b.style.height = Y(vals[i]).toFixed(1) + '%'; b.style.animationDelay = (i - from) * 22 + 'ms'; b.classList.toggle('low', vals[i] <= avg - 8); b.firstChild.textContent = vals[i]; });
+      /* critic, 26.11.2026: the axis began at 50, so a 66 read as a collapse, and coral followed a third rule (8 points under the
+         average). The height is the score on 0 to 100 and the colour is the score's band, the same bands as every score in the Studio */
+      var Y = function (v) { return Math.max(0, Math.min(100, v)); };
+      bars.forEach(function (b, i) { b.hidden = i < from; b.style.height = Y(vals[i]).toFixed(1) + '%'; b.style.animationDelay = (i - from) * 22 + 'ms'; b.className = 'ae-b ' + gband(vals[i]) + (vals[i] < 60 ? ' low' : ''); b.firstChild.textContent = vals[i]; });
+      var cs = FORMS[S.form][5] || (FORMS[S.form][5] = CRIT.map(function (c, k) { return [c, c === f[3] ? avg - 9 : Math.max(55, Math.min(95, avg + [6, 3, -2, 5, 8, 1, -4, 2][k]))]; }).sort(function (a, b) { return a[1] - b[1]; }));
+      critEl.innerHTML = '<div class="sx-h"><b>By criterion</b><span>the center’s average, lowest first</span></div><div class="ae-crl">' + cs.map(function (c) { return '<div><span>' + c[0] + '</span><i><u class="' + gband(c[1]) + '" style="width:' + c[1] + '%"></u></i><b>' + c[1] + '</b></div>'; }).join('') + '</div>';
       avgEl.style.bottom = 'calc(30px + (100% - 30px) * ' + (Y(avg) / 100).toFixed(3) + ')'; avgEl.firstChild.textContent = 'Avg ' + avg;
       dates.innerHTML = [0, Math.floor((n - 1) / 2), n - 1].map(function (k, j) { return '<span style="' + (j === 0 ? 'left:0' : j === 2 ? 'right:0' : 'left:' + ((k + .5) / n * 100).toFixed(2) + '%;translate:-50% 0') + '">' + date(from + k) + '</span>'; }).join('');
       svg.setAttribute('viewBox', '0 0 ' + n * 10 + ' 100');
@@ -434,6 +467,7 @@
       each(el.querySelectorAll('.ae-strip i'), function (x, i) { x.style.flex = Math.max(f[2][i], 14); });
       each(el.querySelectorAll('.ae-leg span b'), function (x, i) { x.textContent = f[2][i]; });
       plot.classList.remove('draw'); void plot.offsetWidth; plot.classList.add('draw');
+      if (el.classList.contains('agv')) paintA();
     }
     /* a day under the pointer */
     var tip = el.querySelector('.sx-tip');
@@ -442,12 +476,12 @@
       if (b.classList.contains('at')) return; each(bars, function (x) { x.classList.toggle('at', x === b); });
       var i = +b.dataset.b, v = vals[i], d = v - avg, f = FORMS[S.form];
       ui.tip(b, '<strong>' + date(i, 1) + '</strong><span class="big">' + v + ' <small>/ 100</small></span><span>' + (d ? Math.abs(d) + (Math.abs(d) > 1 ? ' pts ' : ' pt ') + (d < 0 ? 'under' : 'over') + ' the average' : 'On the average') + ' · ' + num(1290 + (i * 37) % 11 * 14 - (new Date(2026, 8, 13 + i).getDay() % 6 ? 0 : 420)) + ' calls</span>' +
-        (b.classList.contains('low') ? '<span class="why">Fell most: <b>' + f[3] + '</b>, ' + f[4] + '</span>' : ''));
+        (v <= avg - 8 ? '<span class="why">Fell most: <b>' + f[3] + '</b>, ' + f[4] + '</span>' : ''));
     });
     plot.addEventListener('pointerleave', function () { tip.classList.remove('on'); each(bars, function (x) { x.classList.remove('at'); }); });
 
     /* the agents in a band, lowest first. Under 60 on Service quality is the storyboard's eight; the rest are made from a seed */
-    var FIRST = ['Ana', 'Ben', 'Carla', 'Dev', 'Elif', 'Finn', 'Gia', 'Hugo', 'Ida', 'Jamal', 'Kira', 'Liam', 'Mina', 'Nils', 'Oren', 'Pia'], CRIT = ['Explains the refund policy', 'Verifies identity', 'Sets a clear next step', 'Shows empathy', 'Greets by name', 'Confirms the booking'];
+    var FIRST = ['Ana', 'Ben', 'Carla', 'Dev', 'Elif', 'Finn', 'Gia', 'Hugo', 'Ida', 'Jamal', 'Kira', 'Liam', 'Mina', 'Nils', 'Oren', 'Pia']; CRIT = ['Explains the refund policy', 'Verifies identity', 'Sets a clear next step', 'Shows empathy', 'Greets by name', 'Confirms the booking', 'Reads the recording disclosure', 'Sums up before closing']      /* the eight the page's first line counts */;
     function band(g) {
       var f = FORMS[S.form], count = f[2][g], lo = [90, 80, 70, 60, 44][g], hi = [100, 89, 79, 69, 59][g], story = g === 4 && !S.form, seed = g * 31 + S.form * 7 + 5;
       var r = function () { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
@@ -462,7 +496,7 @@
         (story ? '<p class="ae-nt">Selma, Jonas, Tomas, Leah and Noor share <b>Explains the refund policy</b>. The other three are weakest elsewhere.</p>' : '') +
         '<div class="ft">' + K.act('Open the list') + (g === 4 ? K.act('Create ' + (story ? 5 : AG.length) + ' coaching tasks', 'ink') : '') + '</div>', function () { el.classList.remove('bnd'); });
       var b = s.querySelectorAll('.ft .act');
-      b[0].addEventListener('click', function () { go('data', [], null, 5); });
+      b[0].addEventListener('click', function () { showAgents(g); });
       if (b[1]) b[1].addEventListener('click', function () {
         var who = story ? AG.filter(function (a) { return a[2] === 1; }) : AG; s.querySelector('.ae-ag').classList.add('made'); if (!story) each(s.querySelectorAll('.ae-ag .ts'), function (x) { x.style.display = 'inline'; });
         b[1].disabled = true; b[1].classList.add('made'); b[1].textContent = who.length + ' tasks created';
@@ -470,12 +504,78 @@
         flash(el, who.length + ' coaching tasks added to Workflows');
       });
     }
+    /* ---------- the agents themselves (owner, 26.11.2026: "a lot more than this"). The page said 715 agents and showed none of
+       them: only a chart and a strip. Agents is the list: every agent with team, calls, score, weakest criterion and the month's
+       move; it can be searched, cut by band and sorted, and an agent opens with the criteria behind the score. Made from a seed,
+       to the counts the strip shows (and, on Service quality, with the storyboard's eight under 60). ---------- */
+    var TEAMS = ['Atlas', 'Birch', 'Cedar', 'Delta'], NAMES = ['Ana', 'Ben', 'Carla', 'Dev', 'Elif', 'Finn', 'Gia', 'Hugo', 'Ida', 'Jamal', 'Kira', 'Liam', 'Mina', 'Nils', 'Oren', 'Pia', 'Quinn', 'Rosa', 'Sami', 'Tara', 'Uri', 'Vera', 'Wes', 'Yara', 'Zane', 'Alma', 'Boaz', 'Cleo', 'Dina', 'Eli', 'Faye', 'Gus', 'Hana', 'Ivo', 'Joan', 'Kai', 'Lena', 'Milo', 'Nora', 'Omri', 'Paz', 'Rafi', 'Shai', 'Tess', 'Uma', 'Vik', 'Wren', 'Zoe'];
+    var RANGE5 = [[90, 99], [80, 89], [70, 79], [60, 69], [44, 59]], STORY = [['Selma K.', 48, 0], ['Jonas R.', 51, 0], ['Priya N.', 52, 1], ['Tomas V.', 54, 0], ['Leah M.', 55, 0], ['Dario F.', 56, 2], ['Noor A.', 57, 0], ['Kyle B.', 59, 3]], made = {};
+    function agents() {
+      if (made[S.form]) return made[S.form];
+      var seed = 4711 + S.form * 97, r = function () { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }, pool = [], out = [], cnt = FORMS[S.form][2];
+      NAMES.forEach(function (n) { 'ABCDEFGHJKLMNPRSTVWZ'.split('').forEach(function (l) { pool.push(n + ' ' + l + '.'); }); });
+      for (var i = pool.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)), t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+      cnt.forEach(function (n, g) { for (var k = 0; k < n; k++) { var st = g === 4 && !S.form && STORY[k];
+        out.push({ n: st ? st[0] : pool.pop(), g: g, s: st ? st[1] : RANGE5[g][0] + Math.floor(r() * (RANGE5[g][1] - RANGE5[g][0] + 1)), team: TEAMS[Math.floor(r() * 4)], calls: 60 + Math.floor(r() * 190), weak: st ? CRIT[st[2]] : CRIT[Math.floor(r() * CRIT.length)], d: Math.round((r() - .5) * 12) }); } });
+      return (made[S.form] = out);
+    }
+    var A = { q: '', band: -1, sort: 's', dir: 1, page: 0 }, PERA = 9, gcl = function (s) { return s < 60 ? 'g1' : s < 70 ? 'g2' : s < 80 ? 'g3' : s < 90 ? 'g4' : 'g5'; };
+    var tabsA = document.createElement('div'); tabsA.className = 'dt-tabs ag-tabs'; tabsA.innerHTML = '<span role="button" tabindex="0" class="on">Overview</span><span role="button" tabindex="0">Agents<small>715</small></span>';
+    var view = document.createElement('div'); view.className = 'ag-view';
+    view.innerHTML = '<div class="ag-bar"><div class="dt-search ag-search">' + ic('<circle cx="8" cy="8" r="4.5"/><path d="M11.5 11.5l3.5 3.5"/>') + '<input type="text" placeholder="Search agents" aria-label="Search agents" autocomplete="off"></div><span class="ag-chips"></span><span class="sp"></span><span class="ag-n"></span></div>' +
+      '<div class="ag-r hd">' + [['n', 'Agent'], ['s', 'Score'], ['team', 'Team'], ['calls', 'Calls'], ['weak', 'Weakest criterion'], ['d', '30 days']].map(function (c) { return '<span role="button" tabindex="0" data-c="' + c[0] + '">' + c[1] + '</span>'; }).join('') + '</div><div class="ag-rows"></div>' +
+      '<div class="ag-foot"><span class="ct"></span><span class="sp"></span><button type="button" class="ag-pv" aria-label="Previous page">' + ic('<path d="M11 5l-4 4 4 4"/>') + '</button><button type="button" class="ag-nx" aria-label="Next page">' + ic('<path d="M7 5l4 4-4 4"/>') + '</button></div>';
+    var sxb = el.querySelector('.sx-body'); sxb.insertAdjacentElement('beforebegin', tabsA); sxb.insertAdjacentElement('afterend', view);
+    var rowsEl = view.querySelector('.ag-rows'), agList = [];
+    function paintA() {
+      var all = agents(), q = A.q.toLowerCase(), f = FORMS[S.form];
+      agList = all.filter(function (a) { return (A.band < 0 || a.g === A.band) && (!q || (a.n + ' ' + a.team + ' ' + a.weak).toLowerCase().indexOf(q) >= 0); });
+      var k = A.sort, d = A.dir; agList.sort(function (x, y) { return x[k] < y[k] ? -d : x[k] > y[k] ? d : x.n < y.n ? -1 : 1; });
+      PERA = Math.max(5, Math.floor(rowsEl.clientHeight / 46) || 9);
+      var pages = Math.max(1, Math.ceil(agList.length / PERA)); A.page = Math.min(A.page, pages - 1); var at = A.page * PERA, page = agList.slice(at, at + PERA);
+      view.querySelector('.ag-chips').innerHTML = '<button type="button" class="sx-chip' + (A.band < 0 ? ' on' : '') + '" data-g="-1">All</button>' + BANDS.map(function (b, g) { return '<button type="button" class="sx-chip' + (A.band === g ? ' on' : '') + '" data-g="' + g + '"><i class="' + ['g5', 'g4', 'g3', 'g2', 'g1'][g] + '"></i>' + b + ' <b>' + f[2][g] + '</b></button>'; }).join('');
+      view.querySelector('.ag-n').innerHTML = '<b>' + num(agList.length) + '</b> ' + (agList.length === 1 ? 'agent' : 'agents') + ' · ' + f[0];
+      each(view.querySelectorAll('.ag-r.hd span'), function (h) { var on = h.dataset.c === A.sort; h.classList.toggle('srt', on); var sv = h.querySelector('svg'); if (sv) sv.remove(); if (on) h.insertAdjacentHTML('beforeend', ic(A.dir < 0 ? '<path d="M9 4v10M5.5 10.5 9 14l3.5-3.5"/>' : '<path d="M9 14V4M5.5 7.5 9 4l3.5 3.5"/>')); });
+      rowsEl.innerHTML = page.length ? page.map(function (a, i) { return '<div class="ag-r" data-i="' + (at + i) + '" tabindex="0" style="--n:' + i + '"><span class="nm">' + K.av(a.n) + a.n + '</span><span><b class="ag-sc ' + gcl(a.s) + '">' + a.s + '</b></span><span>Team ' + a.team + '</span><span class="nu">' + a.calls + '</span><span>' + a.weak + '</span><span class="dl ' + (a.d < 0 ? 'dn' : a.d > 0 ? 'up' : '') + '">' + (a.d ? (a.d > 0 ? '▲ ' : '▼ ') + Math.abs(a.d) + (Math.abs(a.d) === 1 ? ' pt' : ' pts') : 'no change') + '</span></div>'; }).join('')
+        : '<div class="lv-none"><b>No agents match</b><span>Nothing fits “' + esc(A.q) + '”' + (A.band < 0 ? '' : ' in ' + BANDS[A.band]) + '.</span></div>';
+      rowsEl.classList.remove('is-new'); void rowsEl.offsetWidth; rowsEl.classList.add('is-new');
+      view.querySelector('.ct').innerHTML = agList.length ? '<b>' + (at + 1) + '–' + (at + page.length) + '</b> of ' + num(agList.length) : '';
+      view.querySelector('.ag-pv').disabled = !A.page; view.querySelector('.ag-nx').disabled = A.page >= pages - 1;
+    }
+    function showAgents(g) { el.classList.add('agv'); each(tabsA.children, function (t, i) { t.classList.toggle('on', i === 1); }); if (g != null) { A.band = g; A.page = 0; } shut(el); paintA(); }
+    function showOverview() { el.classList.remove('agv'); each(tabsA.children, function (t, i) { t.classList.toggle('on', i === 0); }); shut(el); }
+    function agent(a) {
+      var seed = a.s * 7 + a.calls, r = function () { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }, d = a.s - avg;
+      var cr = CRIT.map(function (c) { return [c, c === a.weak ? Math.max(20, a.s - 14 - Math.floor(r() * 8)) : Math.max(30, Math.min(99, a.s + Math.round((r() - .35) * 16)))]; }).sort(function (x, y) { return x[1] - y[1]; });
+      var TOP = ['Refunds & Credits', 'Online Booking', 'Trip Status', 'Schedule Changes', 'Baggage'], calls = [0, 1, 2].map(function (k) { return ['Oct ' + (12 - k * 2 - Math.floor(r() * 2)), TOP[Math.floor(r() * TOP.length)], Math.max(20, Math.min(99, a.s + Math.round((r() - .5) * 22)))]; });
+      each(rowsEl.children, function (x) { x.classList.toggle('hot', agList[+x.dataset.i] === a); });
+      var s = sheet(el, ui, '<header>' + a.n + '<small>Team ' + a.team + ' · ' + a.calls + ' calls</small></header>' +
+        '<div class="ag-hero"><b class="ag-sc ' + gcl(a.s) + '">' + a.s + '</b><span><strong>' + (d ? Math.abs(d) + (Math.abs(d) === 1 ? ' pt ' : ' pts ') + (d < 0 ? 'under' : 'over') + ' the center’s ' + avg : 'On the center’s average') + '</strong>' + FORMS[S.form][0] + ' · ' + (a.d ? (a.d > 0 ? 'up ' : 'down ') + Math.abs(a.d) + ' in 30 days' : 'no change in 30 days') + '</span></div>' +
+        '<h4>By criterion · lowest first</h4><div class="ag-cr">' + cr.map(function (c, n) { return '<div style="--i:' + n + '"><span>' + c[0] + '</span><i><u class="' + gcl(c[1]) + '" style="width:' + c[1] + '%"></u></i><b>' + c[1] + '</b></div>'; }).join('') + '</div>' +
+        '<h4>Latest calls</h4>' + calls.map(function (c) { return '<button type="button" class="ag-call"><span>' + c[0] + '</span><b>' + esc(c[1]) + '</b><em class="ag-sc ' + gcl(c[2]) + '">' + c[2] + '</em></button>'; }).join('') +
+        '<div class="ft">' + K.act('See the calls') + K.act('Create a coaching task', 'ink') + '</div>', function () { each(rowsEl.children, function (x) { x.classList.remove('hot'); }); });
+      var b = s.querySelectorAll('.ft .act'), calls2 = function () { go('data', [{ k: 'Agent', v: a.n, n: a.calls }]); };
+      b[0].addEventListener('click', calls2); each(s.querySelectorAll('.ag-call'), function (x) { x.addEventListener('click', calls2); });
+      b[1].addEventListener('click', function () { task({ col: 0, src: 'Agent evaluation', when: 'Today', hi: a.s < 60 ? 1 : 0, title: 'Coach ' + a.n + ' on: ' + a.weak, ev: 'Score ' + a.s + ' · ' + FORMS[S.form][0], who: '' }); b[1].disabled = true; b[1].classList.add('made'); b[1].textContent = 'Task created'; flash(el, 'Coaching task added to Workflows'); });
+    }
+    kp[0].setAttribute('role', 'button'); kp[0].tabIndex = 0;
+    view.querySelector('.ag-search input').addEventListener('input', function (e) { A.q = e.target.value.trim(); A.page = 0; paintA(); });
+    addEventListener('resize', function () { if (el.classList.contains('on') && el.classList.contains('agv')) paintA(); });
+    el.addEventListener('click', function (e) {
+      var t = e.target, x;
+      if ((x = t.closest('.ag-tabs span'))) { if (x === tabsA.firstChild) showOverview(); else showAgents(); return; }
+      if (kp[0].contains(t)) { showAgents(-1); return; }
+      if ((x = t.closest('.ag-chips .sx-chip'))) { A.band = +x.dataset.g; A.page = 0; paintA(); return; }
+      if ((x = t.closest('.ag-r.hd span'))) { if (A.sort === x.dataset.c) A.dir = -A.dir; else { A.sort = x.dataset.c; A.dir = /^(calls|d)$/.test(A.sort) ? -1 : 1; } A.page = 0; paintA(); return; }
+      if ((x = t.closest('.ag-pv,.ag-nx'))) { A.page += x.classList.contains('ag-nx') ? 1 : -1; paintA(); return; }
+      if ((x = t.closest('.ag-rows .ag-r'))) { agent(agList[+x.dataset.i]); return; }
+    });
     el.addEventListener('click', function (e) {
       var t = e.target, x;
       if (acts[0].contains(t)) { menu(el, acts[0], [{ head: 'Evaluation form' }].concat(FORMS.map(function (f, i) { return { t: f[0], v: i, on: i === S.form }; })), function (it) { S.form = it.v; shut(el); paint(); }, true); return; }
       if (acts[1].contains(t)) { menu(el, acts[1], RANGE.map(function (r, i) { return { t: r[0], v: i, on: i === S.range }; }), function (it) { S.range = it.v; paint(); }, true); return; }
       if ((x = t.closest('.sx-seg span'))) { S.trend = x !== seg.firstChild; paint(); return; }
-      if ((x = t.closest('[data-g]'))) { band(BANDS.indexOf(x.dataset.g)); return; }
+      if ((x = t.closest('.ae-dist [data-g]'))) { band(BANDS.indexOf(x.dataset.g)); return; }
       if (kp[2].contains(t)) { band(4); return; }
     });
     el.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[role="button"]')) { e.preventDefault(); e.target.click(); } });
@@ -489,6 +589,7 @@
     var m = (window.hearScreens && window.hearScreens.all || []).filter(function (x) { return x.key === key; })[0]; if (m) m.open(); return m;
   }
   function task(t) { if (L.actions.add) L.actions.add(t); else (L.actions.wait = L.actions.wait || []).push(t); }
+  function signal(g) { if (L.signals.add) L.signals.add(g); else (L.signals.wait = L.signals.wait || []).push(g); }
 
   /* ---------- Workflows ---------- */
   /* The board is drawn from a list of tasks, so a task can be filtered, started, reassigned, resolved, reopened, opened and written
@@ -521,7 +622,7 @@
     var bar = el.querySelector('.ac-bar'), board = el.querySelector('.ac-board'), SHOW = 3;
     var card = function (t) {
       var moves = t.col === 0 ? [['who', 'Reassign'], ['start', 'Start', 'go'], ['done', 'Resolve']] : t.col === 1 ? [['who', 'Reassign'], ['back', 'Back'], ['done', 'Resolve', 'go']] : [['open', 'Reopen']];
-      return '<div class="ac-card' + (t.id === S.at ? ' hot' : '') + (t.fresh ? ' land' : '') + '" data-id="' + t.id + '" tabindex="0"><small><u' + (t.hi ? ' class="hi"' : '') + '></u>' + t.src + ' · ' + t.when + (t.hi ? '<span class="hp"> · High</span>' : '') + '</small><p>' + esc(t.title) + '</p><span class="cev">' + t.ev + '</span>' +
+      return '<div class="ac-card' + (t.id === S.at ? ' hot' : '') + (t.fresh ? ' land' : '') + '" data-id="' + t.id + '" tabindex="0" draggable="true"><small><u' + (t.hi ? ' class="hi"' : '') + '></u>' + t.src + ' · ' + t.when + (t.hi ? '<span class="hp"> · High</span>' : '') + '</small><p>' + esc(t.title) + '</p><span class="cev">' + t.ev + '</span>' +
         '<footer>' + (t.who ? K.av(t.who) + t.who : '<span style="color:var(--mut)">Not assigned</span>') + (t.tag ? '<span class="sx-tag' + (t.tag === 'Resolved' ? ' ok' : '') + '">' + t.tag + '</span>' : '') + '</footer>' +
         '<div class="qa">' + moves.map(function (m) { return '<button type="button" data-do="' + m[0] + '"' + (m[2] ? ' class="go"' : '') + '>' + m[1] + '</button>'; }).join('') + '</div></div>';
     };
@@ -530,11 +631,16 @@
       bar.innerHTML = WHOF.map(function (w, i) { return '<button type="button" class="sx-chip' + (i === S.who ? ' on' : '') + '" data-w="' + i + '">' + w[0] + '</button>'; }).join('') + '<i class="gap"></i>' +
         BYF.map(function (b, i) { return '<button type="button" class="sx-chip' + (i === S.by ? ' on' : '') + '" data-b="' + i + '">' + b[0] + ' <b>' + T.filter(b[1]).length + '</b></button>'; }).join('');
       board.innerHTML = COLS.map(function (n, c) {
-        var list = T.filter(function (t) { return t.col === c && f(t) && g(t); }).sort(function (a, b) { return (b.top || 0) - (a.top || 0) || a.id - b.id; }), all = S.open[c] || list.length <= SHOW + 1, more = list.length - SHOW;
+        var list = T.filter(function (t) { return t.col === c && f(t) && g(t); }).sort(function (a, b) { return (b.top || 0) - (a.top || 0) || a.id - b.id; }), all = S.open[c] || list.length <= SHOW, more = list.length - SHOW;
         return '<section class="ac-col" data-c="' + c + '"><h4>' + n + '<i>' + list.length + '</i></h4>' + (list.length ? (all ? list : list.slice(0, SHOW)).map(card).join('') : '<span class="ac-more">Nothing here</span>') +
-          (!all ? '<button type="button" class="ac-more">+' + more + ' more</button>' : S.open[c] && list.length > SHOW + 1 ? '<button type="button" class="ac-more">Show less</button>' : '') + '</section>'; }).join('');
+          (!all ? '<button type="button" class="ac-more">+' + more + ' more</button>' : S.open[c] && list.length > SHOW ? '<button type="button" class="ac-more">Show less</button>' : '') + '</section>'; }).join('');
+      /* a column shows the cards it has room for: measured from the cards just drawn, and drawn once more if the number changed */
+      var one = board.querySelector('.ac-card'), col = board.querySelector('.ac-col');
+      if (one && col && !again) { var room = Math.max(2, Math.floor((col.clientHeight - 78) / (one.offsetHeight + 10))); if (room !== SHOW) { SHOW = room; again = 1; paint(); again = 0; return; } }
       T.forEach(function (t) { t.fresh = 0; });
     }
+    var again = 0, fitT = 0;
+    addEventListener('resize', function () { clearTimeout(fitT); fitT = setTimeout(function () { if (el.classList.contains('on')) paint(); }, 150); });
     function move(t, col, tag, out) { t.col = col; t.tag = tag || ''; if (out) t.ev = esc(out); t.fresh = 1; t.top = ++uid; if (col >= 2) t.hi = t.hi && 0; paint(); }
     var note = function (t, text) { flash(el, text); };
 
@@ -593,6 +699,16 @@
       if ((x = t.closest('.ac-card'))) { open(T[+x.dataset.id]); return; }
     });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.classList.contains('ac-card')) open(T[+e.target.dataset.id]); });
+    /* a board is worked by hand: a card is picked up and put down in another column, and what that column means happens to it */
+    var drag = -1, lit = function (c) { each(board.querySelectorAll('.ac-col'), function (x) { x.classList.toggle('drop', x === c); }); };
+    board.addEventListener('dragstart', function (e) { var c = e.target.closest && e.target.closest('.ac-card'); if (!c) return; drag = +c.dataset.id; try { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', String(drag)); } catch (x) {} setTimeout(function () { c.classList.add('drag'); board.classList.add('dragging'); }, 0); });
+    board.addEventListener('dragover', function (e) { var c = e.target.closest('.ac-col'); if (drag < 0 || !c) return; e.preventDefault(); lit(+c.dataset.c === T[drag].col ? null : c); });
+    board.addEventListener('dragleave', function (e) { if (!board.contains(e.relatedTarget)) lit(null); });
+    board.addEventListener('drop', function (e) { var c = e.target.closest('.ac-col'), t = T[drag]; if (!c || !t) return; e.preventDefault(); var to = +c.dataset.c; drag = -1; board.classList.remove('dragging');
+      if (to === t.col) { paint(); return; }
+      if (S.at === t.id && to >= 2) { S.at = -1; shut(el); }
+      move(t, to, to === 2 ? 'Resolved' : to === 3 ? 'Cancelled' : '', to === 2 ? 'Resolved by ' + ME + ', today' : to === 3 ? 'Cancelled by ' + ME + ', today' : null); flash(el, 'Moved to ' + COLS[to]); });
+    board.addEventListener('dragend', function () { drag = -1; board.classList.remove('dragging'); lit(null); each(board.querySelectorAll('.ac-card.drag'), function (x) { x.classList.remove('drag'); }); });
     L.actions.add = add;
     (L.actions.wait || []).forEach(add); L.actions.wait = null;
     paint();
@@ -633,6 +749,11 @@
     each(el.querySelectorAll('.tg'), function (t) { t.setAttribute('role', 'switch'); t.tabIndex = 0; });
     each(el.querySelectorAll('.sg-card,.sg-list .sg-r'), function (r) { r.tabIndex = 0; });
     var nameOf = function (r) { return (r.querySelector('header b') || r.querySelector('.nm').firstChild).textContent.trim(); };
+    var SER = { 'Cancellation intent': [16, 18, 17, 19, 16, 18, 17, 20, 26, 34, 44, 52, 57, 58], 'Refund refused': [4, 5, 4, 5, 4, 5, 5, 4, 5, 5, 6, 11, 15, 16], 'Disclosure missing': [2, 3, 2, 3, 3, 2, 3, 3, 2, 3, 3, 5, 13, 14] }, tipEl = el.querySelector('.sx-tip'), tipAt = null;
+    fire.addEventListener('pointermove', function (e) { var b = e.target.closest('.sg-plot>i'); if (b === tipAt) return; tipAt = b; if (!b) { tipEl.classList.remove('on'); return; }
+      var card = b.closest('.sg-card'), k = [].indexOf.call(card.querySelectorAll('.sg-plot>i'), b), ser = SER[nameOf(card)] || [], u = INFO[nameOf(card)] && INFO[nameOf(card)].u, d = new Date(2026, 8, 29 + k), v = ser[k];
+      if (v == null) return; ui.tip(b, '<strong>' + ['Sep', 'Oct'][d.getMonth() - 8] + ' ' + d.getDate() + '</strong><span class="big">' + v + ' <small>calls</small></span><span>' + (u ? (v > u * 2 ? (v / u).toFixed(1) + ' times the usual ' + u : 'Usual day · ' + u) : '') + '</span>'); });
+    fire.addEventListener('pointerleave', function () { tipAt = null; tipEl.classList.remove('on'); });
     function count() {
       var cards = [].slice.call(fire.children), on = cards.filter(function (c) { return !c.classList.contains('off'); }).length, rows = [].slice.call(list.children), act = rows.filter(function (r) { return !r.querySelector('.tg').classList.contains('off'); }).length;
       nn.textContent = cards.length + rows.length; sub.lastChild.textContent = ' signals · ' + on + ' triggered now';
@@ -681,12 +802,15 @@
     function save() {
       var sv = fresh.querySelector('.act'), pt = fresh.querySelector('.nm .sx-tag'), it = info; if (!it || sv.classList.contains('saved')) return;
       sv.classList.add('saved'); sv.textContent = 'Saved'; pt.className = 'sx-tag flip'; pt.textContent = 'Active';
-      timers.push(setTimeout(function () {
-        var row = document.createElement('div'); row.className = 'sg-r land'; row.tabIndex = 0; row._info = { q: it.q.map(function (q, n) { return [n ? 'Oct 11' : 'Oct 12', q, n ? 'Ryan Cole · 4 min 2 sec' : 'Maya Collins · 5 min 37 sec']; }) };
-        row.innerHTML = '<i class="tg" role="switch" tabindex="0"></i><span class="nm">' + esc(it.name) + '<span class="sx-tag nw">New</span><small>' + esc(it.rule.replace(/\.$/, '')) + '</small></span>' + spark(it.d) + '<span class="ct"><b>' + it.n + '</b>calls in 14 days</span><span class="sx-tag">Active</span>';
-        reset(); list.insertBefore(row, list.firstChild); count(); nn.classList.remove('up'); void nn.offsetWidth; nn.classList.add('up'); flash(el, it.name + ' is now a signal');
-      }, 900));
+      timers.push(setTimeout(function () { reset(); addRow(it); nn.classList.remove('up'); void nn.offsetWidth; nn.classList.add('up'); flash(el, it.name + ' is now a signal'); }, 900));
     }
+    function addRow(it) {
+      var row = document.createElement('div'); row.className = 'sg-r land'; row.tabIndex = 0; it.d = it.d || days(it.n);
+      row._info = { q: (it.q || []).map(function (q, n) { return [n ? 'Oct 11' : 'Oct 12', q, n ? 'Ryan Cole · 4 min 2 sec' : 'Maya Collins · 5 min 37 sec']; }) };
+      row.innerHTML = '<i class="tg" role="switch" tabindex="0"></i><span class="nm">' + esc(it.name) + '<span class="sx-tag nw">New</span><small>' + esc(it.rule.replace(/\.$/, '')) + '</small></span>' + spark(it.d) + '<span class="ct"><b>' + it.n + '</b>calls in 14 days</span><span class="sx-tag">Active</span>';
+      list.insertBefore(row, list.firstChild); count();
+    }
+    L.signals.add = addRow; (L.signals.wait || []).forEach(addRow); L.signals.wait = null;
     tx.addEventListener('keydown', function (e) { if (e.key === 'Enter') preview(); if (e.key === 'Escape') reset(); });
     el.addEventListener('click', function (e) {
       var t = e.target, x;
@@ -732,14 +856,27 @@
       each(mast.querySelectorAll('.tab'), function (t, i) { t.classList.toggle('on', i === S.tab); var sm = t.querySelector('small'); if (sm) sm.textContent = SEC[NAMES[i]].filter(keep).length; });
       range.innerHTML = (S.today ? 'Today' : 'Last 7 days') + K.chev;
       el.classList.toggle('sec', S.tab > 0);
-      if (S.tab) { var list = SEC[NAMES[S.tab]].filter(keep); sec.innerHTML = '<div class="sx-h"><b>' + NAMES[S.tab] + '</b><span>' + list.length + (list.length === 1 ? ' story' : ' stories') + (S.today ? ' today' : ' in the last 7 days') + '</span></div><div class="nr-list">' + (list.map(item).join('') || '<p class="lv-p" style="padding:18px 0">No stories today in this section.</p>') + '</div>'; }
+      if (S.tab) { var list = SEC[NAMES[S.tab]].filter(keep); var top1 = list[0];
+        sec.innerHTML = '<div class="sx-h"><b>' + NAMES[S.tab] + '</b><span>' + list.length + (list.length === 1 ? ' story' : ' stories') + (S.today ? ' today' : ' in the last 7 days') + '</span></div>' + (top1 ? '<div class="nr-cols"><button type="button" class="nr-item nr-sl"><span class="sx-tag ' + top1[3].replace(' thread', '') + '">' + top1[2] + '</span><b>' + top1[0] + '</b><span>' + top1[1] + '</span>' + ((FIG[top1[0]] || {}).p ? '<em class="p">' + FIG[top1[0]].p + '</em>' : '') + figure(top1) + '<em><strong>Why you’re seeing this</strong>' + ((FIG[top1[0]] || {}).why || WHY[top1[2]]) + '</em></button><div class="nr-list">' + list.slice(1).map(item).join('') + '</div></div>' : '<p class="lv-p" style="padding:18px 0">No stories today in this section.</p>'); }
       else el.querySelector('.nr-side .nr-list').innerHTML = front.replace(/<div class="nr-item/g, '<button type="button" class="nr-item').replace(/<\/span><\/div>/g, '</span></button>');
     }
+    /* critic, 26.11.2026: a chart with no numbers under a headline that has one is decoration. A story carries a figure only when
+       its numbers are known, and the bars are those numbers, each with its value: they add up to what the headline says. */
+    var FIG = { 'Cancellation intent is running at 3.4 times its usual day': { v: [20, 26, 34, 44, 52, 57, 58], t: 'Calls a day', x: ['Oct 6', 'Oct 12'], p: 'In 58 calls yesterday the customer said they want to cancel or leave. A usual day has 17. Most of them are about a refund that has not arrived.' },
+      'Recording disclosure went missing on 27 calls in two days': { v: [3, 3, 2, 3, 3, 13, 14], t: 'Calls a day without the disclosure', x: ['Oct 6', 'Oct 12'] },
+      'Silence on Trip Status calls is down a third': { v: [12, 11, 10, 9, 8, 8, 8], t: 'Long silences a day', x: ['Oct 6', 'Oct 12'] },
+      'Refund refused: 16 calls yesterday against a usual 5': { v: [4, 5, 5, 6, 11, 15, 16], t: 'Calls a day', x: ['Oct 6', 'Oct 12'] },
+      'Team B handle time is up 40% on last week': { v: [5.0, 5.1, 5.4, 6.0, 6.6, 6.9, 7.0], t: 'Team B · minutes a call', x: ['Oct 7', 'Oct 13'], p: 'A call took Team B five minutes a week ago and takes seven now. The other three teams did not move. The extra time is on refund calls, where agents wait on the booking system.' },
+      'Valid sales held above the 90% target for a sixth week': { v: [91, 92, 91, 93, 92, 92], t: 'Valid sales, % · by week', x: ['Sep 1', 'Oct 6'], p: 'Six weeks in a row over the 90% line. The two weeks under it in August followed the fare change; nothing since has come close.' },
+      'Refund asked twice, voucher offered: 6 calls in 7 days': { v: [0, 1, 0, 1, 1, 1, 2], t: 'Calls a day', x: ['Oct 7', 'Oct 13'], why: 'First seen on Oct 8. Six calls since, two of them today.', p: 'Six customers asked for a refund on a cancelled flight twice in one call, and were offered a voucher both times. Four of the six calls were taken by two agents.' } };
+    function figure(s) { var f = FIG[s[0]]; if (!f) return ''; var mx = Math.max.apply(0, f.v), last = f.v.length - 1;
+      return '<h4 class="lv-wkt">' + f.t + '</h4><div class="lv-wk">' + f.v.map(function (v, d) { return '<i class="' + (d === last ? (/Rising|Surging|New/.test(s[2]) ? 'hi' : s[2] === 'Improving' ? 'ok' : '') : '') + '" style="height:' + Math.max(2, v / mx * 100).toFixed(0) + '%"><b>' + v + '</b></i>'; }).join('') + '</div><div class="lv-wkx"><span>' + f.x[0] + '</span><span>' + f.x[1] + '</span></div>'; }
     function story(s) {
       var kind = s[1].split(' · ')[0], sg = kind === 'Signal' ? s[1].split(' · ')[1] : null, n = (/(\d+) calls/.exec(s[0]) || [])[1];
       var st = sheet(el, ui, '<header>Story<small>' + s[1].split(' · ').slice(-1)[0] + '</small></header><div class="a" style="margin-top:14px"><p style="font-size:19px;line-height:1.25;color:var(--ink);font-weight:500;text-wrap:balance">' + s[0] + '</p></div>' +
         '<dl><dt>Section</dt><dd>' + (kind === 'Alert' ? 'Alerts' : kind === 'Signal' ? 'Signals' : kind) + '</dd><dt>Source</dt><dd>' + s[1].split(' · ').slice(0, 2).join(' · ') + '</dd><dt>Heading</dt><dd><span class="sx-tag ' + s[3].replace(' thread', '') + '">' + s[2] + '</span></dd></dl>' +
-        '<h4>Why you’re seeing this</h4><p class="lv-p">' + WHY[s[2]] + '</p><div class="ft">' + K.act('See the calls') + K.act('Create a task', 'ink') + '</div>');
+        figure(s) +
+        '<h4>Why you’re seeing this</h4><p class="lv-p">' + ((FIG[s[0]] || {}).why || WHY[s[2]]) + '</p><div class="ft">' + K.act('See the calls') + K.act('Create a task', 'ink') + '</div>');
       var b = st.querySelectorAll('.ft .act');
       b[0].addEventListener('click', function () { if (kind === 'Agent evaluation') go('agents'); else if (kind === 'Compliance') go('data', [{ k: 'Score', op: 'under', n: 60 }]); else go('data', [{ k: 'Signal', v: sg || s[1].split(' · ')[1] || 'Alert', n: +n || 24 }]); });
       b[1].addEventListener('click', function () { task({ col: 0, src: kind === 'Alert' ? 'Alert' : kind === 'Agent evaluation' ? 'Agent evaluation' : 'Newsroom', when: 'Today', hi: /Rising|Surging/.test(s[2]) ? 1 : 0, title: s[0], ev: s[1], who: '' }); b[1].disabled = true; b[1].classList.add('made'); b[1].textContent = 'Task created'; flash(el, 'Task added to Workflows'); });
@@ -797,6 +934,11 @@
     var LINKS = [['northwind.example/help/refunds', 'Refunds and credits · help center', 'Read today, 6:00 am', 76], ['northwind.example/help/baggage', 'Baggage · help center', 'Read today, 6:00 am', 41], ['status.northwind.example', 'Service status', 'Read 12 min ago', 19]];
     var TERMS = [['PNR', 'The six-character booking reference'], ['Voucher', 'Credit for a future flight, offered in place of a refund'], ['Fare class', 'The letter that sets what a ticket allows'], ['Layover', 'A stop between two flights on one booking'], ['No-show', 'A traveler who did not board and did not cancel'],
       ['Chargeback', 'A payment the customer disputed with their bank'], ['Codeshare', 'A flight sold by one airline and flown by another'], ['Open jaw', 'A return trip that comes back from a different city']];
+    var SAYS = { 'Refund_Policy.pdf': ['A cancelled flight is refunded in full to the original payment method within seven working days.', 'A voucher may be offered. It is never given in place of a refund the customer has asked for.'],
+      'Fare_Rules.pdf': ['Flex fares change free of charge up to two hours before departure.', 'Saver fares change for a fee of 45 euros and are not refundable after 24 hours.'], 'Baggage_Fees.pdf': ['The first checked bag is 30 euros online and 45 euros at the airport.', 'Sports equipment counts as one bag up to 32 kg.'],
+      'Opening_Script.docx': ['“Thank you for calling Northwind, this is [name]. How can I help?”', 'Say the company and your name before anything else.'], 'Recording_Disclosure.txt': ['“This call is recorded for quality and training.”', 'Read it in the first 30 seconds, before any booking detail.'],
+      'Verification_Steps.md': ['Ask for the booking reference and the date of birth.', 'Open the booking only after both match.'], 'Onboarding_Checklist.md': ['Week one: the booking system, the opening and the disclosure.', 'Week two: refunds, changes and when to hand a call on.'],
+      'Escalation_Matrix.md': ['Refund over 500 euros: team lead. Lost bag over 48 hours: ground team.', 'A customer who asks for a supervisor twice is handed on, without a third ask.'], 'Upgrade_Offers.pdf': ['Offer an upgrade when the fare allows it and a better seat is free.', 'Say the price once, and do not repeat the offer after a no.'] };
     var S = { tab: 0, q: '', shut: {} }, id = 0, I = [];
     DOCS.forEach(function (f) { f[1].forEach(function (d) { I.push({ id: id++, kind: 0, folder: f[0], name: d[0], a: d[1], b: 'Updated ' + d[2], used: d[3], text: d[4], on: 1 }); }); });
     LINKS.forEach(function (l) { I.push({ id: id++, kind: 1, name: l[0], a: l[1], b: l[2], used: l[3], text: 'Hear reads this page every morning and uses what it says today.', on: 1 }); });
@@ -836,7 +978,7 @@
       each(el.querySelectorAll('.kn-r'), function (r) { r.classList.toggle('hot', +r.dataset.id === x.id); });
       var s = sheet(el, ui, '<header>' + ['Document', 'Link', 'Term'][x.kind] + '<small>' + (x.on ? 'In use' : 'Switched off') + '</small></header><div class="a" style="margin-top:14px"><p style="font-size:19px;line-height:1.25;color:var(--ink);font-weight:500;word-break:break-word">' + esc(x.name) + '</p><p>' + esc(x.kind === 2 ? x.a : x.text || 'Added by you.') + '</p></div>' +
         (x.kind === 2 ? '<h4>How Hear uses it</h4><p class="lv-p">When a call or a question says “' + esc(x.name) + '”, Hear reads it with this meaning.</p>'
-          : '<dl>' + (x.folder ? '<dt>Folder</dt><dd>' + esc(x.folder) + '</dd>' : '') + '<dt>' + (x.kind ? 'Page' : 'Size') + '</dt><dd>' + esc(x.a) + '</dd><dt>Status</dt><dd>' + esc(x.b) + '</dd><dt>Used in</dt><dd>' + (x.used ? x.used + ' answers in 30 days' : 'No answers yet') + '</dd></dl>') +
+          : (SAYS[x.name] ? '<h4>From the document</h4>' + SAYS[x.name].map(function (t) { return '<p class="kn-q">' + t + '</p>'; }).join('') : '') + '<dl>' + (x.folder ? '<dt>Folder</dt><dd>' + esc(x.folder) + '</dd>' : '') + '<dt>' + (x.kind ? 'Page' : 'Size') + '</dt><dd>' + esc(x.a) + '</dd><dt>Status</dt><dd>' + esc(x.b) + '</dd><dt>Used in</dt><dd>' + (x.used ? x.used + ' answers in 30 days' : 'No answers yet') + '</dd></dl>') +
         '<div class="ft">' + K0.act('Remove') + K0.act(x.on ? 'Switch off' : 'Switch on', 'ink') + '</div>', function () { each(el.querySelectorAll('.kn-r'), function (r) { r.classList.remove('hot'); }); });
       var b = s.querySelectorAll('.ft .act');
       b[0].addEventListener('click', function () { I.splice(I.indexOf(x), 1); shut(el); paint(); flash(el, x.name + ' removed'); });
@@ -940,7 +1082,7 @@
       ['Does Hear listen to calls while they happen?', 'No. Hear analyzes a call after it ends. Nothing is shown to the agent or the customer during the call.'],
       ['Who can see my apps?', 'Everyone in your workspace. <b>Share</b> copies a link to an app; people outside the workspace are asked to sign in first.']];
     var help = page('Help', 'sx-help', '<div class="top"><div><h2>Help</h2><p>Answers to what teams ask first, and a way to reach a person.</p></div><div class="sp"></div>' + act(ic('<path d="M4 9a5 5 0 1 0 1.6-3.7M4 3.5v2.3h2.3"/>') + 'Take the tour again') + '</div>' +
-      '<div class="hp-body"><section class="hp-qa">' + QA.map(function (q, i) { return '<div class="hp-q' + (i ? '' : ' on') + '"><button type="button" aria-expanded="' + !i + '">' + q[0] + ic('<path d="M5 7.5l4 4 4-4"/>') + '</button><p>' + q[1] + '</p></div>'; }).join('') + '</section>' +
+      '<div class="hp-body"><section class="hp-qa">' + QA.map(function (q, i) { return '<div class="hp-q' + (i ? '' : ' on') + '"><button type="button" aria-expanded="' + !i + '">' + q[0] + ic('<path d="M5 7.5l4 4 4-4"/>') + '</button><p>' + q[1] + '</p></div>'; }).join('') + '<div class="hp-keys"><h3>Keys</h3>' + [['/', 'Search calls, in Data'], ['Space', 'Play and pause a recording'], ['← →', 'Back and forward five seconds, on the recording'], ['Esc', 'Close a sheet, a menu or a call'], ['Enter', 'Open the row or card in focus']].map(function (k) { return '<div><kbd>' + k[0] + '</kbd><span>' + k[1] + '</span></div>'; }).join('') + '</div></section>' +
       '<section class="hp-ask"><h3>Ask a person</h3><p>A message goes to the Hear team. They answer on weekdays, usually within a few hours.</p><textarea rows="5" placeholder="What do you need help with?" aria-label="Your message"></textarea>' + act('Send', 'ink') + '<small class="hp-sent" hidden></small></section></div>');
     if (help) {
       var ta = help.querySelector('textarea'), send = help.querySelector('.hp-ask .act'), sent = help.querySelector('.hp-sent'); send.disabled = true;
@@ -957,10 +1099,13 @@
     var NOTE = [['An app is ready', 'When Hear finishes building or changing an app', 1], ['New calls to review', 'When a review app has calls waiting', 1], ['A signal is triggered', 'When a signal passes twice its usual day', 1], ['Weekly summary', 'Monday morning, by email', 0]];
     var TEAM = [['Maya Chen', 'QA lead', 'Admin'], ['Dana Levi', 'Compliance', 'Editor'], ['Sam Rivera', 'Operations', 'Editor'], ['Selma Kaya', 'QA', 'Viewer']], ROLES = ['Admin', 'Editor', 'Viewer'];
     var av = function (n) { return '<i class="sx-av">' + n.split(/[ @.]/).map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase() + '</i>'; };
-    var set = page('Settings', 'sx-settings', '<div class="top"><div><h2>Settings</h2><p>Your workspace, your profile and what Hear tells you about.</p></div></div><div class="st-body">' +
+    var set = page('Settings', 'sx-settings', '<div class="top"><div><h2>Settings</h2><p>Your workspace, your profile and what Hear tells you about.</p></div><div class="sp"></div><span class="st-saved">All changes saved</span></div><div class="st-body">' +
       '<section><h3>Workspace</h3><label class="st-f">Name<input type="text" data-k="ws" value="Northwind"></label><label class="st-f">Time zone<select data-k="tz"><option>Lisbon (GMT+1)</option><option>London (GMT+1)</option><option>New York (GMT−4)</option><option>Tel Aviv (GMT+3)</option></select><small>Dates and times of calls are shown in it</small></label></section>' +
       '<section><h3>Profile</h3><label class="st-f">Your name<input type="text" data-k="me" value="Maya Chen"></label><label class="st-f">Role<input type="text" data-k="role" value="QA lead"></label></section>' +
+      '<section><h3>Privacy</h3><div class="st-r"><span><b>Hide card numbers</b><small>In transcripts and in recordings</small></span><i class="tg" role="switch" tabindex="0" aria-checked="true" data-v="Card numbers are hidden"></i></div><div class="st-r"><span><b>Hide identity details</b><small>Dates of birth and document numbers</small></span><i class="tg" role="switch" tabindex="0" aria-checked="true" data-v="Identity details are hidden"></i></div>' +
+      '<label class="st-f">Keep calls for<select data-k="keep"><option>90 days</option><option selected>1 year</option><option>3 years</option></select></label></section>' +
       '<section><h3>Notifications</h3>' + NOTE.map(function (n, i) { return '<div class="st-r"><span><b>' + n[0] + '</b><small>' + n[1] + '</small></span><i class="tg' + (n[2] ? '' : ' off') + '" role="switch" tabindex="0" aria-checked="' + !!n[2] + '" data-n="' + i + '"></i></div>'; }).join('') + '</section>' +
+      '<section><h3>Connected</h3>' + [['Telephony', 'Calls arrive from your phone system as they end', 1], ['CRM', 'The customer and the booking, beside each call', 1], ['Chat and email', 'Written conversations, read like calls', 0]].map(function (c, i) { return '<div class="st-r"><span><b>' + c[0] + '</b><small>' + c[1] + '</small></span><button type="button" class="act st-con' + (c[2] ? ' on' : '') + '" data-c="' + i + '">' + (c[2] ? 'Connected' : 'Connect') + '</button></div>'; }).join('') + '</section>' +
       '<section><h3>People<small class="st-n"></small></h3><div class="st-team"></div><div class="kn-in st-inv">' + ic('<path d="M9 4v10M4 9h10"/>') + '<input type="email" placeholder="Invite by email, then press Enter" aria-label="Invite by email"></div></section></div>');
     if (set) {
       var team = set.querySelector('.st-team'), wsB = document.getElementById('ws'), meB = document.querySelector('.side .me');
@@ -970,11 +1115,14 @@
       set.addEventListener('input', function (e) { var k = e.target.dataset.k, v = e.target.value.trim(); if (!k) return;
         if (k === 'ws' && v) { wsB.querySelector('.ws__name').textContent = v; wsB.querySelector('.ws__mark').textContent = v[0].toUpperCase(); wsB.dataset.tip = v; }
         if (k === 'me' && v) { meB.querySelector('b').textContent = v.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase(); meB.querySelector('span').firstChild.textContent = v; TEAM[0][0] = v; people(); }
-        if (k === 'role') meB.querySelector('small').textContent = v; });
-      set.addEventListener('change', function (e) { if (e.target.dataset.k) flash(set, e.target.dataset.k === 'tz' ? 'Time zone: ' + e.target.value : 'Saved'); });
+        if (k === 'role') meB.querySelector('small').textContent = v; saved(); });
+      /* every change is kept as it is made, and the page says so in one place */
+      var savedEl = set.querySelector('.st-saved'), savedT = 0, saved = function () { savedEl.textContent = 'Saving…'; savedEl.classList.add('busy'); clearTimeout(savedT); savedT = setTimeout(function () { savedEl.textContent = 'Saved just now'; savedEl.classList.remove('busy'); }, 700); };
+      set.addEventListener('change', saved);
       set.addEventListener('click', function (e) { var t = e.target, x;
-        if ((x = t.closest('.tg'))) { var off = !x.classList.contains('off'); x.classList.toggle('off', off); x.setAttribute('aria-checked', !off); flash(set, NOTE[+x.dataset.n][0] + (off ? ': off' : ': on')); return; }
-        if ((x = t.closest('[data-p]'))) { var p = TEAM[+x.dataset.p]; menu(set, x, ROLES.map(function (r) { return { t: r, v: r, on: p[2] === r }; }).concat(+x.dataset.p ? [{ t: 'Remove from the workspace', v: '', sep: 1 }] : []), function (it) { if (it.v) p[2] = it.v; else TEAM.splice(TEAM.indexOf(p), 1); people(); flash(set, it.v ? p[0] + ' is now ' + it.v : p[0] + ' removed'); }, true); } });
+        if ((x = t.closest('.tg'))) { var off = !x.classList.contains('off'); x.classList.toggle('off', off); x.setAttribute('aria-checked', !off); saved(); return; }
+        if ((x = t.closest('.st-con'))) { var on = !x.classList.contains('on'); x.classList.toggle('on', on); x.textContent = on ? 'Connected' : 'Connect'; saved(); return; }
+        if ((x = t.closest('[data-p]'))) { var p = TEAM[+x.dataset.p]; menu(set, x, ROLES.map(function (r) { return { t: r, v: r, on: p[2] === r }; }).concat(+x.dataset.p ? [{ t: 'Remove from the workspace', v: '', sep: 1 }] : []), function (it) { if (it.v) p[2] = it.v; else TEAM.splice(TEAM.indexOf(p), 1); people(); saved(); if (!it.v) flash(set, p[0] + ' removed'); }, true); } });
       set.addEventListener('keydown', function (e) { var t = e.target;
         if ((e.key === 'Enter' || e.key === ' ') && t.classList.contains('tg')) { e.preventDefault(); t.click(); return; }
         if (e.key === 'Enter' && t.type === 'email') { var m = t.value.trim(); if (!/^\S+@\S+\.\S+$/.test(m)) { flash(set, 'That does not look like an email'); return; } TEAM.push([m, 'Invited', 'Viewer']); t.value = ''; people(); flash(set, 'Invitation sent to ' + m); } });
@@ -989,5 +1137,19 @@
     if (me) { me.setAttribute('role', 'button'); me.tabIndex = 0; me.classList.add('lv-me');
       me.addEventListener('click', function () { menu(stage, me, [{ t: 'Profile and settings', v: 'set' }, { t: 'Help', v: 'help' }, { t: 'Sign out', v: 'out', sep: 1 }], function (it) { if (it.v === 'out') location.href = 'login.html'; else find(it.v === 'set' ? 'Settings' : 'Help').click(); }); });
       me.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); me.click(); } }); }
+  })();
+  /* ---------- where you are survives a reload (owner, 26.11.2026: "a lot more than this"). The page in view is written in the
+     address, and a reload, or a link sent to someone, opens it again. Not with the portfolio's flags or the welcome. ---------- */
+  (function () {
+    var side = document.querySelector('.side'), q = new URLSearchParams(location.search); if (!side || q.get('screen') || q.get('welcome') || q.get('topics') || q.get('app')) return;
+    var name = function (b) { return b.id === 'nav-all' ? 'apps' : (b.querySelector('.lbl') || b).textContent.replace(/^\d+/, '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); };
+    side.addEventListener('click', function (e) {
+      var b = e.target.closest('.nv,#new'); if (!b || b.id === 'bell') return;
+      var n = b.id === 'new' ? '' : name(b);
+      setTimeout(function () { if (n && location.hash.indexOf('#' + n + '/') === 0) return; try { history.replaceState(null, '', n ? '#' + n : location.pathname + location.search); } catch (e) {} }, 0);
+    });
+    var open = function () { var h = location.hash.slice(1).split('/')[0]; if (!h) return;
+      var b = [].filter.call(side.querySelectorAll('.nv'), function (x) { return x.id !== 'bell' && name(x) === h; })[0]; if (b) b.click(); };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', open); else setTimeout(open, 0);
   })();
 })();

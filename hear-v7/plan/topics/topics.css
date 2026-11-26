@@ -287,22 +287,6 @@
 .tp-tile.big .tp-p em{margin:auto 0 0;font-size:28px}
 .tp-tile.big .tp-p small{display:block;flex-basis:auto;order:0;margin-top:3px}
 
-/* owner, 26.11.2026: "the colour logic from orange to blue does not work in all of them". One scale across the Studio, the heatmap's:
-   coral is what needs attention, blue deepens as the score rises. Topics read the other way round (its darkest blue was its lowest
-   score), so a low topic looked like a good one on any other screen. Same five bands, same cut-offs. */
-.stage:not(.lofi) .tp .b1{background:#FF6F52;color:#fff;box-shadow:none}
-.stage:not(.lofi) .tp .b2{background:#FFD0C4;color:#8E2A14;box-shadow:none}
-.stage:not(.lofi) .tp .b3{background:#DCEFFE;color:#1B4666;box-shadow:inset 0 0 0 1.5px #A9DAFE}
-.stage:not(.lofi) .tp .b4{background:#A9DAFE;color:#0B3A5E;box-shadow:none}
-.stage:not(.lofi) .tp .b5{background:#139FFD;color:#fff;box-shadow:none}
-.stage:not(.lofi) .tp-bars .b1{background:#FF6F52;box-shadow:none}
-.stage:not(.lofi) .tp-bars .b2{background:#FFB8A8;box-shadow:none}
-.stage:not(.lofi) .tp-bars .b3{background:#BFE2FE;box-shadow:none}
-.stage:not(.lofi) .tp-bars .b4{background:#7CC8FF;box-shadow:none}
-.stage:not(.lofi) .tp-bars .b5{background:#139FFD;box-shadow:none}
-.stage:not(.lofi) .tp .key>i.b3{box-shadow:inset 0 0 0 1.5px #A9DAFE}
-.stage:not(.lofi) .tp-row .sc small.dn{color:#C2452B}
-
 /* polish, 26.11.2026 (owner: "still broken and ugly things") */
 /* thinking: a bubble like the answer it becomes, with the three dots in its middle (was a small grey box with the dots at its top) */
 .tp-ask .think{align-self:flex-start;align-items:center;gap:5px;height:38px;padding:0 15px;box-sizing:border-box;border-radius:16px 16px 16px 4px}
@@ -313,3 +297,19 @@
 .tp .tp-kpis small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* the key keeps inside its column */
 .tp .key{flex-wrap:wrap;row-gap:4px}
+
+/* One scale across the Studio (owner, 26.11.2026: "the colour logic from orange to blue does not work in all of them"; critic, same
+   day: "43 is blue in Topics and coral in Data"). In the Studio on its own (.tp-std, set by topics.js) a topic's score is coloured by
+   the same bands as every other score: coral under 60, pale coral to 69, then the blues, deepening. The portfolio's figures
+   (?topics=hi|lo) keep the case study's own numbers and scale above. */
+.stage.tp-std:not(.lofi) .tp .b1{background:#FF6F52;color:#fff;box-shadow:none}
+.stage.tp-std:not(.lofi) .tp .b2{background:#FFD0C4;color:#8E2A14;box-shadow:none}
+.stage.tp-std:not(.lofi) .tp .b3{background:#DCEFFE;color:#1B4666;box-shadow:inset 0 0 0 1.5px #A9DAFE}
+.stage.tp-std:not(.lofi) .tp .b4{background:#A9DAFE;color:#0B3A5E;box-shadow:none}
+.stage.tp-std:not(.lofi) .tp .b5{background:#139FFD;color:#fff;box-shadow:none}
+.stage.tp-std:not(.lofi) .tp-bars .b1{background:#FF6F52;box-shadow:none}
+.stage.tp-std:not(.lofi) .tp-bars .b2{background:#FFB8A8;box-shadow:none}
+.stage.tp-std:not(.lofi) .tp-bars .b3{background:#BFE2FE;box-shadow:none}
+.stage.tp-std:not(.lofi) .tp-bars .b4{background:#7CC8FF;box-shadow:none}
+.stage.tp-std:not(.lofi) .tp-bars .b5{background:#139FFD;box-shadow:none}
+.stage.tp-std:not(.lofi) .tp-row .sc small.dn{color:#C2452B}

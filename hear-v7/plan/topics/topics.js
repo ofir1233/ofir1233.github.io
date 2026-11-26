@@ -11,6 +11,12 @@
      an average of 51, and Online Booking first: 4,412 calls at 43, pulled down by a 5.9 min handle time that scores 9. */
   var M = [['sat', 'Satisfaction', '4.2 / 5', 47], ['sil', 'Silence time', '4.6% of call time', 65], ['ht', 'Handle time', '4.4 min', 41]];
   /* topic: name, calls, change in 30 days, new?, then per parameter [score, value, change] */
+  /* In the Studio on its own the page shares the Studio's one score scale (under 60 coral, 70 the pass mark), so its sample scores
+     are spread on that scale: two topics fail, three are close, the rest pass. With ?topics= the portfolio keeps the case study's
+     numbers (an average of 51, Online Booking at 43) and its own bands, untouched. */
+  var studio = !new URLSearchParams(location.search).get('topics');
+  var G = [[0, 30], [30, 50], [45, 70], [65, 82], [90, 95], [100, 99]], spread = function (v) { for (var i = 1; i < G.length; i++) if (v <= G[i][0]) return Math.round(G[i - 1][1] + (v - G[i - 1][0]) / (G[i][0] - G[i - 1][0]) * (G[i][1] - G[i - 1][1])); return 99; };
+  if (studio) { stage.classList.add('tp-std'); M.forEach(function (m) { m[3] = spread(m[3]); }); }
   var T = [
     ['Online Booking', 4412, -9, 1, [44, '4.1 / 5', -3], [77, '3.4% of call time', -9], [9, '5.9 min', -14]],
     ['Trip Status', 3968, 2, 0, [58, '4.3 / 5', 1], [74, '3.6% of call time', 3], [57, '3.7 min', 2]],
@@ -25,10 +31,11 @@
     ['Baggage', 640, -2, 0, [50, '4.2 / 5', -2], [66, '4.5% of call time', -1], [40, '4.4 min', -3]],
     ['Loyalty Points', 388, -4, 0, [36, '4.0 / 5', -5], [58, '5.0% of call time', -3], [29, '4.9 min', -4]],
     ['Payment Issues', 160, -6, 1, [24, '3.8 / 5', -8], [50, '5.3% of call time', -4], [28, '4.9 min', -6]]
-  ].map(function (r) { var p = r.slice(4); return { n: r[0], c: r[1], d: r[2], fresh: r[3], p: p, s: Math.round((p[0][0] + p[1][0] + p[2][0]) / 3) }; });
-  var lvl = function (s) { return s < 40 ? 'b1' : s < 50 ? 'b2' : s < 60 ? 'b3' : s < 70 ? 'b4' : 'b5'; };
-  var onDark = function (s) { return s < 40 ? '#FF6F52' : s < 50 ? '#FFB8A8' : s < 60 ? '#DCEFFE' : s < 70 ? '#A9DAFE' : '#139FFD'; };
-  var status = function (s) { return s >= 60 ? 'Good' : s >= 40 ? 'Medium' : 'Poor'; };
+  ].map(function (r) { var p = r.slice(4); if (studio) p = p.map(function (x) { return [spread(x[0]), x[1], x[2]]; }); return { n: r[0], c: r[1], d: r[2], fresh: r[3], p: p, s: Math.round((p[0][0] + p[1][0] + p[2][0]) / 3) }; });
+  var CUT = studio ? [60, 70, 80, 90] : [40, 50, 60, 70];
+  var lvl = function (s) { return s < CUT[0] ? 'b1' : s < CUT[1] ? 'b2' : s < CUT[2] ? 'b3' : s < CUT[3] ? 'b4' : 'b5'; };
+  var onDark = function (s) { return s < CUT[0] ? '#FF6F52' : s < CUT[1] ? (studio ? '#FFB8A8' : '#DCEFFE') : s < CUT[2] ? (studio ? '#DCEFFE' : '#A9DAFE') : s < CUT[3] ? (studio ? '#A9DAFE' : '#63BEFE') : '#139FFD'; };
+  var status = function (s) { return studio ? (s >= 80 ? 'Good' : s >= 70 ? 'Passing' : s >= 60 ? 'Close' : 'Failing') : s >= 60 ? 'Good' : s >= 40 ? 'Medium' : 'Poor'; };
   var num = function (n) { return n.toLocaleString('en-US'); };
   var chg = function (d) { return d ? (d > 0 ? '▲ ' : '▼ ') + Math.abs(d) + ' pts' : 'no change'; };
   var esc = function (s) { return s.replace(/&/g, '&amp;'); };
@@ -37,6 +44,7 @@
   /* most to gain: the topic that would lift the overall score most if it only reached the average */
   /* the tile names Online Booking, as the case study does: its share of the calls times its gap to the average is +1.6 */
   var gainK = 0, gain = (T[0].c / total * (avg - T[0].s)).toFixed(1);
+  if (studio) { T.forEach(function (t, k) { if (t.c * (avg - t.s) > T[gainK].c * (avg - T[gainK].s)) gainK = k; }); gain = (T[gainK].c / total * (avg - T[gainK].s)).toFixed(1); }
   var note = function (n, text) { return '<i class="tp-n"><b>' + n + '</b><span>' + text + '</span></i>'; };
   var seg = function (id, items, on) { return '<span class="tp-seg" id="' + id + '">' + items.map(function (t, i) { return '<button type="button" data-i="' + i + '"' + (i === on ? ' class="on"' : '') + '>' + t + '</button>'; }).join('') + '</span>'; };
   /* 30 days of a score that drifts by its change. Seeded, so it is the same on every load. */
@@ -64,13 +72,13 @@
       '<p>Equal-weight average of <b>Satisfaction</b>, <b>Silence time</b> and <b>Handle time</b> · 0–100, higher is better</p>' + note(1, 'The score is defined before any number is shown') + '</div>' +
     '<div class="kpis tp-kpis">' +
       '<div><small>Calls</small><b>' + num(total) + '</b><i>across ' + T.length + ' topics</i></div>' +
-      '<div><small>Average score, weighted by calls</small><b>' + avg + '</b><i>\u25BC 7 pts in 30 days</i></div>' +
+      '<div><small>Average score, weighted by calls</small><b>' + avg + '</b><i>' + (studio ? '\u25BC 2 pts in 30 days' : '\u25BC 7 pts in 30 days') + '</i></div>' +
       '<div class="tp-gain" tabindex="0"><small>Most to gain</small><b>+' + gain + '</b><i><u>' + esc(T[gainK].n) + '</u> · ' + num(T[gainK].c) + ' calls at ' + T[gainK].s + '</i></div>' +
       '<div><small>New topics</small><b>' + T.filter(function (t) { return t.fresh; }).length + '</b><i>first seen this month</i></div></div>' +
     '<div class="tp-body">' +
       '<section class="tp-col"><header class="tp-h"><b id="tp-mt">10 highest-volume topics</b><span class="sub">Area is calls, color is score</span>' + note(2, 'Size is calls. The darkest need attention first') + seg('tp-view', ['5', '10', 'All'], 1) + '</header>' +
         '<div class="tp-map" id="tp-map"></div>' +
-        '<div class="key"><span>Score</span><i class="b1"></i><span>under 40</span><i class="b2"></i><span>40–49</span><i class="b3"></i><span>50–59</span><i class="b4"></i><span>60–69</span><i class="b5"></i><span>70 and up</span>' +
+        '<div class="key"><span>Score</span><i class="b1"></i><span>under ' + CUT[0] + '</span><i class="b2"></i><span>' + CUT[0] + '–' + (CUT[1] - 1) + '</span><i class="b3"></i><span>' + CUT[1] + '–' + (CUT[2] - 1) + '</span><i class="b4"></i><span>' + CUT[2] + '–' + (CUT[3] - 1) + '</span><i class="b5"></i><span>' + CUT[3] + ' and up</span>' +
           '<em class="tp-hint"><svg class="i" viewBox="0 0 18 18"><path d="M4.5 2.8l9.6 5.3-4.3 1.2-2.2 4z"/></svg>Hover a topic</em>' + note(3, 'Hover: the 3 scores behind it') + '</div></section>' +
       '<section class="tp-col"><header class="tp-h"><b>Daily score</b><span class="sub" id="tp-dsub">Height is score, 0–100</span>' + note(4, 'Same topics, by day') + seg('tp-sort', ['Most calls', 'Lowest score', 'Biggest drop'], 0) + '</header>' +
         '<div class="tp-list" id="tp-list"></div>' +
@@ -273,7 +281,7 @@
       t.c = Math.round(t.c0 * RANGE[range][1]); t.s = Math.round(ps.reduce(function (a, p) { return a + p[0]; }, 0) / n); t.days = days(t.s, t.d, k); });
     total = T.reduce(function (a, t) { return a + t.c; }, 0); avg = Math.round(T.reduce(function (a, t) { return a + t.c * t.s; }, 0) / total);
     /* with all three the tile names Online Booking, as the case study does; with another score, the topic that would lift it most */
-    gainK = 0; if (n < 3) T.forEach(function (t, k) { if (t.c * (avg - t.s) > T[gainK].c * (avg - T[gainK].s)) gainK = k; });
+    gainK = 0; if (n < 3 || studio) T.forEach(function (t, k) { if (t.c * (avg - t.s) > T[gainK].c * (avg - T[gainK].s)) gainK = k; });
     gain = (T[gainK].c / total * (avg - T[gainK].s)).toFixed(1);
     tiles.forEach(function (x, k) { var t = T[k], tb = x.querySelector('.tb'); tb.className = 'tb ' + lvl(t.s); tb.querySelector('.cl').textContent = num(t.c) + ' calls'; tb.querySelector('.sc b').textContent = t.s;
       x.querySelector('.dh i').textContent = 'avg score ' + t.s; x.setAttribute('aria-label', t.n + ', ' + num(t.c) + ' calls, score ' + t.s); });
