@@ -52,7 +52,7 @@
      margin of sky the high-fidelity stories keep (v7/wf-story.js) */
   const phone = () => innerWidth <= 860;
   const inset = () => { const w = stage.clientWidth, h = stage.clientHeight;
-    return phone() ? { x: 14, t: 14, b: 40 } : { x: Math.round(w * .05), t: Math.round(h * .075), b: Math.round(h * .085) + 24 }; };
+    return phone() ? { x: 14, t: 20, b: 40 } : { x: Math.round(w * .06), t: Math.round(h * .075), b: Math.round(h * .085) + 24 }; };
   const room = () => { const m = inset(), w = stage.clientWidth - 2 * m.x, h = stage.clientHeight - m.t - m.b, base = phone() ? 400 : 540;
     return [base, Math.round(Math.max(base * .8, Math.min(base * 1.3, base * h / w)))]; };
 

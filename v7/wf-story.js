@@ -35,7 +35,7 @@
      margin of it on every side, so the clouds and flowers around the edge never cover the product */
   const hf = !!sv.closest('.hf');
   const inset = () => { const W = stage.clientWidth, H = stage.clientHeight;
-    if (hf) return phone() ? { x: 14, t: 14, b: 40 } : { x: Math.round(W * .05), t: Math.round(H * .075), b: Math.round(H * .085) + 24 };
+    if (hf) return phone() ? { x: 14, t: 20, b: 40 } : { x: Math.round(W * .06), t: Math.round(H * .075), b: Math.round(H * .085) + 24 };
     return phone() ? { x: 10, t: 10, b: 36 } : { x: Math.min(36, W * .05), t: 0, b: 36 }; };
   /* the room is 540 x 460 on a wide screen; a phone, and every high-fidelity story, shape it like the space the stage gives */
   const room = () => { if (!phone() && !hf) return [540, 460]; const m = inset(), w = stage.clientWidth - 2 * m.x, h = stage.clientHeight - m.t - m.b, base = phone() ? 400 : 540;
