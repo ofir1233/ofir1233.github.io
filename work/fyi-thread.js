@@ -269,6 +269,23 @@
   };
   if (doors) doors.addEventListener('click', () => setDoors(!late));
 
+  // the screens section: each phone holds one finished screen of a scene. They are set once, a little before they come into view
+  const helds = [...document.querySelectorAll('.fx-dev[data-hold]')];
+  if (helds.length) {
+    const hold = el => {
+      const p = (FX.players || []).find(x => x.root === el); if (!p || p.fy2) return;
+      p.fy2 = true; p.seen = true;
+      if (!p.n) p.n = { trailer: 6, origin: 6, spark: 6, catchup: 6, task: 6, together: 8, launch: 7 }[el.dataset.scene] || 0;
+      try { const r = p.run(+el.dataset.hold, true); if (r && r.catch) r.catch(() => {}); } catch (e) {}
+    };
+    const arm = () => {
+      if (!('IntersectionObserver' in window)) { helds.forEach(hold); return; }
+      const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { io.unobserve(e.target); hold(e.target); } }), { rootMargin: '900px 0px' });
+      helds.forEach(el => io.observe(el));
+    };
+    setTimeout(arm, 300);
+  }
+
   // the closing row comes in once, when it is on screen
   const left = document.getElementById('fy2-left');
   if (left) {

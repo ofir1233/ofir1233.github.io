@@ -35,9 +35,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=46">
 <link rel="stylesheet" href="../v7/fyi-take.css?v=16">
-<link rel="stylesheet" href="fyi-thread.css?v=3">
+<link rel="stylesheet" href="fyi-thread.css?v=4">
 <link rel="stylesheet" href="../v7/fyi-around.css?v=6">
 <link rel="stylesheet" href="../v7/fya-colour.css?v=7">
+<link rel="stylesheet" href="../v7/fya-kit.css?v=7">
 <link rel="stylesheet" href="../v7/fya-cast.css?v=13">
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
@@ -148,6 +149,54 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </section>
   </div>
 
+  <section class="fy2-scr" id="screens">
+    <header class="fy2-scr-h"><p class="fy2-kick">The whole app</p><h2>Every screen, flow by flow</h2><p class="fy2-lede">The story above follows one thread. These are the screens around it, each with the rule it was designed to.</p></header>
+    <div class="fy2-flow" id="flow-start">
+      <div class="fy2-flow-h"><span class="fy2-flow-n">01</span><b>Start</b><h3>Setup ends with a crew and a project</h3></div>
+      <ol class="fy2-flow-r">
+        <li><div class="fx-dev fy2-sd" data-scene="origin" data-hold="0"></div><p><b>Welcome</b>One line says what the app is for.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="origin" data-hold="2"></div><p><b>Profile</b>Skills are asked once. They help suggest who owns a task.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="origin" data-hold="3"></div><p><b>Crew</b>A crew is picked from people already on FYI.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="origin" data-hold="4"></div><p><b>New project</b>A project is a name, a colour and a crew.</p></li>
+      </ol>
+    </div>
+    <div class="fy2-flow" id="flow-chat">
+      <div class="fy2-flow-h"><span class="fy2-flow-n">02</span><b>Chat</b><h3>The thread carries the work</h3></div>
+      <ol class="fy2-flow-r">
+        <li><div class="fx-dev fy2-sd" data-scene="trailer" data-hold="0"></div><p><b>Chats</b>Projects and people share one list.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="spark" data-hold="5"></div><p><b>Voice note</b>A voice note gets its transcript under it.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="catchup" data-hold="3"></div><p><b>Catch up</b>Only you see it. Every line names its message.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="catchup" data-hold="5"></div><p><b>Ask in the group</b>An answer in the group says who asked.</p></li>
+      </ol>
+    </div>
+    <div class="fy2-flow" id="flow-task">
+      <div class="fy2-flow-h"><span class="fy2-flow-n">03</span><b>Task</b><h3>A promise becomes a task</h3></div>
+      <ol class="fy2-flow-r">
+        <li><div class="fx-dev fy2-sd" data-scene="task" data-hold="1"></div><p><b>Suggestion</b>The AI offers under the message. One tap dismisses it.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="task" data-hold="2"></div><p><b>New task</b>Every field says where it came from, or that it was not in the message.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="task" data-hold="3"></div><p><b>In the thread</b>The task stays in the chat, under the message that made it.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="task" data-hold="5"></div><p><b>Tasks</b>Three states: In progress, Approved, Finished.</p></li>
+      </ol>
+    </div>
+    <div class="fy2-flow" id="flow-vote">
+      <div class="fy2-flow-h"><span class="fy2-flow-n">04</span><b>Decide</b><h3>The crew decides in the thread</h3></div>
+      <ol class="fy2-flow-r">
+        <li><div class="fx-dev fy2-sd" data-scene="together" data-hold="2"></div><p><b>Call</b>A call starts from the chat and ends back in it.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="together" data-hold="4"></div><p><b>Poll</b>The poll is a message. Votes show as they land.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="together" data-hold="6"></div><p><b>Call notes</b>The notes are there for everyone, with what comes next.</p></li>
+      </ol>
+    </div>
+    <div class="fy2-flow" id="flow-event">
+      <div class="fy2-flow-h"><span class="fy2-flow-n">05</span><b>Event</b><h3>A message becomes a night out</h3></div>
+      <ol class="fy2-flow-r">
+        <li><div class="fx-dev fy2-sd" data-scene="launch" data-hold="1"></div><p><b>New event</b>Drafted from the chat. Each field says its source.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="launch" data-hold="2"></div><p><b>Invitation</b>The crew answers in the thread.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="launch" data-hold="3"></div><p><b>Promote</b>One event makes a public page and three formats.</p></li>
+        <li><div class="fx-dev fy2-sd" data-scene="launch" data-hold="6"></div><p><b>The night</b>On the night, the event sits on top of the chat.</p></li>
+      </ol>
+    </div>
+  </section>
+
   <div class="fya" id="around">
 <section class="fya-sec" id="fya-colour">
   <div class="wrap">
@@ -169,6 +218,28 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
     </div>
   </div>
 </section>
+<section class="fya-sec" id="fya-kit">
+  <div class="wrap">
+    <div class="fya-head"><div><p class="fya-kick">The kit</p><h2>Real parts, each with its states.</h2></div><div><p class="fya-lede">Each part below is the component itself, so press it and it does its job.</p>
+      <div class="fyak-bar">
+        <p class="fyak-bar-l" id="fyakit-l">Set every part to</p>
+        <div class="fyak-seg" role="group" aria-labelledby="fyakit-l">
+          <button type="button" aria-pressed="true" data-s="0">Resting</button><button type="button" aria-pressed="false" data-s="1">In use</button><button type="button" aria-pressed="false" data-s="2">Done</button>
+        </div>
+      </div></div></div>
+    <div class="fyak-wall">
+      <figure class="fyak-t" data-k="voice"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Voice note</b><span class="fyak-s">Resting</span></figcaption></figure>
+      <figure class="fyak-t" data-k="poll"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Poll</b><span class="fyak-s">Open</span></figcaption></figure>
+      <figure class="fyak-t" data-k="task"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Task</b><span class="fyak-s">Approved</span></figcaption></figure>
+      <figure class="fyak-t" data-k="ticket"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Event ticket</b><span class="fyak-s">Invited</span></figcaption></figure>
+      <figure class="fyak-t" data-k="ai"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>AI card</b><span class="fyak-s">Ready</span></figcaption></figure>
+      <figure class="fyak-t" data-k="comp"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Composer</b><span class="fyak-s">Empty</span></figcaption></figure>
+      <figure class="fyak-t" data-k="sw"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>Switch</b><span class="fyak-s">Private</span></figcaption></figure>
+      <figure class="fyak-t" data-k="file"><div class="fya-black fyak-tile"><div class="fx-app fx-static fya-kit fyak-c"></div></div><figcaption><b>File</b><span class="fyak-s">Ready</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
 <section class="fya-sec" id="fya-cast">
   <div class="wrap">
     <div class="fya-head"><div><p class="fya-kick">The cast</p><h2>Pick who you are.</h2></div><p class="fya-lede">Every avatar is an animal with a role and a genre.</p></div>
@@ -219,7 +290,7 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
       <p class="fy2-kick">Where it stands</p>
       <h2>A pilot that did not go ahead</h2>
       <p class="fy2-lede">FYI was a pilot Intune worked on with will.i.am. It did not go ahead, and I still enjoyed the process.</p>
-      <p class="fy2-note">Three things here are new, designed for this page: going back to the message, the public event page and the Project tab.</p>
+      <p class="fy2-note">Three things in the story are new, designed for this page: going back to the message, the public event page and the Project tab.</p>
       <ul class="fy2-left" id="fy2-left">
         <li style="--i:0"><div class="fy2-card fy2-sm"><b class="fy2-ct">Visualizer cut</b><span class="fy2-cm">Theo · Thu, Nov 12</span></div><span class="fy2-src">↳ From Theo’s message</span></li>
         <li style="--i:1"><span class="fy2-cv"><img src="../img/fyi-door/cover-b.webp" width="600" height="600" alt="Cover B, Grooves" loading="lazy" decoding="async"></span><span class="fy2-src">↳ From Ines’s poll</span></li>
@@ -271,9 +342,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script src="case.js?v=7"></script>
 <script src="fyi-live.js?v=4"></script>
 <script src="fyi-scenes.js?v=15"></script>
-<script src="fyi-thread.js?v=3"></script>
+<script src="fyi-thread.js?v=4"></script>
 <script src="../v7/foot.js?v=224" defer></script>
 <script src="../v7/fya-colour.js?v=7" defer></script>
+<script src="../v7/fya-kit.js?v=7" defer></script>
 <script src="../v7/gyro.js?v=1" defer></script>
 <script src="../v7/fya-cast.js?v=11" defer></script>
 </body>

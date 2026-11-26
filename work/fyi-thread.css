@@ -138,6 +138,32 @@
 .fy2-end .fy2-lede{ max-width:46ch; }
 .fy2-end .fy2-note{ max-width:52ch; margin-top:18px; }
 
+/* ---------- every screen, flow by flow ---------- */
+.fy2-scr{ position:relative; z-index:3; background:var(--ground); padding:clamp(90px,9vw,130px) 0 0; }
+.fy2-scr > *{ max-width:1160px; margin-left:auto; margin-right:auto; }
+.fy2-scr-h h2{ margin:0; max-width:640px; font-family:var(--display); font-weight:700; font-size:clamp(32px,3.1vw,44px); line-height:1.05; letter-spacing:-.04em; color:var(--head); text-wrap:balance; }
+.fy2-scr-h .fy2-lede{ max-width:560px; }
+.fy2-flow{ padding:clamp(56px,6vw,84px) 0 0; }
+.fy2-flow-h{ display:flex; align-items:baseline; gap:14px; padding-bottom:16px; border-bottom:1px solid rgba(23,27,32,.12); }
+.fy2-flow-n{ font:500 13px/1 var(--fy2-mono); color:var(--mute); }
+.fy2-flow-h b{ font:600 15.5px/1.2 var(--body); color:var(--ink); }
+.fy2-flow-h h3{ margin:0 0 0 auto; font:500 15.5px/1.2 var(--body); color:var(--mute); }
+.fy2-flow-r{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0 32px; margin:32px 0 0; padding:0; list-style:none; }
+.fy2-flow-r li{ display:flex; flex-direction:column; align-items:flex-start; gap:18px; min-width:0; }
+.fy2-flow-r .fx-dev{ --pw:min(250px, 100%); width:var(--pw); }
+.fy2-flow-r p{ margin:0; max-width:250px; font:400 15.5px/1.42 var(--body); color:var(--text); }
+.fy2-flow-r p b{ display:block; margin-bottom:3px; font-weight:600; color:var(--ink); }
+@media (max-width: 1239px){ .fy2-scr{ padding-left:32px; padding-right:32px; } .fy2-flow-r{ gap:0 20px; } }
+@media (max-width: 999px){
+  .fy2-scr{ padding-left:20px; padding-right:0; }
+  .fy2-scr-h{ padding-right:20px; }
+  .fy2-flow-h{ margin-right:20px; flex-wrap:wrap; } .fy2-flow-h h3{ margin-left:0; flex-basis:100%; }
+  .fy2-flow-r{ display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding:0 20px 8px 0; scrollbar-width:none; }
+  .fy2-flow-r::-webkit-scrollbar{ display:none; }
+  .fy2-flow-r li{ flex:none; width:236px; scroll-snap-align:start; }
+  .fy2-flow-r .fx-dev{ --pw:236px; }
+}
+
 /* the three things, laid flat: what is left of the pilot */
 .fy2-left{ display:flex; align-items:flex-end; gap:clamp(20px,3vw,40px); margin:clamp(40px,4.4vw,56px) 0 0; padding:0; list-style:none; }
 .fy2-left li{ display:flex; flex-direction:column; gap:14px; opacity:0; translate:0 18px; transition:opacity .5s, translate .6s var(--fy2-ease); transition-delay:calc(var(--i) * 140ms); }
