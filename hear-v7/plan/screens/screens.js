@@ -501,7 +501,7 @@
   /* owner, 26.11.2026: "make it default". With ?screen=key the portfolio opens that one screen, as before (only its item is added).
      Without it, the Studio is the product: every screen gets its own item in the sidebar, after Topics, and is built on its first open. */
   var after = document.getElementById('nav-topics') || [].filter.call(document.querySelectorAll('.side .nv'), function (b) { return /Workflows/.test(b.textContent); })[0];
-  var all = [], ORDER = ['compliance', 'agents', 'actions', 'news', 'data', 'signals'];
+  var all = [], ORDER = ['agents', 'actions', 'news', 'data', 'signals'];
   function mount(k) {
     var def = S[k]; if (!def || !after) return null;
     var nav = document.createElement('button');
@@ -563,6 +563,19 @@
     window.hearScreens = { key: key, steps: one.steps, step: one.step, open: one.open };
     one.open();
   } else {
+    /* owner, 26.11.2026: "this should be the Compliance screen, not this one". In the Studio on its own, Compliance opens the
+       Evaluation by agent heatmap with its score card (explain.js), the same screen as the portfolio's Explainable scores case. The
+       older Compliance screen above stays only for ?screen=compliance. */
+    var cnav = document.createElement('button');
+    cnav.className = 'nv'; cnav.type = 'button'; cnav.dataset.tip = 'Compliance';
+    cnav.innerHTML = '<svg class="i" viewBox="0 0 18 18">' + S.compliance.icon + '</svg><span class="lbl">Compliance</span>';
+    after.insertAdjacentElement('afterend', cnav); after = cnav;
+    cnav.addEventListener('click', function () {
+      stage.classList.remove('s5'); [].forEach.call(stage.querySelectorAll('.sx.on'), function (x) { x.classList.remove('on'); });
+      if (typeof openApp === 'function') openApp('eval');
+      [].forEach.call(document.querySelectorAll('.side .nv.on'), function (b) { b.classList.remove('on'); }); cnav.classList.add('on');
+    });
+    [].forEach.call(document.querySelectorAll('.side .nv[data-v]'), function (b) { b.addEventListener('click', function () { cnav.classList.remove('on'); }); });
     ORDER.forEach(mount);
     window.hearScreens = { all: all };
   }
