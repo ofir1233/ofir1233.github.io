@@ -35,11 +35,10 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <link rel="stylesheet" href="../v7/font.css?v=3">
 <link rel="stylesheet" href="../v7/case.css?v=46">
 <link rel="stylesheet" href="../v7/fyi-take.css?v=16">
-<link rel="stylesheet" href="fyi-thread.css?v=4">
+<link rel="stylesheet" href="fyi-thread.css?v=5">
 <link rel="stylesheet" href="../v7/fyi-around.css?v=6">
 <link rel="stylesheet" href="../v7/fya-colour.css?v=7">
 <link rel="stylesheet" href="../v7/fya-kit.css?v=7">
-<link rel="stylesheet" href="../v7/fya-cast.css?v=13">
 <link rel="icon" href="../favicon.svg?v=1" type="image/svg+xml">
 </head>
 <body class="fyi-page ot-page">
@@ -240,44 +239,36 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
   </div>
 </section>
 
-<section class="fya-sec" id="fya-cast">
+<section class="fya-sec fy2-cast" id="fya-cast">
   <div class="wrap">
-    <div class="fya-head"><div><p class="fya-kick">The cast</p><h2>Pick who you are.</h2></div><p class="fya-lede">Every avatar is an animal with a role and a genre.</p></div>
-    <div class="fyacast" data-on="hamster">
-      <div class="fyacast-pick" role="group" aria-label="Eight avatars">
-        <button type="button" class="fyacast-f" data-id="hamster" aria-pressed="true" tabindex="0"><img src="../img/fyi/f-hamster.webp" alt="" width="72" height="72" loading="lazy" decoding="async"><span>Drummer</span></button>
-        <button type="button" class="fyacast-f" data-id="dog" aria-pressed="false" tabindex="-1"><img src="../img/fyi/f-dog.webp" alt="" width="72" height="72" loading="lazy" decoding="async"><span>Sax</span></button>
-        <button type="button" class="fyacast-f" data-id="alpaca" aria-pressed="false" tabindex="-1"><img src="../img/fyi/f-alpaca.webp" alt="" width="72" height="72" loading="lazy" decoding="async"><span>Selector</span></button>
-        <button type="button" class="fyacast-f" data-id="cat" aria-pressed="false" tabindex="-1"><img src="../img/fyi/f-cat.webp" alt="" width="72" height="72" loading="lazy" decoding="async"><span>Singer</span></button>
-        <button type="button" class="fyacast-f" data-id="parrot" aria-pressed="false" tabindex="-1"><img src="../img/fyi/f-parrot.webp" alt="" width="72" height="72" loading="lazy" decoding="async"><span>MC</span></button>
-        <button type="button" class="fyacast-f" data-id="beagle" aria-pressed="false" tabindex="-1"><img src="../img/fyi/f-beagle.webp" alt="" width="72" height="72" loading="lazy" decoding="async"><span>Beatmaker</span></button>
-        <button type="button" class="fyacast-f" data-id="rabbit" aria-pressed="false" tabindex="-1"><img src="../img/fyi/f-rabbit.webp" alt="" width="72" height="72" loading="lazy" decoding="async"><span>Producer</span></button>
-        <button type="button" class="fyacast-f" data-id="tortoise" aria-pressed="false" tabindex="-1"><img src="../img/fyi/f-tortoise.webp" alt="" width="72" height="72" loading="lazy" decoding="async"><span>Listener</span></button>
+    <div class="fy2-cast-in" id="fy2-cast" data-on="hamster">
+      <div class="fy2-cast-l">
+        <p class="fy2-kick">The cast</p>
+        <h2>Pick who you are.</h2>
+        <p class="fy2-lede">Add your own photo, or come as one of eight animals. Each has a role and a genre.</p>
+        <div class="fy2-faces" role="group" aria-label="Your own photo, or one of eight avatars">
+          <button type="button" class="fy2-face fy2-own" data-id="own" aria-pressed="false" tabindex="-1"><span class="fy2-fi"><i></i></span><span>Your photo</span></button>
+          <button type="button" class="fy2-face" data-id="hamster" aria-pressed="true" tabindex="0"><span class="fy2-fi"><img src="../img/fyi/f-hamster.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span>Drummer</span></button>
+          <button type="button" class="fy2-face" data-id="dog" aria-pressed="false" tabindex="-1"><span class="fy2-fi"><img src="../img/fyi/f-dog.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span>Sax</span></button>
+          <button type="button" class="fy2-face" data-id="alpaca" aria-pressed="false" tabindex="-1"><span class="fy2-fi"><img src="../img/fyi/f-alpaca.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span>Selector</span></button>
+          <button type="button" class="fy2-face" data-id="cat" aria-pressed="false" tabindex="-1"><span class="fy2-fi"><img src="../img/fyi/f-cat.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span>Singer</span></button>
+          <button type="button" class="fy2-face" data-id="parrot" aria-pressed="false" tabindex="-1"><span class="fy2-fi"><img src="../img/fyi/f-parrot.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span>MC</span></button>
+          <button type="button" class="fy2-face" data-id="beagle" aria-pressed="false" tabindex="-1"><span class="fy2-fi"><img src="../img/fyi/f-beagle.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span>Beatmaker</span></button>
+          <button type="button" class="fy2-face" data-id="rabbit" aria-pressed="false" tabindex="-1"><span class="fy2-fi"><img src="../img/fyi/f-rabbit.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span>Producer</span></button>
+          <button type="button" class="fy2-face" data-id="tortoise" aria-pressed="false" tabindex="-1"><span class="fy2-fi"><img src="../img/fyi/f-tortoise.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span>Listener</span></button>
+        </div>
+        <input type="file" accept="image/*" id="fy2-file" class="fy2-file" tabindex="-1" aria-label="Choose your photo">
       </div>
-      <div class="fyacast-stage">
-        <figure class="fyacast-plate">
-          <span class="fyacast-clip">
-            <span class="fyacast-l cut"><img src="../img/fyi/a-hamster.webp" alt="A hamster with a mohawk, round sunglasses and drumsticks" width="960" height="1200" decoding="async"></span>
-          </span>
-          <span class="fyacast-l sh" hidden><img src="../img/fyi/a-hamster.webp" alt="" width="1" height="1"></span>
-          <figcaption class="fyacast-grid" aria-hidden="true">
-            <span class="fyacast-pt"><b>The</b><span class="fyacast-pr" style="--n:7">Drummer</span></span>
-            <span class="fyacast-row"><span class="fyacast-pg">Punk, fast</span><span class="fyacast-no">01 / 08</span></span>
-            <span class="fyacast-row fyacast-ft"><span>FYI crew</span><span class="fyacast-arr">→</span><span>Copper Hours</span></span>
-          </figcaption>
-        </figure>
-        <div class="fyacast-side">
-          <div class="fyacast-say" aria-live="polite">
-            <p class="fya-tag">Punk, fast</p>
-            <h3 class="fyacast-role"><span>The</span> <b>drummer</b></h3>
-            <p class="fyacast-line">Small, loud, and already two bars ahead.</p>
-          </div>
-          <div class="fyacast-chat" aria-label="The crew welcomes you in the Copper Hours chat">
-            <p class="fyacast-slip fyacast-kofi"><span class="who">Kofi</span>One more and we're a crew.<span class="tm">9:38</span></p>
-            <p class="fyacast-sys"><b>You</b> joined the crew</p>
-            <div class="fyacast-me"><p class="fyacast-slip o">I'm in.<span class="tm">9:41</span></p><span class="a-av" style="background-image:url(../img/fyi/f-hamster.webp)"></span></div>
-            <p class="fyacast-slip fyacast-re"><span class="who">Theo</span><span class="fyacast-ret">Good. We needed a drummer.</span><span class="tm">9:42</span></p>
-          </div>
+      <div class="fx-dev fy2-cast-dev" id="fy2-cast-dev" role="img" aria-label="The app’s profile screen with the chosen avatar"></div>
+      <div class="fy2-cast-r" aria-live="polite">
+        <p class="fy2-cast-g">Punk, fast</p>
+        <h3 class="fy2-cast-role">The drummer</h3>
+        <p class="fy2-cast-line">Small, loud, and already two bars ahead.</p>
+        <div class="fy2-cast-chat" aria-label="The crew welcomes you in the Copper Hours chat">
+          <p class="fy2-slip"><span class="who">Kofi</span>One more and we’re a crew.</p>
+          <p class="fy2-cast-sys"><b>You</b> joined the crew</p>
+          <div class="fy2-cast-me"><p class="fy2-slip o">I’m in.</p><span class="fy2-cast-av"></span></div>
+          <p class="fy2-slip fy2-cast-re"><span class="who t">Theo</span><span class="fy2-cast-ret">Good. We needed a drummer.</span></p>
         </div>
       </div>
     </div>
@@ -342,11 +333,9 @@ addEventListener('pagehide',function(){try{h.scrollRestoration='auto';}catch(e){
 <script src="case.js?v=7"></script>
 <script src="fyi-live.js?v=4"></script>
 <script src="fyi-scenes.js?v=15"></script>
-<script src="fyi-thread.js?v=4"></script>
+<script src="fyi-thread.js?v=5"></script>
 <script src="../v7/foot.js?v=224" defer></script>
 <script src="../v7/fya-colour.js?v=7" defer></script>
 <script src="../v7/fya-kit.js?v=7" defer></script>
-<script src="../v7/gyro.js?v=1" defer></script>
-<script src="../v7/fya-cast.js?v=11" defer></script>
 </body>
 </html>

@@ -286,6 +286,86 @@
     setTimeout(arm, 300);
   }
 
+  // ---------- the cast: pick a face (or your own photo) and the app's profile screen takes it ----------
+  const cast = document.getElementById('fy2-cast'), cdev = document.getElementById('fy2-cast-dev');
+  if (cast && cdev) {
+    const IMG = '../img/fyi/';
+    const CAST = {
+      hamster: { role: 'drummer', a: 'a', genre: 'Punk, fast', line: 'Small, loud, and already two bars ahead.', g: '#e8336f' },
+      dog: { role: 'sax', a: 'a', genre: 'Late jazz', line: 'Has not opened the chart since the first rehearsal.', g: '#1d53c4' },
+      alpaca: { role: 'selector', a: 'a', genre: 'Dub reggae', line: 'Arrives on the offbeat. Leaves when the record ends.', g: '#d98f2f' },
+      cat: { role: 'singer', a: 'a', genre: 'Soul, one take', line: 'Does one take. Insists it was the first one.', g: '#5a2fc0' },
+      parrot: { role: 'MC', a: 'an', genre: 'Freestyle rap', line: 'Repeats nothing. Remembers everything.', g: '#e12a86' },
+      beagle: { role: 'beatmaker', a: 'a', genre: 'Boom bap', line: 'Hears a kick drum in every closing door.', g: '#1fa9d6' },
+      rabbit: { role: 'producer', a: 'a', genre: 'Electronic', line: 'Calls it finished. Opens the project again.', g: '#163a8c' },
+      tortoise: { role: 'listener', a: 'a', genre: 'Ambient, long', line: 'Put out one track. It is still playing.', g: '#ead0a8' },
+    };
+    const OWN = { genre: 'Your photo', line: 'The animals are a start. Your own photo works the same way, and it stays on your device.', g: '#ff2d8f' };
+    cdev.innerHTML = `<div class="fx-body"><div class="fx-screen"><div class="fx-app fx-static fy2-app"><div class="a-pg o1-pf fy2-pf"><h3>One last thing</h3><p class="sb">Your name and skills help the crew know what you do.</p>`
+      + `<div class="av"><span class="fy2-pav"></span><span class="o1-avph" hidden>${FX.ic('plus')}</span></div><button type="button" class="fy2-add">Add your photo</button>`
+      + `<div class="a-fld"><div class="k">Name</div><div class="v"><span class="o1-tx" data-ph="Your name"></span></div></div>`
+      + `<div class="a-fld"><div class="k">Role &amp; skills</div><div class="v"><span class="a-tags" data-ph="Your role and skills"></span></div></div>`
+      + `<p class="o1-use">Skills help suggest who owns a task.</p><div class="a-btn">Continue</div></div></div>${SB}<i class="fx-island"></i><i class="fx-home"></i></div></div>`;
+    const $ = q => cast.querySelector(q);
+    const cfit = () => { const w = cdev.getBoundingClientRect().width; if (w) cdev.style.setProperty('--k', w / 418); };
+    cfit(); addEventListener('resize', cfit); addEventListener('load', cfit);
+    if ('ResizeObserver' in window) new ResizeObserver(cfit).observe(cdev);
+    const pav = $('.fy2-pav'), pph = $('.o1-avph'), tags = $('.a-tags'), addB = $('.fy2-add'), file = document.getElementById('fy2-file');
+    const gEl = $('.fy2-cast-g'), roleEl = $('.fy2-cast-role'), lineEl = $('.fy2-cast-line'), me = $('.fy2-cast-me'), av = $('.fy2-cast-av'), re = $('.fy2-cast-re'), ret = $('.fy2-cast-ret');
+    const ownB = $('.fy2-own'), btns = [...cast.querySelectorAll('.fy2-face')];
+    let now = '', photo = '', run = 0, ts = [];
+    const later = (f, ms) => ts.push(setTimeout(f, reduce ? 0 : ms));
+    const cap = w => w.charAt(0).toUpperCase() + w.slice(1);
+    const paint = id => {
+      const own = id === 'own', c = own ? OWN : CAST[id], url = own ? photo : IMG + 'f-' + id + '.webp';
+      cast.style.setProperty('--g', c.g);
+      pav.hidden = !url; pph.hidden = !!url; pav.style.backgroundImage = url ? `url("${url}")` : '';
+      if (url && !reduce) { pav.classList.remove('fy2-pop'); void pav.offsetWidth; pav.classList.add('fy2-pop'); }
+      addB.textContent = own && photo ? 'Change photo' : 'Add your photo';
+      tags.innerHTML = own ? '' : [cap(c.role), c.genre].map((t, i) => `<span style="--i:${i}">${t}</span>`).join('');
+      gEl.textContent = c.genre; roleEl.textContent = own ? 'Yourself' : 'The ' + c.role; lineEl.textContent = c.line;
+      av.classList.toggle('ph', !url); av.style.backgroundImage = url ? `url("${url}")` : '';
+      ret.textContent = own ? 'Good. We needed you.' : `Good. We needed ${c.a} ${c.role}.`;
+    };
+    const pick = (id, force) => {
+      if (id === now && !force) return;
+      now = id; cast.dataset.on = id; ts.forEach(clearTimeout); ts = [];
+      btns.forEach(b => { const on = b.dataset.id === id; b.setAttribute('aria-pressed', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; if (on && !wide.matches && b.scrollIntoView && force !== 1) b.scrollIntoView({ inline: 'center', block: 'nearest', behavior: reduce ? 'auto' : 'smooth' }); });
+      const my = ++run;
+      cast.classList.add('is-out'); me.classList.add('is-hid'); re.classList.add('is-hid');
+      later(() => { if (my !== run) return; paint(id); cast.classList.remove('is-out'); }, 140);
+      later(() => { if (my === run) me.classList.remove('is-hid'); }, 460);
+      later(() => { if (my === run) re.classList.remove('is-hid'); }, 940);
+    };
+    const choose = () => { try { file.value = ''; file.click(); } catch (e) {} };
+    btns.forEach(b => {
+      b.addEventListener('click', () => { const id = b.dataset.id; pick(id); if (id === 'own') choose(); });
+      b.addEventListener('keydown', e => {
+        const i = btns.indexOf(b), d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (!d) return; e.preventDefault();
+        const n = btns[(i + d + btns.length) % btns.length]; n.focus(); pick(n.dataset.id);
+      });
+    });
+    addB.addEventListener('click', () => { pick('own'); choose(); });
+    // the photo is read in the browser and shown from memory; it is never sent anywhere
+    file.addEventListener('change', () => {
+      const f = file.files && file.files[0]; if (!f || !/^image\//.test(f.type)) return;
+      if (photo) { try { URL.revokeObjectURL(photo); } catch (e) {} }
+      photo = URL.createObjectURL(f);
+      ownB.classList.add('has'); ownB.querySelector('.fy2-fi').style.backgroundImage = `url("${photo}")`;
+      pick('own', true);
+    });
+    paint('hamster'); now = 'hamster';
+    const qs = new URLSearchParams(location.search).get('cast');
+    if (qs && (CAST[qs] || qs === 'own')) { paint(qs); now = qs; btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.id === qs ? 'true' : 'false')); }
+    // the welcome plays once, when the phone is on screen
+    if (!reduce && 'IntersectionObserver' in window && !qs) {
+      me.classList.add('is-hid'); re.classList.add('is-hid');
+      const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); pick(now, 1); } }, { threshold: .5 });
+      io.observe(cdev);
+    }
+  }
+
   // the closing row comes in once, when it is on screen
   const left = document.getElementById('fy2-left');
   if (left) {
