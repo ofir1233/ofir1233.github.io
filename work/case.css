@@ -769,7 +769,13 @@ html body .hf .in-meter button[aria-current="step"]::before{ background:#fff; bo
   html body .in-page.hf > .in-sl{ display:contents; }
   html body .in-page.hf > .in-sl > .in-steps{ grid-column:1; grid-row:2; }
   html body .in-page.hf > .in-sl > .in-stw{ grid-column:2; grid-row:1 / span 2; align-self:stretch; }
-  html body .in-page.hf .in-hero h1{ font-size:clamp(34px, 3.2vw, 46px); line-height:1.06; }
+  html body .in-page.hf .in-hero h1{ font-size:clamp(34px, 2.9vw, 42px); line-height:1.06; text-wrap:balance; }
   html body .in-page.hf .in-hero p{ font-size:18px; margin-top:16px; }
-  html body .in-page.hf .in-st:first-child{ padding-top:56px; min-height:56vh; }
+  html body .in-page.hf .in-st:first-child{ padding-top:96px; min-height:56vh; }
+  /* art director, 26.11: one headline per screen. Step titles step down, and the status note stops outweighing the lead */
+  html body .in-page.hf .in-st h2{ font-size:clamp(24px, 2.1vw, 30px); line-height:1.14; }
+  html body .in-page.hf p.in-note.in-note{ font-weight:400 !important; font-size:14px !important; margin-top:22px !important; }
+}
+@media (min-width:1100px) and (max-width:1279px){
+  html body .in-page.hf .in-st p, html body .in-page.hf .in-hero p{ font-size:17px; }
 }
