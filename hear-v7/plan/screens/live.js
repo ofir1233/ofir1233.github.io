@@ -285,6 +285,94 @@
       b[1].addEventListener('click', function () { r.st = 'Done'; paint(true); openCall(r); flash(el, 'Marked done'); });
     }
 
+    /* ---------- Explore: the call itself ---------- */
+    /* owner, 26.11.2026: "the Explore screen does not exist when you enter a call". A row opened a small sheet of the row's own
+       fields. Now it opens the call's page, as the product's Data does: the analysis on the left (what the call was, how it ended,
+       the evaluation with the moments behind its low scores, the signals, the caller's other calls) and the evidence on the right
+       (the recording in chapters and the transcript, which follows playback; any time on the page seeks). SAMPLE call, made from
+       the row so the page always agrees with the table. */
+    var ex = document.createElement('div'); ex.className = 'glass sx lv'; ex.id = 'sx-explore'; K.stage.appendChild(ex);
+    var CRIT = ['Greeting', 'Verification', 'Discovery', 'Resolution', 'Compliance', 'Empathy', 'Closing'];
+    var FOUND = { Greeting: ['Opened without the company name', 0], Verification: ['Checked one detail, not two', 2], Discovery: ['Did not ask what the customer needed first', 1], Resolution: ['The request was left open at the end of the call', -3], Compliance: ['The recording disclosure was not read', 0], Empathy: ['No acknowledgement of the customer’s frustration', 5], Closing: ['Closed without confirming the next step', -1] };
+    var band = function (v) { return v < 60 ? 'b1' : v < 70 ? 'b2' : v < 80 ? 'b3' : v < 90 ? 'b4' : 'b5'; };
+    var mmss = function (s) { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); };
+    function script(r) {
+      var a = (r.who || 'Maya Collins').split(' ')[0], bad = r.se === 'Negative', fam = /Refund/.test(r.t) ? 0 : /Booking|Seating|Loyalty|Payment/.test(r.t) ? 1 : /Status|E-ticket|Itinerary|Baggage|Accessib/.test(r.t) ? 2 : 3;
+      var open = [['A', 'Thank you for calling Northwind, this is ' + a + '. How can I help?']], check = [['A', 'Of course. Can I have your booking reference and your date of birth?'], ['C', 'It’s NW4K7P, the third of May, 1984.'], ['A', 'Thank you, I have the booking in front of me.']];
+      var mid = [
+        bad ? [['C', 'My flight was cancelled and I want my money back.'], 0, ['A', 'I can see the cancellation. I can offer you a voucher for the full amount.'], ['C', 'I’d like a refund for the cancelled flight, please.', 1], ['A', 'I understand. The voucher is valid for a year on any route.'], ['C', 'I asked for a refund, not a voucher.', 1], ['A', 'Let me check what I can do. One moment, please.'], ['A', 'I’ve opened a refund request. It can take up to ten working days.'], ['C', 'Ten days. Please send me that in writing.']]
+            : [['C', 'My flight was cancelled and I’d like to know when the refund arrives.'], 0, ['A', 'I can see the cancellation. The refund was approved on Monday.'], ['C', 'So when does it reach my card?'], ['A', 'Within five working days. I’ll send you the confirmation now.'], ['C', 'That’s what I needed, thank you.']],
+        [['C', 'I’m trying to book two seats and the page froze at the last step.'], 0, ['A', 'I see the booking did not go through. I can finish it for you now.'], ['C', 'Yes, please. And add one bag.'], ['A', 'Done. Two seats and one bag, 312 euros in all.'], ['C', 'Great, thank you.']],
+        [['C', 'I wanted to check that everything is in order for my flight this evening.'], 0, ['A', 'It is on time. Boarding is from gate B12 at five past six.'], ['C', 'And my bag is checked through?'], ['A', 'Yes, to your final stop. You don’t need to collect it on the way.'], ['C', 'Perfect, thanks.']],
+        [['C', 'I need to move my flight to a day later.'], 0, ['A', 'I can move you to the same time on Thursday. There is a change fee of 45 euros.'], ['C', 'That’s fine, go ahead.'], ['A', 'It’s done. The new ticket is on its way to your inbox.'], ['C', 'Thank you.']]][fam];
+      var end = bad ? [['A', 'You’ll have an email within the hour. Is there anything else?'], ['C', fam ? 'No. This is the second time I’ve had to call about this.' : 'No. Goodbye.']] : [['A', 'You’ll have an email in a few minutes. Is there anything else I can help with?'], ['C', 'No, that’s all. Thanks, ' + a + '.'], ['A', 'Thank you for flying Northwind. Have a good day.']];
+      var lines = open.concat([mid[0]], check, mid.slice(2), end), n = lines.length;
+      return lines.map(function (l, i) { return { who: l[0], text: l[1], hot: l[2], at: Math.round(r.len * (i === 0 ? .01 : (i + .35) / (n + .4))), ch: i < 1 ? 0 : i < 5 ? 1 : i < n - end.length - 1 ? 2 : i < n - end.length ? 3 : 4 }; });
+    }
+    var CH = ['Greeting', 'Verification', 'The request', 'Resolution', 'Closing'], playing = 0, timer = 0, T0 = 0, speed = 1, cur = null;
+    function explore(r) {
+      cur = r; clearInterval(timer); playing = 0; T0 = 0; speed = 1;
+      var lines = script(r), seed = r.n * 31 + 7, rr = function () { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }, bad = r.se === 'Negative';
+      var sc = CRIT.map(function (c, i) { return Math.max(22, Math.min(99, Math.round(r.sc + [8, -2, 3, bad ? -14 : 4, bad ? -10 : 6, bad ? -8 : 2, 5][i] + (rr() - .5) * 12))); });
+      var low = CRIT.map(function (c, i) { return [c, sc[i], i]; }).filter(function (x) { return x[1] < 70; }).sort(function (x, y) { return x[1] - y[1]; });
+      var chs = CH.map(function (c, k) { var mine = lines.filter(function (l) { return l.ch === k; }); return { n: c, at: mine.length ? mine[0].at : 0 }; }).filter(function (c, k) { return lines.some(function (l) { return l.ch === k; }); });
+      chs.forEach(function (c, k) { c.at = k ? c.at : 0; c.end = chs[k + 1] ? chs[k + 1].at : r.len; });
+      var seekB = function (s, label) { return '<button type="button" class="ex-at" data-t="' + s + '">' + ic('<path d="M6 4.2v9.6l7.5-4.8z"/>') + (label || mmss(s)) + '</button>'; };
+      var sig = [['Reason for call', r.t], ['What the customer wanted', r.sm], ['Resolved on the call', r.st === 'Done' ? 'Yes' : 'No'], ['Refund asked for', /Refund/.test(r.t) ? 'Yes' : 'No'], ['Customer effort', bad ? 'High: asked more than once' : 'Low'], ['Next step', r.st === 'Done' ? 'None' : r.st === 'Pending' ? 'Waiting for an owner' : 'With ' + (r.who || 'the team')]];
+      var hist = [[day(r.off + 3 + r.n % 4), r.t, Math.max(25, r.sc - 6 + r.n % 9)], [day(r.off + 11 + r.n % 6), ['Trip Status', 'Online Booking', 'Baggage'][r.n % 3], 60 + r.n % 35]].slice(0, bad ? 2 : 1);
+      ex.innerHTML = '<div class="card"><div class="ex-top"><button type="button" class="ex-back">' + ic('<path d="M11 5l-4 4 4 4"/>') + 'Data</button><span class="ex-id">' + r.id + '</span><span class="sp"></span>' + K.act(r.who === ME ? 'Assigned to you' : 'Assign to me', 'ex-mine') + K.act(r.st === 'Done' ? 'Done' : 'Mark done', 'ink ex-done') + '</div>' +
+        '<div class="ex-cols"><div class="ex-l"><div class="ex-story"><h2>' + esc(r.t) + (r.al ? '<span class="sx-tag ex-al">' + ic('<path d="M9 3.4 15.2 14H2.8z"/><path d="M9 7.6v3M9 12.2v.1"/>') + 'Alert · Refund refused</span>' : '') + '</h2><p>' + r.sm + '.</p>' +
+          '<div class="ex-tags"><span>' + day(r.off) + ' · ' + hm(r.m) + '</span><span>' + (r.out ? 'Outbound' : 'Inbound') + '</span><span>' + (r.who ? K.av(r.who) + r.who : 'Unassigned') + '</span><span>' + PR[r.pr] + ' priority</span><i class="dt-st ' + STC[r.st] + '">' + r.st + '</i></div></div>' +
+        '<div class="ex-out"><div><small>Sentiment</small><b><i class="dot ' + (bad ? 'neg' : r.se === 'Neutral' ? 'neu' : 'pos') + '"></i>' + r.se + '</b></div><div><small>Resolution</small><b>' + (r.st === 'Done' ? 'Resolved' : 'Open') + '</b></div><div><small>Churn risk</small><b>' + (bad ? 'High' : r.se === 'Neutral' ? 'Medium' : 'Low') + '</b></div><div><small>Handle time</small><b>' + mmss(r.len) + '</b></div><div><small>Score</small><b><span class="lv-sc ' + band(r.sc) + '">' + r.sc + '</span></b></div></div>' +
+        '<section class="ex-sec"><header><b>Evaluation</b><span>' + r.sc + ' / 100 · all calls average ' + ALLSC + '</span></header><div class="ex-ev">' + CRIT.map(function (c, i) { var f = FOUND[c], li = lines[f[1] < 0 ? lines.length + f[1] : Math.min(lines.length - 1, f[1])], isLow = sc[i] < 70;
+            return '<div class="ex-cr' + (isLow ? ' low' : '') + '"' + (isLow ? ' role="button" tabindex="0"' : '') + '><span>' + c + '</span><i><u class="' + band(sc[i]) + '" style="width:' + sc[i] + '%"></u></i><b class="lv-sc ' + band(sc[i]) + '">' + sc[i] + '</b>' + (isLow ? ic('<path d="M5 7.5l4 4 4-4"/>') + '<p>' + f[0] + '.<em>“' + li.text + '”</em>' + seekB(li.at, 'Play from ' + mmss(li.at)) + '</p>' : '') + '</div>'; }).join('') + '</div>' +
+          (low.length ? '' : '<p class="ex-note">Every criterion passed. Nothing to review on this call.</p>') + '</section>' +
+        (r.al ? '<section class="ex-sec"><header><b>Alerts on this call</b><span>1 monitor fired</span></header>' + lines.filter(function (l) { return l.hot; }).map(function (l) { return '<div class="ex-alr"><span class="sx-tag ex-al">Refund refused</span><em>“' + l.text + '”</em>' + seekB(l.at) + '</div>'; }).join('') + '</section>' : '') +
+        '<section class="ex-sec"><header><b>Signals</b><span>' + sig.length + ' read from the call</span></header><dl class="ex-sig">' + sig.map(function (s) { return '<dt>' + s[0] + '</dt><dd>' + esc(s[1]) + '</dd>'; }).join('') + '</dl></section>' +
+        '<section class="ex-sec"><header><b>The caller’s other calls</b><span>' + hist.length + ' in the last 90 days</span></header>' + hist.map(function (h) { return '<div class="ex-h"><span>' + h[0] + '</span><b>' + esc(h[1]) + '</b><span class="lv-sc ' + band(h[2]) + '">' + h[2] + '</span></div>'; }).join('') + '</section>' +
+        '<section class="ex-ask"><div class="ex-msgs"></div><div class="ex-chips">' + ['Summarize this call', bad ? 'Why was the customer unhappy?' : 'What went well?', 'What should the agent do next time?'].map(function (q) { return '<button type="button">' + q + '</button>'; }).join('') + '</div><form class="ex-comp"><input type="text" placeholder="Ask about this call" aria-label="Ask about this call" autocomplete="off"><button type="submit" aria-label="Send">' + ic('<path d="M9 13.5v-9M5.2 8.3 9 4.5l3.8 3.8"/>') + '</button></form></section></div>' +
+        '<aside class="ex-r"><div class="ex-play"><button type="button" class="ex-pp" aria-label="Play">' + ic('<path d="M6 3.8v10.4l8-5.2z"/>') + '</button><span class="ex-t">0:00</span><div class="ex-bar" role="slider" tabindex="0" aria-label="Seek"><i class="ex-fill"></i>' + chs.map(function (c) { return '<s style="left:' + (c.at / r.len * 100).toFixed(2) + '%"></s>'; }).join('') + lines.filter(function (l) { return l.hot; }).map(function (l) { return '<u style="left:' + (l.at / r.len * 100).toFixed(2) + '%"></u>'; }).join('') + '</div><span class="ex-d">' + mmss(r.len) + '</span><button type="button" class="ex-sp">1×</button></div>' +
+          '<div class="ex-chs">' + chs.map(function (c, k) { return '<button type="button" data-t="' + c.at + '" data-k="' + k + '">' + c.n + '</button>'; }).join('') + '</div>' +
+          '<div class="ex-tr">' + lines.map(function (l, i) { return '<button type="button" class="ex-ln ' + (l.who === 'A' ? 'a' : 'c') + (l.hot ? ' hot' : '') + '" data-t="' + l.at + '" data-i="' + i + '"><small>' + mmss(l.at) + '</small><span><b>' + (l.who === 'A' ? (r.who || 'Agent') : 'Customer') + '</b>' + l.text + '</span></button>'; }).join('') + '</div></aside></div></div>';
+      var fill = ex.querySelector('.ex-fill'), tEl = ex.querySelector('.ex-t'), pp = ex.querySelector('.ex-pp'), tr = ex.querySelector('.ex-tr'), lns = [].slice.call(tr.children), chb = [].slice.call(ex.querySelectorAll('.ex-chs button')), at = -1;
+      ex._seek = function (s, go2) { T0 = Math.max(0, Math.min(r.len, s)); fill.style.width = (T0 / r.len * 100) + '%'; tEl.textContent = mmss(T0);
+        var i = -1; lines.forEach(function (l, k) { if (l.at <= T0 + .01) i = k; });
+        if (i !== at) { at = i; lns.forEach(function (b, k) { b.classList.toggle('on', k === i); }); if (i >= 0) { var b = lns[i]; tr.scrollTo({ top: b.offsetTop - tr.clientHeight / 2 + b.offsetHeight / 2, behavior: 'smooth' }); } }
+        chb.forEach(function (b, k) { b.classList.toggle('on', T0 >= chs[k].at && T0 < chs[k].end); });
+        if (go2 && !playing) ex._play(); };
+      ex._play = function () { playing = !playing; pp.innerHTML = ic(playing ? '<path d="M6 4v10M12 4v10"/>' : '<path d="M6 3.8v10.4l8-5.2z"/>'); pp.classList.toggle('on', !!playing); pp.setAttribute('aria-label', playing ? 'Pause' : 'Play'); clearInterval(timer);
+        if (playing) { if (T0 >= r.len) ex._seek(0); timer = setInterval(function () { if (!ex.classList.contains('on') || !K.stage.classList.contains('s5')) { ex._play(); return; } ex._seek(T0 + .25 * speed); if (T0 >= r.len) ex._play(); }, 250); } };
+      ex._seek(0);
+      each(K.stage.querySelectorAll('.sx'), function (x) { x.classList.toggle('on', x === ex); });
+      ex.querySelector('.card').scrollTop = 0;
+    }
+    function exBack() { clearInterval(timer); playing = 0; each(K.stage.querySelectorAll('.sx'), function (x) { x.classList.toggle('on', x === el); }); paint(true); }
+    var ANS = function (q, r) { var bad = r.se === 'Negative', s = q.toLowerCase();
+      return /summar/.test(s) ? r.sm + '. The call took ' + mmss(r.len) + ' and ended ' + (r.st === 'Done' ? 'resolved' : 'open') + '; the customer sounded ' + r.se.toLowerCase() + '.'
+        : /unhappy|why|wrong/.test(s) ? (bad ? 'The customer had to ask more than once and did not get what they asked for the first time. The low criteria in the evaluation point at the same moments.' : 'Nothing on this call suggests the customer was unhappy: the request was handled and the tone stayed ' + r.se.toLowerCase() + '.')
+        : /well|good/.test(s) ? 'The agent verified the customer before opening the booking and confirmed what was done before closing.'
+        : /next|coach|should/.test(s) ? (bad ? 'Offer what the customer asked for first, and say the next step with a date before closing.' : 'Keep the same structure. One small thing: confirm the customer’s email before sending the confirmation.')
+        : 'This sample answers about the summary, the customer’s mood and what to do next time. In Hear the answer is built from this call’s transcript.'; };
+    ex.addEventListener('click', function (e) {
+      var t = e.target, x, r = cur; if (!r) return;
+      if (t.closest('.ex-back')) { exBack(); return; }
+      if ((x = t.closest('.ex-at,.ex-ln,.ex-chs button'))) { e.stopPropagation(); ex._seek(+x.dataset.t, true); return; }
+      if (t.closest('.ex-pp')) { ex._play(); return; }
+      if ((x = t.closest('.ex-sp'))) { speed = speed === 1 ? 1.5 : speed === 1.5 ? 2 : 1; x.textContent = speed + '×'; return; }
+      if ((x = t.closest('.ex-bar'))) { var b = x.getBoundingClientRect(); ex._seek((e.clientX - b.left) / b.width * r.len); return; }
+      if ((x = t.closest('.ex-cr.low'))) { x.classList.toggle('open'); return; }
+      if (t.closest('.ex-id')) { copy(r.id); flash(ex, 'Call id copied'); return; }
+      if ((x = t.closest('.ex-mine,.ex-done'))) { var mine = x.classList.contains('ex-mine'), tm = T0, said = ex.querySelector('.ex-msgs').innerHTML; if (mine) r.who = ME; else r.st = 'Done';
+        explore(r); ex._seek(tm); ex.querySelector('.ex-msgs').innerHTML = said; flash(ex, mine ? 'Assigned to you' : 'Marked done'); return; }      /* the page is drawn again from the call; the place in the recording and the conversation stay */
+            if ((x = t.closest('.ex-chips button'))) { exAsk(x.textContent); return; }
+    });
+    function exAsk(q) { var m = ex.querySelector('.ex-msgs'), r = cur; m.insertAdjacentHTML('beforeend', '<div class="you">' + esc(q) + '</div><div class="it think"><i></i><i></i><i></i></div>'); var th = m.lastChild; th.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      setTimeout(function () { if (!th.isConnected) return; th.className = 'it'; th.textContent = ANS(q, r); th.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }, 900); }
+    ex.addEventListener('submit', function (e) { e.preventDefault(); var i = ex.querySelector('.ex-comp input'), v = i.value.trim(); if (!v) return; i.value = ''; exAsk(v); });
+    ex.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.ex-cr.low')) { e.preventDefault(); e.target.click(); }
+      if (e.target.matches('.ex-bar') && cur) { if (e.key === 'ArrowRight') ex._seek(T0 + 5); if (e.key === 'ArrowLeft') ex._seek(T0 - 5); } });
+    addEventListener('keydown', function (e) { if (e.key === 'Escape' && ex.classList.contains('on') && K.stage.classList.contains('s5') && !document.querySelector('.lv-menu')) exBack(); });
+
     el.addEventListener('click', function (e) {
       var t = e.target, x;
       if ((x = t.closest('.dt-tabs span'))) { S.tab = [].indexOf.call(tabs.children, x); S.sel = {}; S.sort = 2; S.dir = 1; shut(el); paint(); return; }
@@ -304,7 +392,7 @@
         S.sel = {}; paint(true); return; }
       if (t.closest('.dt-foot .sig')) { S.saved = true; paint(true); flash(el, 'Saved as a signal: ' + S.conds.map(function (c) { return c.k + ' ' + label(c); }).join(', ')); return; }
       if ((x = t.closest('.dt-top .act'))) { if (x.classList.contains('ink')) up.click(); else exportCsv(); return; }
-      if ((x = t.closest('.dt-set .dt-r'))) { openCall(D[+x.dataset.n]); return; }
+      if ((x = t.closest('.dt-set .dt-r'))) { explore(D[+x.dataset.n]); return; }
     });
     el.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.dt-tabs span,.dt-r.hd .h,.dt-set .dt-r,.ck')) { e.preventDefault(); e.target.click(); } });
     /* another screen can send its reader here with the filter already on (Newsroom: "See the 211 calls") */
