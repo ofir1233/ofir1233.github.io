@@ -317,7 +317,7 @@
     const later = (f, ms) => ts.push(setTimeout(f, reduce ? 0 : ms));
     const cap = w => w.charAt(0).toUpperCase() + w.slice(1);
     const paint = id => {
-      const own = id === 'own', c = own ? OWN : CAST[id], url = own ? photo : IMG + 'f-' + id + '.webp';
+      const own = id === 'own', c = own ? OWN : CAST[id], url = own ? photo : IMG + 'p-' + id + '.webp';
       cast.style.setProperty('--g', c.g);
       pav.hidden = !url; pph.hidden = !!url; pav.style.backgroundImage = url ? `url("${url}")` : '';
       if (url && !reduce) { pav.classList.remove('fy2-pop'); void pav.offsetWidth; pav.classList.add('fy2-pop'); }
