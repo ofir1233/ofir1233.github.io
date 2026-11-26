@@ -286,6 +286,9 @@
     setTimeout(arm, 300);
   }
 
+  // the face the visitor picked in the cast; the ticket at the end carries it
+  let castFace = () => ({ url: '../img/fyi/p-hamster.webp', role: 'The drummer' });
+
   // ---------- the cast: pick a face (or your own photo) and the app's profile screen takes it ----------
   const cast = document.getElementById('fy2-cast'), cdev = document.getElementById('fy2-cast-dev');
   if (cast && cdev) {
@@ -326,6 +329,7 @@
       gEl.textContent = c.genre; roleEl.textContent = own ? 'Yourself' : 'The ' + c.role; lineEl.textContent = c.line;
       av.classList.toggle('ph', !url); av.style.backgroundImage = url ? `url("${url}")` : '';
       ret.textContent = own ? 'Good. We needed you.' : `Good. We needed ${c.a} ${c.role}.`;
+      document.dispatchEvent(new Event('fy2-cast'));
     };
     const pick = (id, force) => {
       if (id === now && !force) return;
@@ -355,6 +359,7 @@
       ownB.classList.add('has'); ownB.querySelector('.fy2-fi').style.backgroundImage = `url("${photo}")`;
       pick('own', true);
     });
+    castFace = () => now === 'own' ? { url: photo, role: 'Yourself' } : { url: IMG + 'p-' + now + '.webp', role: 'The ' + CAST[now].role };
     paint('hamster'); now = 'hamster';
     const qs = new URLSearchParams(location.search).get('cast');
     if (qs && (CAST[qs] || qs === 'own')) { paint(qs); now = qs; btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.id === qs ? 'true' : 'false')); }
@@ -366,11 +371,42 @@
     }
   }
 
-  // the closing row comes in once, when it is on screen
-  const left = document.getElementById('fy2-left');
-  if (left) {
-    if (!('IntersectionObserver' in window)) left.classList.add('is-in');
-    else new IntersectionObserver((es, io) => { if (es.some(e => e.isIntersecting)) { io.disconnect(); left.classList.add('is-in'); } }, { threshold: .4 }).observe(left);
+  // ---------- the night: the visitor says they are going. A ticket comes out from under the poster with the face they
+  // picked in the cast, and the app's own screen counts one more ----------
+  const nt = document.getElementById('end'), rsvpB = document.getElementById('fy2-rsvp');
+  if (nt && rsvpB) {
+    const ndev = nt.querySelector('.fx-dev'), tAv = nt.querySelector('.fy2-tk-av'), tRole = nt.querySelector('.fy2-tk-role');
+    let going = false, nts = [];
+    const face = () => {
+      const f = castFace(), bg = f.url ? `url("${f.url}")` : '';
+      tAv.style.backgroundImage = bg; tAv.classList.toggle('ph', !f.url); tRole.textContent = f.role;
+      ndev.querySelectorAll('.fy2-me-av').forEach(a => { a.style.backgroundImage = bg; });
+    };
+    // the phone holds "The night": its count goes to 28, the visitor's face joins the row, and the thread says so
+    const phone = (on, tries = 0) => {
+      const cnt = ndev.querySelector('.l6-live .cnt');
+      if (!cnt) { if (tries < 20) nts.push(setTimeout(() => phone(on, tries + 1), 250)); return; }
+      const b = cnt.querySelector('b'), st = cnt.querySelector('.a-stack');
+      ndev.querySelectorAll('.fy2-me-av, .fy2-me-rs').forEach(e => e.remove());
+      b.textContent = on ? '28' : '27';
+      if (!reduce) { try { b.animate([{ color: '#ff2d8f', transform: 'scale(1.5)' }, { color: 'inherit', transform: 'none' }], { duration: 600, easing: 'cubic-bezier(.2,.8,.2,1)' }); } catch (x) {} }
+      if (!on) return;
+      st.insertAdjacentHTML('beforeend', '<span class="a-av xs fy2-me-av"></span>');
+      const rows = ndev.querySelectorAll('.l6-rs'), last = rows.length && rows[0].parentElement.lastElementChild;
+      if (last) last.insertAdjacentHTML('afterend', '<div class="l6-rs fy2-me-rs"><span class="a-av s fy2-me-av"></span><span><b>You</b> are going</span></div>');
+      face();
+      if (!reduce) ndev.querySelectorAll('.fy2-me-av, .fy2-me-rs').forEach(e => { try { e.animate([{ opacity: 0, transform: e.matches('.fy2-me-rs') ? 'translateY(12px)' : 'scale(.5)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)' }); } catch (x) {} });
+    };
+    const set = v => {
+      going = v; nt.dataset.go = v ? '1' : '0';
+      rsvpB.setAttribute('aria-pressed', v ? 'true' : 'false'); rsvpB.textContent = v ? 'Can\u2019t make it' : 'I\u2019m going';
+      nts.forEach(clearTimeout); nts = [];
+      if (v) face();
+      nts.push(setTimeout(() => phone(v), reduce || !v ? 0 : 560));
+    };
+    rsvpB.addEventListener('click', () => { set(!going); if (going && !wide.matches) nt.querySelector('.fy2-tk-w').scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' }); });
+    document.addEventListener('fy2-cast', () => { if (going) face(); });
+    if (qs.get('go') === '1') setTimeout(() => set(true), 900);
   }
 
   // ---------- first frame ----------
