@@ -35,7 +35,7 @@
      margin of it on every side, so the clouds and flowers around the edge never cover the product */
   const hf = !!sv.closest('.hf');
   const inset = () => { const W = stage.clientWidth, H = stage.clientHeight;
-    if (hf) return phone() ? { x: 14, t: 14, b: 40 } : { x: Math.round(W * .085), t: Math.round(H * .075), b: Math.round(H * .085) + 24 };
+    if (hf) return phone() ? { x: 14, t: 14, b: 40 } : { x: Math.round(W * .05), t: Math.round(H * .075), b: Math.round(H * .085) + 24 };
     return phone() ? { x: 10, t: 10, b: 36 } : { x: Math.min(36, W * .05), t: 0, b: 36 }; };
   /* the room is 540 x 460 on a wide screen; a phone, and every high-fidelity story, shape it like the space the stage gives */
   const room = () => { if (!phone() && !hf) return [540, 460]; const m = inset(), w = stage.clientWidth - 2 * m.x, h = stage.clientHeight - m.t - m.b, base = phone() ? 400 : 540;
@@ -47,7 +47,7 @@
     s.style.setProperty('--k', k.toFixed(4)); s.style.setProperty('--tx', ((RW - w * k) / 2 - x1 * k).toFixed(1) + 'px'); s.style.setProperty('--ty', ((RH - h * k) / 2 - y1 * k).toFixed(1) + 'px'); };
   const frames = () => sc.forEach(frame);
   /* fit the room into whatever the stage has (scenes start at x 30, y 40 of the board) */
-  const fit = () => { const [RW, RH] = room(), m = inset(), w = stage.clientWidth - 2 * m.x, h = stage.clientHeight - m.t - m.b, s = Math.min(w / RW, h / RH, 1.15);
+  const fit = () => { const [RW, RH] = room(), m = inset(), w = stage.clientWidth - 2 * m.x, h = stage.clientHeight - m.t - m.b, s = Math.min(w / RW, h / RH, 1.3);
     sv.style.transform = `translate(${m.x + (w - RW * s) / 2 - 30 * s}px, ${m.t + (h - RH * s) / 2 - 40 * s}px) scale(${s})`; };
 
   /* Hear's world, from the home page's art: a cloud far behind the product and one in front, low on the left. No flowers: the

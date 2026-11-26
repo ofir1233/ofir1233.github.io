@@ -757,3 +757,7 @@ html body .hf .in-meter button[aria-current="step"]::before{ background:#fff; bo
   html body .aw-end{ padding-top:24px; }
   html body .in-stw{ top:60px; padding-top:4px; }
 }
+/* owner, 26.11: "a lot of the content is too small". The painted stage takes more of the row and the scene keeps a thinner margin of sky, so the product windows are drawn about a quarter larger */
+@media (min-width: 861px){
+  html body .hf .in-sl{ grid-template-columns:minmax(0, 4fr) minmax(0, 7fr); column-gap:clamp(28px, 3.4vw, 48px); }
+}
