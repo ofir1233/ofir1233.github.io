@@ -269,6 +269,13 @@
   };
   if (doors) doors.addEventListener('click', () => setDoors(!late));
 
+  // the closing row comes in once, when it is on screen
+  const left = document.getElementById('fy2-left');
+  if (left) {
+    if (!('IntersectionObserver' in window)) left.classList.add('is-in');
+    else new IntersectionObserver((es, io) => { if (es.some(e => e.isIntersecting)) { io.disconnect(); left.classList.add('is-in'); } }, { threshold: .4 }).observe(left);
+  }
+
   // ---------- first frame ----------
   const fz = qs.get('stop');
   const startUp = () => {

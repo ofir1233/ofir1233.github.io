@@ -4,20 +4,20 @@
 .fy2{ --fy2-pink:#ff2d8f; --fy2-cyan:#22cdf0; --fy2-navy:#15183f; --fy2-rim:#e6e5e1; --fy2-ease:cubic-bezier(.2,.8,.2,1);
   --fy2-mono:"Geist Mono",ui-monospace,Menlo,monospace; --fy2-d:"Bricolage Grotesque","Byrd",Arial,sans-serif;
   --fy2-print:-2px 1.5px 0 rgba(34,205,240,.85), 2px -1.5px 0 rgba(255,45,143,.8), 0 1px 2px rgba(23,27,32,.3), 0 30px 40px -22px rgba(23,27,32,.45);
-  --fy2-pw:min(330px, calc((100svh - 150px) * .4794)); }
+  --fy2-pw:min(330px, calc((100svh - 150px) * .4794)); --fy2-pad:0px; --fy2-tx:400px; --fy2-g1:60px; --fy2-col:330px; --fy2-g2:70px; }
 .fy2, .fy2 *, .fy2 *::before, .fy2 *::after{ box-sizing:border-box; }
 .fy2 [hidden]{ display:none !important; }
 
 /* ---------- the run ---------- */
 .fy2-run{ position:relative; }
-.fy2-s{ position:relative; display:grid; grid-template-columns:400px 60px 330px 70px minmax(0,1fr); align-items:center; max-width:1160px; min-height:100svh; margin:0 auto; padding:96px 0 40px; scroll-margin-top:0; }
+.fy2-s{ position:relative; display:grid; grid-template-columns:var(--fy2-tx) var(--fy2-g1) var(--fy2-col) var(--fy2-g2) minmax(0,1fr); align-items:center; max-width:calc(1160px + var(--fy2-pad) * 2); min-height:100svh; margin:0 auto; padding:96px var(--fy2-pad) 40px; scroll-margin-top:0; }
 .fy2-tx{ grid-column:1; min-width:0; align-self:start; margin-top:clamp(110px,19svh,180px); }
 .fy2-m{ display:none; }
 .fy2-obj{ grid-column:5; min-width:0; display:flex; justify-content:flex-start; }
 
 /* the phone: pinned to the middle column for the whole run */
-.fy2-pin{ position:sticky; z-index:3; top:calc(50svh - var(--fy2-pw) * 1.043 + 28px); height:0; max-width:1160px; margin:0 auto; pointer-events:none; }
-.fy2-pin .fy2-dev{ position:absolute; left:calc(460px + (330px - var(--fy2-pw)) / 2); top:0; }
+.fy2-pin{ position:sticky; z-index:3; top:calc(50svh - var(--fy2-pw) * 1.043 + 28px); height:0; max-width:calc(1160px + var(--fy2-pad) * 2); margin:0 auto; pointer-events:none; }
+.fy2-pin .fy2-dev{ position:absolute; left:calc(var(--fy2-pad) + var(--fy2-tx) + var(--fy2-g1) + (var(--fy2-col) - var(--fy2-pw)) / 2); top:0; }
 .fy2-dev{ --pw:var(--fy2-pw); filter:drop-shadow(0 34px 44px rgba(23,27,32,.22)); }
 
 /* the thread from a message to the thing it became */
@@ -138,6 +138,21 @@
 .fy2-end .fy2-lede{ max-width:46ch; }
 .fy2-end .fy2-note{ max-width:52ch; margin-top:18px; }
 
+/* the three things, laid flat: what is left of the pilot */
+.fy2-left{ display:flex; align-items:flex-end; gap:clamp(20px,3vw,40px); margin:clamp(40px,4.4vw,56px) 0 0; padding:0; list-style:none; }
+.fy2-left li{ display:flex; flex-direction:column; gap:14px; opacity:0; translate:0 18px; transition:opacity .5s, translate .6s var(--fy2-ease); transition-delay:calc(var(--i) * 140ms); }
+.fy2-left.is-in li{ opacity:1; translate:0 0; }
+.fy2-left .fy2-card, .fy2-left .fy2-cv{ rotate:none; }
+.fy2-left .fy2-cv{ width:132px; box-shadow:var(--fy2-print); }
+.fy2-left .fy2-card{ width:240px; }
+
+/* ---------- a narrower desktop: the same three columns, tighter ---------- */
+@media (min-width: 1000px) and (max-width: 1239px){
+  .fy2{ --fy2-pad:32px; --fy2-tx:330px; --fy2-g1:28px; --fy2-col:280px; --fy2-g2:30px; --fy2-pw:min(280px, calc((100svh - 150px) * .4794)); }
+  .fy2-obj{ zoom:.86; }
+  .fy2-lede{ font-size:17.5px; }
+}
+
 /* ---------- narrow screens: one phone per station, the thing under it ---------- */
 @media (max-width: 999px){
   .fy2{ --fy2-pw:min(290px, calc(100vw - 96px)); }
@@ -160,8 +175,10 @@
   .fy2-web{ width:260px; }
   .fy2-art{ aspect-ratio:1 / .62; }
   .fy2-btn{ align-self:flex-start; }
+  .fy2-left{ flex-direction:column; align-items:flex-start; }
 }
 @media (prefers-reduced-motion: reduce){
   .fy2-app .fy2-view.a-tasks, .fy2-app .a-msgs > [data-k], .fy2-big{ transition:none; }
   .fy2-app .fy2-in, .fy2-app .fy2-ring .a-b, .fy2-flash{ animation:none; }
+  .fy2-left li{ opacity:1; translate:0 0; transition:none; }
 }
