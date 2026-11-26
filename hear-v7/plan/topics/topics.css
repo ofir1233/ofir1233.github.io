@@ -313,3 +313,9 @@
 .stage.tp-std:not(.lofi) .tp-bars .b4{background:#7CC8FF;box-shadow:none}
 .stage.tp-std:not(.lofi) .tp-bars .b5{background:#139FFD;box-shadow:none}
 .stage.tp-std:not(.lofi) .tp-row .sc small.dn{color:#C2452B}
+
+/* a picked topic's way out (owner, 26.11.2026: "no way to get out of it"): a cross in its opened box, shown while it is picked */
+.tp-tile .tp-x{display:none;place-items:center;flex:none;width:24px;height:24px;margin:-3px -4px -3px 6px;border-radius:50%;color:var(--ink2);cursor:pointer}
+.tp-tile.on .tp-x{display:grid}
+.tp-tile .tp-x:hover{background:rgba(24,36,48,.1);color:var(--ink)}
+.tp-tile .tp-x svg{width:14px;height:14px;stroke-width:2}

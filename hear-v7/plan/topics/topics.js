@@ -98,7 +98,7 @@
   map.innerHTML = T.map(function (t, k) {
     return '<div class="tp-tile" data-k="' + k + '" role="button" tabindex="0" aria-label="' + esc(t.n) + ', ' + num(t.c) + ' calls, score ' + t.s + '">' +
       '<span class="tb ' + lvl(t.s) + '"><span class="nm">' + esc(t.n) + '</span><span class="cl">' + num(t.c) + ' calls</span>' + (t.fresh ? '<em>New</em>' : '') + '<span class="sc"><b>' + t.s + '</b><small>avg score</small></span></span>' +
-      '<span class="dl"><span class="dh"><b>' + esc(t.n) + '</b><i>avg score ' + t.s + '</i></span><span class="ps">' + t.p.map(function (p, j) {
+      '<span class="dl"><span class="dh"><b>' + esc(t.n) + '</b><i>avg score ' + t.s + '</i><span class="tp-x" role="button" tabindex="0" aria-label="Close ' + esc(t.n) + '"><svg class="i" viewBox="0 0 18 18"><path d="M5 5l8 8M13 5l-8 8"/></svg></span></span><span class="ps">' + t.p.map(function (p, j) {
         return '<button type="button" class="tp-p ' + lvl(p[0]) + '" data-p="' + j + '" aria-label="' + M[j][1] + ', ' + p[1] + ', score ' + p[0] + '. Ask AI about it"><b>' + M[j][1] + '</b><small>' + p[1] + '</small><em>' + p[0] + '</em></button>';
       }).join('') + '</span></span></div>';
   }).join('');
@@ -119,7 +119,7 @@
     if (w >= h) { lay(a, x, y, w * f, h, out); lay(b, x + w * f, y, w * (1 - f), h, out); }
     else { lay(a, x, y, w, h * f, out); lay(b, x, y + h * f, w, h * (1 - f), out); }
   }
-  var view = 10, sel = -1, hotK = -1, hotP = -1, asked = null;
+  var view = 10, sel = -1, hotK = -1, hotP = -1, asked = null, mute = -1;
   function draw() {
     var W = map.clientWidth, H = map.clientHeight; if (!W || !H) return;
     var ids = T.map(function (t, k) { return k; }).slice(0, view), out = {}; lay(ids, 0, 0, W, H, out);
@@ -137,12 +137,14 @@
     var W = map.clientWidth, H = map.clientHeight;
     tiles.forEach(function (t) {
       var d = t.querySelector('.dl'), w = t.offsetWidth, h = t.offsetHeight, nw = Math.min(W, Math.max(w, 312)), nh = Math.min(H, Math.max(h, 176));
-      if (!t.classList.contains('open') || (nw === w && nh === h)) { if (t.classList.contains('big')) { d.style.cssText = ''; t.classList.remove('big'); } return; }
+      if (!t.classList.contains('open') || (nw === w && nh === h)) { if (d.style.cssText) d.style.cssText = ''; if (t.classList.contains('big')) t.classList.remove('big'); return; }
       var x = Math.max(0, Math.min(W - nw, t.offsetLeft - (nw - w) / 2)) - t.offsetLeft, y = Math.max(0, Math.min(H - nh, t.offsetTop - (nh - h) / 2)) - t.offsetTop;
-      d.style.cssText = 'left:' + (x + 2) + 'px;top:' + (y + 2) + 'px;right:auto;bottom:auto;width:' + (nw - 4) + 'px;height:' + (nh - 4) + 'px'; if (!t.classList.contains('big')) t.classList.add('big');      /* only a real change: this runs on every class change in the map, its own included */
+      var css = 'left:' + (x + 2) + 'px;top:' + (y + 2) + 'px;right:auto;bottom:auto;width:' + (nw - 4) + 'px;height:' + (nh - 4) + 'px'; if (d.style.cssText !== css) d.style.cssText = css; if (!t.classList.contains('big')) t.classList.add('big');      /* only a real change: this runs on every class change in the map, its own included */
     });
   }
-  new MutationObserver(grow).observe(map, { attributes: true, attributeFilter: ['class'], subtree: true });
+  /* and once more when the boxes have settled (the map changes width when Ask AI opens and closes) */
+  var growT = 0; new MutationObserver(function () { grow(); clearTimeout(growT); growT = setTimeout(grow, 420); }).observe(map, { attributes: true, attributeFilter: ['class'], subtree: true });
+  new ResizeObserver(function () { clearTimeout(growT); growT = setTimeout(grow, 60); }).observe(map);
   new ResizeObserver(draw).observe(map);
 
   /* the daily row of a topic shows the topic's score, or one parameter's trend while that parameter is under the pointer */
@@ -184,7 +186,7 @@
     map.classList.toggle('has-hot', lit); list.classList.toggle('has-hot', lit);
     tiles.forEach(function (t, i) {
       t.classList.toggle('hot', i === k);
-      t.classList.toggle('open', (i === k && from === 'map' || i === sel) && t.classList.contains('can-open'));
+      t.classList.toggle('open', (i === k && from === 'map' && i !== mute || i === sel) && t.classList.contains('can-open'));
       [].forEach.call(t.querySelectorAll('.tp-p'), function (b, j) { b.classList.toggle('hot', i === k && j === p); });
     });
     rows.forEach(function (r, i) { r.classList.toggle('hot', i === k); });
@@ -202,6 +204,7 @@
   }
   el.addEventListener('pointermove', function (e) {
     var g = e.target.closest('.tp-gain'), b = e.target.closest('[data-k]'), p = e.target.closest('.tp-p');
+    if (mute >= 0 && (!b || +b.dataset.k !== mute)) mute = -1;
     if (g) hot(gainK, -1, 'gain');
     else if (b) hot(+b.dataset.k, p ? +p.dataset.p : -1, b.classList.contains('tp-tile') ? 'map' : 'row');
     else hot(-1, -1);
@@ -246,13 +249,23 @@
     timers.forEach(clearTimeout); timers = []; asked = null; stage.classList.remove('ask-on'); ask.setAttribute('aria-hidden', 'true');
     el.querySelectorAll('.tp-p.asked').forEach(function (b) { b.classList.remove('asked'); });
     ask.querySelector('#tp-at').textContent = 'New conversation';
+    if (sel >= 0) deselect();
   }
   ask.querySelector('.x').addEventListener('click', closeAsk);
   rel.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) question(b.textContent); });
   ask.querySelector('#tp-comp').addEventListener('submit', function (e) { e.preventDefault(); var i = e.target.querySelector('input'), v = i.value.trim(); if (!v) return; i.value = ''; question(v); });
 
+  /* owner, 26.11.2026: "after I open it there is no way out of it, and if I force it, it breaks". A picked topic stayed picked: its
+     box had no close, a click beside it did nothing, Esc did nothing, and closing Ask AI left it open. Now each of those lets go. */
+  function deselect() {
+    sel = -1; el.querySelectorAll('[data-k]').forEach(function (x) { x.classList.remove('on'); });
+    tiles.forEach(function (t) { t.classList.remove('open'); t.querySelectorAll('.tp-p').forEach(function (b) { b.classList.remove('asked', 'hot'); }); });
+    hot(-1, -1, 'force'); tip.classList.remove('on');
+  }
+  document.addEventListener('keydown', function (e) { if (e.key !== 'Escape' || !stage.classList.contains('s4') || document.querySelector('.lv-menu')) return; if (asked) closeAsk(); else if (sel >= 0) deselect(); });
   el.addEventListener('click', function (e) {
     var p = e.target.closest('.tp-p'), b = e.target.closest('[data-k]'), s = e.target.closest('.tp-seg button');
+    if (e.target.closest('.tp-x')) { mute = +e.target.closest('[data-k]').dataset.k; if (asked) closeAsk(); else deselect(); return; }
     var kit = window.hearLive && window.hearLive.kit, pk = e.target.closest('.tp-pick'), ac = e.target.closest('.top .act');
     if (kit && pk) { kit.menu(el, pk, [{ head: 'The score is the average of' }].concat(M.map(function (m, j) { return { t: m[1], sub: m[2] + ' across all topics', v: j, on: !!picked[j], check: 1 }; })), function (it, mn) {
       picked[it.v] = it.on ? 1 : 0; if (!picked.some(Boolean)) { picked[it.v] = 1; it.on = true; mn.querySelector('[data-i="' + (it.v + 1) + '"]').classList.add('on'); kit.flash(el, 'The score needs at least one parameter'); return; } recount(); }); return; }
@@ -265,8 +278,8 @@
       return;
     }
     if (p) { askAbout(+p.closest('[data-k]').dataset.k, +p.dataset.p); return; }
-    if (!b) return;
-    var k = +b.dataset.k; sel = sel === k ? -1 : k;
+    if (!b) { if (sel >= 0 && !e.target.closest('.top,.tp-def,.tp-seg,.lv-menu')) { if (asked) closeAsk(); else deselect(); } return; }
+    var k = +b.dataset.k; if (sel === k) { mute = k; if (asked) closeAsk(); else deselect(); return; } sel = k;
     el.querySelectorAll('[data-k]').forEach(function (x) { x.classList.toggle('on', +x.dataset.k === sel); });
     hot(k, -1, 'force'); if (sel === k && tiles[k].classList.contains('can-open')) tiles[k].classList.add('open');
   });
