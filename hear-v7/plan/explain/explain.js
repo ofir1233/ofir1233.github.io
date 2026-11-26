@@ -23,7 +23,7 @@
   const hint = document.createElement('p'); hint.className = 'xp-hint'; hint.textContent = 'Pick a score, then Explore in Chat to see the calls behind it.';
   ev.appendChild(hint);
   const origPick = pick, origFill = fillCalls;
-  // the portfolio's one sample call, followed through four screens (Topics, here, Actions, Newsroom): on Oct 13 a customer who cannot
+  // the portfolio's one sample call, followed through four screens (Topics, here, Workflows, Newsroom): on Oct 13 a customer who cannot
   // afford to rebook asks twice for a refund and is offered a voucher. It is the lowest of the calls behind Selma's Compliance score, so it
   // takes the first row; the rest stay the studio's own, and the answer in the chat counts them as they are
   const origCalls = callsFor, OCT13 = { reason: 'Refund request', d: 'Oct 13', len: '6:12', mom: '1:48', s: 29, miss: true, find: 'Vulnerability protocol skipped' };

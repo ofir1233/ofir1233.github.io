@@ -1,4 +1,4 @@
-/* Topics: a screen added to Hear Studio for the portfolio (after Workflows in the sidebar). It carries the Design Lab's Topics screen
+/* Topics: a screen added to Hear Studio for the portfolio (after Knowledge in the sidebar). It carries the Design Lab's Topics screen
    (work/lab-topics.js: the Ultra version) into the Studio look, with its interactions: a topic's score opens into the three parameters
    behind it, a parameter shows its own trend in the daily list, and clicking one asks AI about it while the page narrows.
    One screen at two fidelities: .lofi on the stage turns it into a wireframe; nothing is drawn twice.
@@ -47,8 +47,8 @@
   }
   T.forEach(function (t, k) { t.days = days(t.s, t.d, k); t.pd = t.p.map(function (p, j) { return days(p[0], p[2], k * 7 + j + 40); }); });
 
-  /* the sidebar item, after Workflows */
-  var after = [].filter.call(document.querySelectorAll('.side .nv'), function (b) { return /Workflows/.test(b.textContent); })[0];
+  /* the sidebar item, after Knowledge (Workflows left the static list: it is the Actions screen, renamed, 26.11.2026) */
+  var after = [].filter.call(document.querySelectorAll('.side .nv'), function (b) { return /Knowledge/.test(b.textContent); })[0];
   var nav = document.createElement('button');
   nav.className = 'nv'; nav.id = 'nav-topics'; nav.type = 'button'; nav.dataset.tip = 'Topics';
   nav.innerHTML = '<svg class="i" viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="13" height="13" rx="2.2"/><path d="M9.8 2.5v13M9.8 9.6h5.7"/></svg><span class="lbl">Topics</span>';
@@ -148,7 +148,7 @@
     return '<div class="r1"><strong>' + esc(t.n) + '</strong>' + (t.fresh ? '<span class="nw">New</span>' : '') + '</div><div class="cx">' + num(t.c) + ' calls · ' + chg(t.d) + ' in 30 days</div>' +
       '<div class="r3"><span class="big"><strong>' + t.s + '</strong>/ 100</span><span class="st"><i style="background:' + onDark(t.s) + '"></i>' + status(t.s) + '</span></div><hr>' +
       t.p.map(function (p, j) { return bar(M[j][1], p[0], p[1] + ' · all topics ' + M[j][2].replace(' of call time', '')); }).join('') +
-      '<hr><div class="ft">Equal-weight average of 3 parameters</div>';
+      '<hr><div class="ft">' + (picked.filter(Boolean).length > 1 ? 'Equal-weight average of ' + picked.filter(Boolean).length + ' parameters' : 'One parameter') + '</div>';
   }
   function tipPar(k, j) {
     var t = T[k], p = t.p[j];
@@ -233,6 +233,10 @@
 
   el.addEventListener('click', function (e) {
     var p = e.target.closest('.tp-p'), b = e.target.closest('[data-k]'), s = e.target.closest('.tp-seg button');
+    var kit = window.hearLive && window.hearLive.kit, pk = e.target.closest('.tp-pick'), ac = e.target.closest('.top .act');
+    if (kit && pk) { kit.menu(el, pk, [{ head: 'The score is the average of' }].concat(M.map(function (m, j) { return { t: m[1], sub: m[2] + ' across all topics', v: j, on: !!picked[j], check: 1 }; })), function (it, mn) {
+      picked[it.v] = it.on ? 1 : 0; if (!picked.some(Boolean)) { picked[it.v] = 1; it.on = true; mn.querySelector('[data-i="' + (it.v + 1) + '"]').classList.add('on'); kit.flash(el, 'The score needs at least one parameter'); return; } recount(); }); return; }
+    if (kit && ac) { if (ac.nextElementSibling) kit.menu(el, ac, RANGE.map(function (r, i) { return { t: r[0], sub: r[2], v: i, on: i === range }; }), function (it) { range = it.v; recount(); }, true); else { kit.copy(location.href); kit.flash(el, 'Link to Topics copied'); } return; }
     if (s) {
       var g = s.parentElement, i = +s.dataset.i;
       [].forEach.call(g.children, function (x) { x.classList.toggle('on', x === s); });
@@ -247,6 +251,29 @@
     hot(k, -1, 'force'); if (sel === k && tiles[k].classList.contains('can-open')) tiles[k].classList.add('open');
   });
   el.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('tp-tile')) { e.preventDefault(); e.target.click(); } });
+  /* owner, 26.11.2026: every control answers. The score is the average of the parameters picked in the Score menu, and the range
+     scales the calls; everything on the page that shows a score or a count is counted again from the same rows. */
+  var picked = [1, 1, 1], range = 1, RANGE = [['Last 7 days', .23, 'Oct 7 to Oct 13'], ['Last 30 days', 1, 'Sep 14 to Oct 13'], ['Last 90 days', 3.05, 'Jul 16 to Oct 13']];
+  T.forEach(function (t) { t.c0 = t.c; });
+  function recount() {
+    var names = M.filter(function (m, j) { return picked[j]; }).map(function (m) { return m[1]; }), n = names.length;
+    T.forEach(function (t, k) { var ps = t.p.filter(function (p, j) { return picked[j]; });
+      t.c = Math.round(t.c0 * RANGE[range][1]); t.s = Math.round(ps.reduce(function (a, p) { return a + p[0]; }, 0) / n); t.days = days(t.s, t.d, k); });
+    total = T.reduce(function (a, t) { return a + t.c; }, 0); avg = Math.round(T.reduce(function (a, t) { return a + t.c * t.s; }, 0) / total);
+    /* with all three the tile names Online Booking, as the case study does; with another score, the topic that would lift it most */
+    gainK = 0; if (n < 3) T.forEach(function (t, k) { if (t.c * (avg - t.s) > T[gainK].c * (avg - T[gainK].s)) gainK = k; });
+    gain = (T[gainK].c / total * (avg - T[gainK].s)).toFixed(1);
+    tiles.forEach(function (x, k) { var t = T[k], tb = x.querySelector('.tb'); tb.className = 'tb ' + lvl(t.s); tb.querySelector('.cl').textContent = num(t.c) + ' calls'; tb.querySelector('.sc b').textContent = t.s;
+      x.querySelector('.dh i').textContent = 'avg score ' + t.s; x.setAttribute('aria-label', t.n + ', ' + num(t.c) + ' calls, score ' + t.s); });
+    trendK = trendP = -1; rows.forEach(function (r, k) { rowTo(k, -1); });
+    var kp = el.querySelectorAll('.tp-kpis>div'); kp[0].querySelector('b').textContent = num(total); kp[1].querySelector('b').textContent = avg; allEl.textContent = avg;
+    kp[2].querySelector('b').textContent = '+' + gain; kp[2].querySelector('i').innerHTML = '<u>' + esc(T[gainK].n) + '</u> · ' + num(T[gainK].c) + ' calls at ' + T[gainK].s;
+    el.querySelector('.tp-pick').innerHTML = 'Score<b>' + names[0] + '</b>' + (n > 1 ? '<i>+' + (n - 1) + '</i>' : '') + '<svg class="i" viewBox="0 0 18 18"><path d="M5 7.5l4 4 4-4"/></svg>';
+    el.querySelector('.tp-def p').innerHTML = (n > 1 ? 'Equal-weight average of ' + names.slice(0, -1).map(function (x) { return '<b>' + x + '</b>'; }).join(', ') + ' and <b>' + names[n - 1] + '</b>' : '<b>' + names[0] + '</b> only') + ' · 0–100, higher is better';
+    el.querySelector('.top p').textContent = 'What customers called about, and how each topic scored. ' + T.length + ' topics · ' + RANGE[range][2];
+    el.querySelector('.top .act').firstChild.textContent = RANGE[range][0];
+    sortRows(mode0); draw();
+  }
   var mode0 = 0;
   function rowMax() { return stage.classList.contains('lofi') ? 10 : 6; }
   function sortRows(mode) {

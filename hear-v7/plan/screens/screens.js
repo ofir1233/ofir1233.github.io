@@ -120,7 +120,7 @@
         [].forEach.call(el.querySelectorAll('[data-g="under 60"]'), function (x) { x.classList.add('hot'); });
         el.querySelectorAll('.kpis>div')[2].classList.add('hot');
         /* the eight, lowest first (they average 54). Five of them are weakest on the criterion that fell for the whole center on Sep 30;
-           Selma K. is the agent the Compliance screen opens and the one the task in Actions asks to coach */
+           Selma K. is the agent the Compliance screen opens and the one the task in Workflows asks to coach */
         var AG = [['Selma K.', 48, 1], ['Jonas R.', 51, 1], ['Priya N.', 52, 'Verifies identity'], ['Tomas V.', 54, 1], ['Leah M.', 55, 1], ['Dario F.', 56, 'Sets a clear next step'], ['Noor A.', 57, 1], ['Kyle B.', 59, 'Shows empathy']];
         ui.side('<header>Under 60<small>8 of 715 agents</small></header><div class="a" style="margin-top:14px"><p><span class="ae-xs">They average <b>54</b> across 1,212 calls. </span><b>Five of the eight are weakest on the same criterion</b>, the one that fell on Sep 30.</p></div><h4 class="ae-h4">Lowest first · weakest criterion</h4>' +
           '<ul class="ae-ag">' + AG.map(function (a, n) { return '<li style="--i:' + n + '">' + av(a[0]) + '<span>' + a[0] + '<small>' + (a[2] === 1 ? '<u>Explains the refund policy</u><i class="ts"> · Task set</i>' : a[2]) + '</small></span><em>' + a[1] + '</em></li>'; }).join('') + '</ul>' +
@@ -134,9 +134,9 @@
     }
   };
 
-  /* ---------- Actions ---------- */
+  /* ---------- Workflows (was Actions; owner, 26.11.2026: "actions and workflows are the same one") ---------- */
   S.actions = {
-    nav: 'Actions', icon: '<rect x="2.5" y="3" width="3.6" height="12" rx="1.2"/><rect x="7.2" y="3" width="3.6" height="8" rx="1.2"/><rect x="11.9" y="3" width="3.6" height="10" rx="1.2"/>',
+    nav: 'Workflows', icon: '<rect x="2.5" y="3" width="3.6" height="12" rx="1.2"/><rect x="7.2" y="3" width="3.6" height="8" rx="1.2"/><rect x="11.9" y="3" width="3.6" height="10" rx="1.2"/>',
     steps: ['Each finding is a task, with the line from the call that raised it.', 'A card carries its next moves: reassign, start or resolve.', 'The task opens with the call it came from, and is worked there.', 'Closed work keeps its reason.'],
     build: function () {
       /* a card: where it came from, what was found, the evidence (a line from the call with its time; once the task is closed, the
@@ -144,7 +144,7 @@
       var card = function (src, hi, title, ev, who, tag, cls) { return '<div class="ac-card' + (cls ? ' ' + cls : '') + '"><small><u' + (hi ? ' class="hi"' : '') + '></u>' + src.replace(' · High', '<span class="hp"> · High</span>') + '</small><p>' + title + '</p><span class="cev">' + ev + '</span><footer>' + (who ? av(who) + who : '<span style="color:var(--mut)">Not assigned</span>') + (tag ? '<span class="sx-tag' + (tag === 'Resolved' ? ' ok' : '') + '">' + tag + '</span>' : '') + '</footer><div class="qa"><span>Reassign</span><span class="go">Start</span><span>Resolve</span></div></div>'; };
       /* c2: the count once the refund task has been carried to Done (step 4) */
       var col = function (n, c, cards, more, c2) { return '<section class="ac-col"><h4>' + n + '<i>' + (c2 ? '<b class="n0">' + c + '</b><b class="n1">' + c2 + '</b>' : c) + '</i></h4>' + cards + (more ? '<span class="ac-more"><b class="w">+' + more + ' more</b><b class="t">+' + (more + 1) + ' more</b><b class="x">+' + (more - 1) + ' more</b></span>' : '') + '</section>'; };
-      return top('Actions', 'Every finding from a call, tracked to an owner and an outcome.', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New task', 'ink')) +
+      return top('Workflows', 'Every finding from a call, tracked to an owner and an outcome.', act('<svg class="i" viewBox="0 0 18 18"><path d="M9 3.5v11M3.5 9h11"/></svg>New task', 'ink')) +
         '<div class="ac-bar"><span class="sx-chip on">Everyone</span><span class="sx-chip">Assigned to me</span><span class="sx-chip">Mentions me</span><i class="gap"></i><span class="sx-chip">High priority <b>4</b></span><span class="sx-chip">From alerts <b>5</b></span><span class="sx-chip">From agent evaluation <b>2</b></span></div>' +
         '<div class="ac-board">' +
         col('Pending', 6, card('Alert · Today · High', 1, 'Customer asked twice for a refund, was offered only a voucher', '<b>02:41</b>“…a refund, not a voucher.”', 'Daniel Brooks', '', 'src') +
@@ -500,7 +500,7 @@
 
   /* owner, 26.11.2026: "make it default". With ?screen=key the portfolio opens that one screen, as before (only its item is added).
      Without it, the Studio is the product: every screen gets its own item in the sidebar, after Topics, and is built on its first open. */
-  var after = document.getElementById('nav-topics') || [].filter.call(document.querySelectorAll('.side .nv'), function (b) { return /Workflows/.test(b.textContent); })[0];
+  var after = document.getElementById('nav-topics') || [].filter.call(document.querySelectorAll('.side .nv'), function (b) { return /Knowledge/.test(b.textContent); })[0];
   var all = [], ORDER = ['agents', 'actions', 'news', 'data', 'signals'];
   function mount(k) {
     var def = S[k]; if (!def || !after) return null;
@@ -545,11 +545,15 @@
       def.show(el, i, ui);
     }
     function open() {
-      build();
+      var first = !el; build();
       stage.classList.remove('s1', 's2', 's3', 's4', 'is-fresh', 'is-leaving', 'ask-on'); stage.classList.add('s5');
       [].forEach.call(document.querySelectorAll('.side .nv.on'), function (b) { b.classList.remove('on'); }); nav.classList.add('on');
       [].forEach.call(stage.querySelectorAll('.sx'), function (x) { x.classList.toggle('on', x === el); });
-      step(0, true);
+      /* owner, 26.11.2026: "make sure the functions work, the filters in Data and so on". In the Studio on its own a screen is not a
+         storyboard: live.js makes its controls work, once, and the screen then keeps what was done on it. With ?screen=key the
+         portfolio still plays the steps, untouched. */
+      if (key || first) step(0, true);
+      if (!key && first && window.hearLive && window.hearLive[k]) window.hearLive[k](el, ui, { av: av, act: act, chev: chev, stage: stage, open: function (k2) { var m = all.filter(function (x) { return x.key === k2; })[0]; if (m) m.open(); return m; } });
     }
     nav.addEventListener('click', open);
     var me = { key: k, steps: def.steps, step: step, open: open, nav: nav };
@@ -576,7 +580,11 @@
       [].forEach.call(document.querySelectorAll('.side .nv.on'), function (b) { b.classList.remove('on'); }); cnav.classList.add('on');
     });
     [].forEach.call(document.querySelectorAll('.side .nv[data-v]'), function (b) { b.addEventListener('click', function () { cnav.classList.remove('on'); }); });
+    cnav.dataset.v = 'eval'; /* owner, 26.11.2026: Evaluation by agent is no longer an app, it is what Compliance shows */
     ORDER.forEach(mount);
+    /* owner, 26.11.2026: "data should be first": Data opens the product's list, right under the apps, first in the product list */
+    var dataNav = all.filter(function (m) { return m.key === 'data'; })[0], hr = document.querySelector('.side hr');
+    if (dataNav && hr) hr.insertAdjacentElement('afterend', dataNav.nav);
     window.hearScreens = { all: all };
   }
 })();
