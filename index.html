@@ -3890,6 +3890,33 @@ html body #about#about .me-facts .me-v small{ font-size:.22em; letter-spacing:0;
    Design system, FYI's own copy and the postcard are exceptions and stay as they are. */
 html body :is(#design-lab, #product, #web, #ia, #process, #path) .sec-head p:not(.pf-note){ font-size:clamp(17px, 1.48vw, 21px) !important; line-height:1.48 !important; color:var(--v7-ink-2, #464b52) !important; }
 </style>
+<script>/* A TRIAL (owner, 26.11), only with ?hl in the address: the main headline comes in the way the logo does,
+its letters flicker on one after another and the full stop drops in last. Without ?hl nothing here runs. */
+(function(){try{if(!/[?&]hl(=|&|$)/.test(location.search)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+var h=document.documentElement;h.classList.add('hx-t');
+document.addEventListener('DOMContentLoaded',function(){var h1=document.getElementById('about-h');if(!h1)return;var n=0,last=null;
+  function walk(el){[].slice.call(el.childNodes).forEach(function(c){
+    if(c.nodeType===3){var f=document.createDocumentFragment();c.nodeValue.split(/(\s+)/).forEach(function(w){
+        if(!w)return;if(/^\s+$/.test(w)){f.appendChild(document.createTextNode(' '));return;}
+        var ws=document.createElement('span');ws.className='hx-w';
+        w.split('').forEach(function(ch){var l=document.createElement('span');l.className='hx-l';l.textContent=ch;l.style.setProperty('--i',n++);ws.appendChild(l);last=l;});
+        f.appendChild(ws);});el.replaceChild(f,c);}
+    else if(c.nodeType===1&&c.tagName!=='BR'&&!c.classList.contains('hv-sr')){c.setAttribute('aria-hidden','true');walk(c);}});}
+  h1.setAttribute('aria-label',h1.textContent.replace(/\s+/g,' ').trim());walk(h1);
+  [].slice.call(h1.querySelectorAll('.hx-w')).forEach(function(w){w.setAttribute('aria-hidden','true');});
+  if(last&&last.textContent==='.'){last.classList.add('hx-dot');last.style.setProperty('--i',n);}
+  h.classList.add('hx-go');});}catch(e){}})();</script>
+<style>
+html.hx-t:not(.hx-go) #about-h{ visibility:hidden; }
+html.hx-t #about .me-intro > #about-h{ animation:none !important; opacity:1 !important; transform:none !important; }
+html.hx-t #about .me-intro > .me-lead{ animation-delay:1.35s !important; }
+.hx-w{ display:inline-block; white-space:nowrap; }
+.hx-l{ display:inline-block; animation:hx-flick .46s linear both; animation-delay:calc(.1s + var(--i) * .038s); }
+.hx-l.hx-dot{ color:#139FFD; animation:hx-drop .62s cubic-bezier(.3,1.5,.4,1) both; animation-delay:calc(.2s + var(--i) * .038s); }
+html.boot:not(.boot-in) .hx-l{ animation-play-state:paused !important; }
+@keyframes hx-flick{ 0%{ opacity:0; color:#139FFD; } 12%{ opacity:1; } 20%{ opacity:.15; } 34%{ opacity:1; } 44%{ opacity:.4; } 58%{ opacity:1; color:#139FFD; } 100%{ opacity:1; } }
+@keyframes hx-drop{ 0%{ opacity:0; transform:translateY(-1.15em) scale(.6); } 30%{ opacity:1; } 100%{ opacity:1; transform:none; } }
+</style>
 <script>/* the opening: on a fresh visit the page loads behind the logo's own animation, then the logo travels to its place in the nav.
 Not when coming back from a case page, not on a link to a #section, not with reduced motion. */
 (function(){try{var d=document,n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{},same=d.referrer&&d.referrer.indexOf(location.origin+'/')===0&&n.type!=='reload';
