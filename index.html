@@ -3890,9 +3890,9 @@ html body #about#about .me-facts .me-v small{ font-size:.22em; letter-spacing:0;
    Design system, FYI's own copy and the postcard are exceptions and stay as they are. */
 html body :is(#design-lab, #product, #web, #ia, #process, #path) .sec-head p:not(.pf-note){ font-size:clamp(17px, 1.48vw, 21px) !important; line-height:1.48 !important; color:var(--v7-ink-2, #464b52) !important; }
 </style>
-<script>/* A TRIAL (owner, 26.11), only with ?hl in the address: the main headline comes in the way the logo does,
-its letters flicker on one after another and the full stop drops in last. Without ?hl nothing here runs. */
-(function(){try{if(!/[?&]hl(=|&|$)/.test(location.search)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+<script>/* owner, 26.11 (tried at ?hl, he kept it): the main headline comes in the way the logo does,
+its letters flicker on one after another and the full stop drops in last. In the other headings set in capitals the full stop is blue and still. */
+(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 var h=document.documentElement;h.classList.add('hx-t');
 document.addEventListener('DOMContentLoaded',function(){var h1=document.getElementById('about-h');if(!h1)return;var n=0,last=null;
   function walk(el){[].slice.call(el.childNodes).forEach(function(c){
@@ -3910,6 +3910,7 @@ document.addEventListener('DOMContentLoaded',function(){var h1=document.getEleme
 html.hx-t:not(.hx-go) #about-h{ visibility:hidden; }
 html.hx-t #about .me-intro > #about-h{ animation:none !important; opacity:1 !important; transform:none !important; }
 html.hx-t #about .me-intro > .me-lead{ animation-delay:1.35s !important; }
+.hx-pt{ color:#139FFD; }
 .hx-w{ display:inline-block; white-space:nowrap; }
 .hx-l{ display:inline-block; animation:hx-flick .46s linear both; animation-delay:calc(.1s + var(--i) * .038s); }
 .hx-l.hx-dot{ color:#139FFD; animation:hx-drop .62s cubic-bezier(.3,1.5,.4,1) both; animation-delay:calc(.2s + var(--i) * .038s); }
@@ -4017,7 +4018,7 @@ setTimeout(go,MAX);})();</script>
     <div class="me-top">
       <div class="me-intro">
 
-        <h1 class="hv-h" id="about-h"><span class="hv-sr">Ofir Nona. </span>I design<br class="hv-b3"> <em>experiences</em><br class="hv-b2"> for AI<br class="hv-b3"> products.</h1>
+        <h1 class="hv-h" id="about-h"><span class="hv-sr">Ofir Nona. </span>I design<br class="hv-b3"> <em>experiences</em><br class="hv-b2"> for AI<br class="hv-b3"> products<span class="hx-pt">.</span></h1>
         <p class="me-lead">The only designer at Hear, where AI reads every call in a contact center. From first research to front-end code.</p>
       </div>
       <figure class="me-photo me-v7"><span class="me-v7-in"><img class="me-v7-bg me-v7-sky" src="img/me-v7-blvd-sky-1920.webp?v=3" srcset="img/me-v7-blvd-sky-960.webp?v=3 960w, img/me-v7-blvd-sky-1280.webp?v=3 1280w, img/me-v7-blvd-sky-1920.webp?v=3 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 100vw" width="1920" height="1280" alt="" fetchpriority="high" decoding="async"><picture><source type="image/avif" srcset="img/me-v7-blvd-clouds-960.avif?v=1 960w, img/me-v7-blvd-clouds-1280.avif?v=1 1280w, img/me-v7-blvd-clouds-1920.avif?v=1 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 100vw"><img class="me-v7-bg me-v7-clouds" src="img/me-v7-blvd-clouds-1920.webp?v=1" srcset="img/me-v7-blvd-clouds-960.webp?v=1 960w, img/me-v7-blvd-clouds-1280.webp?v=1 1280w, img/me-v7-blvd-clouds-1920.webp?v=1 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 100vw" width="1920" height="1280" alt="" fetchpriority="high" decoding="async"></picture><span class="me-v7-sig" aria-hidden="true"></span><img class="me-v7-bg me-v7-front" src="img/me-v7-blvd-front-1920.webp?v=3" srcset="img/me-v7-blvd-front-960.webp?v=3 960w, img/me-v7-blvd-front-1280.webp?v=3 1280w, img/me-v7-blvd-front-1920.webp?v=3 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 100vw" width="1920" height="1280" alt="" fetchpriority="high" decoding="async"><picture><source type="image/avif" srcset="img/me-v7-blvd-city-960.avif?v=1 960w, img/me-v7-blvd-city-1280.avif?v=1 1280w, img/me-v7-blvd-city-1920.avif?v=1 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 100vw"><img class="me-v7-bg me-v7-city" src="img/me-v7-blvd-city-1920.webp?v=2" srcset="img/me-v7-blvd-city-960.webp?v=2 960w, img/me-v7-blvd-city-1280.webp?v=2 1280w, img/me-v7-blvd-city-1920.webp?v=2 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 100vw" width="1920" height="1280" alt="" fetchpriority="high" decoding="async"></picture><picture><source type="image/avif" srcset="img/me-v7-blvd-street-960.avif?v=1 960w, img/me-v7-blvd-street-1280.avif?v=1 1280w, img/me-v7-blvd-street-1920.avif?v=2 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 100vw"><img class="me-v7-bg me-v7-street" src="img/me-v7-blvd-street-1920.webp?v=2" srcset="img/me-v7-blvd-street-960.webp?v=2 960w, img/me-v7-blvd-street-1280.webp?v=2 1280w, img/me-v7-blvd-street-1920.webp?v=2 1920w" sizes="(min-width: 861px) min(100vw, 1280px), 100vw" width="1920" height="1280" alt="" fetchpriority="high" decoding="async"></picture><img class="me-v7-fg" src="img/me-v7-fig-b3.webp" srcset="img/me-v7-fig-b3-800.webp 800w, img/me-v7-fig-b3.webp 1168w" sizes="(min-width: 861px) 520px, 64vw" width="1168" height="1598" alt="Painted portrait of Ofir Nona on a Tel Aviv boulevard: behind him people walk, cycle and sit, a young man taps a bus stop's app screen, and his signature is painted large across the sky over the city" fetchpriority="high" decoding="async"></span></figure>
@@ -4040,7 +4041,7 @@ setTimeout(go,MAX);})();</script>
   <div class="wrap hw">
     <div class="hw-side">
       <p class="hw-eye">How I work</p>
-      <h2 id="code-h" class="hw-h">I don’t hand off.<br><em>I ship.</em></h2>
+      <h2 id="code-h" class="hw-h">I don’t hand off<span class="hx-pt">.</span><br><em>I ship<span class="hx-pt">.</span></em></h2>
       <nav class="hw-nav" aria-label="Steps of how I work">
         <a href="#hw-1"><i>01</i>Design</a>
         <a href="#hw-2"><i>02</i>System</a>
