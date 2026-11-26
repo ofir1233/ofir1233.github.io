@@ -505,7 +505,8 @@
         st.textContent = st.textContent.replace(HOLD, '');
       } catch (e) {}
       /* explain mode first: the studio also carries Topics (hearTopics), so it must not be taken for it */
-      if (w.hearExplain) { P.steps = EXPLAIN.steps; P.dur = DUR[key()] || []; P.api = function (i, n) { EXPLAIN.step(w, i, n); }; }
+      if (key() === 'topics' && w.hearTopics) { P.steps = TOPICS.steps; P.dur = DUR.topics; P.api = function (i) { TOPICS.step(w, i); }; }
+      else if (w.hearExplain) { P.steps = EXPLAIN.steps; P.dur = DUR[key()] || []; P.api = function (i, n) { EXPLAIN.step(w, i, n); }; }
       else if (w.hearScreens) { P.steps = w.hearScreens.steps; P.dur = DUR[key()] || w.hearScreens.dur || []; P.api = function (i) { w.hearScreens.step(i); }; }
       else if (w.hearTopics) { P.steps = TOPICS.steps; P.dur = DUR.topics; P.api = function (i) { TOPICS.step(w, i); }; }
       else return;
