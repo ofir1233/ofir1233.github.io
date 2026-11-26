@@ -123,6 +123,18 @@
         (t.classList.contains('hot') ? ' hot' : '') + (t.classList.contains('open') ? ' open' : '') + (k === sel ? ' on' : '');
     });
   }
+  /* owner, 26.11.2026 (a small box, opened: "Refund…", "Satisf", "Silenc", the third score cut off): an opened box takes the room its
+     three scores need. It grows around its own middle, over its neighbours, and never past the map's rim. */
+  function grow() {
+    var W = map.clientWidth, H = map.clientHeight;
+    tiles.forEach(function (t) {
+      var d = t.querySelector('.dl'), w = t.offsetWidth, h = t.offsetHeight, nw = Math.min(W, Math.max(w, 312)), nh = Math.min(H, Math.max(h, 176));
+      if (!t.classList.contains('open') || (nw === w && nh === h)) { if (t.classList.contains('big')) { d.style.cssText = ''; t.classList.remove('big'); } return; }
+      var x = Math.max(0, Math.min(W - nw, t.offsetLeft - (nw - w) / 2)) - t.offsetLeft, y = Math.max(0, Math.min(H - nh, t.offsetTop - (nh - h) / 2)) - t.offsetTop;
+      d.style.cssText = 'left:' + (x + 2) + 'px;top:' + (y + 2) + 'px;right:auto;bottom:auto;width:' + (nw - 4) + 'px;height:' + (nh - 4) + 'px'; if (!t.classList.contains('big')) t.classList.add('big');      /* only a real change: this runs on every class change in the map, its own included */
+    });
+  }
+  new MutationObserver(grow).observe(map, { attributes: true, attributeFilter: ['class'], subtree: true });
   new ResizeObserver(draw).observe(map);
 
   /* the daily row of a topic shows the topic's score, or one parameter's trend while that parameter is under the pointer */

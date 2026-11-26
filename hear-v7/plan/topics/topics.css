@@ -278,3 +278,11 @@
 /* with the chat open the chart is narrow: every second day, so the lines keep their air */
 .stage:not(.lofi).ask-on .tp-bars{gap:3px}
 .stage:not(.lofi).ask-on .tp-bars i:nth-of-type(even){display:none}
+
+/* an opened box that grew past its own size (topics.js, grow): it lies over its neighbours, so it is lifted off them, and its three
+   scores sit side by side with their values, whatever shape the box under it has */
+.tp-tile.big .dl{box-shadow:inset 0 0 0 1.5px var(--ink),0 18px 36px -14px rgba(8,20,40,.45);transition:opacity .12s}
+.tp-tile.big .ps{flex-direction:row}
+.tp-tile.big .tp-p{flex-direction:column;align-items:flex-start;flex-wrap:nowrap}
+.tp-tile.big .tp-p em{margin:auto 0 0;font-size:28px}
+.tp-tile.big .tp-p small{display:block;flex-basis:auto;order:0;margin-top:3px}
