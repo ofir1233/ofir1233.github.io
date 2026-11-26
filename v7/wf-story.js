@@ -69,6 +69,6 @@
     b.addEventListener('click', () => { const r = steps[i].getBoundingClientRect(); scrollTo({ top: scrollY + r.top - line() + 40, behavior: calm() ? 'auto' : 'smooth' }); }); });
 
   frames(); fit(); pick();
-  if (!seen) { const io = new IntersectionObserver(es => { if (es.some(e => e.intersectionRatio >= .6)) { io.disconnect(); seen = true; const n = cur; cur = -1; apply(n); } }, { threshold: [.6] }); io.observe(stage); }
+  if (!seen) { const io = new IntersectionObserver(es => { if (es.some(e => e.intersectionRatio >= (innerWidth <= 860 ? .25 : .6))) { io.disconnect(); seen = true; const n = cur; cur = -1; apply(n); } }, { threshold: [.25, .6] }); io.observe(stage); }
   if (document.fonts) document.fonts.ready.then(frames);
 })();
