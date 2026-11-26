@@ -277,3 +277,30 @@
 }
 /* owner, 25.11.2026: the small lines under each step's sentence ("Hear sign-in page", "Pull request · illustrative") are taken off */
 #code#code .hw-nav .hw-d small, #code#code .hw-cap .hw-tag{ display:none; }
+
+/* The left side, direction A (owner, 26.11.2026: "I want to try this"): the headline "I don't hand off. I ship." is back, and under it
+   the three steps are a list. Each step has a ring with its number; the ring of the step on show fills as its screen is scrolled
+   through (--p, v7/code.js), a finished step keeps a full ring, the ones ahead wait in grey. Only the step on show opens its sentence.
+   This replaces direction D (the three giant words) on wide windows. */
+@media (min-width: 900px){
+  html body #code#code#code h2.hw-h{ position:static !important; width:auto; height:auto; margin:10px 0 0 !important; overflow:visible; clip:auto; white-space:nowrap; max-width:none !important; }
+  html body #code#code#code h2.hw-h br{ display:inline; }
+  html body #code#code#code h2.hw-h em{ font-style:normal; }
+  html body #code#code#code h2.hw-h em::before{ content:none; }
+  html body #code#code#code .hw-nav{ position:relative; display:grid; gap:6px; max-width:440px; margin-top:clamp(26px, 3vw, 40px); padding:0; border-top:0; }
+  html body #code#code#code .hw-nav a{ position:relative; display:grid; grid-template-columns:46px minmax(0, 1fr); column-gap:16px; align-items:center; width:auto; margin:0; padding:7px 0; translate:none;
+    text-transform:none; font:700 clamp(22px, 2vw, 28px)/1.1 var(--display, inherit) !important; letter-spacing:-.03em;
+    background:none !important; -webkit-background-clip:border-box; background-clip:border-box; color:#a9acb1 !important; -webkit-text-fill-color:currentColor; transition:color .4s ease; }
+  html body #code#code#code .hw-nav a::before, html body #code#code#code .hw-nav a::after{ content:none; }
+  html body #code#code#code .hw-nav a.on, html body #code#code#code .hw-nav a.done, html body #code#code#code .hw-nav a:hover{ color:#171b20 !important; }
+  /* the ring: the number on a disc of the page colour, inside a track that fills clockwise */
+  html body #code#code#code .hw-nav a i{ display:grid; place-items:center; width:46px; height:46px; border-radius:50%; font:600 13px/1 var(--body, inherit); font-style:normal; letter-spacing:0; font-variant-numeric:tabular-nums; color:#a0a4aa; -webkit-text-fill-color:currentColor;
+    background:radial-gradient(closest-side, #faf9f7 calc(100% - 4.5px), transparent calc(100% - 3.5px)), conic-gradient(var(--v7-blue, #139ffd) calc(var(--p, 0) * 360deg), #dddcd7 0); transition:color .4s ease; }
+  html body #code#code#code .hw-nav a.on i{ color:var(--v7-blue-ink, #0b6fcf); }
+  html body #code#code#code .hw-nav a.done i{ color:#171b20; background:radial-gradient(closest-side, #faf9f7 calc(100% - 4.5px), transparent calc(100% - 3.5px)), conic-gradient(#171b20 360deg, #171b20 0); }
+  /* the sentence opens under the step on show */
+  html body #code#code#code .hw-nav .hw-d{ position:static; grid-column:2; display:grid; grid-template-rows:0fr; width:auto; opacity:0; translate:none; pointer-events:none; text-transform:none; letter-spacing:0; transition:grid-template-rows .5s cubic-bezier(.2,.7,.2,1), opacity .35s ease; }
+  html body #code#code#code .hw-nav a.on .hw-d{ grid-template-rows:1fr; opacity:1; }
+  html body #code#code#code .hw-nav .hw-d > span{ display:block; overflow:hidden; padding-top:8px; font:400 clamp(17px, 1.48vw, 21px)/1.48 var(--body, inherit); color:var(--v7-ink-2, #464b52); -webkit-text-fill-color:var(--v7-ink-2, #464b52); }
+}
+@media (prefers-reduced-motion: reduce){ html body #code#code#code .hw-nav .hw-d, html body #code#code#code .hw-nav a{ transition:none; } }
