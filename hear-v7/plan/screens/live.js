@@ -21,7 +21,7 @@
     var was = openMenu && openMenu._a === anchor; closeMenu(); if (was) return null;
     var m = document.createElement('div'); m.className = 'lv-menu'; m._a = anchor;
     m.innerHTML = items.map(function (it, i) {
-      return (it.sep ? '<hr>' : '') + (it.head ? '<small>' + it.head + '</small>' : '<button type="button" data-i="' + i + '" class="' + (it.on ? 'on' : '') + (it.check ? ' ck' : '') + '">' +
+      return (it.sep ? '<hr>' : '') + (it.head ? '<small>' + it.head + '</small>' : '<button type="button" data-i="' + i + '" class="' + (it.on ? 'on' : '') + (it.check ? ' chk' : '') + '">' +
         (it.check ? '<i>' + ic(TICK) + '</i>' : '') + '<span>' + it.t + (it.sub ? '<small>' + it.sub + '</small>' : '') + '</span>' + (!it.check && it.on ? ic(TICK) : '') + (it.more ? ic('<path d="M7 5l4 4-4 4"/>') : '') + '</button>');
     }).join('');
     el.appendChild(m);
@@ -66,21 +66,22 @@
     KIT = K;
     var seed = 20261013, rnd = function () { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
     var of = function (a) { return a[Math.floor(rnd() * a.length)]; };
+    var last = {}, say = function (tp) { var t; do t = of(tp[2]); while (t === last[tp[0]]); last[tp[0]] = t; return t; };      /* a topic never says the same thing on two calls in a row */
     var shuffle = function (a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; };
     var WHO = ['Daniel Brooks', 'Maya Collins', 'Ryan Cole', 'Paula Nunes', 'Sofia Cruz', 'Alex Ward', 'Nina Vargas', 'Omar Haddad'], ME = 'Maya Chen';
-    var TOPICS = [['Refunds & Credits', 0, ['Asks when the refund for a cancelled flight will arrive', 'The refund came short, the seat fee is missing', 'Wants the credit turned back into a refund', 'Charged a fee on a refund that should be free', 'Asks for a refund after a three-hour delay', 'The refund went to a card that is closed']],
-      ['Online Booking', 300, ['Books a return trip and asks about the fare rules', 'The payment page froze at the last step', 'Adds a child to an existing booking', 'Cannot find the booking made this morning', 'Asks to pay for part of the trip with points']],
-      ['Trip Status', 270, ['Asks whether the evening flight is on time', 'Wants the gate for a connecting flight', 'Asks how long the delay will be', 'Checks that the booking is confirmed']],
-      ['E-ticket Delivery', 170, ['The e-ticket never reached the inbox', 'Asks for the ticket to be sent to a second address', 'The ticket shows the wrong middle name']],
-      ['Itinerary Questions', 160, ['Asks how long the layover in Lisbon is', 'Wants to know which terminal the flight leaves from', 'Asks whether the bags are checked through']],
-      ['Changes & Cancellations', 150, ['Moves the flight to a day later', 'Cancels one traveler out of a group of four', 'Asks what a change will cost before deciding']],
-      ['Schedule Changes', 130, ['The flight moved by three hours, asks for an earlier one', 'Got a schedule email and asks what changed', 'The new time misses the connection']],
-      ['Seating & Extras', 120, ['Moves to an aisle seat', 'Pays for extra legroom on the long leg', 'Asks to sit the family together']],
-      ['Accessibility Requests', 90, ['Books wheelchair help at both airports', 'Asks to travel with a service dog']],
-      ['Complaints & Follow-up', 90, ['Follows up on a complaint filed last week', 'Complains about a rude answer at the gate']],
-      ['Baggage', 90, ['A bag did not arrive, files a report', 'Asks how much a second bag costs']],
-      ['Loyalty Points', 70, ['Points from the last trip are missing', 'Asks how many points an upgrade takes']],
-      ['Payment Issues', 42, ['The card was charged twice', 'The payment was declined with money in the account']]];
+    var TOPICS = [['Refunds & Credits', 0, ['Asks when the refund for a cancelled flight will arrive', 'The refund came short, the seat fee is missing', 'Wants the credit turned back into a refund', 'Charged a fee on a refund that should be free', 'Asks for a refund after a three-hour delay', 'The refund went to a card that is closed', 'Was promised a refund by email and got a voucher', 'Asks why the taxes were not refunded', 'Refund approved two weeks ago, still not paid', 'Wants a refund for a bag that was paid twice']],
+      ['Online Booking', 300, ['Books a return trip and asks about the fare rules', 'The payment page froze at the last step', 'Adds a child to an existing booking', 'Cannot find the booking made this morning', 'Asks to pay for part of the trip with points', 'Booked the wrong date and wants it fixed at once', 'The promo code is not accepted at checkout', 'Asks whether the price shown includes a bag', 'Wants to book for a group of twelve', 'The site logged out in the middle of a booking']],
+      ['Trip Status', 270, ['Asks whether the evening flight is on time', 'Wants the gate for a connecting flight', 'Asks how long the delay will be', 'Checks that the booking is confirmed', 'Asks whether the connection will be held', 'The app shows two different departure times', 'Asks if the flight is boarding yet', 'Wants to know why the flight shows as cancelled', 'Asks which belt the bags arrive on']],
+      ['E-ticket Delivery', 170, ['The e-ticket never reached the inbox', 'Asks for the ticket to be sent to a second address', 'The ticket shows the wrong middle name', 'The ticket attachment will not open', 'Needs the ticket as a PDF for a visa', 'Got the ticket for only one of two travelers']],
+      ['Itinerary Questions', 160, ['Asks how long the layover in Lisbon is', 'Wants to know which terminal the flight leaves from', 'Asks whether the bags are checked through', 'Asks if a visa is needed for the stopover', 'Wants the full itinerary read back', 'Asks whether a meal is served on the second leg']],
+      ['Changes & Cancellations', 150, ['Moves the flight to a day later', 'Cancels one traveler out of a group of four', 'Asks what a change will cost before deciding', 'Wants to change the name on a ticket', 'Cancels the return and keeps the outbound', 'Asks to move to an earlier flight today']],
+      ['Schedule Changes', 130, ['The flight moved by three hours, asks for an earlier one', 'Got a schedule email and asks what changed', 'The new time misses the connection', 'The flight now leaves a day earlier', 'Asks for a hotel after an overnight change']],
+      ['Seating & Extras', 120, ['Moves to an aisle seat', 'Pays for extra legroom on the long leg', 'Asks to sit the family together', 'Adds a special meal to the booking', 'Wants a window seat on both flights', 'Asks whether the seat reclines']],
+      ['Accessibility Requests', 90, ['Books wheelchair help at both airports', 'Asks to travel with a service dog', 'Needs help boarding with a walking frame', 'Asks to bring an oxygen concentrator on board']],
+      ['Complaints & Follow-up', 90, ['Follows up on a complaint filed last week', 'Complains about a rude answer at the gate', 'Asks for a reply to a complaint from August', 'Complains that the lounge was closed']],
+      ['Baggage', 90, ['A bag did not arrive, files a report', 'Asks how much a second bag costs', 'The bag arrived with a broken wheel', 'Asks whether skis count as a bag', 'Wants the lost-bag claim number again']],
+      ['Loyalty Points', 70, ['Points from the last trip are missing', 'Asks how many points an upgrade takes', 'Wants to move points to a family member', 'Asks when the points expire']],
+      ['Payment Issues', 42, ['The card was charged twice', 'The payment was declined with money in the account', 'Asks for an invoice with the company name', 'A pending charge has not been released']]];
     var TW = TOPICS.slice(1).reduce(function (a, t) { return a + t[1]; }, 0);
     var topic = function () { var r = rnd() * TW; for (var i = 1; i < TOPICS.length; i++) { r -= TOPICS[i][1]; if (r < 0) return TOPICS[i]; } return TOPICS[1]; };
     var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -110,7 +111,7 @@
       var tp = ref[i] ? TOPICS[0] : topic(), r = rnd();
       var se = ref[i] === 3 ? 'Negative' : ref[i] === 2 ? 'Neutral' : ref[i] ? (r < .4 ? 'Negative' : r < .8 ? 'Neutral' : 'Positive') : (r < .06 ? 'Negative' : r < .22 ? 'Neutral' : 'Positive');
       var st = done[i] ? 'Done' : al[i] || rnd() < .4 ? 'In progress' : 'Pending';
-      D.push({ n: i, al: al[i] ? 1 : 0, t: tp[0], sm: of(tp[2]), id: ('0000000' + (N - i)).slice(-8) + '-' + tp[0][0].toLowerCase() + Math.floor(rnd() * 9 + 1) + of(ABC), off: off, m: clock,
+      D.push({ n: i, al: al[i] ? 1 : 0, t: tp[0], sm: say(tp), id: ('0000000' + (N - i)).slice(-8) + '-' + tp[0][0].toLowerCase() + Math.floor(rnd() * 9 + 1) + of(ABC), off: off, m: clock,
         st: st, pr: hi[i] ? 3 : done[i] ? (rnd() < .7 ? 1 : 2) : (rnd() < .6 ? 2 : 1), who: st === 'Pending' && !hi[i] && rnd() < .35 ? '' : of(WHO),
         len: ref[i] > 1 ? 305 + Math.round(rnd() * 250) : ref[i] ? 90 + Math.round(rnd() * 205) : 80 + Math.round(rnd() * 320),
         se: se, sc: se === 'Negative' ? 24 + Math.round(rnd() * 26) : se === 'Neutral' ? 58 + Math.round(rnd() * 20) : 78 + Math.round(rnd() * 20), out: rnd() < .18 ? 1 : 0, rev: rev[i] ? 1 : 0 });
@@ -180,12 +181,12 @@
       var cols = shown(), page = list.slice(S.page * PER, S.page * PER + PER), filtered = S.conds.length || S.q;
       el.style.setProperty('--dt-cols', '16px ' + cols.map(function (i) { return WIDTH[i]; }).join(' '));
       el.style.setProperty('--dt-min', (16 + cols.reduce(function (w, i) { return w + (parseInt(WIDTH[i], 10) || 250) + 14; }, 0)) + 'px');
-      el.classList.toggle('flt', !!filtered); el.classList.toggle('cnd', S.conds.length > 0);
+      el.classList.toggle('flt', !!filtered); el.classList.toggle('cnd', S.conds.length > 0 && list.length > 0);
       each(tabs.children, function (t, i) { t.classList.toggle('on', i === S.tab); });
       /* the bar: the range, the conditions, the way to add one */
       dateB.innerHTML = ic('<rect x="3" y="4" width="12" height="11" rx="2.5"/><path d="M3 7.5h12M6.5 2.5v3M11.5 2.5v3"/>') + RANGE[S.range][0] + K.chev;
       each(bar.querySelectorAll('.dt-f'), function (c) { c.remove(); });
-      addB.insertAdjacentHTML('beforebegin', S.conds.map(function (c, i) { return '<span class="dt-f' + (c.ai ? '' : ' man') + (c.fresh ? ' new' : '') + '" data-i="' + i + '" style="--n:' + i + '">' + c.k + ' <b>' + esc(label(c)) + '</b><button type="button" aria-label="Remove ' + c.k + '">' + ic(X, 'x') + '</button></span>'; }).join(''));
+      addB.insertAdjacentHTML('beforebegin', S.conds.map(function (c, i) { return '<span class="dt-f' + (c.ai ? '' : ' man') + (c.fresh ? ' lv-new' : '') + '" data-i="' + i + '" style="--n:' + i + '">' + c.k + ' <b>' + esc(label(c)) + '</b><button type="button" aria-label="Remove ' + c.k + '">' + ic(X, 'x') + '</button></span>'; }).join(''));
       S.conds.forEach(function (c) { c.fresh = 0; });
       nEl.innerHTML = '<b>' + num(list.length) + '</b> of ' + num(N) + ' calls';
       colB.innerHTML = ic('<rect x="3" y="3.5" width="12" height="11" rx="2.5"/><path d="M7.2 3.5v11M10.8 3.5v11"/>') + 'Columns<b>' + cols.length + '</b>';
@@ -307,7 +308,7 @@
     });
     el.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.dt-tabs span,.dt-r.hd .h,.dt-set .dt-r,.ck')) { e.preventDefault(); e.target.click(); } });
     /* another screen can send its reader here with the filter already on (Newsroom: "See the 211 calls") */
-    L.data.filter = function (conds, range, tab) { S.conds = conds.map(function (c) { c.fresh = 1; if (c.k === 'Signal' || c.k === 'Agent') { c.set = {}; D.filter(function (r) { return c.k === 'Agent' ? r.who : r.se === 'Negative' || r.al || /Refund|Cancel|Complaint/.test(r.t); }).slice(0, c.n).forEach(function (r) { c.set[r.n] = 1; }); } return c; }); S.tab = tab || 0; S.sort = 2; S.dir = 1; S.q = si.value = ''; tx.value = ''; if (range != null) S.range = range; S.saved = false; S.sel = {}; shut(el); paint(); };
+    L.data.filter = function (conds, range, tab) { S.conds = conds.map(function (c) { c.fresh = 1; if (c.k === 'Signal' || c.k === 'Agent' || c.k === 'From') { c.set = {}; D.filter(function (r) { return c.k !== 'Signal' ? r.who : r.se === 'Negative' || r.al || /Refund|Cancel|Complaint/.test(r.t); }).slice(0, c.n).forEach(function (r) { c.set[r.n] = 1; }); } return c; }); S.tab = tab || 0; S.sort = 2; S.dir = 1; S.q = si.value = ''; tx.value = ''; if (range != null) S.range = range; S.saved = false; S.sel = {}; shut(el); paint(); };
     paint();
     if (L.data.wait) { L.data.filter.apply(null, L.data.wait); L.data.wait = null; }
   };
@@ -783,6 +784,14 @@
     paint();
   })();
 
+  /* ---------- All apps: the sort ---------- */
+  (function () {
+    var b = document.querySelector('.gal__sort'), gal = b && b.closest('.glass'); if (!b || typeof GAL === 'undefined' || typeof galPaint !== 'function') return;
+    var SORT = [['Recently used', function (a, c) { return a._i - c._i; }], ['Name, A to Z', function (a, c) { return a.n < c.n ? -1 : 1; }], ['Team', function (a, c) { return a.team < c.team ? -1 : a.team > c.team ? 1 : a._i - c._i; }]], at = 0;
+    GAL.forEach(function (a, i) { a._i = i; });
+    b.addEventListener('click', function () { menu(gal, b, SORT.map(function (o, i) { return { t: o[0], v: i, on: i === at }; }), function (it) { at = it.v; GAL.sort(SORT[at][1]); b.firstChild.textContent = SORT[at][0]; galPaint(); }, true); });
+  })();
+
   /* ---------- Compliance (the Evaluation by agent app) and the other apps: the buttons that had no answer ---------- */
   (function () {
     var stage = document.getElementById('stage'), app = document.querySelector('.app'); if (!stage || !app || new URLSearchParams(location.search).get('screen')) return;
@@ -806,7 +815,91 @@
       if ((x = t.closest('.pl'))) { var was = x.classList.contains('on'); each(app.querySelectorAll('.pl.on'), function (p) { p.classList.remove('on'); }); clearTimeout(app._pl);
         if (!was) { x.classList.add('on'); flash(app, 'Playing “' + x.parentNode.textContent.trim() + '” ' + (x.getAttribute('aria-label') || '').replace('Play ', '')); app._pl = setTimeout(function () { x.classList.remove('on'); }, 6000); }
         e.stopPropagation(); return; }
+      /* the other apps' ways out: all the calls behind a figure, the rest of a queue, a call sent on to coaching */
+      if ((x = t.closest('#aht-a,#comp-a'))) { e.preventDefault(); var sec = x.closest('section') || x.parentNode, title = (sec.querySelector('b') || x).textContent.split(' · ')[0]; go('data', [{ k: 'From', v: title, n: +x.textContent.replace(/\D/g, '') }]); return; }
+      if (t.closest('#dq-more')) { e.preventDefault(); go('data', [], null, 1); return; }
+      if ((x = t.closest('.dq__acts .act'))) { if (x.disabled) return; var who = ((app.querySelector('.dq__head > :first-child, .dq__head') || {}).textContent || 'a flagged call').split('\n')[0].trim().slice(0, 60);
+        task({ col: 0, src: 'Disclosure review', when: 'Today', title: 'Coach on the disclosures missed: ' + who, ev: 'Fee disclosure and cooling-off period not said', who: '' }); x.disabled = true; x.textContent = 'Sent to coaching'; flash(app, 'Coaching task added to Workflows'); return; }
       if (t.closest('#eva')) { e.preventDefault(); var td = hm.querySelector('td.sel'); if (td) go('data', [{ k: 'Agent', v: td.dataset.a.split(' ')[0] + ' · ' + td.dataset.c, n: +td.dataset.n }]); return; }
     });
+  })();
+  /* ---------- the rest of the sidebar: Help, Settings, the workspace and the person (owner, 26.11.2026: "still a lot of broken
+     things, keep working"). Four things that looked like buttons and did nothing. ---------- */
+  (function () {
+    var stage = document.getElementById('stage'); if (!stage || new URLSearchParams(location.search).get('screen')) return;
+    var find = function (t) { return [].filter.call(document.querySelectorAll('.side .nv'), function (b) { return b.textContent.trim() === t; })[0]; };
+    var act = function (t, cls) { return '<button class="act' + (cls ? ' ' + cls : '') + '" type="button">' + t + '</button>'; };
+    /* a page of its own behind a sidebar item that had none */
+    function page(name, id, html) {
+      var nav = find(name); if (!nav) return null;
+      var el = document.createElement('div'); el.className = 'glass sx lv lv-page'; el.id = id;
+      el.innerHTML = '<div class="card">' + html + '</div><div class="sx-side"></div><div class="sx-tip"></div>'; stage.appendChild(el);
+      nav.dataset.tip = name;
+      nav.addEventListener('click', function () {
+        stage.classList.remove('s1', 's2', 's3', 's4', 'is-fresh', 'is-leaving', 'ask-on'); stage.classList.add('s5');
+        each(document.querySelectorAll('.side .nv.on'), function (b) { b.classList.remove('on'); }); nav.classList.add('on');
+        each(stage.querySelectorAll('.sx'), function (x) { x.classList.toggle('on', x === el); });
+      });
+      new MutationObserver(function () { if (!stage.classList.contains('s5') || /\bs[1234]\b/.test(stage.className)) nav.classList.remove('on'); }).observe(stage, { attributes: true, attributeFilter: ['class'] });
+      return el;
+    }
+
+    /* Help: the questions a new team asks, answered in place; the tour again; a line to a person */
+    var QA = [['How do I build an app?', 'Press <b>New app</b> and say what your team needs in one sentence, the way you would ask a colleague. Hear reads your conversations and lays the app out. Then change it in plain words: “add a filter by team”.'],
+      ['How is a score calculated?', 'Every call is scored against the criteria in your evaluation form, from 0 to 100. An agent’s score is the average of their calls. Click any score to see how it compares with the team, and the calls behind it.'],
+      ['What is a signal?', 'A rule that classifies calls on its own, written in plain words: “the customer asks to speak to a supervisor”. A signal is triggered when it catches more than twice its usual number of calls in a day.'],
+      ['How do I filter calls in plain words?', 'In <b>Data</b>, write what you are looking for: “refund calls over 5 minutes where the customer was unhappy”. Each thing you name becomes a condition you can read and remove.'],
+      ['Does Hear listen to calls while they happen?', 'No. Hear analyzes a call after it ends. Nothing is shown to the agent or the customer during the call.'],
+      ['Who can see my apps?', 'Everyone in your workspace. <b>Share</b> copies a link to an app; people outside the workspace are asked to sign in first.']];
+    var help = page('Help', 'sx-help', '<div class="top"><div><h2>Help</h2><p>Answers to what teams ask first, and a way to reach a person.</p></div><div class="sp"></div>' + act(ic('<path d="M4 9a5 5 0 1 0 1.6-3.7M4 3.5v2.3h2.3"/>') + 'Take the tour again') + '</div>' +
+      '<div class="hp-body"><section class="hp-qa">' + QA.map(function (q, i) { return '<div class="hp-q' + (i ? '' : ' on') + '"><button type="button" aria-expanded="' + !i + '">' + q[0] + ic('<path d="M5 7.5l4 4 4-4"/>') + '</button><p>' + q[1] + '</p></div>'; }).join('') + '</section>' +
+      '<section class="hp-ask"><h3>Ask a person</h3><p>A message goes to the Hear team. They answer on weekdays, usually within a few hours.</p><textarea rows="5" placeholder="What do you need help with?" aria-label="Your message"></textarea>' + act('Send', 'ink') + '<small class="hp-sent" hidden></small></section></div>');
+    if (help) {
+      var ta = help.querySelector('textarea'), send = help.querySelector('.hp-ask .act'), sent = help.querySelector('.hp-sent'); send.disabled = true;
+      ta.addEventListener('input', function () { send.disabled = !ta.value.trim(); });
+      help.addEventListener('click', function (e) {
+        var q = e.target.closest('.hp-q button');
+        if (q) { var on = !q.parentNode.classList.contains('on'); each(help.querySelectorAll('.hp-q'), function (x) { x.classList.remove('on'); x.firstChild.setAttribute('aria-expanded', 'false'); }); q.parentNode.classList.toggle('on', on); q.setAttribute('aria-expanded', on); return; }
+        if (send.contains(e.target)) { ta.value = ''; send.disabled = true; sent.hidden = false; sent.textContent = 'Sent. The answer comes to maya.chen@northwind.example.'; flash(help, 'Message sent to the Hear team'); return; }
+        if (e.target.closest('.top .act')) { var nw = document.getElementById('new'); if (nw) nw.click(); if (typeof tour !== 'undefined' && tour.start) setTimeout(function () { tour.start(); }, 350); }
+      });
+    }
+
+    /* Settings: the workspace, the person, what Hear tells you about, and who is in */
+    var NOTE = [['An app is ready', 'When Hear finishes building or changing an app', 1], ['New calls to review', 'When a review app has calls waiting', 1], ['A signal is triggered', 'When a signal passes twice its usual day', 1], ['Weekly summary', 'Monday morning, by email', 0]];
+    var TEAM = [['Maya Chen', 'QA lead', 'Admin'], ['Dana Levi', 'Compliance', 'Editor'], ['Sam Rivera', 'Operations', 'Editor'], ['Selma Kaya', 'QA', 'Viewer']], ROLES = ['Admin', 'Editor', 'Viewer'];
+    var av = function (n) { return '<i class="sx-av">' + n.split(/[ @.]/).map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase() + '</i>'; };
+    var set = page('Settings', 'sx-settings', '<div class="top"><div><h2>Settings</h2><p>Your workspace, your profile and what Hear tells you about.</p></div></div><div class="st-body">' +
+      '<section><h3>Workspace</h3><label class="st-f">Name<input type="text" data-k="ws" value="Northwind"></label><label class="st-f">Time zone<select data-k="tz"><option>Lisbon (GMT+1)</option><option>London (GMT+1)</option><option>New York (GMT−4)</option><option>Tel Aviv (GMT+3)</option></select><small>Dates and times of calls are shown in it</small></label></section>' +
+      '<section><h3>Profile</h3><label class="st-f">Your name<input type="text" data-k="me" value="Maya Chen"></label><label class="st-f">Role<input type="text" data-k="role" value="QA lead"></label></section>' +
+      '<section><h3>Notifications</h3>' + NOTE.map(function (n, i) { return '<div class="st-r"><span><b>' + n[0] + '</b><small>' + n[1] + '</small></span><i class="tg' + (n[2] ? '' : ' off') + '" role="switch" tabindex="0" aria-checked="' + !!n[2] + '" data-n="' + i + '"></i></div>'; }).join('') + '</section>' +
+      '<section><h3>People<small class="st-n"></small></h3><div class="st-team"></div><div class="kn-in st-inv">' + ic('<path d="M9 4v10M4 9h10"/>') + '<input type="email" placeholder="Invite by email, then press Enter" aria-label="Invite by email"></div></section></div>');
+    if (set) {
+      var team = set.querySelector('.st-team'), wsB = document.getElementById('ws'), meB = document.querySelector('.side .me');
+      var people = function () { set.querySelector('.st-n').textContent = TEAM.length + ' in the workspace';
+        team.innerHTML = TEAM.map(function (p, i) { return '<div class="st-r">' + av(p[0]) + '<span><b>' + esc(p[0]) + '</b><small>' + esc(p[1]) + '</small></span><button type="button" class="lv-in" data-p="' + i + '">' + p[2] + ic('<path d="M5 7.5l4 4 4-4"/>') + '</button></div>'; }).join(''); };
+      people();
+      set.addEventListener('input', function (e) { var k = e.target.dataset.k, v = e.target.value.trim(); if (!k) return;
+        if (k === 'ws' && v) { wsB.querySelector('.ws__name').textContent = v; wsB.querySelector('.ws__mark').textContent = v[0].toUpperCase(); wsB.dataset.tip = v; }
+        if (k === 'me' && v) { meB.querySelector('b').textContent = v.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase(); meB.querySelector('span').firstChild.textContent = v; TEAM[0][0] = v; people(); }
+        if (k === 'role') meB.querySelector('small').textContent = v; });
+      set.addEventListener('change', function (e) { if (e.target.dataset.k) flash(set, e.target.dataset.k === 'tz' ? 'Time zone: ' + e.target.value : 'Saved'); });
+      set.addEventListener('click', function (e) { var t = e.target, x;
+        if ((x = t.closest('.tg'))) { var off = !x.classList.contains('off'); x.classList.toggle('off', off); x.setAttribute('aria-checked', !off); flash(set, NOTE[+x.dataset.n][0] + (off ? ': off' : ': on')); return; }
+        if ((x = t.closest('[data-p]'))) { var p = TEAM[+x.dataset.p]; menu(set, x, ROLES.map(function (r) { return { t: r, v: r, on: p[2] === r }; }).concat(+x.dataset.p ? [{ t: 'Remove from the workspace', v: '', sep: 1 }] : []), function (it) { if (it.v) p[2] = it.v; else TEAM.splice(TEAM.indexOf(p), 1); people(); flash(set, it.v ? p[0] + ' is now ' + it.v : p[0] + ' removed'); }, true); } });
+      set.addEventListener('keydown', function (e) { var t = e.target;
+        if ((e.key === 'Enter' || e.key === ' ') && t.classList.contains('tg')) { e.preventDefault(); t.click(); return; }
+        if (e.key === 'Enter' && t.type === 'email') { var m = t.value.trim(); if (!/^\S+@\S+\.\S+$/.test(m)) { flash(set, 'That does not look like an email'); return; } TEAM.push([m, 'Invited', 'Viewer']); t.value = ''; people(); flash(set, 'Invitation sent to ' + m); } });
+    }
+
+    /* the workspace and the person: each opens its short menu */
+    var ws = document.getElementById('ws'), me = document.querySelector('.side .me'), WS = ['Northwind', 'Northwind · Sandbox'];
+    if (ws) ws.addEventListener('click', function () { var cur = ws.querySelector('.ws__name').textContent;
+      menu(stage, ws, [{ head: 'Workspaces' }].concat((WS.indexOf(cur) < 0 ? [cur] : []).concat(WS).map(function (w) { return { t: w, v: w, on: w === cur }; })).concat([{ t: 'Workspace settings', v: '', sep: 1 }]), function (it) {
+        if (!it.v) { find('Settings').click(); return; }
+        ws.querySelector('.ws__name').textContent = it.v; ws.querySelector('.ws__mark').textContent = it.v[0]; if (it.v !== cur) flash(stage, 'Switched to ' + it.v); }); });
+    if (me) { me.setAttribute('role', 'button'); me.tabIndex = 0; me.classList.add('lv-me');
+      me.addEventListener('click', function () { menu(stage, me, [{ t: 'Profile and settings', v: 'set' }, { t: 'Help', v: 'help' }, { t: 'Sign out', v: 'out', sep: 1 }], function (it) { if (it.v === 'out') location.href = 'login.html'; else find(it.v === 'set' ? 'Settings' : 'Help').click(); }); });
+      me.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); me.click(); } }); }
   })();
 })();

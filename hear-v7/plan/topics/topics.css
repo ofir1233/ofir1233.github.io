@@ -302,3 +302,14 @@
 .stage:not(.lofi) .tp-bars .b5{background:#139FFD;box-shadow:none}
 .stage:not(.lofi) .tp .key>i.b3{box-shadow:inset 0 0 0 1.5px #A9DAFE}
 .stage:not(.lofi) .tp-row .sc small.dn{color:#C2452B}
+
+/* polish, 26.11.2026 (owner: "still broken and ugly things") */
+/* thinking: a bubble like the answer it becomes, with the three dots in its middle (was a small grey box with the dots at its top) */
+.tp-ask .think{align-self:flex-start;align-items:center;gap:5px;height:38px;padding:0 15px;box-sizing:border-box;border-radius:16px 16px 16px 4px}
+.tp-ask .think i{width:6px;height:6px;background:#8D959D}
+/* a parameter's value takes a second line before it is cut */
+.tp-p small{white-space:normal;line-height:1.25}
+/* the four numbers stand on one line: a long label is cut, it does not push its number down */
+.tp .tp-kpis small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* the key keeps inside its column */
+.tp .key{flex-wrap:wrap;row-gap:4px}

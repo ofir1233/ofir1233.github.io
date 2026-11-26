@@ -20,10 +20,10 @@
 .lv-menu button svg{width:15px;height:15px;color:var(--mut)}
 .lv-menu button.on{font-weight:500;color:var(--ink)}
 .lv-menu button.on>svg{color:var(--deep)}
-.lv-menu button.ck i{display:grid;place-items:center;width:15px;height:15px;border-radius:4.5px;box-shadow:inset 0 0 0 1.5px #C3CCD4}
-.lv-menu button.ck i svg{width:11px;height:11px;stroke-width:2.4;color:#fff;opacity:0}
-.lv-menu button.ck.on i{background:#232323;box-shadow:none}
-.lv-menu button.ck.on i svg{opacity:1}
+.lv-menu button.chk i{display:grid;place-items:center;width:15px;height:15px;border-radius:4.5px;box-shadow:inset 0 0 0 1.5px #C3CCD4}
+.lv-menu button.chk i svg{width:11px;height:11px;stroke-width:2.4;color:#fff;opacity:0}
+.lv-menu button.chk.on i{background:#232323;box-shadow:none}
+.lv-menu button.chk.on i svg{opacity:1}
 .lv-menu small{display:block;padding:6px 10px 4px;font-size:11.5px;font-weight:500;color:var(--mut)}
 .lv-menu hr{margin:5px 4px;border:0;border-top:1px solid var(--line)}
 /* a short note that says what just happened */
@@ -60,7 +60,7 @@
 #sx-data.lv .lv-b:hover{box-shadow:inset 0 0 0 1.5px #AEB8C1}
 #sx-data.lv .dt-btn.add:hover{box-shadow:none;border-color:#8D959D;color:var(--ink2)}
 #sx-data.lv .dt-f{max-width:260px;margin-left:0;padding:0 5px 0 12px;opacity:1;transform:none}
-#sx-data.lv .dt-f.new{animation:lv-chip .4s cubic-bezier(.2,.9,.3,1.25) both;animation-delay:calc(var(--n)*.12s)}
+#sx-data.lv .dt-f.lv-new{animation:lv-chip .4s cubic-bezier(.2,.9,.3,1.25) both;animation-delay:calc(var(--n)*.12s)}
 @keyframes lv-chip{from{opacity:0;transform:scale(.85)}}
 #sx-data.lv .dt-f.man{background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;color:var(--ink2)}
 #sx-data.lv .dt-f.man b{color:var(--ink)}
@@ -99,7 +99,7 @@
 #sx-data.lv .pg button:hover:not(:disabled){background:rgba(24,36,48,.06);color:var(--ink)}
 #sx-data.lv .pg button.on{background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;color:var(--ink);font-weight:600}
 #sx-data.lv .pg button:disabled{opacity:.35}
-@media (prefers-reduced-motion:reduce){#sx-data.lv .dt-set.is-new .dt-r,#sx-data.lv .dt-f.new{animation:none}}
+@media (prefers-reduced-motion:reduce){#sx-data.lv .dt-set.is-new .dt-r,#sx-data.lv .dt-f.lv-new{animation:none}}
 
 /* ---------- Agent evaluation ---------- */
 #sx-agents.lv .ae-b{cursor:default;transition:opacity .2s,background-color .2s}
@@ -281,3 +281,54 @@
 #sx-data.lv .dt-r{margin:0 -12px}
 #sx-data.lv .dt-r .cl b{white-space:nowrap}
 #sx-data.lv .dt-r .cl{overflow:hidden}
+/* the bar holds every condition whole: with many, or beside the open sheet, it takes a second line instead of cutting them */
+#sx-data.lv .dt-bar{flex-wrap:wrap;height:auto;min-height:30px;row-gap:6px}
+#sx-data.lv .dt-f{flex:none;max-width:none}
+#sx-data.lv .dt-bar>*{flex:none}
+#sx-data.lv .dt-bar>.sp{flex:1 1 0}
+/* beside the open sheet the foot keeps the count and the pages; the comparison waits for the full width */
+#sx-data.lv.side-on .dt-foot .av,#sx-data.lv.side-on .dt-foot .sig{display:none}
+#sx-data.lv .dt-tbl::-webkit-scrollbar{height:6px}
+#sx-data.lv .dt-tbl::-webkit-scrollbar-thumb{border-radius:3px;background:rgba(24,36,48,.18)}
+/* the cross sits at the sheet's right edge, with or without a note beside the title */
+.sx-side header .lv-x{margin-left:auto}
+.sx-side header small+.lv-x{margin-left:4px}
+
+/* ---------- Help and Settings ---------- */
+.lv-page .card{padding:30px 36px 26px;overflow:auto}
+.lv-page h3{margin:0 0 10px;font-size:17px;font-weight:600;display:flex;align-items:baseline;gap:10px}
+.lv-page h3 small{font-size:13px;font-weight:400;color:var(--mut)}
+.hp-body{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;margin-top:26px;align-items:start}
+.hp-q{border-top:1px solid var(--line)}
+.hp-q:first-child{border-top:0}
+.hp-q button{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:17px 0;font-size:16px;font-weight:500;text-align:left}
+.hp-q button:hover{color:var(--deep)}
+.hp-q button svg{flex:none;width:17px;height:17px;color:var(--mut);transition:rotate .2s}
+.hp-q.on button svg{rotate:180deg}
+.hp-q p{display:none;margin:-4px 0 18px;max-width:620px;font-size:14.5px;line-height:1.55;color:var(--ink2)}
+.hp-q.on p{display:block;animation:sx-in .3s cubic-bezier(.2,.8,.2,1) both}
+.hp-q p b{font-weight:600;color:var(--ink)}
+.hp-ask{padding:22px;border-radius:18px;background:rgba(24,36,48,.045)}
+.hp-ask p{margin:0 0 14px;font-size:13.5px;line-height:1.45;color:var(--mut)}
+.hp-ask textarea{box-sizing:border-box;width:100%;padding:11px 13px;border:0;outline:0;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;font:inherit;font-size:14px;color:var(--ink);resize:none}
+.hp-ask textarea:focus{box-shadow:inset 0 0 0 2px #139FFD}
+.hp-ask .act{margin-top:12px}
+.hp-sent{display:block;margin-top:12px;font-size:13px;color:var(--mut)}
+.st-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 48px;margin-top:26px;align-items:start}
+.st-f{display:grid;grid-template-columns:120px minmax(0,1fr);align-items:center;gap:6px 12px;margin-top:10px;font-size:14px;color:var(--mut)}
+.st-f input,.st-f select{box-sizing:border-box;width:100%;height:38px;padding:0 12px;border:0;outline:0;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1.5px #CBD3DA;font:inherit;font-size:14px;color:var(--ink)}
+.st-f input:focus,.st-f select:focus{box-shadow:inset 0 0 0 2px #139FFD}
+.st-f small{grid-column:2;font-size:12.5px}
+.st-r{display:flex;align-items:center;gap:12px;min-height:52px;border-top:1px solid var(--line);font-size:14px}
+.st-r:first-of-type{border-top:0}
+.st-r>span{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.st-r b{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.st-r small{font-size:12.5px;color:var(--mut)}
+.st-r .tg{flex:none;width:34px;height:20px;border-radius:10px;background:#139FFD;position:relative;cursor:pointer;transition:background-color .2s}
+.st-r .tg::after{content:"";position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.st-r .tg.off{background:#C9D3DB}.st-r .tg.off::after{right:auto;left:2px}
+.st-r .lv-in{margin:0;color:var(--ink2)}
+.st-inv{margin-top:10px}
+.side .me.lv-me{cursor:pointer;transition:background-color .15s}
+.side #ws{cursor:pointer}
+@media (max-width:1100px){.hp-body,.st-body{grid-template-columns:minmax(0,1fr)}}
