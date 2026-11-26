@@ -149,17 +149,36 @@
 .ih-hex span{ display:block; }
 .go .ih-hex span{ animation:ih-hexr 2s ease 2s both; }
 @keyframes ih-hexr{ 0%, 100%{ transform:none; } 15%, 82%{ transform:translateY(-15px); } }
-/* 5 - the Lab: the screen as shipped, and beside it my fix on the same data (in at 550ms); what the fix changed is washed blue,
-   one at a time from 1.25s, 250ms apart, and all three stay lit. Only the parts that differ are shown. 420 x 290 */
+/* 5 - the Lab: a flat drawing of the screen (made-up data, 50 calls); a line crosses it from 900ms for 900ms, and what it has
+   passed is the same screen running: the real count (76) lights at 1.9s, the model writes its answer from 2.2s. 420 x 226 */
+.ih-s5 .ih-mock{ position:absolute; left:0; top:0; width:420px; height:226px; box-sizing:border-box; padding:16px; border:1.5px dashed var(--h-line); border-radius:16px; background:rgba(255,255,255,.9);
+  clip-path:inset(0 0 0 0); transition:clip-path .9s cubic-bezier(.6,0,.3,1) 900ms; }
+.go .ih-mock{ clip-path:inset(0 0 0 100%); }
+.ih-mock .hf-tag{ position:absolute; right:16px; top:14px; background:none; box-shadow:inset 0 0 0 1px var(--h-line); color:var(--h-mut); }
+.ih-mock > i{ display:block; height:8px; margin-top:10px; border-radius:4px; background:var(--h-chip); }
+.ih-mock > i.b{ width:150px; height:12px; margin:5px 0 39px; }
+.ih-mock > i:nth-last-child(2){ width:78%; } .ih-mock > i:last-child{ width:52%; }
+.ih-mock .mk{ padding:8px 12px; margin-bottom:22px; border-radius:var(--r-well); box-shadow:inset 0 0 0 1px var(--h-line); color:var(--h-mut); }
+.ih-mock .mk small{ display:block; font-size:var(--t-micro); line-height:16px; font-weight:500; }
+.ih-mock .mk b{ display:block; font-size:var(--t-num); font-weight:600; letter-spacing:-.01em; line-height:24px; }
+.ih-s5 .ih-run{ position:absolute; left:0; top:0; width:420px; height:226px; clip-path:inset(-40px 100% -40px -40px); transition:clip-path .9s cubic-bezier(.6,0,.3,1) 900ms; }
+.go .ih-run{ clip-path:inset(-40px -40px -40px -40px); }
+.ih-s5 .ih-scan{ position:absolute; left:-1px; top:-12px; width:2px; height:250px; border-radius:1px; background:var(--h-blue); box-shadow:0 0 0 3px rgba(19,159,253,.16); opacity:0; }
+.go .ih-scan{ animation:ih-scx .9s cubic-bezier(.6,0,.3,1) 900ms both, ih-sco .9s linear 900ms both; }
+@keyframes ih-scx{ to{ transform:translateX(420px); } }
+@keyframes ih-sco{ 0%, 100%{ opacity:0; } 10%, 90%{ opacity:1; } }
 .ih-s5 .ih-lab{ left:0; top:0; width:420px; height:52px; display:flex; align-items:center; gap:8px; padding:0 16px; }
 .ih-lab .mk{ width:20px; height:auto; }
 .ih-lab > b{ font-size:var(--t-lg); font-weight:600; letter-spacing:-.01em; }
 .ih-lab .hf-tag{ margin-left:auto; }
 .ih-lab .hf-tag .ih-sp{ width:12px; height:12px; fill:currentColor; }
-.ih-s5 .ih-old, .ih-s5 .ih-new{ top:66px; width:204px; height:238px; padding:16px; }
-.ih-s5 .ih-old{ left:0; }
-.ih-s5 .ih-new{ left:216px; --d:550ms; }
-/* the date line keeps two lines of room in both windows, so the figures under it sit on one line across the pair */
+.ih-s5 .ih-new{ left:0; top:66px; width:420px; height:160px; padding:16px; }
+.ih-s5 .ih-new .ih-k{ margin-top:0; }
+.ih-s5 .ih-ans{ background:var(--h-chip); box-shadow:none; }
+.ih-s5 .ih-ty{ display:inline-block; white-space:nowrap; clip-path:inset(0 100% 0 0); transition:clip-path .9s steps(17, end) 2200ms; }
+.go .ih-ty{ clip-path:inset(0 0 0 0); }
+@media (prefers-reduced-motion: reduce){ .ih-s5 .ih-mock, .ih-s5 .ih-scan{ display:none; } .ih-s5 .ih-run, .ih-s5 .ih-ty{ clip-path:none; transition:none; } }
+
 .ih-dl{ margin-top:8px !important; min-height:32px; font-size:var(--t-sm); line-height:16px; color:var(--h-ink2); }
 .ih-dl .ih-hl{ display:inline-block; padding:4px 8px; margin:-2px 0; border-radius:var(--r-pill); }
 .ih-k{ margin-top:8px; }
