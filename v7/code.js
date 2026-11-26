@@ -9,7 +9,9 @@
     var t = c.querySelector('p'), g = c.querySelector('.hw-tag'); d.innerHTML = '<span>' + (t ? t.innerHTML : '') + (g ? '<small>' + g.innerHTML + '</small>' : '') + '</span>'; l.appendChild(d); });
   /* the sizes are read when they change (a ResizeObserver), not on every scroll */
   var H0 = 0, RG = 1;
-  function sizes(){ H0 = steps[0].offsetHeight; RG = Math.max(1, ol.offsetHeight - H0); }
+  function sizes(){ H0 = steps[0].offsetHeight; RG = Math.max(1, ol.offsetHeight - H0);
+    /* the room the headline has: from the text's left edge to the picture, less a gap */
+    var sd = document.querySelector('#code .hw-side'); if (sd) ol.parentNode.style.setProperty('--hw-col', Math.max(240, Math.round(steps[0].getBoundingClientRect().left - sd.getBoundingClientRect().left - 40)) + 'px'); }
   function range(){ return RG; }
   function mark(i){ if (i === cur) return; cur = i; steps.forEach(function(s, k){ s.classList.toggle('on', k === i); }); links.forEach(function(a, k){ a.classList.toggle('on', k === i); a.classList.toggle('done', k < i); }); }
   function set(){

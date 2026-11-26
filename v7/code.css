@@ -284,6 +284,10 @@
    This replaces direction D (the three giant words) on wide windows. */
 @media (min-width: 900px){
   html body #code#code#code h2.hw-h{ position:static !important; width:auto; height:auto; margin:10px 0 0 !important; overflow:visible; clip:auto; white-space:nowrap; max-width:none !important; }
+  /* owner, 26.11: "it looks broken": on a tall window the picture is wider and the headline ran under it. The headline keeps its size
+     (every main headline is one size) and is never wider than the text column (v7/code.js writes its width as --hw-col): where the
+     first line does not fit, it breaks into balanced lines. */
+  html body #code#code#code h2.hw-h{ white-space:normal; width:max-content; max-width:var(--hw-col, 600px) !important; text-wrap:balance; }
   html body #code#code#code h2.hw-h br{ display:inline; }
   html body #code#code#code h2.hw-h em{ font-style:normal; }
   html body #code#code#code h2.hw-h em::before{ content:none; }
