@@ -761,3 +761,15 @@ html body .hf .in-meter button[aria-current="step"]::before{ background:#fff; bo
 @media (min-width: 861px){
   html body .hf .in-sl{ grid-template-columns:minmax(0, 4fr) minmax(0, 7fr); column-gap:clamp(28px, 3.4vw, 48px); }
 }
+/* owner, 26.11: the first screen of a case shows the product at once. On a wide screen the headline sits in the text column and the painted stage starts beside it, so nobody scrolls past a screen of words to see the work */
+@media (min-width: 1100px){
+  html body .in-page.hf{ display:grid; grid-template-columns:minmax(0, 4fr) minmax(0, 7fr); column-gap:clamp(28px, 3.4vw, 48px); align-items:start; padding-top:112px; }
+  html body .in-page.hf > *{ grid-column:1 / -1; }
+  html body .in-page.hf > .in-hero{ grid-column:1; grid-row:1; max-width:none; padding-bottom:8px; }
+  html body .in-page.hf > .in-sl{ display:contents; }
+  html body .in-page.hf > .in-sl > .in-steps{ grid-column:1; grid-row:2; }
+  html body .in-page.hf > .in-sl > .in-stw{ grid-column:2; grid-row:1 / span 2; align-self:stretch; }
+  html body .in-page.hf .in-hero h1{ font-size:clamp(34px, 3.2vw, 46px); line-height:1.06; }
+  html body .in-page.hf .in-hero p{ font-size:18px; margin-top:16px; }
+  html body .in-page.hf .in-st:first-child{ padding-top:56px; min-height:56vh; }
+}
