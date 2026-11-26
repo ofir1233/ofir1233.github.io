@@ -359,7 +359,7 @@
       ownB.classList.add('has'); ownB.querySelector('.fy2-fi').style.backgroundImage = `url("${photo}")`;
       pick('own', true);
     });
-    castFace = () => now === 'own' ? { url: photo, role: 'Yourself' } : { url: IMG + 'p-' + now + '.webp', role: 'The ' + CAST[now].role };
+    castFace = () => now === 'own' ? (photo ? { url: photo, role: 'Yourself' } : { url: IMG + 'p-hamster.webp', role: 'The drummer' }) : { url: IMG + 'p-' + now + '.webp', role: 'The ' + CAST[now].role };
     paint('hamster'); now = 'hamster';
     const qs = new URLSearchParams(location.search).get('cast');
     if (qs && (CAST[qs] || qs === 'own')) { paint(qs); now = qs; btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.id === qs ? 'true' : 'false')); }
@@ -371,16 +371,18 @@
     }
   }
 
-  // ---------- the night: the visitor says they are going. A ticket comes out from under the poster with the face they
-  // picked in the cast, and the app's own screen counts one more ----------
+  // ---------- the night: the visitor says they are going. The ticket that peeks from under the poster comes out with the
+  // face they picked in the cast; then the app's own screen counts one more; then the page says so. One thing at a time ----------
   const nt = document.getElementById('end'), rsvpB = document.getElementById('fy2-rsvp');
   if (nt && rsvpB) {
-    const ndev = nt.querySelector('.fx-dev'), tAv = nt.querySelector('.fy2-tk-av'), tRole = nt.querySelector('.fy2-tk-role');
-    let going = false, nts = [];
+    const ndev = nt.querySelector('.fx-dev'), tAv = nt.querySelector('.fy2-tk-av'), tRole = nt.querySelector('.fy2-tk-role'), say = nt.querySelector('.fy2-nt-s span');
+    let going = false, nts = [], seenDev = wide.matches, wantPhone = null;
+    const later = (f, ms) => nts.push(setTimeout(f, reduce ? 0 : ms));
     const face = () => {
-      const f = castFace(), bg = f.url ? `url("${f.url}")` : '';
-      tAv.style.backgroundImage = bg; tAv.classList.toggle('ph', !f.url); tRole.textContent = f.role;
+      const f = castFace(), bg = `url("${f.url}")`;
+      tAv.style.backgroundImage = bg; tRole.textContent = f.role;
       ndev.querySelectorAll('.fy2-me-av').forEach(a => { a.style.backgroundImage = bg; });
+      if (going) say.textContent = `You\u2019re on the list. Ticket no. 028, ${f.role}.`;
     };
     // the phone holds "The night": its count goes to 28, the visitor's face joins the row, and the thread says so
     const phone = (on, tries = 0) => {
@@ -388,24 +390,45 @@
       if (!cnt) { if (tries < 20) nts.push(setTimeout(() => phone(on, tries + 1), 250)); return; }
       const b = cnt.querySelector('b'), st = cnt.querySelector('.a-stack');
       ndev.querySelectorAll('.fy2-me-av, .fy2-me-rs').forEach(e => e.remove());
+      ndev.querySelectorAll('[data-fy2-cut]').forEach(e => { e.style.opacity = ''; delete e.dataset.fy2Cut; });
       b.textContent = on ? '28' : '27';
-      if (!reduce) { try { b.animate([{ color: '#ff2d8f', transform: 'scale(1.5)' }, { color: 'inherit', transform: 'none' }], { duration: 600, easing: 'cubic-bezier(.2,.8,.2,1)' }); } catch (x) {} }
       if (!on) return;
+      const anim = (e, kf, o) => { if (reduce) return; try { e.animate(kf, o); } catch (x) {} };
+      anim(b, [{ color: '#ff2d8f', transform: 'scale(1.5)' }, { color: 'inherit', transform: 'none' }], { duration: 600, easing: 'cubic-bezier(.2,.8,.2,1)' });
       st.insertAdjacentHTML('beforeend', '<span class="a-av xs fy2-me-av"></span>');
-      const rows = ndev.querySelectorAll('.l6-rs'), last = rows.length && rows[0].parentElement.lastElementChild;
-      if (last) last.insertAdjacentHTML('afterend', '<div class="l6-rs fy2-me-rs"><span class="a-av s fy2-me-av"></span><span><b>You</b> are going</span></div>');
+      const rows = ndev.querySelectorAll('.l6-rs'), list = rows.length && rows[0].parentElement;
+      if (list) list.insertAdjacentHTML('beforeend', '<div class="l6-rs fy2-me-rs"><span class="a-av s fy2-me-av"></span><span><b>You</b> are going</span></div>');
       face();
-      if (!reduce) ndev.querySelectorAll('.fy2-me-av, .fy2-me-rs').forEach(e => { try { e.animate([{ opacity: 0, transform: e.matches('.fy2-me-rs') ? 'translateY(12px)' : 'scale(.5)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)' }); } catch (x) {} });
+      // the thread moved up one row: a row the pinned poster would now cut is hidden whole
+      const lim = ndev.querySelector('.l6-live').getBoundingClientRect().bottom + 6;
+      if (list) [...list.children].forEach(e => { const r = e.getBoundingClientRect(); if (r.height && r.top < lim && r.bottom > lim - 6 && e.style.opacity !== '0') { e.style.opacity = '0'; e.dataset.fy2Cut = '1'; } });
+      anim(st.lastElementChild, [{ opacity: 0, transform: 'scale(.5)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      const mine = ndev.querySelector('.fy2-me-rs');
+      if (mine) {
+        anim(mine, [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)' });
+        anim(mine, [{ boxShadow: '0 0 0 6px rgba(255,45,143,.22)', background: 'rgba(255,45,143,.22)' }, { boxShadow: '0 0 0 6px rgba(255,45,143,0)', background: 'rgba(255,45,143,0)' }], { duration: 900, delay: 300, fill: 'backwards' });
+      }
     };
+    // on a narrow screen the phone is below the ticket: it counts when it is on screen, not before
+    const askPhone = (on, ms) => { if (seenDev) later(() => phone(on), ms); else wantPhone = on; };
+    if (!seenDev && 'IntersectionObserver' in window) new IntersectionObserver((es, io) => { if (es.some(e => e.isIntersecting)) { io.disconnect(); seenDev = true; if (wantPhone !== null) { const w = wantPhone; wantPhone = null; setTimeout(() => phone(w), reduce ? 0 : 250); } } }, { threshold: .55 }).observe(ndev);
+    else seenDev = true;
     const set = v => {
       going = v; nt.dataset.go = v ? '1' : '0';
-      rsvpB.setAttribute('aria-pressed', v ? 'true' : 'false'); rsvpB.textContent = v ? 'Can\u2019t make it' : 'I\u2019m going';
+      rsvpB.setAttribute('aria-pressed', v ? 'true' : 'false'); rsvpB.textContent = v ? 'You\u2019re going' : 'I\u2019m going';
       nts.forEach(clearTimeout); nts = [];
-      if (v) face();
-      nts.push(setTimeout(() => phone(v), reduce || !v ? 0 : 560));
+      if (v) face(); else later(() => { if (!going) say.textContent = ''; }, 300);
+      askPhone(v, v ? 1000 : 500);
     };
-    rsvpB.addEventListener('click', () => { set(!going); if (going && !wide.matches) nt.querySelector('.fy2-tk-w').scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' }); });
-    document.addEventListener('fy2-cast', () => { if (going) face(); });
+    // on a phone the ticket is a screen below the button: the page goes to it first, then the ticket comes out
+    rsvpB.addEventListener('click', () => {
+      const v = !going;
+      if (v && !wide.matches && !reduce) { going = true; rsvpB.setAttribute('aria-pressed', 'true'); nt.querySelector('.fy2-nt-st').scrollIntoView({ block: 'center', behavior: 'smooth' }); nts.forEach(clearTimeout); nts = [setTimeout(() => set(true), 380)]; return; }
+      set(v);
+      if (v && !wide.matches) nt.querySelector('.fy2-nt-st').scrollIntoView({ block: 'center' });
+    });
+    document.addEventListener('fy2-cast', face);
+    face();
     if (qs.get('go') === '1') setTimeout(() => set(true), 900);
   }
 
