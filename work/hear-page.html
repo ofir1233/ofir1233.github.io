@@ -1,95 +1,86 @@
 <!doctype html>
-<html lang="he" dir="rtl">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>Hear · נכסי מותג</title>
-<meta name="theme-color" content="#F4F3F1">
+<title>Hear on LinkedIn · Ofir Nona</title>
+<meta name="theme-color" content="#faf9f7">
 <link rel="preload" href="../fonts/Byrd-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../v7/font.css">
-<link rel="stylesheet" href="../v7/tokens.css?v=223">
-<style>
-:root{--paper:#F4F3F1;--card:#fff;--ink:#181818;--ink2:#464646;--mut:#6A6A68;--line:#E3E2DE;--blue:#139FFD}
-*{box-sizing:border-box;margin:0}body{background:var(--paper);color:var(--ink);font-family:Byrd,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.5}
-.w{max-width:1280px;margin:0 auto;padding:44px 20px 90px}
-header h1{font-size:34px;font-weight:500;letter-spacing:-.02em}header p{margin-top:8px;color:var(--ink2);max-width:46em}
-.links{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}.links a{padding:8px 16px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);color:var(--ink);text-decoration:none;font-size:14.5px}
-.links a:hover{box-shadow:inset 0 0 0 1px var(--blue)}
-section{margin-top:54px}h2{font-size:23px;font-weight:500;letter-spacing:-.01em}.sub{margin-top:4px;color:var(--mut);font-size:15px}
-.g{margin-top:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.c{display:flex;flex-direction:column;background:var(--card);border-radius:16px;box-shadow:inset 0 0 0 1px var(--line);overflow:hidden;color:inherit;text-decoration:none}
-.c.s2{grid-column:span 2}.c:hover{box-shadow:inset 0 0 0 1px var(--blue)}
-.im{display:block;background:#ECEBE8}.im img{display:block;width:100%;height:auto}
-.tx{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px 0}.tx b{font-weight:500;font-size:16px}
-.tx i{flex:none;font-style:normal;font-size:12.5px;padding:2px 10px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);color:var(--mut)}
-.tx i.ok{background:var(--blue);color:#fff;box-shadow:none}.tx i.open{color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink2)}
-.d{padding:4px 16px 0;font-size:14px;color:var(--ink2)}
-code{display:block;margin-top:auto;padding:12px 16px 14px;font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--mut);overflow-wrap:anywhere;text-align:left}
-.tx+code,.d+code{margin-top:8px}.c>.tx:last-child,.c>.d:last-child{padding-bottom:14px}
-footer{margin-top:60px;color:var(--mut);font-size:14px;max-width:52em}
-@media (max-width:860px){.g{grid-template-columns:1fr}.c.s2{grid-column:auto}}
-.g.gv{grid-template-columns:repeat(2,minmax(0,1fr))}.c video{display:block;width:100%;aspect-ratio:16/9;background:#111}.d a{color:var(--ink);text-underline-offset:3px}
-@media (max-width:860px){.g.gv{grid-template-columns:1fr}}
-/* the color foundations at the head of the page: the part is in English and reads left to right */
-:root{--body:"Byrd","Helvetica Neue",Arial,sans-serif;--display:"Byrd","Helvetica Neue",Arial,sans-serif;--mono:ui-monospace,Menlo,monospace}
-#system{margin-top:6px;direction:ltr;text-align:left}
-.tx{padding-bottom:14px}.tx+.d{margin-top:-8px;padding-bottom:14px}
-</style>
-<script src="../v7/tokens.js?v=223" defer></script>
+<link rel="stylesheet" href="hear-page.css?v=31">
+<script src="../v7/gyro.js?v=1" defer></script>
+<script src="hear-page.js?v=26" defer blocking="render"></script>
+<noscript><style>.lk-chips, .lk-rail{ display:none; } .lk-feed:empty + .lp-me{ animation:none; }</style></noscript>
 </head>
-<body><div class="w"><header><h1>Hear · נכסי מותג</h1></header>
-<section id="system" lang="en" dir="ltr">
-<div class="tk" id="ds-colour" role="group" aria-labelledby="tk-t">
-      <div class="tk-head">
-        <p class="tk-tag" id="tk-t"><span>Foundations</span> Color</p>
-        <button type="button" class="tk-re" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 8a5.4 5.4 0 1 0 1.7-3.9"/><path d="M2.4 2.2v2.4h2.4"/></svg><span>Build it again</span></button>
+<body>
+<!-- Hear's company page on LinkedIn, as a mockup (23.11.2026). Opened from the campaign block on the home page.
+     LinkedIn's own frame is drawn in quiet grey ink and cannot be pressed.
+     What was made for Hear is in colour, and every control in dark ink does something true. No invented numbers, names or dates. -->
+
+<main id="hp">
+
+  <!-- PART TWO · the company page -->
+  <section class="hp-page" id="page" aria-label="Hear’s company page, a mockup">
+    <header class="lk-nav">
+      <div class="lk-nav-in">
+        <a class="lk-back" href="../index.html#campaign" id="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H6M11.5 6.5 6 12l5.5 5.5"/></svg><b>Back<span> to the portfolio</span></b></a>
+        <!-- LinkedIn's own frame: drawn, grey, not pressable -->
+        <div class="lk-chrome" aria-hidden="true">
+          <span class="lk-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg>Search</span>
+          <span class="lk-nav-ic">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1v-7.5Z"/></svg>Home</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19.5c.4-3.2 2.600-5 5.5-5s5.100 1.800 5.500 5"/><circle cx="17" cy="9.500" r="2.300"/><path d="M16.500 14.600c2.300 0 3.800 1.700 4.100 4.400"/></svg>My Network</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.500" y="7.500" width="17" height="12" rx="2"/><path d="M9 7.500V6A1.500 1.500 0 0 1 10.500 4.500h3A1.500 1.500 0 0 1 15 6v1.500M3.500 13h17"/></svg>Jobs</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.500h16V16h-9l-4.500 3.500V16H4V5.500Z"/><path d="M8 9.500h8M8 12.500h5"/></svg>Messaging</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.500 16.500V11a5.500 5.500 0 0 1 11 0v5.500l1.500 2H5l1.500-2Z"/><path d="M10 20.500a2.200 2.200 0 0 0 4 0"/></svg>Notifications</span>
+          </span>
+        </div>
+        <span class="hp-kind">LinkedIn page · mockup</span>
       </div>
-      <div class="tk-stage">
-        <figure class="tk-pic"><div class="tk-frame">
-          <canvas class="tk-under" aria-hidden="true"></canvas><i class="tk-guide" aria-hidden="true"></i><div class="tk-layers" aria-hidden="true"></div>
-          <img class="tk-full" src="../img/end-harbour-1152.webp" alt="A painted harbour city: blue sky and water, glass towers, white houses, a coral boat, green trees and lilac flowers." width="1152" height="768" decoding="async">
-          <span class="tk-lab">The picture</span>
-        </div></figure>
-        <figure class="tk-ui"><div class="tk-frame" role="img" aria-label="A small call list from the product: an AI-made filter, two calls with their status and score, a link and a button.">
-          <i class="tk-bg" data-t="S"></i>
-          <div class="tk-card" aria-hidden="true"><i class="tk-cardbg" data-t="P"></i>
-            <div class="tk-ask"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-t="L"><path d="M8 1.2l1.5 4.1a2 2 0 0 0 1.2 1.2L14.8 8l-4.1 1.5a2 2 0 0 0-1.2 1.2L8 14.8l-1.5-4.1a2 2 0 0 0-1.2-1.2L1.2 8l4.1-1.5a2 2 0 0 0 1.2-1.2z"/></svg><span data-t="K">refund calls with an unhappy customer</span></div>
-            <div class="tk-chips"><span class="tk-chip" data-t="L"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1.2l1.5 4.1a2 2 0 0 0 1.2 1.2L14.8 8l-4.1 1.5a2 2 0 0 0-1.2 1.2L8 14.8l-1.5-4.1a2 2 0 0 0-1.2-1.2L1.2 8l4.1-1.5a2 2 0 0 0 1.2-1.2z"/></svg>Topic <b>Refunds</b></span><span class="tk-chip" data-t="L">Sentiment <b>Negative</b></span><span class="tk-n" data-t="K">86 calls</span></div>
-            <i class="tk-hr" data-t="G"></i>
-            <div class="tk-row"><span class="tk-av" data-t="G">DB</span><div class="tk-rt"><div class="tk-tt"><b data-t="K">Refunds &amp; Credits</b><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-t="C"><path fill-rule="evenodd" d="M8 1.6c.5 0 .9.3 1.2.7l5.3 9.3c.5.9-.1 2-1.2 2H2.7c-1.1 0-1.7-1.1-1.2-2l5.3-9.3c.3-.4.7-.7 1.2-.7zm0 4a.7.7 0 0 0-.7.7v2.9a.7.7 0 0 0 1.4 0V6.3a.7.7 0 0 0-.7-.7zm0 5.2a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6z"/></svg></div><small data-t="K">Asks twice for a refund</small></div><span class="tk-st pd" data-t="G">Pending</span><span class="tk-sc lo" data-t="C">38</span></div>
-            <i class="tk-hr" data-t="G"></i>
-            <div class="tk-row"><span class="tk-av" data-t="G">MC</span><div class="tk-rt"><div class="tk-tt"><b data-t="K">Online Booking</b></div><small data-t="K">Books two seats to Lisbon</small></div><span class="tk-st dn" data-t="E"><i></i>Done</span><span class="tk-up" data-t="E">&#9650; 4</span><span class="tk-sc hi" data-t="B">92</span></div>
-            <i class="tk-hr" data-t="G"></i>
-            <div class="tk-act"><span class="tk-lk" data-t="D">See all 86 calls &rarr;</span><span class="tk-btnw"><i class="tk-ring" data-t="B"></i><span class="tk-btn" data-t="K">Open call</span></span></div>
+    </header>
+
+    <div class="lk-wrap">
+      <div class="lk-main">
+        <article class="lk-top">
+          <div class="pt lk-cover" id="cover"><img class="pt-f" src="../img/cw-cover.webp" alt="The cover: a painted strip of the city with the line Every customer call, heard." width="2256" height="382" decoding="async"><span class="cv" aria-hidden="true"><img class="cv-far" data-src="../img/dp-cover-far.webp" alt=""><img class="cv-mid" data-src="../img/dp-cover-mid.webp" alt=""><img class="cv-near" data-src="../img/dp-cover-near.webp" alt=""></span></div>
+          <!-- on a phone the cover is taller than its frame and scrolls sideways: it opens where the sentence begins -->
+          <script>(function (c) { function at() { if (!c.scrollLeft && c.scrollWidth > c.clientWidth + 1) c.scrollLeft = Math.round(c.scrollWidth * .16) - 16; } at(); matchMedia('(max-width:640px)').addEventListener('change', at); })(document.getElementById('cover'));</script>
+          <div class="lk-id">
+            <img class="lk-av vt-av" src="../img/cw-cloud.webp" alt="The Hear mark painted as a cloud" width="320" height="320" decoding="async">
+            <div class="lk-who seq" style="--d:100ms"><h1 class="vt-name">Hear</h1><p>AI contact center intelligence platform</p></div>
+            <div class="lk-btns seq" style="--d:180ms">
+              <a class="lk-btn" href="https://hear-public-staging-v7.vercel.app/" target="_blank" rel="noopener">Visit website<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 16.5 16.5 7.5M9 7.500h7.500V15"/></svg></a>
+              <a class="lk-btn ghost" href="../index.html#contact">Message Ofir</a>
+            </div>
           </div>
-          <span class="tk-lab">The product</span>
-        </div></figure>
-      </div>
-      <div class="tk-foot">
-        <div class="tk-say hint" aria-atomic="true">
-          <p class="tk-role"><span data-f="role">The palette</span><i data-f="n"></i></p>
-          <h3 class="tk-name"><span data-f="name">Nine colors, one job each</span><code data-f="hex" aria-hidden="true"></code></h3>
-          <p class="tk-line" data-f="say">Four roles, shared by the picture and the screen.</p>
-          <ul class="tk-ev"><li><b>Picture</b><span data-f="pic">One set for the picture and for the screen.</span></li><li><b>Product</b><span data-f="ui"></span></li></ul>
+          <div class="lk-tabs" aria-hidden="true"><span>Home</span><span>About</span><span class="on">Posts</span><span>Jobs</span><span>People</span></div>
+        </article>
+
+        <div class="lk-chips seq" style="--d:260ms" role="group" aria-label="Show">
+          <button type="button" aria-pressed="true" data-f="all">All <i>11</i></button>
+          <button type="button" aria-pressed="false" data-f="painting">Paintings <i>9</i></button>
+          <button type="button" aria-pressed="false" data-f="film">Films <i>2</i></button>
         </div>
-        <div class="tk-pal" role="group" aria-label="The nine colors. Choose one to see it alone in the picture and in the product.">
-          <div class="tk-g"><span>Ground</span><div><button type="button" class="tk-c" data-k="P" aria-pressed="false" style="--c:#faf9f7"><i></i><span>Paper</span></button><button type="button" class="tk-c" data-k="S" aria-pressed="false" style="--c:#CFE4F6"><i></i><span>Sky</span></button></div></div>
-          <div class="tk-g"><span>Structure</span><div><button type="button" class="tk-c" data-k="G" aria-pressed="false" style="--c:#CBD3DA"><i></i><span>Glass Grey</span></button><button type="button" class="tk-c" data-k="K" aria-pressed="false" style="--c:#181818"><i></i><span>Ink</span></button></div></div>
-          <div class="tk-g"><span>Voice</span><div><button type="button" class="tk-c" data-k="B" aria-pressed="false" style="--c:#139FFD"><i></i><span>Hear Blue</span></button><button type="button" class="tk-c" data-k="D" aria-pressed="false" style="--c:#0B6FCF"><i></i><span>Deep Blue</span></button></div></div>
-          <div class="tk-g"><span>Meaning</span><div><button type="button" class="tk-c" data-k="C" aria-pressed="false" style="--c:#FF6F52"><i></i><span>Coral</span></button><button type="button" class="tk-c" data-k="E" aria-pressed="false" style="--c:#4BA373"><i></i><span>Green</span></button><button type="button" class="tk-c" data-k="L" aria-pressed="false" style="--c:#D59BE0"><i></i><span>Lilac</span></button></div></div>
-        </div>
+
+        <div class="lk-feed" id="feed"></div>
+
+        <!-- the close: the designer's own post, with a link the way a feed shows one -->
+        <article class="lp lp-me">
+          <header class="lp-h"><img class="lp-av me" src="../img/cw-me.webp" alt="" width="144" height="144" loading="lazy" decoding="async"><div class="lp-who"><b>Ofir Nona</b><span>Designed this page for Hear</span></div></header>
+          <p class="lp-t">That is the whole page. Every picture here started as one sentence.</p>
+          <a class="lp-link" href="brand-web.html">
+            <span class="lp-pair"><span class="lp-line"><small>The sentence</small><q>New feature release: Hear Studio is here.</q></span><img src="../img/cw-parade.webp" alt="The finished painting: a city parade under coral balloon letters that spell Hear Studio" width="1200" height="628" loading="lazy" decoding="async"></span>
+            <span><b>I designed Hear’s brand from zero</b><i>Case study · from the sketch to the post</i></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6.5 18 12l-5.5 5.5"/></svg>
+          </a>
+          <div class="lp-out"><a href="../index.html#campaign" id="back2">Back to the portfolio</a><a href="../index.html#contact">Say hello</a></div>
+        </article>
       </div>
+
+      <nav class="lk-rail" aria-label="The posts on this page"><ol id="rail"></ol></nav>
     </div>
-</section>
-<section><h2>המערכת: המסכים הראשונים</h2><div class="g"><a class="c s1" href="../hear-v7/plan/mockups/system-login.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/system-login.jpg" loading="lazy" alt="מסך הכניסה"></span><span class="tx"><b>מסך הכניסה</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/system-before.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/system-before.jpg" loading="lazy" alt="לפני: רק הצ'אט"></span><span class="tx"><b>לפני: רק הצ'אט</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/system-after.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/system-after.jpg" loading="lazy" alt="אחרי: הצ'אט בצד והמערכת"></span><span class="tx"><b>אחרי: הצ'אט בצד והמערכת</b></span></a><a class="c s2" href="../hear-v7/plan/mockups/system-inspiration.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/system-inspiration.jpg" loading="lazy" alt="תמונת ההשראה"></span><span class="tx"><b>תמונת ההשראה</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/system-wireframe.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/system-wireframe.jpg" loading="lazy" alt="השרטוט: שני מצבים"></span><span class="tx"><b>השרטוט: שני מצבים</b></span></a></div></section>
-<section><h2>סרטים</h2><div class="g gv"><div class="c"><video controls playsinline preload="none" poster="../hear-v7/plan/assets/film-said-out-loud.jpg" src="../hear-v7/media/film.mp4"></video><span class="tx"><b>הסרט הראשון: Hear, מה שנאמר בקול</b></span><span class="d"><a href="../hear-v7/plan/films/hear-film-just-ask.mp4" target="_blank">הגרסה הארוכה, 61 שניות: <bdi>Just ask</bdi></a></span></div><div class="c"><video controls playsinline preload="none" poster="../hear-v7/plan/assets/film-one-sentence.jpg" src="../hear-v7/media/film-one-sentence.mp4"></video><span class="tx"><b>הסרט השני: One sentence</b></span></div></div></section>
-<section><h2>תמונות עולם לרשתות</h2><div class="g"><a class="c s2" href="../hear-v7/plan/mockups/parade-studio-linkedin.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/parade-studio-linkedin.jpg" loading="lazy" alt="תהלוכה: Hear Studio"></span><span class="tx"><b>תהלוכה: Hear Studio</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/linkedin-feed.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/linkedin-feed.jpg" loading="lazy" alt="אותה תמונה בתוך פיד"></span><span class="tx"><b>אותה תמונה בתוך פיד</b></span></a><a class="c s1" href="../hear-v7/plan/assets/parade-wide.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/assets/parade-wide.jpg" loading="lazy" alt="תהלוכה: המסגור הרחב"></span><span class="tx"><b>תהלוכה: המסגור הרחב</b></span></a><a class="c s2" href="../hear-v7/plan/mockups/receipt-linkedin.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/receipt-linkedin.jpg" loading="lazy" alt="בית הקפה: Just growth delivered"></span><span class="tx"><b>בית הקפה: Just growth delivered</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/linkedin-feed-receipt.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/linkedin-feed-receipt.jpg" loading="lazy" alt="אותה תמונה בתוך פיד"></span><span class="tx"><b>אותה תמונה בתוך פיד</b></span></a><a class="c s2" href="../hear-v7/plan/mockups/plane-linkedin.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/plane-linkedin.jpg" loading="lazy" alt="המטוס: 100% coverage"></span><span class="tx"><b>המטוס: 100% coverage</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/linkedin-feed-plane.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/linkedin-feed-plane.jpg" loading="lazy" alt="אותה תמונה בתוך פיד"></span><span class="tx"><b>אותה תמונה בתוך פיד</b></span></a><a class="c s2" href="../hear-v7/plan/mockups/balloons-linkedin.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/balloons-linkedin.jpg" loading="lazy" alt="הבלונים: 2% מול 100%"></span><span class="tx"><b>הבלונים: 2% מול 100%</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/linkedin-feed-balloons.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/linkedin-feed-balloons.jpg" loading="lazy" alt="אותה תמונה בתוך פיד"></span><span class="tx"><b>אותה תמונה בתוך פיד</b></span></a><a class="c s2" href="../hear-v7/plan/mockups/rome-a-linkedin.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/rome-a-linkedin.jpg" loading="lazy" alt="רומא: We hear every call. Even here."></span><span class="tx"><b>רומא: We hear every call. Even here.</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/linkedin-feed-rome.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/linkedin-feed-rome.jpg" loading="lazy" alt="אותה תמונה בתוך פיד"></span><span class="tx"><b>אותה תמונה בתוך פיד</b></span></a><a class="c s2" href="../hear-v7/plan/mockups/newspaper-linkedin.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/newspaper-linkedin.jpg" loading="lazy" alt="עיתון הבוקר: What your customers actually said."></span><span class="tx"><b>עיתון הבוקר: What your customers actually said.</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/linkedin-feed-newspaper.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/linkedin-feed-newspaper.jpg" loading="lazy" alt="אותה תמונה בתוך פיד"></span><span class="tx"><b>אותה תמונה בתוך פיד</b></span></a><a class="c s2" href="../hear-v7/plan/mockups/cover-linkedin.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/cover-linkedin.jpg" loading="lazy" alt="תמונת נושא ללינקדאין: Every customer call, heard."></span><span class="tx"><b>תמונת נושא ללינקדאין: Every customer call, heard.</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/linkedin-page-cover.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/linkedin-page-cover.jpg" loading="lazy" alt="אותה תמונה בעמוד החברה"></span><span class="tx"><b>אותה תמונה בעמוד החברה</b></span></a></div></section>
-<section><h2>הלוגו כענן</h2><div class="g"><a class="c s1" href="../hear-v7/plan/mockups/logo-cloud-mark.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/logo-cloud-mark.jpg" loading="lazy" alt="הסימן כענן"></span><span class="tx"><b>הסימן כענן</b></span></a><a class="c s2" href="../hear-v7/plan/mockups/linkedin-feed-cloud-logo.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/linkedin-feed-cloud-logo.jpg" loading="lazy" alt="כתמונת פרופיל בפוסט"></span><span class="tx"><b>כתמונת פרופיל בפוסט</b></span></a></div></section>
-<section><h2>פרסום חוצות, הגרסה החדשה</h2><div class="g"><a class="c s2" href="../hear-v7/plan/mockups/billboard-handset.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/billboard-handset.jpg" loading="lazy" alt="שלט חוצות: We hear every call. Even here."></span><span class="tx"><b>שלט חוצות: We hear every call. Even here.</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/billboard-handset-mockup.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/billboard-handset-mockup.jpg" loading="lazy" alt="שלט חוצות"></span><span class="tx"><b>שלט חוצות</b></span></a></div></section>
-<section><h2>קמפיין קודם: מי ששמעו, בצבע</h2><div class="g"><a class="c s1" href="../hear-v7/plan/assets/ad-station.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/assets/ad-station.jpg" loading="lazy" alt="שלט תחנה"></span><span class="tx"><b>שלט תחנה</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/station.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/station.jpg" loading="lazy" alt="שלט תחנה"></span><span class="tx"><b>שלט תחנה</b></span></a><a class="c s1" href="../hear-v7/plan/assets/ad-tote.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/assets/ad-tote.jpg" loading="lazy" alt="תיק בד"></span><span class="tx"><b>תיק בד</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/tote.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/tote.jpg" loading="lazy" alt="תיק בד"></span><span class="tx"><b>תיק בד</b></span></a></div></section>
-<section><h2>עוד לא עוצבו</h2><div class="g"><a class="c s1" href="../hear-v7/plan/assets/poster-missing-sentence.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/assets/poster-missing-sentence.jpg" loading="lazy" alt="פוסטר: המשפט שלא נאמר"></span><span class="tx"><b>פוסטר: המשפט שלא נאמר</b></span></a><a class="c s1" href="../hear-v7/plan/assets/tshirt.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/assets/tshirt.jpg" loading="lazy" alt="חולצה לצוות ה-QA"></span><span class="tx"><b>חולצה לצוות ה-QA</b></span></a><a class="c s1" href="../hear-v7/plan/assets/cup.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/assets/cup.jpg" loading="lazy" alt="כוס קפה"></span><span class="tx"><b>כוס קפה</b></span></a></div></section>
-<section><h2>ציורי האתר</h2><div class="g"><a class="c s2" href="../hear-v7/media/hero-contact-center-1600.jpg" target="_blank"><span class="im"><img src="../hear-v7/media/hero-contact-center-1600.jpg" loading="lazy" alt="המוקד"></span><span class="tx"><b>המוקד</b></span></a><a class="c s1" href="../hear-v7/media/closing-rooftop-day-1400.webp" target="_blank"><span class="im"><img src="../hear-v7/media/closing-rooftop-day-1400.webp" loading="lazy" alt="הגג"></span><span class="tx"><b>הגג</b></span></a><a class="c s1" href="../hear-v7/media/bg-duo-citypink-1400.webp" target="_blank"><span class="im"><img src="../hear-v7/media/bg-duo-citypink-1400.webp" loading="lazy" alt="העיר והפארק, שמיים ורודים"></span><span class="tx"><b>העיר והפארק, שמיים ורודים</b></span></a></div></section>
-<section><h2>סקיצות</h2><div class="g"><a class="c s1" href="../hear-v7/plan/mockups/lofi-ideas.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/lofi-ideas.jpg" loading="lazy" alt="רעיונות 1 עד 3"></span><span class="tx"><b>רעיונות 1 עד 3</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/lofi-ideas-2.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/lofi-ideas-2.jpg" loading="lazy" alt="רעיונות 4 עד 7"></span><span class="tx"><b>רעיונות 4 עד 7</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/lofi-ideas-3.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/lofi-ideas-3.jpg" loading="lazy" alt="רעיונות 8 עד 12"></span><span class="tx"><b>רעיונות 8 עד 12</b></span></a><a class="c s2" href="../hear-v7/plan/mockups/parade-compositions-2.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/parade-compositions-2.jpg" loading="lazy" alt="תהלוכה: קומפוזיציות מתוך הקהל"></span><span class="tx"><b>תהלוכה: קומפוזיציות מתוך הקהל</b></span></a><a class="c s1" href="../hear-v7/plan/mockups/parade-compositions-3.jpg" target="_blank"><span class="im"><img src="../hear-v7/plan/mockups/parade-compositions-3.jpg" loading="lazy" alt="תהלוכה: מטוס ובלוני אותיות"></span><span class="tx"><b>תהלוכה: מטוס ובלוני אותיות</b></span></a></div></section>
-</div></body>
+  </section>
+</main>
+</body>
 </html>
