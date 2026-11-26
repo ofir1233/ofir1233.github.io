@@ -275,3 +275,9 @@
 .ev .pl.on{background:#232323;box-shadow:none}
 .ev .pl.on::before{border:0;margin:0;width:8px;height:9px;border-left:3px solid #fff;border-right:3px solid #fff;box-sizing:border-box}
 #filters button{cursor:pointer}
+/* a narrow window: the table keeps its columns and scrolls sideways */
+#sx-data.lv .dt-tbl{overflow-x:auto;margin-left:-12px;margin-right:-12px;padding:0 12px;scrollbar-width:thin}
+#sx-data.lv .dt-r.hd,#sx-data.lv .dt-body{min-width:var(--dt-min)}
+#sx-data.lv .dt-r{margin:0 -12px}
+#sx-data.lv .dt-r .cl b{white-space:nowrap}
+#sx-data.lv .dt-r .cl{overflow:hidden}

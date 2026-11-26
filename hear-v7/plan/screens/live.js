@@ -171,13 +171,15 @@
         '<span class="se"><i class="' + (r.se === 'Negative' ? 'neg' : r.se === 'Neutral' ? 'neu' : '') + '"></i>' + r.se + '</span>',
         '<span class="sc ' + (r.sc < 60 ? 'b1' : r.sc < 70 ? 'b2' : r.sc < 80 ? 'b3' : r.sc < 90 ? 'b4' : 'b5') + '">' + r.sc + '</span>'];
     };
-    var WIDTH = ['minmax(0,1fr)', '108px', '60px', '96px', '80px', '134px', '66px', '46px', '98px', '42px'];
+    /* the call keeps room for its title in a narrow window: the table scrolls sideways before the id runs over the title */
+    var WIDTH = ['minmax(250px,1fr)', '108px', '60px', '96px', '80px', '134px', '66px', '46px', '98px', '42px'];
     var shown = function () { return COLS.map(function (c, i) { return i; }).filter(function (i) { return !S.hide[i]; }); };
     var list = [], first = true;
     function paint(keep) {
       list = rows(); var pages = Math.max(1, Math.ceil(list.length / PER)); if (!keep) S.page = 0; S.page = Math.min(S.page, pages - 1);
       var cols = shown(), page = list.slice(S.page * PER, S.page * PER + PER), filtered = S.conds.length || S.q;
       el.style.setProperty('--dt-cols', '16px ' + cols.map(function (i) { return WIDTH[i]; }).join(' '));
+      el.style.setProperty('--dt-min', (16 + cols.reduce(function (w, i) { return w + (parseInt(WIDTH[i], 10) || 250) + 14; }, 0)) + 'px');
       el.classList.toggle('flt', !!filtered); el.classList.toggle('cnd', S.conds.length > 0);
       each(tabs.children, function (t, i) { t.classList.toggle('on', i === S.tab); });
       /* the bar: the range, the conditions, the way to add one */

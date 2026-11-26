@@ -27,7 +27,7 @@
     ['Payment Issues', 160, -6, 1, [24, '3.8 / 5', -8], [50, '5.3% of call time', -4], [28, '4.9 min', -6]]
   ].map(function (r) { var p = r.slice(4); return { n: r[0], c: r[1], d: r[2], fresh: r[3], p: p, s: Math.round((p[0][0] + p[1][0] + p[2][0]) / 3) }; });
   var lvl = function (s) { return s < 40 ? 'b1' : s < 50 ? 'b2' : s < 60 ? 'b3' : s < 70 ? 'b4' : 'b5'; };
-  var onDark = function (s) { return s < 40 ? '#FF6F52' : s < 50 ? '#DCEFFE' : s < 60 ? '#A9DAFE' : s < 70 ? '#63BEFE' : '#139FFD'; };
+  var onDark = function (s) { return s < 40 ? '#FF6F52' : s < 50 ? '#FFB8A8' : s < 60 ? '#DCEFFE' : s < 70 ? '#A9DAFE' : '#139FFD'; };
   var status = function (s) { return s >= 60 ? 'Good' : s >= 40 ? 'Medium' : 'Poor'; };
   var num = function (n) { return n.toLocaleString('en-US'); };
   var chg = function (d) { return d ? (d > 0 ? '▲ ' : '▼ ') + Math.abs(d) + ' pts' : 'no change'; };
